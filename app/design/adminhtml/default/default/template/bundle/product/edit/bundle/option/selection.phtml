@@ -187,6 +187,7 @@ Bundle.Selection.prototype = {
     remove : function(event) {
         var element = Event.findElement(event, 'tr');
         var container = Event.findElement(event, 'div');
+
         if (element) {
             Element.select(element, '.delete').each(function(elem){elem.value='1'});
             Element.select(element, ['input', 'select']).each(function(elem){elem.hide()});
@@ -220,8 +221,9 @@ Bundle.Selection.prototype = {
     },
 
     productGridAddSelected : function(event) {
-        var element = Event.element(event);
+        var element = Event.findElement(event, 'button');
         var parts = element.id.split('_');
+
         $(bOption.idLabel + '_search_' + parts[2]).innerHTML = '';
         $(bOption.idLabel + '_' + parts[2] + '_add_button').show();
 

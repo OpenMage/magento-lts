@@ -27,18 +27,16 @@
 /**
  *
  * PayPalUk Payment Action Dropdown source
+ *
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_PaypalUk_Model_Source_PaymentAction
 {
     public function toOptionArray()
     {
-        /**
-         * Get allowed Payment Action Types as optional array
-         * @return array
-         */
         return array(
-            array('value' => Mage_PaypalUk_Model_Api_Abstract::PAYMENT_TYPE_AUTH, 'label' => Mage::helper('paypal')->__('Authorization')),
-            array('value' => Mage_PaypalUk_Model_Api_Abstract::PAYMENT_TYPE_SALE, 'label' => Mage::helper('paypal')->__('Sale')),
+            array('value' => Mage_PaypalUk_Model_Api_Abstract::PAYMENT_TYPE_AUTH, 'label' => Mage::helper('paypalUk')->__('Authorization')),
+            array('value' => Mage_PaypalUk_Model_Api_Abstract::PAYMENT_TYPE_SALE, 'label' => Mage::helper('paypalUk')->__('Sale')),
         );
     }
 }

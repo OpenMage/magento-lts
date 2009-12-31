@@ -31,64 +31,80 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Report_Sales_Invoiced_Grid extends Mage_Adminhtml_Block_Report_Grid
+class Mage_Adminhtml_Block_Report_Sales_Invoiced_Grid extends Mage_Adminhtml_Block_Report_Grid_Abstract
 {
+    protected $_columnGroupBy = 'period';
 
     public function __construct()
     {
         parent::__construct();
-        $this->setId('gridInvoiced');
+        $this->setCountTotals(true);
     }
 
-    protected function _prepareCollection()
+    public function getResourceCollectionName()
     {
-        parent::_prepareCollection();
-        $this->getCollection()->initReport('reports/invoiced_collection');
+        return ($this->getFilterData()->getData('report_type') == 'created_at_invoice')
+            ? 'sales/report_invoiced_collection_invoiced'
+            : 'sales/report_invoiced_collection_order';
     }
 
     protected function _prepareColumns()
     {
-        $this->addColumn('orders', array(
-            'header'    =>Mage::helper('reports')->__('Number of Orders'),
-            'index'     =>'orders',
-            'total'     =>'sum',
-            'type'      =>'number'
+        $this->addColumn('period', array(
+            'header'        => Mage::helper('sales')->__('Period'),
+            'index'         => 'period',
+            'type'          => 'string',
+            'width'         => 100,
+            'sortable'      => false,
+            'totals_label'  => Mage::helper('adminhtml')->__('Total')
+        ));
+
+        $this->addColumn('orders_count', array(
+            'header'    => Mage::helper('reports')->__('Number of Orders'),
+            'index'     => 'orders_count',
+            'type'      => 'number',
+            'total'     => 'sum',
+            'sortable'  => false
         ));
 
         $this->addColumn('orders_invoiced', array(
-            'header'    =>Mage::helper('reports')->__('Number of Invoiced Orders'),
-            'index'     =>'orders_invoiced',
-            'total'     =>'sum',
-            'type'      =>'number'
+            'header'    => Mage::helper('reports')->__('Number of Invoiced Orders'),
+            'index'     => 'orders_invoiced',
+            'type'      => 'number',
+            'total'     => 'sum',
+            'sortable'  => false
         ));
 
+        if ($this->getFilterData()->getStoreIds()) {
+            $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
+        }
         $currency_code = $this->getCurrentCurrencyCode();
 
         $this->addColumn('invoiced', array(
-            'header'    =>Mage::helper('reports')->__('Total Invoiced'),
-            'type'      =>'currency',
-            'currency_code'=>$currency_code,
-            'index'     =>'invoiced',
-            'total'     =>'sum',
-            'renderer'  =>'adminhtml/report_grid_column_renderer_currency'
+            'header'        => Mage::helper('reports')->__('Total Invoiced'),
+            'type'          => 'currency',
+            'currency_code' => $currency_code,
+            'index'         => 'invoiced',
+            'total'         => 'sum',
+            'sortable'      => false
         ));
 
         $this->addColumn('invoiced_captured', array(
-            'header'    =>Mage::helper('reports')->__('Total Invoiced Captured'),
-            'type'      =>'currency',
-            'currency_code'=>$currency_code,
-            'index'     =>'invoiced_captured',
-            'total'     =>'sum',
-            'renderer'  =>'adminhtml/report_grid_column_renderer_currency'
+            'header'        => Mage::helper('reports')->__('Total Invoiced Captured'),
+            'type'          => 'currency',
+            'currency_code' => $currency_code,
+            'index'         => 'invoiced_captured',
+            'total'         => 'sum',
+            'sortable'      => false
         ));
 
         $this->addColumn('invoiced_not_captured', array(
-            'header'    =>Mage::helper('reports')->__('Total Invoiced not Captured'),
-            'type'      =>'currency',
-            'currency_code'=>$currency_code,
-            'index'     =>'invoiced_not_captured',
-            'total'     =>'sum',
-            'renderer'  =>'adminhtml/report_grid_column_renderer_currency'
+            'header'        => Mage::helper('reports')->__('Total Invoiced not Captured'),
+            'type'          => 'currency',
+            'currency_code' => $currency_code,
+            'index'         => 'invoiced_not_captured',
+            'total'         => 'sum',
+            'sortable'      => false
         ));
 
         $this->addExportType('*/*/exportInvoicedCsv', Mage::helper('reports')->__('CSV'));

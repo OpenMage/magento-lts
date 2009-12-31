@@ -26,7 +26,7 @@ paymentForm.prototype = {
         this.formId = formId;
         this.validator = new Validation(this.formId);
         var elements = Form.getElements(formId);
-        
+
         var method = null;
         for (var i=0; i<elements.length; i++) {
             if (elements[i].name=='payment[method]') {
@@ -36,10 +36,11 @@ paymentForm.prototype = {
             } else {
                 elements[i].disabled = true;
             }
+            elements[i].setAttribute('autocomplete','off');
         }
         if (method) this.switchMethod(method);
     },
-    
+
     switchMethod: function(method){
         if (this.currentMethod && $('payment_form_'+this.currentMethod)) {
             var form = $('payment_form_'+this.currentMethod);

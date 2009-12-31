@@ -16,7 +16,7 @@
  * @package   Zend_File_Transfer
  * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Transfer.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version   $Id: Transfer.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -44,7 +44,7 @@ class Zend_File_Transfer
                 $adapter = 'Zend_File_Transfer_Adapter_Http';
                 break;
         }
-        
+
         if (!class_exists($adapter)) {
             #require_once 'Zend/Loader.php';
             Zend_Loader::loadClass($adapter);

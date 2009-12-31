@@ -17,7 +17,7 @@
  * @subpackage Document
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Docx.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Docx.php 19035 2009-11-19 14:34:11Z alexander $
  */
 
 /** Zend_Search_Lucene_Document_OpenXml */
@@ -47,6 +47,7 @@ class Zend_Search_Lucene_Document_Docx extends Zend_Search_Lucene_Document_OpenX
      *
      * @param string  $fileName
      * @param boolean $storeContent
+     * @throws Zend_Search_Lucene_Exception
      */
     private function __construct($fileName, $storeContent) {
         // Document data holders
@@ -58,7 +59,12 @@ class Zend_Search_Lucene_Document_Docx extends Zend_Search_Lucene_Document_OpenX
         $package->open($fileName);
 
         // Read relations and search for officeDocument
-        $relations = simplexml_load_string($package->getFromName('_rels/.rels'));
+        $relationsXml = $package->getFromName('_rels/.rels');
+        if ($relationsXml === false) {
+            #require_once 'Zend/Search/Lucene/Exception.php';
+            throw new Zend_Search_Lucene_Exception('Invalid archive or corrupted .docx file.');
+        }
+        $relations = simplexml_load_string($relationsXml);
         foreach($relations->Relationship as $rel) {
             if ($rel ["Type"] == Zend_Search_Lucene_Document_OpenXml::SCHEMA_OFFICEDOCUMENT) {
                 // Found office document! Read in contents...
@@ -75,8 +81,8 @@ class Zend_Search_Lucene_Document_Docx extends Zend_Search_Lucene_Document_OpenX
                     $runs = $paragraph->xpath('.//w:r/*[name() = "w:t" or name() = "w:br"]');
 
                     if ($runs === false) {
-                    	// Paragraph doesn't contain any text or breaks
-                    	continue;
+                        // Paragraph doesn't contain any text or breaks
+                        continue;
                     }
 
                     foreach ($runs as $run) {
@@ -84,7 +90,7 @@ class Zend_Search_Lucene_Document_Docx extends Zend_Search_Lucene_Document_OpenX
                          // Break element
                          $documentBody[] = ' ';
                      } else {
-                     	$documentBody[] = (string)$run;
+                         $documentBody[] = (string)$run;
                      }
                     }
 
@@ -133,11 +139,11 @@ class Zend_Search_Lucene_Document_Docx extends Zend_Search_Lucene_Document_OpenX
      */
     public static function loadDocxFile($fileName, $storeContent = false) {
         if (!is_readable($fileName)) {
-        	#require_once 'Zend/Search/Lucene/Document/Exception.php';
-        	throw new Zend_Search_Lucene_Document_Exception('Provided file \'' . $fileName . '\' is not readable.');
+            #require_once 'Zend/Search/Lucene/Document/Exception.php';
+            throw new Zend_Search_Lucene_Document_Exception('Provided file \'' . $fileName . '\' is not readable.');
         }
 
-    	return new Zend_Search_Lucene_Document_Docx($fileName, $storeContent);
+        return new Zend_Search_Lucene_Document_Docx($fileName, $storeContent);
     }
 }
 

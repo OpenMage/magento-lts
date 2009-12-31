@@ -16,7 +16,7 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Array.php 17532 2009-08-10 19:04:14Z alexander $
+ * @version    $Id: Array.php 18993 2009-11-15 17:09:16Z alexander $
  */
 
 
@@ -57,11 +57,13 @@ class Zend_Pdf_Element_Array extends Zend_Pdf_Element
         if ($val !== null  &&  is_array($val)) {
             foreach ($val as $element) {
                 if (!$element instanceof Zend_Pdf_Element) {
+                    #require_once 'Zend/Pdf/Exception.php';
                     throw new Zend_Pdf_Exception('Array elements must be Zend_Pdf_Element objects');
                 }
                 $this->items[] = $element;
             }
         } else if ($val !== null){
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Argument must be an array');
         }
     }

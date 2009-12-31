@@ -24,6 +24,13 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Catalogsearch term block
+ *
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
 {
     protected $_terms;
@@ -35,6 +42,11 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
         parent::__construct();
     }
 
+    /**
+     * Load terms and try to sort it by names
+     *
+     * @return Mage_CatalogSearch_Block_Term
+     */
     protected function _loadTerms()
     {
         if (empty($this->_terms)) {
@@ -60,9 +72,14 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
                     continue;
                 }
                 $term->setRatio(($term->getPopularity()-$this->_minPopularity)/$range);
-                $this->_terms[$term->getName()] = $term;
+                $temp[$term->getName()] = $term;
+                $termKeys[] = $term->getName();
             }
-            ksort($this->_terms);
+            natcasesort($termKeys);
+
+            foreach ($termKeys as $termKey) {
+                $this->_terms[$termKey] = $temp[$termKey];
+            }
         }
         return $this;
     }

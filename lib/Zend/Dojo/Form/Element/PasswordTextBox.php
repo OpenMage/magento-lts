@@ -24,13 +24,13 @@
 
 /**
  * ValidationTextBox dijit tied to password input
- * 
+ *
  * @uses       Zend_Dojo_Form_Element_ValidationTextBox
  * @package    Zend_Dojo
  * @subpackage Form_Element
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: PasswordTextBox.php 16204 2009-06-21 18:58:29Z thomas $
+ * @version    $Id: PasswordTextBox.php 18951 2009-11-12 16:26:19Z alexander $
  */
 class Zend_Dojo_Form_Element_PasswordTextBox extends Zend_Dojo_Form_Element_ValidationTextBox
 {

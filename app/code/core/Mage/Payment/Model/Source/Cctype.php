@@ -34,13 +34,32 @@
 class Mage_Payment_Model_Source_Cctype
 {
     /**
+     * Allowed CC types
+     *
+     * @var array
+     */
+    protected $_allowedTypes = array();
+
+    /**
      * Return allowed cc types for current method
      *
      * @return array
      */
     public function getAllowedTypes()
     {
-        return array();
+        return $this->_allowedTypes;
+    }
+
+    /**
+     * Setter for allowed types
+     *
+     * @param $values
+     * @return Mage_Payment_Model_Source_Cctype
+     */
+    public function setAllowedTypes(array $values)
+    {
+        $this->_allowedTypes = $values;
+        return $this;
     }
 
     public function toOptionArray()

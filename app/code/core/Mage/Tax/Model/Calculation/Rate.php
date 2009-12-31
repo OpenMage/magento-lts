@@ -53,7 +53,16 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
             $this->setTaxPostcode("{$this->getZipFrom()}-{$this->getZipTo()}");
         }
         else {
+            $taxPostCode = $this->getTaxPostcode();
+
+            // postcode must be not longer than 10 symbols
+            if (strlen($taxPostCode) > 10) {
+                $taxPostCode = substr($taxPostCode, 0, 10);
+            }
+
             $this
+                ->setTaxPostcode($taxPostCode)
+                ->setZipIsRange(null)
                 ->setZipFrom(null)
                 ->setZipTo(null);
         }

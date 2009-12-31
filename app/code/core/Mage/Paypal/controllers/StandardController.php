@@ -34,7 +34,6 @@
  */
 class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
 {
-
     /**
      * Order instance
      */
@@ -91,26 +90,14 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
      */
     public function cancelAction()
     {
-        // TODO: this code is deprecated. The registerCancellation() order method should be called instead
-
         $session = Mage::getSingleton('checkout/session');
         $session->setQuoteId($session->getPaypalStandardQuoteId(true));
-
-        // cancel order
         if ($session->getLastRealOrderId()) {
             $order = Mage::getModel('sales/order')->loadByIncrementId($session->getLastRealOrderId());
             if ($order->getId()) {
                 $order->cancel()->save();
             }
         }
-
-        /*we are calling getPaypalStandardQuoteId with true parameter, the session object will reset the session if parameter is true.
-        so we don't need to manually unset the session*/
-        //$session->unsPaypalStandardQuoteId();
-
-        //need to save quote as active again if the user click on cacanl payment from paypal
-        //Mage::getSingleton('checkout/session')->getQuote()->setIsActive(true)->save();
-        //and then redirect to checkout one page
         $this->_redirect('checkout/cart');
     }
 
@@ -124,22 +111,7 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
     {
         $session = Mage::getSingleton('checkout/session');
         $session->setQuoteId($session->getPaypalStandardQuoteId(true));
-        /**
-         * set the quote as inactive after back from paypal
-         */
         Mage::getSingleton('checkout/session')->getQuote()->setIsActive(false)->save();
-
-        //Mage::getSingleton('checkout/session')->unsQuoteId();
-
         $this->_redirect('checkout/onepage/success', array('_secure'=>true));
-    }
-
-    /**
-     * @deprecated after 1.4.0.0-alpha3
-     * @see Mage_Paypal_IpnController
-     */
-    public function ipnAction()
-    {
-        $this->_forward('standard', 'ipn');
     }
 }

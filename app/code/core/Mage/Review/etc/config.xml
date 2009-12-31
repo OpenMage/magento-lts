@@ -142,6 +142,9 @@
                 </observers>
             </tag_tag_product_collection_load_after>
         </events>
+        <secure_url>
+            <review_customer>/review/customer/</review_customer>
+        </secure_url>
     </frontend>
     <default>
         <catalog>

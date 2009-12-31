@@ -1638,4 +1638,22 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 
         return $this;
     }
+
+    /**
+     * Get cahce tags associated with object id
+     *
+     * @return array
+     */
+    public function getCacheIdTags()
+    {
+        $tags = parent::getCacheIdTags();
+        $affectedCategoryIds = $this->getAffectedCategoryIds();
+        if (!$affectedCategoryIds) {
+            $affectedCategoryIds = $this->getCategoryIds();
+        }
+        foreach ($affectedCategoryIds as $categoryId) {
+            $tags[] = Mage_Catalog_Model_Category::CACHE_TAG.'_'.$categoryId;
+        }
+        return $tags;
+    }
 }

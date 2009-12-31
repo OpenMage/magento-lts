@@ -17,7 +17,7 @@
  * @subpackage Zend_Controller_Action_Helper
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: AjaxContext.php 16202 2009-06-21 18:53:49Z thomas $
+ * @version    $Id: AjaxContext.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -47,7 +47,7 @@ class Zend_Controller_Action_Helper_AjaxContext extends Zend_Controller_Action_H
      * Constructor
      *
      * Add HTML context
-     * 
+     *
      * @return void
      */
     public function __construct()
@@ -60,8 +60,8 @@ class Zend_Controller_Action_Helper_AjaxContext extends Zend_Controller_Action_H
      * Initialize AJAX context switching
      *
      * Checks for XHR requests; if detected, attempts to perform context switch.
-     * 
-     * @param  string $format 
+     *
+     * @param  string $format
      * @return void
      */
     public function initContext($format = null)

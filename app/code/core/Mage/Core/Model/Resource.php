@@ -71,7 +71,6 @@ class Mage_Core_Model_Resource
      */
     public function getConnection($name)
     {
-//        echo $name . '<br>';
         if (isset($this->_connections[$name])) {
             return $this->_connections[$name];
         }
@@ -92,6 +91,9 @@ class Mage_Core_Model_Resource
 
         $typeInstance = $this->getConnectionTypeInstance((string)$connConfig->type);
         $conn = $typeInstance->getConnection($connConfig);
+        if (method_exists($conn, 'setCacheAdapter')) {
+            $conn->setCacheAdapter(Mage::app()->getCache());
+        }
 
         $this->_connections[$name] = $conn;
         if ($origName!==$name) {

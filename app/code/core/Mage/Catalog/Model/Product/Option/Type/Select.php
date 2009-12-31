@@ -204,7 +204,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
 
         if (!$this->_isSingleSelection()) {
             foreach(explode(',', $optionValue) as $value) {
-                if ($_result = $option->getValueById($optionValue)) {
+                if ($_result = $option->getValueById($value)) {
                     $result += $this->_getChargableOptionPrice(
                         $_result->getPrice(),
                         $_result->getPriceType() == 'percent',

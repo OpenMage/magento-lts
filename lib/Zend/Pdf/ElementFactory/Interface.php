@@ -16,7 +16,7 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Interface.php 17182 2009-07-27 13:54:11Z alexander $
+ * @version    $Id: Interface.php 18993 2009-11-15 17:09:16Z alexander $
  */
 
 /**
@@ -149,4 +149,3 @@ interface Zend_Pdf_ElementFactory_Interface
      */
     public function isModified();
 }
-

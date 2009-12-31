@@ -42,6 +42,9 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     const STATUS_ENABLED = 1;
     const STATUS_DISABLED = 0;
 
+    const CACHE_TAG              = 'cms_page';
+    protected $_cacheTag         = 'cms_page';
+
     /**
      * Prefix of model events names
      *

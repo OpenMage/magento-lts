@@ -16,7 +16,7 @@
  * @package    Zend_Json
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Server.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: Server.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -82,7 +82,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Attach a function or callback to the server
-     * 
+     *
      * @param  string|array $function Valid PHP callback
      * @param  string $namespace  Ignored
      * @return Zend_Json_Server
@@ -134,8 +134,8 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Register a class with the server
-     * 
-     * @param  string $class 
+     *
+     * @param  string $class
      * @param  string $namespace Ignored
      * @param  mixed $argv Ignored
      * @return Zend_Json_Server
@@ -160,9 +160,9 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Indicate fault response
-     * 
-     * @param  string $fault 
-     * @param  int $code 
+     *
+     * @param  string $fault
+     * @param  int $code
      * @return false
      */
     public function fault($fault = null, $code = 404, $data = null)
@@ -175,8 +175,8 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Handle request
-     * 
-     * @param  Zend_Json_Server_Request $request 
+     *
+     * @param  Zend_Json_Server_Request $request
      * @return null|Zend_Json_Server_Response
      */
     public function handle($request = false)
@@ -206,8 +206,8 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Load function definitions
-     * 
-     * @param  array|Zend_Server_Definition $definition 
+     *
+     * @param  array|Zend_Server_Definition $definition
      * @return void
      */
     public function loadFunctions($definition)
@@ -229,8 +229,8 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Set request object
-     * 
-     * @param  Zend_Json_Server_Request $request 
+     *
+     * @param  Zend_Json_Server_Request $request
      * @return Zend_Json_Server
      */
     public function setRequest(Zend_Json_Server_Request $request)
@@ -241,7 +241,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Get JSON-RPC request object
-     * 
+     *
      * @return Zend_Json_Server_Request
      */
     public function getRequest()
@@ -255,8 +255,8 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Set response object
-     * 
-     * @param  Zend_Json_Server_Response $response 
+     *
+     * @param  Zend_Json_Server_Response $response
      * @return Zend_Json_Server
      */
     public function setResponse(Zend_Json_Server_Response $response)
@@ -267,7 +267,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Get response object
-     * 
+     *
      * @return Zend_Json_Server_Response
      */
     public function getResponse()
@@ -281,8 +281,8 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Set flag indicating whether or not to auto-emit response
-     * 
-     * @param  bool $flag 
+     *
+     * @param  bool $flag
      * @return Zend_Json_Server
      */
     public function setAutoEmitResponse($flag)
@@ -293,7 +293,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Will we auto-emit the response?
-     * 
+     *
      * @return bool
      */
     public function autoEmitResponse()
@@ -304,9 +304,9 @@ class Zend_Json_Server extends Zend_Server_Abstract
     // overloading for SMD metadata
     /**
      * Overload to accessors of SMD object
-     * 
-     * @param  string $method 
-     * @param  array $args 
+     *
+     * @param  string $method
+     * @param  array $args
      * @return mixed
      */
     public function __call($method, $args)
@@ -327,7 +327,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Retrieve SMD object
-     * 
+     *
      * @return Zend_Json_Server_Smd
      */
     public function getServiceMap()
@@ -341,8 +341,8 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Add service method to service map
-     * 
-     * @param  Zend_Server_Reflection_Function $method 
+     *
+     * @param  Zend_Server_Reflection_Function $method
      * @return void
      */
     protected function _addMethodServiceMap(Zend_Server_Method_Definition $method)
@@ -362,8 +362,8 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Translate PHP type to JSON type
-     * 
-     * @param  string $type 
+     *
+     * @param  string $type
      * @return string
      */
     protected function _fixType($type)
@@ -373,9 +373,9 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Get default params from signature
-     * 
-     * @param  array $args 
-     * @param  array $params 
+     *
+     * @param  array $args
+     * @param  array $params
      * @return array
      */
     protected function _getDefaultParams(array $args, array $params)
@@ -393,8 +393,8 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Get method param type
-     * 
-     * @param  Zend_Server_Reflection_Function_Abstract $method 
+     *
+     * @param  Zend_Server_Reflection_Function_Abstract $method
      * @return string|array
      */
     protected function _getParams(Zend_Server_Method_Definition $method)
@@ -434,7 +434,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Set response state
-     * 
+     *
      * @return Zend_Json_Server_Response
      */
     protected function _getReadyResponse()
@@ -455,8 +455,8 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Get method return type
-     * 
-     * @param  Zend_Server_Reflection_Function_Abstract $method 
+     *
+     * @param  Zend_Server_Reflection_Function_Abstract $method
      * @return string|array
      */
     protected function _getReturnType(Zend_Server_Method_Definition $method)
@@ -473,7 +473,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Retrieve list of allowed SMD methods for proxying
-     * 
+     *
      * @return array
      */
     protected function _getSmdMethods()
@@ -497,7 +497,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Internal method for handling request
-     * 
+     *
      * @return void
      */
     protected function _handle()

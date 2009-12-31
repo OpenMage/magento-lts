@@ -994,7 +994,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
      */
     protected function _prepareDataForAllFields($category, $replaceFields = array())
     {
-        $table = $this->_getWriteAdapter()->describeTable($this->getMainStoreTable($category->getStoreId()));
+        $table = $this->getMainStoreTable($category->getStoreId());
+        $this->_getWriteAdapter()->resetDdlCache($table);
+        $table = $this->_getWriteAdapter()->describeTable($table);
         $data = array();
         foreach ($table as $column=>$columnData) {
             if (null !== $category->getData($column)) {

@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @subpackage Router
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Abstract.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Abstract.php 18951 2009-11-12 16:26:19Z alexander $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -50,7 +50,7 @@ abstract class Zend_Controller_Router_Route_Abstract implements Zend_Controller_
      * @var string
      */
     protected $_matchedPath = null;
-    
+
     /**
      * Get the version of the route
      *
@@ -60,7 +60,7 @@ abstract class Zend_Controller_Router_Route_Abstract implements Zend_Controller_
     {
         return 2;
     }
-    
+
     /**
      * Set partially matched path
      *
@@ -71,7 +71,7 @@ abstract class Zend_Controller_Router_Route_Abstract implements Zend_Controller_
     {
         $this->_matchedPath = $path;
     }
-    
+
     /**
      * Get partially matched path
      *
@@ -81,10 +81,10 @@ abstract class Zend_Controller_Router_Route_Abstract implements Zend_Controller_
     {
         return $this->_matchedPath;
     }
-    
+
     /**
      * Check or set wether this is an abstract route or not
-     * 
+     *
      * @param  boolean $flag
      * @return boolean
      */
@@ -93,17 +93,17 @@ abstract class Zend_Controller_Router_Route_Abstract implements Zend_Controller_
         if ($flag !== null) {
             $this->_isAbstract = $flag;
         }
-    
+
         return $this->_isAbstract;
     }
-    
+
     /**
      * Create a new chain
-     * 
+     *
      * @param  Zend_Controller_Router_Route_Abstract $route
      * @param  string                                $separator
      * @return Zend_Controller_Router_Route_Chain
-     */    
+     */
     public function chain(Zend_Controller_Router_Route_Abstract $route, $separator = '/')
     {
         #require_once 'Zend/Controller/Router/Route/Chain.php';

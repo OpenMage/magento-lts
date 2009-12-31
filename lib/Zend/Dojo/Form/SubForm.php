@@ -24,13 +24,13 @@
 
 /**
  * Dijit-enabled SubForm
- * 
+ *
  * @uses       Zend_Form_SubForm
  * @package    Zend_Dojo
  * @subpackage Form
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SubForm.php 16204 2009-06-21 18:58:29Z thomas $
+ * @version    $Id: SubForm.php 18951 2009-11-12 16:26:19Z alexander $
  */
 class Zend_Dojo_Form_SubForm extends Zend_Form_SubForm
 {
@@ -42,8 +42,8 @@ class Zend_Dojo_Form_SubForm extends Zend_Form_SubForm
 
     /**
      * Constructor
-     * 
-     * @param  array|Zend_Config|null $options 
+     *
+     * @param  array|Zend_Config|null $options
      * @return void
      */
     public function __construct($options = null)
@@ -58,7 +58,7 @@ class Zend_Dojo_Form_SubForm extends Zend_Form_SubForm
 
     /**
      * Load the default decorators
-     * 
+     *
      * @return void
      */
     public function loadDefaultDecorators()
@@ -76,8 +76,8 @@ class Zend_Dojo_Form_SubForm extends Zend_Form_SubForm
     }
 
     /**
-     * Get view 
-     * 
+     * Get view
+     *
      * @return Zend_View_Interface
      */
     public function getView()

@@ -101,4 +101,21 @@ class Mage_SalesRule_Model_Observer
             }
         }
     }
+
+    /**
+     * Refresh sales coupons report statistics for last day
+     *
+     * @param Mage_Cron_Model_Schedule $schedule
+     * @return Mage_Tax_Model_Observer
+     */
+    public function aggregateSalesReportCouponsData($schedule)
+    {
+        Mage::app()->getLocale()->emulate(0);
+        $currentDate = Mage::app()->getLocale()->date();
+        $date = $currentDate->subHour(25);
+        Mage::getResourceModel('salesrule/rule')->aggregate($date);
+        Mage::app()->getLocale()->revert();
+        return $this;
+    }
 }
+

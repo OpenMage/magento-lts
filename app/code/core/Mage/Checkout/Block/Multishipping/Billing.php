@@ -99,6 +99,16 @@ class Mage_Checkout_Block_Multishipping_Billing extends Mage_Payment_Block_Form_
     }
 
     /**
+     * Getter
+     *
+     * @return float
+     */
+    public function getQuoteBaseGrandTotal()
+    {
+        return (float)$this->getQuote()->getBaseGrandTotal();
+    }
+
+    /**
      * Retrieve url for select billing address
      *
      * @return string

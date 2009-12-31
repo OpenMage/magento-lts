@@ -183,7 +183,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         Varien_Profiler::start('mage::app::dispatch::send_response');
         $this->getResponse()->sendResponse();
         Varien_Profiler::stop('mage::app::dispatch::send_response');
-
+        Mage::dispatchEvent('controller_front_send_response_after', array('front'=>$this));
         return $this;
     }
 

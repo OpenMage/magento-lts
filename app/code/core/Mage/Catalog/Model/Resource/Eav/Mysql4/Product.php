@@ -245,6 +245,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
         }
 
         if (!empty($insert) || !empty($delete)) {
+            $object->setAffectedCategoryIds(array_merge($insert, $delete));
             $object->setIsChangedCategories(true);
         }
 

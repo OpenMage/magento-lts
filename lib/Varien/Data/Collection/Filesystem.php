@@ -685,7 +685,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     }
 
     /**
-     * Callback method for 'leq' fancy filter
+     * Callback method for 'lteq' fancy filter
      *
      * @param string $field
      * @param mixed $filterValue

@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Http.php 18310 2009-09-19 17:50:02Z ralph $
+ * @version    $Id: Http.php 19077 2009-11-20 00:29:56Z matthew $
  */
 
 /** Zend_Controller_Request_Abstract */
@@ -722,7 +722,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      * Retrieve an array of parameters
      *
      * Retrieves a merged array of parameters, with precedence of userland
-     * params (see {@link setParam()}), $_GET, $POST (i.e., values in the
+     * params (see {@link setParam()}), $_GET, $_POST (i.e., values in the
      * userland params will take precedence over all others).
      *
      * @return array
@@ -731,17 +731,17 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
     {
         $return       = $this->_params;
         $paramSources = $this->getParamSources();
-        if (in_array('_GET', $paramSources) 
-            && isset($_GET) 
+        if (in_array('_GET', $paramSources)
+            && isset($_GET)
             && is_array($_GET)
-        ) { 
-            $return += $_GET; 
+        ) {
+            $return += $_GET;
         }
-        if (in_array('_POST', $paramSources) 
-            && isset($_POST) 
+        if (in_array('_POST', $paramSources)
+            && isset($_POST)
             && is_array($_POST)
-        ) { 
-            $return += $_POST; 
+        ) {
+            $return += $_POST;
         }
         return $return;
     }

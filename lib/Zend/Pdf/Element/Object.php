@@ -16,15 +16,12 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Object.php 17182 2009-07-27 13:54:11Z alexander $
+ * @version    $Id: Object.php 18993 2009-11-15 17:09:16Z alexander $
  */
 
 
 /** Zend_Pdf_Element */
 #require_once 'Zend/Pdf/Element.php';
-
-/** Zend_Pdf_ElementFactory */
-#require_once 'Zend/Pdf/ElementFactory.php';
 
 
 /**
@@ -77,14 +74,17 @@ class Zend_Pdf_Element_Object extends Zend_Pdf_Element
     public function __construct(Zend_Pdf_Element $val, $objNum, $genNum, Zend_Pdf_ElementFactory $factory)
     {
         if ($val instanceof self) {
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Object number must not be an instance of Zend_Pdf_Element_Object.');
         }
 
         if ( !(is_integer($objNum) && $objNum > 0) ) {
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Object number must be positive integer.');
         }
 
         if ( !(is_integer($genNum) && $genNum >= 0) ) {
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Generation number must be non-negative integer.');
         }
 

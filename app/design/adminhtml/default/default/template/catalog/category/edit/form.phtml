@@ -66,6 +66,10 @@
                 this._validate();
             }
             else{
+                if (this.isSubmitted) {
+                    return false;
+                }
+                this.isSubmitted = true;
                 this._submit();
             }
             displayLoadingMask();
@@ -94,9 +98,9 @@
                 }
             }
         };
-        
+
         new Ajax.Request(
-                '<?php echo $this->getRefreshPathUrl() ?>', 
+                '<?php echo $this->getRefreshPathUrl() ?>',
                 {
                     method:     'POST',
                     evalScripts: true,
@@ -109,16 +113,16 @@
     categoryForm.getCategoryId = function () {
         collection = $(this.formId).getInputs('hidden','general[id]');
         if (collection.size() > 0) {
-            return collection.first().value; 
-        } 
+            return collection.first().value;
+        }
         return false;
     };
 
     categoryForm.setCategoryPath = function (path) {
         collection = $(this.formId).getInputs('hidden','general[path]');
         if (collection.size() > 0) {
-            return collection.first().value = path; 
-        } 
+            return collection.first().value = path;
+        }
     };
 
     function categorySubmit(url) {

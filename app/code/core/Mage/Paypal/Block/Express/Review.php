@@ -33,35 +33,44 @@
  */
 class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
 {
-    protected $_method='express';
     /**
-     * Get PayPal Express Review Information
-     *
-     * @return Mage_Paypal_Model_Express_Review
+     * @var Mage_Sales_Model_Quote
      */
-    public function getReview()
+    protected $_quote;
+
+    /**
+     * Quote object setter
+     *
+     * @param Mage_Sales_Model_Quote $quote
+     * @return Mage_Paypal_Block_Express_Review
+     */
+    public function setQuote(Mage_Sales_Model_Quote $quote)
     {
-        return Mage::getSingleton('paypal/express_review');
+        $this->_quote = $quote;
+        return $this;
     }
 
     /**
      * Return quote billing address
      *
-     * @return Mage_Sales_Quote_Address
+     * @return Mage_Sales_Model_Quote_Address
      */
     public function getBillingAddress()
     {
-        return $this->getReview()->getQuote()->getBillingAddress();
+        return $this->_quote->getBillingAddress();
     }
 
     /**
      * Return quote shipping address
      *
-     * @return Mage_Sales_Quote_Address
+     * @return Mage_Sales_Model_Quote_Address
      */
     public function getShippingAddress()
     {
-        return $this->getReview()->getQuote()->getShippingAddress();
+        if ($this->_quote->getIsVirtual()) {
+            return false;
+        }
+        return $this->_quote->getShippingAddress();
     }
 
     /**
@@ -72,7 +81,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     public function getAddress()
     {
         if (empty($this->_address)) {
-            $this->_address = $this->getReview()->getQuote()->getShippingAddress();
+            $this->_address = $this->_quote->getShippingAddress();
         }
         return $this->_address;
     }
@@ -85,17 +94,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     public function getShippingRates()
     {
         if (empty($this->_rates)) {
-            #$this->getAddress()->collectShippingRates()->save();
-
             $groups = $this->getAddress()->getGroupedAllShippingRates();
-            /*if (!empty($groups)) {
-                $ratesFilter = new Varien_Filter_Object_Grid();
-                $ratesFilter->addFilter(Mage::app()->getStore()->getPriceFilter(), 'price');
-
-                foreach ($groups as $code => $groupItems) {
-                    $groups[$code] = $ratesFilter->filter($groupItems);
-                }
-            }*/
             return $this->_rates = $groups;
         }
         return $this->_rates;
@@ -126,16 +125,6 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     }
 
     /**
-     * set payment method.
-     *
-     * @param $varName string
-     */
-    public function setMethod($varName)
-    {
-        $this->_method=$varName;
-    }
-
-    /**
      * Return formated shipping price
      *
      * @param $price float
@@ -156,7 +145,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
      */
     public function formatPrice($price)
     {
-        return $this->getReview()->getQuote()->getStore()->convertPrice($price, true);
+        return $this->_quote->getStore()->convertPrice($price, true);
     }
 
     /**
@@ -166,6 +155,6 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
      */
     public function isVirtual()
     {
-        return $this->getReview()->getQuote()->getIsVirtual();
+        return $this->_quote->getIsVirtual();
     }
 }

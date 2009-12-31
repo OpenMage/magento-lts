@@ -17,12 +17,16 @@
  * @subpackage Fonts
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ZapfDingbats.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: ZapfDingbats.php 18993 2009-11-15 17:09:16Z alexander $
  */
+
+
+/** Internally used classes */
+#require_once 'Zend/Pdf/Element/Name.php';
+
 
 /** Zend_Pdf_Resource_Font_Simple_Standard */
 #require_once 'Zend/Pdf/Resource/Font/Simple/Standard.php';
-
 
 /**
  * Implementation for the standard PDF font ZapfDingbats.
@@ -368,8 +372,9 @@ class Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats extends Zend_Pdf_Resou
           0x27b5 =>   0xc1, 0x27b6 =>   0xc2, 0x27b7 =>   0xc3, 0x27b8 =>   0xc4,
           0x27b9 =>   0xc5, 0x27ba =>   0xc6, 0x27bb =>   0xc7, 0x27bc =>   0xc8,
           0x27bd =>   0xc9, 0x27be =>   0xca);
+        #require_once 'Zend/Pdf/Cmap.php';
         $this->_cmap = Zend_Pdf_Cmap::cmapWithTypeData(
-          Zend_Pdf_Cmap::TYPE_BYTE_ENCODING_STATIC, $cmapData);
+            Zend_Pdf_Cmap::TYPE_BYTE_ENCODING_STATIC, $cmapData);
 
 
         /* Resource dictionary */
@@ -483,5 +488,4 @@ class Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats extends Zend_Pdf_Resou
         }
         return $this->decodeString($string, 'UTF-16BE');
     }
-
 }

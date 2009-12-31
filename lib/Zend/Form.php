@@ -28,7 +28,7 @@
  * @package    Zend_Form
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Form.php 18272 2009-09-18 19:03:49Z matthew $
+ * @version    $Id: Form.php 18951 2009-11-12 16:26:19Z alexander $
  */
 class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
 {
@@ -1220,7 +1220,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * Set default values for elements
      *
      * Sets values for all elements specified in the array of $defaults.
-     * 
+     *
      * @param  array $defaults
      * @return Zend_Form
      */

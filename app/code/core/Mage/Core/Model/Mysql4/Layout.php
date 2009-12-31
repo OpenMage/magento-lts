@@ -41,6 +41,7 @@ class Mage_Core_Model_Mysql4_Layout extends Mage_Core_Model_Mysql4_Abstract
     public function fetchUpdatesByHandle($handle, $params = array())
     {
         $storeId = isset($params['store_id']) ? $params['store_id'] : Mage::app()->getStore()->getId();
+        $area = isset($params['area']) ? $params['area'] : Mage::getSingleton('core/design_package')->getArea();
         $package = isset($params['package']) ? $params['package'] : Mage::getSingleton('core/design_package')->getPackageName();
         $theme = isset($params['theme']) ? $params['theme'] : Mage::getSingleton('core/design_package')->getTheme('layout');
 
@@ -52,6 +53,7 @@ class Mage_Core_Model_Mysql4_Layout extends Mage_Core_Model_Mysql4_Abstract
                 ->from(array('update'=>$this->getMainTable()), array('xml'))
                 ->join(array('link'=>$this->getTable('core/layout_link')), 'link.layout_update_id=update.layout_update_id', '')
                 ->where('link.store_id IN (0, ?)', $storeId)
+                ->where('link.area=?', $area)
                 ->where('link.package=?', $package)
                 ->where('link.theme=?', $theme)
                 ->where('update.handle = ?', $handle)

@@ -26,10 +26,3 @@
 ?>
 <p><?php echo $this->getMethod()->getTitle() ?><br/>
 <strong><?php echo $this->__('PayPal Email') ?>:</strong> <span class="nowrap"><?php echo $this->getEmail() ?></span></p>
-
-<?php if ($this->getInfo()->getCcTransId()): ?>
-    <?php echo $this->__('Transaction Id');?>: <strong><?php echo $this->getInfo()->getCcTransId();?></strong><br/>
-<?php elseif ($this->getInfo()->getLastTransId()): ?>
-    <?php echo $this->__('Transaction Id');?>: <strong><?php echo $this->getInfo()->getLastTransId();?></strong><br/>
-<?php endif;?>
-

@@ -330,7 +330,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                          */
                         $arr = array();
                         foreach($arg as $subkey => $value) {
-                            $arr[(string)$subkey] = (string)$value;
+                            $arr[(string)$subkey] = $value->asArray();
                         }
                         if (!empty($arr)) {
                             $args[$key] = $arr;

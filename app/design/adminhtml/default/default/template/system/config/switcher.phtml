@@ -15,7 +15,9 @@
       </option>
     <?php endforeach ?>
     </select>
+    <?php if (Mage::getSingleton('admin/session')->isAllowed('system/store')): ?>
     <p style="margin:10px 0 0;">
         <a href="<?php echo $this->getUrl('*/system_store') ?>"><?php echo $this->__('Manage Stores') ?></a>
     </p>
+    <?php endif; ?>
 </div>

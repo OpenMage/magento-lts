@@ -18,7 +18,7 @@
  * @subpackage Simpy
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Simpy.php 16211 2009-06-21 19:23:55Z thomas $
+ * @version    $Id: Simpy.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 
@@ -42,9 +42,9 @@ class Zend_Service_Simpy
     protected $_baseUri = 'http://simpy.com/simpy/api/rest/';
 
     /**
-     * HTTP client for use in making web service calls 
+     * HTTP client for use in making web service calls
      *
-     * @var Zend_Http_Client 
+     * @var Zend_Http_Client
      */
     protected $_http;
 
@@ -66,7 +66,7 @@ class Zend_Service_Simpy
     }
 
     /**
-     * Returns the HTTP client currently in use by this class for REST API 
+     * Returns the HTTP client currently in use by this class for REST API
      * calls, intended mainly for testing.
      *
      * @return Zend_Http_Client

@@ -31,53 +31,71 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Report_Grid
+class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Report_Grid_Abstract
 {
+    protected $_columnGroupBy = 'period';
 
     public function __construct()
     {
         parent::__construct();
-        $this->setId('gridTax');
+        $this->setCountTotals(true);
+        $this->setCountSubTotals(true);
     }
 
-    protected function _prepareCollection()
+    public function getResourceCollectionName()
     {
-        $this->setSubReportSize(null);
-        parent::_prepareCollection();
-        $this->getCollection()->initReport('reports/tax_collection');
+        return ($this->getFilterData()->getData('report_type') == 'updated_at_order')
+            ? 'tax/report_updatedat_collection'
+            : 'tax/report_collection';
     }
 
     protected function _prepareColumns()
     {
+        $this->addColumn('period', array(
+            'header'            => Mage::helper('sales')->__('Period'),
+            'index'             => 'period',
+            'type'              => 'string',
+            'width'             => '100',
+            'sortable'          => false,
+            'totals_label'      => Mage::helper('adminhtml')->__('Total'),
+            'subtotals_label'   => Mage::helper('adminhtml')->__('SubTotal')
+        ));
+
         $this->addColumn('code', array(
-            'header'    =>Mage::helper('reports')->__('Tax'),
-            'index'     =>'code',
-            'type'      =>'string'
+            'header'    => Mage::helper('sales')->__('Tax'),
+            'index'     => 'code',
+            'type'      => 'string',
+            'sortable'  => false
         ));
 
         $this->addColumn('percent', array(
-            'header'    =>Mage::helper('reports')->__('Rate'),
-            'index'     =>'percent',
-            'type'      =>'number',
-            'renderer'  =>'adminhtml/report_grid_column_renderer_blanknumber',
-            'width'     =>'100'
+            'header'    => Mage::helper('sales')->__('Rate'),
+            'index'     => 'percent',
+            'type'      => 'number',
+            'width'     => '100',
+            'sortable'  => false
         ));
 
-        $this->addColumn('orders', array(
-            'header'    =>Mage::helper('reports')->__('Number of Orders'),
-            'index'     =>'orders',
-            'total'     =>'sum',
-            'type'      =>'number',
-            'width'     =>'100'
+        $this->addColumn('orders_count', array(
+            'header'    => Mage::helper('sales')->__('Number of Orders'),
+            'index'     => 'orders_count',
+            'total'     => 'sum',
+            'type'      => 'number',
+            'width'     => '100',
+            'sortable'  => false
         ));
 
-        $this->addColumn('tax', array(
-            'header'    =>Mage::helper('reports')->__('Tax Amount'),
-            'type'      =>'currency',
-            'currency_code'=>$this->getCurrentCurrencyCode(),
-            'index'     =>'tax',
-            'total'     =>'sum',
-            'renderer'  =>'adminhtml/report_grid_column_renderer_currency'
+        if ($this->getFilterData()->getStoreIds()) {
+            $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
+        }
+
+        $this->addColumn('tax_base_amount_sum', array(
+            'header'        => Mage::helper('sales')->__('Tax Amount'),
+            'type'          => 'currency',
+            'currency_code' => $this->getCurrentCurrencyCode(),
+            'index'         => 'tax_base_amount_sum',
+            'total'         => 'sum',
+            'sortable'      => false
         ));
 
         $this->addExportType('*/*/exportTaxCsv', Mage::helper('reports')->__('CSV'));

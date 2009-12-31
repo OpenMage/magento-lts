@@ -59,7 +59,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
                     $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
                         'label'     => Mage::helper('sales')->__('Refund'),
                         'class'     => 'save submit-button',
-                        'onclick'   => 'editForm.submit()',
+                        'onclick'   => 'submitCreditMemo()',
                     ))
                 );
             }
@@ -70,7 +70,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
                     $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
                         'label'     => Mage::helper('sales')->__('Refund Offline'),
                         'class'     => 'save submit-button',
-                        'onclick'   => 'editForm.submit()',
+                        'onclick'   => 'submitCreditMemoOffline()',
                     ))
                 );
             }

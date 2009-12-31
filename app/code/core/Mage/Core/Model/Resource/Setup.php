@@ -335,6 +335,7 @@ class Mage_Core_Model_Resource_Setup
             $fileType = pathinfo($resourceFile['fileName'], PATHINFO_EXTENSION);
             // Execute SQL
             if ($this->_conn) {
+                $this->_conn->disallowDdlCache();
                 try {
                     switch ($fileType) {
                         case 'sql':
@@ -363,6 +364,7 @@ class Mage_Core_Model_Resource_Setup
                     echo "<pre>".print_r($e,1)."</pre>";
                     throw Mage::exception('Mage_Core', Mage::helper('core')->__('Error in file: "%s" - %s', $sqlFile, $e->getMessage()));
                 }
+                $this->_conn->allowDdlCache();
             }
             $modifyVersion = $resourceFile['toVersion'];
         }

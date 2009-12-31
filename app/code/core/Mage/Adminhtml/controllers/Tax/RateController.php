@@ -77,8 +77,17 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
      */
     public function saveAction()
     {
-        if ($ratePost = $this->getRequest()->getPost()) {
-            $ratePostData = $this->getRequest()->getPost('rate_data');
+        $ratePost = $this->getRequest()->getPost();
+        if ($ratePost) {
+
+            $rateId = $this->getRequest()->getParam('rate');
+            if ($rateId) {
+                $rateModel = Mage::getSingleton('tax/calculation_rate')->load($rateId);
+                if (!$rateModel->getId()) {
+                    unset($ratePost['tax_calculation_rate_id']);
+                }
+            }
+
             $rateModel = Mage::getModel('tax/calculation_rate')->setData($ratePost);
 
             try {
@@ -109,8 +118,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     public function editAction()
     {
         $rateId = (int)$this->getRequest()->getParam('rate');
-        $rateModel = Mage::getSingleton('tax/calculation_rate')
-            ->load($rateId);
+        $rateModel = Mage::getSingleton('tax/calculation_rate')->load($rateId);
         if (!$rateModel->getId()) {
             $this->getResponse()->setRedirect($this->getUrl("*/*/"));
             return ;

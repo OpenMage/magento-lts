@@ -38,6 +38,8 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
      */
     protected $_storeIds;
 
+    protected $_storeVarName = 'store';
+
     /**
      * @var bool
      */
@@ -153,12 +155,18 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
         if ($url = $this->getData('switch_url')) {
             return $url;
         }
-        return $this->getUrl('*/*/*', array('_current' => true, 'store' => null));
+        return $this->getUrl('*/*/*', array('_current' => true, $this->_storeVarName => null));
+    }
+
+    public function setStoreVarName($varName)
+    {
+        $this->_storeVarName = $varName;
+        return $this;
     }
 
     public function getStoreId()
     {
-        return $this->getRequest()->getParam('store');
+        return $this->getRequest()->getParam($this->_storeVarName);
     }
 
     public function setStoreIds($storeIds)

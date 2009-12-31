@@ -546,6 +546,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
             $this->_existsFlatTables[$store] = true;
         }
         else {
+            $this->_getWriteAdapter()->resetDdlCache($tableName);
             $describe   = $this->_getWriteAdapter()->describeTable($tableName);
             $indexList  = $this->_getWriteAdapter()->getIndexList($tableName);
 

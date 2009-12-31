@@ -484,7 +484,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
 
     /**
      * Check whether payment method can be used
-     *
+     * TODO: payment method instance is not supposed to know about quote
      * @param Mage_Sales_Model_Quote
      * @return bool
      */

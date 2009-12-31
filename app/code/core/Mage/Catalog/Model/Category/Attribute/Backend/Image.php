@@ -36,11 +36,11 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
 {
 
     /**
-     * Enter description here...
+     * Save uploaded file and set its name to category
      *
      * @param Varien_Object $object
      */
-    public function beforeSave($object)
+    public function afterSave($object)
     {
         $value = $object->getData($this->getAttribute()->getName());
 
@@ -62,10 +62,9 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
             $object->setData($this->getAttribute()->getName(), $uploader->getUploadedFileName());
             $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getName());
         } catch (Exception $e) {
+            Mage::logException($e);
             /** @TODO ??? */
             return;
         }
-
     }
-
 }

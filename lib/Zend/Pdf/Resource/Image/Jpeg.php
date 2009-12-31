@@ -16,19 +16,17 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Jpeg.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: Jpeg.php 19039 2009-11-19 15:05:32Z alexander $
  */
+
+
+/** Internally used classes */
+#require_once 'Zend/Pdf/Element/Name.php';
+#require_once 'Zend/Pdf/Element/Numeric.php';
 
 
 /** Zend_Pdf_Resource_Image */
 #require_once 'Zend/Pdf/Resource/Image.php';
-
-/** Zend_Pdf_Element_Numeric */
-#require_once 'Zend/Pdf/Element/Numeric.php';
-
-/** Zend_Pdf_Element_Name */
-#require_once 'Zend/Pdf/Element/Name.php';
-
 
 /**
  * JPEG image
@@ -58,7 +56,8 @@ class Zend_Pdf_Resource_Image_Jpeg extends Zend_Pdf_Resource_Image
         }
 
         $gd_options = gd_info();
-        if (!$gd_options['JPG Support'] ) {
+        if ( (!isset($gd_options['JPG Support'])  || $gd_options['JPG Support']  != true)  &&
+             (!isset($gd_options['JPEG Support']) || $gd_options['JPEG Support'] != true)  ) {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('JPG support is not configured properly.');
         }

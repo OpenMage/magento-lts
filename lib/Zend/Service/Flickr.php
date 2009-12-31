@@ -18,7 +18,7 @@
  * @subpackage Flickr
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Flickr.php 16211 2009-06-21 19:23:55Z thomas $
+ * @version    $Id: Flickr.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 
@@ -192,7 +192,7 @@ class Zend_Service_Flickr
         #require_once 'Zend/Service/Flickr/ResultSet.php';
         return new Zend_Service_Flickr_ResultSet($dom, $this);
     }
-    
+
     /**
      * Finds photos in a group's pool.
      *
@@ -509,8 +509,8 @@ class Zend_Service_Flickr
         }
 
     }
-    
-    
+
+
     /**
     * Validate Group Search Options
     *
@@ -542,7 +542,7 @@ class Zend_Service_Flickr
         */
         #require_once 'Zend/Validate/Int.php';
         $int = new Zend_Validate_Int();
-        
+
         if (!$int->isValid($options['page'])) {
             /**
             * @see Zend_Service_Exception

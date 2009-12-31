@@ -61,15 +61,33 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                         }
                     }
                     $newCount = 0;
+
                     foreach( $tagNamesArr as $tagName ) {
                         if( $tagName ) {
                             $tagModel = Mage::getModel('tag/tag');
                             $tagModel->loadByName($tagName);
+                            $tagRelationModel = Mage::getModel('tag/tag_relation');
+
                             if ($tagModel->getId()) {
                                 $status = $tagModel->getStatus();
-                                $session->addNotice(Mage::helper('tag')->__('Tag "%s" has already been added to the product' ,$tagName));
+
+                                $productIds = $tagRelationModel
+                                      ->loadByTagCustomer(
+                                            $productId,
+                                            $tagModel->getId(),
+                                            $customerId
+                                        )
+                                      ->getProductIds();
+
+                                if(0 < count($productIds)) {
+                                    $session->addNotice(Mage::helper('tag')->__('Tag "%s" has already been added to the product' ,$tagName));
+                                }
+                                else {
+                                    $session->addSuccess(Mage::helper('tag')->__('Tag "%s" has been added to the product' ,$tagName));
+                                }
                             }
                             else {
+                                $tagModel->setFirstCustomerId($customerId);
                                 $status = $tagModel->getPendingStatus();
                                 $newCount++;
                             }
@@ -79,7 +97,6 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                                     ->setStatus($status)
                                     ->save();
 
-                            $tagRelationModel = Mage::getModel('tag/tag_relation');
                             $tagRelationModel->loadByTagCustomer($productId,
                                 $tagModel->getId(),
                                 $customerId,

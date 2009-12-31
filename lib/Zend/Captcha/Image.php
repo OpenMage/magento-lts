@@ -17,7 +17,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Image.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Image.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /** Zend_Captcha_Word */
@@ -423,8 +423,8 @@ class Zend_Captcha_Image extends Zend_Captcha_Word
         $tries = 5;
         // If there's already such file, try creating a new ID
         while($tries-- && file_exists($this->getImgDir() . $id . $this->getSuffix())) {
-        	$id = $this->_generateRandomId();
-        	$this->_setId($id);
+            $id = $this->_generateRandomId();
+            $this->_setId($id);
         }
         $this->_generateImage($id, $this->getWord());
 

@@ -46,8 +46,9 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         $this->_removeButton('reset');
         $this->_removeButton('save');
         $this->setId('sales_order_view');
+        $order = $this->getOrder();
 
-        if ($this->_isAllowedAction('edit') && $this->getOrder()->canEdit()) {
+        if ($this->_isAllowedAction('edit') && $order->canEdit()) {
             $onclickJs = 'deleteConfirm(\''
                 . Mage::helper('sales')->__('Are you sure? This order will be cancelled and a new one will be created instead')
                 . '\', \'' . $this->getEditUrl() . '\');';
@@ -57,7 +58,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             ));
             // see if order has non-editable products as items
             $nonEditableTypes = array_keys(Mage::getResourceSingleton('sales/order')->aggregateProductsByTypes(
-                $this->getOrder()->getId(), array_keys(Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()), false
+                $order->getId(), array_keys(Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()), false
             ));
             if ($nonEditableTypes) {
                 $this->_updateButton('order_edit', 'onclick',
@@ -67,7 +68,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             }
         }
 
-        if ($this->_isAllowedAction('cancel') && $this->getOrder()->canCancel()) {
+        if ($this->_isAllowedAction('cancel') && $order->canCancel()) {
             $message = Mage::helper('sales')->__('Are you sure you want to cancel this order?');
             $this->_addButton('order_cancel', array(
                 'label'     => Mage::helper('sales')->__('Cancel'),
@@ -75,57 +76,65 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             ));
         }
 
-        if ($this->_isAllowedAction('emails') && !$this->getOrder()->isCanceled()) {
-            $_confirmText = 'Are you sure you want to send Order email to customer?';
+        if ($this->_isAllowedAction('emails') && !$order->isCanceled()) {
+            $message = Mage::helper('sales')->__('Are you sure you want to send order email to customer?');
             $this->addButton('send_notification', array(
-                'label'     => Mage::helper('sales')->__('Send Order Email'),
-                'onclick'   => 'confirmSetLocation(\'' . Mage::helper('sales')->__($_confirmText)
-                . '\', \'' . $this->getEmailUrl() . '\')'
+                'label'     => Mage::helper('sales')->__('Send Email'),
+                'onclick'   => "confirmSetLocation('{$message}', '{$this->getEmailUrl()}')",
             ));
         }
 
-        if ($this->_isAllowedAction('creditmemo') && $this->getOrder()->canCreditmemo()) {
+        if ($this->_isAllowedAction('creditmemo') && $order->canCreditmemo()) {
             $this->_addButton('order_creditmemo', array(
-                'label'     => Mage::helper('sales')->__('Credit Memo'),
+                'label'     => Mage::helper('sales')->__('Credit Memo...'),
                 'onclick'   => 'setLocation(\'' . $this->getCreditmemoUrl() . '\')',
             ));
         }
 
-        if ($this->_isAllowedAction('hold') && $this->getOrder()->canHold()) {
+        // invoice action intentionally
+        if ($this->_isAllowedAction('invoice') && $order->canVoidPayment()) {
+            $message = Mage::helper('sales')->__('Are you sure you want to void the payment?');
+            $this->addButton('void_payment', array(
+                'label'     => Mage::helper('sales')->__('Void'),
+                'onclick'   => "confirmSetLocation('{$message}', '{$this->getVoidPaymentUrl()}')",
+            ));
+        }
+
+        if ($this->_isAllowedAction('hold') && $order->canHold()) {
             $this->_addButton('order_hold', array(
                 'label'     => Mage::helper('sales')->__('Hold'),
                 'onclick'   => 'setLocation(\'' . $this->getHoldUrl() . '\')',
             ));
         }
 
-        if ($this->_isAllowedAction('unhold') && $this->getOrder()->canUnhold()) {
+        if ($this->_isAllowedAction('unhold') && $order->canUnhold()) {
             $this->_addButton('order_unhold', array(
                 'label'     => Mage::helper('sales')->__('Unhold'),
                 'onclick'   => 'setLocation(\'' . $this->getUnholdUrl() . '\')',
             ));
         }
 
-        if ($this->_isAllowedAction('invoice') && $this->getOrder()->canInvoice()) {
-            $_label = $this->getOrder()->getForcedDoShipmentWithInvoice() ?
-                Mage::helper('sales')->__('Invoice and Ship') :
-                Mage::helper('sales')->__('Invoice');
+        if ($this->_isAllowedAction('invoice') && $order->canInvoice()) {
+            $_label = $order->getForcedDoShipmentWithInvoice() ?
+                Mage::helper('sales')->__('Invoice and Ship...') :
+                Mage::helper('sales')->__('Invoice...');
             $this->_addButton('order_invoice', array(
                 'label'     => $_label,
                 'onclick'   => 'setLocation(\'' . $this->getInvoiceUrl() . '\')',
             ));
         }
 
-        if ($this->_isAllowedAction('ship') && $this->getOrder()->canShip()
-            && !$this->getOrder()->getForcedDoShipmentWithInvoice()) {
+        if ($this->_isAllowedAction('ship') && $order->canShip()
+            && !$order->getForcedDoShipmentWithInvoice()) {
             $this->_addButton('order_ship', array(
-                'label'     => Mage::helper('sales')->__('Ship'),
+                'label'     => Mage::helper('sales')->__('Ship...'),
                 'onclick'   => 'setLocation(\'' . $this->getShipUrl() . '\')',
             ));
         }
 
-        if ($this->_isAllowedAction('reorder') && $this->getOrder()->canReorder()) {
+        if ($this->_isAllowedAction('reorder') && $order->canReorder()) {
             $this->_addButton('order_reorder', array(
-                'label'     => Mage::helper('sales')->__('Reorder'),
+                'label'     => Mage::helper('sales')->__('Reorder...'),
                 'onclick'   => 'setLocation(\'' . $this->getReorderUrl() . '\')',
             ));
         }
@@ -220,6 +229,14 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
     public function getReorderUrl()
     {
         return $this->getUrl('*/sales_order_create/reorder');
+    }
+
+    /**
+     * Payment void URL getter
+     */
+    public function getVoidPaymentUrl()
+    {
+        return $this->getUrl('*/*/voidPayment');
     }
 
     protected function _isAllowedAction($action)

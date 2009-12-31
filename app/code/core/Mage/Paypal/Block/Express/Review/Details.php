@@ -36,16 +36,6 @@ class Mage_Paypal_Block_Express_Review_Details extends Mage_Checkout_Block_Cart_
     protected $_address;
 
     /**
-     * Get PayPal Express Review Information
-     *
-     * @return Mage_Paypal_Model_Express_Review
-     */
-    public function getReview()
-    {
-        return Mage::getSingleton('paypal/express_review');
-    }
-
-    /**
      * Return review shipping address
      *
      * @return Mage_Sales_Model_Order_Address
@@ -53,7 +43,7 @@ class Mage_Paypal_Block_Express_Review_Details extends Mage_Checkout_Block_Cart_
     public function getAddress()
     {
         if (empty($this->_address)) {
-            $this->_address = $this->getReview()->getQuote()->getShippingAddress();
+            $this->_address = $this->getQuote()->getShippingAddress();
         }
         return $this->_address;
     }
@@ -65,7 +55,7 @@ class Mage_Paypal_Block_Express_Review_Details extends Mage_Checkout_Block_Cart_
      */
     public function getItems()
     {
-        return $this->getReview()->getQuote()->getAllItems();
+        return $this->getQuote()->getAllItems();
     }
 
     /**
@@ -75,6 +65,6 @@ class Mage_Paypal_Block_Express_Review_Details extends Mage_Checkout_Block_Cart_
      */
     public function getTotals()
     {
-        return $this->getReview()->getQuote()->getTotals();
+        return $this->getQuote()->getTotals();
     }
 }

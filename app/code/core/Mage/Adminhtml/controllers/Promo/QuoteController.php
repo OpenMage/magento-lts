@@ -91,6 +91,10 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
     }
 
+    /**
+     * Promo quote save action
+     * 
+     */
     public function saveAction()
     {
         if ($this->getRequest()->getPost()) {
@@ -98,6 +102,8 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 $model = Mage::getModel('salesrule/rule');
                 Mage::dispatchEvent('adminhtml_controller_salesrule_prepare_save', array('request' => $this->getRequest()));
                 $data = $this->getRequest()->getPost();
+                
+                $data = $this->_filterDates($data, array('from_date', 'to_date'));
                 $id = $this->getRequest()->getParam('rule_id');
                 if ($id) {
                     $model->load($id);
@@ -105,6 +111,19 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                         Mage::throwException(Mage::helper('salesrule')->__('Wrong rule specified.'));
                     }
                 }
+                
+                $session = Mage::getSingleton('adminhtml/session');
+                
+                $validateResult = $model->validateData(new Varien_Object($data));
+                if ($validateResult !== true) {
+                    foreach($validateResult as $errorMessage) {
+                        $session->addError($errorMessage);
+                    }
+                    $session->setPageData($data);
+                    $this->_redirect('*/*/edit', array('id'=>$model->getId()));
+                    return;
+                }
+                
                 if (isset($data['simple_action']) && $data['simple_action'] == 'by_percent' && isset($data['discount_amount'])) {
                     $data['discount_amount'] = min(100,$data['discount_amount']);
                 }
@@ -117,7 +136,6 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 unset($data['rule']);
                 $model->loadPost($data);
 
-                $session = Mage::getSingleton('adminhtml/session');
                 $session->setPageData($model->getData());
 
                 $model->save();

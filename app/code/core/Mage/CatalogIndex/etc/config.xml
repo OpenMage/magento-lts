@@ -174,32 +174,32 @@
 <!--                </observers>-->
 <!--            </catalog_category_save_after>-->
             <!-- Change tax configuration in admin-->
-            <admin_system_config_changed_section_tax>
-                <observers>
-                    <catalogindex>
-                        <class>catalogindex/observer</class>
-                        <method>clearPriceAggregation</method>
-                    </catalogindex>
-                </observers>
-            </admin_system_config_changed_section_tax>
+<!--            <admin_system_config_changed_section_tax>-->
+<!--                <observers>-->
+<!--                    <catalogindex>-->
+<!--                        <class>catalogindex/observer</class>-->
+<!--                        <method>clearPriceAggregation</method>-->
+<!--                    </catalogindex>-->
+<!--                </observers>-->
+<!--            </admin_system_config_changed_section_tax>-->
             <!-- Change tax settings like tax rates, tax rules -->
-            <tax_settings_change_after>
-                <observers>
-                    <catalogindex>
-                        <class>catalogindex/observer</class>
-                        <method>clearPriceAggregation</method>
-                    </catalogindex>
-                </observers>
-            </tax_settings_change_after>
+<!--            <tax_settings_change_after>-->
+<!--                <observers>-->
+<!--                    <catalogindex>-->
+<!--                        <class>catalogindex/observer</class>-->
+<!--                        <method>clearPriceAggregation</method>-->
+<!--                    </catalogindex>-->
+<!--                </observers>-->
+<!--            </tax_settings_change_after>-->
             <!-- Reset search results for query (rtom table catalogsearch_result) -->
-            <catalogsearch_reset_search_result>
-                <observers>
-                    <catalogindex>
-                        <class>catalogindex/observer</class>
-                        <method>clearSearchLayerCache</method>
-                    </catalogindex>
-                </observers>
-            </catalogsearch_reset_search_result>
+<!--            <catalogsearch_reset_search_result>-->
+<!--                <observers>-->
+<!--                    <catalogindex>-->
+<!--                        <class>catalogindex/observer</class>-->
+<!--                        <method>clearSearchLayerCache</method>-->
+<!--                    </catalogindex>-->
+<!--                </observers>-->
+<!--            </catalogsearch_reset_search_result>-->
 <!--            <catalog_product_flat_prepare_columns>-->
 <!--                <observers>-->
 <!--                    <catalogindex>-->
@@ -233,13 +233,13 @@
 <!--                </observers>-->
 <!--            </catalog_product_flat_update_product>-->
         </events>
-        <cache>
-            <betatypes>
-                <layered_navigation translate="label" module="catalogindex">
-                    <label>Layered Navigation</label>
-                </layered_navigation>
-            </betatypes>
-        </cache>
+<!--        <cache>-->
+<!--            <betatypes>-->
+<!--                <layered_navigation translate="label" module="catalogindex">-->
+<!--                    <label>Layered Navigation</label>-->
+<!--                </layered_navigation>-->
+<!--            </betatypes>-->
+<!--        </cache>-->
     </global>
     <adminhtml>
         <events>

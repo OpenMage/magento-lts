@@ -16,31 +16,18 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Stream.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: Stream.php 18993 2009-11-15 17:09:16Z alexander $
  */
+
+
+/** Internally used classes */
+#require_once 'Zend/Pdf/Element/Stream.php';
+#require_once 'Zend/Pdf/Element/Dictionary.php';
+#require_once 'Zend/Pdf/Element/Numeric.php';
 
 
 /** Zend_Pdf_Element_Object */
 #require_once 'Zend/Pdf/Element/Object.php';
-
-/** Zend_Pdf_Element_Stream */
-#require_once 'Zend/Pdf/Element/Stream.php';
-
-/** Zend_Pdf_Filter_Ascii85 */
-#require_once 'Zend/Pdf/Filter/Ascii85.php';
-
-/** Zend_Pdf_Filter_AsciiHex */
-#require_once 'Zend/Pdf/Filter/AsciiHex.php';
-
-/** Zend_Pdf_Filter_Compression_Flate */
-#require_once 'Zend/Pdf/Filter/Compression/Flate.php';
-
-/** Zend_Pdf_Filter_Compression_Lzw */
-#require_once 'Zend/Pdf/Filter/Compression/Lzw.php';
-
-/** Zend_Pdf_ElementFactory */
-#require_once 'Zend/Pdf/ElementFactory.php';
-
 
 /**
  * PDF file 'stream object' element implementation
@@ -194,6 +181,7 @@ class Zend_Pdf_Element_Object_Stream extends Zend_Pdf_Element_Object
          */
         if (isset($this->_originalDictionary['F'])) {
             /** @todo Check, how external files can be processed. */
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('External filters are not supported now.');
         }
 
@@ -202,24 +190,29 @@ class Zend_Pdf_Element_Object_Stream extends Zend_Pdf_Element_Object
             $this->_value->value->touch();
             switch ($filterName) {
                 case 'ASCIIHexDecode':
+                    #require_once 'Zend/Pdf/Filter/AsciiHex.php';
                     $valueRef = Zend_Pdf_Filter_AsciiHex::decode($valueRef);
                     break;
 
                 case 'ASCII85Decode':
+                    #require_once 'Zend/Pdf/Filter/Ascii85.php';
                     $valueRef = Zend_Pdf_Filter_Ascii85::decode($valueRef);
                     break;
 
                 case 'FlateDecode':
+                    #require_once 'Zend/Pdf/Filter/Compression/Flate.php';
                     $valueRef = Zend_Pdf_Filter_Compression_Flate::decode($valueRef,
                                                                           $this->_originalDictionary['DecodeParms'][$id]);
                     break;
 
                 case 'LZWDecode':
+                    #require_once 'Zend/Pdf/Filter/Compression/Lzw.php';
                     $valueRef = Zend_Pdf_Filter_Compression_Lzw::decode($valueRef,
                                                                         $this->_originalDictionary['DecodeParms'][$id]);
                     break;
 
                 default:
+                    #require_once 'Zend/Pdf/Exception.php';
                     throw new Zend_Pdf_Exception('Unknown stream filter: \'' . $filterName . '\'.');
             }
         }
@@ -240,6 +233,7 @@ class Zend_Pdf_Element_Object_Stream extends Zend_Pdf_Element_Object
          */
         if (isset($this->_originalDictionary['F'])) {
             /** @todo Check, how external files can be processed. */
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('External filters are not supported now.');
         }
 
@@ -250,24 +244,29 @@ class Zend_Pdf_Element_Object_Stream extends Zend_Pdf_Element_Object
             $this->_value->value->touch();
             switch ($filterName) {
                 case 'ASCIIHexDecode':
+                    #require_once 'Zend/Pdf/Filter/AsciiHex.php';
                     $valueRef = Zend_Pdf_Filter_AsciiHex::encode($valueRef);
                     break;
 
                 case 'ASCII85Decode':
+                    #require_once 'Zend/Pdf/Filter/Ascii85.php';
                     $valueRef = Zend_Pdf_Filter_Ascii85::encode($valueRef);
                     break;
 
                 case 'FlateDecode':
+                    #require_once 'Zend/Pdf/Filter/Compression/Flate.php';
                     $valueRef = Zend_Pdf_Filter_Compression_Flate::encode($valueRef,
                                                                           $this->_originalDictionary['DecodeParms'][$id]);
                     break;
 
                 case 'LZWDecode':
+                    #require_once 'Zend/Pdf/Filter/Compression/Lzw.php';
                     $valueRef = Zend_Pdf_Filter_Compression_Lzw::encode($valueRef,
                                                                         $this->_originalDictionary['DecodeParms'][$id]);
                     break;
 
                 default:
+                    #require_once 'Zend/Pdf/Exception.php';
                     throw new Zend_Pdf_Exception('Unknown stream filter: \'' . $filterName . '\'.');
             }
         }
@@ -303,6 +302,7 @@ class Zend_Pdf_Element_Object_Stream extends Zend_Pdf_Element_Object
             return $this->_value->value->getRef();
         }
 
+        #require_once 'Zend/Pdf/Exception.php';
         throw new Zend_Pdf_Exception('Unknown stream object property requested.');
     }
 
@@ -325,6 +325,7 @@ class Zend_Pdf_Element_Object_Stream extends Zend_Pdf_Element_Object
             return;
         }
 
+        #require_once 'Zend/Pdf/Exception.php';
         throw new Zend_Pdf_Exception('Unknown stream object property: \'' . $property . '\'.');
     }
 
@@ -357,6 +358,7 @@ class Zend_Pdf_Element_Object_Stream extends Zend_Pdf_Element_Object
             case 1:
                 return $this->_value->$method($args[0]);
             default:
+                #require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception('Unsupported number of arguments');
         }
     }

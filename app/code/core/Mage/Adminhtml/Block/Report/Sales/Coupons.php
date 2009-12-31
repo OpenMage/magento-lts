@@ -34,13 +34,22 @@
 
 class Mage_Adminhtml_Block_Report_Sales_Coupons extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     public function __construct()
     {
         $this->_controller = 'report_sales_coupons';
         $this->_headerText = Mage::helper('reports')->__('Coupons');
         parent::__construct();
+        $this->setTemplate('report/grid/container.phtml');
         $this->_removeButton('add');
+        $this->addButton('filter_form_submit', array(
+            'label'     => Mage::helper('reports')->__('Generate Report'),
+            'onclick'   => 'filterFormSubmit()'
+        ));
     }
 
+    public function getFilterUrl()
+    {
+        $this->getRequest()->setParam('filter', null);
+        return $this->getUrl('*/*/coupons', array('_current' => true));
+    }
 }

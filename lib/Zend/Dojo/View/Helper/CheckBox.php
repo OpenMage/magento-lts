@@ -17,7 +17,7 @@
  * @subpackage View
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: CheckBox.php 17716 2009-08-21 15:08:31Z matthew $
+ * @version    $Id: CheckBox.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /** Zend_Dojo_View_Helper_Dijit */
@@ -25,7 +25,7 @@
 
 /**
  * Dojo CheckBox dijit
- * 
+ *
  * @uses       Zend_Dojo_View_Helper_Dijit
  * @package    Zend_Dojo
  * @subpackage View
@@ -54,9 +54,9 @@ class Zend_Dojo_View_Helper_CheckBox extends Zend_Dojo_View_Helper_Dijit
 
     /**
      * dijit.form.CheckBox
-     * 
-     * @param  int $id 
-     * @param  string $content 
+     *
+     * @param  int $id
+     * @param  string $content
      * @param  array $params  Parameters to use for dijit creation
      * @param  array $attribs HTML attributes
      * @param  array $checkedOptions Should contain either two items, or the keys checkedValue and uncheckedValue

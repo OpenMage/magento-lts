@@ -28,13 +28,13 @@
  * Displays all form errors in one view.
  *
  * Any options passed will be used as HTML attributes of the ul tag for the errors.
- * 
+ *
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormErrors.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: FormErrors.php 18951 2009-11-12 16:26:19Z alexander $
  */
 class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
 {
@@ -67,8 +67,8 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
 
     /**
      * Render errors
-     * 
-     * @param  string $content 
+     *
+     * @param  string $content
      * @return string
      */
     public function render($content)
@@ -104,7 +104,7 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
 
     /**
      * Initialize options
-     * 
+     *
      * @return void
      */
     public function initOptions()
@@ -339,9 +339,9 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
 
     /**
      * Render element label
-     * 
-     * @param  Zend_Form_Element $element 
-     * @param  Zend_View_Interface $view 
+     *
+     * @param  Zend_Form_Element $element
+     * @param  Zend_View_Interface $view
      * @return string
      */
     public function renderLabel(Zend_Form_Element $element, Zend_View_Interface $view)
@@ -358,9 +358,9 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
 
     /**
      * Recurse through a form object, rendering errors
-     * 
-     * @param  Zend_Form $form 
-     * @param  Zend_View_Interface $view 
+     *
+     * @param  Zend_Form $form
+     * @param  Zend_View_Interface $view
      * @return string
      */
     protected function _recurseForm(Zend_Form $form, Zend_View_Interface $view)

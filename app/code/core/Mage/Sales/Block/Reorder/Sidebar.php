@@ -54,6 +54,26 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     }
 
     /**
+     * Get list of last ordered products
+     *
+     * @return array
+     */
+    public function getItems()
+    {
+        $items = array();
+        $order = $this->getLastOrder();
+        $limit = 5;
+        if ($order) {
+            foreach ($order->getItemsRandomCollection($limit) as $item) {
+                if ($item->getProduct()) {
+                    $items[] = $item;
+                }
+            }
+        }
+        return $items;
+    }
+
+    /**
      * Check item product availability for reorder
      *
      * @param  Mage_Sales_Model_Order_Item $orderItem
@@ -61,7 +81,10 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      */
     public function isItemAvailableForReorder(Mage_Sales_Model_Order_Item $orderItem)
     {
-        return $orderItem->getProduct()->getStockItem()->getIsInStock();
+        if ($orderItem->getProduct()) {
+            return $orderItem->getProduct()->getStockItem()->getIsInStock();
+        }
+        return false;
     }
 
     /**

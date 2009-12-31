@@ -75,8 +75,8 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
             if ($this->getInvoice()->getOrder()->getPayment()->canRefundPartialPerInvoice()
                 || !$this->getInvoice()->getIsUsedForRefund())
             {
-                $this->_addButton('capture', array(
-                    'label'     => Mage::helper('sales')->__('Credit Memo'),
+                $this->_addButton('capture', array( // capture?
+                    'label'     => Mage::helper('sales')->__('Credit Memo...'),
                     'class'     => 'save',
                     'onclick'   => 'setLocation(\''.$this->getCreditMemoUrl().'\')'
                     )

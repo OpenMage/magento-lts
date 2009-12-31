@@ -55,7 +55,8 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
         $total = new Varien_Object(array(
             'code'      => $this->getNameInLayout(),
             'block_name'=> $this->getNameInLayout(),
-            'area'      => $this->getDisplayArea()
+            'area'      => $this->getDisplayArea(),
+            'strong'    => $this->getStrong()
         ));
         if ($this->getBeforeCondition()) {
             $this->getParentBlock()->addTotalBefore($total, $this->getBeforeCondition());

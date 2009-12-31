@@ -17,11 +17,8 @@
  * @subpackage Search
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Subquery.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Subquery.php 18954 2009-11-12 20:01:33Z alexander $
  */
-
-/** Zend_Search_Lucene_Index_Term */
-#require_once 'Zend/Search/Lucene/Index/Term.php';
 
 /** Zend_Search_Lucene_Search_QueryEntry */
 #require_once 'Zend/Search/Lucene/Search/QueryEntry.php';

@@ -28,8 +28,8 @@
 /**
  * Abstract model class
  *
- * @category   Mage
- * @package    Mage_Core
+ * @category    Mage
+ * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Model_Abstract extends Varien_Object
@@ -357,22 +357,75 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
+     * Get list of cache tags applied to model object.
+     * Return false if cache tags are not supported by model
+     *
+     * @return array | false
+     */
+    public function getCacheTags()
+    {
+        $tags = false;
+        if ($this->_cacheTag) {
+            if ($this->_cacheTag === true) {
+                $tags = array();
+            } else {
+                if (is_array($this->_cacheTag)) {
+                    $tags = $this->_cacheTag;
+                } else {
+                    $tags = array($this->_cacheTag);
+                }
+                $idTags = $this->getCacheIdTags();
+                if ($idTags) {
+                    $tags = array_merge($tags, $idTags);
+                }
+            }
+        }
+        return $tags;
+    }
+
+    /**
+     * Get cahce tags associated with object id
+     *
+     * @return array
+     */
+    public function getCacheIdTags()
+    {
+        $tags = false;
+        if ($this->getId() && $this->_cacheTag) {
+            $tags = array();
+            if (is_array($this->_cacheTag)) {
+                foreach ($this->_cacheTag as $_tag) {
+                    $tags[] = $_tag.'_'.$this->getId();
+                }
+            } else {
+                $tags[] = $this->_cacheTag.'_'.$this->getId();
+            }
+        }
+        return $tags;
+    }
+
+    /**
+     * Remove model onject related cache
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    public function cleanModelCache()
+    {
+        $tags = $this->getCacheTags();
+        if ($tags !== false) {
+            Mage::app()->cleanCache($tags);
+        }
+        return $this;
+    }
+
+    /**
      * Processing object after save data
      *
      * @return Mage_Core_Model_Abstract
      */
     protected function _afterSave()
     {
-        if ($this->_cacheTag) {
-            if ($this->_cacheTag === true) {
-                $tags = array();
-            } elseif (is_array($this->_cacheTag)) {
-                $tags = $this->_cacheTag;
-            } else {
-                $tags = array($this->_cacheTag);
-            }
-            Mage::app()->cleanCache($tags);
-        }
+        $this->cleanModelCache();
         Mage::dispatchEvent('model_save_after', array('object'=>$this));
         Mage::dispatchEvent($this->_eventPrefix.'_save_after', $this->_getEventData());
         return $this;
@@ -410,6 +463,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     {
         Mage::dispatchEvent('model_delete_before', array('object'=>$this));
         Mage::dispatchEvent($this->_eventPrefix.'_delete_before', $this->_getEventData());
+        $this->cleanModelCache();
         return $this;
     }
 
@@ -435,15 +489,6 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     protected function _afterDelete()
     {
-        if ($this->_cacheTag) {
-            if ($this->_cacheTag === true) {
-                $tags = array();
-            }
-            else {
-                $tags = array($this->_cacheTag);
-            }
-            Mage::app()->cleanCache($tags);
-        }
         Mage::dispatchEvent('model_delete_after', array('object'=>$this));
         Mage::dispatchEvent($this->_eventPrefix.'_delete_after', $this->_getEventData());
         return $this;

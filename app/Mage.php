@@ -154,7 +154,7 @@ final class Mage
             'minor'     => '4',
             'revision'  => '0',
             'patch'     => '0',
-            'stability' => 'beta',
+            'stability' => 'rc',
             'number'    => '1',
         );
     }
@@ -599,7 +599,7 @@ final class Mage
             header('Location: ' . self::getBaseUrl());
             die();
         } catch (Mage_Core_Model_Store_Exception $e) {
-            $baseUrl = rtrim(self::getScriptSystemUrl('404'), '/') . '/404/';
+            $baseUrl = rtrim(self::getScriptSystemUrl('errors'), '/') . '/errors/404.php';
             if (!headers_sent()) {
                 header('Location: ' . $baseUrl);
             } else {
@@ -616,7 +616,7 @@ final class Mage
             try {
                 self::dispatchEvent('mage_run_exception', array('exception' => $e));
                 if (!headers_sent()) {
-                    header('Location:'.self::getUrl('install'));
+                    header('Location:' . self::getUrl('install'));
                 } else {
                     self::printException($e);
                 }
@@ -788,13 +788,11 @@ final class Mage
             $storeCode = 'default';
             try {
                 $storeCode = self::app()->getStore()->getCode();
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
             }
 
-            $baseUrl = self::getScriptSystemUrl('report', true);
-            $reportUrl = rtrim($baseUrl, '/') . '/report/?id='
-            . $reportId . '&s=' . $storeCode;
+            $baseUrl = self::getScriptSystemUrl('errors', true);
+            $reportUrl = rtrim($baseUrl, '/') . '/errors/report.php?id=' . $reportId . '&s=' . $storeCode;
 
             if (!headers_sent()) {
                 header('Location: ' . $reportUrl);

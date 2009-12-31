@@ -17,7 +17,7 @@
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HtmlFlash.php 16222 2009-06-21 19:55:20Z thomas $
+ * @version    $Id: HtmlFlash.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -39,7 +39,7 @@ class Zend_View_Helper_HtmlFlash extends Zend_View_Helper_HtmlObject
      *
      */
     const TYPE = 'application/x-shockwave-flash';
-    
+
     /**
      * Output a flash movie object tag
      *

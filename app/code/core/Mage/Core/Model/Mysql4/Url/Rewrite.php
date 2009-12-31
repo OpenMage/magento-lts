@@ -72,11 +72,13 @@ class Mage_Core_Model_Mysql4_Url_Rewrite extends Mage_Core_Model_Mysql4_Abstract
      */
     protected function _getLoadSelect($field, $value, $object)
     {
+        /* @var $select Varien_Db_Select */
         $select = parent::_getLoadSelect($field, $value, $object);
 
         if (!is_null($object->getStoreId())) {
-            $select->where('store_id=0 or store_id=?', $object->getStoreId());
-            $select->order('store_id', 'desc');
+            $select->where('store_id IN(?)', array(0, $object->getStoreId()));
+            $select->order('store_id desc');
+            $select->limit(1);
         }
 
         return $select;

@@ -17,7 +17,7 @@
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 16222 2009-06-21 19:55:20Z thomas $
+ * @version    $Id: Abstract.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -40,7 +40,7 @@ abstract class Zend_View_Helper_Abstract implements Zend_View_Helper_Interface
      * @var Zend_View_Interface
      */
     public $view = null;
-    
+
     /**
      * Set the View object
      *

@@ -16,16 +16,12 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Keeper.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: Keeper.php 18993 2009-11-15 17:09:16Z alexander $
  */
 
 
 /** Zend_Pdf_Trailer */
 #require_once 'Zend/Pdf/Trailer.php';
-
-/** Zend_Pdf_Element_Reference_Context */
-#require_once 'Zend/Pdf/Element/Reference/Context.php';
-
 
 /**
  * PDF file trailer.
@@ -61,7 +57,7 @@ class Zend_Pdf_Trailer_Keeper extends Zend_Pdf_Trailer
      */
     public function __construct(Zend_Pdf_Element_Dictionary $dict,
                                 Zend_Pdf_Element_Reference_Context $context,
-                                $prev = null)
+                                Zend_Pdf_Trailer $prev = null)
     {
         parent::__construct($dict);
 

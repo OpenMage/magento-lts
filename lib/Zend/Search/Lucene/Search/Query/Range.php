@@ -17,15 +17,12 @@
  * @subpackage Search
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Range.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Range.php 18954 2009-11-12 20:01:33Z alexander $
  */
 
 
 /** Zend_Search_Lucene_Search_Query */
 #require_once 'Zend/Search/Lucene/Search/Query.php';
-
-/** Zend_Search_Lucene_Search_Query_MultiTerm */
-#require_once 'Zend/Search/Lucene/Search/Query/MultiTerm.php';
 
 
 /**
@@ -162,10 +159,12 @@ class Zend_Search_Lucene_Search_Query_Range extends Zend_Search_Lucene_Search_Qu
             $fields = array($this->_field);
         }
 
+        #require_once 'Zend/Search/Lucene.php';
         $maxTerms = Zend_Search_Lucene::getTermsPerQueryLimit();
         foreach ($fields as $field) {
             $index->resetTermsStream();
 
+            #require_once 'Zend/Search/Lucene/Index/Term.php';
             if ($this->_lowerTerm !== null) {
                 $lowerTerm = new Zend_Search_Lucene_Index_Term($this->_lowerTerm->text, $field);
 
@@ -220,10 +219,13 @@ class Zend_Search_Lucene_Search_Query_Range extends Zend_Search_Lucene_Search_Qu
         }
 
         if (count($this->_matches) == 0) {
+            #require_once 'Zend/Search/Lucene/Search/Query/Empty.php';
             return new Zend_Search_Lucene_Search_Query_Empty();
         } else if (count($this->_matches) == 1) {
+            #require_once 'Zend/Search/Lucene/Search/Query/Term.php';
             return new Zend_Search_Lucene_Search_Query_Term(reset($this->_matches));
         } else {
+            #require_once 'Zend/Search/Lucene/Search/Query/MultiTerm.php';
             $rewrittenQuery = new Zend_Search_Lucene_Search_Query_MultiTerm();
 
             foreach ($this->_matches as $matchedTerm) {
@@ -328,19 +330,20 @@ class Zend_Search_Lucene_Search_Query_Range extends Zend_Search_Lucene_Search_Qu
         $words = array();
 
         $docBody = $highlighter->getDocument()->getFieldUtf8Value('body');
+        #require_once 'Zend/Search/Lucene/Analysis/Analyzer.php';
         $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($docBody, 'UTF-8');
 
         $lowerTermText = ($this->_lowerTerm !== null)? $this->_lowerTerm->text : null;
         $upperTermText = ($this->_upperTerm !== null)? $this->_upperTerm->text : null;
 
         if ($this->_inclusive) {
-	        foreach ($tokens as $token) {
-	            $termText = $token->getTermText();
-	            if (($lowerTermText == null  ||  $lowerTermText <= $termText)  &&
-	                ($upperTermText == null  ||  $termText <= $upperTermText)) {
-	                $words[] = $termText;
-	            }
-	        }
+            foreach ($tokens as $token) {
+                $termText = $token->getTermText();
+                if (($lowerTermText == null  ||  $lowerTermText <= $termText)  &&
+                    ($upperTermText == null  ||  $termText <= $upperTermText)) {
+                    $words[] = $termText;
+                }
+            }
         } else {
             foreach ($tokens as $token) {
                 $termText = $token->getTermText();

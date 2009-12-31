@@ -24,5 +24,17 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php echo $this->htmlEscape($this->getMethod()->getTitle()) ?>
-    {{pdf_row_separator}}
+<?php
+/**
+ * @see Mage_Payment_Block_Info
+ */
+?>
+<?php echo $this->getMethod()->getTitle() ?>{{pdf_row_separator}}
+
+<?php if ($_specificInfo = $this->getSpecificInformation()):?>
+<?php foreach ($_specificInfo as $_label => $_value):?>
+<?php echo $_label ?>: <?php echo implode($this->getValueAsArray($_value), ' ')?>{{pdf_row_separator}}
+<?php endforeach; ?>
+<?php endif;?>
+
+<?php echo implode($this->getChildPdfAsArray(), '{{pdf_row_separator}}') ?>

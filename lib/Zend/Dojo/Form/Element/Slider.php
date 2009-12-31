@@ -24,13 +24,13 @@
 
 /**
  * Abstract Slider dijit
- * 
+ *
  * @uses       Zend_Dojo_Form_Element_Dijit
  * @package    Zend_Dojo
  * @subpackage Form_Element
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Slider.php 16204 2009-06-21 18:58:29Z thomas $
+ * @version    $Id: Slider.php 18951 2009-11-12 16:26:19Z alexander $
  */
 abstract class Zend_Dojo_Form_Element_Slider extends Zend_Dojo_Form_Element_Dijit
 {

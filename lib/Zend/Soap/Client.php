@@ -17,7 +17,7 @@
  * @subpackage Client
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Client.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Client.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /** Zend_Soap_Server */
@@ -82,6 +82,7 @@ class Zend_Soap_Client
     protected $_stream_context      = null;
     protected $_features            = null;
     protected $_cache_wsdl          = null;
+    protected $_user_agent          = null;
 
     /**
      * WSDL used to access server
@@ -256,6 +257,11 @@ class Zend_Soap_Client
                 case 'cache_wsdl':
                     $this->setWsdlCache($value);
                     break;
+                case 'useragent':
+                case 'userAgent':
+                case 'user_agent':
+                    $this->setUserAgent($value);
+                    break;
 
                 // Not used now
                 // case 'connection_timeout':
@@ -302,6 +308,7 @@ class Zend_Soap_Client
         $options['stream_context'] = $this->getStreamContext();
         $options['cache_wsdl']     = $this->getWsdlCache();
         $options['features']       = $this->getSoapFeatures();
+        $options['user_agent']     = $this->getUserAgent();
 
         foreach ($options as $key => $value) {
             if ($value == null) {
@@ -851,6 +858,26 @@ class Zend_Soap_Client
     }
 
     /**
+     * Set the string to use in User-Agent header
+     *
+     * @param  string $userAgent
+     * @return Zend_Soap_Client
+     */
+    public function setUserAgent($userAgent)
+    {
+        $this->_user_agent = (string)$userAgent;
+        return $this;
+    }
+
+    /**
+     * Get current string to use in User-Agent header
+     */
+    public function getUserAgent()
+    {
+        return $this->_user_agent;
+    }
+
+    /**
      * Retrieve request XML
      *
      * @return string
@@ -1010,13 +1037,13 @@ class Zend_Soap_Client
      */
     public function addSoapInputHeader(SoapHeader $header, $permanent = false)
     {
-    	if ($permanent) {
-    		$this->_permanentSoapInputHeaders[] = $header;
-    	} else {
-    		$this->_soapInputHeaders[] = $header;
-    	}
+        if ($permanent) {
+            $this->_permanentSoapInputHeaders[] = $header;
+        } else {
+            $this->_soapInputHeaders[] = $header;
+        }
 
-    	return $this;
+        return $this;
     }
 
     /**
@@ -1039,7 +1066,7 @@ class Zend_Soap_Client
      */
     public function getLastSoapOutputHeaderObjects()
     {
-    	return $this->_soapOutputHeaders;
+        return $this->_soapOutputHeaders;
     }
 
     /**

@@ -45,6 +45,9 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     const XML_PATH_UPDATE_EMAIL_COPY_METHOD     = 'sales_email/creditmemo_comment/copy_method';
     const XML_PATH_UPDATE_EMAIL_ENABLED         = 'sales_email/creditmemo_comment/enabled';
 
+    const REPORT_DATE_TYPE_ORDER_CREATED        = 'order_created';
+    const REPORT_DATE_TYPE_REFUND_CREATED       = 'refund_created';
+
     protected static $_states;
 
     protected $_items;
@@ -391,7 +394,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
 
         $this->setDoTransaction(true);
         if ($this->getOfflineRequested()) {
-            $this->getDoTransaction(false);
+            $this->setDoTransaction(false);
         }
         $this->refund();
 

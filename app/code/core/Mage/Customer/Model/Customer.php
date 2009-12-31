@@ -31,14 +31,15 @@
  */
 class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 {
-    const XML_PATH_REGISTER_EMAIL_TEMPLATE  = 'customer/create_account/email_template';
-    const XML_PATH_REGISTER_EMAIL_IDENTITY  = 'customer/create_account/email_identity';
-    const XML_PATH_FORGOT_EMAIL_TEMPLATE    = 'customer/password/forgot_email_template';
-    const XML_PATH_FORGOT_EMAIL_IDENTITY    = 'customer/password/forgot_email_identity';
-    const XML_PATH_DEFAULT_EMAIL_DOMAIN     = 'customer/create_account/email_domain';
-    const XML_PATH_IS_CONFIRM               = 'customer/create_account/confirm';
-    const XML_PATH_CONFIRM_EMAIL_TEMPLATE   = 'customer/create_account/email_confirmation_template';
-    const XML_PATH_CONFIRMED_EMAIL_TEMPLATE = 'customer/create_account/email_confirmed_template';
+    const XML_PATH_REGISTER_EMAIL_TEMPLATE      = 'customer/create_account/email_template';
+    const XML_PATH_REGISTER_EMAIL_IDENTITY      = 'customer/create_account/email_identity';
+    const XML_PATH_FORGOT_EMAIL_TEMPLATE        = 'customer/password/forgot_email_template';
+    const XML_PATH_FORGOT_EMAIL_IDENTITY        = 'customer/password/forgot_email_identity';
+    const XML_PATH_DEFAULT_EMAIL_DOMAIN         = 'customer/create_account/email_domain';
+    const XML_PATH_IS_CONFIRM                   = 'customer/create_account/confirm';
+    const XML_PATH_CONFIRM_EMAIL_TEMPLATE       = 'customer/create_account/email_confirmation_template';
+    const XML_PATH_CONFIRMED_EMAIL_TEMPLATE     = 'customer/create_account/email_confirmed_template';
+    const XML_PATH_GENERATE_HUMAN_FRIENDLY_ID   = 'customer/create_account/generate_human_friendly_id';
 
     const EXCEPTION_EMAIL_NOT_CONFIRMED       = 1;
     const EXCEPTION_INVALID_EMAIL_OR_PASSWORD = 2;

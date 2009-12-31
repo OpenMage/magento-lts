@@ -25,34 +25,14 @@
  */
 ?>
 <?php if($_info = $this->getInfo()): ?>
-<p><?php echo $this->getMethod()->getTitle() ?></p><br />
 <!--<?php echo $this->__('Name on the Card: %s', $this->getInfo()->getCcOwner()) ?><br/>-->
 <?php echo $this->__('Credit Card Type: %s', $this->getCcTypeName()) ?><br/>
 <?php echo $this->__('Credit Card Number: xxxx-%s', $this->getInfo()->getCcLast4()) ?><br/>
+<?php echo $this->__('Expiration Date: %s/%s', $this->getCcExpMonth(), $this->getInfo()->getCcExpYear()) ?><br/>
 <?php if($this->getInfo()->getCcSsIssue()): ?>
 <?php echo $this->__("Switch/Solo card issue number: %s", $this->getInfo()->getCcSsIssue()) ?><br/>
 <?php endif; ?>
 <?php if($this->getInfo()->getCcSsStartYear()): ?>
 <?php echo $this->__('Switch/Solo card start Date: %s/%s', $this->getCcStartMonth(), $this->getInfo()->getCcSsStartYear()) ?>
 <?php endif; ?>
-
-<?php if ($this->getInfo()->getCcTransId()): ?>
-    <?php echo $this->__('Transaction Id');?>: <strong><?php echo $this->getInfo()->getCcTransId();?></strong><br/>
-<?php elseif($this->getInfo()->getLastTransId()): ?>
-    <?php echo $this->__('Transaction Id');?>: <strong><?php echo $this->getInfo()->getLastTransId();?></strong><br/>
-<?php endif;?>
-
-
-<?php if($this->getCvvVerified()): ?>
-    <?php echo $this->__('CVV2 check by PayPal'); ?> : <strong><?php echo $this->getCvvVerified();?></strong><br/>
-<?php endif;?>
-
-<?php if ($this->getAvsDetail()):?>
-    <?php echo $this->__('Address Verification System'); ?> : <strong><?php echo $this->getAvsDetail();?></strong><br/>
-<?php endif;?>
-
-<?php if ($this->getIs3DSecureVerified()):?>
-    <strong><?php echo $this->__('Verified by Centinel Software');?></strong><br/>
-<?php endif;?>
-
 <?php endif; ?>

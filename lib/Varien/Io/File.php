@@ -353,28 +353,39 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param string $dir
      * @return boolean
      */
-    public function rmdir($dir, $recursive=false)
+    public function rmdir($dir, $recursive = false)
     {
-        if( $this->_cwd ) {
+        if ($this->_cwd) {
             @chdir($this->_cwd);
         }
+        $result = self::rmdirRecursive($dir, $recursive);
+        @chdir($this->_iwd);
+        return $result;
+    }
 
-        if( $recursive ) {
-            if( is_dir( $dir ) ){
-                foreach( scandir( $dir ) as $item ){
-                    if( !strcmp( $item, '.' ) || !strcmp( $item, '..' ) )
+    /**
+     * Delete a directory recursively
+     * @param string $dir
+     * @param bool $recursive
+     * @return bool
+     */
+    public static function rmdirRecursive($dir, $recursive = true)
+    {
+        if ($recursive) {
+            if (is_dir($dir)) {
+                foreach (scandir($dir) as $item) {
+                    if (!strcmp($item, '.') || !strcmp($item, '..')) {
                         continue;
-                    $this->rmdir( $dir . "/" . $item, $recursive );
+                    }
+                    self::rmdirRecursive($dir . "/" . $item, $recursive);
                 }
-                $result = @rmdir( $dir );
+                $result = @rmdir($dir);
             } else {
-                $result = @unlink( $dir );
+                $result = @unlink($dir);
             }
         } else {
             $result = @rmdir($dir);
         }
-
-        @chdir($this->_iwd);
         return $result;
     }
 

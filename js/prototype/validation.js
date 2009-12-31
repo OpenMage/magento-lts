@@ -641,7 +641,7 @@ Validation.addAllThese([
             }],
      ['validate-cc-exp', 'Incorrect credit card expiration date', function(v, elm) {
                 var ccExpMonth   = v;
-                var ccExpYear    = $('ccsave_expiration_yr').value;
+                var ccExpYear    = $(elm.id.substr(0,elm.id.indexOf('_expiration')) + '_expiration_yr').value;
                 var currentTime  = new Date();
                 var currentMonth = currentTime.getMonth() + 1;
                 var currentYear  = currentTime.getFullYear();

@@ -221,4 +221,5 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item extends Mage_C
 
         return $this;
     }
+
 }

@@ -53,16 +53,16 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
             '_query' => false
         ));
 
-        if ($this->canAddSubCategory()) {
-            $this->setChild('add_sub_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData(array(
-                        'label'     => Mage::helper('catalog')->__('Add Subcategory'),
-                        'onclick'   => "addNew('".$addUrl."', false)",
-                        'class'     => 'add'
-                    ))
-            );
-        }
+        $this->setChild('add_sub_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData(array(
+                    'label'     => Mage::helper('catalog')->__('Add Subcategory'),
+                    'onclick'   => "addNew('".$addUrl."', false)",
+                    'class'     => 'add',
+                    'id'        => 'add_subcategory_button',
+                    'style'     => $this->canAddSubCategory() ? '' : 'display: none;'
+                ))
+        );
 
         if ($this->canAddRootCategory()) {
             $this->setChild('add_root_button',
@@ -202,6 +202,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         return
             '<script type="text/javascript">'
             . $javascriptVarName . ' = ' . Mage::helper('core')->jsonEncode($categories) . ';'
+            . ($this->canAddSubCategory() ? '$("add_subcategory_button").show();' : '$("add_subcategory_button").hide();')
             . '</script>';
     }
 

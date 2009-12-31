@@ -17,8 +17,12 @@
  * @subpackage FileParser
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Font.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: Font.php 18993 2009-11-15 17:09:16Z alexander $
  */
+
+/** Internally used classes */
+#require_once 'Zend/Pdf/Font.php';
+
 
 /** Zend_Pdf_FileParser */
 #require_once 'Zend/Pdf/FileParser.php';
@@ -206,8 +210,8 @@ abstract class Zend_Pdf_FileParser_Font extends Zend_Pdf_FileParser
             $message = vsprintf($message, $args);
         }
 
+        #require_once 'Zend/Log.php';
         $logger = new Zend_Log();
         $logger->log($message, Zend_Log::DEBUG);
     }
-
 }

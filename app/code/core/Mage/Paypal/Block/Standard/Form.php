@@ -25,19 +25,45 @@
  */
 
 /**
- * Display PayPal Standard payment form
+ * PayPal Standard payment "form"
  */
-
 class Mage_Paypal_Block_Standard_Form extends Mage_Payment_Block_Form
 {
     /**
-     * Setup template url for PayPal Standsrd payment form
-     * @return Mage_Paypal_Block_Standard_Form
+     * Payment method code
+     * @var string
+     */
+    protected $_methodCode = Mage_Paypal_Model_Config::METHOD_WPS;
+
+    /**
+     * Set template and redirect message
      */
     protected function _construct()
     {
-        $this->setTemplate('paypal/standard/form.phtml');
-        parent::_construct();
-        return $this;
+        $config = Mage::getSingleton('paypal/config')->setMethod($this->getMethodCode());
+        $locale = Mage::app()->getLocale();
+        $mark = Mage::getConfig()->getBlockClassName('core/template');
+        $mark = new $mark;
+        $mark->setTemplate('paypal/payment/mark.phtml')
+            ->setPaymentAcceptanceMarkHref($config->getPaymentMarkWhatIsPaypalUrl($locale))
+            ->setPaymentAcceptanceMarkSrc($config->getPaymentMarkImageUrl($locale->getLocaleCode()))
+        ; // known issue: code above will render only static mark image
+        $this->setTemplate('paypal/payment/redirect.phtml')
+            ->setRedirectMessage(
+                Mage::helper('paypal')->__('You will be redirected to PayPal website when you place an order.')
+            )
+            ->setBannerSrc($config->getSolutionImageUrl($locale->getLocaleCode()))
+            ->setMethodLabelAfterHtml($mark->toHtml())
+        ;
+        return parent::_construct();
+    }
+
+    /**
+     * Payment method code getter
+     * @return string
+     */
+    public function getMethodCode()
+    {
+        return $this->_methodCode;
     }
 }

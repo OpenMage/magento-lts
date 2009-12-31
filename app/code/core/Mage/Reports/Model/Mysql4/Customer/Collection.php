@@ -69,6 +69,10 @@ class Mage_Reports_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_
 
     /**
      * Order for each customer
+     *
+     * @param string $from
+     * @param string $to
+     * @return Mage_Reports_Model_Mysql4_Customer_Collection
      */
     public function joinOrders($from = '', $to = '')
     {
@@ -94,20 +98,21 @@ class Mage_Reports_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_
         return $this;
     }
 
+    /**
+     * Add orders count
+     *
+     * @return Mage_Reports_Model_Mysql4_Customer_Collection
+     */
     public function addOrdersCount()
     {
-        $order = Mage::getResourceSingleton('sales/order');
-        /* @var $order Mage_Sales_Model_Entity_Order */
-        $stateAttr = $order->getAttribute('state');
-        $_joinCondition = "{$this->_customerIdTableName}.entity_id=order_state.entity_id";
-        $_joinCondition .= $this->getConnection()->quoteInto(' AND order_state.attribute_id=? ', $stateAttr->getId());
-        $_joinCondition .= $this->getConnection()->quoteInto(' AND order_state.value<>? ', Mage_Sales_Model_Order::STATE_CANCELED);
+        $joinCondition = "{$this->_customerIdTableName}.entity_id=order_state.entity_id";
+        $joinCondition .= " AND order_state.state <> '" . Mage_Sales_Model_Order::STATE_CANCELED . "'";
 
         $this->getSelect()
             ->columns(array("orders_count" => "COUNT(order_state.entity_id)"))
             ->joinLeft(
-                array('order_state' => $stateAttr->getBackend()->getTable()),
-                $_joinCondition,
+                array('order_state' => $this->getTable('sales/order')),
+                $joinCondition,
                 array())
             ->group("e.entity_id");
 
@@ -117,42 +122,18 @@ class Mage_Reports_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_
     /**
      * Order summary info for each customer
      * such as orders_count, orders_avg_amount, orders_total_amount
+     *
+     * @param int $storeId
+     * @return Mage_Reports_Model_Mysql4_Customer_Collection
      */
     public function addSumAvgTotals($storeId = 0)
     {
         /**
-         * Join subtotal attribute
+         * calculate average and total amount
          */
-        $order = Mage::getResourceSingleton('sales/order');
-        /* @var $order Mage_Sales_Model_Entity_Order */
-
-        if ($storeId == 0) {
-            /**
-             * Join store_to_base_rate attribute
-             */
-            $attr = $order->getAttribute('base_to_global_rate');
-            /* @var $attr Mage_Eav_Model_Entity_Attribute_Abstract */
-            $attrId = $attr->getAttributeId();
-            $baseToGlobalRateTableName = $attr->getBackend()->getTable();
-            $baseToGlobalRateFieldName = $attr->getBackend()->isStatic() ? 'base_to_global_rate' : 'value';
-
-            $this->getSelect()
-                ->joinLeft(array('_b2gr_'.$baseToGlobalRateTableName => $baseToGlobalRateTableName),
-                    "_b2gr_{$baseToGlobalRateTableName}.entity_id={$this->_customerIdTableName}.entity_id AND ".
-                    "_b2gr_{$baseToGlobalRateTableName}.attribute_id={$attrId}", array());
-
-            /**
-             * calculate average and total amount
-             */
-            $expr = "({$this->_customerIdTableName}.base_subtotal-IFNULL({$this->_customerIdTableName}.base_subtotal_canceled,0)-IFNULL({$this->_customerIdTableName}.base_subtotal_refunded,0))*_b2gr_{$baseToGlobalRateTableName}.{$baseToGlobalRateFieldName}";
-
-        } else {
-
-            /**
-             * calculate average and total amount
-             */
-            $expr = "{$this->_customerIdTableName}.base_subtotal-IFNULL({$this->_customerIdTableName}.base_subtotal_canceled,0)-IFNULL({$this->_customerIdTableName}.base_subtotal_refunded,0)";
-        }
+        $expr = ($storeId == 0)
+            ? "({$this->_customerIdTableName}.base_subtotal-IFNULL({$this->_customerIdTableName}.base_subtotal_canceled,0)-IFNULL({$this->_customerIdTableName}.base_subtotal_refunded,0))*{$this->_customerIdTableName}.base_to_global_rate"
+            : "{$this->_customerIdTableName}.base_subtotal-IFNULL({$this->_customerIdTableName}.base_subtotal_canceled,0)-IFNULL({$this->_customerIdTableName}.base_subtotal_refunded,0)";
 
         $this->getSelect()
             ->columns(array("orders_avg_amount" => "AVG({$expr})"))

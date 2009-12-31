@@ -26,7 +26,7 @@
 
 /**
  *
- * Payflow Pro transaction session namespace
+ * PaypalUk transaction session namespace
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */

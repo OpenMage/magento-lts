@@ -32,14 +32,14 @@
  * - placement: whether to append or prepend view script content to provided content (defaults to prepend)
  * - viewScript: view script to use
  *
- * The view script is rendered as a partial; the element being decorated is 
+ * The view script is rendered as a partial; the element being decorated is
  * passed in as the 'element' variable:
  * <code>
  * // in view script:
  * echo $this->element->getLabel();
  * </code>
  *
- * Any options other than separator, placement, and viewScript are passed to 
+ * Any options other than separator, placement, and viewScript are passed to
  * the partial as local variables.
  *
  * @category   Zend
@@ -47,7 +47,7 @@
  * @subpackage Decorator
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ViewScript.php 16218 2009-06-21 19:44:04Z thomas $
+ * @version    $Id: ViewScript.php 18951 2009-11-12 16:26:19Z alexander $
  */
 class Zend_Form_Decorator_ViewScript extends Zend_Form_Decorator_Abstract
 {
@@ -65,8 +65,8 @@ class Zend_Form_Decorator_ViewScript extends Zend_Form_Decorator_Abstract
 
     /**
      * Set view script
-     * 
-     * @param  string $script 
+     *
+     * @param  string $script
      * @return Zend_Form_Decorator_ViewScript
      */
     public function setViewScript($script)
@@ -77,7 +77,7 @@ class Zend_Form_Decorator_ViewScript extends Zend_Form_Decorator_Abstract
 
     /**
      * Get view script
-     * 
+     *
      * @return string|null
      */
     public function getViewScript()
@@ -101,8 +101,8 @@ class Zend_Form_Decorator_ViewScript extends Zend_Form_Decorator_Abstract
 
     /**
      * Render a view script
-     * 
-     * @param  string $content 
+     *
+     * @param  string $content
      * @return string
      */
     public function render($content)

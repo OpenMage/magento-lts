@@ -17,19 +17,19 @@
  * @subpackage Technorati
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TagResultSet.php 16211 2009-06-21 19:23:55Z thomas $
+ * @version    $Id: TagResultSet.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 
-/** 
- * @see Zend_Service_Technorati_ResultSet 
+/**
+ * @see Zend_Service_Technorati_ResultSet
  */
 #require_once 'Zend/Service/Technorati/ResultSet.php';
 
 
 /**
  * Represents a Technorati Tag query result set.
- * 
+ *
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Technorati
@@ -78,7 +78,7 @@ class Zend_Service_Technorati_TagResultSet extends Zend_Service_Technorati_Resul
 
     /**
      * Returns the number of posts that match the tag.
-     * 
+     *
      * @return  int
      */
     public function getPostsMatched() {
@@ -87,7 +87,7 @@ class Zend_Service_Technorati_TagResultSet extends Zend_Service_Technorati_Resul
 
     /**
      * Returns the number of blogs that match the tag.
-     * 
+     *
      * @return  int
      */
     public function getBlogsMatched() {

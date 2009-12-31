@@ -40,6 +40,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     const DDL_CREATE            = 2;
     const DDL_INDEX             = 3;
     const DDL_FOREIGN_KEY       = 4;
+    const DDL_CACHE_PREFIX      = 'DB_PDO_MYSQL_DDL';
+    const DDL_CACHE_TAG         = 'DB_PDO_MYSQL_DDL';
 
     /**
      * Current Transaction Level
@@ -91,6 +93,20 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     protected $_logQueryTime        = 0.05;
 
     /**
+     * Log all queries (ignored minimum query duration time)
+     *
+     * @var bool
+     */
+    protected $_logAllQueries       = false;
+
+    /**
+     * Add to log call stack data (backtrace)
+     *
+     * @var bool
+     */
+    protected $_logCallStack        = false;
+
+    /**
      * Path to SQL debug data log
      *
      * @var string
@@ -110,6 +126,19 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
      * @var float
      */
     protected $_debugTimer          = 0;
+
+    /**
+     * Cache frontend adapter instance
+     *
+     * @var Zend_Cache_Core
+     */
+    protected $_cacheAdapter;
+
+    /**
+     * DDL cache allowing flag
+     * @var bool
+     */
+    protected $_isDdlCacheAllowed = true;
 
     /**
      * Begin new DB transaction for connection
@@ -736,12 +765,14 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
      */
     public function getCreateTable($tableName, $schemaName = null)
     {
-        $tableName = $this->_getTableName($tableName, $schemaName);
-        if (!isset($this->_ddlCache[self::DDL_CREATE][$tableName])) {
+        $cacheKey = $this->_getTableName($tableName, $schemaName);
+        $ddl = $this->loadDdlCache($cacheKey, self::DDL_CREATE);
+        if ($ddl === false) {
             $sql = sprintf('SHOW CREATE TABLE %s', $this->quoteIdentifier($tableName));
-            $this->_ddlCache[self::DDL_CREATE][$tableName] = $this->raw_fetchRow($sql, 'Create Table');
+            $ddl = $this->raw_fetchRow($sql, 'Create Table');
+            $this->saveDdlCache($cacheKey, self::DDL_CREATE, $ddl);
         }
-        return $this->_ddlCache[self::DDL_CREATE][$tableName];
+        return $ddl;
     }
 
     /**
@@ -770,8 +801,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     public function getForeignKeys($tableName, $schemaName = null)
     {
         $cacheKey = $this->_getTableName($tableName, $schemaName);
-        if (!isset($this->_ddlCache[self::DDL_FOREIGN_KEY][$cacheKey])) {
-            $foreignKeys = array();
+        $ddl = $this->loadDdlCache($cacheKey, self::DDL_FOREIGN_KEY);
+        if ($ddl === false) {
+            $ddl = array();
             $createSql = $this->getCreateTable($tableName, $schemaName);
 
             // collect CONSTRAINT
@@ -782,7 +814,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
             $matches = array();
             preg_match_all($regExp, $createSql, $matches, PREG_SET_ORDER);
             foreach ($matches as $match) {
-                $foreignKeys[strtoupper($match[1])] = array(
+                $ddl[strtoupper($match[1])] = array(
                     'FK_NAME'           => $match[1],
                     'SCHEMA_NAME'       => $schemaName,
                     'TABLE_NAME'        => $tableName,
@@ -795,10 +827,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
                 );
             }
 
-            $this->_ddlCache[self::DDL_FOREIGN_KEY][$cacheKey] = $foreignKeys;
+            $this->saveDdlCache($cacheKey, self::DDL_FOREIGN_KEY, $ddl);
         }
 
-        return $this->_ddlCache[self::DDL_FOREIGN_KEY][$cacheKey];
+        return $ddl;
     }
 
     /**
@@ -826,8 +858,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     public function getIndexList($tableName, $schemaName = null)
     {
         $cacheKey = $this->_getTableName($tableName, $schemaName);
-        if (!isset($this->_ddlCache[self::DDL_INDEX][$cacheKey])) {
-            $indexList = array();
+        $ddl = $this->loadDdlCache($cacheKey, self::DDL_INDEX);
+        if ($ddl === false) {
+            $ddl = array();
 
             $sql = sprintf('SHOW INDEX FROM %s',
                 $this->quoteIdentifier($this->_getTableName($tableName, $schemaName)));
@@ -851,12 +884,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
                 }
 
                 $upperKeyName = strtoupper($row[$fieldKeyName]);
-                if (isset($indexList[$upperKeyName])) {
+                if (isset($ddl[$upperKeyName])) {
                     $indexList[$upperKeyName]['fields'][] = $row[$fieldColumn]; // for compatible
                     $indexList[$upperKeyName]['COLUMNS_LIST'][] = $row[$fieldColumn];
                 }
                 else {
-                    $indexList[$upperKeyName] = array(
+                    $ddl[$upperKeyName] = array(
                         'SCHEMA_NAME'   => $schemaName,
                         'TABLE_NAME'    => $tableName,
                         'KEY_NAME'      => $row[$fieldKeyName],
@@ -868,11 +901,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
                     );
                 }
             }
-
-            $this->_ddlCache[self::DDL_INDEX][$cacheKey] = $indexList;
+            $this->saveDdlCache($cacheKey, self::DDL_INDEX, $ddl);
         }
 
-        return $this->_ddlCache[self::DDL_INDEX][$cacheKey];
+        return $ddl;
     }
 
     /**
@@ -933,14 +965,15 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
                 $cycle  = false;
             }
             catch (PDOException $e) {
-                if (in_array(strtolower($indexType), array('primary', 'unique'))) {
+        if (in_array(strtolower($indexType), array('primary', 'unique'))) {
                     $match = array();
-                    if (preg_match('#SQLSTATE\[23000\]: [^:]+: 1062[^\']+\'([\d-]+)\'#', $e->getMessage(), $match)) {
+                    if (preg_match('#SQLSTATE\[23000\]: [^:]+: 1062[^\']+\'([\d-\.]+)\'#', $e->getMessage(), $match)) {
                         $ids = explode('-', $match[1]);
                         $this->_removeDuplicateEntry($tableName, $fields, $ids);
                         continue;
                     }
                 }
+
                 throw $e;
             }
             catch (Exception $e) {
@@ -1030,7 +1063,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         $nl   = "\n";
         $time = sprintf('%.4f', microtime(true) - $this->_debugTimer);
 
-        if ($time < $this->_logQueryTime) {
+        if (!$this->_logAllQueries && $time < $this->_logQueryTime) {
             return $this;
         }
         switch ($type) {
@@ -1051,7 +1084,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
                 }
                 break;
         }
-        $code .= 'TIME: ' . $time . $nl . $nl;
+        $code .= 'TIME: ' . $time . $nl;
+
+        if ($this->_logCallStack) {
+            $code .= 'TRACE: ' . Varien_Debug::backtrace(true, false) . $nl;
+        }
+
+        $code .= $nl;
 
         $this->_debugWriteToFile($code);
 
@@ -1130,7 +1169,73 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     }
 
     /**
-     * Reset table DDL
+     * Retrieve Id for cache
+     *
+     * @param string $tableKey
+     * @param int $ddlType
+     * @return string
+     */
+    protected function _getCacheId($tableKey, $ddlType)
+    {
+        return sprintf('%s_%s_%s', self::DDL_CACHE_PREFIX, $tableKey, $ddlType);
+    }
+
+    /**
+     * Load DDL data from cache
+     * Return false if cache does not exists
+     *
+     * @param string $tableCacheKey the table cache key
+     * @param int $ddlType          the DDL constant
+     * @return string|array|int|false
+     */
+    public function loadDdlCache($tableCacheKey, $ddlType)
+    {
+        if (!$this->_isDdlCacheAllowed) {
+            return false;
+        }
+        if (isset($this->_ddlCache[$ddlType][$tableCacheKey])) {
+            return $this->_ddlCache[$ddlType][$tableCacheKey];
+        }
+
+        if ($this->_cacheAdapter instanceof Zend_Cache_Core) {
+            $cacheId = $this->_getCacheId($tableCacheKey, $ddlType);
+            $data = $this->_cacheAdapter->load($cacheId);
+            if ($data !== false) {
+                $data = unserialize($data);
+                $this->_ddlCache[$ddlType][$tableCacheKey] = $data;
+            }
+            return $data;
+        }
+
+        return false;
+    }
+
+    /**
+     * Save DDL data into cache
+     *
+     * @param string $tableCacheKey
+     * @param int $ddlType
+     * @return Varien_Db_Adapter_Pdo_Mysql
+     */
+    public function saveDdlCache($tableCacheKey, $ddlType, $data)
+    {
+        if (!$this->_isDdlCacheAllowed) {
+            return $this;
+        }
+        $this->_ddlCache[$ddlType][$tableCacheKey] = $data;
+
+        if ($this->_cacheAdapter instanceof Zend_Cache_Core) {
+            $cacheId = $this->_getCacheId($tableCacheKey, $ddlType);
+            $data = serialize($data);
+            $this->_cacheAdapter->save($data, $cacheId, array(self::DDL_CACHE_TAG));
+        }
+
+        return $this;
+    }
+
+    /**
+     * Reset cached DDL data from cache
+     * if table name is null - reset all cached DDL data
      *
      * @param string $tableName
      * @param string $schemaName OPTIONAL
@@ -1138,18 +1243,50 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
      */
     public function resetDdlCache($tableName = null, $schemaName = null)
     {
+        if (!$this->_isDdlCacheAllowed) {
+            return $this;
+        }
         if (is_null($tableName)) {
             $this->_ddlCache = array();
-        }
-        else {
+            if ($this->_cacheAdapter instanceof Zend_Cache_Core) {
+                $this->_cacheAdapter->clean(Zend_Cache::CLEANING_MODE_MATCHING_TAG, array(self::DDL_CACHE_TAG));
+            }
+        } else {
             $cacheKey = $this->_getTableName($tableName, $schemaName);
 
-            unset($this->_ddlCache[self::DDL_DESCRIBE][$cacheKey]);
-            unset($this->_ddlCache[self::DDL_CREATE][$cacheKey]);
-            unset($this->_ddlCache[self::DDL_INDEX][$cacheKey]);
-            unset($this->_ddlCache[self::DDL_FOREIGN_KEY][$cacheKey]);
+            $ddlTypes = array(self::DDL_DESCRIBE, self::DDL_CREATE, self::DDL_INDEX, self::DDL_FOREIGN_KEY);
+            foreach ($ddlTypes as $ddlType) {
+                unset($this->_ddlCache[$ddlType][$cacheKey]);
+            }
+
+            if ($this->_cacheAdapter instanceof Zend_Cache_Core) {
+                foreach ($ddlTypes as $ddlType) {
+                    $cacheId = $this->_getCacheId($cacheKey, $ddlType);
+                    $this->_cacheAdapter->remove($cacheId);
+                }
+            }
         }
 
+        return $this;
+    }
+
+    /**
+     * Disallow DDL caching
+     * @return Varien_Db_Adapter_Pdo_Mysql
+     */
+    public function disallowDdlCache()
+    {
+        $this->_isDdlCacheAllowed = false;
+        return $this;
+    }
+
+    /**
+     * Allow DDL caching
+     * @return Varien_Db_Adapter_Pdo_Mysql
+     */
+    public function allowDdlCache()
+    {
+        $this->_isDdlCacheAllowed = true;
         return $this;
     }
 
@@ -1184,12 +1321,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     public function describeTable($tableName, $schemaName = null)
     {
         $cacheKey = $this->_getTableName($tableName, $schemaName);
-
-        if (!isset($this->_ddlCache[self::DDL_DESCRIBE][$cacheKey])) {
-            $this->_ddlCache[self::DDL_DESCRIBE][$cacheKey] = parent::describeTable($tableName, $schemaName);
+        $ddl = $this->loadDdlCache($cacheKey, self::DDL_DESCRIBE);
+        if ($ddl === false) {
+            $ddl = parent::describeTable($tableName, $schemaName);
+            $this->saveDdlCache($cacheKey, self::DDL_DESCRIBE, $ddl);
         }
 
-        return $this->_ddlCache[self::DDL_DESCRIBE][$cacheKey];
+        return $ddl;
     }
 
     /**
@@ -1308,7 +1446,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
              . ' (' . implode(', ', $cols) . ') '
              . 'VALUES ' . implode(', ', $values);
         if ($updateFields) {
-         $sql .= " ON DUPLICATE KEY UPDATE " . join(', ', $updateFields);
+            $sql .= " ON DUPLICATE KEY UPDATE " . join(', ', $updateFields);
         }
 
         // execute the statement and return the number of affected rows
@@ -1400,5 +1538,17 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         $stmt = $this->query($sql, $bind);
         $result = $stmt->rowCount();
         return $result;
+    }
+
+    /**
+     * Set cache adapter
+     *
+     * @param Zend_Cache_Backend_Interface $adapter
+     * @return Varien_Db_Adapter_Pdo_Mysql
+     */
+    public function setCacheAdapter($adapter)
+    {
+        $this->_cacheAdapter = $adapter;
+        return $this;
     }
 }

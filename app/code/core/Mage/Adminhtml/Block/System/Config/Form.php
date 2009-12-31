@@ -318,11 +318,31 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 $field->setRenderer($fieldRenderer);
 
                 if ($e->source_model) {
-                    $sourceModel = Mage::getSingleton((string)$e->source_model);
+                    // determine callback for the source model
+                    $factoryName = (string)$e->source_model;
+                    $method = false;
+                    if (preg_match('/^([^:]+?)::([^:]+?)$/', $factoryName, $matches)) {
+                        array_shift($matches);
+                        list($factoryName, $method) = array_values($matches);
+                    }
+
+                    $sourceModel = Mage::getSingleton($factoryName);
                     if ($sourceModel instanceof Varien_Object) {
                         $sourceModel->setPath($path);
                     }
-                    $field->setValues($sourceModel->toOptionArray($fieldType == 'multiselect'));
+                    if ($method) {
+                        if ($fieldType == 'multiselect') {
+                            $optionArray = $sourceModel->$method();
+                        } else {
+                            $optionArray = array();
+                            foreach ($sourceModel->$method() as $value => $label) {
+                                $optionArray[] = array('label' => $label, 'value' => $value);
+                            }
+                        }
+                    } else {
+                        $optionArray = $sourceModel->toOptionArray($fieldType == 'multiselect');
+                    }
+                    $field->setValues($optionArray);
                 }
             }
         }

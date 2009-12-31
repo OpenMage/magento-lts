@@ -17,17 +17,24 @@
  * @subpackage Index
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SegmentInfo.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: SegmentInfo.php 18951 2009-11-12 16:26:19Z alexander $
  */
-
-/** Zend_Search_Lucene_Index_DictionaryLoader */
-#require_once 'Zend/Search/Lucene/Index/DictionaryLoader.php';
-
-/** Zend_Search_Lucene_Index_DocsFilter */
-#require_once 'Zend/Search/Lucene/Index/DocsFilter.php';
 
 /** Zend_Search_Lucene_Index_TermsStream_Interface */
 #require_once 'Zend/Search/Lucene/Index/TermsStream/Interface.php';
+
+
+/** Zend_Search_Lucene_Search_Similarity */
+#require_once 'Zend/Search/Lucene/Search/Similarity.php';
+
+/** Zend_Search_Lucene_Index_FieldInfo */
+#require_once 'Zend/Search/Lucene/Index/FieldInfo.php';
+
+/** Zend_Search_Lucene_Index_Term */
+#require_once 'Zend/Search/Lucene/Index/Term.php';
+
+/** Zend_Search_Lucene_Index_TermInfo */
+#require_once 'Zend/Search/Lucene/Index/TermInfo.php';
 
 /**
  * @category   Zend
@@ -297,6 +304,7 @@ class Zend_Search_Lucene_Index_SegmentInfo implements Zend_Search_Lucene_Index_T
         $fieldNames = array();
         $fieldNums  = array();
         $this->_fields = array();
+
         for ($count=0; $count < $fieldsCount; $count++) {
             $fieldName = $fnmFile->readString();
             $fieldBits = $fnmFile->readByte();
@@ -318,8 +326,8 @@ class Zend_Search_Lucene_Index_SegmentInfo implements Zend_Search_Lucene_Index_T
         $this->_fieldsDicPositions = array_flip($fieldNums);
 
         if ($this->_delGen == -2) {
-        	// SegmentInfo constructor is invoked from index writer
-        	// Autodetect current delete file generation number
+            // SegmentInfo constructor is invoked from index writer
+            // Autodetect current delete file generation number
             $this->_delGen = $this->_detectLatestDelGen();
         }
 
@@ -436,18 +444,18 @@ class Zend_Search_Lucene_Index_SegmentInfo implements Zend_Search_Lucene_Index_T
 
 
                 if (extension_loaded('bitset')) {
-	                for ($bit = 0; $bit < 8; $bit++) {
-	                    if ($nonZeroByte & (1<<$bit)) {
+                    for ($bit = 0; $bit < 8; $bit++) {
+                        if ($nonZeroByte & (1<<$bit)) {
                             bitset_incl($deletions, $byteNum*8 + $bit);
-	                    }
-	                }
+                        }
+                    }
                     return $deletions;
                 } else {
-	                for ($bit = 0; $bit < 8; $bit++) {
-	                    if ($nonZeroByte & (1<<$bit)) {
+                    for ($bit = 0; $bit < 8; $bit++) {
+                        if ($nonZeroByte & (1<<$bit)) {
                             $deletions[$byteNum*8 + $bit] = 1;
-	                    }
-	                }
+                        }
+                    }
                     return (count($deletions) > 0) ? $deletions : null;
                 }
 
@@ -784,6 +792,9 @@ class Zend_Search_Lucene_Index_SegmentInfo implements Zend_Search_Lucene_Index_T
         // Prefetch dictionary index data
         $tiiFile = $this->openCompoundFile('.tii');
         $tiiFileData = $tiiFile->readBytes($this->compoundFileLength('.tii'));
+
+        /** Zend_Search_Lucene_Index_DictionaryLoader */
+        #require_once 'Zend/Search/Lucene/Index/DictionaryLoader.php';
 
         // Load dictionary index data
         list($this->_termDictionary, $this->_termDictionaryInfos) =
@@ -1549,35 +1560,35 @@ class Zend_Search_Lucene_Index_SegmentInfo implements Zend_Search_Lucene_Index_T
         $latestDelGen = $this->_detectLatestDelGen();
 
         if (!$this->_deletedDirty) {
-        	// There was no deletions by current process
+            // There was no deletions by current process
 
             if ($latestDelGen == $this->_delGen) {
-            	// Delete file hasn't been updated by any concurrent process
-            	return;
+                // Delete file hasn't been updated by any concurrent process
+                return;
             } else if ($latestDelGen > $this->_delGen) {
-            	// Delete file has been updated by some concurrent process
-            	// Reload deletions file
-            	$this->_delGen  = $latestDelGen;
-            	$this->_deleted = $this->_loadDelFile();
+                // Delete file has been updated by some concurrent process
+                // Reload deletions file
+                $this->_delGen  = $latestDelGen;
+                $this->_deleted = $this->_loadDelFile();
 
-            	return;
+                return;
             } else {
-            	#require_once 'Zend/Search/Lucene/Exception.php';
-            	throw new Zend_Search_Lucene_Exception('Delete file processing workflow is corrupted for the segment \'' . $this->_name . '\'.');
+                #require_once 'Zend/Search/Lucene/Exception.php';
+                throw new Zend_Search_Lucene_Exception('Delete file processing workflow is corrupted for the segment \'' . $this->_name . '\'.');
             }
         }
 
         if ($latestDelGen > $this->_delGen) {
-        	// Merge current deletions with latest deletions file
-        	$this->_delGen = $latestDelGen;
+            // Merge current deletions with latest deletions file
+            $this->_delGen = $latestDelGen;
 
-        	$latestDelete = $this->_loadDelFile();
+            $latestDelete = $this->_loadDelFile();
 
-        	if (extension_loaded('bitset')) {
-        		$this->_deleted = bitset_union($this->_deleted, $latestDelete);
-        	} else {
-        		$this->_deleted += $latestDelete;
-        	}
+            if (extension_loaded('bitset')) {
+                $this->_deleted = bitset_union($this->_deleted, $latestDelete);
+            } else {
+                $this->_deleted += $latestDelete;
+            }
         }
 
         if (extension_loaded('bitset')) {
@@ -1756,19 +1767,19 @@ class Zend_Search_Lucene_Index_SegmentInfo implements Zend_Search_Lucene_Index_T
      */
     public function resetTermsStream(/** $startId = 0, $mode = self::SM_TERMS_ONLY */)
     {
-    	/**
-    	 * SegmentInfo->resetTermsStream() method actually takes two optional parameters:
-    	 *   $startId (default value is 0)
-    	 *   $mode (default value is self::SM_TERMS_ONLY)
-    	 */
-    	$argList = func_get_args();
-    	if (count($argList) > 2) {
+        /**
+         * SegmentInfo->resetTermsStream() method actually takes two optional parameters:
+         *   $startId (default value is 0)
+         *   $mode (default value is self::SM_TERMS_ONLY)
+         */
+        $argList = func_get_args();
+        if (count($argList) > 2) {
             #require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Wrong number of arguments');
-    	} else if (count($argList) == 2) {
-    		$startId = $argList[0];
-    		$mode    = $argList[1];
-    	} else if (count($argList) == 1) {
+        } else if (count($argList) == 2) {
+            $startId = $argList[0];
+            $mode    = $argList[1];
+        } else if (count($argList) == 1) {
             $startId = $argList[0];
             $mode    = self::SM_TERMS_ONLY;
         } else {

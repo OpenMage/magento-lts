@@ -16,12 +16,8 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Element.php 16978 2009-07-22 19:59:40Z alexander $
+ * @version    $Id: Element.php 18993 2009-11-15 17:09:16Z alexander $
  */
-
-
-/** Zend_Pdf_Element_Object */
-#require_once 'Zend/Pdf/Element/Object.php';
 
 
 /**
@@ -131,8 +127,10 @@ abstract class Zend_Pdf_Element
     public static function phpToPdf($input)
     {
         if (is_numeric($input)) {
+            #require_once 'Zend/Pdf/Element/Numeric.php';
             return new Zend_Pdf_Element_Numeric($input);
         } else if (is_bool($input)) {
+            #require_once 'Zend/Pdf/Element/Boolean.php';
             return new Zend_Pdf_Element_Boolean($input);
         } else if (is_array($input)) {
             $pdfElementsArray = array();
@@ -146,13 +144,15 @@ abstract class Zend_Pdf_Element
             }
 
             if ($isDictionary) {
+                #require_once 'Zend/Pdf/Element/Dictionary.php';
                 return new Zend_Pdf_Element_Dictionary($pdfElementsArray);
             } else {
+                #require_once 'Zend/Pdf/Element/Array.php';
                 return new Zend_Pdf_Element_Array($pdfElementsArray);
             }
         } else {
+            #require_once 'Zend/Pdf/Element/String.php';
             return new Zend_Pdf_Element_String((string)$input);
         }
     }
 }
-

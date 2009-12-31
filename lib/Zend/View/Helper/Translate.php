@@ -17,7 +17,7 @@
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Translate.php 16222 2009-06-21 19:55:20Z thomas $
+ * @version    $Id: Translate.php 19122 2009-11-20 18:06:37Z matthew $
  */
 
 /** Zend_Locale */
@@ -50,7 +50,7 @@ class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
      */
     public function __construct($translate = null)
     {
-        if (empty($translate) === false) {
+        if ($translate !== null) {
             $this->setTranslator($translate);
         }
     }
@@ -132,7 +132,7 @@ class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
     {
         if ($this->_translator === null) {
             #require_once 'Zend/Registry.php';
-            if (Zend_Registry::isRegistered('Zend_Translate') === true) {
+            if (Zend_Registry::isRegistered('Zend_Translate')) {
                 $this->setTranslator(Zend_Registry::get('Zend_Translate'));
             }
         }

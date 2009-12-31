@@ -1,9 +1,9 @@
-<!--@subject {{var order.getStoreGroupName()}}: Credit Memo # {{var creditmemo.increment_id}} for Order # {{var order.increment_id}} @-->
+<!--@subject {{var store.getFrontendName()}}: Credit Memo # {{var creditmemo.increment_id}} for Order # {{var order.increment_id}} @-->
 <!--@vars
 {"store url=\"\"":"Store Url",
 "skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
 "htmlescape var=$billing.getName()":"Guest Customer Name (Billing)",
-"var order.getStoreGroupName()":"Store Name",
+"var store.getFrontendName()":"Store Name",
 "var creditmemo.increment_id":"Credit Memo Id",
 "var order.increment_id":"Order Id",
 "var order.billing_address.format('html')":"Billing Address",
@@ -33,7 +33,7 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
                 <td valign="top">
                     <p>
                         <strong>Hello {{htmlescape var=$billing.getName()}}</strong>,<br/>
-                        Thank you for your order from {{var order.getStoreGroupName()}}.
+                        Thank you for your order from {{var store.getFrontendName()}}.
                         If you have any questions about your order please contact us at <a href="mailto:dummyemail@magentocommerce.com" style="color:#1E7EC8;">dummyemail@magentocommerce.com</a> or call us at <span class="nobr">(555) 555-0123</span> Monday - Friday, 8am - 5pm PST.
                     </p>
                     <h3 style="border-bottom:2px solid #eee; font-size:1.05em; padding-bottom:1px; ">
@@ -90,7 +90,7 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
 
                     <p>{{var comment}}</p>
                     <p>
-                        Thank you again,<br/><strong>{{var order.getStoreGroupName()}}</strong>
+                        Thank you again,<br/><strong>{{var store.getFrontendName()}}</strong>
                     </p>
                 </td>
             </tr>

@@ -45,11 +45,12 @@ class Mage_Adminhtml_Model_Search_Catalog extends Varien_Object
             ->load();
 
         foreach ($collection as $product) {
+            $description = strip_tags($product->getDescription());
             $arr[] = array(
                 'id'            => 'product/1/'.$product->getId(),
                 'type'          => 'Product',
                 'name'          => $product->getName(),
-                'description'   => Mage::helper('core/string')->substr($product->getDescription(), 0, 50),
+                'description'   => Mage::helper('core/string')->substr($description, 0, 30),
                 'url'           => Mage::helper('adminhtml')->getUrl('*/catalog_product/edit', array('id'=>$product->getId())),
             );
         }

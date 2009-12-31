@@ -17,7 +17,7 @@
  * @subpackage Request
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Simple.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: Simple.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /** Zend_Controller_Request_Abstract */
@@ -32,24 +32,24 @@
  */
 class Zend_Controller_Request_Simple extends Zend_Controller_Request_Abstract
 {
-    
+
     public function __construct($action = null, $controller = null, $module = null, array $params = array())
     {
         if ($action) {
             $this->setActionName($action);
         }
-        
+
         if ($controller) {
             $this->setControllerName($controller);
         }
-        
+
         if ($module) {
             $this->setModuleName($module);
         }
-        
+
         if ($params) {
             $this->setParams($params);
         }
     }
-    
+
 }

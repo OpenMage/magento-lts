@@ -16,7 +16,7 @@
  * @package    Zend_Test
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ControllerTestCase.php 18220 2009-09-18 07:54:50Z beberlei $
+ * @version    $Id: ControllerTestCase.php 18605 2009-10-16 20:23:09Z matthew $
  */
 
 /** PHPUnit_Framework_TestCase */
@@ -141,7 +141,10 @@ abstract class Zend_Test_PHPUnit_ControllerTestCase extends PHPUnit_Framework_Te
     {
         $this->reset();
         if (null !== $this->bootstrap) {
-            if (is_callable($this->bootstrap)) {
+            if ($this->bootstrap instanceof Zend_Application) {
+                $this->bootstrap->bootstrap();
+                $this->_frontController = $this->bootstrap->getBootstrap()->getResource('frontcontroller');
+            } elseif (is_callable($this->bootstrap)) {
                 call_user_func($this->bootstrap);
             } elseif (is_string($this->bootstrap)) {
                 #require_once 'Zend/Loader.php';

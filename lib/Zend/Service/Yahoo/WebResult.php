@@ -18,7 +18,7 @@
  * @subpackage Yahoo
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: WebResult.php 16211 2009-06-21 19:23:55Z thomas $
+ * @version    $Id: WebResult.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 
@@ -93,17 +93,17 @@ class Zend_Service_Yahoo_WebResult extends Zend_Service_Yahoo_Result
 
         $this->_xpath = new DOMXPath($result->ownerDocument);
         $this->_xpath->registerNamespace('yh', $this->_namespace);
-		
+
         // check if the cache section exists
         $cacheUrl = $this->_xpath->query('./yh:Cache/yh:Url/text()', $result)->item(0);
         if ($cacheUrl instanceof DOMNode)
         {
-        	$this->CacheUrl = $cacheUrl->data;
+            $this->CacheUrl = $cacheUrl->data;
         }
         $cacheSize = $this->_xpath->query('./yh:Cache/yh:Size/text()', $result)->item(0);
         if ($cacheSize instanceof DOMNode)
         {
-        	$this->CacheSize = (int) $cacheSize->data;
+            $this->CacheSize = (int) $cacheSize->data;
         }
     }
 }

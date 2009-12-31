@@ -42,7 +42,7 @@
                         <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>sales/items/column/name.phtml</template></action>
                         <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name_grouped</block><template>sales/items/column/name.phtml</template><type>grouped</type></action>
                     </block>
-                    <block type="adminhtml/sales_order_payment" name="order_payment"></block>
+                    <block type="adminhtml/sales_order_payment" name="order_payment"/>
                     <block type="adminhtml/sales_order_view_history" name="order_history" template="sales/order/view/history.phtml"></block>
                     <block type="adminhtml/sales_order_view_giftmessage" name="order_giftmessage" template="sales/order/view/giftmessage.phtml"></block>
                     <block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/totals.phtml">
@@ -699,4 +699,130 @@
             <block type="adminhtml/sales_order_create_sidebar_pcompared" template="sales/order/create/sidebar/items.phtml" name="sidebar_pcompared" />
         </reference>
     </adminhtml_sales_order_create_load_block_sidebar_pcompared>
+
+    <adminhtml_report_sales_sales>
+        <reference name="content">
+            <block type="adminhtml/report_sales_sales" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName"><var_name>store_ids</var_name></action>
+                </block>
+                <block type="adminhtml/report_filter_form" name="grid.filter.form">
+                    <action method="addReportTypeOption" translate="value">
+                        <key>created_at_order</key>
+                        <value>Created At Order</value>
+                    </action>
+                    <action method="addReportTypeOption" translate="value">
+                        <key>updated_at_order</key>
+                        <value>Updated At Order</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_report_sales_sales>
+
+    <adminhtml_report_sales_tax>
+        <reference name="content">
+            <block type="adminhtml/report_sales_tax" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName"><var_name>store_ids</var_name></action>
+                </block>
+                <block type="adminhtml/report_filter_form" name="grid.filter.form">
+                    <action method="addReportTypeOption" translate="value">
+                        <key>created_at_order</key>
+                        <value>Created At Order</value>
+                    </action>
+                    <action method="addReportTypeOption" translate="value">
+                        <key>updated_at_order</key>
+                        <value>Updated At Order</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_report_sales_tax>
+    
+    <adminhtml_report_sales_shipping>
+        <reference name="content">
+            <block type="adminhtml/report_sales_shipping" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName"><var_name>store_ids</var_name></action>
+                </block>
+                <block type="adminhtml/report_filter_form" name="grid.filter.form">
+                    <action method="addReportTypeOption" translate="value">
+                        <key>created_at_order</key>
+                        <value>Created At Order</value>
+                    </action>
+                    <action method="addReportTypeOption" translate="value">
+                        <key>created_at_shipment</key>
+                        <value>Created At Shipment</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_report_sales_shipping>
+    
+    <adminhtml_report_sales_invoiced>
+        <reference name="content">
+            <block type="adminhtml/report_sales_invoiced" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName"><var_name>store_ids</var_name></action>
+                </block>
+                <block type="adminhtml/report_filter_form" name="grid.filter.form">
+                    <action method="addReportTypeOption" translate="value">
+                        <key>created_at_order</key>
+                        <value>Created At Order</value>
+                    </action>
+                    <action method="addReportTypeOption" translate="value">
+                        <key>created_at_invoice</key>
+                        <value>Created At Invoice</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_report_sales_invoiced>
+    
+    <adminhtml_report_sales_refunded>
+        <reference name="content">
+            <block type="adminhtml/report_sales_refunded" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName"><var_name>store_ids</var_name></action>
+                </block>
+                <block type="adminhtml/report_filter_form" name="grid.filter.form">
+                    <action method="addReportTypeOption" translate="value">
+                        <key>created_at_order</key>
+                        <value>Created At Order</value>
+                    </action>
+                    <action method="addReportTypeOption" translate="value">
+                        <key>created_at_refunded</key>
+                        <value>Created At Refunded</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_report_sales_refunded>
+    
+    <adminhtml_report_sales_coupons>
+        <reference name="content">
+            <block type="adminhtml/report_sales_coupons" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName"><var_name>store_ids</var_name></action>
+                </block>
+                <block type="adminhtml/report_filter_form" name="grid.filter.form">
+                    <action method="addReportTypeOption" translate="value">
+                        <key>created_at_order</key>
+                        <value>Created At Order</value>
+                    </action>
+                    <action method="addReportTypeOption" translate="value">
+                        <key>updated_at_order</key>
+                        <value>Updated At Order</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_report_sales_coupons>
+
+    <adminhtml_report_sales_refreshstatistics>
+        <reference name="content">
+            <block type="adminhtml/report_refresh_statistics" template="report/refresh/statistics.phtml" name="sales.report.refreshstatistics" />
+        </reference>
+    </adminhtml_report_sales_refreshstatistics>
 </layout>

@@ -17,16 +17,19 @@
  * @subpackage Fonts
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TrueType.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: TrueType.php 18993 2009-11-15 17:09:16Z alexander $
  */
 
-/** Zend_Pdf_Resource_Font_Simple_Parsed */
-#require_once 'Zend/Pdf/Resource/Font/Simple/Parsed.php';
+
+/** Internally used classes */
+#require_once 'Zend/Pdf/Element/Name.php';
 
 /** Zend_Pdf_Resource_Font_FontDescriptor */
 #require_once 'Zend/Pdf/Resource/Font/FontDescriptor.php';
 
 
+/** Zend_Pdf_Resource_Font_Simple_Parsed */
+#require_once 'Zend/Pdf/Resource/Font/Simple/Parsed.php';
 
 /**
  * TrueType fonts implementation

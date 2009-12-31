@@ -25,6 +25,7 @@
  */
 ?>
 <?php if($this->canDisplayGiftmessage()): ?>
+<?php $_required = $this->getMessage()->getMessage() != ''?>
 <div id="<?php echo $this->getHtmlId() ?>" class="giftmessage-whole-order-container">
     <div class="entry-edit">
         <div class="entry-edit-head">
@@ -36,10 +37,10 @@
               <table width="100%" cellspacing="0">
                 <tbody>
                   <tr>
-                      <td class="label"><label><?php echo Mage::helper('sales')->__('From Name') ?></label></td>
+                      <td class="label"><label><?php echo Mage::helper('sales')->__('From Name') ?><?php echo $_required ? '&nbsp;<span class="required">*</span>' : ''?></label></td>
                       <td class="input-ele"><input class="input-text" type="text" id="<?php echo $this->getFieldId('sender') ?>" name="<?php echo $this->getFieldName('sender') ?>" value="<?php echo $this->htmlEscape($this->getMessage()->getSender()) ?>" /></td>
                       <td>&nbsp;</td>
-                      <td class="label"><label><?php echo Mage::helper('sales')->__('To Name') ?></label></td>
+                      <td class="label"><label><?php echo Mage::helper('sales')->__('To Name') ?><?php echo $_required ? '&nbsp;<span class="required">*</span>' : ''?></label></td>
                       <td class="input-ele"><input class="input-text" type="text" id="<?php echo $this->getFieldId('recipient') ?>" name="<?php echo $this->getFieldName('recipient') ?>"  value="<?php echo $this->htmlEscape($this->getMessage()->getRecipient()) ?>" /></td>
                   </tr>
                   <tr>

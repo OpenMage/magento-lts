@@ -17,7 +17,7 @@
  * @subpackage Server
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 
 
 /** Zend_Exception */
@@ -30,7 +30,7 @@
  * @subpackage Server
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Exception.php 16210 2009-06-21 19:22:17Z thomas $
+ * @version    $Id: Exception.php 18951 2009-11-12 16:26:19Z alexander $
  */
 class Zend_Soap_Server_Exception extends Zend_Exception
 {}
