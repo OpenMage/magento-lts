@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_modern
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php  $_order = $this->getOrder() ?>
@@ -75,7 +75,7 @@
             <th class="a-center"><span class="nobr"><?php echo $this->__('Qty Shipped') ?></span></th>
         </tr>
     </thead>
-		<?php $_items = $_shipment->getAllItems(); ?>
+        <?php $_items = $_shipment->getAllItems(); ?>
     <?php $_count = count($_items) ?>
     <?php foreach ($_items as $_item): ?>
     <?php if ($_item->getOrderItem()->getParentItem()) continue; ?>

@@ -1,0 +1,4 @@
+button, .form-button    { overflow:visible; width:auto; }
+.main { height:400px; }
+.nav, .form-btn-set, .header-top, .bar-head { zoom:1; }
+.clear { clear:both; height:0; font-size:0; line-height:0; overflow:hidden; }

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -82,17 +82,17 @@ class Mage_Adminhtml_Block_System_Currency_Rate_Matrix extends Mage_Adminhtml_Bl
         }
 
         foreach ($array as $key => $rate) {
-        	foreach ($rate as $code => $value) {
-        	    $parts = explode('.', $value);
-        	    if( sizeof($parts) == 2 ) {
-        	        $parts[1] = str_pad(rtrim($parts[1], 0), 4, '0', STR_PAD_RIGHT);
-        	        $array[$key][$code] = join('.', $parts);
-        	    } elseif( $value > 0 ) {
+            foreach ($rate as $code => $value) {
+                $parts = explode('.', $value);
+                if( sizeof($parts) == 2 ) {
+                    $parts[1] = str_pad(rtrim($parts[1], 0), 4, '0', STR_PAD_RIGHT);
+                    $array[$key][$code] = join('.', $parts);
+                } elseif( $value > 0 ) {
                     $array[$key][$code] = number_format($value, 4);
-        	    } else {
-        	        $array[$key][$code] = null;
-        	    }
-        	}
+                } else {
+                    $array[$key][$code] = null;
+                }
+            }
         }
         return $array;
     }

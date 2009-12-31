@@ -19,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_iphone
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 Supported layout update handles (action):
@@ -88,7 +88,7 @@ Category default layout
                             <action method="addPagerLimit"><mode>list</mode><limit>8</limit></action>
                             <action method="addPagerLimit" translate="label"><mode>list</mode><limit>all</limit><label>All</label></action>
                         -->
-						<action method="addPagerLimit"><mode>list</mode><limit>5</limit></action>
+                        <action method="addPagerLimit"><mode>list</mode><limit>5</limit></action>
                     </block>
                     <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
                 </block>
@@ -122,7 +122,7 @@ Category layered navigation layout
                             <action method="addPagerLimit"><mode>grid</mode><limit>9</limit></action>
                             <action method="addPagerLimit"><mode>grid</mode><limit>all</limit><label>All</label></action>
                         -->
-							<action method="addPagerLimit"><mode>list</mode><limit>5</limit></action>
+                            <action method="addPagerLimit"><mode>list</mode><limit>5</limit></action>
                     </block>
                     <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
                 </block>
@@ -185,57 +185,57 @@ Product view
                 <block type="catalog/product_list_upsell" name="product.info.upsell" as="upsell_products" template="catalog/product/list/upsell.phtml"/>
                 <block type="catalog/product_view_additional" name="product.info.additional" as="product_additional_data" />
             </block -->
-			<block type="catalog/product_view" name="product.info" template="catalog/product/view.phtml">
-				<!--
-					<action method="addReviewSummaryTemplate"><type>default</type><template>review/helper/summary.phtml</template></action>
-					<action method="addReviewSummaryTemplate"><type>short</type><template>review/helper/summary_short.phtml</template></action>
-					<action method="addReviewSummaryTemplate"><type>...</type><template>...</template></action>
-					-->
-					<block type="catalog/product_view_media" name="product.info.media" as="media" template="catalog/product/view/media.phtml"/>
-					<block type="core/text_list" name="alert.urls" as="alert_urls" />
-					<block type="catalog/product_view" name="product.tierprices" as="tierprices" template="catalog/product/view/tierprices.phtml"/>
+            <block type="catalog/product_view" name="product.info" template="catalog/product/view.phtml">
+                <!--
+                    <action method="addReviewSummaryTemplate"><type>default</type><template>review/helper/summary.phtml</template></action>
+                    <action method="addReviewSummaryTemplate"><type>short</type><template>review/helper/summary_short.phtml</template></action>
+                    <action method="addReviewSummaryTemplate"><type>...</type><template>...</template></action>
+                    -->
+                    <block type="catalog/product_view_media" name="product.info.media" as="media" template="catalog/product/view/media.phtml"/>
+                    <block type="core/text_list" name="alert.urls" as="alert_urls" />
+                    <block type="catalog/product_view" name="product.tierprices" as="tierprices" template="catalog/product/view/tierprices.phtml"/>
 
-					<block type="catalog/product_list_upsell" name="product.info.upsell" as="upsell_products" template="catalog/product/list/upsell.phtml">
-						<action method="setColumnCount"><columns>4</columns></action>
-						<action method="setItemLimit"><type>upsell</type><limit>4</limit></action>
-					</block>
+                    <block type="catalog/product_list_upsell" name="product.info.upsell" as="upsell_products" template="catalog/product/list/upsell.phtml">
+                        <action method="setColumnCount"><columns>4</columns></action>
+                        <action method="setItemLimit"><type>upsell</type><limit>4</limit></action>
+                    </block>
 
-					<block type="catalog/product_view_additional" name="product.info.additional" as="product_additional_data" />
-					<block type="catalog/product_view_description" name="product.description" as="description" template="catalog/product/view/description.phtml"/>
-					<block type="catalog/product_view_attributes" name="product.attributes" as="additional" template="catalog/product/view/attributes.phtml"/>
-					<block type="catalog/product_view" name="product.info.addto" as="addto" template="catalog/product/view/addto.phtml"/>
-					<block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="catalog/product/view/addtocart.phtml"/>
+                    <block type="catalog/product_view_additional" name="product.info.additional" as="product_additional_data" />
+                    <block type="catalog/product_view_description" name="product.description" as="description" template="catalog/product/view/description.phtml"/>
+                    <block type="catalog/product_view_attributes" name="product.attributes" as="additional" template="catalog/product/view/attributes.phtml"/>
+                    <block type="catalog/product_view" name="product.info.addto" as="addto" template="catalog/product/view/addto.phtml"/>
+                    <block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="catalog/product/view/addtocart.phtml"/>
 
-					<block type="catalog/product_view" name="product.info.options.wrapper" as="product_options_wrapper" template="catalog/product/view/options/wrapper.phtml">
-					    <block type="core/template" name="options_js" template="catalog/product/view/options/js.phtml"/>
-						<block type="catalog/product_view_options" name="product.info.options" as="product_options" template="catalog/product/view/options.phtml">
-							<action method="addOptionRenderer"><type>text</type><block>catalog/product_view_options_type_text</block><template>catalog/product/view/options/type/text.phtml</template></action>
-							<action method="addOptionRenderer"><type>file</type><block>catalog/product_view_options_type_file</block><template>catalog/product/view/options/type/file.phtml</template></action>
-							<action method="addOptionRenderer"><type>select</type><block>catalog/product_view_options_type_select</block><template>catalog/product/view/options/type/select.phtml</template></action>
-							<action method="addOptionRenderer"><type>date</type><block>catalog/product_view_options_type_date</block><template>catalog/product/view/options/type/date.phtml</template></action>
-							<block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml"/>
-						</block>
-					</block>
-					<block type="catalog/product_view" name="product.info.options.wrapper.bottom" as="product_options_wrapper_bottom" template="catalog/product/view/options/wrapper/bottom.phtml">
-						<action method="insert"><block>product.tierprices</block></action>
-						<block type="catalog/product_view" name="product.clone_prices" as="prices" template="catalog/product/view/price_clone.phtml"/>
-						<action method="append"><block>product.info.addtocart</block></action>
-					</block>
+                    <block type="catalog/product_view" name="product.info.options.wrapper" as="product_options_wrapper" template="catalog/product/view/options/wrapper.phtml">
+                        <block type="core/template" name="options_js" template="catalog/product/view/options/js.phtml"/>
+                        <block type="catalog/product_view_options" name="product.info.options" as="product_options" template="catalog/product/view/options.phtml">
+                            <action method="addOptionRenderer"><type>text</type><block>catalog/product_view_options_type_text</block><template>catalog/product/view/options/type/text.phtml</template></action>
+                            <action method="addOptionRenderer"><type>file</type><block>catalog/product_view_options_type_file</block><template>catalog/product/view/options/type/file.phtml</template></action>
+                            <action method="addOptionRenderer"><type>select</type><block>catalog/product_view_options_type_select</block><template>catalog/product/view/options/type/select.phtml</template></action>
+                            <action method="addOptionRenderer"><type>date</type><block>catalog/product_view_options_type_date</block><template>catalog/product/view/options/type/date.phtml</template></action>
+                            <block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml"/>
+                        </block>
+                    </block>
+                    <block type="catalog/product_view" name="product.info.options.wrapper.bottom" as="product_options_wrapper_bottom" template="catalog/product/view/options/wrapper/bottom.phtml">
+                        <action method="insert"><block>product.tierprices</block></action>
+                        <block type="catalog/product_view" name="product.clone_prices" as="prices" template="catalog/product/view/price_clone.phtml"/>
+                        <action method="append"><block>product.info.addtocart</block></action>
+                    </block>
 
-					<block type="core/template_facade" name="product.info.container1" as="container1">
-						<action method="setDataByKey"><key>alias_in_layout</key><value>container1</value></action>
-						<action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
-						<action method="append"><block>product.info.options.wrapper</block></action>
-						<action method="append"><block>product.info.options.wrapper.bottom</block></action>
-					</block>
-					<block type="core/template_facade" name="product.info.container2" as="container2">
-						<action method="setDataByKey"><key>alias_in_layout</key><value>container2</value></action>
-						<action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
-						<action method="append"><block>product.info.options.wrapper</block></action>
-						<action method="append"><block>product.info.options.wrapper.bottom</block></action>
-					</block>
-					<action method="unsetCallChild"><child>container1</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
-					<action method="unsetCallChild"><child>container2</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
+                    <block type="core/template_facade" name="product.info.container1" as="container1">
+                        <action method="setDataByKey"><key>alias_in_layout</key><value>container1</value></action>
+                        <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
+                        <action method="append"><block>product.info.options.wrapper</block></action>
+                        <action method="append"><block>product.info.options.wrapper.bottom</block></action>
+                    </block>
+                    <block type="core/template_facade" name="product.info.container2" as="container2">
+                        <action method="setDataByKey"><key>alias_in_layout</key><value>container2</value></action>
+                        <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
+                        <action method="append"><block>product.info.options.wrapper</block></action>
+                        <action method="append"><block>product.info.options.wrapper.bottom</block></action>
+                    </block>
+                    <action method="unsetCallChild"><child>container1</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
+                    <action method="unsetCallChild"><child>container2</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
             </block>
         </reference>
         <reference name="right">

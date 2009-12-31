@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Bundle
- * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Bundle
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -761,7 +761,7 @@ class Mage_Bundle_Model_Mysql4_Price_Index extends Mage_Core_Model_Mysql4_Abstra
         $specialPrice       = $priceData['special_price'];
 
         if (!is_null($specialPrice) && $specialPrice != false) {
-            if (Mage::app()->getLocale()->IsStoreDateInInterval($store, $priceData['special_from_date'], $priceData['special_to_date'])) {
+            if (Mage::app()->getLocale()->isStoreDateInInterval($store, $priceData['special_from_date'], $priceData['special_to_date'])) {
                 $specialPrice   = ($finalPrice * $specialPrice) / 100;
                 $finalPrice     = min($finalPrice, $specialPrice);
             }

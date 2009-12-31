@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Number extends Mage_Admin
         $data = parent::_getValue($row);
         if (!is_null($data)) {
             $value = $data * 1;
-        	return $value ? $value: '0'; // fixed for showing zero in grid
+            return $value ? $value: '0'; // fixed for showing zero in grid
         }
         return $this->getColumn()->getDefault();
     }

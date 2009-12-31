@@ -383,11 +383,11 @@ To make maintaining easier please:
   <description>GBK Simplified Chinese</description>
   <alias>cp936</alias>
   <collation name="gbk_chinese_ci"	id="28"	order="Chinese">
-    <flag>primary</flag>	
+    <flag>primary</flag>
     <flag>compiled</flag>
   </collation>
   <collation name="gbk_bin"	id="87"	order="Binary">
-    <flag>binary</flag>	
+    <flag>binary</flag>
     <flag>compiled</flag>
   </collation>
 </charset>

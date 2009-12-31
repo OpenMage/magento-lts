@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_CatalogIndex
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_CatalogIndex
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -70,7 +70,7 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
             if ($products instanceof Mage_Catalog_Model_Product) {
                 $products = $products->getId();
             } elseif ($products instanceof Mage_Catalog_Model_Product_Condition_Interface) {
-            	$suffix = 'entity_id IN ('.$products->getIdsSelect($this->_getWriteAdapter())->__toString().')';
+                $suffix = 'entity_id IN ('.$products->getIdsSelect($this->_getWriteAdapter())->__toString().')';
             }
             else if (!is_numeric($products) && !is_array($products)) {
                 Mage::throwException('Invalid products supplied for indexing');

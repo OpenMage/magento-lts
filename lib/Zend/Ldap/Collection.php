@@ -16,7 +16,7 @@
  * @package    Zend_Ldap
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Collection.php 16613 2009-07-10 06:55:41Z ralph $
+ * @version    $Id: Collection.php 17829 2009-08-26 15:07:10Z sgehrig $
  */
 
 /**
@@ -53,9 +53,7 @@ class Zend_Ldap_Collection implements Iterator, Countable
     /**
      * Constructor.
      *
-     * @param Zend_Ldap $ldap
      * @param Zend_Ldap_Collection_Iterator_Interface $iterator
-     * @return void
      */
     public function __construct(Zend_Ldap_Collection_Iterator_Interface $iterator)
     {
@@ -136,7 +134,7 @@ class Zend_Ldap_Collection implements Iterator, Countable
     /**
      * Creates the data structure for the given entry data
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _createEntry(array $data)

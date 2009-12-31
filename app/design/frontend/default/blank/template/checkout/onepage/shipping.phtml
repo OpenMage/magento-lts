@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_blank
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_blank
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <form action="" id="co-shipping-form">
@@ -83,10 +83,10 @@
                     <?php else:?>
                         <li class="no-display"><input type="hidden" name="shipping[save_in_address_book]" value="1" /></li>
                     <?php endif;?>
-                    <li><input type="checkbox" name="shipping[same_as_billing]" id="shipping:same_as_billing" value="1"<?php if($this->getAddress()->getSameAsBilling()): ?> checked="checked"<?php endif; ?> onclick="shipping.setSameAsBilling(this.checked)" class="checkbox" /> <label for="shipping:same_as_billing"><?php echo $this->__('Use Billing Address') ?></label></li>
                 </ul>
             </fieldset>
         </li>
+        <li><input type="checkbox" name="shipping[same_as_billing]" id="shipping:same_as_billing" value="1"<?php if($this->getAddress()->getSameAsBilling()): ?> checked="checked"<?php endif; ?> onclick="shipping.setSameAsBilling(this.checked)" class="checkbox" /> <label for="shipping:same_as_billing"><?php echo $this->__('Use Billing Address') ?></label></li>
     </ul>
     <p class="required"><?php echo $this->__('* Required Fields') ?></p>
     <div class="buttons-set" id="shipping-buttons-container">

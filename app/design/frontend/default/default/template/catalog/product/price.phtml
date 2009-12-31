@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 
@@ -62,7 +62,7 @@
     <?php $_finalPriceInclTax = $_taxHelper->getPrice($_product, $_product->getFinalPrice(), true) ?>
     <?php $_weeeDisplayType = $_weeeHelper->getPriceDisplayType(); ?>
     <?php if ($_finalPrice == $_price): ?>
-        <?php if ($_taxHelper->displayBothPrices() && $_finalPriceInclTax != $_finalPrice): ?>
+        <?php if ($_taxHelper->displayBothPrices()): ?>
             <?php if ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($_product, 0)): // including ?>
                 <span class="price-excluding-tax">
                     <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
@@ -213,7 +213,7 @@
                 </span>
             </p>
 
-            <?php if ($_taxHelper->displayBothPrices() && $_finalPriceInclTax != $_finalPrice): ?>
+            <?php if ($_taxHelper->displayBothPrices()): ?>
                 <p class="special-price">
                     <span class="price-label"><?php echo $this->__('Special Price:') ?></span>
                     <span class="price-excluding-tax">
@@ -337,7 +337,7 @@
                 </span>
             </p>
 
-            <?php if ($_taxHelper->displayBothPrices() && $_finalPriceInclTax != $_finalPrice): ?>
+            <?php if ($_taxHelper->displayBothPrices()): ?>
                 <p class="special-price">
                     <span class="price-label"><?php echo $this->__('Special Price:') ?></span>
                     <span class="price-excluding-tax">
@@ -372,12 +372,20 @@
             <?php $_minimalPriceDisplayValue = $_minimalPrice+$_weeeTaxAmount; ?>
         <?php endif; ?>
 
+        <?php if ($this->getUseLinkForAsLowAs()):?>
         <a href="<?php echo $_product->getProductUrl(); ?>" class="minimal-price-link">
+        <?php else:?>
+        <span class="minimal-price-link">
+        <?php endif?>
             <span class="label"><?php echo $this->__('As low as:') ?></span>
             <span class="price" id="product-minimal-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                 <?php echo $_coreHelper->currency($_minimalPriceDisplayValue,true,false) ?>
             </span>
+        <?php if ($this->getUseLinkForAsLowAs()):?>
         </a>
+        <?php else:?>
+        </span>
+        <?php endif?>
     <?php endif; /* if ($this->getDisplayMinimalPrice() && $_minimalPrice && $_minimalPrice < $_finalPrice): */ ?>
     </div>
 
@@ -389,7 +397,7 @@
     <?php if ($this->getDisplayMinimalPrice() && $_minimalPriceValue): ?>
         <div class="price-box">
             <span class="label"><?php echo $this->__('Starting at:') ?></span>
-            <?php if ($_taxHelper->displayBothPrices() && ($_exclTax !== $_inclTax)): ?>
+            <?php if ($_taxHelper->displayBothPrices()): ?>
                 <span class="price-excluding-tax">
                     <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
                     <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">

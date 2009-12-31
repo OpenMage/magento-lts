@@ -16,7 +16,7 @@
  * @package    Zend_Reflection
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Parameter.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Parameter.php 18161 2009-09-17 12:10:23Z carlton $
  */
 
 /**
@@ -59,6 +59,10 @@ class Zend_Reflection_Parameter extends ReflectionParameter
     public function getClass($reflectionClass = 'Zend_Reflection_Class')
     {
         $phpReflection  = parent::getClass();
+        if($phpReflection == null) {
+            return null;
+        }
+
         $zendReflection = new $reflectionClass($phpReflection->getName());
         if (!$zendReflection instanceof Zend_Reflection_Class) {
             #require_once 'Zend/Reflection/Exception.php';
@@ -108,8 +112,8 @@ class Zend_Reflection_Parameter extends ReflectionParameter
         if ($docblock = $this->getDeclaringFunction()->getDocblock()) {
             $params = $docblock->getTags('param');
             
-            if (isset($params[$this->getPosition() - 1])) {
-                return $params[$this->getPosition() - 1]->getType();
+            if (isset($params[$this->getPosition()])) {
+                return $params[$this->getPosition()]->getType();
             }
             
         }

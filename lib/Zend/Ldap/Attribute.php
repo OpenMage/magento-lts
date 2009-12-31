@@ -16,7 +16,7 @@
  * @package    Zend_Ldap
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Attribute.php 16613 2009-07-10 06:55:41Z ralph $
+ * @version    $Id: Attribute.php 17831 2009-08-26 15:24:30Z sgehrig $
  */
 
 /**
@@ -29,16 +29,19 @@
  */
 class Zend_Ldap_Attribute
 {
-    const PASSWORD_HASH_MD5 = 'md5';
-    const PASSWORD_HASH_SHA = 'sha1';
+    const PASSWORD_HASH_MD5   = 'md5';
+    const PASSWORD_HASH_SMD5  = 'smd5';
+    const PASSWORD_HASH_SHA   = 'sha';
+    const PASSWORD_HASH_SSHA  = 'ssha';
+    const PASSWORD_UNICODEPWD = 'unicodePwd';
 
     /**
      * Sets a LDAP attribute.
      *
-     * @param  array $data
-     * @param  string $attribName
-     * @param  mixed $value
-     * @param  boolean $append
+     * @param  array                    $data
+     * @param  string                   $attribName
+     * @param  scalar|array|Traversable $value
+     * @param  boolean                  $append
      * @return void
      */
     public static function setAttribute(array &$data, $attribName, $value, $append = false)
@@ -73,8 +76,8 @@ class Zend_Ldap_Attribute
     /**
      * Gets a LDAP attribute.
      *
-     * @param  array $data
-     * @param  string $attribName
+     * @param  array   $data
+     * @param  string  $attribName
      * @param  integer $index
      * @return array|mixed
      */
@@ -104,8 +107,8 @@ class Zend_Ldap_Attribute
     /**
      * Checks if the given value(s) exist in the attribute
      *
-     * @param array $data
-     * @param string $attribName
+     * @param array       $data
+     * @param string      $attribName
      * @param mixed|array $value
      * @return boolean
      */
@@ -130,7 +133,7 @@ class Zend_Ldap_Attribute
     /**
      * Removes duplicate values from a LDAP attribute
      *
-     * @param array $data
+     * @param array  $data
      * @param string $attribName
      * @return void
      */
@@ -144,8 +147,8 @@ class Zend_Ldap_Attribute
     /**
      * Remove given values from a LDAP attribute
      *
-     * @param array $data
-     * @param string $attribName
+     * @param array       $data
+     * @param string      $attribName
      * @param mixed|array $value
      * @return void
      */
@@ -176,6 +179,10 @@ class Zend_Ldap_Attribute
         $data[$attribName] = $resultArray;
     }
 
+    /**
+     * @param  mixed $value
+     * @return string|null
+     */
     private static function _valueToLdap($value)
     {
         if (is_string($value)) return $value;
@@ -187,6 +194,10 @@ class Zend_Ldap_Attribute
         else return null;
     }
 
+    /**
+     * @param  string $value
+     * @return string|boolean
+     */
     private static function _valueFromLdap($value)
     {
         $value = (string)$value;
@@ -198,7 +209,7 @@ class Zend_Ldap_Attribute
     /**
      * Converts a PHP data type into its LDAP representation
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return string|null - null if the PHP data type cannot be converted.
      */
     public static function convertToLdapValue($value)
@@ -209,7 +220,7 @@ class Zend_Ldap_Attribute
     /**
      * Converts an LDAP value into its PHP data type
      *
-     * @param string $value
+     * @param  string $value
      * @return mixed
      */
     public static function convertFromLdapValue($value)
@@ -220,8 +231,8 @@ class Zend_Ldap_Attribute
     /**
      * Converts a timestamp into its LDAP date/time representation
      *
-     * @param integer $value
-     * @param boolean $utc
+     * @param  integer $value
+     * @param  boolean $utc
      * @return string|null - null if the value cannot be converted.
      */
     public static function convertToLdapDateTimeValue($value, $utc = false)
@@ -232,7 +243,7 @@ class Zend_Ldap_Attribute
     /**
      * Converts LDAP date/time representation into a timestamp
      *
-     * @param string $value
+     * @param  string $value
      * @return integer|null - null if the value cannot be converted.
      */
     public static function convertFromLdapDateTimeValue($value)
@@ -243,15 +254,23 @@ class Zend_Ldap_Attribute
     /**
      * Sets a LDAP password.
      *
-     * @param  array $data
-     * @param  string $password
-     * @param  string $hashType
-     * @param  string $attribName
+     * @param  array       $data
+     * @param  string      $password
+     * @param  string      $hashType
+     * @param  string|null $attribName
      * @return null
      */
     public static function setPassword(array &$data, $password, $hashType = self::PASSWORD_HASH_MD5,
-        $attribName = 'userPassword')
+        $attribName = null)
     {
+        if ($attribName === null) {
+            if ($hashType === self::PASSWORD_UNICODEPWD) {
+                $attribName = 'unicodePwd';
+            } else {
+                $attribName = 'userPassword';
+            }
+        }
+
         $hash = self::createPassword($password, $hashType);
         self::setAttribute($data, $attribName, $hash, false);
     }
@@ -266,14 +285,42 @@ class Zend_Ldap_Attribute
     public static function createPassword($password, $hashType = self::PASSWORD_HASH_MD5)
     {
         switch ($hashType) {
+            case self::PASSWORD_UNICODEPWD:
+                /* see:
+                 * http://msdn.microsoft.com/en-us/library/cc223248(PROT.10).aspx
+                 */
+                $password = '"' . $password . '"';
+                if (function_exists('mb_convert_encoding')) {
+                    $password = mb_convert_encoding($password, 'UTF-16LE', 'UTF-8');
+                } else if (function_exists('iconv')) {
+                    $password = iconv('UTF-8', 'UTF-16LE', $password);
+                } else {
+                    $len = strlen($password);
+                    $new = '';
+                    for($i=0; $i < $len; $i++) {
+                        $new .= $password[$i] . "\x00";
+                    }
+                    $password = $new;
+                }
+                return $password;
+            case self::PASSWORD_HASH_SSHA:
+                $salt    = substr(sha1(uniqid(mt_rand(), true), true), 0, 4);
+                $rawHash = sha1($password . $salt, true) . $salt;
+                $method  = '{SSHA}';
+                break;
             case self::PASSWORD_HASH_SHA:
                 $rawHash = sha1($password, true);
-                $method = '{SHA}';
+                $method  = '{SHA}';
+                break;
+            case self::PASSWORD_HASH_SMD5:
+                $salt    = substr(sha1(uniqid(mt_rand(), true), true), 0, 4);
+                $rawHash = md5($password . $salt, true) . $salt;
+                $method  = '{SMD5}';
                 break;
             case self::PASSWORD_HASH_MD5:
             default:
                 $rawHash = md5($password, true);
-                $method = '{MD5}';
+                $method  = '{MD5}';
                 break;
         }
         return $method . base64_encode($rawHash);
@@ -282,11 +329,11 @@ class Zend_Ldap_Attribute
     /**
      * Sets a LDAP date/time attribute.
      *
-     * @param  array $data
-     * @param  string $attribName
-     * @param  integer|array $value
-     * @param  boolean $utc
-     * @param  boolean $append
+     * @param  array                     $data
+     * @param  string                    $attribName
+     * @param  integer|array|Traversable $value
+     * @param  boolean                   $utc
+     * @param  boolean                   $append
      * @return null
      */
     public static function setDateTimeAttribute(array &$data, $attribName, $value, $utc = false,
@@ -307,6 +354,11 @@ class Zend_Ldap_Attribute
         self::setAttribute($data, $attribName, $convertedValues, $append);
     }
 
+    /**
+     * @param  integer $value
+     * @param  boolean $utc
+     * @return string|null
+     */
     private static function _valueToLdapDateTime($value, $utc)
     {
         if (is_int($value)) {
@@ -319,8 +371,8 @@ class Zend_Ldap_Attribute
     /**
      * Gets a LDAP date/time attribute.
      *
-     * @param  array $data
-     * @param  string $attribName
+     * @param  array   $data
+     * @param  string  $attribName
      * @param  integer $index
      * @return array|integer
      */
@@ -337,6 +389,10 @@ class Zend_Ldap_Attribute
         return $values;
     }
 
+    /**
+     * @param  string $value
+     * @return integer|null
+     */
     private static function _valueFromLdapDateTime($value)
     {
         $matches = array();

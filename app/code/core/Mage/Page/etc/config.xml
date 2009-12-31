@@ -53,6 +53,7 @@
                     <label>1 column</label>
                     <template>page/1column.phtml</template>
                     <layout_handle>page_one_column</layout_handle>
+                    <is_default>1</is_default>
                 </one_column>
                 <two_columns_left module="page" translate="label">
                     <label>2 columns with left bar</label>

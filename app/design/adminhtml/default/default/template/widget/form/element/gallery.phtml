@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <tr>
@@ -65,7 +65,7 @@
 <?php endif; ?>
 
 </tbody></table>
-        
+
 <script type="text/javascript">
 //<![CDATA[
 id = 0;
@@ -80,12 +80,12 @@ function addNewImage()
     num_of_images++;
     new_file_input = '<input type="file" name="<?php echo $this->getElement()->getName() ?>_%j%[%id%]" size="1">';
 
-	// Sort order input
-	var new_row_input = document.createElement( 'input' );
-	new_row_input.type = 'text';
-	new_row_input.name = '<?php echo $this->getElement()->getParentName() ?>[position]['+id+']';
-	new_row_input.size = '3';
-	new_row_input.value = '0';
+    // Sort order input
+    var new_row_input = document.createElement( 'input' );
+    new_row_input.type = 'text';
+    new_row_input.name = '<?php echo $this->getElement()->getParentName() ?>[position]['+id+']';
+    new_row_input.size = '3';
+    new_row_input.value = '0';
 
     // Delete button
     new_row_button = '<?php echo $this->getDeleteButtonHtml("this") ?>';
@@ -109,10 +109,10 @@ function addNewImage()
         newCell.valign = "middle";
 
         if (j==2) {
-		    newCell.appendChild( new_row_input );
+            newCell.appendChild( new_row_input );
         }
         else if (j==3) {
-		    newCell.innerHTML = new_row_button;
+            newCell.innerHTML = new_row_button;
         }
         else {
             newCell.innerHTML = new_file_input.replace(/%j%/g, j).replace(/%id%/g, id);

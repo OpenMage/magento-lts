@@ -18,28 +18,28 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Admin
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Core
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 class Mage_Core_Model_Mysql4_Design_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
-	protected function _construct()
-	{
-		$this->_init('core/design');
-	}
+    protected function _construct()
+    {
+        $this->_init('core/design');
+    }
 
-	public function joinStore(){
-	    $this->getSelect()
+    public function joinStore(){
+        $this->getSelect()
             ->join(array('s'=>$this->getTable('core/store')), 's.store_id = main_table.store_id', array('s.name'));
 
-	    return $this;
-	}
+        return $this;
+    }
 
-	public function addDateFilter($date = null)
+    public function addDateFilter($date = null)
     {
         if (is_null($date))
             $date = date("Y-m-d");

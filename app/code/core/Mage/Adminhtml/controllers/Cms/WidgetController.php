@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -45,11 +45,10 @@ class Mage_Adminhtml_Cms_WidgetController extends Mage_Adminhtml_Controller_Acti
         $header = $this->getLayout()->getBlock('head');
         $header->setCanLoadExtJs(true);
 
-        // set extra params to widgets insertion form
-        $this->getLayout()->getBlock('wysiwyg_widget')->addData(array(
-            'skip_context_widgets' => $this->getRequest()->getParam('skip_context_widgets'),
-            'skip_widgets' => $this->getRequest()->getParam('skip_widgets'),
-        ));
+        // save extra params for widgets insertion form
+        $skipped = $this->getRequest()->getParam('skip_widgets');
+        $skipped = Mage::getSingleton('cms/widget_config')->decodeWidgetsFromQuery($skipped);
+        Mage::register('skip_widgets', $skipped);
 
         // Include WYSIWYG popup helper if WYSIWYG instance exists
         if (!$this->getRequest()->getParam('no_wysiwyg')) {
@@ -57,14 +56,8 @@ class Mage_Adminhtml_Cms_WidgetController extends Mage_Adminhtml_Controller_Acti
         }
 
         // Add extra JS files required for widgets
-        $config = Mage::getSingleton('cms/widget')->getXmlConfig();
-        $widgets = $config->getNode('widgets');
-        foreach ($widgets->children() as $widget) {
-            if ($widget->js) {
-                foreach (explode(',', (string)$widget->js) as $js) {
-                    $header->addJs($js);
-                }
-            }
+        foreach (Mage::getModel('cms/widget')->getWidgetsRequiredJsFiles() as $file) {
+            $header->addJs($file);
         }
 
         $this->renderLayout();
@@ -77,10 +70,10 @@ class Mage_Adminhtml_Cms_WidgetController extends Mage_Adminhtml_Controller_Acti
     {
         try {
             $this->loadLayout('empty');
-            $optionsBlock = $this->getLayout()->getBlock('wysiwyg_widget.options');
-            if ($optionsBlock && $paramsJson = $this->getRequest()->getParam('widget')) {
+            if ($paramsJson = $this->getRequest()->getParam('widget')) {
                 $request = Mage::helper('core')->jsonDecode($paramsJson);
                 if (is_array($request)) {
+                    $optionsBlock = $this->getLayout()->getBlock('wysiwyg_widget.options');
                     if (isset($request['widget_type'])) {
                         $optionsBlock->setWidgetType($request['widget_type']);
                     }
@@ -90,7 +83,7 @@ class Mage_Adminhtml_Cms_WidgetController extends Mage_Adminhtml_Controller_Acti
                 }
                 $this->renderLayout();
             }
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $result = array('error' => true, 'message' => $e->getMessage());
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }

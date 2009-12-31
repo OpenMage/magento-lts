@@ -16,7 +16,7 @@
  * @package    Zend_Reflection
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Tag.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Tag.php 18160 2009-09-17 12:03:29Z carlton $
  */
 
 /** Zend_Loader */
@@ -58,7 +58,7 @@ class Zend_Reflection_Docblock_Tag implements Reflector
     {
         $matches = array();
         
-        if (!preg_match('#^@(\w+)\s#', $tagDocblockLine, $matches)) {
+        if (!preg_match('#^@(\w+)(\s|$)#', $tagDocblockLine, $matches)) {
             #require_once 'Zend/Reflection/Exception.php';
             throw new Zend_Reflection_Exception('No valid tag name found within provided docblock line.');
         }
@@ -109,13 +109,13 @@ class Zend_Reflection_Docblock_Tag implements Reflector
         $matches = array();
 
         // find the line
-        if (!preg_match('#^@(\w+)\s(.*)?#', $tagDocblockLine, $matches)) {
+        if (!preg_match('#^@(\w+)(?:\s+([^\s].*)|$)?#', $tagDocblockLine, $matches)) {
             #require_once 'Zend/Reflection/Exception.php';
             throw new Zend_Reflection_Exception('Provided docblock line does not contain a valid tag');
         }
 
         $this->_name = $matches[1];
-        if ($matches[2]) {
+        if (isset($matches[2]) && $matches[2]) {
             $this->_description = $matches[2];
         }
     }

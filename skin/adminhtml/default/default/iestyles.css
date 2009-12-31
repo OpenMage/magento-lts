@@ -21,10 +21,13 @@
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* Clearing */
+.message-popup .message-popup-head,
+.message-popup .message-popup-content,
+.message-popup .message-popup-content .message,
 .login-form .form-buttons,
 .wrapper,
 .footer,
-.bundle .option-title,
+.option-title,
 .columns,
 .main-col,
 .field-row,
@@ -68,6 +71,8 @@ button.disabled:active { filter:alpha(opacity=80); }
 #loading-mask { filter:alpha(opacity=80); }
 #message-popup-window-mask { filter:alpha(opacity=20); }
 .content-header-floating { filter:alpha(opacity=85); }
+
+.message-popup .message-popup-content .message { _height:4.5em; }
 
 /* Scalable Button Override */
 button, .form-button            { width:auto; margin-left:5px; overflow:visible; }

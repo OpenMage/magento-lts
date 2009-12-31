@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -47,22 +47,6 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
      * @var Mage_Eav_Model_Entity_Collection_Abstract
      */
     protected $_productCollection;
-
-    /**
-     * Default product amount per row in grid display mode
-     *
-     * @var int
-     */
-    protected $_defaultColumnCount = 3;
-
-    /**
-     * Product amount per row in grid display mode depending
-     * on custom page layout of category
-     *
-     * @var array
-     */
-    protected $_columnCountLayoutDepend = array();
-
 
     /**
      * Retrieve loaded category collection
@@ -246,80 +230,5 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
 
 
         return $this;
-    }
-
-    /**
-     * Retrieve product amount per row in grid display mode
-     *
-     * @return int
-     */
-    public function getColumnCount()
-    {
-        if (!$this->_getData('column_count')) {
-            $pageLayout = $this->getPageLayout();
-            if ($pageLayout && $this->getColumnCountLayoutDepend($pageLayout->getCode())) {
-                $this->setData(
-                    'column_count',
-                    $this->getColumnCountLayoutDepend($pageLayout->getCode())
-                );
-            } else {
-                $this->setData('column_count', $this->_defaultColumnCount);
-            }
-        }
-
-        return (int) $this->_getData('column_count');
-    }
-
-    /**
-     * Add row size depends on page layout
-     *
-     * @param string $pageLayout
-     * @param int $rowSize
-     * @return Mage_Catalog_Block_Product_List
-     */
-    public function addColumnCountLayoutDepend($pageLayout, $columnCount)
-    {
-        $this->_columnCountLayoutDepend[$pageLayout] = $columnCount;
-        return $this;
-    }
-
-    /**
-     * Remove row size depends on page layout
-     *
-     * @param string $pageLayout
-     * @return Mage_Catalog_Block_Product_List
-     */
-    public function removeColumnCountLayoutDepend($pageLayout)
-    {
-        if (isset($this->_columnCountLayoutDepend[$pageLayout])) {
-            unset($this->_columnCountLayoutDepend[$pageLayout]);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Retrieve row size depends on page layout
-     *
-     * @param string $pageLayout
-     * @return int|boolean
-     */
-    public function getColumnCountLayoutDepend($pageLayout)
-    {
-        if (isset($this->_columnCountLayoutDepend[$pageLayout])) {
-            return $this->_columnCountLayoutDepend[$pageLayout];
-        }
-
-        return false;
-    }
-
-    /**
-     * Retrieve current page layout
-     *
-     * @return Varien_Object
-     */
-    public function getPageLayout()
-    {
-        return $this->helper('page/layout')->getCurrentPageLayout();
     }
 }

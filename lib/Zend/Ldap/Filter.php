@@ -17,7 +17,7 @@
  * @subpackage Filter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Filter.php 16613 2009-07-10 06:55:41Z ralph $
+ * @version    $Id: Filter.php 17829 2009-08-26 15:07:10Z sgehrig $
  */
 
 /**
@@ -36,12 +36,12 @@
  */
 class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
 {
-    const TYPE_EQUALS = '=';
-    const TYPE_GREATER = '>';
+    const TYPE_EQUALS         = '=';
+    const TYPE_GREATER        = '>';
     const TYPE_GREATEROREQUAL = '>=';
-    const TYPE_LESS = '<';
-    const TYPE_LESSOREQUAL = '<=';
-    const TYPE_APPROX = '~=';
+    const TYPE_LESS           = '<';
+    const TYPE_LESSOREQUAL    = '<=';
+    const TYPE_APPROX         = '~=';
 
     /**
      * Creates an 'equals' filter.

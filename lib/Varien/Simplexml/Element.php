@@ -188,17 +188,39 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      */
     public function asArray()
     {
+        return $this->_asArray();
+    }
+
+    /**
+     * asArray() analog, but without attributes
+     * @return array|string
+     */
+    public function asCanonicalArray()
+    {
+        return $this->_asArray(true);
+    }
+
+    /**
+     * Returns the node and children as an array
+     *
+     * @param bool $isCanonical - whether to ignore attributes
+     * @return array|string
+     */
+    protected function _asArray($isCanonical = false)
+    {
         $result = array();
-        // add attributes
-        foreach ($this->attributes() as $attributeName => $attribute) {
-            if ($attribute) {
-                $result['@'][$attributeName] = (string)$attribute;
+        if (!$isCanonical) {
+            // add attributes
+            foreach ($this->attributes() as $attributeName => $attribute) {
+                if ($attribute) {
+                    $result['@'][$attributeName] = (string)$attribute;
+                }
             }
         }
         // add children values
         if ($this->hasChildren()) {
             foreach ($this->children() as $childName => $child) {
-                $result[$childName] = $child->asArray();
+                $result[$childName] = $child->_asArray($isCanonical);
             }
         }
         // return as string, if nothing was found

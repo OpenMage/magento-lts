@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Eav
- * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Eav
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -458,6 +458,11 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         if (!is_numeric($groupId)) {
             $groupId = $this->getAttributeGroup($entityTypeId, $setId, $groupId, 'attribute_group_id');
         }
+
+        if (!is_numeric($groupId)) {
+            $groupId = $this->getDefaultAttributeGroupId($entityTypeId, $setId);
+        }
+
         if (!is_numeric($groupId)) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Wrong attribute group ID'));
         }
@@ -764,42 +769,40 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param string $field
      * @return mixed
      */
-    public function getAttribute($entityTypeId, $id, $field=null)
+    public function getAttribute($entityTypeId, $id, $field = null)
     {
-        $joinTable = $this->getEntityType($entityTypeId, 'additional_attribute_table');
-        if (!$joinTable) {
-            return $this->getTableRow('eav/attribute',
-                is_numeric($id) ? 'attribute_id' : 'attribute_code', $id,
-                $field,
-                'entity_type_id', $this->getEntityTypeId($entityTypeId)
-            );
+        $additionalTable    = $this->getEntityType($entityTypeId, 'additional_attribute_table');
+        $entityTypeId       = $this->getEntityTypeId($entityTypeId);
+        $idField            = (is_numeric($id) ? 'attribute_id' : 'attribute_code');
+        if (!$additionalTable) {
+            return $this->getTableRow('eav/attribute', $idField, $id, $field, 'entity_type_id', $entityTypeId);
         }
-        $mainTable = $this->getTable('eav/attribute');
-        $joinTable = $this->getTable($joinTable);
-        $parentId = $this->getEntityTypeId($entityTypeId);
-        $idField = (is_numeric($id) ? 'attribute_id' : 'attribute_code');
-        $table = $mainTable . '-' . $joinTable;
-        if (empty($this->_setupCache[$table][$parentId][$id])) {
-            $sql = "select
-                        $mainTable.*,
-                        $joinTable.*
-                    from
-                        $mainTable
-                        inner join $joinTable on $joinTable.attribute_id=$mainTable.attribute_id
-                    where
-                        $mainTable.$idField = :idField
-                        and $mainTable.entity_type_id = :parentId";
-            $bind = array(
-                'idField' => $id,
-                'parentId' => $parentId
-            );
-            $this->_setupCache[$mainTable][$parentId][$id] = $this->_conn->fetchRow($sql, $bind);
-            $this->_conn->fetchAll($sql, $bind);
+
+        $mainTable          = $this->getTable('eav/attribute');
+        if (empty($this->_setupCache[$mainTable][$entityTypeId][$id])) {
+            $additionalTable = $this->getTable($additionalTable);
+            $select = $this->_conn->select()
+                ->from(array('main' => $mainTable))
+                ->join(
+                    array('additional' => $additionalTable),
+                    'main.attribute_id=additional.attribute_id')
+                ->where("main.{$idField}=?", $id)
+                ->where("main.entity_type_id=?", $entityTypeId);
+            $row = $this->_conn->fetchRow($select);
+
+            if (!$row) {
+                $this->_setupCache[$mainTable][$entityTypeId][$id] = false;
+            } else {
+                $this->_setupCache[$mainTable][$entityTypeId][$row['attribute_id']] = $row;
+                $this->_setupCache[$mainTable][$entityTypeId][$row['attribute_code']] = $row;
+            }
         }
-        if (is_null($field)) {
-            return $this->_setupCache[$mainTable][$parentId][$id];
+
+        $row = $this->_setupCache[$mainTable][$entityTypeId][$id];
+        if (!is_null($field)) {
+            return isset($row[$field]) ? $row[$field] : false;
         }
-        return isset($this->_setupCache[$mainTable][$parentId][$id][$field]) ? $this->_setupCache[$mainTable][$parentId][$id][$field] : false;
+        return $row;
     }
 
     /**
@@ -864,17 +867,12 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      */
     public function removeAttribute($entityTypeId, $code)
     {
-        $attributeId = $this->getAttributeId($entityTypeId, $code);
-        $additionalTable = $this->getEntityType($entityTypeId, 'additional_attribute_table');
-        if ($attributeId) {
-            $this->deleteTableRow('eav/attribute', 'attribute_id', $attributeId);
-            if ($additionalTable) {
-                $additionalTable = $this->getTable($additionalTable);
-                $condition = $this->_conn->quoteInto("attribute_id=?", $attributeId);
-                $this->_conn->delete($additionalTable, $condition);
-                if (isset($this->_setupCache[$table.'-'.$additionalTable][0][$attributeId])) {
-                    unset($this->_setupCache[$table][0][$attributeId]);
-                }
+        $mainTable  = $this->getTable('eav/attribute');
+        $attribute  = $this->getAttribute($entityTypeId, $code);
+        if ($attribute) {
+            $this->deleteTableRow('eav/attribute', 'attribute_id', $attribute['attribute_id']);
+            if (isset($this->_setupCache[$mainTable][$attribute['entity_type_id']][$attribute['attribute_code']])) {
+                unset($this->_setupCache[$mainTable][$attribute['entity_type_id']][$attribute['attribute_code']]);
             }
         }
         return $this;

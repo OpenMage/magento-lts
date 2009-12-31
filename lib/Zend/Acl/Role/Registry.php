@@ -16,7 +16,7 @@
  * @package    Zend_Acl
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Registry.php 16199 2009-06-21 18:42:43Z thomas $
+ * @version    $Id: Registry.php 18280 2009-09-18 20:05:20Z matthew $
  */
 
 
@@ -262,5 +262,10 @@ class Zend_Acl_Role_Registry
 
         return $this;
     }
+
+    public function getRoles()
+    { 
+        return $this->_roles; 
+    } 
 
 }

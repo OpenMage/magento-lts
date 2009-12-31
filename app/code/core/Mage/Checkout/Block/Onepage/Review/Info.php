@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +35,7 @@ class Mage_Checkout_Block_Onepage_Review_Info extends Mage_Sales_Block_Items_Abs
 {
     public function getItems()
     {
-		return Mage::getSingleton('checkout/session')->getQuote()->getAllVisibleItems();
+        return Mage::getSingleton('checkout/session')->getQuote()->getAllVisibleItems();
     }
 
     public function getTotals()

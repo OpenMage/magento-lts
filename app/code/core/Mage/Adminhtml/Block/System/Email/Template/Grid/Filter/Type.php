@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,31 +34,31 @@
 
 class Mage_Adminhtml_Block_System_Email_Template_Grid_Filter_Type extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
 {
-	protected static $_types = array(
-		null										=>	null,
-		Mage_Newsletter_Model_Template::TYPE_HTML   => 'HTML',
-		Mage_Newsletter_Model_Template::TYPE_TEXT 	=> 'Text',
-	);
+    protected static $_types = array(
+        null										=>	null,
+        Mage_Newsletter_Model_Template::TYPE_HTML   => 'HTML',
+        Mage_Newsletter_Model_Template::TYPE_TEXT 	=> 'Text',
+    );
 
-	protected function _getOptions()
-	{
-		$result = array();
-		foreach (self::$_types as $code=>$label) {
-			$result[] = array('value'=>$code, 'label'=>Mage::helper('adminhtml')->__($label));
-		}
+    protected function _getOptions()
+    {
+        $result = array();
+        foreach (self::$_types as $code=>$label) {
+            $result[] = array('value'=>$code, 'label'=>Mage::helper('adminhtml')->__($label));
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 
 
-	public function getCondition()
-	{
-		if(is_null($this->getValue())) {
-			return null;
-		}
+    public function getCondition()
+    {
+        if(is_null($this->getValue())) {
+            return null;
+        }
 
-		return array('eq'=>$this->getValue());
-	}
+        return array('eq'=>$this->getValue());
+    }
 
 
 }// Class Mage_Adminhtml_Block_Newsletter_Queue_Grid_Filter_Status END

@@ -16,7 +16,7 @@
  * @package    Zend_Loader
  * @subpackage Autoloader
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Resource.php 17417 2009-08-06 18:06:04Z matthew $
+ * @version    $Id: Resource.php 18173 2009-09-17 15:35:05Z padraic $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -264,7 +264,7 @@ class Zend_Loader_Autoloader_Resource implements Zend_Loader_Autoloader_Interfac
             #require_once 'Zend/Loader/Exception.php';
             throw new Zend_Loader_Exception('Invalid path specification provided; must be string');
         }
-        $this->_resourceTypes[$type]['path'] = $this->getBasePath() . '/' . $path;
+        $this->_resourceTypes[$type]['path'] = $this->getBasePath() . '/' . rtrim($path, '\/');
 
         $component = $this->_resourceTypes[$type]['namespace'];
         $this->_components[$component] = $this->_resourceTypes[$type]['path'];

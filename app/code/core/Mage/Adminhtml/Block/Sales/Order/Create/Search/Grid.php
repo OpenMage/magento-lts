@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -75,11 +75,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
                 $productIds = 0;
             }
             if ($column->getFilter()->getValue()) {
-            	$this->getCollection()->addFieldToFilter('entity_id', array('in'=>$productIds));
+                $this->getCollection()->addFieldToFilter('entity_id', array('in'=>$productIds));
             } else {
                 if($productIds) {
-                	$this->getCollection()->addFieldToFilter('entity_id', array('nin'=>$productIds));
-            	}
+                    $this->getCollection()->addFieldToFilter('entity_id', array('nin'=>$productIds));
+                }
             }
         } else {
             parent::_addColumnFilterToCollection($column);
@@ -91,7 +91,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     {
         $collection = Mage::getModel('catalog/product')->getCollection()
             ->setStore($this->getStore())
-        	->addAttributeToSelect('name')
+            ->addAttributeToSelect('name')
             ->addAttributeToSelect('sku')
             ->addAttributeToSelect('price')
             ->addAttributeToFilter('type_id', array_keys(
@@ -164,7 +164,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
                 'align'     => 'center',
                 'index'     => 'entity_id',
                 'values'    => $this->_getGiftmessageSaveModel()->getAllowQuoteItemsProducts(),
-				'width'     => '1',
+                'width'     => '1',
             ));
         }
 

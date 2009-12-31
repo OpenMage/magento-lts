@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Sales
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Sales
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
@@ -297,13 +297,13 @@ foreach ($quoteRows as $oldQuoteId) {
         unset($quoteInfo['entity_id']);
 
         $quoteData = array();
-	    foreach ($quoteFields as $field) {
-	    	if (isset($quoteInfo[$field])) {
-	    	    $quoteData[$field] = $quoteInfo[$field];
-	    	}
-	    }
+        foreach ($quoteFields as $field) {
+            if (isset($quoteInfo[$field])) {
+                $quoteData[$field] = $quoteInfo[$field];
+            }
+        }
 
-	    $installer->getConnection()->insert($installer->getTable('sales_flat_quote'), $quoteData);
+        $installer->getConnection()->insert($installer->getTable('sales_flat_quote'), $quoteData);
         $quoteId = $installer->getConnection()->lastInsertId();
 
         foreach ($quoteItems as $itemInfo) {
@@ -312,12 +312,12 @@ foreach ($quoteRows as $oldQuoteId) {
             );
 
             foreach ($itemFields as $field) {
-	        	if (isset($itemInfo[$field])) {
-	        	    $itemData[$field] = $itemInfo[$field];
-	        	}
-	        }
+                if (isset($itemInfo[$field])) {
+                    $itemData[$field] = $itemInfo[$field];
+                }
+            }
             $installer->getConnection()->insert($installer->getTable('sales_flat_quote_item'), $itemData);
-	    }
+        }
     }
 }
 

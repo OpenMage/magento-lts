@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Backup
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Backup
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -101,7 +101,7 @@ class Mage_Backup_Model_Mysql4_Db
         $sql = 'SHOW CREATE TABLE ' . $quotedTableName;
         $row = $this->_read->fetchRow($sql);
 
-        if (!$row) {
+        if (!$row || !isset($row['Table']) || !isset($row['Create Table'])) {
             return false;
         }
 
@@ -301,7 +301,7 @@ class Mage_Backup_Model_Mysql4_Db
                 while ($data = $this->_read->fetchAll($select)) {
                     $dataSql = array();
                     foreach ($data as $row) {
-                    	$dataSql[] = $this->_read->quoteInto('(?)', $row);
+                        $dataSql[] = $this->_read->quoteInto('(?)', $row);
                     }
                     $arrSql[] = $sql.implode(', ', $dataSql).';';
                     $startRow += $step;

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Rule
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Rule
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -85,17 +85,17 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
 
     public function loadAttributeOptions()
     {
-    	$this->setAttributeOption(array());
+        $this->setAttributeOption(array());
         return $this;
     }
 
     public function getAttributeSelectOptions()
     {
-    	$opt = array();
-    	foreach ($this->getAttributeOption() as $k=>$v) {
-    		$opt[] = array('value'=>$k, 'label'=>$v);
-    	}
-    	return $opt;
+        $opt = array();
+        foreach ($this->getAttributeOption() as $k=>$v) {
+            $opt[] = array('value'=>$k, 'label'=>$v);
+        }
+        return $opt;
     }
 
     public function getAttributeName()
@@ -114,11 +114,11 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
 
     public function getOperatorSelectOptions()
     {
-    	$opt = array();
-    	foreach ($this->getOperatorOption() as $k=>$v) {
-    		$opt[] = array('value'=>$k, 'label'=>$v);
-    	}
-    	return $opt;
+        $opt = array();
+        foreach ($this->getOperatorOption() as $k=>$v) {
+            $opt[] = array('value'=>$k, 'label'=>$v);
+        }
+        return $opt;
     }
 
     public function getOperatorName()
@@ -128,17 +128,17 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
 
     public function loadValueOptions()
     {
-    	$this->setValueOption(array());
+        $this->setValueOption(array());
         return $this;
     }
 
     public function getValueSelectOptions()
     {
-    	$opt = array();
-    	foreach ($this->getValueOption() as $k=>$v) {
-    		$opt[] = array('value'=>$k, 'label'=>$v);
-    	}
-    	return $opt;
+        $opt = array();
+        foreach ($this->getValueOption() as $k=>$v) {
+            $opt[] = array('value'=>$k, 'label'=>$v);
+        }
+        return $opt;
     }
 
     public function getValueName()
@@ -172,53 +172,53 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
 
     public function getTypeElement()
     {
-    	return $this->getForm()->addField('action:'.$this->getId().':type', 'hidden', array(
-    		'name'=>'rule[actions]['.$this->getId().'][type]',
-    		'value'=>$this->getType(),
-    		'no_span'=>true,
-    	));
+        return $this->getForm()->addField('action:'.$this->getId().':type', 'hidden', array(
+            'name'=>'rule[actions]['.$this->getId().'][type]',
+            'value'=>$this->getType(),
+            'no_span'=>true,
+        ));
     }
 
     public function getAttributeElement()
     {
-    	return $this->getForm()->addField('action:'.$this->getId().':attribute', 'select', array(
-    		'name'=>'rule[actions]['.$this->getId().'][attribute]',
-    		'values'=>$this->getAttributeSelectOptions(),
-    		'value'=>$this->getAttribute(),
-    		'value_name'=>$this->getAttributeName(),
-    	))->setRenderer(Mage::getBlockSingleton('rule/editable'));
+        return $this->getForm()->addField('action:'.$this->getId().':attribute', 'select', array(
+            'name'=>'rule[actions]['.$this->getId().'][attribute]',
+            'values'=>$this->getAttributeSelectOptions(),
+            'value'=>$this->getAttribute(),
+            'value_name'=>$this->getAttributeName(),
+        ))->setRenderer(Mage::getBlockSingleton('rule/editable'));
     }
 
     public function getOperatorElement()
     {
         return $this->getForm()->addField('action:'.$this->getId().':operator', 'select', array(
-    		'name'=>'rule[actions]['.$this->getId().'][operator]',
-    		'values'=>$this->getOperatorSelectOptions(),
-    		'value'=>$this->getOperator(),
-    		'value_name'=>$this->getOperatorName(),
-    	))->setRenderer(Mage::getBlockSingleton('rule/editable'));
+            'name'=>'rule[actions]['.$this->getId().'][operator]',
+            'values'=>$this->getOperatorSelectOptions(),
+            'value'=>$this->getOperator(),
+            'value_name'=>$this->getOperatorName(),
+        ))->setRenderer(Mage::getBlockSingleton('rule/editable'));
     }
 
     public function getValueElement()
     {
         return $this->getForm()->addField('action:'.$this->getId().':value', 'text', array(
-    		'name'=>'rule[actions]['.$this->getId().'][value]',
-    		'value'=>$this->getValue(),
-    		'value_name'=>$this->getValueName(),
-    	))->setRenderer(Mage::getBlockSingleton('rule/editable'));
+            'name'=>'rule[actions]['.$this->getId().'][value]',
+            'value'=>$this->getValue(),
+            'value_name'=>$this->getValueName(),
+        ))->setRenderer(Mage::getBlockSingleton('rule/editable'));
     }
 
     public function getAddLinkHtml()
     {
-    	$src = Mage::getDesign()->getSkinUrl('images/rule_component_add.gif');
-    	$html = '<img src="'.$src.'" alt="" class="rule-param-add v-middle" />';
+        $src = Mage::getDesign()->getSkinUrl('images/rule_component_add.gif');
+        $html = '<img src="'.$src.'" alt="" class="rule-param-add v-middle" />';
         return $html;
     }
 
 
     public function getRemoveLinkHtml()
     {
-    	$src = Mage::getDesign()->getSkinUrl('images/rule_component_remove.gif');
+        $src = Mage::getDesign()->getSkinUrl('images/rule_component_remove.gif');
         $html = '<span class="rule-param"><a href="javascript:void(0)" class="rule-param-remove"><img src="'.$src.'" alt="" class="v-middle" /></a></span>';
         return $html;
     }

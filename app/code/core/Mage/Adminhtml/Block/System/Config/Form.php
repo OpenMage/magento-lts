@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -82,12 +82,24 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     protected $_fieldsets = array();
 
     /**
+     * Translated scope labels
+     *
+     * @var array
+     */
+    protected $_scopeLabels = array();
+
+    /**
      * Enter description here...
      *
      */
     public function __construct()
     {
         parent::__construct();
+        $this->_scopeLabels = array(
+            self::SCOPE_DEFAULT  => Mage::helper('adminhtml')->__('[GLOBAL]'),
+            self::SCOPE_WEBSITES => Mage::helper('adminhtml')->__('[WEBSITE]'),
+            self::SCOPE_STORES   => Mage::helper('adminhtml')->__('[STORE VIEW]'),
+        );
     }
 
     /**
@@ -243,6 +255,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 $name       = 'groups['.$group->getName().'][fields]['.$fieldPrefix.$e->getName().'][value]';
                 $label      =  Mage::helper($helperName)->__($labelPrefix).' '.Mage::helper($helperName)->__((string)$e->label);
                 $comment    = (string)$e->comment ? Mage::helper($helperName)->__((string)$e->comment) : '';
+                $hint       = (string)$e->hint ? Mage::helper($helperName)->__((string)$e->hint) : '';
 
                 if ($e->backend_model) {
                     $model = Mage::getModel((string)$e->backend_model);
@@ -256,12 +269,14 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     'name'                  => $name,
                     'label'                 => $label,
                     'comment'               => $comment,
+                    'hint'                  => $hint,
                     'value'                 => $data,
                     'inherit'               => $inherit,
                     'class'                 => $e->frontend_class,
                     'field_config'          => $e,
                     'scope'                 => $this->getScope(),
                     'scope_id'              => $this->getScopeId(),
+                    'scope_label'           => $this->getScopeLabel($e),
                     'can_use_default_value' => $this->canUseDefaultValue((int)$e->show_in_default),
                     'can_use_website_value' => $this->canUseWebsiteValue((int)$e->show_in_website),
                 ));
@@ -375,6 +390,22 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         }
 
         return $scope;
+    }
+
+    /**
+     * Retrieve label for scope
+     *
+     * @param Mage_Core_Model_Config_Element $element
+     * @return string
+     */
+    public function getScopeLabel($element)
+    {
+        if ($element->show_in_store == 1) {
+            return $this->_scopeLabels[self::SCOPE_STORES];
+        } elseif ($element->show_in_website == 1) {
+            return $this->_scopeLabels[self::SCOPE_WEBSITES];
+        }
+        return $this->_scopeLabels[self::SCOPE_DEFAULT];
     }
 
     /**

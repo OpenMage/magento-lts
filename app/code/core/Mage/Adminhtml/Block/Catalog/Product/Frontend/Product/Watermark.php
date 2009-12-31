@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
 
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
-		$html = $this->_getHeaderHtml($element);
+        $html = $this->_getHeaderHtml($element);
         $renderer = Mage::getBlockSingleton('adminhtml/system_config_form_field');
 
         $attributes = Mage::getConfig()->getNode(self::XML_PATH_IMAGE_TYPES)->asArray();
@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
                 ->setForm( $this->getForm() )
                 ->setLabel(Mage::helper('adminhtml')->__('Size for %s', $attribute['title']))
                 ->setRenderer($renderer);
-        	$html.= $field->toHtml();
+            $html.= $field->toHtml();
 
             /**
              * Watermark upload field
@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
                 ->setForm( $this->getForm() )
                 ->setLabel(Mage::helper('adminhtml')->__('Watermark File for %s', $attribute['title']))
                 ->setRenderer($renderer);
-        	$html.= $field->toHtml();
+            $html.= $field->toHtml();
 
             /**
              * Watermark position field
@@ -72,7 +72,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
                 ->setLabel(Mage::helper('adminhtml')->__('Position of Watermark for %s', $attribute['title']))
                 ->setRenderer($renderer)
                 ->setValues(Mage::getSingleton('adminhtml/system_config_source_catalog_product_watermark_position')->toOptionArray());
-        	$html.= $field->toHtml();
+            $html.= $field->toHtml();
         }
 
         $html .= $this->_getFooterHtml($element);

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Poll
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Poll
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -163,7 +163,7 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
             $answerId = $answer;
         }
         elseif ($answer instanceof Mage_Poll_Model_Poll_Answer) {
-        	$answerId = $answer->getId();
+            $answerId = $answer->getId();
         }
 
         if ($answerId) {
@@ -184,13 +184,13 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
         $idsArray = array();
 
         foreach ($this->getCookie()->get() as $cookieName => $cookieValue) {
-        	$pattern = '#^' . preg_quote($this->_pollCookieDefaultName, '#') . '(\d+)$#';
-        	$match   = array();
-        	if (preg_match($pattern, $cookieName, $match)) {
-        	    if ($match[1] != Mage::getSingleton('core/session')->getJustVotedPoll()) {
-        	        $idsArray[$match[1]] = $match[1];
-        	    }
-        	}
+            $pattern = '#^' . preg_quote($this->_pollCookieDefaultName, '#') . '(\d+)$#';
+            $match   = array();
+            if (preg_match($pattern, $cookieName, $match)) {
+                if ($match[1] != Mage::getSingleton('core/session')->getJustVotedPoll()) {
+                    $idsArray[$match[1]] = $match[1];
+                }
+            }
         }
 
         // load from db for this ip

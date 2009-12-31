@@ -1,0 +1,19 @@
+<role version="1.0">
+ <releasetypes>php</releasetypes>
+ <installable>1</installable>
+ <locationconfig>mage_locale_dir</locationconfig>
+ <honorsbaseinstall>1</honorsbaseinstall>
+ <unusualbaseinstall />
+ <phpfile>1</phpfile>
+ <executable />
+ <phpextension />
+ <config_vars>
+  <mage_locale_dir>
+   <type>directory</type>
+   <default>./app/locale</default>
+   <doc>Magento Locale i18n directory</doc>
+   <prompt>Magento Locale i18n directory</prompt>
+   <group>File Locations</group>
+  </mage_locale_dir>
+ </config_vars>
+</role>

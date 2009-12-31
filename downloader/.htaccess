@@ -1,0 +1,6 @@
+<IfModule mod_deflate.c>
+
+    RemoveOutputFilter DEFLATE
+    RemoveOutputFilter GZIP
+
+</IfModule>

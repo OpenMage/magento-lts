@@ -17,8 +17,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /****************************************************/
@@ -599,9 +601,9 @@ h1#logo {
 .minimal-price { margin:0; }
 .minimal-price .price-label { font-weight:bold; white-space:nowrap; }
 
-a.minimal-price-link { display:block; }
-a.minimal-price-link .label {}
-a.minimal-price-link .price { font-weight:normal; color:#1e7ec8; }
+.minimal-price-link { display:block; }
+.minimal-price-link .label {color:#1e7ec8;}
+.minimal-price-link .price { font-weight:normal; color:#1e7ec8; }
 
 /* Excluding tax */
 .price-excluding-tax { display:block; color:#999; }
@@ -842,11 +844,12 @@ table.recently-list td { width:20%; }
 .product-img-box { float:left; width:267px; }
 .product-img-box .product-image-zoom { position:relative; overflow:hidden; width:265px; height:265px; z-index:9; }
 .product-img-box .product-image-zoom img { position:absolute; left:0; top:0; cursor:move; }
-.image-zoom { position:relative; z-index:9; height:18px; margin:0 auto 13px auto; background:url(../images/slider_bg.gif) no-repeat 50% 50%; padding:0 28px 0 28px; cursor:pointer; }
+.image-zoom { position:relative; z-index:9; height:18px; margin:0 auto 13px auto; background:url(../images/slider_bg.gif) no-repeat 50% 50%; padding:2px 28px 2px 28px; cursor:pointer; }
+.image-zoom.disabled { -moz-opacity:.3; -webkit-opacity:.3; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";/*IE8*/ opacity:.3; }
 .image-zoom #track { position:relative; height:18px; }
-.image-zoom #handle { position:absolute; left:0; top:-1px; width:9px; height:22px;background:url(../images/magnifier_handle.gif) 0 0 no-repeat; }
-.image-zoom .btn-zoom-out { position:absolute; left:2px; top:1px; }
-.image-zoom .btn-zoom-in { position:absolute; right:2px; top:1px; }
+.image-zoom #handle { position:absolute; left:0; top:-2px; width:9px; height:22px;background:url(../images/magnifier_handle.gif) 0 0 no-repeat; }
+.image-zoom .btn-zoom-out { position:absolute; left:2px; top:2px; }
+.image-zoom .btn-zoom-in { position:absolute; right:2px; top:2px; }
 .product-img-box .more-views h4 { border-bottom:1px solid #ccc; margin-bottom:.8em; font-size:.95em; text-transform:uppercase; }
 .product-img-box .more-views ul { margin-left:-9px; }
 .product-img-box .more-views li { float:left; margin:0 0 9px 9px; }

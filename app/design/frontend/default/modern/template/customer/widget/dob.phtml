@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_modern
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /**
@@ -44,6 +44,10 @@ For checkout/onepage/billing.phtml:
 NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
       Alternatively we could calculate widths automatically using block input parameters.
 */
+
+/**
+ * @see Mage_Customer_Block_Widget_Dob
+ */
 ?>
 <div class="customer-dob">
     <label for="<?php echo $this->getFieldId('day')?>">
@@ -51,20 +55,29 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
         <?php if ($this->isRequired()):?><span class="required">*</span><?php endif ?>
     </label>
 
-    <div class="input-box dob-day">
-        <input type="text" id="<?php echo $this->getFieldId('day')?>" name="<?php echo $this->getFieldName('day')?>" value="<?php echo $this->getDay() ?>" title="<?php echo $this->__('Day') ?>" class="input-text validate-custom" <?php echo $this->getFieldParams() ?> />
-        <label for="<?php echo $this->getFieldId('day')?>" class="label-dob"><?php echo $this->__('DD') ?></label>
-    </div>
+<?php
+    $this->setDateInput('d',
+        '<div class="input-box dob-day">
+             <input type="text" id="' . $this->getFieldId('day') . '" name="' . $this->getFieldName('day') . '" value="' . $this->getDay()  . '" title="' . $this->__('Day')  . '" class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
+             <label for="' . $this->getFieldId('day') . '" class="label-dob">' . $this->__('DD')  . '</label>
+         </div>'
+    );
 
-    <div class="input-box dob-month">
-        <input type="text" id="<?php echo $this->getFieldId('month')?>" name="<?php echo $this->getFieldName('month')?>" value="<?php echo $this->getMonth() ?>" title="<?php echo $this->__('Month') ?>" class="input-text validate-custom" <?php echo $this->getFieldParams() ?> />
-        <label for="<?php echo $this->getFieldId('month')?>" class="label-dob"><?php echo $this->__('MM') ?></label>
-    </div>
+    $this->setDateInput('m',
+        '<div class="input-box dob-month">
+             <input type="text" id="' . $this->getFieldId('month') . '" name="' . $this->getFieldName('month') . '" value="' . $this->getMonth()  . '" title="' . $this->__('Month')  . '" class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
+             <label for="' . $this->getFieldId('month') . '" class="label-dob">' . $this->__('MM')  . '</label>
+         </div>'
+    );
 
-    <div class="input-box dob-year">
-        <input type="text" id="<?php echo $this->getFieldId('year')?>" name="<?php echo $this->getFieldName('year')?>" value="<?php echo $this->getYear() ?>" title="<?php echo $this->__('Year') ?>" class="input-text validate-custom" <?php echo $this->getFieldParams() ?> />
-        <label for="<?php echo $this->getFieldId('year')?>" class="label-dob"><?php echo $this->__('YYYY') ?></label>
-    </div>
+    $this->setDateInput('y',
+        '<div class="input-box dob-year">
+             <input type="text" id="' . $this->getFieldId('year') . '" name="' . $this->getFieldName('year') . '" value="' . $this->getYear()  . '" title="' . $this->__('Year')  . '" class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
+             <label for="' . $this->getFieldId('year') . '" class="label-dob">' . $this->__('YYYY')  . '</label>
+         </div>'
+    );
+?>
+<?php echo $this->getSortedDateInputs() ?>
 
     <div class="dob-full" style="display:none;">
         <input type="hidden" id="<?php echo $this->getFieldId('dob')?>" name="<?php echo $this->getFieldName('dob')?>" />

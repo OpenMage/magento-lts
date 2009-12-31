@@ -17,8 +17,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_iphone
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var PaypalExpress = Class.create();
 PaypalExpress.prototype = {
@@ -48,22 +50,22 @@ PaypalExpress.prototype = {
     },
 
     validateShippingMethod: function() {
-    	var methods = document.getElementsByName('shipping_method');
-    	if (methods.length==0) {
-    		alert('Your order can not be completed at this time as there is no shipping methods available for it. Please make neccessary changes in your shipping address.');
-    		return false;
-    	}
-    	for (var i=0; i<methods.length; i++) {
-    		if (methods[i].checked) {
-    			return true;
-    		}
-    	}
-    	alert('Please specify shipping method.');
-    	return false;
+        var methods = document.getElementsByName('shipping_method');
+        if (methods.length==0) {
+            alert('Your order can not be completed at this time as there is no shipping methods available for it. Please make neccessary changes in your shipping address.');
+            return false;
+        }
+        for (var i=0; i<methods.length; i++) {
+            if (methods[i].checked) {
+                return true;
+            }
+        }
+        alert('Please specify shipping method.');
+        return false;
     },
 
     saveShippingMethod: function() {
-    	if (this.loadWaiting!=false) return;
+        if (this.loadWaiting!=false) return;
 
         if (this.validateShippingMethod()) {
             this.setLoadWaiting('shipping-method');
@@ -84,7 +86,7 @@ PaypalExpress.prototype = {
     },
 
     getShippingMethodResult: function(transport){
-    	if (transport && transport.responseText){
+        if (transport && transport.responseText){
             try{
                 response = eval('(' + transport.responseText + ')');
             }
@@ -96,12 +98,12 @@ PaypalExpress.prototype = {
             $$('.col-right')[0].innerHTML = response.progress_html;
         }
         if (response.shipping_methods_html) {
-        	$('checkout-shipping-method-load').innerHTML = response.shipping_methods_html;
+            $('checkout-shipping-method-load').innerHTML = response.shipping_methods_html;
         }
     },
 
     saveOrder: function() {
-    	if (this.loadWaiting!=false) return;
+        if (this.loadWaiting!=false) return;
         this.setLoadWaiting('review');
         var request = new Ajax.Request(
             this.saveOrderUrl,

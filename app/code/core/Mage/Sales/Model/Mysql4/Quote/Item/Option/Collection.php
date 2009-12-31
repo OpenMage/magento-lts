@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Sales
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -53,7 +53,7 @@ class Mage_Sales_Model_Mysql4_Quote_Item_Option_Collection extends Mage_Core_Mod
             $this->addFieldToFilter('item_id', array('in'=>$item));
         }
         elseif ($item instanceof Mage_Sales_Model_Quote_Item) {
-        	$this->addFieldToFilter('item_id', $item->getId());
+            $this->addFieldToFilter('item_id', $item->getId());
         }
         else {
             $this->addFieldToFilter('item_id', $item);
@@ -70,7 +70,7 @@ class Mage_Sales_Model_Mysql4_Quote_Item_Option_Collection extends Mage_Core_Mod
     {
         $ids = array();
         foreach ($this as $item) {
-        	$ids[] = $item->getProductId();
+            $ids[] = $item->getProductId();
         }
         return array_unique($ids);
     }
@@ -92,9 +92,9 @@ class Mage_Sales_Model_Mysql4_Quote_Item_Option_Collection extends Mage_Core_Mod
 
         $options = array();
         foreach ($this as $option) {
-        	if ($option->getItemId() == $itemId) {
-        	    $options[] = $option;
-        	}
+            if ($option->getItemId() == $itemId) {
+                $options[] = $option;
+            }
         }
         return $options;
     }
@@ -116,9 +116,9 @@ class Mage_Sales_Model_Mysql4_Quote_Item_Option_Collection extends Mage_Core_Mod
 
         $options = array();
         foreach ($this as $option) {
-        	if ($option->getProductId() == $productId) {
-        	    $options[] = $option;
-        	}
+            if ($option->getProductId() == $productId) {
+                $options[] = $option;
+            }
         }
         return $options;
     }

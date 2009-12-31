@@ -19,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_GoogleAnalytics
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    Mage
+ * @package     Mage_GoogleCheckout
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -136,7 +136,7 @@
                             <show_in_store>0</show_in_store>
                         </continue_shopping_url>
                         <hide_cart_contents translate="label comment">
-                            <label>Hide Cart Contents During Checkout</label>
+                            <label>Hide Cart Contents</label>
                             <comment>If enabled, cart contents will be hidden after clicking on the Google Checkout button in the shopping cart, and restored if "Edit Cart" link was activated.</comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -333,7 +333,7 @@
                             <frontend_type>select</frontend_type>
                             <sort_order>24</sort_order>
                             <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
-							<frontend_model>googlecheckout/adminhtml_shipping_applicable_countries</frontend_model>
+                            <frontend_model>googlecheckout/adminhtml_shipping_applicable_countries</frontend_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -371,7 +371,7 @@
                             <frontend_type>select</frontend_type>
                             <sort_order>34</sort_order>
                             <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
-							<frontend_model>googlecheckout/adminhtml_shipping_applicable_countries</frontend_model>
+                            <frontend_model>googlecheckout/adminhtml_shipping_applicable_countries</frontend_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -408,7 +408,7 @@
                             <frontend_type>select</frontend_type>
                             <sort_order>44</sort_order>
                             <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
-							<frontend_model>googlecheckout/adminhtml_shipping_applicable_countries</frontend_model>
+                            <frontend_model>googlecheckout/adminhtml_shipping_applicable_countries</frontend_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>

@@ -28,7 +28,7 @@
  * @package    Zend_Form
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Form.php 17616 2009-08-15 03:28:29Z yoshida@zend.co.jp $
+ * @version    $Id: Form.php 18272 2009-09-18 19:03:49Z matthew $
  */
 class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
 {
@@ -132,6 +132,12 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * @var bool
      */
     protected $_errorsExist = false;
+
+    /**
+     * Has the form been manually flagged as an error?
+     * @var bool
+     */
+    protected $_errorsForced = false;
 
     /**
      * Form order
@@ -1213,9 +1219,8 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Set default values for elements
      *
-     * If an element's name is not specified as a key in the array, its value
-     * is set to null.
-     *
+     * Sets values for all elements specified in the array of $defaults.
+     * 
      * @param  array $defaults
      * @return Zend_Form
      */
@@ -2014,6 +2019,12 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         }
 
         $this->_errorsExist = !$valid;
+
+        // If manually flagged as an error, return invalid status
+        if ($this->_errorsForced) {
+            return false;
+        }
+
         return $valid;
     }
 
@@ -2149,7 +2160,8 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      */
     public function markAsError()
     {
-        $this->_errorsExist = true;
+        $this->_errorsExist  = true;
+        $this->_errorsForced = true;
         return $this;
     }
 

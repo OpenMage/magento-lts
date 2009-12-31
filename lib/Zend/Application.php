@@ -16,7 +16,7 @@
  * @package    Zend_Application
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Application.php 17802 2009-08-24 21:15:12Z matthew $
+ * @version    $Id: Application.php 18339 2009-09-21 15:05:25Z matthew $
  */
 
 /**
@@ -144,7 +144,18 @@ class Zend_Application
         if (!empty($options['autoloadernamespaces'])) {
             $this->setAutoloaderNamespaces($options['autoloadernamespaces']);
         }
-        
+
+        if (!empty($options['autoloaderzfpath'])) {
+            $autoloader = $this->getAutoloader();
+            if (method_exists($autoloader, 'setZfPath')) {
+                $zfPath    = $options['autoloaderzfpath'];
+                $zfVersion = !empty($options['autoloaderzfversion']) 
+                           ? $options['autoloaderzfversion'] 
+                           : 'latest';
+                $autoloader->setZfPath($zfPath, $zfVersion);
+            }
+        }
+
         if (!empty($options['bootstrap'])) {
             $bootstrap = $options['bootstrap'];
             
@@ -189,7 +200,7 @@ class Zend_Application
      */
     public function hasOption($key)
     {
-        return in_array($key, $this->_optionKeys);
+        return in_array(strtolower($key), $this->_optionKeys);
     }
 
     /**
@@ -327,12 +338,13 @@ class Zend_Application
 
     /**
      * Bootstrap application
-     * 
+     *
+     * @param  null|string|array $resource
      * @return Zend_Application
      */
-    public function bootstrap()
+    public function bootstrap($resource = null)
     {
-        $this->getBootstrap()->bootstrap();
+        $this->getBootstrap()->bootstrap($resource);
         return $this;
     }
 

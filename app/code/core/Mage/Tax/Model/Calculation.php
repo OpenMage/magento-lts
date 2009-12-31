@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Tax
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Tax
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -171,7 +171,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
 
     /**
      * Get calculation tax rate by specific request
-     * 
+     *
      * @param   Varien_Object $request
      * @return  float
      */
@@ -256,7 +256,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         $address    = new Varien_Object();
         $customer   = $this->getCustomer();
         $basedOn    = Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_BASED_ON, $store);
-        
+
         if (($shippingAddress === false && $basedOn == 'shipping')
             || ($billingAddress === false && $basedOn == 'billing')) {
             $basedOn = 'default';
@@ -302,7 +302,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         } elseif (($customerTaxClass === false) || !$customer) {
             $customerTaxClass = $this->getDefaultCustomerTaxClass($store);
         }
-        
+
         $request = new Varien_Object();
         $request
             ->setCountryId($address->getCountryId())
@@ -393,7 +393,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * $taxRate can't be more than 1 (if it is not percent)
      *
      * @param   float $price
-     * @param   float $taxRate 
+     * @param   float $taxRate
      * @param   boolean $priceIncludeTax
      * @return  float
      */
@@ -411,7 +411,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         } else {
             $amount = $price*$taxRate;
         }
-        
+
         if ($round) {
             return $this->round($amount);
         } else {

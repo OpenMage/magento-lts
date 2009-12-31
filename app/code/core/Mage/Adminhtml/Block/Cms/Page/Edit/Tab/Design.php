@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design
     extends Mage_Adminhtml_Block_Widget_Form
@@ -57,12 +57,15 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design
         ));
 
         $layoutFieldset->addField('root_template', 'select', array(
-            'name'      => 'root_template',
-            'label'     => Mage::helper('cms')->__('Layout'),
-            'required'  => true,
+            'name'     => 'root_template',
+            'label'    => Mage::helper('cms')->__('Layout'),
+            'required' => true,
             'values'   => Mage::getSingleton('page/source_layout')->toOptionArray(),
-            'disabled'  => $isElementDisabled
+            'disabled' => $isElementDisabled
         ));
+        if (!$model->getId()) {
+            $model->setRootTemplate(Mage::getSingleton('page/source_layout')->getDefaultValue());
+        }
 
         $layoutFieldset->addField('layout_update_xml', 'textarea', array(
             'name'      => 'layout_update_xml',

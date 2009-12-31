@@ -17,7 +17,7 @@
  * @subpackage RootDSE
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: eDirectory.php 13449 2008-12-23 17:49:44Z sgehrig $
+ * @version    $Id: eDirectory.php 17829 2009-08-26 15:07:10Z sgehrig $
  */
 
 /**
@@ -40,7 +40,7 @@ class Zend_Ldap_Node_RootDse_eDirectory extends Zend_Ldap_Node_RootDse
     /**
      * Determines if the extension is supported
      *
-     * @param string|array $oids oid(s) to check
+     * @param  string|array $oids oid(s) to check
      * @return boolean
      */
     public function supportsExtension($oids)

@@ -48,12 +48,44 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
 
     public function getElementHtml()
     {
+        $js = '
+            <script type="text/javascript">
+            //<![CDATA[
+            function openEditorPopup(url, name, specs, parent) {
+                if ((typeof popups == "undefined") || popups[name] == undefined || popups[name].closed) {
+                    if (typeof popups == "undefined") {
+                        popups = new Array();
+                    }
+                    var opener = (parent != undefined ? parent : window);
+                    popups[name] = opener.open(url, name, specs);
+                } else {
+                    popups[name].focus();
+                }
+            }
+
+            function closeEditorPopup(name) {
+                if ((typeof popups != "undefined") && popups[name] != undefined && !popups[name].closed) {
+                    popups[name].close();
+                }
+            }
+    		//]]>
+            </script>';
+
         if($this->isEnabled())
         {
+            // add Firebug notice translations
+            $this->getConfig()->addData(array(
+                'firebug_warning_title'  => $this->translate('Warning'),
+                'firebug_warning_text'   => $this->translate('Firebug is known to make the WYSIWYG editor slow unless it is turned off or configured properly.'),
+                'firebug_warning_anchor' => $this->translate('Hide'),
+            ));
+
             $jsSetupObject = 'wysiwyg' . $this->getHtmlId();
 
             $html = $this->_getButtonsHtml()
                 .'<textarea name="'.$this->getName().'" title="'.$this->getTitle().'" id="'.$this->getHtmlId().'" class="textarea '.$this->getClass().'" '.$this->serialize($this->getHtmlAttributes()).' >'.$this->getEscapedValue().'</textarea>
+
+                '.$js.'
 
                 <script type="text/javascript">
                 //<![CDATA[
@@ -62,7 +94,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                     varienGlobalEvents.fireEvent("open_browser_callback", {win:w, type:objectType, field:fieldName});
                 }
 
-				'.$jsSetupObject.' = new tinyMceWysiwygSetup("'.$this->getHtmlId().'", '.Zend_Json::encode($this->getConfig()).');
+                '.$jsSetupObject.' = new tinyMceWysiwygSetup("'.$this->getHtmlId().'", '.Zend_Json::encode($this->getConfig()).');
 
                 '.($this->isHidden() ? '' : 'Event.observe(window, "load", '.$jsSetupObject.'.setup.bind('.$jsSetupObject.'));').'
 
@@ -83,7 +115,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         {
             // Display only buttons to additional features
             if ($this->getConfig('widget_window_url')) {
-                $html = $this->_getButtonsHtml() . parent::getElementHtml();
+                $html = $this->_getButtonsHtml() . $js . parent::getElementHtml();
                 $html = $this->_wrapIntoContainer($html);
                 return $html;
             }
@@ -97,7 +129,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             return 'simple';
         }
 
-        return $this->getData('theme');
+        return $this->_getData('theme');
     }
 
     /**
@@ -147,8 +179,8 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         // Button to widget insertion window
         $winUrl = $this->getConfig('widget_window_no_wysiwyg_url');
         $buttonsHtml .= $this->_getButtonHtml(array(
-            'title'     => $this->translate('Insert Widget'),
-            'onclick'   => "window.open('" . $winUrl . "', '" . $this->getHtmlId() . "', 'width=1024,height=800')",
+            'title'     => $this->translate('Insert Widget...'),
+            'onclick'   => "openEditorPopup('" . $winUrl . "', 'widget_window" . $this->getHtmlId() . "', 'width=1024,height=800,scrollbars=yes')",
             'class'     => 'add-widget plugin',
             'style'     => $visible ? '' : 'display:none',
         ));
@@ -156,8 +188,8 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         // Button to media images insertion window
         $winUrl = $this->getConfig('files_browser_window_url');
         $buttonsHtml .= $this->_getButtonHtml(array(
-            'title'     => $this->translate('Insert Image'),
-            'onclick'   => "window.open('" . $winUrl . "', '" . $this->getHtmlId() . "', 'width=1024,height=800')",
+            'title'     => $this->translate('Insert Image...'),
+            'onclick'   => "openEditorPopup('" . $winUrl . "', 'browser_window" . $this->getHtmlId() . "', 'width=1024,height=800')",
             'class'     => 'add-image plugin',
             'style'     => $visible ? '' : 'display:none',
         ));
@@ -212,14 +244,14 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      */
     public function getConfig($key = null)
     {
-        if ( !($this->getData('config') instanceof Varien_Object) ) {
+        if ( !($this->_getData('config') instanceof Varien_Object) ) {
             $config = new Varien_Object();
             $this->setConfig($config);
         }
         if ($key !== null) {
-            return $this->getData('config')->getData($key);
+            return $this->_getData('config')->getData($key);
         }
-        return $this->getData('config');
+        return $this->_getData('config');
     }
 
     /**

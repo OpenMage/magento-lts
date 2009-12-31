@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Review
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Review
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -154,5 +154,31 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     {
         $this->_protectFromNonAdmin();
         return parent::_beforeDelete();
+    }
+
+    /**
+     * Check if current review approved or not
+     *
+     * @return bool
+     */
+    public function isApproved()
+    {
+        return $this->getStatusId() == self::STATUS_APPROVED;
+    }
+
+    /**
+     * Check if current review available on passed store
+     *
+     * @param int|Mage_Core_Model_Store $store
+     * @return bool
+     */
+    public function isAvailableOnStore($store = null)
+    {
+        $store = Mage::app()->getStore($store);
+        if ($store) {
+            return in_array($store->getId(), (array)$this->getStores());
+        }
+
+        return false;
     }
 }

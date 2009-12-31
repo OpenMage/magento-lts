@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Ideal
- * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +34,7 @@
  */
 class Mage_Ideal_BasicController extends Mage_Core_Controller_Front_Action
 {
-    
+
     /**
      *  Return order instance for last real order ID (stored in session)
      *
@@ -243,5 +243,5 @@ class Mage_Ideal_BasicController extends Mage_Core_Controller_Front_Action
         }
         return false;
     }
-    
+
 }

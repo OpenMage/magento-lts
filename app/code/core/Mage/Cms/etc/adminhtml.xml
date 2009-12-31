@@ -19,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Cms
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    Mage
+ * @package     Mage_Cms
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -32,7 +32,7 @@
             <sort_order>70</sort_order>
             <children>
                 <page translate="title" module="cms">
-                    <title>Manage Pages</title>
+                    <title>Pages</title>
                     <action>adminhtml/cms_page</action>
                     <sort_order>0</sort_order>
                 </page>
@@ -42,7 +42,7 @@
                     <sort_order>10</sort_order>
                 </block>
                 <poll translate="title" module="cms">
-                    <title>Poll Manager</title>
+                    <title>Polls</title>
                     <action>adminhtml/poll</action>
                     <sort_order>20</sort_order>
                 </poll>
@@ -59,11 +59,11 @@
                         <children>
                             <block translate="title">
                                 <title>Static Blocks</title>
-                                <sort_order>0</sort_order>
+                                <sort_order>10</sort_order>
                             </block>
                             <page translate="title">
-                                <title>Manage Pages</title>
-                                <sort_order>10</sort_order>
+                                <title>Pages</title>
+                                <sort_order>0</sort_order>
                                 <children>
                                     <save translate="title">
                                         <title>Save Page</title>
@@ -76,7 +76,7 @@
                                 </children>
                             </page>
                             <poll translate="title">
-                                <title>Poll Manager</title>
+                                <title>Polls</title>
                                 <sort_order>20</sort_order>
                             </poll>
                         </children>

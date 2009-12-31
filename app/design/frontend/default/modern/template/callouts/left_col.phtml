@@ -18,21 +18,21 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_modern
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 
 <div class="box">
-	<?php if (strtolower(substr($this->getLinkUrl(),0,4))==='http'): ?>
-		<a href="<?php echo $this->getLinkUrl() ?>">
-	<?php elseif($this->getLinkUrl()): ?>
-		<a href="<?php echo $this->getUrl($this->getLinkUrl()) ?>">
-	<?php endif ?>
+    <?php if (strtolower(substr($this->getLinkUrl(),0,4))==='http'): ?>
+        <a href="<?php echo $this->getLinkUrl() ?>">
+    <?php elseif($this->getLinkUrl()): ?>
+        <a href="<?php echo $this->getUrl($this->getLinkUrl()) ?>">
+    <?php endif ?>
     <img src="<?php echo $this->getSkinUrl($this->getImgSrc()) ?>" alt="<?php echo $this->__($this->getImgAlt()) ?>" style="display:block;" />
-	<?php if ($this->getLinkUrl()): ?>
-	</a>
-	<?php endif ?>
+    <?php if ($this->getLinkUrl()): ?>
+    </a>
+    <?php endif ?>
 </div>

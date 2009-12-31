@@ -19,92 +19,145 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
-<config>
-    <widgets>
-        <new_products type="catalog/product_widget_new" translate="name description" module="catalog">
-            <name>Catalog New Products List</name>
-            <description>List of Products that are marked as New</description>
-            <parameters>
-                <products_count translate="label">
-                    <required>1</required>
-                    <visible>1</visible>
-                    <value>5</value>
-                    <label>Number of Products to Display</label>
-                    <type>text</type>
-                </products_count>
-                <template>
-                    <required>1</required>
-                    <value>catalog/product/new.phtml</value>
-                </template>
-                <cache_lifetime translate="label description">
-                    <label>Cache Lifetime (Seconds)</label>
-                    <description>86400 by default, if not set</description>
-                    <visible>1</visible>
-                    <type>text</type>
-                </cache_lifetime>
-            </parameters>
-        </new_products>
+<widgets>
+    <new_products type="catalog/product_widget_new" translate="name description" module="catalog">
+        <name>Catalog New Products List</name>
+        <description>List of Products that are set as New</description>
+        <parameters>
+            <products_count translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value>5</value>
+                <label>Number of Products to Display</label>
+                <type>text</type>
+            </products_count>
+            <template>
+                <required>1</required>
+                <visible>1</visible>
+                <label>Template</label>
+                <type>select</type>
+                <value>catalog/product/widget/new/content/new_grid.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value>catalog/product/widget/new/content/new_grid.phtml</value>
+                        <label>New Products Grid Template</label>
+                    </default>
+                    <list translate="label">
+                        <value>catalog/product/widget/new/content/new_list.phtml</value>
+                        <label>New Products List Template</label>
+                    </list>
+                </values>
+            </template>
+            <cache_lifetime translate="label description">
+                <label>Cache Lifetime (Seconds)</label>
+                <description>86400 by default, if not set. To refresh instantly, Clear the Blocks HTML Output Cache.</description>
+                <visible>1</visible>
+                <type>text</type>
+            </cache_lifetime>
+        </parameters>
+    </new_products>
 
-        <catalog_product_link type="catalog/product_widget_link" translate="name description" module="catalog">
-            <name>Catalog Product Link</name>
-            <description>Link to a Specified Product</description>
-            <parameters>
-                <id_path translate="label">
-                    <visible>1</visible>
-                    <required>1</required>
-                    <label>Product</label>
-                    <type>
-                        <element_type>label</element_type>
-                        <element_helper>adminhtml/catalog_product_widget_chooser</element_helper>
-                    </type>
-                    <sort_order>10</sort_order>
-                </id_path>
-                <anchor_text translate="label description">
-                    <visible>1</visible>
-                    <label>Anchor Text</label>
-                    <description>If empty, the Product Name will be used</description>
-                    <type>text</type>
-                </anchor_text>
-                <title translate="label">
-                    <visible>1</visible>
-                    <label>Anchor Title</label>
-                    <type>text</type>
-                </title>
-            </parameters>
-        </catalog_product_link>
+    <catalog_product_link type="catalog/product_widget_link" translate="name description" module="catalog">
+        <name>Catalog Product Link</name>
+        <description>Link to a Specified Product</description>
+        <parameters>
+            <id_path translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Product</label>
+                <type>label</type>
+                <helper_block>
+                    <type>adminhtml/catalog_product_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Product...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>10</sort_order>
+            </id_path>
+            <anchor_text translate="label description">
+                <visible>1</visible>
+                <label>Anchor Custom Text</label>
+                <description>If empty, the Product Name will be used</description>
+                <type>text</type>
+            </anchor_text>
+            <title translate="label">
+                <visible>1</visible>
+                <label>Anchor Custom Title</label>
+                <type>text</type>
+            </title>
+            <template translate="label">
+                <label>Template</label>
+                <visible>1</visible>
+                <type>select</type>
+                <value>catalog/product/widget/link/link_block.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value>catalog/product/widget/link/link_block.phtml</value>
+                        <label>Product Link Block Template</label>
+                    </default>
+                    <link_inline translate="label">
+                        <value>catalog/product/widget/link/link_inline.phtml</value>
+                        <label>Product Link Inline Template</label>
+                    </link_inline>
+                </values>
+            </template>
+        </parameters>
+    </catalog_product_link>
 
-        <catalog_category_link type="catalog/category_widget_link" translate="name description" module="catalog">
-            <name>Catalog Category Link</name>
-            <description>Link to a Specified Category</description>
-            <parameters>
-                <id_path translate="label">
-                    <visible>1</visible>
-                    <required>1</required>
-                    <label>Category</label>
-                    <type>
-                        <element_type>label</element_type>
-                        <element_helper>adminhtml/catalog_category_widget_chooser</element_helper>
-                    </type>
-                    <sort_order>10</sort_order>
-                </id_path>
-                <anchor_text translate="label desctiption">
-                    <visible>1</visible>
-                    <label>Anchor Text</label>
-                    <description>If empty, the Category Name will be used</description>
-                    <type>text</type>
-                </anchor_text>
-                <title translate="label">
-                    <visible>1</visible>
-                    <label>Anchor Title</label>
-                    <type>text</type>
-                </title>
-            </parameters>
-        </catalog_category_link>
-    </widgets>
-</config>
+    <catalog_category_link type="catalog/category_widget_link" translate="name description" module="catalog">
+        <name>Catalog Category Link</name>
+        <description>Link to a Specified Category</description>
+        <parameters>
+            <id_path translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Category</label>
+                <type>label</type>
+                <helper_block>
+                    <type>adminhtml/catalog_category_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Category...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>10</sort_order>
+            </id_path>
+            <anchor_text translate="label desctiption">
+                <visible>1</visible>
+                <label>Anchor Custom Text</label>
+                <description>If empty, the Category Name will be used</description>
+                <type>text</type>
+            </anchor_text>
+            <title translate="label">
+                <visible>1</visible>
+                <label>Anchor Custom Title</label>
+                <type>text</type>
+            </title>
+            <template translate="label">
+                <label>Template</label>
+                <visible>1</visible>
+                <type>select</type>
+                <value>catalog/category/widget/link/link_block.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value>catalog/category/widget/link/link_block.phtml</value>
+                        <label>Category Link Block Template</label>
+                    </default>
+                    <link_inline translate="label">
+                        <value>catalog/category/widget/link/link_inline.phtml</value>
+                        <label>Category Link Inline Template</label>
+                    </link_inline>
+                </values>
+            </template>
+        </parameters>
+    </catalog_category_link>
+</widgets>

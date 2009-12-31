@@ -33,12 +33,6 @@
  */
 class Mage_Cms_Model_Wysiwyg_Images_Storage_Collection extends Varien_Data_Collection_Filesystem
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setPageSize(10000);
-    }
-
     protected function _generateRow($filename)
     {
         return array(

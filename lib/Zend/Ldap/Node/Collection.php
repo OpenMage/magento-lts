@@ -17,7 +17,7 @@
  * @subpackage Node
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Collection.php 13089 2008-12-07 14:00:24Z sgehrig $
+ * @version    $Id: Collection.php 17829 2009-08-26 15:07:10Z sgehrig $
  */
 
 /**
@@ -40,7 +40,7 @@ class Zend_Ldap_Node_Collection extends Zend_Ldap_Collection
     /**
      * Creates the data structure for the given entry data
      *
-     * @param array $data
+     * @param  array $data
      * @return Zend_Ldap_Node
      */
     protected function _createEntry(array $data)

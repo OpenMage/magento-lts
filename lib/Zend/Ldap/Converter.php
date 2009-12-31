@@ -16,7 +16,7 @@
  * @package    Zend_Ldap
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Converter.php 16613 2009-07-10 06:55:41Z ralph $
+ * @version    $Id: Converter.php 17826 2009-08-26 15:01:34Z sgehrig $
  */
 
 /**

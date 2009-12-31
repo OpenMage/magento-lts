@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Customer
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Customer
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -157,14 +157,21 @@ class Mage_Customer_Model_Entity_Setup extends Mage_Eav_Model_Entity_Setup
                         'backend'       => 'customer/customer_attribute_backend_shipping',
                     ),
                     'taxvat' => array(
-                        'label'         => 'Tax/VAT number',
+                        'label'         => 'Tax/VAT Number',
                         'visible'       => true,
                         'required'      => false,
                     ),
                     'confirmation' => array(
-                        'label'         => 'Is confirmed',
+                        'label'         => 'Is Confirmed',
                         'visible'       => false,
                         'required'      => false,
+                    ),
+                    'created_at' => array(
+                        'type'          => 'static',
+                        'label'         => 'Created At',
+                        'visible'       => false,
+                        'required'      => false,
+                        'input'         => 'date',
                     ),
                 ),
             ),

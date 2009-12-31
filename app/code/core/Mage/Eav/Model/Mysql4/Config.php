@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Eav
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Eav
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -51,8 +51,8 @@ class Mage_Eav_Model_Mysql4_Config extends Mage_Core_Model_Mysql4_Abstract
             $select = $this->_getReadAdapter()->select()->from($this->getMainTable());
             $data = $this->_getReadAdapter()->fetchAll($select);
             foreach ($data as $row) {
-            	self::$_entityTypes['by_id'][$row['entity_type_id']] = $row;
-            	self::$_entityTypes['by_code'][$row['entity_type_code']] = $row;
+                self::$_entityTypes['by_id'][$row['entity_type_id']] = $row;
+                self::$_entityTypes['by_code'][$row['entity_type_code']] = $row;
             }
         }
 
@@ -86,8 +86,8 @@ class Mage_Eav_Model_Mysql4_Config extends Mage_Core_Model_Mysql4_Abstract
             $attributes = $this->_loadTypeAttributes($info['entity_type_id']);
             $data['attributes'] = array();
             foreach ($attributes as $attribute) {
-            	$data['attributes'][$attribute['attribute_id']] = $attribute;
-            	$data['attributes'][$attribute['attribute_code']] = $attribute['attribute_id'];
+                $data['attributes'][$attribute['attribute_id']] = $attribute;
+                $data['attributes'][$attribute['attribute_code']] = $attribute['attribute_id'];
             }
         }
         return $data;

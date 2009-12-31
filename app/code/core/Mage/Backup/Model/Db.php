@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Backup
- * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -84,8 +84,8 @@ class Mage_Backup_Model_Db
 
         $tables = $this->getTables();
         foreach ($tables as $tableName) {
-        	$sql.= $this->getTableCreateScript($tableName, true);
-        	$sql.= $this->getTableDataDump($tableName);
+            $sql.= $this->getTableCreateScript($tableName, true);
+            $sql.= $this->getTableDataDump($tableName);
         }
 
         $sql.= $this->getFooter();

@@ -251,10 +251,10 @@ RegionUpdater.prototype = {
 
     setMarkDisplay: function(elem, display){
         elem = $(elem);
-        var labelElement = elem.up(1).down('label > span.required') ||
-                           elem.up(2).down('label > span.required') ||
-                           elem.up(1).down('label.required > em') ||
-                           elem.up(2).down('label.required > em');
+        var labelElement = elem.up(0).down('label > span.required') ||
+                           elem.up(1).down('label > span.required') ||
+                           elem.up(0).down('label.required > em') ||
+                           elem.up(1).down('label.required > em');
         if(labelElement) {
             inputElement = labelElement.up().next('input');
             if (display) {

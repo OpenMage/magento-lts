@@ -44,8 +44,8 @@ class Mage_Cms_Model_Widget extends Varien_Object
         if ($cachedXml) {
             $xmlConfig = new Varien_Simplexml_Config($cachedXml);
         } else {
-            $config = new Varien_Simplexml_Config;
-            $config->loadString('<?xml version="1.0"?><config><widgets></widgets></config>');
+            $config = new Varien_Simplexml_Config();
+            $config->loadString('<?xml version="1.0"?><widgets></widgets>');
             Mage::getConfig()->loadModulesConfiguration('widget.xml', $config);
             $xmlConfig = $config;
             if (Mage::app()->useCache('config')) {
@@ -60,15 +60,131 @@ class Mage_Cms_Model_Widget extends Varien_Object
      * Return widget XML config element based on its type
      *
      * @param string $type Widget type
-     * @return Varien_Simplexml_Element
+     * @return null|Varien_Simplexml_Element
      */
     public function getXmlElementByType($type)
     {
-        $elements = $this->getXmlConfig()->getNode('widgets')->xpath('*[@type="' . $type . '"]');
+        $elements = $this->getXmlConfig()->getXpath('*[@type="' . $type . '"]');
         if (is_array($elements) && isset($elements[0]) && $elements[0] instanceof Varien_Simplexml_Element) {
             return $elements[0];
         }
         return null;
+    }
+
+    /**
+     * Wrapper for getXmlElementByType method
+     *
+     * @param string $type Widget type
+     * @return null|Varien_Simplexml_Element
+     */
+    public function getConfigAsXml($type)
+    {
+        return $this->getXmlElementByType($type);
+    }
+
+    /**
+     * Return widget XML configuration as Varien_Object and makes some data preparations
+     *
+     * @param string $type Widget type
+     * @return Varien_Object
+     */
+    public function getConfigAsObject($type)
+    {
+        $xml = $this->getConfigAsXml($type);
+
+        $object = new Varien_Object();
+        if ($xml === null) {
+            return $object;
+        }
+
+        // Save all nodes to object data
+        $object->setType($type);
+        $object->setData($xml->asCanonicalArray());
+
+        // Set module for translations etc.
+        $module = $object->getData('@/module');
+        if ($module) {
+            $object->setModule($module);
+        }
+
+        // Correct widget parameters and convert its data to objects
+        $params = $object->getData('parameters');
+        $newParams = array();
+        if (is_array($params)) {
+            $sortOrder = 0;
+            foreach ($params as $key => $data) {
+                if (is_array($data)) {
+                    $data['key'] = $key;
+                    $data['sort_order'] = isset($data['sort_order']) ? (int)$data['sort_order'] : $sortOrder;
+
+                    // prepare values (for drop-dawns) specified directly in configuration
+                    $values = array();
+                    if (isset($data['values']) && is_array($data['values'])) {
+                        foreach ($data['values'] as $value) {
+                            if (isset($value['label']) && isset($value['value'])) {
+                                $values[] = $value;
+                            }
+                        }
+                    }
+                    $data['values'] = $values;
+
+                    // prepare helper block object
+                    if (isset($data['helper_block'])) {
+                        $helper = new Varien_Object();
+                        if (isset($data['helper_block']['data']) && is_array($data['helper_block']['data'])) {
+                            $helper->addData($data['helper_block']['data']);
+                        }
+                        if (isset($data['helper_block']['type'])) {
+                            $helper->setType($data['helper_block']['type']);
+                        }
+                        $data['helper_block'] = $helper;
+                    }
+
+                    $newParams[$key] = new Varien_Object($data);
+                    $sortOrder++;
+                }
+            }
+        }
+        uasort($newParams, array($this, '_sortParameters'));
+        $object->setData('parameters', $newParams);
+
+        return $object;
+    }
+
+    /**
+     * Return list of widgets as SimpleXml object
+     *
+     * @return Varien_Simplexml_Element
+     */
+    public function getWidgetsXml()
+    {
+        return $this->getXmlConfig()->getNode();
+    }
+
+    /**
+     * Return list of widgets as array
+     *
+     * @param bool $withEmptyElement
+     * @return array
+     */
+    public function getWidgetsArray($withEmptyElement = false)
+    {
+        if (!$this->_getData('widgets_array')) {
+            $result = array();
+            foreach ($this->getWidgetsXml() as $widget) {
+                $helper = $widget->getAttribute('module') ? $widget->getAttribute('module') : 'cms';
+                $helper = Mage::helper($helper);
+                $result[$widget->getName()] = array(
+                    'name'          => $helper->__((string)$widget->name),
+                    'code'          => $widget->getName(),
+                    'type'          => $widget->getAttribute('type'),
+                    'description'   => $helper->__((string)$widget->description)
+                );
+            }
+            usort($result, array($this, "_sortWidgets"));
+            $this->setData('widgets_array', $result);
+        }
+        return $this->_getData('widgets_array');
     }
 
     /**
@@ -81,13 +197,18 @@ class Mage_Cms_Model_Widget extends Varien_Object
      */
     public function getWidgetDeclaration($type, $params = array(), $asIs = true)
     {
-        $widget = $this->getXmlElementByType($type);
-
         $directive = '{{widget type="' . $type . '"';
+
         foreach ($params as $name => $value) {
             // Retrieve default option value if pre-configured
-            if (trim($value) == '' && $widget->parameters) {
-                $value = (string)$widget->parameters->{$name}->value;
+            if (is_array($value)) {
+                $value = implode(',', $value);
+            } elseif (trim($value) == '') {
+                $widget = $this->getConfigAsObject($type);
+                $parameters = $widget->getParameters();
+                if (isset($parameters[$name]) && is_object($parameters[$name])) {
+                    $value = $parameters[$name]->getValue();
+                }
             }
             if ($value) {
                 $directive .= sprintf(' %s="%s"', $name, $value);
@@ -99,11 +220,12 @@ class Mage_Cms_Model_Widget extends Varien_Object
             return $directive;
         }
 
+        $config = Mage::getSingleton('cms/widget_config');
         $imageName = str_replace('/', '__', $type) . '.gif';
-        if (is_file($this->getPlaceholderImagesBaseDir() . DS . $imageName)) {
-            $image = $this->getPlaceholderImagesBaseUrl() . $imageName;
+        if (is_file($config->getPlaceholderImagesBaseDir() . DS . $imageName)) {
+            $image = $config->getPlaceholderImagesBaseUrl() . $imageName;
         } else {
-            $image = $this->getPlaceholderImagesBaseUrl() . 'default.gif';
+            $image = $config->getPlaceholderImagesBaseUrl() . 'default.gif';
         }
         $html = sprintf('<img id="%s" src="%s" class="widget" title="%s">',
             $this->_idEncode($directive),
@@ -114,23 +236,21 @@ class Mage_Cms_Model_Widget extends Varien_Object
     }
 
     /**
-     * Return Widget placeholders images URL
+     * Return list of required JS files to be included on the top of the page before insertion plugin loaded
      *
-     * @return string
+     * @return array
      */
-    public function getPlaceholderImagesBaseUrl()
+    public function getWidgetsRequiredJsFiles()
     {
-        return Mage::getDesign()->getSkinUrl('images/widget/');
-    }
-
-    /**
-     * Return Widget placeholders images dir
-     *
-     * @return string
-     */
-    public function getPlaceholderImagesBaseDir()
-    {
-        return Mage::getDesign()->getSkinBaseDir() . DS . 'images' . DS . 'widget';
+        $result = array();
+        foreach ($this->getWidgetsXml() as $widget) {
+            if ($widget->js) {
+                foreach (explode(',', (string)$widget->js) as $js) {
+                    $result[] = $js;
+                }
+            }
+       }
+       return $result;
     }
 
     /**
@@ -142,5 +262,31 @@ class Mage_Cms_Model_Widget extends Varien_Object
     protected function _idEncode($string)
     {
         return strtr(base64_encode($string), '+/=', ':_-');
+    }
+
+    /**
+     * User-defined widgets sorting by Name
+     *
+     * @param array $a
+     * @param array $b
+     * @return boolean
+     */
+    protected function _sortWidgets($a, $b)
+    {
+        return strcmp($a["name"], $b["name"]);
+    }
+
+    /**
+     * Widget parameters sort callback
+     *
+     * @param Varien_Object $a
+     * @param Varien_Object $b
+     * @return int
+     */
+    protected function _sortParameters($a, $b)
+    {
+        $aOrder = (int)$a->getData('sort_order');
+        $bOrder = (int)$b->getData('sort_order');
+        return $aOrder < $bOrder ? -1 : ($aOrder > $bOrder ? 1 : 0);
     }
 }

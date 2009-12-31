@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Customer
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Customer
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -42,6 +42,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
     const EXCEPTION_EMAIL_NOT_CONFIRMED       = 1;
     const EXCEPTION_INVALID_EMAIL_OR_PASSWORD = 2;
+    const EXCEPTION_EMAIL_EXISTS              = 3;
 
     const SUBSCRIBED_YES = 'yes';
     const SUBSCRIBED_NO  = 'no';
@@ -97,10 +98,14 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     {
         $this->loadByEmail($login);
         if ($this->getConfirmation() && $this->isConfirmationRequired()) {
-            throw new Exception(Mage::helper('customer')->__('This account is not confirmed.'), self::EXCEPTION_EMAIL_NOT_CONFIRMED);
+            throw Mage::exception('Mage_Core', Mage::helper('customer')->__('This account is not confirmed.'),
+                self::EXCEPTION_EMAIL_NOT_CONFIRMED
+            );
         }
         if (!$this->validatePassword($password)) {
-            throw new Exception(Mage::helper('customer')->__('Invalid login or password.'), self::EXCEPTION_INVALID_EMAIL_OR_PASSWORD);
+            throw Mage::exception('Mage_Core', Mage::helper('customer')->__('Invalid login or password.'),
+                self::EXCEPTION_INVALID_EMAIL_OR_PASSWORD
+            );
         }
         Mage::dispatchEvent('customer_customer_authenticated', array(
            'model'    => $this,
@@ -1047,14 +1052,14 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             && strtolower($this->getSkipConfirmationIfEmail()) === strtolower($this->getEmail());
     }
 
-	public function __clone()
+    public function __clone()
     {
-    	$newAddressCollection = $this->getPrimaryAddresses();
-    	$newAddressCollection = array_merge($newAddressCollection, $this->getAdditionalAddresses());
-    	$this->setId(null);
-    	$this->cleanAllAddresses();
+        $newAddressCollection = $this->getPrimaryAddresses();
+        $newAddressCollection = array_merge($newAddressCollection, $this->getAdditionalAddresses());
+        $this->setId(null);
+        $this->cleanAllAddresses();
         foreach ($newAddressCollection as $address) {
-        	$this->addAddress(clone $address);
+            $this->addAddress(clone $address);
         }
     }
 }

@@ -17,7 +17,7 @@
  * @subpackage PHPUnit
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DbAdapter.php 16911 2009-07-21 11:54:03Z matthew $
+ * @version    $Id: DbAdapter.php 17853 2009-08-27 21:05:21Z beberlei $
  */
 
 /**
@@ -71,7 +71,8 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
      * Empty constructor to make it parameterless.
      */
     public function __construct()
-    {        
+    {
+        $this->setProfiler(false);
     }
 
     /**
@@ -257,7 +258,7 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
      */
     protected function _commit()
     {
-        
+        return;
     }
 
     /**
@@ -301,7 +302,7 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
      */
     public function supportsParameters($type)
     {
-        return false;
+        return true;
     }
 
     /**

@@ -17,8 +17,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @licensehttp://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    design
+ * @package     default_blank
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /* Layout ================================================================================= */
@@ -423,6 +425,7 @@ dd.even { background-color:#f6f6f6; }
 .product-view .product-img-box .product-image-zoom img { position:absolute; left:0; top:0; cursor:move; }
 .product-view .product-img-box .zoom-notice { text-align:center; }
 .product-view .product-img-box .zoom { position:relative; z-index:9; height:18px; margin:0 auto 13px; padding:0 28px; background:url(../images/slider_bg.gif) 50% 50% no-repeat; cursor:pointer; }
+.product-view .product-img-box .zoom.disabled { -moz-opacity:.3; -webkit-opacity:.3; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";/*IE8*/ opacity:.3; }
 .product-view .product-img-box .zoom #track { position:relative; height:18px; }
 .product-view .product-img-box .zoom #handle { position:absolute; left:0; top:-1px; width:9px; height:22px; background:url(../images/magnifier_handle.gif) 0 0 no-repeat;  }
 .product-view .product-img-box .zoom .btn-zoom-out { position:absolute; left:2px; top:0; }
@@ -480,9 +483,9 @@ dd.even { background-color:#f6f6f6; }
 .minimal-price {}
 .minimal-price .price-label { font-weight:bold; white-space:nowrap; }
 
-a.minimal-price-link { display:block; }
-a.minimal-price-link .label {}
-a.minimal-price-link .price { font-weight:normal; }
+.minimal-price-link { display:block; }
+.minimal-price-link .label {}
+.minimal-price-link .price { font-weight:normal; }
 
 /* Excluding tax */
 .price-excluding-tax { display:block; }

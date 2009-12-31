@@ -16,7 +16,7 @@
  * @package    Zend_Test
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DomQuery.php 16874 2009-07-20 12:46:00Z mikaelkael $
+ * @version    $Id: DomQuery.php 18234 2009-09-18 14:06:43Z sgehrig $
  */
 
 /** PHPUnit_Framework_Constraint */
@@ -390,10 +390,14 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
      */
     protected function _getNodeContent(DOMNode $node)
     {
-        $doc     = $node->ownerDocument;
-        $content = $doc->saveXML($node);
-        $tag     = $node->nodeName;
-        $regex   = '|</?' . $tag . '[^>]*>|';
-        return preg_replace($regex, '', $content);
+        if ($node instanceof DOMAttr) {
+            return $node->value;
+        } else {
+            $doc     = $node->ownerDocument;
+            $content = $doc->saveXML($node);
+            $tag     = $node->nodeName;
+            $regex   = '|</?' . $tag . '[^>]*>|';
+            return preg_replace($regex, '', $content);
+        }
     }
 }

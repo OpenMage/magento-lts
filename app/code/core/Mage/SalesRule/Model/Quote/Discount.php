@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_SalesRule
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_SalesRule
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -29,7 +29,7 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
 {
     /**
      * Discount calculation object
-     * 
+     *
      * @var Mage_SalesRule_Model_Validator
      */
     protected $_calculator;
@@ -65,7 +65,7 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
 
         $this->_calculator->init($store->getWebsiteId(), $quote->getCustomerGroupId(), $quote->getCouponCode());
         $address->setDiscountDescription(array());
-        
+
         foreach ($items as $item) {
             if ($item->getNoDiscount()) {
                 $item->setDiscountAmount(0);
@@ -81,7 +81,7 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
 
                 $eventArgs['item'] = $item;
                 Mage::dispatchEvent('sales_quote_address_discount_item', $eventArgs);
-                
+
                 if ($item->getHasChildren() && $item->isChildrenCalculated()) {
                     foreach ($item->getChildren() as $child) {
                         $this->_calculator->process($child);
@@ -133,7 +133,7 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         $amount = $address->getDiscountAmount();
-        
+
         if ($amount!=0) {
             $description = $address->getDiscountDescription();
             if ($description) {

@@ -16,7 +16,7 @@
  * @package    Zend_Test
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ControllerTestCase.php 16874 2009-07-20 12:46:00Z mikaelkael $
+ * @version    $Id: ControllerTestCase.php 18220 2009-09-18 07:54:50Z beberlei $
  */
 
 /** PHPUnit_Framework_TestCase */
@@ -242,6 +242,10 @@ abstract class Zend_Test_PHPUnit_ControllerTestCase extends PHPUnit_Framework_Te
      */
     public function resetRequest()
     {
+        if ($this->_request instanceof Zend_Controller_Request_HttpTestCase) {
+            $this->_request->clearQuery()
+                           ->clearPost();
+        }
         $this->_request = null;
         return $this;
     }
@@ -905,7 +909,10 @@ abstract class Zend_Test_PHPUnit_ControllerTestCase extends PHPUnit_Framework_Te
     {
         $this->_incrementAssertionCount();
         if ($module != $this->request->getModuleName()) {
-            $msg = sprintf('Failed asserting last module used was "%s"', $module);
+            $msg = sprintf('Failed asserting last module used <"%s"> was "%s"',
+                $this->request->getModuleName(),
+                $module
+            );
             if (!empty($message)) {
                 $msg = $message . "\n" . $msg;
             }
@@ -943,7 +950,10 @@ abstract class Zend_Test_PHPUnit_ControllerTestCase extends PHPUnit_Framework_Te
     {
         $this->_incrementAssertionCount();
         if ($controller != $this->request->getControllerName()) {
-            $msg = sprintf('Failed asserting last controller used was "%s"', $controller);
+            $msg = sprintf('Failed asserting last controller used <"%s"> was "%s"',
+                $this->request->getControllerName(),
+                $controller
+            );
             if (!empty($message)) {
                 $msg = $message . "\n" . $msg;
             }
@@ -962,7 +972,10 @@ abstract class Zend_Test_PHPUnit_ControllerTestCase extends PHPUnit_Framework_Te
     {
         $this->_incrementAssertionCount();
         if ($controller == $this->request->getControllerName()) {
-            $msg = sprintf('Failed asserting last controller used was NOT "%s"', $controller);
+            $msg = sprintf('Failed asserting last controller used <"%s"> was NOT "%s"',
+                $this->request->getControllerName(),
+                $controller
+            );
             if (!empty($message)) {
                 $msg = $message . "\n" . $msg;
             }
@@ -981,7 +994,7 @@ abstract class Zend_Test_PHPUnit_ControllerTestCase extends PHPUnit_Framework_Te
     {
         $this->_incrementAssertionCount();
         if ($action != $this->request->getActionName()) {
-            $msg = sprintf('Failed asserting last action used was "%s"', $action);
+            $msg = sprintf('Failed asserting last action used <"%s"> was "%s"', $this->request->getActionName(), $action);
             if (!empty($message)) {
                 $msg = $message . "\n" . $msg;
             }
@@ -1000,7 +1013,7 @@ abstract class Zend_Test_PHPUnit_ControllerTestCase extends PHPUnit_Framework_Te
     {
         $this->_incrementAssertionCount();
         if ($action == $this->request->getActionName()) {
-            $msg = sprintf('Failed asserting last action used was NOT "%s"', $action);
+            $msg = sprintf('Failed asserting last action used <"%s"> was NOT "%s"', $this->request->getActionName(), $action);
             if (!empty($message)) {
                 $msg = $message . "\n" . $msg;
             }
@@ -1020,7 +1033,10 @@ abstract class Zend_Test_PHPUnit_ControllerTestCase extends PHPUnit_Framework_Te
         $this->_incrementAssertionCount();
         $router = $this->frontController->getRouter();
         if ($route != $router->getCurrentRouteName()) {
-            $msg = sprintf('Failed asserting route matched was "%s"', $route);
+            $msg = sprintf('Failed asserting matched route was "%s", actual route is %s',
+                $route,
+                $router->getCurrentRouteName()
+            );
             if (!empty($message)) {
                 $msg = $message . "\n" . $msg;
             }

@@ -152,7 +152,7 @@ WysiwygWidget.Widget.prototype = {
     },
 
     _showWidgetDescription: function() {
-        var noteCnt = this.widgetEl.up().next().down('small');
+        var noteCnt = this.widgetEl.next().down('small');
         var descrCnt = $('widget-description-' + this.widgetEl.selectedIndex);
         if(noteCnt != undefined) {
             var description = (descrCnt != undefined ? descrCnt.innerHTML : '');
@@ -203,7 +203,8 @@ WysiwygWidget.Widget.prototype = {
         	this.getWysiwyg().focus();
         } else {
             var parent = this.getPopup().opener;
-            var textarea = parent.document.getElementById(this.getPopup().name);
+            var textareaId = this.getPopup().name.replace(/widget_window/g, '');
+            var textarea = parent.document.getElementById(textareaId);
             updateElementAtCursor(textarea, content, this.getPopup().opener);
         }
     },

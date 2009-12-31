@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
     public function getId()
     {
         if ($this->getData('id')===null) {
-            $this->setData('id', 'id_'.md5(microtime()));
+            $this->setData('id', Mage::helper('core')->uniqHash('id_'));
         }
         return $this->getData('id');
     }

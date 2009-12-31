@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Eav
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Eav
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -427,12 +427,15 @@ class Mage_Eav_Model_Config
                 }
                 $attributeKey = $this->_getAttributeKey($entityTypeCode, $attribute->getAttributeCode());
             } else {
-                $attribute = Mage::getModel($entityType->getAttributeModel())->loadByCode($entityType, $code);
+                $attribute = Mage::getModel($entityType->getAttributeModel())
+                    ->loadByCode($entityType, $code)
+                    ->setAttributeCode($code);
             }
         }
 
         if ($attribute) {
-            $attribute->setEntityType($entityType);
+            $attribute->setEntityType($entityType)
+                ->setEntityTypeId($entityType->getId());
             $this->_addAttributeReference($attribute->getId(), $attribute->getAttributeCode(), $entityTypeCode);
             $this->_save($attribute, $attributeKey);
         }

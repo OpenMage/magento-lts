@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_cybersource
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Cybersource
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -167,7 +167,7 @@ class Mage_Cybersource_Model_Soap extends Mage_Payment_Model_Method_Cc
             $errorMsg = $this->_getHelper()->__('Credit card type is not allowed for this payment method');
         }
 
-								//validate credit card verification number
+                                //validate credit card verification number
         if ($errorMsg === false && $this->hasVerification()) {
             $verifcationRegEx = $this->getVerificationRegEx();
             $regExp = isset($verifcationRegEx[$info->getCcType()]) ? $verifcationRegEx[$info->getCcType()] : '';
@@ -217,7 +217,7 @@ class Mage_Cybersource_Model_Soap extends Mage_Payment_Model_Method_Cc
      */
     protected function _generateReferenceCode()
     {
-        return md5(microtime() . rand(0, time()));
+        return Mage::helper('core')->uniqHash();
     }
 
     /**

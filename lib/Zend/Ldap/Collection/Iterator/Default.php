@@ -16,7 +16,7 @@
  * @package    Zend_Ldap
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Default.php 15546 2009-05-12 07:39:21Z sgehrig $
+ * @version    $Id: Default.php 17829 2009-08-26 15:07:10Z sgehrig $
  */
 
 /**
@@ -73,8 +73,8 @@ class Zend_Ldap_Collection_Iterator_Default implements Zend_Ldap_Collection_Iter
     /**
      * Constructor.
      *
-     * @param Zend_Ldap $ldap
-     * @param resource $resultId
+     * @param  Zend_Ldap $ldap
+     * @param  resource  $resultId
      * @return void
      */
     public function __construct(Zend_Ldap $ldap, $resultId)

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Directory
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Strikeiron
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -48,14 +48,14 @@ class Mage_Strikeiron_Model_Currency_Import_Strikeiron extends Mage_Directory_Mo
                 $data[$currencyFrom] = array();
             }
             foreach ($currencies as $currencyTo) {
-        	    if ($currencyFrom == $currencyTo) {
-        	        $data[$currencyFrom][$currencyTo] = $this->_numberFormat(1);
-        	    }
-        		else {
-        		    $currenciesToArr[] = $currencyTo;
-        		}
-        	}
-        	if ($currenciesToArr) {
+                if ($currencyFrom == $currencyTo) {
+                    $data[$currencyFrom][$currencyTo] = $this->_numberFormat(1);
+                }
+                else {
+                    $currenciesToArr[] = $currencyTo;
+                }
+            }
+            if ($currenciesToArr) {
                 $result = $strikeironModel->fetchExchangeRate($currencyFrom , $currenciesToArr);
                 if ($result) {
                     $data = array_merge_recursive($result, $data);
@@ -73,7 +73,7 @@ class Mage_Strikeiron_Model_Currency_Import_Strikeiron extends Mage_Directory_Mo
                 } else {
                     $this->_messages[] = Mage::helper('strikeiron')->__('Cannot retreive rate from strikeirion.');
                 }
-        	}
+            }
             ksort($data[$currencyFrom]);
           }
         } catch (Exception $e) {

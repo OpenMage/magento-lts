@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_blank
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_blank
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <div class="page-title">
@@ -29,7 +29,7 @@
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <p>
-    <?php echo $this->__('Tag Name: %s', $this->htmlEscape($this->getTagInfo()->getName())) ?>
+    <?php echo $this->__('<strong>Tag Name:</strong> %s', $this->htmlEscape($this->getTagInfo()->getName())) ?>
     <button type="button" class="button" onclick="if(confirm('<?php echo $this->__('Are you sure you want to delete this tag?') ?>')) window.location='<?php echo $this->getTagInfo()->getRemoveTagUrl(); ?>';"><span><span><?php echo $this->__('Delete') ?></span></span></button>
 </p>
 <?php echo $this->getToolbarHtml() ?>
@@ -45,9 +45,9 @@
             <td><a class="product-image" href="<?php echo $_product->getProductUrl(); ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(100, 100); ?>" width="100" height="100" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" /></a></td>
             <td>
                 <h3 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->htmlEscape($_product->getName()) ?></a></h3>
-                <?php echo $this->getPriceHtml($_product) ?>
                 <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
-                <p><?php echo $_product->getDescription() ?></p>
+                <?php echo $this->getPriceHtml($_product) ?>
+                <?php echo $_product->getDescription() ?>
             </td>
             <td>
                 <?php if($_product->isSaleable()): ?>

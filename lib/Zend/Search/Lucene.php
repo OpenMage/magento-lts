@@ -16,7 +16,7 @@
  * @package    Zend_Search_Lucene
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Lucene.php 17164 2009-07-27 03:59:23Z matthew $
+ * @version    $Id: Lucene.php 17842 2009-08-27 14:21:42Z alexander $
  */
 
 /** Zend_Search_Lucene_Document */
@@ -953,8 +953,8 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
             $sortArgs   = array();
 
             // PHP 5.3 now expects all arguments to array_multisort be passed by
-            // reference; since constants can't be passed by reference, create 
-            // some placeholder variables.
+            // reference (if it's invoked through call_user_func_array());
+            // since constants can't be passed by reference, create some placeholder variables.
             $sortReg    = SORT_REGULAR;
             $sortAsc    = SORT_ASC;
             $sortNum    = SORT_NUMERIC;
@@ -1147,7 +1147,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
 
         if (count($subResults) == 0) {
             return array();
-        } else if (count($subResults) == 0) {
+        } else if (count($subResults) == 1) {
             // Index is optimized (only one segment)
             // Do not perform array reindexing
             return reset($subResults);
@@ -1181,7 +1181,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
 
         if (count($subResults) == 0) {
             return array();
-        } else if (count($subResults) == 0) {
+        } else if (count($subResults) == 1) {
             // Index is optimized (only one segment)
             // Do not perform array reindexing
             return reset($subResults);

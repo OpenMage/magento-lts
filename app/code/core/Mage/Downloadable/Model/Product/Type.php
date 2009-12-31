@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -374,6 +374,13 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                 }
             }
         }
+
+        /*
+         * After "Downloadable Information" tab was made non-ajax we should
+         * set this flag "true" to force saving of 'required_options' attribute
+         */
+        $this->getProduct($product)->setCanSaveCustomOptions(true);
+
         $this->getProduct($product)->setLinksExist($linksExist);
     }
 

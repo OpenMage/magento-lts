@@ -18,27 +18,27 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Tax
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Tax
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 class Mage_Tax_Model_Class_Source_Customer extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
-	public function getAllOptions()
-	{
-		if (!$this->_options) {
-			$this->_options = Mage::getResourceModel('tax/class_collection')
-        		->addFieldToFilter('class_type', 'CUSTOMER')
-        		->load()->toOptionArray();
-		}
-		return $this->_options;
-	}
-	
-	public function toOptionArray()
-	{
-		return $this->getAllOptions();
-	}
+    public function getAllOptions()
+    {
+        if (!$this->_options) {
+            $this->_options = Mage::getResourceModel('tax/class_collection')
+                ->addFieldToFilter('class_type', 'CUSTOMER')
+                ->load()->toOptionArray();
+        }
+        return $this->_options;
+    }
+
+    public function toOptionArray()
+    {
+        return $this->getAllOptions();
+    }
 }

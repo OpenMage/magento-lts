@@ -18,10 +18,15 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * @var $this Mage_Adminhtml_Block_System_Currency
  */
 ?>
 <div class="content-header">
@@ -31,7 +36,6 @@
             <td class="form-buttons">
                 <form action="<?php echo $this->getImportFormAction() ?>" method="post">
                     <?php echo $this->getBlockHtml('formkey')?>
-                    <strong><?php echo $this->__('Import Service') ?></strong>
                     <?php echo $this->getServicesHtml() ?>
                     <?php echo $this->getImportButtonHtml() ?>
                 </form>

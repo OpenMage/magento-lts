@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -229,6 +229,26 @@ class Mage_CatalogInventory_Model_Mysql4_Stock_Status extends Mage_Core_Model_My
             array()
         );
         $select->where('ciss.stock_status=?', Mage_CatalogInventory_Model_Stock_Status::STATUS_IN_STOCK);
+
+        return $this;
+    }
+
+    /**
+     * Add only is in stock products filter to product collection
+     *
+     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection
+     * @return Mage_CatalogInventory_Model_Stock_Status
+     */
+    public function addIsInStockFilterToCollection($collection)
+    {
+        $websiteId = Mage::app()->getStore($collection->getStoreId())->getWebsiteId();
+        $collection->getSelect()
+            ->join(
+                array('stock_status_index' => $this->getMainTable()),
+                'e.entity_id = stock_status_index.product_id AND stock_status_index.website_id = ' . $websiteId
+                    . ' AND stock_status_index.stock_id = ' . Mage_CatalogInventory_Model_Stock::DEFAULT_STOCK_ID,
+                array())
+            ->where('stock_status_index.stock_status=?', Mage_CatalogInventory_Model_Stock_Status::STATUS_IN_STOCK);
 
         return $this;
     }

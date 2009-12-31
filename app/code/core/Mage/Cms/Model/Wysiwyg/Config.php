@@ -52,8 +52,6 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
      * translator:              Helper to translate phrases in lib
      * files_browser_*:         Files Browser (media, images) settings
      * encode_directives:       Encode template directives with JS or not
-     * widget_window_*:         Widget plugin insertion settings
-     * widget_image_url:        Default image placeholder fot widget insertion
      *
      * @param $data Varien_Object constructor params to override default config values
      * @return Varien_Object
@@ -72,9 +70,6 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             'files_browser_window_height'   => Mage::getStoreConfig('cms/wysiwyg/browser_window_height'),
             'encode_directives'             => true,
             'directives_url'                => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg/directive'),
-            'widget_plugin_src'             => Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/plugins/magentowidget/editor_plugin.js',
-            'widget_images_url'             => Mage::getSingleton('cms/widget')->getPlaceholderImagesBaseUrl(),
-            'widget_placeholders'           => $this->getAvailablePlaceholderFilenames(),
             'popup_css'                     => Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/dialog.css',
             'content_css'                   => Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/content.css',
         ));
@@ -85,57 +80,9 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             $config->addData($data);
         }
 
-        if (!$config->hasData('widget_window_url')) {
-            $config->setData('widget_window_url', $this->getWidgetWindowUrl($config));
-        }
-        if (!$config->hasData('widget_window_no_wysiwyg_url')) {
-            $config->setData('widget_window_no_wysiwyg_url', $this->getWidgetWindowUrl($config, false));
-        }
+        Mage::dispatchEvent('cms_wysiwyg_config_prepare', array('config' => $config));
 
         return $config;
-    }
-
-    /**
-     * Return Widgets Insertion Plugin Window URL
-     *
-     * @param array $params URL params
-     * @return string
-     */
-    public function getWidgetWindowUrl($config, $wysiwygMode = true)
-    {
-        $params = $wysiwygMode ? array() : array('no_wysiwyg' => true);
-
-        if ($config->getData('skip_context_widgets')) {
-            $params['skip_context_widgets'] = 1;
-        }
-
-        if ($config->hasData('skip_widgets')) {
-            $skipped = $config->getData('skip_widgets');
-            $skipped = is_array($skipped) ? $skipped : array($skipped);
-            $skipped = implode(',', $skipped);
-            $params['skip_widgets'] = Mage::helper('core')->urlEncode($skipped);
-        }
-
-        return Mage::getSingleton('adminhtml/url')->getUrl('*/cms_widget/index', $params);
-    }
-
-    /**
-     * Return list of existing widget image placeholders
-     *
-     * @return array
-     */
-    public function getAvailablePlaceholderFilenames()
-    {
-        $collection = new Varien_Data_Collection_Filesystem();
-        $collection->addTargetDir(Mage::getSingleton('cms/widget')->getPlaceholderImagesBaseDir())
-            ->setCollectDirs(false)
-            ->setCollectFiles(true)
-            ->setCollectRecursively(false);
-        $result = array();
-        foreach ($collection as $file) {
-            $result[] = $file->getBasename();
-        }
-        return $result;
     }
 
     /**

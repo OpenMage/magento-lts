@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 
@@ -166,12 +166,7 @@ Ext.onReady(function()
 
     if (useMassaction) {
         tree<?php echo $this->getId() ?>.on('check', function(node) {
-            if (node.attributes.checked) {
-                eventName = 'node:checked';
-            } else {
-                eventName = 'node:unchecked';
-            }
-            $('<?php echo $_divId ?>').fire(eventName, {node:node});
+            $('<?php echo $_divId; ?>').fire('node:changed', {node:node});
         }, tree<?php echo $this->getId() ?>);
     }
 

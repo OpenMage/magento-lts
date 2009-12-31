@@ -19,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_iphone
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 Supported layout update handles (action):
@@ -45,21 +45,21 @@ Default layout, loads most of the pages
 -->
     <default>
         <!-- Mage_Customer -->
-		<reference name="top.links">
-			<action method="addLink" translate="label title" module="customer"><label>Catalog</label><url>{{baseUrl}}</url><title>Catalog</title><prepare/><urlParams/><position>9</position></action>
+        <reference name="top.links">
+            <action method="addLink" translate="label title" module="customer"><label>Catalog</label><url>{{baseUrl}}</url><title>Catalog</title><prepare/><urlParams/><position>9</position></action>
         </reference>
-		<reference name="user_links">
+        <reference name="user_links">
             <action method="addLink" translate="label title" module="customer"><label>Account</label><url helper="customer/getAccountUrl"/><title>My Account</title><prepare/><urlParams/><position>2</position></action>
         </reference>
-		<reference name="user_links">
-			<action method="addLink" translate="label title" module="customer"><label>Search</label><url>javascript:void(0);</url>><title>Search</title><prepare/><urlParams/><position>0</position><li/><a>onClick="showSearchForm(1);"</a></action>
+        <reference name="user_links">
+            <action method="addLink" translate="label title" module="customer"><label>Search</label><url>javascript:void(0);</url>><title>Search</title><prepare/><urlParams/><position>0</position><li/><a>onClick="showSearchForm(1);"</a></action>
         </reference>
     </default>
 <!--
 Load this update on every page when customer is logged in
 -->
     <customer_logged_in>
-		<reference name="user_links">
+        <reference name="user_links">
             <action method="addLink" translate="label title" module="customer"><label>Log Out</label><url helper="customer/getLogoutUrl"/><title>Log Out</title><prepare/><urlParams/><position>1</position></action>
         </reference>
     </customer_logged_in>
@@ -67,7 +67,7 @@ Load this update on every page when customer is logged in
 Load this update on every page when customer is logged out
 -->
     <customer_logged_out>
-		<reference name="user_links">
+        <reference name="user_links">
             <action method="addLink" translate="label title" module="customer"><label>Log In</label><url helper="customer/getLoginUrl"/><title>Log In</title><prepare/><urlParams/><position>1</position></action>
         </reference>
         <remove name="wishlist_sidebar"></remove>

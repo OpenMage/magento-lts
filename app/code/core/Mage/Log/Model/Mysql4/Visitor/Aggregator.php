@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Log
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Log
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -123,7 +123,7 @@ class Mage_Log_Model_Mysql4_Visitor_Aggregator
                 ->where("? - INTERVAL {$type['period']} {$type['period_type']} <= login_at", now())
                 ->where("logout_at IS NULL OR logout_at <= ? - INTERVAL {$type['period']} {$type['period_type']}", now());
 
-		$customers = $this->_read->fetchCol($customerSelect);
+        $customers = $this->_read->fetchCol($customerSelect);
 
         $customerCount = count($customers);
 
@@ -155,35 +155,35 @@ class Mage_Log_Model_Mysql4_Visitor_Aggregator
 
     public function updateOneshot($minutes=60, $interval=300)
     {
-    	$last_update = $this->_read->fetchOne("SELECT UNIX_TIMESTAMP(MAX(add_date)) FROM {$this->_summaryTable} WHERE type_id IS NULL");
-    	$next_update = $last_update + $interval;
+        $last_update = $this->_read->fetchOne("SELECT UNIX_TIMESTAMP(MAX(add_date)) FROM {$this->_summaryTable} WHERE type_id IS NULL");
+        $next_update = $last_update + $interval;
 
-    	if( time() >= $next_update ) {
-	        $stats = $this->_read->fetchAssoc("SELECT
-	        								u.visit_time,
-	                                    	v.visitor_id,
-	                                    	c.customer_id,
-	                                    	ROUND( (UNIX_TIMESTAMP(u.visit_time) - UNIX_TIMESTAMP(".now()." - INTERVAL {$minutes} MINUTE )) / {$interval} )  as _diff,
-	                                    	COUNT(DISTINCT(v.visitor_id)) as visitor_count,
-	                                    	COUNT(DISTINCT(c.customer_id)) as customer_count
-	                                    FROM
-	                                    	{$this->_urlTable} u
-	                                    LEFT JOIN {$this->_visitorTable} v ON(v.visitor_id = u.visitor_id)
-	                                    LEFT JOIN {$this->_customerTable} c on(c.visitor_id = v.visitor_id)
-	                                    WHERE
-	                                    	UNIX_TIMESTAMP(u.visit_time) > {$next_update}
-	                                    group by _diff");
+        if( time() >= $next_update ) {
+            $stats = $this->_read->fetchAssoc("SELECT
+                                            u.visit_time,
+                                            v.visitor_id,
+                                            c.customer_id,
+                                            ROUND( (UNIX_TIMESTAMP(u.visit_time) - UNIX_TIMESTAMP(".now()." - INTERVAL {$minutes} MINUTE )) / {$interval} )  as _diff,
+                                            COUNT(DISTINCT(v.visitor_id)) as visitor_count,
+                                            COUNT(DISTINCT(c.customer_id)) as customer_count
+                                        FROM
+                                            {$this->_urlTable} u
+                                        LEFT JOIN {$this->_visitorTable} v ON(v.visitor_id = u.visitor_id)
+                                        LEFT JOIN {$this->_customerTable} c on(c.visitor_id = v.visitor_id)
+                                        WHERE
+                                            UNIX_TIMESTAMP(u.visit_time) > {$next_update}
+                                        group by _diff");
 
-			foreach( $stats as $stat ) {
-		        $data = array(
-		        	'type_id' => new Zend_Db_Expr('NULL'),
-		        	'visitor_count' => $stat['visitor_count'],
-		        	'customer_count' => $stat['customer_count'],
-		        	'add_date' => $stat['visit_time']
-		        );
-				$this->_write->insert($this->_summaryTable, $data);
-			}
-    	}
+            foreach( $stats as $stat ) {
+                $data = array(
+                    'type_id' => new Zend_Db_Expr('NULL'),
+                    'visitor_count' => $stat['visitor_count'],
+                    'customer_count' => $stat['customer_count'],
+                    'add_date' => $stat['visit_time']
+                );
+                $this->_write->insert($this->_summaryTable, $data);
+            }
+        }
 
     }
 }

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Eav
- * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Eav
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -94,6 +94,15 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
     {
         $modelGroupArray = array();
         $modelAttributeArray = array();
+        $attributeIds = array();
+        if ($data['attributes']) {
+            $ids = array();
+            foreach ($data['attributes'] as $attribute) {
+                $ids[] = $attribute[0];
+            }
+            $attributeIds = Mage::getResourceSingleton('eav/entity_attribute')
+                ->getValidAttributeIds($ids);
+        }
         if( $data['groups'] ) {
             foreach( $data['groups'] as $group ) {
                 $modelGroup = Mage::getModel('eav/entity_attribute_group');
@@ -104,7 +113,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
 
                 if( $data['attributes'] ) {
                     foreach( $data['attributes'] as $attribute ) {
-                        if( $attribute[1] == $group[0] ) {
+                        if( $attribute[1] == $group[0] && in_array($attribute[0], $attributeIds) ) {
                             $modelAttribute = Mage::getModel('eav/entity_attribute');
                             $modelAttribute->setId($attribute[0])
                                 ->setAttributeGroupId($attribute[1])

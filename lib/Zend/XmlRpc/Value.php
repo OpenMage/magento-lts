@@ -17,7 +17,7 @@
  * @subpackage Value
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Value.php 17786 2009-08-23 22:26:33Z lars $
+ * @version    $Id: Value.php 18139 2009-09-16 14:46:02Z yoshida@zend.co.jp $
  */
 
 /**
@@ -162,30 +162,39 @@ abstract class Zend_XmlRpc_Value
             case self::XMLRPC_TYPE_I4:
                 // fall through to the next case
             case self::XMLRPC_TYPE_INTEGER:
+                #require_once 'Zend/XmlRpc/Value/Integer.php';
                 return new Zend_XmlRpc_Value_Integer($value);
 
             case self::XMLRPC_TYPE_DOUBLE:
+                #require_once 'Zend/XmlRpc/Value/Double.php';
                 return new Zend_XmlRpc_Value_Double($value);
 
             case self::XMLRPC_TYPE_BOOLEAN:
+                #require_once 'Zend/XmlRpc/Value/Boolean.php';
                 return new Zend_XmlRpc_Value_Boolean($value);
 
             case self::XMLRPC_TYPE_STRING:
+                #require_once 'Zend/XmlRpc/Value/String.php';
                 return new Zend_XmlRpc_Value_String($value);
 
             case self::XMLRPC_TYPE_BASE64:
+                #require_once 'Zend/XmlRpc/Value/Base64.php';
                 return new Zend_XmlRpc_Value_Base64($value);
 
             case self::XMLRPC_TYPE_NIL:
+                #require_once 'Zend/XmlRpc/Value/Nil.php';
                 return new Zend_XmlRpc_Value_Nil();
 
             case self::XMLRPC_TYPE_DATETIME:
+                #require_once 'Zend/XmlRpc/Value/DateTime.php';
                 return new Zend_XmlRpc_Value_DateTime($value);
 
             case self::XMLRPC_TYPE_ARRAY:
+                #require_once 'Zend/XmlRpc/Value/Array.php';
                 return new Zend_XmlRpc_Value_Array($value);
 
             case self::XMLRPC_TYPE_STRUCT:
+                #require_once 'Zend/XmlRpc/Value/Struct.php';
                 return new Zend_XmlRpc_Value_Struct($value);
 
             default:
@@ -310,6 +319,7 @@ abstract class Zend_XmlRpc_Value
                 $xmlrpc_val = new Zend_XmlRpc_Value_Base64($value ,true);
                 break;
             case self::XMLRPC_TYPE_NIL:    // The value should always be NULL
+                #require_once 'Zend/XmlRpc/Value/Nil.php';
                 $xmlrpc_val = new Zend_XmlRpc_Value_Nil();
                 break;
             case self::XMLRPC_TYPE_ARRAY:

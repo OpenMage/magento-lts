@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Oscommerce
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Oscommerce
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -169,7 +169,7 @@ class Mage_Oscommerce_Adminhtml_ImportController extends Mage_Adminhtml_Controll
             $importModel->getResource()->setDataCharset($dataCharset);
         }
         if ($timezone = $importModel->getSession()->getTimezone()) {
-        	$importModel->setTimezone($timezone);
+            $importModel->setTimezone($timezone);
         }
         if ($storeLocales = $importModel->getSession()->getStoreLocales()) {
             $importModel->getResource()->setStoreLocales($storeLocales);
@@ -182,7 +182,7 @@ class Mage_Oscommerce_Adminhtml_ImportController extends Mage_Adminhtml_Controll
         // Resetting connection charset
         $importModel->getResource()->resetConnectionCharset();
 
-       	$importModel->getResource()->setImportModel($importModel);
+           $importModel->getResource()->setImportModel($importModel);
         if ($collections =  $importModel->getResource()->importCollection($importModel->getId())) {
             if (isset($collections['website'])) {
                 $importModel->getResource()->getWebsiteModel()->load($collections['website']);
@@ -207,7 +207,7 @@ class Mage_Oscommerce_Adminhtml_ImportController extends Mage_Adminhtml_Controll
             case 'categories':
                     $importModel->getResource()->importCategories($importFrom, true);
                     if ($isImportDone == 'true') {
-                    	$importModel->getResource()->buildCategoryPath();
+                        $importModel->getResource()->buildCategoryPath();
                     }
                 break;
             case 'customers':
@@ -220,8 +220,8 @@ class Mage_Oscommerce_Adminhtml_ImportController extends Mage_Adminhtml_Controll
 
         $errors = $importModel->getResource()->getErrors();
         $result = array(
-	        'savedRows' => $importModel->getResource()->getSaveRows(),
-	        'errors'    => ( $errors ? $errors: array())
+            'savedRows' => $importModel->getResource()->getSaveRows(),
+            'errors'    => ( $errors ? $errors: array())
         );
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
@@ -247,8 +247,8 @@ class Mage_Oscommerce_Adminhtml_ImportController extends Mage_Adminhtml_Controll
             $importModel->getResource()->setDataCharset($dataCharset);
         } // End hanlding charsets
 
-		$timezone = $this->getRequest()->getParam('timezone');
-		$importModel->getSession()->setTimezone($timezone);
+        $timezone = $this->getRequest()->getParam('timezone');
+        $importModel->getSession()->setTimezone($timezone);
         $importModel->getResource()->resetConnectionCharset();
 
         if ($tablPrefix = $importModel->getTablePrefix()) {
@@ -357,9 +357,9 @@ class Mage_Oscommerce_Adminhtml_ImportController extends Mage_Adminhtml_Controll
         $error = false;
         if ($importModel->getId()) {
             try {
-		        $charset = $importModel->getResource()->getConnectionCharset();
-		        $defaultOscCharset = Mage_Oscommerce_Model_Mysql4_Oscommerce::DEFAULT_OSC_CHARSET;
-		        $defaultMageCharset = Mage_Oscommerce_Model_Mysql4_Oscommerce::DEFAULT_MAGENTO_CHARSET;
+                $charset = $importModel->getResource()->getConnectionCharset();
+                $defaultOscCharset = Mage_Oscommerce_Model_Mysql4_Oscommerce::DEFAULT_OSC_CHARSET;
+                $defaultMageCharset = Mage_Oscommerce_Model_Mysql4_Oscommerce::DEFAULT_MAGENTO_CHARSET;
 
                 $stores = $importModel->getResource()->getOscStores();
 
@@ -385,13 +385,13 @@ class Mage_Oscommerce_Adminhtml_ImportController extends Mage_Adminhtml_Controll
             }
 
             if ($error) {
-		        $result = array(
-			        'error'    => true,
-			        'messages' => $html
-		        );
-        		$this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+                $result = array(
+                    'error'    => true,
+                    'messages' => $html
+                );
+                $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
             } else {
-        		$this->getResponse()->setBody($html);
+                $this->getResponse()->setBody($html);
             }
         }
     }
@@ -417,6 +417,6 @@ class Mage_Oscommerce_Adminhtml_ImportController extends Mage_Adminhtml_Controll
 
     protected function _isAllowed()
     {
-	    return Mage::getSingleton('admin/session')->isAllowed('system/convert/oscimport');
+        return Mage::getSingleton('admin/session')->isAllowed('system/convert/oscimport');
     }
 }

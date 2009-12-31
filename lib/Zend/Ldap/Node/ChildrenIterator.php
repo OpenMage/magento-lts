@@ -17,7 +17,7 @@
  * @subpackage Node
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ChildrenIterator.php 13152 2008-12-11 11:28:02Z sgehrig $
+ * @version    $Id: ChildrenIterator.php 17829 2009-08-26 15:07:10Z sgehrig $
  */
 
 /**
@@ -46,7 +46,7 @@ class Zend_Ldap_Node_ChildrenIterator implements Iterator, Countable, RecursiveI
     /**
      * Constructor.
      *
-     * @param array $data
+     * @param  array $data
      * @return void
      */
     public function __construct(array $data)

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -88,13 +88,13 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
     {
         $order = $this->getOrder();
         if (!$order->hasInvoices()) {
-        	unset($this->_links['invoice']);
+            unset($this->_links['invoice']);
         }
         if (!$order->hasShipments()) {
-        	unset($this->_links['shipment']);
+            unset($this->_links['shipment']);
         }
         if (!$order->hasCreditmemos()) {
-        	unset($this->_links['creditmemo']);
+            unset($this->_links['creditmemo']);
         }
     }
 

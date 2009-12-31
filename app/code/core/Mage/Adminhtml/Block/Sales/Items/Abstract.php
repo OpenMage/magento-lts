@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -468,7 +468,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     /**
      * CREDITMEMO
      */
-    
+
     public function canReturnToStock() {
         $canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
         if (Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT)) {
@@ -477,44 +477,44 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
             return false;
         }
     }
-    
+
     /**
      * Whether to show 'Return to stock' checkbox for item
      * @param Mage_Sales_Model_Order_Creditmemo_Item $item
      * @return bool
      */
     public function canReturnItemToStock($item=null) {
-    	$canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
-    	if (!is_null($item)) {
-    		if (!$item->hasCanReturnToStock()) {
-	    		$product = Mage::getModel('catalog/product')->load($item->getOrderItem()->getProductId());
-	    		if ( $product->getId() && $product->getStockItem()->getManageStock() ) {
-	    			$item->setCanReturnToStock(true);
-	    		} 
-	    		else {
-	    			$item->setCanReturnToStock(false);
-	    		}
-    		} 
-    		$canReturnToStock = $item->getCanReturnToStock();
-    	}
-    	return $canReturnToStock;
+        $canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
+        if (!is_null($item)) {
+            if (!$item->hasCanReturnToStock()) {
+                $product = Mage::getModel('catalog/product')->load($item->getOrderItem()->getProductId());
+                if ( $product->getId() && $product->getStockItem()->getManageStock() ) {
+                    $item->setCanReturnToStock(true);
+                }
+                else {
+                    $item->setCanReturnToStock(false);
+                }
+            }
+            $canReturnToStock = $item->getCanReturnToStock();
+        }
+        return $canReturnToStock;
     }
     /**
-     * Whether to show 'Return to stock' column for item parent 
+     * Whether to show 'Return to stock' column for item parent
      * @param Mage_Sales_Model_Order_Creditmemo_Item $item
      * @return bool
      */
-    public function canParentReturnToStock($item = null) 
+    public function canParentReturnToStock($item = null)
     {
-    	$canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
-    	if (!is_null($item)) {
-    		if ( $item->getCreditmemo()->getOrder()->hasCanReturnToStock() ) {
-    			$canReturnToStock = $item->getCreditmemo()->getOrder()->getCanReturnToStock();
-    		}
-    	} elseif ( $this->getOrder()->hasCanReturnToStock() ) {
-    		$canReturnToStock = $this->getOrder()->getCanReturnToStock();
-    	}
-    	return $canReturnToStock;
+        $canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
+        if (!is_null($item)) {
+            if ( $item->getCreditmemo()->getOrder()->hasCanReturnToStock() ) {
+                $canReturnToStock = $item->getCreditmemo()->getOrder()->getCanReturnToStock();
+            }
+        } elseif ( $this->getOrder()->hasCanReturnToStock() ) {
+            $canReturnToStock = $this->getOrder()->getCanReturnToStock();
+        }
+        return $canReturnToStock;
     }
 
     /**

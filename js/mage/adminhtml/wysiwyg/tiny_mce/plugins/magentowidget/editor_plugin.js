@@ -39,8 +39,19 @@ tinyMCE.addI18n({en:{
          */
         init : function(ed, url) {
             ed.addCommand('mceMagentowidget', function() {
+                //openEditorPopup(ed.settings.magentowidget_url, 'widget_window' + ed.settings.elements, 'width=1024,height=800,scrollbars=yes');
+                //var head = w.document.getElementsByTagName("head")[0];
+                //var popup_css_node = w.document.createElement('link');
+                //popup_css_node.type = 'text/css';
+                //popup_css_node.rel = 'stylesheet';
+                //popup_css_node.href = ed.settings.custom_popup_css;
+                //console.log(head.innerHTML);
+                //head.appendChild(popup_css_node);
+                //console.log(head.innerHTML);
+
                 ed.windowManager.open({
                     file : ed.settings.magentowidget_url,
+                    name : 'widget_window' + ed.settings.elements,
                     width : 1024,
                     height : 800,
                     popup_css : ed.settings.custom_popup_css,

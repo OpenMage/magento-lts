@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Oscommerce
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Oscommerce
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -96,6 +96,6 @@ class Mage_Oscommerce_Adminhtml_OrderController extends Mage_Adminhtml_Controlle
 
     protected function _isAllowed()
     {
-	    return Mage::getSingleton('admin/session')->isAllowed('sales/oscorder');
+        return Mage::getSingleton('admin/session')->isAllowed('sales/oscorder');
     }
 }

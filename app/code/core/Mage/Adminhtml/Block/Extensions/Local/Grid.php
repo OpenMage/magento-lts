@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -56,28 +56,28 @@ class Mage_Adminhtml_Block_Extensions_Local_Grid extends Mage_Adminhtml_Block_Wi
 
         $this->addColumn('channel', array(
             'header'=>Mage::helper('adminhtml')->__('Channel'),
-           	'index'=>'channel',
-           	#'type'=>'options',
-           	#'options'=>$ext->getKnownChannels(),
+               'index'=>'channel',
+               #'type'=>'options',
+               #'options'=>$ext->getKnownChannels(),
         ));
 
         $this->addColumn('name', array(
             'header'=>Mage::helper('adminhtml')->__('Extension Name'),
-           	'index'=>'name',
+               'index'=>'name',
         ));
 
         $this->addColumn('version', array(
             'header'=>Mage::helper('adminhtml')->__('Version'),
-           	'index'=>'version',
-           	'type'=>'range',
-           	'width'=>'140px',
+               'index'=>'version',
+               'type'=>'range',
+               'width'=>'140px',
         ));
 
         $this->addColumn('stability', array(
             'header'=>Mage::helper('adminhtml')->__('Stability'),
-           	'index'=>'stability',
-           	'type'=>'options',
-           	'options'=>$ext->getStabilityOptions(),
+               'index'=>'stability',
+               'type'=>'options',
+               'options'=>$ext->getStabilityOptions(),
         ));
 
 /*

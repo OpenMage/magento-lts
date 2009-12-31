@@ -18,22 +18,26 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php $_element = $this->getElement() ?>
+<?php
+$_element = $this->getElement();
+$_note    = $_element->getNote();
+$_trId    = $_element->getHtmlContainerId();
+$_class   = $_element->getFieldsetHtmlClass();
+?>
 <?php if (!$_element->getNoDisplay()): ?>
-<?php $_trId = $_element->getHtmlContainerId() ?>
 <tr<?php if($_trId): ?> id="<?php echo $_trId ?>"<?php endif; ?>>
     <?php if ($_element->getType()=='hidden'): ?>
     <td colspan="3" class="hidden"><?php echo trim($_element->getElementHtml()) ?></td>
     <?php else: ?>
-    <td class="label"><?php echo trim($_element->getLabelHtml()) ?></td>
-    <td class="value"><?php echo trim($_element->getElementHtml()) ?></td>
-    <td<?php if ($_element->getNote()): ?> class="note"<?php endif ?> id="note_<?php echo $_element->getId()?>"><small><?php echo $_element->getNote()?$_element->getNote():'&nbsp;' ?></small></td>
+    <td class="label<?php echo $_class ? " {$_class}-label" : ''?>"><?php echo trim($_element->getLabelHtml()) ?></td>
+    <td class="<?php echo $_element->hasValueClass() ? $_element->getValueClass() : 'value' ?><?php echo $_class ? " {$_class}-value" : ''?>"><?php echo trim($_element->getElementHtml()) ?></td>
+    <td<?php if ($_note): ?> class="note<?php echo $_class ? " {$_class}-note" : ''?>"<?php endif ?> id="note_<?php echo $_element->getId()?>"><small><?php echo $_note ? $_note : '&nbsp;' ?></small></td>
     <?php endif; ?>
 </tr>
 <?php endif; ?>

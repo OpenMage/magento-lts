@@ -129,6 +129,27 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Prepare Image insertion declaration for Wysiwyg or textarea(as_is mode)
+     *
+     * @param string $filename Filename transferred via Ajax
+     * @param bool $asIs Leave image HTML as is or transform it to controller directive
+     * @return string
+     */
+    public function getImageHtmlDeclaration($filename, $asIs = false)
+    {
+        $fileurl = $this->getCurrentUrl() . $filename;
+        $mediaPath = str_replace(Mage::getBaseUrl('media'), '', $fileurl);
+        $directive = sprintf('{{media url="%s"}}', $mediaPath);
+        if ($asIs) {
+            $html = sprintf('<img src="%s" alt="" />', $directive);
+        } else {
+            $directive = Mage::helper('core')->urlEncode($directive);
+            $html = Mage::helper('adminhtml')->getUrl('*/cms_wysiwyg/directive', array('directive' => $directive));
+        }
+        return $html;
+    }
+
+    /**
      * Return path of the current selected directory or root directory for startup
      * Try to create target directory if it doesn't exist
      *

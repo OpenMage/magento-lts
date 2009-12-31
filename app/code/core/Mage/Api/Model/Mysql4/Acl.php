@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Api
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Api
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -116,7 +116,7 @@ class Mage_Api_Model_Mysql4_Acl extends Mage_Core_Model_Mysql4_Abstract
      */
     function loadRules(Mage_Api_Model_Acl $acl, array $rulesArr)
     {
-    	foreach ($rulesArr as $rule) {
+        foreach ($rulesArr as $rule) {
             $role = $rule['role_type'].$rule['role_id'];
             $resource = $rule['resource_id'];
             $privileges = !empty($rule['privileges']) ? explode(',', $rule['privileges']) : null;
@@ -128,9 +128,9 @@ class Mage_Api_Model_Mysql4_Acl extends Mage_Core_Model_Mysql4_Abstract
             }
             try {
                 if ( $rule['permission'] == 'allow' ) {
-                	$acl->allow($role, $resource, $privileges, $assert);
+                    $acl->allow($role, $resource, $privileges, $assert);
                 } else if ( $rule['permission'] == 'deny' ) {
-                	$acl->deny($role, $resource, $privileges, $assert);
+                    $acl->deny($role, $resource, $privileges, $assert);
                 }
             } catch (Exception $e) {
                 //$m = $e->getMessage();

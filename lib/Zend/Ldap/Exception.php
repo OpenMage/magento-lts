@@ -17,7 +17,7 @@
  * @package    Zend_Ldap
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Exception.php 16880 2009-07-20 13:12:36Z mikaelkael $
+ * @version    $Id: Exception.php 17829 2009-08-26 15:07:10Z sgehrig $
  */
 
 /**
@@ -118,8 +118,8 @@ class Zend_Ldap_Exception extends Zend_Exception
 
     /**
      * @param Zend_Ldap $ldap A Zend_Ldap object
-     * @param string $str An informtive exception message
-     * @param int $code An LDAP error code
+     * @param string    $str  An informtive exception message
+     * @param int       $code An LDAP error code
      */
     public function __construct(Zend_Ldap $ldap = null, $str = null, $code = 0)
     {

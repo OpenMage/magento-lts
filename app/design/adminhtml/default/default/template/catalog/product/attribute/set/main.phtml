@@ -18,23 +18,23 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <div class="content-header">
     <table cellspacing="0">
-    	<tr>
-    		<td style="width:50%;"><h3 class="icon-head head-product-attribute-sets"><?php echo $this->_getHeader() ?></h3></td>
-        	<td class="form-buttons">
+        <tr>
+            <td style="width:50%;"><h3 class="icon-head head-product-attribute-sets"><?php echo $this->_getHeader() ?></h3></td>
+            <td class="form-buttons">
                 <?php echo $this->getBackButtonHtml() ?>
                 <?php echo $this->getResetButtonHtml() ?>
                 <?php echo $this->getDeleteButtonHtml() ?>
                 <?php echo $this->getSaveButtonHtml() ?>
-        	</td>
-    	</tr>
+            </td>
+        </tr>
     </table>
 </div>
 <table cellspacing="0" width="100%">
@@ -73,7 +73,7 @@
             </div>
             <div id="tree-div2" style="height:400px; margin-top:5px;overflow:auto"></div>
             <script type="text/javascript">
-			//<![CDATA[
+            //<![CDATA[
             var allowDragAndDrop = <?php echo ($this->getIsReadOnly() ? 'false' : 'true'); ?>;
             var canEditGroups = <?php echo ($this->getIsReadOnly() ? 'false' : 'true'); ?>;
 
@@ -192,7 +192,7 @@
 
             function buildCategoryTree(parent, config){
                 if (!config) return null;
-            	if (parent && config && config.length){
+                if (parent && config && config.length){
                     for (var i = 0; i < config.length; i++) {
                         var node = new Ext.tree.TreeNode(config[i]);
                         parent.appendChild(node);
@@ -309,8 +309,8 @@
 
                     editGroup : function(obj) {
                         if( obj.editNode.attributes.cls != 'folder' || !canEditGroups) {
-                         	TreePanels.ge.cancelEdit();
-                         	return false;
+                             TreePanels.ge.cancelEdit();
+                             return false;
                         }
                     },
 
@@ -454,7 +454,7 @@
 
             initVars();
             Ext.EventManager.onDocumentReady(TreePanels.init, TreePanels, true);
-			//]]>
+            //]]>
             </script>
         </td>
     </tr>

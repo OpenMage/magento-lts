@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php $_item = $this->getItem() ?>
@@ -30,18 +30,9 @@
         <a href="<?php echo $this->getProductUrl()?>"><img src="<?php echo $this->getProductThumbnail()->resize(50, 50)->setWatermarkSize('30x10'); ?>" alt="<?php echo $this->htmlEscape($this->getProductName()) ?>" width="50" height="50" /></a>
     </div>
     <div class="product-details">
-        <a href="<?php echo $this->getDeleteUrl() ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>');" class="widget-btn"><img src="<?php echo $this->getSkinUrl('images/list_remove_btn.gif') ?>" alt="<?php echo $this->__('Remove Product') ?>" /></a>
+        <a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove Product') ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>');" class="widget-btn"><img src="<?php echo $this->getSkinUrl('images/list_remove_btn.gif') ?>" alt="<?php echo $this->__('Remove Product') ?>" /></a>
         <a href="<?php echo $this->getProductUrl() ?>"><?php echo $this->getProductName() ?></a><br />
         <strong><?php echo $this->getQty() ?></strong> x
-
-
-
-
-
-
-
-
-
 
     <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
         <?php if ($this->helper('tax')->displayCartBothPrices()): ?>

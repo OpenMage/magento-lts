@@ -35,19 +35,19 @@
                 </tbody>
             </table>
             <table>
-            	<tr>
-            		<td>
-					    <ul class="messages">
-					        <li class="warning-msg">
-					            <ul>
-					                <li><?php echo Mage::helper('oscommerce')->__('Notice: Please place all images under MAGENTO_ROOT/media/import/ with writable permission to all files including sub folders.') ?>
+                <tr>
+                    <td>
+                        <ul class="messages">
+                            <li class="warning-msg">
+                                <ul>
+                                    <li><?php echo Mage::helper('oscommerce')->__('Notice: Please place all images under MAGENTO_ROOT/media/import/ with writable permission to all files including sub folders.') ?>
 
-					                </li>
-					            </ul>
-					        </li>
-					    </ul>
-            		</td>
-            	</tr>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
             </table>
         </fieldset>
     </div>
@@ -65,16 +65,16 @@
             <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('oscommerce')->__('Import Options') ?></h4>
         </div>
         <fieldset>
-    		<ul class="messages">
-    		  <li class="warning-msg">
-			     <ul>
-					<li><?php echo Mage::helper('oscommerce')->__('To import orders, Magento requires that customers also be imported.') ?>
-					</li>
-			     </ul>
-			   </li>
-			</ul>
+            <ul class="messages">
+              <li class="warning-msg">
+                 <ul>
+                    <li><?php echo Mage::helper('oscommerce')->__('To import orders, Magento requires that customers also be imported.') ?>
+                    </li>
+                 </ul>
+               </li>
+            </ul>
             <input type="checkbox" id="import_categories" name="import_categories" class="input-checkbox" />
-           	<label for="import_categories"><?php echo Mage::helper('oscommerce')->__('Categories') ?></label> <br/>
+               <label for="import_categories"><?php echo Mage::helper('oscommerce')->__('Categories') ?></label> <br/>
             <input type="checkbox" id="import_products" name="import_products" class="input-checkbox" />
             <label for="import_products"><?php echo Mage::helper('oscommerce')->__('Products') ?></label> <br/>
             <input type="checkbox" id="import_customers" name="import_customers" class="input-checkbox" />
@@ -154,10 +154,10 @@ Event.observe($('run_import'), 'click', function(){
     }
 
     if ($('timezone').value == '') {
-    	error += "<?php echo Mage::helper('oscommerce')->__('Please select a timezone\n') ?>";
-   	}
-   	params += '&timezone='+$('timezone').value;
-   	params += '&data_charset='+$('data_charset').value;
+        error += "<?php echo Mage::helper('oscommerce')->__('Please select a timezone\n') ?>";
+       }
+       params += '&timezone='+$('timezone').value;
+       params += '&data_charset='+$('data_charset').value;
     params += '&connection_charset='+$('connection_charset').value;
     for (var i = 0; i < importArray.length; i++) {
         if ($('import_'+importArray[i]).checked) {

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Newsletter
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Newsletter
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -193,7 +193,9 @@ class Mage_Newsletter_Model_Mysql4_Queue_Collection extends Mage_Core_Model_Mysq
         if (!$this->_isStoreFilter) {
             $this->getSelect()->joinInner(array('store_link' => $this->getTable('queue_store_link')),
                 'main_table.queue_id = store_link.queue_id', array()
-            )->where('store_link.store_id IN (?)', $storeIds);
+            )
+            ->where('store_link.store_id IN (?)', $storeIds)
+            ->group('main_table.queue_id');
             $this->_isStoreFilter = true;
         }
         return $this;

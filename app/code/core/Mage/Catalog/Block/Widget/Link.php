@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -57,9 +57,10 @@ class Mage_Catalog_Block_Widget_Link
     protected $_anchorText;
 
     /**
-     * Prepare url using passed id path.
+     * Prepare url using passed id path and return it
+     * or return false if path was not found in url rewrites.
      *
-     * @return string
+     * @return string|false
      */
     public function getHref()
     {
@@ -68,9 +69,12 @@ class Mage_Catalog_Block_Widget_Link
             /* @var $store Mage_Core_Model_Store */
             $href = "";
             if ($this->getData('id_path')) {
-                $urlRewriteResource = Mage::getResourceSingleton('core/url_rewrite');
                 /* @var $urlRewriteResource Mage_Core_Model_Mysql4_Url_Rewrite */
+                $urlRewriteResource = Mage::getResourceSingleton('core/url_rewrite');
                 $href = $urlRewriteResource->getRequestPathByIdPath($this->getData('id_path'), $store);
+                if (!$href) {
+                    return false;
+                }
             }
 
             $this->_href = $store->getUrl('', array('_direct' => $href));
@@ -90,9 +94,11 @@ class Mage_Catalog_Block_Widget_Link
         if (!$this->_anchorText && $this->_entityResource) {
             if (!$this->getData('anchor_text')) {
                 $idPath = explode('/', $this->_getData('id_path'));
-                $id = array_pop($idPath);
-                if ($id) {
-                    $this->_anchorText = $this->_entityResource->getAttributeRawValue($id, 'name', Mage::app()->getStore());
+                if (isset($idPath[1])) {
+                    $id = $idPath[1];
+                    if ($id) {
+                        $this->_anchorText = $this->_entityResource->getAttributeRawValue($id, 'name', Mage::app()->getStore());
+                    }
                 }
             } else {
                 $this->_anchorText = $this->getData('anchor_text');
@@ -100,5 +106,19 @@ class Mage_Catalog_Block_Widget_Link
         }
 
         return $this->_anchorText;
+    }
+
+    /**
+     * Render block HTML
+     * or return empty string if url can't be prepared
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        if ($this->getHref()) {
+            return parent::_toHtml();
+        }
+        return '';
     }
 }

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Rss
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Rss
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -37,7 +37,7 @@ class Mage_Rss_IndexController extends Mage_Core_Controller_Front_Action
     {
         if (Mage::getStoreConfig('rss/config/active')) {
             $this->loadLayout();
-    	    $this->renderLayout();
+            $this->renderLayout();
         } else {
             $this->getResponse()->setHeader('HTTP/1.1','404 Not Found');
             $this->getResponse()->setHeader('Status','404 File not found');
@@ -49,8 +49,8 @@ class Mage_Rss_IndexController extends Mage_Core_Controller_Front_Action
     {
         $this->getResponse()->setHeader('HTTP/1.1','404 Not Found');
         $this->getResponse()->setHeader('Status','404 File not found');
-    	$this->loadLayout(false);
-       	$this->renderLayout();
+        $this->loadLayout(false);
+           $this->renderLayout();
     }
 
     public function wishlistAction()
@@ -58,7 +58,7 @@ class Mage_Rss_IndexController extends Mage_Core_Controller_Front_Action
         if (Mage::getStoreConfig('rss/wishlist/active')) {
             $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
             $this->loadLayout(false);
-    	    $this->renderLayout();
+            $this->renderLayout();
         } else {
             $this->getResponse()->setHeader('HTTP/1.1','404 Not Found');
             $this->getResponse()->setHeader('Status','404 File not found');

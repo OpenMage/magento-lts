@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -60,11 +60,29 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             )
         );
         if ($attributeObject->getFrontendInput() == 'gallery') {
-            $inputTypes[] = array(
+            $additionalTypes[] = array(
                 'value' => 'gallery',
                 'label' => Mage::helper('catalog')->__('Gallery')
             );
         }
+
+        $response = new Varien_Object();
+        $response->setTypes(array());
+        Mage::dispatchEvent('adminhtml_product_attribute_types', array('response'=>$response));
+        $_disabledTypes = array();
+        $_hiddenFields = array();
+        foreach ($response->getTypes() as $type) {
+            $additionalTypes[] = $type;
+            if (isset($type['hide_fields'])) {
+                $_hiddenFields[$type['value']] = $type['hide_fields'];
+            }
+            if (isset($type['disabled_types'])) {
+                $_disabledTypes[$type['value']] = $type['disabled_types'];
+            }
+        }
+        Mage::register('attribute_type_hidden_fields', $_hiddenFields);
+        Mage::register('attribute_type_disabled_types', $_disabledTypes);
+
         $frontendInputValues = array_merge($frontendInputElm->getValues(), $additionalTypes);
         $frontendInputElm->setValues($frontendInputValues);
 
@@ -204,23 +222,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
         } else {
             $form->getElement('apply_to')->addClass('no-display ignore-validate');
         }
-
-        $response = new Varien_Object();
-        $response->setTypes(array());
-        Mage::dispatchEvent('adminhtml_product_attribute_types', array('response'=>$response));
-        $_disabledTypes = array();
-        $_hiddenFields = array();
-        foreach ($response->getTypes() as $type) {
-            $inputTypes[] = $type;
-            if (isset($type['hide_fields'])) {
-                $_hiddenFields[$type['value']] = $type['hide_fields'];
-            }
-            if (isset($type['disabled_types'])) {
-                $_disabledTypes[$type['value']] = $type['disabled_types'];
-            }
-        }
-        Mage::register('attribute_type_hidden_fields', $_hiddenFields);
-        Mage::register('attribute_type_disabled_types', $_disabledTypes);
 
         return $this;
     }

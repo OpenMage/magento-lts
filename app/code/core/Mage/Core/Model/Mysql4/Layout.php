@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Core
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Core
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -51,10 +51,11 @@ class Mage_Core_Model_Mysql4_Layout extends Mage_Core_Model_Mysql4_Abstract
             $select = $readAdapter->select()
                 ->from(array('update'=>$this->getMainTable()), array('xml'))
                 ->join(array('link'=>$this->getTable('core/layout_link')), 'link.layout_update_id=update.layout_update_id', '')
-                ->where('link.store_id=?', $storeId)
+                ->where('link.store_id IN (0, ?)', $storeId)
                 ->where('link.package=?', $package)
                 ->where('link.theme=?', $theme)
-                ->where('update.handle = ?', $handle);
+                ->where('update.handle = ?', $handle)
+                ->order('update.sort_order ASC');
 
             foreach ($readAdapter->fetchAll($select) as $update) {
                 $updateStr .= $update['xml'];

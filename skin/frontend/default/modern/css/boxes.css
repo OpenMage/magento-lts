@@ -17,8 +17,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_modern
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /****************************************************/
@@ -402,6 +404,7 @@ h1#logo                 { float:left; }
 .sidebar .actions               { margin-top:0; border-top:1px solid #ddd; padding-top:5px; }
 
 /* Sidebar Blocks */
+.mini-product-tags ul               { font-size:13px; }
 .mini-product-tags li               { display:inline; padding-right:4px; line-height:1.5em; }
 .mini-product-tags li:after         { display:inline!important; }
 .mini-product-tags .content a,
@@ -512,10 +515,10 @@ h1#logo                 { float:left; }
 .minimal-price { margin:0; }
 .minimal-price .price-label { font-size:12px; font-weight:bold; white-space:nowrap; }
 
-a.minimal-price-link { display:block; font-size:12px; text-decoration:underline; color:#444; }
+.minimal-price-link { display:block; font-size:12px; text-decoration:underline; color:#444; }
 a.minimal-price-link:hover { color:#444; }
-a.minimal-price-link .label {}
-a.minimal-price-link .price { font-weight:normal; color:#444; }
+.minimal-price-link .label {color:#444;}
+.minimal-price-link .price { font-weight:normal; color:#444; }
 
 /* Including tax */
 .price-including-tax { display:block; color:#888; }
@@ -613,7 +616,7 @@ a.minimal-price-link .price { font-weight:normal; color:#444; }
     color:#fff;
     font-size:1.1em;
     }
-.narrowed-category li {clear:both; }	
+.narrowed-category li {clear:both; }
 .layered-nav .narrow-by dt { border-top:1px solid #fff; padding:8px 8px 0 8px; font-size:1.1em; }
 .layered-nav .narrow-by dd { padding:0 8px 8px 8px; border-bottom:1px solid #ddd; }
 .layered-nav .narrow-by a,
@@ -712,6 +715,7 @@ a.minimal-price-link .price { font-weight:normal; color:#444; }
 .product-img-box .product-image-zoom { position:relative; overflow:hidden; width:300px; height:300px; z-index:9; border:1px solid #cacaca; }
 .product-img-box .product-image-zoom img { position:absolute; left:0; top:0; cursor:move; }
 .image-zoom { position:relative; z-index:9; height:24px; margin:0 auto 13px auto; background:url(../images/slider_bg.gif) no-repeat 50% 50%; padding:0 28px 0 28px; cursor:pointer; }
+.image-zoom.disabled { -moz-opacity:.4; -webkit-opacity:.4; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";/*IE8*/ opacity:.4; }
 #track          { position:relative; height:24px; }
 #handle         { position:absolute; left:0; top:3px; width:9px; height:18px;background:url(../images/magnifier_handle.gif) no-repeat; }
 .btn-zoom-out   { position:absolute; left:10px; top:7px; }

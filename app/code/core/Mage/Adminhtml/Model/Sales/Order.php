@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -60,7 +60,7 @@ class Mage_Adminhtml_Model_Sales_Order
          */
         $productIds = array();
         foreach ($order->getAllItems() as $item) {
-        	$productIds[] = $item->getProductId();
+            $productIds[] = $item->getProductId();
         }
 
         $productCollection = Mage::getModel('catalog/product')->getCollection()
@@ -69,14 +69,14 @@ class Mage_Adminhtml_Model_Sales_Order
 
         $hasBadItems = false;
         foreach ($order->getAllItems() as $item) {
-        	if (!$productCollection->getItemById($item->getProductId())) {
-        	    $this->_getSession()->addError(
-        	       Mage::helper('adminhtml')->__('The item %s (SKU %s) doesn\'t exist in the catalog anymore',
-        	           $item->getName(),
-        	           $item->getSku()
+            if (!$productCollection->getItemById($item->getProductId())) {
+                $this->_getSession()->addError(
+                   Mage::helper('adminhtml')->__('The item %s (SKU %s) doesn\'t exist in the catalog anymore',
+                       $item->getName(),
+                       $item->getSku()
                 ));
                 $hasBadItems = true;
-        	}
+            }
         }
         if ($hasBadItems) {
             $this->_getSession()->addError(

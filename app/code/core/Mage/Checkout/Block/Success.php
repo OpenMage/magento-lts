@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Checkout
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Checkout
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -29,8 +29,8 @@ class Mage_Checkout_Block_Success extends Mage_Core_Block_Template
 {
     public function getRealOrderId()
     {
-    	$order = Mage::getModel('sales/order')->load($this->getLastOrderId());
-    	#print_r($order->getData());
-    	return $order->getIncrementId();
+        $order = Mage::getModel('sales/order')->load($this->getLastOrderId());
+        #print_r($order->getData());
+        return $order->getIncrementId();
     }
 }

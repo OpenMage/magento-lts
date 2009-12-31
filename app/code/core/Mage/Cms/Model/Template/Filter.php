@@ -35,6 +35,13 @@
 class Mage_Cms_Model_Template_Filter extends Mage_Core_Model_Email_Template_Filter
 {
     /**
+     * Whether to allow SID in store directive: AUTO
+     *
+     * @var bool
+     */
+    protected $_useSessionInUrl = null;
+
+    /**
      * Generate widget
      *
      * @param array $construction
@@ -69,5 +76,17 @@ class Mage_Cms_Model_Template_Filter extends Mage_Core_Model_Email_Template_Filt
         }
 
         return $widget->toHtml();
+    }
+
+    /**
+     * Setter whether SID is allowed in store directive
+     *
+     * @param bool $flag
+     * @return Mage_Cms_Model_Template_Filter
+     */
+    public function setUseSessionInUrl($flag)
+    {
+        $this->_useSessionInUrl = (bool)$flag;
+        return $this;
     }
 }

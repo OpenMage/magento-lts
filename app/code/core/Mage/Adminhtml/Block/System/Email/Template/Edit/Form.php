@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -58,12 +58,12 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
 
         $fieldset->addField('template_text', 'editor', array(
             'name'=>'template_text',
-            'wysiwyg' => !Mage::registry('email_template')->isPlain(),
+            'wysiwyg' => false, //!Mage::registry('email_template')->isPlain(),
             'label' => Mage::helper('adminhtml')->__('Template Content'),
             'required' => true,
             'theme' => 'advanced',
             'state' => 'html',
-           	'style' => 'height:24em;',
+               'style' => 'height:24em;',
         ));
 
         if (Mage::registry('email_template')->getId()) {
@@ -71,7 +71,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
         }
 
         if ($values = Mage::getSingleton('adminhtml/session')->getData('email_template_form_data', true)) {
-        	$form->setValues($values);
+            $form->setValues($values);
         }
 
         $this->setForm($form);

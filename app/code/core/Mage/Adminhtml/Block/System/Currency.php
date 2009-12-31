@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -70,6 +70,10 @@ class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
             $this->getLayout()->createBlock('adminhtml/system_currency_rate_matrix')
         );
 
+        $this->setChild('import_services',
+            $this->getLayout()->createBlock('adminhtml/system_currency_rate_services')
+        );
+
         return parent::_prepareLayout();
     }
 
@@ -95,14 +99,7 @@ class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
 
     protected function getServicesHtml()
     {
-        return $this->getLayout()->createBlock('adminhtml/html_select')
-            ->setOptions(Mage::getModel('adminhtml/system_config_source_currency_service')->toOptionArray(0))
-            ->setId('rate_services')
-            ->setName('rate_services')
-            ->setValue(Mage::getSingleton('adminhtml/session')->getCurrencyRateService(true))
-            ->setTitle(Mage::helper('adminhtml')->__('Import Service'))
-            ->toHtml();
-
+        return $this->getChildHtml('import_services');
     }
 
     protected function getRatesMatrixHtml()

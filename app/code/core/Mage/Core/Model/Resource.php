@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Core
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Core
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -60,7 +60,7 @@ class Mage_Core_Model_Resource
      * @var array
      */
     protected $_entities = array();
-    
+
     protected $_mappedTableNames;
 
     /**
@@ -161,14 +161,14 @@ class Mage_Core_Model_Resource
         } else {
             $tableName = $modelEntity;
         }
-        
+
         Mage::dispatchEvent('resource_get_tablename', array('resource' => $this, 'model_entity' => $modelEntity, 'table_name' => $tableName));
         $mappedTableName = $this->getMappedTableName($tableName);
         if ($mappedTableName) {
-        	$tableName = $mappedTableName;
+            $tableName = $mappedTableName;
         } else {
-        	$tablePrefix = (string)Mage::getConfig()->getTablePrefix();
-        	$tableName = $tablePrefix . $tableName;
+            $tablePrefix = (string)Mage::getConfig()->getTablePrefix();
+            $tableName = $tablePrefix . $tableName;
         }
 
         return $tableName;
@@ -176,19 +176,19 @@ class Mage_Core_Model_Resource
 
     public function setMappedTableName($tableName, $mappedName)
     {
-    	$this->_mappedTableNames[$tableName] = $mappedName;
-    	return $this;
+        $this->_mappedTableNames[$tableName] = $mappedName;
+        return $this;
     }
-    
+
     public function getMappedTableName($tableName)
     {
-    	if (isset($this->_mappedTableNames[$tableName])) {
-    		return $this->_mappedTableNames[$tableName];
-    	} else {
-    		return false;
-    	}
+        if (isset($this->_mappedTableNames[$tableName])) {
+            return $this->_mappedTableNames[$tableName];
+        } else {
+            return false;
+        }
     }
-    
+
     public function cleanDbRow(&$row)
     {
         if (!empty($row) && is_array($row)) {
@@ -212,9 +212,9 @@ class Mage_Core_Model_Resource
 
     public function checkDbConnection()
     {
-    	if (!$this->getConnection('core_read')) {
-    		//Mage::app()->getResponse()->setRedirect(Mage::getUrl('install'));
-    	}
+        if (!$this->getConnection('core_read')) {
+            //Mage::app()->getResponse()->setRedirect(Mage::getUrl('install'));
+        }
     }
 
     public function getAutoUpdate()

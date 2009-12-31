@@ -16,7 +16,7 @@
  * @package    Zend_Acl
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Acl.php 17515 2009-08-10 13:48:44Z ralph $
+ * @version    $Id: Acl.php 18286 2009-09-18 20:19:50Z matthew $
  */
 
 
@@ -218,9 +218,11 @@ class Zend_Acl
             }
         }
         foreach ($this->_rules['byResourceId'] as $resourceIdCurrent => $visitor) {
-            foreach ($visitor['byRoleId'] as $roleIdCurrent => $rules) {
-                if ($roleId === $roleIdCurrent) {
-                    unset($this->_rules['byResourceId'][$resourceIdCurrent]['byRoleId'][$roleIdCurrent]);
+            if (array_key_exists('byRoleId', $visitor)) {
+                foreach ($visitor['byRoleId'] as $roleIdCurrent => $rules) {
+                    if ($roleId === $roleIdCurrent) {
+                        unset($this->_rules['byResourceId'][$resourceIdCurrent]['byRoleId'][$roleIdCurrent]);
+                    }
                 }
             }
         }
@@ -1103,5 +1105,15 @@ class Zend_Acl
         }
         return $visitor['byRoleId'][$roleId];
     }
+
+    
+    /**
+     * @return array of registered roles
+     *
+     */
+    public function getRegisteredRoles()
+    { 
+        return $this->_getRoleRegistry()->getRoles(); 
+    } 
 
 }

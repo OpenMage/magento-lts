@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_modern
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
@@ -40,7 +40,7 @@
     <col width="75" />
     <col />
 <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
-	<col width="1" />
+    <col width="1" />
 <?php endif ?>
 <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
     <col width="80" />
@@ -107,8 +107,8 @@
     <?php if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
     </div>
     <div class="cart-totals">
-		<?php echo $this->getChildHtml('totals'); ?>
-        
+        <?php echo $this->getChildHtml('totals'); ?>
+
         <div class="clear"></div>
         <?php if(!$this->hasError()): ?>
         <ul class="checkout-types">

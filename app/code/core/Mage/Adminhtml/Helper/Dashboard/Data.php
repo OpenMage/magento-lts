@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -56,9 +56,9 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
         return array(
             '24h'=>$this->__('Last 24 hours'),
             '7d'=>$this->__('Last 7 days'),
-		    '1m'=>$this->__('Current Month'),
-		    '1y'=>$this->__('YTD'),
-		    '2y'=>$this->__('2YTD')
+            '1m'=>$this->__('Current Month'),
+            '1y'=>$this->__('YTD'),
+            '2y'=>$this->__('2YTD')
         );
     }
 }

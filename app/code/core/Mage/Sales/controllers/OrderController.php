@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Sales
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Sales
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -252,7 +252,7 @@ class Mage_Sales_OrderController extends Mage_Core_Controller_Front_Action
         if ($this->_canViewOrder($order)) {
             Mage::register('current_order', $order);
             if (isset($invoice)) {
-            	Mage::register('current_invoice', $invoice);
+                Mage::register('current_invoice', $invoice);
             }
             $this->loadLayout('print');
             $this->renderLayout();
@@ -274,7 +274,7 @@ class Mage_Sales_OrderController extends Mage_Core_Controller_Front_Action
         if ($this->_canViewOrder($order)) {
             Mage::register('current_order', $order);
             if (isset($shipment)) {
-            	Mage::register('current_shipment', $shipment);
+                Mage::register('current_shipment', $shipment);
             }
             $this->loadLayout('print');
             $this->renderLayout();
@@ -297,7 +297,7 @@ class Mage_Sales_OrderController extends Mage_Core_Controller_Front_Action
         if ($this->_canViewOrder($order)) {
             Mage::register('current_order', $order);
             if (isset($creditmemo)) {
-            	Mage::register('current_creditmemo', $creditmemo);
+                Mage::register('current_creditmemo', $creditmemo);
             }
             $this->loadLayout('print');
             $this->renderLayout();

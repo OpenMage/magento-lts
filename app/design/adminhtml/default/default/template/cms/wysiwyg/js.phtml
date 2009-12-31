@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
@@ -52,6 +52,7 @@ Wysiwyg.Images.prototype = {
     },
 
     selectFolder: function (node, event) {
+        this.hideFileButtons();
         this.expandFolder(node, event);
         this.activateBlock('contents');
         this.showElement('loading-mask');
@@ -84,12 +85,20 @@ Wysiwyg.Images.prototype = {
         })
         div.toggleClassName('selected');
         if($$('div.selected').length > 0) {
-            this.showElement('button_delete_files');
-            this.showElement('button_insert_files');
+            this.showFileButtons();
         } else {
-            this.hideElement('button_delete_files');
-            this.hideElement('button_insert_files');
+            this.hideFileButtons();
         }
+    },
+
+    showFileButtons: function () {
+        this.showElement('button_delete_files');
+        this.showElement('button_insert_files');
+    },
+
+    hideFileButtons: function () {
+        this.hideElement('button_delete_files');
+        this.hideElement('button_insert_files');
     },
 
     expandFolder: function (node, event) {
@@ -156,13 +165,14 @@ Wysiwyg.Images.prototype = {
 
     getTargetElement: function() {
         var parent = self.opener;
+        var textareaId = self.name.replace(/browser_window/g, '');
         return (parent.document.getElementById('src')
             || parent.document.getElementById('href')
-            || parent.document.getElementById(self.name));
+            || parent.document.getElementById(textareaId));
     },
 
     newFolder: function() {
-        var folderName = prompt('<?php echo $this->helper('cms')->__('New folder name') ?>:');
+        var folderName = prompt('<?php echo $this->helper('cms')->__('New Folder Name:') ?>:');
         if (!folderName) {
             return false;
         }
@@ -189,7 +199,7 @@ Wysiwyg.Images.prototype = {
     },
 
     deleteFolder: function() {
-        if (!confirm('<?php echo $this->helper('cms')->__('Are you sure you want to delete folder') ?>' + ' ' + this.currentNode.text + '?')) {
+        if (!confirm('<?php echo $this->helper('cms')->__('Are you sure you want to delete the selected folder?') ?>')) {
             return false;
         }
         new Ajax.Request('<?php echo $this->getDeletefolderUrl() ?>', {
@@ -208,7 +218,7 @@ Wysiwyg.Images.prototype = {
     },
 
     deleteFiles: function() {
-        if (!confirm('<?php echo $this->helper('cms')->__('Are you sure you want to delete selected files?') ?>')) {
+        if (!confirm('<?php echo $this->helper('cms')->__('Are you sure you want to delete the selected file?') ?>')) {
             return false;
         }
         var ids = [];

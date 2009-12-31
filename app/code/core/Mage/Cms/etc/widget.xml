@@ -19,55 +19,93 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Cms
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    Mage
+ * @package     Mage_Cms
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
-<config>
-    <widgets>
-        <cms_page_link type="cms/widget_page_link" translate="name description" module="cms">
-            <name>CMS Page Link</name>
-            <description type="desc">Link to a CMS Page</description>
-            <parameters>
-                <href type="complex" translate="label">
-                    <visible>1</visible>
-                    <required>1</required>
-                    <label>CMS Page</label>
-                    <type>
-                        <element_type>label</element_type>
-                        <element_helper>adminhtml/cms_page_widget_chooser</element_helper>
-                    </type>
-                    <sort_order>10</sort_order>
-                </href>
-                <anchor_text translate="label description">
-                    <visible>1</visible>
-                    <label>Anchor Text</label>
-                    <description>If empty, the Page Title will be used</description>
-                    <type>text</type>
-                </anchor_text>
-                <title translate="label">
-                    <visible>1</visible>
-                    <label>Anchor Title</label>
-                    <type>text</type>
-                </title>
-            </parameters>
-        </cms_page_link>
-        <cms_static_block type="cms/widget_block" translate="name description" module="cms">
-            <name>CMS Static Block</name>
-            <description type="desc">Contents of a Static Block</description>
-            <parameters>
-                <block_id type="complex" translate="label">
-                    <visible>1</visible>
-                    <required>1</required>
-                    <label>Block</label>
-                    <type>
-                        <element_type>label</element_type>
-                        <element_helper>adminhtml/cms_block_widget_chooser</element_helper>
-                    </type>
-                </block_id>
-            </parameters>
-        </cms_static_block>
-    </widgets>
-</config>
+<widgets>
+    <cms_page_link type="cms/widget_page_link" translate="name description" module="cms">
+        <name>CMS Page Link</name>
+        <description>Link to a CMS Page</description>
+        <parameters>
+            <href type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>CMS Page</label>
+                <type>label</type>
+                <helper_block>
+                    <type>adminhtml/cms_page_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Page...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>10</sort_order>
+            </href>
+            <anchor_text translate="label description">
+                <visible>1</visible>
+                <label>Anchor Custom Text</label>
+                <description>If empty, the Page Title will be used</description>
+                <type>text</type>
+            </anchor_text>
+            <title translate="label">
+                <visible>1</visible>
+                <label>Anchor Custom Title</label>
+                <type>text</type>
+            </title>
+            <template translate="label">
+                <label>Template</label>
+                <visible>1</visible>
+                <type>select</type>
+                <value>cms/widget/link/link_block.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value>cms/widget/link/link_block.phtml</value>
+                        <label>CMS Page Link Block Template</label>
+                    </default>
+                    <link_inline translate="label">
+                        <value>cms/widget/link/link_inline.phtml</value>
+                        <label>CMS Page Link Inline Template</label>
+                    </link_inline>
+                </values>
+            </template>
+        </parameters>
+    </cms_page_link>
+    <cms_static_block type="cms/widget_block" translate="name description" module="cms">
+        <name>CMS Static Block</name>
+        <description>Contents of a Static Block</description>
+        <parameters>
+            <block_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Block</label>
+                <type>label</type>
+                <helper_block>
+                    <type>adminhtml/cms_block_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Block...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>20</sort_order>
+            </block_id>
+            <template translate="label">
+                <label>Template</label>
+                <visible>1</visible>
+                <type>select</type>
+                <value>cms/widget/static_block/default.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value>cms/widget/static_block/default.phtml</value>
+                        <label>CMS Static Block Default Template</label>
+                    </default>
+                </values>
+                <sort_order>10</sort_order>
+            </template>
+        </parameters>
+    </cms_static_block>
+</widgets>

@@ -17,7 +17,7 @@
  * @subpackage PHP
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Class.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Class.php 17994 2009-09-06 10:16:53Z beberlei $
  */
 
 /**
@@ -296,7 +296,7 @@ class Zend_CodeGenerator_Php_Class extends Zend_CodeGenerator_Php_Abstract
             throw new Zend_CodeGenerator_Php_Exception('A property by name ' . $propertyName . ' already exists in this class.');
         }
         
-        $this->_properties->append($property);
+        $this->_properties[$propertyName] = $property;
         return $this;
     }
     
@@ -374,7 +374,7 @@ class Zend_CodeGenerator_Php_Class extends Zend_CodeGenerator_Php_Abstract
             throw new Zend_CodeGenerator_Php_Exception('A method by name ' . $methodName . ' already exists in this class.');
         }
         
-        $this->_methods->append($method);
+        $this->_methods[$methodName] = $method;
         return $this;
     }
     

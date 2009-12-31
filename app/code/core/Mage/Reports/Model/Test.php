@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Reports
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Reports
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -36,113 +36,113 @@
 class Mage_Reports_Model_Test extends Varien_Object
 {
 
-	public function getUsersCountries( )
-	{
-		return file_get_contents( Mage::getModuleDir('etc','Mage_Reports').DS.'flexTestDataCountries.xml' );
-	}
+    public function getUsersCountries( )
+    {
+        return file_get_contents( Mage::getModuleDir('etc','Mage_Reports').DS.'flexTestDataCountries.xml' );
+    }
 
-	public function getUsersCities( $countryId )
-	{
-		$dom = new DOMDocument();
-		$dom -> preserveWhiteSpace = false;
-		$dom -> load( Mage::getModuleDir('etc','Mage_Reports').DS.'flexTestDataCities.xml' );
+    public function getUsersCities( $countryId )
+    {
+        $dom = new DOMDocument();
+        $dom -> preserveWhiteSpace = false;
+        $dom -> load( Mage::getModuleDir('etc','Mage_Reports').DS.'flexTestDataCities.xml' );
 
-		$root = $dom -> documentElement;
-		$rows = $root -> getElementsByTagName( 'row' );
+        $root = $dom -> documentElement;
+        $rows = $root -> getElementsByTagName( 'row' );
 
-		$childsToRemove = array();
-		for( $i = 0; $i < $rows -> length; $i++)
-		{
-			for( $j = 0; $j < $rows -> item($i) -> childNodes -> length; $j ++ )
-				if(
-					$rows -> item($i) -> childNodes -> item($j) -> nodeType == XML_ELEMENT_NODE
-						&&
-					$rows -> item($i) -> childNodes -> item($j) -> nodeName == 'countryId'
-						&&
-					$rows -> item($i) -> childNodes -> item($j) -> nodeValue != $countryId
-				)
-					$childsToRemove[] = $rows -> item($i);
-		}
+        $childsToRemove = array();
+        for( $i = 0; $i < $rows -> length; $i++)
+        {
+            for( $j = 0; $j < $rows -> item($i) -> childNodes -> length; $j ++ )
+                if(
+                    $rows -> item($i) -> childNodes -> item($j) -> nodeType == XML_ELEMENT_NODE
+                        &&
+                    $rows -> item($i) -> childNodes -> item($j) -> nodeName == 'countryId'
+                        &&
+                    $rows -> item($i) -> childNodes -> item($j) -> nodeValue != $countryId
+                )
+                    $childsToRemove[] = $rows -> item($i);
+        }
 
-		foreach( $childsToRemove as $child )
-			$root -> removeChild( $child );
+        foreach( $childsToRemove as $child )
+            $root -> removeChild( $child );
 
-		return $dom -> saveXML();
-	}
+        return $dom -> saveXML();
+    }
 
-	public function getTimelineData( )
-	{
-		return file_get_contents( Mage::getModuleDir('etc','Mage_Reports').DS.'flexTestDataTimeline.xml' );
-	}
+    public function getTimelineData( )
+    {
+        return file_get_contents( Mage::getModuleDir('etc','Mage_Reports').DS.'flexTestDataTimeline.xml' );
+    }
 
-	public function getAllLinearExample( )
-	{
-		$session = Mage::getModel('session_data/');
+    public function getAllLinearExample( )
+    {
+        $session = Mage::getModel('session_data/');
 
-		$startPoint = time() - 24*60*60;
+        $startPoint = time() - 24*60*60;
 
-		$allData = array();
-		$countOfStartData = 12;
-		for($i = 1; $i<= $countOfStartData; $i++)
-		{
-			$allData[] = array( 'time'=>date("Y-m-d H:i",$startPoint), 'value'=>rand(1, 100) );
-			$startPoint += 30*60;
-		}
+        $allData = array();
+        $countOfStartData = 12;
+        for($i = 1; $i<= $countOfStartData; $i++)
+        {
+            $allData[] = array( 'time'=>date("Y-m-d H:i",$startPoint), 'value'=>rand(1, 100) );
+            $startPoint += 30*60;
+        }
 
-		$allData[] = array( 'time'=>date("Y-m-d H:i",$startPoint+(90*60)));
+        $allData[] = array( 'time'=>date("Y-m-d H:i",$startPoint+(90*60)));
 
-		$session -> setData('startPoint', $startPoint);
+        $session -> setData('startPoint', $startPoint);
 
-		return $this -> returnAsDataSource( $allData );
-	}
+        return $this -> returnAsDataSource( $allData );
+    }
 
-	public function getNewLinearData()
-	{
-		$session = Mage::getModel('session_data/');
-
-
-		$startPoint = $session -> getData('startPoint');
-
-		$reset = 12;
+    public function getNewLinearData()
+    {
+        $session = Mage::getModel('session_data/');
 
 
-		$newData  = array(
-			array( 'time'=> date("Y-m-d H:i", $startPoint), 'value'=>rand(1, 100) )
-		);
+        $startPoint = $session -> getData('startPoint');
 
-		$startPoint += 30*60;
-		$newData[]  = array( 'time'=> date("Y-m-d H:i", $startPoint+(90*60)) );
+        $reset = 12;
 
-		$session -> setData('startPoint', $startPoint);
 
-		return $this -> returnAsDataSource( $newData, $reset );
-	}
+        $newData  = array(
+            array( 'time'=> date("Y-m-d H:i", $startPoint), 'value'=>rand(1, 100) )
+        );
 
-	private function returnAsDataSource( &$array , $reset = 0)
-	{
-		$dom = new DOMDocument();
-		$dom -> preserveWhiteSpace = false;
-		$dom -> loadXML( "<"."?xml version=\"1.0\" encoding=\"UTF-8\"?".">\n<dataSource></dataSource>" );
-		$root = $dom ->documentElement;
-		if($reset)
-		{
-			$resetItem = $dom -> createElement("reset");
-			$resetItem -> nodeValue = $reset;
-			$root->appendChild($resetItem);
-		}
-		foreach($array  as $item )
-		{
-			$row = $dom->createElement('row');
-			foreach( $item as $key => $val)
-			{
-				$valItem = $dom->createElement( $key );
-				$valItem->nodeValue = $val;
-				$row->appendChild($valItem);
-			}
+        $startPoint += 30*60;
+        $newData[]  = array( 'time'=> date("Y-m-d H:i", $startPoint+(90*60)) );
 
-			$root->appendChild($row);
-		}
+        $session -> setData('startPoint', $startPoint);
 
-		return $dom->saveXML();
-	}
+        return $this -> returnAsDataSource( $newData, $reset );
+    }
+
+    private function returnAsDataSource( &$array , $reset = 0)
+    {
+        $dom = new DOMDocument();
+        $dom -> preserveWhiteSpace = false;
+        $dom -> loadXML( "<"."?xml version=\"1.0\" encoding=\"UTF-8\"?".">\n<dataSource></dataSource>" );
+        $root = $dom ->documentElement;
+        if($reset)
+        {
+            $resetItem = $dom -> createElement("reset");
+            $resetItem -> nodeValue = $reset;
+            $root->appendChild($resetItem);
+        }
+        foreach($array  as $item )
+        {
+            $row = $dom->createElement('row');
+            foreach( $item as $key => $val)
+            {
+                $valItem = $dom->createElement( $key );
+                $valItem->nodeValue = $val;
+                $row->appendChild($valItem);
+            }
+
+            $root->appendChild($row);
+        }
+
+        return $dom->saveXML();
+    }
 }

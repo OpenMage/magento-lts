@@ -17,8 +17,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_iphone
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /****************************************************/
@@ -82,25 +84,25 @@ h1, h2, h3, h4, h5, h6 { margin:5px 0; padding:0; }
 .inner-head { background:#ddd; padding:3px 5px; }
 /****************************************************8*/
 
-.header-top { 
-	background:#1e3647 url(../images/header-bg.gif) repeat-x; 
-	height:36px;
-	padding:0 10px 0 0; 
+.header-top {
+    background:#1e3647 url(../images/header-bg.gif) repeat-x;
+    height:36px;
+    padding:0 10px 0 0;
 }
-.header-top .col2-alt-set .col-2 { 
-	text-align:right; 
-	padding-top:7px; 
+.header-top .col2-alt-set .col-2 {
+    text-align:right;
+    padding-top:7px;
 }
 h1#logo {
-	margin:0;
-	height:34px;
+    margin:0;
+    height:34px;
 }
-.shop-access ul, .informational ul { 
-	list-style:none; 
-	font-size:11px; 
-	font-weight:bold; 
-	padding:0;
-	margin:0
+.shop-access ul, .informational ul {
+    list-style:none;
+    font-size:11px;
+    font-weight:bold;
+    padding:0;
+    margin:0
 }
 
 .inner-head a { float:right; }
@@ -108,30 +110,30 @@ h1#logo {
 .in-page { padding:0 5px 5px 5px; }
 .informational { margin-top:7px; }
 .informational ul {
-	font-size:11px;
-	font-weight:normal; 
-	margin:5px 10px 0 0;
+    font-size:11px;
+    font-weight:normal;
+    margin:5px 10px 0 0;
 }
-.shop-access ul li { 
-	float:left;
-	width:32.5%;
-	text-align:center;
-	padding-top:7px;
-	margin:0;
-} 
+.shop-access ul li {
+    float:left;
+    width:32.5%;
+    text-align:center;
+    padding-top:7px;
+    margin:0;
+}
 .shop-access ul li a { color:#fff; }
 .informational ul li { float:right; padding:0 0 5px 7px; }
 .informational div { clear:both; }
-.middle-container { 
-	/*background:transparent url(../images/page-bg.gif) repeat-x left top; 
-	border-top:1px solid #fff; */
+.middle-container {
+    /*background:transparent url(../images/page-bg.gif) repeat-x left top;
+    border-top:1px solid #fff; */
 }
 
 .search-form {
-	text-align:center;
-	width:100%;
-	border:0;
-	height:35px !important;
+    text-align:center;
+    width:100%;
+    border:0;
+    height:35px !important;
 }
 .search-form-cont 	{ background:#d1d1d1 url(../images/search-bg.gif) repeat-x bottom left; padding:0 10px; }
 .search-form .col-1 { width:75%; }
@@ -238,6 +240,7 @@ tr.td-noborder td { border:0; }
 .small-buttons button span { font-size:11px; }
 
 .price-box .price { font-weight:bold; white-space:nowrap; }
+.old-price { text-decoration:line-through; }
 
 .product-collateral { margin:10px 0; }
 .product-collateral .up-sell .product-image {}
@@ -270,7 +273,7 @@ p.required { text-align:right; }
     padding:8px !important;
     font-size:.95em !important;
     font-weight:bold !important;
-	text-align:center !important;
+    text-align:center !important;
 }
 .error-msg li, .success-msg li, .notice-msg li {margin-bottom:.2em; }
 .error-msg, .success-msg, .notice-msg, .note-msg { border-left:0 !important; border-right:0 !important; }
@@ -293,7 +296,7 @@ p.required { text-align:right; }
 .link-remove { color:#df280a; }
 .link-cart { color:#3d6611; }
 
-.login-box { padding:0 10px 10px 10px; } 
+.login-box { padding:0 10px 10px 10px; }
 .login-box h4 { margin:0; }
 .registered-users { border-bottom:1px solid #ccc; padding-bottom:10px; margin-bottom:10px; }
 .form-list { margin-right:10px; }
@@ -371,7 +374,7 @@ h4.legend { margin:1px 0 5px 0; }
 .checkout-progress { margin:0 auto; width:290px; }
 .checkout-progress td {
     margin-right:3px;
-	text-align:center;
+    text-align:center;
     border-top:3px solid #999;
     padding:4px 6px;
     color:#abb5ba;

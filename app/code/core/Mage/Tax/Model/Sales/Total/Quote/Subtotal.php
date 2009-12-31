@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Tax
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Tax
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -66,7 +66,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     }
 
     /**
-     * Prepare subtotals calculations result before apply tax 
+     * Prepare subtotals calculations result before apply tax
      *
      * @param   Mage_Sales_Model_Quote_Address $address
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
@@ -98,6 +98,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
             $address->setSubtotalInclTax($this->_subtotalInclTax);
             $address->setBaseSubtotalInclTax($this->_baseSubtotalInclTax);
             $this->_config->setNeedUsePriceExcludeTax(true);
+        } elseif (!$address->getTaxSubtotalIsProcessed() && !$this->_needSubtractTax($address)) {
+             foreach ($address->getAllItems() as $item) {
+                 $this->_resetItemPriceInclTax($item);
+             }
         }
 
         if (!$address->getTaxSubtotalIsProcessed() && $this->_needSubtractShippingTax($address)) {
@@ -105,6 +109,22 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
             $this->_config->setNeedUseShippingExcludeTax(true);
         }
         $address->setTaxSubtotalIsProcessed(true);
+        return $this;
+    }
+
+    /**
+     * Unset item prices/totals with price include tax.
+     * Operation is necessary for reset item state in case if configuration was changed
+     *
+     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
+     * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     */
+    protected function _resetItemPriceInclTax(Mage_Sales_Model_Quote_Item_Abstract $item)
+    {
+        $item->unsPriceInclTax();
+        $item->unsBasePriceInclTax();
+        $item->unsRowTotalInclTax();
+        $item->unsBaseRowTotalInclTax();
         return $this;
     }
 
@@ -286,10 +306,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
         $store = $address->getQuote()->getStore();
         if ($this->_config->priceIncludesTax($store) || $this->_config->getNeedUsePriceExcludeTax()) {
             return true;
-//            return !$this->_calculator->compareRequests(
-//                $this->_getStoreTaxRequest($address),
-//                $this->_getAddressTaxRequest($address)
-//            );
         }
         return false;
     }

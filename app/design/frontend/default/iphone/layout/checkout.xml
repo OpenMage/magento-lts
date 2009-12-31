@@ -19,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2004-2007 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_iphone
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 -->
@@ -255,11 +255,6 @@ One page checkout main layout
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
-        <reference name="right">
-            <action method="unsetChildren"></action>
-
-            <block type="checkout/onepage_progress" name="checkout.progress" before="-" template="checkout/onepage/progress.phtml"/>
-        </reference>
         <reference name="content">
             <block type="checkout/onepage" name="checkout.onepage" template="checkout/onepage.phtml">
                 <block type="checkout/onepage_login" name="checkout.onepage.login" as="login" template="checkout/onepage/login.phtml"/>
@@ -274,8 +269,8 @@ One page checkout main layout
                         <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
                     </block>
                 </block>
-				<block type="checkout/onepage_review" name="checkout.onepage.review" as="review" template="checkout/onepage/review.phtml">
-					<block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
+                <block type="checkout/onepage_review" name="checkout.onepage.review" as="review" template="checkout/onepage/review.phtml">
+                    <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
                 </block>
             </block>
         </reference>
@@ -336,17 +331,17 @@ One page checkout shipping methods block
 One page checkout order review block
 -->
 
-	<checkout_onepage_review>
-		<!-- Mage_Checkout -->
-		<remove name="right"/>
-		<remove name="left"/>
+    <checkout_onepage_review>
+        <!-- Mage_Checkout -->
+        <remove name="right"/>
+        <remove name="left"/>
 
-		<block type="checkout/onepage_review_info" name="root" output="toHtml" template="checkout/onepage/review/info.phtml">
-			<action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
-			<action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>
-			<action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
-			<block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
-		</block>
+        <block type="checkout/onepage_review_info" name="root" output="toHtml" template="checkout/onepage/review/info.phtml">
+            <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
+            <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>
+            <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
+            <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+        </block>
     </checkout_onepage_review>
 
     <checkout_onepage_success>
@@ -358,13 +353,13 @@ One page checkout order review block
         </reference>
     </checkout_onepage_success>
 
-	<checkout_onepage_failure>
-		<reference name="root">
-			<action method="setTemplate"><template>page/1column.phtml</template></action>
-		</reference>
-		<reference name="content">
-			<block type="checkout/onepage_failure" name="checkout.failure" template="checkout/onepage/failure.phtml"/>
-		</reference>
+    <checkout_onepage_failure>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="checkout/onepage_failure" name="checkout.failure" template="checkout/onepage/failure.phtml"/>
+        </reference>
     </checkout_onepage_failure>
 
 </layout>

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Page
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Page
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -74,10 +74,11 @@ class Mage_Page_Model_Config
         }
         foreach (Mage::getConfig()->getNode($xmlPath)->children() as $layoutCode => $layoutConfig) {
             $this->_pageLayouts[$layoutCode] = new Varien_Object(array(
-                'label' => Mage::helper('page')->__((string)$layoutConfig->label),
-                'code' => $layoutCode,
-                'template' => (string) $layoutConfig->template,
-                'layout_handle' => (string) $layoutConfig->layout_handle
+                'label'         => Mage::helper('page')->__((string)$layoutConfig->label),
+                'code'          => $layoutCode,
+                'template'      => (string)$layoutConfig->template,
+                'layout_handle' => (string)$layoutConfig->layout_handle,
+                'is_default'    => (int)$layoutConfig->is_default,
             ));
         }
         return $this;

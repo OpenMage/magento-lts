@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -47,6 +47,13 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
      * @var array
      */
     protected $_attributes;
+
+    /**
+     * Flag which allow/disallow to use link for as low as price
+     *
+     * @var bool
+     */
+    protected $_useLinkForAsLowAs = false;
 
     /**
      * Retrieve url for adding product to wishlist with params

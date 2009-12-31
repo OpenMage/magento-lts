@@ -18,44 +18,44 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Shipping
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Shipping
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 class Mage_Shipping_Model_Rate_Result
 {
-	protected $_rates = array();
-	protected $_error = null;
+    protected $_rates = array();
+    protected $_error = null;
 
-	/**
-	 * Reset result
-	 */
-	public function reset()
-	{
-	    $this->_rates = array();
-	    return $this;
-	}
+    /**
+     * Reset result
+     */
+    public function reset()
+    {
+        $this->_rates = array();
+        return $this;
+    }
 
-	public function setError($error)
-	{
-	    $this->_error = $error;
-	}
+    public function setError($error)
+    {
+        $this->_error = $error;
+    }
 
-	public function getError()
-	{
-	    return $this->_error;
-	}
+    public function getError()
+    {
+        return $this->_error;
+    }
 
-	/**
-	 * Add a rate to the result
-	 *
-	 * @param Mage_Shipping_Model_Rate_Result_Abstract|Mage_Shipping_Model_Rate_Result $result
-	 */
-	public function append($result)
-	{
+    /**
+     * Add a rate to the result
+     *
+     * @param Mage_Shipping_Model_Rate_Result_Abstract|Mage_Shipping_Model_Rate_Result $result
+     */
+    public function append($result)
+    {
         if ($result instanceof Mage_Shipping_Model_Rate_Result_Abstract) {
             $this->_rates[] = $result;
         }
@@ -68,40 +68,40 @@ class Mage_Shipping_Model_Rate_Result
         return $this;
     }
 
-	/**
-	 * Return all quotes in the result
-	 */
-	public function getAllRates()
-	{
-		return $this->_rates;
-	}
+    /**
+     * Return all quotes in the result
+     */
+    public function getAllRates()
+    {
+        return $this->_rates;
+    }
 
-	/**
-	 * Return rate by id in array
-	 */
-	public function getRateById($id)
-	{
-	    return isset($this->_rates[$id]) ? $this->_rates[$id] : null;
-	}
+    /**
+     * Return rate by id in array
+     */
+    public function getRateById($id)
+    {
+        return isset($this->_rates[$id]) ? $this->_rates[$id] : null;
+    }
 
-	/**
-	 * Return quotes for specified type
-	 *
-	 * @param string $type
-	 */
-	public function getRatesByCarrier($carrier)
-	{
-		$result = array();
-		foreach ($this->_rates as $rate) {
-			if ($rate->getCarrier()===$carrier) {
-				$result[] = $rate;
-			}
-		}
-		return $result;
-	}
+    /**
+     * Return quotes for specified type
+     *
+     * @param string $type
+     */
+    public function getRatesByCarrier($carrier)
+    {
+        $result = array();
+        foreach ($this->_rates as $rate) {
+            if ($rate->getCarrier()===$carrier) {
+                $result[] = $rate;
+            }
+        }
+        return $result;
+    }
 
-	public function asArray()
-	{
+    public function asArray()
+    {
         $currencyFilter = Mage::app()->getStore()->getPriceFilter();
         $rates = array();
         $allRates = $this->getAllRates();
@@ -114,44 +114,44 @@ class Mage_Shipping_Model_Rate_Result
             );
         }
         return $rates;
-	}
+    }
 
-	public function getCheapestRate()
-	{
-	    $cheapest = null;
-	    $minPrice = 100000;
-	    foreach ($this->getAllRates() as $rate) {
-	        if (is_numeric($rate->getPrice()) && $rate->getPrice()<$minPrice) {
-	            $cheapest = $rate;
-	            $minPrice = $rate->getPrice();
-	        }
-	    }
-	    return $cheapest;
-	}
+    public function getCheapestRate()
+    {
+        $cheapest = null;
+        $minPrice = 100000;
+        foreach ($this->getAllRates() as $rate) {
+            if (is_numeric($rate->getPrice()) && $rate->getPrice()<$minPrice) {
+                $cheapest = $rate;
+                $minPrice = $rate->getPrice();
+            }
+        }
+        return $cheapest;
+    }
 
-	/**
-	 *  Sort rates by price from min to max
-	 *
-	 *  @return	  Mage_Shipping_Model_Rate_Result
-	 */
-	public function sortRatesByPrice ()
-	{
-	    if (!is_array($this->_rates) || !count($this->_rates)) {
-	        return $this;
-	    }
-	    /* @var $rate Mage_Shipping_Model_Rate_Result_Method */
-	    foreach ($this->_rates as $i => $rate) {
-	        $tmp[$i] = $rate->getPrice();
-	    }
+    /**
+     *  Sort rates by price from min to max
+     *
+     *  @return	  Mage_Shipping_Model_Rate_Result
+     */
+    public function sortRatesByPrice ()
+    {
+        if (!is_array($this->_rates) || !count($this->_rates)) {
+            return $this;
+        }
+        /* @var $rate Mage_Shipping_Model_Rate_Result_Method */
+        foreach ($this->_rates as $i => $rate) {
+            $tmp[$i] = $rate->getPrice();
+        }
 
-	    natsort($tmp);
+        natsort($tmp);
 
-	    foreach ($tmp as $i => $price) {
-	        $result[] = $this->_rates[$i];
-	    }
+        foreach ($tmp as $i => $price) {
+            $result[] = $this->_rates[$i];
+        }
 
-	    $this->reset();
-	    $this->_rates = $result;
-	    return $this;
-	}
+        $this->reset();
+        $this->_rates = $result;
+        return $this;
+    }
 }

@@ -17,7 +17,7 @@
  * @subpackage Bootstrap
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BootstrapAbstract.php 17802 2009-08-24 21:15:12Z matthew $
+ * @version    $Id: BootstrapAbstract.php 17825 2009-08-26 12:50:42Z matthew $
  */
 
 /**
@@ -115,7 +115,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
         $this->_options = $this->mergeOptions($this->_options, $options);
 
         $options = array_change_key_case($options, CASE_LOWER);
-        $this->_optionKeys = array_keys($options);
+        $this->_optionKeys = array_merge($this->_optionKeys, array_keys($options));
 
         $methods = get_class_methods($this);
         foreach ($methods as $key => $method) {

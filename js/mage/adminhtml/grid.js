@@ -87,6 +87,10 @@ varienGrid.prototype = {
             }
         }
     },
+    initGridAjax: function () {
+        this.initGrid();
+        this.initGridRows();
+    },
     initGridRows: function() {
         if(this.initRowCallback){
             for (var row=0; row<this.rows.length; row++) {
@@ -163,7 +167,7 @@ varienGrid.prototype = {
                 parameters: this.reloadParams || {},
                 evalScripts: true,
                 onFailure: this._processFailure.bind(this),
-                onComplete: this.initGrid.bind(this),
+                onComplete: this.initGridAjax.bind(this),
                 onSuccess: function(transport) {
                     try {
                         if (transport.responseText.isJSON()) {

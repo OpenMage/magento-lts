@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Customer
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Customer
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
@@ -46,7 +46,7 @@ $tableOptionValues   = $installer->getTable('eav_attribute_option_value');
 $attributeId = (int)$installer->getAttribute('customer', 'gender', 'attribute_id');
 foreach (array('Male', 'Female') as $sortOrder => $label) {
 
-	// add option
+    // add option
     $data = array(
         'attribute_id' => $attributeId,
         'sort_order'   => $sortOrder,

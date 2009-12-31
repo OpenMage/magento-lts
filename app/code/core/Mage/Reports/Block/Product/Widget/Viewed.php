@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Reports
- * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Reports
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -35,5 +35,17 @@ class Mage_Reports_Block_Product_Widget_Viewed
     extends Mage_Reports_Block_Product_Viewed
     implements Mage_Cms_Block_Widget_Interface
 {
-
+    /**
+     * Internal constructor
+     *
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->addColumnCountLayoutDepend('one_column', 5)
+            ->addColumnCountLayoutDepend('two_columns_left', 4)
+            ->addColumnCountLayoutDepend('two_columns_right', 4)
+            ->addColumnCountLayoutDepend('three_columns', 3);
+        $this->addPriceBlockType('bundle', 'bundle/catalog_product_price', 'bundle/catalog/product/price.phtml');
+    }
 }

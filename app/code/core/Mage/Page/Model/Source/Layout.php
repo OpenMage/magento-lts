@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Page
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Page
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -42,6 +42,12 @@ class Mage_Page_Model_Source_Layout
     protected $_options = null;
 
     /**
+     * Default option
+     * @var string
+     */
+    protected $_defaultValue = null;
+
+    /**
      * Retrieve page layout options
      *
      * @return array
@@ -52,6 +58,9 @@ class Mage_Page_Model_Source_Layout
             $this->_options = array();
             foreach (Mage::getSingleton('page/config')->getPageLayouts() as $layout) {
                 $this->_options[$layout->getCode()] = $layout->getLabel();
+                if ($layout->getIsDefault()) {
+                    $this->_defaultValue = $layout->getCode();
+                }
             }
         }
 
@@ -70,7 +79,7 @@ class Mage_Page_Model_Source_Layout
         foreach ($this->getOptions() as $value => $label) {
             $options[] = array(
                 'label' => $label,
-                'value'  => $value
+                'value' => $value
             );
         }
 
@@ -79,5 +88,15 @@ class Mage_Page_Model_Source_Layout
         }
 
         return $options;
+    }
+
+    /**
+     * Default options value getter
+     * @return string
+     */
+    public function getDefaultValue()
+    {
+        $this->getOptions();
+        return $this->_defaultValue;
     }
 }

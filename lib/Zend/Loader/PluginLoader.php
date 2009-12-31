@@ -17,7 +17,7 @@
  * @subpackage PluginLoader
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: PluginLoader.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: PluginLoader.php 18207 2009-09-17 22:29:50Z beberlei $
  */
 
 /** Zend_Loader_PluginLoader_Interface */
@@ -149,7 +149,12 @@ class Zend_Loader_PluginLoader implements Zend_Loader_PluginLoader_Interface
         if ($this->_useStaticRegistry) {
             self::$_staticPrefixToPaths[$this->_useStaticRegistry][$prefix][] = $path;
         } else {
-            $this->_prefixToPaths[$prefix][] = $path;
+            if (!isset($this->_prefixToPaths[$prefix])) {
+                $this->_prefixToPaths[$prefix] = array();
+            }
+            if (!in_array($path, $this->_prefixToPaths[$prefix])) {
+                $this->_prefixToPaths[$prefix][] = $path;
+            }
         }
         return $this;
     }

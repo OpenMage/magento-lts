@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Oscommerce
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Oscommerce
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -124,12 +124,12 @@ function addImportData(data) {
 function execImportData() {
 
     if (importData.length == 0) {
-    	resetAllCount();
-    	var totalImported = "";
-    	for (var idx in totalImportedRecords) {
-    		totalImported += (totalImported?", ":"") + idx.ucFirst() + " <strong>" + totalImportedRecords[idx] + "</strong> '.$this->__('records').'";
-    	}
-    	Element.insert($("liFinished"), {before: config.tpl.evaluate({
+        resetAllCount();
+        var totalImported = "";
+        for (var idx in totalImportedRecords) {
+            totalImported += (totalImported?", ":"") + idx.ucFirst() + " <strong>" + totalImportedRecords[idx] + "</strong> '.$this->__('records').'";
+        }
+        Element.insert($("liFinished"), {before: config.tpl.evaluate({
             style: "background-color:"+config.styles.message.bg,
             image: config.styles.message.icon,
             text: config.tplSccTxt.evaluate({updated:(countOfTotalUpdated-countOfError), totalImported:totalImported}),
@@ -200,12 +200,12 @@ function sendImportData(data) {
 }
 
 function getPercent(data) {
-	if (parseInt(totalRecords[data["import_type"]]) == 0)	{
-		return 0;
-	} else {
-		totalImportedRecords[data["import_type"]] = countOfUpdated;
-    	return Math.ceil((countOfUpdated/totalRecords[data["import_type"]])*1000)/10;
-	}
+    if (parseInt(totalRecords[data["import_type"]]) == 0)	{
+        return 0;
+    } else {
+        totalImportedRecords[data["import_type"]] = countOfUpdated;
+        return Math.ceil((countOfUpdated/totalRecords[data["import_type"]])*1000)/10;
+    }
 }
 
 function addProfileRow(data, Info) {

@@ -45,6 +45,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     {
         $collection = $this->getCollection($path)
             ->setCollectDirs(true)
+            ->setDirsFilter(self::DIRECTORY_NAME_REGEXP)
             ->setCollectFiles(false)
             ->setCollectRecursively(false);
         return $collection;
@@ -209,7 +210,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             }
             $this->setData($key, $value);
         }
-        return $this->getData($key);
+        return $this->_getData($key);
     }
 
     /**
