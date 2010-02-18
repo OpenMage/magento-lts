@@ -159,6 +159,8 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions
             'required' => true,
         ))->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/actions'));
 
+        Mage::dispatchEvent('adminhtml_block_salesrule_actions_prepareform', array('form' => $form));
+
         $form->setValues($model->getData());
 
         if ($model->isReadonly()) {

@@ -148,7 +148,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
     protected function _optionToHtml($option, $selected=false)
     {
         $selectedHtml = $selected ? ' selected="selected"' : '';
-        $html = '<option value="'.$option['value'].'"'.$selectedHtml.'>'.$option['label'].'</option>';
+        $html = '<option value="'.$this->htmlEscape($option['value']).'"'.$selectedHtml.'>'.$this->htmlEscape($option['label']).'</option>';
 
         return $html;
     }

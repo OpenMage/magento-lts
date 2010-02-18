@@ -27,7 +27,7 @@
 <div class="page-create-order">
 <p class="switcher">
 <label for="currency_switcher"><?php echo Mage::helper('sales')->__('Order Currency:') ?></label>
-<select id="currency_switcher" name="order[currency]" class="left-col-block" onchange="order.setCurrencyId(this.value)">
+<select id="currency_switcher" name="order[currency]" onchange="order.setCurrencyId(this.value)">
     <?php foreach ($this->getAvailableCurrencies() as $_code): ?>
     <option value="<?php echo $_code ?>"<?php if($_code==$this->getCurrentCurrencyCode()): ?> selected="selected"<?php endif; ?>><?php echo $this->getCurrencyName($_code) ?></option>
     <?php endforeach; ?>
@@ -53,6 +53,14 @@
             <div id="order-billing_method" class="box-left payments"><?php echo $this->getChildHtml('billing_method') ?></div>
             <div id="order-shipping_method" class="box-right"><?php echo $this->getChildHtml('shipping_method') ?></div>
         </div>
+
+        <?php if($this->getChild('card_validation')): ?>
+        <div class="clear"></div>
+        <div id="order-methods">
+            <div id="order-card_validation" class="box-left payments"><?php echo $this->getChildHtml('card_validation') ?></div>
+        </div>
+        <?php endif; ?>
+
         <div id="order-giftmessage">
         <?php echo $this->getChildHtml('giftmessage') ?>
         </div>

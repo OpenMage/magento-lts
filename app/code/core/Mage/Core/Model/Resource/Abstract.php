@@ -98,8 +98,9 @@ abstract class Mage_Core_Model_Resource_Abstract
         if ($this->_getWriteAdapter()->getTransactionLevel() === 0) {
             $adapterKey = spl_object_hash($this->_getWriteAdapter());
             if (isset(self::$_commitCallbacks[$adapterKey])) {
-                foreach (self::$_commitCallbacks[$adapterKey] as $index => $callback) {
-                    unset(self::$_commitCallbacks[$adapterKey][$index]);
+                $callbacks = self::$_commitCallbacks[$adapterKey];
+                self::$_commitCallbacks[$adapterKey] = array();
+                foreach ($callbacks as $index => $callback) {
                     call_user_func($callback);
                 }
             }

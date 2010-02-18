@@ -26,7 +26,7 @@
 ?>
 <?php if ($websites = $this->getWebsites()): ?>
 <p class="switcher"><label for="store_switcher"><?php echo $this->__('Choose Store View') ?>:</label>
-<select name="store_switcher" id="store_switcher" class="left-col-block" onchange="return switchStore(this);">
+<select name="store_switcher" id="store_switcher" onchange="return switchStore(this);">
 <?php if ($this->hasDefaultOption()): ?>
     <option value=""><?php echo $this->getDefaultStoreName() ?></option>
 <?php endif; ?>

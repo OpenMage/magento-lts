@@ -266,8 +266,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
         $this->_baseSubtotalInclTax += $baseSubtotal;
 
         if ($this->_config->getAlgorithm($store) == Mage_Tax_Model_Calculation::CALC_UNIT_BASE) {
-            $taxAmount      = $this->_calculator->calcTaxAmount($taxPrice, $rate, true)*$qty;
-            $baseTaxAmount  = $this->_calculator->calcTaxAmount($baseTaxPrice, $rate, true)*$qty;
+            $taxAmount      = $this->_calculator->calcTaxAmount($taxPrice, $rate, true);
+            $baseTaxAmount  = $this->_calculator->calcTaxAmount($baseTaxPrice, $rate, true);
             $unitPrice      = $this->_calculator->round($price-$taxAmount);
             $baseUnitPrice  = $this->_calculator->round($basePrice-$baseTaxAmount);
             $subtotal       = $this->_calculator->round($unitPrice*$qty);

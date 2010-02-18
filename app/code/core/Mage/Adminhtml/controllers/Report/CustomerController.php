@@ -48,6 +48,10 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
 
     public function accountsAction()
     {
+        $this->_title($this->__('Reports'))
+             ->_title($this->__('Customers'))
+             ->_title($this->__('New Accounts'));
+
         $this->_initAction()
             ->_setActiveMenu('report/customer/accounts')
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('New Accounts'), Mage::helper('adminhtml')->__('New Accounts'))
@@ -81,6 +85,10 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
 
     public function ordersAction()
     {
+        $this->_title($this->__('Reports'))
+             ->_title($this->__('Customers'))
+             ->_title($this->__('Customers by Number of Orders'));
+
         $this->_initAction()
             ->_setActiveMenu('report/customer/orders')
             ->_addBreadcrumb(Mage::helper('reports')->__('Customers by number of orders'),
@@ -115,6 +123,10 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
 
     public function totalsAction()
     {
+        $this->_title($this->__('Reports'))
+             ->_title($this->__('Customers'))
+             ->_title($this->__('Customers By Orders Total'));
+
         $this->_initAction()
             ->_setActiveMenu('report/customer/totals')
             ->_addBreadcrumb(Mage::helper('reports')->__('Customers by orders total'),

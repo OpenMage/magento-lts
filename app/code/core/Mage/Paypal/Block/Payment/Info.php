@@ -28,63 +28,24 @@
  * PayPal common payment info block
  * Uses default templates
  */
-class Mage_Paypal_Block_Payment_Info extends Mage_Payment_Block_Info
+class Mage_Paypal_Block_Payment_Info extends Mage_Payment_Block_Info_Cc
 {
     /**
-     * Whether _addCcInfoBlock() was called
-     * @var bool
+     * Prepare PayPal-specific payment information
+     *
+     * @param Varien_Object|array $transport
+     * return Varien_Object
      */
-    private $_wasCcBlockCalled = false;
-
-    /**
-     * PayPal-specific information getter
-     * @return array
-     */
-    public function getSpecificInformation()
+    protected function _prepareSpecificInformation($transport = null)
     {
+        $transport = parent::_prepareSpecificInformation($transport);
         $payment = $this->getInfo();
         $paypalInfo = Mage::getModel('paypal/info');
-        if (Mage::app()->getStore()->isAdmin()) {
-            return $paypalInfo->getPaymentInfo($payment, true);
+        if (!$this->getIsSecureMode()) {
+            $info = $paypalInfo->getPaymentInfo($payment, true);
+        } else {
+            $info = $paypalInfo->getPublicPaymentInfo($payment, true);
         }
-        return $paypalInfo->getPublicPaymentInfo($payment, true);
-    }
-
-    /**
-     * Add cc block if needed
-     *
-     * @return string
-     */
-    public function toPdf()
-    {
-        $this->_addCcInfoBlock();
-        return parent::toPdf();
-    }
-
-    /**
-     * Add cc block if needed
-     *
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        $this->_addCcInfoBlock();
-        return parent::_toHtml();
-    }
-
-    /**
-     * Instantiate & add cc block if needed
-     */
-    protected function _addCcInfoBlock()
-    {
-        if (!$this->_wasCcBlockCalled) {
-            $this->_wasCcBlockCalled = true;
-            $config = Mage::getModel('paypal/config', array($this->getInfo()->getMethod()));
-            if ($config->doesWorkWithCc()) {
-                $ccInfoBlock = Mage::getConfig()->getBlockClassName('payment/info_cc');
-                $ccInfoBlock = new $ccInfoBlock;
-                $this->setChild('cc_info', $ccInfoBlock->setInfo($this->getInfo()));
-            }
-        }
+        return $transport->addData($info);
     }
 }

@@ -31,6 +31,24 @@
 class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 {
     /**
+     * Paypal methods definition
+     */
+    const DO_DIRECT_PAYMENT = 'DoDirectPayment';
+    const DO_CAPTURE = 'DoCapture';
+    const DO_VOID = 'DoVoid';
+    const REFUND_TRANSACTION = 'RefundTransaction';
+    const SET_EXPRESS_CHECKOUT = 'SetExpressCheckout';
+    const GET_EXPRESS_CHECKOUT_DETAILS = 'GetExpressCheckoutDetails';
+    const DO_EXPRESS_CHECKOUT_PAYMENT = 'DoExpressCheckoutPayment';
+
+    /**
+     * Capture types (make authorization close or remain open)
+     * @var string
+     */
+    protected $_captureTypeComplete = 'Complete';
+    protected $_captureTypeNotcomplete = 'Complete';
+
+    /**
      * Global public interface map
      * @var array
      */
@@ -58,6 +76,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'NOTE'              => 'note',
         'REFUNDTYPE'        => 'refund_type',
         'ACTION'            => 'action',
+        'REDIRECTREQUIRED'  => 'redirect_required',
+        'SUCCESSPAGEREDIRECTREQUESTED'  => 'redirect_requested',
         // style settings
         'PAGESTYLE'      => 'page_style',
         'HDRIMG'         => 'hdrimg',
@@ -117,6 +137,11 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'CREDITCARDTYPE' => '_filterCcType',
     );
 
+    protected $_importFromRequestFilters = array(
+        'REDIRECTREQUIRED'  => '_filterToBool',
+        'SUCCESSPAGEREDIRECTREQUESTED'  => '_filterToBool',
+    );
+
     /**
      * Request map for each API call
      * @var array
@@ -148,7 +173,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'TOKEN', 'PAYERID', 'PAYMENTACTION', 'AMT', 'CURRENCYCODE', 'IPADDRESS', 'BUTTONSOURCE', 'NOTIFYURL',
     );
     protected $_doExpressCheckoutPaymentResponse = array(
-        'TRANSACTIONID', 'AMT', 'PAYMENTSTATUS'
+        'TRANSACTIONID', 'AMT', 'PAYMENTSTATUS', 'REDIRECTREQUIRED', 'SUCCESSPAGEREDIRECTREQUESTED',
     );
 
     /**
@@ -193,7 +218,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected $_getTransactionDetailsRequest = array('TRANSACTIONID');
     protected $_getTransactionDetailsResponse = array(
-        'PAYERID', 'FIRSTNAME', 'LASTNAME', 'TRANSACTIONID', 'PARENTTRANSACTIONID', 'CURRENCYCODE', 'AMT',
+        'PAYERID', 'FIRSTNAME', 'LASTNAME', 'TRANSACTIONID', 'PARENTTRANSACTIONID', 'CURRENCYCODE', 'AMT', 'PAYMENTSTATUS'
     );
 
     /**
@@ -340,7 +365,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             $request['NOSHIPPING'] = 1;
         }
 
-        $response = $this->call('SetExpressCheckout', $request);
+        $response = $this->call(self::SET_EXPRESS_CHECKOUT, $request);
         $this->_importFromResponse($this->_setExpressCheckoutResponse, $response);
     }
 
@@ -351,10 +376,9 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     function callGetExpressCheckoutDetails()
     {
         $request = $this->_exportToRequest($this->_getExpressCheckoutDetailsRequest);
-        $response = $this->call('GetExpressCheckoutDetails', $request);
+        $response = $this->call(self::GET_EXPRESS_CHECKOUT_DETAILS, $request);
         $this->_importFromResponse($this->_paymentInformationResponse, $response);
         $this->_exportAddressses($response);
-//        $this->setIsRedirectRequired(!empty($resArr['REDIRECTREQUIRED']) && (bool)$resArr['REDIRECTREQUIRED']);
     }
 
     /**
@@ -366,11 +390,10 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $request = $this->_exportToRequest($this->_doExpressCheckoutPaymentRequest);
         $this->_exportLineItems($request);
 
-        $response = $this->call('DoExpressCheckoutPayment', $request);
+        $response = $this->call(self::DO_EXPRESS_CHECKOUT_PAYMENT, $request);
         $this->_importFromResponse($this->_paymentInformationResponse, $response);
         $this->_importFromResponse($this->_doExpressCheckoutPaymentResponse, $response);
         $this->_importFraudFiltersResult($response, $this->_callWarnings);
-//        $this->setIsRedirectRequired(!empty($response['REDIRECTREQUIRED']) && (bool)$response['REDIRECTREQUIRED']);
     }
 
     /**
@@ -383,7 +406,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         if ($address = $this->getAddress()) {
             $request = $this->_importAddress($address, $request);
         }
-        $response = $this->call('DoDirectPayment', $request);
+        $response = $this->call(self::DO_DIRECT_PAYMENT, $request);
         $this->_importFromResponse($this->_doDirectPaymentResponse, $response);
         $this->_importFraudFiltersResult($response, $this->_callWarnings);
     }
@@ -404,8 +427,9 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     public function callDoCapture()
     {
+        $this->setCompleteType($this->_getCaptureCompleteType());
         $request = $this->_exportToRequest($this->_doCaptureRequest);
-        $response = $this->call('DoCapture', $request);
+        $response = $this->call(self::DO_CAPTURE, $request);
         $this->_importFromResponse($this->_paymentInformationResponse, $response);
         $this->_importFromResponse($this->_doCaptureResponse, $response);
     }
@@ -417,7 +441,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     public function callDoVoid()
     {
         $request = $this->_exportToRequest($this->_doVoidRequest);
-        $this->call('DoVoid', $request);
+        $this->call(self::DO_VOID, $request);
     }
 
     /**
@@ -441,7 +465,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         if ($this->getRefundType() === Mage_Paypal_Model_Config::REFUND_TYPE_PARTIAL) {
             $request['AMT'] = $this->getAmount();
         }
-        $response = $this->call('RefundTransaction', $request);
+        $response = $this->call(self::REFUND_TRANSACTION, $request);
         $this->_importFromResponse($this->_refundTransactionResponse, $response);
     }
 
@@ -463,8 +487,21 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     public function callGetPalDetails()
     {
-        $result = $this->call('getPalDetails', array());
+        $response = $this->call('getPalDetails', array());
         $this->_importFromResponse($this->_getPalDetailsResponse, $response);
+    }
+
+    /**
+     *Add method to request array
+     *
+     * @param string $methodName
+     * @param array $request
+     * @return array
+     */
+    protected function _addMethodToRequest($methodName, $request)
+    {
+        $request['method'] = $methodName;
+        return $request;
     }
 
     /**
@@ -477,7 +514,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     public function call($methodName, array $request)
     {
-        $request['method'] = $methodName;
+        $request = $this->_addMethodToRequest($methodName, $request);
         $request = $this->_exportToRequest($this->_eachCallRequest, $request);
 
         if ($this->getDebug()) {
@@ -499,7 +536,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             $config['proxy'] = $this->getProxyHost(). ':' . $this->getProxyPort();
         }
         $http->setConfig($config);
-        $http->write(Zend_Http_Client::POST, $this->getApiEndpoint(), '1.1', array(), http_build_query($request));
+        $http->write(Zend_Http_Client::POST, $this->getApiEndpoint(), '1.1', array(), $this->_buildQuery($request));
         $response = $http->read();
         $http->close();
         $response = preg_split('/^\r?$/m', $response, 2);
@@ -518,19 +555,20 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             Mage::throwException(Mage::helper('paypal')->__('Unable to communicate with PayPal gateway.'));
         }
 
-        $ack = strtoupper($response['ACK']);
-        $this->_callWarnings = array();
-        if ($ack == 'SUCCESS' || $ack == 'SUCCESSWITHWARNING') {
-            // collect warnings
-            if ($ack == 'SUCCESSWITHWARNING') {
-                for ($i = 0; isset($response["L_ERRORCODE{$i}"]); $i++) {
-                    $this->_callWarnings[] = $response["L_ERRORCODE{$i}"];
-                }
-            }
+        if ($this->_isCallSuccessful($response)) {
             return $response;
         }
+        $this->_handleCallErrors($response);
+        return $response;
+    }
 
-        // handle logical errors
+    /**
+     * Handle logical errors
+     *
+     * @param array
+     */
+    protected function _handleCallErrors($response)
+    {
         $errors = array();
         for ($i = 0; isset($response["L_ERRORCODE{$i}"]); $i++) {
             $longMessage = isset($response["L_LONGMESSAGE{$i}"])
@@ -549,7 +587,28 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             Mage::logException($e);
             Mage::throwException(Mage::helper('paypal')->__('PayPal geteway rejected request. %s', $errors));
         }
-        return $response;
+    }
+
+    /**
+     * Catch success calls and collect warnings
+     *
+     * @param array
+     * @return bool| success flag
+     */
+    protected function _isCallSuccessful($response)
+    {
+        $ack = strtoupper($response['ACK']);
+        $this->_callWarnings = array();
+        if ($ack == 'SUCCESS' || $ack == 'SUCCESSWITHWARNING') {
+            // collect warnings
+            if ($ack == 'SUCCESSWITHWARNING') {
+                for ($i = 0; isset($response["L_ERRORCODE{$i}"]); $i++) {
+                    $this->_callWarnings[] = $response["L_ERRORCODE{$i}"];
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -588,8 +647,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     {
         $address = new Varien_Object();
         Varien_Object_Mapper::accumulateByMap($data, $address, $this->_billingAddressMap);
-        $this->_applyStreetAndRegionWorkarounds($address);
         $address->setExportedKeys(array_values($this->_billingAddressMap));
+        $this->_applyStreetAndRegionWorkarounds($address);
         $this->setExportedBillingAddress($address);
 
         // assume there is shipping address if there is at least one field specific to shipping
@@ -629,6 +688,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             ;
             foreach ($regions as $region) {
                 $address->setRegionId($region->getId());
+                $address->setExportedKeys(array_merge($address->getExportedKeys(), array('region_id')));
                 break;
             }
         }
@@ -674,6 +734,22 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     }
 
     /**
+     * Filter for true/false values (converts to boolean)
+     *
+     * @param mixed $value
+     * @return mixed
+     */
+    protected function _filterToBool($value)
+    {
+        if ('false' === $value || '0' === $value) {
+            return false;
+        } elseif ('true' === $value || '1' === $value) {
+            return true;
+        }
+        return $value;
+    }
+
+    /**
      * Get FMF results from response, if any
      * TODO: PayPal doesn't provide this information in API response for some reason.
      *       However, the FMF results go in IPN
@@ -687,6 +763,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         if (!in_array(11610, $collectedWarnings)) {
             return;
         }
+        $this->setIsPaymentPending(true);
         $collectedFilters = array();
         for ($i = 0; isset($from["L_FMFfilterID{$i}"]); $i++) {
             $collectedFilters[] = $from["L_FMFfilterNAME{$i}"];
@@ -694,5 +771,18 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         if ($collectedFilters) {
             $this->setCollectedFraudFilters($collectedFilters);
         }
+    }
+
+    /**
+     * Return capture type
+     *
+     * @param Varien_Object $payment
+     * @return string
+     */
+    protected function _getCaptureCompleteType()
+    {
+        return ($this->getIsCaptureComplete())
+                ? $this->_captureTypeComplete
+                : $this->_captureTypeNotcomplete;
     }
 }

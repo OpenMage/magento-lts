@@ -767,6 +767,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
             'xxyz' => 'chemical/x-xyz',
             'xzaz' => 'application/vnd.zzazz.deck+xml',
             'xzip' => 'application/zip',
-            'xzmm' => 'application/vnd.handheld-entertainment+xml'
+            'xzmm' => 'application/vnd.handheld-entertainment+xml',
+            'xodt' => 'application/x-vnd.oasis.opendocument.spreadsheet'
         );
 }

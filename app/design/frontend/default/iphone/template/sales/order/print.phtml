@@ -68,7 +68,7 @@
             <tr<?php echo ($_index++ > $_count ? ' class="last"' : '') ?>>
             <td>
                 <?php echo $this->htmlEscape($_item->getName()) ?>
-                <?php echo $_item->getDescription() ?>
+                <?php echo $this->htmlEscape($_item->getDescription()) ?>
             </td>
             <td class="a-right nowrap"><?php echo $_order->formatPrice($_item->getPrice()) ?></td>
             <td class="a-center"><?php echo $_item->getQtyOrdered()*1 ?></td>

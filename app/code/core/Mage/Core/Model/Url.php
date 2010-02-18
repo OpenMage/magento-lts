@@ -683,12 +683,20 @@ class Mage_Core_Model_Url extends Varien_Object
         return $this->setData('query', $data);
     }
 
+    /**
+     * Get query params part of url
+     *
+     * @param bool $escape "&" escape flag
+     * @return string
+     */
     public function getQuery($escape = false)
     {
         if (!$this->hasData('query')) {
             $query = '';
-            if (is_array($this->getQueryParams())) {
-                $query = http_build_query($this->getQueryParams(), '', $escape ? '&amp;' : '&');
+            $params = $this->getQueryParams();
+            if (is_array($params)) {
+                ksort($params);
+                $query = http_build_query($params, '', $escape ? '&amp;' : '&');
             }
             $this->setData('query', $query);
         }

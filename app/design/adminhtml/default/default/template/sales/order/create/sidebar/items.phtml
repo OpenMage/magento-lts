@@ -61,7 +61,7 @@
             </tr>
             <?php foreach ($this->getItems() as $_item): ?>
             <tr>
-                <td><?php echo $_item->getName() ?></td>
+                <td><?php echo $this->htmlEscape($_item->getName()) ?></td>
                 <?php if ($this->canDisplayItemQty()): ?>
                 <td class="a-center"><?php echo $_item->getQty()*1 ?></td>
                 <?php endif; ?>

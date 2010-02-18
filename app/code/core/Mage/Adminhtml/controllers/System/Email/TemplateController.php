@@ -35,6 +35,8 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 {
     public function indexAction()
     {
+        $this->_title($this->__('System'))->_title($this->__('Transactional Emails'));
+
         if ($this->getRequest()->getQuery('ajax')) {
             $this->_forward('grid');
             return;
@@ -79,6 +81,8 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
         } else {
             $this->_addBreadcrumb(Mage::helper('adminhtml')->__('New Template'), Mage::helper('adminhtml')->__('New System Template'));
         }
+
+        $this->_title($template->getId() ? $template->getTemplateCode() : $this->__('New Template'));
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/system_email_template_edit', 'template_edit')
                                                             ->setEditMode((bool)$this->getRequest()->getParam('id')));
@@ -198,6 +202,8 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
      */
     protected function _initTemplate($idFieldName = 'template_id')
     {
+        $this->_title($this->__('System'))->_title($this->__('Transactional Emails'));
+
         $id = (int)$this->getRequest()->getParam($idFieldName);
         $model = Mage::getModel('adminhtml/email_template');
         if ($id) {

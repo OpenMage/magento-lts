@@ -855,7 +855,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $row    = array();
         foreach ($this->_columns as $column) {
             if (!$column->getIsSystem()) {
-                $row[] = $column->getRowFieldExport($totals);
+                $row[] = ($column->hasTotalsLabel()) ? $column->getTotalsLabel() : $column->getRowFieldExport($totals);
             }
         }
         return $row;

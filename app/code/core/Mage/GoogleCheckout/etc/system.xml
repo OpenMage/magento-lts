@@ -213,6 +213,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </methods>
                         <address_category translate="label">
                             <label>Delivery Address Category</label>
@@ -337,6 +338,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </sallowspecific_1>
                         <specificcountry_1 translate="label">
                             <label>Rate 1 Ship to Specific Countries</label>
@@ -346,6 +348,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </specificcountry_1>
 
 
@@ -375,6 +378,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </sallowspecific_2>
                         <specificcountry_2 translate="label">
                             <label>Rate 2 Ship to Specific Countries</label>
@@ -384,6 +388,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </specificcountry_2>
 
 
@@ -412,6 +417,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </sallowspecific_3>
                         <specificcountry_3 translate="label">
                             <label>Rate 3 Ship to Specific Countries</label>
@@ -421,6 +427,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </specificcountry_3>
                     </fields>
                 </checkout_shipping_flatrate>

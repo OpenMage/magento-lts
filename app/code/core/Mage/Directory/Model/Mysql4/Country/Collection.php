@@ -109,7 +109,7 @@ class Mage_Directory_Model_Mysql4_Country_Collection extends Varien_Data_Collect
         return $this;
     }
 
-    public function toOptionArray($emptyLabel = '&nbsp;')
+    public function toOptionArray($emptyLabel = ' ')
     {
         $options = $this->_toOptionArray('country_id', 'name', array('title'=>'iso2_code'));
 

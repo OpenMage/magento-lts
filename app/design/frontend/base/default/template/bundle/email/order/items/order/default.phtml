@@ -58,7 +58,7 @@
     <?php else: ?>
     <td align="left" valign="top" style="padding:3px 19px"><?php echo $this->getValueHtml($_item)?></td>
     <?php endif; ?>
-    <td align="left" valign="top" style="padding:3px 9px"><?php echo $_item->getSku() ?></td>
+    <td align="left" valign="top" style="padding:3px 9px"><?php echo $this->htmlEscape($_item->getSku()) ?></td>
     <td align="center" valign="top" style="padding:3px 9px">
     <?php if (!$_item->getParentItem()): ?>
         <?php echo $_item->getQtyOrdered()*1 ?>
@@ -77,8 +77,8 @@
             <?php else: ?>
                 <?php echo $_order->formatPrice($_item->getRowTotal()) ?>
             <?php endif; ?>
-    
-    
+
+
             <?php if (Mage::helper('weee')->getApplied($_item)): ?>
                 <br />
                 <?php if (Mage::helper('weee')->typeOfDisplay($_item, 1, 'email', $_order->getStore())): ?>
@@ -98,15 +98,15 @@
                     <?php endforeach; ?>
                     </small>
                 <?php endif; ?>
-    
+
                 <?php if (Mage::helper('weee')->typeOfDisplay($_item, 2, 'email', $_order->getStore())): ?>
                     <br />
                     <span class="nobr"><?php echo Mage::helper('weee')->__('Total'); ?>:<br /> <?php echo $_order->formatPrice($_item->getCalculationPrice()+$_item->getWeeeTaxAppliedRowAmount()+$_item->getWeeeTaxRowDisposition()); ?></span>
                 <?php endif; ?>
             <?php endif; ?>
         <?php endif; ?>
-    
-    
+
+
         <?php if ($this->helper('tax')->displaySalesPriceInclTax($_order->getStore()) || $this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
             <?php if ($this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
                 <br /><span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax'); ?>:</span>
@@ -136,7 +136,7 @@
                     <?php endforeach; ?>
                     </small>
                 <?php endif; ?>
-    
+
                 <?php if (Mage::helper('weee')->typeOfDisplay($_item, 2, 'email', $_order->getStore())): ?>
                     <span class="nobr"><?php echo Mage::helper('weee')->__('Total incl. tax'); ?>:<br /> <?php echo $_order->formatPrice($_incl+$_item->getWeeeTaxAppliedRowAmount()); ?></span>
                 <?php endif; ?>

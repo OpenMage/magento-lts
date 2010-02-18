@@ -54,6 +54,8 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
      */
     public function indexAction()
     {
+        $this->_title($this->__('Catalog'))->_title($this->__('Google Sitemaps'));
+
         $this->_initAction()
             ->_addContent($this->getLayout()->createBlock('adminhtml/sitemap'))
             ->renderLayout();
@@ -73,6 +75,8 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
      */
     public function editAction()
     {
+        $this->_title($this->__('Catalog'))->_title($this->__('Google Sitemaps'));
+
         // 1. Get ID and create model
         $id = $this->getRequest()->getParam('sitemap_id');
         $model = Mage::getModel('sitemap/sitemap');
@@ -86,6 +90,8 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
                 return;
             }
         }
+
+        $this->_title($model->getId() ? $model->getSitemapFilename() : $this->__('New Sitemap'));
 
         // 3. Set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getFormData(true);

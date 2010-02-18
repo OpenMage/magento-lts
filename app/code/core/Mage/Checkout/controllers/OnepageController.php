@@ -39,11 +39,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     public function preDispatch()
     {
         parent::preDispatch();
-
-        if (!$this->_preDispatchValidateCustomer()) {
-            return $this;
-        }
-
+        $this->_preDispatchValidateCustomer();
         return $this;
     }
 
@@ -258,8 +254,13 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $addressId = $this->getRequest()->getParam('address', false);
         if ($addressId) {
             $address = $this->getOnepage()->getAddress($addressId);
-            $this->getResponse()->setHeader('Content-type', 'application/x-json');
-            $this->getResponse()->setBody($address->toJson());
+
+            if (Mage::getSingleton('customer/session')->getCustomer()->getId() == $address->getCustomerId()) {
+                $this->getResponse()->setHeader('Content-type', 'application/x-json');
+                $this->getResponse()->setBody($address->toJson());
+            } else {
+                $this->getResponse()->setHeader('HTTP/1.1','403 Forbidden');
+            }
         }
     }
 
@@ -287,8 +288,10 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             return;
         }
         if ($this->getRequest()->isPost()) {
-            $data = $this->getRequest()->getPost('billing', array());
+            $postData = $this->getRequest()->getPost('billing', array());
+            $data = $this->_filterPostData($postData);
             $customerAddressId = $this->getRequest()->getPost('billing_address_id', false);
+
             if (isset($data['email'])) {
                 $data['email'] = trim($data['email']);
             }
@@ -492,4 +495,15 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
+    /**
+     * Filtering posted data. Converting localized data if needed
+     *
+     * @param array
+     * @return array
+     */
+    protected function _filterPostData($data)
+    {
+        $data = $this->_filterDates($data, array('dob'));
+        return $data;
+    }
 }

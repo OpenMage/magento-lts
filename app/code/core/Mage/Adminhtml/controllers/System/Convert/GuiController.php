@@ -40,6 +40,10 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
      */
     public function indexAction()
     {
+        $this->_title($this->__('System'))
+             ->_title($this->__('Import and Export'))
+             ->_title($this->__('Profiles'));
+
         if ($this->getRequest()->getQuery('ajax')) {
             $this->_forward('grid');
             return;
@@ -88,6 +92,8 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
         if (!empty($data)) {
             $profile->addData($data);
         }
+
+        $this->_title($profile->getId() ? $profile->getName() : $this->__('New Profile'));
 
         $this->_setActiveMenu('system/convert');
 

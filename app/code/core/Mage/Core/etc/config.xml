@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Core>
-             <version>0.8.24</version>
+             <version>0.8.25</version>
         </Mage_Core>
     </modules>
 
@@ -252,6 +252,7 @@
             </routers>
             <url>
                 <use_store>0</use_store>
+                <redirect_to_base>1</redirect_to_base>
             </url>
             <seo>
                 <use_rewrites>0</use_rewrites>

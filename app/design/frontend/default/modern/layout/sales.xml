@@ -42,7 +42,7 @@ Customer account pages, rendered for all tabs in dashboard
         <remove name="sale.reorder.sidebar"/>
     </checkout_onepage_index>
     <checkout_onepage_reorder>
-        <reference name="left">
+        <reference name="right">
             <action method="unsetChild"><name>reorder</name></action>
         </reference>
     </checkout_onepage_reorder>
@@ -71,7 +71,7 @@ Customer account home dashboard layout
     <sales_order_history translate="label">
         <label>Customer My Account Order History</label>
         <update handle="customer_account"/>
-        <reference name="content">
+        <reference name="my.account.wrapper">
             <block type="sales/order_history" name="sales.order.history"/>
             <block type="customer/account_dashboard" name="customer.account.link.back" template="customer/account/link/back.phtml"/>
         </reference>
@@ -81,7 +81,7 @@ Customer account home dashboard layout
     <sales_order_view translate="label">
         <label>Customer My Account Order View</label>
         <update handle="customer_account"/>
-        <reference name="content">
+        <reference name="my.account.wrapper">
             <block type="sales/order_info" as="info" name="sales.order.info"/>
             <block type="sales/order_view" name="sales.order.view">
                 <block type="sales/order_items" name="order_items" template="sales/order/items.phtml">
@@ -106,7 +106,7 @@ Customer account home dashboard layout
     <sales_order_invoice translate="label">
         <label>Customer My Account Order Invoice View</label>
         <update handle="customer_account"/>
-        <reference name="content">
+        <reference name="my.account.wrapper">
             <block type="sales/order_info" as="info" name="sales.order.info"/>
             <block type="sales/order_invoice" name="sales.order.invoice">
                 <block type="sales/order_invoice_items" name="invoice_items" template="sales/order/invoice/items.phtml">
@@ -131,7 +131,7 @@ Customer account home dashboard layout
     <sales_order_shipment translate="label">
         <label>Customer My Account Order Shipment View</label>
         <update handle="customer_account"/>
-        <reference name="content">
+        <reference name="my.account.wrapper">
             <block type="sales/order_info" as="info" name="sales.order.info"/>
             <block type="sales/order_shipment" name="sales.order.shipment">
                 <block type="sales/order_shipment_items" name="shipment_items" template="sales/order/shipment/items.phtml">
@@ -150,15 +150,15 @@ Customer account home dashboard layout
     <sales_order_creditmemo translate="label">
         <label>Customer My Account Order Creditmemo View</label>
         <update handle="customer_account"/>
-        <reference name="content">
+        <reference name="my.account.wrapper">
             <block type="sales/order_info" as="info" name="sales.order.info"/>
             <block type="sales/order_creditmemo" name="sales.order.creditmemo">
                 <block type="sales/order_creditmemo_items" name="creditmemo_items" template="sales/order/creditmemo/items.phtml">
                     <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
                     <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
                     <block type="sales/order_creditmemo_totals" name="creditmemo_totals" template="sales/order/totals.phtml">
-                        <action method="setLabelProperties"><value>colspan="6" align="right" style="padding:3px 9px"</value></action>
-                        <action method="setValueProperties"><value>align="right" style="padding:3px 9px"</value></action>
+                        <action method="setLabelProperties"><value>colspan="6" class="a-right"</value></action>
+                        <action method="setValueProperties"><value>class="a-right"</value></action>
                         <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml"/>
                     </block>
                 </block>
@@ -226,8 +226,8 @@ Customer account home dashboard layout
                 <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
                 <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
                 <block type="sales/order_creditmemo_totals" name="creditmemo_totals" template="sales/order/totals.phtml">
-                    <action method="setLabelProperties"><value>colspan="6" align="right" style="padding:3px 9px"</value></action>
-                    <action method="setValueProperties"><value>align="right" style="padding:3px 9px"</value></action>
+                    <action method="setLabelProperties"><value>colspan="6" class="a-right"</value></action>
+                    <action method="setValueProperties"><value>class="a-right"</value></action>
                     <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml"/>
                 </block>
             </block>

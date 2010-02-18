@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
         $value = $this->getValue();
         foreach ($this->_getOptions() as $option){
             $selected = ( ($option['value'] == $value && (!is_null($value))) ? ' selected="selected"' : '' );
-            $html.= '<option value="'.$option['value'].'"'.$selected.'>'.$option['label'].'</option>';
+            $html.= '<option value="'. $this->htmlEscape($option['value']).'"'.$selected.'>'.$this->htmlEscape($option['label']).'</option>';
         }
         $html.='</select>';
         return $html;

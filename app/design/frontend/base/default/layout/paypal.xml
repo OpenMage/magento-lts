@@ -47,7 +47,12 @@
         </reference>
         <reference name="content">
             <block type="paypal/express_review" name="paypal.express.review" template="paypal/express/review.phtml">
-                <block type="paypal/express_review_details" name="paypal.express.review.details" as="details" template="paypal/express/review/details.phtml"/>
+                <block type="paypal/express_review_details" name="paypal.express.review.details" as="details" template="paypal/express/review/details.phtml">
+                    <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
+                    <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>
+                    <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
+                    <block type="checkout/cart_totals" name="paypal.express.review.details.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+                </block>
             </block>
         </reference>
         <reference name="head">
@@ -56,6 +61,11 @@
     </paypal_express_review>
 
     <paypal_express_review_details>
-        <block type="paypal/express_review_details" name="root" output="toHtml" template="paypal/express/review/details.phtml"/>
+        <block type="paypal/express_review_details" name="root" output="toHtml" template="paypal/express/review/details.phtml">
+            <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
+            <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>
+            <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
+            <block type="checkout/cart_totals" name="paypal.express.review.details.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+        </block>
     </paypal_express_review_details>
 </layout>

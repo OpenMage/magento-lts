@@ -149,7 +149,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
         if ($addedItems) {
             $products = array();
             foreach ($addedItems as $product) {
-                $products[] = '"' . $item->getProduct()->getName() . '"';
+                $products[] = '"' . $product->getName() . '"';
             }
 
             Mage::getSingleton('checkout/session')->addSuccess(

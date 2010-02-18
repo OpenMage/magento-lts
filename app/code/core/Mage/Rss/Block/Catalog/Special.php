@@ -83,7 +83,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Abstract
         $specials->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
 
         $newurl = Mage::getUrl('rss/catalog/new');
-        $title = Mage::helper('rss')->__('%s - Special Discounts', Mage::app()->getStore()->getFrontendName());
+        $title = Mage::helper('rss')->__('%s - Special Products', Mage::app()->getStore()->getFrontendName());
         $lang = Mage::getStoreConfig('general/locale/code');
 
         $rssObj = Mage::getModel('rss/rss');

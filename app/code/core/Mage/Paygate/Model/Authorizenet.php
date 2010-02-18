@@ -135,6 +135,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         $payment->setCcApproval($result->getApprovalCode())
             ->setLastTransId($result->getTransactionId())
+            ->setTransactionId($result->getTransactionId())
+            ->setIsTransactionClosed(0)
             ->setCcTransId($result->getTransactionId())
             ->setCcAvsStatus($result->getAvsResultCode())
             ->setCcCidStatus($result->getCardCodeResponseCode());
@@ -193,10 +195,10 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      */
     public function void(Varien_Object $payment)
     {
-        if ($payment->getVoidTransactionId()) {
+        if ($payment->getParentTransactionId()) {
             $payment->setAnetTransType(self::REQUEST_TYPE_VOID);
             $request = $this->_buildRequest($payment);
-                        $request->setXTransId($payment->getVoidTransactionId());
+            $request->setXTransId($payment->getParentTransactionId());
             $result = $this->_postRequest($request);
             if ($result->getResponseCode()==self::RESPONSE_CODE_APPROVED) {
                  $payment->setStatus(self::STATUS_SUCCESS );

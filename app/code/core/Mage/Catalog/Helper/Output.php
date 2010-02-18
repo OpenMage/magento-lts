@@ -100,6 +100,13 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
      */
     public function productAttribute($product, $attributeHtml, $attributeName)
     {
+        $attributes = $product->getAttributes();
+        $attribute  = (isset($attributes[$attributeName])) ? $attributes[$attributeName] : null;
+
+        if ($attribute && ($attribute->getFrontendInput() != 'media_image')
+            && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())) {
+                $attributeHtml = $this->htmlEscape($attributeHtml);
+        }
         $attributeHtml = $this->process('productAttribute', $attributeHtml, array(
             'product'   => $product,
             'attribute' => $attributeName
@@ -117,6 +124,12 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
      */
     public function categoryAttribute($category, $attributeHtml, $attributeName)
     {
+        $attribute = Mage::getSingleton('eav/config')->getAttribute('catalog_category', $attributeName);
+
+        if ($attribute && ($attribute->getFrontendInput() != 'image')
+            && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())) {
+            $attributeHtml = $this->htmlEscape($attributeHtml);
+        }
         $attributeHtml = $this->process('categoryAttribute', $attributeHtml, array(
             'category'  => $category,
             'attribute' => $attributeName

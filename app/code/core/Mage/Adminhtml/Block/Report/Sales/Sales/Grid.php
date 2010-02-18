@@ -53,9 +53,10 @@ class Mage_Adminhtml_Block_Report_Sales_Sales_Grid extends Mage_Adminhtml_Block_
         $this->addColumn('period', array(
             'header'        => Mage::helper('sales')->__('Period'),
             'index'         => 'period',
-            'type'          => 'string',
             'width'         => 100,
             'sortable'      => false,
+            'period_type'   => $this->getPeriodType(),
+            'renderer'      => 'adminhtml/report_sales_grid_column_renderer_date',
             'totals_label'  => Mage::helper('adminhtml')->__('Total')
         ));
 

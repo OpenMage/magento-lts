@@ -30,21 +30,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_Action
 {
-
-    /**
-     * Enter description here...
-     *
-     */
-    protected function _construct()
-    {
-        $this->setFlag('index', 'no-preDispatch', true);
-        return parent::_construct();
-    }
-
     /**
      * Enter description here...
      *
@@ -60,6 +49,8 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
      */
     public function editAction()
     {
+        $this->_title($this->__('System'))->_title($this->__('Configuration'));
+
         $current = $this->getRequest()->getParam('section');
         $website = $this->getRequest()->getParam('website');
         $store   = $this->getRequest()->getParam('store');

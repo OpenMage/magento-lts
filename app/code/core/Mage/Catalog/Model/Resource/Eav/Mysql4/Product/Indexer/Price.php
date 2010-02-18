@@ -369,7 +369,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price extends Mage_
      */
     protected function _getTierPriceIndexTable()
     {
-        return $this->getIdxTable($this->getValueTable('catalog/product', 'tier_price'));
+        return $this->getTable('catalog/product_index_tier_price');
     }
 
     /**
@@ -382,19 +382,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price extends Mage_
     {
         $write = $this->_getWriteAdapter();
         $table = $this->_getTierPriceIndexTable();
-
-        $query = sprintf('DROP TABLE IF EXISTS %s', $write->quoteIdentifier($table));
-        $write->query($query);
-
-        $query = sprintf('CREATE TABLE %s ('
-            . ' `entity_id` INT(10) UNSIGNED NOT NULL,'
-            . ' `customer_group_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `website_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `min_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' PRIMARY KEY  (`entity_id`,`customer_group_id`,`website_id`)'
-            . ') ENGINE=INNODB DEFAULT CHARSET=utf8',
-            $write->quoteIdentifier($table));
-        $write->query($query);
+        $write->delete($table);
 
         $select = $write->select()
             ->from(
@@ -463,7 +451,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price extends Mage_
      */
     protected function _getWebsiteDateTable()
     {
-        return $this->getIdxTable($this->getValueTable('core/website', 'date'));
+        return $this->getTable('catalog/product_index_website');
     }
 
     /**
@@ -475,26 +463,25 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price extends Mage_
     {
         $write = $this->_getWriteAdapter();
         $table = $this->_getWebsiteDateTable();
-
-        $query = sprintf('DROP TABLE IF EXISTS %s', $write->quoteIdentifier($table));
-        $write->query($query);
-
-        $query = sprintf('CREATE TABLE %s ('
-            . ' `website_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `date` DATE DEFAULT NULL,'
-            . ' `rate` FLOAT(12, 4) UNSIGNED DEFAULT 1,'
-            . ' PRIMARY KEY (`website_id`),'
-            . ' KEY `IDX_DATE` (`date`)'
-            . ') ENGINE=INNODB DEFAULT CHARSET=utf8',
-            $write->quoteIdentifier($table));
-        $write->query($query);
+        $write->delete($table);
 
         $baseCurrency = Mage::app()->getBaseCurrencyCode();
+
+        $select = $write->select()
+            ->from(
+                array('cw' => $this->getTable('core/website')),
+                array('website_id'))
+            ->join(
+                array('csg' => $this->getTable('core/store_group')),
+                'cw.default_group_id = csg.group_id',
+                array('store_id' => 'default_store_id'))
+            ->where('cw.website_id != 0');
+
         $data = array();
-        /* @var $coreDate Mage_Core_Model_Date */
-        $websites = Mage::app()->getWebsites(false);
-        foreach ($websites as $website) {
+        foreach ($write->fetchAll($select) as $item) {
             /* @var $website Mage_Core_Model_Website */
+            $website = Mage::app()->getWebsite($item['website_id']);
+
             if ($website->getBaseCurrencyCode() != $baseCurrency) {
                 $rate = Mage::getModel('directory/currency')
                     ->load($baseCurrency)
@@ -505,7 +492,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price extends Mage_
             } else {
                 $rate = 1;
             }
-            $store = $website->getDefaultStore();
+
+            /* @var $store Mage_Core_Model_Store */
+            $store = Mage::app()->getStore($item['store_id']);
             if ($store) {
                 $timestamp = Mage::app()->getLocale()->storeTimeStamp($store);
                 $data[] = array(

@@ -156,8 +156,9 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
             $parent->addTotal($totalIncl, 'subtotal_excl');
             $parent->removeTotal('subtotal');
         } elseif ($this->_config->displaySalesSubtotalInclTax($store)) {
-            $subtotalIncl   = $this->_source->getSubtotalInclTax();
-            $baseSubtotalIncl= $this->_source->getBaseSubtotalInclTax();
+            $subtotalIncl   = (float) $this->_source->getSubtotalInclTax();
+            $baseSubtotalIncl= (float) $this->_source->getBaseSubtotalInclTax();
+
             if (!$subtotalIncl) {
                 $subtotalIncl = $this->_source->getSubtotal()
                     + $this->_source->getTaxAmount()

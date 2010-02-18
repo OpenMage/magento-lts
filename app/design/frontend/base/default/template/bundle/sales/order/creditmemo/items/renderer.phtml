@@ -63,7 +63,7 @@
     <?php else: ?>
     <td><div class="option-value"><?php echo $this->getValueHtml($_item) ?></div></td>
     <?php endif; ?>
-    <td><?php echo $_item->getSku() ?></td>
+    <td><?php echo $this->htmlEscape($_item->getSku()) ?></td>
     <td class="a-right">
         <?php if ($this->canShowPriceInfo($_item)): ?>
         <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceExclTax()): ?>
@@ -313,7 +313,7 @@
         <?php endforeach; ?>
         </dl>
         <?php endif; ?>
-        <?php echo $_item->getDescription() ?>
+        <?php echo $this->htmlEscape($_item->getDescription()) ?>
         <?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $parentItem) && $parentItem->getGiftMessageId()): ?>
             <a href="#" id="order-item-gift-message-link-<?php echo $parentItem->getId() ?>" class="gift-message-link" onclick="return giftMessageToogle('<?php echo $parentItem->getId() ?>')"><?php echo Mage::helper('sales')->__('Gift Message') ?></a>
         <?php endif; ?>

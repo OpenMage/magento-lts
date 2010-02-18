@@ -150,6 +150,9 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
         return $order;
     }
 
+    /**
+     * @deprecated after 1.4.0.0-rc1
+     */
     protected function _emailOrderConfirmation($email, $name, $order)
     {
         $mailer = Mage::getModel('core/email')

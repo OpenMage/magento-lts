@@ -184,13 +184,23 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                         }
                     }
                 }
+                else if ($session->getAfterAuthUrl()) {
+                    $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
+                }
             } else {
                 $session->setBeforeAuthUrl(Mage::helper('customer')->getLoginUrl());
             }
         } else if ($session->getBeforeAuthUrl() == Mage::helper('customer')->getLogoutUrl()) {
             $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
         }
-
+        else {
+            if (!$session->getAfterAuthUrl()) {
+                $session->setAfterAuthUrl($session->getBeforeAuthUrl());
+            }
+            if ($session->isLoggedIn()) {
+                $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
+            }
+        }
         $this->_redirectUrl($session->getBeforeAuthUrl(true));
     }
 
@@ -247,12 +257,14 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 $customer = Mage::getModel('customer/customer')->setId(null);
             }
 
+            $data = $this->_filterPostData($this->getRequest()->getPost());
+
             foreach (Mage::getConfig()->getFieldset('customer_account') as $code=>$node) {
-                if ($node->is('create') && ($value = $this->getRequest()->getParam($code)) !== null) {
+                if ($node->is('create') && isset($data[$code])) {
                     if ($code == 'email') {
-                        $value = trim($value);
+                        $data[$code] = trim($data[$code]);
                     }
-                    $customer->setData($code, $value);
+                    $customer->setData($code, $data[$code]);
                 }
             }
 
@@ -564,9 +576,11 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 ->setWebsiteId($this->_getSession()->getCustomer()->getWebsiteId());
 
             $fields = Mage::getConfig()->getFieldset('customer_account');
+            $data = $this->_filterPostData($this->getRequest()->getPost());
+
             foreach ($fields as $code=>$node) {
-                if ($node->is('update') && ($value = $this->getRequest()->getParam($code)) !== null) {
-                    $customer->setData($code, $value);
+                if ($node->is('update') && isset($data[$code])) {
+                    $customer->setData($code, $data[$code]);
                 }
             }
 
@@ -618,7 +632,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 return $this;
             }
 
-
             try {
                 $customer->save();
                 $this->_getSession()->setCustomer($customer)
@@ -638,5 +651,17 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
 
         $this->_redirect('*/*/edit');
+    }
+
+    /**
+     * Filtering posted data. Converting localized data if needed
+     *
+     * @param array
+     * @return array
+     */
+    protected function _filterPostData($data)
+    {
+        $data = $this->_filterDates($data, array('dob'));
+        return $data;
     }
 }

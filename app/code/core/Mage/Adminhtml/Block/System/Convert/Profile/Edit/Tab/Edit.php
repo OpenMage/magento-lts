@@ -40,7 +40,10 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit extends Mage_Adm
 
         $model = Mage::registry('current_convert_profile');
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('adminhtml')->__('General Information')));
+        $fieldset = $form->addFieldset('base_fieldset', array(
+            'legend'=>Mage::helper('adminhtml')->__('General Information'),
+            'class'=>'fieldset-wide'
+        ));
 
         $fieldset->addField('name', 'text', array(
             'name' => 'name',
@@ -53,7 +56,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit extends Mage_Adm
             'name' => 'actions_xml',
             'label' => Mage::helper('adminhtml')->__('Actions XML'),
             'title' => Mage::helper('adminhtml')->__('Actions XML'),
-            'style' => 'width:500px; height:400px',
+            'style' => 'height:30em',
             'required' => true,
         ));
 

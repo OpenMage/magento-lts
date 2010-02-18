@@ -71,6 +71,7 @@
             </div>
         </div>
     </li>
+    <?php echo $this->getChildHtml() ?>
     <?php if($this->hasVerification()): ?>
     <li>
         <label for="<?php echo $_code ?>_cc_cid" class="required"><em>*</em><?php echo $this->__('Card Verification Number') ?></label>

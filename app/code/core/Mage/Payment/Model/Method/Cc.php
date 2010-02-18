@@ -49,7 +49,11 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             ->setCcNumber($data->getCcNumber())
             ->setCcCid($data->getCcCid())
             ->setCcExpMonth($data->getCcExpMonth())
-            ->setCcExpYear($data->getCcExpYear());
+            ->setCcExpYear($data->getCcExpYear())
+            ->setCcSsIssue($data->getCcSsIssue())
+            ->setCcSsStartMonth($data->getCcSsStartMonth())
+            ->setCcSsStartYear($data->getCcSsStartYear())
+            ;
         return $this;
     }
 
@@ -95,10 +99,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
         $ccType = '';
 
-        if (!$this->_validateExpDate($info->getCcExpYear(), $info->getCcExpMonth())) {
-            $errorCode = 'ccsave_expiration,ccsave_expiration_yr';
-            $errorMsg = $this->_getHelper()->__('Incorrect credit card expiration date');
-        }
+
 
         if (in_array($info->getCcType(), $availableTypes)){
             if ($this->validateCcNum($ccNumber)
@@ -137,8 +138,8 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             $errorMsg = $this->_getHelper()->__('Credit card type is not allowed for this payment method');
         }
 
-                                //validate credit card verification number
-        if ($errorMsg === false && $this->hasVerification()) {
+        //validate credit card verification number
+        if ($errorMsg === false && $this->hasVerification() && $ccType != 'SS') {
             $verifcationRegEx = $this->getVerificationRegEx();
             $regExp = isset($verifcationRegEx[$info->getCcType()]) ? $verifcationRegEx[$info->getCcType()] : '';
             if (!$info->getCcCid() || !$regExp || !preg_match($regExp ,$info->getCcCid())){
@@ -149,6 +150,16 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         if($errorMsg){
             Mage::throwException($errorMsg);
             //throw Mage::exception('Mage_Payment', $errorMsg, $errorCode);
+        }
+
+        if ($ccType != 'SS' && !$this->_validateExpDate($info->getCcExpYear(), $info->getCcExpMonth())) {
+            $errorCode = 'ccsave_expiration,ccsave_expiration_yr';
+            $errorMsg = $this->_getHelper()->__('Incorrect credit card expiration date');
+        }
+
+        //This must be after all validation conditions
+        if ($this->getIsCentinelValidationEnabled()) {
+            $this->getCentinelValidator()->validate($this->getCentinelValidationData());
         }
 
         return $this;
@@ -250,4 +261,118 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         return $this->getConfigData('cctypes', ($quote ? $quote->getStoreId() : null))
             && parent::isAvailable($quote);
     }
+
+    /**
+     * Whether centinel service is enabled
+     *
+     * @return bool
+     */
+    public function getIsCentinelValidationEnabled()
+    {
+        return false !== Mage::getConfig()->getNode('modules/Mage_Centinel') && 1 == $this->getConfigData('centinel');
+    }
+
+    /**
+     * Instantiate centinel validator model
+     *
+     * @return Mage_Centinel_Model_Service
+     */
+    public function getCentinelValidator()
+    {
+        $validator = Mage::getSingleton('centinel/service');
+        $validator
+            ->setIsModeStrict($this->getConfigData('centinel_is_mode_strict'))
+            ->setCustomApiEndpointUrl($this->getConfigData('centinel_api_url'))
+            ->setStore($this->getStore())
+            ->setIsPlaceOrder($this->_isPlaceOrder());
+        return $validator;
+    }
+
+    /**
+     * Return data for Centinel validation
+     *
+     * @return Varien_Object
+     */
+    public function getCentinelValidationData()
+    {
+        $info = $this->getInfoInstance();
+        $params = new Varien_Object();
+        $params
+            ->setPaymentMethodCode($this->getCode())
+            ->setCardType($info->getCcType())
+            ->setCardNumber($info->getCcNumber())
+            ->setCardExpMonth($info->getCcExpMonth())
+            ->setCardExpYear($info->getCcExpYear())
+            ->setAmount($this->_getAmount())
+            ->setCurrencyCode($this->_getCurrencyCode())
+            ->setOrderNumber($this->_getOrderId());
+        return $params;
+    }
+
+    /**
+     * Order increment ID getter (either real from order or a reserved from quote)
+     *
+     * @return string
+     */
+    private function _getOrderId()
+    {
+        $info = $this->getInfoInstance();
+
+        if ($this->_isPlaceOrder()) {
+            return $info->getOrder()->getIncrementId();
+        } else {
+            if (!$info->getQuote()->getReservedOrderId()) {
+                $info->getQuote()->reserveOrderId();
+            }
+            return $info->getQuote()->getReservedOrderId();
+        }
+    }
+
+    /**
+     * Grand total getter
+     *
+     * @return string
+     */
+    private function _getAmount()
+    {
+        $info = $this->getInfoInstance();
+        if ($this->_isPlaceOrder()) {
+            return (double)$info->getOrder()->getQuoteBaseGrandTotal();
+        } else {
+            return (double)$info->getQuote()->getBaseGrandTotal();
+        }
+    }
+
+    /**
+     * Currency code getter
+     *
+     * @return string
+     */
+    private function _getCurrencyCode()
+    {
+        $info = $this->getInfoInstance();
+
+        if ($this->_isPlaceOrder()) {
+        return $info->getOrder()->getBaseCurrencyCode();
+        } else {
+        return $info->getQuote()->getBaseCurrencyCode();
+        }
+    }
+
+    /**
+     * Whether current operation is order placement
+     *
+     * @return bool
+     */
+    private function _isPlaceOrder()
+    {
+        $info = $this->getInfoInstance();
+        if ($info instanceof Mage_Sales_Model_Quote_Payment) {
+            return false;
+        } elseif ($info instanceof Mage_Sales_Model_Order_Payment) {
+            return true;
+        }
+    }
 }
+
+

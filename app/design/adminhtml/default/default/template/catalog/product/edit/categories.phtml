@@ -62,7 +62,7 @@ Ext.EventManager.onDocumentReady(function() {
     });
 
     var tree = new Ext.tree.TreePanel('product-categories', {
-        animate:false,
+        animate:true,
         loader: categoryLoader,
         enableDD:false,
         containerScroll: true,
@@ -77,11 +77,12 @@ Ext.EventManager.onDocumentReady(function() {
         } else {
             categoryRemove(node.id);
         }
+        varienElementMethods.setHasChanges(node.getUI().checkbox);
     }, tree);
 
     // set the root node
     var root = new Ext.tree.TreeNode({
-        text: '<?php echo $this->getRootNode()->getName() ?>',
+        text: '<?php echo $this->jsQuoteEscape($this->getRootNode()->getName()) ?>',
         draggable:false,
         checked:'<?php echo $this->getRootNode()->getChecked() ?>',
         id:'<?php echo $this->getRootNode()->getId() ?>',
@@ -127,7 +128,7 @@ function categoryClick(node, e){
     if (node.disabled) {
         return;
     }
-    node.getUI().check(!node.getUI().checked())
+    node.getUI().check(!node.getUI().checked());
     varienElementMethods.setHasChanges(Event.element(e), e);
 };
 function categoryAdd(id) {

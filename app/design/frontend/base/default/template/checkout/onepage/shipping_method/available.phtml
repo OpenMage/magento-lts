@@ -32,7 +32,7 @@
         <dt><?php echo $this->getCarrierName($code) ?></dt>
         <dd>
             <ul>
-            <?php foreach ($_rates as $_rate): ?>
+            <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
                 <li>
                    <?php if ($_rate->getErrorMessage()): ?>
                     <ul class="messages"><li class="error-msg"><ul><li><?php echo $_rate->getErrorMessage() ?></li></ul></li></ul>

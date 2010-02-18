@@ -36,6 +36,8 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
 
     public function indexAction()
     {
+        $this->_title($this->__('CMS'))->_title($this->__('Polls'));
+
         $this->loadLayout();
         $this->_setActiveMenu('cms/poll');
         $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Poll Manager'), Mage::helper('adminhtml')->__('Poll Manager'));
@@ -46,10 +48,13 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
 
     public function editAction()
     {
+        $this->_title($this->__('CMS'))->_title($this->__('Polls'));
+
         $pollId     = $this->getRequest()->getParam('id');
         $pollModel  = Mage::getModel('poll/poll')->load($pollId);
 
         if ($pollModel->getId() || $pollId == 0) {
+            $this->_title($pollModel->getId() ? $pollModel->getPollTitle() : $this->__('New Poll'));
 
             Mage::register('poll_data', $pollModel);
 

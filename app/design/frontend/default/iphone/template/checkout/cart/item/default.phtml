@@ -29,9 +29,9 @@
     <td class="a-center" style="text-align:center;"><input name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" size="4" class="input-text qty" maxlength="8" /></td>
     <td class="attributes-col">
         <?php if ($this->hasProductUrl()):?>
-        <a href="<?php echo $this->getProductUrl() ?>"><?php echo $this->getProductName() ?></a>
+        <a href="<?php echo $this->getProductUrl() ?>"><?php echo $this->htmlEscape($this->getProductName()) ?></a>
         <?php else: ?>
-        <?php echo $this->getProductName() ?>
+        <?php echo $this->htmlEscape($this->getProductName()) ?>
         <?php endif; ?>
         <?php if ($_options = $this->getOptionList()):?>
         <dl class="item-options">

@@ -36,7 +36,7 @@ Default layout, loads most of the pages
 
         <!-- Mage_Newsletter -->
         <reference name="footer">
-            <block type="newsletter/subscribe" as="newsletter" name="newsletter" template="newsletter/subscribe.phtml"/>
+            <block type="newsletter/subscribe" name="newsletter" as="newsletter" template="newsletter/subscribe.phtml"/>
         </reference>
 
     </default>
@@ -52,14 +52,15 @@ Customer account pages, rendered for all tabs in dashboard
         </reference>
     </customer_account>
 
-    <customer_account_index>
-    </customer_account_index>
-
     <newsletter_manage_index translate="label">
         <label>Customer My Account Newsletter Subscriptions</label>
         <update handle="customer_account"/>
-        <reference name="content">
-            <block type="customer/newsletter" name="customer_newsletter"/>
+        <reference name="my.account.wrapper">
+            <block type="customer/newsletter" name="customer_newsletter">
+                <block type="page/html_wrapper" name="customer.newsletter.form.before" as="form_before">
+                    <action method="setMayBeInvisible"><value>1</value></action>
+                </block>
+            </block>
         </reference>
     </newsletter_manage_index>
 

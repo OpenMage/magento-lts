@@ -66,21 +66,21 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 }
                 break;
         }
-
+        $cookie = $this->getCookie();
         if (Mage::app()->getStore()->isAdmin()) {
             $adminSessionLifetime = (int)Mage::getStoreConfig('admin/security/session_cookie_lifetime');
             if ($adminSessionLifetime > 60) {
-                $this->getCookie()->setLifetime($adminSessionLifetime);
+                $cookie->setLifetime($adminSessionLifetime);
             }
         }
 
         // session cookie params
         $cookieParams = array(
-            'lifetime' => $this->getCookie()->getLifetime(),
-            'path'     => $this->getCookie()->getPath(),
-            'domain'   => $this->getCookie()->getConfigDomain(),
-            'secure'   => $this->getCookie()->isSecure(),
-            'httponly' => $this->getCookie()->getHttponly()
+            'lifetime' => $cookie->getLifetime(),
+            'path'     => $cookie->getPath(),
+            'domain'   => $cookie->getConfigDomain(),
+            'secure'   => $cookie->isSecure(),
+            'httponly' => $cookie->getHttponly()
         );
 
         if (!$cookieParams['httponly']) {
@@ -94,7 +94,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         }
 
         if (isset($cookieParams['domain'])) {
-            $cookieParams['domain'] = $this->getCookie()->getDomain();
+            $cookieParams['domain'] = $cookie->getDomain();
         }
 
         call_user_func_array('session_set_cookie_params', $cookieParams);
@@ -107,13 +107,16 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         $this->setSessionId();
 
         Varien_Profiler::start(__METHOD__.'/start');
-
-        if ($sessionCacheLimiter = Mage::getConfig()->getNode('global/session_cache_limiter')) {
+        $sessionCacheLimiter = Mage::getConfig()->getNode('global/session_cache_limiter');
+        if ($sessionCacheLimiter) {
             session_cache_limiter((string)$sessionCacheLimiter);
         }
 
         session_start();
-
+        /**
+         * Renew cookie expiration time
+         */
+        $cookie->renew(session_name());
         Varien_Profiler::stop(__METHOD__.'/start');
 
         return $this;
@@ -131,29 +134,11 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
     /**
      * Revalidate cookie
-     *
+     * @deprecated after 1.4 cookie renew moved to session start method
      * @return Mage_Core_Model_Session_Abstract_Varien
      */
     public function revalidateCookie()
     {
-        if (!$this->getCookie()->getLifetime()) {
-            return $this;
-        }
-        if (empty($_SESSION['_cookie_revalidate'])) {
-            $time = time() + round($this->getCookie()->getLifetime() / 4);
-            $_SESSION['_cookie_revalidate'] = $time;
-        }
-        else {
-            if ($_SESSION['_cookie_revalidate'] < time()) {
-                if (!headers_sent()) {
-                    $this->getCookie()->set(session_name(), session_id());
-
-                    $time = time() + round($this->getCookie()->getLifetime() / 4);
-                    $_SESSION['_cookie_revalidate'] = $time;
-                }
-            }
-        }
-
         return $this;
     }
 

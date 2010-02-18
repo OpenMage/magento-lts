@@ -31,7 +31,7 @@
  * @package     Mage_GoogleOptimizer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Googleoptimizer_Block_Adminhtml_Catalog_Product_Edit_Tab_Googleoptimizer
+class Mage_GoogleOptimizer_Block_Adminhtml_Catalog_Product_Edit_Tab_Googleoptimizer
     extends Mage_Adminhtml_Block_Catalog_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
 

@@ -56,7 +56,10 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
             'method' => 'post'
         ));
 
-        $fieldset = $form->addFieldset('base', array());
+        $fieldset = $form->addFieldset('base', array(
+            'legend'=>Mage::helper('adminhtml')->__('Variable'),
+            'class'=>'fieldset-wide'
+        ));
 
         $fieldset->addField('code', 'text', array(
             'name'     => 'code',

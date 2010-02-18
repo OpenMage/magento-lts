@@ -69,7 +69,7 @@ class Mage_Core_Model_Mysql4_Session implements Zend_Session_SaveHandler_Interfa
      * cleaning once in x calls
      */
     protected $_automaticCleaningFactor = 50;
-    
+
     public function __construct()
     {
         $this->_sessionTable = Mage::getSingleton('core/resource')->getTableName('core/session');
@@ -85,8 +85,14 @@ class Mage_Core_Model_Mysql4_Session implements Zend_Session_SaveHandler_Interfa
     public function getLifeTime()
     {
         if (is_null($this->_lifeTime)) {
-            $this->_lifeTime = ini_get('session.gc_maxlifetime');
-            if (!$this->_lifeTime) {
+            $configNode = Mage::app()->getStore()->isAdmin() ? 'admin/security/session_cookie_lifetime' : 'web/cookie/cookie_lifetime';
+            $this->_lifeTime = (int) Mage::getStoreConfig($configNode);
+
+            if ($this->_lifeTime < 60) {
+                $this->_lifeTime = ini_get('session.gc_maxlifetime');
+            }
+
+            if ($this->_lifeTime < 60) {
                 $this->_lifeTime = 3600;
             }
         }

@@ -17,8 +17,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /**
  * Convert a single file-input element into a 'multiple' input list
@@ -41,110 +43,110 @@
  *
  *   You might (will) want to play around with the addListRow() method to make the output prettier.
  *
- *   You might also want to change the line 
+ *   You might also want to change the line
  *       element.name = 'file_' + this.count;
  *   ...to a naming convention that makes more sense to you.
- * 
+ *
  */
 function MultiSelector( list_target, field_name, max, new_element_html, delete_text, new_file_input ){
 
-	// Where to write the list
-	this.list_target = list_target;
+    // Where to write the list
+    this.list_target = list_target;
     // Field name
     this.field_name = field_name;
-	// How many elements?
-	this.count = 0;
-	// How many elements?
-	this.id = 0;
-	// Is there a maximum?
-	if( max ){
-		this.max = max;
-	} else {
-		this.max = -1;
-	};
+    // How many elements?
+    this.count = 0;
+    // How many elements?
+    this.id = 0;
+    // Is there a maximum?
+    if( max ){
+        this.max = max;
+    } else {
+        this.max = -1;
+    };
     this.new_element_html = new_element_html;
     this.delete_text = delete_text;
     this.new_file_input = new_file_input;
-	
-	/**
-	 * Add a new file input element
-	 */
-	this.addElement = function( element ){
 
-		// Make sure it's a file input element
-		if( element.tagName == 'INPUT' && element.type == 'file' ){
+    /**
+     * Add a new file input element
+     */
+    this.addElement = function( element ){
 
-			// Element name -- what number am I?
-			// element.name = 'file_' + this.id++;
+        // Make sure it's a file input element
+        if( element.tagName == 'INPUT' && element.type == 'file' ){
+
+            // Element name -- what number am I?
+            // element.name = 'file_' + this.id++;
             this.id++;
-			element.name = this.field_name + '[]';
+            element.name = this.field_name + '[]';
 
-			// Add reference to this object
-			element.multi_selector = this;
+            // Add reference to this object
+            element.multi_selector = this;
 
-			// What to do when a file is selected
-			element.onchange = function(){
+            // What to do when a file is selected
+            element.onchange = function(){
 
-				// New file input
-				var new_element = document.createElement( 'input' );
-				new_element.type = 'file';
+                // New file input
+                var new_element = document.createElement( 'input' );
+                new_element.type = 'file';
 
-				// Add new element
-				this.parentNode.insertBefore( new_element, this );
+                // Add new element
+                this.parentNode.insertBefore( new_element, this );
 
-				// Apply 'update' to element
-				this.multi_selector.addElement( new_element );
+                // Apply 'update' to element
+                this.multi_selector.addElement( new_element );
 
-				// Update list
-				this.multi_selector.addListRow( this );
+                // Update list
+                this.multi_selector.addListRow( this );
 
-				// Hide this: we can't use display:none because Safari doesn't like it
-				this.style.position = 'absolute';
-				this.style.left = '-1000px';
+                // Hide this: we can't use display:none because Safari doesn't like it
+                this.style.position = 'absolute';
+                this.style.left = '-1000px';
 
-			};
-			// If we've reached maximum number, disable input element
-			if( this.max != -1 && this.count >= this.max ){
-				element.disabled = true;
-			};
+            };
+            // If we've reached maximum number, disable input element
+            if( this.max != -1 && this.count >= this.max ){
+                element.disabled = true;
+            };
 
-			// File element counter
-			this.count++;
-			// Most recent element
-			this.current_element = element;
-			
-		} else {
-			// This can only be applied to file input elements!
-			alert( 'Error: not a file input element' );
-		};
+            // File element counter
+            this.count++;
+            // Most recent element
+            this.current_element = element;
 
-	};
+        } else {
+            // This can only be applied to file input elements!
+            alert( 'Error: not a file input element' );
+        };
 
-	/**
-	 * Add a new row to the list of files
-	 */
-	this.addListRow = function( element ){
+    };
+
+    /**
+     * Add a new row to the list of files
+     */
+    this.addListRow = function( element ){
 
 /*
-		// Row div
-		var new_row = document.createElement( 'div' );
+        // Row div
+        var new_row = document.createElement( 'div' );
 */
 
-		// Sort order input
-		var new_row_input = document.createElement( 'input' );
-		new_row_input.type = 'text';
-		new_row_input.name = 'general[position_new][]';
-		new_row_input.size = '3';
-		new_row_input.value = '0';
+        // Sort order input
+        var new_row_input = document.createElement( 'input' );
+        new_row_input.type = 'text';
+        new_row_input.name = 'general[position_new][]';
+        new_row_input.size = '3';
+        new_row_input.value = '0';
 
-		// Delete button
-		var new_row_button = document.createElement( 'input' );
-		new_row_button.type = 'checkbox';
-		new_row_button.value = 'Delete';
+        // Delete button
+        var new_row_button = document.createElement( 'input' );
+        new_row_button.type = 'checkbox';
+        new_row_button.value = 'Delete';
 
-		var new_row_span = document.createElement( 'span' );
-		new_row_span.innerHTML = this.delete_text;
-        
+        var new_row_span = document.createElement( 'span' );
+        new_row_span.innerHTML = this.delete_text;
+
         table = this.list_target;
 
         // no of rows in the table:
@@ -168,10 +170,10 @@ function MultiSelector( list_target, field_name, max, new_element_html, delete_t
 //                    + this.new_file_input.replace(/%file%/g, element.value).replace(/%id%/g, this.id).replace(/%j%/g, j);
 //            }
             if (j==3) {
-		        newCell.appendChild( new_row_input );
+                newCell.appendChild( new_row_input );
             }
             else if (j==4) {
-		        newCell.appendChild( new_row_button );
+                newCell.appendChild( new_row_button );
             }
             else {
 //                newCell.innerHTML = this.new_file_input.replace(/%file%/g, element.value).replace(/%id%/g, this.id).replace(/%j%/g, j);
@@ -182,42 +184,42 @@ function MultiSelector( list_target, field_name, max, new_element_html, delete_t
 
         }
 
-		// References
+        // References
 //		new_row.element = element;
 
-		// Delete function
-		new_row_button.onclick= function(){
+        // Delete function
+        new_row_button.onclick= function(){
 
-			// Remove element from form
-			this.parentNode.element.parentNode.removeChild( this.parentNode.element );
+            // Remove element from form
+            this.parentNode.element.parentNode.removeChild( this.parentNode.element );
 
-			// Remove this row from the list
-			this.parentNode.parentNode.removeChild( this.parentNode );
+            // Remove this row from the list
+            this.parentNode.parentNode.removeChild( this.parentNode );
 
-			// Decrement counter
-			this.parentNode.element.multi_selector.count--;
+            // Decrement counter
+            this.parentNode.element.multi_selector.count--;
 
-			// Re-enable input element (if it's disabled)
-			this.parentNode.element.multi_selector.current_element.disabled = false;
+            // Re-enable input element (if it's disabled)
+            this.parentNode.element.multi_selector.current_element.disabled = false;
 
-			// Appease Safari
-			//    without it Safari wants to reload the browser window
-			//    which nixes your already queued uploads
-			return false;
-		};
+            // Appease Safari
+            //    without it Safari wants to reload the browser window
+            //    which nixes your already queued uploads
+            return false;
+        };
 
-		// Set row value
+        // Set row value
 //		new_row.innerHTML = this.new_element_html.replace(/%file%/g, element.value).replace(/%id%/g, this.id);
 
-		// Add button
+        // Add button
 //		new_row.appendChild( new_row_button );
 //		new_row.appendChild( new_row_span );
 
-		// Add it to the list
+        // Add it to the list
 //		this.list_target.appendChild( new_row );
-		
-	};
-    
+
+    };
+
     // Insert row into table.
     this.insRowLast = function ( table ){
 

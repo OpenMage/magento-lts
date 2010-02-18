@@ -175,8 +175,13 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
         $routeParams    = $params;
 
         $storeId    = $product->getStoreId();
-        $categoryId = $product->getCategoryId() && !$product->getDoNotUseCategoryId()
-            ? $product->getCategoryId() : null;
+        if (isset($params['_ignore_category'])) {
+            unset($params['_ignore_category']);
+            $categoryId = null;
+        } else {
+            $categoryId = $product->getCategoryId() && !$product->getDoNotUseCategoryId()
+                ? $product->getCategoryId() : null;
+        }
 
         if ($product->hasUrlDataObject()) {
             $requestPath = $product->getUrlDataObject()->getUrlRewrite();

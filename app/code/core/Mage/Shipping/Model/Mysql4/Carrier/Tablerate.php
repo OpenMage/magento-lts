@@ -120,10 +120,18 @@ class Mage_Shipping_Model_Mysql4_Carrier_Tablerate extends Mage_Core_Model_Mysql
         return $row;
     }
 
-
+    /**
+     * Upload table rate file and import data from it
+     *
+     * @param Varien_Object $object
+     * @return bool|Mage_Shipping_Model_Mysql4_Carrier_Tablerate
+     */
     public function uploadAndImport(Varien_Object $object)
     {
-        $csvFile = $_FILES["groups"]["tmp_name"]["tablerate"]["fields"]["import"]["value"];
+        if (!isset($_FILES['groups'])) {
+            return false;
+        }
+        $csvFile = $_FILES['groups']['tmp_name']['tablerate']['fields']['import']['value'];
 
         if (!empty($csvFile)) {
 
@@ -261,6 +269,7 @@ class Mage_Shipping_Model_Mysql4_Carrier_Tablerate extends Mage_Core_Model_Mysql
                 }
             }
         }
+        return $this;
     }
 
     protected function _getCsvValues($string, $separator=",")

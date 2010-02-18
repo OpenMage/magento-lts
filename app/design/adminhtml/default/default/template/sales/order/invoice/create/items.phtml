@@ -90,19 +90,24 @@
         <?php echo $this->getChildHtml('invoice_totals') ?>
         <div class="order-totals-bottom">
           <div class="divider"></div>
-          <?php if ($this->canCapture()): ?>
-          <p>
-          <!--
-              <label for="invoice_do_capture" class="normal"><?php echo Mage::helper('sales')->__('Capture Amount') ?></label>
-              <input type="checkbox" name="invoice[do_capture]" id="invoice_do_capture" value="1" checked/>
-          -->
-              <label for="invoice_do_capture" class="normal"><?php echo Mage::helper('sales')->__('Amount') ?></label>
-              <select name="invoice[capture_case]">
-                  <option value="online"><?php echo Mage::helper('sales')->__('Capture Online') ?></option>
-                  <option value="offline"><?php echo Mage::helper('sales')->__('Capture Offline') ?></option>
-                  <option value="not_capture"><?php echo Mage::helper('sales')->__('Not Capture') ?></option>
-              </select>
-          </p>
+          <?php if ($this->isCaptureAllowed()): ?>
+            <?php if ($this->canCapture()):?>
+              <p>
+              <!--
+                  <label for="invoice_do_capture" class="normal"><?php echo Mage::helper('sales')->__('Capture Amount') ?></label>
+                  <input type="checkbox" name="invoice[do_capture]" id="invoice_do_capture" value="1" checked/>
+              -->
+                  <label for="invoice_do_capture" class="normal"><?php echo Mage::helper('sales')->__('Amount') ?></label>
+                  <select name="invoice[capture_case]">
+                      <option value="online"><?php echo Mage::helper('sales')->__('Capture Online') ?></option>
+                      <option value="offline"><?php echo Mage::helper('sales')->__('Capture Offline') ?></option>
+                      <option value="not_capture"><?php echo Mage::helper('sales')->__('Not Capture') ?></option>
+                  </select>
+              </p>
+            <?php elseif ($this->isGatewayUsed()):?>
+                <input type="hidden" name="invoice[capture_case]" value="offline"/>
+                <p><?php echo Mage::helper('sales')->__('Invoice will be created without communication with payment gateway.') ?></p>
+            <?php endif?>
           <?php endif; ?>
           <p>
               <label class="normal" for="notify_customer"><?php echo Mage::helper('sales')->__('Append Comments') ?></label>

@@ -58,8 +58,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     {
         if ($this->getColumn()->getEditable()) {
             $value = $this->_getValue($row);
-            return $value . ($this->getColumn()->getEditOnly() ? '' : ($value != '' ? '' : '&nbsp;') . '</td><td>')
-                . $this->_getInputValueElement($row);
+            return $value 
+                   . ($this->getColumn()->getEditOnly() ? '' : ($value != '' ? '' : '&nbsp;'))
+                   . $this->_getInputValueElement($row);
         }
         return $this->_getValue($row);
     }
@@ -78,7 +79,12 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     protected function _getValue(Varien_Object $row)
     {
         if ($getter = $this->getColumn()->getGetter()) {
-            return $row->$getter();
+            if (is_string($getter)) {
+                return $row->$getter();
+            } elseif (is_callable($getter)) {
+                return call_user_func($getter, $row);
+            }
+            return '';
         }
         return $row->getData($this->getColumn()->getIndex());
     }

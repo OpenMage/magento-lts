@@ -52,7 +52,7 @@ class Mage_Paypal_Block_Standard_Form extends Mage_Payment_Block_Form
             ->setRedirectMessage(
                 Mage::helper('paypal')->__('You will be redirected to PayPal website when you place an order.')
             )
-            ->setBannerSrc($config->getSolutionImageUrl($locale->getLocaleCode()))
+            ->setBannerSrc($config->getPaymentFormLogoUrl($locale->getLocaleCode()))
             ->setMethodLabelAfterHtml($mark->toHtml())
         ;
         return parent::_construct();

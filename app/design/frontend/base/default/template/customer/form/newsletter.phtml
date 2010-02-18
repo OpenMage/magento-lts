@@ -28,6 +28,7 @@
     <h1><?php echo $this->__('Newsletter Subscription') ?></h1>
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php echo $this->getChildHtml('form_before')?>
 <form action="<?php echo $this->getAction() ?>" method="post" id="form-validate">
 <fieldset>
     <?php echo $this->getBlockHtml('formkey')?>

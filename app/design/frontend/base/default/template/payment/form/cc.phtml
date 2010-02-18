@@ -50,7 +50,7 @@
             <input type="text" id="<?php echo $_code ?>_cc_number" name="payment[cc_number]" title="<?php echo $this->__('Credit Card Number') ?>" class="input-text validate-cc-number validate-cc-type" value="" />
         </div>
     </li>
-    <li>
+    <li id="<?php echo $_code ?>_cc_type_exp_div">
         <label for="<?php echo $_code ?>_expiration" class="required"><em>*</em><?php echo $this->__('Expiration Date') ?></label>
         <div class="input-box">
             <div class="v-fix">
@@ -73,7 +73,7 @@
     </li>
     <?php echo $this->getChildHtml() ?>
     <?php if($this->hasVerification()): ?>
-    <li>
+    <li id="<?php echo $_code ?>_cc_type_cvv_div">
         <label for="<?php echo $_code ?>_cc_cid" class="required"><em>*</em><?php echo $this->__('Card Verification Number') ?></label>
         <div class="input-box">
             <div class="v-fix">
@@ -83,4 +83,107 @@
         </div>
     </li>
     <?php endif; ?>
+
+    <?php if ($this->hasSsCardType()): ?>
+    <li id="<?php echo $_code ?>_cc_type_ss_div">
+    <ul class="inner-form">
+        <li class="form-alt"><label for="<?php echo $_code ?>_cc_issue" class="required"><em>*</em><?php echo $this->__('Switch/Solo Only') ?></label></li>
+        <li>
+            <label for="<?php echo $_code ?>_cc_issue"><?php echo $this->__('Issue Number') ?>:</label>
+            <span class="input-box">
+                <input type="text" title="<?php echo $this->__('Issue Number') ?>" class="input-text validate-cc-ukss cvv" id="<?php echo $_code ?>_cc_issue" name="payment[cc_ss_issue]" value="" />
+            </span>
+        </li>
+
+        <li>
+            <label for="<?php echo $_code ?>_start_month"><?php echo $this->__('Start Date') ?>:</label>
+            <div class="input-box">
+                <div class="v-fix">
+                    <select id="<?php echo $_code ?>_start_month" name="payment[cc_ss_start_month]" class="validate-cc-ukss month">
+                    <?php foreach ($this->getCcMonths() as $k=>$v): ?>
+                        <option value="<?php echo $k?$k:'' ?>"<?php if($k==$this->getInfoData('cc_ss_start_month')): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
+                    <?php endforeach ?>
+                    </select>
+                </div>
+                <div class="v-fix">
+                    <select id="<?php echo $_code ?>_start_year" name="payment[cc_ss_start_year]" class="validate-cc-ukss year">
+                    <?php foreach ($this->getSsStartYears() as $k=>$v): ?>
+                        <option value="<?php echo $k?$k:'' ?>"<?php if($k==$this->getInfoData('cc_ss_start_year')): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
+                    <?php endforeach ?>
+                    </select>
+                </div>
+            </div>
+        </li>
+        <li class="adv-container">&nbsp;</li>
+   </ul>
+    <script type="text/javascript">
+    //<![CDATA[
+    var SSChecked<?php echo $_code ?> = function() {
+        var elm = $('<?php echo $_code ?>_cc_type');
+        if (elm.value=='SS') {
+            $('<?php echo $_code ?>_cc_type_ss_div').show();
+            $('<?php echo $_code ?>_cc_type_cvv_div').hide();
+            $('<?php echo $_code ?>_cc_type_exp_div').hide();
+        } else {
+            $('<?php echo $_code ?>_cc_type_ss_div').hide();
+            $('<?php echo $_code ?>_cc_type_cvv_div').show();
+            $('<?php echo $_code ?>_cc_type_exp_div').show();
+        }
+    };
+
+    Event.observe($('<?php echo $_code ?>_cc_type'), 'change', SSChecked<?php echo $_code ?>);
+    SSChecked<?php echo $_code ?>();
+
+    Validation.addAllThese([
+        ['validate-cc-ukss', 'Please enter issue number or start date for switch/solo card type.', function(v,elm) {
+                  var endposition;
+
+                  if (elm.id.match(/(.)+_cc_issue$/)) {
+                      endposition = elm.id.indexOf('_cc_issue');
+                  } else if (elm.id.match(/(.)+_start_month$/)) {
+                      endposition = elm.id.indexOf('_start_month');
+                  } else {
+                      endposition = elm.id.indexOf('_start_year');
+                  }
+
+                  var prefix = elm.id.substr(0,endposition);
+
+                  var ccTypeContainer = $(prefix + '_cc_type');
+
+                  if (!ccTypeContainer) {
+                        return true;
+                  }
+                  var ccType = ccTypeContainer.value;
+
+                  if(ccType!='SS'){
+                      return true;
+                  }
+
+                  $(prefix + '_cc_issue').advaiceContainer
+                    = $(prefix + '_start_month').advaiceContainer
+                    = $(prefix + '_start_year').advaiceContainer
+                    = $(prefix + '_cc_type_ss_div').down('ul li.adv-container');
+
+                  var ccIssue   =  $(prefix + '_cc_issue').value;
+                  var ccSMonth  =  $(prefix + '_start_month').value;
+                  var ccSYear   =  $(prefix + '_start_year').value;
+
+                  if((!ccIssue && !ccSMonth && !ccSYear) ||
+                     (!ccIssue && !ccSMonth && ccSYear)  ||
+                     (!ccIssue && ccSMonth && !ccSYear)
+                  ){
+                      return false;
+                  }
+
+                  return true;
+
+        }]
+    ]);
+    //]]>
+    </script>
+</li>
+<?php endif; ?>
+
 </ul>
+
+

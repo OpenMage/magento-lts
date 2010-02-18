@@ -35,6 +35,8 @@ class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Control
 {
     public function indexAction()
     {
+        $this->_title($this->__('Newsletter'))->_title($this->__('Newsletter Problems'));
+
         if ($this->getRequest()->getQuery('ajax')) {
             $this->_forward('grid');
             return;

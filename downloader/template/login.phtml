@@ -25,10 +25,9 @@
  */
 ?>
 <?php echo $this->template('header.phtml') ?>
-<?php /* IMPORTANT: commented out to prevent discovering backend url */?>
-<?php /*if ($returnUrl = $this->controller()->session()->getReturnUrl()): ?>
+<?php if ($returnUrl = $this->controller()->session()->getReturnUrl()): ?>
 <a class="f-right" href="<?php echo htmlentities($returnUrl) ?>">Return to Magento Administration</a>
-<?php endif */?>
+<?php endif ?>
 <div style="width:300px; padding:20px; margin:90px auto !important; background:#f6f6f6;">
 <form method="post" action="#">
     <h2 class="page-head">Log In</h2>

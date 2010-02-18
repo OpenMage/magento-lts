@@ -89,6 +89,14 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Mage_Core_Model
         $this->_queueLinkTable = Mage::getSingleton('core/resource')->getTableName('newsletter/queue_link');
         $this->_storeTable = Mage::getSingleton('core/resource')->getTableName('core/store');
         $this->_init('newsletter/subscriber');
+
+        // defining mapping for fields represented in several tables
+        $this->_map['fields']['customer_lastname'] = 'customer_lastname_table.value';
+        $this->_map['fields']['customer_firstname'] = 'customer_firstname_table.value';
+        $this->_map['fields']['type'] = 'IF(main_table.customer_id = 0, 1, 2)';
+        $this->_map['fields']['website_id'] = 'store.website_id';
+        $this->_map['fields']['group_id'] = 'store.group_id';
+        $this->_map['fields']['store_id'] = 'main_table.store_id';
     }
 
     /**
@@ -152,10 +160,15 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Mage_Core_Model
         return $this;
     }
 
+    /**
+     * Add type field expression to select
+     *
+     * @return Mage_Newsletter_Model_Mysql4_Subscriber_Collection
+     */
     public function addSubscriberTypeField()
     {
         $this->getSelect()
-            ->columns(array('type'=>new Zend_Db_Expr('IF(main_table.customer_id = 0, 1, 2)')));
+            ->columns(array('type'=>new Zend_Db_Expr($this->_getMappedField('type'))));
         return $this;
     }
 
@@ -176,15 +189,12 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Mage_Core_Model
         return $this;
     }
 
-    public function addFieldToFilter($field, $condition=null)
-    {
-        if(!is_null($condition)) {
-            parent::addFieldToFilter($field, $condition);
-            $this->_countFilterPart[] = $this->_getConditionSql($this->_getFieldTableAlias($field), $condition);
-        }
-        return $this;
-    }
-
+    /**
+     * @deprecated after 1.4.0.0-rc1
+     *
+     * @param string $field
+     * @return string
+     */
     public function _getFieldTableAlias($field)
     {
         if (strpos($field,'customer') === 0) {

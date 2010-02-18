@@ -36,6 +36,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
     protected function _initCustomer($idFieldName = 'id')
     {
+        $this->_title($this->__('Customers'))->_title($this->__('Manage Customers'));
+
         $customerId = (int) $this->getRequest()->getParam($idFieldName);
         $customer = Mage::getModel('customer/customer');
 
@@ -52,6 +54,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
      */
     public function indexAction()
     {
+        $this->_title($this->__('Customers'))->_title($this->__('Manage Customers'));
+
         if ($this->getRequest()->getQuery('ajax')) {
             $this->_forward('grid');
             return;
@@ -109,6 +113,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             }
         }
 
+        $this->_title($customer->getId() ? $customer->getName() : $this->__('New Customer'));
+
         /**
          * Set active menu item
          */
@@ -151,10 +157,11 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     public function saveAction()
     {
         if ($data = $this->getRequest()->getPost()) {
+            $data = $this->_filterPostData($data);
             $redirectBack   = $this->getRequest()->getParam('back', false);
             $this->_initCustomer('customer_id');
+            /** @var Mage_Customer_Model_Customer */
             $customer = Mage::registry('current_customer');
-
             // Prepare customer saving data
             if (isset($data['account'])) {
                 if (isset($data['account']['email'])) {
@@ -162,25 +169,33 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 }
                 $customer->addData($data['account']);
             }
+            // unset template data
+            if (isset($data['address']['_template_'])) {
+                unset($data['address']['_template_']);
+            }
 
-            if (isset($data['address'])) {
-                // unset template data
-                if (isset($data['address']['_template_'])) {
-                    unset($data['address']['_template_']);
-                }
+            $modifiedAddresses = array();
 
+            if (! empty($data['address'])) {
                 foreach ($data['address'] as $index => $addressData) {
-                    $address = Mage::getModel('customer/address');
-                    $address->setData($addressData);
-
-                    if ($addressId = (int) $index) {
-                        $address->setId($addressId);
+                    if (($address = $customer->getAddressItemById($index))) {
+                        $addressId           = $index;
+                        $modifiedAddresses[] = $index;
+                    } else {
+                        $address   = Mage::getModel('customer/address');
+                        $addressId = null;
+                        $customer->addAddress($address);
                     }
-                    /**
-                     * We need set post_index for detect default addresses
-                     */
-                    $address->setPostIndex($index);
-                    $customer->addAddress($address);
+
+                    $address->setData($addressData)
+                            ->setId($addressId)
+                            ->setPostIndex($index); // We need set post_index for detect default addresses
+                }
+            }
+            // not modified customer addresses mark for delete
+            foreach ($customer->getAddressesCollection() as $customerAddress) {
+                if ($customerAddress->getId() && ! in_array($customerAddress->getId(), $modifiedAddresses)) {
+                    $customerAddress->setData('_deleted', true);
                 }
             }
 
@@ -580,5 +595,17 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     protected function _isAllowed()
     {
         return Mage::getSingleton('admin/session')->isAllowed('customer/manage');
+    }
+
+    /**
+     * Filtering posted data. Converting localized data if needed
+     *
+     * @param array
+     * @return array
+     */
+    protected function _filterPostData($data)
+    {
+        $data['account'] = $this->_filterDates($data['account'], array('dob'));
+        return $data;
     }
 }

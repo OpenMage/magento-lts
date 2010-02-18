@@ -60,9 +60,9 @@ function giftMessageToogle(giftMessageIdentifier)
             <span class="separator">|</span> <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_order) ?>','trackorder','top=50,left=50,width=800,height=600,resizable=yes,scrollbars=yes'); return false;" title="<?php echo $this->__('Track your order') ?>"><?php echo $this->__('Track your order') ?></a>
         <?php endif; ?>
     </h2>
-    
+
     <?php echo $this->getChildHtml('order_items') ?>
-    
+
     <?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('order', $_order) && $_order->getGiftMessageId()): ?>
     <div class="order-gift-message">
         <h2><?php echo $this->__('Gift Message for this Order') ?></h2>
@@ -81,7 +81,7 @@ function giftMessageToogle(giftMessageIdentifier)
         <dl>
             <?php foreach ($_history as $_historyItem): ?>
                 <dt><?php echo $this->formatDate($_historyItem->getCreatedAtStoreDate(), 'medium', true) ?></dt>
-                <dd><?php echo $_historyItem->getComment() ?></dd>
+                <dd><?php echo $this->escapeHtml($_historyItem->getComment()) ?></dd>
             <?php endforeach; ?>
         </dl>
     </div>

@@ -17,21 +17,27 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    Mage
+ * @package     js
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 // old school cookie functions grabbed off the web
 
 if (!window.Mage) var Mage = {};
 
 Mage.Cookies = {};
+Mage.Cookies.expires  = null;
+Mage.Cookies.path     = '/';
+Mage.Cookies.domain   = null;
+Mage.Cookies.secure   = false;
 Mage.Cookies.set = function(name, value){
      var argv = arguments;
      var argc = arguments.length;
-     var expires = (argc > 2) ? argv[2] : null;
-     var path = (argc > 3) ? argv[3] : '/';
-     var domain = (argc > 4) ? argv[4] : null;
-     var secure = (argc > 5) ? argv[5] : false;
+     var expires = (argc > 2) ? argv[2] : Mage.Cookies.expires;
+     var path = (argc > 3) ? argv[3] : Mage.Cookies.path;
+     var domain = (argc > 4) ? argv[4] : Mage.Cookies.domain;
+     var secure = (argc > 5) ? argv[5] : Mage.Cookies.secure;
      document.cookie = name + "=" + escape (value) +
        ((expires == null) ? "" : ("; expires=" + expires.toGMTString())) +
        ((path == null) ? "" : ("; path=" + path)) +

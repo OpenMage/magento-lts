@@ -74,6 +74,8 @@ class Mage_CatalogIndex_Model_Mysql4_Aggregation extends Mage_Core_Model_Mysql4_
     {
         $data = serialize($data);
         $tags = $this->_getTagIds($tags);
+
+        /*
         $select = $this->_getWriteAdapter()->select()
             ->from(array('a'=>$this->getMainTable()), $this->getIdFieldName())
             ->where('a.store_id=?', $storeId)
@@ -95,6 +97,17 @@ class Mage_CatalogIndex_Model_Mysql4_Aggregation extends Mage_Core_Model_Mysql4_
             ));
             $id = $this->_getWriteAdapter()->lastInsertId();
         }
+        */
+
+        $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), array(
+            'store_id'  => $storeId,
+            'created_at'=> $this->formatDate(time()),
+            'key'       => $key,
+            'data'      => $data
+        ), array('created_at', 'data'));
+
+        $id = $this->_getWriteAdapter()->lastInsertId();
+
         $this->_saveTagRelations($id, $tags);
         return $this;
     }

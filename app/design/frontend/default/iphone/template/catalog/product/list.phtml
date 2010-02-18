@@ -68,7 +68,7 @@
             </div>
         </div><div class="clear"></div>
         <div class="description">
-            <?php echo nl2br($_product->getShortDescription()) ?>
+            <?php echo nl2br($this->htmlEscape($_product->getShortDescription())) ?>
             <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>"><small><?php echo $this->__('Learn More') ?></small></a>
         </div>
     </div>

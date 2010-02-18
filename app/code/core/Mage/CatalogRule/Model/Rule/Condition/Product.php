@@ -28,6 +28,24 @@
 class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Condition_Abstract
 {
     /**
+     * All attribute values as array in form:
+     * array(
+     *   [entity_id_1] => array(
+     *          [store_id_1] => store_value_1,
+     *          [store_id_2] => store_value_2,
+     *          ...
+     *          [store_id_n] => store_value_n
+     *   ),
+     *   ...
+     * )
+     *
+     * Will be set only for not global scope attribute
+     *
+     * @var array
+     */
+    protected $_entityAttributeValues = null;
+
+    /**
      * Attribute data key that indicates whether it should be used for rules
      *
      * @var string
@@ -200,15 +218,18 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
      */
     public function collectValidatedAttributes($productCollection)
     {
-        if ($this->getAttribute() == 'category_ids') {
-            return $this;
+        $attribute = $this->getAttribute();
+        if ('category_ids' != $attribute) {
+            if ($this->getAttributeObject()->isScopeGlobal()) {
+                $attributes = $this->getRule()->getCollectedAttributes();
+                $attributes[$attribute] = true;
+                $this->getRule()->setCollectedAttributes($attributes);
+                $productCollection->addAttributeToSelect($attribute, 'left');
+            } else {
+                $this->_entityAttributeValues = $productCollection->getAllAttributeValues($attribute);
+            }
         }
 
-        $attributes = $this->getRule()->getCollectedAttributes();
-        $attributes[$this->getAttribute()] = true;
-        $this->getRule()->setCollectedAttributes($attributes);
-
-        $productCollection->addAttributeToSelect($this->getAttribute(), 'left');
         return $this;
     }
 
@@ -354,27 +375,47 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
      */
     public function validate(Varien_Object $object)
     {
-        if ($this->getAttribute() == 'category_ids') {
+        $attrCode = $this->getAttribute();
+
+        if ('category_ids' == $attrCode) {
             return $this->validateAttribute($object->getAvailableInCategories());
-        }
+        } elseif (! isset($this->_entityAttributeValues[$object->getId()])) {
+            $attr = $object->getResource()->getAttribute($attrCode);
 
-        $attr = $object->getResource()->getAttribute($this->getAttribute());
-        if ($attr && $attr->getBackendType()=='datetime' && !is_int($this->getValue())) {
-            $this->setValue(strtotime($this->getValue()));
-            $value = strtotime($object->getData($this->getAttribute()));
-            return $this->validateAttribute($value);
-        }
-
-        if ($attr && $attr->getFrontendInput() == 'multiselect') {
-            $value = $object->getData($this->getAttribute());
-            if (!strlen($value)) {
-                $value = array();
-            } else {
-                $value = explode(',', $value);
+            if ($attr && $attr->getBackendType() == 'datetime' && ! is_int($this->getValue())) {
+                $this->setValue(strtotime($this->getValue()));
+                $value = strtotime($object->getData($attrCode));
+                return $this->validateAttribute($value);
             }
-            return $this->validateAttribute($value);
-        }
 
-        return parent::validate($object);
+            if ($attr && $attr->getFrontendInput() == 'multiselect') {
+                $value = $object->getData($attrCode);
+                $value = strlen($value) ? explode(',', $value) : array();
+                return $this->validateAttribute($value);
+            }
+
+            return parent::validate($object);
+        } else {
+            $result = false; // any valid value will set it to TRUE
+            $oldAttrValue = $object->hasData($attrCode) ? $object->getData($attrCode) : null; // remember old attribute state
+
+            foreach ($this->_entityAttributeValues[$object->getId()] as $storeId => $value) {
+                $object->setData($attrCode, $value);
+
+                $result |= parent::validate($object);
+
+                if ($result) {
+                    break;
+                }
+            }
+
+            if (is_null($oldAttrValue)) {
+                $object->unsetData($attrCode);
+            } else {
+                $object->setData($attrCode, $oldAttrValue);
+            }
+
+            return (bool) $result;
+        }
     }
 }

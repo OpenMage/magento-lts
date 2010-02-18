@@ -44,6 +44,10 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
 
     public function customerAction()
     {
+        $this->_title($this->__('Reports'))
+             ->_title($this->__('Shopping Cart'))
+             ->_title($this->__('Customer Shopping Carts'));
+
         $this->_initAction()
             ->_setActiveMenu('report/shopcart/customer')
             ->_addBreadcrumb(Mage::helper('reports')->__('Customers Report'), Mage::helper('reports')->__('Customers Report'))
@@ -77,6 +81,10 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
 
     public function productAction()
     {
+        $this->_title($this->__('Reports'))
+             ->_title($this->__('Shopping Cart'))
+             ->_title($this->__('Products in Carts'));
+
         $this->_initAction()
             ->_setActiveMenu('report/shopcart/product')
             ->_addBreadcrumb(Mage::helper('reports')->__('Products Report'), Mage::helper('reports')->__('Products Report'))
@@ -110,6 +118,10 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
 
     public function abandonedAction()
     {
+        $this->_title($this->__('Reports'))
+             ->_title($this->__('Shopping Cart'))
+             ->_title($this->__('Abandoned Carts'));
+
         $this->_initAction()
             ->_setActiveMenu('report/shopcart/abandoned')
             ->_addBreadcrumb(Mage::helper('reports')->__('Abandoned carts'), Mage::helper('reports')->__('Abandoned carts'))

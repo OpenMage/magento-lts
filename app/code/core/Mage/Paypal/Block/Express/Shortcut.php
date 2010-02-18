@@ -30,6 +30,34 @@
 class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
 {
     /**
+     * Model type
+     *
+     * @var string
+     */
+    protected $_modelType = 'paypal/express';
+
+    /**
+     * Pro model type
+     *
+     * @var string
+     */
+    protected $_proModelType = 'paypal/pro';
+
+    /**
+     * Payment method code
+     *
+     * @var string
+     */
+    protected $_paymentMethod = Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS;
+
+    /**
+     * Start express action
+     *
+     * @var string
+     */
+    protected $_startAction = 'paypal/express/start';
+
+    /**
      * PayPal Pro instance
      *
      * @var Mage_Paypal_Model_Pro
@@ -43,7 +71,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
      */
     public function getCheckoutUrl()
     {
-        return $this->getUrl('paypal/express/start');
+        return $this->getUrl($this->_startAction);
     }
 
     /**
@@ -60,6 +88,56 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
     }
 
     /**
+     * Payment method model type setter
+     *
+     * @param string
+     */
+    public function setPaymentModelType($type)
+    {
+        $this->_modelType = $type;
+    }
+
+    /**
+     * Pro model type setter
+     *
+     * @param string
+     */
+    public function setProModelType($type)
+    {
+        $this->_proModelType = $type;
+    }
+
+    /**
+     * Payment method setter
+     *
+     * @param string
+     */
+    public function setPaymentMethod($method)
+    {
+        $this->_paymentMethod = $method;
+    }
+
+    /**
+     * Start action setter
+     *
+     * @param string
+     */
+    public function setStartAction($action)
+    {
+        $this->_startAction = $action;
+    }
+
+    /**
+     * Shortcut text setter
+     *
+     * @param string
+     */
+    public function setShortcutText($text)
+    {
+        $this->_shortcutText = $text;
+    }
+
+    /**
      * Check whether method is available and render HTML
      * TODO: payment method instance is not supposed to know about quote.
      * The block also is not supposed to know about payment method instance
@@ -73,7 +151,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
         }
         $quote = Mage::getSingleton('checkout/session')->getQuote();
         if (!$quote->validateMinimumAmount()
-            || !Mage::getModel('paypal/express', array($this->_pro))->isAvailable($quote)) {
+            || !Mage::getModel($this->_modelType, array($this->_pro))->isAvailable($quote)) {
             return '';
         }
         return parent::_toHtml();
@@ -87,7 +165,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
     protected function _getProInstance()
     {
         if (null === $this->_pro) {
-            $this->_pro = Mage::getModel('paypal/pro')->setMethod(Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS);
+            $this->_pro = Mage::getModel($this->_proModelType)->setMethod($this->_paymentMethod);
         }
         return $this->_pro;
     }

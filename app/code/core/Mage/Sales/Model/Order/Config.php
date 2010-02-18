@@ -66,7 +66,8 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
                         $status = $statusNode->getName();
                     }
                     $attributes = $statusNode->attributes();
-                    if (isset($attributes['default'])) {
+                    // empty($attributes['default']) is for backwards compatibility
+                    if (isset($attributes['default']) && (empty($attributes['default']) || $attributes['default'] == '1')) {
                         $status = $statusNode->getName();
                     }
                 }

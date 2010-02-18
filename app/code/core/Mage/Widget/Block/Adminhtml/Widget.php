@@ -49,7 +49,7 @@ class Mage_Widget_Block_Adminhtml_Widget extends Mage_Adminhtml_Block_Widget_For
         $this->_updateButton('save', 'id', 'insert_button');
         $this->_updateButton('save', 'onclick', 'wWidget.insertWidget()');
 
-        $this->_formScripts[] = 'wWidget = new WysiwygWidget.Widget("edit_form", "select_widget_type", "widget_options", "'
+        $this->_formScripts[] = 'wWidget = new WysiwygWidget.Widget("widget_options_form", "select_widget_type", "widget_options", "'
                               . $this->getUrl('*/*/loadOptions').'", "' . $this->getRequest()->getParam('widget_target_id') . '");';
     }
 }

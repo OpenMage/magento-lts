@@ -45,6 +45,20 @@ class Mage_Paypal_Model_Pro
     protected $_api = null;
 
     /**
+     * API model type
+     *
+     * @var string
+     */
+    protected $_apiType = 'paypal/api_nvp';
+
+    /**
+     * Config model type
+     *
+     * @var string
+     */
+    protected $_configType = 'paypal/config';
+
+    /**
      * Payment method code setter. Also instantiates/updates config
      *
      * @param string $code
@@ -57,7 +71,7 @@ class Mage_Paypal_Model_Pro
             if (null !== $storeId) {
                 $params[] = $storeId;
             }
-            $this->_config = $this->_config = Mage::getModel('paypal/config', $params);
+            $this->_config = $this->_config = Mage::getModel($this->_configType, $params);
         } else {
             $this->_config->setMethod($code);
             if (null !== $storeId) {
@@ -101,7 +115,7 @@ class Mage_Paypal_Model_Pro
     public function getApi()
     {
         if (null === $this->_api) {
-            $this->_api = Mage::getModel('paypal/api_nvp');
+            $this->_api = Mage::getModel($this->_apiType);
         }
         $this->_api->setConfigObject($this->_config);
         return $this->_api;
@@ -114,7 +128,7 @@ class Mage_Paypal_Model_Pro
      */
     public function void(Varien_Object $payment)
     {
-        if ($authTransactionId = $payment->getParentTransactionId()) {
+        if ($authTransactionId = $this->_getParentTransactionId($payment)) {
             $api = $this->getApi();
             $api->setPayment($payment)->setAuthorizationId($authTransactionId)->callDoVoid();
             Mage::getModel('paypal/info')->importToPayment($api, $payment);
@@ -133,27 +147,33 @@ class Mage_Paypal_Model_Pro
      */
     public function capture(Varien_Object $payment, $amount)
     {
-        $authTransactionId = $payment->getParentTransactionId();
+        $authTransactionId = $this->_getParentTransactionId($payment);
         if (!$authTransactionId) {
             return false;
         }
+        /**
+         * check transaction status before capture
+         */
+        $api = $this->getApi()
+            ->setTransactionId($authTransactionId);
+        if (!$this->_isCaptureNeeded()) {
+            return;
+        }
+
         $api = $this->getApi()
             ->setAuthorizationId($authTransactionId)
-            ->setCompleteType($payment->getShouldCloseParentTransaction()
-                ? Mage_Paypal_Model_Config::CAPTURE_TYPE_COMPLETE
-                : Mage_Paypal_Model_Config::CAPTURE_TYPE_NOTCOMPLETE
-            )
+            ->setIsCaptureComplete($payment->getShouldCloseParentTransaction())
             ->setAmount($amount)
             ->setCurrencyCode($payment->getOrder()->getBaseCurrencyCode())
             ->setInvNum($payment->getOrder()->getIncrementId())
             // TODO: pass 'NOTE' to API
         ;
-        $api->callDoCapture();
 
-        // add capture transaction info
-        $payment->setTransactionId($api->getTransactionId())->setIsTransactionClosed(false);
-        Mage::getModel('paypal/info')->importToPayment($api, $payment);
+        $api->callDoCapture();
+        $this->_importCaptureResultToPayment($api, $payment);
     }
+
+
 
     /**
      * Refund a capture transaction
@@ -163,7 +183,7 @@ class Mage_Paypal_Model_Pro
      */
     public function refund(Varien_Object $payment, $amount)
     {
-        $captureTxnId = $payment->getParentTransactionId();
+        $captureTxnId = $this->_getParentTransactionId($payment);
         if ($captureTxnId) {
             $api = $this->getApi();
             $order = $payment->getOrder();
@@ -179,11 +199,7 @@ class Mage_Paypal_Model_Pro
                 : Mage_Paypal_Model_Config::REFUND_TYPE_PARTIAL
             );
             $api->callRefundTransaction();
-            $payment->setTransactionId($api->getRefundTransactionId())
-                ->setIsTransactionClosed(1) // refund initiated by merchant
-                ->setShouldCloseParentTransaction(!$canRefundMore)
-            ;
-            Mage::getModel('paypal/info')->importToPayment($api, $payment);
+            $this->_importRefundResultToPayment($api, $payment, $canRefundMore);
         } else {
             Mage::throwException(Mage::helper('paypal')->__('Impossible to issue a refund transaction, because capture transaction does not exist.'));
         }
@@ -199,5 +215,59 @@ class Mage_Paypal_Model_Pro
         if (!$payment->getOrder()->getInvoiceCollection()->count()) {
             $this->void($payment);
         }
+    }
+
+    /**
+     * Import capture results to payment
+     *
+     * @param Mage_Paypal_Model_Api_Nvp
+     * @param Mage_Sales_Model_Order_Payment
+     */
+    protected function _importCaptureResultToPayment($api, $payment)
+    {
+        $payment->setTransactionId($api->getTransactionId())->setIsTransactionClosed(false);
+        Mage::getModel('paypal/info')->importToPayment($api, $payment);
+    }
+
+    /**
+     * Import refund results to payment
+     *
+     * @param Mage_Paypal_Model_Api_Nvp
+     * @param Mage_Sales_Model_Order_Payment
+     * @param bool $canRefundMore
+     */
+    protected function _importRefundResultToPayment($api, $payment, $canRefundMore)
+    {
+        $payment->setTransactionId($api->getRefundTransactionId())
+                ->setIsTransactionClosed(1) // refund initiated by merchant
+                ->setShouldCloseParentTransaction(!$canRefundMore)
+            ;
+        Mage::getModel('paypal/info')->importToPayment($api, $payment);
+    }
+
+    /**
+     * Is capture request needed on this transaction
+     *
+     * @return true
+     */
+    protected function _isCaptureNeeded()
+    {
+        $this->_api->callGetTransactionDetails();
+        if ($this->_api->isPaymentComplete()) {
+            Mage::getModel('paypal/info')->importToPayment($api, $payment);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Parent transaction id getter
+     *
+     * @param Varien_Object $payment
+     * @return string
+     */
+    protected function _getParentTransactionId(Varien_Object $payment)
+    {
+        return $payment->getParentTransactionId();
     }
 }

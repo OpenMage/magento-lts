@@ -29,6 +29,8 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 {
     protected function _initRule()
     {
+        $this->_title($this->__('Promotions'))->_title($this->__('Shopping Cart Price Rules'));
+
         Mage::register('current_promo_quote_rule', Mage::getModel('salesrule/rule'));
         if ($id = (int) $this->getRequest()->getParam('id')) {
             Mage::registry('current_promo_quote_rule')
@@ -47,6 +49,8 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
     public function indexAction()
     {
+        $this->_title($this->__('Promotions'))->_title($this->__('Shopping Cart Price Rules'));
+
         $this->_initAction()
             ->_addBreadcrumb(Mage::helper('salesrule')->__('Catalog'), Mage::helper('salesrule')->__('Catalog'))
             ->renderLayout();
@@ -70,6 +74,8 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 return;
             }
         }
+
+        $this->_title($model->getRuleId() ? $model->getName() : $this->__('New Rule'));
 
         // set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getPageData(true);

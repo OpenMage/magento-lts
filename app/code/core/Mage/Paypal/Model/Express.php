@@ -26,15 +26,20 @@
 
 /**
  *
- * PayPal Express Checkout Module
- *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * PayPal Express Module
  */
 class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
 {
     protected $_code  = Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS;
     protected $_formBlockType = 'paypal/express_form';
     protected $_infoBlockType = 'paypal/payment_info';
+
+    /**
+     * Website Payments Pro instance type
+     *
+     * @var $_proType string
+     */
+    protected $_proType = 'paypal/pro';
 
     /**
      * Availability options
@@ -51,6 +56,13 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     protected $_canUseForMultishipping  = false;
 
     /**
+     * Ipn action
+     *
+     * @var string
+     */
+    protected $_ipnAction = 'paypal/ipn/express';
+
+    /**
      * Website Payments Pro instance
      *
      * @var Mage_Paypal_Model_Pro
@@ -63,7 +75,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         if ($proInstance && ($proInstance instanceof Mage_Paypal_Model_Pro)) {
             $this->_pro = $proInstance;
         } else {
-            $this->_pro = Mage::getModel('paypal/pro');
+            $this->_pro = Mage::getModel($this->_proType);
         }
         $this->_pro->setMethod($this->_code);
     }
@@ -193,23 +205,36 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
             ->setPayerId($payment->getAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_PAYER_ID))
             ->setAmount($amount)
             ->setPaymentAction($this->_pro->getConfig()->paymentAction)
-            ->setNotifyUrl(Mage::getUrl('paypal/ipn/express'))
+            ->setNotifyUrl(Mage::getUrl($this->_ipnAction))
             ->setInvNum($order->getIncrementId())
             ->setCurrencyCode($order->getBaseCurrencyCode())
         ;
 
         // add line items
-        if ($this->_pro->getConfig()->lineItemsEnabled) {
+        if ($this->_pro->getConfig()->lineItemsEnabled && Mage::helper('paypal')->doLineItemsMatchAmount($order, $amount)) {//For transfering line items order amount must be equal to cart total amount
             list($items, $totals) = Mage::helper('paypal')->prepareLineItems($order);
             $api->setLineItems($items)->setLineItemTotals($totals);
         }
 
         // call api and get details from it
         $api->callDoExpressCheckoutPayment();
-        $payment->setTransactionId($api->getTransactionId())->setIsTransactionClosed(0)
-            ->setIsPaid($api->isPaid($api->getPaymentStatus()))
-        ;
-        Mage::getModel('paypal/info')->importToPayment($api, $payment);
+        $this->_importToPayment($api, $payment);
         return $this;
+    }
+
+    /**
+     * Import payment info to payment
+     *
+     * @param Mage_Paypal_Model_Api_Nvp
+     * @param Mage_Sales_Model_Order_Payment
+     */
+    protected function _importToPayment($api, $payment)
+    {
+        $payment->setTransactionId($api->getTransactionId())->setIsTransactionClosed(0)
+            ->setAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT,
+                $api->getRedirectRequired() || $api->getRedirectRequested()
+            )
+            ->setIsTransactionPending($api->getIsPaymentPending());
+        Mage::getModel('paypal/info')->importToPayment($api, $payment);
     }
 }

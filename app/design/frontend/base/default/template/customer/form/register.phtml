@@ -35,6 +35,7 @@
     <div class="page-title">
         <h1><?php echo $this->__('Create an Account') ?></h1>
     </div>
+    <?php echo $this->getChildHtml('form_fields_before')?>
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
     <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="form-validate">
         <div class="fieldset">

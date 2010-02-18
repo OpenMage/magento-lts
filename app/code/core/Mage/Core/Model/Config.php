@@ -338,7 +338,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function loadDb()
     {
-        if ($this->_isLocalConfigLoaded) {
+        if ($this->_isLocalConfigLoaded && Mage::isInstalled()) {
             Varien_Profiler::start('config/load-db');
             $dbConf = $this->getResourceModel();
             $dbConf->loadToXml($this);

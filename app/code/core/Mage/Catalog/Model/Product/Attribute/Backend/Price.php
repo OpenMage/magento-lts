@@ -78,8 +78,9 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Price extends Mage_Eav_Model_
         /**
          * Orig value is only for existing objects
          */
-        $origValue= $object->getOrigData($this->getAttribute()->getAttributeCode());
-        if ($object->getStoreId() != 0 || !$value || $origValue) {
+        $oridData = $object->getOrigData();
+        $origValueExist = $oridData && array_key_exists($this->getAttribute()->getAttributeCode(), $oridData);
+        if ($object->getStoreId() != 0 || !$value || $origValueExist) {
             return $this;
         }
 

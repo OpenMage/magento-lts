@@ -988,6 +988,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     ->where('attribute_group_id=?', $groupId);
                 $sortOrder = $this->getConnection()->fetchOne($select);
             }
+            $sortOrder = is_numeric($sortOrder) ? $sortOrder : 1;
             $bind['sort_order'] = $sortOrder;
             $this->getConnection()->insert($this->getTable('eav/entity_attribute'), $bind);
         }

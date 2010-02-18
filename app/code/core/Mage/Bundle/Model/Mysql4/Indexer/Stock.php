@@ -101,7 +101,6 @@ class Mage_Bundle_Model_Mysql4_Indexer_Stock extends Mage_CatalogInventory_Model
                 'e.entity_id = bs.product_id',
                 array())
             ->where('cw.website_id != 0')
-            ->where('bo.required = ?', 1)
             ->group(array('bo.parent_id', 'cw.website_id', 'cis.stock_id', 'bo.option_id'))
             ->columns(array(
                 'option_id' => 'bo.option_id',
@@ -112,7 +111,17 @@ class Mage_Bundle_Model_Mysql4_Indexer_Stock extends Mage_CatalogInventory_Model
             $select->where('bo.parent_id IN(?)', $entityIds);
         }
 
+        // clone select for bundle product without required bundle options
+        $selectNonRequired = clone $select;
+
+        $select->where('bo.required = ?', 1);
+        $selectNonRequired->where('bo.required = ?', 0)
+            ->having('`status` = 1');
+
         $query = $select->insertFromSelect($this->_getBundleOptionTable());
+        $adapter->query($query);
+
+        $query = $selectNonRequired->insertFromSelect($this->_getBundleOptionTable());
         $adapter->query($query);
 
         return $this;

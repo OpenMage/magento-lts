@@ -47,7 +47,7 @@
     <li>
         <div class="input-box">
             <label for="<?php echo $_code ?>_expiration"><?php echo Mage::helper('payment')->__('Expiration Date') ?> <span class="required">*</span></label><br/>
-            <select id="<?php echo $_code ?>_expiration" style="width:140px;" name="payment[cc_exp_month]" class="required-entry">
+            <select id="<?php echo $_code ?>_expiration" style="width:140px;" name="payment[cc_exp_month]" class="validate-cc-exp required-entry">
             <?php $_ccExpMonth = $this->getInfoData('cc_exp_month') ?>
             <?php foreach ($this->getCcMonths() as $k=>$v): ?>
                 <option value="<?php echo $k ?>" <?php if($k==$_ccExpMonth): ?>selected="selected"<?php endif ?>><?php echo $v ?></option>

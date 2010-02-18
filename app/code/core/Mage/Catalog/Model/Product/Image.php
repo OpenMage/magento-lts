@@ -288,6 +288,9 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
                 }
                 else {
                     $baseDir = Mage::getDesign()->getSkinBaseDir(array('_theme' => 'default'));
+                    if (!file_exists($baseDir . $file)) {
+                        $baseDir = Mage::getDesign()->getSkinBaseDir(array('_theme' => 'default', '_package' => 'base'));
+                    }
                 }
             }
             $this->_isBaseFilePlaceholder = true;

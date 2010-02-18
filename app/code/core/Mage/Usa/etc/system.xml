@@ -62,6 +62,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </allowed_methods>
                         <contentdesc translate="label">
                             <label>Package Description</label>
@@ -241,6 +242,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </specificcountry>
                         <showmethod translate="label">
                             <label>Show method if not applicable</label>
@@ -350,6 +352,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </shipment_days>
 
                         <intl_shipment_days translate="label">
@@ -360,6 +363,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </intl_shipment_days>
 
                     </fields>
@@ -399,6 +403,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </allowed_methods>
                         <free_shipping_enable translate="label">
                             <label>Free shipping with minimum order amount</label>
@@ -530,6 +535,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </specificcountry>
                         <showmethod translate="label">
                             <label>Show method if not applicable</label>
@@ -585,6 +591,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </allowed_methods>
                         <container translate="label">
                             <label>Container</label>
@@ -795,6 +802,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </specificcountry>
                         <showmethod translate="label">
                             <label>Show method if not applicable</label>
@@ -851,6 +859,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </allowed_methods>
                         <container translate="label">
                             <label>Container</label>
@@ -991,6 +1000,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </specificcountry>
                         <showmethod translate="label">
                             <label>Show method if not applicable</label>

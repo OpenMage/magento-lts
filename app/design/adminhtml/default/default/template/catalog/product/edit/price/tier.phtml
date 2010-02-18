@@ -46,7 +46,7 @@
         <col width="120" />
         <col width="95" />
         <col />
-        <col width="75" />
+        <col width="1" />
         <thead>
             <tr class="headings">
                 <th <?php if (!$_showWebsite): ?>style="display:none"<?php endif; ?>><?php echo Mage::helper('sales')->__('Website') ?></th>
@@ -71,19 +71,19 @@ var tierPriceRowTemplate = '<tr>'
     + '<td<?php if (!$_showWebsite): ?> style="display:none"<?php endif; ?>>'
     + '<select class="<?php echo $_htmlClass ?> required-entry" name="<?php echo $_htmlName ?>[{{index}}][website_id]" id="tier_price_row_{{index}}_website">'
     <?php foreach ($this->getWebsites() as $_websiteId => $_info): ?>
-    + '<option value="<?php echo $_websiteId ?>"><?php echo $this->htmlEscape($_info['name']) ?><?php if (!empty($_info['currency'])): ?> [<?php echo $this->htmlEscape($_info['currency']) ?>]<?php endif; ?></option>'
+    + '<option value="<?php echo $_websiteId ?>"><?php echo $this->jsQuoteEscape($this->htmlEscape($_info['name'])) ?><?php if (!empty($_info['currency'])): ?> [<?php echo $this->htmlEscape($_info['currency']) ?>]<?php endif; ?></option>'
     <?php endforeach ?>
     + '</select></td>'
     + '<td><select class="<?php echo $_htmlClass ?> custgroup required-entry" name="<?php echo $_htmlName ?>[{{index}}][cust_group]" id="tier_price_row_{{index}}_cust_group">'
     <?php foreach ($this->getCustomerGroups() as $_groupId=>$_groupName): ?>
-    + '<option value="<?php echo $_groupId ?>"><?php echo $this->htmlEscape($_groupName)?></option>'
+    + '<option value="<?php echo $_groupId ?>"><?php echo $this->jsQuoteEscape($this->htmlEscape($_groupName)) ?></option>'
     <?php endforeach ?>
     + '</select></td>'
     + '<td class="nobr"><input class="<?php echo $_htmlClass ?> qty required-entry validate-greater-than-zero" type="text" name="<?php echo $_htmlName ?>[{{index}}][price_qty]" value="{{qty}}" id="tier_price_row_{{index}}_qty" />'
     + ' <small class="nobr"><?php echo Mage::helper("catalog")->__("and above")?></small></td>'
     + '<td><input class="<?php echo $_htmlClass ?> required-entry <?php echo $_priceValueValidation ?>" type="text" name="<?php echo $_htmlName ?>[{{index}}][price]" value="{{price}}" id="tier_price_row_{{index}}_price" /></td>'
     + '<td class="last"><input type="hidden" name="<?php echo $_htmlName ?>[{{index}}][delete]" class="delete" value="" id="tier_price_row_{{index}}_delete" />'
-    + '<button title="<?php echo Mage::helper("catalog")->__("Delete Tier") ?>" class="scalable delete icon-btn delete-product-option" id="tier_price_row_{{index}}_delete_button" onclick="return tierPriceControl.deleteItem(event);">'
+    + '<button title="<?php echo Mage::helper("catalog")->__("Delete Tier") ?>" type="button" class="scalable delete icon-btn delete-product-option" id="tier_price_row_{{index}}_delete_button" onclick="return tierPriceControl.deleteItem(event);">'
     + '<span><?php echo Mage::helper("catalog")->__("Delete") ?></span></button></td>'
     + '</tr>';
 

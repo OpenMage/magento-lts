@@ -39,6 +39,13 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     protected $_quote;
 
     /**
+     * Paypal action prefix
+     *
+     * @var string
+     */
+    protected $_paypalActionPrefix = 'paypal';
+
+    /**
      * Quote object setter
      *
      * @param Mage_Sales_Model_Quote $quote
@@ -156,5 +163,23 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     public function isVirtual()
     {
         return $this->_quote->getIsVirtual();
+    }
+
+    /**
+     * Return paypal actions prefix
+     *
+     * @return string
+     */
+    public function getPaypalActionPrefix()
+    {
+        return $this->_paypalActionPrefix;
+    }
+
+    /**
+     * Set paypal actions prefix
+     */
+    public function setPaypalActionPrefix($prefix)
+    {
+        $this->_paypalActionPrefix = $prefix;
     }
 }

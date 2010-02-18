@@ -706,7 +706,7 @@ class Mage_Checkout_Model_Type_Onepage
         $orderId = false;
         if ($lastId) {
             $order = Mage::getModel('sales/order');
-            $order->load();
+            $order->load($lastId);
             $orderId = $order->getIncrementId();
         }
         return $orderId;

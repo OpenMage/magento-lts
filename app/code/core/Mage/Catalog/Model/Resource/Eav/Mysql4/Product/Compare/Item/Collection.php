@@ -218,11 +218,12 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection ext
     /**
      * Retrieve Merged comparable attributes for compared product items
      *
-     * @return this
+     * @return array
      */
     public function getComparableAttributes()
     {
         if (is_null($this->_comparableAttributes)) {
+            $this->_comparableAttributes = array();
             $setIds = $this->_getAttributeSetIds();
             if ($setIds) {
                 $attributeIds = $this->_getAttributeIdsBySetIds($setIds);
@@ -252,9 +253,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection ext
                     }
                     unset($attributesData);
                 }
-            }
-            else {
-                $this->_comparableAttributes = array();
             }
         }
         return $this->_comparableAttributes;

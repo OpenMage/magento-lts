@@ -64,9 +64,9 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </cctypes>
-                        <centinel translate="label comment">
-                            <label>Use 3D Secure Credit Card Validation</label>
-                            <comment>Set up the Centinel Service Credentials separately</comment>
+
+                        <centinel translate="label">
+                            <label>3D Secure Card Validation</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>20</sort_order>
@@ -74,9 +74,9 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </centinel>
-                        <centinel_require_enrollment translate="label comment">
-                            <label>Require Credit Card Validation by Centinel</label>
-                            <comment><![CDATA[<strong style="color:red">Warning!</strong> Customer will not be able to place Order, if the Credit Card didn't pass initial Enrollment by Centinel.]]></comment>
+                        <centinel_is_mode_strict translate="label">
+                            <label>Severe 3D Secure Card Validation</label>
+                            <comment>Severe Validation Removes Chargeback Liability on Merchant</comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>25</sort_order>
@@ -84,7 +84,19 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><centinel>1</centinel></depends>
-                        </centinel_require_enrollment>
+                        </centinel_is_mode_strict>
+                        <centinel_api_url translate="label">
+                            <label>Centinel Api Custom URL</label>
+                            <comment>Leave Empty for Default Value</comment>
+                            <frontend_type>text</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><centinel>1</centinel></depends>
+                        </centinel_api_url>
+
                         <line_items_enabled translate="label">
                             <label>Transfer Cart Line Items</label>
                             <frontend_type>select</frontend_type>
@@ -183,9 +195,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                         </line_items_enabled>
-                        <solution_type translate="label comment">
-                            <label>Checkout Flow</label>
-                            <comment>Whether Customer may select Non-PayPal Payment Option</comment>
+                        <solution_type translate="label">
+                            <label>Enable PayPal Guest Checkout</label>
                             <frontend_type>select</frontend_type>
                             <source_model>paypal/config::getExpressCheckoutSolutionTypes</source_model>
                             <sort_order>50</sort_order>
@@ -211,15 +222,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </order_status>
-                        <invoice_email_copy translate="label">
-                            <label>Email Copy of Invoice</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>90</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </invoice_email_copy>
                         <allowspecific translate="label">
                             <label>Payment Applicable From</label>
                             <frontend_type>select</frontend_type>
@@ -349,7 +351,7 @@
             <sort_order>350</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
-            <show_in_store>0</show_in_store>
+            <show_in_store>1</show_in_store>
             <groups>
                 <wps translate="label comment">
                     <label>Website Payments Standard</label>
@@ -489,7 +491,7 @@
                     <sort_order>15</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <page_style translate="label comment">
                             <label>Page Style</label>
@@ -500,15 +502,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </page_style>
-                        <logo_url translate="label comment">
-                            <label>Logo Image URL</label>
-                            <comment><![CDATA[150x50-pixel image displayed as your logo in the upper left corner of the PayPal checkout pages. <strong style="color:red">https</strong> is highly encouraged.]]></comment>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>10</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </logo_url>
                         <paypal_hdrimg translate='label comment'>
                             <label>Header Image URL</label>
                             <comment><![CDATA[The image at the top left of the checkout page. Max size is 750x90-pixel. <strong style="color:red">https</strong> is highly encouraged.]]></comment>
@@ -550,15 +543,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </button_flavor>
-                        <button_type translate="label">
-                            <label>Shortcut Button Type (Express Checkout)</label>
-                            <sort_order>40</sort_order>
-                            <frontend_type>select</frontend_type>
-                            <source_model>paypal/config::getExpressCheckoutButtonTypes</source_model>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </button_type>
                     </fields>
                 </style>
             </groups>

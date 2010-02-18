@@ -35,9 +35,19 @@ class Mage_Sales_Model_Mysql4_Sale_Collection extends Varien_Object implements I
      */
     protected $_read;
 
+    /**
+     * Loaded collection items
+     *
+     * @var array
+     */
     protected $_items = array();
 
-    protected $_totals = array('lifetime' => 0, 'num_orders' => 0);
+    /**
+     * Totals data
+     *
+     * @var array
+     */
+    protected $_totals = array('lifetime' => 0, 'base_lifetime' => 0, 'base_avgsale' => 0, 'num_orders' => 0);
 
     /**
      * Entity attribute
@@ -54,37 +64,95 @@ class Mage_Sales_Model_Mysql4_Sale_Collection extends Varien_Object implements I
     protected $_select;
 
     /**
-     * Enter description here...
+     * Customer model
      *
      * @var Mage_Customer_Model_Customer
      */
     protected $_customer;
 
+    /**
+     * Order state value
+     *
+     * @var null|string|array
+     */
+    protected $_orderStateValue = null;
+
+    /**
+     * Order state condition
+     *
+     * @var string
+     */
+    protected $_orderStateCondition = null;
+
+    /**
+     * Set sales order entity and establish read connection
+     *
+     */
     public function __construct()
     {
         $this->_entity = Mage::getModel('sales_entity/order');
         $this->_read = $this->_entity->getReadConnection();
     }
 
+    /**
+     * Set filter by customer
+     *
+     * @param Mage_Customer_Model_Customer $customer
+     * @return Mage_Sales_Model_Mysql4_Sale_Collection
+     */
     public function setCustomerFilter(Mage_Customer_Model_Customer $customer)
     {
         $this->_customer = $customer;
         return $this;
     }
 
+    /**
+     * Add filter by stores
+     *
+     * @param array $storeIds
+     * @return Mage_Sales_Model_Mysql4_Sale_Collection
+     */
+    public function addStoreFilter($storeIds)
+    {
+        $this->getSelect()->where('store_id IN (?)', $storeIds);
+        return $this;
+    }
+
+    /**
+     * Set filter by order state
+     *
+     * @param string|array $state
+     * @return Mage_Sales_Model_Mysql4_Sale_Collection
+     */
+    public function setOrderStateFilter($state, $exclude = false)
+    {
+        $this->_orderStateCondition = ($exclude) ? 'NOT IN' : 'IN';
+        $this->_orderStateValue = (!is_array($state)) ? array($state) : $state;
+        return $this;
+    }
+
+    /**
+     * Load data
+     *
+     * @param boolean $printQuery
+     * @param boolean $logQuery
+     * @return Mage_Sales_Model_Mysql4_Sale_Collection
+     */
     public function load($printQuery = false, $logQuery = false)
     {
-        $this->_select = $this->_read->select();
-        $entityTable= $this->getEntity()->getEntityTable();
-        $paidTable  = $this->getAttribute('grand_total')->getBackend()->getTable();
-        $idField    = $this->getEntity()->getIdFieldName();
+        $this->_select  = $this->_read->select();
+        $entityTable    = $this->getEntity()->getEntityTable();
+        $paidTable      = $this->getAttribute('grand_total')->getBackend()->getTable();
+        $idField        = $this->getEntity()->getIdFieldName();
         $this->getSelect()
             ->from(array('sales' => $entityTable),
                 array(
                     'store_id',
-                    'lifetime'  => 'sum(sales.base_grand_total)',
-                    'avgsale'   => 'avg(sales.base_grand_total)',
-                    'num_orders'=> 'count(sales.base_grand_total)'
+                    'lifetime'      => 'sum(sales.base_grand_total)',
+                    'base_lifetime' => 'sum(sales.base_grand_total * sales.base_to_global_rate)',
+                    'avgsale'       => 'avg(sales.base_grand_total)',
+                    'base_avgsale'  => 'avg(sales.base_grand_total * sales.base_to_global_rate)',
+                    'num_orders'    => 'count(sales.base_grand_total)'
                 )
             )
             ->where('sales.entity_type_id=?', $this->getEntity()->getTypeId())
@@ -93,6 +161,10 @@ class Mage_Sales_Model_Mysql4_Sale_Collection extends Varien_Object implements I
         if ($this->_customer instanceof Mage_Customer_Model_Customer) {
             $this->getSelect()
                 ->where('sales.customer_id=?', $this->_customer->getId());
+        }
+
+        if (!is_null($this->_orderStateValue)) {
+            $this->getSelect()->where('state ' . $this->_orderStateCondition . ' (?)', $this->_orderStateValue);
         }
 
         Mage::dispatchEvent('sales_sale_collection_query_before', array('collection' => $this));
@@ -112,22 +184,17 @@ class Mage_Sales_Model_Mysql4_Sale_Collection extends Varien_Object implements I
 
                 $this->_items[ $v['store_id'] ] = $obj;
                 $this->_items[ $v['store_id'] ]->setStoreName($storeName);
+                $this->_items[ $v['store_id'] ]->setWebsiteId(Mage::app()->getStore($obj->getStoreId())->getWebsiteId());
                 $this->_items[ $v['store_id'] ]->setAvgNormalized($obj->getAvgsale() * $obj->getNumOrders());
                 foreach ($this->_totals as $key => $value) {
                     $this->_totals[$key] += $obj->getData($key);
                 }
             }
             if ($this->_totals['num_orders']) {
-                $this->_totals['avgsale'] = $this->_totals['lifetime'] / $this->_totals['num_orders'];
+                $this->_totals['avgsale'] = $this->_totals['base_lifetime'] / $this->_totals['num_orders'];
             }
         }
 
-        return $this;
-    }
-
-    public function addStoreFilter($storeIds)
-    {
-        $this->getSelect()->where('store_id IN (?)', $storeIds);
         return $this;
     }
 
@@ -136,7 +203,8 @@ class Mage_Sales_Model_Mysql4_Sale_Collection extends Varien_Object implements I
      *
      * @param boolean $printQuery
      * @param boolean $logQuery
-     * @return  Mage_Sales_Model_Mysql4_Order_Attribute_Collection_Paid
+     * @param mixed $sql
+     * @return Mage_Sales_Model_Mysql4_Sale_Collection
      */
     public function printLogQuery($printQuery = false, $logQuery = false, $sql = null) {
         if ($printQuery) {
@@ -160,8 +228,9 @@ class Mage_Sales_Model_Mysql4_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
+     * Retrieve attribute entity by specified parameter
      *
+     * @param int|string|object $attr
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getAttribute($attr)
@@ -170,7 +239,7 @@ class Mage_Sales_Model_Mysql4_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
+     * Retrieve currently used entity
      *
      * @return Mage_Eav_Model_Entity_Abstract
      */
@@ -180,7 +249,7 @@ class Mage_Sales_Model_Mysql4_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
+     * Retrieve Iterator instance of items array
      *
      * @return ArrayIterator
      */
@@ -190,7 +259,7 @@ class Mage_Sales_Model_Mysql4_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
+     * Retrieve array of items
      *
      * @return array
      */
@@ -200,7 +269,7 @@ class Mage_Sales_Model_Mysql4_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
+     * Retrieve totals data converted into Varien_Object
      *
      * @return Varien_Object
      */

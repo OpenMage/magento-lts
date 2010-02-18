@@ -110,14 +110,14 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        if ($this->getCode() && $this->getName() && ($this->getHtmlValue() || $this->getUseDefaultValue())) {
+        if ($this->getCode() && $this->getName()) {
             $variable = $this->getResource()->getVariableByCode($this->getCode());
             if (!empty($variable) && $variable['variable_id'] != $this->getId()) {
                 return Mage::helper('core')->__('Variable Code must be unique.');
             }
             return true;
         }
-        return Mage::helper('core')->__('Vaidation failed.');
+        return Mage::helper('core')->__('Validation failed.');
     }
 
     /**

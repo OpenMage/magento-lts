@@ -33,7 +33,9 @@
  */
 class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_CATEGORY_URL_SUFFIX  = 'catalog/seo/category_url_suffix';
+    const XML_PATH_CATEGORY_URL_SUFFIX          = 'catalog/seo/category_url_suffix';
+    const XML_PATH_USE_CATEGORY_CANONICAL_TAG   = 'catalog/seo/category_canonical_tag';
+
 
     /**
      * Store categories cache
@@ -168,5 +170,16 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
         }
 
         return preg_replace($regexp, $replace, $urlPath);
+    }
+
+    /**
+     * Check if <link rel="canonical"> can be used for category
+     *
+     * @param $store
+     * @return bool
+     */
+    public function canUseCanonicalTag($store = null)
+    {
+        return Mage::getStoreConfig(self::XML_PATH_USE_CATEGORY_CANONICAL_TAG, $store);
     }
 }

@@ -62,8 +62,7 @@ try {
 }
 
 $installer->run("
-    CREATE TABLE IF NOT EXISTS `{$installer->getTable('salesrule/coupon_aggregated')}`
-    (
+    CREATE TABLE `{$installer->getTable('salesrule/coupon_aggregated')}` (
         `id`                        int(11) unsigned NOT NULL auto_increment,
         `period`                    date NOT NULL DEFAULT '0000-00-00',
         `store_id`                  smallint(5) unsigned NULL DEFAULT NULL,
@@ -75,13 +74,10 @@ $installer->run("
         `total_amount`              decimal(12,4) NOT NULL DEFAULT '0',
         PRIMARY KEY (`id`),
         UNIQUE KEY `UNQ_COUPON_AGGREGATED_PSOC` (`period`,`store_id`, `order_status`, `coupon_code`),
-        KEY `FK_COUPON_AGGREGATED_STORE` (`store_id`),
-        CONSTRAINT `FK_COUPON_AGGREGATED_STORE` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`)
-            ON DELETE SET NULL ON UPDATE CASCADE
+        KEY `IDX_STORE_ID` (`store_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-    CREATE TABLE IF NOT EXISTS `{$installer->getTable('salesrule/coupon_aggregated_order')}`
-    (
+    CREATE TABLE `{$installer->getTable('salesrule/coupon_aggregated_order')}` (
         `id`                        int(11) unsigned NOT NULL auto_increment,
         `period`                    date NOT NULL DEFAULT '0000-00-00',
         `store_id`                  smallint(5) unsigned NULL DEFAULT NULL,
@@ -93,10 +89,24 @@ $installer->run("
         `total_amount`              decimal(12,4) NOT NULL DEFAULT '0',
         PRIMARY KEY (`id`),
         UNIQUE KEY `UNQ_COUPON_AGGREGATED_ORDER_PSOC` (`period`,`store_id`, `order_status`,`coupon_code`),
-        KEY `FK_COUPON_AGGREGATED_ORDER_STORE` (`store_id`),
-        CONSTRAINT `FK_COUPON_AGGREGATED_ORDER_STORE` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`)
-            ON DELETE SET NULL ON UPDATE CASCADE
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        KEY `IDX_STORE_ID` (`store_id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
+
+$installer->getConnection()->addConstraint(
+    'FK_SALESTRULE_COUPON_AGGREGATED_ORDER_STORE',
+    $this->getTable('salesrule/coupon_aggregated_order'), 
+    'store_id',
+    $this->getTable('core_store'), 
+    'store_id'
+);
+
+$installer->getConnection()->addConstraint(
+    'FK_SALESTRULE_COUPON_AGGREGATED_STORE',
+    $this->getTable('salesrule/coupon_aggregated'), 
+    'store_id',
+    $this->getTable('core_store'), 
+    'store_id'
+);
 
 $installer->endSetup();

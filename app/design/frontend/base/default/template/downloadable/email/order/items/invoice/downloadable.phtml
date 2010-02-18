@@ -48,9 +48,9 @@
             <?php endforeach; ?>
         </dl>
         <?php endif; ?>
-        <?php echo $_item->getDescription() ?>
+        <?php echo $this->htmlEscape($_item->getDescription()) ?>
     </td>
-    <td align="left" valign="top" style="padding:3px 9px"><?php echo $this->getSku($_item) ?></td>
+    <td align="left" valign="top" style="padding:3px 9px"><?php echo $this->htmlEscape($this->getSku($_item)) ?></td>
     <td align="center" valign="top" style="padding:3px 9px"><?php echo $_item->getQty()*1 ?></td>
     <td align="right" valign="top" style="padding:3px 9px">
         <?php if ($this->helper('tax')->displayCartPriceExclTax($_order->getStore()) || $this->helper('tax')->displayCartBothPrices($_order->getStore())): ?>

@@ -956,13 +956,22 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
+     * @deprecated after 1.4.0.0-rc1
+     * @see self::escapeHtml()
+     */
+    public function htmlEscape($data, $allowedTags = null)
+    {
+        return $this->escapeHtml($data, $allowedTags);
+    }
+
+    /**
      * Escape html entities
      *
      * @param   mixed $data
      * @param   array $allowedTags
-     * @return  mixed
+     * @return  string
      */
-    public function htmlEscape($data, $allowedTags = null)
+    public function escapeHtml($data, $allowedTags = null)
     {
         return $this->helper('core')->htmlEscape($data, $allowedTags);
     }

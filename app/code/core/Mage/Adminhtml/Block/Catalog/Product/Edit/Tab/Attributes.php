@@ -55,8 +55,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
             $form->setDataObject(Mage::registry('product'));
 
             $fieldset = $form->addFieldset('group_fields'.$group->getId(),
-                array('legend'=>Mage::helper('catalog')->__($group->getAttributeGroupName()))
-            );
+                array(
+                    'legend'=>Mage::helper('catalog')->__($group->getAttributeGroupName()),
+                    'class'=>'fieldset-wide',
+            ));
 
             $attributes = $this->getGroupAttributes();
 

@@ -65,10 +65,7 @@ class Mage_Core_Model_Mysql4_Email_Template extends Mage_Core_Model_Mysql4_Abstr
     /**
      * Load by template code from DB.
      *
-     * If $useSystem eq true, loading of system template
-     *
-     * @param  int $templateId
-     * @param  boolean $useSystem
+     * @param  string $templateCode
      * @return array
      */
     public function loadByCode($templateCode)

@@ -38,6 +38,8 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
      */
     public function indexAction ()
     {
+        $this->_title($this->__('Newsletter'))->_title($this->__('Newsletter Templates'));
+
         if ($this->getRequest()->getQuery('ajax')) {
             $this->_forward('grid');
             return;
@@ -76,6 +78,8 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
      */
     public function editAction ()
     {
+        $this->_title($this->__('Newsletter'))->_title($this->__('Newsletter Templates'));
+
         $model = Mage::getModel('newsletter/template');
         if ($id = $this->getRequest()->getParam('id')) {
             $model->load($id);
@@ -94,6 +98,8 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
             $breadcrumbTitle = Mage::helper('newsletter')->__('New Template');
             $breadcrumbLabel = Mage::helper('newsletter')->__('Create Newsletter Template');
         }
+
+        $this->_title($model->getId() ? $model->getTemplateCode() : $this->__('New Template'));
 
         $this->_addBreadcrumb($breadcrumbLabel, $breadcrumbTitle);
 

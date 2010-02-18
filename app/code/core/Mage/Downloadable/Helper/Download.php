@@ -199,8 +199,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     {
         $handle = $this->_getHandle();
         if ($this->_linkType == self::LINK_TYPE_FILE) {
-            if (function_exists('mime_content_type')) {
-                return mime_content_type($this->_resourceFile);
+            if (function_exists('mime_content_type') && ($contentType = mime_content_type($this->_resourceFile))) {
+                return $contentType;
             } else {
                 return Mage::helper('downloadable/file')->getFileType($this->_resourceFile);
             }

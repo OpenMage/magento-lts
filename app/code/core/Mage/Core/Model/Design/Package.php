@@ -302,6 +302,7 @@ class Mage_Core_Model_Design_Package
 
     public function getSkinBaseDir(array $params=array())
     {
+        $params['_type'] = 'skin';
         $this->updateParamDefaults($params);
         $baseDir = (empty($params['_relative']) ? Mage::getBaseDir('skin').DS : '').
             $params['_area'].DS.$params['_package'].DS.$params['_theme'];
@@ -310,6 +311,7 @@ class Mage_Core_Model_Design_Package
 
     public function getLocaleBaseDir(array $params=array())
     {
+        $params['_type'] = 'locale';
         $this->updateParamDefaults($params);
         $baseDir = (empty($params['_relative']) ? Mage::getBaseDir('design').DS : '').
             $params['_area'].DS.$params['_package'].DS.$params['_theme'] . DS . 'locale' . DS .
@@ -319,6 +321,7 @@ class Mage_Core_Model_Design_Package
 
     public function getSkinBaseUrl(array $params=array())
     {
+        $params['_type'] = 'skin';
         $this->updateParamDefaults($params);
         $baseUrl = Mage::getBaseUrl('skin', isset($params['_secure'])?(bool)$params['_secure']:null)
             .$params['_area'].'/'.$params['_package'].'/'.$params['_theme'].'/';

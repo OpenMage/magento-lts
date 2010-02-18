@@ -41,36 +41,36 @@
         echo $_helper->productAttribute($_product, $_img, 'image');
     ?>
 </p>
-<p class="a-center" id="track_hint"><?php echo $this->__('Double click on above image to view full picture') ?></p>
-<div class="image-zoom" id="track_outer">
-    <img id="zoom_out" src="<?php echo $this->getSkinUrl('images/slider_btn_zoom_out.gif') ?>" alt="<?php echo $this->__('Zoom Out') ?>" class="btn-zoom-out"/>
+<p class="zoom-notice" id="track_hint"><?php echo $this->__('Double click on above image to view full picture') ?></p>
+<div class="zoom">
+    <img id="zoom_out" src="<?php echo $this->getSkinUrl('images/slider_btn_zoom_out.gif') ?>" alt="<?php echo $this->__('Zoom Out') ?>" title="<?php echo $this->__('Zoom Out') ?>" class="btn-zoom-out" />
     <div id="track">
         <div id="handle"></div>
     </div>
-    <img id="zoom_in" src="<?php echo $this->getSkinUrl('images/slider_btn_zoom_in.gif') ?>" alt="<?php echo $this->__('Zoom In') ?>" class="btn-zoom-in"/>
+    <img id="zoom_in" src="<?php echo $this->getSkinUrl('images/slider_btn_zoom_in.gif') ?>" alt="<?php echo $this->__('Zoom In') ?>" title="<?php echo $this->__('Zoom In') ?>" class="btn-zoom-in" />
 </div>
 <script type="text/javascript">
+//<![CDATA[
     Event.observe(window, 'load', function() {
         product_zoom = new Product.Zoom('image', 'track', 'handle', 'zoom_in', 'zoom_out', 'track_hint');
     });
+//]]>
 </script>
 <?php else: ?>
 <p class="product-image">
     <?php
-        $_img = '<img src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(300).'" alt="'.$this->htmlEscape($_product->getImageLabel()).'"/>';
+        $_img = '<img src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(300).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
         echo $_helper->productAttribute($_product, $_img, 'image');
     ?>
 </p>
 <?php endif; ?>
 <?php if (count($this->getGalleryImages()) > 0): ?>
 <div class="more-views">
-    <h4><?php echo $this->__('More Views') ?></h4>
+    <h2><?php echo $this->__('More Views') ?></h2>
     <ul>
     <?php foreach ($this->getGalleryImages() as $_image): ?>
         <li>
-            <a href="#" onclick="popWin('<?php echo $this->getGalleryUrl($_image) ?>', 'gallery', 'scrollbars=yes,width=300,height=300,resizable=yes');return false;">
-                <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(70, 70); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>"/>
-            </a>
+            <a href="#" onclick="popWin('<?php echo $this->getGalleryUrl($_image) ?>', 'gallery', 'width=300,height=300,left=50,top=50,location=no,status=yes,scrollbars=yes,resizable=yes'); return false;" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(66); ?>" width="66" height="66" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" /></a>
         </li>
     <?php endforeach; ?>
     </ul>

@@ -26,6 +26,15 @@
 ?>
 <?php if (!$this->isReadonly()):?>
 <div class="entry-edit">
+    <div id="assign_product_warrning" style="display: none;">
+        <ul class="messages">
+            <li class="error-msg">
+                <ul>
+                    <li><?php echo $this->__('Links with associated products will retain only after saving current product.') ?></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
     <div class="entry-edit-head">
         <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('catalog')->__('Create Simple Associated Product') ?></h4>
     </div>

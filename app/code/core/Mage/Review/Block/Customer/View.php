@@ -102,4 +102,14 @@ class Mage_Review_Block_Customer_View extends Mage_Catalog_Block_Product_Abstrac
     {
         return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_LONG);
     }
+
+    /**
+     * Check whether current customer is review owner
+     *
+     * @return boolean
+     */
+    public function isReviewOwner()
+    {
+        return ($this->getReviewData()->getCustomerId() == Mage::getSingleton('customer/session')->getCustomerId());
+    }
 }

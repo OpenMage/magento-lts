@@ -44,7 +44,7 @@
     <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
         <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
     <?php endif; ?>
-    <h1><?php echo $_helper->categoryAttribute($_category, $this->htmlEscape($_category->getName()), 'name') ?></h1>
+    <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
 </div>
 
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>

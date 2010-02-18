@@ -74,7 +74,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
         $resource = Mage::getSingleton('core/resource');
 
         parent::__construct(
-            $resource->getConnection('catalog_read'),
+            $resource->getConnection('catalog_write'),
             $resource->getTableName('catalog/category'),
             array(
                 Varien_Data_Tree_Dbp::ID_FIELD       => 'entity_id',

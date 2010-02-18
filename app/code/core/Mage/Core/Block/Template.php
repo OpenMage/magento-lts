@@ -185,7 +185,12 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
             }
         }
 
-        include $this->_viewDir.DS.$fileName;
+        try {
+            include $this->_viewDir . DS . $fileName;
+        } catch (Exception $e) {
+            ob_get_clean();
+            throw $e;
+        }
 
         if ($this->getShowTemplateHints()) {
             echo '</div>';

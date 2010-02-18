@@ -29,19 +29,19 @@
  * Google Optimizer Category model
  *
  * @category    Mage
- * @package     Mage_Googleoptimizer
+ * @package     Mage_GoogleOptimizer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_GoogleOptimizer_Model_Code_Category extends Mage_GoogleOptimizer_Model_Code
 {
-    
+
     protected $_entityType = 'category';
 
     /**
      * Removing scripts assigned to entity
      *
      * @param integer $storeId
-     * @return Mage_Googleoptimizer_Model_Code
+     * @return Mage_GoogleOptimizer_Model_Code
      */
     public function deleteScripts($storeId)
     {

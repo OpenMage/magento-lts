@@ -38,6 +38,8 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
      */
     public function indexAction()
     {
+        $this->_title($this->__('Newsletter'))->_title($this->__('Newsletter Queue'));
+
         if ($this->getRequest()->getQuery('ajax')) {
             $this->_forward('grid');
             return;
@@ -152,15 +154,19 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
 
     public function editAction()
     {
+        $this->_title($this->__('Newsletter'))->_title($this->__('Newsletter Queue'));
+
         Mage::register('current_queue', Mage::getSingleton('newsletter/queue'));
         $id = $this->getRequest()->getParam('id');
         $templateId = $this->getRequest()->getParam('template_id');
         if ($id) {
-            Mage::registry('current_queue')->load($id);
+            $queue = Mage::registry('current_queue')->load($id);
         } elseif ($templateId) {
             $template = Mage::getModel('newsletter/template')->load($templateId)->preprocess();
-            Mage::registry('current_queue')->setTemplateId($template->getId());
+            $queue = Mage::registry('current_queue')->setTemplateId($template->getId());
         }
+
+        $this->_title($this->__('Edit Queue'));
 
         $this->loadLayout();
 

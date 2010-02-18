@@ -98,14 +98,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer_Grid extends Mage_Adminht
             'index'     =>'billing_regione',
         ));
 
-        if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_name', array(
-                'header'    =>Mage::helper('sales')->__('Signed Up From'),
-                'align'     => 'center',
-                'index'     =>'store_name',
-                'width'     =>'130px',
-            ));
-        }
+        $this->addColumn('store_name', array(
+            'header'    =>Mage::helper('sales')->__('Signed Up From'),
+            'align'     => 'center',
+            'index'     =>'store_name',
+            'width'     =>'130px',
+        ));
 
         return parent::_prepareColumns();
     }

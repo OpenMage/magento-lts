@@ -93,7 +93,8 @@ OrderReviewController.prototype = {
                             this._pleaseWait.hide();
                         }
                     }.bind(this),
-                    onSuccess: this._onSubmitShippingSuccess.bind(this)
+                    onSuccess: this._onSubmitShippingSuccess.bind(this),
+                    evalScripts: true
                 });
             }
         }
@@ -135,10 +136,10 @@ OrderReviewController.prototype = {
         this._canSubmitOrder = !isDisabled;
         if (this.formSubmit) {
             this.formSubmit.disabled = isDisabled;
-            this.formSubmit.removeClassName('disabled');
+            this.formSubmit.removeClassName('no-checkout');
             this.formSubmit.setStyle({opacity:1});
             if (isDisabled) {
-                this.formSubmit.addClassName('disabled');
+                this.formSubmit.addClassName('no-checkout');
                 this.formSubmit.setStyle({opacity:.5});
             }
         }

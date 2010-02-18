@@ -35,6 +35,8 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
 {
     public function indexAction()
     {
+        $this->_title($this->__('Sales'))->_title($this->__('Terms and Conditions'));
+
         $this->_initAction()
             ->_addContent($this->getLayout()->createBlock('adminhtml/checkout_agreement'))
             ->renderLayout();
@@ -48,6 +50,8 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
 
     public function editAction()
     {
+        $this->_title($this->__('Sales'))->_title($this->__('Terms and Conditions'));
+
         $id  = $this->getRequest()->getParam('id');
         $agreementModel  = Mage::getModel('checkout/agreement');
         $hlp = Mage::helper('checkout');
@@ -59,6 +63,8 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
                 return;
             }
         }
+
+        $this->_title($agreementModel->getId() ? $agreementModel->getName() : $this->__('New Condition'));
 
         $data = Mage::getSingleton('adminhtml/session')->getAgreementData(true);
         if (!empty($data)) {

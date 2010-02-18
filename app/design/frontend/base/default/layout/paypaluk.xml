@@ -27,25 +27,27 @@
 
 -->
 <layout version="0.1.0">
-
-<!--
-Shopping cart
--->
-
     <checkout_cart_index>
-        <!-- Mage_Paypal -->
+        <reference name="checkout.cart.top_methods">
+            <block type="paypal/express_shortcut" name="checkout.cart.methods.paypaluk_express" template="paypal/express/shortcut.phtml">
+                <action method="setPaymentModelType"><type>paypaluk/express</type></action>
+                <action method="setProModelType"><type>paypaluk/pro</type></action>
+                <action method="setPaymentMethod"><type>paypaluk_express</type></action>
+                <action method="setStartAction"><type>paypaluk/express/start</type></action>
+            </block>
+        </reference>
         <reference name="checkout.cart.methods">
-            <block type="paypaluk/link_shortcut" name="checkout.cart.methods.paypaluk_express" template="paypaluk/link.phtml"/>
+            <block type="paypal/express_shortcut" name="checkout.cart.methods.paypaluk_express" template="paypal/express/shortcut.phtml">
+                <action method="setPaymentModelType"><type>paypaluk/express</type></action>
+                <action method="setProModelType"><type>paypaluk/pro</type></action>
+                <action method="setPaymentMethod"><type>paypaluk_express</type></action>
+                <action method="setStartAction"><type>paypaluk/express/start</type></action>
+            </block>
         </reference>
     </checkout_cart_index>
 
-<!--
-PayPal Express Review page after shortcut link invocation and after getting express checkout details
--->
-
     <paypaluk_express_review translate="label">
-        <label>PayPalUK Express Order Review Form</label>
-        <!-- Mage_Paypal -->
+        <label>PayPal Express Order Review Form</label>
         <remove name="right"/>
         <remove name="left"/>
 
@@ -53,31 +55,28 @@ PayPal Express Review page after shortcut link invocation and after getting expr
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         <reference name="content">
-            <block type="paypaluk/express_review" name="paypaluk_express_review" template="paypaluk/express/review.phtml">
-                <block type="paypaluk/express_review_details" name="paypaluk_express_review_details" as="details" template="paypaluk/express/review/details.phtml"/>
+            <block type="paypal/express_review" name="paypal.express.review" template="paypal/express/review.phtml">
+                <action method="setPaypalActionPrefix"><prefix>paypaluk</prefix></action>
+                <block type="paypal/express_review_details" name="paypal.express.review.details" as="details" template="paypal/express/review/details.phtml">
+                    <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
+                    <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>
+                    <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
+                    <block type="checkout/cart_totals" name="paypal.express.review.details.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+                </block>
             </block>
+        </reference>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/checkout/review.js</name></action>
         </reference>
     </paypaluk_express_review>
 
-<!--
-PayPalUk Express Review details block
--->
-
-    <paypaluk_express_review_details>
-        <!-- Mage_Paypal -->
-        <block type="paypaluk/express_review_details" name="root" output="toHtml" template="paypaluk/express/review/details.phtml"/>
-    </paypaluk_express_review_details>
-
-    <paypaluk_direct_validate>
-        <block type="paypaluk/direct_validate" name="root" output="toHtml" template="paypaluk/direct/validate.phtml"/>
-    </paypaluk_direct_validate>
-
-    <paypaluk_direct_finalizevalidate>
-        <block type="paypaluk/direct_finalize" name="root" output="toHtml" template="paypaluk/direct/finalize.phtml"/>
-    </paypaluk_direct_finalizevalidate>
-
-    <paypaluk_direct_termvalidate>
-        <block type="paypaluk/direct_finalize" name="root" output="toHtml" template="paypaluk/direct/finalize.phtml"/>
-    </paypaluk_direct_termvalidate>
-
+    <paypal_express_review_details>
+        <block type="paypal/express_review_details" name="root" output="toHtml" template="paypal/express/review/details.phtml">
+            <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
+            <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>
+            <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
+            <block type="checkout/cart_totals" name="paypal.express.review.details.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+        </block>
+    </paypal_express_review_details>
 </layout>
+

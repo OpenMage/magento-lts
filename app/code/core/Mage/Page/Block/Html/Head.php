@@ -236,7 +236,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     protected function &_prepareStaticAndSkinElements($format, array $staticItems, array $skinItems, $mergeCallback = null)
     {
         $designPackage = Mage::getDesign();
-        $baseUrl = Mage::getBaseUrl('web');
+        $baseJsUrl = Mage::getBaseUrl('js');
         $items = array();
         if ($mergeCallback && !is_callable($mergeCallback)) {
             $mergeCallback = null;
@@ -245,8 +245,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         // get static files from the js folder, no need in lookups
         foreach ($staticItems as $params => $rows) {
             foreach ($rows as $name) {
-                $items[$params][] = $mergeCallback ? Mage::getBaseDir() . DS . 'js' . DS . $name
-                    : $baseUrl . 'js/' . $name;
+                $items[$params][] = $mergeCallback ? Mage::getBaseDir() . DS . 'js' . DS . $name : $baseJsUrl . $name;
             }
         }
 

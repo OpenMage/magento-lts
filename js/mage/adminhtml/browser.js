@@ -17,8 +17,8 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
+ * @category    Mage
+ * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
@@ -28,7 +28,7 @@ MediabrowserUtility = {
             Windows.focus('browser_window');
             return;
         }
-        Dialog.info(null, {
+        this.dialogWindow = Dialog.info(null, {
             closable:     true,
             resizable:    false,
             draggable:    true,
@@ -41,10 +41,20 @@ MediabrowserUtility = {
             recenterAuto: false,
             hideEffect:   Element.hide,
             showEffect:   Element.show,
-            id:           'browser_window'
+            id:           'browser_window',
+            onClose: this.closeDialog.bind(this)
         });
-
         new Ajax.Updater('modal_dialog_message', url, {evalScripts: true});
+    },
+    closeDialog: function(window) {
+        if (!window) {
+            window = this.dialogWindow;
+        }
+        if (window) {
+            // IE fix - hidden form select fields after closing dialog
+            WindowUtilities._showSelect();
+            window.close();
+        }
     }
 };
 
@@ -103,11 +113,13 @@ Mediabrowser.prototype = {
                     this.currentNode.select();
                     this.onAjaxSuccess(transport);
                     this.hideElement('loading-mask');
-                    $('contents').update(transport.responseText);
-                    $$('div.filecnt').each(function(s) {
-                        Event.observe(s.id, 'click', this.selectFile.bind(this));
-                        Event.observe(s.id, 'dblclick', this.insert.bind(this));
-                    }.bind(this));
+                    if ($('contents') != undefined) {
+                        $('contents').update(transport.responseText);
+                        $$('div.filecnt').each(function(s) {
+                            Event.observe(s.id, 'click', this.selectFile.bind(this));
+                            Event.observe(s.id, 'dblclick', this.insert.bind(this));
+                        }.bind(this));
+                    }
                 } catch(e) {
                     alert(e.message);
                 }
@@ -342,7 +354,9 @@ Mediabrowser.prototype = {
 
     updateHeader: function(node) {
         var header = (node.id == 'root' ? this.headerText : node.text);
-        $('content_header_text').innerHTML = header;
+        if ($('content_header_text') != undefined) {
+            $('content_header_text').innerHTML = header;
+        }
     },
 
     activateBlock: function(id) {
@@ -351,13 +365,17 @@ Mediabrowser.prototype = {
     },
 
     hideElement: function(id) {
-        $(id).addClassName('no-display');
-        $(id).hide();
+        if ($(id) != undefined) {
+            $(id).addClassName('no-display');
+            $(id).hide();
+        }
     },
 
     showElement: function(id) {
-        $(id).removeClassName('no-display');
-        $(id).show();
+        if ($(id) != undefined) {
+            $(id).removeClassName('no-display');
+            $(id).show();
+        }
     },
 
     onAjaxSuccess: function(transport) {

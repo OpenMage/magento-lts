@@ -50,12 +50,12 @@
         <?php endforeach; ?>
         </dl>
         <?php endif; ?>
-        <?php echo $_item->getDescription() ?>
+        <?php echo $this->htmlEscape($_item->getDescription()) ?>
         <?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $_item) && $_item->getGiftMessageId()): ?>
             <br /><a href="#" id="order-item-gift-message-link-<?php echo $_item->getId() ?>" class="giftmessage-preview-link expand" onclick="return giftMessageToogle('<?php echo $_item->getId() ?>')"><?php echo $this->__('Gift Message') ?></a>
         <?php endif; ?>
     </td>
-    <td><?php echo Mage::helper('core/string')->splitInjection($this->getSku()) ?></td>
+    <td><?php echo $this->htmlEscape(Mage::helper('core/string')->splitInjection($this->getSku())) ?></td>
     <td class="a-right nowrap">
         <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceExclTax()): ?>
             <span class="price-excl-tax">

@@ -1,3 +1,28 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
 body, td, pre { color:#2f2f2f; font-family:Arial, Helvetica, sans-serif; font-size:12px; margin:8px; }
 body { background:#fff; }
 body.mceForceColors { background:#fff; color:#2f2f2f; }
@@ -8,8 +33,6 @@ h4 {font-size: 1em}
 h5 {font-size: .83em}
 h6 {font-size: .75em}
 .mceItemTable, .mceItemTable td, .mceItemTable th, .mceItemTable caption, .mceItemVisualAid {border: 1px dashed #BBB;}
-a.mceItemAnchor {width:12px; line-height:6px; overflow:hidden; padding-left:12px; background:url(img/items.gif) no-repeat bottom left;}
-img.mceItemAnchor {width:12px; height:12px; background:url(img/items.gif) no-repeat;}
 img {border:0; vertical-align:middle; }
 table {cursor:default}
 table td, table th {cursor:text}

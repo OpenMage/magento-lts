@@ -32,7 +32,7 @@
 
 <?php if ($this->isShow()): ?>
 <p class="switcher"><label for="store_switcher"><?php echo $this->__('Show Report for') ?>:</label>
-<select name="store_switcher" id="store_switcher" class="left-col-block" onchange="return switchStore(this);">
+<select name="store_switcher" id="store_switcher" onchange="return switchStore(this);">
     <option value=""><?php echo $this->__('All Websites') ?></option>
     <?php foreach ($this->getWebsiteCollection() as $_website): ?>
         <?php $showWebsite=false; ?>

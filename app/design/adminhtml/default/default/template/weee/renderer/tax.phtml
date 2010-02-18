@@ -35,9 +35,9 @@
         <?php if ($_multiWebsite): ?>
         <col width="135" />
         <?php endif; ?>
-        <col width="215" />
+        <col width="140" />
         <col />
-        <col width="75" />
+        <col width="1" />
         <thead>
             <tr class="headings">
                 <th <?php if (!$_multiWebsite): ?>style="display:none"<?php endif; ?>><?php echo Mage::helper('sales')->__('Website') ?></th>
@@ -54,13 +54,13 @@
                 </select>
                 </td>
                 <td class="nobr">
-                <select disabled="no-template" class="<?php echo $_htmlClass ?> country required-entry" name="<?php echo $_htmlName ?>[__index__][country]" id="#{prefix}_weee_tax_row___index___country" style="width: 100%">
+                <select disabled="no-template" class="<?php echo $_htmlClass ?> country required-entry" name="<?php echo $_htmlName ?>[__index__][country]" id="#{prefix}_weee_tax_row___index___country">
                     <?php foreach ($this->getCountries() as $_country): ?>
                     <option value="<?php echo $_country['value'] ?>"><?php echo htmlspecialchars($_country['label']) ?></option>
                     <?php endforeach ?>
                 </select>
                 <br />
-                <select disabled="no-template" class="<?php echo $_htmlClass ?> state" name="<?php echo $_htmlName ?>[__index__][state]" id="#{prefix}_weee_tax_row___index___state" style="width: 100%">
+                <select disabled="no-template" class="<?php echo $_htmlClass ?> state" name="<?php echo $_htmlName ?>[__index__][state]" id="#{prefix}_weee_tax_row___index___state">
                     <option value="">*</option>
                 </select>
                 </td>

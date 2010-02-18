@@ -43,6 +43,25 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     protected $_resource;
 
     /**
+     * Apply current configuration array to transport resource
+     */
+    protected function _applyConfig()
+    {
+        //curl_setopt();
+        if (isset($this->_config['timeout'])) {
+            curl_setopt($this->_getResource(), CURLOPT_TIMEOUT, $this->_config['timeout']);
+        }
+        if (isset($this->_config['maxredirects'])) {
+            curl_setopt($this->_getResource(), CURLOPT_MAXREDIRS, $this->_config['maxredirects']);
+        }
+        if (isset($this->_config['proxy'])) {
+            curl_setopt ($this->_getResource(), CURLOPT_PROXY, $this->_config['proxy']);
+        }
+
+        return $this;
+    }
+
+    /**
      * Set the configuration array for the adapter
      *
      * @param array $config
@@ -59,6 +78,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      * @param string  $host
      * @param int     $port
      * @param boolean $secure
+     * @deprecated since 1.4.0.0-rc1
      */
     public function connect($host, $port = 80, $secure = false)
     {
@@ -91,6 +111,8 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         if ($url instanceof Zend_Uri_Http) {
             $url = $url->getUri();
         }
+        $this->_applyConfig();
+
         // set url to post to
         curl_setopt($this->_getResource(), CURLOPT_URL, $url);
         curl_setopt($this->_getResource(), CURLOPT_RETURNTRANSFER, true);
@@ -99,7 +121,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
             curl_setopt($this->_getResource(), CURLOPT_POSTFIELDS, $body);
         }
         elseif ($method == Zend_Http_Client::GET) {
-        	curl_setopt($this->_getResource(), CURLOPT_HTTPGET, true);
+            curl_setopt($this->_getResource(), CURLOPT_HTTPGET, true);
         }
 
         if( is_array($headers) ) {

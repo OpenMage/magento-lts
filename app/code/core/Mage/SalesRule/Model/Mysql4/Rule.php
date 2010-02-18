@@ -172,7 +172,7 @@ class Mage_SalesRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
                 }
 
                 $subQuery = $writeAdapter->select();
-                $subQuery->from(array('so'=>'sales_order'), array('DISTINCT DATE(so.created_at)'))
+                $subQuery->from(array('so' => $this->getTable('sales/order')), array('DISTINCT DATE(so.created_at)'))
                     ->where($where);
 
                 $deleteCondition = 'DATE(period) IN (' . new Zend_Db_Expr($subQuery) . ')';
@@ -267,7 +267,7 @@ class Mage_SalesRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
                 }
 
                 $subQuery = $writeAdapter->select();
-                $subQuery->from(array('so'=>'sales_order'), array('DISTINCT DATE(so.created_at)'))
+                $subQuery->from(array('so' => $this->getTable('sales/order')), array('DISTINCT DATE(so.created_at)'))
                     ->where($where);
 
                 $deleteCondition = 'DATE(period) IN (' . new Zend_Db_Expr($subQuery) . ')';

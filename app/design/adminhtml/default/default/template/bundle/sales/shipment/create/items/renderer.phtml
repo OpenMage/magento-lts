@@ -61,7 +61,7 @@
         <td><h5 class="title"><?php echo $this->htmlEscape($_item->getName()) ?></h5>
             <div>
                 <strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong>
-                <?php echo implode('<br />', Mage::helper('catalog')->splitSku($_item->getSku())); ?>
+                <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->htmlEscape($_item->getSku()))); ?>
             </div>
         </td>
         <?php else: ?>
@@ -110,7 +110,7 @@
                         <?php else: ?>
                 &nbsp;
                         <?php endif; ?>
-            <?php echo $_item->getDescription() ?>
+            <?php echo $this->htmlEscape($_item->getDescription()) ?>
         </td>
         <td>&nbsp;</td>
         <td class="last">&nbsp;</td>

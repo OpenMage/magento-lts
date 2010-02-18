@@ -75,7 +75,7 @@ class Mage_Sales_Model_Mysql4_Report_Shipping extends Mage_Core_Model_Mysql4_Abs
                 }
 
                 $subQuery = $writeAdapter->select();
-                $subQuery->from(array('so'=>'sales_order'), array('DISTINCT DATE(so.created_at)'))
+                $subQuery->from(array('so'=>$this->getTable('sales/order')), array('DISTINCT DATE(so.created_at)'))
                     ->where($where);
 
                 $deleteCondition = 'DATE(period) IN (' . new Zend_Db_Expr($subQuery) . ')';
@@ -168,7 +168,7 @@ class Mage_Sales_Model_Mysql4_Report_Shipping extends Mage_Core_Model_Mysql4_Abs
                 }
 
                 $subQuery = $writeAdapter->select();
-                $subQuery->from(array('so'=>'sales_order'), array('DISTINCT DATE(so.created_at)'))
+                $subQuery->from(array('so'=>$this->getTable('sales/order')), array('DISTINCT DATE(so.created_at)'))
                     ->where($where);
 
                 $deleteCondition = 'DATE(period) IN (' . new Zend_Db_Expr($subQuery) . ')';
@@ -188,17 +188,17 @@ class Mage_Sales_Model_Mysql4_Report_Shipping extends Mage_Core_Model_Mysql4_Abs
             $shipmentAttr = $shipment->getAttribute('order_id');
 
             $select = $writeAdapter->select()
-                    ->from(array('soe' => 'sales_order_entity'), $columns)
+                    ->from(array('soe' => $this->getTable('sales/order_entity')), $columns)
                     ->where('state <> ?', 'canceled');
 
 
-            $select->joinInner(array('soei' => $shipmentAttr->getBackend()->getTable()), "`soei`.`entity_id` = `soe`.`entity_id`
+            $select->joinInner(array('soei' => $this->getTable($shipmentAttr->getBackend()->getTable())), "`soei`.`entity_id` = `soe`.`entity_id`
                 AND `soei`.`attribute_id` = {$shipmentAttr->getAttributeId()}
                 AND `soei`.`entity_type_id` = `soe`.`entity_type_id`",
                 array()
             );
 
-            $select->joinInner(array('so' => 'sales_order'),
+            $select->joinInner(array('so' => $this->getTable('sales/order')),
                 '`soei`.`value` = `so`.`entity_id`  AND `so`.base_total_invoiced > 0',
                 array()
             );

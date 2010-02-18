@@ -55,8 +55,12 @@ class Mage_Payment_Model_Observer
             $order->getState() === Mage_Sales_Model_Order::STATE_CLOSED ) {
             return $this;
         }
-
-        $order->setForcedCanCreditmemo(true);
+        /**
+         * Allow forced creditmemo just in case if it wasn't defined before
+         */
+        if (!$order->hasForcedCanCreditmemo()) {
+            $order->setForcedCanCreditmemo(true);
+        }
         return $this;
     }
 }

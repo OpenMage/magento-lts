@@ -93,9 +93,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info
      */
     public function getGiftmessageHtml()
     {
-        if (!$this->getOrder()->canInvoice()) {
-            return '';
-        }
         return $this->getChildHtml('order_giftmessage');
     }
 

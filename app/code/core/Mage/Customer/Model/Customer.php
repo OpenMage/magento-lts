@@ -50,9 +50,23 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
     protected $_eventPrefix = 'customer';
     protected $_eventObject = 'customer';
-    protected $_addresses = null;
     protected $_errors    = array();
     protected $_attributes;
+
+    /**
+     * Customer addresses array
+     *
+     * @var array
+     * @deprecated after 1.4.0.0-rc1
+     */
+    protected $_addresses = null;
+
+    /**
+     * Customer addresses collection
+     *
+     * @var Mage_Customer_Model_Entity_Address_Collection
+     */
+    protected $_addressesCollection;
 
     /**
      * Is model deleteable
@@ -187,6 +201,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function addAddress(Mage_Customer_Model_Address $address)
     {
+        $this->getAddressesCollection()->addItem($address);
         $this->getAddresses();
         $this->_addresses[] = $address;
         return $this;
@@ -205,13 +220,41 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Getting customer address object from collection by identifier
+     *
+     * @param int $addressId
+     * @return Mage_Customer_Model_Address
+     */
+    public function getAddressItemById($addressId)
+    {
+        return $this->getAddressesCollection()->getItemById($addressId);
+    }
+
+    /**
      * Retrieve not loaded address collection
      *
-     * @return Mage_Customer_Model_Address_Collection
+     * @return Mage_Customer_Model_Entity_Address_Collection
      */
     public function getAddressCollection()
     {
         return Mage::getResourceModel('customer/address_collection');
+    }
+
+    /**
+     * Customer addresses collection
+     *
+     * @return Mage_Customer_Model_Entity_Address_Collection
+     */
+    public function getAddressesCollection()
+    {
+        if (is_null($this->_addressesCollection)) {
+            $this->_addressesCollection = $this->getAddressCollection()
+                ->setCustomerFilter($this)
+                ->addAttributeToSelect('*')
+                ->load();
+        }
+
+        return $this->_addressesCollection;
     }
 
     /**
@@ -221,17 +264,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getAddresses()
     {
-        if (is_null($this->_addresses)) {
-            $this->_addresses = array();
-            $collection = $this->getAddressCollection()
-                ->setCustomerFilter($this)
-                ->addAttributeToSelect('*')
-                ->load();
-            foreach ($collection as $address) {
-                $this->_addresses[] = $address;
-            }
-        }
-
+        $this->_addresses = $this->getAddressesCollection()->getItems();
         return $this->_addresses;
     }
 
@@ -345,16 +378,9 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getPrimaryAddress($attributeCode)
     {
-        $addressId = $this->getData($attributeCode);
-        $primaryAddress = false;
-        if ($addressId) {
-            foreach ($this->getAddresses() as $address) {
-                if ($addressId == $address->getId()) {
-                    return $address;
-                }
-            }
-        }
-        return $primaryAddress;
+        $primaryAddress = $this->getAddressesCollection()->getItemById($this->getData($attributeCode));
+
+        return $primaryAddress ? $primaryAddress : false;
     }
 
     /**
@@ -450,7 +476,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     {
         $addresses = array();
         $primatyIds = $this->getPrimaryAddressIds();
-        foreach ($this->getAddresses() as $address) {
+        foreach ($this->getAddressesCollection() as $address) {
             if (!in_array($address->getId(), $primatyIds)) {
                 $addresses[] = $address;
             }
@@ -914,7 +940,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     function cleanAllAddresses() {
-        $this->_addresses = null;
+        $this->_addressesCollection = null;
+        $this->_addresses           = null;
     }
 
     function addError($error)

@@ -30,21 +30,20 @@
  * @see Mage_Catalog_Block_Product_View
  */
 ?>
-<ul class="tabs">
+<ul class="product-tabs">
     <?php foreach ($this->getTabs() as $_index => $_tab): ?>
         <?php if($this->getChildHtml($_tab['alias'])): ?>
-            <li id="product_tabs_<?php echo $_tab['alias'] ?>" <?php echo !$_index ? 'class="active first"' : '' ?>><a href="#"><?php echo $_tab['title']?></a></li>
+            <li id="product_tabs_<?php echo $_tab['alias'] ?>" class="<?php echo !$_index?' active first':(($_index==count($this->getTabs())-1)?' last':'')?>"><a href="#"><?php echo $_tab['title']?></a></li>
         <?php endif; ?>
     <?php endforeach; ?>
 </ul>
-<div class="padder">
-    <?php foreach ($this->getTabs() as $_index => $_tab): ?>
-        <?php if($this->getChildHtml($_tab['alias'])): ?>
-            <div id="product_tabs_<?php echo $_tab['alias'] ?>_contents"><?php echo $this->getChildHtml($_tab['alias']) ?></div>
-        <?php endif; ?>
-    <?php endforeach; ?>
-</div>
+<?php foreach ($this->getTabs() as $_index => $_tab): ?>
+    <?php if($this->getChildHtml($_tab['alias'])): ?>
+        <div class="product-tabs-content" id="product_tabs_<?php echo $_tab['alias'] ?>_contents"><?php echo $this->getChildHtml($_tab['alias']) ?></div>
+    <?php endif; ?>
+<?php endforeach; ?>
 <script type="text/javascript">
+//<![CDATA[
 Varien.Tabs = Class.create();
 Varien.Tabs.prototype = {
   initialize: function(selector) {
@@ -74,5 +73,6 @@ Varien.Tabs.prototype = {
     });
   }
 }
-new Varien.Tabs('.tabs');
+new Varien.Tabs('.product-tabs');
+//]]>
 </script>

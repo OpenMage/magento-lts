@@ -89,6 +89,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      */
     public function indexAction()
     {
+        $this->_title($this->__('Sales'))->_title($this->__('Orders'));
+
         $this->_initAction()
             ->_addContent($this->getLayout()->createBlock('adminhtml/sales_order'))
             ->renderLayout();
@@ -110,9 +112,14 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      */
     public function viewAction()
     {
+        $this->_title($this->__('Sales'))->_title($this->__('Orders'));
+
         if ($order = $this->_initOrder()) {
-            $this->_initAction()
-                ->renderLayout();
+            $this->_initAction();
+
+            $this->_title(sprintf("#%s", $order->getRealOrderId()));
+    
+            $this->renderLayout();
         }
     }
 
@@ -293,19 +300,26 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     {
         $orderIds = $this->getRequest()->getPost('order_ids', array());
         $countCancelOrder = 0;
+        $countNonCancelOrder = 0;
         foreach ($orderIds as $orderId) {
             $order = Mage::getModel('sales/order')->load($orderId);
             if ($order->canCancel()) {
                 $order->cancel()
                     ->save();
                 $countCancelOrder++;
+            } else {
+                $countNonCancelOrder++;
             }
         }
-        if ($countCancelOrder>0) {
-            $this->_getSession()->addSuccess($this->__('%s order(s) successfully canceled', $countCancelOrder));
+        if ($countNonCancelOrder) {
+            if ($countCancelOrder) {
+                $this->_getSession()->addError($this->__('%s order(s) can not be canceled', $countNonCancelOrder));
+            } else {
+                $this->_getSession()->addError($this->__('Order(s) can not be canceled'));
+            }
         }
-        else {
-            // selected orders is not available for cancel
+        if ($countCancelOrder) {
+            $this->_getSession()->addSuccess($this->__('%s order(s) successfully canceled', $countCancelOrder));
         }
         $this->_redirect('*/*/');
     }
@@ -317,20 +331,28 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     {
         $orderIds = $this->getRequest()->getPost('order_ids', array());
         $countHoldOrder = 0;
+        $countNonHoldOrder = 0;
         foreach ($orderIds as $orderId) {
             $order = Mage::getModel('sales/order')->load($orderId);
             if ($order->canHold()) {
                 $order->hold()
                     ->save();
                 $countHoldOrder++;
+            } else {
+                $countNonHoldOrder++;
             }
         }
-        if ($countHoldOrder>0) {
+        if ($countNonHoldOrder) {
+            if ($countHoldOrder) {
+                $this->_getSession()->addError($this->__('%s order(s) not put on hold', $countNonHoldOrder));
+            } else {
+                $this->_getSession()->addError($this->__('No order(s) put on hold'));
+            }
+        }
+        if ($countHoldOrder) {
             $this->_getSession()->addSuccess($this->__('%s order(s) successfully put on hold', $countHoldOrder));
         }
-        else {
-            // selected orders is not available for hold
-        }
+
         $this->_redirect('*/*/');
     }
 
@@ -341,19 +363,27 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     {
         $orderIds = $this->getRequest()->getPost('order_ids', array());
         $countUnholdOrder = 0;
+        $countNonUnholdOrder = 0;
+
         foreach ($orderIds as $orderId) {
             $order = Mage::getModel('sales/order')->load($orderId);
             if ($order->canUnhold()) {
                 $order->unhold()
                     ->save();
                 $countUnholdOrder++;
+            } else {
+                $countNonUnholdOrder++;
             }
         }
-        if ($countUnholdOrder>0) {
-            $this->_getSession()->addSuccess($this->__('%s order(s) successfully released from holding status', $countUnholdOrder));
+        if ($countNonUnholdOrder) {
+            if ($countUnholdOrder) {
+                $this->_getSession()->addError($this->__('%s order(s) not released from holding status', $countNonUnholdOrder));
+            } else {
+                $this->_getSession()->addError($this->__('No order(s) released from holding status'));
+            }
         }
-        else {
-            // selected orders is not available for hold
+        if ($countUnholdOrder) {
+            $this->_getSession()->addSuccess($this->__('%s order(s) successfully released from holding status', $countUnholdOrder));
         }
         $this->_redirect('*/*/');
     }

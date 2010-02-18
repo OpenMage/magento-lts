@@ -48,7 +48,7 @@
                     <a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->htmlEscape($_product->getName()) ?></a>
                     <?php echo $this->getSummaryHtml($_product, 'short') ?>
                     <?php echo $this->getPriceHtml($_product) ?>
-                    <?php echo $_product->getDescription() ?>
+                    <?php echo $this->htmlEscape($_product->getDescription()) ?>
                 </td>
                 <td class="a-center">
                     <?php if($_product->isSaleable()): ?>

@@ -52,7 +52,6 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         'item_name'        => 'cart_summary',
         // page design settings
         'page_style'             => 'page_style',
-        'image_url'              => 'logo_url',
         'cpp_header_image'       => 'hdrimg',
         'cpp_headerback_color'   => 'hdrbackcolor',
         'cpp_headerborder_color' => 'hdrbordercolor',
@@ -70,7 +69,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
      */
     protected $_commonRequestFields = array(
         'business', 'invoice', 'currency_code', 'paymentaction', 'return', 'cancel_return', 'notify_url', 'bn',
-        'page_style', 'image_url', 'cpp_header_image', 'cpp_headerback_color', 'cpp_headerborder_color', 'cpp_payflow_color'
+        'page_style', 'cpp_header_image', 'cpp_headerback_color', 'cpp_headerborder_color', 'cpp_payflow_color'
     );
     protected $_aggregatedOrderFields = array('item_name', 'amount', 'shipping');
 

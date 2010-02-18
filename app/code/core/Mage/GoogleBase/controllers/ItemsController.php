@@ -45,6 +45,10 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
 
     public function indexAction()
     {
+        $this->_title($this->__('Catalog'))
+             ->_title($this->__('Google base'))
+             ->_title($this->__('Manage Items'));
+
         if (0 === (int)$this->getRequest()->getParam('store')) {
             $this->_redirect('*/*/', array('store' => Mage::app()->getAnyStoreView()->getId(), '_current' => true));
             return;
@@ -91,29 +95,34 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
     public function massAddAction()
     {
         $storeId = $this->_getStore()->getId();
-        $productIds = $this->getRequest()->getParam('product');
+        $productIds = $this->getRequest()->getParam('product', null);
 
         $totalAdded = 0;
 
         try {
-            foreach ($productIds as $productId) {
-                $product = Mage::getSingleton('catalog/product')
-                    ->setStoreId($storeId)
-                    ->load($productId);
+            if (is_array($productIds)) {
+                foreach ($productIds as $productId) {
+                    $product = Mage::getSingleton('catalog/product')
+                        ->setStoreId($storeId)
+                        ->load($productId);
 
-                if ($product->getId()) {
-                    Mage::getModel('googlebase/item')
-                        ->setProduct($product)
-                        ->insertItem()
-                        ->save();
+                    if ($product->getId()) {
+                        Mage::getModel('googlebase/item')
+                            ->setProduct($product)
+                            ->insertItem()
+                            ->save();
 
-                    $totalAdded++;
+                        $totalAdded++;
+                    }
                 }
             }
+
             if ($totalAdded > 0) {
                 $this->_getSession()->addSuccess(
                     $this->__('Total of %d product(s) were successfully added to Google Base', $totalAdded)
                 );
+            } elseif (is_null($productIds)) {
+                $this->_getSession()->addError($this->__('Session expired during export. Please, revise exported products and repeat a process if necessary'));
             } else {
                 $this->_getSession()->addError($this->__('No products were added to Google Base'));
             }

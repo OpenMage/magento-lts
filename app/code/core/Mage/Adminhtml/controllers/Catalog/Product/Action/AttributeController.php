@@ -142,7 +142,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                 ));
 
                 $this->_getSession()->addNotice(
-                    $this->__('Please refresh "Catalog Rewrites" and "Layered Navigation Indices" in System -> <a href="%s">Cache Management</a>', $this->getUrl('adminhtml/system_cache'))
+                    $this->__('Please refresh "Catalog Url Rewrites" and "Product Attributes" in System -> <a href="%s">Index Management</a>', $this->getUrl('adminhtml/process/list'))
                 );
             }
 

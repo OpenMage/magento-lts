@@ -182,7 +182,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                 case Mage_Tax_Model_Config::DISPLAY_TYPE_BOTH:
                     return self::PRICE_CONVERSION_MINUS;
                 case Mage_Tax_Model_Config::DISPLAY_TYPE_INCLUDING_TAX:
-                    $res = false;
+                    $res = true;
             }
         } else {
             switch ($this->getPriceDisplayType($store)) {
@@ -451,10 +451,20 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                     if ($includingPercent != $percent) {
                         $price = $this->_calculatePrice($price, $includingPercent, false);
                         /**
-                         * Round up price excluding tax if customer tax rate !=0
+                         * Using regular rounding. Ex:
+                         * price incl tax   = 52.76
+                         * store tax rate   = 19.6%
+                         * customer tax rate= 19%
+                         *
+                         * price excl tax = 52.76 / 1.196 = 44.11371237 ~ 44.11
+                         * tax = 44.11371237 * 0.19 = 8.381605351 ~ 8.38
+                         * price incl tax = 52.49531773 ~ 52.50 != 52.49
+                         *
+                         * that why we need round prices excluding tax before applying tax
+                         * this calculation is used for showing prices on catalog pages
                          */
                         if ($percent != 0) {
-                            $price = $this->getCalculator()->roundUp($price);
+                            $price = $this->getCalculator()->round($price);
                             $price = $this->_calculatePrice($price, $percent, true);
                         }
                     }

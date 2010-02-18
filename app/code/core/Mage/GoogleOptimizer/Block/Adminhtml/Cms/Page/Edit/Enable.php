@@ -31,7 +31,7 @@
  * @package     Mage_GoogleOptimizer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Googleoptimizer_Block_Adminhtml_Cms_Page_Edit_Enable extends Mage_Adminhtml_Block_Template
+class Mage_GoogleOptimizer_Block_Adminhtml_Cms_Page_Edit_Enable extends Mage_Adminhtml_Block_Template
 {
     /**
      * Utility method to call method of specified block
@@ -41,7 +41,7 @@ class Mage_Googleoptimizer_Block_Adminhtml_Cms_Page_Edit_Enable extends Mage_Adm
      * @param string $name
      * @param string $method
      * @param array $params
-     * @return Mage_Googleoptimizer_Block_Adminhtml_Cms_Page_Edit_Enable
+     * @return Mage_GoogleOptimizer_Block_Adminhtml_Cms_Page_Edit_Enable
      */
     public function ifGoogleOptimizerEnabled($name, $method, $params = array())
     {
@@ -63,7 +63,7 @@ class Mage_Googleoptimizer_Block_Adminhtml_Cms_Page_Edit_Enable extends Mage_Adm
      * @param string $name
      * @param string $type
      * @param string $attributes
-     * @return Mage_Googleoptimizer_Block_Adminhtml_Cms_Page_Edit_Enable
+     * @return Mage_GoogleOptimizer_Block_Adminhtml_Cms_Page_Edit_Enable
      */
     public function ifGoogleOptimizerEnabledAppend($container, $name, $type, $attributes = array())
     {

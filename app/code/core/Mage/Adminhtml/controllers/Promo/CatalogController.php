@@ -37,6 +37,8 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
 
     public function indexAction()
     {
+        $this->_title($this->__('Promotions'))->_title($this->__('Catalog Price Rules'));
+
         if (Mage::app()->loadCache('catalog_rules_dirty')) {
             Mage::getSingleton('adminhtml/session')->addNotice(Mage::helper('catalogrule')->__('There are rules that have been changed but not applied. Please, click Apply Rules in order to see immediate effect in catalog.'));
         }
@@ -53,6 +55,8 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
 
     public function editAction()
     {
+        $this->_title($this->__('Promotions'))->_title($this->__('Catalog Price Rules'));
+
         $id = $this->getRequest()->getParam('id');
         $model = Mage::getModel('catalogrule/rule');
 
@@ -64,6 +68,8 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                 return;
             }
         }
+
+        $this->_title($model->getRuleId() ? $model->getName() : $this->__('New Rule'));
 
         // set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getPageData(true);

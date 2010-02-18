@@ -136,6 +136,8 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
             );
         }
 
+        $nonEscapableNbspChar = html_entity_decode('&#160;', ENT_NOQUOTES, 'UTF-8');
+
         foreach ($this->_websiteCollection as $website) {
             $websiteShow = false;
             foreach ($this->_groupCollection as $group) {
@@ -159,13 +161,13 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
                         $values    = array();
                     }
                     $values[] = array(
-                        'label' => '&nbsp;&nbsp;&nbsp;&nbsp;' . $store->getName(),
+                        'label' => str_repeat($nonEscapableNbspChar, 4) . $store->getName(),
                         'value' => $store->getId()
                     );
                 }
                 if ($groupShow) {
                     $options[] = array(
-                        'label' => '&nbsp;&nbsp;&nbsp;&nbsp;' . $group->getName(),
+                        'label' => str_repeat($nonEscapableNbspChar, 4) . $group->getName(),
                         'value' => $values
                     );
                 }

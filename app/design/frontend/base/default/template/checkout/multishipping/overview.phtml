@@ -127,30 +127,7 @@
                         </tfoot>
                         <tbody>
                         <?php foreach ($this->getShippingAddressItems($_address) as $_item): ?>
-                            <tr>
-                                <td><?php echo $this->getItemHtml($_item->getQuoteItem()) ?></td>
-                                <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
-                                <td class="a-right">
-                                    <?php echo $this->helper('checkout')->formatPrice($_item->getCalculationPrice()) ?>
-                                </td>
-                                <?php endif; ?>
-                                <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
-                                <td>
-                                    <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getPriceInclTax($_item)) ?>
-                                </td>
-                                <?php endif; ?>
-                                <td class="a-center"><?php echo $_item->getQty()*1 ?></td>
-                                <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
-                                <td class="a-right">
-                                    <?php echo $this->helper('checkout')->formatPrice($_item->getRowTotal()) ?>
-                                </td>
-                                <?php endif; ?>
-                                <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
-                                <td>
-                                    <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getSubtotalInclTax($_item)) ?>
-                                </td>
-                                <?php endif; ?>
-                            </tr>
+                            <?php echo $this->getRowItemHtml($_item); ?>
                         <?php endforeach; ?>
                         </tbody>
                     </table>
@@ -161,7 +138,6 @@
             <?php endif; ?>
         <?php endforeach; ?>
         </div>
-
         <?php if ($this->getQuote()->hasVirtualItems()): ?>
         <div class="col2-set">
             <h2 class="legend"><?php echo $this->__('Other items in your order') ?></h2>
@@ -201,30 +177,7 @@
                     </tfoot>
                     <tbody>
                     <?php foreach ($this->getVirtualItems() as $_item): ?>
-                        <tr>
-                            <td><?php echo $this->getItemHtml($_item) ?></td>
-                            <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
-                            <td class="a-right">
-                                <?php echo $this->helper('checkout')->formatPrice($_item->getCalculationPrice()) ?>
-                            </td>
-                            <?php endif; ?>
-                            <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
-                            <td>
-                                <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getPriceInclTax($_item)) ?>
-                            </td>
-                            <?php endif; ?>
-                            <td><?php echo $_item->getQty()*1 ?></td>
-                            <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
-                            <td class="a-right">
-                                <?php echo $this->helper('checkout')->formatPrice($_item->getRowTotal()) ?>
-                            </td>
-                            <?php endif; ?>
-                            <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
-                            <td>
-                                <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getSubtotalInclTax($_item)) ?>
-                            </td>
-                            <?php endif; ?>
-                        </tr>
+                        <?php echo $this->getRowItemHtml($_item); ?>
                     <?php endforeach; ?>
                     </tbody>
                     </table>
@@ -233,53 +186,56 @@
         </div>
         <?php endif; ?>
 
-        <?php echo $this->getChildHtml('agreements') ?>
+           <?php echo $this->getChildHtml('items_after'); ?>
 
-        <div class="place-order">
-            <div class="grand-total">
-                <div class="inner">
-                    <big><?php echo $this->__('Grand Total:') ?> <?php echo $this->helper('checkout')->formatPrice($this->getTotal()) ?></big>
-                    <div id="review-buttons-container">
-                        <button type="submit" title="<?php echo $this->__('Place Order') ?>" class="button btn-checkout" id="review-button"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
+            <div id="checkout-review-submit">
+                <?php echo $this->getChildHtml('agreements') ?>
+                <div class="place-order">
+                    <div class="grand-total">
+                        <div class="inner">
+                            <big><?php echo $this->__('Grand Total:') ?> <?php echo $this->helper('checkout')->formatPrice($this->getTotal()) ?></big>
+                            <div id="review-buttons-container">
+                                <button type="submit" title="<?php echo $this->__('Place Order') ?>" class="button btn-checkout" id="review-button"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
+                            </div>
+                        </div>
                     </div>
+                    <span class="please-wait" id="review-please-wait" style="display:none;">
+                        <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Submitting order information...') ?>" title="<?php echo $this->__('Submitting order information...') ?>" class="v-middle" /> <?php echo $this->__('Submitting order information...') ?>
+                    </span>
                 </div>
             </div>
-            <span class="please-wait" id="review-please-wait" style="display:none;">
-                <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Submitting order information...') ?>" title="<?php echo $this->__('Submitting order information...') ?>" class="v-middle" /> <?php echo $this->__('Submitting order information...') ?>
-            </span>
-        </div>
-        <div class="buttons-set">
-            <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Billing Information') ?></a></p>
-        </div>
-    </form>
-    <script type="text/javascript">
-    //<![CDATA[
-        var submitted = false;
-    
-        function showLoader()
-        {
-            if (submitted) {
-                return false;
-            }
-            if ($('checkout-agreements')) {
-                var checkboxes = $$('#checkout-agreements input');
-                for (var i=0, l=checkboxes.length; i<l; i++) {
-                    if (!checkboxes[i].checked) {
-                        alert("<?php echo $this->__('Please agree to all Terms and Conditions before placing the orders.')?>");
-                        return false;
+            <div class="buttons-set">
+                <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Billing Information') ?></a></p>
+            </div>
+        </form>
+        <script type="text/javascript">
+        //<![CDATA[
+            var submitted = false;
+
+            function showLoader()
+            {
+                if (submitted) {
+                    return false;
+                }
+                if ($('checkout-agreements')) {
+                    var checkboxes = $$('#checkout-agreements input');
+                    for (var i=0, l=checkboxes.length; i<l; i++) {
+                        if (!checkboxes[i].checked) {
+                            alert("<?php echo $this->__('Please agree to all Terms and Conditions before placing the orders.')?>");
+                            return false;
+                        }
                     }
                 }
+
+                submitted = true;
+                var step='review';
+                Element.show(step+'-please-wait');
+                $(step+'-buttons-container').setStyle({opacity:.5});
+                $(step+'-buttons-container').descendants().each(function(s) {
+                      s.disabled = true;
+                });
+                return true;
             }
-    
-            submitted = true;
-            var step='review';
-            Element.show(step+'-please-wait');
-            $(step+'-buttons-container').setStyle({opacity:.5});
-            $(step+'-buttons-container').descendants().each(function(s) {
-                  s.disabled = true;
-            });
-            return true;
-        }
-    //]]>
-    </script>
+        //]]>
+        </script>
 </div>

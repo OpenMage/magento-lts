@@ -68,6 +68,9 @@ Load this update on every page when customer is logged out
 -->
 
     <customer_logged_out>
+        <!---<reference name="right">
+            <block type="customer/form_login" name="customer_form_mini_login" before="-" template="customer/form/mini.login.phtml"/>
+        </reference>-->
         <reference name="top.links">
             <action method="addLink" translate="label title" module="customer"><label>Log In</label><url helper="customer/getLoginUrl"/><title>Log In</title><prepare/><urlParams/><position>100</position></action>
         </reference>
@@ -82,7 +85,9 @@ Layout for customer login page
     <customer_account_login translate="label">
         <label>Customer Account Login Form</label>
         <!-- Mage_Customer -->
+        <remove name="right"/>
         <remove name="left"/>
+
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
@@ -98,7 +103,9 @@ Layout for customer log out page
     <customer_account_logoutsuccess translate="label">
         <label>Customer Account Logout Success</label>
         <!-- Mage_Customer -->
+        <remove name="right"/>
         <remove name="left"/>
+
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
@@ -114,6 +121,7 @@ New customer registration
     <customer_account_create translate="label">
         <label>Customer Account Registration Form</label>
         <!-- Mage_Customer -->
+        <remove name="right"/>
         <remove name="left"/>
 
         <reference name="head">
@@ -123,12 +131,15 @@ New customer registration
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         <reference name="content">
-            <block type="customer/form_register" name="customer_form_register" template="customer/form/register.phtml"/>
+            <block type="customer/form_register" name="customer_form_register" template="customer/form/register.phtml">
+                <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before"/>
+            </block>
         </reference>
     </customer_account_create>
 
     <customer_account_forgotpassword translate="label">
         <label>Customer Forgot Password Form</label>
+        <remove name="right"/>
         <remove name="left"/>
 
         <reference name="root">
@@ -142,6 +153,7 @@ New customer registration
     </customer_account_forgotpassword>
 
     <customer_account_confirmation>
+        <remove name="right"/>
         <remove name="left"/>
 
         <reference name="root">
@@ -159,7 +171,7 @@ New customer registration
         <reference name="root">
             <action method="setHeaderTitle" translate="title" module="customer"><title>Edit Account Info</title></action>
         </reference>
-        <reference name="content">
+        <reference name="my.account.wrapper">
             <block type="customer/form_edit" name="customer_edit" template="customer/form/edit.phtml"/>
         </reference>
     </customer_account_edit>
@@ -174,6 +186,12 @@ Customer account pages, rendered for all tabs in dashboard
         <reference name="root">
             <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
         </reference>
+        
+        <reference name="content">
+            <block type="page/html_wrapper" name="my.account.wrapper">
+                <action method="setElementClass"><value>my-account</value></action>
+            </block>
+        </reference>
 
         <reference name="left">
             <block type="customer/account_navigation" name="customer_account_navigation" before="-" template="customer/account/navigation.phtml">
@@ -181,10 +199,8 @@ Customer account pages, rendered for all tabs in dashboard
                 <action method="addLink" translate="label" module="customer"><name>account_edit</name><path>customer/account/edit/</path><label>Account Information</label></action>
                 <action method="addLink" translate="label" module="customer"><name>address_book</name><path>customer/address/</path><label>Address Book</label></action>
             </block>
-            <action method="unsetChild"><name>tags_popular</name></action>
-        </reference>
-        <reference name="left">
-          <action method="unsetChild"><name>left.permanent.callout</name></action>
+            <remove name="tags_popular"/>
+
         </reference>
     </customer_account>
 
@@ -199,7 +215,7 @@ Customer account home dashboard layout
         <reference name="root">
             <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
         </reference>
-        <reference name="content">
+        <reference name="my.account.wrapper">
             <block type="customer/account_dashboard" name="customer_account_dashboard" template="customer/account/dashboard.phtml">
                 <block type="customer/account_dashboard_hello" name="customer_account_dashboard_hello" as="hello" template="customer/account/dashboard/hello.phtml"/>
                 <block type="core/template" name="customer_account_dashboard_top" as="top" />
@@ -221,7 +237,7 @@ Customer account address book
         <label>Customer My Account Address Book</label>
         <!-- Mage_Customer -->
         <update handle="customer_account"/>
-        <reference name="content">
+        <reference name="my.account.wrapper">
             <block type="customer/address_book" name="address_book" before="-" template="customer/address/book.phtml"/>
         </reference>
     </customer_address_index>
@@ -237,7 +253,7 @@ Customer account address edit page
         <reference name="head">
             <block type="core/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />
         </reference>
-        <reference name="content">
+        <reference name="my.account.wrapper">
             <block type="customer/address_edit" name="customer_address_edit" template="customer/address/edit.phtml"/>
         </reference>
     </customer_address_form>

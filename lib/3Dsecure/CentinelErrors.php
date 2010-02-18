@@ -1,5 +1,5 @@
 <?php
-	 
+// Distributed by license from CardinalCommerce Corporation
 /////////////////////////////////////////////////////////////////////////////////////////////
 //  CardinalCommerce (http://www.cardinalcommerce.com)
 //  CentinelErrors.php
@@ -18,5 +18,3 @@
      define("CENTINEL_ERROR_CODE_8020_DESC", "Error Parsing XML Response");
 	 define("CENTINEL_ERROR_CODE_8030", "8030");
      define("CENTINEL_ERROR_CODE_8030_DESC", "Communication Timeout Encountered");
-	     
-?>

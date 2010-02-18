@@ -140,7 +140,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
                 <?php endif; ?>
                 <?php if ($_taxvat = $_order->getCustomerTaxvat()):?>
                 <tr>
-                    <td class="label"><label><?php echo Mage::helper('sales')->__('TAX/VAT Number') ?></label></label></td>
+                    <td class="label"><label><?php echo Mage::helper('sales')->__('TAX/VAT Number') ?></label></td>
                     <td><strong><?php echo $this->htmlEscape($_taxvat)?></strong></td>
                 </tr>
                 <?php endif;?>

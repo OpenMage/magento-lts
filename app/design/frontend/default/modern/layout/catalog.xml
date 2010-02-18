@@ -43,23 +43,18 @@ Default layout, loads most of the pages
 -->
 
     <default>
+
         <!-- Mage_Catalog -->
         <reference name="top.menu">
             <block type="catalog/navigation" name="catalog.topnav" template="catalog/navigation/top.phtml"/>
         </reference>
         <reference name="left">
-            <!--<block type="core/template" name="left.permanent.callout" after="-" template="callouts/left_col.phtml">
-                <action method="setImgSrc"><src>images/media/col_left_callout.jpg</src></action>
-                <action method="setImgAlt" translate="alt" module="catalog"><alt>Did you know? Our customer service is available 24/7</alt></action>
-            </block>-->
-            <block type="wishlist/customer_sidebar" name="wishlist_sidebar" as="wishlist" after="cart_sidebar" template="wishlist/sidebar.phtml"/>
-            <block type="catalog/product_compare_sidebar" after="wishlist" name="catalog.compare.sidebar" template="catalog/product/compare/sidebar.phtml"/>
-        </reference>
-        <reference name="right">
-            <!--<block type="core/template" name="right.permanent.callout" after="-" template="callouts/left_col.phtml">
-                <action method="setImgSrc"><src>images/media/col_right_callout.jpg</src></action>
-                <action method="setImgAlt" translate="alt" module="catalog"><alt>back to school</alt></action>
-            </block>-->
+            <!--block type="core/template" name="left.permanent.callout" template="callouts/left_col.phtml">
+                <action method="setImgSrc"><src>images/media/left_col_callout.jpg</src></action>
+                <action method="setImgAlt" translate="alt" module="catalog"><alt>Our customer service is available 24/7. Call us at (555) 555-0123.</alt></action>
+                <action method="setLinkUrl"><url>checkout/cart</url></action>
+            </block-->
+            <block type="catalog/product_compare_sidebar" before="cart_sidebar" name="catalog.compare.sidebar" template="catalog/product/compare/sidebar.phtml"/>
         </reference>
         <reference name="footer_links">
             <action method="addLink" translate="label title" module="catalog" ifconfig="catalog/seo/site_map"><label>Site Map</label><url helper="catalog/map/getCategoryUrl" /><title>Site Map</title></action>
@@ -84,21 +79,24 @@ Category default layout
             <block type="catalog/category_view" name="category.products" template="catalog/category/view.phtml">
                 <block type="catalog/product_list" name="product_list" template="catalog/product/list.phtml">
                     <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
-                        <block type="catalog/product_list_toolbar_pager" name="product_list_toolbar_pager"/>
-                    <!-- The following code shows how to set your own pager increments -->
-                        <!--
-                        <action method="setDefaultListPerPage"><limit>10</limit></action>
-                        <action method="setDefaultGridPerPage"><limit>8</limit></action>
-                        <action method="addPagerLimit"><mode>list</mode><limit>10</limit></action>
-                        <action method="addPagerLimit"><mode>list</mode><limit>20</limit></action>
-                        <action method="addPagerLimit"><mode>list</mode><limit>30</limit></action>
-                        <action method="addPagerLimit" translate="label"><mode>list</mode><limit>all</limit><label>All</label></action>
-                        <action method="addPagerLimit"><mode>grid</mode><limit>8</limit></action>
-                        <action method="addPagerLimit"><mode>grid</mode><limit>16</limit></action>
-                        <action method="addPagerLimit"><mode>grid</mode><limit>24</limit></action>
-                        <action method="addPagerLimit" translate="label"><mode>grid</mode><limit>all</limit><label>All</label></action>
-                        -->
+                        <block type="page/html_pager" name="product_list_toolbar_pager"/>
+                        <!-- The following code shows how to set your own pager increments -->
+                            <action method="setDefaultListPerPage"><limit>10</limit></action>
+                            <action method="setDefaultGridPerPage"><limit>8</limit></action>
+                            <action method="addPagerLimit"><mode>list</mode><limit>10</limit></action>
+                            <action method="addPagerLimit"><mode>list</mode><limit>20</limit></action>
+                            <action method="addPagerLimit"><mode>list</mode><limit>30</limit></action>
+                            <action method="addPagerLimit" translate="label"><mode>list</mode><limit>all</limit><label>All</label></action>
+                            <action method="addPagerLimit"><mode>grid</mode><limit>8</limit></action>
+                            <action method="addPagerLimit"><mode>grid</mode><limit>16</limit></action>
+                            <action method="addPagerLimit"><mode>grid</mode><limit>24</limit></action>
+                            <action method="addPagerLimit" translate="label"><mode>grid</mode><limit>all</limit><label>All</label></action>
                     </block>
+                    <!--action method="addColumnCountLayoutDepend"><layout>empty</layout><count>6</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>one_column</layout><count>5</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>two_columns_left</layout><count>4</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>two_columns_right</layout><count>4</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>three_columns</layout><count>3</count></action-->
                     <action method="setColumnCount"><count>4</count></action>
                     <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
                 </block>
@@ -121,22 +119,26 @@ Category layered navigation layout
         <reference name="content">
             <block type="catalog/category_view" name="category.products" template="catalog/category/view.phtml">
                 <block type="catalog/product_list" name="product_list" template="catalog/product/list.phtml">
+                    <!-- <action method="addReviewSummaryTemplate"><type>default</type><template>review/helper/su.phtml</template></action> -->
                     <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
-                        <block type="catalog/product_list_toolbar_pager" name="product_list_toolbar_pager"/>
+                        <block type="page/html_pager" name="product_list_toolbar_pager"/>
                         <!-- The following code shows how to set your own pager increments -->
-                        <!--
-                        <action method="setDefaultListPerPage"><limit>10</limit></action>
-                        <action method="setDefaultGridPerPage"><limit>8</limit></action>
-                        <action method="addPagerLimit"><mode>list</mode><limit>10</limit></action>
-                        <action method="addPagerLimit"><mode>list</mode><limit>20</limit></action>
-                        <action method="addPagerLimit"><mode>list</mode><limit>30</limit></action>
-                        <action method="addPagerLimit" translate="label"><mode>list</mode><limit>all</limit><label>All</label></action>
-                        <action method="addPagerLimit"><mode>grid</mode><limit>8</limit></action>
-                        <action method="addPagerLimit"><mode>grid</mode><limit>16</limit></action>
-                        <action method="addPagerLimit"><mode>grid</mode><limit>24</limit></action>
-                        <action method="addPagerLimit" translate="label"><mode>grid</mode><limit>all</limit><label>All</label></action>
-                        -->
+                            <action method="setDefaultListPerPage"><limit>10</limit></action>
+                            <action method="setDefaultGridPerPage"><limit>8</limit></action>
+                            <action method="addPagerLimit"><mode>list</mode><limit>10</limit></action>
+                            <action method="addPagerLimit"><mode>list</mode><limit>20</limit></action>
+                            <action method="addPagerLimit"><mode>list</mode><limit>30</limit></action>
+                            <action method="addPagerLimit" translate="label"><mode>list</mode><limit>all</limit><label>All</label></action>
+                            <action method="addPagerLimit"><mode>grid</mode><limit>8</limit></action>
+                            <action method="addPagerLimit"><mode>grid</mode><limit>16</limit></action>
+                            <action method="addPagerLimit"><mode>grid</mode><limit>24</limit></action>
+                            <action method="addPagerLimit" translate="label"><mode>grid</mode><limit>all</limit><label>All</label></action>
                     </block>
+                    <!--action method="addColumnCountLayoutDepend"><layout>empty</layout><count>6</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>one_column</layout><count>5</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>two_columns_left</layout><count>4</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>two_columns_right</layout><count>4</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>three_columns</layout><count>3</count></action-->
                     <action method="setColumnCount"><count>4</count></action>
                     <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
                 </block>
@@ -148,7 +150,7 @@ Category layered navigation layout
         <label>Catalog Category (Without Subcategories)</label>
         <remove name="right.reports.product.viewed" />
         <reference name="left">
-            <!--<block type="reports/product_viewed" before="right.permanent.callout" name="left.reports.product.viewed" template="reports/product_viewed.phtml" />-->
+            <!--block type="reports/product_viewed" before="right.permanent.callout" name="left.reports.product.viewed" template="reports/product_viewed.phtml" /-->
         </reference>
     </catalog_category_layered_nochildren>
 
@@ -160,7 +162,7 @@ Compare products page
         <label>Catalog Product Compare List</label>
         <!-- Mage_Catalog -->
         <reference name="root">
-            <action method="setTemplate"><template>page/one-column.phtml</template></action>
+            <action method="setTemplate"><template>page/popup.phtml</template></action>
         </reference>
         <reference name="head">
             <action method="addJs"><script>scriptaculous/scriptaculous.js</script></action>
@@ -171,13 +173,6 @@ Compare products page
         </reference>
     </catalog_product_compare_index>
 
-    <customer_account_index>
-
-        <reference name="left">
-            <action method="unsetChild"><name>catalog_compare_sidebar</name></action>
-        </reference>
-    </customer_account_index>
-
 <!--
 Product view
 -->
@@ -186,6 +181,7 @@ Product view
         <label>Catalog Product View (Any)</label>
         <!-- Mage_Catalog -->
         <reference name="root">
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
         </reference>
         <reference name="head">
             <action method="addJs"><script>varien/product.js</script></action>
@@ -196,11 +192,17 @@ Product view
         </reference>
         <reference name="content">
             <block type="catalog/product_view" name="product.info" template="catalog/product/view.phtml">
+                <!--
+                <action method="addReviewSummaryTemplate"><type>default</type><template>review/helper/summary.phtml</template></action>
+                <action method="addReviewSummaryTemplate"><type>short</type><template>review/helper/summary_short.phtml</template></action>
+                <action method="addReviewSummaryTemplate"><type>...</type><template>...</template></action>
+                -->
                 <block type="catalog/product_view_media" name="product.info.media" as="media" template="catalog/product/view/media.phtml"/>
                 <block type="core/text_list" name="alert.urls" as="alert_urls" translate="label">
                     <label>Alert Urls</label>
                 </block>
-                <block type="catalog/product_view" name="product.tierprices" as="tierprices" template="catalog/product/view/tierprices.phtml"/>
+
+                <action method="setTierPriceTemplate"><template>catalog/product/view/tierprices.phtml</template></action>
 
                 <block type="catalog/product_view_tabs" name="product.info.tabs" as="info_tabs" template="catalog/product/view/tabs.phtml" >
                     <action method="addTab" translate="title" module="catalog"><alias>description</alias><title>Product Description</title><block>catalog/product_view_description</block><template>catalog/product/view/description.phtml</template></action>
@@ -209,8 +211,8 @@ Product view
                 </block>
 
                 <block type="catalog/product_view_additional" name="product.info.additional" as="product_additional_data" />
-                <block type="catalog/product_view" name="product.info.addto" as="addto" template="catalog/product/view/addto.phtml" />
-                <block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="catalog/product/view/addtocart.phtml" />
+                <block type="catalog/product_view" name="product.info.addto" as="addto" template="catalog/product/view/addto.phtml"/>
+                <block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="catalog/product/view/addtocart.phtml"/>
 
                 <block type="catalog/product_view" name="product.info.options.wrapper" as="product_options_wrapper" template="catalog/product/view/options/wrapper.phtml" translate="label">
                     <label>Info Column Options Wrapper</label>
@@ -220,9 +222,9 @@ Product view
                         <action method="addOptionRenderer"><type>file</type><block>catalog/product_view_options_type_file</block><template>catalog/product/view/options/type/file.phtml</template></action>
                         <action method="addOptionRenderer"><type>select</type><block>catalog/product_view_options_type_select</block><template>catalog/product/view/options/type/select.phtml</template></action>
                         <action method="addOptionRenderer"><type>date</type><block>catalog/product_view_options_type_date</block><template>catalog/product/view/options/type/date.phtml</template></action>
-                    </block>
-                    <block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml"/>
                 </block>
+                        <block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml"/>
+                    </block>
                 <block type="catalog/product_view" name="product.info.options.wrapper.bottom" as="product_options_wrapper_bottom" template="catalog/product/view/options/wrapper/bottom.phtml" translate="label">
                     <label>Bottom Block Options Wrapper</label>
                     <action method="insert"><block>product.tierprices</block></action>
@@ -276,7 +278,7 @@ Additional block dependant on product type
     <PRODUCT_TYPE_grouped translate="label" module="catalog">
         <label>Catalog Product View (Grouped)</label>
         <reference name="product.info">
-            <block type="catalog/product_view_type_grouped" name="product.info.grouped" as="product_type_data" template="catalog/product/view/type/grouped.phtml" />
+            <block type="catalog/product_view_type_grouped" name="product.info.grouped" as="product_type_data" template="catalog/product/view/type/grouped.phtml"/>
         </reference>
     </PRODUCT_TYPE_grouped>
     <PRODUCT_TYPE_virtual translate="label" module="catalog">
@@ -286,6 +288,8 @@ Additional block dependant on product type
         </reference>
     </PRODUCT_TYPE_virtual>
 
+
+
 <!--
 Product send to friend
 -->
@@ -294,6 +298,7 @@ Product send to friend
         <label>Catalog Product Email to a Friend</label>
         <!-- Mage_Catalog -->
         <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
         </reference>
         <reference name="head">
             <action method="addJs"><script>varien/product.js</script></action>
@@ -312,7 +317,7 @@ Product additional images gallery popup
         <label>Catalog Product Image Gallery Popup</label>
         <!-- Mage_Catalog -->
         <reference name="root">
-            <action method="setTemplate"><template>page/empty.phtml</template></action>
+            <action method="setTemplate"><template>page/popup.phtml</template></action>
         </reference>
         <reference name="content">
             <block type="catalog/product_gallery" name="catalog_product_gallery" template="catalog/product/gallery.phtml"/>
@@ -325,7 +330,9 @@ SEO Site Map
 
     <catalog_seo_sitemap translate="label">
         <label>Catalog Seo Sitemap (Common)</label>
+        <remove name="right"/>
         <remove name="left"/>
+
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
@@ -392,6 +399,7 @@ Catalog search terms block
 
     <catalog_seo_searchterm_popular translate="label">
         <label>Catalog Seo Popular Search Terms</label>
+        <remove name="right"/>
         <remove name="left"/>
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>

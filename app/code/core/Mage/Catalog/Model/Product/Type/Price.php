@@ -65,7 +65,7 @@ class Mage_Catalog_Model_Product_Type_Price
         $finalPrice = $this->_applySpecialPrice($product, $finalPrice);
         $product->setFinalPrice($finalPrice);
 
-        Mage::dispatchEvent('catalog_product_get_final_price', array('product'=>$product));
+        Mage::dispatchEvent('catalog_product_get_final_price', array('product'=>$product, 'qty' => $qty));
 
         $finalPrice = $product->getData('final_price');
         $finalPrice = $this->_applyOptionsPrice($product, $qty, $finalPrice);

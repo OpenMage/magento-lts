@@ -251,6 +251,8 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         if (!empty($data['coupon']['code'])) {
             if ($this->_getQuote()->getCouponCode() !== $data['coupon']['code']) {
                 $this->_getSession()->addError($this->__('"%s" coupon code is not valid.', $data['coupon']['code']));
+            } else {
+                $this->_getSession()->addSuccess($this->__('Coupon code accepted.'));
             }
         }
 
@@ -262,6 +264,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
      */
     public function indexAction()
     {
+        $this->_title($this->__('Sales'))->_title($this->__('Orders'))->_title($this->__('New Order'));
         $this->loadLayout();
 
         $this->_initSession()
@@ -383,18 +386,19 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
                 ->createOrder();
 
             $this->_getSession()->clear();
-            $url = $this->_redirect('*/sales_order/view', array('order_id' => $order->getId()));
+            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Order has been successfully created'));
+            $this->_redirect('*/sales_order/view', array('order_id' => $order->getId()));
         }
         catch (Mage_Core_Exception $e){
             $message = $e->getMessage();
             if( !empty($message) ) {
                 $this->_getSession()->addError($message);
             }
-            $url = $this->_redirect('*/*/');
+            $this->_redirect('*/*/');
         }
         catch (Exception $e){
             $this->_getSession()->addException($e, $this->__('Order saving error: %s', $e->getMessage()));
-            $url = $this->_redirect('*/*/');
+            $this->_redirect('*/*/');
         }
     }
 

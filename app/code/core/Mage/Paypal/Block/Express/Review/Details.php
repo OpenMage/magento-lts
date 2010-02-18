@@ -49,16 +49,6 @@ class Mage_Paypal_Block_Express_Review_Details extends Mage_Checkout_Block_Cart_
     }
 
     /**
-     * Return review quote items
-     *
-     * @return Mage_Sales_Model_Quote
-     */
-    public function getItems()
-    {
-        return $this->getQuote()->getAllItems();
-    }
-
-    /**
      * Return review quote totals
      *
      * @return array

@@ -57,7 +57,10 @@ Default layout, loads most of the pages
         </reference>
         <reference name="right">
             <block type="catalog/product_compare_sidebar" before="cart_sidebar" name="catalog.compare.sidebar" template="catalog/product/compare/sidebar.phtml"/>
-            <block type="core/template" name="right.permanent.callout" template="callouts/right_col.phtml"/>
+            <block type="core/template" name="right.permanent.callout" template="callouts/right_col.phtml">
+                <action method="setImgSrc"><src>images/media/col_right_callout.jpg</src></action>
+                <action method="setImgAlt" translate="alt" module="catalog"><alt>Keep your eyes open for our special Back to School items and save A LOT!</alt></action>
+            </block>
         </reference>
         <reference name="footer_links">
             <action method="addLink" translate="label title" module="catalog" ifconfig="catalog/seo/site_map"><label>Site Map</label><url helper="catalog/map/getCategoryUrl" /><title>Site Map</title></action>
@@ -129,7 +132,7 @@ Category layered navigation layout
                             <action method="addPagerLimit"><mode>grid</mode><limit>3</limit></action>
                             <action method="addPagerLimit"><mode>grid</mode><limit>6</limit></action>
                             <action method="addPagerLimit"><mode>grid</mode><limit>9</limit></action>
-                            <action method="addPagerLimit"><mode>grid</mode><limit>all</limit><label>All</label></action>
+                            <action method="addPagerLimit" translate="label"><mode>grid</mode><limit>all</limit><label>All</label></action>
                         -->
                     </block>
                     <action method="addColumnCountLayoutDepend"><layout>empty</layout><count>6</count></action>

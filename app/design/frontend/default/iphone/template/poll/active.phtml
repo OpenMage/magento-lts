@@ -46,14 +46,14 @@
     </div>
     <form id="pollForm" action="<?php echo $action ?>" method="post" onsubmit="return validatePollAnswerIsSelected();">
         <div class="content">
-            <h5><?php echo $poll->getPollTitle(); ?></h5>
+            <h5><?php echo $this->htmlEscape($poll->getPollTitle()); ?></h5>
             <?php if( $poll_answers ): ?>
                     <table cellspacing="2">
                         <tbody>
                             <?php foreach( $poll_answers as $answer ): ?>
                             <tr>
                                 <td><input type="radio" name="vote" class="poll_vote" id="vote_<?php echo $answer->getId() ?>" value="<?php echo $answer->getAnswerId() ?>" /></td>
-                                <td><label for="vote_<?php echo $answer->getId() ?>"><?php echo $answer->getAnswerTitle() ?></label>&nbsp;</td>
+                                <td><label for="vote_<?php echo $answer->getId() ?>"><?php echo $this->htmlEscape($answer->getAnswerTitle()) ?></label>&nbsp;</td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>

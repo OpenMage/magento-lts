@@ -82,6 +82,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             if ($this->hasData('column_css_class')) {
                 $this->_cssClass .= ' '. $this->getData('column_css_class');
             }
+            if ($this->getEditable()) {
+                $this->_cssClass .= ' editable';
+            }
         }
 
         return $this->_cssClass;
@@ -110,9 +113,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         if ($class = $this->getHeaderCssClass()) {
             $str.= ' class="'.$class.'"';
         }
-        if ($this->getEditable()) {
-            $str.= ' colspan="2"';
-        }
 
         return $str;
     }
@@ -126,6 +126,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     public function getRowField(Varien_Object $row)
     {
         $renderedValue = $this->getRenderer()->render($row);
+        if ($this->getHtmlDecorators()) {
+            $renderedValue = $this->_applyDecorators($renderedValue, $this->getHtmlDecorators());
+        }
 
         /*
          * if column has determined callback for framing call
@@ -165,6 +168,34 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         }
 
         return $renderedValue;
+    }
+
+    /**
+     * Decorate rendered cell value
+     *
+     * @param string $value
+     * @param array|string $decorators
+     * @return string
+     */
+    protected function &_applyDecorators($value, $decorators)
+    {
+        if (!is_array($decorators)) {
+            if (is_string($decorators)) {
+                $decorators = explode(' ', $decorators);
+            }
+        }
+        if ((!is_array($decorators)) || empty($decorators)) {
+            return $value;
+        }
+        switch (array_shift($decorators)) {
+            case 'nobr':
+                $value = '<span class="nobr">' . $value . '</span>';
+                break;
+        }
+        if (!empty($decorators)) {
+            return $this->_applyDecorators($value, $decorators);
+        }
+        return $value;
     }
 
     public function setRenderer($renderer)

@@ -146,6 +146,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             }
 
             $options = $this->getOptions($product);
+            $minPriceFounded = false;
 
             if ($options) {
                 foreach ($options as $option) {
@@ -174,8 +175,12 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                         }
 
                         if (count($selectionMinimalPrices)) {
+                            $selMinPrice = min($selectionMinimalPrices);
                             if ($option->getRequired()) {
-                                $minimalPrice += min($selectionMinimalPrices);
+                                $minimalPrice += $selMinPrice;
+                                $minPriceFounded = true;
+                            } elseif (true !== $minPriceFounded) {
+                                $minPriceFounded = false === $minPriceFounded ? $selMinPrice : min($minPriceFounded, $selMinPrice);
                             }
 
                             if ($option->isMultiSelection()) {
@@ -186,6 +191,10 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                         }
                     }
                 }
+            }
+            // condition is TRUE when all product options are NOT required
+            if (! is_bool($minPriceFounded)) {
+                $minimalPrice = $minPriceFounded;
             }
 
             if ($product->getPriceType() == self::PRICE_TYPE_DYNAMIC) {

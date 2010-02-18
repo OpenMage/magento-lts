@@ -45,6 +45,10 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
 
     protected function _initAction()
     {
+        $this->_title($this->__('Catalog'))
+             ->_title($this->__('Attributes'))
+             ->_title($this->__('Manage Attributes'));
+
         if($this->getRequest()->getParam('popup')) {
             $this->loadLayout('popup');
         } else {
@@ -100,11 +104,14 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
 
         Mage::register('entity_attribute', $model);
 
-        $this->_initAction()
-            ->_addBreadcrumb($id ? Mage::helper('catalog')->__('Edit Product Attribute') : Mage::helper('catalog')->__('New Product Attribute'), $id ? Mage::helper('catalog')->__('Edit Product Attribute') : Mage::helper('catalog')->__('New Product Attribute'))
-            ->_addContent($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_edit')->setData('action', $this->getUrl('*/catalog_product_attribute/save')))
-            ->_addLeft($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_edit_tabs'))
-            ->_addJs(
+        $this->_initAction();
+
+        $this->_title($id ? $model->getName() : $this->__('New Attribute'));
+
+        $this->_addBreadcrumb($id ? Mage::helper('catalog')->__('Edit Product Attribute') : Mage::helper('catalog')->__('New Product Attribute'), $id ? Mage::helper('catalog')->__('Edit Product Attribute') : Mage::helper('catalog')->__('New Product Attribute'))
+             ->_addContent($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_edit')->setData('action', $this->getUrl('*/catalog_product_attribute/save')))
+             ->_addLeft($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_edit_tabs'))
+             ->_addJs(
                 $this->getLayout()->createBlock('adminhtml/template')
                     ->setIsPopup((bool)$this->getRequest()->getParam('popup'))
                     ->setTemplate('catalog/product/attribute/js.phtml')
@@ -142,6 +149,12 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
             if ($id = $this->getRequest()->getParam('attribute_id')) {
 
                 $model->load($id);
+
+                if (!$model->getId()) {
+                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('This Attribute no longer exists'));
+                    $this->_redirect('*/*/');
+                    return;
+                }
 
                 // entity type check
                 if ($model->getEntityTypeId() != $this->_entityTypeId) {

@@ -123,6 +123,11 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
                 $address = $object->getQuote()->getShippingAddress();
             }
         }
+
+        if ('payment_method' == $this->getAttribute() && ! $address->hasPaymentMethod()) {
+            $address->setPaymentMethod($object->getQuote()->getPayment()->getMethod());
+        }
+
         return parent::validate($address);
     }
 }

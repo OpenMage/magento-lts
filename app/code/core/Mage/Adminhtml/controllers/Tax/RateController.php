@@ -40,6 +40,10 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
      */
     public function indexAction()
     {
+        $this->_title($this->__('Sales'))
+             ->_title($this->__('Tax'))
+             ->_title($this->__('Manage Tax Zones and Rates'));
+
         $this->_initAction()
             ->_addBreadcrumb(Mage::helper('tax')->__('Manage Tax Rates'), Mage::helper('tax')->__('Manage Tax Rates'))
             ->_addContent(
@@ -59,6 +63,16 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     {
         $rateModel = Mage::getSingleton('tax/calculation_rate')
             ->load(null);
+        
+        $this->_title($this->__('Sales'))
+             ->_title($this->__('Tax'))
+             ->_title($this->__('Manage Tax Zones and Rates'));
+
+        $this->_title($this->__('New Rate'));
+
+        //This line substitutes in the form the previously entered by the user values, if any of them were wrong.
+        $rateModel->setData(Mage::getSingleton('adminhtml/session')->getFormData(true));
+        
         $this->_initAction()
             ->_addBreadcrumb(Mage::helper('tax')->__('Manage Tax Rates'), Mage::helper('tax')->__('Manage Tax Rates'), $this->getUrl('*/tax_rate'))
             ->_addBreadcrumb(Mage::helper('tax')->__('New Tax Rate'), Mage::helper('tax')->__('New Tax Rate'))
@@ -80,7 +94,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
         $ratePost = $this->getRequest()->getPost();
         if ($ratePost) {
 
-            $rateId = $this->getRequest()->getParam('rate');
+            $rateId = $this->getRequest()->getParam('tax_calculation_rate_id');
             if ($rateId) {
                 $rateModel = Mage::getSingleton('tax/calculation_rate')->load($rateId);
                 if (!$rateModel->getId()) {
@@ -98,6 +112,8 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 return true;
             }
             catch (Mage_Core_Exception $e) {
+                //save entered by the user values in session, for re-rendering of form.
+                Mage::getSingleton('adminhtml/session')->setFormData($ratePost);
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
             catch (Exception $e) {
@@ -117,12 +133,18 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
      */
     public function editAction()
     {
+        $this->_title($this->__('Sales'))
+             ->_title($this->__('Tax'))
+             ->_title($this->__('Manage Tax Zones and Rates'));
+
         $rateId = (int)$this->getRequest()->getParam('rate');
         $rateModel = Mage::getSingleton('tax/calculation_rate')->load($rateId);
         if (!$rateModel->getId()) {
             $this->getResponse()->setRedirect($this->getUrl("*/*/"));
             return ;
         }
+
+        $this->_title(sprintf("%s", $rateModel->getCode()));
 
         $this->_initAction()
             ->_addBreadcrumb(Mage::helper('tax')->__('Manage Tax Rates'), Mage::helper('tax')->__('Manage Tax Rates'), $this->getUrl('*/tax_rate'))
@@ -216,6 +238,12 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
      */
     public function importExportAction()
     {
+        $this->_title($this->__('Sales'))
+             ->_title($this->__('Tax'))
+             ->_title($this->__('Manage Tax Zones and Rates'));
+
+        $this->_title($this->__('Import and Export Tax Rates'));
+
         $this->loadLayout()
             ->_setActiveMenu('sales/tax_importExport')
             ->_addContent($this->getLayout()->createBlock('adminhtml/tax_rate_importExport'))

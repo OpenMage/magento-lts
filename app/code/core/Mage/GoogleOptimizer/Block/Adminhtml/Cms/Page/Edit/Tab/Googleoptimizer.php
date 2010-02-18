@@ -31,7 +31,7 @@
  * @package     Mage_GoogleOptimizer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Googleoptimizer_Block_Adminhtml_Cms_Page_Edit_Tab_Googleoptimizer
+class Mage_GoogleOptimizer_Block_Adminhtml_Cms_Page_Edit_Tab_Googleoptimizer
     extends Mage_Adminhtml_Block_Widget_Form
     implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
@@ -162,7 +162,7 @@ class Mage_Googleoptimizer_Block_Adminhtml_Cms_Page_Edit_Tab_Googleoptimizer
         if ($this->getGoogleOptimizer() && $this->getGoogleOptimizer()->getData()) {
             $values = $this->getGoogleOptimizer()->getData();
             $fieldset->addField('code_id', 'hidden', array('name' => 'code_id'));
-            if ($this->getGoogleOptimizer()->getData('page_type') == Mage_Googleoptimizer_Model_Code_Page::PAGE_TYPE_VARIANT) {
+            if ($this->getGoogleOptimizer()->getData('page_type') == Mage_GoogleOptimizer_Model_Code_Page::PAGE_TYPE_VARIANT) {
                 foreach ($fieldset->getElements() as $element) {
                     if (($element->getId() != 'tracking_script' && $element->getId() != 'page_type')
                         && ($element->getType() == 'textarea' || $element->getType() == 'select'))

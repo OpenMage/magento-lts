@@ -44,11 +44,33 @@ CREATE TABLE `{$tablePaymentTransaction}` (
   `is_closed` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `additional_information` blob,
   PRIMARY KEY (`transaction_id`),
-  UNIQUE KEY `UNQ_SALES_TXN_ORDER_PAYMENT_TXN` (`order_id`,`payment_id`,`txn_id`),
-  KEY `FK_SALES_TXN_PARENT` (`parent_id`),
-  KEY `FK_SALES_TXN_PAYMENT` (`payment_id`),
-  CONSTRAINT `FK_SALES_PAYMENT_TXN_PARENT` FOREIGN KEY (`parent_id`) REFERENCES `{$tablePaymentTransaction}` (`transaction_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_SALES_TXN_ORDER` FOREIGN KEY (`order_id`) REFERENCES `{$tableOrders}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_SALES_TXN_PAYMENT` FOREIGN KEY (`payment_id`) REFERENCES `{$tableOrderPayment}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  UNIQUE KEY `UNQ_ORDER_PAYMENT_TXN` (`order_id`,`payment_id`,`txn_id`),
+  KEY `IDX_ORDER_ID` (`order_id`),
+  KEY `IDX_PARENT_ID` (`parent_id`),
+  KEY `IDX_PAYMENT_ID` (`payment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;"
+);
+
+$installer->getConnection()->addConstraint(
+    'SALES_PAYMENT_TRANSACTION_PARENT',
+    $tablePaymentTransaction,
+    'parent_id',
+    $tablePaymentTransaction,
+    'transaction_id'
+);
+
+$installer->getConnection()->addConstraint(
+    'SALES_PAYMENT_TRANSACTION_ORDER',
+    $tablePaymentTransaction,
+    'order_id',
+    $tableOrders,
+    'entity_id'
+);
+
+$installer->getConnection()->addConstraint(
+    'SALES_PAYMENT_TRANSACTION_PAYMENT',
+    $tablePaymentTransaction,
+    'payment_id',
+    $tableOrderPayment,
+    'entity_id'
 );

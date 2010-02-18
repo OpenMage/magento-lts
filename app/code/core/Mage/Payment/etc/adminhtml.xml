@@ -37,6 +37,9 @@
                                     <payment translate="title" module="payment">
                                         <title>Payment Methods Section</title>
                                     </payment>
+                                    <payment_services translate="title" module="payment">
+                                        <title>Payment Services</title>
+                                    </payment_services>
                                 </children>
                             </config>
                         </children>

@@ -31,7 +31,7 @@ $installer = $this;
 $this->startSetup();
 
 $installer->run("
-    CREATE TABLE IF NOT EXISTS `{$installer->getTable('sales/invoiced_aggregated')}`
+    CREATE TABLE `{$installer->getTable('sales/invoiced_aggregated')}`
     (
         `id`                        int(11) unsigned NOT NULL auto_increment,
         `period`                    date NOT NULL DEFAULT '0000-00-00',
@@ -43,13 +43,11 @@ $installer->run("
         `invoiced_captured`         decimal(12,4) NOT NULL DEFAULT '0',
         `invoiced_not_captured`     decimal(12,4) NOT NULL DEFAULT '0',
         PRIMARY KEY (`id`),
-        UNIQUE KEY `UNQ_INVOICED_AGGREGATED_CREATED_PSS` (`period`,`store_id`, `order_status`),
-        KEY `FK_INVOICED_AGGREGATED_CREATED_STORE` (`store_id`),
-        CONSTRAINT `FK_INVOICED_AGGREGATED_CREATED_STORE` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`)
-            ON DELETE SET NULL ON UPDATE CASCADE
+        UNIQUE KEY `UNQ_PERIOD_STORE_ORDER_STATUS` (`period`,`store_id`, `order_status`),
+        KEY `IDX_STORE_ID` (`store_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-    CREATE TABLE IF NOT EXISTS `{$installer->getTable('sales/invoiced_aggregated_order')}`
+    CREATE TABLE `{$installer->getTable('sales/invoiced_aggregated_order')}`
     (
         `id`                        int(11) unsigned NOT NULL auto_increment,
         `period`                    date NOT NULL DEFAULT '0000-00-00',
@@ -61,12 +59,29 @@ $installer->run("
         `invoiced_captured`         decimal(12,4) NOT NULL DEFAULT '0',
         `invoiced_not_captured`     decimal(12,4) NOT NULL DEFAULT '0',
         PRIMARY KEY (`id`),
-        UNIQUE KEY `UNQ_INVOICED_AGGREGATED_UPDATED_PSS` (`period`,`store_id`, `order_status`),
-        KEY `FK_INVOICED_AGGREGATED_UPDATED_STORE` (`store_id`),
-        CONSTRAINT `FK_INVOICED_AGGREGATED_UPDATED_STORE` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`)
-            ON DELETE SET NULL ON UPDATE CASCADE
+        UNIQUE KEY `UNQ_PERIOD_STORE_ORDER_STATUS` (`period`,`store_id`, `order_status`),
+        KEY `IDX_STORE_ID` (`store_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
+
+
+$installer->getConnection()->addConstraint(
+    'SALES_INVOICED_AGGREGATED_STORE',
+    $installer->getTable('sales/invoiced_aggregated'),
+    'store_id',
+    $installer->getTable('core/store'),
+    'store_id',
+    'SET NULL'
+);
+
+$installer->getConnection()->addConstraint(
+    'SALES_INVOICED_AGGREGATED_ORDER_STORE',
+    $installer->getTable('sales/invoiced_aggregated_order'),
+    'store_id',
+    $installer->getTable('core/store'),
+    'store_id',
+    'SET NULL'
+);
 
 $this->endSetup();
 

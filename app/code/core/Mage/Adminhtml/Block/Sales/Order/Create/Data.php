@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Data extends Mage_Adminhtml_Block_
                 $dirtyCodes
             );
             foreach ($dirtyCodes as $code) {
-                if (isset($rates[$code]) || $code == Mage::app()->getStore()->getBaseCurrency()) {
+                if (isset($rates[$code]) || $code == Mage::app()->getStore()->getBaseCurrencyCode()) {
                     $codes[] = $code;
                 }
             }

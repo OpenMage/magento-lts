@@ -90,10 +90,11 @@ class Mage_Cms_Block_Widget_Page_Link
             if ($this->getData('title') !== null) {
                 // compare to null used here bc user can specify blank title
                 $this->_title = $this->getData('title');
-            } else if ($this->getData('href')) {
-                $this->_title = Mage::getResourceSingleton('cms/page')->getCmsPageTitleByIdentifier($this->getData('href'));
             } else if ($this->getData('page_id')) {
                 $this->_title = Mage::getResourceSingleton('cms/page')->getCmsPageTitleById($this->getData('page_id'));
+            } else if ($this->getData('href')) {
+                $this->_title = Mage::getResourceSingleton('cms/page')->setStore(Mage::app()->getStore())
+                    ->getCmsPageTitleByIdentifier($this->getData('href'));
             }
         }
 
@@ -114,7 +115,8 @@ class Mage_Cms_Block_Widget_Page_Link
         } else if ($this->getTitle()) {
             $this->_anchorText = $this->getTitle();
         } else if ($this->getData('href')) {
-            $this->_anchorText = Mage::getResourceSingleton('cms/page')->getCmsPageTitleByIdentifier($this->getData('href'));
+            $this->_anchorText = Mage::getResourceSingleton('cms/page')->setStore(Mage::app()->getStore())
+                ->getCmsPageTitleByIdentifier($this->getData('href'));
         } else if ($this->getData('page_id')) {
             $this->_anchorText = Mage::getResourceSingleton('cms/page')->getCmsPageTitleById($this->getData('page_id'));
         } else {

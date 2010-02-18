@@ -24,7 +24,7 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<h4 class="title"><a href="<?php echo $this->getProductUrl() ?>"><?php echo $this->getProductName() ?></a></h4>
+<h4 class="title"><a href="<?php echo $this->getProductUrl() ?>"><?php echo $this->htmlEscape($this->getProductName()) ?></a></h4>
 <!-- item custom options -->
 <?php if ($_options = $this->getOptionList()):?>
 <dl class="item-options">

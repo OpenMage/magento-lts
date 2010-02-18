@@ -77,7 +77,8 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-               <Mage_Core />
+               <Mage_Core/>
+               <Mage_Adminhtml/>
             </depends>
         </Mage_AdminNotification>
         <Mage_Cron>
@@ -290,6 +291,7 @@
                 <Mage_Core />
                 <Mage_Customer />
                 <Mage_Eav />
+                <Mage_Widget />
             </depends>
         </Mage_Newsletter>
         <Mage_Tax>

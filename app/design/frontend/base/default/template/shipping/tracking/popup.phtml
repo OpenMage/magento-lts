@@ -121,8 +121,8 @@
                     <?php elseif(isset($track['title']) && isset($track['number']) && $track['number']): ?>
                     <!--if the tracking is custom value-->
                     <tr>
-                        <th><?php echo ($track['title'] ? $track['title'] : $this->__('N/A')); ?>:</th>
-                        <td><?php echo (isset($track['number']) ? $track['number'] : ''); ?></td>
+                        <th><?php echo ($track['title'] ? $this->escapeHtml($track['title']) : $this->__('N/A')); ?>:</th>
+                        <td><?php echo (isset($track['number']) ? $this->escapeHtml($track['number']) : ''); ?></td>
                     </tr>
                     <?php endif; ?>
                     </tbody>

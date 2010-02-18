@@ -166,6 +166,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'align'     =>'left',
             'type'      => 'text',
             'index'     => 'name',
+            'escape'    => true
         ));
 
         $this->addColumn('sku', array(
@@ -174,6 +175,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'type'      => 'text',
             'width'     => '50px',
             'index'     => 'sku',
+            'escape'    => true
         ));
 
         $this->addColumn('action',

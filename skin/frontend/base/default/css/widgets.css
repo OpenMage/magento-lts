@@ -71,26 +71,26 @@
 .widget-product-link-inline { display:inline; }
 
 .col-main .widget-product-link { display:block; text-align:right; margin:7px 0; }
-.col-main .widget-product-link a { background:url(../images/widgets//i_widget-link.gif) 100% 4px no-repeat; padding-right:15px; }
+.col-main .widget-product-link a { background:url(../images/widgets/i_widget-link.gif) 100% 4px no-repeat; padding-right:15px; }
 
 .sidebar .widget-product-link { display:block; margin:0 0 15px; padding:0 10px; }
-.sidebar .widget-product-link a { background:url(../images/widgets//i_widget-link.gif) 100% 4px no-repeat; padding:0 15px 0 0; }
+.sidebar .widget-product-link a { background:url(../images/widgets/i_widget-link.gif) 100% 4px no-repeat; padding:0 15px 0 0; }
 
 /* Widget: Catalog Category Link */
 .widget-category-link-inline { display:inline; }
 
 .col-main .widget-category-link { display:block; text-align:right; margin:7px 0; }
-.col-main .widget-category-link a { background:url(../images/widgets//i_widget-link.gif) 100% 4px no-repeat; padding-right:15px; }
+.col-main .widget-category-link a { background:url(../images/widgets/i_widget-link.gif) 100% 4px no-repeat; padding-right:15px; }
 
 .sidebar .widget-category-link { display:block; margin:0 0 15px; padding:0 10px; }
-.sidebar .widget-category-link a { background:url(../images/widgets//i_widget-link.gif) 100% 4px no-repeat; padding:0 15px 0 0; }
+.sidebar .widget-category-link a { background:url(../images/widgets/i_widget-link.gif) 100% 4px no-repeat; padding:0 15px 0 0; }
 
 /* Widget: CMS Page Link */
 .widget-cms-link-inline { display:inline; }
 
 .col-main .widget-cms-link { display:block; text-align:right; margin:7px 0; }
-.col-main .widget-cms-link a { background:url(../images/widgets//i_widget-link.gif) 100% 4px no-repeat; padding-right:15px; }
+.col-main .widget-cms-link a { background:url(../images/widgets/i_widget-link.gif) 100% 4px no-repeat; padding-right:15px; }
 
 .sidebar .widget-cms-link { display:block; margin:0 0 15px; padding:0 10px; }
-.sidebar .widget-cms-link a { background:url(../images/widgets//i_widget-link.gif) 100% 4px no-repeat; padding:0 15px 0 0; }
+.sidebar .widget-cms-link a { background:url(../images/widgets/i_widget-link.gif) 100% 4px no-repeat; padding:0 15px 0 0; }
 /* ======================================================================================= */

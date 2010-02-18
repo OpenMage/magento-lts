@@ -50,12 +50,14 @@ $installer->getConnection()->dropColumn($this->getTable('sales_quote_temp_int'),
 $installer->getConnection()->dropColumn($this->getTable('sales_quote_temp_text'), 'store_id');
 $installer->getConnection()->dropColumn($this->getTable('sales_quote_temp_varchar'), 'store_id');
 
-$installer->run("
-ALTER TABLE {$this->getTable('sales_order_entity')}
-    ADD CONSTRAINT `FK_SALE_ORDER_ENTITY_STORE` FOREIGN KEY `FK_SALE_ORDER_ENTITY_STORE` (`store_id`)
-    REFERENCES {$this->getTable('core_store')} (`store_id`)
-    ON DELETE SET NULL
-    ON UPDATE CASCADE;
-");
+$installer->getConnection()->addConstraint(
+    'SALE_ORDER_ENTITY_STORE', 
+    $this->getTable('sales_order_entity'),
+    'store_id',
+    $this->getTable('core_store'),
+    'store_id',
+    'SET NULL'
+);
+
 $installer->installEntities();
 $installer->endSetup();

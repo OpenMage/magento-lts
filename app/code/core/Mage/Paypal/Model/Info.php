@@ -207,13 +207,13 @@ class Mage_Paypal_Model_Info
             case 'paypal_correlation_id':
                 return Mage::helper('paypal')->__('Last Corellation ID');
             case 'paypal_avs_code':
-                return Mage::helper('paypal')->__('Aaddress Verification System Response');
+                return Mage::helper('paypal')->__('Address Verification System Response');
             case 'paypal_cvv2_match':
                 return Mage::helper('paypal')->__('CVV2 Check Result by PayPal');
             case self::CENTINEL_VPAS:
-                return Mage::helper('paypal')->__('Centinel Visa Payer Authentication Service Result');
+                return Mage::helper('paypal')->__('PayPal/Centinel Visa Payer Authentication Service Result');
             case self::CENTINEL_ECI:
-                return Mage::helper('paypal')->__('Centinel Electronic Commerce Indicator');
+                return Mage::helper('paypal')->__('PayPal/Centinel Electronic Commerce Indicator');
         }
         return '';
     }

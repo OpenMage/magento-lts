@@ -35,11 +35,12 @@
         <table cellspacing="0" class="form-list">
             <tr>
                 <td class="label"><label for="answer_<?php echo $_item->getId() ?>"><?php echo Mage::helper('poll')->__('Answer Title:') ?> <span class="required">*</span></label></td>
-                <td class="value"><?php echo $this->getDeleteButtonHtml() ?><input type="text" id="answer_<?php echo $_item->getId() ?>" name="answer[<?php echo $_item->getId() ?>][title]" value="<?php echo $_item->getAnswerTitle() ?>" class="input-text required-entry" /></td>
+                <td class="value"><input type="text" id="answer_<?php echo $_item->getId() ?>" name="answer[<?php echo $_item->getId() ?>][title]" value="<?php echo $_item->getAnswerTitle() ?>" class="input-text required-entry" /></td>
             </tr>
             <tr>
                 <td class="label"><label for="answer_votes_<?php echo $_item->getId() ?>"><?php echo Mage::helper('poll')->__('Votes Count:') ?> <span class="required">*</span></label></td>
                 <td class="value"><input type="text" id="answer_votes_<?php echo $_item->getId() ?>" name="answer[<?php echo $_item->getId() ?>][votes]" value="<?php echo $_item->getVotesCount() ?>" class="input-text required-entry validate-not-negative-number" />
+                    <p class="a-left" style="margin:7px 0 0;"><?php echo $this->getDeleteButtonHtml() ?></p>
                 </td>
              </tr>
         </table>
@@ -48,7 +49,7 @@
     <?php endforeach; ?>
 <?php endif; ?>
 </div>
-<?php echo $this->getAddButtonHtml(); ?>
+<p class="a-right" style="margin:7px 0 0;"><?php echo $this->getAddButtonHtml(); ?></p>
 
 <script type="text/javascript">
 //<![CDATA[
@@ -82,11 +83,13 @@
                        +'<table cellspacing="0" class="form-list">'
                        +'<tr>'
                        +    '<td class="label"><label for="answer_' + id + '"><?php echo Mage::helper('poll')->__('Answer Title:') ?> <span class="required">*</span></label><\/td>'
-                       +    '<td class="value"><?php echo $this->getDeleteButtonHtml() ?><input type="text" id="answer_' + id + '" name="answer[' + id + '][title]" value="" class="input-text required-entry" /><\/td>'
+                       +    '<td class="value"><input type="text" id="answer_' + id + '" name="answer[' + id + '][title]" value="" class="input-text required-entry" /><\/td>'
                        +'<\/tr>'
                        +'<tr>'
                        +    '<td class="label"><label for="answer_votes_' + id + '"><?php echo Mage::helper('poll')->__('Votes Count:') ?> <span class="required">*</span></label><\/td>'
-                       +    '<td class="value"><input type="text" id="answer_votes_' + id + '" name="answer[' + id + '][votes]" value="0" class="input-text required-entry validate-not-negative-number" /><\/td>'
+                       +    '<td class="value"><input type="text" id="answer_votes_' + id + '" name="answer[' + id + '][votes]" value="0" class="input-text required-entry validate-not-negative-number" />'
+                       +        '<p class="a-left" style="margin:7px 0 0;"><?php echo $this->getDeleteButtonHtml() ?></p>'
+                       +'<\/td>'
                        +'<\/tr>'
                        +'<\/table>'
                        +'<input type="hidden" id="id_poll_answer_fieldset_' + id + '" value="' + id + '" />'

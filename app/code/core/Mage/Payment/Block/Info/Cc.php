@@ -24,18 +24,11 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Credit card generic payment info
+ */
 class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
 {
-    /**
-     * Init default template for block
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('payment/info/cc.phtml');
-    }
-
     /**
      * Retrieve credit card type name
      *
@@ -44,10 +37,11 @@ class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
     public function getCcTypeName()
     {
         $types = Mage::getSingleton('payment/config')->getCcTypes();
-        if (isset($types[$this->getInfo()->getCcType()])) {
-            return $types[$this->getInfo()->getCcType()];
+        $ccType = $this->getInfo()->getCcType();
+        if (isset($types[$ccType])) {
+            return $types[$ccType];
         }
-        return $this->getInfo()->getCcType();
+        return (empty($ccType)) ? Mage::helper('payment')->__('N/A') : $ccType;
     }
 
     /**
@@ -76,10 +70,46 @@ class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
         $date->setMonth($this->getInfo()->getCcExpMonth());
         return $date;
     }
-    
-    public function toPdf()
+
+    /**
+     * Prepare credit card related payment info
+     *
+     * @param Varien_Object|array $transport
+     * @return Varien_Object
+     */
+    protected function _prepareSpecificInformation($transport = null)
     {
-        $this->setTemplate('payment/info/pdf/cc.phtml');
-        return $this->toHtml();
+        if (null !== $this->_paymentSpecificInformation) {
+            return $this->_paymentSpecificInformation;
+        }
+        $transport = parent::_prepareSpecificInformation($transport);
+            $data[Mage::helper('payment')->__('Credit Card Type')] = $this->getCcTypeName();
+
+        if ($this->getInfo()->getCcLast4()) {
+            $data[Mage::helper('payment')->__('Credit Card Number')] = sprintf('xxxx-%s', $this->getInfo()->getCcLast4());
+        } else {
+            $data[Mage::helper('payment')->__('Credit Card Number')] = Mage::helper('payment')->__('N/A');
+        }
+        if ($ccSsIssue = $this->getInfo()->getCcSsIssue()) {
+            $data[Mage::helper('payment')->__('Switch/Solo Issue Number')] = $ccSsIssue;
+        }
+        if (!$this->getIsSecureMode()) {
+            if ($year = $this->getInfo()->getCcSsStartYear() && $month = $this->getInfo()->getCcStartMonth()) {
+                $data[Mage::helper('payment')->__('Switch/Solo Start Date')] =  $this->_formatCardDate($year, $month);
+            }
+        }
+        return $transport->setData(array_merge($data, $transport->getData()));
+    }
+
+    /**
+     * Format year/month on the credit card
+     *
+     * @param string $year
+     * @param string $month
+     * @return string
+     */
+    protected function _formatCardDate($year, $month)
+    {
+        return sprintf('%s/%s', sprintf('%02d', $month), $year);
     }
 }

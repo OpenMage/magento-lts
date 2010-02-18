@@ -32,7 +32,7 @@
         <td><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>"><img src="<?php echo $_product->getThumbnailUrl() ?>" border="0" align="left" height="75" width="75" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" /></a></td>
         <td>
             <div><a href="<?php echo $_product->getProductUrl() ?>"><b><?php echo $this->htmlEscape($_product->getName()) ?></b></a></div>
-            <?php if ($shortDescription = $_product->getShortDescription()): ?>
+            <?php if ($shortDescription = $this->htmlEscape($_product->getShortDescription())): ?>
             <p><small><?php echo $shortDescription ?></small></p>
             <?php endif; ?>
             <p><?php if ($_product->getPrice() != $_product->getFinalPrice()): ?>

@@ -31,8 +31,7 @@ $installer = $this;
 $this->startSetup();
 
 $installer->run("
-    CREATE TABLE IF NOT EXISTS `{$installer->getTable('sales/refunded_aggregated')}`
-    (
+    CREATE TABLE `{$installer->getTable('sales/refunded_aggregated')}` (
         `id`                        int(11) unsigned NOT NULL auto_increment,
         `period`                    date NOT NULL DEFAULT '0000-00-00',
         `store_id`                  smallint(5) unsigned NULL DEFAULT NULL,
@@ -42,14 +41,11 @@ $installer->run("
         `online_refunded`           decimal(12,4) NOT NULL DEFAULT '0',
         `offline_refunded`          decimal(12,4) NOT NULL DEFAULT '0',
         PRIMARY KEY (`id`),
-        UNIQUE KEY `UNQ_REFUNDED_AGGREGATED_CREATED_PSS` (`period`,`store_id`, `order_status`),
-        KEY `FK_REFUNDED_AGGREGATED_CREATED_STORE` (`store_id`),
-        CONSTRAINT `FK_REFUNDED_AGGREGATED_CREATED_STORE` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`)
-            ON DELETE SET NULL ON UPDATE CASCADE
+        UNIQUE KEY `UNQ_PERIOD_STORE_ORDER_STATUS` (`period`,`store_id`, `order_status`),
+        KEY `IDX_STORE_ID` (`store_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-    CREATE TABLE IF NOT EXISTS `{$installer->getTable('sales/refunded_aggregated_order')}`
-    (
+    CREATE TABLE `{$installer->getTable('sales/refunded_aggregated_order')}` (
         `id`                        int(11) unsigned NOT NULL auto_increment,
         `period`                    date NOT NULL DEFAULT '0000-00-00',
         `store_id`                  smallint(5) unsigned NULL DEFAULT NULL,
@@ -59,12 +55,29 @@ $installer->run("
         `online_refunded`           decimal(12,4) NOT NULL DEFAULT '0',
         `offline_refunded`          decimal(12,4) NOT NULL DEFAULT '0',
         PRIMARY KEY (`id`),
-        UNIQUE KEY `UNQ_REFUNDED_AGGREGATED_UPDATED_PSS` (`period`,`store_id`, `order_status`),
-        KEY `FK_REFUNDED_AGGREGATED_UPDATED_STORE` (`store_id`),
-        CONSTRAINT `FK_REFUNDED_AGGREGATED_UPDATED_STORE` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`)
-            ON DELETE SET NULL ON UPDATE CASCADE
+        UNIQUE KEY `UNQ_PERIOD_STORE_ORDER_STATUS` (`period`,`store_id`, `order_status`),
+        KEY `IDX_STORE_ID` (`store_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
+
+
+$installer->getConnection()->addConstraint(
+    'SALES_REFUNDED_AGGREGATED_STORE',
+    $installer->getTable('sales/refunded_aggregated'),
+    'store_id',
+    $installer->getTable('core/store'),
+    'store_id',
+    'SET NULL'
+);
+
+$installer->getConnection()->addConstraint(
+    'SALES_REFUNDED_AGGREGATED_ORDER_STORE',
+    $installer->getTable('sales/refunded_aggregated_order'),
+    'store_id',
+    $installer->getTable('core/store'),
+    'store_id',
+    'SET NULL'
+);
 
 $this->endSetup();
 

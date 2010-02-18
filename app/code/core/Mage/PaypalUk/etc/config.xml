@@ -31,7 +31,6 @@
             <version>0.7.0</version>
         </Mage_PaypalUk>
     </modules>
-
     <global>
         <models>
             <paypaluk>
@@ -60,31 +59,6 @@
         <blocks>
             <paypaluk><class>Mage_PaypalUk_Block</class></paypaluk>
         </blocks>
-        <sales>
-            <order>
-                <statuses>
-                    <pending_paypal translate="label"><label>Pending PayPal</label></pending_paypal>
-                </statuses>
-                <states>
-                    <pending_payment>
-                        <statuses>
-                            <pending_paypal/>
-                        </statuses>
-                    </pending_payment>
-                </states>
-            </order>
-        </sales>
-        <payment>
-            <cc>
-                <types>
-                    <SS>
-                        <code>SS</code>
-                        <name>Maestro/Solo</name>
-                        <order>40</order>
-                    </SS>
-                </types>
-            </cc>
-        </payment>
     </global>
     <frontend>
         <secure_url>
@@ -131,7 +105,6 @@
     <default>
         <paypal>
             <wpuk>
-                <url>https://pilot-payflowpro.verisign.com/transaction</url>
                 <partner>PayPalUK</partner>
                 <user backend_model="adminhtml/system_config_backend_encrypted"/>
                 <pwd backend_model="adminhtml/system_config_backend_encrypted"/>

@@ -70,7 +70,7 @@
     <ul>
     <?php foreach ($this->getGalleryImages() as $_image): ?>
         <li>
-            <a href="#" onclick="popWin('<?php echo $this->getGalleryUrl($_image) ?>', 'gallery', 'width=300,height=300,left=50,top=50,location=no,status=yes,scrollbars=yes,resizable=yes'); return false;" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(56); ?>" width="56" height="56" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" /></a>
+            <a href="#" onclick="popWin('<?php echo $this->getGalleryUrl($_image) ?>', 'gallery', 'width=300,height=300,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes'); return false;" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(56); ?>" width="56" height="56" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" /></a>
         </li>
     <?php endforeach; ?>
     </ul>

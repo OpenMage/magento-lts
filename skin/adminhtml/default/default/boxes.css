@@ -131,6 +131,7 @@
 .grid tr.invalid                { background-color:#f5d6c7; }
 .grid th, .grid td              { padding:2px 4px 2px 4px; }
 .grid th                        { white-space:nowrap; }
+.grid td.editable input.input-text { width:50px !important; margin-left:4px !important; }
 .grid td input.input-text       { width:86%; }
 .grid table td                  { border-width:0 1px 1px 0; border-color:#dadfe0; border-style:solid; }
 .grid table.border td           { background:#fff !important; }
@@ -357,15 +358,14 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .form-list td.value,
 .form-list td.note,
 .form-list td.scope-label,
-.form-list td.use-default       { border:0 !important; padding-top:5px !important; padding-bottom:5px !important; background:0 !important; }
+.form-list td.use-default       { border:0 !important; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px !important; background:0 !important; }
 .form-list td.hidden            { border:0 !important; padding:0 !important; background:0 !important; }
 .form-list td.label             { width:200px; }
 .form-list td.label label       { display:block; width:185px; padding-right:15px; }
 .form-list td.value input.input-text,
 .form-list td.value textarea    { width:274px; }
-.form-list td.value textarea    { height:12em; }
+.form-list td.value textarea    { height:15em; }
 .form-list td.value select      { width:280px; }
-.form-list td.use-default       { padding-left:15px; }
 .form-list td.note              { background:url(images/note_cell_bg.gif) 6px 10px no-repeat !important; padding-left:18px; }
 .form-list td.scope-label       { padding-left:5px; color:#6f8992; font-size:.9em; }
 .form-list p.note               { margin:0; padding:0 0 0 13px; background:url(images/note_bg.gif) 1px 6px no-repeat; font-size:11px; }
@@ -379,6 +379,9 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .fieldset-wide .form-list td.value { width:auto !important; }
 .fieldset-wide .form-list td.value input.input-text,
 .fieldset-wide .form-list td.value textarea { width:98% !important; }
+.fieldset-wide .form-list td.value select { display:block; }
+.fieldset-wide .form-list td.scope-label { white-space:nowrap; width:1px; }
+.fieldset-wide .form-list td.note { width:120px; }
 
 .multi-input                    { margin-bottom:8px; } /* Example: Address fields with 2 input lines */
 .grid tr .form-list tr          { background:#fff !important; } /* Follows grid row background-color */
@@ -1012,6 +1015,12 @@ input.downloads { width:6.5em !important; }
 .stores-tree td.store-label label { padding-left:30px; }
 .stores-tree .buttons-set { margin:10px 0; }
 
+.log-details { border:1px solid #d6d6d6; padding:15px; background:#fafafa; margin:0 0 15px; }
+.log-details table { width:100%; }
+.log-details table th,
+.log-details table td { padding-top:4px; padding-bottom:4px; vertical-align:middle; }
+.log-details table th { font-weight:bold; padding-right:30px; white-space:nowrap; }
+
 /* Configuration */
 /*fieldset.config td          { padding-top:5px; padding-bottom:5px; }
 fieldset.config input.input-text { width:250px; }
@@ -1136,23 +1145,21 @@ ul.super-product-attributes { padding-left:15px; }
     }
 
 
-
-
 /** Product Gallery Image Previews **/
-.preview .cell-image .place-holder {
-    border:1px solid #AEAEAE;
-    width:100px;
-    height:100px;
-    text-align:center;
-    }
+.preview .cell-image .place-holder { border:1px solid #AEAEAE; width:100px; height:100px; text-align:center; }
 .preview .cell-image .place-holder span { margin-top:30px;display:block; }
-.preview .cell-position .input-text     { width:90% !important; }
+.preview .cell-position input.input-text { width:90% !important; }
+.fieldset-wide .data .preview .cell-position input.input-text  { width:90% !important; }
 
-.tier .data             { width:480px; }
+.tier .data             { width:465px; }
 .tier .data select      { width:99%; }
 .tier .data input.qty   { width:20px !important; }
-.tier .data .last { width:33px; }
 
+.weee .data             { width:465px; }
+.weee .data select      { width:99%; }
+
+.giftcard-amounts .data { width:465px; }
+.giftcard-amounts .data select { width:99%; }
 
 /* Links */
 .link-feed { background:url(images/icon_feed.gif) no-repeat left 2px; padding-left:18px; }

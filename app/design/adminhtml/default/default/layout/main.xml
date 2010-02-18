@@ -79,6 +79,8 @@ Default layout, loads most of the pages
                 <action method="addItem"><type>skin_css</type><name>below_ie7.css</name><params/><if>lt IE 7</if></action>
                 <action method="addItem"><type>skin_css</type><name>ie7.css</name><params/><if>IE 7</if></action>
 
+                <action method="addCss"><name>print.css</name><params>media="print"</params></action>
+
                 <action method="addItem"><type>js</type><name>lib/ds-sleight.js</name><params>defer</params><if>lt IE 7</if></action>
                 <action method="addItem"><type>js</type><name>varien/iehover-fix.js</name><params/><if>lt IE 7</if></action>
 
@@ -104,9 +106,9 @@ Default layout, loads most of the pages
             <block type="adminhtml/page_header" name="header" as="header"></block>
             <block type="adminhtml/page_menu" name="menu" as="menu"></block>
             <block type="core/text_list" name="notifications" as="notifications">
-                <block type="adminhtml/notification_toolbar" name="notification_toolbar" as="notification_toolbar" acl="system/adminnotification/show_toolbar" template="notification/toolbar.phtml"></block>
                 <block type="adminhtml/notification_baseurl" name="notification_baseurl" as="notification_baseurl" template="notification/baseurl.phtml"></block>
                 <block type="adminhtml/cache_notifications" name="cache_notifications" template="system/cache/notifications.phtml"></block>
+                <block type="adminhtml/notification_survey" name="notification_survey" template="notification/survey.phtml"/>
             </block>
             <block type="adminhtml/widget_breadcrumbs" name="breadcrumbs" as="breadcrumbs"></block>
 
@@ -122,7 +124,6 @@ Default layout, loads most of the pages
             <block type="core/profiler" name="profiler" as="profiler"/>
             <block type="core/text_list" name="before_body_end" as="before_body_end"/>
 
-            <block type="adminhtml/notification_window" name="notification_window" as="notification_window" acl="system/adminnotification/show_toolbar" template="notification/window.phtml" />
         </block>
     </default>
 
@@ -157,6 +158,7 @@ Layout for editor element
             <action method="addJs"><script>mage/adminhtml/variables.js</script></action>
             <action method="addJs"><script>mage/adminhtml/wysiwyg/widget.js</script></action>
             <action method="addJs"><script>lib/flex.js</script></action>
+            <action method="addJs"><script>lib/FABridge.js</script></action>
             <action method="addJs"><script>mage/adminhtml/flexuploader.js</script></action>
             <action method="addJs"><script>mage/adminhtml/browser.js</script></action>
             <action method="addJs"><script>prototype/window.js</script></action>

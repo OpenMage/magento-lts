@@ -93,7 +93,7 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
 
         $html  = '<script type="text/javascript">' . "\n";
         $html .= "//<![CDATA[\n";
-        $html .= 'pageTracker._addTrans(';
+        $html .= '_gaq.push(["_addTrans",';
         $html .= '"' . $order->getIncrementId() . '",';
         $html .= '"' . $order->getAffiliation() . '",';
         $html .= '"' . $order->getBaseGrandTotal() . '",';
@@ -102,24 +102,24 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
         $html .= '"' . $this->jsQuoteEscape($address->getCity(), '"') . '",';
         $html .= '"' . $this->jsQuoteEscape($address->getRegion(), '"') . '",';
         $html .= '"' . $this->jsQuoteEscape($address->getCountry(), '"') . '"';
-        $html .= ');' . "\n";
+        $html .= ']);' . "\n";
 
         foreach ($order->getAllItems() as $item) {
             if ($item->getParentItemId()) {
                 continue;
             }
 
-            $html .= 'pageTracker._addItem(';
+            $html .= '_gaq.push(["_addItem",';
             $html .= '"' . $order->getIncrementId() . '",';
             $html .= '"' . $this->jsQuoteEscape($item->getSku(), '"') . '",';
             $html .= '"' . $this->jsQuoteEscape($item->getName(), '"') . '",';
             $html .= '"' . $item->getCategory() . '",';
             $html .= '"' . $item->getBasePrice() . '",';
             $html .= '"' . $item->getQtyOrdered() . '"';
-            $html .= ');' . "\n";
+            $html .= ']);' . "\n";
         }
 
-        $html .= 'pageTracker._trackTrans();' . "\n";
+        $html .= '_gaq.push(["_trackTrans"]);' . "\n";
         $html .= '//]]>';
         $html .= '</script>';
 
@@ -171,14 +171,14 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
 <!-- BEGIN GOOGLE ANALYTICS CODE -->
 <script type="text/javascript">
 //<![CDATA[
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src=\'" + gaJsHost + "google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E"));
-//]]>
-</script>
-<script type="text/javascript">
-//<![CDATA[
-var pageTracker = _gat._getTracker("' . $this->getAccount() . '");
-pageTracker._trackPageview("'.$this->getPageName().'");
+    (function() {
+        var ga = document.createElement(\'script\'); ga.type = \'text/javascript\'; ga.async = true;
+        ga.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.google-analytics.com/ga.js\';
+        (document.getElementsByTagName(\'head\')[0] || document.getElementsByTagName(\'body\')[0]).appendChild(ga);
+    })();
+
+    _gaq.push(["_setAccount", "' . $this->getAccount() . '"]);
+    _gaq.push(["_trackPageview", "'.$this->getPageName().'"]);
 //]]>
 </script>
 <!-- END GOOGLE ANALYTICS CODE -->

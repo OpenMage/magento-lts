@@ -240,7 +240,9 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     public function capture()
     {
         $this->getOrder()->getPayment()->capture($this);
-        $this->pay();
+        if ($this->getIsPaid()) {
+            $this->pay();
+        }
         return $this;
     }
 
@@ -302,7 +304,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      */
     public function cancel()
     {
-        $this->getOrder()->getPayment()->cancelInvoice($this);
+        $order = $this->getOrder();
+        $order->getPayment()->cancelInvoice($this);
         foreach ($this->getAllItems() as $item) {
             $item->cancel();
         }
@@ -310,20 +313,26 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         /**
          * Unregister order totals only for invoices in state PAID
          */
-        if ($this->getState() == self::STATE_PAID) {
-            $this->getOrder()->setTotalPaid(
-                $this->getOrder()->getTotalPaid()-$this->getGrandTotal()
-            );
-            $this->getOrder()->setBaseTotalPaid(
-                $this->getOrder()->getBaseTotalPaid()-$this->getBaseGrandTotal()
-            );
+        $order->setTotalInvoiced($order->getTotalInvoiced() - $this->getGrandTotal());
+        $order->setBaseTotalInvoiced($order->getBaseTotalInvoiced() - $this->getBaseGrandTotal());
 
-            $this->getOrder()->setTotalInvoiced(
-                $this->getOrder()->getTotalInvoiced()-$this->getGrandTotal()
-            );
-            $this->getOrder()->setBaseTotalInvoiced(
-                $this->getOrder()->getBaseTotalInvoiced()-$this->getBaseGrandTotal()
-            );
+        $order->setSubtotalInvoiced($order->getSubtotalInvoiced() - $this->getSubtotal());
+        $order->setBaseSubtotalInvoiced($order->getBaseSubtotalInvoiced() - $this->getBaseSubtotal());
+
+        $order->setTaxInvoiced($order->getTaxInvoiced() - $this->getTaxAmount());
+        $order->setBaseTaxInvoiced($order->getBaseTaxInvoiced() - $this->getBaseTaxAmount());
+
+        $order->setShippingInvoiced($order->getShippingInvoiced() - $this->getShippingAmount());
+        $order->setBaseShippingInvoiced($order->getBaseShippingInvoiced() - $this->getBaseShippingAmount());
+
+        $order->setDiscountInvoiced($order->getDiscountInvoiced() - $this->getDiscountAmount());
+        $order->setBaseDiscountInvoiced($order->getBaseDiscountInvoiced() - $this->getBaseDiscountAmount());
+        $order->setBaseTotalInvoicedCost($order->getBaseTotalInvoicedCost() - $this->getBaseCost());
+
+
+        if ($this->getState() == self::STATE_PAID) {
+            $this->getOrder()->setTotalPaid($this->getOrder()->getTotalPaid()-$this->getGrandTotal());
+            $this->getOrder()->setBaseTotalPaid($this->getOrder()->getBaseTotalPaid()-$this->getBaseGrandTotal());
         }
         $this->setState(self::STATE_CANCELED);
         $this->getOrder()->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true);
@@ -454,8 +463,9 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         }
 
         $order = $this->getOrder();
+        $captureCase = $this->getRequestedCaptureCase();
         if ($this->canCapture()) {
-            if ($captureCase = $this->getRequestedCaptureCase()) {
+            if ($captureCase) {
                 if ($captureCase == self::CAPTURE_ONLINE) {
                     $this->capture();
                 }
@@ -464,8 +474,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
                     $this->pay();
                 }
             }
-        }
-        elseif(!$order->getPayment()->getMethodInstance()->isGateway()) {
+        } elseif(!$order->getPayment()->getMethodInstance()->isGateway() || $captureCase == self::CAPTURE_OFFLINE) {
+            $this->setCanVoidFlag(false);
             $this->pay();
         }
 
@@ -568,6 +578,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         }
         $paymentBlock   = Mage::helper('payment')->getInfoBlock($order->getPayment())
             ->setIsSecureMode(true);
+        $paymentBlock->getMethod()->setStore($order->getStore()->getId());
 
         $mailTemplate = Mage::getModel('core/email_template');
 

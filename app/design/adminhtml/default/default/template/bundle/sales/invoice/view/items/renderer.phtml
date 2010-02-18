@@ -65,7 +65,7 @@
         <td><h5 class="title"><?php echo $this->htmlEscape($_item->getName()) ?></h5>
             <div>
                 <strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong>
-                <?php echo implode('<br />', Mage::helper('catalog')->splitSku($_item->getSku())); ?>
+                <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->htmlEscape($_item->getSku()))); ?>
             </div>
         <?php else: ?>
         <td><div class="option-value"><?php echo $this->getValueHtml($_item)?></div></td>
@@ -328,7 +328,7 @@
                 <?php endforeach; ?>
                 </dl>
             <?php endif; ?>
-            <?php echo $this->getItem()->getDescription() ?>
+            <?php echo $this->htmlEscape($this->getItem()->getDescription()) ?>
         </td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>

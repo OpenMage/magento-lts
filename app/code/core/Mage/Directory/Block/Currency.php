@@ -87,6 +87,17 @@ class Mage_Directory_Block_Currency extends Mage_Core_Block_Template
     }
 
     /**
+     * Return URL for specified currency to switch
+     *
+     * @param string $code Currency code
+     * @return string
+     */
+    public function getSwitchCurrencyUrl($code)
+    {
+        return Mage::helper('directory/url')->getSwitchCurrencyUrl(array('currency' => $code));
+    }
+
+    /**
      * Retrieve Current Currency code
      *
      * @return string
@@ -98,7 +109,7 @@ class Mage_Directory_Block_Currency extends Mage_Core_Block_Template
             // to get an invalid (without base rate) currency from code saved in session
             $this->setData('current_currency_code', Mage::app()->getStore()->getCurrentCurrency()->getCode());
         }
-        
+
         return $this->_getData('current_currency_code');
     }
 }

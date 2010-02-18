@@ -30,93 +30,113 @@
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 
 <?php if ($this->getShippingAddress()): ?>
-<div class="col2-set">
-    <h2><?php echo $this->__('Shipping Information') ?></h2>
+<div class="info-set col2-set">
+    <h2 class="legend"><?php echo $this->__('Shipping Information') ?></h2>
     <div class="col-1">
-        <h3><?php echo $this->__('Shipping Address') ?><span class="separator"><?php if ($this->getCanEditShippingAddress()):?> | </span><a href="<?php echo $this->getUrl('paypal/express/edit') ?>"><?php echo $this->__('Change Shipping Address') ?></a><?php endif;?></h3>
-        <address>
-            <?php echo $this->getShippingAddress()->getFormated(true) ?>
-        </address>
+        <div class="box">
+            <div class="box-title">
+                <h3><?php echo $this->__('Shipping Address') ?><span class="separator"><?php if ($this->getCanEditShippingAddress()):?> | </span><a href="<?php echo $this->getUrl('paypal/express/edit') ?>"><?php echo $this->__('Change Shipping Address') ?></a><?php endif;?></h3>
+            </div>
+            <div class="box-content">
+                <address>
+                    <?php echo $this->getShippingAddress()->getFormated(true) ?>
+                </address>
+            </div>
+        </div>
     </div>
     <div class="col-2">
-        <h3><?php echo $this->__('Shipping Method') ?></h3>
-        <?php if ($this->isVirtual()): ?>
-            <strong><?php echo $this->__('No shipping method required.') ?></strong>
-        <?php else: ?>
-            <?php if (!($_shippingRateGroups = $this->getShippingRates())): ?>
-                <p><strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong></p>
-            <?php else: ?>
+        <div class="box">
+            <div class="box-title">
+                <h3><?php echo $this->__('Shipping Method') ?></h3>
+            </div>
+            <div class="box-content">
+                <?php if ($this->isVirtual()): ?>
+                    <p><strong><?php echo $this->__('No shipping method required.') ?></strong></p>
+                <?php else: ?>
+                    <?php if (!($_shippingRateGroups = $this->getShippingRates())): ?>
+                        <p><strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong></p>
+                    <?php else: ?>
+                    <form method="post" id="shipping_method_form" action="<?php echo $this->getUrl($this->getPaypalActionPrefix().'/express/saveShippingMethod') ?>">
+                        <fieldset>
+                            <select name="shipping_method" id="shipping_method" style="width:250px;" class="required-entry">
+                            <?php if(!$this->getAddressShippingMethod()): ?>
+                                <option value=""><?php echo $this->__('Please select a shipping method...') ?></option>
+                            <?php endif ?>
+                            <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
+                                <optgroup label="<?php echo $this->getCarrierName($code) ?>" style="font-style:normal;">
+                                <?php foreach ($_rates as $_rate): ?>
+                                   <?php if ($_rate->getErrorMessage()): ?>
+                                        <option value="">
+                                            <?php echo $_rate->getErrorMessage() ?>
+                                        </option>
+                                   <?php else: ?>
+                                       <option value="<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()): ?> selected="selected"<?php endif ?> style="margin-left:16px;">
+                                            <?php echo $_rate->getMethodTitle() ?> -
 
-            <form method="post" id="shipping_method_form" action="<?php echo $this->getUrl('paypal/express/saveShippingMethod') ?>">
-                <div>
-                <select name="shipping_method" id="shipping_method" style="width:250px;" class="required-entry">
-                <?php if(!$this->getAddressShippingMethod()): ?>
-                    <option value=""><?php echo $this->__('Please select a shipping method...') ?></option>
-                <?php endif ?>
-                <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
-                    <optgroup label="<?php echo $this->getCarrierName($code) ?>" style="font-style:normal;">
-                    <?php foreach ($_rates as $_rate): ?>
-                       <?php if ($_rate->getErrorMessage()): ?>
-                            <option value="">
-                                <?php echo $_rate->getErrorMessage() ?>
-                            </option>
-                       <?php else: ?>
-                           <option value="<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()): ?> selected="selected"<?php endif ?> style="margin-left:16px;">
-                                <?php echo $_rate->getMethodTitle() ?> -
+                                            <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                                            <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
 
-                                <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
-                                <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+                                            <?php echo $_excl; ?>
+                                            <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                                (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                                            <?php endif; ?>
+                                       </option>
+                                   <?php endif ?>
+                                <?php endforeach; ?>
+                                </optgroup>
+                            <?php endforeach; ?>
+                            </select>
+                            <p class="actions">
+                                <button id="update_shipping_method_submit" type="submit" class="button"><span><span><?php echo $this->__('Update Shipping Method') ?></span></span></button>
+                            </p>
+                        </fieldset>
+                    </form>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
 
-                                <?php echo $_excl; ?>
-                                <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
-                                    (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
-                                <?php endif; ?>
-                           </option>
-                       <?php endif ?>
-                    <?php endforeach; ?>
-                    </optgroup>
-                <?php endforeach; ?>
-                </select>
-                </div>
-                <p class="actions">
-                    <button id="update_shipping_method_submit" type="submit" class="button"><span><span><?php echo $this->__('Update Shipping Method') ?></span></span></button>
-                </p>
-            </form>
-            <?php endif; ?>
-        <?php endif; ?>
-
+<div class="info-set col2-set">
+    <h2 class="legend"><?php echo $this->__('Billing Information') ?></h2>
+    <div class="col-1">
+        <div class="box">
+            <div class="box-title">
+                <h3><?php echo $this->__('Payment Method') ?> <span class="separator">|</span> <a href="<?php echo $this->getUrl($this->getPaypalActionPrefix().'/express/edit') ?>"><?php echo $this->__('Change Payment Method') ?></a></h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="box">
+            <div class="box-title">
+                <h3><?php echo $this->__('Billing Address') ?></h3>
+            </div>
+            <div class="box-content">
+                <address>
+                    <?php echo $this->getBillingAddress()->getFormated(true) ?><br />
+                    <?php echo $this->__('Payer Email: %s', $this->getBillingAddress()->getEmail()) ?>
+                </address>
+            </div>
+        </div>
     </div>
 </div>
 
-<br />
-<?php endif; ?>
-
-<h2><?php echo $this->__('Billing Information') ?></h2>
-<h3><?php echo $this->__('Payment Method') ?><span class="separator"> | </span><a href="<?php echo $this->getUrl('paypal/express/edit') ?>"><?php echo $this->__('Change Payment Method') ?></a></h3>
-<h3><?php echo $this->__('Billing Address') ?></h3>
-<address>
-<?php echo $this->getBillingAddress()->getFormated(true) ?>
-<?php echo $this->__('Payer Email: %s', $this->getBillingAddress()->getEmail()) ?>
-</address>
-
-<h2><?php echo $this->__('Items in Your Shopping Cart') ?><span class="separator"> | </span><a href="<?php echo $this->getUrl('checkout/cart') ?>"><?php echo $this->__('Edit Shopping Cart') ?></a></h2>
-
-<div id="details-reload">
-    <?php echo $this->getChildHtml('details') ?>
+<div class="info-set">
+    <h2 class="legend"><?php echo $this->__('Items in Your Shopping Cart') ?><span class="separator"> | </span><a href="<?php echo $this->getUrl('checkout/cart') ?>"><?php echo $this->__('Edit Shopping Cart') ?></a></h2>
+    <div id="details-reload">
+        <?php echo $this->getChildHtml('details') ?>
+    </div>
 </div>
-
-<br />
-
-<form method="post" id="order_review_form" action="<?php echo $this->getUrl('paypal/express/placeOrder') ?>">
-    <fieldset>
-        <span id="review-buttons-container">
-            <button class="button" id="review_button" value="<?php echo $this->__('Place an Order') ?>"><span><span><?php echo $this->__('Place an Order') ?></span></span></button>
-            <button class="button" id="review_submit" type="submit" value="<?php echo $this->__('Place an Order') ?>"><span><span><?php echo $this->__('Place an Order') ?></span></span></button>
-        </span>
+<form method="post" id="order_review_form" action="<?php echo $this->getUrl($this->getPaypalActionPrefix().'/express/placeOrder') ?>">
+    <div class="buttons-set buttons-set-order" id="review-buttons-container">
+        <button id="review_button" value="<?php echo $this->__('Place an Order') ?>" title="<?php echo $this->__('Place an Order') ?>" class="button btn-checkout"><span><span><?php echo $this->__('Place an Order') ?></span></span></button>
+        <button type="submit" id="review_submit" value="<?php echo $this->__('Place an Order') ?>" title="<?php echo $this->__('Place an Order') ?>" class="button btn-checkout"><span><span><?php echo $this->__('Place an Order') ?></span></span></button>
         <span class="please-wait" id="review-please-wait" style="display:none;">
             <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Submitting order information...') ?>" title="<?php echo $this->__('Submitting order information...') ?>" class="v-middle" /> <?php echo $this->__('Submitting order information...') ?>
         </span>
-        </fieldset>
+    </div>
 </form>
 <script type="text/javascript">
 //<![CDATA[
@@ -130,10 +150,5 @@ PayPalExpressAjax = new OrderReviewController($('order_review_form'), $('review_
     $('shipping_method'), $('shipping_method_form'), 'details-reload'
 );
 PayPalExpressAjax.addPleaseWait($('review-please-wait'));
-
-PayPalExpressAjax.onSubmitShippingSuccess = function() {
-    decorateTable('details-table');
-};
-decorateTable('details-table');
 //]]>
 </script>

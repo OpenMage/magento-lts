@@ -34,6 +34,19 @@
 class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_Abstract
 {
     /**
+     * Initialize default item renderer for row-level items output
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->addItemRender(
+            $this->_getRowItemType('default'),
+            'checkout/cart_item_renderer',
+            'checkout/multishipping/overview/item.phtml'
+        );
+    }
+
+    /**
      * Get multishipping checkout model
      *
      * @return Mage_Checkout_Model_Type_Multishipping
@@ -233,5 +246,59 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
         $totals = $this->getChild('totals')->setTotals($totals)->renderTotals('', $colspan)
             . $this->getChild('totals')->setTotals($totals)->renderTotals('footer', $colspan);
         return $totals;
+    }
+
+    /**
+     * Add renderer for row-level item output
+     *
+     * @param   string $type Product type
+     * @param   string $block Block type
+     * @param   string $template Block template
+     * @return  Mage_Checkout_Block_Multishipping_Overview
+     */
+    public function addRowItemRender($type, $block, $template)
+    {
+        $type = $this->_getRowItemType($type);
+        parent::addItemRender($this->_getRowItemType($type), $block, $template);
+        return $this;
+    }
+
+    /**
+     * Return row-level item html
+     *
+     * @param Varien_Object $item
+     * @return string
+     */
+    public function getRowItemHtml(Varien_Object $item)
+    {
+        $type = $this->_getItemType($item);
+        $block = $this->_getRowItemRenderer($type)
+            ->setItem($item);
+        $this->_prepareItem($block);
+        return $block->toHtml();
+    }
+
+    /**
+     * Retrieve renderer block for row-level item output
+     *
+     * @param string $type
+     * @return Mage_Core_Block_Abstract
+     */
+    public function _getRowItemRenderer($type)
+    {
+        $type = $this->_getRowItemType($type);
+        $type = isset($this->_itemRenders[$type]) ? $type : $this->_getRowItemType('default');
+        return parent::getItemRenderer($type);
+    }
+
+    /**
+     * Wrap row renderers into namespace by adding 'row_' suffix
+     *
+     * @param string $type Product type
+     * @return string
+     */
+    protected function _getRowItemType($type)
+    {
+        return 'row_' . $type;
     }
 }

@@ -48,11 +48,13 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
 
     protected function _createOptions(&$optionArray, $menuNode)
     {
+        $nonEscapableNbspChar = html_entity_decode('&#160;', ENT_NOQUOTES, 'UTF-8');
+
         foreach ($menuNode as $menu) {
 
             if (!empty($menu['url'])) {
                 $optionArray[] = array(
-                    'label' => str_repeat('&nbsp;', ($menu['level'] * 4)) . $menu['label'],
+                    'label' => str_repeat($nonEscapableNbspChar, ($menu['level'] * 4)) . $menu['label'],
                     'value' => $menu['path'],
                 );
 
@@ -65,7 +67,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
                 $this->_createOptions($children, $menu['children']);
 
                 $optionArray[] = array(
-                    'label' => str_repeat('&nbsp;', ($menu['level'] * 4)) . $menu['label'],
+                    'label' => str_repeat($nonEscapableNbspChar, ($menu['level'] * 4)) . $menu['label'],
                     'value' => $children,
                 );
             }

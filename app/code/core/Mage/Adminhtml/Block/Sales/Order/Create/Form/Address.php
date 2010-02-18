@@ -88,6 +88,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
                     )
                     ->setEntityAttribute($attribute);
 
+                    if ('street' === $element->getName()) {
+                        $lines = Mage::getStoreConfig('customer/address/street_lines', $this->getStoreId());
+                        $element->setLineCount($lines);
+                    }
+
                     if ($inputType == 'select' || $inputType == 'multiselect') {
                         $element->setValues($attribute->getFrontend()->getSelectOptions());
                     }

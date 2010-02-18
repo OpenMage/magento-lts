@@ -140,7 +140,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getEscapedQueryText()
     {
-        return $this->getQueryText();
+        return $this->htmlEscape($this->getQueryText());
     }
 
     /**

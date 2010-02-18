@@ -72,16 +72,20 @@
                 <strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong>
             <?php else: ?>
             <dl class="shipment-methods">
-                <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
+                <?php $_sole = count($_shippingRateGroups) == 1; foreach ($_shippingRateGroups as $code => $_rates): ?>
                     <dt><?php echo $this->getCarrierName($code) ?></dt>
                     <dd>
                         <ul>
-                        <?php foreach ($_rates as $_rate): ?>
+                        <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
                             <li>
                             <?php if ($_rate->getErrorMessage()): ?>
                                     <strong><?php echo $_rate->getCarrierTitle() ?>: <?php echo $_rate->getErrorMessage() ?></strong>
                             <?php else: ?>
+                                    <?php if ($_sole) : ?>
+                                    <span class="no-display"><input name="shipping_method[<?php echo $_address->getId() ?>]" type="radio" value="<?php echo $this->htmlEscape($_rate->getCode()) ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>" checked="checked"/></span>
+                                    <?php else: ?>
                                     <input name="shipping_method[<?php echo $_address->getId() ?>]" type="radio" value="<?php echo $this->htmlEscape($_rate->getCode()) ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod($_address)) echo ' checked="checked"' ?> />
+                                    <?php endif; ?>
                                     <label for="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"><?php echo $_rate->getMethodTitle() ?> - <strong><?php echo $_rate->getPrice() ?></strong></label>
                             <?php endif ?>
                             </li>

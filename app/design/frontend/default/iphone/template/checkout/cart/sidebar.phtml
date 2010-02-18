@@ -66,7 +66,7 @@
             </div>
             <div class="product-details">
                 <a href="<?php echo $this->getRemoveItemUrl($_item) ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>');" class="widget-btn"><img src="<?php echo $this->getSkinUrl('images/list_remove_btn.gif') ?>" alt="<?php echo $this->__('Remove Product') ?>" /></a>
-                <a href="<?php echo $_item->getProductUrl() ?>"><?php echo $_item->getProductName() ?></a>
+                <a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getProductName()) ?></a>
                 <?php echo $_item->getProductDescription() ?>
                 <br /><strong><?php echo 1*$_item->getQty() ?></strong> x
 

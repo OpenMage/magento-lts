@@ -17,8 +17,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 var VarienRulesForm = new Class.create();
@@ -55,7 +57,7 @@ VarienRulesForm.prototype = {
                 Event.observe(apply, 'click', this.hideParamInputField.bind(this, container));
             } else {
                 elem = elem.down('.element-value-changer');
-                elem.container = container; 
+                elem.container = container;
                 if (!elem.multiple) {
                     Event.observe(elem, 'change', this.hideParamInputField.bind(this, container));
                 }
@@ -154,7 +156,7 @@ VarienRulesForm.prototype = {
 
         var elem = Element.down(elemContainer, 'input.input-text');
         if (elem) {
-        	elem.focus();
+            elem.focus();
             if (elem && elem.id && elem.id.match(/__value$/)) {
                 this.updateElement = elem;
                 //this.showChooser(container, event);
@@ -213,7 +215,7 @@ VarienRulesForm.prototype = {
                 } else if (str.length>30) {
                     str = str.substr(0, 30)+'...';
                 }
-                label.innerHTML = str;
+                label.innerHTML = str.escapeHTML();
             }
         } else {
             elem = Element.down(container, '.element-value-changer');

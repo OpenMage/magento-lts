@@ -991,12 +991,45 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $this->_items;
     }
 
-    public function getItemsRandomCollection($limit=1)
+    /**
+     * Get random items collection with related children
+     *
+     * @param int $limit
+     * @return Mage_Sales_Model_Mysql4_Order_Item_Collection
+     */
+    public function getItemsRandomCollection($limit = 1)
+    {
+        return $this->_getItemsRandomCollection($limit);
+    }
+
+    /**
+     * Get random items collection without related children
+     *
+     * @param int $limit
+     * @return Mage_Sales_Model_Mysql4_Order_Item_Collection
+     */
+    public function getParentItemsRandomCollection($limit = 1)
+    {
+        return $this->_getItemsRandomCollection($limit, true);
+    }
+
+    /**
+     * Get random items collection with or without related children
+     *
+     * @param int $limit
+     * @param bool $nonChildrenOnly
+     * @return Mage_Sales_Model_Mysql4_Order_Item_Collection
+     */
+    protected function _getItemsRandomCollection($limit, $nonChildrenOnly = false)
     {
         $collection = Mage::getModel('sales/order_item')->getCollection()
             ->setOrderFilter($this->getId())
             ->setRandomOrder()
             ->setPageSize($limit);
+
+        if ($nonChildrenOnly) {
+            $collection->filterByParent();
+        }
 
         $products = array();
         foreach ($collection as $item) {
@@ -1012,6 +1045,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         foreach ($collection as $item) {
             $item->setProduct($productsCollection->getItemById($item->getProductId()));
         }
+
         return $collection;
     }
 
@@ -1558,9 +1592,10 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 }
             }
             /**
-             * Order can be closed just in case when we have refunded amount
+             * Order can be closed just in case when we have refunded amount.
+             * In case of "0" grand total order checking ForcedCanCreditmemo flag
              */
-            elseif(floatval($this->getTotalRefunded())) {
+            elseif(floatval($this->getTotalRefunded()) || (!$this->getTotalRefunded() && $this->hasForcedCanCreditmemo())) {
                 if ($this->getState() !== self::STATE_CLOSED) {
                     $this->_setState(self::STATE_CLOSED, true, '', $userNotification);
                 }
@@ -1668,7 +1703,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             if (!$orderItem->isDummy() && !$orderItem->getQtyToShip()) {
                 continue;
             }
-            if ($orderItem->isDummy() && !$this->_needToAddDummy($orderItem, $qtys)) {
+            if ($orderItem->isDummy() && !$this->_needToAddDummyForShipment($orderItem, $qtys)) {
                 continue;
             }
             $item = $convertor->itemToShipmentItem($orderItem);
@@ -1725,7 +1760,53 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                     return true;
                 }
             } else {
-                if (isset($qtys[$child->getId()]) && $qtys[$child->getId()] > 0) {
+                if (isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    /**
+     * Decides if we need to create dummy shipment item or not
+     * for eaxample we don't need create dummy parent if all
+     * children are not in process
+     *
+     * @param Mage_Sales_Model_Order_Item $item
+     * @param array $qtys
+     * @return bool
+     */
+    protected function _needToAddDummyForShipment($item, $qtys = array()) {
+        if ($item->getHasChildren()) {
+            foreach ($item->getChildrenItems() as $child) {
+                if ($child->getIsVirtual()) {
+                    continue;
+                }
+                if (empty($qtys)) {
+                    if ($child->getQtyToShip() > 0) {
+                        return true;
+                    }
+                } else {
+                    if (isset($qtys[$child->getId()]) && $qtys[$child->getId()] > 0) {
+                        return true;
+                    }
+                }
+            }
+            if ($item->isShipSeparately()) {
+                return true;
+            }
+            return false;
+        } else if($item->getParentItem()) {
+            if ($item->getIsVirtual()) {
+                return false;
+            }
+            if (empty($qtys)) {
+                if ($item->getParentItem()->getQtyToShip() > 0) {
+                    return true;
+                }
+            } else {
+                if (isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0) {
                     return true;
                 }
             }

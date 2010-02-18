@@ -156,6 +156,10 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     public function dispatch()
     {
         $request = $this->getRequest();
+
+        // If pre-configured, check equality of base URL and requested URL
+        $this->_checkBaseUrl($request);
+        
         $request->setPathInfo()->setDispatched(false);
 
         Varien_Profiler::start('mage::dispatch::db_url_rewrite');
@@ -279,5 +283,40 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             }
         }
         return $url;
+    }
+    
+    /**
+     * Auto-redirect to base url (without SID) if the requested url doesn't match it.
+     * By default this feature is enabled in configuration.
+     *
+     * @param Zend_Controller_Request_Http $request
+     */
+    protected function _checkBaseUrl($request)
+    {
+        if (!Mage::isInstalled() || $request->getPost()) {
+            return;
+        }
+        if (!Mage::getStoreConfigFlag('web/url/redirect_to_base')) {
+            return;
+        }
+
+        $baseUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB, Mage::app()->getStore()->isCurrentlySecure());
+
+        if (!$baseUrl) {
+            return;
+        }
+        
+        $uri = @parse_url($baseUrl);
+        $host = isset($uri['host']) ? $uri['host'] : '';
+        $path = isset($uri['path']) ? $uri['path'] : '';
+        
+        $requestUri = $request->getRequestUri() ? $request->getRequestUri() : '/';
+        if ($host && $host != $request->getHttpHost() || $path && strpos($requestUri, $path) === false) 
+        {
+            Mage::app()->getFrontController()->getResponse()
+                ->setRedirect($baseUrl)
+                ->sendResponse();
+            exit;
+        }
     }
 }

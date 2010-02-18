@@ -86,6 +86,13 @@
                 </observers>
             </controller_action_predispatch>
         </events>
+        <layout>
+            <updates>
+                <adminnotification>
+                    <file>adminnotification.xml</file>
+                </adminnotification>
+            </updates>
+        </layout>
     </adminhtml>
 
     <default>

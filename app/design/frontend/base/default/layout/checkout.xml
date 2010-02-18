@@ -76,6 +76,10 @@ Default layout, loads most of the pages
                     <block type="checkout/onepage_link" name="checkout.cart.methods.onepage" template="checkout/onepage/link.phtml"/>
                 </block>
 
+                <block type="page/html_wrapper" name="checkout.cart.form.before" as="form_before" translate="label">
+                    <label>Shopping Cart Form Before</label>
+                </block>
+
                 <block type="core/text_list" name="checkout.cart.methods" as="methods" translate="label">
                     <label>Payment Methods After Checkout Button</label>
                     <block type="checkout/onepage_link" name="checkout.cart.methods.onepage" template="checkout/onepage/link.phtml"/>
@@ -252,11 +256,14 @@ Multi address shipping checkout overview
                 <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/multishipping/item/default.phtml</template></action>
                 <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/multishipping/item/default.phtml</template></action>
                 <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/multishipping/item/default.phtml</template></action>
+                <action method="addRowItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/multishipping/overview/item.phtml</template></action>
+                <action method="addRowItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/multishipping/overview/item.phtml</template></action>
                 <block type="checkout/multishipping_payment_info" name="payment_info">
                     <action method="setInfoTemplate"><method></method><template></template></action>
                 </block>
                 <block type="checkout/agreements" name="checkout.multishipping.agreements" as="agreements" template="checkout/multishipping/agreements.phtml"/>
                 <block type="checkout/cart_totals" name="totals" />
+                <block type="core/text_list" name="checkout.multishipping.overview.items.after" as="items_after"/>
             </block>
         </reference>
     </checkout_multishipping_overview>
@@ -295,7 +302,11 @@ One page checkout main layout
         </reference>
         <reference name="content">
             <block type="checkout/onepage" name="checkout.onepage" template="checkout/onepage.phtml">
-                <block type="checkout/onepage_login" name="checkout.onepage.login" as="login" template="checkout/onepage/login.phtml"/>
+                <block type="checkout/onepage_login" name="checkout.onepage.login" as="login" template="checkout/onepage/login.phtml">
+                    <block type="page/html_wrapper" name="checkout.onepage.login.before" as="login_before">
+                        <action method="setMayBeInvisible"><value>1</value></action>
+                    </block>
+                </block>
                 <block type="checkout/onepage_billing" name="checkout.onepage.billing" as="billing" template="checkout/onepage/billing.phtml"/>
                 <block type="checkout/onepage_shipping" name="checkout.onepage.shipping" as="shipping" template="checkout/onepage/shipping.phtml"/>
                 <block type="checkout/onepage_shipping_method" name="checkout.onepage.shipping_method" as="shipping_method" template="checkout/onepage/shipping_method.phtml">
@@ -379,6 +390,7 @@ One page checkout order review block
             <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>
             <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
             <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+            <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before"/>
         </block>
     </checkout_onepage_review>
 

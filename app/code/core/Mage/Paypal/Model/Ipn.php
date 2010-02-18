@@ -267,7 +267,7 @@ class Mage_Paypal_Model_Ipn
                 }
             }
             catch (Mage_Core_Exception $e) {
-                $history = $this->_createIpnComment(Mage::helper('paypal')->__('Failure: %s', $e->getMessage()))
+                $history = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $e->getMessage()))
                     ->save();
                 $this->_notifyAdmin($history->getComment(), $e);
             }
@@ -448,7 +448,8 @@ class Mage_Paypal_Model_Ipn
             $message .= ' ' . $comment;
         }
         if ($addToHistory) {
-            return $this->_getOrder()->addStatusHistoryComment($message);
+            $message = $this->_getOrder()->addStatusHistoryComment($message);
+            $message->setIsCustomerNotified(null);
         }
         return $message;
     }

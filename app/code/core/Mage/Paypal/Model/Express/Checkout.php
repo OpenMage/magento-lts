@@ -44,6 +44,7 @@ class Mage_Paypal_Model_Express_Checkout
     const PAYMENT_INFO_TRANSPORT_TOKEN    = 'paypal_express_checkout_token';
     const PAYMENT_INFO_TRANSPORT_SHIPPING_OVERRIDEN = 'paypal_express_checkout_shipping_overriden';
     const PAYMENT_INFO_TRANSPORT_PAYER_ID = 'paypal_express_checkout_payer_id';
+    const PAYMENT_INFO_TRANSPORT_REDIRECT = 'paypal_express_checkout_redirect_required';
 
     /**
      * @var Mage_Sales_Model_Quote
@@ -63,12 +64,33 @@ class Mage_Paypal_Model_Express_Checkout
     protected $_api = null;
 
     /**
+     * Api Model Type
+     *
+     * @var string
+     */
+    protected $_apiType = 'paypal/api_nvp';
+
+    /**
+     * Payment method type
+     *
+     * @var unknown_type
+     */
+    protected $_methodType = Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS;
+
+    /**
      * State helper variables
      * @var string
      */
     protected $_redirectUrl = '';
     protected $_pendingPaymentMessage = '';
     protected $_checkoutRedirectUrl = '';
+
+    /**
+     * Redirect urls supposed to be set to support giropay
+     *
+     * @var array
+     */
+    protected $_giropayUrls = array();
 
     /**
      * Set quote and config instances
@@ -124,13 +146,25 @@ class Mage_Paypal_Model_Express_Checkout
     }
 
     /**
+     * Setter that enables giropay redirects flow
+     *
+     * @param string $successUrl - payment success result
+     * @param string $cancelUrl  - payment cancellation result
+     * @param string $pendingUrl - pending payment result
+     */
+    public function prepareGiropayUrls($successUrl, $cancelUrl, $pendingUrl)
+    {
+        $this->_giropayUrls = array($successUrl, $cancelUrl, $pendingUrl);
+        return $this;
+    }
+
+    /**
      * Reserve order ID for specified quote and start checkout on PayPal
      * @return string
      */
     public function start($returnUrl, $cancelUrl)
     {
         $this->_quote->reserveOrderId()->save();
-
         // prepare API
         $this->_getApi();
         $this->_api->setAmount($this->_quote->getBaseGrandTotal())
@@ -141,6 +175,15 @@ class Mage_Paypal_Model_Express_Checkout
             ->setSolutionType($this->_config->solutionType)
             ->setPaymentAction($this->_config->paymentAction)
         ;
+        if ($this->_giropayUrls) {
+            list($successUrl, $cancelUrl, $pendingUrl) = $this->_giropayUrls;
+            $this->_api->addData(array(
+                'giropay_cancel_url' => $cancelUrl,
+                'giropay_success_url' => $successUrl,
+                'giropay_bank_txn_pending_url' => $pendingUrl,
+            ));
+        }
+
         // supress or export shipping address
         if ($this->_quote->getIsVirtual()) {
             $this->_api->setSuppressShipping(true);
@@ -157,7 +200,7 @@ class Mage_Paypal_Model_Express_Checkout
             $this->_quote->getPayment()->save();
         }
         // add line items
-        if ($this->_config->lineItemsEnabled) {
+        if ($this->_config->lineItemsEnabled && Mage::helper('paypal')->doLineItemsMatchAmount($this->_quote, $this->_quote->getBaseGrandTotal())) {//For transfering line items order amount must be equal to cart total amount
             list($items, $totals) = Mage::helper('paypal')->prepareLineItems($this->_quote);
             $this->_api->setLineItems($items)->setLineItemTotals($totals);
         }
@@ -198,7 +241,7 @@ class Mage_Paypal_Model_Express_Checkout
 
         // import payment info
         $payment = $this->_quote->getPayment();
-        $payment->setMethod(Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS);
+        $payment->setMethod($this->_methodType);
         Mage::getSingleton('paypal/info')->importToPayment($this->_api, $payment);
         $payment->setAdditionalInformation(self::PAYMENT_INFO_TRANSPORT_PAYER_ID, $this->_api->getPayerId())
             ->setAdditionalInformation(self::PAYMENT_INFO_TRANSPORT_TOKEN, $token)
@@ -218,6 +261,8 @@ class Mage_Paypal_Model_Express_Checkout
         if (!$payment || !$payment->getAdditionalInformation(self::PAYMENT_INFO_TRANSPORT_PAYER_ID)) {
             Mage::throwException(Mage::helper('paypal')->__('Payer is not identified.'));
         }
+        $this->_ignoreAddressValidation();
+        $this->_quote->collectTotals()->save();
     }
 
     /**
@@ -227,7 +272,7 @@ class Mage_Paypal_Model_Express_Checkout
     public function updateShippingMethod($methodCode)
     {
         if (!$this->_quote->getIsVirtual() && $shippingAddress = $this->_quote->getShippingAddress()) {
-            if (!$shippingAddress->getEmail() || $methodCode != $shippingAddress->getShippingMethod()) {
+            if ($methodCode != $shippingAddress->getShippingMethod()) {
                 $this->_ignoreAddressValidation();
                 $shippingAddress->setShippingMethod($methodCode)->setCollectShippingRates(true);
                 $this->_quote->collectTotals()->save();
@@ -248,9 +293,21 @@ class Mage_Paypal_Model_Express_Checkout
         if ($shippingMethodCode) {
             $this->updateShippingMethod($shippingMethodCode);
         }
+
+        if (!$this->_quote->getCustomerId()) {
+            $this->_quote->setCustomerIsGuest(true)
+                ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID)
+                ->setCustomerEmail($this->_quote->getBillingAddress()->getEmail());
+        }
+
         $this->_ignoreAddressValidation();
         $order = Mage::getModel('sales/service_quote', $this->_quote)->submit();
         $this->_quote->save();
+
+        // commence redirecting to finish payment, if paypal requires it
+        if ($order->getPayment()->getAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT)) {
+            $this->_redirectUrl = $this->_config->getExpressCheckoutCompleteUrl($token);
+        }
 
         switch ($order->getState()) {
             // even after placement paypal can disallow to authorize/capture, but will wait until bank transfers money
@@ -260,9 +317,7 @@ class Mage_Paypal_Model_Express_Checkout
             // regular placement, when everything is ok
             case Mage_Sales_Model_Order::STATE_PROCESSING:
             case Mage_Sales_Model_Order::STATE_COMPLETE:
-                if ($this->_config->invoiceEmailCopy && $order->getPayment()->getCreatedInvoice()) {
-                   $order->sendNewOrderEmail();
-                }
+                $order->sendNewOrderEmail();
                 break;
         }
         return $order;
@@ -307,7 +362,7 @@ class Mage_Paypal_Model_Express_Checkout
     protected function _getApi()
     {
         if (null === $this->_api) {
-            $this->_api = Mage::getModel('paypal/api_nvp')->setConfigObject($this->_config);
+            $this->_api = Mage::getModel($this->_apiType)->setConfigObject($this->_config);
         }
         return $this->_api;
     }

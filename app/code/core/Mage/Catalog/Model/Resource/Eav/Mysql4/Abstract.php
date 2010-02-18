@@ -34,6 +34,12 @@
 abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_Model_Entity_Abstract
 {
     /**
+     * Store firstly set attributes to filter selected attributes when used specific store_id
+     *
+     * @var array
+     */
+    protected $_attributes = array();
+    /**
      * Redeclare attribute model
      *
      * @return string
@@ -79,40 +85,27 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
          */
         if (Mage::app()->isSingleStoreMode()) {
             $storeId = Mage::app()->getStore(true)->getId();
-        } else {
+        }
+        else {
             $storeId = $object->getStoreId();
         }
 
         $setId  = $object->getAttributeSetId();
+        $storeIds = array($this->getDefaultStoreId());
+        if ($storeId != $this->getDefaultStoreId()) {
+            $storeIds[] = $storeId;
+        }
         $select = $this->_read->select()
-            ->from(array('default' => $table))
-            ->where('default.'.$this->getEntityIdField().'=?', $object->getId())
-            ->where('default.store_id=?', $this->getDefaultStoreId());
+            ->from(array('attr_table' => $table))
+            ->where('attr_table.'.$this->getEntityIdField().'=?', $object->getId())
+            ->where('attr_table.store_id IN (?)', $storeIds);
         if ($setId) {
             $select->join(
                 array('set_table' => $this->getTable('eav/entity_attribute')),
-                'default.attribute_id=set_table.attribute_id AND '
-                    . 'set_table.attribute_set_id=' . intval($setId),
+                'attr_table.attribute_id=set_table.attribute_id AND set_table.attribute_set_id=' . intval($setId),
                 array()
             );
         }
-
-        if ($storeId != $this->getDefaultStoreId()) {
-            $joinCondition = join(' AND ', array(
-                'main.attribute_id=default.attribute_id',
-                $this->_read->quoteInto('main.store_id=?', intval($storeId)),
-                $this->_read->quoteInto('main.'.$this->getEntityIdField() . '=?', $object->getId())
-            ));
-            $select->joinLeft(
-                array('main' => $table),
-                $joinCondition,
-                array(
-                    'store_value_id' => 'value_id',
-                    'store_value'    => 'value'
-                )
-            );
-        }
-
         return $select;
     }
 
@@ -128,14 +121,21 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
         $attribute = $this->getAttribute($valueRow['attribute_id']);
         if ($attribute) {
             $attributeCode = $attribute->getAttributeCode();
-            if (!empty($valueRow['store_value_id'])) {
-                $value   = $valueRow['store_value'];
-                $valueId = $valueRow['store_value_id'];
-                $object->setAttributeDefaultValue($attributeCode, $valueRow['value']);
-            } else {
-                $value   = $valueRow['value'];
-                $valueId = $valueRow['value_id'];
+            if (isset($this->_attributes[$valueRow['attribute_id']])) {
+                if ($valueRow['store_id'] == $this->getDefaultStoreId()) {
+                    $object->setAttributeDefaultValue($attributeCode, $valueRow['value']);
+                }
+                else {
+                    $object->setAttributeDefaultValue($attributeCode, $this->_attributes[$valueRow['attribute_id']]['value']);
+                }
             }
+            else {
+                $this->_attributes[$valueRow['attribute_id']] = $valueRow;
+            }
+
+            $value   = $valueRow['value'];
+            $valueId = $valueRow['value_id'];
+
             $object->setData($attributeCode, $value);
             $attribute->getBackend()->setValueId($valueId);
         }
@@ -187,7 +187,7 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
             /**
              * Update attribute value for website
              */
-            $storeIds = $object->getWebsiteStoreIds();
+            $storeIds = Mage::app()->getStore($storeId)->getWebsite()->getStoreIds(true);
             foreach ($storeIds as $storeId) {
                 $bind['store_id'] = $storeId;
                 $this->_attributeValuesToSave[$table][] = $bind;
@@ -536,13 +536,12 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
      */
     public function getAttributeRawValue($entityId, $attribute, $store)
     {
-        $result = '';
-        $attribute = $this->getAttribute($attribute);
         /* @var $attribute Mage_Catalog_Model_Entity_Attribute */
+        $attribute = $this->getAttribute($attribute);
         if ($attribute) {
             /* @var $select Zend_Db_Select */
             $select = $this->_read->select();
-
+            $attributeCode = $attribute->getAttributeCode();
             $attrTable = $attribute->getBackend()->getTable();
             $isStatic = $attribute->getBackend()->isStatic();
             $attrField = $isStatic ? $attributeCode : 'value';
@@ -572,5 +571,19 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
         }
 
         return false;
+    }
+
+    /**
+     * Reset firstly loaded attributes
+     *
+     * @param   Varien_Object $object
+     * @param   integer $entityId
+     * @param   array|null $attributes
+     * @return  Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract
+     */
+    public function load($object, $entityId, $attributes=array())
+    {
+        $this->_attributes = array();
+        return parent::load($object, $entityId, $attributes);
     }
 }

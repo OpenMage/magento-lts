@@ -63,6 +63,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
 
         foreach ($blocks as $block) {
             if ($block) {
+                $block->setPeriodType($params->getData('period_type'));
                 $block->setFilterData($params);
             }
         }
@@ -72,6 +73,8 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
 
     public function salesAction()
     {
+        $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Sales'));
+
         $this->_showLastExecutionTime(Mage_Reports_Model_Flag::REPORT_ORDER_FLAG_CODE, 'sales');
 
         $this->_initAction()
@@ -122,13 +125,15 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
     {
         $flag = Mage::getModel('reports/flag')->setReportFlagCode($flagCode)->loadSelf();
         $updatedAt = ($flag->hasData())
-            ? Mage::app()->getLocale()->storeDate(0, $flag->getLastUpdate(), true)
+            ? Mage::app()->getLocale()->storeDate(
+                0, new Zend_Date($flag->getLastUpdate(), Varien_Date::DATETIME_INTERNAL_FORMAT), true
+            )
             : 'undefined';
 
         $refreshStatsLink = $this->getUrl('*/*/refreshstatistics');
         $directRefreshLink = $this->getUrl('*/*/refreshRecent', array('code' => $refreshCode));
 
-        Mage::getSingleton('adminhtml/session')->addNotice(Mage::helper('adminhtml')->__('This Report is not realtime. Last updated: %s. To <a href="%s">refresh statistics</a> right now, click <a href="%s">here</a>', $updatedAt, $refreshStatsLink, $directRefreshLink));
+        Mage::getSingleton('adminhtml/session')->addNotice(Mage::helper('adminhtml')->__('Last updated: %s. To refresh last day\'s <a href="%s">statistics</a>, click <a href="%s">here</a>', $updatedAt, $refreshStatsLink, $directRefreshLink));
         return $this;
     }
 
@@ -195,6 +200,8 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
 
     public function taxAction()
     {
+        $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Tax'));
+
         $this->_showLastExecutionTime(Mage_Reports_Model_Flag::REPORT_TAX_FLAG_CODE, 'tax');
 
         $this->_initAction()
@@ -236,6 +243,8 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
 
     public function shippingAction()
     {
+        $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Shipping'));
+
         $this->_showLastExecutionTime(Mage_Reports_Model_Flag::REPORT_SHIPPING_FLAG_CODE, 'shipping');
 
         $this->_initAction()
@@ -277,6 +286,8 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
 
     public function invoicedAction()
     {
+        $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Total Invoiced'));
+
         $this->_showLastExecutionTime(Mage_Reports_Model_Flag::REPORT_INVOICE_FLAG_CODE, 'invoiced');
 
         $this->_initAction()
@@ -318,6 +329,8 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
 
     public function refundedAction()
     {
+        $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Total Refunded'));
+
         $this->_showLastExecutionTime(Mage_Reports_Model_Flag::REPORT_REFUNDED_FLAG_CODE, 'refunded');
 
         $this->_initAction()
@@ -359,6 +372,8 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
 
     public function couponsAction()
     {
+        $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Coupons'));
+
         $this->_showLastExecutionTime(Mage_Reports_Model_Flag::REPORT_COUPNS_FLAG_CODE, 'coupons');
 
         $this->_initAction()
@@ -400,6 +415,8 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
 
     public function refreshStatisticsAction()
     {
+        $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Refresh Statistics'));
+
         $this->_initAction()
             ->_setActiveMenu('report/sales/refreshstatistics')
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('Refresh Statistics'), Mage::helper('adminhtml')->__('Refresh Statistics'))

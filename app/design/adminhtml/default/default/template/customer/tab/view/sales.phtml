@@ -40,8 +40,8 @@
             <tfoot>
                 <tr>
                     <td colspan="3" class="label"><strong><big><?php echo Mage::helper('customer')->__('All Store Views') ?></big></strong></td>
-                    <td class="emph"><strong><big><?php echo $this->getPriceFormatted($this->getTotals()->getLifetime()) ?></big></strong></td>
-                    <td class="emph"><strong><big><?php echo $this->getPriceFormatted($this->getTotals()->getAvgsale()) ?></big></strong></td>
+                    <td class="emph"><strong><big><?php echo $this->formatCurrency($this->getTotals()->getBaseLifetime()) ?></big></strong></td>
+                    <td class="emph"><strong><big><?php echo $this->formatCurrency($this->getTotals()->getAvgsale()) ?></big></strong></td>
                 </tr>
             </tfoot>
             <?php if ($this->getRows()): ?>
@@ -66,8 +66,8 @@
                         <?php endif; ?>
                     <td class="label"><?php echo $_row->getStoreName() ?></td>
                         <?php endif; ?>
-                    <td><?php echo $this->getPriceFormatted($_row->getLifetime()) ?></td>
-                    <td><?php echo $this->getPriceFormatted($_row->getAvgsale()) ?></td>
+                    <td><?php echo $this->formatCurrency($_row->getLifetime(), $_row->getWebsiteId()) ?></td>
+                    <td><?php echo $this->formatCurrency($_row->getAvgsale(), $_row->getWebsiteId()) ?></td>
                 </tr>
                         <?php endforeach; ?>
                     <?php endforeach; ?>

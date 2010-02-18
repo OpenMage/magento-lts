@@ -35,6 +35,7 @@
     <?php echo $this->getChildHtml('head') ?>
 </head>
 <body class="page-popup <?php echo $this->getBodyClass()?$this->getBodyClass():'' ?>">
+<?php echo $this->getChildHtml('after_body_start') ?>
 <div class="wrapper">
     <?php echo $this->getChildHtml('content') ?>
     <?php echo $this->getChildHtml('before_body_end') ?>

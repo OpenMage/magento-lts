@@ -57,10 +57,10 @@
     <?php $i=0;foreach ($_tracks as $_track):$i++ ?>
         <tr class="<?php echo ($i%2==0)?'even':'odd' ?>">
             <td><?php echo $this->getCarrierTitle($_track->getCarrierCode()) ?></td>
-            <td><?php echo $_track->getTitle() ?></td>
+            <td><?php echo $this->escapeHtml($_track->getTitle()) ?></td>
             <td>
                 <?php if ($_track->isCustom()): ?>
-                <?php echo $_track->getNumber() ?>
+                <?php echo $this->escapeHtml($_track->getNumber()) ?>
                 <?php else: ?>
                 <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_track) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')"><?php echo $_track->getNumber() ?></a>
                 <div id="shipment_tracking_info_response_<?php echo $_track->getId() ?>"></div>

@@ -25,11 +25,12 @@
  */
 
 
-class Mage_PaypalUk_Block_Express_Form extends Mage_Payment_Block_Form
+class Mage_PaypalUk_Block_Express_Form extends Mage_Paypal_Block_Express_Form
 {
-    protected function _construct()
-    {
-        $this->setTemplate('paypaluk/express/form.phtml');
-        parent::_construct();
-    }
+    /**
+     * Payment method code
+     * @var string
+     */
+    protected $_methodCode = Mage_PaypalUk_Model_Config::METHOD_WPP_PE_EXPRESS;
+
 }

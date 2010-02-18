@@ -41,6 +41,7 @@
         <?php endif; ?>
     </div>
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <?php echo $this->getChildHtml('form_before') ?>
     <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
         <fieldset>
             <table id="shopping-cart-table" class="data-table cart-table">
@@ -63,7 +64,7 @@
             <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
                 <col width="1" />
             <?php endif; ?>
-            
+
             <?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
                 <thead>
                     <tr>

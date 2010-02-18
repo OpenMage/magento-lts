@@ -31,5 +31,5 @@
  */
 ?>
 <div class="product-specs">
-<?php echo nl2br($this->getProduct()->getDescription()) ?>
+<?php echo nl2br($this->htmlEscape($this->getProduct()->getDescription())) ?>
 </div>

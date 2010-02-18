@@ -241,7 +241,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Ma
             ->joinInner(array('rc'  => $this->_categoryTable), 'rc.entity_id=g.root_category_id', array())
             ->joinInner(
                 array('ce'=>$this->_categoryTable),
-                'ce.entity_id=cp.category_id AND ce.path LIKE CONCAT(rc.path, \'/%\')',
+                'ce.entity_id=cp.category_id AND (ce.path LIKE CONCAT(rc.path, \'/%\') OR ce.entity_id=rc.entity_id)',
                 array())
             ->joinLeft(
                 array('dv'=>$visibilityInfo['table']),

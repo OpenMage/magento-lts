@@ -59,6 +59,8 @@ Default layout, loads most of the pages
                 <action method="addCss"><stylesheet>css/print.css</stylesheet><params>media="print"</params></action>
             </block>
 
+            <block type="core/text_list" name="after_body_start" as="after_body_start"/>
+
             <block type="page/html_notices" name="global_notices" as="global_notices" template="page/html/notices.phtml" />
 
             <block type="page/html_header" name="header" as="header">

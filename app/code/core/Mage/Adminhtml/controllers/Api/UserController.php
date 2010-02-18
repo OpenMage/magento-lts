@@ -29,7 +29,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('api/users')
+            ->_setActiveMenu('system/services/users')
             ->_addBreadcrumb($this->__('Web Services'), $this->__('Web Services'))
             ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
             ->_addBreadcrumb($this->__('Users'), $this->__('Users'))
@@ -39,6 +39,10 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
 
     public function indexAction()
     {
+        $this->_title($this->__('System'))
+             ->_title($this->__('Web Services'))
+             ->_title($this->__('Users'));
+
         $this->_initAction()
             ->_addContent($this->getLayout()->createBlock('adminhtml/api_user'))
             ->renderLayout();
@@ -51,6 +55,10 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
 
     public function editAction()
     {
+        $this->_title($this->__('System'))
+             ->_title($this->__('Web Services'))
+             ->_title($this->__('Users'));
+
         $id = $this->getRequest()->getParam('user_id');
         $model = Mage::getModel('api/user');
 
@@ -62,6 +70,9 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                 return;
             }
         }
+
+        $this->_title($model->getId() ? $model->getName() : $this->__('New User'));
+
         // Restore previously entered form data from session
         $data = Mage::getSingleton('adminhtml/session')->getUserData(true);
         if (!empty($data)) {

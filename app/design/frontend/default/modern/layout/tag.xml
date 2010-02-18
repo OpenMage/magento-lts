@@ -35,7 +35,7 @@ Default layout, loads most of the pages
     <default>
         <!-- Mage_Tag -->
         <reference name="left">
-            <block type="tag/popular" name="tags_popular" after="catalog.leftnav">
+            <block type="tag/popular" name="tags_popular" template="tag/popular.phtm">
                 <action method="setTemplate"><template>tag/popular.phtml</template></action>
             </block>
         </reference>
@@ -68,10 +68,12 @@ Customer account home dashboard layout
     <catalog_product_view>
          <!-- Mage_Tag -->
          <reference name="product.info.tabs">
-            <action method="addTab" translate="title" module="tag"><alias>tags</alias><title>Product Tags</title><block>tag/product_list</block><template>tag/list.phtml</template></action>
-         <!--
-            <block type="tag/product_list" name="product_tag_list" as="product_tag_list" template="tag/list.phtml"/>
-          -->
+            <action method="addTab" translate="title" module="tag"><alias>product.tags</alias><title>Product Tags</title><block>tag/product_list</block><template>tag/list.phtml</template></action>
+        </reference>
+        <reference name="product.tags">
+            <block type="page/html_wrapper" name="product.tag.list.list.before" as="list_before">
+                <action method="setMayBeInvisible"><value>1</value></action>
+            </block>
         </reference>
     </catalog_product_view>
 
@@ -83,7 +85,7 @@ All tags page
         <label>Tags List (All Available)</label>
         <!-- Mage_Tag -->
         <reference name="root">
-            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
         </reference>
         <reference name="content">
             <block type="tag/all" name="tags_all" template="tag/cloud.phtml"/>
@@ -109,7 +111,7 @@ All tags page
         <reference name="root">
             <action method="setHeaderTitle" translate="title" module="customer"><title>My Account</title></action>
         </reference>
-        <reference name="content">
+        <reference name="my.account.wrapper">
             <block type="tag/customer_tags" name="customer_tags" template="tag/customer/tags.phtml"/>
         </reference>
     </tag_customer_index>
@@ -120,18 +122,9 @@ All tags page
         <reference name="root">
             <action method="setHeaderTitle" translate="title" module="customer"><title>My Account</title></action>
         </reference>
-        <reference name="content">
+        <reference name="my.account.wrapper">
             <block type="tag/customer_view" name="customer_view" template="tag/customer/view.phtml"/>
         </reference>
     </tag_customer_view>
 
-    <tag_customer_edit>
-        <update handle="customer_account"/>
-        <reference name="root">
-            <action method="setHeaderTitle" translate="title" module="customer"><title>My Account</title></action>
-        </reference>
-        <reference name="content">
-            <block type="tag/customer_edit" name="customer_edit" template="tag/customer/edit.phtml"/>
-        </reference>
-    </tag_customer_edit>
 </layout>

@@ -144,16 +144,16 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                 $parentPath = $parentNode->getData($this->_pathField);
                 $startLevel = $parentNode->getData($this->_levelField);
             } elseif (is_numeric($parentNode)) {
-                $parentNode = null;
                 $select = $this->_conn->select();
                 $select->from($this->_table, array($this->_pathField, $this->_levelField))->where("{$this->_idField} = ?", $parentNode);
                 $parent = $this->_conn->fetchRow($select);
                 $startLevel = $parent[$this->_levelField];
                 $parentPath = $parent[$this->_pathField];
-            } elseif (is_string($parentNode)) {
                 $parentNode = null;
+            } elseif (is_string($parentNode)) {
                 $parentPath = $parentNode;
                 $startLevel = count(explode($parentPath))-1;
+                $parentNode = null;
             }
 
             $select = clone $this->_select;

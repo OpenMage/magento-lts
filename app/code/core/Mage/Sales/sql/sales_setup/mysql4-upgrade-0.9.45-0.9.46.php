@@ -93,11 +93,20 @@ $installer->run("
         `base_invoiced_amount`      decimal(12,4) NOT NULL DEFAULT '0',
         `base_refunded_amount`      decimal(12,4) NOT NULL DEFAULT '0',
         PRIMARY KEY (`id`),
-        UNIQUE KEY `UNQ_ORDER_AGGREGATED_CREATED_PSS` (`period`,`store_id`, `order_status`),
-        KEY `FK_ORDER_AGGREGATED_CREATED_STORE` (`store_id`),
-        CONSTRAINT `FK_ORDER_AGGREGATED_CREATED_STORE` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`) ON DELETE SET NULL ON UPDATE CASCADE
+        UNIQUE KEY `UNQ_PERIOD_STORE_ORDER_STATUS` (`period`,`store_id`, `order_status`),
+        KEY `IDX_STORE_ID` (`store_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
+
+$installer->getConnection()->addConstraint(
+    'SALES_ORDER_AGGREGATED_CREATED',
+    $installer->getTable('sales/order_aggregated_created'),
+    'store_id',
+    $installer->getTable('core/store'),
+    'store_id',
+    'SET NULL'
+);
+
 
 $this->endSetup();
 

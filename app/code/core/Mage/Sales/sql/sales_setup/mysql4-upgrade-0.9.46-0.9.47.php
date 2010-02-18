@@ -76,7 +76,7 @@ try {
 }
 
 $installer->run("
-    CREATE TABLE IF NOT EXISTS `{$installer->getTable('sales/shipping_aggregated')}`
+    CREATE TABLE `{$installer->getTable('sales/shipping_aggregated')}`
     (
         `id`                        int(11) unsigned NOT NULL auto_increment,
         `period`                    date NOT NULL DEFAULT '0000-00-00',
@@ -86,13 +86,11 @@ $installer->run("
         `orders_count`              int(11) NOT NULL DEFAULT '0',
         `total_shipping`            decimal(12,4) NOT NULL DEFAULT '0',
         PRIMARY KEY (`id`),
-        UNIQUE KEY `UNQ_SHIPPING_AGGREGATED_CREATED_PSSC` (`period`,`store_id`, `order_status`, `shipping_description`),
-        KEY `FK_SHIPPING_AGGREGATED_CREATED_STORE` (`store_id`),
-        CONSTRAINT `FK_SHIPPING_AGGREGATED_CREATED_STORE` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`)
-            ON DELETE SET NULL ON UPDATE CASCADE
+        UNIQUE KEY `UNQ_PERIOD_STORE_ORDER_STATUS` (`period`,`store_id`, `order_status`, `shipping_description`),
+        KEY `IDX_STORE_ID` (`store_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-    CREATE TABLE IF NOT EXISTS `{$installer->getTable('sales/shipping_aggregated_order')}`
+    CREATE TABLE `{$installer->getTable('sales/shipping_aggregated_order')}`
     (
         `id`                        int(11) unsigned NOT NULL auto_increment,
         `period`                    date NOT NULL DEFAULT '0000-00-00',
@@ -102,12 +100,28 @@ $installer->run("
         `orders_count`              int(11) NOT NULL DEFAULT '0',
         `total_shipping`            decimal(12,4) NOT NULL DEFAULT '0',
         PRIMARY KEY (`id`),
-        UNIQUE KEY `UNQ_SHIPPING_AGGREGATED_UPDATED_PSSC` (`period`,`store_id`, `order_status`, `shipping_description`),
-        KEY `FK_SHIPPING_AGGREGATED_UPDATED_STORE` (`store_id`),
-        CONSTRAINT `FK_SHIPPING_AGGREGATED_UPDATED_STORE` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`)
-            ON DELETE SET NULL ON UPDATE CASCADE
+        UNIQUE KEY `UNQ_PERIOD_STORE_ORDER_STATUS` (`period`,`store_id`, `order_status`, `shipping_description`),
+        KEY `IDX_STORE_ID` (`store_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
+
+$installer->getConnection()->addConstraint(
+    'SALES_SHIPPING_AGGREGATED_STORE',
+    $installer->getTable('sales/shipping_aggregated'),
+    'store_id',
+    $installer->getTable('core/store'),
+    'store_id',
+    'SET NULL'
+);
+
+$installer->getConnection()->addConstraint(
+    'SALES_SHIPPING_AGGREGATED_ORDER_STORE',
+    $installer->getTable('sales/shipping_aggregated_order'),
+    'store_id',
+    $installer->getTable('core/store'),
+    'store_id',
+    'SET NULL'
+);
 
 $this->endSetup();
 

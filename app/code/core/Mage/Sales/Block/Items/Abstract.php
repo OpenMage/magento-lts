@@ -104,12 +104,12 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
     }
 
     /**
-     * Get item row html
+     * Return product type for quote/order item
      *
-     * @param   Varien_Object $item
-     * @return  string
+     * @param Varien_Object $item
+     * @return string
      */
-    public function getItemHtml(Varien_Object $item)
+    protected function _getItemType(Varien_Object $item)
     {
         if ($item->getOrderItem()) {
             $type = $item->getOrderItem()->getProductType();
@@ -118,6 +118,18 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
         } else {
             $type = $item->getProductType();
         }
+        return $type;
+    }
+
+    /**
+     * Get item row html
+     *
+     * @param   Varien_Object $item
+     * @return  string
+     */
+    public function getItemHtml(Varien_Object $item)
+    {
+        $type = $this->_getItemType($item);
 
         $block = $this->getItemRenderer($type)
             ->setItem($item);

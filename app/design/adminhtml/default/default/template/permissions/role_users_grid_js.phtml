@@ -29,8 +29,10 @@
             if(checkbox[0]){
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                 if (checked) {
+                    checkbox[0].checked = true;
                     if ( confirm("<?php echo $this->__('Warning!\r\nThis action will remove this user from already assigned role\r\nAre you sure?') ?>") ) {
                         checkBoxes.set(checkbox[0].value, checked);
+                        varienElementMethods.setHasChanges(checkbox[0]);
                     } else {
                         checkbox[0].checked = false;
                     }
@@ -83,6 +85,7 @@
 <?php echo $myBlock->getJsObjectName() ?>.checkboxCheckCallback = registerUserRole;
 <?php echo $myBlock->getJsObjectName() ?>.checkCheckboxes = myhandler;
 <?php echo $myBlock->getJsObjectName() ?>.rows.each(function(row){roleUsersRowInit(<?php echo $myBlock->getJsObjectName() ?>, row)});
+    $('in_role_user_old').value = $('in_role_user').value;
 <?php endif; ?>
 //-->
 </script>

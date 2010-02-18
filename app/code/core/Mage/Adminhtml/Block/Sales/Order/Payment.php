@@ -48,9 +48,6 @@ class Mage_Adminhtml_Block_Sales_Order_Payment extends Mage_Adminhtml_Block_Temp
     public function setPayment($payment)
     {
         $paymentInfoBlock = Mage::helper('payment')->getInfoBlock($payment);
-        if ($payment->getMethod() == 'ccsave') {
-            $paymentInfoBlock->setTemplate('payment/info/ccsave.phtml');
-        }
         $this->setChild('info', $paymentInfoBlock);
         $this->setData('payment', $payment);
         return $this;

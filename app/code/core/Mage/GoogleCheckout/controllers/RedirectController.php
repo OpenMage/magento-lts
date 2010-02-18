@@ -134,8 +134,8 @@ class Mage_GoogleCheckout_RedirectController extends Mage_Core_Controller_Front_
         if ($quoteId = $session->getGoogleCheckoutQuoteId()) {
             $quote = Mage::getModel('sales/quote')->load($quoteId)
                 ->setIsActive(false)->save();
-            $session->clear();
         }
+        $session->clear();
 
         if (Mage::getStoreConfigFlag('google/checkout/hide_cart_contents')) {
             $session->setGoogleCheckoutQuoteId(null);

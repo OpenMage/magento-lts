@@ -33,6 +33,9 @@
 <div class="page-head">
     <h3><?php echo $this->__("You're All Set") ?>!</h3>
 </div>
+<?php if ($this->getIframeSourceUrl()): ?>
+    <iframe id="iframe_box" src="<?php echo $this->getIframeSourceUrl() ?>" frameborder="0" width="650" height="600"></iframe>
+<?php endif; ?>
 <p><?php echo $this->__('Get ready to experience Open-Source eCommerce Evolved.') ?></p>
 <?php if($this->getEncryptionKey()): ?>
 <p><?php echo $this->__('Before you continue to your store, please make a note of your encryption key (Magento uses it to encrypt passwords, credit cards and more).') ?></p>

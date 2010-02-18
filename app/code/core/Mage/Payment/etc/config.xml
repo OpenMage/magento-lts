@@ -77,6 +77,11 @@
                         <name>Discover</name>
                         <order>30</order>
                     </DI>
+                    <SS>
+                        <code>SS</code>
+                        <name>Maestro/Solo</name>
+                        <order>40</order>
+                    </SS>
                     <OT>
                         <code>OT</code>
                         <name>Other</name>

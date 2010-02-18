@@ -77,13 +77,6 @@ class Mage_Paypal_Model_Config
     const FRAUD_ACTION_DENY   = 'Deny';
 
     /**
-     * Capture types (make authorization close or remain open)
-     * @var string
-     */
-    const CAPTURE_TYPE_COMPLETE = 'Complete';
-    const CAPTURE_TYPE_NOTCOMPLETE = 'NotComplete';
-
-    /**
      * Refund types
      * @var string
      */
@@ -107,6 +100,13 @@ class Mage_Paypal_Model_Config
     const WPS_TRANSPORT_IPN_PDT  = 'ipn_n_pdt';
 
     /**
+     * Default URL for centinel API (PayPal Direct)
+     *
+     * @var string
+     */
+    public $centinelDefaultApiUrl = 'https://paypal.cardinalcommerce.com/maps/txns.asp';
+
+    /**
      * Current payment method code
      * @var string
      */
@@ -128,14 +128,6 @@ class Mage_Paypal_Model_Config
         'paypal_express'  => 'EC',
         'paypal_direct'   => 'DP',
     );
-
-    /**
-     * Legacy BN codes:
-     * 'Varien_Cart_EC_US', 'Varien_Cart_DP_US', 'Varien_Cart_WPS_US', 'Varien_Cart_EC_UK', 'Varien_Cart_DP_UK'
-     * @deprecated
-     * @var string
-     */
-    protected $_bnLegacyCountryCode = 'US';
 
     /**
      * Style system config map (Express Checkout)
@@ -311,8 +303,7 @@ class Mage_Paypal_Model_Config
     public function getExpressCheckoutShortcutImageUrl($localeCode, $orderTotal = null, $pal = null)
     {
         if ($this->areButtonsDynamic()) {
-            return $this->_getDynamicImageUrl($this->buttonType, $localeCode, $orderTotal, $pal);
-            // return $this->_getDynamicImageUrl(self::EC_BUTTON_TYPE_SHORTCUT, $localeCode, $orderTotal, $pal);
+            return $this->_getDynamicImageUrl(self::EC_BUTTON_TYPE_SHORTCUT, $localeCode, $orderTotal, $pal);
         }
         if ($this->buttonType === self::EC_BUTTON_TYPE_MARK) {
             return $this->getPaymentMarkImageUrl($localeCode);
@@ -393,6 +384,48 @@ class Mage_Paypal_Model_Config
     }
 
     /**
+     * Getter for Payment form logo images
+     *
+     * @param string $localeCode
+     */
+    public function getPaymentFormLogoUrl($localeCode)
+    {
+        $locale = $this->_getSupportedLocaleCode($localeCode);
+
+        $imageType = 'logo';
+        $domain = 'paypal.com';
+        list (,$country) = explode('_', $locale);
+        $countryPrefix = $country . '/';
+
+        switch ($locale) {
+            case 'en_GB':
+                $imageName = 'horizontal_solution_PP';
+                $imageType = 'bnr';
+                $countryPrefix = '';
+                break;
+            case 'de_DE':
+                $imageName = 'lockbox_150x47';
+                break;
+            case 'fr_FR':
+                $imageName = 'bnr_horizontal_solution_PP_327wx80h';
+                $imageType = 'bnr';
+                $locale = 'en_US';
+                $domain = 'paypalobjects.com';
+                break;
+            case 'it_IT':
+                $imageName = 'bnr_horizontal_solution_PP_178wx80h';
+                $imageType = 'bnr';
+                $domain = 'paypalobjects.com';
+                break;
+            default:
+                $imageName='PayPal_mark_60x38';
+                $countryPrefix = '';
+                break;
+        }
+        return sprintf('https://www.%s/%s/%si/%s/%s.gif', $domain, $locale, $countryPrefix, $imageType, $imageName);
+    }
+
+    /**
      * BN code getter
      *
      * @param string $countryCode ISO 3166-1
@@ -404,14 +437,12 @@ class Mage_Paypal_Model_Config
             $product = $this->_buildNotationPPMap[$this->_methodCode];
         }
         if (null === $countryCode) {
-            $countryCode = $this->_bnLegacyCountryCode;
-            // $countryCode = Mage::getStoreConfig('shipping/origin/country_id', $this->_storeId);
+            $countryCode = $this->_matchBnCountryCode(Mage::getStoreConfig('general/country/default', $this->_storeId));
         }
-        $format = 'Varien_ShoppingCart_%s_%s';
-        if ($this->_bnLegacyCountryCode) {
-            $format = 'Varien_Cart_%s_%s';
+        if ($countryCode) {
+            $countryCode = '_' . $countryCode;
         }
-        return sprintf($format, $product, $countryCode);
+        return sprintf('Varien_Cart_%s%s', $product, $countryCode);
     }
 
     /**
@@ -469,13 +500,16 @@ class Mage_Paypal_Model_Config
 
     /**
      * Express Checkout "solution types" source getter
+     * "sole" = "Express Checkout for Auctions" - PayPal allows guest checkout
+     * "mark" = "Normal Express Checkout" - PayPal requires to checkout with PayPal buyer account only
+     *
      * @return array
      */
     public function getExpressCheckoutSolutionTypes()
     {
         return array(
-            self::EC_SOLUTION_TYPE_SOLE => Mage::helper('paypal')->__('Express Checkout for Auctions'),
-            self::EC_SOLUTION_TYPE_MARK => Mage::helper('paypal')->__('Normal Express Checkout'),
+            self::EC_SOLUTION_TYPE_SOLE => Mage::helper('paypal')->__('Yes'),
+            self::EC_SOLUTION_TYPE_MARK => Mage::helper('paypal')->__('No'),
         );
     }
 
@@ -500,7 +534,7 @@ class Mage_Paypal_Model_Config
      */
     public function getDirectCcTypesAsOptionArray()
     {
-        $model = Mage::getModel('payment/source_cctype')->setAllowedTypes(array('VI', 'MC', 'AE', 'DI', 'SS', 'OT'));
+        $model = Mage::getModel('payment/source_cctype')->setAllowedTypes(array('VI', 'MC', 'AE', 'DI', 'OT'));
         return $model->toOptionArray();
     }
 
@@ -525,15 +559,6 @@ class Mage_Paypal_Model_Config
                 $to->setData($exportKey, $this->$key);
             }
         }
-    }
-
-    /**
-     * Whether current payment method works with credit cards
-     * @return bool
-     */
-    public function doesWorkWithCc()
-    {
-        return $this->_methodCode === self::METHOD_WPP_DIRECT;
     }
 
     /**
@@ -650,6 +675,23 @@ class Mage_Paypal_Model_Config
     }
 
     /**
+     * Check wheter specified country code is supported by build notation codes for specific countries
+     *
+     * @param $code
+     * @return string|null
+     */
+    private function _matchBnCountryCode($code)
+    {
+        switch ($code) {
+            // Australia, Austria, Belgium, Canada, China, France, Germany, Hong Kong, Italy
+            case 'AU': case 'AT': case 'BE': case 'CA': case 'CN': case 'FR': case 'DE': case 'HK': case 'IT':
+            // Japan, Mexico, Netherlands, Poland, Singapore, Spain, Switzerland, United Kingdom, United States
+            case 'JP': case 'MX': case 'NL': case 'PL': case 'SG': case 'ES': case 'CH': case 'UK': case 'US':
+                return $code;
+        }
+    }
+
+    /**
      * Map PayPal common style config fields
      *
      * @param string $fieldName
@@ -659,7 +701,6 @@ class Mage_Paypal_Model_Config
     {
         switch ($fieldName) {
             case 'page_style':
-            case 'logo_url':
             case 'paypal_hdrimg':
             case 'paypal_hdrbackcolor':
             case 'paypal_hdrbordercolor':
@@ -705,7 +746,6 @@ class Mage_Paypal_Model_Config
             case 'active':
             case 'allowspecific':
             case 'fraud_filter':
-            case 'invoice_email_copy':
             case 'line_items_enabled':
             case 'order_status':
             case 'payment_action':
@@ -715,8 +755,6 @@ class Mage_Paypal_Model_Config
             case 'title':
             case 'visible_on_cart':
                 return 'payment/' . self::METHOD_WPP_EXPRESS . "/{$fieldName}";
-            case 'button_type':
-                return "paypal/style/{$fieldName}";
         }
     }
 
@@ -734,7 +772,8 @@ class Mage_Paypal_Model_Config
             case 'allowspecific':
             case 'cctypes':
             case 'centinel':
-            case 'centinel_require_enrollment':
+            case 'centinel_is_mode_strict':
+            case 'centinel_api_url':
             case 'fraud_filter':
             case 'line_items_enabled':
             case 'order_status':

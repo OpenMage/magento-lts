@@ -479,11 +479,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
 
     public function applySidebarData($data)
     {
-        if (isset($data['add'])) {
-            foreach ($data['add'] as $productId => $qty) {
-                $this->addProduct($productId, $qty);
-            }
-        }
+        // skip item duplicates based on info_buyRequest option
+        $infoBuyRequests = array();
+
         if (isset($data['reorder'])) {
             foreach ($data['reorder'] as $orderItemId=>$value) {
                 $orderItem = Mage::getModel('sales/order_item')->load($orderItemId);
@@ -491,14 +489,26 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                 if (is_string($item)) {
                     Mage::throwException($item);
                 }
+                $infobuyRequest = $item->getOptionByCode('info_buyRequest');
+                if ($infobuyRequest !== null) {
+                    $infoBuyRequests[] = $infobuyRequest->getValue();
+                }
             }
         }
         if (isset($data['cartItem'])) {
             foreach ($data['cartItem'] as $itemId => $qty) {
                 if ($item = $this->getCustomerCart()->getItemById($itemId)) {
-                    $this->moveQuoteItem($item, 'order', $qty);
+                    $infobuyRequest = $item->getOptionByCode('info_buyRequest');
+                    if ($infobuyRequest === null || !in_array($infobuyRequest->getValue(), $infoBuyRequests)) {
+                        $this->moveQuoteItem($item, 'order', $qty);
+                    }
 //                    $this->removeItem($itemId, 'cart');
                 }
+            }
+        }
+        if (isset($data['add'])) {
+            foreach ($data['add'] as $productId => $qty) {
+                $this->addProduct($productId, $qty);
             }
         }
         if (isset($data['remove'])) {
@@ -921,12 +931,11 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
     }
 
     /**
-     * Collect shipping dates for wuote shipping address
+     * Collect shipping data for quote shipping address
      */
     public function collectShippingRates()
     {
         $this->getQuote()->getShippingAddress()->setCollectShippingRates(true);
-        $this->getQuote()->getShippingAddress()->collectShippingRates();
         $this->collectRates();
         return $this;
     }
@@ -997,6 +1006,11 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
 
         if (isset($data['comment'])) {
             $this->getQuote()->addData($data['comment']);
+            if (empty($data['comment']['customer_note_notify'])) {
+                $this->getQuote()->setCustomerNoteNotify(false);
+            } else {
+                $this->getQuote()->setCustomerNoteNotify(true);
+            }
         }
 
         if (isset($data['billing_address'])) {
@@ -1018,7 +1032,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
         if (isset($data['coupon']['code'])) {
             $this->applyCoupon($data['coupon']['code']);
         }
-
         return $this;
     }
 
@@ -1032,37 +1045,56 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
             return $this;
         }
 
-        $customer   = $this->getSession()->getCustomer();
-        $store      = $this->getSession()->getStore();
+        $customer        = $this->getSession()->getCustomer();
+        $store           = $this->getSession()->getStore();
+        $billingAddress  = null;
+        $shippingAddress = null;
+
+        $customer->addData($this->_getData('account'));
 
         if ($customer->getId()) {
-            if ($customer->isInStore($store)) {
-                $customer->addData($this->getData('account'));
-            } else {
-                $customer->setId(null);
-                $customer->setStore($this->getSession()->getStore());
-                $customer->addData($this->getData('account'));
+            if (!$customer->isInStore($store)) {
+                $customer->setId(null)
+                    ->setStore($store)
+                    ->setDefaultBilling(null)
+                    ->setDefaultShipping(null)
+                    ->setPassword($customer->generatePassword());
             }
             if ($this->getBillingAddress()->getSaveInAddressBook()) {
                 $billingAddress = $this->getBillingAddress()->exportCustomerAddress();
-                if ($this->getBillingAddress()->getCustomerAddressId()) {
-                    $billingAddress->setId($this->getBillingAddress()->getCustomerAddressId());
+                $customerAddressId = $this->getBillingAddress()->getCustomerAddressId();
+                if ($customerAddressId && $customer->getId()) {
+                    $customer->getAddressItemById($customerAddressId)->addData($billingAddress->getData());
+                } else {
+                    $customer->addAddress($billingAddress);
                 }
-                $customer->addAddress($billingAddress);
             }
-            if ($this->getShippingAddress()->getSaveInAddressBook()) {
+            if (!$this->getQuote()->isVirtual() && $this->getShippingAddress()->getSaveInAddressBook()) {
                 $shippingAddress = $this->getShippingAddress()->exportCustomerAddress();
-                if ($this->getShippingAddress()->getCustomerAddressId()) {
-                    $shippingAddress->setId($this->getShippingAddress()->getCustomerAddressId());
+                $customerAddressId = $this->getShippingAddress()->getCustomerAddressId();
+                if ($customerAddressId && $customer->getId()) {
+                    $customer->getAddressItemById($customerAddressId)->addData($shippingAddress->getData());
+                } elseif ($billingAddress !== null && $this->getBillingAddress()->getCustomerAddressId() == $customerAddressId) {
+                    $billingAddress->setIsDefaultShipping(true);
+                } else {
+                    $customer->addAddress($shippingAddress);
                 }
-                $customer->addAddress($shippingAddress);
+            }
+
+            if (is_null($customer->getDefaultBilling()) && $billingAddress) {
+                $billingAddress->setIsDefaultBilling(true);
+            }
+            if (is_null($customer->getDefaultShipping())) {
+                if ($this->getShippingAddress()->getSameAsBilling() && $billingAddress) {
+                    $billingAddress->setIsDefaultShipping(true);
+                } elseif ($shippingAddress) {
+                    $shippingAddress->setIsDefaultShipping(true);
+                }
             }
         } else {
             $customer->addData($this->getBillingAddress()->exportCustomerAddress()->getData())
-                ->addData($this->getData('account'))
                 ->setPassword($customer->generatePassword())
-                ->setWebsiteId($store->getWebsiteId())
-                ->setStoreId($store->getId())
+                ->setStore($store)
                 ->setEmail($this->_getNewCustomerEmail($customer));
 
             $customerBilling = $this->getBillingAddress()->exportCustomerAddress();
@@ -1070,16 +1102,26 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
             $customer->addAddress($customerBilling);
 
             $shipping = $this->getShippingAddress();
-            if (!$shipping->getSameAsBilling()) {
+            if (!$this->getQuote()->isVirtual() && !$shipping->getSameAsBilling()) {
                 $customerShipping = $shipping->exportCustomerAddress();
                 $customerShipping->setIsDefaultShipping(true);
                 $customer->addAddress($customerShipping);
+            } else {
+                $customerBilling->setIsDefaultShipping(true);
             }
         }
         $quote->setCustomer($customer);
         if (!$customer->getId()) {
             $quote->setCustomerId(true);
         }
+
+        // we should not change account data for existing customer, so restore it
+        if ($customer->getId() && is_array($this->_getData('account'))) {
+            foreach($this->_getData('account') as $key => $value) {
+                $customer->setData($key, $customer->getOrigData($key));
+            }
+        }
+
         return $this;
     }
 
@@ -1116,6 +1158,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
         $this->_prepareCustomer();
         $this->_prepareQuoteItems();
 
+        if (! $quote->getCustomer()->getId() || ! $quote->getCustomer()->isInStore($this->getSession()->getStore())) {
+            $quote->getCustomer()->sendNewAccountEmail('registered', '', $quote->getStoreId());
+        }
+
         $service = Mage::getModel('sales/service_quote', $quote);
         if ($this->getSession()->getOrder()->getId()) {
             $oldOrder = $this->getSession()->getOrder();
@@ -1140,10 +1186,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
             $this->getSession()->getOrder()->cancel()
                 ->save();
             $order->save();
-        }
-
-        if ($quote->getCustomerId()) {
-            $quote->getCustomer()->sendNewAccountEmail();
         }
 
         if ($this->getSendConfirmation()) {

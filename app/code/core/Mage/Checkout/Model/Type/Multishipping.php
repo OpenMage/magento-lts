@@ -158,6 +158,11 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                     $address->removeItem($item->getId());
                 }
 
+                /**
+                 * Require shiping rate recollect
+                 */
+                $address->setCollectShippingRates((boolean) $this->getCollectRatesFlag());
+
                 if (count($address->getAllItems()) == 0) {
                     $address->isDeleted(true);
                 }
@@ -374,6 +379,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      *
      * @param   Mage_Sales_Model_Quote_Address $address
      * @return  Mage_Sales_Model_Order
+     * @throws  Mage_Checkout_Exception
      */
     protected function _prepareOrder(Mage_Sales_Model_Quote_Address $address)
     {
@@ -394,6 +400,9 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
         $order->setPayment($convertQuote->paymentToOrderPayment($quote->getPayment()));
 
         foreach ($address->getAllItems() as $item) {
+            if (! $item->getQuoteItem()) {
+                throw new Mage_Checkout_Exception(Mage::helper('checkout')->__('Item not found or already ordered'));
+            }
             $item->setProductType($item->getQuoteItem()->getProductType())
                 ->setProductOptions($item->getQuoteItem()->getProduct()->getTypeInstance(true)->getOrderOptions($item->getQuoteItem()->getProduct()));
             $orderItem = $convertQuote->itemToOrderItem($item);

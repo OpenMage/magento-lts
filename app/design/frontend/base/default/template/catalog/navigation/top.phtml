@@ -31,12 +31,14 @@
  * @see Mage_Catalog_Block_Navigation
  */
 ?>
-<?php // if (count($this->getStoreCategories()) > 0): ?>
+<?php $_menu = ''?>
+<?php foreach ($this->getStoreCategories() as $_category): ?>
+    <?php $_menu .= $this->drawItem($_category) ?>
+<?php endforeach ?>
+<?php if ($_menu): ?>
 <div class="nav-container">
     <ul id="nav">
-    <?php foreach ($this->getStoreCategories() as $_category): ?>
-        <?php echo $this->drawItem($_category) ?>
-    <?php endforeach ?>
+        <?php echo $_menu; ?>
     </ul>
 </div>
-<?php // endif; ?>
+<?php endif; ?>

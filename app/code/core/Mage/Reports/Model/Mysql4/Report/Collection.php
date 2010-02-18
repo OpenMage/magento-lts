@@ -70,14 +70,13 @@ class Mage_Reports_Model_Mysql4_Report_Collection
             if (!$this->_from && !$this->_to){
                 return $this->_intervals;
             }
-            $dateStart = new Zend_Date($this->_from);
-            $dateStart2 = new Zend_Date($this->_from);
-
+            $dateStart  = new Zend_Date($this->_from);
             $dateEnd = new Zend_Date($this->_to);
 
 
             $t = array();
-            while ($dateStart->compare($dateEnd)<=0) {
+            $firstInterval = true;
+            while ($dateStart->compare($dateEnd) <= 0) {
 
                 switch ($this->_period) {
                     case 'day' :
@@ -88,26 +87,43 @@ class Mage_Reports_Model_Mysql4_Report_Collection
                         break;
                     case 'month':
                         $t['title'] =  $dateStart->toString('MM/yyyy');
-                        $t['start'] = $dateStart->toString('yyyy-MM-01 00:00:00');
-                        $t['end'] = $dateStart->toString('yyyy-MM-'.date('t', $dateStart->getTimestamp()).' 23:59:59');
+                        $t['start'] = ($firstInterval) ? $dateStart->toString('yyyy-MM-dd 00:00:00')
+                            : $dateStart->toString('yyyy-MM-01 00:00:00');
+
+                        $lastInterval = ($dateStart->compareMonth($dateEnd->getMonth()) == 0);
+
+                        $t['end'] = ($lastInterval) ? $dateStart->setDay($dateEnd->getDay())
+                            ->toString('yyyy-MM-dd 23:59:59')
+                            : $dateStart->toString('yyyy-MM-'.date('t', $dateStart->getTimestamp()).' 23:59:59');
+
                         $dateStart->addMonth(1);
+
+                        if ($dateStart->compareMonth($dateEnd->getMonth()) == 0) {
+                            $dateStart->setDay(1);
+                        }
+
+                        $firstInterval = false;
                         break;
                     case 'year':
                         $t['title'] =  $dateStart->toString('yyyy');
-                        $t['start'] = $dateStart->toString('yyyy-01-01 00:00:00');
-                        $t['end'] = $dateStart->toString('yyyy-12-31 23:59:59');
+                        $t['start'] = ($firstInterval) ? $dateStart->toString('yyyy-MM-dd 00:00:00')
+                            : $dateStart->toString('yyyy-01-01 00:00:00');
+
+                        $lastInterval = ($dateStart->compareYear($dateEnd->getYear()) == 0);
+
+                        $t['end'] = ($lastInterval) ? $dateStart->setMonth($dateEnd->getMonth())
+                            ->setDay($dateEnd->getDay())->toString('yyyy-MM-dd 23:59:59')
+                            : $dateStart->toString('yyyy-12-31 23:59:59');
                         $dateStart->addYear(1);
+
+                        if ($dateStart->compareYear($dateEnd->getYear()) == 0) {
+                            $dateStart->setMonth(1)->setDay(1);
+                        }
+
+                        $firstInterval = false;
                         break;
                 }
                 $this->_intervals[$t['title']] = $t;
-            }
-
-            if ($this->_period != 'day') {
-                $titles = array_keys($this->_intervals);
-                if (count($titles) > 0) {
-                    $this->_intervals[$titles[0]]['start'] = $dateStart2->toString('yyyy-MM-dd 00:00:00');
-                    $this->_intervals[$titles[count($titles)-1]]['end'] = $dateEnd->toString('yyyy-MM-dd 23:59:59');
-                }
             }
         }
         return  $this->_intervals;

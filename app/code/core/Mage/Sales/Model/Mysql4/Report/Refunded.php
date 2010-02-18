@@ -75,7 +75,7 @@ class Mage_Sales_Model_Mysql4_Report_Refunded extends Mage_Core_Model_Mysql4_Abs
                 }
 
                 $subQuery = $writeAdapter->select();
-                $subQuery->from(array('so'=>'sales_order'), array('DISTINCT DATE(so.created_at)'))
+                $subQuery->from(array('so' => $this->getTable('sales/order')), array('DISTINCT DATE(so.created_at)'))
                     ->where($where);
 
                 $deleteCondition = 'DATE(period) IN (' . new Zend_Db_Expr($subQuery) . ')';
@@ -167,7 +167,7 @@ class Mage_Sales_Model_Mysql4_Report_Refunded extends Mage_Core_Model_Mysql4_Abs
                 }
 
                 $subQuery = $writeAdapter->select();
-                $subQuery->from(array('so'=>'sales_order'), array('DISTINCT DATE(so.created_at)'))
+                $subQuery->from(array('so' => $this->getTable('sales/order')), array('DISTINCT DATE(so.created_at)'))
                     ->where($where);
 
                 $deleteCondition = 'DATE(period) IN (' . new Zend_Db_Expr($subQuery) . ')';
@@ -188,18 +188,19 @@ class Mage_Sales_Model_Mysql4_Report_Refunded extends Mage_Core_Model_Mysql4_Abs
             );
 
             $select = $writeAdapter->select()
-                ->from(array('soe' => 'sales_order_entity'), $columns)
+                ->from(array('soe' => $this->getTable('sales/order_entity')), $columns)
                 ->where('state <> ?', 'canceled')
                 ->where('base_total_refunded > 0');
 
-            $select->joinInner(array('soei' => $creditmemoAttr->getBackend()->getTable()), "`soei`.`entity_id` = `soe`.`entity_id`
+            $select->joinInner(array('soei' => $this->getTable($creditmemoAttr->getBackend()->getTable())),
+                "`soei`.`entity_id` = `soe`.`entity_id`
                 AND `soei`.`attribute_id` = {$creditmemoAttr->getAttributeId()}
                 AND `soei`.`entity_type_id` = `soe`.`entity_type_id`",
                 array()
             );
 
             $select->joinInner(array(
-                'so' => 'sales_order'),
+                'so' => $this->getTable('sales/order')),
                 '`soei`.`value` = `so`.`entity_id`',
                 array()
             );

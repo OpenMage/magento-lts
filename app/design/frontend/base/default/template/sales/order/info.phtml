@@ -43,7 +43,7 @@
     <dt><?php echo $this->__('About This Order:') ?></dt>
     <dd>
         <?php $_links = $this->getLinks(); ?>
-        <ul>
+        <ul id="order-info-tabs">
         <?php foreach ($_links as $_link): ?>
             <?php if($_link->getUrl()): ?>
                 <li><a href="<?php echo $_link->getUrl() ?>"><?php echo $_link->getLabel() ?></a></li>
@@ -52,6 +52,7 @@
             <?php endif; ?>
         <?php endforeach; ?>
         </ul>
+        <script type="text/javascript">decorateGeneric($('order-info-tabs').select('LI'),['first','last']);</script>
     </dd>
 </dl>
 <p class="order-date"><?php echo $this->__('Order Date: %s', $this->formatDate($_order->getCreatedAtStoreDate(), 'long')) ?></p>
@@ -95,7 +96,7 @@
         </div>
     </div>
     <div class="col-2">
-        <div class="box">
+        <div class="box box-payment">
             <div class="box-title">
                 <h2><?php echo $this->__('Payment Method') ?></h2>
             </div>

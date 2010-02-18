@@ -64,7 +64,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
          * Check exists and writeable path
          */
         if (!$io->fileExists($realPath, false)) {
-            Mage::throwException(Mage::helper('sitemap')->__('Please create the specified folder "%s" before saving the sitemap.', $this->getSitemapPath()));
+            Mage::throwException(Mage::helper('sitemap')->__('Please create the specified folder "%s" before saving the sitemap.', Mage::helper('core')->htmlEscape($this->getSitemapPath())));
         }
 
         if (!$io->isWriteable($realPath)) {
@@ -136,8 +136,8 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         /**
          * Generate categories sitemap
          */
-        $changefreq = (string)Mage::getStoreConfig('sitemap/category/changefreq');
-        $priority   = (string)Mage::getStoreConfig('sitemap/category/priority');
+        $changefreq = (string)Mage::getStoreConfig('sitemap/category/changefreq', $storeId);
+        $priority   = (string)Mage::getStoreConfig('sitemap/category/priority', $storeId);
         $collection = Mage::getResourceModel('sitemap/catalog_category')->getCollection($storeId);
         foreach ($collection as $item) {
             $xml = sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
@@ -153,8 +153,8 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         /**
          * Generate products sitemap
          */
-        $changefreq = (string)Mage::getStoreConfig('sitemap/product/changefreq');
-        $priority   = (string)Mage::getStoreConfig('sitemap/product/priority');
+        $changefreq = (string)Mage::getStoreConfig('sitemap/product/changefreq', $storeId);
+        $priority   = (string)Mage::getStoreConfig('sitemap/product/priority', $storeId);
         $collection = Mage::getResourceModel('sitemap/catalog_product')->getCollection($storeId);
         foreach ($collection as $item) {
             $xml = sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
@@ -170,8 +170,8 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         /**
          * Generate cms pages sitemap
          */
-        $changefreq = (string)Mage::getStoreConfig('sitemap/page/changefreq');
-        $priority   = (string)Mage::getStoreConfig('sitemap/page/priority');
+        $changefreq = (string)Mage::getStoreConfig('sitemap/page/changefreq', $storeId);
+        $priority   = (string)Mage::getStoreConfig('sitemap/page/priority', $storeId);
         $collection = Mage::getResourceModel('sitemap/cms_page')->getCollection($storeId);
         foreach ($collection as $item) {
             $xml = sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',

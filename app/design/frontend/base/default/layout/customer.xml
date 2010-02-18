@@ -131,7 +131,9 @@ New customer registration
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         <reference name="content">
-            <block type="customer/form_register" name="customer_form_register" template="customer/form/register.phtml"/>
+            <block type="customer/form_register" name="customer_form_register" template="customer/form/register.phtml">
+                <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before"/>
+            </block>
         </reference>
     </customer_account_create>
 

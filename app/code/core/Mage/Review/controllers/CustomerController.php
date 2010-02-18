@@ -34,6 +34,19 @@
 
 class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * Action predispatch
+     *
+     * Check customer authentication for some actions
+     */
+    public function preDispatch()
+    {
+        parent::preDispatch();
+        if (!Mage::getSingleton('customer/session')->authenticate($this)) {
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
+        }
+    }
+
     public function indexAction()
     {
         $this->loadLayout();

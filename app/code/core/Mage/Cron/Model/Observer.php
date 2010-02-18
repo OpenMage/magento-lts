@@ -36,7 +36,7 @@ class Mage_Cron_Model_Observer
     const CACHE_KEY_LAST_SCHEDULE_GENERATE_AT   = 'cron_last_schedule_generate_at';
     const CACHE_KEY_LAST_HISTORY_CLEANUP_AT     = 'cron_last_history_cleanup_at';
 
-    const XML_PATH_SCHEDULE_GENERATE_EVERY  = 'system/cron/schedule_generate_freq';
+    const XML_PATH_SCHEDULE_GENERATE_EVERY  = 'system/cron/schedule_generate_every';
     const XML_PATH_SCHEDULE_AHEAD_FOR       = 'system/cron/schedule_ahead_for';
     const XML_PATH_SCHEDULE_LIFETIME        = 'system/cron/schedule_lifetime';
     const XML_PATH_HISTORY_CLEANUP_EVERY    = 'system/cron/history_cleanup_every';

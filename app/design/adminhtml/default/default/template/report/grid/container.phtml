@@ -46,7 +46,7 @@
         var filters = $$('#filter_form input', '#filter_form select');
         var elements = [];
         for(var i in filters){
-            if(filters[i].value && filters[i].value.length) elements.push(filters[i]);
+            if(filters[i].value && filters[i].value.length && !filters[i].disabled) elements.push(filters[i]);
         }
         var validator  = new Validation('filter_form');
         if (validator.validate()) {

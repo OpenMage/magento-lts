@@ -121,6 +121,14 @@ class Varien_File_Uploader
 
     protected $_allowedExtensions = null;
 
+    /**
+     * Validate callbacks storage
+     *
+     * @var array
+     * @access protected
+     */
+    protected $_validateCallbacks = array();
+
     const SINGLE_STYLE = 0;
     const MULTIPLE_STYLE = 1;
 
@@ -146,9 +154,7 @@ class Varien_File_Uploader
      */
     public function save($destinationFolder, $newFileName=null)
     {
-        if( $this->_fileExists === false ) {
-            return;
-        }
+        $this->_validateFile();
 
         if( $this->_allowCreateFolders ) {
             $this->_createDestinationFolder($destinationFolder);
@@ -162,12 +168,6 @@ class Varien_File_Uploader
 
         $destFile = $destinationFolder;
         $fileName = ( isset($newFileName) ) ? $newFileName : self::getCorrectFileName($this->_file['name']);
-        $fileExtension = substr($fileName, strrpos($fileName, '.')+1);
-
-        if( !$this->chechAllowedExtension($fileExtension) ) {
-            throw new Exception('Disallowed file type.');
-        }
-
         if( $this->_enableFilesDispersion ) {
             $fileName = $this->correctFileNameCase($fileName);
             $this->setAllowCreateFolders(true);
@@ -200,13 +200,79 @@ class Varien_File_Uploader
         }
     }
 
-    static public function getCorrectFileName($fileName)
+    /**
+     * Validate file before save
+     *
+     * @access public
+     */
+    protected function _validateFile()
     {
-        if (preg_match('/[^a-z0-9_\\-\\.]/i', $fileName)) {
-            $fileName = 'file' . substr($fileName, strrpos($fileName, '.'));
+        if( $this->_fileExists === false ) {
+            return;
         }
 
-        return $fileName;
+        $filePath = $this->_file['tmp_name'];
+        $fileName = $this->_file['name'];
+
+        //is file extension allowed
+        $fileExtension = substr($fileName, strrpos($fileName, '.')+1);
+        if( !$this->chechAllowedExtension($fileExtension) ) {
+            throw new Exception('Disallowed file type.');
+        }
+        //run validate callbacks
+        foreach ($this->_validateCallbacks as $params)
+        {
+            if (is_object($params['object']) && method_exists($params['object'], $params['method'])) {
+                $params['object']->$params['method']($filePath);
+            }
+        }
+    }
+
+    /**
+     * Add validation callback model for us in self::_validateFile()
+     *
+     * @param string $callbackName
+     * @param object $callbackObject
+     * @param string $callbackMethod - method name of $callbackObject. It must have interface (string $tmpFilePath)
+     * @access public
+     * @return Varien_File_Uploader
+     */
+    public function addValidateCallback($callbackName, $callbackObject, $callbackMethod)
+    {
+        $this->_validateCallbacks[$callbackName] = array(
+           'object' => $callbackObject, 
+           'method' => $callbackMethod
+        );
+        return $this;
+    }
+
+    /**
+     * Delete validation callback model for us in self::_validateFile()
+     *
+     * @param string $callbackName
+     * @access public
+     * @return Varien_File_Uploader
+     */
+    public function removeValidateCallback($callbackName)
+    {
+        if (isset($this->_validateCallbacks[$callbackName])) {
+            unset($this->_validateCallbacks[$callbackName]);
+        }
+        return $this;
+    }
+
+    /**
+     * Correct filename with special chars and spaces
+     *
+     * @param string $fileName
+     * @return string
+     */
+    static public function getCorrectFileName($fileName)
+    {
+        if (preg_match('/[^a-z0-9_\\-\\.\s]/i', $fileName)) {
+            $fileName = 'file' . substr($fileName, strrpos($fileName, '.'));
+        }
+        return preg_replace('/\s+/', '_', $fileName);
     }
 
     /**

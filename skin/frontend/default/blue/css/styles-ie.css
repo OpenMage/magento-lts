@@ -29,7 +29,7 @@
 * html .error-msg,
 * html .success-msg,
 * html .note-msg,
-* html .notice-msg { _height:24px; }
+* html .notice-msg { height:24px; }
 * html .main { height:400px; }
 * html .account-login .content { height:240px; }
 .block li.item,
@@ -50,6 +50,7 @@
 #nav li.over li ul.shown-sub { left:100px; }
 /********** < Navigation styles */
 
+select { margin-bottom:1px; }
 input.radio { width:13px; height:13px; }
 input.checkbox { width:13px; height:13px; }
 button.button { height:21px; }
@@ -57,13 +58,14 @@ button.button span { position:relative; }
 button.btn-checkout { height:38px; }
 .form-list label { position:relative; z-index:0; }
 .form-list label.required em { position:absolute; top:0; right:-8px; }
-.form-list select { margin-bottom:1px; }
 
 table { face-color:expression(runtimeStyle.scrollbarFaceColor = '#fff', cellSpacing = 0); }
 
 .product-view .product-img-box .zoom.disabled { filter:alpha(opacity=30); }
 
 .gift-messages-form { position:relative; zoom:1; }
+
+.tool-tip .btn-close a { margin:0; }
 
 .product-view .box-tags .product-tags li,
 .footer li { padding:0 4px 0 7px; }

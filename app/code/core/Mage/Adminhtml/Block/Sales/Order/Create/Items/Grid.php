@@ -122,7 +122,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
 
     public function getSubtotal()
     {
-        $address = $this->getQuote()->getShippingAddress();
+        if ($this->getQuote()->isVirtual()) {
+            $address = $this->getQuote()->getBillingAddress();
+        }
+        else {
+            $address = $this->getQuote()->getShippingAddress();
+        }
         if ($this->displayTotalsIncludeTax()) {
             if ($address->getSubtotalInclTax()) {
                 return $address->getSubtotalInclTax();

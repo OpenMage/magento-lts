@@ -73,6 +73,8 @@ class Mage_Adminhtml_Block_Api_Tab_Roleinfo extends Mage_Adminhtml_Block_Widget_
             )
         );
 
+        $fieldset->addField('in_role_user_old', 'hidden', array('name' => 'in_role_user_old'));
+
         $form->setValues($this->getRole()->getData());
         $this->setForm($form);
     }

@@ -17,8 +17,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 var widgetTools = {
@@ -43,7 +45,7 @@ var widgetTools = {
             Windows.focus('widget_window');
             return;
         }
-        Dialog.info(null, {
+        this.dialogWindow = Dialog.info(null, {
             draggable:true,
             resizable:false,
             closable:true,
@@ -56,9 +58,20 @@ var widgetTools = {
             recenterAuto:false,
             hideEffect:Element.hide,
             showEffect:Element.show,
-            id:'widget_window'
+            id:'widget_window',
+            onClose: this.closeDialog.bind(this)
         });
         new Ajax.Updater('modal_dialog_message', widgetUrl, {evalScripts: true});
+    },
+    closeDialog: function(window) {
+        if (!window) {
+            window = this.dialogWindow;
+        }
+        if (window) {
+            // IE fix - hidden form select fields after closing dialog
+            WindowUtilities._showSelect();
+            window.close();
+        }
     }
 }
 
@@ -193,8 +206,8 @@ WysiwygWidget.Widget.prototype = {
     },
 
     insertWidget: function() {
-        editForm = editForm || new varienForm(this.formEl);
-        if(editForm.validator && editForm.validator.validate() || !editForm.validator){
+        widgetOptionsForm = new varienForm(this.formEl);
+        if(widgetOptionsForm.validator && widgetOptionsForm.validator.validate() || !widgetOptionsForm.validator){
             var formElements = [];
             var i = 0;
             Form.getElements($(this.formEl)).each(function(e) {

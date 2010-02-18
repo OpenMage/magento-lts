@@ -53,6 +53,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     protected function _initProduct()
     {
+        $this->_title($this->__('Catalog'))
+             ->_title($this->__('Manage Products'));
+
         $productId  = (int) $this->getRequest()->getParam('id');
         $product    = Mage::getModel('catalog/product')
             ->setStoreId($this->getRequest()->getParam('store', 0));
@@ -159,6 +162,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     public function indexAction()
     {
+        $this->_title($this->__('Catalog'))
+             ->_title($this->__('Manage Products'));
+
         $this->loadLayout();
         $this->_setActiveMenu('catalog/products');
         $this->renderLayout();
@@ -170,6 +176,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     public function newAction()
     {
         $product = $this->_initProduct();
+
+        $this->_title($this->__('New Product'));
 
         Mage::dispatchEvent('catalog_product_new_action', array('product' => $product));
 
@@ -199,7 +207,17 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     public function editAction()
     {
+        $productId  = (int) $this->getRequest()->getParam('id');
         $product = $this->_initProduct();
+
+        if ($productId && !$product->getId()) {
+            $this->_getSession()->addError(Mage::helper('catalog')->__('This Product no longer exists'));
+            $this->_redirect('*/*/');
+            return;
+        }
+
+        $this->_title(sprintf('#%s', $product->getName() ? $product->getName() : $product->getSku()));
+
         Mage::dispatchEvent('catalog_product_edit_action', array('product' => $product));
 
         $_additionalLayoutPart = '';

@@ -36,6 +36,8 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
 
     public function indexAction()
     {
+        $this->_title($this->__('Newsletter'))->_title($this->__('Newsletter Subscribers'));
+
         if ($this->getRequest()->getParam('ajax')) {
             $this->_forward('grid');
             return;

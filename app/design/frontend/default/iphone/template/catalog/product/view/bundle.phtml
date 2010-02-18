@@ -176,7 +176,7 @@
             <div class="clear"></div>
             <div class="divider"></div>
             <h4><?php echo $this->__('Product Description') ?></h4>
-            <div class="product-specs"><?php echo $_product->getDescription() ?></div>
+            <div class="product-specs"><?php echo $this->htmlEscape($_product->getDescription()) ?></div>
         </div>
     </div>
 

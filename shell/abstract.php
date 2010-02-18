@@ -41,6 +41,13 @@ abstract class Mage_Shell_Abstract
     protected $_includeMage = true;
 
     /**
+     * Magento Root path
+     *
+     * @var string
+     */
+    protected $_rootPath;
+
+    /**
      * Initialize application with code (store, website code)
      *
      * @var string
@@ -68,14 +75,54 @@ abstract class Mage_Shell_Abstract
     public function __construct()
     {
         if ($this->_includeMage) {
-            require_once '../app/Mage.php';
+            require_once $this->_getRootPath() . 'app' . DIRECTORY_SEPARATOR . 'Mage.php';
             Mage::app($this->_appCode, $this->_appType);
         }
 
+        $this->_applyPhpVariables();
         $this->_parseArgs();
         $this->_construct();
         $this->_validate();
         $this->_showHelp();
+    }
+
+    /**
+     * Get Magento Root path (with last directory separator)
+     *
+     * @return string
+     */
+    protected function _getRootPath()
+    {
+        if (is_null($this->_rootPath)) {
+            $this->_rootPath = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR;
+        }
+        return $this->_rootPath;
+    }
+
+    /**
+     * Parse .htaccess file and apply php settings to shell script
+     *
+     */
+    protected function _applyPhpVariables()
+    {
+        $htaccess = $this->_getRootPath() . '.htaccess';
+        if (file_exists($htaccess)) {
+            // parse htaccess file
+            $data = file_get_contents($htaccess);
+            $matches = array();
+            preg_match_all('#^\s+?php_value\s+([a-z_]+)\s+(.+)$#siUm', $data, $matches, PREG_SET_ORDER);
+            if ($matches) {
+                foreach ($matches as $match) {
+                    @ini_set($match[1], $match[2]);
+                }
+            }
+            preg_match_all('#^\s+?php_flag\s+([a-z_]+)\s+(.+)$#siUm', $data, $matches, PREG_SET_ORDER);
+            if ($matches) {
+                foreach ($matches as $match) {
+                    @ini_set($match[1], $match[2]);
+                }
+            }
+        }
     }
 
     /**

@@ -885,8 +885,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
 
                 $upperKeyName = strtoupper($row[$fieldKeyName]);
                 if (isset($ddl[$upperKeyName])) {
-                    $indexList[$upperKeyName]['fields'][] = $row[$fieldColumn]; // for compatible
-                    $indexList[$upperKeyName]['COLUMNS_LIST'][] = $row[$fieldColumn];
+                    $ddl[$upperKeyName]['fields'][] = $row[$fieldColumn]; // for compatible
+                    $ddl[$upperKeyName]['COLUMNS_LIST'][] = $row[$fieldColumn];
                 }
                 else {
                     $ddl[$upperKeyName] = array(
@@ -903,7 +903,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
             }
             $this->saveDdlCache($cacheKey, self::DDL_INDEX, $ddl);
         }
-
         return $ddl;
     }
 

@@ -47,21 +47,14 @@
                 </address>
                 <p><a href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>"><?php echo $this->__('Change Billing Address') ?></a></p>
            </li>
-           <?php elseif($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultShipping()): ?>
-           <li class="item">
-                <h3><?php echo $this->__('Default Billing Address') ?></h3>
-                <address>
-                    <?php echo $this->getAddressHtml(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>
-                </address>
-                <p><a href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>"><?php echo $this->__('Change Billing Address') ?></a></p>
-            </li>
-            <?php else: ?>
+        <?php else: ?>
             <li class="item">
                 <h3><?php echo $this->__('Default Billing Address') ?></h3>
                 <?php echo $this->__('You have no default billing address in your address book.') ?>
             </li>
-            <?php endif ?>
-            <?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultShipping()): ?>
+        <?php endif ?>
+        
+        <?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultShipping()): ?>
             <li class="item">
                 <h3><?php echo $this->__('Default Shipping Address') ?></h3>
                 <address>
@@ -69,20 +62,12 @@
                 </address>
                 <p><a href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>"><?php echo $this->__('Change Shipping Address') ?></a></p>
             </li>
-            <?php elseif($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling()): ?>
-            <li class="item">
-                <h3><?php echo $this->__('Default Shipping Address') ?></h3>
-                <address>
-                    <?php echo $this->getAddressHtml(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>
-                </address>
-                <p><a href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>"><?php echo $this->__('Change Shipping Address') ?></a></p>
-            </li>
-            <?php else: ?>
+        <?php else: ?>
             <li class="item empty">
                 <h3><?php echo $this->__('Default Shipping Address') ?></h3>
                 <p><?php echo $this->__('You have no default shipping address in your address book.') ?></p>
             </li>
-            <?php endif ?>
+        <?php endif ?>
         </ol>
     </div>
     <div class="col-2 addresses-additional">

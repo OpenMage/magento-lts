@@ -31,7 +31,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
     const MULTI_DELIMITER = ' , ';
 
     /**
-     * Product model
+     * Customer model
      *
      * @var Mage_Customer_Model_Customer
      */
@@ -369,7 +369,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
         if ($collections instanceof Mage_Customer_Model_Entity_Customer_Collection) {
             $collections = array($collections->getEntity()->getStoreId()=>$collections);
         } elseif (!is_array($collections)) {
-            $this->addException(Mage::helper('customer')->__('No product collections found'), Mage_Dataflow_Model_Convert_Exception::FATAL);
+            $this->addException(Mage::helper('customer')->__('No customer collections found'), Mage_Dataflow_Model_Convert_Exception::FATAL);
         }
 
         foreach ($collections as $storeId=>$collection) {
@@ -382,7 +382,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
                 $i = 0;
                 foreach ($collection->getIterator() as $model) {
                     $new = false;
-                    // if product is new, create default values first
+                    // if customer is new, create default values first
                     if (!$model->getId()) {
                         $new = true;
                         $model->save();
@@ -419,7 +419,6 @@ class Mage_Customer_Model_Convert_Adapter_Customer
     {
         $customer = $this->getCustomerModel();
         $customer->setId(null);
-        $customer->setImportMode(true);
 
         if (empty($importData['website'])) {
             $message = Mage::helper('customer')->__('Skip import row, required field "%s" not defined', 'website');
@@ -688,6 +687,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
             }
         }
 
+        $customer->setImportMode(true);
         $customer->save();
         $saveCustomer = false;
 

@@ -26,9 +26,17 @@
 ?>
 <script type="text/javascript">
 function saveAndContinueEdit(){
-    editForm.submit($('edit_form').action+'back/edit/tab/' + product_attribute_tabsJsTabs.activeTab.id);
+    var activeTab = product_attribute_tabsJsTabs.activeTab.id;
+    if (editForm.submit($('edit_form').action+'back/edit/tab/' + activeTab) != false) {
+        disableElements('save');
+    }
 }
 
+function saveAttribute(){
+    if (editForm.submit() != false) {
+        disableElements('save');
+    }
+}
 
 function toggleApplyVisibility(select) {
     if ($(select).value == 1) {

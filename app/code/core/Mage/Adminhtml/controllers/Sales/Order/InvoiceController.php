@@ -56,6 +56,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      */
     protected function _initInvoice($update = false)
     {
+        $this->_title($this->__('Sales'))->_title($this->__('Invoices'));
+
         $invoice = false;
         $itemsToInvoice = 0;
 
@@ -226,6 +228,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     public function viewAction()
     {
         if ($invoice = $this->_initInvoice()) {
+            $this->_title(sprintf("#%s", $invoice->getIncrementId()));
+
             $this->loadLayout()
                 ->_setActiveMenu('sales/order');
             $this->getLayout()->getBlock('sales_invoice_view')
@@ -255,6 +259,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     public function newAction()
     {
         if ($invoice = $this->_initInvoice()) {
+            $this->_title($this->__('New Invoice'));
             $this->loadLayout()
                 ->_setActiveMenu('sales/order')
                 ->renderLayout();

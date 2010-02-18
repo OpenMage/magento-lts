@@ -29,47 +29,36 @@
  */
 ?>
 <table id="details-table" class="data-table">
+    <?php if ($this->helper('tax')->displayCartBothPrices()): $colspan = $rowspan = 2; else: $colspan = $rowspan = 1; endif; ?>
     <col />
     <col width="1" />
     <col width="1" />
     <col width="1" />
+    <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+    <col width="1" />
+    <col width="1" />
+    <?php endif; ?>
     <thead>
         <tr>
-            <th><?php echo $this->__('Product Name') ?></th>
-            <th class="a-right"><?php echo $this->__('Price') ?></th>
-            <th class="a-center"><?php echo $this->__('Qty') ?></th>
-            <th class="a-right"><?php echo $this->__('Subtotal') ?></th>
+            <th rowspan="<?php echo $rowspan ?>"><?php echo $this->__('Product Name') ?></th>
+            <th colspan="<?php echo $colspan ?>" class="a-center"><?php echo $this->__('Price') ?></th>
+            <th rowspan="<?php echo $rowspan ?>" class="a-center"><?php echo $this->__('Qty') ?></th>
+            <th colspan="<?php echo $colspan ?>" class="a-center"><?php echo $this->__('Subtotal') ?></th>
         </tr>
+        <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+            <tr>
+                <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+            </tr>
+        <?php endif; ?>
     </thead>
-    <?php if ($this->getTotals()): ?>
-    <tfoot>
-        <?php $_colspan = $this->helper('tax')->displayCartBothPrices() ? 5 : 3; ?>
-        <?php echo $this->renderTotals(null, $_colspan); ?>
-        <?php echo $this->renderTotals('footer', $_colspan); ?>
-        <?php if ($this->needDisplayBaseGrandtotal()):?>
-        <tr>
-            <td class="a-right" colspan="<?php echo $_colspan; ?>">
-                <small><?php echo $this->helper('sales')->__('Your credit card will be charged for') ?></small>
-            </td>
-            <td class="a-right">
-                <small><?php echo $this->displayBaseGrandtotal() ?></small>
-            </td>
-        </tr>
-        <?php endif?>
-    </tfoot>
-    <?php endif; ?>
+<?php echo $this->getChildHtml('totals'); ?>
     <tbody>
-    <?php foreach ($this->getItems() as $_item): ?>
-        <?php if ($_item->getParentItem()) continue ?>
-        <tr>
-            <td>
-                <?php echo $_item->getProduct()->getName() ?>
-                <?php echo $_item->getProduct()->getDescription() ?>
-            </td>
-            <td class="a-right"><?php echo $this->helper('checkout')->formatPrice($_item->getCalculationPrice()); ?></td>
-            <td class="a-center"><?php echo $_item->getQty() ?></td>
-            <td class="a-right"><?php echo $this->helper('checkout')->formatPrice($_item->getRowTotal()); ?></td>
-        </tr>
-    <?php endforeach; ?>
+        <?php foreach($this->getItems() as $_item): ?>
+            <?php echo $this->getItemHtml($_item) ?>
+        <?php endforeach ?>
     </tbody>
 </table>
+<script type="text/javascript">decorateTable('details-table');</script>

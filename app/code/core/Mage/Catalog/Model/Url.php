@@ -373,6 +373,8 @@ class Mage_Catalog_Model_Url
                 $this->_refreshProductRewrite($product, $category);
             }
 
+            $this->getResource()->clearProductRewrites($productId, $storeId, array_keys($categories));
+            
             unset($categories);
             unset($product);
 

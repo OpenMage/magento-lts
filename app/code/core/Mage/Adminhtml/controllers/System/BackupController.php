@@ -38,6 +38,8 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
      */
     public function indexAction()
     {
+        $this->_title($this->__('System'))->_title($this->__('Tools'))->_title($this->__('Backups'));
+
         if($this->getRequest()->getParam('ajax')) {
             $this->_forward('grid');
             return;

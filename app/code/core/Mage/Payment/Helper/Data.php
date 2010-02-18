@@ -73,7 +73,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
                 continue;
             }
 
-            $sortOrder = (int)Mage::getStoreConfig($prefix . 'sort_order', $store);
+            $sortOrder = (int)$methodInstance->getConfigData('sort_order', $store);
             $methodInstance->setSortOrder($sortOrder);
             $methodInstance->setStore($store);
             $res[] = $methodInstance;

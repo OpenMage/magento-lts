@@ -36,13 +36,14 @@
 class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
 {
     protected $_collection = null;
-    protected $_pageVarName     = 'p';
-    protected $_limitVarName    = 'limit';
-    protected $_availableLimit  = array(10=>10,20=>20,50=>50);
-    protected $_dispersion      = 3;
-    protected $_displayPages    = 5;
-    protected $_showPerPage     = true;
-    protected $_limit           = null;
+    protected $_pageVarName    = 'p';
+    protected $_limitVarName   = 'limit';
+    protected $_availableLimit = array(10=>10,20=>20,50=>50);
+    protected $_dispersion     = 3;
+    protected $_displayPages   = 5;
+    protected $_showPerPage    = true;
+    protected $_limit          = null;
+    protected $_outputRequired = true;
 
     /**
      * Pages quantity per frame
@@ -409,7 +410,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      * Setter for $_frameLength
      *
      * @param int $frame
-     * @return Mage_Catalog_Block_Product_List_Toolbar_Pager
+     * @return Mage_Page_Block_Html_Pager
      */
     public function setFrameLength($frame)
     {
@@ -429,7 +430,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      * Setter for $_jump
      *
      * @param int $jump
-     * @return Mage_Catalog_Block_Product_List_Toolbar_Pager
+     * @return Mage_Page_Block_Html_Pager
      */
     public function setJump($jump)
     {
@@ -485,7 +486,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     /**
      * Initialize frame data, such as frame start, frame start etc.
      *
-     * @return Mage_Catalog_Block_Product_List_Toolbar_Pager
+     * @return Mage_Page_Block_Html_Pager
      */
     protected function _initFrame()
     {
@@ -526,7 +527,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      * Setter for flag _frameInitialized
      *
      * @param bool $flag
-     * @return Mage_Catalog_Block_Product_List_Toolbar_Pager
+     * @return Mage_Page_Block_Html_Pager
      */
     protected function _setFrameInitialized($flag)
     {
@@ -537,7 +538,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     /**
      * Check if frame data was initialized
      *
-     * @return Mage_Catalog_Block_Product_List_Toolbar_Pager
+     * @return Mage_Page_Block_Html_Pager
      */
     public function isFrameInitialized()
     {
@@ -563,5 +564,29 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     {
         return Mage::getStoreConfig('design/pagination/anchor_text_for_next');
     }
-}
 
+    /**
+     * Set whether output of the pager is mandatory
+     *
+     * @param bool $isRequired
+     * @return Mage_Page_Block_Html_Pager
+     */
+    public function setIsOutputRequired($isRequired)
+    {
+        $this->_outputRequired = (bool)$isRequired;
+        return $this;
+    }
+
+    /**
+     * Determine whether the pagination should be eventually rendered
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        if ($this->_outputRequired || $this->getTotalNum() > $this->getLimit()) {
+            return parent::_toHtml();
+        }
+        return '';
+    }
+}

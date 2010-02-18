@@ -55,7 +55,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
         ));
 
         $form->setUseContainer(true);
-        $form->setId('edit_form');
+        $form->setId('widget_options_form');
         $form->setMethod('post');
         $form->setAction($this->getUrl('*/*/buildWidget'));
         $this->setForm($form);

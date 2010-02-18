@@ -88,24 +88,31 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         }
 
         $maxAllowedWeight = (float) $this->getConfigData('max_package_weight');
-        $error = null;
+        $errorMsg = '';
+        $configErrorMsg = $this->getConfigData('specificerrmsg');
+        $defaultErrorMsg = Mage::helper('shipping')->__('The shipping module is not available.');
         $showMethod = $this->getConfigData('showmethod');
 
         foreach ($request->getAllItems() as $item) {
             if ($item->getProduct() && $item->getProduct()->getId()) {
                 if ($item->getProduct()->getWeight() > $maxAllowedWeight) {
-                    $error = Mage::getModel('shipping/rate_result_error');
-                    $error->setCarrier($this->_code)
-                        ->setCarrierTitle($this->getConfigData('title'));
-                    $errorMsg = $this->getConfigData('specificerrmsg');
-                    $error->setErrorMessage($errorMsg?$errorMsg:Mage::helper('shipping')->__('The shipping module is not available.'));
+                    $errorMsg = ($configErrorMsg) ? $configErrorMsg : $defaultErrorMsg;
                     break;
                 }
             }
         }
-        if (null !== $error && $showMethod) {
+
+        if (!$errorMsg && !$request->getDestPostcode() && $this->isZipCodeRequired()) {
+            $errorMsg = Mage::helper('shipping')->__('This shipping method is not available, please specify ZIP-code');
+        }
+
+        if ($errorMsg && $showMethod) {
+            $error = Mage::getModel('shipping/rate_result_error');
+            $error->setCarrier($this->_code);
+            $error->setCarrierTitle($this->getConfigData('title'));
+            $error->setErrorMessage($errorMsg);
             return $error;
-        } elseif (null !== $error) {
+        } elseif ($errorMsg) {
             return false;
         }
         return $this;

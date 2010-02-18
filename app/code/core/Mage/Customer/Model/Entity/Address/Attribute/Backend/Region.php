@@ -36,16 +36,11 @@ class Mage_Customer_Model_Entity_Address_Attribute_Backend_Region extends Mage_E
     public function beforeSave($object)
     {
         $region = $object->getData('region');
-        if ($regionId = (int) $region) {
-            $regionModel = Mage::getModel('directory/region')->load($regionId);
-            if ($regionModel->getId()) {
-                if ($object->getCountryId()==$regionModel->getCountryId()) {
-                    $object->setRegionId($regionModel->getId())
-                        ->setRegion($regionModel->getName());
-                }
-                else {
-                    Mage::throwException(Mage::helper('customer')->__('Wrong region id by selected country'));
-                }
+        if (is_numeric($region)) {
+            $regionModel = Mage::getModel('directory/region')->load($region);
+            if ($regionModel->getId() && $object->getCountryId() == $regionModel->getCountryId()) {
+                $object->setRegionId($regionModel->getId())
+                    ->setRegion($regionModel->getName());
             }
         }
         return $this;

@@ -118,8 +118,8 @@
                 <?php elseif(isset($track['title']) && isset($track['number']) && $track['number']): ?>
                 <!--if the tracking is custom value-->
                   <tr>
-                    <td class="first label"><?php echo ($track['title'] ? $track['title'] : $this->__('N/A')); ?>:</td>
-                    <td><?php echo (isset($track['number']) ? $track['number'] : ''); ?></td>
+                    <td class="first label"><?php echo ($track['title'] ? $this->escapeHtml($track['title']) : $this->__('N/A')); ?>:</td>
+                    <td><?php echo (isset($track['number']) ? $this->escapeHtml($track['number']) : ''); ?></td>
                 </tr>
                 <?php endif; ?>
 

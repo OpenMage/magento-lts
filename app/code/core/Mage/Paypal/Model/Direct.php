@@ -57,13 +57,34 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      */
     protected $_pro = null;
 
+    /**
+     * Website Payments Pro instance type
+     *
+     * @var $_proType string
+     */
+    protected $_proType = 'paypal/pro';
+
+    /**
+     * Info instance type
+     *
+     * @var $_proType string
+     */
+    protected $_infoType = 'paypal/info';
+
+    /**
+     * Ipn notify action
+     *
+     * @var string
+     */
+    protected $_notifyAction = 'paypal/ipn/direct';
+
     public function __construct($params = array())
     {
         $proInstance = array_shift($params);
         if ($proInstance && ($proInstance instanceof Mage_Paypal_Model_Pro)) {
             $this->_pro = $proInstance;
         } else {
-            $this->_pro = Mage::getModel('paypal/pro');
+            $this->_pro = Mage::getModel($this->_proType);
         }
         $this->_pro->setMethod($this->_code);
     }
@@ -165,6 +186,20 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     }
 
     /**
+     * Set fallback API URL if not defined in configuration
+     *
+     * @return Mage_Centinel_Model_Service
+     */
+    public function getCentinelValidator()
+    {
+        $validator = parent::getCentinelValidator();
+        if (!$validator->getCustomApiEndpointUrl()) {
+            $validator->setCustomApiEndpointUrl($this->_pro->getConfig()->centinelDefaultApiUrl);
+        }
+        return $validator;
+    }
+
+    /**
      * Place an order with authorization or capture action
      *
      * @param Mage_Sales_Model_Order_Payment $payment
@@ -181,19 +216,20 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
             ->setCurrencyCode($order->getBaseCurrencyCode())
             ->setInvNum($order->getIncrementId())
             ->setEmail($order->getCustomerEmail())
-            ->setNotifyUrl(Mage::getUrl('paypal/ipn/direct'))
+            ->setNotifyUrl(Mage::getUrl($this->_notifyAction))
             ->setCreditCardType($payment->getCcType())
             ->setCreditCardNumber($payment->getCcNumber())
             ->setCreditCardExpirationDate(sprintf('%02d%02d', $payment->getCcExpMonth(), $payment->getCcExpYear()))
             ->setCreditCardCvv2($payment->getCcCid())
-//            ->setCentinelAuthStatus()
-//            ->setCentinelMpivendor()
-//            ->setCentinelCavv()
-//            ->setCentinelEci()
-//            ->setCentinelxid()
-//            ->setMaestroSoloIssueDate()
-//            ->setMaestroSoloIssueNumber()
+            ->setMaestroSoloIssueNumber($payment->getCcSsIssue())
         ;
+        if ($payment->getCcSsStartMonth() && $payment->getCcSsStartYear()) {
+            $api->setMaestroSoloIssueDate(sprintf('%02d%02d', $payment->getCcSsStartMonth(), preg_replace('~\d\d(\d\d)~','$1', $payment->getCcSsStartYear())));
+        }
+        if ($this->getIsCentinelValidationEnabled()) {
+            $this->getCentinelValidator()->exportCmpiData($api);
+        }
+
         // add shipping address
         if ($order->getIsVirtual()) {
             $api->setAddress($order->getBillingAddress())->setSuppressShipping(true);
@@ -202,17 +238,27 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
         }
 
         // add line items
-        if ($this->_pro->getConfig()->lineItemsEnabled) {
+        if ($this->_pro->getConfig()->lineItemsEnabled && Mage::helper('paypal')->doLineItemsMatchAmount($order, $amount)) {//For transfering line items order amount must be equal to cart total amount
             list($items, $totals) = Mage::helper('paypal')->prepareLineItems($order);
             $api->setLineItems($items)->setLineItemTotals($totals);
         }
 
         // call api and import transaction and other payment information
         $api->callDoDirectPayment();
-        $payment->setTransactionId($api->getTransactionId())->setIsTransactionClosed(0)
-            ->setIsPaid($api->isPaid($api->getPaymentStatus()))
-        ;
-        Mage::getModel('paypal/info')->importToPayment($api, $payment);
+        $this->_importResultToPayment($api, $payment);
         return $this;
+    }
+
+    /**
+     * Import direct payment results to payment
+     *
+     * @param Mage_Paypal_Model_Api_Nvp
+     * @param Mage_Sales_Model_Order_Payment
+     */
+    protected function _importResultToPayment($api, $payment)
+    {
+        $payment->setTransactionId($api->getTransactionId())->setIsTransactionClosed(0)
+            ->setIsTransactionPending($api->getIsPaymentPending());
+        Mage::getModel($this->_infoType)->importToPayment($api, $payment);
     }
 }

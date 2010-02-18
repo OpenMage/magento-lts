@@ -128,7 +128,10 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
             if ($batchModel->getId()) {
                 if ($batchModel->getAdapter()) {
                     $numberOfRecords = $profile->getData('gui_data/import/number_of_records');
-                    $numberOfRecords = $numberOfRecords ? $numberOfRecords : 1;
+                    if (!$numberOfRecords) {
+                        $batchParams = $batchModel->getParams();
+                        $numberOfRecords = isset($batchParams['number_of_records']) ? $batchParams['number_of_records'] : 1;
+                    }
 
                     $showFinished = false;
                     $batchImportModel = $batchModel->getBatchImportModel();

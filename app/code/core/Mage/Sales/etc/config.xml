@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Sales>
-            <version>0.9.54</version>
+            <version>0.9.56</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -90,6 +90,8 @@
                 <customer_dob><to_order>*</to_order></customer_dob>
                 <customer_taxvat><to_order>*</to_order></customer_taxvat>
                 <customer_gender><to_order>*</to_order></customer_gender>
+
+                <base_grand_total><to_order>quote_base_grand_total</to_order></base_grand_total>
 
                 <global_currency_code><to_order>*</to_order></global_currency_code>
                 <base_currency_code><to_order>*</to_order></base_currency_code>
@@ -554,48 +556,48 @@
                     <new translate="label">
                         <label>New</label>
                         <statuses>
-                            <pending default=""/>
+                            <pending default="1"/>
                         </statuses>
                         <visible_on_front/>
                     </new>
                     <pending_payment translate="label">
                         <label>Pending Payment</label>
                         <statuses>
-                            <pending_payment default=""/>
+                            <pending_payment default="1"/>
                         </statuses>
                     </pending_payment>
                     <processing translate="label">
                         <label>Processing</label>
                         <statuses>
-                            <processing default=""/>
+                            <processing default="1"/>
                         </statuses>
                         <visible_on_front/>
                     </processing>
                     <complete translate="label">
                         <label>Complete</label>
                         <statuses>
-                            <complete default=""/>
+                            <complete default="1"/>
                         </statuses>
                         <visible_on_front/>
                     </complete>
                     <closed translate="label">
                         <label>Closed</label>
                         <statuses>
-                            <closed default=""/>
+                            <closed default="1"/>
                         </statuses>
                         <visible_on_front/>
                     </closed>
                     <canceled translate="label">
                         <label>Canceled</label>
                         <statuses>
-                            <canceled default=""/>
+                            <canceled default="1"/>
                         </statuses>
                         <visible_on_front/>
                     </canceled>
                     <holded translate="label">
                         <label>On Hold</label>
                         <statuses>
-                            <holded default=""/>
+                            <holded default="1"/>
                             <fraud/>
                         </statuses>
                         <visible_on_front/>
@@ -896,7 +898,7 @@
                 <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
                 <run><model>sales/observer::cleanExpiredQuotes</model></run>
             </sales_clean_quotes>
-            
+
             <aggregate_sales_report_order_data>
                 <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
                 <run><model>sales/observer::aggregateSalesReportOrderData</model></run>

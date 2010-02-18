@@ -40,7 +40,7 @@
             <div class="details">
                 <h3><?php echo $this->htmlEscape($this->getProductData()->getName()) ?></h3>
                 <?php if( $this->getRating() && $this->getRating()->getSize()): ?>
-                <strong><?php echo $this->__('Your Rating:') ?></strong>
+                <strong><?php echo ($this->isReviewOwner()) ? $this->__('Your Rating:') : $this->__('Rating:'); ?></strong>
                     <table cellspacing="0" class="ratings-list">
                     <?php foreach ($this->getRating() as $_rating): ?>
                     <?php if($_rating->getPercent()): ?>
@@ -54,7 +54,11 @@
                     <?php endforeach; ?>
                     </table>
                 <?php endif; ?>
-                <?php echo $this->__('Your Review (submitted on %s):', $this->dateFormat($this->getReviewData()->getCreatedAt())) ?>
+                <?php if ($this->isReviewOwner()): ?>
+                    <?php echo $this->__('Your Review (submitted on %s):', $this->dateFormat($this->getReviewData()->getCreatedAt())) ?>
+                <?php else :?>
+                    <?php echo $this->__('Review (submitted on %s):', $this->dateFormat($this->getReviewData()->getCreatedAt())) ?>
+                <?php endif;?>
                 <div class="description">
                     <p><?php echo nl2br($this->htmlEscape($this->getReviewData()->getDetail())) ?></p>
                 </div>

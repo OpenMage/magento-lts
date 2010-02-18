@@ -960,7 +960,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     /**
      * Get all quote totals (sorted by priority)
-     * Metchod process quote states isVirtual and isMultiShipping
+     * Method process quote states isVirtual and isMultiShipping
      *
      * @return array
      */

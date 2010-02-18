@@ -30,6 +30,13 @@
  */
 class Mage_Payment_Block_Info extends Mage_Core_Block_Template
 {
+    /**
+     * Payment rendered specific information
+     *
+     * @var Varien_Object
+     */
+    protected $_paymentSpecificInformation = null;
+
     protected function _construct()
     {
         parent::_construct();
@@ -90,12 +97,12 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
 
     /**
      * Get some specific information in format of array($label => $value)
-     * (to be extended by descendants)
+     *
      * @return array
      */
     public function getSpecificInformation()
     {
-        return array();
+        return $this->_prepareSpecificInformation()->getData();
     }
 
     /**
@@ -117,6 +124,51 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
             array_walk($value, array($this, '_escapeHtmlWalkCallback'));
         }
         return $value;
+    }
+
+    /**
+     * Check whether payment information should show up in secure mode
+     * true => only "public" payment information may be shown
+     * false => full information may be shown
+     *
+     * @return bool
+     */
+    public function getIsSecureMode()
+    {
+        if ($this->hasIsSecureMode()) {
+            return (bool)(int)$this->_getData('is_secure_mode');
+        }
+        if (!$payment = $this->getInfo()) {
+            return true;
+        }
+        if (!$method = $payment->getMethodInstance()) {
+            return true;
+        }
+        return !Mage::app()->getStore($method->getStore())->isAdmin();
+    }
+
+    /**
+     * Prepare information specific to current payment method
+     *
+     * @param Varien_Object|array $transport
+     * @return Varien_Object
+     */
+    protected function _prepareSpecificInformation($transport = null)
+    {
+        if (null === $this->_paymentSpecificInformation) {
+            if (null === $transport) {
+                $transport = new Varien_Object;
+            } elseif (is_array($transport)) {
+                $transport = new Varien_Object($transport);
+            }
+            Mage::dispatchEvent('payment_info_block_prepare_specific_information', array(
+                'transport' => $transport,
+                'payment'   => $this->getInfo(),
+                'block'     => $this,
+            ));
+            $this->_paymentSpecificInformation = $transport;
+        }
+        return $this->_paymentSpecificInformation;
     }
 
     /**

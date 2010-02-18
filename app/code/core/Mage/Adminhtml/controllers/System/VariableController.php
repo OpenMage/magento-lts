@@ -53,6 +53,8 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
      */
     protected function _initVariable()
     {
+        $this->_title($this->__('System'))->_title($this->__('Custom Variables'));
+
         $variableId = $this->getRequest()->getParam('variable_id', null);
         $storeId = $this->getRequest()->getParam('store', 0);
         /* @var $emailVariable Mage_Core_Model_Variable */
@@ -71,6 +73,8 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
      */
     public function indexAction()
     {
+        $this->_title($this->__('System'))->_title($this->__('Custom Variables'));
+
         $this->_initLayout()
             ->_addContent($this->getLayout()->createBlock('adminhtml/system_variable'))
             ->renderLayout();
@@ -91,7 +95,10 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
      */
     public function editAction()
     {
-        $this->_initVariable();
+        $variable = $this->_initVariable();
+
+        $this->_title($variable->getId() ? $variable->getCode() : $this->__('New Variable'));
+
         $this->_initLayout()
             ->_addContent($this->getLayout()->createBlock('adminhtml/system_variable_edit'))
             ->_addJs($this->getLayout()->createBlock('core/template', '', array('template' => 'system/variable/js.phtml')))

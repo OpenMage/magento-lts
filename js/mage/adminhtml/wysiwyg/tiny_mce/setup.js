@@ -17,8 +17,8 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
+ * @category    Mage
+ * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
@@ -174,7 +174,7 @@ tinyMceWysiwygSetup.prototype =
             typeTitle = this.translate('Insert File...');
         }
 
-        MediabrowserUtility.openDialog(wUrl, this.config.files_browser_window_width, this.config.files_browser_window_height, 'Insert ' + typeTitle + '...');
+        MediabrowserUtility.openDialog(wUrl, this.config.files_browser_window_width, this.config.files_browser_window_height, typeTitle);
     },
 
     translate: function(string) {
@@ -242,8 +242,8 @@ tinyMceWysiwygSetup.prototype =
         }
     },
 
-	encodeDirectives: function(content) {
-	    // collect all HTML tags with attributes that contain directives
+    encodeDirectives: function(content) {
+        // collect all HTML tags with attributes that contain directives
         return content.gsub(/<([a-z0-9\-\_]+.+?)([a-z0-9\-\_]+=["']\{\{.+?\}\}.*?["'].+?)>/i, function(match) {
             var attributesString = match[2];
             // process tag attributes string
@@ -258,23 +258,23 @@ tinyMceWysiwygSetup.prototype =
         }.bind(this));
     },
 
-	encodeWidgets: function(content) {
+    encodeWidgets: function(content) {
         return content.gsub(/\{\{widget(.*?)\}\}/i, function(match){
             var attributes = this.parseAttributesString(match[1]);
-            var placeholderFilename = attributes.type.replace(/\//g, "__") + ".gif";
-            if(!this.widgetPlaceholderExist(placeholderFilename)) {
-                placeholderFilename = 'default.gif';
+            if (attributes.type) {
+                var placeholderFilename = attributes.type.replace(/\//g, "__") + ".gif";
+                if (!this.widgetPlaceholderExist(placeholderFilename)) {
+                    placeholderFilename = 'default.gif';
+                }
+                var imageSrc = this.config.widget_images_url + placeholderFilename;
+                var imageHtml = '<img';
+                    imageHtml+= ' id="' + Base64.idEncode(match[0]) + '"';
+                    imageHtml+= ' src="' + imageSrc + '"';
+                    imageHtml+= ' title="' + match[0].replace(/\{\{/g, '{').replace(/\}\}/g, '}').replace(/\"/g, '&quot;') + '"';
+                    imageHtml+= '>';
+
+                return imageHtml;
             }
-            var imageSrc = this.config.widget_images_url + placeholderFilename;
-
-            var imageHtml = '<img';
-                imageHtml+= ' id="' + Base64.idEncode(match[0]) + '"';
-                imageHtml+= ' src="' + imageSrc + '"';
-                imageHtml+= ' title="' + match[0].replace(/\{\{/g, '{').replace(/\}\}/g, '}').replace(/\"/g, '&quot;') + '"';
-                imageHtml+= '>';
-
-            return imageHtml;
-
         }.bind(this));
     },
 
@@ -307,16 +307,21 @@ tinyMceWysiwygSetup.prototype =
     },
 
     beforeSetContent: function(o) {
-        o.content = this.encodeWidgets(o.content);
-        o.content = this.encodeDirectives(o.content);
+        if(this.config.add_widgets) {
+            o.content = this.encodeWidgets(o.content);
+            o.content = this.encodeDirectives(o.content);
+        }
     },
 
     saveContent: function(o) {
-        o.content = this.decodeWidgets(o.content);
-        o.content = this.decodeDirectives(o.content);
+        if(this.config.add_widgets) {
+            o.content = this.decodeWidgets(o.content);
+            o.content = this.decodeDirectives(o.content);
+        }
     },
 
     widgetPlaceholderExist: function(filename) {
         return this.config.widget_placeholders.indexOf(filename) != -1;
     }
 }
+

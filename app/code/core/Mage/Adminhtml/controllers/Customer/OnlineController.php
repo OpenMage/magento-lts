@@ -28,6 +28,8 @@ class Mage_Adminhtml_Customer_OnlineController extends Mage_Adminhtml_Controller
 
     public function indexAction()
     {
+        $this->_title($this->__('Customers'))->_title($this->__('Online Customers'));
+
         if($this->getRequest()->getParam('ajax')) {
             $this->_forward('grid');
             return;

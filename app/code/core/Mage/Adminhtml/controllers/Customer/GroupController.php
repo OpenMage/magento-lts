@@ -35,6 +35,8 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
 {
     protected function _initGroup()
     {
+        $this->_title($this->__('Customers'))->_title($this->__('Customer Groups'));
+
         Mage::register('current_group', Mage::getModel('customer/group'));
         $groupId = $this->getRequest()->getParam('id');
         if (!is_null($groupId)) {
@@ -47,6 +49,8 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
      */
     public function indexAction()
     {
+        $this->_title($this->__('Customers'))->_title($this->__('Customer Groups'));
+
         $this->loadLayout();
         $this->_setActiveMenu('customer/group');
         $this->_addBreadcrumb(Mage::helper('customer')->__('Customers'), Mage::helper('customer')->__('Customers'));
@@ -65,11 +69,15 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
         $this->_addBreadcrumb(Mage::helper('customer')->__('Customers'), Mage::helper('customer')->__('Customers'));
         $this->_addBreadcrumb(Mage::helper('customer')->__('Customer Groups'), Mage::helper('customer')->__('Customer Groups'), $this->getUrl('*/customer_group'));
 
-        if (!is_null(Mage::registry('current_group')->getId())) {
+        $currentGroup = Mage::registry('current_group');
+
+        if (!is_null($currentGroup->getId())) {
             $this->_addBreadcrumb(Mage::helper('customer')->__('Edit Group'), Mage::helper('customer')->__('Edit Customer Groups'));
         } else {
             $this->_addBreadcrumb(Mage::helper('customer')->__('New Group'), Mage::helper('customer')->__('New Customer Groups'));
         }
+
+        $this->_title($currentGroup->getId() ? $currentGroup->getCode() : $this->__('New Group'));
 
         $this->getLayout()->getBlock('content')
             ->append($this->getLayout()->createBlock('adminhtml/customer_group_edit', 'group')

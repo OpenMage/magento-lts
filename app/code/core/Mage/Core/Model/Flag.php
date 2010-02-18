@@ -43,10 +43,14 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
 
     /**
      * Init resource model
+     * Set flag_code if it is specified in arguments
      *
      */
     protected function _construct()
     {
+        if ($this->hasData('flag_code')) {
+            $this->_flagCode = $this->getData('flag_code');
+        }
         $this->_init('core/flag');
     }
 

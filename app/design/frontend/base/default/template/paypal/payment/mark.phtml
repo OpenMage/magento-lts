@@ -31,5 +31,5 @@
  */
 ?>
 <!-- PayPal Logo -->
-<a href="#" onclick="javascript:window.open('<?php echo $this->getPaymentAcceptanceMarkHref()?>','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');"><img src="<?php echo $this->getPaymentAcceptanceMarkSrc()?>" style="border:0" alt="<?php Mage::helper('paypal')->__('Acceptance Mark')?>"></a>
+<a href="#" title="<?php echo Mage::helper('paypal')->__('Acceptance Mark') ?>" onclick="javascript:window.open('<?php echo $this->getPaymentAcceptanceMarkHref()?>','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, ,left=0, top=0, width=400, height=350'); return false;"><img src="<?php echo $this->getPaymentAcceptanceMarkSrc()?>" alt="<?php echo Mage::helper('paypal')->__('Acceptance Mark') ?>" class="v-middle" /></a>
 <!-- PayPal Logo -->

@@ -113,4 +113,47 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
         }
         return true;
     }
+
+    /*
+    * Whether switch/solo card type available
+    */
+    public function hasSsCardType()
+    {
+        $availableTypes =$this->getMethod()->getConfigData('cctypes');
+        if ($availableTypes && in_array('SS', explode(',', $availableTypes))) {
+            return true;
+        }
+        return false;
+    }
+
+    /*
+    * solo/switch card start year
+    * @return array
+    */
+     public function getSsStartYears()
+    {
+        $years = array();
+        $first = date("Y");
+
+        for ($index=5; $index>=0; $index--) {
+            $year = $first - $index;
+            $years[$year] = $year;
+        }
+        $years = array(0=>$this->__('Year'))+$years;
+        return $years;
+    }
+
+    /**
+     * Render block HTML
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        Mage::dispatchEvent('payment_form_block_to_html_before', array(
+            'block'     => $this
+        ));
+        return parent::_toHtml();
+    }
 }
+

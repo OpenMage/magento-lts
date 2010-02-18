@@ -52,6 +52,8 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
 
     public function indexAction()
     {
+        $this->_title($this->__('System'))->_title($this->__('Stores'));
+
         $this->_initAction()
             ->_addContent($this->getLayout()->createBlock('adminhtml/system_store_store'))
             ->renderLayout();
@@ -92,6 +94,9 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
 
     public function editStoreAction()
     {
+        $this->_title($this->__('System'))
+             ->_title($this->__('Stores'));
+
         $session = $this->_getSession();
         if ($session->getPostData()) {
             Mage::register('store_post_data', $session->getPostData());
@@ -107,18 +112,21 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             case 'website':
                 $itemId     = $this->getRequest()->getParam('website_id', null);
                 $model      = Mage::getModel('core/website');
+                $title      = Mage::helper('core')->__("Website");
                 $notExists  = Mage::helper('core')->__("Website doesn't exist");
                 $codeBase   = Mage::helper('core')->__('Before modifying the website code please make sure that it is not used in index.php');
                 break;
             case 'group':
                 $itemId     = $this->getRequest()->getParam('group_id', null);
                 $model      = Mage::getModel('core/store_group');
+                $title      = Mage::helper('core')->__("Store");
                 $notExists  = Mage::helper('core')->__("Store doesn't exist");
                 $codeBase   = false;
                 break;
             case 'store':
                 $itemId     = $this->getRequest()->getParam('store_id', null);
                 $model      = Mage::getModel('core/store');
+                $title      = Mage::helper('core')->__("Store View");
                 $notExists  = Mage::helper('core')->__("Store view doesn't exist");
                 $codeBase   = Mage::helper('core')->__('Before modifying the store view code please make sure that it is not used in index.php');
                 break;
@@ -129,6 +137,13 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
 
         if ($model->getId() || Mage::registry('store_action') == 'add') {
             Mage::register('store_data', $model);
+
+            if (Mage::registry('store_action') == 'add') {
+                $this->_title($this->__('New ') . $title);
+            }
+            else {
+                $this->_title($model->getName());
+            }
 
             if (Mage::registry('store_action') == 'edit' && $codeBase && !$model->isReadOnly()) {
                 $this->_getSession()->addNotice($codeBase);

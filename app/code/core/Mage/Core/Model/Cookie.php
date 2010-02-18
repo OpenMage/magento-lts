@@ -240,6 +240,28 @@ class Mage_Core_Model_Cookie
     }
 
     /**
+     * Postpone cookie expiration time if cookie value defined
+     *
+     * @param string $name The cookie name
+     * @param int $period Lifetime period
+     * @param string $path
+     * @param string $domain
+     * @param int|bool $secure
+     * @return Mage_Core_Model_Cookie
+     */
+    public function renew($name, $period = null, $path = null, $domain = null, $secure = null, $httponly = null)
+    {
+        if (($period === null) && !$this->getLifetime()) {
+            return $this;
+        }
+        $value = $this->_getRequest()->getCookie($name, false);
+        if ($value !== false) {
+            $this->set($name, $value, $period, $path, $domain, $secure, $httponly);
+        }
+        return $this;
+    }
+
+    /**
      * Retrieve cookie or false if not exists
      *
      * @param string $neme The cookie name

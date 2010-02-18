@@ -86,7 +86,11 @@ Product reviews page
                 <block type="page/html_pager" name="product_review_list.toolbar" />
                 <block type="core/template" name="product_review_list.count" template="review/product/view/count.phtml" />
                 <block type="review/product_view_list" name="product.info.product_additional_data" as="product_additional_data" template="review/product/view/list.phtml">
-                    <block type="review/form" name="product.review.form" as="review_form"/>
+                    <block type="review/form" name="product.review.form" as="review_form">
+                        <block type="page/html_wrapper" name="product.review.form.fields.before" as="form_fields_before">
+                            <action method="setMayBeInvisible"><value>1</value></action>
+                        </block>
+                    </block>
                 </block>
             </block>
         </reference>

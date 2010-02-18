@@ -638,10 +638,10 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Abstract
     {
         $code = $this->getTemplateCode();
         if (empty($code)) {
-            Mage::throwException(Mage::helper('core')->__('Template Code must be not empty'));
+            Mage::throwException(Mage::helper('core')->__('Template Name must be not empty'));
         }
         if($this->_getResource()->checkCodeUsage($this)) {
-            Mage::throwException(Mage::helper('core')->__('Duplicate Of Template Code'));
+            Mage::throwException(Mage::helper('core')->__('Duplicate Of Template Name'));
         }
         return parent::_beforeSave();
     }

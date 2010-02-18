@@ -68,19 +68,17 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     {
         $this->addColumn('variable_id', array(
             'header'    => Mage::helper('adminhtml')->__('Variable ID'),
-            'align'     => 'left',
+            'width'     => '1',
             'index'     => 'variable_id',
         ));
 
         $this->addColumn('code', array(
             'header'    => Mage::helper('adminhtml')->__('Variable Code'),
-            'align'     => 'center',
             'index'     => 'code',
         ));
 
         $this->addColumn('name', array(
             'header'    => Mage::helper('adminhtml')->__('Name'),
-            'align'     => 'left',
             'index'     => 'name',
         ));
 

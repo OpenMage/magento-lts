@@ -72,6 +72,8 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
      */
     protected function _initCreditmemo($update = false)
     {
+        $this->_title($this->__('Sales'))->_title($this->__('Credit Memos'));
+
         $creditmemo = false;
         if ($creditmemoId = $this->getRequest()->getParam('creditmemo_id')) {
             $creditmemo = Mage::getModel('sales/order_creditmemo')->load($creditmemoId);
@@ -235,6 +237,12 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     public function viewAction()
     {
         if ($creditmemo = $this->_initCreditmemo()) {
+            if ($creditmemo->getInvoice()) {
+                $this->_title($this->__("View Memo for #%s", $creditmemo->getInvoice()->getIncrementId()));
+            } else {
+                $this->_title($this->__("View Memo"));
+            }
+
             $this->loadLayout();
             $this->getLayout()->getBlock('sales_creditmemo_view')
                 ->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
@@ -263,6 +271,12 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     public function newAction()
     {
         if ($creditmemo = $this->_initCreditmemo()) {
+            if ($creditmemo->getInvoice()) {
+                $this->_title($this->__("New Memo for #%s", $creditmemo->getInvoice()->getIncrementId()));
+            } else {
+                $this->_title($this->__("New Memo"));
+            }
+
             $commentText = Mage::getSingleton('adminhtml/session')->getCommentText(true);
 
             $creditmemo->addData(array('commentText'=>$commentText));
@@ -322,8 +336,10 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
                 $comment = '';
                 if (!empty($data['comment_text'])) {
-                    $comment = $data['comment_text'];
                     $creditmemo->addComment($data['comment_text'], isset($data['comment_customer_notify']));
+                    if (isset($data['comment_customer_notify'])) {
+                        $comment = $data['comment_text'];
+                    }
                 }
 
                 if (isset($data['do_refund'])) {

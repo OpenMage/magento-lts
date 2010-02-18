@@ -280,7 +280,15 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
             $entry->setContent($content);
         }
 
-        $this->_setAttributePrice(false, $object->getPrice());
+        $attributeValues = $this->getAttributeValues();
+        
+        if (isset($attributeValues['price']['value']) && floatval($attributeValues['price']['value']) > 0) {
+            $price = $attributeValues['price']['value'];
+        } else {
+            $price = $object->getPrice();
+        }
+
+        $this->_setAttributePrice(false, $price);
 
         if ($object->getQuantity()) {
             $quantity = $object->getQuantity() ? max(1, (int)$object->getQuantity()) : 1;

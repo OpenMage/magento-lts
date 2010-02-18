@@ -284,7 +284,7 @@ addressesModel.prototype = {
         }
     },
 
-    setAddressAsDefault : function(){
+     setAddressAsDefault : function(){
         for(var i=0; i<this.itemList.length;i++){
             if(this.itemList[i].id){
                 var inputs = $(this.itemList[i].id).getElementsBySelector('input');
@@ -390,7 +390,7 @@ addressesModel.prototype = {
 
     deleteAddress : function(item){
         if(confirm('<?php echo Mage::helper('customer')->__('Are you sure you want to delete this address?') ?>')){
-            if( item.isNewAddress){
+            if( item.isNewAddress || 1 == this.itemList.length){
                 if ( this.activeItem == item ) this.formContainer.removeChild(item.formBlock);
             } else {
                 if($('deleted_'+item.id)){

@@ -190,14 +190,23 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
             $rate = $this->_calculator->getRate($taxRateRequest);
             if ($rate) {
                 if ($this->_config->shippingPriceIncludesTax($store) && $this->_areTaxRequestsSimilar) {
-                    $shippingTax    = $this->_calculator->calcTaxAmount($calcAmount, $rate, true);
-                    $shippingBaseTax= $this->_calculator->calcTaxAmount($baseCalcAmount, $rate, true);
+                    $shippingTax    = $this->_calculator->calcTaxAmount($calcAmount, $rate, true, false);
+                    $shippingBaseTax= $this->_calculator->calcTaxAmount($baseCalcAmount, $rate, true, false);
                     $shippingAmount-= $shippingTax;
                     $baseShippingAmount-=$shippingBaseTax;
                 } else {
-                    $shippingTax    = $this->_calculator->calcTaxAmount($calcAmount, $rate);
-                    $shippingBaseTax= $this->_calculator->calcTaxAmount($baseCalcAmount, $rate);
+                    $shippingTax    = $this->_calculator->calcTaxAmount($calcAmount, $rate, false, false);
+                    $shippingBaseTax= $this->_calculator->calcTaxAmount($baseCalcAmount, $rate, false, false);
                 }
+                $rateKey = (string) $rate;
+                if (isset($this->_roundingDeltas[$rateKey])) {
+                    $shippingTax+= $this->_roundingDeltas[$rateKey];
+                }
+                if (isset($this->_baseRoundingDeltas[$rateKey])) {
+                    $shippingBaseTax+= $this->_baseRoundingDeltas[$rateKey];
+                }
+                $shippingTax        = $this->_calculator->round($shippingTax);
+                $shippingBaseTax    = $this->_calculator->round($shippingBaseTax);
 
                 $address->setTotalAmount('shipping', $shippingAmount);
                 $address->setBaseTotalAmount('shipping', $baseShippingAmount);
@@ -743,7 +752,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
          * Modify subtotal
          */
         if ($this->_config->displayCartSubtotalBoth($store) || $this->_config->displayCartSubtotalInclTax($store)) {
-            if ($address->getSubtotalInclTax()) {
+            if ($address->getSubtotalInclTax() > 0) {
                 $subtotalInclTax = $address->getSubtotalInclTax();
             } else {
                 $subtotalInclTax = $address->getSubtotal()+$address->getTaxAmount()-$address->getShippingTaxAmount();

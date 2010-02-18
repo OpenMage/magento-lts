@@ -185,7 +185,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             Mage::dispatchEvent('checkout_cart_add_product_complete',
                 array('product' => $product, 'request' => $this->getRequest(), 'response' => $this->getResponse())
             );
-            $message = $this->__('%s was successfully added to your shopping cart.', $product->getName());
+            $message = $this->__('%s was successfully added to your shopping cart.', Mage::helper('core')->htmlEscape($product->getName()));
             if (!$this->_getSession()->getNoCartRedirect(true)) {
                 $this->_getSession()->addSuccess($message);
                 $this->_goBack();
@@ -263,6 +263,9 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                     }
                 }
                 $cart = $this->_getCart();
+                if (! $cart->getCustomerSession()->getCustomer()->getId() && $cart->getQuote()->getCustomerId()) {
+                    $cart->getQuote()->setCustomerId(null);
+                }
                 $cart->updateItems($cartData)
                     ->save();
             }

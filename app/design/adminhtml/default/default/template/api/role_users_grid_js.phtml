@@ -55,14 +55,14 @@
                     if ( !confirm("<?php echo $this->__('Warning!\r\nThis action will remove this user from already assigned role\r\nAre you sure?') ?>") ) {
                         checkbox[0].checked = false;
                         for(i in checkBoxes) {
-                            if( checkBoxes[i].status == 1) { 
+                            if( checkBoxes[i].status == 1) {
                                 checkBoxes[i].object.checked = true;
                             }
                         }
                         return false;
                     }
                     warning = false;
-                }                
+                }
                 <?php echo $myBlock->getJsObjectName() ?>.setCheckboxChecked(checkbox[0], checked);
             }
         }
@@ -81,7 +81,7 @@
             if ( !confirm("<?php echo $this->__('Warning!\r\nThis action will remove those users from already assigned roles\r\nAre you sure?') ?>") ) {
                 o.checked = false;
                 for(i in checkBoxes) {
-                    if( checkBoxes[i].status == 1) { 
+                    if( checkBoxes[i].status == 1) {
                         checkBoxes[i].object.checked = true;
                     }
                 }
@@ -91,12 +91,13 @@
         }
         for(i in checkBoxes) <?php echo $myBlock->getJsObjectName() ?>.setCheckboxChecked(checkBoxes[i].object, o.checked);
     }
-    
+
 <?php echo $myBlock->getJsObjectName() ?>.rowClickCallback = roleUsersRowClick;
 <?php echo $myBlock->getJsObjectName() ?>.initRowCallback = roleUsersRowInit;
 <?php echo $myBlock->getJsObjectName() ?>.checkboxCheckCallback = registerUserRole;
 <?php echo $myBlock->getJsObjectName() ?>.checkCheckboxes = myhandler;
 <?php echo $myBlock->getJsObjectName() ?>.rows.each(function(row){roleUsersRowInit(<?php echo $myBlock->getJsObjectName() ?>, row)});
+    $('in_role_user_old').value = $('in_role_user').value;
 <?php endif; ?>
 //-->
 </script>

@@ -40,14 +40,18 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
         $this->getLayout()->createBlock('catalog/breadcrumbs');
 
         if ($headBlock = $this->getLayout()->getBlock('head')) {
-            if ($title = $this->getCurrentCategory()->getMetaTitle()) {
+            $category = $this->getCurrentCategory();
+            if ($title = $category->getMetaTitle()) {
                 $headBlock->setTitle($title);
             }
-            if ($description = $this->getCurrentCategory()->getMetaDescription()) {
+            if ($description = $category->getMetaDescription()) {
                 $headBlock->setDescription($description);
             }
-            if ($keywords = $this->getCurrentCategory()->getMetaKeywords()) {
+            if ($keywords = $category->getMetaKeywords()) {
                 $headBlock->setKeywords($keywords);
+            }
+            if ($this->helper('catalog/category')->canUseCanonicalTag()) {
+                $headBlock->addLinkRel('canonical', $category->getUrl());
             }
             /*
             want to show rss feed in the url
@@ -105,18 +109,43 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
         return $this->getData('cms_block_html');
     }
 
+    /**
+     * Check if category display mode is "Products Only"
+     * @return bool
+     */
     public function isProductMode()
     {
         return $this->getCurrentCategory()->getDisplayMode()==Mage_Catalog_Model_Category::DM_PRODUCT;
     }
 
+    /**
+     * Check if category display mode is "Static Block and Products"
+     * @return bool
+     */
     public function isMixedMode()
     {
         return $this->getCurrentCategory()->getDisplayMode()==Mage_Catalog_Model_Category::DM_MIXED;
     }
 
+    /**
+     * Check if category display mode is "Static Block Only"
+     * For anchor category with applied filter Static Block Only mode not allowed
+     *
+     * @return bool
+     */
     public function isContentMode()
     {
-        return $this->getCurrentCategory()->getDisplayMode()==Mage_Catalog_Model_Category::DM_PAGE;
+        $category = $this->getCurrentCategory();
+        $res = false;
+        if ($category->getDisplayMode()==Mage_Catalog_Model_Category::DM_PAGE) {
+            $res = true;
+            if ($category->getIsAnchor()) {
+                $state = Mage::getSingleton('catalog/layer')->getState();
+                if ($state && $state->getFilters()) {
+                    $res = false;
+                }
+            }
+        }
+        return $res;
     }
 }

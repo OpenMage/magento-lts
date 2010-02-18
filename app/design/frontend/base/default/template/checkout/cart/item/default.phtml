@@ -31,9 +31,9 @@
     <td>
         <h2 class="product-name">
         <?php if ($this->hasProductUrl()):?>
-            <a href="<?php echo $this->getProductUrl() ?>"><?php echo $this->getProductName() ?></a>
+            <a href="<?php echo $this->getProductUrl() ?>"><?php echo $this->htmlEscape($this->getProductName()) ?></a>
         <?php else: ?>
-            <?php echo $this->getProductName() ?>
+            <?php echo $this->htmlEscape($this->getProductName()) ?>
         <?php endif; ?>
         </h2>
         <?php if ($_options = $this->getOptionList()):?>

@@ -355,10 +355,8 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
 
 
         if ($this->getLinkSelectionRequired($product)) {
-            $this->getProduct($product)->setTypeHasOptions(true);
             $this->getProduct($product)->setTypeHasRequiredOptions(true);
         } else {
-            $this->getProduct($product)->setTypeHasOptions(false);
             $this->getProduct($product)->setTypeHasRequiredOptions(false);
         }
 
@@ -380,7 +378,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
          * set this flag "true" to force saving of 'required_options' attribute
          */
         $this->getProduct($product)->setCanSaveCustomOptions(true);
-
+        $this->getProduct($product)->setTypeHasOptions($linksExist);
         $this->getProduct($product)->setLinksExist($linksExist);
     }
 

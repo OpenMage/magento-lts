@@ -230,6 +230,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             $form->getElement('apply_to')->addClass('no-display ignore-validate');
         }
 
+        // define field dependencies
+        $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
+            ->addFieldMap("is_wysiwyg_enabled", 'wysiwyg_enabled')
+            ->addFieldMap("is_html_allowed_on_front", 'html_allowed_on_front')
+            ->addFieldDependence('html_allowed_on_front', 'wysiwyg_enabled', '0')
+        );
+
         return $this;
     }
 

@@ -40,6 +40,8 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
      */
     protected function _initRegistry()
     {
+        $this->_title($this->__('Rewrite Rules'));
+
         // initialize urlrewrite, product and category models
         Mage::register('current_urlrewrite', Mage::getModel('core/url_rewrite')
             ->load($this->getRequest()->getParam('id', 0))
@@ -79,6 +81,9 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
     public function editAction()
     {
         $this->_initRegistry();
+
+        $this->_title($this->__('URL Rewrite'));
+
         $this->loadLayout();
         $this->_setActiveMenu('catalog/urlrewrite');
         $this->_addContent($this->getLayout()->createBlock('adminhtml/urlrewrite_edit'));

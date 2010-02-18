@@ -71,7 +71,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime extends Mage_Adm
      */
     public function render(Varien_Object $row)
     {
-        if ($data = $row->getData($this->getColumn()->getIndex())) {
+        if ($data = $this->_getValue($row)) {
             $format = $this->_getFormat();
             try {
                 $data = Mage::app()->getLocale()->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
@@ -81,7 +81,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime extends Mage_Adm
                 $data = Mage::app()->getLocale()->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
             }
             return $data;
-
         }
         return $this->getColumn()->getDefault();
     }

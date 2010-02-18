@@ -763,7 +763,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Url extends Mage_Core_Model_Mysql4_
     protected function _getProducts($productIds = null, $storeId, $entityId = 0, &$lastEntityId)
     {
         $products = array();
-
         $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
         if (!is_null($productIds)) {
             if (!is_array($productIds)) {
@@ -803,10 +802,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Url extends Mage_Core_Model_Mysql4_
                     $this->getTable('catalog/category_product'),
                     array('product_id', 'category_id'))
                 ->where('product_id IN(?)', array_keys($products));
-            $categories = $this->_getReadAdapter()->fetchPairs($select);
-            foreach ($categories as $productId => $categoryId) {
+            $categories = $this->_getReadAdapter()->fetchAll($select);
+            foreach ($categories as $category) {
+                $productId = $category['product_id'];
                 $categoryIds = $products[$productId]->getCategoryIds();
-                $categoryIds[] = $categoryId;
+                $categoryIds[] = $category['category_id'];
                 $products[$productId]->setCategoryIds($categoryIds);
             }
 
@@ -894,6 +894,28 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Url extends Mage_Core_Model_Mysql4_
             $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
         }
 
+        return $this;
+    }
+    
+    /**
+     * Remove unused rewrites for product
+     *
+     * @param int $productId Product entity Id
+     * @param int $storeId Store Id for rewrites
+     * @param array $excludeCategoryIds Array of category Ids that should be skipped 
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Url
+     */
+    public function clearProductRewrites($productId, $storeId, $excludeCategoryIds = array())
+    {
+        $adapter = $this->_getWriteAdapter();
+        $where = $adapter->quoteInto('product_id=?', $productId);
+        $where.= $adapter->quoteInto(' AND store_id=?', $storeId);
+        $where.= ' AND category_id IS NOT NULL';
+        if (!empty($excludeCategoryIds)) {
+            $where.= $adapter->quoteInto(' AND category_id NOT IN (?)', $excludeCategoryIds);
+        }
+        $adapter->delete($this->getMainTable(), $where);
+        
         return $this;
     }
 

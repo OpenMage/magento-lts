@@ -37,7 +37,7 @@ class Mage_GoogleOptimizer_Model_Observer
      * Loading product scripts after load product
      *
      * @param Varien_Object $observer
-     * @return Mage_Googleoptimizer_Model_Observer
+     * @return Mage_GoogleOptimizer_Model_Observer
      */
     public function appendToProductGoogleOptimizerScripts($observer)
     {
@@ -70,7 +70,7 @@ class Mage_GoogleOptimizer_Model_Observer
      * Prepare product scripts for saving
      *
      * @param Varien_Object $observer
-     * @return Mage_Googleoptimizer_Model_Observer
+     * @return Mage_GoogleOptimizer_Model_Observer
      */
     public function prepareProductGoogleOptimizerScripts($observer)
     {
@@ -87,7 +87,7 @@ class Mage_GoogleOptimizer_Model_Observer
      * Save product scripts after saving product
      *
      * @param Varien_Object $observer
-     * @return Mage_Googleoptimizer_Model_Observer
+     * @return Mage_GoogleOptimizer_Model_Observer
      */
     public function saveProductGoogleOptimizerScripts($observer)
     {
@@ -106,7 +106,7 @@ class Mage_GoogleOptimizer_Model_Observer
      * Delete Produt scripts after deleting product
      *
      * @param Varien_Object $observer
-     * @return Mage_Googleoptimizer_Model_Observer
+     * @return Mage_GoogleOptimizer_Model_Observer
      */
     public function deleteProductGoogleOptimizerScripts($observer)
     {
@@ -121,7 +121,7 @@ class Mage_GoogleOptimizer_Model_Observer
      * Loading page scripts after load page
      *
      * @param Varien_Object $observer
-     * @return Mage_Googleoptimizer_Model_Observer
+     * @return Mage_GoogleOptimizer_Model_Observer
      */
     public function appendToPageGoogleOptimizerScripts($observer)
     {
@@ -131,7 +131,7 @@ class Mage_GoogleOptimizer_Model_Observer
         if (Mage::app()->getStore()->getId() && !Mage::helper('googleoptimizer')->isOptimizerActive()) {
             return $this;
         }
-        
+
         $cmsPage = $observer->getEvent()->getObject();
         $googleOptimizerModel = Mage::getModel('googleoptimizer/code_page')
             ->setEntity($cmsPage)
@@ -147,7 +147,7 @@ class Mage_GoogleOptimizer_Model_Observer
      * Prepare page scripts for saving
      *
      * @param Varien_Object $observer
-     * @return Mage_Googleoptimizer_Model_Observer
+     * @return Mage_GoogleOptimizer_Model_Observer
      */
     public function preparePageGoogleOptimizerScripts($observer)
     {
@@ -164,7 +164,7 @@ class Mage_GoogleOptimizer_Model_Observer
      * Save page scripts after saving page
      *
      * @param Varien_Object $observer
-     * @return Mage_Googleoptimizer_Model_Observer
+     * @return Mage_GoogleOptimizer_Model_Observer
      */
     public function savePageGoogleOptimizerScripts($observer)
     {
@@ -183,7 +183,7 @@ class Mage_GoogleOptimizer_Model_Observer
      * Delete page scripts after deleting page
      *
      * @param Varien_Object $observer
-     * @return Mage_Googleoptimizer_Model_Observer
+     * @return Mage_GoogleOptimizer_Model_Observer
      */
     public function deletePageGoogleOptimizerScripts($observer)
     {
@@ -207,7 +207,7 @@ class Mage_GoogleOptimizer_Model_Observer
      * Loading category scripts after load category
      *
      * @param Varien_Object $observer
-     * @return Mage_Googleoptimizer_Model_Observer
+     * @return Mage_GoogleOptimizer_Model_Observer
      */
     public function appendToCategoryGoogleOptimizerScripts($observer)
     {
@@ -230,7 +230,7 @@ class Mage_GoogleOptimizer_Model_Observer
      * Prepare category scripts for saving
      *
      * @param Varien_Object $observer
-     * @return Mage_Googleoptimizer_Model_Observer
+     * @return Mage_GoogleOptimizer_Model_Observer
      */
     public function prepareCategoryGoogleOptimizerScripts($observer)
     {
@@ -247,7 +247,7 @@ class Mage_GoogleOptimizer_Model_Observer
      * Save category scripts after saving category
      *
      * @param Varien_Object $observer
-     * @return Mage_Googleoptimizer_Model_Observer
+     * @return Mage_GoogleOptimizer_Model_Observer
      */
     public function saveCategoryGoogleOptimizerScripts($observer)
     {
@@ -270,7 +270,7 @@ class Mage_GoogleOptimizer_Model_Observer
      * Delete category scripts after deleting category
      *
      * @param   Varien_Object $observer
-     * @return  Mage_Googleoptimizer_Model_Observer
+     * @return  Mage_GoogleOptimizer_Model_Observer
      */
     public function deleteCategoryGoogleOptimizerScripts($observer)
     {
