@@ -52,6 +52,26 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
+     * Pull out information from session whether there is currently the first page after log in
+     *
+     * The idea is to set this value on login(), then redirect happens,
+     * after that on next request the value is grabbed once the session is initialized
+     * Since the session is used as a singleton, the value will be in $_isFirstPageAfterLogin until the end of request,
+     * unless it is reset intentionally from somewhere
+     *
+     * @param string $namespace
+     * @param string $sessionName
+     * @return Mage_Admin_Model_Session
+     * @see self::login()
+     */
+    public function init($namespace, $sessionName = null)
+    {
+        parent::init($namespace, $sessionName);
+        $this->isFirstPageAfterLogin();
+        return $this;
+    }
+
+    /**
      * Try to login user in admin
      *
      * @param  string $username
@@ -74,10 +94,9 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 if (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
                     Mage::getSingleton('adminhtml/url')->renewSecretUrls();
                 }
-                $session = Mage::getSingleton('admin/session');
-                $session->setIsFirstVisit(true);
-                $session->setUser($user);
-                $session->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
+                $this->setIsFirstPageAfterLogin(true);
+                $this->setUser($user);
+                $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
                 if ($requestUri = $this->_getRequestUri($request)) {
                     Mage::dispatchEvent('admin_session_user_login_success', array('user'=>$user));
                     header('Location: ' . $requestUri);
@@ -177,6 +196,18 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             $this->_isFirstPageAfterLogin = $this->getData('is_first_visit', true);
         }
         return $this->_isFirstPageAfterLogin;
+    }
+
+    /**
+     * Setter whether the current/next page should be treated as first page after login
+     *
+     * @param bool $value
+     * @return Mage_Admin_Model_Session
+     */
+    public function setIsFirstPageAfterLogin($value)
+    {
+        $this->_isFirstPageAfterLogin = (bool)$value;
+        return $this->setIsFirstVisit($this->_isFirstPageAfterLogin);
     }
 
     /**

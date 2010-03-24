@@ -124,4 +124,3 @@ $installer->getConnection()->addConstraint(
 );
 
 $this->endSetup();
-

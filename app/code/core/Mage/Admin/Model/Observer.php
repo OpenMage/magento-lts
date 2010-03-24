@@ -81,15 +81,4 @@ class Mage_Admin_Model_Observer
 
         $session->refreshAcl();
     }
-
-    /**
-     * Unset session first visit flag after displaying page
-     *
-     * @param Varien_Event_Observer $event
-     */
-    public function actionPostDispatchAdmin($event)
-    {
-        $session = Mage::getSingleton('admin/session');
-        $session->unsetData('is_first_visit');
-    }
 }

@@ -58,10 +58,11 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
-        $title = $this->__("Search results for: '%s'", $this->helper('catalogsearch')->getEscapedQueryText());
-
         // add Home breadcrumb
-        if ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs')) {
+        $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
+        if ($breadcrumbs) {
+            $title = $this->__("Search results for: '%s'", $this->helper('catalogsearch')->getQueryText());
+
             $breadcrumbs->addCrumb('home', array(
                 'label' => $this->__('Home'),
                 'title' => $this->__('Go to Home Page'),
@@ -71,6 +72,9 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
                 'title' => $title
             ));
         }
+
+        // modify page title
+        $title = $this->__("Search results for: '%s'", $this->helper('catalogsearch')->getEscapedQueryText());
         $this->getLayout()->getBlock('head')->setTitle($title);
 
         return parent::_prepareLayout();

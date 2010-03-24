@@ -44,7 +44,7 @@
                     <tbody>
                         <?php foreach ($_votes as $_vote): ?>
                         <tr>
-                            <th><?php echo $_vote->getRatingCode() ?></th>
+                            <th><?php echo $this->escapeHtml($_vote->getRatingCode()) ?></th>
                             <td>
                                 <div class="rating-box">
                                     <div class="rating" style="width:<?php echo $_vote->getPercent() ?>%;"></div>

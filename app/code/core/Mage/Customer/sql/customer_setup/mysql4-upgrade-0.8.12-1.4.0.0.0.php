@@ -52,7 +52,8 @@ $stmt = $installer->getConnection()->select()
     ->where('entity_type_id = ?', $installer->getEntityTypeId('customer'))
     ->orWhere('entity_type_id = ?', $installer->getEntityTypeId('customer_address'));
 $result = $installer->getConnection()->fetchAll($stmt);
-$attributes = array();
+
+$table = $installer->getTable('customer/eav_attribute');
 foreach ($result as $row) {
     $_visible = true;
     $_visibleOnFront = false;
@@ -63,7 +64,7 @@ foreach ($result as $row) {
     if (in_array($row['attribute_code'], $visibleAttributes)) {
         $_visible = false;
     }
-    $attributes[] = array(
+    $attributes = array(
         'attribute_id'              => $row['attribute_id'],
         'is_visible'                => $_visible,
         'is_visible_on_front'       => $_visibleOnFront,
@@ -72,7 +73,7 @@ foreach ($result as $row) {
         'min_text_length'           => $_minLength,
         'max_text_length'           => $_maxLength
     );
+    $installer->getConnection()->insert($table, $attributes);
 }
-$installer->getConnection()->insertMultiple($installer->getTable('customer/eav_attribute'), $attributes);
 
 $installer->endSetup();

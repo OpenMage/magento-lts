@@ -69,7 +69,11 @@ $stmt = $installer->getConnection()->select()
     ->where('entity_type_id = ?', $installer->getEntityTypeId('catalog_category'))
     ->orWhere('entity_type_id = ?', $installer->getEntityTypeId('catalog_product'));
 $result = $installer->getConnection()->fetchAll($stmt);
-$installer->getConnection()->insertMultiple($installer->getTable('catalog/eav_attribute'), $result);
+$table = $installer->getTable('catalog/eav_attribute');
+foreach ($result as $data) {
+    $installer->getConnection()->insert($table, $data);
+}
+
 
 $describe = $installer->getConnection()->describeTable($installer->getTable('catalog/eav_attribute'));
 foreach ($describe as $columnData) {

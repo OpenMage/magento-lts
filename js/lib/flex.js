@@ -181,7 +181,7 @@ Flex.Object = Class.create({
      */
     initialize: function (config) {
         this.isIE  = Prototype.Browser.IE;
-        this.isWin = navigator.appVersion.match(/win/i).length > 0;
+        this.isWin = (navigator.appVersion.toLowerCase().indexOf("win") != -1) ? true : false;
         this.attributes = {
              quality:"high",
              pluginspage: "http://www.adobe.com/go/getflashplayer",

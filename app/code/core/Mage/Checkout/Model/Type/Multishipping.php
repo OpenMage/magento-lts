@@ -226,7 +226,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
              * MultisippingQty should be defined for each quote item when it processed with _addShippingItem
              */
             foreach ($quote->getAllItems() as $_item) {
-                if (!$_item->getProduct()->getIsVirtual() && !$_item->getMultisippingQty()) {
+                if (!$_item->getProduct()->getIsVirtual() && !$_item->getParentItem() && !$_item->getMultisippingQty()) {
                     $_item->delete();
                 }
             }
@@ -235,7 +235,9 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                 $quote->removeAddress($billingAddress->getId());
             }
 
-            $quote->getBillingAddress()->importCustomerAddress($this->getCustomerDefaultBillingAddress());
+            if ($customerDefaultBilling = $this->getCustomerDefaultBillingAddress()) {
+                $quote->getBillingAddress()->importCustomerAddress($customerDefaultBilling);
+            }
 
             foreach ($quote->getAllItems() as $_item) {
                 if (!$_item->getProduct()->getIsVirtual()) {

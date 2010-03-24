@@ -136,4 +136,3 @@ class Mage_Tax_Model_Mysql4_Tax extends Mage_Core_Model_Mysql4_Abstract
         return $this;
     }
 }
-

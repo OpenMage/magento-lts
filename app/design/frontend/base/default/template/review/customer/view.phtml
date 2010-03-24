@@ -44,7 +44,7 @@
         <?php foreach ($this->getRating() as $_rating): ?>
         <?php if($_rating->getPercent()): ?>
             <tr>
-                <th><?php echo $_rating->getRatingCode() ?></th>
+                <th><?php echo $this->escapeHtml($_rating->getRatingCode()) ?></th>
                 <td>
                     <div class="rating-box">
                         <div class="rating" style="width:<?php echo ceil($_rating->getPercent()) ?>%;"></div>

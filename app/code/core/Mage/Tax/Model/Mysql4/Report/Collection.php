@@ -105,4 +105,3 @@ class Mage_Tax_Model_Mysql4_Report_Collection extends Mage_Sales_Model_Mysql4_Re
     }
 
 }
-

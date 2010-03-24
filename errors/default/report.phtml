@@ -28,9 +28,6 @@
     <div class="page-title">
         <h1>There has been an error processing your request</h1>
     </div>
-    <?php if ($this->reportId && $this->reportUrl): ?>
-        <p>#<a href="<?php echo htmlspecialchars($this->reportUrl) ?>"><?php echo $this->reportId ?></a></p>
-    <?php endif; ?>
     <?php if ($this->showSentMsg): ?>
     <ul class="messages">
         <li class="success-msg">
@@ -94,6 +91,8 @@
         </div>
         <p class="required">* Required Fields</p>
     </form>
+    <?php elseif ('' == $this->reportAction): ?>
+        <p><em>Exception printing is disabled by default for security reasons.</em></p>
     <?php endif; ?>
 
     <?php if ($this->reportAction == 'print'): ?>
@@ -105,5 +104,8 @@
 </pre>
         </div>
     </div>
+    <?php endif; ?>
+    <?php if ($this->reportId && $this->reportUrl): ?>
+        <p>Error log record number: <a href="<?php echo htmlspecialchars($this->reportUrl) ?>"><?php echo $this->reportId ?></a></p>
     <?php endif; ?>
 </div>

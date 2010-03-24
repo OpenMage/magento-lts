@@ -37,20 +37,18 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         $this->getResponse()->setBody($block->toHtml());
     }
 
+    /**
+     * Admin area entry point
+     * Always redirects to the startup page url
+     */
     public function indexAction()
     {
-        $url = Mage::getSingleton('admin/session')->getUser()->getStartupPageUrl();
-
+        $session = Mage::getSingleton('admin/session');
+        $url = $session->getUser()->getStartupPageUrl();
+        if ($session->isFirstPageAfterLogin()) { // retain the "first page after login" value in session (before redirect)
+            $session->setIsFirstPageAfterLogin(true);
+        }
         $this->_redirect($url);
-        return;
-
-        $this->loadLayout();
-        $block = $this->getLayout()->createBlock('adminhtml/template', 'system.info')
-            ->setTemplate('system/info.phtml');
-
-        $this->_addContent($block);
-
-        $this->renderLayout();
     }
 
     public function loginAction()

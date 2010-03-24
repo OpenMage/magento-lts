@@ -121,7 +121,9 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
             $value = array($value);
         }
         if ($escapeHtml) {
-            array_walk($value, array($this, '_escapeHtmlWalkCallback'));
+            foreach ($value as $_key => $_val) {
+                $value[$_key] = $this->escapeHtml($_val);
+            }
         }
         return $value;
     }
@@ -169,16 +171,5 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
             $this->_paymentSpecificInformation = $transport;
         }
         return $this->_paymentSpecificInformation;
-    }
-
-    /**
-     * Callback for escaping HTML
-     *
-     * @param array $array
-     * @param string|int $key
-     */
-    private function _escapeHtmlWalkCallback(&$array, $key)
-    {
-        $array[$key] = $this->htmlEscape($array[$key]);
     }
 }

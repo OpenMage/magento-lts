@@ -352,8 +352,6 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     public function beforeSave($product = null)
     {
         parent::beforeSave($product);
-
-
         if ($this->getLinkSelectionRequired($product)) {
             $this->getProduct($product)->setTypeHasRequiredOptions(true);
         } else {

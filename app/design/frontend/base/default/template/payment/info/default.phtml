@@ -36,7 +36,7 @@
     <tbody>
     <?php foreach ($_specificInfo as $_label => $_value):?>
         <tr>
-            <th><?php echo $this->htmlEscape($_label)?>:</th>
+            <th><?php echo $this->escapeHtml($_label)?>:</th>
             <td><?php echo nl2br(implode($this->getValueAsArray($_value, true), "\n"))?></td>
         </tr>
     <?php endforeach; ?>

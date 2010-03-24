@@ -41,11 +41,11 @@
             <tbody>
             <?php foreach ($this->getRating() as $_rating): ?>
                 <tr class="odd<?php if($_oddIterator == $this->getRating()->getSize()): $_oddIterator = 0; ?> last<?php endif; ?>">
-                    <td class="label"><?php echo $_rating->getRatingCode() ?></td>
+                    <td class="label"><?php echo $this->escapeHtml($_rating->getRatingCode()) ?></td>
                 <?php $_iterator = 1; ?>
                 <?php $_options = ( $_rating->getRatingOptions() ) ? $_rating->getRatingOptions() : $_rating->getOptions() ?>
                 <?php foreach ($_options as $_option): ?>
-                    <td<?php if($_iterator == 5): ?> class="last"<?php endif; ?>><input type="radio" name="ratings[<?php echo ( $_rating->getVoteId() ) ? $_rating->getVoteId() : $_rating->getId() ?>]" id="<?php echo $_rating->getRatingCode() ?>_<?php echo $_option->getValue() ?>" value="<?php echo $_option->getId() ?>" <?php if( $this->isSelected($_option, $_rating)): ?>checked="checked"<?php endif; ?> /></td>
+                    <td<?php if($_iterator == 5): ?> class="last"<?php endif; ?>><input type="radio" name="ratings[<?php echo ( $_rating->getVoteId() ) ? $_rating->getVoteId() : $_rating->getId() ?>]" id="<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue() ?>" value="<?php echo $_option->getId() ?>" <?php if( $this->isSelected($_option, $_rating)): ?>checked="checked"<?php endif; ?> /></td>
                 <?php $_iterator++ ?>
                 <?php endforeach; ?>
                 </tr>

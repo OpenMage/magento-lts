@@ -150,26 +150,25 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     {
         $cart   = $this->_getCart();
         $params = $this->getRequest()->getParams();
-        if (isset($params['qty'])) {
-            $filter = new Zend_Filter_LocalizedToNormalized(
-                array('locale' => Mage::app()->getLocale()->getLocaleCode())
-            );
-            $params['qty'] = $filter->filter($params['qty']);
-        }
-
-        $product= $this->_initProduct();
-        $related= $this->getRequest()->getParam('related_product');
-
-        /**
-         * Check product availability
-         */
-        if (!$product) {
-            $this->_goBack();
-            return;
-        }
-
-
         try {
+            if (isset($params['qty'])) {
+                $filter = new Zend_Filter_LocalizedToNormalized(
+                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                );
+                $params['qty'] = $filter->filter($params['qty']);
+            }
+
+            $product= $this->_initProduct();
+            $related= $this->getRequest()->getParam('related_product');
+
+            /**
+             * Check product availability
+             */
+            if (!$product) {
+                $this->_goBack();
+                return;
+            }
+
             $cart->addProduct($product, $params);
             if (!empty($related)) {
                 $cart->addProductsByIds(explode(',', $related));
@@ -209,7 +208,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             }
         }
         catch (Exception $e) {
-            $this->_getSession()->addException($e, $this->__('Can not add item to shopping cart'));
+            $this->_getSession()->addException($e, $this->__('Cannot add item to shopping cart'));
             $this->_goBack();
         }
     }

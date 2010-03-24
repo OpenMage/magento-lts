@@ -95,14 +95,6 @@
                     </auth>
                 </observers>
             </controller_action_predispatch>
-            <controller_action_postdispatch>
-                <observers>
-                    <auth>
-                        <class>admin/observer</class>
-                        <method>actionPostDispatchAdmin</method>
-                    </auth>
-                </observers>
-            </controller_action_postdispatch>
             <core_locale_set_locale>
                 <observers>
                     <bind_locale>

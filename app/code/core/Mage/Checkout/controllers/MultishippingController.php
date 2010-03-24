@@ -196,7 +196,11 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
      */
     public function addressesPostAction()
     {
-        try {
+        if (!$this->_getCheckout()->getCustomerDefaultShippingAddress()) {
+            $this->_redirect('*/multishipping_address/newShipping');
+            return;
+        }
+    	try {
             if ($this->getRequest()->getParam('continue', false)) {
                 $this->_getCheckout()->setCollectRatesFlag(true);
                 $this->_getState()->setActiveStep(

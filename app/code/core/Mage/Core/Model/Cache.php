@@ -177,14 +177,16 @@ class Mage_Core_Model_Cache
                 $options = $this->getDbAdapterOptions();
                 break;
             default:
-                try {
-                    if (class_exists($type, true)) {
-                        $implements = class_implements($type, true);
-                        if (in_array('Zend_Cache_Backend_Interface', $implements)) {
-                            $backendType = $type;
+                if ($type != $this->_defaultBackend) {
+                    try {
+                        if (class_exists($type, true)) {
+                            $implements = class_implements($type, true);
+                            if (in_array('Zend_Cache_Backend_Interface', $implements)) {
+                                $backendType = $type;
+                            }
                         }
+                    } catch (Exception $e) {
                     }
-                } catch (Exception $e) {
                 }
         }
 

@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
      *
      * @var bool
      */
-    protected $_available;
+    protected $_available = null;
 
     /**
      * Initialize block window

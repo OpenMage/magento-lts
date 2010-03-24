@@ -9,13 +9,7 @@ fi
 PHP_BIN=`which php`
 
 # absolute path to magento installation
-if [ "$1" != "" ]; then
-    INSTALLDIR=`ps axwww -o command= |grep -v grep| grep cron.sh \
-	| awk '{ field = $(NF-1) }; END{ print field }' | sed 's/cron\.sh//g'`
-else
-    INSTALLDIR=`ps axwww -o command= |grep -v grep| grep cron.sh \
-	| awk '{ field = $NF }; END{ print field }' | sed 's/cron\.sh//g'`
-fi
+INSTALLDIR=`echo $0 | sed 's/cron\.sh//g'`
 
 #	prepend the intallation path if not given an absolute path
 if [ "$INSTALLDIR" != "" -a "`expr index $CRONSCRIPT /`" != "1" ];then

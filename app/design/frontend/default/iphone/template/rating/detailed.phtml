@@ -30,7 +30,7 @@
             <?php foreach ($collection as $_rating): ?>
                 <?php if($_rating->getSummary()): ?>
                     <tr>
-                        <td class="label"><strong><?php echo $this->__($_rating->getRatingCode()) ?></strong></td>
+                        <td class="label"><strong><?php echo $this->__($this->escapeHtml($_rating->getRatingCode())) ?></strong></td>
                         <td>
                             <div class="rating-box">
                                 <div class="rating" style="width:<?php echo ceil($_rating->getSummary()) ?>%;"></div>

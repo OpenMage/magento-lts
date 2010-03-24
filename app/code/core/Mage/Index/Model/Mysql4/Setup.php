@@ -40,13 +40,16 @@ class Mage_Index_Model_Mysql4_Setup extends Mage_Core_Model_Resource_Setup
      */
     protected function _syncIndexes()
     {
+        $connection = $this->getConnection();
+        if (!$connection) {
+            return $this;
+        }
         $indexes = Mage::getConfig()->getNode(Mage_Index_Model_Process::XML_PATH_INDEXER_DATA);
         $indexCodes = array();
         foreach ($indexes->children() as $code => $index) {
             $indexCodes[] = $code;
         }
         $table = $this->getTable('index/process');
-        $connection = $this->getConnection();
         $existingIndexes = $connection->fetchCol('SELECT indexer_code FROM '.$table);
         $delete = array_diff($existingIndexes, $indexCodes);
         $insert = array_diff($indexCodes, $existingIndexes);
@@ -62,7 +65,9 @@ class Mage_Index_Model_Mysql4_Setup extends Mage_Core_Model_Resource_Setup
                     'status' => Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX
                 );
             }
-            $connection->insertArray($table, array('indexer_code', 'status'), $inserData);
+            if (method_exists($connection, 'insertArray')) {
+                $connection->insertArray($table, array('indexer_code', 'status'), $inserData);
+            }
         }
     }
 }

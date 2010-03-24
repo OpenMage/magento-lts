@@ -73,7 +73,14 @@ class Mage_Core_Model_Resource_Setup
 
         $modName = (string)$this->_resourceConfig->setup->module;
         $this->_moduleConfig = $config->getModuleConfig($modName);
-        $this->_conn = Mage::getSingleton('core/resource')->getConnection($this->_resourceName);
+        $connection = Mage::getSingleton('core/resource')->getConnection($this->_resourceName);
+        /**
+         * If module setup configuration wasn't loaded
+         */
+        if (!$connection) {
+            $connection = Mage::getSingleton('core/resource')->getConnection('core_setup');
+        }
+        $this->_conn = $connection;
     }
 
     /**
@@ -105,7 +112,7 @@ class Mage_Core_Model_Resource_Setup
      * @param   string $tableName
      * @return  string
      */
-    public function getTable($tableName) 
+    public function getTable($tableName)
     {
         if (!isset($this->_tables[$tableName])) {
             $this->_tables[$tableName] = Mage::getSingleton('core/resource')->getTableName($tableName);
@@ -335,7 +342,9 @@ class Mage_Core_Model_Resource_Setup
             $fileType = pathinfo($resourceFile['fileName'], PATHINFO_EXTENSION);
             // Execute SQL
             if ($this->_conn) {
-                $this->_conn->disallowDdlCache();
+                if (method_exists($this->_conn, 'disallowDdlCache')) {
+                    $this->_conn->disallowDdlCache();
+                }
                 try {
                     switch ($fileType) {
                         case 'sql':
@@ -364,7 +373,9 @@ class Mage_Core_Model_Resource_Setup
                     echo "<pre>".print_r($e,1)."</pre>";
                     throw Mage::exception('Mage_Core', Mage::helper('core')->__('Error in file: "%s" - %s', $sqlFile, $e->getMessage()));
                 }
-                $this->_conn->allowDdlCache();
+                if (method_exists($this->_conn, 'allowDdlCache')) {
+                    $this->_conn->allowDdlCache();
+                }
             }
             $modifyVersion = $resourceFile['toVersion'];
         }

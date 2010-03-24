@@ -48,11 +48,11 @@
         <?php $_oddIterator = 1; ?>
         <?php foreach ($this->getRatings() as $_rating): ?>
             <tr class="odd<?php if($_oddIterator == $this->getRatings()->getSize()): $_oddIterator = 0; ?> last<?php endif; ?>">
-                <td class="label"><?php echo $_rating->getRatingCode() ?></td>
+                <td class="label"><?php echo $this->escapeHtml($_rating->getRatingCode()) ?></td>
             <?php $_iterator = 1; ?>
             <?php foreach ($_rating->getOptions() as $_option): ?>
-                <!--<td <?php if($_iterator == 5): ?>class="last"<?php endif; ?> style="width:60px;"><input type="radio" <?php if($_iterator == 5): $_iterator=0; ?>class="validate-one-required-by-name"<?php endif; ?> name="ratings[<?php echo $_rating->getId() ?>]" id="<?php echo $_rating->getRatingCode() ?>_<?php echo $_option->getValue() ?>" value="<?php echo $_option->getId() ?>"/></td>-->
-                <td<?php if($_iterator == 5): ?> class="last"<?php endif; ?> style="width:60px;"><input type="radio" name="ratings[<?php echo $_rating->getId() ?>]" id="<?php echo $_rating->getRatingCode() ?>_<?php echo $_option->getValue() ?>" value="<?php echo $_option->getId() ?>" /></td>
+                <!--<td <?php if($_iterator == 5): ?>class="last"<?php endif; ?> style="width:60px;"><input type="radio" <?php if($_iterator == 5): $_iterator=0; ?>class="validate-one-required-by-name"<?php endif; ?> name="ratings[<?php echo $_rating->getId() ?>]" id="<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue() ?>" value="<?php echo $_option->getId() ?>"/></td>-->
+                <td<?php if($_iterator == 5): ?> class="last"<?php endif; ?> style="width:60px;"><input type="radio" name="ratings[<?php echo $_rating->getId() ?>]" id="<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue() ?>" value="<?php echo $_option->getId() ?>" /></td>
             <?php $_iterator++ ?>
             <?php endforeach; ?>
             </tr>

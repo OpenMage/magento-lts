@@ -159,7 +159,7 @@
                         <tbody>
                         <?php foreach( $_review->getRatingVotes() as $_vote ): ?>
                         <tr>
-                            <td class="label"><strong><?php echo $_vote->getRatingCode() ?></strong></td>
+                            <td class="label"><strong><?php echo $this->escapeHtml($_vote->getRatingCode()) ?></strong></td>
                             <td>
                                 <div class="rating-box">
                                     <div class="rating" style="width: <?php echo $_vote->getPercent() ?>%;"></div>

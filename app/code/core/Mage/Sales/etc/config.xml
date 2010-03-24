@@ -363,7 +363,7 @@
                     <order_item><table>sales_flat_order_item</table></order_item>
                     <order_item_option><table>sales_flat_order_item_option</table></order_item_option>
                     <order_entity><table>sales_order_entity</table></order_entity>
-                    
+
                     <order_aggregated_created><table>sales_order_aggregated_created</table></order_aggregated_created>
                     <order_aggregated_updated><table>sales_order_aggregated_updated</table></order_aggregated_updated>
 
@@ -372,7 +372,7 @@
 
                     <invoiced_aggregated><table>sales_invoiced_aggregated</table></invoiced_aggregated>
                     <invoiced_aggregated_order><table>sales_invoiced_aggregated_order</table></invoiced_aggregated_order>
-                    
+
                     <refunded_aggregated><table>sales_refunded_aggregated</table></refunded_aggregated>
                     <refunded_aggregated_order><table>sales_refunded_aggregated_order</table></refunded_aggregated_order>
 
