@@ -101,6 +101,17 @@
         </layout>
     </frontend>
     <adminhtml>
+        <events>
+            <payment_info_block_prepare_specific_information>
+                <observers>
+                    <paypal>
+                        <type>model</type>
+                        <class>paypal/observer</class>
+                        <method>paymentInfoBlockPrepareSpecificInformation</method>
+                    </paypal>
+                </observers>
+            </payment_info_block_prepare_specific_information>
+        </events>
         <translate>
             <modules>
                 <Mage_Paypal>

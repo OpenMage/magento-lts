@@ -239,6 +239,7 @@ Multi address shipping checkout overview
                 </block>
                 <block type="checkout/agreements" name="checkout.multishipping.agreements" as="agreements" template="checkout/multishipping/agreements.phtml"/>
                 <block type="checkout/cart_totals" name="totals" />
+                <block type="core/text_list" name="checkout.multishipping.overview.items.after" as="items_after"/>
             </block>
         </reference>
     </checkout_multishipping_overview>
@@ -357,6 +358,7 @@ One page checkout order review block
             <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>
             <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
             <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+            <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before"/>
         </block>
     </checkout_onepage_review>
 

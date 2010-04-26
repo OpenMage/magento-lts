@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Sales>
-            <version>0.9.38</version>
+            <version>0.9.39</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -88,6 +88,8 @@
                 <customer_is_guest><to_order>*</to_order></customer_is_guest>
                 <customer_dob><to_order>*</to_order></customer_dob>
                 <customer_taxvat><to_order>*</to_order></customer_taxvat>
+
+                <base_grand_total><to_order>quote_base_grand_total</to_order></base_grand_total>
 
                 <global_currency_code><to_order>*</to_order></global_currency_code>
                 <base_currency_code><to_order>*</to_order></base_currency_code>
@@ -151,6 +153,7 @@
             <sales_convert_quote_payment>
                 <method><to_order_payment>*</to_order_payment></method>
                 <additional_data><to_order_payment>*</to_order_payment></additional_data>
+                <additional_information><to_order_payment>*</to_order_payment></additional_information>
                 <po_number><to_order_payment>*</to_order_payment></po_number>
                 <cc_type><to_order_payment>*</to_order_payment></cc_type>
                 <cc_number_enc><to_order_payment>*</to_order_payment></cc_number_enc>
@@ -267,6 +270,7 @@
             <sales_convert_order_payment>
                 <method><to_quote_payment>*</to_quote_payment></method>
                 <additional_data><to_quote_payment>*</to_quote_payment></additional_data>
+                <additional_information><to_quote_payment>*</to_quote_payment></additional_information>
                 <po_number><to_quote_payment>*</to_quote_payment></po_number>
                 <cc_type><to_quote_payment>*</to_quote_payment></cc_type>
                 <cc_number_enc><to_quote_payment>*</to_quote_payment></cc_number_enc>

@@ -32,3 +32,15 @@
 <?php echo Mage::helper('payment')->__('Credit Card Number: %s', $this->htmlEscape($this->getInfo()->getCcNumber())) ?><br/>
 <?php endif?>
 <?php echo Mage::helper('payment')->__('Expiration Date: %s/%s', $this->htmlEscape($this->getCcExpMonth()), $this->htmlEscape($this->getInfo()->getCcExpYear())) ?>
+<?php if ($_info = $this->getSpecificInformation()):?>
+<table>
+    <tbody>
+    <?php foreach ($_info as $_label => $_value):?>
+        <tr>
+            <td><?php echo $this->htmlEscape($_label)?>:</td>
+            <td><?php echo $this->htmlEscape($_value)?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<?php endif;?>

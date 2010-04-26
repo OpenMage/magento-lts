@@ -175,6 +175,14 @@
                 <Mage_Catalog />
             </depends>
         </Mage_Payment>
+        <Mage_Centinel>
+            <active>true</active>
+            <codePool>core</codePool>
+            <depends>
+                <Mage_Payment />
+                <Mage_Checkout />
+            </depends>
+        </Mage_Centinel>
         <Mage_Usa>
             <active>true</active>
             <codePool>core</codePool>

@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Centinel
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Centinel>
+            <version>1.4.0.0.0</version>
+        </Mage_Centinel>
+    </modules>
+    <global>
+        <events>
+            <sales_convert_quote_to_order>
+                <observers>
+                    <centinel>
+                        <type>model</type>
+                        <class>centinel/observer</class>
+                        <method>salesEventConvertQuoteToOrder</method>
+                    </centinel>
+                </observers>
+            </sales_convert_quote_to_order>
+            <sales_order_payment_place_end>
+                <observers>
+                    <centinel>
+                        <type>model</type>
+                        <class>centinel/observer</class>
+                        <method>salesOrderPaymentPlaceEnd</method>
+                    </centinel>
+                </observers>
+            </sales_order_payment_place_end>
+        </events>
+    </global>
+    <frontend>
+        <translate>
+            <modules>
+                <Mage_Centinel>
+                    <files>
+                        <default>Mage_Centinel.csv</default>
+                    </files>
+                </Mage_Centinel>
+            </modules>
+        </translate>
+        <events>
+            <payment_form_block_to_html_before>
+                <observers>
+                    <centinel>
+                        <type>model</type>
+                        <class>centinel/observer</class>
+                        <method>paymentFormBlockToHtmlBefore</method>
+                    </centinel>
+                </observers>
+            </payment_form_block_to_html_before>
+        </events>
+        <routers>
+            <centinel>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Centinel</module>
+                    <frontName>centinel</frontName>
+                </args>
+            </centinel>
+        </routers>
+        <layout>
+            <updates>
+                <centinel>
+                    <file>centinel.xml</file>
+                </centinel>
+            </updates>
+        </layout>
+        <secure_url>
+            <centinel>/centinel/</centinel>
+        </secure_url>
+    </frontend>
+    <adminhtml>
+        <events>
+            <payment_info_block_prepare_specific_information>
+                <observers>
+                    <centinel>
+                        <type>model</type>
+                        <class>centinel/observer</class>
+                        <method>paymentInfoBlockPrepareSpecificInformation</method>
+                    </centinel>
+                </observers>
+            </payment_info_block_prepare_specific_information>
+        </events>
+        <translate>
+            <modules>
+                <Mage_Centinel>
+                    <files>
+                        <default>Mage_Centinel.csv</default>
+                    </files>
+                </Mage_Centinel>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <centinel>
+                    <file>centinel.xml</file>
+                </centinel>
+            </updates>
+        </layout>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <payment_services translate="title" module="payment">
+                                            <title>Payment Services</title>
+                                        </payment_services>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+    <admin>
+         <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Mage_Centinel before="Mage_Adminhtml">Mage_Centinel_Adminhtml</Mage_Centinel>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <global>
+        <payment>
+            <cc>
+                <types>
+                    <VI>
+                        <validator>
+                            <centinel>
+                                <state>centinel/state_visa</state>
+                            </centinel>
+                        </validator>
+                    </VI>
+                    <MC>
+                        <validator>
+                            <centinel>
+                                <state>centinel/state_mastercard</state>
+                            </centinel>
+                        </validator>
+                    </MC>
+                    <JCB>
+                        <validator>
+                            <centinel>
+                                <state>centinel/state_jcb</state>
+                            </centinel>
+                        </validator>
+                    </JCB>
+                    <MCI>
+                        <validator>
+                            <centinel>
+                                <state>centinel/state_mastercard</state>
+                            </centinel>
+                        </validator>
+                    </MCI>
+                </types>
+            </cc>
+        </payment>
+    </global>
+</config>

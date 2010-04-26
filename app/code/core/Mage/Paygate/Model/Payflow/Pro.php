@@ -90,6 +90,19 @@ class Mage_Paygate_Model_Payflow_Pro extends  Mage_Payment_Model_Method_Cc
      */
     protected $_validVoidTransState = array(3,6,9);
 
+    /**
+     * Centinel cardinal fields map
+     *
+     * @var string
+     */
+    protected $_centinelFieldMap = array(
+        'centinel_mpivendor' => 'MPIVENDOR3DS',
+        'centinel_authstatus' => 'AUTHSTATUS3DS',
+        'centinel_cavv' => 'CAVV',
+        'centinel_eci' => 'ECI',
+        'centinel_xid' => 'XID',
+    );
+
     public function authorize(Varien_Object $payment, $amount)
     {
         $error = false;
@@ -390,6 +403,13 @@ class Mage_Paygate_Model_Payflow_Pro extends  Mage_Payment_Model_Method_Cc
             ->setVerbosity($this->getConfigData('verbosity'))
             ->setRequestId($this->_generateRequestId())
             ;
+
+        if ($this->getIsCentinelValidationEnabled()){
+            $params = $this->getInfoInstance()->getAdditionalInformation();
+            if (is_array($params)) {
+                $request = Varien_Object_Mapper::accumulateByMap($params, $request, $this->_centinelFieldMap);
+            }
+        }
 
         if($payment->getAmount()){
             $request->setAmt(round($payment->getAmount(),2));

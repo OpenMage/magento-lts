@@ -96,7 +96,9 @@ class Mage_Payment_Model_Config
 
         $types = array();
         foreach ($_types as $data) {
-            $types[$data['code']] = $data['name'];
+            if (isset($data['code']) && isset($data['name'])) {
+                $types[$data['code']] = $data['name'];
+            }
         }
         return $types;
     }

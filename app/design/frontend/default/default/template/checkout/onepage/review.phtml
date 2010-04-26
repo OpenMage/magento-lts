@@ -27,22 +27,23 @@
 <div id="checkout-review-load" class="default-box">
     <?php echo $this->getChildHtml('info') ?>
 </div>
-
-<?php echo $this->getChildHtml('agreements') ?>
-<div class="content button-set">
-    <p class="left"><?php echo $this->__('Forgot an Item?') ?> <a href="<?php echo $this->getUrl('checkout/cart') ?>"><?php echo $this->__('Edit Your Cart') ?></a></p>
-    <p>
-        <span id="review-please-wait" style="display:none;" class="opc-please-wait">
-            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" class="v-middle" alt="" /> &nbsp; <?php echo $this->__('Submitting order information...') ?> &nbsp;
-        </span>
-
-        <span id="review-buttons-container" class="a-center">
-            <input type="image" src="<?php echo $this->getSkinUrl('images/btn_place_order.gif') ?>" onclick="review.save();" value="<?php echo $this->__('Place Order') ?>" />
-        </span>
-    </p>
+<div id="checkout-review-submit">
+    <?php echo $this->getChildHtml('agreements') ?>
+    <div class="content button-set">
+        <p class="left"><?php echo $this->__('Forgot an Item?') ?> <a href="<?php echo $this->getUrl('checkout/cart') ?>"><?php echo $this->__('Edit Your Cart') ?></a></p>
+        <p>
+            <span id="review-please-wait" style="display:none;" class="opc-please-wait">
+                <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" class="v-middle" alt="" /> &nbsp; <?php echo $this->__('Submitting order information...') ?> &nbsp;
+            </span>
+    
+            <span id="review-buttons-container" class="a-center">
+                <input type="image" src="<?php echo $this->getSkinUrl('images/btn_place_order.gif') ?>" onclick="review.save();" value="<?php echo $this->__('Place Order') ?>" />
+            </span>
+        </p>
+    </div>
+    <script type="text/javascript">
+    //<![CDATA[
+        var review = new Review('<?php echo $this->getUrl('checkout/onepage/saveOrder') ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));
+    //]]>
+    </script>
 </div>
-<script type="text/javascript">
-//<![CDATA[
-    var review = new Review('<?php echo $this->getUrl('checkout/onepage/saveOrder') ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));
-//]]>
-</script>

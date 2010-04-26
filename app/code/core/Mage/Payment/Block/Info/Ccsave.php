@@ -32,11 +32,10 @@ class Mage_Payment_Block_Info_Ccsave extends Mage_Payment_Block_Info_Cc
         parent::_construct();
         $this->setTemplate('payment/info/ccsave.phtml');
     }
-    
+
     public function toPdf()
     {
         $this->setTemplate('payment/info/pdf/ccsave.phtml');
         return $this->toHtml();
     }
-
 }

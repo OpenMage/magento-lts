@@ -116,6 +116,17 @@
         </layout>
     </frontend>
     <adminhtml>
+        <events>
+            <payment_info_block_prepare_specific_information>
+                <observers>
+                    <paypaluk>
+                        <type>model</type>
+                        <class>paypaluk/observer</class>
+                        <method>paymentInfoBlockPrepareSpecificInformation</method>
+                    </paypaluk>
+                </observers>
+            </payment_info_block_prepare_specific_information>
+        </events>
         <translate>
             <modules>
                 <Mage_PaypalUk>

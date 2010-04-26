@@ -762,6 +762,10 @@ ul.item-options li { padding-left:.7em; }
 .payment-methods dd                     { margin-left:20px; }
 .payment-methods .validation-advice     { margin-left:2px; }
 
+/* Centinel */
+.centinel .authentication { background:#fff; }
+.centinel .authentication iframe { width:99%; height:400px; background:transparent !important; margin:0 0 7px !important; padding:0 !important; border:1px solid #ddd !important; }
+
 /* Gift Messages */
 .giftmessage-order-create .entire-order,
 .giftmessage-order-create .each-order-item { background-color:#eee; padding:6px 14px; height:275px;  }

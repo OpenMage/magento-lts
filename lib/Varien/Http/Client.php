@@ -62,9 +62,9 @@ class Varien_Http_Client extends Zend_Http_Client
         return $this;
     }
 
-    protected function prepare_body()
+    protected function _prepareBody()
     {
-        $body = parent::prepare_body();
+        $body = parent::_prepareBody();
 
         if (!$this->_urlEncodeBody && $body) {
             $body = urldecode($body);

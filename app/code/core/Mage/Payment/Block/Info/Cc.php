@@ -76,7 +76,7 @@ class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
         $date->setMonth($this->getInfo()->getCcExpMonth());
         return $date;
     }
-    
+
     public function toPdf()
     {
         $this->setTemplate('payment/info/pdf/cc.phtml');

@@ -53,7 +53,8 @@ ul.tabs li a,
 .files .row,
 .files-wide .row,
 .uploader .file-row,
-.grid tr.filter .range .range-line { zoom:1; }
+.grid tr.filter .range .range-line,
+.centinel .authentication { zoom:1; }
 
 .clear { display:block; clear:both; height:0; font-size:0; line-height:0; overflow:hidden; }
 

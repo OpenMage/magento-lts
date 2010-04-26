@@ -1,0 +1,11 @@
+==== 1.3.3.0 ====
+
+  * Added Mage_Centinel module - implementation of the 3D Secure validation of credit cards.
+    * Supported card types:
+      * Visa
+      * MasterCard
+      * JCB, Maestro International - only on Mage_Centinel implementation level and abstract "Credit Card" payment method
+    * Supported payment methods: PayPal Direct, PayPal Direct UK, PayFlow Pro, Saved Credit Card (based on abstract "Credit Card" payment method)
+  * Added system logging adapter, utilized it to log Centinel API interactions into a log file
+  * Added Varien_Object_Mapper and implemented "additional_information" searialized field for payment info block
+  * Added "specific_information" to the payment info block, implemented this information output in admin payment templates

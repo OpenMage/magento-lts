@@ -44,4 +44,55 @@ class Mage_Sales_Model_Mysql4_Order_Payment extends Mage_Eav_Model_Entity_Abstra
         );
     }
 
+    /**
+     * Also serialize additional information
+     *
+     * @param Varien_Object $payment
+     */
+    protected function _beforeSave(Varien_Object $payment)
+    {
+        $additionalInformation = $payment->getData('additional_information');
+        if (empty($additionalInformation)) {
+            $payment->setData('additional_information', null);
+        } elseif (is_array($additionalInformation)) {
+            $payment->setData('additional_information', serialize($additionalInformation));
+        }
+        parent::_beforeSave($payment);
+    }
+
+    /**
+     * Unserialize additional information after loading the object
+     *
+     * @param Varien_Object $payment
+     */
+    protected function _afterLoad(Varien_Object $payment)
+    {
+        $this->unserializeFields($payment);
+        parent::_afterLoad($payment);
+    }
+
+    /**
+     * Unserialize additional information after saving the object
+     *
+     * @param Varien_Object $payment
+     */
+    protected function _afterSave(Varien_Object $payment)
+    {
+        $this->unserializeFields($payment);
+        return parent::_afterSave($payment);
+    }
+
+    /**
+     * Unserialize additional data if required
+     * @param Mage_Sales_Model_Order_Payment $payment
+     */
+    public function unserializeFields(Mage_Sales_Model_Order_Payment $payment)
+    {
+        $additionalInformation = $payment->getData('additional_information');
+        if (empty($additionalInformation)) {
+            $payment->setData('additional_information', array());
+        } elseif (!is_array($additionalInformation)) {
+            $payment->setData('additional_information', unserialize($additionalInformation));
+        }
+    }
 }

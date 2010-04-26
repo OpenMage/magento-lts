@@ -90,6 +90,11 @@
         <request>
             <direct_front_name/>
         </request>
+        <log>
+            <core>
+                <writer_model>Zend_Log_Writer_Stream</writer_model>
+            </core>
+        </log>
     </global>
     <frontend>
         <routers>

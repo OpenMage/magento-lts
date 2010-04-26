@@ -113,4 +113,17 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
         }
         return true;
     }
+
+    /**
+     * Render block HTML
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        Mage::dispatchEvent('payment_form_block_to_html_before', array(
+            'block'     => $this
+        ));
+        return parent::_toHtml();
+    }
 }

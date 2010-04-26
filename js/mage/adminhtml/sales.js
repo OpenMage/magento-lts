@@ -228,7 +228,7 @@ AdminOrder.prototype = {
         this.setPaymentMethod(method);
         var data = {};
         data['order[payment_method]'] = method;
-        this.saveData(data);
+        this.loadArea(['card_validation'], true, data);
     },
 
     setPaymentMethod : function(method){
@@ -254,7 +254,8 @@ AdminOrder.prototype = {
                 elements[i].disabled = false;
                 if(!elements[i].bindChange){
                     elements[i].bindChange = true;
-                    elements[i].paymentContainer = 'payment_form_'+method;
+                    elements[i].paymentContainer = 'payment_form_'+method; //@deprecated after 1.4.0.0-rc1
+                    elements[i].method = method;
                     elements[i].observe('change', this.changePaymentData.bind(this))
                 }
             }
@@ -263,17 +264,33 @@ AdminOrder.prototype = {
 
     changePaymentData : function(event){
         var elem = Event.element(event);
-        if(elem && elem.paymentContainer){
-            var data = {};
-            var fields = $(elem.paymentContainer).select('input', 'select');
-            for(var i=0;i<fields.length;i++){
-                data[fields[i].name] = fields[i].getValue();
-            }
-            if ((typeof data['payment[cc_type]']) != 'undefined' && (!data['payment[cc_type]'] || !data['payment[cc_number]'])) {
+        if(elem && elem.method){
+            var data = this.getPaymentData(elem.method);
+            if (data) {
+                 this.loadArea(['card_validation'], true, data);
+            } else {
                 return;
             }
-            this.saveData(data);
         }
+    },
+
+    getPaymentData : function(currentMethod){
+        if (typeof(currentMethod) == 'undefined') {
+            if (this.paymentMethod) {
+                currentMethod = this.paymentMethod;
+            } else {
+                return false;
+            }
+        } 
+        var data = {};
+        var fields = $('payment_form_' + currentMethod).select('input', 'select');
+        for(var i=0;i<fields.length;i++){
+            data[fields[i].name] = fields[i].getValue();
+        }
+        if ((typeof data['payment[cc_type]']) != 'undefined' && (!data['payment[cc_type]'] || !data['payment[cc_number]'])) {
+            return false;
+        }
+        return data;
     },
 
     applyCoupon : function(code){

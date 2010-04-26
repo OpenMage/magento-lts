@@ -30,10 +30,27 @@
  */
 class Mage_Payment_Block_Info extends Mage_Core_Block_Template
 {
+    /**
+     * Payment rendered specific information
+     *
+     * @var Varien_Object
+     */
+    protected $_paymentSpecificInformation = null;
+
     protected function _construct()
     {
         parent::_construct();
         $this->setTemplate('payment/info/default.phtml');
+    }
+
+    /**
+     * Get some specific information in format of array($label => $value)
+     *
+     * @return array
+     */
+    public function getSpecificInformation()
+    {
+        return $this->_prepareSpecificInformation()->getData();
     }
 
     /**
@@ -59,10 +76,34 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     {
         return $this->getInfo()->getMethodInstance();
     }
-    
+
     public function toPdf()
     {
         $this->setTemplate('payment/info/pdf/default.phtml');
         return $this->toHtml();
+    }
+
+    /**
+     * Prepare information specific to current payment method
+     *
+     * @param Varien_Object|array $transport
+     * @return Varien_Object
+     */
+    protected function _prepareSpecificInformation($transport = null)
+    {
+        if (null === $this->_paymentSpecificInformation) {
+            if (null === $transport) {
+                $transport = new Varien_Object;
+            } elseif (is_array($transport)) {
+                $transport = new Varien_Object($transport);
+            }
+            Mage::dispatchEvent('payment_info_block_prepare_specific_information', array(
+                'transport' => $transport,
+                'payment'   => $this->getInfo(),
+                'block'     => $this,
+            ));
+            $this->_paymentSpecificInformation = $transport;
+        }
+        return $this->_paymentSpecificInformation;
     }
 }

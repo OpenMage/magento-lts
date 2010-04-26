@@ -232,6 +232,37 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </useccv>
+                        <centinel translate="label">
+                            <label>3D Secure Card Validation</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </centinel>
+                        <centinel_is_mode_strict translate="label comment">
+                            <label>Severe 3D Secure Card Validation</label>
+                            <comment>Severe Validation Removes Chargeback Liability on Merchant</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><centinel>1</centinel></depends>
+                        </centinel_is_mode_strict>
+                        <centinel_api_url translate="label comment">
+                            <label>Centinel API URL</label>
+                            <comment>A value is required for live mode. Refer to your CardinalCommerce agreement.</comment>
+                            <frontend_type>text</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><centinel>1</centinel></depends>
+                        </centinel_api_url>
                         <order_status translate="label">
                             <label>New order status</label>
                             <frontend_type>select</frontend_type>

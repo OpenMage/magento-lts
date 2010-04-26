@@ -80,6 +80,16 @@
                         <name>Discover</name>
                         <order>30</order>
                     </DI>
+                    <MCI>
+                        <code>MCI</code>
+                        <name>Maestro (International)</name>
+                        <order>53</order>
+                    </MCI>
+                    <JCB>
+                        <code>JCB</code>
+                        <name>JCB</name>
+                        <order>55</order>
+                    </JCB>
                     <OT>
                         <code>OT</code>
                         <name>Other</name>

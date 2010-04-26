@@ -965,6 +965,8 @@ select.address-select { width:630px; }
 .payment-methods select.month { width:146px !important; margin-right:10px; }
 .payment-methods select.year { width:100px !important; }
 .payment-methods input.cvv { width:3em !important; }
+.payment-methods .centinel-logos a { margin-right:3px; }
+.payment-methods .centinel-logos img { vertical-align:middle; }
 
 /* Shopping Cart */
 .shopping-cart  { margin-bottom:0; }
@@ -1187,6 +1189,12 @@ tr.grand_total td, p.grand_total { padding-top:5px; padding-bottom:5px; }
 .one-page-checkout .checkout-agreements .agreement-content { background-color:#fff; border-color:#e4e4e4; padding:5px; }
 .one-page-checkout .checkout-agreements .agree { padding-left:6px; }
 
+/* Centinel */
+.centinel {}
+.centinel .authentication { border:1px solid #ddd; background:#fff; }
+.centinel .authentication iframe { width:99%; height:400px; background:transparent !important; margin:0 !important; padding:0 !important; border:0 !important; }
+
+.one-page-checkout .centinel { border:1px solid #bbb6a5; border-width:0 1px 1px; padding:10px 30px; }
 
 
 /********************** Gift Messages */

@@ -130,4 +130,15 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
 
         return $method ? $method->getOrderPlaceRedirectUrl() : false;
     }
+
+    /**
+     * Retrieve payment method model object
+     *
+     * @return Mage_Payment_Model_Method_Abstract
+     */
+    public function getMethodInstance()
+    {
+        $method = parent::getMethodInstance();
+        return $method->setStore($this->getQuote()->getStore());
+    }
 }

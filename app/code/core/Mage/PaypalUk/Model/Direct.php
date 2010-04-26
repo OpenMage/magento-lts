@@ -117,7 +117,8 @@ class Mage_PaypalUk_Model_Direct extends Mage_Payment_Model_Method_Cc
             ->setAmount($amount)
             ->setBillingAddress($payment->getOrder()->getBillingAddress())
             ->setShippingAddress($payment->getOrder()->getShippingAddress())
-            ->setPayment($payment);
+            ->setPayment($payment)
+            ->setAdditionalInformation($payment->getAdditionalInformation());
 
          if($api->callDoDirectPayment()!==false) {
                $payment
@@ -125,7 +126,8 @@ class Mage_PaypalUk_Model_Direct extends Mage_Payment_Model_Method_Cc
                 ->setPaymentStatus('AUTHORIZE')
                 ->setCcTransId($api->getTransactionId())
                 ->setCcAvsStatus($api->getAvsCode())
-                ->setCcCidStatus($api->getCvv2Match());
+                ->setCcCidStatus($api->getCvv2Match())
+                ->setAdditionalInformation($api->getAdditionalInformation());
          }else{
             $e = $api->getError();
             Mage::throwException($e['message']?$e['message']:Mage::helper('paypalUk')->__('There has been an error processing your payment. Please try later or contact us for help.'));
@@ -148,7 +150,8 @@ class Mage_PaypalUk_Model_Direct extends Mage_Payment_Model_Method_Cc
             ->setTransactionId($payment->getCcTransId())
             ->setBillingAddress($payment->getOrder()->getBillingAddress())
             ->setShippingAddress($payment->getOrder()->getShippingAddress())
-            ->setPayment($payment);
+            ->setPayment($payment)
+            ->setAdditionalInformation($payment->getAdditionalInformation());
 
          if ($api->callDoDirectPayment()!==false) {
                $payment
@@ -156,7 +159,8 @@ class Mage_PaypalUk_Model_Direct extends Mage_Payment_Model_Method_Cc
                 ->setPaymentStatus('CAPTURE')
                 ->setCcTransId($api->getTransactionId())
                 ->setCcAvsStatus($api->getAvsCode())
-                ->setCcCidStatus($api->getCvv2Match());
+                ->setCcCidStatus($api->getCvv2Match())
+                ->setAdditionalInformation($api->getAdditionalInformation());
          } else {
             $e = $api->getError();
             Mage::throwException($e['message']?$e['message']:Mage::helper('paypalUk')->__('There has been an error processing your payment. Please try later or contact us for help.'));

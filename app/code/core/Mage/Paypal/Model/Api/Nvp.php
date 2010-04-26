@@ -41,6 +41,21 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
                                                     'CREDITCARDTYPE', 'USER',
                                                     'PWD', 'SIGNATURE');
 
+    /**
+     * Additional information fields map use for centinel params
+     *
+     * @var string
+     */
+    protected $_additionalInformationFieldMap = array(
+        'centinel_mpivendor' => 'MPIVENDOR3DS',
+        'centinel_authstatus' => 'AUTHSTATUS3DS',
+        'centinel_cavv' => 'CAVV',
+        'centinel_eci' => 'ECI',
+        'centinel_xid' => 'XID',
+        'centinel_vpas_result' => 'VPAS',
+        'centinel_eci_result' => 'ECISUBMITTED3DS'
+    );
+
     public function getPageStyle()
     {
         return $this->getConfigData('page_style');
@@ -295,6 +310,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             'SHIPTOCOUNTRYCODE' => $s->getCountry(),
         );
 
+        $nvpArr = Varien_Object_Mapper::accumulateByMap($this->getAdditionalInformation(), $nvpArr, $this->_additionalInformationFieldMap);
+
 #echo "<pre>".print_r($nvpArr,1)."</pre>"; die;
         $resArr = $this->call('DoDirectPayment', $nvpArr);
 
@@ -306,6 +323,10 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $this->setAmount($resArr['AMT']);
         $this->setAvsCode($resArr['AVSCODE']);
         $this->setCvv2Match($resArr['CVV2MATCH']);
+
+        $resultAdditionalInformation = $this->getAdditionalInformation();
+        $resultAdditionalInformation = Varien_Object_Mapper::accumulateByMap($resArr, $resultAdditionalInformation, array_flip($this->_additionalInformationFieldMap));
+        $this->setAdditionalInformation($resultAdditionalInformation);
 
         return $resArr;
     }
@@ -340,6 +361,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             'INVNUM'          => $this->getInvNum()
         );
 
+        $nvpArr = Varien_Object_Mapper::accumulateByMap($this->getAdditionalInformation(), $nvpArr, $this->_additionalInformationFieldMap);
+
         $resArr = $this->call('DoCapture', $nvpArr);
 
         if (false===$resArr) {
@@ -351,6 +374,10 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $this->setPaymentStatus($resArr['PAYMENTSTATUS']);
         $this->setCurrencyCode($resArr['CURRENCYCODE']);
         $this->setAmount($resArr['AMT']);
+
+        $resultAdditionalInformation = $this->getAdditionalInformation();
+        $resultAdditionalInformation = Varien_Object_Mapper::accumulateByMap($resArr, $resultAdditionalInformation, array_flip($this->_additionalInformationFieldMap));
+        $this->setAdditionalInformation($resultAdditionalInformation);
 
         return $resArr;
     }

@@ -133,14 +133,16 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
             ->setShippingAddress($payment->getOrder()->getShippingAddress())
             ->setEmail($payment->getOrder()->getCustomerEmail())
             ->setPayment($payment)
-            ->setInvNum($payment->getOrder()->getIncrementId());
+            ->setInvNum($payment->getOrder()->getIncrementId())
+            ->setAdditionalInformation($payment->getAdditionalInformation());
 
         if ($api->callDoDirectPayment()!==false) {
             $payment
                 ->setStatus('APPROVED')
                 ->setCcTransId($api->getTransactionId())
                 ->setCcAvsStatus($api->getAvsCode())
-                ->setCcCidStatus($api->getCvv2Match());
+                ->setCcCidStatus($api->getCvv2Match())
+                ->setAdditionalInformation($api->getAdditionalInformation());
 
             #$payment->getOrder()->addStatusToHistory(Mage::getStoreConfig('payment/paypal_direct/order_status'));
         } else {
@@ -167,8 +169,9 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
             ->setShippingAddress($payment->getOrder()->getShippingAddress())
             ->setEmail($payment->getOrder()->getCustomerEmail())
             ->setPayment($payment)
-            ->setInvNum($payment->getOrder()->getIncrementId());
-        ;
+            ->setInvNum($payment->getOrder()->getIncrementId())
+            ->setAdditionalInformation($payment->getAdditionalInformation());
+
         if ($payment->getCcTransId()) {
             $api->setAuthorizationId($payment->getCcTransId())
                 ->setCompleteType('NotComplete');
@@ -182,7 +185,8 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
                 //->setCcTransId($api->getTransactionId())
                 ->setLastTransId($api->getTransactionId())
                 ->setCcAvsStatus($api->getAvsCode())
-                ->setCcCidStatus($api->getCvv2Match());
+                ->setCcCidStatus($api->getCvv2Match())
+                ->setAdditionalInformation($api->getAdditionalInformation());
 
             #$payment->getOrder()->addStatusToHistory(Mage::getStoreConfig('payment/paypal_direct/order_status'));
         } else {
