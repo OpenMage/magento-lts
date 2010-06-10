@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -139,6 +139,9 @@ class Mage_Shipping_Model_Shipping
         if (false !== $result){
             if (!$result instanceof Mage_Shipping_Model_Rate_Result_Error) {
                 $result = $carrier->collectRates($request);
+            }
+            if ($carrier->getConfigData('showmethod') == 0 && $result->getError()) {
+                return $this;
             }
             // sort rates by price
             if (method_exists($result, 'sortRatesByPrice')) {

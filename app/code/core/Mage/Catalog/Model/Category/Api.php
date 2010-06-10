@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -259,7 +259,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             if ($validate !== true) {
                 foreach ($validate as $code => $error) {
                     if ($error === true) {
-                        Mage::throwException(Mage::helper('catalog')->__('Attribute "%s" is required', $code));
+                        Mage::throwException(Mage::helper('catalog')->__('Attribute "%s" is required.', $code));
                     }
                     else {
                         Mage::throwException($error);
@@ -303,7 +303,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             if ($validate !== true) {
                 foreach ($validate as $code => $error) {
                     if ($error === true) {
-                        Mage::throwException(Mage::helper('catalog')->__('Attribute "%s" is required', $code));
+                        Mage::throwException(Mage::helper('catalog')->__('Attribute "%s" is required.', $code));
                     }
                     else {
                         Mage::throwException($error);
@@ -429,9 +429,9 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     {
         $category = $this->_initCategory($categoryId);
 
-        $collection = $category->setStoreId($this->_getStoreId($store))
-            ->getProductCollection()
-            ->setOrder('position', 'asc');
+        $storeId = $this->_getStoreId($store);
+        $collection = $category->setStoreId($storeId)->getProductCollection();
+        ($storeId == 0)? $collection->addOrder('position', 'asc') : $collection->setOrder('position', 'asc');;
 
         $result = array();
 

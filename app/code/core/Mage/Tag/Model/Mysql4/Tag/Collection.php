@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -126,9 +126,9 @@ class Mage_Tag_Model_Mysql4_Tag_Collection extends Mage_Core_Model_Mysql4_Collec
     {
         if (!$this->getFlag('popularity')) {
             $this->getSelect()
-                ->joinLeft(array('relation'=>$this->getTable('tag/relation')), 'main_table.tag_id=relation.tag_id')
-                ->joinLeft(array('summary'=>$this->getTable('tag/summary')), 'main_table.tag_id=summary.tag_id',
-                    array('popularity' => '(summary.popularity + summary.base_popularity)')
+                ->joinLeft(array('relation' => $this->getTable('tag/relation')), 'main_table.tag_id=relation.tag_id')
+                ->joinLeft(array('summary' => $this->getTable('tag/summary')),
+                    'relation.tag_id = summary.tag_id AND relation.store_id = summary.store_id', 'popularity'
                 )
                 ->group('main_table.tag_id');
 
@@ -144,18 +144,13 @@ class Mage_Tag_Model_Mysql4_Tag_Collection extends Mage_Core_Model_Mysql4_Collec
     public function addSummary($storeId)
     {
         if (!$this->getFlag('summary')) {
-            $joinCondition = '';
-            if (is_array($storeId)) {
-                $joinCondition = ' AND summary.store_id IN (' . implode(',', $storeId) . ')';
-            } else {
-                $joinCondition = $this->getConnection()->quoteInto(' AND summary.store_id = ?', (int)$storeId);
-            }
+            $joinCondition = $this->getConnection()->quoteInto(' AND summary.store_id IN(?)', $storeId);
 
             $this->getSelect()
                 ->joinLeft(
                     array('summary'=>$this->getTable('tag/summary')),
                     'main_table.tag_id=summary.tag_id' . $joinCondition,
-                    array('store_id','popularity', 'base_popularity', 'customers', 'products', 'uses', 'historical_uses'
+                    array('store_id','popularity', 'customers', 'products'
                 ));
 
             $this->setFlag('summary', true);
@@ -166,7 +161,6 @@ class Mage_Tag_Model_Mysql4_Tag_Collection extends Mage_Core_Model_Mysql4_Collec
     public function addStoresVisibility()
     {
         $this->setFlag('add_stores_after', true);
-
         return $this;
     }
 
@@ -279,7 +273,7 @@ class Mage_Tag_Model_Mysql4_Tag_Collection extends Mage_Core_Model_Mysql4_Collec
 
     public function addStatusFilter($status)
     {
-        $this->addFieldToFilter('main_table.status', $status);
+        $this->getSelect()->where('main_table.status = ?', $status);
         return $this;
     }
 

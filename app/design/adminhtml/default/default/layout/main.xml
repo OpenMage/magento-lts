@@ -57,6 +57,7 @@ Default layout, loads most of the pages
                 <action method="addJs"><script>scriptaculous/dragdrop.js</script></action>
                 <action method="addJs"><script>scriptaculous/controls.js</script></action>
                 <action method="addJs"><script>scriptaculous/slider.js</script></action>
+                <action method="addJs"><script>lib/ccard.js</script></action>
                 <action method="addJs"><script>prototype/validation.js</script></action>
                 <action method="addJs"><script>varien/js.js</script></action>
                 <action method="addJs"><script>mage/translate.js</script></action>

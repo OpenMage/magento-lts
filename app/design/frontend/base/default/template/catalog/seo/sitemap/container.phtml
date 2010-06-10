@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -28,7 +28,9 @@
     <div class="page-title">
         <h1><?php echo $this->getTitle() ?></h1>
     </div>
-    <?php echo $this->getChildHtml('links') ?>
+    <div id="sitemap_top_links">
+        <?php echo $this->getChildHtml('links') ?>
+    </div>
     <?php echo $this->getChildHtml('pager_top') ?>
     <?php echo $this->getChildHtml('sitemap') ?>
     <?php echo $this->getChildHtml('links') ?>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Centinel
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,8 +32,8 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Cmpi public keys
      */
-    const CMPI_PARES    = 'centinel_mpivendor';
-    const CMPI_ENROLLED = 'centinel_authstatus';
+    const CMPI_PARES    = 'centinel_authstatus';
+    const CMPI_ENROLLED = 'centinel_mpivendor';
     const CMPI_CAVV     = 'centinel_cavv';
     const CMPI_ECI      = 'centinel_eci';
     const CMPI_XID      = 'centinel_xid';
@@ -116,7 +116,8 @@ class Mage_Centinel_Model_Service extends Varien_Object
         $params = array(
             '_secure'  => true,
             '_current' => $current,
-            'form_key' => Mage::getSingleton('core/session')->getFormKey()
+            'form_key' => Mage::getSingleton('core/session')->getFormKey(),
+            'isIframe' => true
         );
         if (Mage::app()->getStore()->isAdmin()) {
             return Mage::getSingleton('adminhtml/url')->getUrl('*/centinel_index/' . $suffix, $params);
@@ -143,6 +144,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
            ->setMerchantId($config->getMerchantId())
            ->setTransactionPwd($config->getTransactionPwd())
            ->setIsTestMode($config->getIsTestMode())
+           ->setDebugFlag($config->getDebugFlag())
            ->setApiEndpointUrl($this->getCustomApiEndpointUrl());
         return $this->_api;
     }
@@ -296,6 +298,18 @@ class Mage_Centinel_Model_Service extends Varien_Object
             }
             Mage::throwException(Mage::helper('centinel')->__('This card has failed validation and cannot be used.'));
         }
+    }
+
+    /**
+     * Reset validation state and drop api object
+     * 
+     * @return Mage_Centinel_Model_Service
+     */
+    public function reset()
+    {
+        $this->_resetValidationState();
+        $this->_api = null;
+        return $this;
     }
 
     /**

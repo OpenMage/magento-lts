@@ -20,18 +20,20 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php $_code=$this->getMethodCode() ?>
 <ul class="form-list" id="payment_form_<?php echo $_code ?>" style="display:none;">
-    <!--li>
-        <label for="<?php echo $_code ?>_cc_owner" class="required"><em>*</em><?php echo $this->__('Name on Card') ?></label>
+<?php /*
+    <li>
         <div class="input-box">
+            <label for="<?php echo $_code ?>_cc_owner" class="required"><em>*</em><?php echo $this->__('Name on Card') ?></label>
             <input type="text" title="<?php echo $this->__('Name on Card') ?>" class="input-text required-entry" id="<?php echo $_code ?>_cc_owner" name="payment[cc_owner]" value="<?php echo $this->htmlEscape($this->getInfoData('cc_owner')) ?>" />
         </div>
-    </li-->
+    </li>
+*/ ?>
     <li>
         <label for="<?php echo $_code ?>_cc_type" class="required"><em>*</em><?php echo $this->__('Credit Card Type') ?></label>
         <div class="input-box">
@@ -86,104 +88,105 @@
 
     <?php if ($this->hasSsCardType()): ?>
     <li id="<?php echo $_code ?>_cc_type_ss_div">
-    <ul class="inner-form">
-        <li class="form-alt"><label for="<?php echo $_code ?>_cc_issue" class="required"><em>*</em><?php echo $this->__('Switch/Solo Only') ?></label></li>
-        <li>
-            <label for="<?php echo $_code ?>_cc_issue"><?php echo $this->__('Issue Number') ?>:</label>
-            <span class="input-box">
-                <input type="text" title="<?php echo $this->__('Issue Number') ?>" class="input-text validate-cc-ukss cvv" id="<?php echo $_code ?>_cc_issue" name="payment[cc_ss_issue]" value="" />
-            </span>
-        </li>
-
-        <li>
-            <label for="<?php echo $_code ?>_start_month"><?php echo $this->__('Start Date') ?>:</label>
-            <div class="input-box">
-                <div class="v-fix">
-                    <select id="<?php echo $_code ?>_start_month" name="payment[cc_ss_start_month]" class="validate-cc-ukss month">
-                    <?php foreach ($this->getCcMonths() as $k=>$v): ?>
-                        <option value="<?php echo $k?$k:'' ?>"<?php if($k==$this->getInfoData('cc_ss_start_month')): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
-                    <?php endforeach ?>
-                    </select>
+        <ul class="inner-form">
+            <li class="form-alt"><label for="<?php echo $_code ?>_cc_issue" class="required"><em>*</em><?php echo $this->__('Switch/Solo Only') ?></label></li>
+            <li>
+                <label for="<?php echo $_code ?>_cc_issue"><?php echo $this->__('Issue Number') ?>:</label>
+                <span class="input-box">
+                    <input type="text" title="<?php echo $this->__('Issue Number') ?>" class="input-text validate-cc-ukss cvv" id="<?php echo $_code ?>_cc_issue" name="payment[cc_ss_issue]" value="" />
+                </span>
+            </li>
+    
+            <li>
+                <label for="<?php echo $_code ?>_start_month"><?php echo $this->__('Start Date') ?>:</label>
+                <div class="input-box">
+                    <div class="v-fix">
+                        <select id="<?php echo $_code ?>_start_month" name="payment[cc_ss_start_month]" class="validate-cc-ukss month">
+                        <?php foreach ($this->getCcMonths() as $k=>$v): ?>
+                            <option value="<?php echo $k?$k:'' ?>"<?php if($k==$this->getInfoData('cc_ss_start_month')): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
+                        <?php endforeach ?>
+                        </select>
+                    </div>
+                    <div class="v-fix">
+                        <select id="<?php echo $_code ?>_start_year" name="payment[cc_ss_start_year]" class="validate-cc-ukss year">
+                        <?php foreach ($this->getSsStartYears() as $k=>$v): ?>
+                            <option value="<?php echo $k?$k:'' ?>"<?php if($k==$this->getInfoData('cc_ss_start_year')): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
+                        <?php endforeach ?>
+                        </select>
+                    </div>
                 </div>
-                <div class="v-fix">
-                    <select id="<?php echo $_code ?>_start_year" name="payment[cc_ss_start_year]" class="validate-cc-ukss year">
-                    <?php foreach ($this->getSsStartYears() as $k=>$v): ?>
-                        <option value="<?php echo $k?$k:'' ?>"<?php if($k==$this->getInfoData('cc_ss_start_year')): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
-                    <?php endforeach ?>
-                    </select>
-                </div>
-            </div>
-        </li>
-        <li class="adv-container">&nbsp;</li>
-   </ul>
-    <script type="text/javascript">
-    //<![CDATA[
-    var SSChecked<?php echo $_code ?> = function() {
-        var elm = $('<?php echo $_code ?>_cc_type');
-        if (elm.value=='SS') {
-            $('<?php echo $_code ?>_cc_type_ss_div').show();
-            $('<?php echo $_code ?>_cc_type_cvv_div').hide();
-            $('<?php echo $_code ?>_cc_type_exp_div').hide();
-        } else {
-            $('<?php echo $_code ?>_cc_type_ss_div').hide();
-            $('<?php echo $_code ?>_cc_type_cvv_div').show();
-            $('<?php echo $_code ?>_cc_type_exp_div').show();
-        }
-    };
+            </li>
+            <li class="adv-container">&nbsp;</li>
+       </ul>
+        <script type="text/javascript">
+        //<![CDATA[
+        var SSChecked<?php echo $_code ?> = function() {
+            var elm = $('<?php echo $_code ?>_cc_type');
+            if (['SS','SM','SO'].indexOf(elm.value) != -1) {
+                $('<?php echo $_code ?>_cc_type_ss_div').show();
+                <?php if($this->hasVerification()): ?>
+                    $('<?php echo $_code ?>_cc_type_cvv_div').hide();
+                <?php endif; ?>
+                $('<?php echo $_code ?>_cc_type_exp_div').hide();
+            } else {
+                $('<?php echo $_code ?>_cc_type_ss_div').hide();
+                <?php if($this->hasVerification()): ?>
+                    $('<?php echo $_code ?>_cc_type_cvv_div').show();
+                <?php endif; ?>
+                $('<?php echo $_code ?>_cc_type_exp_div').show();
+            }
+        };
+    
+        Event.observe($('<?php echo $_code ?>_cc_type'), 'change', SSChecked<?php echo $_code ?>);
+        SSChecked<?php echo $_code ?>();
+    
+        Validation.addAllThese([
+            ['validate-cc-ukss', 'Please enter issue number or start date for switch/solo card type.', function(v,elm) {
+                      var endposition;
 
-    Event.observe($('<?php echo $_code ?>_cc_type'), 'change', SSChecked<?php echo $_code ?>);
-    SSChecked<?php echo $_code ?>();
+                      if (elm.id.match(/(.)+_cc_issue$/)) {
+                          endposition = elm.id.indexOf('_cc_issue');
+                      } else if (elm.id.match(/(.)+_start_month$/)) {
+                          endposition = elm.id.indexOf('_start_month');
+                      } else {
+                          endposition = elm.id.indexOf('_start_year');
+                      }
 
-    Validation.addAllThese([
-        ['validate-cc-ukss', 'Please enter issue number or start date for switch/solo card type.', function(v,elm) {
-                  var endposition;
+                      var prefix = elm.id.substr(0,endposition);
 
-                  if (elm.id.match(/(.)+_cc_issue$/)) {
-                      endposition = elm.id.indexOf('_cc_issue');
-                  } else if (elm.id.match(/(.)+_start_month$/)) {
-                      endposition = elm.id.indexOf('_start_month');
-                  } else {
-                      endposition = elm.id.indexOf('_start_year');
-                  }
+                      var ccTypeContainer = $(prefix + '_cc_type');
 
-                  var prefix = elm.id.substr(0,endposition);
+                      if (!ccTypeContainer) {
+                            return true;
+                      }
+                      var ccType = ccTypeContainer.value;
 
-                  var ccTypeContainer = $(prefix + '_cc_type');
+                      if(['SS','SM','SO'].indexOf(elm.value) == -1){
+                          return true;
+                      }
 
-                  if (!ccTypeContainer) {
-                        return true;
-                  }
-                  var ccType = ccTypeContainer.value;
+                      $(prefix + '_cc_issue').advaiceContainer
+                        = $(prefix + '_start_month').advaiceContainer
+                        = $(prefix + '_start_year').advaiceContainer
+                        = $(prefix + '_cc_type_ss_div').down('ul li.adv-container');
 
-                  if(ccType!='SS'){
+                      var ccIssue   =  $(prefix + '_cc_issue').value;
+                      var ccSMonth  =  $(prefix + '_start_month').value;
+                      var ccSYear   =  $(prefix + '_start_year').value;
+
+                      if((!ccIssue && !ccSMonth && !ccSYear) ||
+                         (!ccIssue && !ccSMonth && ccSYear)  ||
+                         (!ccIssue && ccSMonth && !ccSYear)
+                      ){
+                          return false;
+                      }
+
                       return true;
-                  }
 
-                  $(prefix + '_cc_issue').advaiceContainer
-                    = $(prefix + '_start_month').advaiceContainer
-                    = $(prefix + '_start_year').advaiceContainer
-                    = $(prefix + '_cc_type_ss_div').down('ul li.adv-container');
-
-                  var ccIssue   =  $(prefix + '_cc_issue').value;
-                  var ccSMonth  =  $(prefix + '_start_month').value;
-                  var ccSYear   =  $(prefix + '_start_year').value;
-
-                  if((!ccIssue && !ccSMonth && !ccSYear) ||
-                     (!ccIssue && !ccSMonth && ccSYear)  ||
-                     (!ccIssue && ccSMonth && !ccSYear)
-                  ){
-                      return false;
-                  }
-
-                  return true;
-
-        }]
-    ]);
-    //]]>
-    </script>
-</li>
+            }]
+        ]);
+        //]]>
+        </script>
+    </li>
 <?php endif; ?>
-
 </ul>
-
-

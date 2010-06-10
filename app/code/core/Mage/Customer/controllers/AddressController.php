@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -125,7 +125,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                 $accressValidation = $address->validate();
                 if (true === $accressValidation) {
                     $address->save();
-                    $this->_getSession()->addSuccess($this->__('The address was successfully saved'));
+                    $this->_getSession()->addSuccess($this->__('The address has been saved.'));
                     $this->_redirectSuccess(Mage::getUrl('*/*/index', array('_secure'=>true)));
                     return;
                 } else {
@@ -135,7 +135,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                             $this->_getSession()->addError($errorMessage);
                         }
                     } else {
-                        $this->_getSession()->addError($this->__('Can\'t save address'));
+                        $this->_getSession()->addError($this->__('Cannot save the address.'));
                     }
                 }
             }
@@ -145,7 +145,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
             }
             catch (Exception $e) {
                 $this->_getSession()->setAddressFormData($this->getRequest()->getPost())
-                    ->addException($e, $this->__('Can\'t save address'));
+                    ->addException($e, $this->__('Cannot save address.'));
             }
         }
         $this->_redirectError(Mage::getUrl('*/*/edit', array('id'=>$address->getId())));
@@ -160,17 +160,17 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
 
             // Validate address_id <=> customer_id
             if ($address->getCustomerId() != $this->_getSession()->getCustomerId()) {
-                $this->_getSession()->addError($this->__('The address does not belong to this customer'));
+                $this->_getSession()->addError($this->__('The address does not belong to this customer.'));
                 $this->getResponse()->setRedirect(Mage::getUrl('*/*/index'));
                 return;
             }
 
             try {
                 $address->delete();
-                $this->_getSession()->addSuccess($this->__('The address was successfully deleted'));
+                $this->_getSession()->addSuccess($this->__('The address has been deleted.'));
             }
             catch (Exception $e){
-                $this->_getSession()->addError($this->__('There was an error while deleting the address'));
+                $this->_getSession()->addError($this->__('An error occurred while deleting the address.'));
             }
         }
         $this->getResponse()->setRedirect(Mage::getUrl('*/*/index'));

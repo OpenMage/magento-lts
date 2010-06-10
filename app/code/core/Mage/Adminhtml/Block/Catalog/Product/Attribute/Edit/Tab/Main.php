@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -128,15 +128,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
 
         $fieldset->addField('is_searchable', 'select', array(
             'name' => 'is_searchable',
-            'label' => Mage::helper('catalog')->__('Use in quick search'),
-            'title' => Mage::helper('catalog')->__('Use in quick search'),
+            'label' => Mage::helper('catalog')->__('Use in Quick Search'),
+            'title' => Mage::helper('catalog')->__('Use in Quick Search'),
             'values' => $yesnoSource,
         ));
 
         $fieldset->addField('is_visible_in_advanced_search', 'select', array(
             'name' => 'is_visible_in_advanced_search',
-            'label' => Mage::helper('catalog')->__('Use in advanced search'),
-            'title' => Mage::helper('catalog')->__('Use in advanced search'),
+            'label' => Mage::helper('catalog')->__('Use in Advanced Search'),
+            'title' => Mage::helper('catalog')->__('Use in Advanced Search'),
             'values' => $yesnoSource,
         ));
 
@@ -167,17 +167,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             'values' => $yesnoSource,
         ));
 
-        $fieldset->addField('is_used_for_price_rules', 'select', array(
-            'name' => 'is_used_for_price_rules',
-            'label' => Mage::helper('catalog')->__('Use for Price Rule Conditions'),
-            'title' => Mage::helper('catalog')->__('Use for Price Rule Conditions'),
+        $fieldset->addField('is_used_for_promo_rules', 'select', array(
+            'name' => 'is_used_for_promo_rules',
+            'label' => Mage::helper('catalog')->__('Use for Promo Rule Conditions'),
+            'title' => Mage::helper('catalog')->__('Use for Promo Rule Conditions'),
             'values' => $yesnoSource,
         ));
 
         $fieldset->addField('position', 'text', array(
             'name' => 'position',
             'label' => Mage::helper('catalog')->__('Position'),
-            'title' => Mage::helper('catalog')->__('Position In Layered Navigation'),
+            'title' => Mage::helper('catalog')->__('Position in Layered Navigation'),
             'note' => Mage::helper('catalog')->__('Position of attribute in layered navigation block'),
             'class' => 'validate-digits',
         ));
@@ -191,8 +191,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
 
         $htmlAllowed = $fieldset->addField('is_html_allowed_on_front', 'select', array(
             'name' => 'is_html_allowed_on_front',
-            'label' => Mage::helper('catalog')->__('Allow HTML-tags on Front-end'),
-            'title' => Mage::helper('catalog')->__('Allow HTML-tags on Front-end'),
+            'label' => Mage::helper('catalog')->__('Allow HTML Tags on Frontend'),
+            'title' => Mage::helper('catalog')->__('Allow HTML Tags on Frontend'),
             'values' => $yesnoSource,
         ));
         if (!$attributeObject->getId() || $attributeObject->getIsWysiwygEnabled()) {
@@ -208,15 +208,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
 
         $fieldset->addField('used_in_product_listing', 'select', array(
             'name'      => 'used_in_product_listing',
-            'label'     => Mage::helper('catalog')->__('Used in product listing'),
-            'title'     => Mage::helper('catalog')->__('Used in product listing'),
+            'label'     => Mage::helper('catalog')->__('Used in Product Listing'),
+            'title'     => Mage::helper('catalog')->__('Used in Product Listing'),
             'note'      => Mage::helper('catalog')->__('Depends on design theme'),
             'values'    => $yesnoSource,
         ));
         $fieldset->addField('used_for_sort_by', 'select', array(
             'name'      => 'used_for_sort_by',
-            'label'     => Mage::helper('catalog')->__('Used for sorting in product listing'),
-            'title'     => Mage::helper('catalog')->__('Used for sorting in product listing'),
+            'label'     => Mage::helper('catalog')->__('Used for Sorting in Product Listing'),
+            'title'     => Mage::helper('catalog')->__('Used for Sorting in Product Listing'),
             'note'      => Mage::helper('catalog')->__('Depends on design theme'),
             'values'    => $yesnoSource,
         ));
@@ -234,6 +234,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
         $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
             ->addFieldMap("is_wysiwyg_enabled", 'wysiwyg_enabled')
             ->addFieldMap("is_html_allowed_on_front", 'html_allowed_on_front')
+            ->addFieldMap("frontend_input", 'frontend_input_type')
+            ->addFieldDependence('wysiwyg_enabled', 'frontend_input_type', 'textarea')
             ->addFieldDependence('html_allowed_on_front', 'wysiwyg_enabled', '0')
         );
 

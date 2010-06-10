@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +48,7 @@ class Mage_Tax_Model_Mysql4_Class extends Mage_Core_Model_Mysql4_Abstract
     {
         $this->_uniqueFields = array(array(
             'field' => array('class_type', 'class_name'),
-            'title' => Mage::helper('tax')->__('Error while saving this tax class. Class with the same name '),
+            'title' => Mage::helper('tax')->__('An error occurred while saving this tax class. A class with the same name already exists.'),
         ));
         return $this;
     }

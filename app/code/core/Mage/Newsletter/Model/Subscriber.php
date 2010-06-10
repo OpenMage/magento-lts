@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,6 +44,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     const XML_PATH_UNSUBSCRIBE_EMAIL_TEMPLATE   = 'newsletter/subscription/un_email_template';
     const XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY   = 'newsletter/subscription/un_email_identity';
     const XML_PATH_CONFIRMATION_FLAG            = 'newsletter/subscription/confirm';
+    const XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG   = 'newsletter/subscription/allow_guest_subscribe';
 
     const XML_PATH_SENDING_SET_RETURN_PATH      = Mage_Core_Model_Email_Template::XML_PATH_SENDING_SET_RETURN_PATH;
 
@@ -267,21 +268,27 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     public function subscribe($email)
     {
         $this->loadByEmail($email);
-        $customer = Mage::getModel('customer/customer')
-           ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
-           ->loadByEmail($email);
-
         $customerSession = Mage::getSingleton('customer/session');
 
         if(!$this->getId()) {
             $this->setSubscriberConfirmCode($this->randomSequence());
         }
 
-        $isConfirmNeed = Mage::getStoreConfig(self::XML_PATH_CONFIRMATION_FLAG) == 1 ? true : false;
+        $isConfirmNeed = (Mage::getStoreConfig(self::XML_PATH_CONFIRMATION_FLAG) == 1) ? true : false;
 
-        if (!$this->getId() || $this->getStatus()==self::STATUS_UNSUBSCRIBED || $this->getStatus()==self::STATUS_NOT_ACTIVE) {
+        if (!$this->getId() || $this->getStatus() == self::STATUS_UNSUBSCRIBED || $this->getStatus() == self::STATUS_NOT_ACTIVE) {
             if ($isConfirmNeed) {
-                $this->setStatus(self::STATUS_NOT_ACTIVE);
+                // if user subscribes own login email - confirmation is not needed
+                $ownerId = Mage::getModel('customer/customer')
+                    ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
+                    ->loadByEmail($email)
+                    ->getId();
+                if ($customerSession->isLoggedIn() && $ownerId == $customerSession->getId()){
+                    $this->setStatus(self::STATUS_SUBSCRIBED);
+                }
+                else {
+                    $this->setStatus(self::STATUS_NOT_ACTIVE);
+                }
             } else {
                 $this->setStatus(self::STATUS_SUBSCRIBED);
             }
@@ -290,12 +297,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 
         if ($customerSession->isLoggedIn()) {
             $this->setStoreId($customerSession->getCustomer()->getStoreId());
-            $this->setStatus(self::STATUS_SUBSCRIBED);
             $this->setCustomerId($customerSession->getCustomerId());
-        } else if ($customer->getId()) {
-            $this->setStoreId($customer->getStoreId());
-            $this->setSubscriberStatus(self::STATUS_SUBSCRIBED);
-            $this->setCustomerId($customer->getId());
         } else {
             $this->setStoreId(Mage::app()->getStore()->getId());
             $this->setCustomerId(0);
@@ -312,7 +314,8 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             }
 
             return $this->getStatus();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
@@ -320,7 +323,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     public function unsubscribe()
     {
         if ($this->hasCheckCode() && $this->getCode() != $this->getCheckCode()) {
-            Mage::throwException(Mage::helper('newsletter')->__('Invalid subscription confirmation code'));
+            Mage::throwException(Mage::helper('newsletter')->__('Invalid subscription confirmation code.'));
         }
 
         $this->setSubscriberStatus(self::STATUS_UNSUBSCRIBED)
@@ -330,7 +333,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Saving customer cubscription status
+     * Saving customer subscription status
      *
      * @param   Mage_Customer_Model_Customer $customer
      * @return  Mage_Newsletter_Model_Subscriber

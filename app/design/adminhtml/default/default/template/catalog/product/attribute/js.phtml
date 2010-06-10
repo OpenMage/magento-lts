@@ -20,11 +20,12 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <script type="text/javascript">
+//<![CDATA[
 function saveAndContinueEdit(){
     var activeTab = product_attribute_tabsJsTabs.activeTab.id;
     if (editForm.submit($('edit_form').action+'back/edit/tab/' + activeTab) != false) {
@@ -106,25 +107,26 @@ function bindAttributeInputType()
         }
     }
 
+    setRowVisibility('is_wysiwyg_enabled', false);
+    setRowVisibility('is_html_allowed_on_front', false);
     if ($('frontend_input').value=='textarea') {
         setRowVisibility('is_wysiwyg_enabled', true);
-        setRowVisibility('is_html_allowed_on_front', false);
-
+        if($('is_wysiwyg_enabled').value == '0'){
+            setRowVisibility('is_html_allowed_on_front', true);
+            $('is_html_allowed_on_front').disabled = false;
+        }
         $('frontend_class').value = '';
         $('frontend_class').disabled = true;
     }
     else if($('frontend_input').value=='text'){
-        setRowVisibility('is_wysiwyg_enabled', false);
         setRowVisibility('is_html_allowed_on_front', true);
+        $('is_html_allowed_on_front').disabled = false;
 
         if (!$('frontend_class').getAttribute('readonly')) {
             $('frontend_class').disabled = false;
         }
     }
     else{
-        setRowVisibility('is_wysiwyg_enabled', false);
-        setRowVisibility('is_html_allowed_on_front', false);
-
         $('frontend_class').value = '';
         $('frontend_class').disabled = true;
     }
@@ -317,4 +319,5 @@ if ($('is_required')) {
     Event.observe($('is_required'), 'change', updateRequriedOptions);
 }
 bindAttributeInputType();
+//]]>
 </script>

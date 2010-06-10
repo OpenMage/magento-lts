@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /**
@@ -34,7 +34,7 @@
         <?php echo $this->helper('tax')->__('Subtotal (Excl. Tax)') ?>
     </td>
     <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValueExclTax()) ?>
+        <?php echo $this->formatPrice($this->getTotal()->getValueExclTax()) ?>
     </td>
 </tr>
 <tr>
@@ -42,7 +42,7 @@
         <?php echo $this->helper('tax')->__('Subtotal (Incl. Tax)') ?>
     </td>
     <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValueInclTax()) ?>
+        <?php echo $this->formatPrice($this->getTotal()->getValueInclTax()) ?>
     </td>
 </tr>
 <?php else : ?>
@@ -51,7 +51,7 @@
         <?php echo $this->getTotal()->getTitle() ?>
     </td>
     <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValue()) ?>
+        <?php echo $this->formatPrice($this->getTotal()->getValue()) ?>
     </td>
 </tr>
 <?php endif;?>

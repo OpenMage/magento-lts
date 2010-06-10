@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Install
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,6 +31,11 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 {
     public function preDispatch()
     {
+        if (Mage::isInstalled()) {
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
+            $this->_redirect('/');
+            return;
+        }
         $this->setFlag('', self::FLAG_NO_CHECK_INSTALLATION, true);
         return parent::preDispatch();
     }
@@ -318,7 +323,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
                 if($data['db_prefix']!='') {
                     if(!preg_match('/^[a-z]+[a-z0-9_]*$/',$data['db_prefix'])) {
                         Mage::throwException(
-                            Mage::helper('install')->__('Table prefix should contain only letters (a-z), numbers (0-9) or underscore(_), first character should be a letter'));
+                            Mage::helper('install')->__('The table prefix should contain only letters (a-z), numbers (0-9) or underscores (_), the first character should be a letter.'));
                     }
                 }
                 $this->_getInstaller()->installConfig($data);

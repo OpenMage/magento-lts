@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -31,5 +31,6 @@
  */
 ?>
 <!-- PayPal Logo -->
-<a href="#" title="<?php echo Mage::helper('paypal')->__('Acceptance Mark') ?>" onclick="javascript:window.open('<?php echo $this->getPaymentAcceptanceMarkHref()?>','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, ,left=0, top=0, width=400, height=350'); return false;"><img src="<?php echo $this->getPaymentAcceptanceMarkSrc()?>" alt="<?php echo Mage::helper('paypal')->__('Acceptance Mark') ?>" class="v-middle" /></a>
+<img src="<?php echo $this->escapeHtml($this->getPaymentAcceptanceMarkSrc())?>" alt="<?php echo Mage::helper('paypal')->__('Acceptance Mark') ?>" class="v-middle" />&nbsp;
+<a href="<?php echo $this->getPaymentAcceptanceMarkHref()?>" onclick="javascript:window.open('<?php echo $this->getPaymentAcceptanceMarkHref()?>','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, ,left=0, top=0, width=400, height=350'); return false;"><?php echo Mage::helper('paypal')->__('What is PayPal?') ?></a>
 <!-- PayPal Logo -->

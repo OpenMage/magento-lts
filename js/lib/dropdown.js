@@ -17,18 +17,20 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    Mage
+ * @package     js
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 dropdown = function() {
-	var ele = document.getElementById("nav").getElementsByTagName("LI");
-	for (var i=0; i<ele.length; i++) {
-		ele[i].onmouseover=function() {
-			this.className+=" over";
-		}
-		ele[i].onmouseout=function() {
-			this.className=this.className.replace(new RegExp(" over\\b"), "");
-		}
-	}
+    var ele = document.getElementById("nav").getElementsByTagName("LI");
+    for (var i=0; i<ele.length; i++) {
+        ele[i].onmouseover=function() {
+            this.className+=" over";
+        }
+        ele[i].onmouseout=function() {
+            this.className=this.className.replace(new RegExp(" over\\b"), "");
+        }
+    }
 }
 if (window.attachEvent) window.attachEvent("onload", dropdown);

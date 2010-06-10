@@ -85,11 +85,11 @@ class Phoenix_Moneybookers_Model_Event
             $msg = '';
             switch($params['status']) {
                 case self::MONEYBOOKERS_STATUS_FAIL: //fail
-                    $msg = Mage::helper('moneybookers')->__('Payment failed');
+                    $msg = Mage::helper('moneybookers')->__('Payment failed.');
                     $this->_processCancel($msg);
                     break;
                 case self::MONEYBOOKERS_STATUS_CANCEL: //cancel
-                    $msg = Mage::helper('moneybookers')->__('Payment was canceled');
+                    $msg = Mage::helper('moneybookers')->__('Payment was canceled.');
                     $this->_processCancel($msg);
                     break;
                 case self::MONEYBOOKERS_STATUS_PENDING: //pending
@@ -116,7 +116,7 @@ class Phoenix_Moneybookers_Model_Event
     public function cancelEvent() {
         try {
             $this->_validateEventData(false);
-            $this->_processCancel('Payment was canceled');
+            $this->_processCancel('Payment was canceled.');
             return Mage::helper('moneybookers')->__('The order has been canceled.');
         } catch (Mage_Core_Exception $e) {
             return $e->getMessage();
@@ -199,7 +199,7 @@ class Phoenix_Moneybookers_Model_Event
         // get request variables
         $params = $this->_eventData;
         if (empty($params)) {
-            Mage::throwException('Request doesn\'t contain any elements.');
+            Mage::throwException('Request does not contain any elements.');
         }
 
         // check order ID
@@ -217,12 +217,12 @@ class Phoenix_Moneybookers_Model_Event
         if ($fullCheck) {
             // check payment status
             if (empty($params['status'])) {
-                Mage::throwException('Unknown payment status');
+                Mage::throwException('Unknown payment status.');
             }
 
             // check transaction signature
             if (empty($params['md5sig'])) {
-                Mage::throwException('Invalid transaction signature');
+                Mage::throwException('Invalid transaction signature.');
             }
 
             $checkParams = array('merchant_id', 'transaction_id', 'secret', 'mb_amount', 'mb_currency', 'status');
@@ -245,7 +245,7 @@ class Phoenix_Moneybookers_Model_Event
             // check transaction amount if currency matches
             if ($this->_order->getOrderCurrencyCode() == $params['mb_currency']) {
                 if (round($this->_order->getGrandTotal(), 2) != $params['mb_amount']) {
-                    Mage::throwException('Transaction amount doesn\'t match.');
+                    Mage::throwException('Transaction amount does not match.');
                 }
             }
         }

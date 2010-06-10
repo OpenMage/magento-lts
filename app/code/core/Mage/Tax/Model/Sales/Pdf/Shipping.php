@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +42,10 @@ class Mage_Tax_Model_Sales_Pdf_Shipping extends Mage_Sales_Model_Order_Pdf_Total
         $store = $this->getOrder()->getStore();
         $config= Mage::getSingleton('tax/config');
         $amount = $this->getOrder()->formatPriceTxt($this->getAmount());
-        $amountInclTax = $this->getAmount()+$this->getSource()->getShippingTaxAmount();
+        $amountInclTax = $this->getSource()->getShippingInclTax();
+        if (!$amountInclTax) {
+            $amountInclTax = $this->getAmount()+$this->getSource()->getShippingTaxAmount();
+        }
         $amountInclTax = $this->getOrder()->formatPriceTxt($amountInclTax);
         $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
 

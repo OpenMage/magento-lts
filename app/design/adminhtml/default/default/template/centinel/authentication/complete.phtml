@@ -20,21 +20,19 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if ($this->getIsSuccess()):?>
-
-<h1><?php echo $this->__('Verification Successful');?></h1>
-<p><?php echo $this->__('Please continue with placing order.')?></p>
-
+<?php if ($this->getIsProcessed()):?>
+    <?php if ($this->getIsSuccess()):?>
+        <h1><?php echo $this->__('Verification Successful');?></h1>
+        <p><?php echo $this->__('Please continue with placing order.')?></p>
+    <?php else:?>
+        <h4><?php echo $this->__('Verification Failed');?></h4>
+        <p><?php echo $this->__('The card has failed verification with the issuer bank.')?> <strong><?php echo $this->__('Order cannot be placed.')?></strong></p>
+    <?php endif;?>
 <?php else:?>
-
-<h1><?php echo $this->__('Verification Failed');?></h1>
-<p>
-<?php echo $this->__('The card has failed verification with issuer bank.')?>
-<strong><?php echo $this->__('Order cannot be placed.')?></strong>
-</p>
-
+    <h4><?php echo $this->__('Verification cannot be processed');?></h4>
+    <p><?php echo $this->__('There has been wrong payment information submitted or time limit has expired. Please, try again.')?> <strong><?php echo $this->__('Order cannot be placed.')?></strong></p>
 <?php endif;?>

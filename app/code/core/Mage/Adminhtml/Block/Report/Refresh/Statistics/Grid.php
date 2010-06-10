@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,39 +58,45 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
         $data = array(
             array(
                 'id'            => 'sales',
-                'report'        => Mage::helper('reports')->__('Sales'),
-                'comment'       => Mage::helper('reports')->__('Total Ordered Report'),
+                'report'        => Mage::helper('sales')->__('Orders'),
+                'comment'       => Mage::helper('sales')->__('Total Ordered Report'),
                 'updated_at'    => $this->_getUpdatedAt(Mage_Reports_Model_Flag::REPORT_ORDER_FLAG_CODE)
             ),
             array(
                 'id'            => 'tax',
-                'report'        => Mage::helper('reports')->__('Tax'),
-                'comment'       => Mage::helper('reports')->__('Order Taxes Report Grouped by Tax Rates'),
+                'report'        => Mage::helper('sales')->__('Tax'),
+                'comment'       => Mage::helper('sales')->__('Order Taxes Report Grouped by Tax Rates'),
                 'updated_at'    => $this->_getUpdatedAt(Mage_Reports_Model_Flag::REPORT_TAX_FLAG_CODE)
             ),
             array(
                 'id'            => 'shipping',
-                'report'        => Mage::helper('reports')->__('Shipping'),
-                'comment'       => Mage::helper('reports')->__('Total Shipped Report'),
+                'report'        => Mage::helper('sales')->__('Shipping'),
+                'comment'       => Mage::helper('sales')->__('Total Shipped Report'),
                 'updated_at'    => $this->_getUpdatedAt(Mage_Reports_Model_Flag::REPORT_SHIPPING_FLAG_CODE)
             ),
             array(
                 'id'            => 'invoiced',
-                'report'        => Mage::helper('reports')->__('Total Invoiced'),
-                'comment'       => Mage::helper('reports')->__('Total Invoiced VS Paid Report'),
+                'report'        => Mage::helper('sales')->__('Total Invoiced'),
+                'comment'       => Mage::helper('sales')->__('Total Invoiced VS Paid Report'),
                 'updated_at'    => $this->_getUpdatedAt(Mage_Reports_Model_Flag::REPORT_INVOICE_FLAG_CODE)
             ),
             array(
                 'id'            => 'refunded',
-                'report'        => Mage::helper('reports')->__('Total Refunded'),
-                'comment'       => Mage::helper('reports')->__('Total Refunded Report'),
+                'report'        => Mage::helper('sales')->__('Total Refunded'),
+                'comment'       => Mage::helper('sales')->__('Total Refunded Report'),
                 'updated_at'    => $this->_getUpdatedAt(Mage_Reports_Model_Flag::REPORT_REFUNDED_FLAG_CODE)
             ),
             array(
                 'id'            => 'coupons',
-                'report'        => Mage::helper('reports')->__('Coupons'),
-                'comment'       => Mage::helper('reports')->__('Promotion Coupons Usage Report'),
-                'updated_at'    => $this->_getUpdatedAt(Mage_Reports_Model_Flag::REPORT_COUPNS_FLAG_CODE)
+                'report'        => Mage::helper('sales')->__('Coupons'),
+                'comment'       => Mage::helper('sales')->__('Promotion Coupons Usage Report'),
+                'updated_at'    => $this->_getUpdatedAt(Mage_Reports_Model_Flag::REPORT_COUPONS_FLAG_CODE)
+            ),
+            array(
+                'id'            => 'bestsellers',
+                'report'        => Mage::helper('sales')->__('Bestsellers'),
+                'comment'       => Mage::helper('sales')->__('Products Bestsellers Report'),
+                'updated_at'    => $this->_getUpdatedAt(Mage_Reports_Model_Flag::REPORT_BESTSELLERS_FLAG_CODE)
             )
         );
 
@@ -127,6 +133,7 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
             'index'     => 'updated_at',
             'type'      => 'datetime',
             'width'     => 200,
+            'default'   => Mage::helper('reports')->__('undefined'),
             'sortable'  => false
         ));
 
@@ -145,7 +152,7 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
         ));
 
         $this->getMassactionBlock()->addItem('refresh_recent', array(
-            'label'    => Mage::helper('reports')->__('Refresh Statistics for Last Day'),
+            'label'    => Mage::helper('reports')->__('Refresh Statistics for the Last Day'),
             'url'      => $this->getUrl('*/*/refreshRecent'),
             'confirm'  => Mage::helper('reports')->__('Are you sure?'),
             'selected' => true

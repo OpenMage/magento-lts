@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -113,21 +113,6 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Grid extends Mage_Adminhtml_Block_
                 )
             )
         ));
-
-//        $this->addColumn('action', array(
-//            'header'    =>Mage::helper('adminhtml')->__('Action'),
-//            'width'     =>'60px',
-//            'sortable'  =>false,
-//            'filter'    => false,
-//            'type' => 'action',
-//            'actions' => array(
-//                array(
-//                    'url' => $this->getUrl('*/*/run').'id/$profile_id',
-//                    'caption' => Mage::helper('adminhtml')->__('Run in popup'),
-//                    'target' => '_blank',
-//                ),
-//            )
-//        ));
 
         return parent::_prepareColumns();
     }

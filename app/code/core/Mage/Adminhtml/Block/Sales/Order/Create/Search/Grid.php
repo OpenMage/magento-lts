@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -94,6 +94,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
             ->addAttributeToSelect('name')
             ->addAttributeToSelect('sku')
             ->addAttributeToSelect('price')
+            ->addMinimalPrice()
             ->addAttributeToFilter('type_id', array_keys(
                 Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()
             ))
@@ -139,7 +140,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
             'type'      => 'currency',
             'currency_code' => $this->getStore()->getCurrentCurrencyCode(),
             'rate'      => $this->getStore()->getBaseCurrency()->getRate($this->getStore()->getCurrentCurrencyCode()),
-            'index'     => 'price'
+            'index'     => 'price',
+            'renderer'  => 'adminhtml/sales_order_create_search_grid_renderer_price'
         ));
 
         $this->addColumn('in_products', array(

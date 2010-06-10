@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -128,7 +128,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function getResourceCollection()
     {
         if (empty($this->_resourceCollectionName)) {
-            Mage::throwException(Mage::helper('core')->__('Model collection resource name is not defined'));
+            Mage::throwException(Mage::helper('core')->__('The model collection resource name is not defined.'));
         }
         $collection = Mage::getResourceModel($this->_resourceCollectionName);
         $collection->setStoreId($this->getStoreId());
@@ -151,10 +151,17 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Validate Product Data
      *
+     * @todo implement full validation process with errors returning which are ignoring now
+     * 
      * @return Mage_Catalog_Model_Product
      */
     public function validate()
     {
+//        $this->getAttributes();
+//        Mage::dispatchEvent($this->_eventPrefix.'_validate_before', array($this->_eventObject=>$this));
+//        $result = $this->_getResource()->validate($this);
+//        Mage::dispatchEvent($this->_eventPrefix.'_validate_after', array($this->_eventObject=>$this));
+//        return $result;
         Mage::dispatchEvent($this->_eventPrefix.'_validate_before', array($this->_eventObject=>$this));
         $this->_getResource()->validate($this);
         Mage::dispatchEvent($this->_eventPrefix.'_validate_after', array($this->_eventObject=>$this));
@@ -308,7 +315,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $ids = explode(',', $ids);
         }
         elseif (!is_array($ids)) {
-            Mage::throwException(Mage::helper('catalog')->__('Invalid category IDs'));
+            Mage::throwException(Mage::helper('catalog')->__('Invalid category IDs.'));
         }
         foreach ($ids as $i => $v) {
             if (empty($v)) {
@@ -1203,6 +1210,16 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function isVirtual()
     {
         return $this->getIsVirtual();
+    }
+
+    /**
+     * Whether the product is a recurring payment
+     *
+     * @return bool
+     */
+    public function isRecurring()
+    {
+        return $this->getIsRecurring() == '1';
     }
 
     public function isSaleable()

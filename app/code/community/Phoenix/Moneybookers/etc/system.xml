@@ -27,8 +27,8 @@
             <frontend_type>text</frontend_type>
             <sort_order>990</sort_order>
             <show_in_default>1</show_in_default>
-            <show_in_website>0</show_in_website>
-            <show_in_store>0</show_in_store>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
             <groups>
                 <settings translate="label">
                     <label>Moneybookers Settings</label>
@@ -40,7 +40,7 @@
                     <fields>
                         <moneybookers_email translate="label,comment">
                             <label>Email Address of Your Moneybookers Account</label>
-                            <comment><![CDATA[To have access to the international payment network of Moneybookers please register <a href="http://www.moneybookers.com/" target="_blank">here</a> for a free account if you don’t have one yet.]]></comment>
+                            <comment><![CDATA[To have access to the international payment network of Moneybookers please register <a href="http://www.moneybookers.com/partners/magento/" target="_blank">here</a> for a free account if you don’t have one yet.]]></comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
@@ -80,7 +80,7 @@
                     <sort_order>201</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -89,7 +89,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -97,7 +97,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -105,7 +105,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -114,7 +114,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -123,7 +123,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>
@@ -134,7 +134,7 @@
                     <sort_order>252</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -143,7 +143,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -151,7 +151,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -159,7 +159,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -168,7 +168,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -177,7 +177,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>
@@ -188,7 +188,7 @@
                     <sort_order>211</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -197,7 +197,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -205,7 +205,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -213,7 +213,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -222,7 +222,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -231,7 +231,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>
@@ -242,7 +242,7 @@
                     <sort_order>241</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -251,7 +251,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -259,7 +259,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -267,7 +267,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -276,7 +276,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -285,7 +285,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>
@@ -296,7 +296,7 @@
                     <sort_order>271</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -305,7 +305,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -313,7 +313,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -321,7 +321,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -330,7 +330,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -339,7 +339,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>
@@ -350,7 +350,7 @@
                     <sort_order>261</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -359,7 +359,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -367,7 +367,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -375,7 +375,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -384,7 +384,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -393,7 +393,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>
@@ -404,7 +404,7 @@
                     <sort_order>231</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -413,7 +413,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -421,7 +421,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -429,7 +429,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -438,7 +438,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -447,7 +447,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>
@@ -458,7 +458,7 @@
                     <sort_order>212</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -467,7 +467,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -475,7 +475,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -483,7 +483,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -492,7 +492,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -501,7 +501,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>
@@ -512,7 +512,7 @@
                     <sort_order>291</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -521,7 +521,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -529,7 +529,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -537,7 +537,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -546,7 +546,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -555,7 +555,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>
@@ -566,7 +566,7 @@
                     <sort_order>221</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -575,7 +575,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -583,7 +583,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -591,7 +591,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -600,7 +600,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -609,7 +609,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>
@@ -620,7 +620,7 @@
                     <sort_order>301</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -629,7 +629,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -637,7 +637,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -645,7 +645,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -654,7 +654,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -663,7 +663,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>
@@ -674,7 +674,7 @@
                     <sort_order>311</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -683,7 +683,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -691,7 +691,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -699,7 +699,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -708,7 +708,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -717,7 +717,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>
@@ -728,7 +728,7 @@
                     <sort_order>251</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -737,7 +737,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -745,7 +745,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -753,7 +753,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -762,7 +762,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -771,7 +771,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>
@@ -782,7 +782,7 @@
                     <sort_order>321</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -791,7 +791,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -799,7 +799,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -807,7 +807,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -816,7 +816,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -825,7 +825,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>
@@ -836,7 +836,7 @@
                     <sort_order>213</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -845,7 +845,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -853,7 +853,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -861,7 +861,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -870,7 +870,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -879,7 +879,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>
@@ -890,7 +890,7 @@
                     <sort_order>281</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -899,7 +899,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -907,7 +907,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -915,7 +915,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -924,7 +924,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -933,7 +933,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>
@@ -944,7 +944,7 @@
                     <sort_order>331</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -953,7 +953,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </active>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -961,7 +961,7 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -969,7 +969,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </title>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -978,7 +978,7 @@
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
@@ -987,7 +987,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
                     </fields>

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -31,7 +31,7 @@
  * @see Mage_Checkout_Block_Cart_Sidebar
  */
 ?>
-<?php if($this->getCanDisplayCart()): ?>
+<?php if($this->getCanDisplayCart() && $this->getIsNeedToDisplaySideBar()): ?>
 <div class="box base-mini mini-cart">
     <div class="head">
         <?php $_cartQty = $this->getSummaryCount() ?>

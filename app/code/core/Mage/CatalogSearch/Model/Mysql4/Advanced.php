@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -134,9 +134,6 @@ class Mage_CatalogSearch_Model_Mysql4_Advanced extends Mage_Core_Model_Mysql4_Ab
         if (is_string($value) && strlen($value) == 0) {
             return false;
         }
-        if (is_array($value) && (isset($value['from']) || isset($value['to']))) {
-            return false;
-        }
 
         if ($attribute->getIndexType() == 'decimal') {
             $table = $this->getTable('catalog/product_index_eav_decimal');
@@ -155,6 +152,17 @@ class Mage_CatalogSearch_Model_Mysql4_Advanced extends Mage_Core_Model_Mysql4_Ab
                 . " AND {$tableAlias}.store_id={$storeId}",
             array()
         );
+
+        if (is_array($value) && (isset($value['from']) || isset($value['to']))) {
+            if (isset($value['from']) && !empty($value['from'])) {
+                $select->where("{$tableAlias}.`value` >= ?", $value['from']);
+            }
+            if (isset($value['to']) && !empty($value['to'])) {
+                $select->where("{$tableAlias}.`value` <= ?", $value['to']);
+            }
+            return true;
+        }
+
         $select->where("{$tableAlias}.`value` IN(?)", $value);
 
         return true;

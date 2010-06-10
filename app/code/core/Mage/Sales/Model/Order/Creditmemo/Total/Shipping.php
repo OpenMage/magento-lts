@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,8 +36,15 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
         $order = $creditmemo->getOrder();
-        $allowedAmount      = $order->getShippingAmount()-$order->getShippingRefunded();
-        $baseAllowedAmount  = $order->getBaseShippingAmount()-$order->getBaseShippingRefunded();
+        $allowedAmount          = $order->getShippingAmount()-$order->getShippingRefunded();
+        $baseAllowedAmount      = $order->getBaseShippingAmount()-$order->getBaseShippingRefunded();
+
+        $shipping               = $order->getShippingAmount();
+        $baseShipping           = $order->getBaseShippingAmount();
+        $shippingInclTax        = $order->getShippingInclTax();
+        $baseShippingInclTax    = $order->getBaseShippingInclTax();
+
+        $isShippingInclTax = Mage::getSingleton('tax/config')->displaySalesShippingInclTax($order->getStoreId());
 
         /**
          * Check if shipping amount was specified (from invoice or another source).
@@ -45,27 +52,36 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
          */
         if ($creditmemo->hasBaseShippingAmount()) {
             $baseShippingAmount = Mage::app()->getStore()->roundPrice($creditmemo->getBaseShippingAmount());
-            if ($baseShippingAmount<$baseAllowedAmount) {
-                $shippingAmount = $allowedAmount*$baseShippingAmount/$baseAllowedAmount;
-                $shippingAmount = Mage::app()->getStore()->roundPrice($shippingAmount);
-            } elseif ($baseShippingAmount==$baseAllowedAmount) {
-                $shippingAmount = $allowedAmount;
+            if ($isShippingInclTax) {
+                $part = $baseShippingAmount/$baseShippingInclTax;
+                $shippingInclTax    = Mage::app()->getStore()->roundPrice($shippingInclTax*$part);
+                $baseShippingInclTax= $baseShippingAmount;
+                $baseShippingAmount = Mage::app()->getStore()->roundPrice($baseShipping*$part);;
+            }
+            if ($baseShippingAmount<= $baseAllowedAmount) {
+                $shipping       = $shipping*$baseShippingAmount/$baseShipping;
+                $shipping       = Mage::app()->getStore()->roundPrice($shipping);
+                $baseShipping   = $baseShippingAmount;
             } else {
                 $baseAllowedAmount = $order->formatBasePrice($baseAllowedAmount);
                 Mage::throwException(
-                    Mage::helper('sales')->__('Maximum shipping amount allowed to refound is: %s', $baseAllowedAmount)
+                    Mage::helper('sales')->__('Maximum shipping amount allowed to refund is: %s', $baseAllowedAmount)
                 );
             }
         } else {
-            $baseShippingAmount = $baseAllowedAmount;
-            $shippingAmount     = $allowedAmount;
+            $shippingInclTax    = Mage::app()->getStore()->roundPrice($shippingInclTax * $allowedAmount/$shipping);
+            $baseShippingInclTax= Mage::app()->getStore()->roundPrice($baseShippingInclTax * $baseAllowedAmount/$baseShipping);
+            $shipping           = $allowedAmount;
+            $baseShipping       = $baseAllowedAmount;
         }
 
-        $creditmemo->setShippingAmount($shippingAmount);
-        $creditmemo->setBaseShippingAmount($baseShippingAmount);
+        $creditmemo->setShippingAmount($shipping);
+        $creditmemo->setBaseShippingAmount($baseShipping);
+        $creditmemo->setShippingInclTax($shippingInclTax);
+        $creditmemo->setBaseShippingInclTax($baseShippingInclTax);
 
-        $creditmemo->setGrandTotal($creditmemo->getGrandTotal()+$shippingAmount);
-        $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal()+$baseShippingAmount);
+        $creditmemo->setGrandTotal($creditmemo->getGrandTotal()+$shipping);
+        $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal()+$baseShipping);
         return $this;
     }
 }

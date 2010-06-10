@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -139,7 +139,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
             try {
                 $variable->save();
                 $this->_getSession()->addSuccess(
-                    Mage::helper('adminhtml')->__('Custom Variable has been successfully saved.')
+                    Mage::helper('adminhtml')->__('The custom variable has been saved.')
                 );
                 if ($back) {
                     $this->_redirect('*/*/edit', array('_current' => true, 'variable_id' => $variable->getId()));
@@ -168,7 +168,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
             try {
                 $variable->delete();
                 $this->_getSession()->addSuccess(
-                    Mage::helper('adminhtml')->__('Custom Variable has been successfully deleted.')
+                    Mage::helper('adminhtml')->__('The custom variable has been deleted.')
                 );
             } catch (Exception $e) {
                 $this->_getSession()->addError($e->getMessage());

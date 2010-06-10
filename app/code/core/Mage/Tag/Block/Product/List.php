@@ -20,13 +20,20 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
 {
     protected $_collection;
+
+    /**
+     * Unique Html Id
+     *
+     * @var string
+     */
+    protected $_uniqueHtmlId = null;
 
     public function getCount()
     {
@@ -55,9 +62,9 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
                 ->addPopularity()
                 ->addStatusFilter($model->getApprovedStatus())
                 ->addProductFilter($this->getProductId())
+                ->setFlag('relation', true)
                 ->addStoreFilter(Mage::app()->getStore()->getId())
                 ->setActiveFilter()
-                ->setFlag('relation', true)
                 ->load();
         }
         return $this->_collection;
@@ -78,5 +85,37 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
             'product' => $this->getProductId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => Mage::helper('core/url')->getEncodedUrl()
         ));
+    }
+
+    /**
+     * Render tags by specified pattern and implode them by specified 'glue' string
+     *
+     * @param string $pattern
+     * @param string $glue
+     * @return string
+     */
+    public function renderTags($pattern, $glue = ' ')
+    {
+        $out = array();
+        foreach ($this->getTags() as $tag) {
+            $out[] = sprintf($pattern,
+                $tag->getTaggedProductsUrl(), $this->htmlEscape($tag->getName()), $tag->getProducts()
+            );
+        }
+        return implode($out, $glue);
+    }
+
+    /**
+     * Generate unique html id
+     *
+     * @param string $prefix
+     * @return string
+     */
+    public function getUniqueHtmlId($prefix = '')
+    {
+        if (is_null($this->_uniqueHtmlId)) {
+            $this->_uniqueHtmlId = Mage::helper('core/data')->uniqHash($prefix);
+        }
+        return $this->_uniqueHtmlId;
     }
 }

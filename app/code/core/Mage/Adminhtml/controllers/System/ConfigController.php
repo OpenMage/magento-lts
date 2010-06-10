@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,7 +57,6 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
         $configFields = Mage::getSingleton('adminhtml/config');
 
-
         $sections     = $configFields->getSections($current);
         $section      = $sections->$current;
         $hasChildren  = $configFields->hasChildren($section, $website, $store);
@@ -69,7 +68,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
         $this->_setActiveMenu('system/config');
 
-       $this->_addBreadcrumb(Mage::helper('adminhtml')->__('System'), Mage::helper('adminhtml')->__('System'), $this->getUrl('*/system'));
+        $this->_addBreadcrumb(Mage::helper('adminhtml')->__('System'), Mage::helper('adminhtml')->__('System'), $this->getUrl('*/system'));
 
         $this->getLayout()->getBlock('left')
             ->append($this->getLayout()->createBlock('adminhtml/system_config_tabs')->initTabs());
@@ -95,7 +94,6 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         /* @var $session Mage_Adminhtml_Model_Session */
 
         $groups = $this->getRequest()->getPost('groups');
-
 
         if (isset($_FILES['groups']['name']) && is_array($_FILES['groups']['name'])) {
             /**
@@ -134,12 +132,11 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             Mage::getConfig()->reinit();
             Mage::app()->reinitStores();
 
-
             // website and store codes can be used in event implementation, so set them as well
             Mage::dispatchEvent("admin_system_config_changed_section_{$section}",
                 array('website' => $website, 'store' => $store)
             );
-            $session->addSuccess(Mage::helper('adminhtml')->__('Configuration successfully saved'));
+            $session->addSuccess(Mage::helper('adminhtml')->__('The configuration has been saved.'));
         }
         catch (Mage_Core_Exception $e) {
             foreach(explode("\n", $e->getMessage()) as $message) {
@@ -147,7 +144,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             }
         }
         catch (Exception $e) {
-            $session->addException($e, Mage::helper('adminhtml')->__('Error while saving this configuration: '.$e->getMessage()));
+            $session->addException($e, Mage::helper('adminhtml')->__('An error occurred while saving this configuration:').' '.$e->getMessage());
         }
 
         $this->_saveState($this->getRequest()->getPost('config_state'));

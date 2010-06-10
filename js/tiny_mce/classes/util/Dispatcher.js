@@ -1,14 +1,18 @@
 /**
- * $Id: Dispatcher.js 743 2008-03-23 17:47:33Z spocke $
+ * Dispatcher.js
  *
- * @author Moxiecode
- * @copyright Copyright © 2004-2006, Moxiecode Systems AB, All rights reserved.
+ * Copyright 2009, Moxiecode Systems AB
+ * Released under LGPL License.
+ *
+ * License: http://tinymce.moxiecode.com/license
+ * Contributing: http://tinymce.moxiecode.com/contributing
  */
 
-/**#@+
- * @class This class is used to dispatch event to observers/listeners.
+/**
+ * This class is used to dispatch event to observers/listeners.
  * All internal events inside TinyMCE uses this class.
- * @member tinymce.util.Dispatcher
+ *
+ * @class tinymce.util.Dispatcher
  */
 tinymce.create('tinymce.util.Dispatcher', {
 	scope : null,
@@ -18,6 +22,7 @@ tinymce.create('tinymce.util.Dispatcher', {
 	 * Constructs a new event dispatcher object.
 	 *
 	 * @constructor
+	 * @method Dispatcher
 	 * @param {Object} s Optional default execution scope for all observer functions.
 	 */
 	Dispatcher : function(s) {
@@ -25,13 +30,10 @@ tinymce.create('tinymce.util.Dispatcher', {
 		this.listeners = [];
 	},
 
-	/**#@+
-	 * @method
-	 */
-
 	/**
 	 * Add an observer function to be executed when a dispatch call is done.
 	 *
+	 * @method add
 	 * @param {function} cb Callback function to execute when a dispatch event occurs.
 	 * @param {Object} s Optional execution scope, defaults to the one specified in the class constructor.
 	 * @return {function} Returns the same function as the one passed on.
@@ -45,6 +47,7 @@ tinymce.create('tinymce.util.Dispatcher', {
 	/**
 	 * Add an observer function to be executed to the top of the list of observers.
 	 *
+	 * @method addToTop
 	 * @param {function} cb Callback function to execute when a dispatch event occurs.
 	 * @param {Object} s Optional execution scope, defaults to the one specified in the class constructor.
 	 * @return {function} Returns the same function as the one passed on.
@@ -58,6 +61,7 @@ tinymce.create('tinymce.util.Dispatcher', {
 	/**
 	 * Removes an observer function.
 	 *
+	 * @method remove
 	 * @param {function} cb Observer function to remove.
 	 * @return {function} The same function that got passed in or null if it wasn't found.
 	 */
@@ -78,6 +82,7 @@ tinymce.create('tinymce.util.Dispatcher', {
 	/**
 	 * Dispatches an event to all observers/listeners.
 	 *
+	 * @method dispatch
 	 * @param {Object} .. Any number of arguments to dispatch.
 	 * @return {Object} Last observer functions return value.
 	 */

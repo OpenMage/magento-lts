@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,8 +41,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price extends Mage_Adminhtml
         $fieldset = $form->addFieldset('tiered_price', array('legend'=>Mage::helper('catalog')->__('Tier Pricing')));
 
         $fieldset->addField('default_price', 'label', array(
-                'label'=> Mage::helper('catalog')->__('Default price'),
-                'title'=> Mage::helper('catalog')->__('Default price'),
+                'label'=> Mage::helper('catalog')->__('Default Price'),
+                'title'=> Mage::helper('catalog')->__('Default Price'),
                 'name'=>'default_price',
                 'bold'=>true,
                 'value'=>$product->getPrice()

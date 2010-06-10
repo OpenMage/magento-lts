@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -42,7 +42,7 @@
     <h2><?php echo $this->htmlEscape($this->getCurrentCategory()->getName()) ?></h2>
     </div>
     <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
-        <p class="category-description"><?php echo $_description ?></p>
+        <p class="category-description"><?php echo $_helper->categoryAttribute($this->getCurrentCategory(), $_description, 'description') ?></p>
     <?php endif; ?>
     <?php echo $this->getProductListHtml() ?>
 </div>

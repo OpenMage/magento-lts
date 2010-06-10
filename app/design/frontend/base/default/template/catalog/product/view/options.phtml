@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -77,7 +77,7 @@
                 $('option_'+data.optionId+'_file').value = '';
                 $('option_'+data.optionId+'_file').hide();
                 $('option_'+data.optionId+'').hide();
-                template = '<div id="option_'+data.optionId+'_file_box"><a href="#"><img src="var/options/'+data.fileName+'"><\/a><a href="#" onclick="optionFileUpload.removeFile('+data.optionId+')" alt="Remove file" title="Remove file" \/>Remove file<\/a>';
+                template = '<div id="option_'+data.optionId+'_file_box"><a href="#"><img src="var/options/'+data.fileName+'" alt=""><\/a><a href="#" onclick="optionFileUpload.removeFile('+data.optionId+')" title="Remove file" \/>Remove file<\/a>';
 
                 Element.insert($('option_'+data.optionId+'_uploaded_file'), {after: template});
             }

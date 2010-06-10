@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -118,7 +118,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract extends Mage_Ea
         $entityId       = $valueInfo[$entityIdField];
         if (!isset($this->_items[$entityId])) {
             Mage::throwException('Mage_Eav',
-                Mage::helper('eav')->__('Data integrity: No header row found for attribute')
+                Mage::helper('eav')->__('Data integrity: No header row found for attribute.')
             );
         }
         $attributeCode = $this->getEntity()->getAttribute($valueInfo['attribute_id'])

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -115,5 +115,21 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
             return $this->getShipment()->getStore();
         }
         return Mage::app()->getStore();
+    }
+
+    /**
+     * Before object save
+     *
+     * @return Mage_Sales_Model_Order_Shipment_Track
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+
+        if (!$this->getParentId() && $this->getShipment()) {
+            $this->setParentId($this->getShipment()->getId());
+        }
+
+        return $this;
     }
 }

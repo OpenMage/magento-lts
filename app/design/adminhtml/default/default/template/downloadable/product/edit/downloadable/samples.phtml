@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -74,6 +74,7 @@
                 <tbody id="sample_items_body">
                 </tbody>
             </table>
+            <div><small><?php echo Mage::helper('downloadable')->__('Alphanumeric, dash and underscore characters are recommended for filenames. Improper characters are replaced with \'_\'.')?></small></div>
         </div>
     </div>
 </div>
@@ -96,7 +97,7 @@ var sampleTemplate = '<tr>'+
                                         '<div id="downloadable_sample_{{id}}_file-new" class="file-row-info new-file"></div>'+
                                         '<div class="buttons">'+
                                             '<div id="downloadable_sample_{{id}}_file-install-flash" style="display:none">'+
-                                                '<?php echo Mage::helper('media')->__('This content requires last version of Adobe Flash Player. <a href="%s">Get Flash</a>', 'http://www.adobe.com/go/getflash/') ?>'+
+                                                '<?php echo $this->jsQuoteEscape(Mage::helper('media')->__('This content requires last version of Adobe Flash Player. <a href="%s">Get Flash</a>', 'http://www.adobe.com/go/getflash/')) ?>'+
                                             '</div>'+
                                         '</div>'+
                                         '<div class="clear"></div>'+

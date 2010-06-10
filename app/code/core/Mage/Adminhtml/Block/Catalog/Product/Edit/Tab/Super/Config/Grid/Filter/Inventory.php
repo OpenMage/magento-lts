@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,11 +44,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Filter_Inv
             ),
             array(
                 'value' =>  1,
-                'label' =>  Mage::helper('catalog')->__('In stock')
+                'label' =>  Mage::helper('catalog')->__('In Stock')
             ),
             array(
                 'value' =>  0,
-                'label' =>  Mage::helper('catalog')->__('Out of stock')
+                'label' =>  Mage::helper('catalog')->__('Out of Stock')
             )
         );
     }

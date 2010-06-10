@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_modern
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -72,7 +72,9 @@ Customer account home dashboard layout
         <label>Customer My Account Order History</label>
         <update handle="customer_account"/>
         <reference name="my.account.wrapper">
-            <block type="sales/order_history" name="sales.order.history"/>
+            <block type="sales/order_history" name="sales.order.history">
+                <block type="core/text_list" name="sales.order.history.info" as="info"/>
+            </block>
             <block type="customer/account_dashboard" name="customer.account.link.back" template="customer/account/link/back.phtml"/>
         </reference>
     </sales_order_history>
@@ -280,5 +282,4 @@ Email layouts section
             </block>
         </block>
     </sales_email_order_creditmemo_items>
-
 </layout>

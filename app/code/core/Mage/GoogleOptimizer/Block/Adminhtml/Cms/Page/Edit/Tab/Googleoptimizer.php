@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleOptimizer
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -83,7 +83,7 @@ class Mage_GoogleOptimizer_Block_Adminhtml_Cms_Page_Edit_Tab_Googleoptimizer
                     'class' => 'input-text',
                     'readonly' => 'readonly',
                     'required' => false,
-                    'note' => Mage::helper('googleoptimizer')->__('Please copy and paste this value to experiment edit form'),
+                    'note' => Mage::helper('googleoptimizer')->__('Please copy and paste this value to experiment edit form.'),
                     'disabled'  => $isElementDisabled
                 )
             );

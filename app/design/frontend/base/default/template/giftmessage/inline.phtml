@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -103,7 +103,7 @@ billing.onSave = function(evt){
             <?php if (Mage::helper('giftmessage/message')->isMessagesAvailable('quote', $this->getEntity())): ?>
                 <div class="whole-order">
                     <h4><?php echo $this->__('Enter a gift message for entire order.'); ?></h4>
-                    <p><?php echo $this->__('You can leave a box blank if you don\'t wish to add a gift message for whole order.') ?></p>
+                    <p><?php echo $this->__('You can leave this box blank if you do not wish to add a gift message for whole order.') ?></p>
                     <input type="hidden" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][type]"  value="quote" />
                     <ul class="form-list">
                         <li class="fields">
@@ -136,7 +136,7 @@ billing.onSave = function(evt){
              <?php endif; ?>
              <?php if($this->isItemsAvailable()): ?>
                  <h4><?php echo $this->__('Enter a gift message for each item in your order.'); ?></h4>
-                 <p><?php echo $this->__('You can leave a box blank if you don\'t wish to add a gift message for the item.') ?></p>
+                 <p><?php echo $this->__('You can leave this box blank if you do not wish to add a gift message for the item.') ?></p>
                  <ol>
                  <?php foreach($this->getItems() as $_index=>$_item): ?>
                  <?php $_product=$_item->getProduct() ?>
@@ -207,7 +207,7 @@ billing.onSave = function(evt){
             <?php if (Mage::helper('giftmessage/message')->isMessagesAvailable('quote', $this->getEntity())): ?>
                 <div class="whole-order">
                     <h4><?php echo $this->__('Enter a gift message for this address.'); ?></h4>
-                    <p><?php echo $this->__('You can leave a box blank if you don\'t wish to add a gift message for this address.') ?></p>
+                    <p><?php echo $this->__('You can leave this box blank if you do not wish to add a gift message for this address.') ?></p>
                     <input type="hidden" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][type]" value="quote_address" />
                     <ul class="form-list">
                         <li class="fields">
@@ -241,7 +241,7 @@ billing.onSave = function(evt){
              <?php endif; ?>
              <?php if($this->isItemsAvailable()): ?>
              <h4><?php echo $this->__('Enter a gift message for each item in your order.'); ?></h4>
-             <p><?php echo $this->__('You can leave a box blank if you don\'t wish to add a gift message for the item.') ?></p>
+             <p><?php echo $this->__('You can leave this box blank if you do not wish to add a gift message for the item.') ?></p>
              <ol>
              <?php foreach($this->getItems() as $_index=>$_item): ?>
              <?php $_product=$_item->getProduct() ?>

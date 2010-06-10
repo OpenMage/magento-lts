@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Tax>
-            <version>0.7.11</version>
+            <version>1.4.0.0</version>
         </Mage_Tax>
     </modules>
     <global>
@@ -61,6 +61,9 @@
                     <tax_order_aggregated_updated>
                         <table>tax_order_aggregated_updated</table>
                     </tax_order_aggregated_updated>
+                    <sales_order_tax>
+                        <table>sales_order_tax</table>
+                    </sales_order_tax>
                 </entities>
             </tax_mysql4>
         </models>
@@ -127,9 +130,14 @@
                 <totals>
                     <tax_subtotal>
                         <class>tax/sales_total_quote_subtotal</class>
-                        <after>shipping</after>
+                        <after>freeshipping</after>
                         <before>tax,discount</before>
                     </tax_subtotal>
+                    <tax_shipping>
+                        <class>tax/sales_total_quote_shipping</class>
+                        <after>shipping</after>
+                        <before>tax,discount</before>
+                    </tax_shipping>
                     <tax>
                         <class>tax/sales_total_quote_tax</class>
                         <after>subtotal,shipping</after>
@@ -154,6 +162,16 @@
                         <admin_renderer>adminhtml/sales_order_create_totals_grandtotal</admin_renderer>
                     </grand_total>
                 </totals>
+                <nominal_totals>
+                    <nominal_tax_subtotal>
+                        <class>tax/sales_total_quote_nominal_subtotal</class>
+                        <sort_order>500</sort_order>
+                    </nominal_tax_subtotal>
+                    <nominal_tax>
+                        <class>tax/sales_total_quote_nominal_tax</class>
+                        <sort_order>750</sort_order>
+                    </nominal_tax>
+                </nominal_totals>
             </quote>
         </sales>
         <pdf>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,6 +56,14 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 
     protected $_directFrontNames = array();
     protected $_controllerModule = null;
+
+    /**
+     * Streight request flag.
+     * If flag is determined no additional logic is applicable
+     *
+     * @var $_isStraight bool
+     */
+    protected $_isStraight = false;
 
     /**
      * Request's original information before forward.
@@ -436,5 +444,19 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         }
 
         return null;
+    }
+
+    /**
+     * Specify/get _isStraight flag value
+     *
+     * @param bool $flag
+     * @return bool
+     */
+    public function isStraight($flag = null)
+    {
+        if ($flag !== null) {
+            $this->_isStraight = $flag;
+        }
+        return $this->_isStraight;
     }
 }

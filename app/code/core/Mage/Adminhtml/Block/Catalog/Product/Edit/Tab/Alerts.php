@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,14 +52,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts extends Mage_Adminhtm
 
         if ($alertPriceAllow) {
             $accordion->addItem('price', array(
-                'title'     => Mage::helper('adminhtml')->__('Price alert subscription was saved successfully'),
+                'title'     => Mage::helper('adminhtml')->__('Price alert subscription was saved.'),
                 'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_alerts_price')->toHtml() . '<br />',
                 'open'      => true
             ));
         }
         if ($alertStockAllow) {
             $accordion->addItem('stock', array(
-                'title'     => Mage::helper('adminhtml')->__('Stock notification was saved successfully'),
+                'title'     => Mage::helper('adminhtml')->__('Stock notification was saved.'),
                 'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_alerts_stock'),
                 'open'      => true
             ));

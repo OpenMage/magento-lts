@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -225,7 +225,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         $parent = parent::checkData();
         if ($this->getProduct()->getHasError()) {
             $this->setHasError(true);
-            $this->setMessage(Mage::helper('sales')->__('Item options declare error'));
+            $this->setMessage(Mage::helper('sales')->__('Item options declaration error.'));
             $this->getQuote()->setHasError(true);
             $this->getQuote()->addMessage($this->getProduct()->getMessage(), 'options');
         }
@@ -242,6 +242,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     {
         if ($this->getQuote()) {
             $product->setStoreId($this->getQuote()->getStoreId());
+            $product->setCustomerGroupId($this->getQuote()->getCustomer()->getGroupId());
         }
         $this->setData('product', $product)
             ->setProductId($product->getId())
@@ -250,10 +251,12 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             ->setName($product->getName())
             ->setWeight($this->getProduct()->getWeight())
             ->setTaxClassId($product->getTaxClassId())
-            ->setBaseCost($product->getCost());
-            if ($product->getStockItem()) {
-                $this->setIsQtyDecimal($product->getStockItem()->getIsQtyDecimal());
-            }
+            ->setBaseCost($product->getCost())
+            ->setIsRecurring($product->getIsRecurring())
+        ;
+        if ($product->getStockItem()) {
+            $this->setIsQtyDecimal($product->getStockItem()->getIsQtyDecimal());
+        }
 
         Mage::dispatchEvent('sales_quote_item_set_product', array(
             'product' => $product,
@@ -354,6 +357,9 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             return false;
         }
         foreach ($this->getOptions() as $option) {
+            if (in_array($option->getCode(), $this->_notRepresentOptions)) {
+                continue;
+            }
             if ($itemOption = $item->getOptionByCode($option->getCode())) {
                 $itemOptionValue = $itemOption->getValue();
                 $optionValue     = $option->getValue();
@@ -478,7 +484,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             $option->setItem($this);
         }
         else {
-            Mage::throwException(Mage::helper('sales')->__('Invalid item option format'));
+            Mage::throwException(Mage::helper('sales')->__('Invalid item option format.'));
         }
 
         if ($exOption = $this->getOptionByCode($option->getCode())) {
@@ -543,7 +549,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             $this->_optionsByCode[$option->getCode()] = $option;
         }
         else {
-            Mage::throwException(Mage::helper('sales')->__('Item option with code %s already exist', $option->getCode()));
+            Mage::throwException(Mage::helper('sales')->__('An item option with code %s already exists.', $option->getCode()));
         }
         return $this;
     }

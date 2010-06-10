@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_modern
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -148,9 +148,9 @@ Category layered navigation layout
 
     <catalog_category_layered_nochildren translate="label">
         <label>Catalog Category (Without Subcategories)</label>
-        <remove name="right.reports.product.viewed" />
+        <remove name="right.reports.product.viewed"/>
         <reference name="left">
-            <!--block type="reports/product_viewed" before="right.permanent.callout" name="left.reports.product.viewed" template="reports/product_viewed.phtml" /-->
+            <!--block type="reports/product_viewed" name="left.reports.product.viewed" template="reports/product_viewed.phtml"/-->
         </reference>
     </catalog_category_layered_nochildren>
 
@@ -213,6 +213,10 @@ Product view
                 <block type="catalog/product_view_additional" name="product.info.additional" as="product_additional_data" />
                 <block type="catalog/product_view" name="product.info.addto" as="addto" template="catalog/product/view/addto.phtml"/>
                 <block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="catalog/product/view/addtocart.phtml"/>
+                
+                <block type="core/text_list" name="product.info.extrahint" as="extrahint" translate="label">
+                    <label>Product View Extra Hint</label>
+                </block>
 
                 <block type="catalog/product_view" name="product.info.options.wrapper" as="product_options_wrapper" template="catalog/product/view/options/wrapper.phtml" translate="label">
                     <label>Info Column Options Wrapper</label>
@@ -222,9 +226,9 @@ Product view
                         <action method="addOptionRenderer"><type>file</type><block>catalog/product_view_options_type_file</block><template>catalog/product/view/options/type/file.phtml</template></action>
                         <action method="addOptionRenderer"><type>select</type><block>catalog/product_view_options_type_select</block><template>catalog/product/view/options/type/select.phtml</template></action>
                         <action method="addOptionRenderer"><type>date</type><block>catalog/product_view_options_type_date</block><template>catalog/product/view/options/type/date.phtml</template></action>
-                </block>
-                        <block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml"/>
                     </block>
+                    <block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml"/>
+                </block>
                 <block type="catalog/product_view" name="product.info.options.wrapper.bottom" as="product_options_wrapper_bottom" template="catalog/product/view/options/wrapper/bottom.phtml" translate="label">
                     <label>Bottom Block Options Wrapper</label>
                     <action method="insert"><block>product.tierprices</block></action>
@@ -263,13 +267,17 @@ Additional block dependant on product type
     <PRODUCT_TYPE_simple translate="label" module="catalog">
         <label>Catalog Product View (Simple)</label>
         <reference name="product.info">
-            <block type="catalog/product_view_type_simple" name="product.info.simple" as="product_type_data" template="catalog/product/view/type/simple.phtml"/>
+            <block type="catalog/product_view_type_simple" name="product.info.simple" as="product_type_data" template="catalog/product/view/type/simple.phtml">
+                <block type="core/text_list" name="product.info.simple.extra" as="product_type_data_extra"/>
+            </block>
         </reference>
     </PRODUCT_TYPE_simple>
     <PRODUCT_TYPE_configurable translate="label" module="catalog">
         <label>Catalog Product View (Configurable)</label>
         <reference name="product.info">
-            <block type="catalog/product_view_type_configurable" name="product.info.configurable" as="product_type_data" template="catalog/product/view/type/configurable.phtml"/>
+            <block type="catalog/product_view_type_configurable" name="product.info.configurable" as="product_type_data" template="catalog/product/view/type/configurable.phtml">
+                <block type="core/text_list" name="product.info.configurable.extra" as="product_type_data_extra"/>
+            </block>
         </reference>
         <reference name="product.info.options.wrapper">
             <block type="catalog/product_view_type_configurable" name="product.info.options.configurable" as="options_configurable" before="-" template="catalog/product/view/type/options/configurable.phtml"/>
@@ -278,13 +286,17 @@ Additional block dependant on product type
     <PRODUCT_TYPE_grouped translate="label" module="catalog">
         <label>Catalog Product View (Grouped)</label>
         <reference name="product.info">
-            <block type="catalog/product_view_type_grouped" name="product.info.grouped" as="product_type_data" template="catalog/product/view/type/grouped.phtml"/>
+            <block type="catalog/product_view_type_grouped" name="product.info.grouped" as="product_type_data" template="catalog/product/view/type/grouped.phtml">
+                <block type="core/text_list" name="product.info.grouped.extra" as="product_type_data_extra"/>
+            </block>
         </reference>
     </PRODUCT_TYPE_grouped>
     <PRODUCT_TYPE_virtual translate="label" module="catalog">
         <label>Catalog Product View (Virtual)</label>
         <reference name="product.info">
-            <block type="catalog/product_view_type_virtual" name="product.info.virtual" as="product_type_data" template="catalog/product/view/type/virtual.phtml"/>
+            <block type="catalog/product_view_type_virtual" name="product.info.virtual" as="product_type_data" template="catalog/product/view/type/virtual.phtml">
+                <block type="core/text_list" name="product.info.virtual.extra" as="product_type_data_extra"/>
+            </block>
         </reference>
     </PRODUCT_TYPE_virtual>
 

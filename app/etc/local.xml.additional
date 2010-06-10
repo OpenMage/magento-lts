@@ -35,7 +35,8 @@ to app/etc/local.xml manually.
         <session_save_path><![CDATA[]]></session_save_path><!-- e.g. for memcache session save handler tcp://10.0.0.1:11211?persistent=1&weight=2&timeout=10&retry_interval=10 -->
         <session_cache_limiter><![CDATA[]]></session_cache_limiter><!-- see http://php.net/manual/en/function.session-cache-limiter.php#82174 for possible values -->
         <cache>
-            <backend></backend><!-- apc / memcached / empty=file -->
+            <backend></backend><!-- apc / memcached / xcache / empty=file -->
+            <slow_backend></slow_backend> <!-- database / file (default) - used for 2 levels cache setup, necessary for all shared memory storages -->
             <memcached><!-- memcached cache backend related config -->
                 <servers><!-- any number of server nodes can be included -->
                     <server>

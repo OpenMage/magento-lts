@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,11 +33,20 @@
  */
 class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * Admin session model
+     *
+     * @var null|Mage_Admin_Model_Session
+     */
+    protected $_adminSession = null;
+
     public function _initAction()
     {
         $act = $this->getRequest()->getActionName();
-        if(!$act)
+        if(!$act) {
             $act = 'default';
+        }
+
         $this->loadLayout()
             ->_addBreadcrumb(Mage::helper('reports')->__('Reports'), Mage::helper('reports')->__('Reports'))
             ->_addBreadcrumb(Mage::helper('reports')->__('Sales'), Mage::helper('reports')->__('Sales'));
@@ -92,33 +101,58 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
         $this->renderLayout();
     }
 
+    public function bestsellersAction()
+    {
+        $this->_title($this->__('Reports'))->_title($this->__('Products'))->_title($this->__('Bestsellers'));
+
+        $this->_showLastExecutionTime(Mage_Reports_Model_Flag::REPORT_BESTSELLERS_FLAG_CODE, 'bestsellers');
+
+        $this->_initAction()
+            ->_setActiveMenu('report/sales/bestsellers')
+            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Products Bestsellers Report'), Mage::helper('adminhtml')->__('Products Bestsellers Report'));
+
+        $gridBlock = $this->getLayout()->getBlock('report_sales_bestsellers.grid');
+        $filterFormBlock = $this->getLayout()->getBlock('grid.filter.form');
+
+        $this->_initReportAction(array(
+            $gridBlock,
+            $filterFormBlock
+        ));
+
+        $this->renderLayout();
+    }
+
+    /**
+     * Export bestsellers report grid to CSV format
+     */
+    public function exportBestsellersCsvAction()
+    {
+        $fileName   = 'bestsellers.csv';
+        $grid       = $this->getLayout()->createBlock('adminhtml/report_sales_bestsellers_grid');
+        $this->_initReportAction($grid);
+        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+    }
+
+    /**
+     * Export bestsellers report grid to Excel XML format
+     */
+    public function exportBestsellersExcelAction()
+    {
+        $fileName   = 'bestsellers.xml';
+        $grid       = $this->getLayout()->createBlock('adminhtml/report_sales_bestsellers_grid');
+        $this->_initReportAction($grid);
+        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+    }
+
     /**
      * Retrieve array of collection names by code specified in request
      *
+     * @deprecated after 1.4.0.1
      * @return array
      */
     protected function _getCollectionNames()
     {
-        $codes = $this->getRequest()->getParam('code');
-        if (!$codes) {
-            throw new Exception(Mage::helper('adminhtml')->__('No report code specified'));
-        }
-        if(!is_array($codes)) {
-            $codes = array($codes);
-        }
-        $aliases = array(
-            'sales'     => 'sales/order',
-            'tax'       => 'tax/tax',
-            'shipping'  => 'sales/report_shipping',
-            'invoiced'  => 'sales/report_invoiced',
-            'refunded'  => 'sales/report_refunded',
-            'coupons'   => 'salesrule/rule'
-        );
-        $out = array();
-        foreach ($codes as $code) {
-            $out[] = $aliases[$code];
-        }
-        return $out;
+        return array();
     }
 
     protected function _showLastExecutionTime($flagCode, $refreshCode)
@@ -133,47 +167,30 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
         $refreshStatsLink = $this->getUrl('*/*/refreshstatistics');
         $directRefreshLink = $this->getUrl('*/*/refreshRecent', array('code' => $refreshCode));
 
-        Mage::getSingleton('adminhtml/session')->addNotice(Mage::helper('adminhtml')->__('Last updated: %s. To refresh last day\'s <a href="%s">statistics</a>, click <a href="%s">here</a>', $updatedAt, $refreshStatsLink, $directRefreshLink));
+        Mage::getSingleton('adminhtml/session')->addNotice(Mage::helper('adminhtml')->__('Last updated: %s. To refresh last day\'s <a href="%s">statistics</a>, click <a href="%s">here</a>.', $updatedAt, $refreshStatsLink, $directRefreshLink));
         return $this;
     }
 
+    /**
+     * Refresh statistics for last 25 hours
+     *
+     * @deprecated after 1.4.0.1
+     * @return Mage_Adminhtml_Report_SalesController
+     */
     public function refreshRecentAction()
     {
-        try {
-            $collectionsNames = $this->_getCollectionNames();
-            $currentDate = Mage::app()->getLocale()->date();
-            $date = $currentDate->subHour(25);
-            foreach ($collectionsNames as $collectionName) {
-                Mage::getResourceModel($collectionName)->aggregate($date);
-            }
-            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Recent statistics was successfully updated'));
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Unable to refresh recent statistics'));
-            Mage::logException($e);
-        }
-
-        $this->_redirectReferer('*/*/sales');
-        return $this;
+        return $this->_forward('refreshRecent', 'report_statistics');
     }
 
+    /**
+     * Refresh statistics for all period
+     *
+     * @deprecated after 1.4.0.1
+     * @return Mage_Adminhtml_Report_SalesController
+     */
     public function refreshLifetimeAction()
     {
-        try {
-            $collectionsNames = $this->_getCollectionNames();
-            foreach ($collectionsNames as $collectionName) {
-                Mage::getResourceModel($collectionName)->aggregate();
-            }
-            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Lifetime statistics was successfully updated'));
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Unable to refresh lifetime statistics'));
-            Mage::logException($e);
-        }
-        $this->_redirectReferer('*/*/sales');
-        return $this;
+        return $this->_forward('refreshLifetime', 'report_statistics');
     }
 
     /**
@@ -374,7 +391,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
     {
         $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Coupons'));
 
-        $this->_showLastExecutionTime(Mage_Reports_Model_Flag::REPORT_COUPNS_FLAG_CODE, 'coupons');
+        $this->_showLastExecutionTime(Mage_Reports_Model_Flag::REPORT_COUPONS_FLAG_CODE, 'coupons');
 
         $this->_initAction()
             ->_setActiveMenu('report/sales/coupons')
@@ -413,43 +430,57 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
         $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
     }
 
+    /**
+     * @deprecated after 1.4.0.1
+     */
     public function refreshStatisticsAction()
     {
-        $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Refresh Statistics'));
-
-        $this->_initAction()
-            ->_setActiveMenu('report/sales/refreshstatistics')
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Refresh Statistics'), Mage::helper('adminhtml')->__('Refresh Statistics'))
-            ->renderLayout();
+        return $this->_forward('index', 'report_statistics');
     }
 
     protected function _isAllowed()
     {
         switch ($this->getRequest()->getActionName()) {
             case 'sales':
-                return Mage::getSingleton('admin/session')->isAllowed('report/salesroot/sales');
+                return $this->_getSession()->isAllowed('report/salesroot/sales');
                 break;
             case 'tax':
-                return Mage::getSingleton('admin/session')->isAllowed('report/salesroot/tax');
+                return $this->_getSession()->isAllowed('report/salesroot/tax');
                 break;
             case 'shipping':
-                return Mage::getSingleton('admin/session')->isAllowed('report/salesroot/shipping');
+                return $this->_getSession()->isAllowed('report/salesroot/shipping');
                 break;
             case 'invoiced':
-                return Mage::getSingleton('admin/session')->isAllowed('report/salesroot/invoiced');
+                return $this->_getSession()->isAllowed('report/salesroot/invoiced');
                 break;
             case 'refunded':
-                return Mage::getSingleton('admin/session')->isAllowed('report/salesroot/refunded');
+                return $this->_getSession()->isAllowed('report/salesroot/refunded');
                 break;
             case 'coupons':
-                return Mage::getSingleton('admin/session')->isAllowed('report/salesroot/coupons');
+                return $this->_getSession()->isAllowed('report/salesroot/coupons');
                 break;
             case 'shipping':
-                return Mage::getSingleton('admin/session')->isAllowed('report/salesroot/shipping');
+                return $this->_getSession()->isAllowed('report/salesroot/shipping');
+                break;
+            case 'bestsellers':
+                return $this->_getSession()->isAllowed('report/products/ordered');
                 break;
             default:
-                return Mage::getSingleton('admin/session')->isAllowed('report/salesroot');
+                return $this->_getSession()->isAllowed('report/salesroot');
                 break;
         }
+    }
+
+    /**
+     * Retrieve admin session model
+     *
+     * @return Mage_Admin_Model_Session
+     */
+    protected function _getSession()
+    {
+        if (is_null($this->_adminSession)) {
+            $this->_adminSession = Mage::getSingleton('admin/session');
+        }
+        return $this->_adminSession;
     }
 }

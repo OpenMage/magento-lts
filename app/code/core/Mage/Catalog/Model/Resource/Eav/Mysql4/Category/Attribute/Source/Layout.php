@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +43,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Attribute_Source_Layout ex
                    'label'=>(string)$layoutConfig->label
                 );
             }
-            array_unshift($this->_options, array('value'=>'', 'label'=>Mage::helper('catalog')->__('No layout updates')));
+            array_unshift($this->_options, array('value'=>'', 'label'=>Mage::helper('catalog')->__('No layout updates.')));
         }
         return $this->_options;
     }

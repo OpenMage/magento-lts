@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -207,6 +207,18 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     public function clean()
     {
         $this->_getResource()->clean($this);
+        return $this;
+    }
+
+    /**
+     * Add product ids to current visitor/customer log
+     * @param array $productIds
+     * @return Mage_Reports_Model_Product_Index_Abstract
+     */
+    public function registerIds($productIds)
+    {
+        $this->_getResource()->registerIds($this, $productIds);
+        $this->_getSession()->unsData($this->_countCacheKey);
         return $this;
     }
 }

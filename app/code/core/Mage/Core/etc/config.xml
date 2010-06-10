@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -112,6 +112,11 @@
         <request>
             <direct_front_name/>
         </request>
+        <log>
+            <core>
+                <writer_model>Zend_Log_Writer_Stream</writer_model>
+            </core>
+        </log>
     </global>
     <frontend>
         <routers>

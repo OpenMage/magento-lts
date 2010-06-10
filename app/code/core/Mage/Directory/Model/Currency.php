@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -119,7 +119,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         } elseif ($toCurrency instanceof Mage_Directory_Model_Currency) {
             $code = $toCurrency->getCurrencyCode();
         } else {
-            throw Mage::exception('Mage_Directory', Mage::helper('directory')->__('Invalid target currency'));
+            throw Mage::exception('Mage_Directory', Mage::helper('directory')->__('Invalid target currency.'));
         }
         $rates = $this->getRates();
         if (!isset($rates[$code])) {
@@ -142,7 +142,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         } elseif ($toCurrency instanceof Mage_Directory_Model_Currency) {
             $code = $toCurrency->getCurrencyCode();
         } else {
-            throw Mage::exception('Mage_Directory', Mage::helper('directory')->__('Invalid target currency'));
+            throw Mage::exception('Mage_Directory', Mage::helper('directory')->__('Invalid target currency.'));
         }
         $rates = $this->getRates();
         if (!isset($rates[$code])) {
@@ -168,7 +168,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
             return $price*$rate;
         }
 
-        throw new Exception(Mage::helper('directory')->__('Undefined rate from "%s-%s"', $this->getCode(), $toCurrency->getCode()));
+        throw new Exception(Mage::helper('directory')->__('Undefined rate from "%s-%s".', $this->getCode(), $toCurrency->getCode()));
     }
 
     /**

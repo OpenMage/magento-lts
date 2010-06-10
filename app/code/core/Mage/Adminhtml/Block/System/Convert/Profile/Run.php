@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     li { margin-left:0; border:1px solid #ccc; margin:2px; padding:2px 2px 2px 2px; font:normal 12px sans-serif; }
     img { margin-right:5px; }
     </style>
-    <title>'.($profile->getId() ? $this->htmlEscape($profile->getName()) : $this->__('No profile')).'</title>
+    <title>'.($profile->getId() ? $this->htmlEscape($profile->getName()) : $this->__('No Profile')).'</title>
 </head><body>';
         echo '<ul>';
         echo '<li>';
@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
             echo '</li>';
             echo '<li style="background-color:#FFD;">';
             echo '<img src="'.Mage::getDesign()->getSkinUrl('images/fam_bullet_error.gif').'" class="v-middle" style="margin-right:5px"/>';
-            echo $this->__("Warning: Please don't close window during importing/exporting data");
+            echo $this->__("Warning: Please do not close the window during importing/exporting data");
         } else {
             echo '<img src="'.Mage::getDesign()->getSkinUrl('images/error_msg_icon.gif').'" class="v-middle" style="margin-right:5px"/>';
             echo $this->__("No profile loaded...");
@@ -111,7 +111,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
             if($profile->getEntityType() == 'product' && $profile->getDirection() == 'import') {
                 echo '<li id="liBeforeFinish" style="background-color:#FFD; display:none;">';
                 echo '<img src="'.Mage::getDesign()->getSkinUrl('images/fam_bullet_error.gif').'" class="v-middle" style="margin-right:5px"/>';
-                echo $this->__("Please wait while we are refreshing indexes.");
+                echo $this->__("Please wait while the indexes are being refreshed.");
                 echo '<img id="before-finish-wait-img" src="'.Mage::getDesign()->getSkinUrl('images/rule-ajax-loader.gif').'" class="v-middle" style="margin-right:5px"/>';
                 echo '</li>';
             }

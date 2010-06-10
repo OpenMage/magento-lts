@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Index
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,9 +30,18 @@
 abstract class Mage_Index_Model_Mysql4_Abstract extends Mage_Core_Model_Mysql4_Abstract
 {
     const IDX_SUFFIX    = '_idx';
+    const TMP_SUFFIX    = '_tmp';
+
+    /**
+     * Flag that defines if need to use "_idx" index table suffix instead of "_tmp"
+     *
+     * @var bool
+     */
+    protected $_isNeedUseIdxTable = false;
 
     public function reindexAll()
     {
+        $this->useIdxTable(true);
         return $this;
     }
 
@@ -54,10 +63,14 @@ abstract class Mage_Index_Model_Mysql4_Abstract extends Mage_Core_Model_Mysql4_A
      */
     public function getIdxTable($table = null)
     {
-        if ($table) {
-            return $table . self::IDX_SUFFIX;
+        $suffix = self::TMP_SUFFIX;
+        if ($this->_isNeedUseIdxTable) {
+            $suffix = self::IDX_SUFFIX;
         }
-        return $this->getMainTable() . self::IDX_SUFFIX;
+        if ($table) {
+            return $table . $suffix;
+        }
+        return $this->getMainTable() . $suffix;
     }
 
     /**
@@ -163,5 +176,27 @@ abstract class Mage_Index_Model_Mysql4_Abstract extends Mage_Core_Model_Mysql4_A
         }
         $to->query("ALTER TABLE {$destTable} ENABLE KEYS");
         return $this;
+    }
+
+    /**
+     * Set or get what either "_idx" or "_tmp" suffixed temporary index table need to use
+     *
+     * @param bool $value
+     * @return Mage_Index_Model_Mysql4_Abstract
+     */
+    public function useIdxTable($value = null)
+    {
+        if (!is_null($value)) {
+            $this->_isNeedUseIdxTable = (bool)$value;
+        }
+        return $this->_isNeedUseIdxTable;
+    }
+
+    /**
+     * Clean up temporary index table
+     */
+    public function clearTemporaryIndexTable()
+    {
+        $this->_getWriteAdapter()->delete($this->getIdxTable());
     }
 }

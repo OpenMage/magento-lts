@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,15 +39,64 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     const STATUS_APPROVED = 1;
 
     /**
+     * Entity code.
+     * Can be used as part of method name for entity processing
+     */
+    const ENTITY = 'tag';
+
+    /**
      * Event prefix for observer
      *
      * @var string
      */
     protected $_eventPrefix = 'tag';
 
+    /**
+     * This flag means should we or not add base popularity on tag load
+     *
+     * @var bool
+     */
+    protected $_addBasePopularity = false;
+
     protected function _construct()
     {
         $this->_init('tag/tag');
+    }
+
+    /**
+     * Init indexing process after tag data commit
+     *
+     * @return Mage_Tag_Model_Tag
+     */
+    public function afterCommitCallback()
+    {
+        parent::afterCommitCallback();
+        Mage::getSingleton('index/indexer')->processEntityAction(
+            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
+        );
+        return $this;
+    }
+
+    /**
+     * Setter for addBasePopularity flag
+     *
+     * @param bool $flag
+     * @return Mage_Tag_Model_Tag
+     */
+    public function setAddBasePopularity($flag = true)
+    {
+        $this->_addBasePopularity = $flag;
+        return $this;
+    }
+
+    /**
+     * Getter for addBasePopularity flag
+     *
+     * @return bool
+     */
+    public function getAddBasePopularity()
+    {
+        return $this->_addBasePopularity;
     }
 
     /**
@@ -121,6 +170,13 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * Add summary data to current object
+     *
+     * @deprecated after 1.4.0.0
+     * @param int $storeId
+     * @return Mage_Tag_Model_Tag
+     */
     public function addSummary($storeId)
     {
         $this->setStoreId($storeId);
@@ -128,14 +184,28 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * getter for self::STATUS_APPROVED
+     */
     public function getApprovedStatus()
     {
         return self::STATUS_APPROVED;
     }
 
+    /**
+     * getter for self::STATUS_PENDING
+     */
     public function getPendingStatus()
     {
         return self::STATUS_PENDING;
+    }
+
+    /**
+     * getter for self::STATUS_DISABLED
+     */
+    public function getDisabledStatus()
+    {
+        return self::STATUS_DISABLED;
     }
 
     public function getEntityCollection()

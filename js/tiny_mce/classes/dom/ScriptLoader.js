@@ -1,350 +1,238 @@
 /**
- * $Id: ScriptLoader.js 1045 2009-03-04 20:03:18Z spocke $
+ * ScriptLoader.js
  *
- * @author Moxiecode
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+ * Copyright 2009, Moxiecode Systems AB
+ * Released under LGPL License.
+ *
+ * License: http://tinymce.moxiecode.com/license
+ * Contributing: http://tinymce.moxiecode.com/contributing
  */
 
 (function(tinymce) {
-	var each = tinymce.each, Event = tinymce.dom.Event;
+	tinymce.dom.ScriptLoader = function(settings) {
+		var QUEUED = 0,
+			LOADING = 1,
+			LOADED = 2,
+			states = {},
+			queue = [],
+			scriptLoadedCallbacks = {},
+			queueLoadedCallbacks = [],
+			loading = 0,
+			undefined;
 
-	/**#@+
-	 * @class This class handles asynchronous/synchronous loading of JavaScript files it will execute callbacks when
-	 * various items gets loaded. This class is useful to 
-	 * @member tinymce.dom.ScriptLoader
-	 */
-	tinymce.create('tinymce.dom.ScriptLoader', {
 		/**
-		 * Constructs a new script loaded instance. Check the Wiki for more detailed information for this method.
+		 * Loads a specific script directly without adding it to the load queue.
 		 *
-		 * @constructor
-		 * @param {Object} s Optional settings object for the ScriptLoaded.
+		 * @method load
+		 * @param {String} url Absolute URL to script to add.
+		 * @param {function} callback Optional callback function to execute ones this script gets loaded.
+		 * @param {Object} scope Optional scope to execute callback in.
 		 */
-		ScriptLoader : function(s) {
-			this.settings = s || {};
-			this.queue = [];
-			this.lookup = {};
-		},
+		function loadScript(url, callback) {
+			var t = this, dom = tinymce.DOM, elm, uri, loc, id;
 
-		/**#@+
-		 * @method
-		 */
+			// Execute callback when script is loaded
+			function done() {
+				dom.remove(id);
+
+				if (elm)
+					elm.onreadystatechange = elm.onload = elm = null;
+
+				callback();
+			};
+
+			id = dom.uniqueId();
+
+			if (tinymce.isIE6) {
+				uri = new tinymce.util.URI(url);
+				loc = location;
+
+				// If script is from same domain and we
+				// use IE 6 then use XHR since it's more reliable
+				if (uri.host == loc.hostname && uri.port == loc.port && (uri.protocol + ':') == loc.protocol) {
+					tinymce.util.XHR.send({
+						url : tinymce._addVer(uri.getURI()),
+						success : function(content) {
+							// Create new temp script element
+							var script = dom.create('script', {
+								type : 'text/javascript'
+							});
+
+							// Evaluate script in global scope
+							script.text = content;
+							document.getElementsByTagName('head')[0].appendChild(script);
+							dom.remove(script);
+
+							done();
+						}
+					});
+
+					return;
+				}
+			}
+
+			// Create new script element
+			elm = dom.create('script', {
+				id : id,
+				type : 'text/javascript',
+				src : tinymce._addVer(url)
+			});
+
+			// Add onload and readystate listeners
+			elm.onload = done;
+			elm.onreadystatechange = function() {
+				var state = elm.readyState;
+
+				// Loaded state is passed on IE 6 however there
+				// are known issues with this method but we can't use
+				// XHR in a cross domain loading
+				if (state == 'complete' || state == 'loaded')
+					done();
+			};
+
+			// Most browsers support this feature so we report errors
+			// for those at least to help users track their missing plugins etc
+			// todo: Removed since it produced error if the document is unloaded by navigating away, re-add it as an option
+			/*elm.onerror = function() {
+				alert('Failed to load: ' + url);
+			};*/
+
+			// Add script to document
+			(document.getElementsByTagName('head')[0] || document.body).appendChild(elm);
+		};
 
 		/**
 		 * Returns true/false if a script has been loaded or not.
 		 *
-		 * @param {String} u URL to check for.
+		 * @method isDone
+		 * @param {String} url URL to check for.
+		 * @return [Boolean} true/false if the URL is loaded.
 		 */
-		isDone : function(u) {
-			return this.lookup[u] ? this.lookup[u].state == 2 : 0;
-		},
+		this.isDone = function(url) {
+			return states[url] == LOADED;
+		};
 
 		/**
 		 * Marks a specific script to be loaded. This can be useful if a script got loaded outside
 		 * the script loader or to skip it from loading some script.
 		 *
+		 * @method markDone
 		 * @param {string} u Absolute URL to the script to mark as loaded.
 		 */
-		markDone : function(u) {
-			this.lookup[u] = {state : 2, url : u};
-		},
+		this.markDone = function(url) {
+			states[url] = LOADED;
+		};
 
 		/**
 		 * Adds a specific script to the load queue of the script loader.
 		 *
-		 * @param {String} u Absolute URL to script to add.
-		 * @param {function} cb Optional callback function to execute ones this script gets loaded.
-		 * @param {Object} s Optional scope to execute callback in.
-		 * @param {bool} pr Optional state to add to top or bottom of load queue. Defaults to bottom.
-		 * @return {object} Load queue object contains, state, url and callback.
+		 * @method add
+		 * @param {String} url Absolute URL to script to add.
+		 * @param {function} callback Optional callback function to execute ones this script gets loaded.
+		 * @param {Object} scope Optional scope to execute callback in.
 		 */
-		add : function(u, cb, s, pr) {
-			var t = this, lo = t.lookup, o;
+		this.add = this.load = function(url, callback, scope) {
+			var item, state = states[url];
 
-			if (o = lo[u]) {
-				// Is loaded fire callback
-				if (cb && o.state == 2)
-					cb.call(s || this);
-
-				return o;
+			// Add url to load queue
+			if (state == undefined) {
+				queue.push(url);
+				states[url] = QUEUED;
 			}
 
-			o = {state : 0, url : u, func : cb, scope : s || this};
+			if (callback) {
+				// Store away callback for later execution
+				if (!scriptLoadedCallbacks[url])
+					scriptLoadedCallbacks[url] = [];
 
-			if (pr)
-				t.queue.unshift(o);
-			else
-				t.queue.push(o);
-
-			lo[u] = o;
-
-			return o;
-		},
-
-		/**
-		 * Loads a specific script directly without adding it to the load queue.
-		 *
-		 * @param {String} u Absolute URL to script to add.
-		 * @param {function} cb Optional callback function to execute ones this script gets loaded.
-		 * @param {Object} s Optional scope to execute callback in.
-		 */
-		load : function(u, cb, s) {
-			var t = this, o;
-
-			if (o = t.lookup[u]) {
-				// Is loaded fire callback
-				if (cb && o.state == 2)
-					cb.call(s || t);
-
-				return o;
-			}
-
-			function loadScript(u) {
-				if (Event.domLoaded || t.settings.strict_mode) {
-					tinymce.util.XHR.send({
-						url : tinymce._addVer(u),
-						error : t.settings.error,
-						async : false,
-						success : function(co) {
-							t.eval(co);
-						}
-					});
-				} else
-					document.write('<script type="text/javascript" src="' + tinymce._addVer(u) + '"></script>');
-			};
-
-			if (!tinymce.is(u, 'string')) {
-				each(u, function(u) {
-					loadScript(u);
+				scriptLoadedCallbacks[url].push({
+					func : callback,
+					scope : scope || this
 				});
-
-				if (cb)
-					cb.call(s || t);
-			} else {
-				loadScript(u);
-
-				if (cb)
-					cb.call(s || t);
 			}
-		},
+		};
 
 		/**
 		 * Starts the loading of the queue.
 		 *
-		 * @param {function} cb Optional callback to execute when all queued items are loaded.
-		 * @param {Object} s Optional scope to execute the callback in.
+		 * @method loadQueue
+		 * @param {function} callback Optional callback to execute when all queued items are loaded.
+		 * @param {Object} scope Optional scope to execute the callback in.
 		 */
-		loadQueue : function(cb, s) {
-			var t = this;
-
-			if (!t.queueLoading) {
-				t.queueLoading = 1;
-				t.queueCallbacks = [];
-
-				t.loadScripts(t.queue, function() {
-					t.queueLoading = 0;
-
-					if (cb)
-						cb.call(s || t);
-
-					each(t.queueCallbacks, function(o) {
-						o.func.call(o.scope);
-					});
-				});
-			} else if (cb)
-				t.queueCallbacks.push({func : cb, scope : s || t});
-		},
-
-		/**
-		 * Evaluates the specified string inside the global namespace/window scope.
-		 *
-		 * @param {string} Script contents to evaluate.
-		 */
-		eval : function(co) {
-			var w = window;
-
-			// Evaluate script
-			if (!w.execScript) {
-				try {
-					eval.call(w, co);
-				} catch (ex) {
-					eval(co, w); // Firefox 3.0a8
-				}
-			} else
-				w.execScript(co); // IE
-		},
+		this.loadQueue = function(callback, scope) {
+			this.loadScripts(queue, callback, scope);
+		};
 
 		/**
 		 * Loads the specified queue of files and executes the callback ones they are loaded.
 		 * This method is generally not used outside this class but it might be useful in some scenarios. 
 		 *
-		 * @param {Array} sc Array of queue items to load.
-		 * @param {function} cb Optional callback to execute ones all items are loaded.
-		 * @param {Object} s Optional scope to execute callback in.
+		 * @method loadScripts
+		 * @param {Array} scripts Array of queue items to load.
+		 * @param {function} callback Optional callback to execute ones all items are loaded.
+		 * @param {Object} scope Optional scope to execute callback in.
 		 */
-		loadScripts : function(sc, cb, s) {
-			var t = this, lo = t.lookup;
+		this.loadScripts = function(scripts, callback, scope) {
+			var loadScripts;
 
-			function done(o) {
-				o.state = 2; // Has been loaded
-
-				// Run callback
-				if (o.func)
-					o.func.call(o.scope || t);
-			};
-
-			function allDone() {
-				var l;
-
-				// Check if all files are loaded
-				l = sc.length;
-				each(sc, function(o) {
-					o = lo[o.url];
-
-					if (o.state === 2) {// It has finished loading
-						done(o);
-						l--;
-					} else
-						load(o);
+			function execScriptLoadedCallbacks(url) {
+				// Execute URL callback functions
+				tinymce.each(scriptLoadedCallbacks[url], function(callback) {
+					callback.func.call(callback.scope);
 				});
 
-				// They are all loaded
-				if (l === 0 && cb) {
-					cb.call(s || t);
-					cb = 0;
-				}
+				scriptLoadedCallbacks[url] = undefined;
 			};
 
-			function load(o) {
-				if (o.state > 0)
-					return;
-
-				o.state = 1; // Is loading
-
-				tinymce.dom.ScriptLoader.loadScript(o.url, function() {
-					done(o);
-					allDone();
-				});
-
-				/*
-				tinymce.util.XHR.send({
-					url : o.url,
-					error : t.settings.error,
-					success : function(co) {
-						t.eval(co);
-						done(o);
-						allDone();
-					}
-				});
-				*/
-			};
-
-			each(sc, function(o) {
-				var u = o.url;
-
-				// Add to queue if needed
-				if (!lo[u]) {
-					lo[u] = o;
-					t.queue.push(o);
-				} else
-					o = lo[u];
-
-				// Is already loading or has been loaded
-				if (o.state > 0)
-					return;
-
-				if (!Event.domLoaded && !t.settings.strict_mode) {
-					var ix, ol = '';
-
-					// Add onload events
-					if (cb || o.func) {
-						o.state = 1; // Is loading
-
-						ix = tinymce.dom.ScriptLoader._addOnLoad(function() {
-							done(o);
-							allDone();
-						});
-
-						if (tinymce.isIE)
-							ol = ' onreadystatechange="';
-						else
-							ol = ' onload="';
-
-						ol += 'tinymce.dom.ScriptLoader._onLoad(this,\'' + u + '\',' + ix + ');"';
-					}
-
-					document.write('<script type="text/javascript" src="' + tinymce._addVer(u) + '"' + ol + '></script>');
-
-					if (!o.func)
-						done(o);
-				} else
-					load(o);
+			queueLoadedCallbacks.push({
+				func : callback,
+				scope : scope || this
 			});
 
-			allDone();
-		},
+			loadScripts = function() {
+				var loadingScripts = tinymce.grep(scripts);
 
-		// Static methods
-		'static' : {
-			_addOnLoad : function(f) {
-				var t = this;
+				// Current scripts has been handled
+				scripts.length = 0;
 
-				t._funcs = t._funcs || [];
-				t._funcs.push(f);
-
-				return t._funcs.length - 1;
-			},
-
-			_onLoad : function(e, u, ix) {
-				if (!tinymce.isIE || e.readyState == 'complete')
-					this._funcs[ix].call(this);
-			},
-
-			/**
-			 * Loads the specified script without adding it to any load queue.
-			 *
-			 * @param {string} u URL to dynamically load.
-			 * @param {function} cb Callback function to executed on load.
-			 */
-			loadScript : function(u, cb) {
-				var id = tinymce.DOM.uniqueId(), e;
-
-				function done() {
-					Event.clear(id);
-					tinymce.DOM.remove(id);
-
-					if (cb) {
-						cb.call(document, u);
-						cb = 0;
+				// Load scripts that needs to be loaded
+				tinymce.each(loadingScripts, function(url) {
+					// Script is already loaded then execute script callbacks directly
+					if (states[url] == LOADED) {
+						execScriptLoadedCallbacks(url);
+						return;
 					}
-				};
 
-				if (tinymce.isIE) {
-/*					Event.add(e, 'readystatechange', function(e) {
-						if (e.target && e.target.readyState == 'complete')
-							done();
-					});*/
+					// Is script not loading then start loading it
+					if (states[url] != LOADING) {
+						states[url] = LOADING;
+						loading++;
 
-					tinymce.util.XHR.send({
-						url : tinymce._addVer(u),
-						async : false,
-						success : function(co) {
-							window.execScript(co);
-							done();
-						}
+						loadScript(url, function() {
+							states[url] = LOADED;
+							loading--;
+
+							execScriptLoadedCallbacks(url);
+
+							// Load more scripts if they where added by the recently loaded script
+							loadScripts();
+						});
+					}
+				});
+
+				// No scripts are currently loading then execute all pending queue loaded callbacks
+				if (!loading) {
+					tinymce.each(queueLoadedCallbacks, function(callback) {
+						callback.func.call(callback.scope);
 					});
-				} else {
-					e = tinymce.DOM.create('script', {id : id, type : 'text/javascript', src : tinymce._addVer(u)});
-					Event.add(e, 'load', done);
 
-					// Check for head or body
-					(document.getElementsByTagName('head')[0] || document.body).appendChild(e);
+					queueLoadedCallbacks.length = 0;
 				}
-			}
-		}
+			};
 
-		/**#@-*/
-	});
+			loadScripts();
+		};
+	};
 
 	// Global script loader
 	tinymce.ScriptLoader = new tinymce.dom.ScriptLoader();

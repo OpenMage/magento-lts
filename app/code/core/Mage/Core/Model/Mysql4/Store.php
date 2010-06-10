@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +50,7 @@ class Mage_Core_Model_Mysql4_Store extends Mage_Core_Model_Mysql4_Abstract
     {
         if(!preg_match('/^[a-z]+[a-z0-9_]*$/',$model->getCode())) {
             Mage::throwException(
-                Mage::helper('core')->__('Store code should contain only letters (a-z), numbers (0-9) or underscore(_), first character should be a letter'));
+                Mage::helper('core')->__('The store code may contain only letters (a-z), numbers (0-9) or underscore(_), the first character must be a letter'));
         }
 
         return $this;

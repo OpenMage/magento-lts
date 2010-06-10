@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
         $this->setChild('save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
-                    'label'     => Mage::helper('adminhtml')->__('Save cache settings'),
+                    'label'     => Mage::helper('adminhtml')->__('Save Cache Settings'),
                     'onclick'   => 'configForm.submit()',
                     'class' => 'save',
                 ))
@@ -130,7 +130,7 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
                     array(
                         'name'      => 'refresh_layered_navigation_now',
                         'action'    => Mage::helper('adminhtml')->__('Refresh Now*'),
-                        'comment'   => Mage::helper('adminhtml')->__('* - If indexing is in progress, it will be killed and new indexing process will start'),
+                        'comment'   => Mage::helper('adminhtml')->__('* - If indexing is in progress, it will be killed and new indexing process will start.'),
                         'warning'   => $warning,
                         )
                 ),

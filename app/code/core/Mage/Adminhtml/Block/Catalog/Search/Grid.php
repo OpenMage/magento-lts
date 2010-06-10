@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -101,7 +101,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
         ));
 
         $this->addColumn('synonym_for', array(
-            'header'    => Mage::helper('catalog')->__('Synonym for'),
+            'header'    => Mage::helper('catalog')->__('Synonym For'),
             'align'     => 'left',
             'index'     => 'synonym_for',
             'width'     => '160px'

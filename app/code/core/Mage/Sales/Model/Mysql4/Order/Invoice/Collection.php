@@ -20,54 +20,36 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Invoices collection
+ * Flat sales order invoice collection
  *
- * @category   Mage
- * @package    Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Sales_Model_Mysql4_Order_Invoice_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
+class Mage_Sales_Model_Mysql4_Order_Invoice_Collection extends Mage_Sales_Model_Mysql4_Order_Collection_Abstract
 {
+    protected $_eventPrefix = 'sales_order_invoice_collection';
+    protected $_eventObject = 'order_invoice_collection';
+
     /**
-     * Initialize orders collection
+     * Order field for setOrderFilter
      *
+     * @var string
      */
+    protected $_orderField = 'order_id';
+
     protected function _construct()
     {
         $this->_init('sales/order_invoice');
     }
-
     /**
-     * Add order filter
+     * Used to emulate after load functionality for each item without loading them
      *
-     * @return Mage_Sales_Model_Mysql4_Order_Invoice_Collection
      */
-    public function setOrderFilter($order)
+    protected function _afterLoad()
     {
-        if ($order instanceof Mage_Sales_Model_Order) {
-            $this->addAttributeToFilter('order_id', $order->getId());
-        } else {
-            $this->addAttributeToFilter('order_id', $order);
-        }
-        return $this;
+        $this->walk('afterLoad');
     }
-
-    /**
-     * Reset left join
-     *
-     * @return Mage_Eav_Model_Entity_Collection_Abstract
-     */
-    protected function _getAllIdsSelect($limit = null, $offset = null)
-    {
-        $idsSelect = parent::_getAllIdsSelect($limit, $offset);
-        $idsSelect->resetJoinLeft();
-        return $idsSelect;
-    }
-
 }

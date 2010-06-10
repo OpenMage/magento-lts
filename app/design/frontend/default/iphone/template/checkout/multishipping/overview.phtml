@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -80,7 +80,7 @@
                                 <tr>
                                     <th class="a-left">
                                         <div class="col2-set">
-                                            <div class="col-1" style="width:70%;"><?php echo $this->__('Shipping to') ?></div>
+                                            <div class="col-1" style="width:70%;"><?php echo $this->__('Shipping To') ?></div>
                                             <div class="col-2 a-right" style="width:28%;"><a href="<?php echo $this->getEditShippingAddressUrl($_address) ?>"><?php echo $this->__('Change') ?></a></div>
                                         </div><div class="clear"></div>
                                     </th>
@@ -160,24 +160,25 @@
                 <?php endforeach; ?>
             </div><br />
             <?php echo $this->getChildHtml('items_after'); ?>
-            <table class="place-order-box a-center" cellspacing="0" style="width:100%;">
-                <tr>
-                    <td class="main-radius a-center">
-                        <big class="grand-total"><div class="a-right"><strong><?php echo $this->__('Grand Total:') ?> <?php echo $this->helper('checkout')->formatPrice($this->getTotal()) ?></strong></div></big>
-                        <div id="review-buttons-container" style="margin:10px 0;">
-                            <input type="image" id="review-button" src="<?php echo $this->getSkinUrl('images/btn_place_order.gif') ?>" value="<?php echo $this->__('Place Order') ?>"/>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="v-middle">
-                        <span id="review-please-wait" style="display:none;" class="opc-please-wait f-right">
-                            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" class="v-middle" alt="" /> &nbsp; <?php echo $this->__('Submitting order information...') ?> &nbsp;
-                        </span>
-                    </td>
-                </tr>
-            </table>
-
+            <div id="checkout-review-submit">
+                <table class="place-order-box a-center" cellspacing="0" style="width:100%;">
+                    <tr>
+                        <td class="main-radius a-center">
+                            <big class="grand-total"><div class="a-right"><strong><?php echo $this->__('Grand Total:') ?> <?php echo $this->helper('checkout')->formatPrice($this->getTotal()) ?></strong></div></big>
+                            <div id="review-buttons-container" style="margin:10px 0;">
+                                <input type="image" id="review-button" src="<?php echo $this->getSkinUrl('images/btn_place_order.gif') ?>" value="<?php echo $this->__('Place Order') ?>"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="v-middle">
+                            <span id="review-please-wait" style="display:none;" class="opc-please-wait f-right">
+                                <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" class="v-middle" alt="" /> &nbsp; <?php echo $this->__('Submitting order information...') ?> &nbsp;
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <div class="clear"></div>
             <div class="button-set">
                 <a href="<?php echo $this->getBackUrl() ?>" class="left"><?php echo $this->__('&laquo; Back to Billing Information') ?></a>

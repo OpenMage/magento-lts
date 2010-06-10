@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -36,5 +36,5 @@
 <?php else: ?>
     <p><?php echo $this->__('Availability: Out of stock.') ?></p>
 <?php endif; ?>
-
+<?php echo $this->getChildHtml('product_type_data_extra') ?>
 <?php echo $this->getPriceHtml($_product) ?>

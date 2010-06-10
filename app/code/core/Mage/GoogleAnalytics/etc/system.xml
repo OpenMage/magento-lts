@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleAnalytics
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -54,7 +54,7 @@
                             <show_in_store>1</show_in_store>
                         </active>
                         <account translate="label">
-                            <label>Account number</label>
+                            <label>Account Number</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>

@@ -19,7 +19,7 @@
  *
  * @category    Varien
  * @package     js
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 function popWin(url,win,para) {
@@ -413,6 +413,8 @@ Varien.DOB.prototype = {
         this.day.validate = this.validate.bind(this);
         this.month.validate = this.validate.bind(this);
         this.year.validate = this.validate.bind(this);
+        
+        this.year.setAttribute('autocomplete','off');
 
         this.advice.hide();
     },
@@ -494,7 +496,7 @@ Element.addMethods({
         if(element.innerText && !Prototype.Browser.Opera) {
             return element.innerText
         }
-        return element.innerHTML.stripScripts().unescapeHTML().replace(/[\n\r\s]+/g, ' ');
+        return element.innerHTML.stripScripts().unescapeHTML().replace(/[\n\r\s]+/g, ' ').strip();
     }
 });
 
@@ -506,4 +508,26 @@ if (!("console" in window) || !("firebug" in console))
     window.console = {};
     for (var i = 0; i < names.length; ++i)
         window.console[names[i]] = function() {}
+}
+
+/**
+ * Executes event handler on the element. Works with event handlers attached by Prototype,
+ * in a browser-agnostic fashion.
+ * @param element The element object
+ * @param event Event name, like 'change'
+ *
+ * @example fireEvent($('my-input', 'click'));
+ */
+function fireEvent(element, event){
+    if (document.createEventObject){
+        // dispatch for IE
+        var evt = document.createEventObject();
+        return element.fireEvent('on'+event,evt)
+    }
+    else{
+        // dispatch for firefox + others
+        var evt = document.createEvent("HTMLEvents");
+        evt.initEvent(event, true, true ); // event type,bubbling,cancelable
+        return !element.dispatchEvent(evt);
+    }
 }

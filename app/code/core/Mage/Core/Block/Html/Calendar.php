@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -88,5 +88,16 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
     public function getTimezoneOffsetSeconds()
     {
         return Mage::getSingleton('core/date')->getGmtOffset();
+    }
+
+    /**
+     * Getter for store timestamp based on store timezone settings
+     *
+     * @param mixed $store
+     * @return int
+     */
+    public function getStoreTimestamp($store = null)
+    {
+        return Mage::getSingleton('core/locale')->storeTimeStamp($store);
     }
 }

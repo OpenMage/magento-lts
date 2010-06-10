@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -36,7 +36,7 @@ Default layout, loads most of the pages
 
         <!-- Mage_Newsletter -->
         <reference name="left">
-            <block type="newsletter/subscribe" name="right.newsletter" template="newsletter/subscribe.phtml"/>
+            <block type="newsletter/subscribe" name="left.newsletter" template="newsletter/subscribe.phtml"/>
         </reference>
 
     </default>
@@ -50,14 +50,8 @@ Customer account pages, rendered for all tabs in dashboard
         <reference name="customer_account_navigation">
             <action method="addLink" translate="label" module="newsletter"><name>newsletter</name><path>newsletter/manage/</path><label>Newsletter Subscriptions</label></action>
         </reference>
+        <remove name="left.newsletter"/>
     </customer_account>
-
-    <customer_account_index>
-
-        <reference name="right">
-            <action method="unsetChild"><name>right.newsletter</name></action>
-        </reference>
-    </customer_account_index>
 
     <newsletter_manage_index translate="label">
         <label>Customer My Account Newsletter Subscriptions</label>

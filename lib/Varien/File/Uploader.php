@@ -240,7 +240,7 @@ class Varien_File_Uploader
     public function addValidateCallback($callbackName, $callbackObject, $callbackMethod)
     {
         $this->_validateCallbacks[$callbackName] = array(
-           'object' => $callbackObject, 
+           'object' => $callbackObject,
            'method' => $callbackMethod
         );
         return $this;
@@ -269,10 +269,13 @@ class Varien_File_Uploader
      */
     static public function getCorrectFileName($fileName)
     {
-        if (preg_match('/[^a-z0-9_\\-\\.\s]/i', $fileName)) {
-            $fileName = 'file' . substr($fileName, strrpos($fileName, '.'));
+        $fileName = preg_replace('/[^a-z0-9_\\-\\.]+/i', '_', $fileName);
+        $fileInfo = pathinfo($fileName);
+
+        if (preg_match('/^_+$/', $fileInfo['filename'])) {
+            $fileName = 'file.' . $fileInfo['extension'];
         }
-        return preg_replace('/\s+/', '_', $fileName);
+        return $fileName;
     }
 
     /**

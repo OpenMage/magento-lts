@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_SalesRule>
-            <version>0.7.12</version>
+            <version>1.4.0.0.4</version>
         </Mage_SalesRule>
     </modules>
     <global>
@@ -48,6 +48,8 @@
                     <rule><table>salesrule</table></rule>
                     <rule_customer><table>salesrule_customer</table></rule_customer>
                     <label><table>salesrule_label</table></label>
+                    <coupon><table>salesrule_coupon</table></coupon>
+                    <coupon_usage><table>salesrule_coupon_usage</table></coupon_usage>
                     <coupon_aggregated>
                         <table>coupon_aggregated</table>
                     </coupon_aggregated>
@@ -88,7 +90,7 @@
                     <freeshipping>
                         <class>salesrule/quote_freeshipping</class>
                         <after>subtotal</after>
-                        <before>shipping</before>
+                        <before>tax_subtotal,shipping</before>
                     </freeshipping>
                     <discount>
                         <class>salesrule/quote_discount</class>
@@ -96,6 +98,12 @@
                         <before>grand_total</before>
                     </discount>
                 </totals>
+                <nominal_totals>
+                    <nominal_discount>
+                        <class>salesrule/quote_nominal_discount</class>
+                        <sort_order>550</sort_order>
+                    </nominal_discount>
+                </nominal_totals>
             </quote>
         </sales>
     </global>
@@ -122,7 +130,7 @@
             </modules>
         </translate>
     </frontend>
-    
+
     <crontab>
         <jobs>
             <aggregate_sales_report_coupons_data>

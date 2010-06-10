@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit extends Mage_Adminhtml_Block_Widget_For
         $this->_updateButton('delete', 'label', Mage::helper('tax')->__('Delete Rule'));
 
         $this->_addButton('save_and_continue', array(
-            'label'     => Mage::helper('tax')->__('Save And Continue Edit'),
+            'label'     => Mage::helper('tax')->__('Save and Continue Edit'),
             'onclick'   => 'saveAndContinueEdit()',
             'class' => 'save'
         ), 10);

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -29,7 +29,9 @@
  *
  * @see Mage_Checkout_Block_Cart_Sidebar
  */
+
 ?>
+<?php if ($this->getIsNeedToDisplaySideBar()):?>
 <div class="block block-cart">
     <?php $_cartQty = $this->getSummaryCount() ?>
     <div class="block-title">
@@ -53,6 +55,7 @@
     <?php endif ?>
     <?php if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
     <div class="actions">
+        <?php echo $this->getChildHtml('extra_actions') ?>
         <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button" onclick="setLocation('<?php echo $this->getCheckoutUrl() ?>')"><span><span><?php echo $this->__('Checkout') ?></span></span></button>
     </div>
     <?php endif ?>
@@ -70,3 +73,4 @@
     <?php endif ?>
     </div>
 </div>
+<?php endif;?>

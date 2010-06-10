@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -101,13 +101,13 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions
             'name' => 'discount_amount',
             'required' => true,
             'class' => 'validate-not-negative-number',
-            'label' => Mage::helper('salesrule')->__('Discount amount'),
+            'label' => Mage::helper('salesrule')->__('Discount Amount'),
         ));
         $model->setDiscountAmount($model->getDiscountAmount()*1);
 
         $fieldset->addField('discount_qty', 'text', array(
             'name' => 'discount_qty',
-            'label' => Mage::helper('salesrule')->__('Maximum Qty Discount is Applied to'),
+            'label' => Mage::helper('salesrule')->__('Maximum Qty Discount is Applied To'),
         ));
         $model->setDiscountQty($model->getDiscountQty()*1);
 
@@ -124,8 +124,8 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions
         ));
 
         $fieldset->addField('simple_free_shipping', 'select', array(
-            'label'     => Mage::helper('salesrule')->__('Free shipping'),
-            'title'     => Mage::helper('salesrule')->__('Free shipping'),
+            'label'     => Mage::helper('salesrule')->__('Free Shipping'),
+            'title'     => Mage::helper('salesrule')->__('Free Shipping'),
             'name'      => 'simple_free_shipping',
             'options'    => array(
                 0 => Mage::helper('salesrule')->__('No'),
@@ -135,8 +135,8 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions
         ));
 
         $fieldset->addField('stop_rules_processing', 'select', array(
-            'label'     => Mage::helper('salesrule')->__('Stop further rules processing'),
-            'title'     => Mage::helper('salesrule')->__('Stop further rules processing'),
+            'label'     => Mage::helper('salesrule')->__('Stop Further Rules Processing'),
+            'title'     => Mage::helper('salesrule')->__('Stop Further Rules Processing'),
             'name'      => 'stop_rules_processing',
             'options'    => array(
                 '1' => Mage::helper('salesrule')->__('Yes'),
@@ -154,8 +154,8 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions
 
         $fieldset->addField('actions', 'text', array(
             'name' => 'actions',
-            'label' => Mage::helper('salesrule')->__('Apply to'),
-            'title' => Mage::helper('salesrule')->__('Apply to'),
+            'label' => Mage::helper('salesrule')->__('Apply To'),
+            'title' => Mage::helper('salesrule')->__('Apply To'),
             'required' => true,
         ))->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/actions'));
 

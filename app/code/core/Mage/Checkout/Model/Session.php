@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,11 +30,17 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     const CHECKOUT_STATE_BEGIN = 'begin';
     protected $_quote = null;
 
+    /**
+     * Class constructor. Initialize checkout session namespace
+     */
     public function __construct()
     {
         $this->init('checkout');
     }
 
+    /**
+     * Unset all data associated with object
+     */
     public function unsetAll()
     {
         parent::unsetAll();
@@ -54,7 +60,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
 
             /* @var $quote Mage_Sales_Model_Quote */
             if ($this->getQuoteId()) {
-                $quote->load($this->getQuoteId());
+                $quote->loadActive($this->getQuoteId());
                 if ($quote->getId()) {
                     /**
                      * If current currency code of quote is not equal current currency code of store,
@@ -193,6 +199,19 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
         $this->_quote = null;
         $this->setQuoteId(null);
         $this->setLastSuccessQuoteId(null);
+    }
+
+    /**
+     * Clear misc checkout parameters
+     */
+    public function clearHelperData()
+    {
+        $this->setLastBillingAgreementId(null)
+            ->setRedirectUrl(null)
+            ->setLastOrderId(null)
+            ->setLastRealOrderId(null)
+            ->setLastRecurringProfileIds(null)
+        ;
     }
 
     public function resetCheckout()

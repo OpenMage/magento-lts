@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -133,7 +133,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         ));
 
         $this->addColumn('created_at', array(
-            'header'    =>Mage::helper('reports')->__('Created at'),
+            'header'    =>Mage::helper('reports')->__('Created At'),
             'width'     =>'170px',
             'type'      =>'datetime',
             'index'     =>'created_at',
@@ -142,11 +142,18 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         ));
 
         $this->addColumn('updated_at', array(
-            'header'    =>Mage::helper('reports')->__('Updated at'),
+            'header'    =>Mage::helper('reports')->__('Updated At'),
             'width'     =>'170px',
             'type'      =>'datetime',
             'index'     =>'updated_at',
             'filter_index'=>'main_table.updated_at',
+            'sortable'  =>false
+        ));
+
+        $this->addColumn('remote_ip', array(
+            'header'    =>Mage::helper('reports')->__('IP Address'),
+            'width'     =>'80px',
+            'index'     =>'remote_ip',
             'sortable'  =>false
         ));
 

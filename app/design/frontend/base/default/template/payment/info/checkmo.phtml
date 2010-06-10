@@ -20,19 +20,19 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<p><?php echo $this->getMethod()->getTitle() ?>
+<p><?php echo $this->getMethod()->getTitle() ?></p>
 <?php if($this->getInfo()->getAdditionalData()): ?>
-    <?php if($this->getPayableTo()): ?><br /><?php echo $this->__('Make Check payable to: %s', $this->htmlEscape($this->getPayableTo())) ?><?php endif; ?>
+    <?php if($this->getPayableTo()): ?>
+        <p><strong><?php echo $this->__('Make Check payable to:') ?></strong> <?php echo $this->htmlEscape($this->getPayableTo()) ?></p>
+    <?php endif; ?>
     <?php if($this->getMailingAddress()): ?>
-        <br /><?php echo Mage::helper('payment')->__('Send Check to:') ?>
-        <br />
-        <span class="checkmo-mailing-address">
+        <p><strong><?php echo Mage::helper('payment')->__('Send Check to:') ?></strong></p>
+        <address class="checkmo-mailing-address">
             <?php echo nl2br($this->htmlEscape($this->getMailingAddress())) ?>
-        </span>
+        </address>
     <?php endif; ?>
 <?php endif; ?>
-</p>

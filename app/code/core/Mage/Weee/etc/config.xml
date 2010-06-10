@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Weee
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -180,6 +180,12 @@
                         <before>tax,discount</before>
                     </weee>
                 </totals>
+                <nominal_totals>
+                    <nominal_weee>
+                        <class>weee/total_quote_nominal_weee</class>
+                        <sort_order>600</sort_order>
+                    </nominal_weee>
+                </nominal_totals>
             </quote>
             <order_invoice>
                 <totals>

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -39,7 +39,7 @@
         <?php endif; ?>
         <?php echo $this->htmlEscape($_item->getDescription()) ?>
         <?php if ($_item->getGiftMessageId() && $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_item->getGiftMessageId())): ?>
-        <br /><strong><?php echo $this->__('Gift Message') ?></strong>
+        <br /><strong style="color:#444; font-size:13px;"><?php echo $this->__('Gift Message') ?></strong>
         <br /><?php echo $this->__('From:'); ?> <?php echo $this->htmlEscape($_giftMessage->getSender()) ?>
         <br /><?php echo $this->__('To:'); ?> <?php echo $this->htmlEscape($_giftMessage->getRecipient()) ?>
         <br /><?php echo $this->__('Message:'); ?><br /> <?php echo $this->htmlEscape($_giftMessage->getMessage()) ?>

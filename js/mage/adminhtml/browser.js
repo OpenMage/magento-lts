@@ -19,7 +19,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 MediabrowserUtility = {
@@ -33,10 +33,11 @@ MediabrowserUtility = {
             resizable:    false,
             draggable:    true,
             className:    'magento',
+            windowClassName:    'popup-window',
             title:        title || 'Insert File...',
             top:          50,
             width:        width || 950,
-            height:       height || 800,
+            height:       height || 600,
             zIndex:       1000,
             recenterAuto: false,
             hideEffect:   Element.hide,
@@ -69,6 +70,7 @@ Mediabrowser.prototype = {
     headerText: null,
     tree: null,
     currentNode: null,
+    storeId: null,
     initialize: function (setup) {
         this.newFolderPrompt = setup.newFolderPrompt;
         this.deleteFolderConfirmationMessage = setup.deleteFolderConfirmationMessage;
@@ -183,7 +185,8 @@ Mediabrowser.prototype = {
             return;
         }
 
-        var params = {filename:div.id, node:this.currentNode.id};
+        var params = {filename:div.id, node:this.currentNode.id, store:this.storeId};
+
         if (targetEl.tagName.toLowerCase() == 'textarea') {
             params.as_is = 1;
         }

@@ -52,7 +52,7 @@ class Phoenix_Moneybookers_ProcessingController extends Mage_Core_Controller_Fro
                 Mage::throwException('No order for processing found');
             }
             $order->setState(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT, Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
-                Mage::helper('moneybookers')->__('Customer was redirected to Moneybookers.')
+                Mage::helper('moneybookers')->__('The customer was redirected to Moneybookers.')
             );
             $order->save();
 

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,8 +31,8 @@ class Mage_Adminhtml_Model_System_Config_Source_Catalog_ListMode
     {
         return array(
             //array('value'=>'', 'label'=>''),
-            array('value'=>'grid', 'label'=>Mage::helper('adminhtml')->__('Grid only')),
-            array('value'=>'list', 'label'=>Mage::helper('adminhtml')->__('List only')),
+            array('value'=>'grid', 'label'=>Mage::helper('adminhtml')->__('Grid Only')),
+            array('value'=>'list', 'label'=>Mage::helper('adminhtml')->__('List Only')),
             array('value'=>'grid-list', 'label'=>Mage::helper('adminhtml')->__('Grid (default) / List')),
             array('value'=>'list-grid', 'label'=>Mage::helper('adminhtml')->__('List (default) / Grid')),
         );

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -303,7 +303,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $this->_columns[$columnId] = $column;
         }*/
         else {
-            throw new Exception(Mage::helper('adminhtml')->__('Wrong column format'));
+            throw new Exception(Mage::helper('adminhtml')->__('Wrong column format.'));
         }
 
         $this->_columns[$columnId]->setId($columnId);

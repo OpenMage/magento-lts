@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -80,9 +80,9 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
                 foreach ($errors as $error) {
                     Mage::getSingleton('adminhtml/session')->addWarning($error);
                 }
-                Mage::getSingleton('adminhtml/session')->addWarning(Mage::helper('adminhtml')->__('All possible rates were fetched, click on "Save" to apply'));
+                Mage::getSingleton('adminhtml/session')->addWarning(Mage::helper('adminhtml')->__('All possible rates were fetched, please click on "Save" to apply'));
             } else {
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('All rates were fetched, click on "Save" to apply'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('All rates were fetched, please click on "Save" to apply'));
             }
 
             Mage::getSingleton('adminhtml/session')->setRates($rates);
@@ -109,7 +109,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
                 }
 
                 Mage::getModel('directory/currency')->saveRates($data);
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('All valid rates successfully saved'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('All valid rates have been saved.'));
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }

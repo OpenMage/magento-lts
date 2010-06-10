@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,11 +31,25 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     protected $_rates = null;
     protected $_numBoxes = 1;
 
+    /**
+     * Whether this carrier has fixed rates calculation
+     *
+     * @var bool
+     */
+    protected $_isFixed = false;
+
     const HANDLING_TYPE_PERCENT = 'P';
     const HANDLING_TYPE_FIXED = 'F';
 
     const HANDLING_ACTION_PERPACKAGE = 'P';
     const HANDLING_ACTION_PERORDER = 'O';
+
+    /**
+     * Fields that should be replaced in debug with '***'
+     *
+     * @var array
+     */
+    protected $_debugReplacePrivateDataKeys = array();
 
     public function __construct()
     {
@@ -87,7 +101,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
                    $error->setCarrier($this->_code);
                    $error->setCarrierTitle($this->getConfigData('title'));
                    $errorMsg = $this->getConfigData('specificerrmsg');
-                   $error->setErrorMessage($errorMsg?$errorMsg:Mage::helper('shipping')->__('The shipping module is not available for selected delivery country'));
+                   $error->setErrorMessage($errorMsg?$errorMsg:Mage::helper('shipping')->__('The shipping module is not available for selected delivery country.'));
                    return $error;
              } else {
                  /*
@@ -115,6 +129,16 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     {
         $active = $this->getConfigData('active');
         return $active==1 || $active=='true';
+    }
+
+    /**
+     * Whether this carrier has fixed rates calculation
+     *
+     * @return bool
+     */
+    public function isFixed()
+    {
+        return $this->_isFixed;
     }
 
     /**
@@ -282,5 +306,49 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     public function isZipCodeRequired()
     {
         return false;
+    }
+
+    /**
+     * Log debug data to file
+     *
+     * @param mixed $debugData
+     */
+    protected function _debug($debugData)
+    {
+        if ($this->getDebugFlag()) {
+            Mage::getModel('core/log_adapter', 'shipping_' . $this->getCarrierCode() . '.log')
+               ->setFilterDataKeys($this->_debugReplacePrivateDataKeys)
+               ->log($debugData);
+        }
+    }
+
+    /**
+     * Define if debugging is enabled
+     *
+     * @return bool
+     */
+    public function getDebugFlag()
+    {
+        return $this->getConfigData('debug');
+    }
+
+    /**
+     * Used to call debug method from not Paymant Method context
+     *
+     * @param mixed $debugData
+     */
+    public function debugData($debugData)
+    {
+        $this->_debug($debugData);
+    }
+
+    /**
+     * Getter for carrier code
+     *
+     * @return string
+     */
+    public function getCarrierCode()
+    {
+        return $this->_code;
     }
 }

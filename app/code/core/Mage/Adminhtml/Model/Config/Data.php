@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,6 +66,9 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         $saveTransaction = Mage::getModel('core/resource_transaction');
         /* @var $saveTransaction Mage_Core_Model_Resource_Transaction */
 
+        // Extends for old config data
+        $oldConfigAdditionalGroups = array();
+
         foreach ($groups as $group => $groupData) {
 
             /**
@@ -89,6 +92,13 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                         }
                     }
                 }
+            }
+            // set value for group field entry by fieldname
+            // use extra memory
+            $fieldsetData = array();
+            foreach ($groupData['fields'] as $field => $fieldData) {
+                $fieldsetData[$field] = (is_array($fieldData) && isset($fieldData['value']))
+                    ? $fieldData['value'] : null;
             }
 
             foreach ($groupData['fields'] as $field => $fieldData) {
@@ -124,6 +134,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     ->setScope($scope)
                     ->setScopeId($scopeId)
                     ->setFieldConfig($fieldConfig)
+                    ->setFieldsetData($fieldsetData)
                 ;
 
                 if (!isset($fieldData['value'])) {
@@ -134,7 +145,24 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     $fieldData['value'] = join(',', $fieldData['value']);
                 }*/
 
-                $path    = $section.'/'.$group.'/'.$field;
+                $path = $section.'/'.$group.'/'.$field;
+
+                /**
+                 * Look for custom defined field path
+                 */
+                if (is_object($fieldConfig)) {
+                    $configPath = (string)$fieldConfig->config_path;
+                    if (!empty($configPath) && strrpos($configPath, '/') > 0) {
+                        // Extend old data with specified section group
+                        $groupPath = substr($configPath, 0, strrpos($configPath, '/'));
+                        if (!isset($oldConfigAdditionalGroups[$groupPath])) {
+                            $oldConfig = $this->extendConfig($groupPath, true, $oldConfig);
+                            $oldConfigAdditionalGroups[$groupPath] = true;
+                        }
+                        $path = $configPath;
+                    }
+                }
+
                 $inherit = !empty($fieldData['inherit']);
 
                 $dataObject->setPath($path)
@@ -181,6 +209,23 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     }
 
     /**
+     * Extend config data with additional config data by specified path
+     *
+     * @param string $path Config path prefix
+     * @param bool $full Simple config structure or not
+     * @param array $oldConfig Config data to extend
+     * @return array
+     */
+    public function extendConfig($path, $full = true, $oldConfig = array())
+    {
+        $extended = $this->_getPathConfig($path, $full);
+        if (is_array($oldConfig) && !empty($oldConfig)) {
+            return $oldConfig + $extended;
+        }
+        return $extended;
+    }
+
+    /**
      * Validate isset required parametrs
      *
      */
@@ -188,15 +233,12 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     {
         if (is_null($this->getSection())) {
             $this->setSection('');
-//            Mage::throwException(Mage::helper('adminhtml')->__('Invalid section value'));
         }
         if (is_null($this->getWebsite())) {
             $this->setWebsite('');
-//            Mage::throwException(Mage::helper('adminhtml')->__('Invalid website value'));
         }
         if (is_null($this->getStore())) {
             $this->setStore('');
-//            Mage::throwException(Mage::helper('adminhtml')->__('Invalid store value'));
         }
     }
 
@@ -221,15 +263,28 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     }
 
     /**
-     * Get config data where key = path
+     * Return formatted config data for current section
      *
+     * @param bool $full Simple config structure or not
      * @return array
      */
     protected function _getConfig($full = true)
     {
+        return $this->_getPathConfig($this->getSection(), $full);
+    }
+
+    /**
+     * Return formatted config data for specified path prefix
+     *
+     * @param string $path Config path prefix
+     * @param bool $full Simple config structure or not
+     * @return array
+     */
+    protected function _getPathConfig($path, $full = true)
+    {
         $configDataCollection = Mage::getModel('core/config_data')
             ->getCollection()
-            ->addScopeFilter($this->getScope(), $this->getScopeId(), $this->getSection());
+            ->addScopeFilter($this->getScope(), $this->getScopeId(), $path);
 
         $config = array();
         foreach ($configDataCollection as $data) {

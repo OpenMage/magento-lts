@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Cms
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -175,7 +175,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $newPath = $path . DS . $name;
 
         if (file_exists($newPath)) {
-            Mage::throwException(Mage::helper('cms')->__('Such directory already exists. Try another folder name'));
+            Mage::throwException(Mage::helper('cms')->__('A directory with the same name already exists. Please try another folder name.'));
         }
 
         $io = new Varien_Io_File();
@@ -188,7 +188,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             );
             return $result;
         }
-        Mage::throwException(Mage::helper('cms')->__('Cannot create new directory'));
+        Mage::throwException(Mage::helper('cms')->__('Cannot create new directory.'));
     }
 
     /**
@@ -204,13 +204,13 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $pathCmp = rtrim($path, DS);
 
         if ($rootCmp == $pathCmp) {
-            Mage::throwException(Mage::helper('cms')->__('Cannot delete root directory %s', $path));
+            Mage::throwException(Mage::helper('cms')->__('Cannot delete root directory %s.', $path));
         }
 
         $io = new Varien_Io_File();
 
         if (!$io->rmdir($path, true)) {
-            Mage::throwException(Mage::helper('cms')->__('Cannot delete directory %s', $path));
+            Mage::throwException(Mage::helper('cms')->__('Cannot delete directory %s.', $path));
         }
 
         if (strpos($pathCmp, $rootCmp) === 0) {
@@ -255,7 +255,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $result = $uploader->save($targetPath);
 
         if (!$result) {
-            Mage::throwException( Mage::helper('cms')->__('Cannot upload file') );
+            Mage::throwException( Mage::helper('cms')->__('Cannot upload file.') );
         }
 
         // create thumbnail
@@ -322,7 +322,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      *
      * @param string $source Image path to be resized
      * @param bool $keepRation Keep aspect ratio or not
-     * @return bool|string Resized filepath or false if errors were occured
+     * @return bool|string Resized filepath or false if errors were occurred
      */
     public function resizeFile($source, $keepRation = true)
     {

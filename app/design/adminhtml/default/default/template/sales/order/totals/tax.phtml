@@ -20,11 +20,11 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php 
+<?php
     $_source    = $this->getSource();
     $_order     = $this->getOrder();
     $_fullInfo  = $this->getFullTaxInfo();
@@ -34,7 +34,7 @@
     <?php $isTop = 1; ?>
     <?php foreach ($_fullInfo as $info): ?>
         <?php if (isset($info['hidden']) && $info['hidden']) continue; ?>
-        <?php 
+        <?php
             $percent      = $info['percent'];
             $amount       = $info['amount'];
             $baseAmount   = $info['base_amount'];
@@ -43,7 +43,7 @@
         ?>
 
         <?php foreach ($rates as $rate): ?>
-        <tr class="tax-details<?php if ($isTop): echo ' tax-details-first'; endif; ?>" style="display:none;">
+        <tr class="summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>" style="display:none;">
             <?php if ($rate['percent']): ?>
                 <td class="label"><?php echo $rate['title']; ?> (<?php echo $rate['percent']; ?>%)<br /></td>
             <?php else: ?>
@@ -61,12 +61,12 @@
     <?php endforeach; ?>
 <?php endif;?>
 <?php if ($this->displayFullSummary() && $_fullInfo): ?>
-<tr class="tax-total" onclick="expandDetails(this, '.tax-details')">
+<tr class="summary-total" onclick="expandDetails(this, '.summary-details')">
 <?php else: ?>
 <tr>
 <?php endif; ?>
     <td class="label">
-        <div class="tax-collapse">
+        <div class="summary-collapse">
         <?php if ($this->helper('tax')->displayFullSummary()): ?>
             <?php echo Mage::helper('sales')->__('Total Tax') ?>
         <?php else: ?>

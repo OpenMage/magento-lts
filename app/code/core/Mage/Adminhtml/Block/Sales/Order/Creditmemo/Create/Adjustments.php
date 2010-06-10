@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments extends Mage_Adminhtml_Block_Template
@@ -49,5 +49,39 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments extends Mag
     public function getSource()
     {
         return $this->_source;
+    }
+
+    /**
+     * Get credit memo shipping amount depend on configuration settings
+     * @return float
+     */
+    public function getShippingAmount()
+    {
+        $config = Mage::getSingleton('tax/config');
+        $source = $this->getSource();
+        if ($config->displaySalesShippingInclTax($source->getOrder()->getStoreId())) {
+            $shipping = $source->getBaseShippingInclTax();
+        } else {
+            $shipping = $source->getBaseShippingAmount();
+        }
+        return $shipping*1;
+    }
+
+    /**
+     * Get label for shipping total based on configuration settings
+     * @return string
+     */
+    public function getShippingLabel()
+    {
+        $config = Mage::getSingleton('tax/config');
+        $source = $this->getSource();
+        if ($config->displaySalesShippingInclTax($source->getOrder()->getStoreId())) {
+            $label = $this->helper('sales')->__('Refund Shipping (Incl. Tax)');
+        } elseif ($config->displaySalesShippingBoth($source->getOrder()->getStoreId())) {
+            $label = $this->helper('sales')->__('Refund Shipping (Excl. Tax)');
+        } else {
+            $label = $this->helper('sales')->__('Refund Shipping');
+        }
+        return $label;
     }
 }

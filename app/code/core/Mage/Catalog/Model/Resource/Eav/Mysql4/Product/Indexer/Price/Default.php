@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -81,7 +81,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Default
     public function getTypeId()
     {
         if (is_null($this->_typeId)) {
-            Mage::throwException(Mage::helper('catalog')->__('Not defined Product Type for Indexer'));
+            Mage::throwException(Mage::helper('catalog')->__('A product type is not defined for the indexer.'));
         }
         return $this->_typeId;
     }
@@ -115,6 +115,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Default
      */
     public function reindexAll()
     {
+        $this->useIdxTable(true);
         $this->_prepareFinalPriceData();
         $this->_applyCustomOption();
         $this->_movePriceDataToIndexTable();
@@ -144,7 +145,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Default
      */
     protected function _getDefaultFinalPriceTable()
     {
-        return $this->getIdxTable($this->getMainTable() . '_final');
+        if ($this->useIdxTable()) {
+            return $this->getTable('catalog/product_price_indexer_final_idx');
+        }
+        return $this->getTable('catalog/product_price_indexer_final_tmp');
     }
 
     /**
@@ -154,28 +158,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Default
      */
     protected function _prepareDefaultFinalPriceTable()
     {
-        $write = $this->_getWriteAdapter();
-        $table = $this->_getDefaultFinalPriceTable();
-
-        $query = sprintf('DROP TABLE IF EXISTS %s', $write->quoteIdentifier($table));
-        $write->query($query);
-
-        $query = sprintf('CREATE TABLE %s ('
-            . ' `entity_id` INT(10) UNSIGNED NOT NULL,'
-            . ' `customer_group_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `website_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `tax_class_id` SMALLINT(5) UNSIGNED DEFAULT \'0\','
-            . ' `orig_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `min_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `max_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `tier_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `base_tier` DECIMAL(12,4) DEFAULT NULL,'
-            . ' PRIMARY KEY (`entity_id`,`customer_group_id`,`website_id`)'
-            . ') ENGINE=MYISAM DEFAULT CHARSET=utf8',
-            $write->quoteIdentifier($table));
-        $write->query($query);
-
+        $this->_getWriteAdapter()->delete($this->_getDefaultFinalPriceTable());
         return $this;
     }
 
@@ -303,7 +286,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Default
      */
     protected function _getCustomOptionAggregateTable()
     {
-        return $this->getIdxTable() . '_option_aggregate';
+        if ($this->useIdxTable()) {
+            return $this->getTable('catalog/product_price_indexer_option_aggregate_idx');
+        }
+        return $this->getTable('catalog/product_price_indexer_option_aggregate_idx');
     }
 
     /**
@@ -313,7 +299,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Default
      */
     protected function _getCustomOptionPriceTable()
     {
-        return $this->getIdxTable() . '_option';
+        if ($this->useIdxTable()) {
+            return $this->getTable('catalog/product_price_indexer_option_idx');
+        }
+        return $this->getTable('catalog/product_price_indexer_option_tmp');
     }
 
     /**
@@ -323,25 +312,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Default
      */
     protected function _prepareCustomOptionAggregateTable()
     {
-        $write = $this->_getWriteAdapter();
-        $table = $this->_getCustomOptionAggregateTable();
-
-        $query = sprintf('DROP TABLE IF EXISTS %s', $write->quoteIdentifier($table));
-        $write->query($query);
-
-        $query = sprintf('CREATE TABLE %s ('
-            . ' `entity_id` INT(10) UNSIGNED NOT NULL,'
-            . ' `customer_group_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `website_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `option_id` INT(10) UNSIGNED DEFAULT \'0\','
-            . ' `min_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `max_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `tier_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' PRIMARY KEY (`entity_id`,`customer_group_id`,`website_id`, `option_id`)'
-            . ') ENGINE=MYISAM DEFAULT CHARSET=utf8',
-            $write->quoteIdentifier($table));
-        $write->query($query);
-
+        $this->_getWriteAdapter()->delete($this->_getCustomOptionAggregateTable());
         return $this;
     }
 
@@ -352,24 +323,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Default
      */
     protected function _prepareCustomOptionPriceTable()
     {
-        $write = $this->_getWriteAdapter();
-        $table = $this->_getCustomOptionPriceTable();
-
-        $query = sprintf('DROP TABLE IF EXISTS %s', $write->quoteIdentifier($table));
-        $write->query($query);
-
-        $query = sprintf('CREATE TABLE %s ('
-            . ' `entity_id` INT(10) UNSIGNED NOT NULL,'
-            . ' `customer_group_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `website_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `min_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `max_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `tier_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' PRIMARY KEY (`entity_id`,`customer_group_id`,`website_id`)'
-            . ') ENGINE=MYISAM DEFAULT CHARSET=utf8',
-            $write->quoteIdentifier($table));
-        $write->query($query);
-
+        $this->_getWriteAdapter()->delete($this->_getCustomOptionPriceTable());
         return $this;
     }
 
@@ -522,8 +476,14 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Default
         $query = $select->crossUpdateFromSelect($table);
         $write->query($query);
 
-        $write->truncate($coaTable);
-        $write->truncate($copTable);
+        if ($this->useIdxTable()) {
+            $write->truncate($coaTable);
+            $write->truncate($copTable);
+        }
+        else {
+            $write->delete($coaTable);
+            $write->delete($copTable);
+        }
 
         return $this;
     }
@@ -555,7 +515,12 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Default
         $query = $select->insertFromSelect($this->getIdxTable());
         $write->query($query);
 
-        $write->truncate($table);
+        if ($this->useIdxTable()) {
+            $write->truncate($table);
+        }
+        else {
+            $write->delete($table);
+        }
 
         return $this;
     }
@@ -577,4 +542,17 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Default
      */
     public function registerEvent(Mage_Index_Model_Event $event)
     {}
+
+    /**
+     * Retrieve temporary index table name
+     *
+     * @return string
+     */
+    public function getIdxTable($table = null)
+    {
+        if ($this->useIdxTable()) {
+            return $this->getTable('catalog/product_price_indexer_idx');
+        }
+        return $this->getTable('catalog/product_price_indexer_tmp');
+    }
 }

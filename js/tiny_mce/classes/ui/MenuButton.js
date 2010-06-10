@@ -1,38 +1,49 @@
 /**
- * $Id: Button.js 520 2008-01-07 16:30:32Z spocke $
+ * MenuButton.js
  *
- * @author Moxiecode
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+ * Copyright 2009, Moxiecode Systems AB
+ * Released under LGPL License.
+ *
+ * License: http://tinymce.moxiecode.com/license
+ * Contributing: http://tinymce.moxiecode.com/contributing
  */
 
 (function(tinymce) {
 	var DOM = tinymce.DOM, Event = tinymce.dom.Event, each = tinymce.each;
 
-	/**#@+
-	 * @class This class is used to create a UI button. A button is basically a link
+	/**
+	 * This class is used to create a UI button. A button is basically a link
 	 * that is styled to look like a button or icon.
-	 * @member tinymce.ui.Button
-	 * @base tinymce.ui.Control
+	 *
+	 * @class tinymce.ui.MenuButton
+	 * @extends tinymce.ui.Control
 	 */
 	tinymce.create('tinymce.ui.MenuButton:tinymce.ui.Button', {
 		/**
 		 * Constructs a new split button control instance.
 		 *
+		 * @constructor
+		 * @method MenuButton
 		 * @param {String} id Control id for the split button.
 		 * @param {Object} s Optional name/value settings object.
 		 */
 		MenuButton : function(id, s) {
 			this.parent(id, s);
+
+			/**
+			 * Fires when the menu is rendered.
+			 *
+			 * @event onRenderMenu
+			 */
 			this.onRenderMenu = new tinymce.util.Dispatcher(this);
+
 			s.menu_container = s.menu_container || DOM.doc.body;
 		},
 
-		/**#@+
-		 * @method
-		 */
-
 		/**
 		 * Shows the menu.
+		 *
+		 * @method showMenu
 		 */
 		showMenu : function() {
 			var t = this, p1, p2, e = DOM.get(t.id), m;
@@ -67,6 +78,8 @@
 
 		/**
 		 * Renders the menu to the DOM.
+		 *
+		 * @method renderMenu
 		 */
 		renderMenu : function() {
 			var t = this, m;
@@ -87,6 +100,7 @@
 		 * Hides the menu. The optional event parameter is used to check where the event occured so it
 		 * doesn't close them menu if it was a event inside the menu.
 		 *
+		 * @method hideMenu
 		 * @param {Event} e Optional event object.
 		 */
 		hideMenu : function(e) {
@@ -109,6 +123,8 @@
 		/**
 		 * Post render handler. This function will be called after the UI has been
 		 * rendered so that events can be added.
+		 *
+		 * @method postRender
 		 */
 		postRender : function() {
 			var t = this, s = t.settings;
@@ -122,7 +138,5 @@
 				}
 			});
 		}
-
-		/**#@-*/
 	});
 })(tinymce);

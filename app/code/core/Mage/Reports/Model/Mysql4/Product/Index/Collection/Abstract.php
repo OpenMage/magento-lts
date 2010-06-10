@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,28 +43,51 @@ abstract class Mage_Reports_Model_Mysql4_Product_Index_Collection_Abstract
     abstract protected function _getTableName();
 
     /**
+     * Join index table
+     */
+    protected function _joinIdxTable()
+    {
+        if (!$this->getFlag('is_idx_table_joined')) {
+            $this->joinTable(
+                array('idx_table' => $this->_getTableName()),
+                'product_id=entity_id',
+                array(
+                    'product_id'    => 'product_id',
+                    'item_store_id' => 'store_id',
+                    'added_at'      => 'added_at'
+                ),
+                $this->_getWhereCondition()
+            );
+            $this->setFlag('is_idx_table_joined', true);
+        }
+        return $this;
+    }
+
+    /**
      * Add Viewed Products Index to Collection
      *
      * @return Mage_Reports_Model_Mysql4_Product_Index_Collection_Abstract
      */
     public function addIndexFilter()
     {
-        $this->joinTable(
-            array('idx_table' => $this->_getTableName()),
-            'product_id=entity_id',
-            array(
-                'product_id'    => 'product_id',
-                'item_store_id' => 'store_id',
-                'added_at'      => 'added_at'
-            ),
-            $this->_getWhereCondition()
-        );
-
+        $this->_joinIdxTable();
         $this->_productLimitationFilters['store_table'] = 'idx_table';
-
         $this->setFlag('url_data_object', true);
         $this->setFlag('do_not_use_category_id', true);
+        return $this;
+    }
 
+    /**
+     * Add filter by product ids
+     * @param array $ids
+     */
+    public function addFilterByIds($ids)
+    {
+        if (empty($ids)) {
+            $this->getSelect()->where('0');
+        } else {
+            $this->getSelect()->where('entity_id IN(?)', $ids);
+        }
         return $this;
     }
 
@@ -95,7 +118,9 @@ abstract class Mage_Reports_Model_Mysql4_Product_Index_Collection_Abstract
      */
     public function setAddedAtOrder($dir = 'desc')
     {
-        $this->setOrder("added_at", $dir);
+        if ($this->getFlag('is_idx_table_joined')) {
+            $this->getSelect()->order('added_at '.$dir);
+        }
         return $this;
     }
 
@@ -110,6 +135,7 @@ abstract class Mage_Reports_Model_Mysql4_Product_Index_Collection_Abstract
         if (empty($productIds)) {
             return $this;
         }
+        $this->_joinIdxTable();
         $this->getSelect()->where('idx_table.product_id NOT IN(?)', $productIds);
         return $this;
     }

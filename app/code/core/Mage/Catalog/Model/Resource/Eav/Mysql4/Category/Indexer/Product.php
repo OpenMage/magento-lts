@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Mage_Index_Model_Mysql4_Abstract
@@ -456,10 +456,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Ma
      */
     public function reindexAll()
     {
-        /**
-         * Create temporary index table
-         */
-        $this->cloneIndexTable();
+        $this->useIdxTable(true);
+        $this->clearTemporaryIndexTable();
         $idxTable = $this->getIdxTable();
         $idxAdapter = $this->_getIndexAdapter();
         $stores = $this->_getStoresInfo();
@@ -504,16 +502,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Ma
                 WHERE
                     cp.product_id IS NULL";
             $idxAdapter->query($sql);
+
             /**
              * Prepare anchor categories products
              */
-            $anchorProductsTable = $this->_resources->getTableName('tmp_category_index_anchor_products');
-            $idxAdapter->query('DROP TABLE IF EXISTS ' . $anchorProductsTable);
-            $sql = "CREATE TABLE `{$anchorProductsTable}` (
-              `category_id` int(10) unsigned NOT NULL DEFAULT '0',
-              `product_id` int(10) unsigned NOT NULL DEFAULT '0'
-            ) ENGINE=MyISAM";
-            $idxAdapter->query($sql);
+            $anchorProductsTable = $this->_getAnchorCategoriesProductsTemporaryTable();
+            $idxAdapter->delete($anchorProductsTable);
+
             $sql = "SELECT
                     STRAIGHT_JOIN DISTINCT
                     ca.category_id, cp.product_id
@@ -541,13 +536,15 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Ma
             $idxAdapter->query($sql);
         }
         $this->syncData();
-        $tmpTables = array(
-            $idxAdapter->quoteIdentifier($idxTable),
-            $idxAdapter->quoteIdentifier($enabledTable),
-            $idxAdapter->quoteIdentifier($anchorTable),
-            $idxAdapter->quoteIdentifier($anchorProductsTable)
-        );
-        $idxAdapter->query('DROP TABLE IF EXISTS '.implode(',', $tmpTables));
+
+        /**
+         * Clean up temporary tables
+         */
+        $this->clearTemporaryIndexTable();
+        $idxAdapter->delete($enabledTable);
+        $idxAdapter->delete($anchorTable);
+        $idxAdapter->delete($anchorProductsTable);
+
         return $this;
     }
 
@@ -585,18 +582,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Ma
         $visibilityAttributeId = $visibilityAttribute->getId();
         $statusTable = $statusAttribute->getBackend()->getTable();
         $visibilityTable = $visibilityAttribute->getBackend()->getTable();
+
         /**
          * Prepare temporary table
          */
-        $tmpTable = $this->_resources->getTableName('tmp_category_index_enabled_products');
-        $sql = 'DROP TABLE IF EXISTS ' . $tmpTable;
-        $this->_getIndexAdapter()->query($sql);
-        $sql = "CREATE TABLE {$tmpTable} (
-           `product_id` int(10) unsigned NOT NULL DEFAULT '0',
-           `visibility` int(11) unsigned NOT NULL DEFAULT '0',
-           KEY `IDX_PRODUCT` (`product_id`)
-         ) ENGINE=MyISAM";
-        $this->_getIndexAdapter()->query($sql);
+        $tmpTable = $this->_getEnabledProductsTemporaryTable();
+        $this->_getIndexAdapter()->delete($tmpTable);
+
         $sql = "SELECT
                 pw.product_id AS product_id,
                 IF(pvs.value_id>0, pvs.value, pvd.value) AS visibility
@@ -618,6 +610,19 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Ma
     }
 
     /**
+     * Retrieve temporary table of category enabled products
+     *
+     * @return string
+     */
+    protected function _getEnabledProductsTemporaryTable()
+    {
+        if ($this->useIdxTable()) {
+            return $this->getTable('catalog/category_product_enabled_indexer_idx');
+        }
+        return $this->getTable('catalog/category_product_enabled_indexer_tmp');
+    }
+
+    /**
      * Create temporary table with list of anchor categories
      *
      * @param   int $storeId
@@ -628,15 +633,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Ma
         $isAnchorAttribute = Mage::getSingleton('eav/config')->getAttribute('catalog_category', 'is_anchor');
         $anchorAttributeId = $isAnchorAttribute->getId();
         $anchorTable = $isAnchorAttribute->getBackend()->getTable();
-        $tmpTable = $this->_resources->getTableName('tmp_category_index_anchor_categories');
-        $sql = 'DROP TABLE IF EXISTS ' . $tmpTable;
-        $this->_getIndexAdapter()->query($sql);
-        $sql = "CREATE TABLE {$tmpTable} (
-            `category_id` int(10) unsigned NOT NULL DEFAULT '0',
-            `path` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
-            KEY `IDX_CATEGORY` (`category_id`)
-        ) ENGINE=MyISAM";
-        $this->_getIndexAdapter()->query($sql);
+
+        $tmpTable = $this->_getAnchorCategoriesTemporaryTable();
+        $this->_getIndexAdapter()->delete($tmpTable);
+
         $sql = "SELECT
             ce.entity_id AS category_id,
             concat(ce.path, '/%') AS path
@@ -651,5 +651,44 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Ma
             OR ce.path='{$rootPath}'";
         $this->insertFromSelect($sql, $tmpTable, array('category_id' , 'path'));
         return $tmpTable;
+    }
+
+    /**
+     * Retrieve temporary table of anchor categories
+     *
+     * @return string
+     */
+    protected function _getAnchorCategoriesTemporaryTable()
+    {
+        if ($this->useIdxTable()) {
+            return $this->getTable('catalog/category_anchor_indexer_idx');
+        }
+        return $this->getTable('catalog/category_anchor_indexer_idx');
+    }
+
+    /**
+     * Retrieve temporary table of anchor categories products
+     *
+     * @return string
+     */
+    protected function _getAnchorCategoriesProductsTemporaryTable()
+    {
+        if ($this->useIdxTable()) {
+            return $this->getTable('catalog/category_anchor_products_indexer_idx');
+        }
+        return $this->getTable('catalog/category_anchor_products_indexer_tmp');
+    }
+
+    /**
+     * Retrieve temporary decimal index table name
+     *
+     * @return string
+     */
+    public function getIdxTable($table = null)
+    {
+        if ($this->useIdxTable()) {
+            return $this->getTable('catalog/category_product_indexer_idx');
+        }
+        return $this->getTable('catalog/category_product_indexer_tmp');
     }
 }

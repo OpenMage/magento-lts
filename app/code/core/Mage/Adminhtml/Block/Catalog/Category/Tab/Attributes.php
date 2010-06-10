@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -109,7 +109,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
                 ));
             }
         }
-
+        
         $this->_setFieldset($attributes, $fieldset);
 
         foreach ($attributes as $attribute) {
@@ -121,6 +121,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
                         'name'  => 'url_key',
                         'value' => $this->getCategory()->getUrlKey()
                     ));
+                } else {
+                    $form->getElement('url_key')->setRenderer(
+                        $this->getLayout()->createBlock('adminhtml/catalog_form_renderer_attribute_urlkey')
+                    );
                 }
             }
         }
@@ -131,6 +135,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
                     $element->setReadonly(true, true);
                 }
             }
+        }
+
+        if (!$this->getCategory()->getId()){
+            $this->getCategory()->setIncludeInMenu(1);
         }
 
         $form->addValues($this->getCategory()->getData());

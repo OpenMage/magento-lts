@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -35,12 +35,10 @@
     <div class="col-1">
         <div class="box">
             <div class="box-title">
-                <h3><?php echo $this->__('Shipping Address') ?><span class="separator"><?php if ($this->getCanEditShippingAddress()):?> | </span><a href="<?php echo $this->getUrl('paypal/express/edit') ?>"><?php echo $this->__('Change Shipping Address') ?></a><?php endif;?></h3>
+                <h3><?php echo $this->__('Shipping Address') ?><span class="separator"><?php if ($this->getCanEditShippingAddress()):?> | </span><a href="<?php echo $this->getEditUrl() ?>"><?php echo $this->__('Change Shipping Address') ?></a><?php endif;?></h3>
             </div>
             <div class="box-content">
-                <address>
-                    <?php echo $this->getShippingAddress()->getFormated(true) ?>
-                </address>
+                <address><?php echo $this->renderAddress($this->getShippingAddress())?></address>
             </div>
         </div>
     </div>
@@ -50,49 +48,36 @@
                 <h3><?php echo $this->__('Shipping Method') ?></h3>
             </div>
             <div class="box-content">
-                <?php if ($this->isVirtual()): ?>
-                    <p><strong><?php echo $this->__('No shipping method required.') ?></strong></p>
-                <?php else: ?>
-                    <?php if (!($_shippingRateGroups = $this->getShippingRates())): ?>
-                        <p><strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong></p>
-                    <?php else: ?>
-                    <form method="post" id="shipping_method_form" action="<?php echo $this->getUrl($this->getPaypalActionPrefix().'/express/saveShippingMethod') ?>">
+            <?php if ($this->getCanEditShippingMethod() || !$this->getCurrentShippingRate()):?>
+                <?php if ($groups = $this->getShippingRateGroups()):?>
+                    <?php $currentRate = $this->getCurrentShippingRate(); ?>
+                    <form method="post" id="shipping_method_form" action="<?php echo $this->escapeHtml($this->getShippingMethodSubmitUrl()) ?>">
                         <fieldset>
                             <select name="shipping_method" id="shipping_method" style="width:250px;" class="required-entry">
-                            <?php if(!$this->getAddressShippingMethod()): ?>
+                            <?php if (!$currentRate):?>
                                 <option value=""><?php echo $this->__('Please select a shipping method...') ?></option>
-                            <?php endif ?>
-                            <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
+                            <?php endif;?>
+                            <?php foreach ($groups as $code => $rates):?>
                                 <optgroup label="<?php echo $this->getCarrierName($code) ?>" style="font-style:normal;">
-                                <?php foreach ($_rates as $_rate): ?>
-                                   <?php if ($_rate->getErrorMessage()): ?>
-                                        <option value="">
-                                            <?php echo $_rate->getErrorMessage() ?>
-                                        </option>
-                                   <?php else: ?>
-                                       <option value="<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()): ?> selected="selected"<?php endif ?> style="margin-left:16px;">
-                                            <?php echo $_rate->getMethodTitle() ?> -
-
-                                            <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
-                                            <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
-
-                                            <?php echo $_excl; ?>
-                                            <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
-                                                (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
-                                            <?php endif; ?>
-                                       </option>
-                                   <?php endif ?>
-                                <?php endforeach; ?>
+                                <?php foreach ($rates as $rate):?>
+                                    <option value="<?php echo $this->renderShippingRateValue($rate)?>"<?php echo ($currentRate === $rate) ? ' selected="selected"' : '' ;?>>
+                                        <?php echo $this->renderShippingRateOption($rate)?>
+                                    </option>
+                                <?php endforeach;?>
                                 </optgroup>
-                            <?php endforeach; ?>
+                            <?php endforeach;?>
                             </select>
-                            <p class="actions">
-                                <button id="update_shipping_method_submit" type="submit" class="button"><span><span><?php echo $this->__('Update Shipping Method') ?></span></span></button>
-                            </p>
                         </fieldset>
+                        <p class="actions">
+                            <button id="update_shipping_method_submit" type="submit" class="button"><span><span><?php echo $this->__('Update Shipping Method') ?></span></span></button>
+                        </p>
                     </form>
-                    <?php endif; ?>
-                <?php endif; ?>
+                <?php else: ?>
+                    <p><strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong></p>
+                <?php endif;?>
+            <?php else: ?>
+                <p><strong><?php echo $this->renderShippingRateOption($this->getCurrentShippingRate())?></strong></p>
+            <?php endif; ?>
             </div>
         </div>
     </div>
@@ -104,7 +89,10 @@
     <div class="col-1">
         <div class="box">
             <div class="box-title">
-                <h3><?php echo $this->__('Payment Method') ?> <span class="separator">|</span> <a href="<?php echo $this->getUrl($this->getPaypalActionPrefix().'/express/edit') ?>"><?php echo $this->__('Change Payment Method') ?></a></h3>
+                <h3><?php echo $this->__('Payment Method') ?> <span class="separator">|</span> <a href="<?php echo $this->getEditUrl() ?>"><?php echo $this->__('Change Payment Method') ?></a></h3>
+            </div>
+            <div class="box-content">
+                <?php echo $this->escapeHtml($this->getPaymentMethodTitle()) ?>
             </div>
         </div>
     </div>
@@ -115,7 +103,7 @@
             </div>
             <div class="box-content">
                 <address>
-                    <?php echo $this->getBillingAddress()->getFormated(true) ?><br />
+                    <?php echo $this->renderAddress($this->getBillingAddress()) ?><br />
                     <?php echo $this->__('Payer Email: %s', $this->getBillingAddress()->getEmail()) ?>
                 </address>
             </div>
@@ -129,10 +117,10 @@
         <?php echo $this->getChildHtml('details') ?>
     </div>
 </div>
-<form method="post" id="order_review_form" action="<?php echo $this->getUrl($this->getPaypalActionPrefix().'/express/placeOrder') ?>">
+<form method="post" id="order_review_form" action="<?php echo $this->getPlaceOrderUrl() ?>">
     <div class="buttons-set buttons-set-order" id="review-buttons-container">
-        <button id="review_button" value="<?php echo $this->__('Place an Order') ?>" title="<?php echo $this->__('Place an Order') ?>" class="button btn-checkout"><span><span><?php echo $this->__('Place an Order') ?></span></span></button>
-        <button type="submit" id="review_submit" value="<?php echo $this->__('Place an Order') ?>" title="<?php echo $this->__('Place an Order') ?>" class="button btn-checkout"><span><span><?php echo $this->__('Place an Order') ?></span></span></button>
+        <button id="review_button" value="<?php echo $this->__('Place Order') ?>" class="button btn-checkout"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
+        <button type="submit" id="review_submit" value="<?php echo $this->__('Place Order') ?>" class="button btn-checkout"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
         <span class="please-wait" id="review-please-wait" style="display:none;">
             <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Submitting order information...') ?>" title="<?php echo $this->__('Submitting order information...') ?>" class="v-middle" /> <?php echo $this->__('Submitting order information...') ?>
         </span>

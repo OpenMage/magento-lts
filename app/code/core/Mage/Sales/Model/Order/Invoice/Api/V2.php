@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -129,7 +129,7 @@ class Mage_Sales_Model_Order_Invoice_Api_V2 extends Mage_Sales_Model_Order_Invoi
          * Check invoice create availability
          */
         if (!$order->canInvoice()) {
-             $this->_fault('data_invalid', Mage::helper('sales')->__('Can not do invoice for order.'));
+             $this->_fault('data_invalid', Mage::helper('sales')->__('Cannot do invoice for order.'));
         }
 
         $invoice = $order->prepareInvoice($itemsQty);

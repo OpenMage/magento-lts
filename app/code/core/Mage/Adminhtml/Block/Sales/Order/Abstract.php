@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
         if (Mage::registry('order')) {
             return Mage::registry('order');
         }
-        Mage::throwException(Mage::helper('sales')->__('Can\'t get order instance'));
+        Mage::throwException(Mage::helper('sales')->__('Cannot get order instance'));
     }
 
     public function getPriceDataObject()
@@ -100,14 +100,13 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
      */
     public function displayShippingPriceInclTax($order)
     {
-        $baseTax = $order->getBaseShippingTaxAmount();
-        $tax = $order->getShippingTaxAmount();
-
-        return $this->displayPrices(
-            $order->getBaseShippingAmount()+$baseTax,
-            $order->getShippingAmount()+$tax,
-            false,
-            ' '
-        );
+        $shipping = $order->getShippingInclTax();
+        if ($shipping) {
+            $baseShipping = $order->getBaseShippingInclTax();
+        } else {
+            $shipping       = $order->getShippingAmount()+$order->getShippingTaxAmount();
+            $baseShipping   = $order->getBaseShippingAmount()+$order->getBaseShippingTaxAmount();
+        }
+        return $this->displayPrices($baseShipping, $shipping, false, ' ');
     }
 }

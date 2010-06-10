@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -411,16 +411,16 @@ class Mage_Catalog_Model_Convert_Adapter_Product
         if ($collections instanceof Mage_Catalog_Model_Entity_Product_Collection) {
             $collections = array($collections->getEntity()->getStoreId()=>$collections);
         } elseif (!is_array($collections)) {
-            $this->addException(Mage::helper('catalog')->__('No product collections found'), Mage_Dataflow_Model_Convert_Exception::FATAL);
+            $this->addException(Mage::helper('catalog')->__('No product collections found.'), Mage_Dataflow_Model_Convert_Exception::FATAL);
         }
 
         //$stockItems = $this->getInventoryItems();
         $stockItems = Mage::registry('current_imported_inventory');
         if ($collections) foreach ($collections as $storeId=>$collection) {
-            $this->addException(Mage::helper('catalog')->__('Records for "'.$stores[$storeId].'" store found'));
+            $this->addException(Mage::helper('catalog')->__('Records for "'.$stores[$storeId].'" store found.'));
 
             if (!$collection instanceof Mage_Catalog_Model_Entity_Product_Collection) {
-                $this->addException(Mage::helper('catalog')->__('Product collection expected'), Mage_Dataflow_Model_Convert_Exception::FATAL);
+                $this->addException(Mage::helper('catalog')->__('Product collection expected.'), Mage_Dataflow_Model_Convert_Exception::FATAL);
             }
             try {
                 $i = 0;
@@ -488,10 +488,10 @@ class Mage_Catalog_Model_Convert_Adapter_Product
                     unset($model);
                     $i++;
                 }
-                $this->addException(Mage::helper('catalog')->__("Saved ".$i." record(s)"));
+                $this->addException(Mage::helper('catalog')->__("Saved %d record(s)", $i));
             } catch (Exception $e) {
                 if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
-                    $this->addException(Mage::helper('catalog')->__('Problem saving the collection, aborting. Error: %s', $e->getMessage()),
+                    $this->addException(Mage::helper('catalog')->__('An error occurred while saving the collection, aborting. Error message: %s', $e->getMessage()),
                         Mage_Dataflow_Model_Convert_Exception::FATAL);
                 }
             }
@@ -517,7 +517,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
             if (!is_null($this->getBatchParams('store'))) {
                 $store = $this->getStoreById($this->getBatchParams('store'));
             } else {
-                $message = Mage::helper('catalog')->__('Skip import row, required field "%s" not defined', 'store');
+                $message = Mage::helper('catalog')->__('Skipping import row, required field "%s" is not defined.', 'store');
                 Mage::throwException($message);
             }
         }
@@ -526,12 +526,12 @@ class Mage_Catalog_Model_Convert_Adapter_Product
         }
 
         if ($store === false) {
-            $message = Mage::helper('catalog')->__('Skip import row, store "%s" field not exists', $importData['store']);
+            $message = Mage::helper('catalog')->__('Skipping import row, store "%s" field does not exist.', $importData['store']);
             Mage::throwException($message);
         }
 
         if (empty($importData['sku'])) {
-            $message = Mage::helper('catalog')->__('Skip import row, required field "%s" not defined', 'sku');
+            $message = Mage::helper('catalog')->__('Skipping import row, required field "%s" is not defined.', 'sku');
             Mage::throwException($message);
         }
         $product->setStoreId($store->getId());
@@ -558,7 +558,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
              */
             if (empty($importData['attribute_set']) || !isset($productAttributeSets[$importData['attribute_set']])) {
                 $value = isset($importData['attribute_set']) ? $importData['attribute_set'] : '';
-                $message = Mage::helper('catalog')->__('Skip import row, is not valid value "%s" for field "%s"', $value, 'attribute_set');
+                $message = Mage::helper('catalog')->__('Skip import row, the value "%s" is invalid for field "%s"', $value, 'attribute_set');
                 Mage::throwException($message);
             }
             $product->setAttributeSetId($productAttributeSets[$importData['attribute_set']]);
@@ -566,7 +566,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
             foreach ($this->_requiredFields as $field) {
                 $attribute = $this->getAttribute($field);
                 if (!isset($importData[$field]) && $attribute && $attribute->getIsRequired()) {
-                    $message = Mage::helper('catalog')->__('Skip import row, required field "%s" for new products not defined', $field);
+                    $message = Mage::helper('catalog')->__('Skipping import row, required field "%s" for new products is not defined.', $field);
                     Mage::throwException($message);
                 }
             }
@@ -694,7 +694,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
 
         foreach ($imageData as $file => $fields) {
             try {
-                $product->addImageToMediaGallery(Mage::getBaseDir('media') . DS . 'import' . $file, $fields);
+                $product->addImageToMediaGallery(Mage::getBaseDir('media') . DS . 'import' . trim($file), $fields);
             }
             catch (Exception $e) {}
         }

@@ -20,34 +20,45 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- * Creditmemo comments collection
+ * Flat sales order creditmemo comments collection
  *
- * @category   Mage
- * @package    Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Mysql4_Order_Creditmemo_Comment_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
+class Mage_Sales_Model_Mysql4_Order_Creditmemo_Comment_Collection extends Mage_Sales_Model_Mysql4_Collection_Abstract
 {
+    protected $_eventPrefix = 'sales_order_creditmemo_comment_collection';
+    protected $_eventObject = 'order_creditmemo_comment_collection';
+
     protected function _construct()
     {
         $this->_init('sales/order_creditmemo_comment');
     }
 
+    /**
+     * Set creditmemo filter
+     *
+     * @param int $creditmemoId
+     * @return Mage_Sales_Model_Mysql4_Order_Creditmemo_Comment_Collection
+     */
     public function setCreditmemoFilter($creditmemoId)
     {
-        $this->addAttributeToFilter('parent_id', $creditmemoId);
+        $this->addFieldToFilter('parent_id', $creditmemoId);
         return $this;
     }
 
-    public function setCreatedAtOrder($order='desc')
+    /**
+     * Set created_at sort order
+     *
+     * @param string $direction
+     * @return Mage_Sales_Model_Mysql4_Order_Creditmemo_Comment_Collection
+     */
+    public function setCreatedAtOrder($direction='desc')
     {
-        $this->setOrder('created_at', $order);
+        $this->setOrder('created_at', $direction);
         return $this;
     }
 }

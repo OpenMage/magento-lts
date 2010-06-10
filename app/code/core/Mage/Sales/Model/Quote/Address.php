@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -79,6 +79,13 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
     protected $_totalAmounts = array();
     protected $_baseTotalAmounts = array();
+
+    /**
+     * Whether to segregate by nominal items only
+     *
+     * @var bool
+     */
+    protected $_nominalOnly = null;
 
     /**
      * Initialize resource
@@ -256,7 +263,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         $items = array();
         if ($this->getQuote()->getIsMultiShipping() && $addressItems->count() > 0) {
             foreach ($addressItems as $aItem) {
-                if ($aItem->isDeleted()) {
+                if ($aItem->isDeleted() || !$this->_filterNominal($aItem)) {
                     continue;
                 }
 
@@ -272,7 +279,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         } else {
             $isQuoteVirtual = $this->getQuote()->isVirtual();
             foreach ($quoteItems as $qItem) {
-                if ($qItem->isDeleted()) {
+                if ($qItem->isDeleted() || !$this->_filterNominal($qItem)) {
                     continue;
                 }
 
@@ -292,6 +299,50 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         }
 
         return $items;
+    }
+
+    /**
+     * Getter for all non-nominal items
+     *
+     * @return array
+     */
+    public function getAllNonNominalItems()
+    {
+        $this->_nominalOnly = false;
+        $result = $this->getAllItems();
+        $this->_nominalOnly = null;
+        return $result;
+    }
+
+    /**
+     * Getter for all nominal items
+     *
+     * @return array
+     */
+    public function getAllNominalItems()
+    {
+        $this->_nominalOnly = true;
+        $result = $this->getAllItems();
+        $this->_nominalOnly = null;
+        return $result;
+    }
+
+    /**
+     * Segregate by nominal criteria
+     *
+     * true: get nominals only
+     * false: get non-nominals only
+     * null: get all
+     *
+     * @param Mage_Sales_Model_Quote_Item_Abstract
+     * @return Mage_Sales_Model_Quote_Item_Abstract|false
+     */
+    protected function _filterNominal($item)
+    {
+        return (null === $this->_nominalOnly)
+            || ((false === $this->_nominalOnly) && !$item->isNominal())
+            || ((true === $this->_nominalOnly) && $item->isNominal())
+            ? $item : false;
     }
 
     /**
@@ -461,6 +512,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         if (is_null($this->_rates)) {
             $this->_rates = Mage::getModel('sales/quote_address_rate')->getCollection()
                 ->setAddressFilter($this->getId());
+            if ($this->getQuote()->hasNominalItems(false)) {
+                $this->_rates->setFixedOnlyFilter(true);
+            }
             if ($this->getId()) {
                 foreach ($this->_rates as $rate) {
                     $rate->setAddress($this);
@@ -605,8 +659,28 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             return $this;
         }
 
+        $found = $this->requestShippingRates();
+        if (!$found) {
+            $this->setShippingAmount(0)
+                ->setBaseShippingAmount(0)
+                ->setShippingMethod('')
+                ->setShippingDescription('');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Request shipping rates for entire address or specified address item
+     * Returns true if current selected shipping method code corresponds to one of the found rates
+     *
+     * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @return bool
+     */
+    public function requestShippingRates(Mage_Sales_Model_Quote_Item_Abstract $item = null)
+    {
         $request = Mage::getModel('shipping/rate_request');
-        $request->setAllItems($this->getAllItems());
+        $request->setAllItems($item ? array($item) : $this->getAllItems());
         $request->setDestCountryId($this->getCountryId());
         $request->setDestRegionId($this->getRegionId());
         $request->setDestRegionCode($this->getRegionCode());
@@ -617,12 +691,17 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         $request->setDestStreet($this->getStreet(-1));
         $request->setDestCity($this->getCity());
         $request->setDestPostcode($this->getPostcode());
-        $request->setPackageValue($this->getBaseSubtotal());
-        $request->setPackageValueWithDiscount($this->getBaseSubtotalWithDiscount());
-        $request->setPackageWeight($this->getWeight());
-        $request->setPackageQty($this->getItemQty());
+        $request->setPackageValue($item ? $item->getBaseRowTotal() : $this->getBaseSubtotal());
+        $request->setPackageValueWithDiscount($item ? $item->getBaseRowTotal() - $item->getBaseDiscountAmount() : $this->getBaseSubtotalWithDiscount());
+        $request->setPackageWeight($item ? $item->getRowWeight() : $this->getWeight());
+        $request->setPackageQty($item ? $item->getQty() : $this->getItemQty());
 
-        $request->setFreeMethodWeight($this->getFreeMethodWeight());
+        /**
+         * Need for shipping methods that use insurance based on price of physical products
+         */
+        $request->setPackagePhysicalValue($item ? $item->getBaseRowTotal() : $this->getBaseSubtotal() - $this->getBaseVirtualAmount());
+
+        $request->setFreeMethodWeight($item ? 0 : $this->getFreeMethodWeight());
 
         /**
          * Store and website identifiers need specify from quote
@@ -640,9 +719,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         $request->setPackageCurrency($this->getQuote()->getStore()->getCurrentCurrency());
         $request->setLimitCarrier($this->getLimitCarrier());
 
-        $result = Mage::getModel('shipping/shipping')
-            ->collectRates($request)
-                ->getResult();
+        $result = Mage::getModel('shipping/shipping')->collectRates($request)->getResult();
 
         $found = false;
         if ($result) {
@@ -651,23 +728,28 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             foreach ($shippingRates as $shippingRate) {
                 $rate = Mage::getModel('sales/quote_address_rate')
                     ->importShippingRate($shippingRate);
-                $this->addShippingRate($rate);
+                if (!$item) {
+                    $this->addShippingRate($rate);
+                }
 
-                if ($this->getShippingMethod()==$rate->getCode()) {
-                    $this->setShippingAmount($rate->getPrice());
+                if ($this->getShippingMethod() == $rate->getCode()) {
+                    if ($item) {
+                        $item->setBaseShippingAmount($rate->getPrice());
+                    } else {
+                        /**
+                         * possible bug: this should be setBaseShippingAmount(),
+                         * see Mage_Sales_Model_Quote_Address_Total_Shipping::collect()
+                         * where this value is set again from the current specified rate price
+                         * (looks like a workaround for this bug)
+                         */
+                        $this->setShippingAmount($rate->getPrice());
+                    }
+
                     $found = true;
                 }
             }
         }
-
-        if (!$found) {
-            $this->setShippingAmount(0)
-                ->setBaseShippingAmount(0)
-                ->setShippingMethod('')
-                ->setShippingDescription('');
-        }
-
-        return $this;
+        return $found;
     }
 
     /**
@@ -809,15 +891,6 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     public function setShippingAmount($value, $alreadyExclTax = false)
     {
         return $this->setData('shipping_amount', $value);
-//
-//        if (Mage::helper('tax')->shippingPriceIncludesTax()) {
-//            $includingTax = Mage::helper('tax')->getShippingPrice($value, true, $this, $this->getQuote()->getCustomerTaxClassId());
-//            if (!$alreadyExclTax) {
-//                $value = Mage::helper('tax')->getShippingPrice($value, false, $this, $this->getQuote()->getCustomerTaxClassId());
-//            }
-//            $this->setShippingTaxAmount($includingTax - $value);
-//        }
-//        return $this->setData('shipping_amount', $value);
     }
 
     /**
@@ -830,15 +903,6 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     public function setBaseShippingAmount($value, $alreadyExclTax = false)
     {
         return $this->setData('base_shipping_amount', $value);
-//
-//        if (Mage::helper('tax')->shippingPriceIncludesTax()) {
-//            $includingTax = Mage::helper('tax')->getShippingPrice($value, true, $this, $this->getQuote()->getCustomerTaxClassId());
-//            if (!$alreadyExclTax) {
-//                $value = Mage::helper('tax')->getShippingPrice($value, false, $this, $this->getQuote()->getCustomerTaxClassId());
-//            }
-//            $this->setBaseShippingTaxAmount($includingTax - $value);
-//        }
-//        return $this->setData('base_shipping_amount', $value);
     }
 
     /**

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,6 +32,7 @@
 class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
 {
     const XML_PATH_PAYMENT_METHODS = 'payment';
+    const XML_PATH_PAYMENT_GROUPS = 'global/payment/groups';
 
     /**
      * Retrieve method model object
@@ -55,27 +56,26 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * array structure:
      *  $index => Varien_Simplexml_Element
      *
-     * @param   mixed $store
-     * @return  array
+     * @param mixed $store
+     * @param Mage_Sales_Model_Quote $quote
+     * @return array
      */
     public function getStoreMethods($store = null, $quote = null)
     {
-        $methods = Mage::getStoreConfig(self::XML_PATH_PAYMENT_METHODS, $store);
         $res = array();
-        foreach ($methods as $code => $methodConfig) {
+        foreach ($this->getPaymentMethods($store) as $code => $methodConfig) {
             $prefix = self::XML_PATH_PAYMENT_METHODS . '/' . $code . '/';
             if (!$model = Mage::getStoreConfig($prefix . 'model', $store)) {
                 continue;
             }
             $methodInstance = Mage::getModel($model);
+            $methodInstance->setStore($store);
             if (!$methodInstance->isAvailable($quote)) {
-                /* if the payment method can not be used at this time */
+                /* if the payment method cannot be used at this time */
                 continue;
             }
-
             $sortOrder = (int)$methodInstance->getConfigData('sort_order', $store);
             $methodInstance->setSortOrder($sortOrder);
-            $methodInstance->setStore($store);
             $res[] = $methodInstance;
         }
 
@@ -126,5 +126,140 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
         }
         $block->setInfo($info);
         return $block;
+    }
+
+    /**
+     * Retrieve available billing agreement methods
+     *
+     * @param mixed $store
+     * @param Mage_Sales_Model_Quote $quote
+     * @return array
+     */
+    public function getBillingAgreementMethods($store = null, $quote = null)
+    {
+        $result = array();
+        foreach ($this->getStoreMethods($store, $quote) as $method) {
+            if ($method->canManageBillingAgreements()) {
+                $result[] = $method;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Get payment methods that implement recurring profilez management
+     *
+     * @param mixed $store
+     * @return array
+     */
+    public function getRecurringProfileMethods($store = null)
+    {
+        $result = array();
+        foreach ($this->getPaymentMethods($store) as $code => $data) {
+            $method = $this->getMethodInstance($code);
+            if ($method->canManageRecurringProfiles()) {
+                $result[] = $method;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Retrieve all payment methods
+     *
+     * @param mixed $store
+     * @return array
+     */
+    public function getPaymentMethods($store = null)
+    {
+        return Mage::getStoreConfig(self::XML_PATH_PAYMENT_METHODS, $store);
+    }
+
+    /**
+     * Retrieve all payment methods list as an array
+     *
+     * Possible output:
+     * 1) assoc array as <code> => <title>
+     * 2) array of array('label' => <title>, 'value' => <code>)
+     * 3) array of array(
+     *                 array('value' => <code>, 'label' => <title>),
+     *                 array('value' => array(
+     *                     'value' => array(array(<code1> => <title1>, <code2> =>...),
+     *                     'label' => <group name>
+     *                 )),
+     *                 array('value' => <code>, 'label' => <title>),
+     *                 ...
+     *             )
+     *
+     * @param bool $sorted
+     * @param bool $asLabelValue
+     * @param bool $withGroups
+     * @return array
+     */
+    public function getPaymentMethodList($sorted = true, $asLabelValue = false, $withGroups = false, $store = null)
+    {
+        $methods = array();
+        $groups = array();
+        $groupRelations = array();
+
+        foreach ($this->getPaymentMethods($store) as $code => $data) {
+            if ((isset($data['title']))) {
+                $methods[$code] = $data['title'];
+            } else {
+                $methods[$code] = $this->getMethodInstance($code)->getConfigData('title', $store);
+            }
+            if ($asLabelValue && $withGroups && isset($data['group'])) {
+                $groupRelations[$code] = $data['group'];
+            }
+        }
+        if ($asLabelValue && $withGroups) {
+            $groups = Mage::app()->getConfig()->getNode(self::XML_PATH_PAYMENT_GROUPS)->asCanonicalArray();
+            foreach ($groups as $code => $title) {
+                $methods[$code] = $title; // for sorting, see below
+            }
+        }
+        if ($sorted) {
+            asort($methods);
+        }
+        if ($asLabelValue) {
+            $labelValues = array();
+            foreach ($methods as $code => $title) {
+                $labelValues[$code] = array();
+            }
+            foreach ($methods as $code => $title) {
+                if (isset($groups[$code])) {
+                    $labelValues[$code]['label'] = $title;
+                } elseif (isset($groupRelations[$code])) {
+                    unset($labelValues[$code]);
+                    $labelValues[$groupRelations[$code]]['value'][$code] = array('value' => $code, 'label' => $title);
+                } else {
+                    $labelValues[$code] = array('value' => $code, 'label' => $title);
+                }
+            }
+            return $labelValues;
+        }
+
+        return $methods;
+    }
+
+    /**
+     * Retrieve all billing agreement methods (code and label)
+     *
+     * @return array
+     */
+    public function getAllBillingAgreementMethods()
+    {
+        $result = array();
+        $interface = 'Mage_Payment_Model_Billing_Agreement_MethodInterface';
+        foreach ($this->getPaymentMethods() as $code => $data) {
+            if (!isset($data['model'])) {
+                continue;
+            }
+            $method = Mage::app()->getConfig()->getModelClassName($data['model']);
+            if (in_array($interface, class_implements($method))) {
+                $result[$code] = $data['title'];
+            }
+        }
+        return $result;
     }
 }

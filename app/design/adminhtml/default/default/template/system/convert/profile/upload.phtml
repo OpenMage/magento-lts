@@ -6,6 +6,11 @@
                 <li><?php echo $this->__('Your server PHP settings allow you to upload files not more than %s at a time. Please modify post_max_size (currently is %s) and upload_max_filesize (currently is %s) values in php.ini if you want to upload larger files.', $this->getDataMaxSize(), $this->getPostMaxSize(), $this->getUploadMaxSize())?></li>
             </ul>
         </li>
+        <li class="notice-msg">
+            <ul>
+                <li><?php echo $this->__('Make sure that data encoding in the file is consistent and saved in one of supported encodings (UTF-8 or ANSI).')?></li>
+            </ul>
+        </li>
     </ul>
 </div>
 <fieldset>

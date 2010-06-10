@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,10 +35,39 @@
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
     extends Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
 {
+    /**
+     * Store product model
+     *
+     * @var Mage_Catalog_Model_Product
+     */
     protected $_product;
+
+    /**
+     * Store product link model
+     *
+     * @var Mage_Catalog_Model_Product_Link
+     */
     protected $_linkModel;
+
+    /**
+     * Store link type id
+     *
+     * @var int
+     */
     protected $_linkTypeId;
+
+    /**
+     * Store strong mode flag that determine if needed for inner join or left join of linked products
+     *
+     * @var bool
+     */
     protected $_isStrongMode;
+
+    /**
+     * Store flag that determine if product filter was enabled
+     *
+     * @var bool
+     */
     protected $_hasLinkFilter = false;
 
     /**
@@ -56,6 +85,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
         return $this;
     }
 
+    /**
+     * Enable strong mode for inner join of linked products
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
+     */
     public function setIsStrongMode()
     {
         $this->_isStrongMode = true;
@@ -81,6 +115,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
     public function setProduct($product)
     {
         $this->_product = $product;
+        if ($product && $product->getId()) {
+            $this->_hasLinkFilter = true;
+        }
         return $this;
     }
 
@@ -94,15 +131,23 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
         return $this->_product;
     }
 
+    /**
+     * Exclude products from filter
+     *
+     * @param array $products
+     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     */
     public function addExcludeProductFilter($products)
     {
-        if (is_array($products) && !empty($products)) {
+        if (!empty($products)) {
+            if (!is_array($products)) {
+                $products = array($products);
+            }
             $this->_hasLinkFilter = true;
             $this->getSelect()->where('links.linked_product_id NOT IN (?)', $products);
         }
         return $this;
     }
-
 
     /**
      * Add attribute to sort order
@@ -113,20 +158,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
      */
     public function addAttributeToSort($attribute, $dir='asc')
     {
-        /*
-        * position is not eav attributes so we cannot use default attributes to sort
-        */
+        /**
+         * Position is not eav attribute (it is links attribute) so we cannot use default attributes to sort
+         */
         if ($attribute == 'position') {
-
-            // dont sort by position, when creating product (#5090)
-            if (!is_object($this->getProduct())) {
-                return $this;
+            if ($this->_hasLinkFilter) {
+                $this->getSelect()->order($attribute.' '.$dir);
             }
-            if (!$this->getProduct()->getId()) {
-                return $this;
-            }
-
-            $this->getSelect()->order($attribute.' '.$dir);
         }
         else {
             parent::addAttributeToSort($attribute, $dir);
@@ -134,18 +172,30 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
         return $this;
     }
 
+    /**
+     * Add products to filter
+     *
+     * @param array|int|string $products
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
+     */
     public function addProductFilter($products)
     {
-        $this->_hasLinkFilter = true;
         if (is_array($products) && !empty($products)) {
             $this->getSelect()->where('links.product_id IN (?)', $products);
+            $this->_hasLinkFilter = true;
         }
         elseif (is_string($products) || is_numeric($products)) {
             $this->getSelect()->where('links.product_id=?', $products);
+            $this->_hasLinkFilter = true;
         }
         return $this;
     }
 
+    /**
+     * Add random sorting order
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
+     */
     public function setRandomOrder()
     {
         $this->getSelect()->order(new Zend_Db_Expr('RAND()'));
@@ -164,6 +214,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
         return $this;
     }
 
+    /**
+     * Join linked products when specified link model
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
+     */
     protected function _beforeLoad()
     {
         if ($this->getLinkModel()) {
@@ -172,27 +227,59 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
         return parent::_beforeLoad();
     }
 
+    /**
+     * Join linked products and their attributes
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
+     */
     protected function _joinLinks()
     {
-        $joinCondition = 'links.linked_product_id=e.entity_id AND links.link_type_id='.$this->_linkTypeId;
-
+        $joinCondition = 'links.linked_product_id = e.entity_id AND links.link_type_id = ' . $this->_linkTypeId;
+        $joinType = 'join';
         if ($this->getProduct() && $this->getProduct()->getId()) {
             if ($this->_isStrongMode) {
-                $joinType = 'join';
-                $this->getSelect()->where('links.product_id=?', $this->getProduct()->getId());
+                $this->getSelect()->where('links.product_id = ?', $this->getProduct()->getId());
             }
             else {
                 $joinType = 'joinLeft';
-                $joinCondition.= ' AND links.product_id='. $this->getProduct()->getId();
+                $joinCondition.= ' AND links.product_id = ' . $this->getProduct()->getId();
             }
-            $this->getSelect()->where('e.entity_id!=?', $this->getProduct()->getId());
-
+            $this->getSelect()->where('e.entity_id != ?', $this->getProduct()->getId());
+        }
+        elseif ($this->_isStrongMode) {
+            $this->getSelect()->where('e.entity_id = -1');
+        }
+        if($this->_hasLinkFilter) {
             $this->getSelect()->$joinType(
-                array('links'=>$this->getTable('catalog/product_link')),
+                array('links' => $this->getTable('catalog/product_link')),
                 $joinCondition,
                 array('link_id')
             );
+            $this->joinAttributes();
+        }
+        return $this;
+    }
 
+    /**
+     * Enable sorting products by its position
+     *
+     * @param string $dir sort type asc|desc
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
+     */
+    public function setPositionOrder($dir = 'asc')
+    {
+        $this->setOrder('position', $dir);
+        return $this;
+    }
+
+    /**
+     * Join attributes
+     *
+     * @return Mage_Catalog_Model_Product
+     */
+    public function joinAttributes()
+    {
+        if ($this->getLinkModel()) {
             $attributes = $this->getLinkModel()->getAttributes();
             $attributesByType = array();
             foreach ($attributes as $attribute) {
@@ -204,26 +291,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
                     array($attribute['code'] => 'value')
                 );
             }
-        }
-        else {
-            if ($this->_isStrongMode) {
-                $this->getSelect()->where('e.entity_id=-1');
-            }
-            elseif($this->_hasLinkFilter) {
-                $this->getSelect()->join(
-                    array('links'=>$this->getTable('catalog/product_link')),
-                    'links.linked_product_id=e.entity_id AND links.link_type_id='.$this->_linkTypeId,
-                    array('link_id')
-                );
-            }
-        }
-        return $this;
-    }
-
-    public function setPositionOrder($dir='asc')
-    {
-        if ($this->getProduct() && $this->getProduct()->getId()) {
-            $this->setOrder('position', $dir);
         }
         return $this;
     }

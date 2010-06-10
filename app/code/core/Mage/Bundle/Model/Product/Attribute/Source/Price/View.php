@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +39,7 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
         if (is_null($this->_options)) {
             $this->_options = array(
                 array(
-                    'label' => Mage::helper('bundle')->__('As low as'),
+                    'label' => Mage::helper('bundle')->__('As Low as'),
                     'value' =>  1
                 ),
                 array(

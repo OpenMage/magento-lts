@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -92,10 +92,10 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
     public function getSubscriptionText()
     {
         if($this->getSubscriptionObject()->isSubscribed()) {
-            return Mage::helper('customer')->__('You are currently subscribed to our newsletter');
+            return Mage::helper('customer')->__('You are currently subscribed to our newsletter.');
         }
 
-        return Mage::helper('customer')->__('You are currently not subscribed to our newsletter');
+        return Mage::helper('customer')->__('You are currently not subscribed to our newsletter.');
     }
 
     public function getPrimaryAddresses()

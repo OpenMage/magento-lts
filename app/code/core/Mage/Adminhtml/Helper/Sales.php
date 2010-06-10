@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -84,4 +84,30 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
         return $res;
     }
 
+    /**
+     * Filter collection by removing not available product types
+     *
+     * @param Mage_Core_Model_Mysql4_Collection_Abstract $collection
+     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     */
+    public function applySalableProductTypesFilter($collection) 
+    {
+        $productTypes = Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray();
+        $productTypes = array_keys($productTypes);
+        foreach($collection->getItems() as $key => $item) {
+            if ($item instanceof Mage_Catalog_Model_Product) {
+                $type = $item->getTypeId();
+            } else if ($item instanceof Mage_Sales_Model_Order_Item) {
+                $type = $item->getProductType();
+            } else if ($item instanceof Mage_Sales_Model_Quote_Item) {
+                $type = $item->getProductType();
+            } else {
+                $type = '';
+            }
+            if (!in_array($type, $productTypes)) {
+                $collection->removeItemByKey($key);
+            }
+        }
+        return $collection;
+    }
 }

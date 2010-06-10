@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -143,7 +143,7 @@
                         </email_confirmation_template>
                         <email_confirmed_template translate="label comment">
                             <label>Welcome Email</label>
-                            <comment>This Email will be sent instead of Default Welcome Email, after Account Confirmation.</comment>
+                            <comment>This email will be sent instead of default welcome email, after account confirmation.</comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_email_template</source_model>
                             <sort_order>7</sort_order>
@@ -198,7 +198,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <street_lines translate="label comment">
-                            <label>Number of lines in a street address </label>
+                            <label>Number of Lines in a Street Address </label>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -206,7 +206,7 @@
                             <comment>Leave empty for default (2). Valid range: 1-4</comment>
                         </street_lines>
                         <prefix_show translate="label comment">
-                            <label>Show prefix</label>
+                            <label>Show Prefix</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_nooptreq</source_model>
                             <sort_order>20</sort_order>
@@ -216,7 +216,7 @@
                             <show_in_store>0</show_in_store>
                         </prefix_show>
                         <prefix_options translate="label comment">
-                            <label>Prefix dropdown options</label>
+                            <label>Prefix Dropdown Options</label>
                             <sort_order>30</sort_order>
                             <comment><![CDATA[Semicolon (;) separated values.<br/>Put semicolon in the beginning for empty first option.<br/>Leave empty for open text field.]]></comment>
                             <show_in_default>1</show_in_default>
@@ -224,17 +224,17 @@
                             <show_in_store>0</show_in_store>
                         </prefix_options>
                         <middlename_show translate="label comment">
-                            <label>Show middle name (initial)</label>
+                            <label>Show Middle Name (initial)</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <comment>Always optional</comment>
+                            <comment>Always optional.</comment>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </middlename_show>
                         <suffix_show translate="label comment">
-                            <label>Show suffix</label>
+                            <label>Show Suffix</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_nooptreq</source_model>
                             <comment>The suffix that goes after name (Jr., Sr., etc.)</comment>
@@ -244,7 +244,7 @@
                             <show_in_store>0</show_in_store>
                         </suffix_show>
                         <suffix_options translate="label comment">
-                            <label>Suffix dropdown options</label>
+                            <label>Suffix Dropdown Options</label>
                             <sort_order>60</sort_order>
                             <comment><![CDATA[Semicolon (;) separated values.<br/>Put semicolon in the beginning for empty first option.<br/>Leave empty for open text field.]]></comment>
                             <show_in_default>1</show_in_default>
@@ -252,7 +252,7 @@
                             <show_in_store>0</show_in_store>
                         </suffix_options>
                         <dob_show translate="label">
-                            <label>Show date of birth</label>
+                            <label>Show Date of Birth</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_nooptreq</source_model>
                             <sort_order>70</sort_order>
@@ -261,7 +261,7 @@
                             <show_in_store>0</show_in_store>
                         </dob_show>
                         <taxvat_show translate="label">
-                            <label>Show Tax/VAT number</label>
+                            <label>Show Tax/VAT Number</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_nooptreq</source_model>
                             <sort_order>80</sort_order>
@@ -270,7 +270,7 @@
                             <show_in_store>0</show_in_store>
                         </taxvat_show>
                         <gender_show translate="label">
-                            <label>Show gender</label>
+                            <label>Show Gender</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_nooptreq</source_model>
                             <sort_order>90</sort_order>
@@ -291,7 +291,7 @@
                             <label>Redirect Customer to Account Dashboard after Logging in</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <comment>Customer will stay on the current page if "No" is selected</comment>
+                            <comment>Customer will stay on the current page if "No" is selected.</comment>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
 
     protected function _prepareForm()
     {
-        $this->setFormExcludedFieldList(array('tier_price','gallery', 'media_gallery'));
+        $this->setFormExcludedFieldList(array('tier_price','gallery', 'media_gallery', 'recurring_profile'));
         Mage::dispatchEvent('adminhtml_catalog_product_form_prepare_excluded_field_list', array('object'=>$this));
 
         $form = new Varien_Data_Form();

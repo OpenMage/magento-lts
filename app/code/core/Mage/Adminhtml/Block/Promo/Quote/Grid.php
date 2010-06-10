@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,7 +71,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
             'header'    => Mage::helper('salesrule')->__('Coupon Code'),
             'align'     => 'left',
             'width'     => '150px',
-            'index'     => 'coupon_code',
+            'index'     => 'code',
         ));
 
         $this->addColumn('from_date', array(
@@ -102,7 +102,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
                 0 => 'Inactive',
             ),
         ));
-        
+
         $this->addColumn('sort_order', array(
             'header'    => Mage::helper('salesrule')->__('Priority'),
             'align'     => 'right',

@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_CatalogInventory>
-            <version>0.7.5</version>
+            <version>0.7.8</version>
         </Mage_CatalogInventory>
     </modules>
     <global>
@@ -49,6 +49,12 @@
                     <stock_status>
                         <table>cataloginventory_stock_status</table>
                     </stock_status>
+                    <stock_status_indexer_idx>
+                        <table>cataloginventory_stock_status_idx</table>
+                    </stock_status_indexer_idx>
+                    <stock_status_indexer_tmp>
+                        <table>cataloginventory_stock_status_tmp</table>
+                    </stock_status_indexer_tmp>
                 </entities>
             </cataloginventory_mysql4>
         </models>
@@ -65,6 +71,9 @@
                 </setup>
             </cataloginventory_setup>
         </resources>
+        <blocks>
+            <cataloginventory><class>Mage_CatalogInventory_Block</class></cataloginventory>
+        </blocks>
 
         <events>
             <catalog_product_load_after>
@@ -115,22 +124,30 @@
                     </inventory>
                 </observers>
             </sales_quote_item_qty_set_after>
-            <sales_order_save_before>
+            <sales_model_service_quote_submit_before>
                 <observers>
                     <inventory>
                         <class>cataloginventory/observer</class>
-                        <method>lockOrderInventoryData</method>
+                        <method>subtractQuoteInventory</method>
                     </inventory>
                 </observers>
-            </sales_order_save_before>
-            <sales_order_item_save_before>
+            </sales_model_service_quote_submit_before>
+            <sales_model_service_quote_submit_success>
                 <observers>
                     <inventory>
                         <class>cataloginventory/observer</class>
-                        <method>createOrderItem</method>
+                        <method>reindexQuoteInventory</method>
                     </inventory>
                 </observers>
-            </sales_order_item_save_before>
+            </sales_model_service_quote_submit_success>
+            <sales_model_service_quote_submit_failure>
+                <observers>
+                    <inventory>
+                        <class>cataloginventory/observer</class>
+                        <method>revertQuoteInventory</method>
+                    </inventory>
+                </observers>
+            </sales_model_service_quote_submit_failure>
             <sales_order_item_cancel>
                 <observers>
                     <inventory>
@@ -139,14 +156,14 @@
                     </inventory>
                 </observers>
             </sales_order_item_cancel>
-            <sales_creditmemo_item_save_after>
+            <sales_order_creditmemo_save_after>
                 <observers>
                     <inventory>
                         <class>cataloginventory/observer</class>
-                        <method>refundOrderItem</method>
+                        <method>refundOrderInventory</method>
                     </inventory>
                 </observers>
-            </sales_creditmemo_item_save_after>
+            </sales_order_creditmemo_save_after>
             <catalog_product_save_after>
                 <observers>
                     <inventory>
@@ -207,7 +224,7 @@
                 </type>
             </product>
         </catalog>
-        
+
         <index>
             <indexer>
                 <cataloginventory_stock>
@@ -228,6 +245,13 @@
     </global>
 
     <frontend>
+        <layout>
+            <updates>
+                <cataloginventory>
+                    <file>cataloginventory.xml</file>
+                </cataloginventory>
+            </updates>
+        </layout>
         <translate>
             <modules>
                 <Mage_CatalogInventory>
@@ -257,6 +281,7 @@
                 <can_subtract>1</can_subtract>
                 <can_back_in_stock>1</can_back_in_stock>
                 <show_out_of_stock>0</show_out_of_stock>
+                <stock_threshold_qty>0</stock_threshold_qty>
             </options>
             <item_options>
                 <manage_stock>1</manage_stock>
@@ -265,6 +290,8 @@
                 <min_sale_qty>1</min_sale_qty>
                 <min_qty>0</min_qty>
                 <notify_stock_qty>1</notify_stock_qty>
+                <enable_qty_increments>0</enable_qty_increments>
+                <qty_increments>1</qty_increments>
             </item_options>
         </cataloginventory>
     </default>

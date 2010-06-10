@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -112,7 +112,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
         if ($showNotice) {
             $url = Mage::getSingleton('adminhtml/url')->getUrl('adminhtml/system_cache');
             Mage::getSingleton('adminhtml/session')->addNotice(
-                Mage::helper('catalogsearch')->__('Attribute setting change related with Search Index. Please run <a href="%s">Rebuild Search Index</a> process', $url)
+                Mage::helper('catalogsearch')->__('Attribute setting change related with Search Index. Please run <a href="%s">Rebuild Search Index</a> process.', $url)
             );
         }
 

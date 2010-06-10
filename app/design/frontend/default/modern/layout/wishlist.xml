@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_modern
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -100,7 +100,7 @@ Wishlist pages
     <wishlist_shared_index translate="label">
         <label>Customer Shared Wishlist View</label>
         <!-- Mage_Wishlist -->
-        <reference name="my.account.wrapper">
+        <reference name="content">
             <block type="wishlist/share_wishlist" name="customer.wishlist" template="wishlist/shared.phtml"/>
         </reference>
     </wishlist_shared_index>

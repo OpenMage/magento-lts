@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -192,7 +192,7 @@ Onepage Checkout Review Page
             <action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
         </reference>
     </paypal_express_review_details>
-    
+
     <paypaluk_express_review>
         <reference name="paypal.express.review.details">
             <action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
@@ -231,6 +231,7 @@ Additional block for bundle product type
         <reference name="product.info.options.wrapper.bottom">
             <remove name="product.tierprices" />
             <block type="bundle/catalog_product_view" name="bundle.tierprices" as="tierprices" before="-" template="bundle/catalog/product/view/tierprices.phtml"/>
+            <block type="cataloginventory/qtyincrements" name="product.info.extrahint" as="extrahint" template="cataloginventory/qtyincrements.phtml"/>
         </reference>
         <reference name="product.clone_prices">
             <action method="addPriceBlockType"><type>bundle</type><block>bundle/catalog_product_price</block><template>bundle/catalog/product/view/price.phtml</template></action>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,11 +44,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
         parent::__construct();
         $resource = Mage::getSingleton('core/resource');
         $this->setType('catalog_product')
-            ->setConnection(
-                $resource->getConnection('catalog_read'),
-                $resource->getConnection('catalog_write')
-            );
-
+            ->setConnection('catalog_read', 'catalog_write');
         $this->_productWebsiteTable = $resource->getTableName('catalog/product_website');
         $this->_productCategoryTable= $resource->getTableName('catalog/category_product');
     }
@@ -99,7 +95,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
      */
     public function getIdBySku($sku)
     {
-         return $this->_read->fetchOne('select entity_id from '.$this->getEntityTable().' where sku=?', $sku);
+         return $this->_getReadAdapter()->fetchOne('select entity_id from '.$this->getEntityTable().' where sku=?', $sku);
     }
 
     /**
@@ -333,7 +329,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
         $indexTable = $this->getTable('catalog/product_enabled_index');
         if (is_null($store) && is_null($product)) {
             Mage::throwException(
-                Mage::helper('catalog')->__('For reindex enabled product(s) you need specify store or product')
+                Mage::helper('catalog')->__('To reindex the enabled product(s), the store or product must be specified.')
             );
         } elseif (is_null($product) || is_array($product)) {
             $storeId    = $store->getId();
@@ -456,11 +452,15 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
     /**
      * Validate all object's attributes against configuration
      *
+     * @todo implement full validation process with errors returning which are ignoring now
+     *
      * @param Varien_Object $object
      * @return Varien_Object
      */
     public function validate($object)
     {
+//        $this->walkAttributes('backend/beforeSave', array($object));
+//        return parent::validate($object);
         parent::validate($object);
         return $this;
     }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -133,7 +133,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     protected function _getResource()
     {
         if (empty($this->_resourceName)) {
-            Mage::throwException(Mage::helper('core')->__('Resource is not set'));
+            Mage::throwException(Mage::helper('core')->__('Resource is not set.'));
         }
 
         return Mage::getResourceSingleton($this->_resourceName);
@@ -161,7 +161,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     public function getId()
     {
-        if ($fieldName = $this->getIdFieldName()) {
+        $fieldName = $this->getIdFieldName();
+        if ($fieldName) {
             return $this->_getData($fieldName);
         } else {
             return $this->_getData('id');
@@ -202,7 +203,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     public function getResourceCollection()
     {
         if (empty($this->_resourceCollectionName)) {
-            Mage::throwException(Mage::helper('core')->__('Model collection resource name is not defined'));
+            Mage::throwException(Mage::helper('core')->__('Model collection resource name is not defined.'));
         }
         return Mage::getResourceModel($this->_resourceCollectionName, $this->_getResource());
     }
@@ -220,9 +221,11 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     public function load($id, $field=null)
     {
+        $this->_beforeLoad($id, $field);
         $this->_getResource()->load($this, $id, $field);
         $this->_afterLoad();
         $this->setOrigData();
+        $this->_hasDataChanges = false;
         return $this;
     }
 
@@ -240,6 +243,20 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
+     * Processing object before load data
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _beforeLoad($id, $field = null)
+    {
+        $params = array('object' => $this, 'field' => $field, 'value'=> $id);
+        Mage::dispatchEvent('model_load_before', $params);
+        $params = array_merge($params, $this->_getEventData());
+        Mage::dispatchEvent($this->_eventPrefix.'_load_before', $params);
+        return $this;
+    }
+
+    /**
      * Processing object after load data
      *
      * @return Mage_Core_Model_Abstract
@@ -250,6 +267,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         Mage::dispatchEvent($this->_eventPrefix.'_load_after', $this->_getEventData());
         return $this;
     }
+
+
 
     /**
      * Object after load processing. Implemented as public interface for supporting objects after load in collections
@@ -276,6 +295,9 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if ($this->isDeleted()) {
             return $this->delete();
         }
+        if (!$this->hasDataChanges()) {
+            return $this;
+        }
         $this->_getResource()->beginTransaction();
         $dataCommited = false;
         try {
@@ -286,9 +308,11 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             }
             $this->_getResource()->addCommitCallback(array($this, 'afterCommitCallback'))
                 ->commit();
+            $this->_hasDataChanges = false;
             $dataCommited = true;
         } catch (Exception $e) {
             $this->_getResource()->rollBack();
+            $this->_hasDataChanges = true;
             throw $e;
         }
         if ($dataCommited) {

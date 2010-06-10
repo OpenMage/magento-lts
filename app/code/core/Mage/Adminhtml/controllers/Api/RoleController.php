@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -80,8 +80,8 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             $breadCrumbTitle = $this->__('Edit Role');
             $this->_title($this->__('Edit Role'));
         } else {
-            $breadCrumb = $this->__('Add new Role');
-            $breadCrumbTitle = $this->__('Add new Role');
+            $breadCrumb = $this->__('Add New Role');
+            $breadCrumbTitle = $this->__('Add New Role');
             $this->_title($this->__('New Role'));
         }
         $this->_addBreadcrumb($breadCrumb, $breadCrumbTitle);
@@ -108,9 +108,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
 
         try {
             Mage::getModel("api/roles")->load($rid)->delete();
-            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Role successfully deleted.'));
+            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been deleted.'));
         } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('Error while deleting this role. Please try again later.'));
+            Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while deleting this role.'));
         }
 
         $this->_redirect("*/*/");
@@ -162,9 +162,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             }
 
             $rid = $role->getId();
-            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Role successfully saved.'));
+            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been saved.'));
         } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('Error while saving this role. Please try again later.'));
+            Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while saving this role.'));
         }
 
         //$this->getResponse()->setRedirect($this->getUrl("*/*/editrole/rid/$rid"));

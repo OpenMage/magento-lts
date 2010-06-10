@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -117,8 +117,8 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
 
         $fieldset->addField('checkbox_text', 'editor', array(
             'name'      => 'checkbox_text',
-            'label'     => Mage::helper('checkout')->__('Checkbox text'),
-            'title'     => Mage::helper('checkout')->__('Checkbox text'),
+            'label'     => Mage::helper('checkout')->__('Checkbox Text'),
+            'title'     => Mage::helper('checkout')->__('Checkbox Text'),
             'rows'      => '5',
             'cols'      => '30',
             'wysiwyg'   => false,

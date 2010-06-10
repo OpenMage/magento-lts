@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -67,8 +67,6 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
                     if (strlen($value) && $product->hasData($attribute->getAttributeCode())) {
                         if ($attribute->getFrontendInput() == 'price') {
                             $value = Mage::app()->getStore()->convertPrice($value,true);
-                        } elseif (!$attribute->getIsHtmlAllowedOnFront()) {
-                            $value = $this->htmlEscape($value);
                         }
                         $data[$attribute->getAttributeCode()] = array(
                            'label' => $attribute->getStoreLabel(),

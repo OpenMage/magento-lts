@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -146,7 +146,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
          * Check shipment create availability
          */
         if (!$order->canShip()) {
-             $this->_fault('data_invalid', Mage::helper('sales')->__('Can not do shipment for order.'));
+             $this->_fault('data_invalid', Mage::helper('sales')->__('Cannot do shipment for order.'));
         }
 
          /* @var $shipment Mage_Sales_Model_Order_Shipment */

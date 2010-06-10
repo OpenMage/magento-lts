@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -138,6 +138,8 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
 
         $orderItem->setTaxInvoiced($orderItem->getTaxInvoiced()+$this->getTaxAmount());
         $orderItem->setBaseTaxInvoiced($orderItem->getBaseTaxInvoiced()+$this->getBaseTaxAmount());
+        $orderItem->setHiddenTaxInvoiced($orderItem->getHiddenTaxInvoiced()+$this->getHiddenTaxAmount());
+        $orderItem->setBaseHiddenTaxInvoiced($orderItem->getBaseHiddenTaxInvoiced()+$this->getBaseHiddenTaxAmount());
 
         $orderItem->setDiscountInvoiced($orderItem->getDiscountInvoiced()+$this->getDiscountAmount());
         $orderItem->setBaseDiscountInvoiced($orderItem->getBaseDiscountInvoiced()+$this->getBaseDiscountAmount());
@@ -159,6 +161,9 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
 
         $orderItem->setTaxInvoiced($orderItem->getTaxInvoiced()-$this->getTaxAmount());
         $orderItem->setBaseTaxInvoiced($orderItem->getBaseTaxInvoiced()-$this->getBaseTaxAmount());
+        $orderItem->setHiddenTaxInvoiced($orderItem->getHiddenTaxInvoiced()-$this->getHiddenTaxAmount());
+        $orderItem->setBaseHiddenTaxInvoiced($orderItem->getBaseHiddenTaxInvoiced()-$this->getBaseHiddenTaxAmount());
+
 
         $orderItem->setDiscountInvoiced($orderItem->getDiscountInvoiced()-$this->getDiscountAmount());
         $orderItem->setBaseDiscountInvoiced($orderItem->getBaseDiscountInvoiced()-$this->getBaseDiscountAmount());
@@ -208,5 +213,36 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
             return true;
         }
         return false;
+    }
+
+    /**
+     * Before object save
+     *
+     * @return Mage_Sales_Model_Order_Invoice_Item
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+
+        if (!$this->getParentId() && $this->getInvoice()) {
+            $this->setParentId($this->getInvoice()->getId());
+        }
+
+        return $this;
+    }
+
+    /**
+     * After object save
+     *
+     * @return Mage_Sales_Model_Order_Invoice_Item
+     */
+    protected function _afterSave()
+    {
+        if (null ==! $this->_orderItem) {
+            $this->_orderItem->save();
+        }
+
+        parent::_afterSave();
+        return $this;
     }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -200,7 +200,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             $this->_redirect('*/multishipping_address/newShipping');
             return;
         }
-    	try {
+        try {
             if ($this->getRequest()->getParam('continue', false)) {
                 $this->_getCheckout()->setCollectRatesFlag(true);
                 $this->_getState()->setActiveStep(
@@ -430,7 +430,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         }
         catch (Exception $e) {
             Mage::logException($e);
-            Mage::getSingleton('checkout/session')->addException($e, $this->__('Can\'t open overview page'));
+            Mage::getSingleton('checkout/session')->addException($e, $this->__('Cannot open the overview page'));
             $this->_redirect('*/*/billing');
         }
     }

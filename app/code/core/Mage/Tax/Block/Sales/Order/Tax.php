@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -139,7 +139,8 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
                 $baseSubtotalIncl = $baseSubtotal + $this->_source->getBaseTaxAmount()
                     - $this->_source->getBaseShippingTaxAmount();
             }
-
+            $subtotalIncl = max(0, $subtotalIncl);
+            $baseSubtotalIncl = max(0, $baseSubtotalIncl);
             $totalExcl = new Varien_Object(array(
                 'code'      => 'subtotal_excl',
                 'value'     => $subtotal,
@@ -189,10 +190,16 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
         }
 
         if ($this->_config->displaySalesShippingBoth($store)) {
-            $shipping       = (float) $this->_source->getShippingAmount();
-            $baseShipping   = (float) $this->_source->getBaseShippingAmount();
-            $shippingIncl   = $shipping + (float) $this->_source->getShippingTaxAmount();
-            $baseShippingIncl = $baseShipping + (float) $this->_source->getBaseShippingTaxAmount();
+            $shipping           = (float) $this->_source->getShippingAmount();
+            $baseShipping       = (float) $this->_source->getBaseShippingAmount();
+            $shippingIncl       = (float) $this->_source->getShippingInclTax();
+            if (!$shippingIncl) {
+                $shippingIncl   = $shipping + (float) $this->_source->getShippingTaxAmount();
+            }
+            $baseShippingIncl   = (float) $this->_source->getBaseShippingInclTax();
+            if (!$baseShippingIncl) {
+                $baseShippingIncl = $baseShipping + (float) $this->_source->getBaseShippingTaxAmount();
+            }
 
             $totalExcl = new Varien_Object(array(
                 'code'      => 'shipping',
@@ -209,10 +216,16 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
             $parent->addTotal($totalExcl, 'shipping');
             $parent->addTotal($totalIncl, 'shipping');
         } elseif ($this->_config->displaySalesShippingInclTax($store)) {
-            $shippingIncl = $this->_source->getShippingAmount()
-                + $this->_source->getShippingTaxAmount();
-            $baseShippingIncl = $this->_source->getBaseShippingAmount()
-                + $this->_source->getBaseShippingTaxAmount();
+            $shippingIncl       = $this->_source->getShippingInclTax();
+            if (!$shippingIncl) {
+                $shippingIncl = $this->_source->getShippingAmount()
+                    + $this->_source->getShippingTaxAmount();
+            }
+            $baseShippingIncl   = $this->_source->getBaseShippingInclTax();
+            if (!$baseShippingIncl) {
+                $baseShippingIncl = $this->_source->getBaseShippingAmount()
+                    + $this->_source->getBaseShippingTaxAmount();
+            }
             $total = $parent->getTotal('shipping');
             if ($total) {
                 $total->setValue($shippingIncl);

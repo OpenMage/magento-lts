@@ -20,12 +20,18 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<iframe id="<?php echo $this->getContainerId() ?>" src="" style="width:99.5%; height:400px; position:relative; font-size:12px; background:#fff; font-weight:bold; white-space:nowrap; border:1px solid #ccc; display: none;" ></iframe>
+<div class="centinel">
+    <div class="authentication">
+        <iframe frameborder="0" border="0" id="<?php echo $this->getContainerId() ?>" src="" style="display:none;"></iframe>
+    </div>
+</div>
 <button onclick="cardValidator.validate()" class="scalable" type="button"><span><?php echo $this->__('Start/Reset Validation...')?></span></button>
 <script type="text/javascript">
+//<![CDATA[
 cardValidator = new centinelValidator('<?php echo $this->getMethodCode() ?>', '<?php echo $this->getFrameUrl() ?>', '<?php echo $this->getContainerId() ?>');
+//]]>
 </script>

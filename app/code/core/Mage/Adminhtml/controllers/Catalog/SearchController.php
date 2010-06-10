@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,7 +61,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
         if ($id) {
             $model->load($id);
             if (! $model->getId()) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('This search no longer exists'));
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('This search no longer exists.'));
                 $this->_redirect('*/*');
                 return;
             }
@@ -113,7 +113,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                     $model->loadByQueryText($queryText);
                     if ($model->getId() && $model->getId() != $queryId) {
                         Mage::throwException(
-                            Mage::helper('catalog')->__('Search Term with such search query already exist.')
+                            Mage::helper('catalog')->__('Search Term with such search query already exists.')
                         );
                     } else if (!$model->getId() && $queryId) {
                         $model->load($queryId);
@@ -130,7 +130,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                 $hasError = true;
             } catch (Exception $e) {
                 $this->_getSession()->addException($e,
-                    Mage::helper('catalog')->__('Error while saving search query. Please try again later.')
+                    Mage::helper('catalog')->__('An error occurred while saving the search query.')
                 );
                 $hasError = true;
             }
@@ -151,7 +151,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                 $model = Mage::getModel('catalogsearch/query');
                 $model->setId($id);
                 $model->delete();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('Search was successfully deleted'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('The search was deleted.'));
                 $this->_redirect('*/*/');
                 return;
             }
@@ -161,7 +161,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                 return;
             }
         }
-        Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('Unable to find a search term to delete'));
+        Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('Unable to find a search term to delete.'));
         $this->_redirect('*/*/');
     }
 
@@ -169,7 +169,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
     {
         $searchIds = $this->getRequest()->getParam('search');
         if(!is_array($searchIds)) {
-             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select catalog searches'));
+             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select catalog searches.'));
         } else {
             try {
                 foreach ($searchIds as $searchId) {
@@ -178,7 +178,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__(
-                        'Total of %d record(s) were successfully deleted', count($searchIds)
+                        'Total of %d record(s) were deleted', count($searchIds)
                     )
                 );
             } catch (Exception $e) {

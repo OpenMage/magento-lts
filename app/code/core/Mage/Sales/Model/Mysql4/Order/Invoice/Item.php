@@ -20,26 +20,21 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Invoice item resource model
+ * Flat sales order invoice item resource
  *
- * @category   Mage
- * @package    Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Mysql4_Order_Invoice_Item extends Mage_Eav_Model_Entity_Abstract
+class Mage_Sales_Model_Mysql4_Order_Invoice_Item extends Mage_Sales_Model_Mysql4_Order_Abstract
 {
-    public function __construct()
+    protected $_eventPrefix = 'sales_order_invoice_item_resource';
+
+    protected function _construct()
     {
-        $resource = Mage::getSingleton('core/resource');
-        $this->setType('invoice_item')->setConnection(
-            $resource->getConnection('sales_read'),
-            $resource->getConnection('sales_write')
-        );
+        $this->_init('sales/invoice_item', 'entity_id');
     }
 
 }

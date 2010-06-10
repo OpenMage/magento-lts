@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -99,15 +99,15 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
 
         $fieldset->addField('default_value_text', 'text', array(
             'name' => 'default_value_text',
-            'label' => Mage::helper('eav')->__('Default value'),
-            'title' => Mage::helper('eav')->__('Default value'),
+            'label' => Mage::helper('eav')->__('Default Value'),
+            'title' => Mage::helper('eav')->__('Default Value'),
             'value' => $attributeObject->getDefaultValue(),
         ));
 
         $fieldset->addField('default_value_yesno', 'select', array(
             'name' => 'default_value_yesno',
-            'label' => Mage::helper('eav')->__('Default value'),
-            'title' => Mage::helper('eav')->__('Default value'),
+            'label' => Mage::helper('eav')->__('Default Value'),
+            'title' => Mage::helper('eav')->__('Default Value'),
             'values' => $yesno,
             'value' => $attributeObject->getDefaultValue(),
         ));
@@ -115,8 +115,8 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
         $dateFormatIso = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
         $fieldset->addField('default_value_date', 'date', array(
             'name'   => 'default_value_date',
-            'label'  => Mage::helper('eav')->__('Default value'),
-            'title'  => Mage::helper('eav')->__('Default value'),
+            'label'  => Mage::helper('eav')->__('Default Value'),
+            'title'  => Mage::helper('eav')->__('Default Value'),
             'image'  => $this->getSkinUrl('images/grid-cal.gif'),
             'value'  => $attributeObject->getDefaultValue(),
             'format'       => $dateFormatIso
@@ -124,8 +124,8 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
 
         $fieldset->addField('default_value_textarea', 'textarea', array(
             'name' => 'default_value_textarea',
-            'label' => Mage::helper('eav')->__('Default value'),
-            'title' => Mage::helper('eav')->__('Default value'),
+            'label' => Mage::helper('eav')->__('Default Value'),
+            'title' => Mage::helper('eav')->__('Default Value'),
             'value' => $attributeObject->getDefaultValue(),
         ));
 

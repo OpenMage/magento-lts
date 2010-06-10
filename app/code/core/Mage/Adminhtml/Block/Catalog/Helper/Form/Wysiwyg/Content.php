@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,8 +44,13 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg_Content
     {
         $form = new Varien_Data_Form(array('id' => 'wysiwyg_edit_form', 'action' => $this->getData('action'), 'method' => 'post'));
 
-        $config['add_variables'] = false;
-        $config['add_widgets'] = false;
+        $config['document_base_url']     = $this->getData('store_media_url');
+        $config['store_id']              = $this->getData('store_id');
+        $config['add_variables']         = false;
+        $config['add_widgets']           = false;
+        $config['add_directives']        = true;
+        $config['use_container']         = true;
+        $config['container_class']       = 'hor-scroll';
 
         $form->addField($this->getData('editor_element_id'), 'editor', array(
             'name'      => 'content',

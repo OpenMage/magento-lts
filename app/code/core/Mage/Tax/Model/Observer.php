@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -89,7 +89,7 @@ class Mage_Tax_Model_Observer
                             'base_real_amount'=>$baseRealAmount,
                             );
 
-                Mage::getModel('sales/order_tax')->setData($data)->save();
+                Mage::getModel('tax/sales_order_tax')->setData($data)->save();
             }
         }
         $order->setAppliedTaxIsSaved(true);
@@ -168,7 +168,7 @@ class Mage_Tax_Model_Observer
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
         $date = $currentDate->subHour(25);
-        Mage::getResourceModel('tax/tax')->aggregate($date);
+        Mage::getResourceModel('tax/report_tax')->aggregate($date);
         Mage::app()->getLocale()->revert();
         return $this;
     }

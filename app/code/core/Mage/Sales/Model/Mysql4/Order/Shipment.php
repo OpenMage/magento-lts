@@ -20,26 +20,54 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Shipment entity resource model
+ * Flat sales order shipment resource
  *
- * @category   Mage
- * @package    Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Sales_Model_Mysql4_Order_Shipment extends Mage_Eav_Model_Entity_Abstract
+class Mage_Sales_Model_Mysql4_Order_Shipment extends Mage_Sales_Model_Mysql4_Order_Abstract
 {
-    public function __construct()
+    protected $_eventPrefix = 'sales_order_shipment_resource';
+    protected $_grid = true;
+    protected $_useIncrementId = true;
+    protected $_entityTypeForIncrementId = 'shipment';
+
+    protected function _construct()
     {
-        $resource = Mage::getSingleton('core/resource');
-        $this->setType('shipment')->setConnection(
-            $resource->getConnection('sales_read'),
-            $resource->getConnection('sales_write')
-        );
+        $this->_init('sales/shipment', 'entity_id');
+    }
+
+    /**
+     * Init virtual grid records for entity
+     *
+     * @return Mage_Sales_Model_Mysql4_Order_Shipment
+     */
+    protected function _initVirtualGridColumns()
+    {
+        parent::_initVirtualGridColumns();
+        $this->addVirtualGridColumn(
+                'shipping_name',
+                'sales/order_address',
+                array('shipping_address_id' => 'entity_id'),
+                'CONCAT(IFNULL({{table}}.firstname, ""), " ", IFNULL({{table}}.lastname, ""))'
+            )
+            ->addVirtualGridColumn(
+                'order_increment_id',
+                'sales/order',
+                array('order_id' => 'entity_id'),
+                'increment_id'
+            )
+            ->addVirtualGridColumn(
+                'order_created_at',
+                'sales/order',
+                array('order_id' => 'entity_id'),
+                'created_at'
+            )
+            ;
+
+        return $this;
     }
 }

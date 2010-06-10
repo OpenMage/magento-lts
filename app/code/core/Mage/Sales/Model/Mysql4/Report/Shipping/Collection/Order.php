@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,7 +64,8 @@ class Mage_Sales_Model_Mysql4_Report_Shipping_Collection_Order extends Mage_Sale
                 'period'                => $this->_periodFormat,
                 'shipping_description'  => 'shipping_description',
                 'orders_count'          => 'sum(orders_count)',
-                'total_shipping'        => 'sum(total_shipping)'
+                'total_shipping'        => 'sum(total_shipping)',
+                'total_shipping_actual' => 'sum(total_shipping_actual)',
             );
         }
 

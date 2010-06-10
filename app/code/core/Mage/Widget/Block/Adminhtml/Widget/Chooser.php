@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -149,9 +149,9 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
         $config    = $this->getConfig();
 
         // add chooser element to fieldset
-        $chooser = $fieldset->addField('chooser' . $element->getId(), 'label', array(
+        $chooser = $fieldset->addField('chooser' . $element->getId(), 'note', array(
             'label'       => $config->getLabel() ? $config->getLabel() : '',
-            'value_class' => '',
+            'value_class' => 'value2',
         ));
         $hiddenHtml = '';
         if ($this->getHiddenEnabled()) {

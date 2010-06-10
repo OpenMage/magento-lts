@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -143,6 +143,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
                 $collection->addFieldToFilter('entity_id', array('nin'=>$disabledIds));
             }
             $collection->addAttributeToFilter('is_active', 1);
+            $collection->addAttributeToFilter('include_in_menu', 1);
         }
 
         if ($this->_joinUrlRewriteIntoCollection) {
@@ -568,5 +569,25 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
         ->group('e.entity_id');
 
         return $select;
+    }
+
+    /**
+     * Get real existing category ids by specified ids
+     *
+     * @param array $ids
+     * @return array
+     */
+    public function getExistingCategoryIdsBySpecifiedIds($ids)
+    {
+        if (empty($ids)) {
+            return array();
+        }
+        if (!is_array($ids)) {
+            $ids = array($ids);
+        }
+        $select = $this->_conn->select()
+            ->from($this->_table, array('entity_id'))
+            ->where(sprintf('entity_id IN (%s)', implode(', ', $ids)));
+        return $this->_conn->fetchCol($select);
     }
 }

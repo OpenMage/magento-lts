@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -102,7 +102,7 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
 
             $fieldset->addField('website_sort_order', 'text', array(
                 'name'      => 'website[sort_order]',
-                'label'     => Mage::helper('core')->__('Sort order'),
+                'label'     => Mage::helper('core')->__('Sort Order'),
                 'value'     => $websiteModel->getSortOrder(),
                 'required'  => false,
                 'disabled'  => $websiteModel->isReadOnly(),
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
             if (!$websiteModel->getIsDefault() && $websiteModel->getStoresCount()) {
                 $fieldset->addField('is_default', 'checkbox', array(
                     'name'      => 'website[is_default]',
-                    'label'     => Mage::helper('core')->__('Set as default'),
+                    'label'     => Mage::helper('core')->__('Set as Default'),
                     'value'     => 1,
                     'disabled'  => $websiteModel->isReadOnly(),
                 ));
@@ -299,7 +299,7 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
 
             $fieldset->addField('store_sort_order', 'text', array(
                 'name'      => 'store[sort_order]',
-                'label'     => Mage::helper('core')->__('Sort order'),
+                'label'     => Mage::helper('core')->__('Sort Order'),
                 'value'     => $storeModel->getSortOrder(),
                 'required'  => false,
                 'disabled'  => $storeModel->isReadOnly(),

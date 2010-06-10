@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,10 +42,24 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     const TYPE_REFUND  = 'refund';
 
     /**
+     * Raw details key in additional info
+     *
+     */
+    const RAW_DETAILS = 'raw_details_info';
+
+    /**
      * Payment instance. Required for most transaction writing and search operations
      * @var Mage_Sales_Model_Order_Payment
      */
     protected $_paymentObject = null;
+
+
+    /**
+     * Order instance
+     *
+     * @var Mage_Sales_Model_Order_Payment
+     */
+    protected $_order = null;
 
     /**
      * Parent transaction instance
@@ -84,7 +98,30 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * Whether transaction has children
      * @var bool
      */
-    private $_hasChild = null;
+    protected $_hasChild = null;
+
+    /**
+     * Event object prefix
+     *
+     * @see Mage_Core_Model_Absctract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'sales_order_payment_transaction';
+
+    /**
+     * Event object prefix
+     *
+     * @see Mage_Core_Model_Absctract::$_eventObject
+     * @var string
+     */
+    protected $_eventObject = 'order_payment_transaction';
+
+    /**
+     * Order website id
+     *
+     * @var int
+     */
+    protected $_orderWebsiteId = null;
 
     /**
      * Initialize resource model
@@ -103,6 +140,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     public function setOrderPaymentObject(Mage_Sales_Model_Order_Payment $payment)
     {
         $this->_paymentObject = $payment;
+        $this->setOrder($payment->getOrder());
         return $this;
     }
 
@@ -169,13 +207,14 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 $class = get_class($this);
                 $this->_parentTransaction = new $class;
                 if ($shouldLoad) {
-                    $this->_parentTransaction->load($parentId);
+                    $this->_parentTransaction
+                        ->setOrderPaymentObject($this->_paymentObject)
+                        ->load($parentId);
                     if (!$this->_parentTransaction->getId()) {
                         $this->_parentTransaction = false;
                     } else {
                         $this->_parentTransaction
-                            ->hasChildTransaction(true)
-                            ->setOrderPaymentObject($this->_paymentObject);
+                            ->hasChildTransaction(true);
                     }
                 }
             }
@@ -348,18 +387,43 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     }
 
     /**
+     * Check object before loading by by specified transaction ID
+     * @param $txnId
+     * @return Mage_Sales_Model_Order_Payment_Transaction
+     */
+    protected function _beforeLoadByTxnId($txnId)
+    {
+        $this->_verifyPaymentObject();
+        Mage::dispatchEvent($this->_eventPrefix . '_load_by_txn_id_before', $this->_getEventData() + array('txn_id' => $txnId));
+        return $this;
+    }
+
+    /**
      * Load self by specified transaction ID. Requires the valid payment object to be set
      * @param string $txnId
      * @return Mage_Sales_Model_Order_Payment_Transaction
      */
     public function loadByTxnId($txnId)
     {
-        $this->_verifyPaymentObject();
+        $this->_beforeLoadByTxnId($txnId);
         $this->getResource()->loadObjectByTxnId(
             $this, $this->getOrderId(), $this->_paymentObject->getId(), $txnId
         );
+        $this->_afterLoadByTxnId();
         return $this;
     }
+
+    /**
+     * Check object after loading by by specified transaction ID
+     * @param $txnId
+     * @return Mage_Sales_Model_Order_Payment_Transaction
+     */
+    protected function _afterLoadByTxnId()
+    {
+        Mage::dispatchEvent($this->_eventPrefix . '_load_by_txn_id_after', $this->_getEventData());
+        return $this;
+    }
+
 
     /**
      * Additional information setter
@@ -489,6 +553,46 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     }
 
     /**
+     * Retrieve order instance
+     *
+     * @return Mage_Sales_Model_Order
+     */
+    public function getOrder()
+    {
+        if ($this->_order === null) {
+            $this->setOrder();
+        }
+
+        return $this->_order;
+    }
+
+    /**
+     * Set order instance for transaction depends on transaction behavior
+     * If $order equals to true, method isn't loading new order instance.
+     *
+     * @param Mage_Sales_Model_Order|null|boolean $order
+     * @return Mage_Sales_Model_Order_Payment_Transaction
+     */
+    public function setOrder($order = null)
+    {
+        if (null === $order || $order === true) {
+            if (null !== $this->_paymentObject && $this->_paymentObject->getOrder()) {
+                $this->_order = $this->_paymentObject->getOrder();
+            } elseif ($this->getOrderId() && $order === null) {
+                $this->_order = Mage::getModel('sales/order')->load($this->getOrderId());
+            } else {
+                $this->_order = false;
+            }
+        } elseif (!$this->getId() || ($this->getOrderId() == $order->getId())) {
+            $this->_order = $order;
+        } else {
+            Mage::throwException(Mage::helper('sales')->__('Set order for existing transactions not allowed'));
+        }
+
+        return $this;
+    }
+
+    /**
      * Setter/Getter whether transaction is supposed to prevent exceptions on saving
      *
      * @param bool $failsafe
@@ -511,8 +615,18 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     {
         // set parent id
         $this->_verifyPaymentObject();
-        $this->setPaymentId($this->_paymentObject->getId())
-            ->setOrderId($this->getOrderId());
+        if (!$this->getId()) {
+            // We need to set order and payment ids only for new transactions
+            if (null !== $this->_paymentObject) {
+                $this->setPaymentId($this->_paymentObject->getId());
+            }
+
+            if (null !== $this->_order) {
+                $this->setOrderId($this->_order->getId());
+            }
+
+            $this->setCreatedAt(Mage::getModel('core/date')->gmtDate());
+        }
         return parent::_beforeSave();
     }
 
@@ -534,8 +648,16 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             Mage::throwException(Mage::helper('sales')->__('At least a payment ID must be set.'));
         }
 
+        $this->setOrder(true);
+
+        $orderFilter = $this->getOrder(); // Try to get order instance for filter
+        if (!$orderFilter) {
+            $orderFilter = $this->getOrderId();
+        }
+
         // prepare children collection
         $children = $this->getResourceCollection()
+            ->setOrderFilter($orderFilter)
             ->addPaymentIdFilter($paymentId)
             ->addParentIdFilter($this->getId());
 
@@ -566,7 +688,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * TODO: implement that there should be only one void per authorization
      * @return bool
      */
-    private function _isVoided()
+    protected function _isVoided()
     {
         $this->_verifyThisTransactionExists();
         return self::TYPE_AUTH === $this->getTxnType()
@@ -574,11 +696,48 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     }
 
     /**
+     * Check whether this transaction is voided
+     * @return bool
+     */
+    public function isVoided()
+    {
+        return $this->_isVoided();
+    }
+
+    /**
+     * Retrieve transaction types
+     *
+     * @return array
+     */
+    public function getTransactionTypes()
+    {
+        return array(
+            Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH    => Mage::helper('sales')->__('Authorization'),
+            Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE => Mage::helper('sales')->__('Capture'),
+            Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID    => Mage::helper('sales')->__('Void'),
+            Mage_Sales_Model_Order_Payment_Transaction::TYPE_REFUND  => Mage::helper('sales')->__('Refund')
+        );
+    }
+
+    /**
+     * Retrieve order website id
+     *
+     * @return int
+     */
+    public function getOrderWebsiteId()
+    {
+        if (is_null($this->_orderWebsiteId)) {
+            $this->_orderWebsiteId = (int)$this->getResource()->getOrderWebsiteId($this->getOrderId());
+        }
+        return $this->_orderWebsiteId;
+    }
+
+    /**
      * Check whether specified or set transaction type is supported
      * @param string $txnType
      * @throws Mage_Core_Exception
      */
-    private function _verifyTxnType($txnType = null)
+    protected function _verifyTxnType($txnType = null)
     {
         if (null === $txnType) {
             $txnType = $this->getTxnType();
@@ -591,7 +750,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             case self::TYPE_REFUND:
                 break;
             default:
-                Mage::throwException(Mage::helper('sales')->__('Non-supported Transaction Type "%s".', $txnType));
+                Mage::throwException(Mage::helper('sales')->__('Unsupported transaction type "%s".', $txnType));
         }
     }
 
@@ -602,7 +761,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * @return Mage_Sales_Model_Order_Payment|null|false
      * @throws Mage_Core_Exception
      */
-    private function _verifyPaymentObject($dryRun = false)
+    protected function _verifyPaymentObject($dryRun = false)
     {
         if (!$this->_paymentObject || !$this->getOrderId()) {
             if (!$dryRun) {
@@ -617,7 +776,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * @param string $txnId
      * @throws Mage_Core_Exception
      */
-    private function _verifyTxnId($txnId)
+    protected function _verifyTxnId($txnId)
     {
         if (null !== $txnId && 0 == strlen($txnId)) {
             Mage::throwException(Mage::helper('sales')->__('Transaction ID must not be empty.'));
@@ -629,7 +788,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * TODO for more restriction we can check for data consistency
      * @throws Mage_Core_Exception
      */
-    private function _verifyThisTransactionExists()
+    protected function _verifyThisTransactionExists()
     {
         if (!$this->getId()) {
             Mage::throwException(Mage::helper('sales')->__('This operation requires an existing transaction object.'));

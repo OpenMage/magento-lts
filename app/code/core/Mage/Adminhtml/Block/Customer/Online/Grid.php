@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -141,7 +141,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
         ));
 
         $this->addColumn('last_url', array(
-            'header'    => Mage::helper('customer')->__('Last Url'),
+            'header'    => Mage::helper('customer')->__('Last URL'),
             'type'      => 'wrapline',
             'lineLength' => '60',
             'default'   => Mage::helper('customer')->__('n/a'),

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -181,14 +181,20 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
     protected function _getMemoryLimit()
     {
-        $memoryLimit = ini_get('memory_limit');
+        $memoryLimit = trim(strtoupper(ini_get('memory_limit')));
 
         if (!isSet($memoryLimit[0])){
             $memoryLimit = "128M";
         }
 
+        if (substr($memoryLimit, -1) == 'K') {
+            return substr($memoryLimit, 0, -1) * 1024;
+        }
         if (substr($memoryLimit, -1) == 'M') {
-            return (int)$memoryLimit * 1024 * 1024;
+            return substr($memoryLimit, 0, -1) * 1024 * 1024;
+        }
+        if (substr($memoryLimit, -1) == 'G') {
+            return substr($memoryLimit, 0, -1) * 1024 * 1024 * 1024;
         }
         return $memoryLimit;
     }
@@ -234,7 +240,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * @param array $rgbArray
      * @return string
      */
-    private function _rgbToString($rgbArray)
+    protected function _rgbToString($rgbArray)
     {
         $result = array();
         foreach ($rgbArray as $value) {
@@ -299,7 +305,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         $baseFile = $baseDir . $file;
 
         if ((!$file) || (!file_exists($baseFile))) {
-            throw new Exception(Mage::helper('catalog')->__('Image file not found'));
+            throw new Exception(Mage::helper('catalog')->__('Image file was not found.'));
         }
 
         $this->_baseFile = $baseFile;

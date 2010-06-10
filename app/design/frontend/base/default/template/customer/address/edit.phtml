@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -81,7 +81,7 @@
         <?php for ($_i=2, $_n=$this->helper('customer/address')->getStreetLines(); $_i<=$_n; $_i++): ?>
             <li class="wide">
                 <div class="input-box">
-                    <input type="text" name="street[]" value="<?php echo $this->htmlEscape($this->getAddress()->getStreet($_i)) ?>" title="<?php echo $this->__('Street Address '.$_i) ?>" id="street_<?php echo $_i?>" class="input-text" />
+                    <input type="text" name="street[]" value="<?php echo $this->htmlEscape($this->getAddress()->getStreet($_i)) ?>" title="<?php echo $this->__('Street Address %s', $_i) ?>" id="street_<?php echo $_i?>" class="input-text" />
                 </div>
             </li>
         <?php endfor ?>
@@ -125,7 +125,7 @@
                 <?php if($this->isDefaultBilling()): ?>
                     <strong><?php echo $this->__('Default Billing Address') ?></strong>
                 <?php elseif($this->canSetAsDefaultBilling()): ?>
-                    <input type="checkbox" id="primary_billing" name="default_billing" value="1" title="<?php echo $this->__('Use as my default billing address') ?>" class="checkbox" /><label for="primary_billing"><?php echo $this->__('Use as my default billing address') ?></label>
+                    <input type="checkbox" id="primary_billing" name="default_billing" value="1" title="<?php echo $this->__('Use as My Default Billing Address') ?>" class="checkbox" /><label for="primary_billing"><?php echo $this->__('Use as my default billing address') ?></label>
                 <?php else: ?>
                     <input type="hidden" name="default_billing" value="1" />
                 <?php endif; ?>
@@ -134,7 +134,7 @@
                 <?php if($this->isDefaultShipping()): ?>
                     <strong><?php echo $this->__('Default Shipping Address') ?></strong>
                 <?php elseif($this->canSetAsDefaultShipping()): ?>
-                    <input type="checkbox" id="primary_shipping" name="default_shipping" value="1" title="<?php echo $this->__('Use as my default shipping address') ?>" class="checkbox" /><label for="primary_shipping"><?php echo $this->__('Use as my default shipping address') ?></label>
+                    <input type="checkbox" id="primary_shipping" name="default_shipping" value="1" title="<?php echo $this->__('Use as My Default Shipping Address') ?>" class="checkbox" /><label for="primary_shipping"><?php echo $this->__('Use as my default shipping address') ?></label>
                 <?php else: ?>
                     <input type="hidden" name="default_shipping" value="1" />
                 <?php endif; ?>
@@ -143,7 +143,7 @@
     </div>
     <div class="buttons-set">
         <p class="required"><?php echo $this->__('* Required Fields') ?></p>
-        <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+        <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
         <button type="submit" title="<?php echo $this->__('Save Address') ?>" class="button"><span><span><?php echo $this->__('Save Address') ?></span></span></button>
     </div>
 </form>

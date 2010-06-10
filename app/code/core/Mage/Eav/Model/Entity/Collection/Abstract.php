@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -175,7 +175,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
         } elseif (is_string($entity) || $entity instanceof Mage_Core_Model_Config_Element) {
             $this->_entity = Mage::getModel('eav/entity')->setType($entity);
         } else {
-            Mage::throwException(Mage::helper('eav')->__('Invalid entity supplied: %s', print_r($entity,1)));
+            Mage::throwException(Mage::helper('eav')->__('Invalid entity supplied: %s.', print_r($entity,1)));
         }
         return $this;
     }
@@ -188,7 +188,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
     public function getEntity()
     {
         if (empty($this->_entity)) {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Entity is not initialized'));
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Entity is not initialized.'));
         }
         return $this->_entity;
     }
@@ -231,7 +231,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
     public function addItem(Varien_Object $object)
     {
         if (get_class($object)!== $this->_itemObjectClass) {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Attempt to add an invalid object'));
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Attempt to add an invalid object.'));
         }
         return parent::addItem($object);
     }
@@ -432,7 +432,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
     {
         // validate alias
         if (isset($this->_joinFields[$alias])) {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Joined field or attribute expression with this alias is already declared'));
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Joint field or attribute expression with this alias is already declared.'));
         }
         if(!is_array($attribute)) {
             $attribute = array($attribute);
@@ -536,7 +536,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
     {
         // validate alias
         if (isset($this->_joinAttributes[$alias])) {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid alias, already exists in joined attributes'));
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid alias, already exists in joint attributes.'));
         }
 
         // validate bind attribute
@@ -545,7 +545,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
         }
 
         if (!$bindAttribute || (!$bindAttribute->isStatic() && !$bindAttribute->getId())) {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid foreign key'));
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid foreign key.'));
         }
 
         // try to explode combined entity/attribute if supplied
@@ -569,7 +569,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
             }
         }
         if (!$entity || !$entity->getTypeId()) {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid entity type'));
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid entity type.'));
         }
 
         // cache entity
@@ -582,7 +582,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
             $attribute = $entity->getAttribute($attribute);
         }
         if (!$attribute) {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid attribute type'));
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid attribute type.'));
         }
 
         if (empty($filter)) {
@@ -621,7 +621,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
     {
         // validate alias
         if (isset($this->_joinFields[$alias])) {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Joined field with this alias is already declared'));
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Joined field with this alias is already declared.'));
         }
 
         // validate table
@@ -699,11 +699,11 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
 
         // validate fields and aliases
         if (!$fields) {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid joined fields'));
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid joint fields.'));
         }
         foreach ($fields as $alias=>$field) {
             if (isset($this->_joinFields[$alias])) {
-                throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Joined field with this alias (%s) is already declared', $alias));
+                throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('A joint field with this alias (%s) is already declared.', $alias));
             }
             $this->_joinFields[$alias] = array(
                 'table' => $tableAlias,
@@ -987,16 +987,23 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
 
         $tableAttributes = array();
         foreach ($this->_selectAttributes as $attributeCode => $attributeId) {
+            if (!$attributeId) {
+                continue;
+            }
             $attribute = Mage::getSingleton('eav/config')->getCollectionAttribute($entity->getType(), $attributeCode);
             if ($attribute && !$attribute->isStatic()) {
                 $tableAttributes[$attribute->getBackendTable()][] = $attributeId;
             }
         }
 
+        $selects = array();
         foreach ($tableAttributes as $table=>$attributes) {
-            $select = $this->_getLoadAttributesSelect($table);
+            $selects[] = $this->_getLoadAttributesSelect($table, $attributes);
+        }
+        if (!empty($selects)) {
             try {
-                $values = $this->_fetchAll($select, $attributes);
+                $select = implode(' UNION ', $selects);
+                $values = $this->_fetchAll($select);
             } catch (Exception $e) {
                 Mage::printException($e, $select);
                 $this->printLogQuery(true, true, $select);
@@ -1007,7 +1014,6 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
                 $this->_setItemAttributeValue($value);
             }
         }
-
         return $this;
     }
 
@@ -1045,7 +1051,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
         $entityId       = $valueInfo[$entityIdField];
         if (!isset($this->_itemsById[$entityId])) {
             Mage::throwException('Mage_Eav',
-                Mage::helper('eav')->__('Data integrity: No header row found for attribute')
+                Mage::helper('eav')->__('Data integrity: No header row found for attribute.')
             );
         }
         $attributeCode = array_search($valueInfo['attribute_id'], $this->_selectAttributes);
@@ -1089,7 +1095,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
 
         $attribute = $this->getAttribute($attributeCode);
         if (!$attribute) {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid attribute name: %s', $attributeCode));
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid attribute name: %s.', $attributeCode));
         }
 
         if ($attribute->isStatic()) {
@@ -1146,7 +1152,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
         }
 
         if (!$attribute) {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid attribute name: %s', $attributeCode));
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid attribute name: %s.', $attributeCode));
         }
 
         if ($attribute->getBackend()->isStatic()) {
@@ -1208,6 +1214,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
      * @see self::_getConditionSql
      * @param string $attribute
      * @param mixed $condition
+     * @param string $joinType
      * @return string
      */
     protected function _getAttributeConditionSql($attribute, $condition, $joinType='inner')

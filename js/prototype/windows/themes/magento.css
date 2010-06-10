@@ -1,122 +1,111 @@
 .overlay_magento {
-	background-color: #000;
-	filter:alpha(opacity=60);
-	-moz-opacity: 0.6;
-	opacity: 0.6;
+    background-color:#000;
+    filter:alpha(opacity=60);
+    -moz-opacity:0.6;
+    opacity:0.6;
 }
-
-.top.table_window { border-bottom:4px solid #deebf0; background:url(magento/top_bg.gif) repeat-x #7e9fb3; }
+.top.table_window {
+    border-bottom:4px solid #deebf0;
+    background:url(magento/top_bg.gif) repeat-x #7e9fb3;
+}
 .magento_nw {
-  width:6px;
-  height:26px;
+    width:6px;
+    height:26px;
 }
-.magento_n {
-  height:26px;
-}
+.magento_n { height:26px; }
 .magento_ne {
-  width:6px;
-  height:26px;
+    width:6px;
+    height:26px;
 }
 .magento_w {
-  background:#deebf0;
-  width:3px;
+    background:#deebf0;
+    width:3px;
 }
-
 .magento_e {
-  background:#deebf0;
-  width:3px;
+    background:#deebf0;
+    width:3px;
 }
-
 .magento_sw {
-  background:#deebf0;
-  width:5px;
-  height:3px;
+    background:#deebf0;
+    width:5px;
+    height:3px;
 }
 .magento_s {
-  background:#deebf0;
-  height:3px;
+    background:#deebf0;
+    height:3px;
 }
-.magento_se, .magento_sizer {
-  background:#deebf0;
-  width:5px;
-  height:3px;
-}
-
+.magento_se,
 .magento_sizer {
-	cursor:se-resize;
+    background:#deebf0;
+    width:5px;
+    height:3px;
 }
-
+.magento_sizer { cursor:se-resize; }
 .magento_close {
-	width: 15px;
-	height: 15px;
-	background: transparent url(magento/button-close-focused.png) no-repeat 0 0;
-	position:absolute;
-	top:5px;
-	right:6px;
-	cursor:pointer;
-	z-index:1000;
+    width:15px;
+    height:15px;
+    background:transparent url(magento/button-close-focused.png) no-repeat 0 0;
+    position:absolute;
+    top:5px;
+    right:6px;
+    cursor:pointer;
+    z-index:1000;
 }
-
 .magento_minimize {
-	width: 21px;
-	height: 21px;
-	background: transparent url(magento/button-minimize-focused.png) no-repeat 0 0;
-	position:absolute;
-	top:0px;
-	right:26px;
-	cursor:pointer;
-	z-index:1000;
+    width:21px;
+    height:21px;
+    background:transparent url(magento/button-minimize-focused.png) no-repeat 0 0;
+    position:absolute;
+    top:0px;
+    right:26px;
+    cursor:pointer;
+    z-index:1000;
 }
-
 .magento_maximize {
-	width: 21px;
-	height: 21px;
-	background: transparent url(magento/button-maximize-focused.png) no-repeat 0 0;
-	position:absolute;
-	top:0px;
-	right:47px;
-	cursor:pointer;
-	z-index:1000;
+    width:21px;
+    height:21px;
+    background:transparent url(magento/button-maximize-focused.png) no-repeat 0 0;
+    position:absolute;
+    top:0px;
+    right:47px;
+    cursor:pointer;
+    z-index:1000;
 }
-
-
 .magento_title {
-	float:left;
-	height:22px;
-	font-size:12px;
-	text-align:left;
-	margin-top:2px;
-	width:100%;
-	color:#FFF;
+    float:left;
+    height:22px;
+    font-size:12px;
+    text-align:left;
+    margin-top:2px;
+    width:100%;
+    color:#fff;
     font-weight:bold;
 }
-
 .magento_content {
-	overflow:auto;
-	font-size: 12px;
-	background:#deebf0;
+    overflow:auto;
+    font-size:12px;
+    background:#deebf0;
 }
-.magento_content, .magento_content label {
-	color: #333;
-	font-family:Arial, sans-serif;
-    }
-
+.magento_content,
+.magento_content label {
+    color:#333;
+    font-family:Arial, sans-serif;
+}
 .magento_buttons { padding-bottom:9px; }
+
 /* FOR IE */
 * html .magento_minimize {
-	background-color: transparent;
-	background-image: none;
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../themes/magento/button-minimize-focused.png", sizingMethod="crop");
+    background-color:transparent;
+    background-image:none;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../themes/magento/button-minimize-focused.png", sizingMethod="crop");
 }
-
 * html .magento_maximize {
-	background-color: transparent;
-	background-image: none;
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../themes/magento/button-maximize-focused.png", sizingMethod="scale");
+    background-color:transparent;
+    background-image:none;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../themes/magento/button-maximize-focused.png", sizingMethod="scale");
 }
-
 * html .magento_close {
-	background-color: transparent;
-	background-image: none;
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../themes/magento/button-close-focused.png", sizingMethod="crop");
+    background-color:transparent;
+    background-image:none;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../themes/magento/button-close-focused.png", sizingMethod="crop");
 }

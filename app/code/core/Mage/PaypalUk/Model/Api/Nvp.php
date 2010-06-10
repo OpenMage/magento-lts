@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_PaypalUk
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -234,7 +234,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         'SHIPTOSTREET'  => 'street',
         'SHIPTOSTREET2' => 'street2',
         'SHIPTOZIP' => 'postcode',
-        'SHIPTOPHONENUM' => 'telephone',
+        'SHIPTOPHONENUM' => 'telephone', // does not supported by PaypalUk
     );
 
     /**
@@ -251,7 +251,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         'SALUTATION' => 'prefix',
         'SUFFIX' => 'suffix',
 
-        'COUNTRYCODE' => 'country_id', // iso-3166 two-character code
+        'COUNTRY' => 'country_id', // iso-3166 two-character code
         'STATE'    => 'region',
         'CITY'     => 'city',
         'STREET'   => 'street',
@@ -287,7 +287,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      */
     public function getApiEndpoint()
     {
-        return sprintf('https://%spayflowpro.verisign.com/transaction', $this->_config->sandboxFlag ? 'pilot-' : '');
+        return sprintf('https://%spayflowpro.paypal.com/transaction', $this->_config->sandboxFlag ? 'pilot-' : '');
     }
 
     /**
@@ -337,7 +337,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      */
     public function getTender()
     {
-        if ($this->_config->getMethodCode() == Mage_PaypalUk_Model_Config::METHOD_WPP_PE_EXPRESS) {
+        if ($this->_config->getMethodCode() == Mage_Paypal_Model_Config::METHOD_WPP_PE_EXPRESS) {
             return self::TENDER_PAYPAL;
         }
         return self::TENDER_CC;
@@ -391,7 +391,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
             case Mage_Paypal_Model_Api_Nvp::GET_EXPRESS_CHECKOUT_DETAILS:
             case Mage_Paypal_Model_Api_Nvp::SET_EXPRESS_CHECKOUT:
             case Mage_Paypal_Model_Api_Nvp::DO_DIRECT_PAYMENT:
-                return ($this->_config->payment_action == Mage_PaypalUk_Model_Config::PAYMENT_ACTION_AUTH) ?
+                return ($this->_config->payment_action == Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH) ?
                     self::TRXTYPE_AUTH_ONLY:
                     self::TRXTYPE_SALE;
             case Mage_Paypal_Model_Api_Nvp::DO_CAPTURE:
@@ -433,7 +433,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
             $message = $response['RESPMSG'];
             $e = new Exception(sprintf('PayPal gateway errors: %s.', $message));
             Mage::logException($e);
-            Mage::throwException(Mage::helper('paypal')->__('PayPal geteway rejected request. %s', $message));
+            Mage::throwException(Mage::helper('paypal')->__('PayPal gateway rejected the request. %s', $message));
         }
     }
 
@@ -481,5 +481,27 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
             return;
         }
         $this->setIsPaymentPending(true);
+    }
+
+    /**
+     * Return each call request fields (PayFlow edition doesn't support Unilateral payments)
+     *
+     * @param string $methodName Current method name
+     * @return array
+     */
+    protected function _prepareEachCallRequest($methodName)
+    {
+        return $this->_eachCallRequest;
+    }
+
+    /**
+     * Overwrite parent logic, simply return input data (PayFlow edition doesn't support Unilateral payments)
+     *
+     * @param array $requestFields Standard set of values
+     * @return array
+     */
+    protected function _prepareExpressCheckoutCallRequest(&$requestFields)
+    {
+        return $requestFields;
     }
 }

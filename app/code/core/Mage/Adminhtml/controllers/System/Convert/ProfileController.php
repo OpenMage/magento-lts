@@ -149,7 +149,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
         if ($profile->getId()) {
             try {
                 $profile->delete();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Profile was deleted'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The profile has been deleted.'));
             }
             catch (Exception $e){
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -177,7 +177,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
             try {
                 $profile->save();
 
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Profile was successfully saved'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The profile has been saved.'));
             }
             catch (Exception $e){
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -192,7 +192,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
             }
         }
         else {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('Invalid POST data (please check post_max_size and upload_max_filesize settings in you php.ini file)'));
+            Mage::getSingleton('adminhtml/session')->addError($this->__('Invalid POST data (please check post_max_size and upload_max_filesize settings in your php.ini file).'));
             $this->_redirect('*/*');
         }
     }
@@ -247,7 +247,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
             foreach ($rowIds as $importId) {
                 $batchImportModel->load($importId);
                 if (!$batchImportModel->getId()) {
-                    $errors[] = Mage::helper('dataflow')->__('Skip undefined row');
+                    $errors[] = Mage::helper('dataflow')->__('Skip undefined row.');
                     continue;
                 }
 
@@ -285,7 +285,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                     $result['error'] = $e->getMessage();
                 }
                 catch (Exception $e) {
-                    $result['error'] = Mage::helper('adminhtml')->__('Error while finished process. Please refresh cache');
+                    $result['error'] = Mage::helper('adminhtml')->__('An error occurred while finishing process. Please refresh the cache');
                 }
                 $batchModel->delete();
                 $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));

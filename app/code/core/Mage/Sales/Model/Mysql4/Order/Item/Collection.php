@@ -20,24 +20,36 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Order order item collection
+ * Flat sales order payment collection
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Mysql4_Order_Item_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Sales_Model_Mysql4_Order_Item_Collection extends Mage_Sales_Model_Mysql4_Order_Collection_Abstract
 {
-    public function _construct()
+    protected $_eventPrefix = 'sales_order_item_collection';
+    protected $_eventObject = 'order_item_collection';
+    
+    /**
+	 * Order field for setOrderFilter
+	 * 
+	 * @var string
+	 */
+	protected $_orderField = 'order_id';
+
+    protected function _construct()
     {
         $this->_init('sales/order_item');
     }
 
+    /**
+     * Assign parent items on after collection load
+     *
+     * @return Mage_Sales_Model_Mysql4_Order_Item_Collection
+     */
     protected function _afterLoad()
     {
         parent::_afterLoad();
@@ -53,23 +65,10 @@ class Mage_Sales_Model_Mysql4_Order_Item_Collection extends Mage_Core_Model_Mysq
     }
 
     /**
-     * Set filter by order id
+     * Set random items order
      *
-     * @param   mixed $order
-     * @return  Mage_Sales_Model_Mysql4_Order_Item_Collection
+     * @return Mage_Sales_Model_Mysql4_Order_Item_Collection
      */
-    public function setOrderFilter($order)
-    {
-        if ($order instanceof Mage_Sales_Model_Order) {
-            $orderId = $order->getId();
-        }
-        else {
-            $orderId = $order;
-        }
-        $this->addFieldToFilter('order_id', $orderId);
-        return $this;
-    }
-
     public function setRandomOrder()
     {
         $this->setOrder('RAND()');

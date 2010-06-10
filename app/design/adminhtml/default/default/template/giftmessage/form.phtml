@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -36,10 +36,10 @@
     <?php endif; ?>
 </form>
 <?php elseif($this->getSaveMode()=='save'): ?>
-<h3><?php echo Mage::helper('giftmessage')->__('Your gift message successfully saved') ?></h3>
+<h3><?php echo Mage::helper('giftmessage')->__('The gift message has been saved') ?></h3>
 <br /><?php echo $this->getCloseButtonHtml() ?>
 <?php else: ?>
-<h3><?php echo Mage::helper('giftmessage')->__('Your gift message successfully removed') ?></h3>
+<h3><?php echo Mage::helper('giftmessage')->__('The gift message has been removed') ?></h3>
 <br /><?php echo $this->getCloseButtonHtml() ?>
 <?php endif; ?>
 <script type="text/javascript">

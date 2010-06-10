@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -109,7 +109,7 @@ abstract class Mage_Dataflow_Model_Convert_Parser_Abstract
     {
         $ioAdapter = new Varien_Io_File();
         if (!$ioAdapter->fileExists($file)) {
-            Mage::throwException(Mage::helper('dataflow')->__('File "%s" don\'t exist', $file));
+            Mage::throwException(Mage::helper('dataflow')->__('File "%s" does not exist.', $file));
         }
 
         $ioAdapter->setAllowCreateFolders(true);

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +49,7 @@ class Mage_CatalogInventory_Model_Mysql4_Stock extends Mage_Core_Model_Mysql4_Ab
     public function lockProductItems($stock, $productIds)
     {
         $itemTable = $this->getTable('cataloginventory/stock_item');
-        $select = $this->_getReadAdapter()->select()
+        $select = $this->_getWriteAdapter()->select()
             ->from($itemTable)
             ->where('stock_id=?', $stock->getId())
             ->where('product_id IN(?)', $productIds)
@@ -58,6 +58,52 @@ class Mage_CatalogInventory_Model_Mysql4_Stock extends Mage_Core_Model_Mysql4_Ab
          * We use write adapter for resolving problems with replication
          */
         $this->_getWriteAdapter()->query($select);
+        return $this;
+    }
+
+    /**
+     * Get stock items data for requested products
+     *
+     * @param Mage_CatalogInventory_Model_Stock $stock
+     * @param array $productIds
+     * @param bool $lockRows
+     */
+    public function getProductsStock($stock, $productIds, $lockRows = false)
+    {
+        $itemTable = $this->getTable('cataloginventory/stock_item');
+        $select = $this->_getWriteAdapter()->select()
+            ->from($itemTable)
+            ->where('stock_id=?', $stock->getId())
+            ->where('product_id IN(?)', $productIds)
+            ->forUpdate($lockRows);
+        return $this->_getWriteAdapter()->fetchAll($select);
+    }
+
+    /**
+     * Correct particular stock products qty based on operator
+     *
+     * @param Mage_CatalogInventory_Model_Stock $stock
+     * @param array $productQtys array($productId => $qty)
+     * @param string $operator +/-
+     * @return Mage_CatalogInventory_Model_Mysql4_Stock
+     */
+    public function correctItemsQty($stock, $productQtys, $operator='-')
+    {
+        if (empty($productQtys)) {
+            return $this;
+        }
+        $query = 'UPDATE '.$this->getTable('cataloginventory/stock_item').' SET `qty`=CASE `product_id` ';
+        foreach ($productQtys as $productId => $qty) {
+            $query.= $this->_getWriteAdapter()->quoteInto(' WHEN ? ', $productId);
+            $query.= $this->_getWriteAdapter()->quoteInto(' THEN `qty`'.$operator.'? ', $qty);
+        }
+        $query.= ' ELSE `qty` END';
+        $query.= $this->_getWriteAdapter()->quoteInto(' WHERE `product_id` IN (?)', array_keys($productQtys));
+        $query.= $this->_getWriteAdapter()->quoteInto(' AND `stock_id` =?', $stock->getId());
+
+        $this->_getWriteAdapter()->beginTransaction();
+        $this->_getWriteAdapter()->query($query);
+        $this->_getWriteAdapter()->commit();
         return $this;
     }
 

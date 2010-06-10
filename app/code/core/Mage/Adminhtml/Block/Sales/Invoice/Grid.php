@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,21 +42,19 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
         $this->setSaveParametersInSession(true);
     }
 
+    /**
+     * Retrieve collection class
+     *
+     * @return string
+     */
+    protected function _getCollectionClass()
+    {
+        return 'sales/order_invoice_grid_collection';
+    }
+
     protected function _prepareCollection()
     {
-        //TODO: add full name logic
-        $collection = Mage::getResourceModel('sales/order_invoice_collection')
-            ->addAttributeToSelect('order_id')
-            ->addAttributeToSelect('increment_id')
-            ->addAttributeToSelect('created_at')
-            ->addAttributeToSelect('state')
-            ->addAttributeToSelect('grand_total')
-            ->addAttributeToSelect('order_currency_code')
-            ->joinAttribute('billing_firstname', 'order_address/firstname', 'billing_address_id', null, 'left')
-            ->joinAttribute('billing_lastname', 'order_address/lastname', 'billing_address_id', null, 'left')
-            ->joinAttribute('order_increment_id', 'order/increment_id', 'order_id', null, 'left')
-            ->joinAttribute('order_created_at', 'order/created_at', 'order_id', null, 'left')
-        ;
+        $collection = Mage::getResourceModel($this->_getCollectionClass());
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -87,14 +85,9 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
             'type'      => 'datetime',
         ));
 
-        $this->addColumn('billing_firstname', array(
-            'header' => Mage::helper('sales')->__('Bill to First name'),
-            'index' => 'billing_firstname',
-        ));
-
-        $this->addColumn('billing_lastname', array(
-            'header' => Mage::helper('sales')->__('Bill to Last name'),
-            'index' => 'billing_lastname',
+        $this->addColumn('billing_name', array(
+            'header' => Mage::helper('sales')->__('Bill to Name'),
+            'index' => 'billing_name',
         ));
 
         $this->addColumn('state', array(
@@ -121,7 +114,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
                 'actions'   => array(
                     array(
                         'caption' => Mage::helper('sales')->__('View'),
-                        'url'     => array('base'=>'*/*/view'),
+                        'url'     => array('base'=>'*/sales_invoice/view'),
                         'field'   => 'invoice_id'
                     )
                 ),
@@ -130,6 +123,9 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
                 'is_system' => true
         ));
 
+        $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
+        $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel'));
+
         return parent::_prepareColumns();
     }
 
@@ -137,10 +133,11 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
     {
         $this->setMassactionIdField('entity_id');
         $this->getMassactionBlock()->setFormFieldName('invoice_ids');
+        $this->getMassactionBlock()->setUseSelectAll(false);
 
         $this->getMassactionBlock()->addItem('pdfinvoices_order', array(
              'label'=> Mage::helper('sales')->__('PDF Invoices'),
-             'url'  => $this->getUrl('*/*/pdfinvoices'),
+             'url'  => $this->getUrl('*/sales_invoice/pdfinvoices'),
         ));
 
         return $this;
@@ -148,7 +145,11 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/view',
+        if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/invoice')) {
+            return false;
+        }
+
+        return $this->getUrl('*/sales_invoice/view',
             array(
                 'invoice_id'=> $row->getId(),
             )

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -43,7 +43,7 @@
             $isFirst    = 1;
         ?>
         <?php foreach ($rates as $rate): ?>
-        <tr class="tax-details-<?php echo $taxIter; ?> tax-details<?php if ($isTop): echo ' tax-details-first'; endif; ?>"<?php if (!$this->getIsPlaneMode()):?> style="display:none;"<?php endif;?>>
+        <tr class="summary-details-<?php echo $taxIter; ?> summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>"<?php if (!$this->getIsPlaneMode()):?> style="display:none;"<?php endif;?>>
             <td <?php echo $this->getLabelProperties()?>>
                 <?php echo $rate['title']; ?>
                 <?php if ($rate['percent']): ?>
@@ -64,7 +64,7 @@
 <?php endif;?>
 
 <?php if ($this->displayFullSummary() && $_fullInfo && !$this->getIsPlaneMode()): ?>
-<tr class="tax-total" onclick="expandDetails(this, '.tax-details-<?php echo $taxIter;?>')">
+<tr class="summary-total" onclick="expandDetails(this, '.summary-details-<?php echo $taxIter;?>')">
 <?php elseif ($this->displayFullSummary() && $_fullInfo && $this->getIsPlaneMode()): ?>
 <tr class="show-details">
 <?php else: ?>
@@ -72,7 +72,7 @@
 <?php endif; ?>
     <td <?php echo $this->getLabelProperties()?>>
         <?php if ($this->displayFullSummary()): ?>
-            <div class="tax-collapse"><?php echo $this->__('Tax'); ?></div>
+            <div class="summary-collapse"><?php echo $this->__('Tax'); ?></div>
         <?php else: ?>
             <?php echo $this->__('Tax'); ?>
         <?php endif;?>

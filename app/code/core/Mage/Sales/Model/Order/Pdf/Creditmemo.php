@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -115,7 +115,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
         $page->drawText(Mage::helper('sales')->__('SKU'), $x, $this->y, 'UTF-8');
         $x += 100;
 
-        $text = Mage::helper('sales')->__('Total(ex)');
+        $text = Mage::helper('sales')->__('Total (ex)');
         $page->drawText($text, $this->getAlignRight($text, $x, 50, $font, $size), $this->y, 'UTF-8');
         $x += 50;
 
@@ -123,7 +123,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
         $page->drawText($text, $this->getAlignRight($text, $x, 50, $font, $size), $this->y, 'UTF-8');
         $x += 50;
 
-        $text = Mage::helper('sales')->__('QTY');
+        $text = Mage::helper('sales')->__('Qty');
         $page->drawText($text, $this->getAlignCenter($text, $x, 30, $font, $size), $this->y, 'UTF-8');
         $x += 30;
 
@@ -131,7 +131,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
         $page->drawText($text, $this->getAlignRight($text, $x, 45, $font, $size, 10), $this->y, 'UTF-8');
         $x += 45;
 
-        $text = Mage::helper('sales')->__('Total(inc)');
+        $text = Mage::helper('sales')->__('Total (inc)');
         $page->drawText($text, $this->getAlignRight($text, $x, 570 - $x, $font, $size), $this->y, 'UTF-8');
     }
 

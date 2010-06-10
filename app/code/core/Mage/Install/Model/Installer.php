@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Install
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -247,7 +247,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         if (is_array($data)) {
             $data = $this->validateAndPrepareAdministrator($data);
             if (is_array(data)) {
-                throw new Exception(Mage::helper('install')->__('Please correct user data and try again.'));
+                throw new Exception(Mage::helper('install')->__('Please correct the user data and try again.'));
             }
         }
 

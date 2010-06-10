@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,29 +32,117 @@
  * @package    Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity_Order_Collection
+class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Mysql4_Order_Collection
 {
+    protected $_isLive = false;
 
+    /**
+     * Check range for live mode
+     *
+     * @param $range
+     * @return boolean
+     */
+    public function checkIsLive($range)
+    {
+        $this->_isLive = !Mage::getStoreConfig('sales/dashboard/use_aggregated_data');
+        return $this;
+    }
+
+    /**
+     * Retrieve is live flag for rep
+     *
+     * @return boolean
+     */
+    public function isLive()
+    {
+        return $this->_isLive;
+    }
+
+    /**
+     * Prepare report summary
+     *
+     * @param string $range
+     * @param mixed $customStart
+     * @param mixed $customEnd
+     * @param int $isFilter
+     * @return Mage_Reports_Model_Mysql4_Order_Collection
+     */
     public function prepareSummary($range, $customStart, $customEnd, $isFilter=0)
     {
-
-        if ($isFilter==0) {
-            $this->addExpressionAttributeToSelect('revenue',
-                'SUM({{base_grand_total}}*{{base_to_global_rate}})',
-                array('base_grand_total', 'base_to_global_rate'));
-        } else{
-            $this->addExpressionAttributeToSelect('revenue',
-                'SUM({{base_grand_total}})',
-                array('base_grand_total'));
+        $this->checkIsLive($range);
+        if ($this->_isLive) {
+            $this->_prepareSummaryLive($range, $customStart, $customEnd, $isFilter);
+        } else {
+            $this->_prepareSummaryAggregated($range, $customStart, $customEnd, $isFilter);
         }
 
-        $this->addExpressionAttributeToSelect('quantity', 'COUNT({{attribute}})', 'entity_id')
-            ->addExpressionAttributeToSelect('range', $this->_getRangeExpression($range), 'created_at')
-            ->addAttributeToFilter('created_at', $this->getDateRange($range, $customStart, $customEnd))
-            ->groupByAttribute('range')
-            ->addAttributeToFilter('state', array('neq' => Mage_Sales_Model_Order::STATE_CANCELED))
-            ->getSelect()->order('range', 'asc');
+        return $this;
+    }
 
+    /**
+     * Prepare report summary from live data
+     *
+     * @param string $range
+     * @param mixed $customStart
+     * @param mixed $customEnd
+     * @param int $isFilter
+     * @return Mage_Reports_Model_Mysql4_Order_Collection
+     */
+    protected function _prepareSummaryLive($range, $customStart, $customEnd, $isFilter=0)
+    {
+        $this->setMainTable('sales/order');
+        if ($isFilter==0) {
+            $this->getSelect()->columns(array(
+                'revenue' => 'SUM(main_table.base_grand_total*main_table.base_to_global_rate)'
+            ));
+        } else{
+            $this->getSelect()->columns(array(
+                'revenue' => 'SUM(main_table.base_grand_total)'
+            ));
+        }
+
+        $this->getSelect()->columns(array(
+            'quantity' => 'COUNT(main_table.entity_id)',
+            'range' => $this->_getRangeExpressionForAttribute($range, 'created_at'),
+        ))->order('range', 'asc')
+            ->group('range');
+
+        $this->addFieldToFilter('created_at', $this->getDateRange($range, $customStart, $customEnd))
+            ->addFieldToFilter('state', array('neq' => Mage_Sales_Model_Order::STATE_CANCELED));
+        return $this;
+    }
+
+    /**
+     * Prepare report summary from aggregated data
+     *
+     * @param string $range
+     * @param mixed $customStart
+     * @param mixed $customEnd
+     * @param int $isFilter
+     * @return Mage_Reports_Model_Mysql4_Order_Collection
+     */
+    protected function _prepareSummaryAggregated($range, $customStart, $customEnd)
+    {
+        $this->setMainTable('sales/order_aggregated_created');
+        $this->getSelect()->columns(array(
+            'revenue' => 'SUM(main_table.total_revenue_amount)',
+            'quantity' => 'SUM(main_table.orders_count)',
+            'range' => $this->_getRangeExpressionForAttribute($range, 'main_table.period'),
+        ))->order('range', 'asc')
+        ->group('range');
+
+        $this->getSelect()->where(
+            $this->_getConditionSql('main_table.period', $this->getDateRange($range, $customStart, $customEnd))
+        );
+
+        $statuses = Mage::getSingleton('sales/config')
+            ->getOrderStatusesForState(Mage_Sales_Model_Order::STATE_CANCELED);
+
+        if (empty($statuses)) {
+            $statuses = array(0);
+        }
+
+        $this->getSelect()->where('main_table.order_status NOT IN(?)', $statuses);
         return $this;
     }
 
@@ -82,6 +170,18 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
         }
 
         return $expression;
+    }
+
+    /**
+     * Retriev range exression adapteted for attribute
+     *
+     * @param string $range
+     * @param unknown_type $attribute
+     */
+    protected function _getRangeExpressionForAttribute($range, $attribute)
+    {
+        $expression = $this->_getRangeExpression($range);
+        return str_replace('{{attribute}}', $this->getConnection()->quoteIdentifier($attribute), $expression);
     }
 
     public function getDateRange($range, $customStart, $customEnd, $returnObjects = false)
@@ -151,80 +251,146 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
 //                array('items_count'=>new Zend_Db_Expr('COUNT(items.entity_id)'))
 //            )
 //            ->group('e.entity_id');
-        $this->getSelect()->join(
-                array('items'=>$this->getTable('sales/order_item')),
-                'items.order_id=e.entity_id',
-                array('items_count'=>new Zend_Db_Expr('COUNT(items.item_id)', 'parent_item'))
-            )
-            ->where('items.parent_item_id is NULL')
-            ->group('e.entity_id');
+        $this->getSelect()->columns(array('items_count'=>'total_item_count'), 'main_table');
         return $this;
     }
 
+    /**
+     * Calculate totals report
+     *
+     * @param int $isFilter
+     * @return Mage_Reports_Model_Mysql4_Order_Collection
+     */
     public function calculateTotals($isFilter = 0)
     {
-        if ($isFilter == 0) {
-            $this->addExpressionAttributeToSelect(
-                    'revenue',
-                     'SUM(({{base_subtotal}}-IFNULL({{base_subtotal_refunded}},0)-IFNULL({{base_subtotal_canceled}},0)-IFNULL({{base_discount_amount}},0)+IFNULL({{base_discount_refunded}},0))*{{base_to_global_rate}})',
-                     array('base_subtotal', 'base_to_global_rate', 'base_subtotal_refunded', 'base_subtotal_canceled','base_discount_amount','base_discount_refunded'))
-                ->addExpressionAttributeToSelect(
-                    'tax',
-                    'SUM(({{base_tax_amount}}-IFNULL({{base_tax_refunded}},0)-IFNULL({{base_tax_canceled}},0))*{{base_to_global_rate}})',
-                    array('base_tax_amount', 'base_tax_canceled', 'base_tax_refunded', 'base_to_global_rate'))
-                ->addExpressionAttributeToSelect(
-                    'shipping',
-                    'SUM(({{base_shipping_amount}}-IFNULL({{base_shipping_refunded}},0)-IFNULL({{base_shipping_canceled}},0))*{{base_to_global_rate}})',
-                    array('base_shipping_amount', 'base_shipping_refunded', 'base_shipping_canceled', 'base_to_global_rate'));
+        if ($this->isLive()) {
+            $this->_calculateTotalsLive($isFilter);
         } else {
-            $this->addExpressionAttributeToSelect(
-                    'revenue',
-                     'SUM({{base_subtotal}}-IFNULL({{base_subtotal_refunded}},0)-IFNULL({{base_subtotal_canceled}},0)-IFNULL({{base_discount_amount}},0)+IFNULL({{base_discount_refunded}},0))',
-                     array('base_subtotal', 'base_subtotal_refunded', 'base_subtotal_canceled','base_discount_amount','base_discount_refunded'))
-                ->addExpressionAttributeToSelect(
-                    'tax',
-                    'SUM({{base_tax_amount}}-IFNULL({{base_tax_refunded}},0)-IFNULL({{base_tax_canceled}},0))',
-                    array('base_tax_amount', 'base_tax_refunded', 'base_tax_canceled'))
-                ->addExpressionAttributeToSelect(
-                    'shipping',
-                    'SUM({{base_shipping_amount}}-IFNULL({{base_shipping_refunded}},0)-IFNULL({{base_shipping_canceled}},0))',
-                    array('base_shipping_amount', 'base_shipping_refunded', 'base_shipping_canceled'));
+            $this->_calculateTotalsAggregated($isFilter);
         }
-
-        $this->addExpressionAttributeToSelect('quantity', 'COUNT({{entity_id}})', array('entity_id'))
-            ->addAttributeToFilter('state', array('neq' => Mage_Sales_Model_Order::STATE_CANCELED))
-            ->groupByAttribute('entity_type_id');
 
         return $this;
     }
 
-    public function calculateSales($isFilter = 0)
+    /**
+     * Calculate totals live report
+     *
+     * @param int $isFilter
+     * @return Mage_Reports_Model_Mysql4_Order_Collection
+     */
+    protected function _calculateTotalsLive($isFilter = 0)
     {
+        $this->setMainTable('sales/order');
+        $this->removeAllFieldsFromSelect();
+
         if ($isFilter == 0) {
-            $expr = "({{base_subtotal}}-IFNULL({{base_subtotal_refunded}},0)-IFNULL({{base_subtotal_canceled}},0)-IFNULL({{base_discount_amount}},0)+IFNULL({{base_discount_refunded}},0))*{{base_to_global_rate}}";
-            $attrs = array('base_subtotal', 'base_to_global_rate', 'base_subtotal_refunded', 'base_subtotal_canceled','base_discount_amount','base_discount_refunded');
-            $this->addExpressionAttributeToSelect('lifetime', "SUM({$expr})", $attrs)
-                ->addExpressionAttributeToSelect('average', "AVG({$expr})", $attrs);
+            $this->getSelect()->columns(array(
+                'revenue' => 'SUM((main_table.base_subtotal-IFNULL(main_table.base_subtotal_refunded,0)-IFNULL(main_table.base_subtotal_canceled,0)-IFNULL(main_table.base_discount_amount,0)+IFNULL(main_table.base_discount_refunded,0))*main_table.base_to_global_rate)',
+                'tax' => 'SUM((main_table.base_tax_amount-IFNULL(main_table.base_tax_refunded,0)-IFNULL(main_table.base_tax_canceled,0))*main_table.base_to_global_rate)',
+                'shipping' => 'SUM((main_table.base_shipping_amount-IFNULL(main_table.base_shipping_refunded,0)-IFNULL(main_table.base_shipping_canceled,0))*main_table.base_to_global_rate)',
+            ));
         } else {
-            $expr = "({{base_subtotal}}-IFNULL({{base_subtotal_refunded}},0)-IFNULL({{base_subtotal_canceled}},0)-IFNULL({{base_discount_amount}},0)+IFNULL({{base_discount_amount}},0))";
-            $attrs = array('base_subtotal', 'base_subtotal_refunded', 'base_subtotal_canceled','base_discount_amount','base_discount_refunded');
-            $this->addExpressionAttributeToSelect('lifetime', "SUM($expr)", $attrs)
-                ->addExpressionAttributeToSelect('average', "AVG($expr)", $attrs);
+            $this->getSelect()->columns(array(
+                'revenue' => 'SUM((main_table.base_subtotal-IFNULL(main_table.base_subtotal_refunded,0)-IFNULL(main_table.base_subtotal_canceled,0)-IFNULL(main_table.base_discount_amount,0)+IFNULL(main_table.base_discount_refunded,0)))',
+                'tax' => 'SUM((main_table.base_tax_amount-IFNULL(main_table.base_tax_refunded,0)-IFNULL(main_table.base_tax_canceled,0)))',
+                'shipping' => 'SUM((main_table.base_shipping_amount-IFNULL(main_table.base_shipping_refunded,0)-IFNULL(main_table.base_shipping_canceled,0)))',
+            ));
         }
 
-        $this->addAttributeToFilter('state', array('neq' => Mage_Sales_Model_Order::STATE_CANCELED))
-            ->groupByAttribute('entity_type_id');
+        $this->getSelect()->columns(array(
+                'quantity' => 'COUNT(main_table.entity_id)',
+        ));
+
+        $this->addFieldToFilter('state', array('neq' => Mage_Sales_Model_Order::STATE_CANCELED));
+
+        return $this;
+    }
+
+    /**
+     * Calculate totals agregated report
+     *
+     * @param int $isFilter
+     * @return Mage_Reports_Model_Mysql4_Order_Collection
+     */
+    protected function _calculateTotalsAggregated($isFilter = 0)
+    {
+        $this->setMainTable('sales/order_aggregated_created');
+        $this->removeAllFieldsFromSelect();
+
+        $this->getSelect()->columns(array(
+            'revenue' => 'SUM(main_table.total_revenue_amount)',
+            'tax' => 'SUM(main_table.total_tax_amount_actual)',
+            'shipping' => 'SUM(main_table.total_shipping_amount_actual)',
+            'quantity' => 'SUM(orders_count)',
+        ));
+
+        $statuses = Mage::getSingleton('sales/config')
+            ->getOrderStatusesForState(Mage_Sales_Model_Order::STATE_CANCELED);
+
+        if (empty($statuses)) {
+            $statuses = array(0);
+        }
+
+        $this->getSelect()->where('main_table.order_status NOT IN(?)', $statuses);
+
+        return $this;
+    }
+
+    /**
+     * Calculate lifitime sales
+     *
+     * @param int $isFilter
+     * @return Mage_Reports_Model_Mysql4_Order_Collection
+     */
+    public function calculateSales($isFilter = 0)
+    {
+        $statuses = Mage::getSingleton('sales/config')
+            ->getOrderStatusesForState(Mage_Sales_Model_Order::STATE_CANCELED);
+
+        if (empty($statuses)) {
+            $statuses = array(0);
+        }
+
+        if (Mage::getStoreConfig('sales/dashboard/use_aggregated_data')) {
+            $this->setMainTable('sales/order_aggregated_created');
+            $this->removeAllFieldsFromSelect();
+
+            $this->getSelect()->columns(array(
+                'lifetime' => 'SUM(main_table.total_revenue_amount)',
+                'average'  => "IF(SUM(main_table.orders_count) > 0, SUM(main_table.total_revenue_amount)/SUM(main_table.orders_count), 0)"
+            ));
+
+            if (!$isFilter) {
+                $this->addFieldToFilter('store_id',
+                    array('eq' => Mage::app()->getStore(Mage_Core_Model_Store::ADMIN_CODE)->getId())
+                );
+            }
+            $this->getSelect()->where('main_table.order_status NOT IN(?)', $statuses);
+        } else {
+            $this->setMainTable('sales/order');
+            $this->removeAllFieldsFromSelect();
+            $expr = 'IFNULL(main_table.base_subtotal, 0) - IFNULL(main_table.base_subtotal_refunded, 0)'
+                . ' - IFNULL(main_table.base_subtotal_canceled, 0) - IFNULL(main_table.base_discount_amount, 0)'
+                . ' + IFNULL(main_table.base_discount_refunded, 0)';
+
+            $this->getSelect()->columns(array(
+                'lifetime' => "SUM({$expr})",
+                'average'  => "AVG({$expr})"
+            ));
+            $this->getSelect()->where('main_table.status NOT IN(?)', $statuses)
+                ->where('main_table.state NOT IN(?)', array(Mage_Sales_Model_Order::STATE_NEW, Mage_Sales_Model_Order::STATE_PENDING_PAYMENT));
+        }
         return $this;
     }
 
     public function setDateRange($from, $to)
     {
         $this->_reset()
-            ->addAttributeToSelect('*')
-            ->addAttributeToFilter('created_at', array('from' => $from, 'to' => $to))
-            ->addExpressionAttributeToSelect('orders', 'COUNT(DISTINCT({{entity_id}}))', array('entity_id'))
-            ->addAttributeToFilter('state', array('neq' => Mage_Sales_Model_Order::STATE_CANCELED))
-            ->getSelect()->group('("*")');
+            ->addFieldToFilter('created_at', array('from' => $from, 'to' => $to))
+            ->addFieldToFilter('state', array('neq' => Mage_Sales_Model_Order::STATE_CANCELED))
+            ->getSelect()
+                ->columns(array('orders'=>'COUNT(DISTINCT(main_table.entity_id))'))
+                ->group('("*")');
 
         /**
          * getting qty count for each order
@@ -252,16 +418,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
 //                "order_items2.entity_id = `order_items`.entity_id and order_items2.attribute_id = {$attrId}", array())
 //            ->columns(array("items" => "sum(order_items2.{$fieldName})"));
 
-        $countSql = clone $this->getSelect();
-        $countSql->reset();
-
-        $countSql->from(array("order_items" => $this->getTable('sales/order_item')), array("sum(`order_items2`.`qty_ordered`)"))
-            ->joinLeft(array("order_items2" => $this->getTable('sales/order_item')),
-                "order_items2.item_id = `order_items`.item_id", array())
-            ->where("`order_items`.`order_id` = `e`.`entity_id`")
-            ->where("`order_items2`.`parent_item_id` is NULL");
-
-        $this->getSelect()->columns(array("items" => "SUM((".$countSql."))"));
+        $this->getSelect()->columns(array("items" => 'SUM(' . $this->getConnection()->quoteIdentifier('main_table.total_qty_ordered') . ')'));
 
         return $this;
     }
@@ -270,72 +427,27 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
     {
         $vals = array_values($storeIds);
         if (count($storeIds) >= 1 && $vals[0] != '') {
-            $this->addAttributeToFilter('store_id', array('in' => (array)$storeIds))
-                ->addExpressionAttributeToSelect(
-                    'subtotal',
-                    'SUM({{base_subtotal}})',
-                    array('base_subtotal'))
-                ->addExpressionAttributeToSelect(
-                    'tax',
-                    'SUM({{base_tax_amount}})',
-                    array('base_tax_amount'))
-                ->addExpressionAttributeToSelect(
-                    'shipping',
-                    'SUM({{base_shipping_amount}})',
-                    array('base_shipping_amount'))
-                ->addExpressionAttributeToSelect(
-                    'discount',
-                    'SUM({{base_discount_amount}})',
-                    array('base_discount_amount'))
-                ->addExpressionAttributeToSelect(
-                    'total',
-                    'SUM({{base_grand_total}})',
-                    array('base_grand_total'))
-                ->addExpressionAttributeToSelect(
-                    'invoiced',
-                    'SUM({{base_total_paid}})',
-                    array('base_total_paid'))
-                ->addExpressionAttributeToSelect(
-                    'refunded',
-                    'SUM({{base_total_refunded}})',
-                    array('base_total_refunded'))
-                ->addExpressionAttributeToSelect(
-                    'profit',
-                    'SUM(IFNULL({{base_subtotal_invoiced}}, 0)) + SUM(IFNULL({{base_discount_refunded}}, 0)) - SUM(IFNULL({{base_subtotal_refunded}}, 0)) - SUM(IFNULL({{base_discount_invoiced}}, 0)) - SUM(IFNULL({{base_total_invoiced_cost}}, 0))',
-                    array('base_subtotal_invoiced', 'base_discount_refunded', 'base_subtotal_refunded', 'base_discount_invoiced', 'base_total_invoiced_cost'));
+            $this->getSelect()->columns(array(
+                'subtotal' => 'SUM(main_table.base_subtotal)',
+                'tax' => 'SUM(main_table.base_tax_amount)',
+                'shipping' => 'SUM(main_table.base_shipping_amount)',
+                'discount' => 'SUM(main_table.base_discount_amount)',
+                'total' => 'SUM(main_table.base_grand_total)',
+                'invoiced' => 'SUM(main_table.base_total_paid)',
+                'refunded' => 'SUM(main_table.base_total_refunded)',
+                'profit' => 'SUM(IFNULL(main_table.base_subtotal_invoiced, 0)) + SUM(IFNULL(main_table.base_discount_refunded, 0)) - SUM(IFNULL(main_table.base_subtotal_refunded, 0)) - SUM(IFNULL(main_table.base_discount_invoiced, 0)) - SUM(IFNULL(main_table.base_total_invoiced_cost, 0))',
+            ));
         } else {
-            $this->addExpressionAttributeToSelect(
-                    'subtotal',
-                    'SUM({{base_subtotal}}*{{base_to_global_rate}})',
-                    array('base_subtotal', 'base_to_global_rate'))
-                ->addExpressionAttributeToSelect(
-                    'tax',
-                    'SUM({{base_tax_amount}}*{{base_to_global_rate}})',
-                    array('base_tax_amount', 'base_to_global_rate'))
-                ->addExpressionAttributeToSelect(
-                    'shipping',
-                    'SUM({{base_shipping_amount}}*{{base_to_global_rate}})',
-                    array('base_shipping_amount', 'base_to_global_rate'))
-                ->addExpressionAttributeToSelect(
-                    'discount',
-                    'SUM({{base_discount_amount}}*{{base_to_global_rate}})',
-                    array('base_discount_amount', 'base_to_global_rate'))
-                ->addExpressionAttributeToSelect(
-                    'total',
-                    'SUM({{base_grand_total}}*{{base_to_global_rate}})',
-                    array('base_grand_total', 'base_to_global_rate'))
-                ->addExpressionAttributeToSelect(
-                    'invoiced',
-                    'SUM({{base_total_paid}}*{{base_to_global_rate}})',
-                    array('base_total_paid', 'base_to_global_rate'))
-                ->addExpressionAttributeToSelect(
-                    'refunded',
-                    'SUM({{base_total_refunded}}*{{base_to_global_rate}})',
-                    array('base_total_refunded', 'base_to_global_rate'))
-                ->addExpressionAttributeToSelect(
-                    'profit',
-                    'SUM(IFNULL({{base_subtotal_invoiced}}, 0)*{{base_to_global_rate}}) + SUM(IFNULL({{base_discount_refunded}}, 0)*{{base_to_global_rate}}) - SUM(IFNULL({{base_subtotal_refunded}}, 0)*{{base_to_global_rate}}) - SUM(IFNULL({{base_discount_invoiced}}, 0)*{{base_to_global_rate}}) - SUM(IFNULL({{base_total_invoiced_cost}}, 0)*{{base_to_global_rate}})',
-                    array('base_subtotal_invoiced', 'base_discount_refunded', 'base_subtotal_refunded', 'base_discount_invoiced', 'base_total_invoiced_cost', 'base_to_global_rate'));
+            $this->getSelect()->columns(array(
+                'subtotal' => 'SUM(main_table.base_subtotal * main_table.base_to_global_rate)',
+                'tax' => 'SUM(main_table.base_tax_amount * main_table.base_to_global_rate)',
+                'shipping' => 'SUM(main_table.base_shipping_amount * main_table.base_to_global_rate)',
+                'discount' => 'SUM(main_table.base_discount_amount * main_table.base_to_global_rate)',
+                'total' => 'SUM(main_table.base_grand_total * main_table.base_to_global_rate)',
+                'invoiced' => 'SUM(main_table.base_total_paid * main_table.base_to_global_rate)',
+                'refunded' => 'SUM(main_table.base_total_refunded * main_table.base_to_global_rate)',
+                'profit' => 'SUM(IFNULL(main_table.base_subtotal_invoiced, 0)* main_table.base_to_global_rate) + SUM(IFNULL(main_table.base_discount_refunded, 0)* main_table.base_to_global_rate) - SUM(IFNULL(main_table.base_subtotal_refunded, 0)* main_table.base_to_global_rate) - SUM(IFNULL(main_table.base_discount_invoiced, 0)* main_table.base_to_global_rate) - SUM(IFNULL(main_table.base_total_invoiced_cost, 0)* main_table.base_to_global_rate)',
+            ));
         }
 
         return $this;
@@ -348,7 +460,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
      */
     public function groupByCustomer()
     {
-        $this->groupByAttribute('customer_id');
+        $this->getSelect()->group('main_table.customer_id');
 
         return $this;
     }
@@ -358,12 +470,9 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
      *
      * @return Mage_Reports_Model_Mysql4_Order_Collection
      */
-    public function joinCustomerName()
+    public function joinCustomerName($alias = 'name')
     {
-        //TODO: add full name logic
-        $this->joinAttribute('firstname', 'customer/firstname', 'customer_id');
-        $this->joinAttribute('lastname', 'customer/lastname', 'customer_id');
-        $this->getSelect()->columns(array('name' => 'CONCAT(_table_firstname.value," ", _table_lastname.value)'));
+        $this->getSelect()->columns(array($alias => 'CONCAT(main_table.customer_firstname," ", main_table.customer_lastname)'));
         return $this;
     }
 
@@ -374,9 +483,30 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
      */
     public function addOrdersCount()
     {
-        $this->addAttributeToFilter('state', array('neq' => Mage_Sales_Model_Order::STATE_CANCELED));
+        $this->addFieldToFilter('state', array('neq' => Mage_Sales_Model_Order::STATE_CANCELED));
         $this->getSelect()
-            ->columns(array("orders_count" => "COUNT(e.entity_id)"));
+            ->columns(array("orders_count" => "COUNT(main_table.entity_id)"));
+
+        return $this;
+    }
+
+    /**
+     * Add revenue
+     *
+     * @param boolean $convertCurrency
+     * @return Mage_Reports_Model_Mysql4_Order_Collection
+     */
+    public function addRevenueToSelect($convertCurrency = false)
+    {
+        if ($convertCurrency) {
+            $this->getSelect()->columns(array(
+                'revenue' => '(main_table.base_grand_total * main_table.base_to_global_rate)'
+            ));
+        } else {
+            $this->getSelect()->columns(array(
+                'revenue' => 'base_grand_total'
+            ));
+        }
 
         return $this;
     }
@@ -393,8 +523,8 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
          * calculate average and total amount
          */
         $expr = ($storeId == 0)
-            ? '(e.base_subtotal-IFNULL(e.base_subtotal_refunded,0)-IFNULL(e.base_subtotal_canceled,0))*e.base_to_global_rate'
-            : 'e.base_subtotal-IFNULL(e.base_subtotal_canceled,0)-IFNULL(e.base_subtotal_refunded,0)';
+            ? '(main_table.base_subtotal-IFNULL(main_table.base_subtotal_refunded,0)-IFNULL(main_table.base_subtotal_canceled,0))*main_table.base_to_global_rate'
+            : 'main_table.base_subtotal-IFNULL(main_table.base_subtotal_canceled,0)-IFNULL(main_table.base_subtotal_refunded,0)';
 
         $this->getSelect()
             ->columns(array("orders_avg_amount" => "AVG({$expr})"))
@@ -425,7 +555,17 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
 
     public function orderByCustomerRegistration($dir = 'desc')
     {
-        $this->addAttributeToSort('customer_id', $dir);
+        $this->setOrder('customer_id', $dir);
+        return $this;
+    }
+
+    /**
+     * Sort order by order created_at date
+     * @param string $dir
+     */
+    public function orderByCreatedAt($dir = 'desc')
+    {
+        $this->setOrder('created_at', $dir);
         return $this;
     }
 
@@ -438,11 +578,22 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
         $countSelect->reset(Zend_Db_Select::COLUMNS);
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->reset(Zend_Db_Select::HAVING);
-        $countSelect->columns("count(DISTINCT e.entity_id)");
+        $countSelect->columns("count(DISTINCT main_table.entity_id)");
 
         $sql = $countSelect->__toString();
 
         return $sql;
+    }
+
+    /**
+     * Initialize initial fields to select
+     *
+     * @return Mage_Reports_Model_Mysql4_Order_Collection
+     */
+    protected function _initInitialFieldsToSelect()
+    {
+        // No fields should be initialized
+        return $this;
     }
 
     /**
@@ -455,7 +606,15 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
     {
         list($from, $to) = $this->getDateRange($period, 0, 0, true);
 
-        $this->addAttributeToFilter('created_at', array(
+        $this->checkIsLive($period);
+
+        if ($this->isLive()) {
+            $fieldToFilter = 'created_at';
+        } else {
+            $fieldToFilter = 'period';
+        }
+
+        $this->addFieldToFilter($fieldToFilter, array(
             'from'  => $from->toString(Varien_Date::DATETIME_INTERNAL_FORMAT),
             'to'    => $to->toString(Varien_Date::DATETIME_INTERNAL_FORMAT)
         ));

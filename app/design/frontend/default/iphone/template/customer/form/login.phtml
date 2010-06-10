@@ -20,14 +20,14 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php 
+<?php
 /**
  * Customer login form template
- * 
+ *
  * @see Mage_Customer_Block_Form_Login
  */
 ?>
@@ -46,7 +46,7 @@
                             <label for="email"><?php echo $this->__('Email Address') ?> <span class="required">*</span></label>
                         </div>
                         <div class="col-2">
-                            <input name="login[username]" value="<?php echo $this->htmlEscape($this->getUsername()) ?>" title="<?php echo $this->__('Email Address') ?>" id="email" type="text" class="input-text required-entry" />
+                            <input name="login[username]" value="<?php echo $this->htmlEscape($this->getUsername()) ?>" title="<?php echo $this->__('Email Address') ?>" id="email" type="text" class="input-text required-entry validate-email" />
                         </div>
                     </div><div class="clear"></div>
                 </li>

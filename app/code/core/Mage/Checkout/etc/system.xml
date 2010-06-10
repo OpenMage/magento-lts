@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -63,7 +63,7 @@
                             <show_in_store>1</show_in_store>
                         </guest_checkout>
                         <enable_agreements translate="label">
-                            <label>Enable Terms and Conditions</label>
+                            <label>Enable Terms and Conditions</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>20</sort_order>
@@ -90,7 +90,7 @@
                             <show_in_store>0</show_in_store>
                         </delete_quote_after>
                         <redirect_to_cart translate="label">
-                            <label>After adding a product redirect to shopping cart</label>
+                            <label>After Adding a Product Redirect to Shopping Cart</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>2</sort_order>
@@ -99,7 +99,7 @@
                             <show_in_store>1</show_in_store>
                         </redirect_to_cart>
                         <grouped_product_image translate="label">
-                            <label>Grouped product image</label>
+                            <label>Grouped Product Image</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_product_thumbnail</source_model>
                             <sort_order>3</sort_order>
@@ -108,7 +108,7 @@
                             <show_in_store>1</show_in_store>
                         </grouped_product_image>
                         <configurable_product_image translate="label">
-                            <label>Configurable product image</label>
+                            <label>Configurable Product Image</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_product_thumbnail</source_model>
                             <sort_order>4</sort_order>
@@ -155,7 +155,7 @@
                             <show_in_store>1</show_in_store>
                         </display>
                         <count translate="label">
-                            <label>Maximum display Recently added item(s)</label>
+                            <label>Maximum Display Recently Added Item(s)</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
@@ -207,7 +207,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>separate by ","</comment>
+                            <comment>Separate by ",".</comment>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Payment Failed Email Copy Method</label>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -127,7 +127,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout
         $selectBlock = $this->getLayout()->createBlock('core/html_select')
             ->setName($this->getSelectName())
             ->setId('layout_handle')
-            ->setClass('select')
+            ->setClass('required-entry select')
             ->setExtraParams("onchange=\"WidgetInstance.loadSelectBoxByType(\'block_reference\', this.up(\'div.pages\'), this.value)\"")
             ->setOptions($this->getLayoutHandles(
                 $this->getArea(),

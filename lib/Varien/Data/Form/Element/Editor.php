@@ -114,9 +114,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             $html = $this->_wrapIntoContainer($html);
             $html.= $this->getAfterElementHtml();
             return $html;
-        }
-        else
-        {
+        } else {
             // Display only buttons to additional features
             if ($this->getConfig('widget_window_url')) {
                 $html = $this->_getButtonsHtml() . $js . parent::getElementHtml();
@@ -193,7 +191,11 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         // Button to media images insertion window
         $buttonsHtml .= $this->_getButtonHtml(array(
             'title'     => $this->translate('Insert Image...'),
-            'onclick'   => "MediabrowserUtility.openDialog('" . $this->getConfig('files_browser_window_url') . "target_element_id/" . $this->getHtmlId() . "/')",
+            'onclick'   => "MediabrowserUtility.openDialog('" . 
+                           $this->getConfig('files_browser_window_url') .
+                           "target_element_id/" . $this->getHtmlId() . "/" .
+                           ((null !== $this->getConfig('store_id')) ? ('store/' . $this->getConfig('store_id') . '/') : '') .
+                           "')",
             'class'     => 'add-image plugin',
             'style'     => $visible ? '' : 'display:none',
         ));
@@ -303,7 +305,10 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             return $html;
         }
 
-        $html = '<div id="editor'.$this->getHtmlId().'"'.($this->getConfig('no_display') ? ' style="display:none;"' : '').'>'
+        $html = '<div id="editor'.$this->getHtmlId().'"'
+              . ($this->getConfig('no_display') ? ' style="display:none;"' : '')
+              . ($this->getConfig('container_class') ? ' class="' . $this->getConfig('container_class') . '"' : '')
+              . '>'
               . $html
               . '</div>';
 

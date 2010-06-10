@@ -20,18 +20,13 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php if( $this->getCount() ): ?>
 <br /><div class="head"><h4><?php echo $this->__('Product Tags') ?></h4></div>
     <div class="tags-list">
-        <?php $_iterator = 0; ?>
-        <?php foreach( $this->getTags() as $_tag ): ?>
-            <?php $_iterator += 1; ?>
-            <a href="<?php echo $_tag->getTaggedProductsUrl() ?>"><?php echo $this->htmlEscape($_tag->getName()) ?></a> (<?php echo $_tag->getPopularity() ?>)
-            <?php if($_iterator != $this->getCount()): ?>, <?php endif; ?>
-        <?php endforeach; ?>
+        <?php echo $this->renderTags('<a href="%1$s">%2$s</a> (%3$s)', ' ,') ?>
     </div>
 <?php endif; ?>

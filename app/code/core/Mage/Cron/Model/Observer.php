@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Cron
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -74,11 +74,11 @@ class Mage_Cron_Model_Observer
             }
             try {
                 $errorStatus = Mage_Cron_Model_Schedule::STATUS_ERROR;
-                $errorMessage = Mage::helper('cron')->__('Unknown error');
+                $errorMessage = Mage::helper('cron')->__('Unknown error.');
 
                 if ($time < $now - $scheduleLifetime) {
                     $errorStatus = Mage_Cron_Model_Schedule::STATUS_MISSED;
-                    Mage::throwException(Mage::helper('cron')->__('Too late for the schedule'));
+                    Mage::throwException(Mage::helper('cron')->__('Too late for the schedule.'));
                 }
 
                 if ($runConfig->model) {
@@ -109,7 +109,7 @@ class Mage_Cron_Model_Observer
 
             } catch (Exception $e) {
                 $schedule->setStatus($errorStatus)
-                    ->setMessages($e->getMessage());
+                    ->setMessages($e->__toString());
             }
             $schedule->save();
         }

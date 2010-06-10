@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -75,7 +75,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Product_Alert_Cron extends Mage
                 ->setPath(self::CRON_MODEL_PATH)
                 ->save();
         } catch (Exception $e) {
-            throw new Exception(Mage::helper('cron')->__('Unable to save Cron expression'));
+            throw new Exception(Mage::helper('cron')->__('Unable to save the cron expression.'));
         }
     }
 }

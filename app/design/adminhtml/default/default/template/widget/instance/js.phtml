@@ -20,11 +20,12 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <script type="text/javascript">
+//<![CDATA[
 function setSettings(urlTemplate, typeElement, packageThemeElement) {
     templateSyntax = /(^|.|\r|\n)({{(\w+)}})/;
     var template = new Template(urlTemplate, templateSyntax);
@@ -35,4 +36,5 @@ function setSettings(urlTemplate, typeElement, packageThemeElement) {
 function saveAndContinueEdit(){
     editForm.submit($('edit_form').action+'back/edit/');
 }
+//]]>
 </script>

@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_modern
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -49,7 +49,6 @@
     <catalogsearch_result_index translate="label">
         <label>Quick Search Form</label>
         <update handle="page_two_columns_left" />
-        <remove name="right.reports.product.viewed" />
         <reference name="root">
             <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
         </reference>
@@ -73,10 +72,6 @@
                 <action method="setListModes"/>
                 <action method="setListCollection"/>
             </block>
-        </reference>
-
-        <reference name="right">
-            <block type="reports/product_viewed" before="right.permanent.callout" name="left.reports.product.viewed" template="reports/product_viewed.phtml" />
         </reference>
     </catalogsearch_result_index>
 
@@ -111,11 +106,15 @@ Advanced search results
         <reference name="content">
             <block type="catalogsearch/advanced_result" name="catalogsearch_advanced_result" template="catalogsearch/advanced/result.phtml">
                 <block type="catalog/product_list" name="search_result_list" template="catalog/product/list.phtml">
+                    <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                        <block type="page/html_pager" name="product_list_toolbar_pager"/>
+                    </block>
                     <action method="addColumnCountLayoutDepend"><layout>empty</layout><count>6</count></action>
                     <action method="addColumnCountLayoutDepend"><layout>one_column</layout><count>5</count></action>
                     <action method="addColumnCountLayoutDepend"><layout>two_columns_left</layout><count>4</count></action>
                     <action method="addColumnCountLayoutDepend"><layout>two_columns_right</layout><count>4</count></action>
                     <action method="addColumnCountLayoutDepend"><layout>three_columns</layout><count>3</count></action>
+                    <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
                 </block>
                 <action method="setListOrders"/>
                 <action method="setListModes"/>

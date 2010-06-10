@@ -1,23 +1,24 @@
 /**
- * $Id: JSON.js 1041 2009-03-04 15:16:25Z spocke $
+ * JSON.js
  *
- * @author Moxiecode
- * @copyright Copyright © 2004-2006, Moxiecode Systems AB, All rights reserved.
+ * Copyright 2009, Moxiecode Systems AB
+ * Released under LGPL License.
+ *
+ * License: http://tinymce.moxiecode.com/license
+ * Contributing: http://tinymce.moxiecode.com/contributing
  */
 
-/**#@+
- * @class JSON parser and serializer class.
- * @member tinymce.util.JSON
+/**
+ * JSON parser and serializer class.
+ *
+ * @class tinymce.util.JSON
  * @static
  */
 tinymce.create('static tinymce.util.JSON', {
-	/**#@+
-	 * @method
-	 */
-
 	/**
 	 * Serializes the specified object as a JSON string.
 	 *
+	 * @method serialize
 	 * @param {Object} o Object to serialize as a JSON string.
 	 * @return {string} JSON string serialized from input.
 	 */
@@ -66,6 +67,7 @@ tinymce.create('static tinymce.util.JSON', {
 	/**
 	 * Unserializes/parses the specified JSON string into a object.
 	 *
+	 * @method parse
 	 * @param {string} s JSON String to parse into a JavaScript object.
 	 * @return {Object} Object from input JSON string or undefined if it failed.
 	 */

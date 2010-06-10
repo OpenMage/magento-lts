@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Cron
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -39,7 +39,7 @@
                     <comment>For correct URLs generated during cron runs please make sure that Web > Secure and Unsecure Base URLs are explicitly set.</comment>
                     <fields>
                         <schedule_generate_every translate="label">
-                            <label>Generate schedules every</label>
+                            <label>Generate Schedules Every</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
@@ -47,7 +47,7 @@
                             <show_in_store>1</show_in_store>
                         </schedule_generate_every>
                         <schedule_ahead_for translate="label">
-                            <label>Schedule ahead for</label>
+                            <label>Schedule Ahead for</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
@@ -55,7 +55,7 @@
                             <show_in_store>1</show_in_store>
                         </schedule_ahead_for>
                         <schedule_lifetime translate="label">
-                            <label>Missed if not run within</label>
+                            <label>Missed if Not Run Within</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
@@ -63,7 +63,7 @@
                             <show_in_store>1</show_in_store>
                         </schedule_lifetime>
                         <history_cleanup_every translate="label">
-                            <label>History cleanup every</label>
+                            <label>History Cleanup Every</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
@@ -71,7 +71,7 @@
                             <show_in_store>1</show_in_store>
                         </history_cleanup_every>
                         <history_success_lifetime translate="label">
-                            <label>Success history lifetime</label>
+                            <label>Success History Lifetime</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
@@ -79,7 +79,7 @@
                             <show_in_store>1</show_in_store>
                         </history_success_lifetime>
                         <history_failure_lifetime translate="label">
-                            <label>Failure history lifetime</label>
+                            <label>Failure History Lifetime</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>

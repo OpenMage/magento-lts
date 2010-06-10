@@ -122,7 +122,7 @@
 *******************************************************************************/
 
 /* Grid - General */
-.grid                           { position:relative; border-bottom:0; padding-bottom:.5em; }
+.grid                           { border-bottom:0; padding-bottom:.5em; }
 .grid table                     { width:100%; border:1px solid #cbd3d4; border-bottom:none; }
 .grid table.border              { border:1px solid #cbd3d4; }
 .grid tbody                     { background:#fff; }    /* Zebra odd-row */
@@ -183,6 +183,7 @@ table.actions td                { vertical-align:top; }
 .massaction .entry-edit fieldset .field-row { display:inline; }
 .massaction .entry-edit .field-row label    { float:none; width:auto; margin-left:13px; }
 .massaction .entry-edit                     { margin:0 !important; padding:0; }
+.massaction .entry-edit .validation-advice  { display:none !important; }
 .massaction a { text-decoration:none; }
 .massaction .entry-edit fieldset span.form_row,
 .massaction .entry-edit fieldset span.field-row { clear:none !important; display:inline; float:left !important; margin:0; padding:0 5px 0 0; }
@@ -226,13 +227,9 @@ dl.accordion .grid      { margin-bottom:0; }
 dl.accordion dt,
 .entry-edit .entry-edit-head { background:#6f8992; padding:2px 10px; }
 dl.accordion dt, div.collapseable { margin-top:1px; }
-dl.accordion dt a, div.collapseable a {
-    display:block;
-    background:url(images/entry_edit_head_arrow_down.gif) 100% 50% no-repeat;
-    color:#fff;
-    font-weight:bold;
-    text-decoration:none;
-    }
+dl.accordion dt a, div.collapseable a { background:url(images/entry_edit_head_arrow_down.gif) 100% 50% no-repeat; color:#fff; display:block; font-weight:bold; text-decoration:none; }
+div.disabled { background:#c6cbc9 !important; }
+div.disabled a { background-image:url(images/entry_edit_head_arrow_down2.gif) !important; color:#f6f6f6 !important; }
 
 .entry-edit fieldset.collapseable { margin-bottom:10px; }
 
@@ -297,6 +294,7 @@ a.error span,
 .notice-msg { border:1px solid #ffd967 !important; background:#fffbf0 url(images/note_msg_icon.gif) no-repeat 10px 10px !important; color:#3d6611 !important; }
 .warning-msg { border:1px solid #666e73 !important; background:#e6e6e6 url(images/warning_msg_icon.gif) no-repeat 10px 10px !important; color:#000000 !important; }
 .validation-advice { clear:both; min-height:15px; margin:3px 0 0 9px; background:url(images/validation_advice_bg.gif) no-repeat 2px 1px; padding-left:16px; font-size:.95em; font-weight:bold; line-height:1.25em; }
+.staging-datetime-advice .validation-advice { background-position:right center; padding:0 16px 0 0; }
 input.validation-failed, textarea.validation-failed { background:#fef0ed; border:1px dashed #d6340e; }
 
 /* Noscript Notice */
@@ -356,6 +354,7 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .form-list                      { width:auto; border:0 !important; }
 .form-list td.label,
 .form-list td.value,
+.form-list td.value2,
 .form-list td.note,
 .form-list td.scope-label,
 .form-list td.use-default       { border:0 !important; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px !important; background:0 !important; }
@@ -433,6 +432,8 @@ button.save span    { background-image:url(images/save_btn_icon.gif); }
 button.show-hide span { background-image:url(images/btn_show-hide_icon.gif); padding-left:26px; }
 button.add-image span { background-image:url(images/btn_add-image_icon.gif); }
 button.add-widget span { background-image:url(images/btn_add-widget_icon2.gif); padding-left:24px; }
+button.add-variable span { background-image:url(images/btn_add-variable_icon.gif); padding-left:26px; }
+button.go span { background-image:url(images/btn_go.gif); padding-left:16px; }
 button.btn-chooser { display:block; margin:0 0 10px; }
 
 button.disabled,
@@ -766,19 +767,23 @@ ul.item-options li { padding-left:.7em; }
 .order-totals table .validation-advice  { text-align:right; white-space:nowrap; background-position:100% 1px; padding-right:14px; padding-left:0; }
 .grand-total, .grand_total              { font-size:1.2em; font-weight:bold; color:#eb4d00 !important; }
 
-/* Tax details */
-.tax-total { cursor:pointer; }
-.tax-total td { padding-top:5px !important; padding-bottom:5px !important; }
-.tax-total .tax-collapse { float:right; padding-left:20px; background:url(images/bg_collapse.gif) 0 4px no-repeat; text-align:right; cursor:pointer; }
-.show-details .tax-collapse { background-position:0 -52px; }
+/* Shopping cart total summary row expandable to details */
+.summary-total { cursor:pointer; }
+.summary-total td { padding-top:5px !important; padding-bottom:5px !important; }
+.summary-total .summary-collapse { float:right; padding-left:20px; background:url(images/bg_collapse.gif) 0 4px no-repeat; text-align:right; cursor:pointer; }
+.show-details .summary-collapse { background-position:0 -52px; }
 .show-details td { border-top:1px solid #eae1b2; }
-.tax-details td { font-size:11px; background-color:#fdfcdf; }
-.tax-details-first td { border-top:1px solid #eae1b2; }
+.summary-details td { font-size:11px; background-color:#fdfcdf; }
+.summary-details-first td { border-top:1px solid #eae1b2; }
 
 /* Order Constants */
 .payment-methods dt                     { margin-bottom:3px; }
 .payment-methods dd                     { margin-left:20px; }
 .payment-methods .validation-advice     { margin-left:2px; }
+
+/* Centinel */
+.centinel .authentication { background:#fff; }
+.centinel .authentication iframe { width:99%; height:400px; background:transparent !important; margin:0 0 7px !important; padding:0 !important; border:1px solid #ddd !important; }
 
 /* Gift Messages */
 .giftmessage-order-create .entire-order,
@@ -810,6 +815,40 @@ ul.item-options li { padding-left:.7em; }
 .giftmessage-whole-order-container .entry-edit textarea { width:99% !important; padding:2px 3px; }
 .giftmessage-whole-order-container .entry-edit label { width:121px; }
 
+/* PayPal */
+.paypal-payment-notice { background:url(images/paypal_logo.gif) no-repeat 5px center #eaf0ee; border:1px solid #ccc; margin-bottom:10px; padding:10px 5px 5px 115px; }
+.paypal-payment-notice h4,
+.paypal-payment-notice p { margin:0; }
+.paypal-payment-notice h2 { color:#444; font-size:1.4em; line-height:1em; }
+.paypal-payment-notice a { text-decoration:none; }
+
+h3.paypal-header { background:url(images/paypal_section.png) no-repeat 0 0; height:0; overflow:hidden; padding:14px 0 0; width:53px; }
+
+ul.tabs a.paypal-section,
+ul.tabs a.paypal-section:hover { background:url(images/tabs_span_bg.gif) repeat-x 0 100%; border-bottom:none; padding:0.5em 0.5em 0.28em 1.5em; }
+ul.tabs a.paypal-section:hover { background-color:#d8e6e6; }
+ul.tabs a.paypal-section.active, ul.tabs a.paypal-section.active:hover { background-color:#fff; }
+ul.tabs a.paypal-section span,
+ul.tabs a.paypal-section:hover span { background:url(images/paypal_section.png) no-repeat 0 0; height:0; overflow:hidden; padding:14px 0 0; width:53px; }
+
+.paypal-selection { border-collapse:collapse; width:100%; }
+.paypal-selection .paypal-selection-info { text-align:right; }
+.paypal-selection th { font-size:13px; padding:5px 0; text-align:left; vertical-align:middle; }
+.paypal-selection td { background:#f2f2f2; border-bottom:5px solid #fff; padding:5px; vertical-align:top; }
+.paypal-selection .paypal-selection-simplified { background:#fff; padding-left:35px; }
+.paypal-selection td a { color:#2997d8; }
+.paypal-selection td strong { color:#3c616a; }
+.paypal-selection td label { display:block; padding-left:30px; text-indent:-30px; }
+.paypal-selection td div label { display:inline; padding:0; text-indent:0; }
+.paypal-selection td input { height:13px; overflow:hidden; margin-right:15px; position:relative; top:-1px; width:13px; vertical-align:middle; }
+
+.paypal-config .form-list { width:100%; }
+.paypal-config tr.hover { background:#f7f7f7; }
+.paypal-config tr.hover label { cursor:help; }
+
+.paypal-credentials { border:1px solid #f2f2f2; }
+.paypal-credentials caption { padding:5px; text-align:left; }
+.paypal-credentials .value { color:#ccc; }
 
 /* CATALOG
 *******************************************************************************/
@@ -1047,6 +1086,15 @@ ul.config-tabs a.last span  { background-image:none; }
 .inline-table { border:0 !important; }
 .inline-table td { border:0 !important; padding:0 5px 5px !important; }
 
+.system-fieldset-sub-head td { padding:20px 5px 5px 5px; }
+.system-fieldset-sub-head h4 { border-bottom:1px solid #ccc; margin:0; }
+
+.system-tooltip-wrap { float:left; }
+.system-tooltip-box { border-left:1px solid #ccc; float:left; line-height:16px; margin-left:5px; padding-left:5px; width:180px; }
+.system-tooltip-small { clear:both; border:none; margin:0; padding:5px; width:100%; }
+
+.comment { padding:5px; }
+
 /* Import/export */
 
 #profile-generator select { width:207px; }
@@ -1173,9 +1221,19 @@ ul.super-product-attributes { padding-left:15px; }
 #page-help-link:link, #page-help-link:visited { text-decoration:none; }
 #page-help-link:hover { color:white; }
 
+/* Magento Connect Package Extensions */
+.table-editable { border:solid 1px #ccc; background:#fafafa; padding:5px; margin-bottom:5px; }
+.table-editable th { border-bottom:solid 1px #ccc; text-align:center; }
+.table-editable th, .table-editable td { padding:1px 3px; vertical-align:middle; }
+.table-editable select { height:19px; }
+
 
 /* CMS
 *******************************************************************************/
+.breadcrumbs { margin: 0 0 10px; }
+.breadcrumbs li { display:inline; }
+.breadcrumbs li span { margin:0 2px; }
+
 /*table.mceLayout { width:100% !important; }*/
 
 /* CMS Widgets Instance */
@@ -1190,6 +1248,62 @@ ul.super-product-attributes { padding-left:15px; }
 .options-box .option-header th { padding:2px; }
 .options-box .option-header td { padding:5px 2px; }
 .options-box .option-header .tree { margin:5px 0 0; }
+
+/* CMS Popup Window */
+.popup-window .table_window { border:none; }
+.popup-window .magento_nw,
+.popup-window .magento_n,
+.popup-window .magento_ne { height:28px; }
+.popup-window { border:1px solid #555; }
+.popup-window .bot { display:none; }
+.popup-window .top { background-color:#fff; background-image:none; }
+.popup-window .top td { background:url(images/window_top.png) repeat-x; border-bottom:1px solid #e6e6e6; }
+.popup-window .magento_w,
+.popup-window .magento_e,
+.popup-window .magento_content { background:url(images/window_content.png) repeat-x 0 0 #fafafa; }
+.popup-window .title_window { color:#fff; font-family:Arial, Helvetica, sans-serif; font-size:12px; height:auto; line-height:28px; margin:0; }
+.popup-window .magento_close { background-image:url(images/window_close.png); height:16px; right:7px; top:5px; width:16px; }
+.popup-window .magento_message { padding:0 18px; }
+.popup-window .content-header { font-family:Arial, Helvetica, sans-serif; padding-top:9px; }
+.popup-window .content-header h3 { color:#eb5e00; padding:0; }
+.popup-window { height:auto !important; }
+.popup-window .grid { position:static; }
+.popup-window .table_window td.value2 .grid td,
+.popup-window .table_window td.value2 .grid th { padding:2px 4px !important; }
+.popup-window .table_window td.value2 .grid tr.headings th { padding:1px 4px 2px !important; }
+.popup-window .columns { background-image:none; }
+.popup-window .middle { background:none; padding:10px 0; }
+
+.popup-window .uploader .file-row { margin:16px 0; width:auto; }
+.popup-window #contents-uploader { margin-bottom:10px; background:#d7e5ef; padding:5px 10px; }
+.popup-window #contents-uploader .flex { font-size:0; line-height:0; height:20px; }
+.popup-window #contents { margin-left:-3px; height:400px; overflow:auto; position:relative; }
+.popup-window #contents .filecnt { float:left; border:1px solid #ccc; cursor:pointer; padding:3px; display:inline; margin:0 0 15px 4px; overflow:hidden; position:relative; width:100px; }
+.popup-window #contents .selected { border:1px solid #f1af73; background:#f0f0f0; cursor:default; }
+.popup-window #contents .nm { text-align:center; }
+.popup-window #contents .nm img { vertical-align:bottom; }
+
+/* Widget Insert */
+#widget_window .magento_content { height:auto !important; min-height:450px; }
+
+/* CMS Widget Chooser */
+#widget-chooser .columns { background-image:none; }
+#widget-chooser .magento_message { padding:10px 18px; }
+#widget-chooser .grid th,
+#widget-chooser .grid td { padding:2px 4px 2px 4px; }
+#widget-chooser .grid tr.filter th { padding-top:5px; padding-bottom:5px; }
+#widget-chooser .side-col { padding-top:0.5em; }
+#widget-chooser .main-col { padding-right:4px; }
+
+/* CMS Variables Popup */
+#variables-chooser .magento_message { padding:10px 18px; }
+
+/* Product description WYSIWYG editor */
+#catalog-wysiwyg-editor .buttons-set { margin-top:10px; }
+#catalog-wysiwyg-editor .magento_content { height:auto !important; overflow:hidden; }
+#catalog-wysiwyg-editor .textarea { width:930px !important; }
+#catalog-wysiwyg-editor .magento_message { padding:0 7px; }
+#catalog-wysiwyg-editor .magento_buttons { padding-left:7px; padding-right:7px; }
 
 
 /*****************************************/

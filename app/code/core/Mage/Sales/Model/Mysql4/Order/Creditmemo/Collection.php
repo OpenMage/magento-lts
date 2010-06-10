@@ -20,34 +20,38 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Creditmemos collection
+ * Flat sales order creditmemo collection
  *
- * @category   Mage
- * @package    Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Sales_Model_Mysql4_Order_Creditmemo_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
+class Mage_Sales_Model_Mysql4_Order_Creditmemo_Collection extends Mage_Sales_Model_Mysql4_Order_Collection_Abstract
 {
+    protected $_eventPrefix = 'sales_order_creditmemo_collection';
+    protected $_eventObject = 'order_creditmemo_collection';
+
+    /**
+     * Order field for setOrderFilter
+     *
+     * @var string
+     */
+    protected $_orderField = 'order_id';
+
+
     protected function _construct()
     {
         $this->_init('sales/order_creditmemo');
     }
 
-    public function setOrderFilter($order)
+    /**
+     * Used to emulate after load functionality for each item without loading them
+     *
+     */
+    protected function _afterLoad()
     {
-        if ($order instanceof Mage_Sales_Model_Order) {
-            $this->addAttributeToFilter('order_id', $order->getId());
-        }
-        else {
-            $this->addAttributeToFilter('order_id', $order);
-        }
-
-        return $this;
+        $this->walk('afterLoad');
     }
 }

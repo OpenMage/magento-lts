@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -35,42 +35,42 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
+                <Mage_Core/>
             </depends>
         </Mage_Eav>
         <Mage_Page>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
+                <Mage_Core/>
             </depends>
         </Mage_Page>
         <Mage_Install>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
+                <Mage_Core/>
             </depends>
         </Mage_Install>
         <Mage_Admin>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-               <Mage_Core />
+               <Mage_Core/>
             </depends>
         </Mage_Admin>
         <Mage_Rule>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
+                <Mage_Core/>
             </depends>
         </Mage_Rule>
         <Mage_Adminhtml>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Admin />
+                <Mage_Admin/>
             </depends>
         </Mage_Adminhtml>
         <Mage_AdminNotification>
@@ -85,186 +85,186 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
+                <Mage_Core/>
             </depends>
         </Mage_Cron>
         <Mage_Directory>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
+                <Mage_Core/>
             </depends>
         </Mage_Directory>
         <Mage_Customer>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Eav />
-                <Mage_Dataflow />
+                <Mage_Eav/>
+                <Mage_Dataflow/>
             </depends>
         </Mage_Customer>
         <Mage_Catalog>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Eav />
-                <Mage_Dataflow />
-                <Mage_Cms />
-                <Mage_Index />
+                <Mage_Eav/>
+                <Mage_Dataflow/>
+                <Mage_Cms/>
+                <Mage_Index/>
             </depends>
         </Mage_Catalog>
         <Mage_CatalogRule>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Rule />
-                <Mage_Catalog />
-                <Mage_Customer />
+                <Mage_Rule/>
+                <Mage_Catalog/>
+                <Mage_Customer/>
             </depends>
         </Mage_CatalogRule>
         <Mage_CatalogIndex>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Catalog />
-                <Mage_Eav />
-                <Mage_CatalogRule />
+                <Mage_Catalog/>
+                <Mage_Eav/>
+                <Mage_CatalogRule/>
             </depends>
         </Mage_CatalogIndex>
         <Mage_CatalogSearch>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Catalog />
+                <Mage_Catalog/>
             </depends>
         </Mage_CatalogSearch>
         <Mage_Sales>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Rule />
-                <Mage_Catalog />
-                <Mage_Customer />
-                <Mage_Payment />
+                <Mage_Rule/>
+                <Mage_Catalog/>
+                <Mage_Customer/>
+                <Mage_Payment/>
             </depends>
         </Mage_Sales>
         <Mage_SalesRule>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Rule />
-        <Mage_Catalog />
-        <Mage_Sales />
+                <Mage_Rule/>
+        <Mage_Catalog/>
+        <Mage_Sales/>
             </depends>
         </Mage_SalesRule>
         <Mage_Checkout>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Sales />
+                <Mage_Sales/>
             </depends>
         </Mage_Checkout>
         <Mage_Shipping>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
-                <Mage_Catalog />
+                <Mage_Core/>
+                <Mage_Catalog/>
             </depends>
         </Mage_Shipping>
         <Mage_Payment>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
-                <Mage_Catalog />
+                <Mage_Core/>
+                <Mage_Catalog/>
             </depends>
         </Mage_Payment>
         <Mage_Usa>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Sales />
-                <Mage_Shipping />
+                <Mage_Sales/>
+                <Mage_Shipping/>
             </depends>
         </Mage_Usa>
         <Mage_Paygate>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Payment />
+                <Mage_Payment/>
             </depends>
         </Mage_Paygate>
         <Mage_Paypal>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Paygate />
-                <Mage_Checkout />
-                <Mage_Sales />
+                <Mage_Paygate/>
+                <Mage_Checkout/>
+                <Mage_Sales/>
             </depends>
         </Mage_Paypal>
         <Mage_PaypalUk>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Paygate />
-                <Mage_Checkout />
-                <Mage_Sales />
-                <Mage_Paypal />
+                <Mage_Paygate/>
+                <Mage_Checkout/>
+                <Mage_Sales/>
+                <Mage_Paypal/>
             </depends>
         </Mage_PaypalUk>
         <Mage_GoogleCheckout>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Sales />
-                <Mage_Payment />
+                <Mage_Sales/>
+                <Mage_Payment/>
             </depends>
         </Mage_GoogleCheckout>
         <Mage_Log>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
-                <Mage_Customer />
+                <Mage_Core/>
+                <Mage_Customer/>
             </depends>
         </Mage_Log>
         <Mage_Backup>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
+                <Mage_Core/>
             </depends>
         </Mage_Backup>
         <Mage_Poll>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
-                <Mage_Cms />
+                <Mage_Core/>
+                <Mage_Cms/>
             </depends>
         </Mage_Poll>
         <Mage_Rating>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
+                <Mage_Core/>
             </depends>
         </Mage_Rating>
         <Mage_Review>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Catalog />
-                <Mage_Core />
+                <Mage_Catalog/>
+                <Mage_Core/>
             </depends>
         </Mage_Review>
         <Mage_Tag>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Catalog />
+                <Mage_Catalog/>
             </depends>
         </Mage_Tag>
         <Mage_Cms>
@@ -278,126 +278,125 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Customer />
-                <Mage_Catalog />
-                <Mage_Sales />
-                <Mage_Cms />
+                <Mage_Customer/>
+                <Mage_Catalog/>
+                <Mage_Sales/>
+                <Mage_Cms/>
             </depends>
         </Mage_Reports>
         <Mage_Newsletter>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
-                <Mage_Customer />
-                <Mage_Eav />
-                <Mage_Widget />
+                <Mage_Core/>
+                <Mage_Customer/>
+                <Mage_Eav/>
+                <Mage_Widget/>
             </depends>
         </Mage_Newsletter>
         <Mage_Tax>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Catalog />
-                <Mage_Customer />
+                <Mage_Catalog/>
+                <Mage_Customer/>
             </depends>
         </Mage_Tax>
         <Mage_Wishlist>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Customer />
-                <Mage_Catalog />
+                <Mage_Customer/>
+                <Mage_Catalog/>
             </depends>
         </Mage_Wishlist>
         <Mage_GoogleAnalytics>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
+                <Mage_Core/>
             </depends>
         </Mage_GoogleAnalytics>
         <Mage_CatalogInventory>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Catalog />
+                <Mage_Catalog/>
             </depends>
         </Mage_CatalogInventory>
         <Mage_GiftMessage>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Catalog />
-                <Mage_Sales />
+                <Mage_Catalog/>
+                <Mage_Sales/>
              </depends>
         </Mage_GiftMessage>
         <Mage_Sendfriend>
             <active>true</active>
             <codePool>core</codePool>
              <depends>
-                <Mage_Catalog />
+                <Mage_Catalog/>
              </depends>
         </Mage_Sendfriend>
         <Mage_Media>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
+                <Mage_Core/>
              </depends>
         </Mage_Media>
         <Mage_Sitemap>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Catalog />
+                <Mage_Catalog/>
              </depends>
         </Mage_Sitemap>
         <Mage_Contacts>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
+                <Mage_Core/>
             </depends>
         </Mage_Contacts>
         <Mage_Dataflow>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
+                <Mage_Core/>
             </depends>
         </Mage_Dataflow>
         <Mage_Rss>
             <active>true</active>
             <codePool>core</codePool>
              <depends>
-                <Mage_Catalog />
-                <Mage_CatalogInventory />
-                <Mage_Sales />
-                <Mage_Wishlist />
+                <Mage_Catalog/>
+                <Mage_CatalogInventory/>
+                <Mage_Sales/>
+                <Mage_Wishlist/>
              </depends>
         </Mage_Rss>
         <Mage_ProductAlert>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Catalog />
-                <Mage_Customer />
-                <Mage_Newsletter />
+                <Mage_Catalog/>
+                <Mage_Customer/>
             </depends>
         </Mage_ProductAlert>
         <Mage_GoogleOptimizer>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Catalog />
+                <Mage_Catalog/>
             </depends>
         </Mage_GoogleOptimizer>
         <Mage_GoogleBase>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Catalog />
+                <Mage_Catalog/>
             </depends>
         </Mage_GoogleBase>
         <Mage_Index>

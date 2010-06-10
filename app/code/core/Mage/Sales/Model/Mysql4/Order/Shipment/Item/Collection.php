@@ -20,29 +20,33 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- * Order shipment items collection
+ * Flat sales order shipment items collection
  *
- * @category   Mage
- * @package    Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Sales_Model_Mysql4_Order_Shipment_Item_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
+class Mage_Sales_Model_Mysql4_Order_Shipment_Item_Collection extends Mage_Sales_Model_Mysql4_Collection_Abstract
 {
+    protected $_eventPrefix = 'sales_order_shipment_item_collection';
+    protected $_eventObject = 'order_shipment_item_collection';
+
     protected function _construct()
     {
         $this->_init('sales/order_shipment_item');
     }
 
+    /**
+     * Set shipment filter
+     *
+     * @param int $shipmentId
+     * @return Mage_Sales_Model_Mysql4_Order_Shipment_Item_Collection
+     */
     public function setShipmentFilter($shipmentId)
     {
-        $this->addAttributeToFilter('parent_id', $shipmentId);
+        $this->addFieldToFilter('parent_id', $shipmentId);
         return $this;
     }
 }

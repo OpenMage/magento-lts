@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -105,15 +105,11 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             }
 
             if (!($this->_tabs[$tabId] instanceof Mage_Adminhtml_Block_Widget_Tab_Interface)) {
-                throw new Exception(Mage::helper('adminhtml')->__('Wrong tab configuration'));
+                throw new Exception(Mage::helper('adminhtml')->__('Wrong tab configuration.'));
             }
-//            $this->_tabs[$tabId]->setTabId($tabId);
-//
-//            if (is_null($this->_activeTab)) $this->_activeTab = $tabId;
-//            return $this;
         }
         else {
-            throw new Exception(Mage::helper('adminhtml')->__('Wrong tab configuration'));
+            throw new Exception(Mage::helper('adminhtml')->__('Wrong tab configuration.'));
         }
 
         if (is_null($this->_tabs[$tabId]->getUrl())) {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -241,8 +241,11 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline){
     }
 
     $errorMessage .= ": {$errstr}  in {$errfile} on line {$errline}";
-
-    throw new Exception($errorMessage);
+    if (Mage::getIsDeveloperMode()) {
+        throw new Exception($errorMessage);
+    } else {
+        Mage::log($errorMessage, Zend_Log::ERR);
+    }
 }
 
 function mageDebugBacktrace($return=false, $html=true, $showFirst=false)

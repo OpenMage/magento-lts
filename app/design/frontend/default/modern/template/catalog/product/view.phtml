@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_modern
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -60,6 +60,7 @@
             <?php echo $this->getChildHtml('alert_urls') ?>
             <?php echo $this->getChildHtml('product_type_data') ?>
             <?php echo $this->getTierPriceHtml() ?>
+            <?php echo $this->getChildHtml('extrahint') ?>
 
             <?php if (!$this->hasOptions()):?>
                 <div class="add-to-box">
@@ -74,7 +75,7 @@
             <?php else:?>
                 <?php echo $this->getChildHtml('addto') ?>
             <?php endif; ?>
-
+            
             <?php if ($_product->getShortDescription()):?>
                 <div class="short-description">
                     <h2><?php echo $this->__('Quick Overview') ?></h2>
@@ -83,7 +84,6 @@
             <?php endif;?>
 
             <?php echo $this->getChildHtml('other');?>
-
             <?php if ($_product->isSaleable() && $this->hasOptions()):?>
                 <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
             <?php endif;?>

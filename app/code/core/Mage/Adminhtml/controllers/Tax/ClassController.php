@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +49,7 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
                 $classType  = $model->getClassType();
                 $classUrl   = '*/tax_class_' . strtolower($classType);
 
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('Tax class was successfully saved'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax class has been saved.'));
                 $this->_redirect($classUrl);
 
                 return ;
@@ -60,7 +60,7 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
                 $this->_redirectReferer();
             }
             catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Error while saving this tax class. Please try again later.'));
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while saving this tax class.'));
                 Mage::getSingleton('adminhtml/session')->setClassData($postData);
                 $this->_redirectReferer();
             }

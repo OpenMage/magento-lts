@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -93,9 +93,9 @@
         </li>
         <li>
             <input type="checkbox" name="skip_base_url_validation" id="skip_base_url_validation" value="1" <?php if($this->getSkipBaseUrlValidation()): ?>checked="checked"<?php endif; ?> />
-            <label for="skip_base_url_validation"><?php echo $this->__('Skip Base URL validation before next step') ?></label><br />
+            <label for="skip_base_url_validation"><?php echo $this->__('Skip Base URL Validation Before the Next Step') ?></label><br />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
-                <small><?php echo $this->__('Check this box only if it is not possible to automatically validate Base URL.') ?></small>
+                <small><?php echo $this->__('Check this box only if it is not possible to automatically validate the Base URL.') ?></small>
             </p>
         </li>
         <li>
@@ -142,12 +142,12 @@
 </fieldset>
 
 <fieldset class="group-select">
-    <legend><?php echo $this->__('Session storage options') ?></legend>
-    <h4 class="legend"><?php echo $this->__('Session storage options') ?></h4>
+    <legend><?php echo $this->__('Session Storage Options') ?></legend>
+    <h4 class="legend"><?php echo $this->__('Session Storage Options') ?></h4>
     <ul>
         <li>
             <div class="input-box">
-                <label for="password"><?php echo $this->__('Save session data in') ?></label><br />
+                <label for="password"><?php echo $this->__('Save Session Data In') ?></label><br />
                 <?php echo $this->getSessionSaveSelect() ?>
             </div>
         </li>

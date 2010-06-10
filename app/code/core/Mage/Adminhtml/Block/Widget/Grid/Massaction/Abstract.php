@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +44,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     {
         parent::__construct();
         $this->setTemplate('widget/grid/massaction.phtml');
-        $this->setErrorText(Mage::helper('catalog')->jsQuoteEscape(Mage::helper('catalog')->__('Please select  items')));
+        $this->setErrorText(Mage::helper('catalog')->jsQuoteEscape(Mage::helper('catalog')->__('Please select items.')));
     }
 
     /**
@@ -225,12 +225,17 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
                 var {$this->getJsObjectName()} = new varienGridMassaction('{$this->getHtmlId()}', {$this->getGridJsObjectName()}, '{$this->getSelectedJson()}', '{$this->getFormFieldNameInternal()}', '{$this->getFormFieldName()}');
                 {$this->getJsObjectName()}.setItems({$this->getItemsJson()});
                 {$this->getJsObjectName()}.setGridIds('{$this->getGridIdsJson()}');
-                ". ($this->getUseAjax() ? "{$this->getJsObjectName()}.setUseAjax(true);" : '') .
+                ". ($this->getUseAjax() ? "{$this->getJsObjectName()}.setUseAjax(true);" : '') . "
+                ". ($this->getUseSelectAll() ? "{$this->getJsObjectName()}.setUseSelectAll(true);" : '') .
                 "{$this->getJsObjectName()}.errorText = '{$this->getErrorText()}';";
     }
 
     public function getGridIdsJson()
     {
+        if (!$this->getUseSelectAll()) {
+            return '';
+        }
+
         $gridIds = $this->getParentBlock()->getCollection()->getAllIds();
 
         if(!empty($gridIds)) {
@@ -258,6 +263,28 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
             unset($this->_items[$itemId]);
         }
 
+        return $this;
+    }
+
+    /**
+     * Retrieve select all functionality flag check
+     *
+     * @return boolean
+     */
+    public function getUseSelectAll()
+    {
+        return $this->_getData('use_select_all') === null || $this->_getData('use_select_all');
+    }
+
+    /**
+     * Retrieve select all functionality flag check
+     *
+     * @param boolean $flag
+     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
+     */
+    public function setUseSelectAll($flag)
+    {
+        $this->setData('use_select_all', (bool) $flag);
         return $this;
     }
 }

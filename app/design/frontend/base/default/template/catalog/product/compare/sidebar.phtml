@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* @var $this Mage_Catalog_Block_Product_Compare_Sidebar */
@@ -39,8 +39,8 @@
         <?php foreach($this->helper('catalog/product_compare')->getItemCollection() as $_index=>$_item): ?>
             <li class="item">
                 <input type="hidden" class="compare-item-id" value="<?php echo $_item->getId() ?>" />
-                <a href="<?php echo $this->helper('catalog/product_compare')->getRemoveUrl($_item) ?>" title="<?php echo $this->__('Remove This Item') ?>" class="btn-remove" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the compare products?') ?>');"><?php echo $this->__('Remove This Item') ?></a>
-                <p class="product-name"><a href="<?php echo $this->getProductUrl($_item) ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a></p>
+                <a href="<?php echo $this->helper('catalog/product_compare')->getRemoveUrl($_item) ?>" title="<?php echo $this->__('Remove This Item') ?>" class="btn-remove" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the comparison list?') ?>');"><?php echo $this->__('Remove This Item') ?></a>
+                <p class="product-name"><a href="<?php echo $this->getProductUrl($_item) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_item, $_item->getName(), 'name') ?></a></p>
             </li>
         <?php endforeach; ?>
         </ol>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <!--
 /**
  * Magento
@@ -19,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Sales
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    Mage
+ * @package     Mage_Sales
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -52,6 +52,21 @@
                     <action>adminhtml/sales_creditmemo</action>
                     <sort_order>40</sort_order>
                 </creditmemo>
+                <transactions translate="title" module="sales">
+                    <title>Transactions</title>
+                    <action>adminhtml/sales_transactions</action>
+                    <sort_order>50</sort_order>
+                </transactions>
+                <recurring_profile translate="title" module="sales">
+                    <title>Recurring Profiles (beta)</title>
+                    <action>adminhtml/sales_recurring_profile</action>
+                    <sort_order>60</sort_order>
+                </recurring_profile>
+                <billing_agreement translate="title" module="sales">
+                    <title>Billing Agreements</title>
+                    <action>adminhtml/sales_billing_agreement</action>
+                    <sort_order>70</sort_order>
+                </billing_agreement>
             </children>
          </sales>
     </menu>
@@ -73,6 +88,7 @@
                                             <reorder translate="title"><title>Reorder</title></reorder>
                                             <edit translate="title"><title>Edit</title></edit>
                                             <cancel translate="title"><title>Cancel</title></cancel>
+                                            <review_payment translate="title"><title>Accept or Deny Payment</title></review_payment>
                                             <capture translate="title"><title>Capture</title></capture>
                                             <invoice translate="title"><title>Invoice</title></invoice>
                                             <creditmemo translate="title"><title>Creditmemo</title></creditmemo>
@@ -99,6 +115,40 @@
                                 <title>Credit Memos</title>
                                 <sort_order>40</sort_order>
                             </creditmemo>
+                            <transactions translate="title">
+                                <title>Transactions</title>
+                                <children>
+                                    <fetch translate="title"><title>Fetch</title></fetch>
+                                </children>
+                                <sort_order>50</sort_order>
+                            </transactions>
+                            <recurring_profile translate="title">
+                                <title>Recurring Profiles</title>
+                                <sort_order>60</sort_order>
+                            </recurring_profile>
+                            <billing_agreement translate="title">
+                                <title>Billing Agreements</title>
+                                    <children>
+                                        <actions translate="title">
+                                            <title>Actions</title>
+                                            <children>
+                                                <view translate="title">
+                                                    <title>View</title>
+                                                    <sort_order>5</sort_order>
+                                                </view>
+                                                <manage translate="title">
+                                                    <title>Manage</title>
+                                                    <sort_order>10</sort_order>
+                                                </manage>
+                                                <use translate="title">
+                                                    <title>Place Order Using Billing Agreements</title>
+                                                    <sort_order>15</sort_order>
+                                                </use>
+                                            </children>
+                                        </actions>
+                                    </children>
+                                <sort_order>70</sort_order>
+                            </billing_agreement>
                         </children>
                     </sales>
                     <system>

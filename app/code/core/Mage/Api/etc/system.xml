@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -45,7 +45,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <session_timeout translate="label">
-                            <label>Client Session timeout (sec.)</label>
+                            <label>Client Session Timeout (sec.)</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>

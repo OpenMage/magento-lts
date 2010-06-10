@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -32,8 +32,39 @@
 
 <?php $_items = $this->getItems() ?>
 <?php if (empty($_items)): ?>
-    <div class="fieldset">
-        <p class="a-center"><?php echo $this->helper('sales')->__('No ordered items') ?></p>
+    <div class="grid" id="order-items_grid">
+        <table cellspacing="0" class="data order-tables">
+            <col />
+            <col width="100" />
+            <col width="40" />
+            <col width="100" />
+            <col width="80" />
+            <col width="100" />
+            <?php if($this->isGiftMessagesAvailable()): ?>
+            <col width="1" />
+            <?php endif; ?>
+            <col width="80" />
+            <thead>
+                <tr class="headings">
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Product') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Price') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Qty') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Subtotal') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Discount') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Row Subtotal') ?></th>
+
+                    <?php if($this->isGiftMessagesAvailable()): ?>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Gift') ?></th>
+                    <?php endif ?>
+                    <th class="no-link last"><?php echo $this->helper('sales')->__('Action') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="even">
+                    <td class="empty-text a-center" colspan="100"><?php echo $this->helper('sales')->__('No ordered items') ?></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 <?php else: ?>
 <div>

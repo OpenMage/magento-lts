@@ -20,15 +20,23 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 $installer->startSetup();
+
+
+/*
+ * @deprecated since 1.4 Sales no more eav, moving attributes from eav to flat table,
+ *             already done in sales upgrade
+ *
+
 $orderEntityType = $installer->getEntityType('order');
 $orderEntityTypeId = $orderEntityType['entity_type_id'];
+
 
 $attribute = $installer->getAttribute($orderEntityTypeId, 'coupon_code');
 
@@ -38,7 +46,7 @@ try {
     $installer->getConnection()->beginTransaction();
 
     $installer->run("
-        UPDATE {$this->getTable('sales/order')} AS o, {$this->getTable('sales/order')}_{$attribute['backend_type']} AS od
+        UPDATE {$this->getTable('sales/order')} AS o, {$this->getTable('sales/order')}_varchar AS od
         SET o.{$attribute['attribute_code']} = od.value
         WHERE od.entity_id = o.entity_id
             AND od.attribute_id = {$attribute['attribute_id']}
@@ -60,6 +68,7 @@ try {
     $installer->getConnection()->dropColumn($this->getTable('sales/order'), $attribute['attribute_code']);
     throw $e;
 }
+*/
 
 $installer->run("
     CREATE TABLE `{$installer->getTable('salesrule/coupon_aggregated')}` (
@@ -95,17 +104,17 @@ $installer->run("
 
 $installer->getConnection()->addConstraint(
     'FK_SALESTRULE_COUPON_AGGREGATED_ORDER_STORE',
-    $this->getTable('salesrule/coupon_aggregated_order'), 
+    $this->getTable('salesrule/coupon_aggregated_order'),
     'store_id',
-    $this->getTable('core_store'), 
+    $this->getTable('core_store'),
     'store_id'
 );
 
 $installer->getConnection()->addConstraint(
     'FK_SALESTRULE_COUPON_AGGREGATED_STORE',
-    $this->getTable('salesrule/coupon_aggregated'), 
+    $this->getTable('salesrule/coupon_aggregated'),
     'store_id',
-    $this->getTable('core_store'), 
+    $this->getTable('core_store'),
     'store_id'
 );
 

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,22 +52,26 @@ class Mage_Adminhtml_Block_Dashboard_Totals extends Mage_Adminhtml_Block_Dashboa
             ->calculateTotals($isFilter);
 
         if ($this->getRequest()->getParam('store')) {
-            $collection->addAttributeToFilter('store_id', $this->getRequest()->getParam('store'));
+            $collection->addFieldToFilter('store_id', $this->getRequest()->getParam('store'));
         } else if ($this->getRequest()->getParam('website')){
             $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
-            $collection->addAttributeToFilter('store_id', array('in' => $storeIds));
+            $collection->addFieldToFilter('store_id', array('in' => $storeIds));
         } else if ($this->getRequest()->getParam('group')){
             $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
-            $collection->addAttributeToFilter('store_id', array('in' => $storeIds));
+            $collection->addFieldToFilter('store_id', array('in' => $storeIds));
+        } elseif (!$collection->isLive()) {
+            $collection->addFieldToFilter('store_id',
+                array('eq' => Mage::app()->getStore(Mage_Core_Model_Store::ADMIN_CODE)->getId())
+            );
         }
 
         $collection->load();
-        $collectionArray = $collection->toArray();
-        $totals = array_pop($collectionArray);
 
-        $this->addTotal($this->__('Revenue'), $totals['revenue']);
-        $this->addTotal($this->__('Tax'), $totals['tax']);
-        $this->addTotal($this->__('Shipping'), $totals['shipping']);
-        $this->addTotal($this->__('Quantity'), $totals['quantity']*1, true);
+        $totals = $collection->getFirstItem();
+
+        $this->addTotal($this->__('Revenue'), $totals->getRevenue());
+        $this->addTotal($this->__('Tax'), $totals->getTax());
+        $this->addTotal($this->__('Shipping'), $totals->getShipping());
+        $this->addTotal($this->__('Quantity'), $totals->getQuantity()*1, true);
     }
 }

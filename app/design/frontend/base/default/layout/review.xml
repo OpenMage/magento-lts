@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -44,7 +44,6 @@ Customer account home dashboard layout
 
         <!-- Mage_Review -->
         <reference name="customer_account_dashboard">
-            <action method="unsetChild"><name>customer_account_dashboard_info1</name></action>
             <block type="review/customer_recent" name="customer_account_dashboard_info1" as="info1" template="review/customer/recent.phtml"/>
         </reference>
 

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rss
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,8 +39,9 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
         * setting cache to save the rss for 10 minutes
         */
         $this->setCacheKey('rss_catalog_category_'
-            .$this->getRequest()->getParam('cid').'_'
-            .$this->getRequest()->getParam('store_id')
+            . $this->getRequest()->getParam('cid') . '_'
+            . $this->getRequest()->getParam('store_id') . '_'
+            . Mage::getModel('customer/session')->getId()
         );
         $this->setCacheLifetime(600);
     }

@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -62,7 +62,7 @@
         </reference>
         <reference name="js">
             <block type="adminhtml/catalog_product_edit_js" template="catalog/product/js.phtml" name="catalog_product_js"></block>
-            <block type="core/template" template="catalog/wysiwyg/js.phtml"/>
+            <block type="core/template" name="catalog.wysiwyg.js" template="catalog/wysiwyg/js.phtml"/>
         </reference>
     </adminhtml_catalog_product_edit>
 
@@ -224,7 +224,7 @@ Layout handle for configurable products
             <block name="category.edit"  type="adminhtml/catalog_category_edit" template="catalog/category/edit.phtml" />
         </reference>
         <reference name="js">
-            <block type="core/template" template="catalog/wysiwyg/js.phtml"/>
+            <block type="core/template" template="catalog/wysiwyg/js.phtml" name="catalog.wysiwyg.js" />
         </reference>
     </adminhtml_catalog_category_edit>
 

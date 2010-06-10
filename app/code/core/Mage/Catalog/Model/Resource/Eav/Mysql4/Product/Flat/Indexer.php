@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -248,7 +248,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
             $attribute = Mage::getModel('catalog/resource_eav_attribute')
                 ->loadByCode($this->getEntityTypeId(), $attributeCode);
             if (!$attribute->getId()) {
-                Mage::throwException(Mage::helper('catalog')->__('Invalid attribute %s', $attributeCode));
+                Mage::throwException(Mage::helper('catalog')->__('Invalid attribute %s.', $attributeCode));
             }
             $entity = Mage::getSingleton('eav/config')
                 ->getEntityType($this->getEntityType())
@@ -518,7 +518,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
         $maxIndex   = Mage::getConfig()->getNode(self::XML_NODE_MAX_INDEX_COUNT);
 
         if (count($indexes) > $maxIndex) {
-            Mage::throwException(Mage::helper('catalog')->__("Flat Catalog module has a limit of %2\$d filterable and/or sort able attributes. Currently there are %1\$d. Please reduce the number of filterable/sort able attributes in order to use this module.", count($indexes), $maxIndex));
+            Mage::throwException(Mage::helper('catalog')->__("The Flat Catalog module has a limit of %2\$d filterable and/or sortable attributes. Currently there are %1\$d of them. Please reduce the number of filterable/sortable attributes in order to use this module.", count($indexes), $maxIndex));
         }
 
         $tableName = $this->getFlatTableName($store);

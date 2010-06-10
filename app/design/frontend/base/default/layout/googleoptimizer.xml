@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -69,19 +69,6 @@ Product view
             </block>
         </reference>
     </catalog_category_layered>
-
-    <cms_page>
-        <reference name="head">
-            <block type="googleoptimizer/code_page" before="-" name="googleoptimizer.control.script">
-                <action method="setScriptType"><scriptType>control_script</scriptType></action>
-            </block>
-        </reference>
-        <reference name="before_body_end">
-            <block type="googleoptimizer/code_page" after="-" name="googleoptimizer.tracking.script">
-                <action method="setScriptType"><scriptType>tracking_script</scriptType></action>
-            </block>
-        </reference>
-    </cms_page>
 
     <cms_page>
         <reference name="head">

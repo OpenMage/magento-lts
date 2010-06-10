@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +39,7 @@ $attributes = array(
 );
 
 foreach ($attributes as $attribute) {
-    $installer->getConnection()->addColumn($this->getTable('sales/order'), $attribute['attribute_code'], 'decimal(12,4) NULL');
+    $installer->getConnection()->addColumn($this->getTable('sales_order'), $attribute['attribute_code'], 'decimal(12,4) NULL');
 }
 
 try {
@@ -47,7 +47,7 @@ try {
 
     foreach ($attributes as $attribute) {
         $installer->run("
-            UPDATE {$this->getTable('sales/order')} AS o, {$this->getTable('sales/order')}_{$attribute['backend_type']} AS od
+            UPDATE {$this->getTable('sales_order')} AS o, {$this->getTable('sales_order')}_{$attribute['backend_type']} AS od
             SET o.{$attribute['attribute_code']} = od.value
             WHERE od.entity_id = o.entity_id
                 AND od.attribute_id = {$attribute['attribute_id']}
@@ -55,7 +55,7 @@ try {
         ");
 
         $installer->run("
-            DELETE FROM {$this->getTable('sales/order')}_{$attribute['backend_type']}
+            DELETE FROM {$this->getTable('sales_order')}_{$attribute['backend_type']}
             WHERE attribute_id = {$attribute['attribute_id']}
                 AND entity_type_id = {$orderEntityTypeId}
         ");
@@ -70,7 +70,7 @@ try {
 } catch (Exception $e) {
     $installer->getConnection()->rollback();
     foreach ($attributes as $attribute) {
-        $installer->getConnection()->dropColumn($this->getTable('sales/order'), $attribute['attribute_code']);
+        $installer->getConnection()->dropColumn($this->getTable('sales_order'), $attribute['attribute_code']);
     }
     throw $e;
 }

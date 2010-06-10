@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -109,10 +109,10 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
         if ($this->getRequest()->getPost('jscss_action')) {
             if (Mage::getDesign()->cleanMergedJsCss()) {
                 $this->_getSession()->addSuccess(
-                    Mage::helper('adminhtml')->__('JavaScript/CSS cache has been cleared successfully.')
+                    Mage::helper('adminhtml')->__('The JavaScript/CSS cache has been cleared.')
                 );
             } else {
-                $this->_getSession()->addError(Mage::helper('adminhtml')->__('Failed to clear JavaScript/CSS cache.'));
+                $this->_getSession()->addError(Mage::helper('adminhtml')->__('Failed to clear the JavaScript/CSS cache.'));
             }
         }
 
@@ -126,14 +126,14 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
                     try {
                         Mage::getSingleton('catalog/url')->refreshRewrites();
                         $this->_getSession()->addSuccess(
-                            Mage::helper('adminhtml')->__('Catalog Rewrites were refreshed successfully')
+                            Mage::helper('adminhtml')->__('The Catalog Rewrites were refreshed.')
                         );
                     }
                     catch (Mage_Core_Exception $e) {
                         $this->_getSession()->addError($e->getMessage());
                     }
                     catch (Exception $e) {
-                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Error while refreshed Catalog Rewrites. Please try again later'));
+                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while refreshing the Catalog Rewrites.'));
                     }
                     break;
 
@@ -141,14 +141,14 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
                     try {
                         Mage::getModel('catalog/product_image')->clearCache();
                         $this->_getSession()->addSuccess(
-                            Mage::helper('adminhtml')->__('Image cache was cleared successfully')
+                            Mage::helper('adminhtml')->__('The image cache was cleared.')
                         );
                     }
                     catch (Mage_Core_Exception $e) {
                         $this->_getSession()->addError($e->getMessage());
                     }
                     catch (Exception $e) {
-                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Error while cleared Image cache. Please try again later'));
+                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while clearing the image cache.'));
                     }
                     break;
 
@@ -163,14 +163,14 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
                         $flag->setState(Mage_CatalogIndex_Model_Catalog_Index_Flag::STATE_QUEUED)->save();
                         Mage::getSingleton('catalogindex/indexer')->plainReindex();
                         $this->_getSession()->addSuccess(
-                            Mage::helper('adminhtml')->__('Layered Navigation Indices were refreshed successfully')
+                            Mage::helper('adminhtml')->__('Layered Navigation Indices were refreshed.')
                         );
                     }
                     catch (Mage_Core_Exception $e) {
                         $this->_getSession()->addError($e->getMessage());
                     }
                     catch (Exception $e) {
-                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Error while refreshed Layered Navigation Indices. Please try again later'));
+                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while refreshing the Layered Navigation indices.'));
                     }
                     break;
 
@@ -181,20 +181,20 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
                             case Mage_CatalogIndex_Model_Catalog_Index_Flag::STATE_QUEUED:
                                 $flag->delete();
                                 $this->_getSession()->addSuccess(
-                                    Mage::helper('adminhtml')->__('Layered Navigation indexing queue cancelled')
+                                    Mage::helper('adminhtml')->__('The Layered Navigation indexing queue has been canceled.')
                                 );
                                 break;
                             case Mage_CatalogIndex_Model_Catalog_Index_Flag::STATE_RUNNING:
                                 $kill = Mage::getModel('catalogindex/catalog_index_kill_flag')->loadSelf();
                                 $kill->setFlagData($flag->getFlagData())->save();
                                 $this->_getSession()->addSuccess(
-                                    Mage::helper('adminhtml')->__('Layered Navigation process queued to be killed')
+                                    Mage::helper('adminhtml')->__('The Layered Navigation process has been queued to be killed.')
                                 );
                                 break;
                             default:
                                 $flag->setState(Mage_CatalogIndex_Model_Catalog_Index_Flag::STATE_QUEUED)->save();
                                 $this->_getSession()->addSuccess(
-                                    Mage::helper('adminhtml')->__('Layered Navigation indexing queued')
+                                    Mage::helper('adminhtml')->__('The Layered Navigation indexing has been queued.')
                                 );
                                 break;
                         }
@@ -203,72 +203,72 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
                         $this->_getSession()->addError($e->getMessage());
                     }
                     catch (Exception $e) {
-                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Error while refreshed Layered Navigation Indices. Please try again later'));
+                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while refreshing the Layered Navigation indices.'));
                     }
                     break;
 
                 case 'rebuild_search_index':
                     try {
                         Mage::getSingleton('catalogsearch/fulltext')->rebuildIndex();
-                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Search Index was rebuilt successfully'));
+                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('The search index has been rebuilt.'));
                     }
                     catch (Mage_Core_Exception $e) {
                         $this->_getSession()->addError($e->getMessage());
                     }
                     catch (Exception $e) {
-                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Search Index rebuild error. Please try again later'));
+                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while rebuilding the search index.'));
                     }
                     break;
 
                 case 'rebuild_inventory_stock_status':
                     try {
                         Mage::getSingleton('cataloginventory/stock_status')->rebuild();
-                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('CatalogInventory Stock Status was rebuilt successfully'));
+                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('The CatalogInventory Stock Status has been rebuilt.'));
                     }
                     catch (Mage_Core_Exception $e) {
                         $this->_getSession()->addError($e->getMessage());
                     }
                     catch (Exception $e) {
-                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('CatalogInventory Stock Status rebuild error. Please try again later'));
+                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while rebuilding the CatalogInventory Stock Status.'));
                     }
                     break;
 
                 case 'rebuild_catalog_index':
                     try {
                         Mage::getSingleton('catalog/index')->rebuild();
-                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Catalog Index was rebuilt successfully'));
+                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('The catalog index has been rebuilt.'));
                     }
                     catch (Mage_Core_Exception $e) {
                         $this->_getSession()->addError($e->getMessage());
                     }
                     catch (Exception $e) {
-                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Catalog Index rebuild error. Please try again later'));
+                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while rebuilding the catalog index.'));
                     }
                     break;
 
                 case 'rebuild_flat_catalog_category':
                     try {
                         Mage::getResourceModel('catalog/category_flat')->rebuild();
-                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Flat Catalog Category was rebuilt successfully'));
+                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('The flat catalog category has been rebuilt.'));
                     }
                     catch (Mage_Core_Exception $e) {
                         $this->_getSession()->addError($e->getMessage());
                     }
                     catch (Exception $e) {
-                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Flat Catalog Category rebuild error'));
+                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while rebuilding the flat catalog category.'));
                     }
                     break;
 
                 case 'rebuild_flat_catalog_product':
                     try {
                         Mage::getResourceModel('catalog/product_flat_indexer')->rebuild();
-                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Flat Catalog Product was rebuilt successfully'));
+                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('The Flat Catalog Product was rebuilt'));
                     }
                     catch (Mage_Core_Exception $e) {
                         $this->_getSession()->addError($e->getMessage());
                     }
                     catch (Exception $e) {
-                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Flat Catalog Product rebuild error. Please try again later'));
+                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while rebuilding the flat product catalog.'));
                     }
                     break;
 
@@ -285,14 +285,14 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
         try {
             Mage::getSingleton('catalog/url')->refreshRewrites();
             $this->_getSession()->addSuccess(
-                Mage::helper('adminhtml')->__('Catalog Rewrites was refreshed successfully')
+                Mage::helper('adminhtml')->__('The catalog rewrites have been refreshed.')
             );
         }
         catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
         catch (Exception $e) {
-            $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Error while refreshed Catalog Rewrites. Please try again later'));
+            $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while refreshing the catalog rewrites.'));
         }
 
         $this->_redirect('*/*');
@@ -303,14 +303,14 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
         try {
             Mage::getModel('catalog/product_image')->clearCache();
             $this->_getSession()->addSuccess(
-                Mage::helper('adminhtml')->__('Image cache was cleared successfully')
+                Mage::helper('adminhtml')->__('The image cache was cleared.')
             );
         }
         catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
         catch (Exception $e) {
-            $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Error while cleared Image cache. Please try again later'));
+            $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while clearing the image cache.'));
         }
 
         $this->_redirect('*/*');
@@ -321,14 +321,14 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
         try {
             Mage::getSingleton('catalogindex/indexer')->plainReindex();
             $this->_getSession()->addSuccess(
-                Mage::helper('adminhtml')->__('Layered Navigation Indices was refreshed successfully')
+                Mage::helper('adminhtml')->__('The Layered Navigation indices were refreshed.')
             );
         }
         catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
         catch (Exception $e) {
-            $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Error while refreshed Layered Navigation Indices. Please try again later'));
+            $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while refreshing the layered navigation indices.'));
         }
 
         $this->_redirect('*/*');

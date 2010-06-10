@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,29 +56,29 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage
 
         $fieldset->addField('is_searchable', 'select', array(
             'name' => 'is_searchable',
-            'label' => Mage::helper('catalog')->__('Use in quick search'),
-            'title' => Mage::helper('catalog')->__('Use in quick search'),
+            'label' => Mage::helper('catalog')->__('Use in Quick Search'),
+            'title' => Mage::helper('catalog')->__('Use in Quick Search'),
             'values' => $yesno,
         ));
 
         $fieldset->addField('is_visible_in_advanced_search', 'select', array(
             'name' => 'is_visible_in_advanced_search',
-            'label' => Mage::helper('catalog')->__('Use in advanced search'),
-            'title' => Mage::helper('catalog')->__('Use in advanced search'),
+            'label' => Mage::helper('catalog')->__('Use in Advanced Search'),
+            'title' => Mage::helper('catalog')->__('Use in Advanced Search'),
             'values' => $yesno,
         ));
 
         $fieldset->addField('is_comparable', 'select', array(
             'name' => 'is_comparable',
-            'label' => Mage::helper('catalog')->__('Comparable on Front-end'),
-            'title' => Mage::helper('catalog')->__('Comparable on Front-end'),
+            'label' => Mage::helper('catalog')->__('Comparable on the Frontend'),
+            'title' => Mage::helper('catalog')->__('Comparable on the Frontend'),
             'values' => $yesno,
         ));
 
 
         $fieldset->addField('is_filterable', 'select', array(
             'name' => 'is_filterable',
-            'label' => Mage::helper('catalog')->__("Use In Layered Navigation<br/>(Can be used only with catalog input type 'Dropdown')"),
+            'label' => Mage::helper('catalog')->__("Use in Layered Navigation<br/>(Can be used only with catalog input type 'Dropdown')"),
             'title' => Mage::helper('catalog')->__('Can be used only with catalog input type Dropdown'),
             'values' => array(
                 array('value' => '0', 'label' => Mage::helper('catalog')->__('No')),

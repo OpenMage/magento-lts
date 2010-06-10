@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -132,7 +132,6 @@ class Mage_Api_Model_Server_Adapter_Soap
 
         } else {
             $this->fault('0', 'Unable to load Soap extension on the server');
-        }
         return $this;
     }
 

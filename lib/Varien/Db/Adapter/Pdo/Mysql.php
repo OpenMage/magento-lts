@@ -1550,4 +1550,252 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         $this->_cacheAdapter = $adapter;
         return $this;
     }
+
+    /**
+     * Return DDL Table object
+     *
+     * @param string $tableName the table name
+     * @return Varien_Db_Ddl_Table
+     */
+    public function newTable($tableName = null)
+    {
+        $table = new Varien_Db_Ddl_Table();
+        if (!is_null($tableName)) {
+            $table->setName($tableName);
+        }
+        return $table;
+    }
+
+    /**
+     * Create table
+     *
+     * @param Varien_Db_Ddl_Table $table
+     * @throws Zend_Db_Exception
+     * @return Zend_Db_Pdo_Statement
+     */
+    public function createTable(Varien_Db_Ddl_Table $table)
+    {
+        $sqlFragment    = array_merge(
+            $this->_getColumnsDefinition($table),
+            $this->_getIndexesDefinition($table),
+            $this->_getForeignKeysDefinition($table)
+        );
+        $tableOptions   = $this->_getOptionsDefination($table);
+
+        $sql = sprintf("CREATE TABLE %s (\n%s\n) %s",
+            $this->quoteIdentifier($table->getName()),
+            implode(",\n", $sqlFragment),
+            implode(" ", $tableOptions));
+
+        return $this->query($sql);
+    }
+
+    /**
+     * Retrieve columns and primary keys definition array for create table
+     *
+     * @param Varien_Db_Ddl_Table $table
+     * @return array
+     */
+    protected function _getColumnsDefinition(Varien_Db_Ddl_Table $table)
+    {
+        $definition = array();
+        $primary    = array();
+        $columns    = $table->getColumns();
+        if (empty($columns)) {
+            throw new Zend_Db_Exception('Table columns are not defined');
+        }
+
+        $dataTypes = array(
+            Varien_Db_Ddl_Table::TYPE_BOOLEAN       => 'bool',
+            Varien_Db_Ddl_Table::TYPE_TINYINT       => 'tinyint',
+            Varien_Db_Ddl_Table::TYPE_SMALLINT      => 'smallint',
+            Varien_Db_Ddl_Table::TYPE_INTEGER       => 'int',
+            Varien_Db_Ddl_Table::TYPE_BIGINT        => 'bigint',
+            Varien_Db_Ddl_Table::TYPE_DOUBLE        => 'double',
+            Varien_Db_Ddl_Table::TYPE_FLOAT         => 'float',
+            Varien_Db_Ddl_Table::TYPE_REAL          => 'real',
+            Varien_Db_Ddl_Table::TYPE_DECIMAL       => 'decimal',
+            Varien_Db_Ddl_Table::TYPE_NUMERIC       => 'decimal',
+            Varien_Db_Ddl_Table::TYPE_DATE          => 'date',
+            Varien_Db_Ddl_Table::TYPE_TIME          => 'time',
+            Varien_Db_Ddl_Table::TYPE_TIMESTAMP     => 'timestamp',
+            Varien_Db_Ddl_Table::TYPE_CHAR          => 'char',
+            Varien_Db_Ddl_Table::TYPE_VARCHAR       => 'varchar',
+            Varien_Db_Ddl_Table::TYPE_LONGVARCHAR   => 'text',
+            Varien_Db_Ddl_Table::TYPE_CLOB          => 'longtext',
+            Varien_Db_Ddl_Table::TYPE_BINARY        => 'blob',
+            Varien_Db_Ddl_Table::TYPE_VARBINARY     => 'mediumblob',
+            Varien_Db_Ddl_Table::TYPE_LONGVARBINARY => 'longblob',
+            Varien_Db_Ddl_Table::TYPE_BLOB          => 'longblob',
+        );
+
+        foreach ($columns as $columnData) {
+            $cType      = $dataTypes[$columnData['COLUMN_TYPE']];
+            $cUnsigned  = $columnData['UNSIGNED'] ? ' unsigned' : '';
+            $cIsNull    = $columnData['NULLABLE'] === false ? ' NOT NULL' : '';
+            $cDefault   = '';
+            if (!is_null($columnData['DEFAULT'])) {
+                $cDefault = $this->quoteInto(' default ?', $columnData['DEFAULT']);
+            }
+
+            // column size
+            switch ($columnData['COLUMN_TYPE']) {
+                case Varien_Db_Ddl_Table::TYPE_TINYINT:
+                case Varien_Db_Ddl_Table::TYPE_SMALLINT:
+                case Varien_Db_Ddl_Table::TYPE_INTEGER:
+                case Varien_Db_Ddl_Table::TYPE_BIGINT:
+                    if (is_numeric($columnData['LENGTH'])) {
+                        $cType .= sprintf('(%d)', $columnData['LENGTH']);
+                    }
+                    break;
+                case Varien_Db_Ddl_Table::TYPE_DECIMAL:
+                case Varien_Db_Ddl_Table::TYPE_NUMERIC:
+                    $cType .= sprintf('(%d,%d)', $columnData['SCALE'], $columnData['PRECISION']);
+                    break;
+                case Varien_Db_Ddl_Table::TYPE_CHAR:
+                case Varien_Db_Ddl_Table::TYPE_VARCHAR:
+                    $cType .= sprintf('(%d)', $columnData['LENGTH']);
+                    break;
+            }
+
+            if ($columnData['PRIMARY']) {
+                $primary[$columnData['COLUMN_NAME']] = $columnData['PRIMARY_POSITION'];
+            }
+
+            $definition[] = sprintf('  %s %s%s%s%s',
+                $this->quoteIdentifier($columnData['COLUMN_NAME']),
+                $cType,
+                $cUnsigned,
+                $cIsNull,
+                $cDefault
+            );
+        }
+
+        // PRIMARY KEY
+        if (!empty($primary)) {
+            asort($primary, SORT_NUMERIC);
+            $primary = array_map(array($this, 'quoteIdentifier'), array_keys($primary));
+            $definition[] = sprintf('  PRIMARY KEY (%s)', join(', ', $primary));
+        }
+
+        return $definition;
+    }
+
+    /**
+     * Retrieve table indexes definition array for create table
+     *
+     * @param Varien_Db_Ddl_Table $table
+     * @return array
+     */
+    protected function _getIndexesDefinition(Varien_Db_Ddl_Table $table)
+    {
+        $definition = array();
+        $indexes    = $table->getIndexes();
+        if (!empty($indexes)) {
+            foreach ($indexes as $indexData) {
+                if ($indexData['UNIQUE']) {
+                    $indexType = 'UNIQUE';
+                } else if (!empty($indexData['TYPE'])) {
+                    $indexType = $indexData['TYPE'];
+                } else {
+                    $indexType = 'KEY';
+                }
+
+                $columns = array();
+                foreach ($indexData['COLUMNS'] as $columnData) {
+                    $column = $this->quoteIdentifier($columnData['NAME']);
+                    if (!empty($columnData['SIZE'])) {
+                        $column .= sprintf('(%d)', $columnData['SIZE']);
+                    }
+                    $columns[] = $column;
+                }
+                $definition[] = sprintf('  %s %s (%s)',
+                    $indexType,
+                    $this->quoteIdentifier($indexData['INDEX_NAME']),
+                    join(', ', $columns)
+                );
+            }
+        }
+
+        return $definition;
+    }
+
+    /**
+     * Retrieve table foreign keys definition array for create table
+     *
+     * @param Varien_Db_Ddl_Table $table
+     * @return array
+     */
+    protected function _getForeignKeysDefinition(Varien_Db_Ddl_Table $table)
+    {
+        $definition = array();
+        $relations  = $table->getForeignKeys();
+
+        if (!empty($relations)) {
+            foreach ($relations as $fkData) {
+                switch ($fkData['ON_DELETE']) {
+                    case Varien_Db_Ddl_Table::ACTION_CASCADE:
+                    case Varien_Db_Ddl_Table::ACTION_RESTRICT:
+                    case Varien_Db_Ddl_Table::ACTION_SET_NULL:
+                        $onDelete = $fkData['ON_DELETE'];
+                        break;
+                    default:
+                        $onDelete = Varien_Db_Ddl_Table::ACTION_NO_ACTION;
+                }
+
+                switch ($fkData['ON_UPDATE']) {
+                    case Varien_Db_Ddl_Table::ACTION_CASCADE:
+                    case Varien_Db_Ddl_Table::ACTION_RESTRICT:
+                    case Varien_Db_Ddl_Table::ACTION_SET_NULL:
+                        $onUpdate = $fkData['ON_UPDATE'];
+                        break;
+                    default:
+                        $onUpdate = Varien_Db_Ddl_Table::ACTION_NO_ACTION;
+                }
+
+                $definition[] = sprintf('  CONSTRAINT %s FOREIGN KEY (%s) REFERENCES %s (%s) ON DELETE %s ON UPDATE %s',
+                    $this->quoteIdentifier($fkData['FK_NAME']),
+                    $this->quoteIdentifier($fkData['COLUMN_NAME']),
+                    $this->quoteIdentifier($fkData['REF_TABLE_NAME']),
+                    $this->quoteIdentifier($fkData['REF_COLUMN_NAME']),
+                    $onDelete,
+                    $onUpdate
+                );
+            }
+        }
+
+        return $definition;
+    }
+
+    /**
+     * Retrieve table options definition array for create table
+     *
+     * @param Varien_Db_Ddl_Table $table
+     * @return array
+     */
+    protected function _getOptionsDefination(Varien_Db_Ddl_Table $table)
+    {
+        $definition = array();
+        $tableProps = array(
+            'type'              => 'ENGINE=%s',
+            'checksum'          => 'CHECKSUM=%d',
+            'auto_increment'    => 'AUTO_INCREMENT=%d',
+            'avg_row_length'    => 'AVG_ROW_LENGTH=%d',
+            'comment'           => 'COMMENT=\'%s\'',
+            'max_rows'          => 'MAX_ROWS=%d',
+            'min_rows'          => 'MIN_ROWS=%d',
+            'delay_key_write'   => 'DELAY_KEY_WRITE=%d',
+            'row_format'        => 'row_format=%s',
+            'charset'           => 'charset=%s',
+            'collate'           => 'COLLATE=%s'
+        );
+        foreach ($tableProps as $key => $mask) {
+            $v = $table->getOption($key);
+            if (!is_null($v)) {
+                $definition[] = sprintf($mask, $v);
+            }
+        }
+
+        return $definition;
+    }
 }

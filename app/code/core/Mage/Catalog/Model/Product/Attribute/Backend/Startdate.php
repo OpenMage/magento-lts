@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,19 +37,18 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
 {
     public function beforeSave($object)
     {
-        $attributeName = $this->getAttribute()->getName();
-
-        $startDate = $object->getData($attributeName);
-
-        if ($startDate=='' && $object->getSpecialPrice()) {
+        $attributeName  = $this->getAttribute()->getName();
+        $startDate      = $object->getData($attributeName);
+        if ($startDate === false) {
+            return $this;
+        }
+        if ($startDate == '' && $object->getSpecialPrice()) {
             $startDate = Mage::app()->getLocale()->date();
-//            $startDate = Mage::getModel('core/date')->gmtDate('');
         }
 
         $object->setData($attributeName, $startDate);
 
         parent::beforeSave($object);
-
         return $this;
     }
 

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rule
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +45,7 @@ class Mage_Rule_Block_Editable extends Mage_Core_Block_Abstract
 
             $html.= '<a href="javascript:void(0)" class="label">';
 
-            $html.= htmlspecialchars($valueName);
+            $html.= htmlspecialchars(Mage::helper('core/string')->truncate($valueName, 33, '...'));
 
             $html.= '</a><span class="element"> ';
 

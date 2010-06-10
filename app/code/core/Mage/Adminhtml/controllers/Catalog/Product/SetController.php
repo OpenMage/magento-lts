@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -117,7 +117,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
                     $model->load($attributeSetId);
                 }
                 if (!$model->getId()) {
-                    Mage::throwException(Mage::helper('catalog')->__('Attribute Set no longer exists.'));
+                    Mage::throwException(Mage::helper('catalog')->__('This attribute set no longer exists.'));
                 }
                 $data = Mage::helper('core')->jsonDecode($this->getRequest()->getPost('data'));
                 $model->organizeData($data);
@@ -129,12 +129,12 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
                 $model->initFromSkeleton($this->getRequest()->getParam('skeleton_set'));
             }
             $model->save();
-            $this->_getSession()->addSuccess(Mage::helper('catalog')->__('Attribute Set successfully saved.'));
+            $this->_getSession()->addSuccess(Mage::helper('catalog')->__('The attribute set has been saved.'));
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
             $hasError = true;
         } catch (Exception $e) {
-            $this->_getSession()->addException($e, Mage::helper('catalog')->__('Error while saving Attribute Set.'));
+            $this->_getSession()->addException($e, Mage::helper('catalog')->__('An error occurred while saving the attribute set.'));
             $hasError = true;
         }
 
@@ -183,10 +183,10 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
                 ->setId($setId)
                 ->delete();
 
-            $this->_getSession()->addSuccess($this->__('Attribute set was successfully removed.'));
+            $this->_getSession()->addSuccess($this->__('The attribute set has been removed.'));
             $this->getResponse()->setRedirect($this->getUrl('*/*/'));
         } catch (Exception $e) {
-            $this->_getSession()->addError($this->__('Error while deleting this set.'));
+            $this->_getSession()->addError($this->__('An error occurred while deleting this set.'));
             $this->_redirectReferer();
         }
     }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Install
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -101,7 +101,7 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
 
             if ($setError) {
                 $this->_getInstaller()->getDataModel()->addError(
-                    Mage::helper('install')->__('Path "%s" must be writable', $fullPath)
+                    Mage::helper('install')->__('Path "%s" must be writable.', $fullPath)
                 );
                 $res = false;
             }

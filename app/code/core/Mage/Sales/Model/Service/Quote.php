@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,11 +44,25 @@ class Mage_Sales_Model_Service_Quote
     protected $_convertor;
 
     /**
-     * List of additional order attributes which will beadded to order befire save
+     * List of additional order attributes which will be added to order before save
      *
      * @var array
      */
     protected $_orderData = array();
+
+    /**
+     * List of recurring payment profiles that may have been generated before placing the order
+     *
+     * @var array
+     */
+    protected $_recurringPaymentProfiles = array();
+
+    /**
+     * Order that may be created during submission
+     *
+     * @var Mage_Sales_Model_Order
+     */
+    protected $_order = null;
 
     /**
      * Class constructor
@@ -96,12 +110,23 @@ class Mage_Sales_Model_Service_Quote
     }
 
     /**
+     * @deprecated after 1.4.0.1
+     * @see submitOrder()
+     * @see submitAll()
+     */
+    public function submit()
+    {
+        return $this->submitOrder();
+    }
+
+    /**
      * Submit the quote. Quote submit process will create the order based on quote data
      *
      * @return Mage_Sales_Model_Order
      */
-    public function submit()
+    public function submitOrder()
     {
+        $this->_deleteNominalItems();
         $this->_validate();
         $quote = $this->_quote;
         $isVirtual = $quote->isVirtual();
@@ -146,9 +171,62 @@ class Mage_Sales_Model_Service_Quote
          */
         Mage::dispatchEvent('checkout_type_onepage_save_order', array('order'=>$order, 'quote'=>$quote));
         Mage::dispatchEvent('sales_model_service_quote_submit_before', array('order'=>$order, 'quote'=>$quote));
-        $transaction->save();
+        try {
+            $transaction->save();
+            Mage::dispatchEvent('sales_model_service_quote_submit_success', array('order'=>$order, 'quote'=>$quote));
+        } catch (Exception $e) {
+            Mage::dispatchEvent('sales_model_service_quote_submit_failure', array('order'=>$order, 'quote'=>$quote));
+            throw $e;
+        }
         Mage::dispatchEvent('sales_model_service_quote_submit_after', array('order'=>$order, 'quote'=>$quote));
+        $this->_order = $order;
         return $order;
+    }
+
+    /**
+     * Submit nominal items
+     *
+     * @return array
+     */
+    public function submitNominalItems()
+    {
+        $this->_validate();
+        $this->_submitRecurringPaymentProfiles();
+        $this->_deleteNominalItems();
+    }
+
+    /**
+     * Submit all available items
+     * All created items will be set to the object
+     */
+    public function submitAll()
+    {
+        $this->submitNominalItems();
+        // no need to submit the order if there are no normal items remained
+        if (!$this->_quote->getAllVisibleItems()) {
+            return;
+        }
+        $this->submitOrder();
+    }
+
+    /**
+     * Return recurring payment profiles
+     *
+     * @return array
+     */
+    public function getRecurringPaymentProfiles()
+    {
+        return $this->_recurringPaymentProfiles;
+    }
+
+    /**
+     * Get an order that may had been created during submission
+     *
+     * @return Mage_Sales_Model_Order
+     */
+    public function getOrder()
+    {
+        return $this->_order;
     }
 
     /**
@@ -170,7 +248,7 @@ class Mage_Sales_Model_Service_Quote
             $method= $address->getShippingMethod();
             $rate  = $address->getShippingRateByCode($method);
             if (!$this->getQuote()->isVirtual() && (!$method || !$rate)) {
-                Mage::throwException($helper->__('Please specify shipping method.'));
+                Mage::throwException($helper->__('Please specify a shipping method.'));
             }
         }
 
@@ -182,8 +260,36 @@ class Mage_Sales_Model_Service_Quote
         }
 
         if (!($this->getQuote()->getPayment()->getMethod())) {
-            Mage::throwException($helper->__('Please select valid payment method.'));
+            Mage::throwException($helper->__('Please select a valid payment method.'));
         }
+
         return $this;
+    }
+
+    /**
+     * Submit recurring payment profiles
+     */
+    protected function _submitRecurringPaymentProfiles()
+    {
+        $profiles = $this->_quote->prepareRecurringPaymentProfiles();
+        foreach ($profiles as $profile) {
+            if (!$profile->isValid()) {
+                Mage::throwException($profile->getValidationErrors(true, true));
+            }
+            $profile->submit();
+        }
+        $this->_recurringPaymentProfiles = $profiles;
+    }
+
+    /**
+     * Get rid of all nominal items
+     */
+    protected function _deleteNominalItems()
+    {
+        foreach ($this->_quote->getAllVisibleItems() as $item) {
+            if ($item->isNominal()) {
+                $item->isDeleted(true);
+            }
+        }
     }
 }

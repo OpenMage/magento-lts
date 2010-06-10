@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -42,7 +42,9 @@ Default layout, loads most of the pages
             </block>
         </reference>
         <reference name="right">
-            <block type="checkout/cart_sidebar" name="cart_sidebar" before="-" template="checkout/cart/sidebar.phtml"/>
+            <block type="checkout/cart_sidebar" name="cart_sidebar" before="-" template="checkout/cart/sidebar.phtml">
+                <block type="core/text_list" name="cart_sidebar.extra_actions" as="extra_actions"/>
+            </block>
         </reference>
         <reference name="head">
             <block type="core/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />

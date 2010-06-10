@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -69,7 +69,7 @@
                     </VI>
                     <MC>
                         <code>MC</code>
-                        <name>Master Card</name>
+                        <name>MasterCard</name>
                         <order>20</order>
                     </MC>
                     <DI>
@@ -82,6 +82,16 @@
                         <name>Maestro/Solo</name>
                         <order>40</order>
                     </SS>
+                    <JCB>
+                        <code>JCB</code>
+                        <name>JCB</name>
+                        <order>50</order>
+                    </JCB>
+                    <MCI>
+                        <code>MCI</code>
+                        <name>Maestro (International)</name>
+                        <order>53</order>
+                    </MCI>
                     <OT>
                         <code>OT</code>
                         <name>Other</name>
@@ -89,6 +99,10 @@
                     </OT>
                 </types>
             </cc>
+
+            <groups>
+                <offline>Offline Payment Methods</offline>
+            </groups>
         </payment>
 
         <events>
@@ -101,7 +115,6 @@
                 </observers>
             </sales_order_save_before>
         </events>
-
     </global>
 
     <frontend>
@@ -114,6 +127,23 @@
                 </Mage_Payment>
             </modules>
         </translate>
+        <events>
+            <catalog_product_type_prepare_cart_options>
+                <observers>
+                    <payment_recurring_profile_prepare_options>
+                        <class>payment/observer</class>
+                        <method>prepareProductRecurringProfileOptions</method>
+                    </payment_recurring_profile_prepare_options>
+                </observers>
+            </catalog_product_type_prepare_cart_options>
+        </events>
+        <layout>
+            <updates>
+                <payment module="Mage_Payment">
+                    <file>payment.xml</file>
+                </payment>
+            </updates>
+        </layout>
     </frontend>
     <adminhtml>
         <translate>
@@ -136,6 +166,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (saved)</title>
                 <allowspecific>0</allowspecific>
+                <group>offline</group>
             </ccsave>
 
             <checkmo>
@@ -144,6 +175,7 @@
                 <order_status>pending</order_status>
                 <title>Check / Money order</title>
                 <allowspecific>0</allowspecific>
+                <group>offline</group>
             </checkmo>
 
             <free>
@@ -157,6 +189,7 @@
                 <max_order_total>0</max_order_total>
 -->
                 <sort_order>1</sort_order>
+                <group>offline</group>
             </free>
 
             <purchaseorder>
@@ -165,6 +198,7 @@
                 <order_status>pending</order_status>
                 <title>Purchase Order</title>
                 <allowspecific>0</allowspecific>
+                <group>offline</group>
             </purchaseorder>
 
          </payment>

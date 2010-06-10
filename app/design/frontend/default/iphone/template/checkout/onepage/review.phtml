@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -28,19 +28,21 @@
     <?php echo $this->getChildHtml('info') ?>
 </div>
 
-<?php echo $this->getChildHtml('agreements') ?>
-<div class="content button-set">
-    <p class="left"><?php echo $this->__('Forgot an Item?') ?> <a href="<?php echo $this->getUrl('checkout/cart', array('_secure'=>false)) ?>"><?php echo $this->__('Edit Your Cart') ?></a></p><br />
-    <p class="a-center" style="text-align:center;">
-        <span id="review-please-wait" style="display:none;padding:5px 0;" class="opc-please-wait">
-            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" class="v-middle" alt="" /> &nbsp; <?php echo $this->__('Submitting order information...') ?> &nbsp;
-        </span>
-        <span id="review-buttons-container" class="a-center">
-            <input type="image" src="<?php echo $this->getSkinUrl('images/btn_place_order.gif') ?>" onclick="review.save();" value="<?php echo $this->__('Place Order') ?>" />
-        </span>
-    </p>
-</div>
+<div id="checkout-review-submit">
+    <?php echo $this->getChildHtml('agreements') ?>
+    <div class="content button-set">
+        <p class="left"><?php echo $this->__('Forgot an Item?') ?> <a href="<?php echo $this->getUrl('checkout/cart', array('_secure'=>false)) ?>"><?php echo $this->__('Edit Your Cart') ?></a></p><br />
+        <p class="a-center" style="text-align:center;">
+            <span id="review-please-wait" style="display:none;padding:5px 0;" class="opc-please-wait">
+                <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" class="v-middle" alt="" /> &nbsp; <?php echo $this->__('Submitting order information...') ?> &nbsp;
+            </span>
+            <span id="review-buttons-container" class="a-center">
+                <input type="image" src="<?php echo $this->getSkinUrl('images/btn_place_order.gif') ?>" onclick="review.save();" value="<?php echo $this->__('Place Order') ?>" />
+            </span>
+        </p>
+    </div>
 
-<script type="text/javascript">
-    var review = new Review('<?php echo $this->getUrl('checkout/onepage/saveOrder') ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));
-</script>
+    <script type="text/javascript">
+        var review = new Review('<?php echo $this->getUrl('checkout/onepage/saveOrder') ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));
+    </script>
+</div>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,6 +34,18 @@
 
 class Mage_Reports_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_Entity_Customer_Collection
 {
+    /**
+     * Add order statistics flag
+     *
+     * @var boolean
+     */
+    protected $_addOrderStatistics = false;
+    /**
+     * Add order statistics is filter flag
+     *
+     * @var boolean
+     */
+    protected $_addOrderStatisticsIsFilter = false;
 
     protected $_customerIdTableName;
     protected $_customerIdFieldName;
@@ -76,23 +88,15 @@ class Mage_Reports_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_
      */
     public function joinOrders($from = '', $to = '')
     {
-        $order = Mage::getResourceSingleton('sales/order');
-        /* @var $order Mage_Sales_Model_Entity_Order */
-        $attr = $order->getAttribute('customer_id');
-        /* @var $attr Mage_Eav_Model_Entity_Attribute_Abstract */
-        $attrId = $attr->getAttributeId();
-        $this->_customerIdTableName = $attr->getBackend()->getTable();
-        $this->_customerIdFieldName = $attr->getBackend()->isStatic() ? 'customer_id' : 'value';
-
         if ($from != '' && $to != '') {
-            $dateFilter = " and {$this->_customerIdTableName}.created_at BETWEEN '{$from}' AND '{$to}'";
+            $dateFilter = " and orders.created_at BETWEEN '{$from}' AND '{$to}'";
         } else {
             $dateFilter = '';
         }
 
         $this->getSelect()
-            ->joinLeft($this->_customerIdTableName,
-                "{$this->_customerIdTableName}.{$this->_customerIdFieldName}=e.entity_id".$dateFilter,
+            ->joinLeft(array('orders'=>$this->getTable('sales/order')),
+                "orders.customer_id=e.entity_id".$dateFilter,
             array());
 
         return $this;
@@ -105,15 +109,10 @@ class Mage_Reports_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_
      */
     public function addOrdersCount()
     {
-        $joinCondition = "{$this->_customerIdTableName}.entity_id=order_state.entity_id";
-        $joinCondition .= " AND order_state.state <> '" . Mage_Sales_Model_Order::STATE_CANCELED . "'";
 
         $this->getSelect()
-            ->columns(array("orders_count" => "COUNT(order_state.entity_id)"))
-            ->joinLeft(
-                array('order_state' => $this->getTable('sales/order')),
-                $joinCondition,
-                array())
+            ->columns(array("orders_count" => "COUNT(orders.entity_id)"))
+            ->where('orders.state <> ?', Mage_Sales_Model_Order::STATE_CANCELED)
             ->group("e.entity_id");
 
         return $this;
@@ -132,8 +131,8 @@ class Mage_Reports_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_
          * calculate average and total amount
          */
         $expr = ($storeId == 0)
-            ? "({$this->_customerIdTableName}.base_subtotal-IFNULL({$this->_customerIdTableName}.base_subtotal_canceled,0)-IFNULL({$this->_customerIdTableName}.base_subtotal_refunded,0))*{$this->_customerIdTableName}.base_to_global_rate"
-            : "{$this->_customerIdTableName}.base_subtotal-IFNULL({$this->_customerIdTableName}.base_subtotal_canceled,0)-IFNULL({$this->_customerIdTableName}.base_subtotal_refunded,0)";
+            ? "(orders.base_subtotal-IFNULL(orders.base_subtotal_canceled,0)-IFNULL(orders.base_subtotal_refunded,0))*orders.base_to_global_rate"
+            : "{orders.base_subtotal-IFNULL(orders.base_subtotal_canceled,0)-IFNULL(orders.base_subtotal_refunded,0)";
 
         $this->getSelect()
             ->columns(array("orders_avg_amount" => "AVG({$expr})"))
@@ -146,6 +145,60 @@ class Mage_Reports_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_
     {
         $this->getSelect()
             ->order("orders_sum_amount {$dir}");
+        return $this;
+    }
+
+    /**
+     * Add order statistics
+     *
+     * @return Mage_Reports_Model_Mysql4_Customer_Collection
+     */
+    public function addOrdersStatistics($isFilter = false)
+    {
+        $this->_addOrderStatistics = true;
+        $this->_addOrderStatisticsIsFilter = $isFilter;
+        return $this;
+    }
+
+    /**
+     * Add orders statistics to collection items
+     *
+     * @return Mage_Reports_Model_Mysql4_Customer_Collection
+     */
+    protected function _addOrdersStatistics()
+    {
+        $customerIds = $this->getColumnValues($this->getResource()->getIdFieldName());
+
+        if ($this->_addOrderStatistics && !empty($customerIds)) {
+            $totalExpr = ($this->_addOrderStatisticsIsFilter)
+                ? '(orders.base_subtotal-IFNULL(orders.base_subtotal_canceled,0)-IFNULL(orders.base_subtotal_refunded,0))*orders.base_to_global_rate'
+                : 'orders.base_subtotal-IFNULL(orders.base_subtotal_canceled,0)-IFNULL(orders.base_subtotal_refunded,0)';
+            $select = $this->getConnection()->select();
+            $select->from(array('orders'=>$this->getTable('sales/order')), array(
+                'orders_avg_amount' => "AVG({$totalExpr})",
+                'orders_sum_amount' => "SUM({$totalExpr})",
+                'orders_count' => 'COUNT(orders.entity_id)',
+                'customer_id'
+            ))->where('orders.state <> ?', Mage_Sales_Model_Order::STATE_CANCELED)
+              ->where('orders.customer_id IN(?)', $customerIds)
+              ->group('orders.customer_id');
+
+            foreach ($this->getConnection()->fetchAll($select) as $ordersInfo) {
+                $this->getItemById($ordersInfo['customer_id'])->addData($ordersInfo);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Collection after load operations like adding orders statistics
+     *
+     * @return Mage_Reports_Model_Mysql4_Customer_Collection
+     */
+    protected function _afterLoad()
+    {
+        $this->_addOrdersStatistics();
         return $this;
     }
 
@@ -165,7 +218,7 @@ class Mage_Reports_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->reset(Zend_Db_Select::HAVING);
         $countSelect->columns("count(DISTINCT e.entity_id)");
-        $sql = $countSelect->__toString();
-        return $sql;
+
+        return $countSelect;
     }
 }

@@ -21,12 +21,56 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 
 <layout>
+    <adminhtml_sales_order_grid>
+        <block type="adminhtml/sales_order_grid" name="sales_order.grid" output="toHtml"></block>
+    </adminhtml_sales_order_grid>
+
+    <adminhtml_sales_order_index>
+        <reference name="content">
+            <block type="adminhtml/sales_order" name="sales_order.grid.container"></block>
+        </reference>
+    </adminhtml_sales_order_index>
+
+    <adminhtml_sales_order_transactions>
+        <block type="adminhtml/sales_transactions_grid" name="sales_transactions.grid" output="toHtml"></block>
+    </adminhtml_sales_order_transactions>
+
+    <adminhtml_sales_billing_agreement_index>
+        <reference name="content">
+            <block type="sales/adminhtml_billing_agreement" name="sales.billing.agreement.grid.container"></block>
+        </reference>
+    </adminhtml_sales_billing_agreement_index>
+
+    <adminhtml_sales_billing_agreement_grid>
+        <block type="sales/adminhtml_billing_agreement_grid" name="sales.billing.agreement.grid" output="toHtml"></block>
+    </adminhtml_sales_billing_agreement_grid>
+
+    <adminhtml_sales_billing_agreement_view>
+        <reference name="content">
+            <block type="sales/adminhtml_billing_agreement_view" name="sales.billing.agreement.view"></block>
+        </reference>
+        <reference name="left">
+            <block type="sales/adminhtml_billing_agreement_view_tabs" name="sales.billing.agreement.tabs">
+                <action method="addTab"><name>billing_agreement_info</name><block>sales/adminhtml_billing_agreement_view_tab_info</block></action>
+                <action method="addTab"><name>billing_agreement_orders</name><block>sales/adminhtml_billing_agreement_view_tab_orders</block></action>
+            </block>
+        </reference>
+    </adminhtml_sales_billing_agreement_view>
+
+    <adminhtml_sales_billing_agreement_ordersgrid>
+        <block type="sales/adminhtml_billing_agreement_view_tab_orders" name="related.orders.grid" output="toHtml"></block>
+    </adminhtml_sales_billing_agreement_ordersgrid>
+
+    <adminhtml_sales_billing_agreement_customergrid>
+        <block type="sales/adminhtml_customer_edit_tab_agreement" name="customer.billing.agreement.grid" output="toHtml"></block>
+    </adminhtml_sales_billing_agreement_customergrid>
+
     <adminhtml_sales_order_view>
         <reference name="content">
             <block type="adminhtml/sales_order_view" name="sales_order_edit"></block>
@@ -78,6 +122,7 @@
                 <action method="addTab"><name>order_creditmemos</name><block>adminhtml/sales_order_view_tab_creditmemos</block></action>
                 <action method="addTab"><name>order_shipments</name><block>adminhtml/sales_order_view_tab_shipments</block></action>
                 <action method="addTab"><name>order_history</name><block>adminhtml/sales_order_view_tab_history</block></action>
+                <action method="addTab"><name>order_transactions</name><block>adminhtml/sales_order_view_tab_transactions</block></action>
             </block>
         </reference>
     </adminhtml_sales_order_view>
@@ -419,6 +464,23 @@
         </reference>
     </adminhtml_sales_order_creditmemo_view>
 
+    <adminhtml_sales_transactions_index>
+        <reference name="content">
+            <block type="adminhtml/sales_transactions" name="sales_transactions.grid.container"></block>
+        </reference>
+    </adminhtml_sales_transactions_index>
+    <adminhtml_sales_transactions_grid>
+        <block type="adminhtml/sales_transactions_grid" name="sales_transactions.grid" output="toHtml"></block>
+    </adminhtml_sales_transactions_grid>
+    <adminhtml_sales_transactions_view>
+        <reference name="content">
+            <block type="adminhtml/sales_transactions_detail" name="sales_transactions.detail" template="sales/transactions/detail.phtml">
+                <block type="adminhtml/sales_transactions_detail_grid" name="sales_transactions.detail.grid" as="detail_grid"/>
+                <block type="adminhtml/sales_transactions_child_grid" name="sales_transactions.child.grid" as="child_grid"/>
+            </block>
+        </reference>
+    </adminhtml_sales_transactions_view>
+
     <adminhtml_sales_order_create_index>
         <reference name="left">
             <action method="setIsCollapsed"><value>true</value></action>
@@ -700,20 +762,34 @@
         </reference>
     </adminhtml_sales_order_create_load_block_sidebar_pcompared>
 
+    <report_sales>
+        <reference name="messages">
+            <action method="addNotice" translate="message">
+                <message>This report depends on timezone configuration. Once timezone is changed, the lifetime statistics need to be refreshed.</message>
+            </action>
+        </reference>
+    </report_sales>
+
     <adminhtml_report_sales_sales>
+        <update handle="report_sales"/>
         <reference name="content">
             <block type="adminhtml/report_sales_sales" template="report/grid/container.phtml" name="sales.report.grid.container">
                 <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
                     <action method="setStoreVarName"><var_name>store_ids</var_name></action>
                 </block>
-                <block type="adminhtml/report_filter_form" name="grid.filter.form">
+                <block type="sales/adminhtml_report_filter_form_order" name="grid.filter.form">
                     <action method="addReportTypeOption" translate="value">
                         <key>created_at_order</key>
-                        <value>Created At Order</value>
+                        <value>Order Created Date</value>
                     </action>
                     <action method="addReportTypeOption" translate="value">
                         <key>updated_at_order</key>
-                        <value>Updated At Order</value>
+                        <value>Order Updated Date</value>
+                    </action>
+                    <action method="setFieldOption" translate="value">
+                        <field>report_type</field>
+                        <option>note</option>
+                        <value>Order Updated Date report is real-time, does not need statistics refreshing.</value>
                     </action>
                 </block>
             </block>
@@ -721,108 +797,222 @@
     </adminhtml_report_sales_sales>
 
     <adminhtml_report_sales_tax>
+        <update handle="report_sales"/>
         <reference name="content">
             <block type="adminhtml/report_sales_tax" template="report/grid/container.phtml" name="sales.report.grid.container">
                 <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
                     <action method="setStoreVarName"><var_name>store_ids</var_name></action>
                 </block>
-                <block type="adminhtml/report_filter_form" name="grid.filter.form">
+                <block type="sales/adminhtml_report_filter_form" name="grid.filter.form">
                     <action method="addReportTypeOption" translate="value">
                         <key>created_at_order</key>
-                        <value>Created At Order</value>
+                        <value>Order Created Date</value>
                     </action>
                     <action method="addReportTypeOption" translate="value">
                         <key>updated_at_order</key>
-                        <value>Updated At Order</value>
+                        <value>Order Updated Date</value>
+                    </action>
+                    <action method="setFieldOption" translate="value">
+                        <field>report_type</field>
+                        <option>note</option>
+                        <value>Order Updated Date report is real-time, does not need statistics refreshing.</value>
                     </action>
                 </block>
             </block>
         </reference>
     </adminhtml_report_sales_tax>
-    
+
     <adminhtml_report_sales_shipping>
+        <update handle="report_sales"/>
         <reference name="content">
             <block type="adminhtml/report_sales_shipping" template="report/grid/container.phtml" name="sales.report.grid.container">
                 <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
                     <action method="setStoreVarName"><var_name>store_ids</var_name></action>
                 </block>
-                <block type="adminhtml/report_filter_form" name="grid.filter.form">
+                <block type="sales/adminhtml_report_filter_form" name="grid.filter.form">
                     <action method="addReportTypeOption" translate="value">
                         <key>created_at_order</key>
-                        <value>Created At Order</value>
+                        <value>Order Created Date</value>
                     </action>
                     <action method="addReportTypeOption" translate="value">
                         <key>created_at_shipment</key>
-                        <value>Created At Shipment</value>
+                        <value>First Invoice Created Date</value>
                     </action>
                 </block>
             </block>
         </reference>
     </adminhtml_report_sales_shipping>
-    
+
     <adminhtml_report_sales_invoiced>
+        <update handle="report_sales"/>
         <reference name="content">
             <block type="adminhtml/report_sales_invoiced" template="report/grid/container.phtml" name="sales.report.grid.container">
                 <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
                     <action method="setStoreVarName"><var_name>store_ids</var_name></action>
                 </block>
-                <block type="adminhtml/report_filter_form" name="grid.filter.form">
+                <block type="sales/adminhtml_report_filter_form" name="grid.filter.form">
                     <action method="addReportTypeOption" translate="value">
                         <key>created_at_order</key>
-                        <value>Created At Order</value>
+                        <value>Order Created Date</value>
                     </action>
                     <action method="addReportTypeOption" translate="value">
                         <key>created_at_invoice</key>
-                        <value>Created At Invoice</value>
+                        <value>Last Invoice Created Date</value>
                     </action>
                 </block>
             </block>
         </reference>
     </adminhtml_report_sales_invoiced>
-    
+
     <adminhtml_report_sales_refunded>
+        <update handle="report_sales"/>
         <reference name="content">
             <block type="adminhtml/report_sales_refunded" template="report/grid/container.phtml" name="sales.report.grid.container">
                 <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
                     <action method="setStoreVarName"><var_name>store_ids</var_name></action>
                 </block>
-                <block type="adminhtml/report_filter_form" name="grid.filter.form">
+                <block type="sales/adminhtml_report_filter_form" name="grid.filter.form">
                     <action method="addReportTypeOption" translate="value">
                         <key>created_at_order</key>
-                        <value>Created At Order</value>
+                        <value>Order Created Date</value>
                     </action>
                     <action method="addReportTypeOption" translate="value">
                         <key>created_at_refunded</key>
-                        <value>Created At Refunded</value>
+                        <value>Last Credit Memo Created Date</value>
                     </action>
                 </block>
             </block>
         </reference>
     </adminhtml_report_sales_refunded>
-    
+
     <adminhtml_report_sales_coupons>
+        <update handle="report_sales"/>
         <reference name="content">
             <block type="adminhtml/report_sales_coupons" template="report/grid/container.phtml" name="sales.report.grid.container">
                 <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
                     <action method="setStoreVarName"><var_name>store_ids</var_name></action>
                 </block>
-                <block type="adminhtml/report_filter_form" name="grid.filter.form">
+                <block type="sales/adminhtml_report_filter_form" name="grid.filter.form">
                     <action method="addReportTypeOption" translate="value">
                         <key>created_at_order</key>
-                        <value>Created At Order</value>
+                        <value>Order Created Date</value>
                     </action>
                     <action method="addReportTypeOption" translate="value">
                         <key>updated_at_order</key>
-                        <value>Updated At Order</value>
+                        <value>Order Updated Date</value>
+                    </action>
+                    <action method="setFieldOption" translate="value">
+                        <field>report_type</field>
+                        <option>note</option>
+                        <value>Order Updated Date report is real-time, does not need statistics refreshing.</value>
                     </action>
                 </block>
             </block>
         </reference>
     </adminhtml_report_sales_coupons>
 
-    <adminhtml_report_sales_refreshstatistics>
+    <adminhtml_report_sales_bestsellers>
+        <update handle="report_sales"/>
         <reference name="content">
-            <block type="adminhtml/report_refresh_statistics" template="report/refresh/statistics.phtml" name="sales.report.refreshstatistics" />
+            <block type="adminhtml/report_sales_bestsellers" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName"><var_name>store_ids</var_name></action>
+                </block>
+                <block type="sales/adminhtml_report_filter_form" name="grid.filter.form">
+                    <action method="setFieldVisibility">
+                        <field>report_type</field>
+                        <visibility>0</visibility>
+                    </action>
+                    <action method="setFieldVisibility">
+                        <field>show_order_statuses</field>
+                        <visibility>0</visibility>
+                    </action>
+                    <action method="setFieldVisibility">
+                        <field>order_statuses</field>
+                        <visibility>0</visibility>
+                    </action>
+                </block>
+            </block>
         </reference>
-    </adminhtml_report_sales_refreshstatistics>
+    </adminhtml_report_sales_bestsellers>
+
+    <adminhtml_sales_recurring_profile_index>
+        <reference name="content">
+            <block type="sales/adminhtml_recurring_profile" name="sales.recurring.profile.grid.container"/>
+        </reference>
+    </adminhtml_sales_recurring_profile_index>
+
+    <adminhtml_sales_recurring_profile_grid>
+        <remove name="root"/>
+        <block type="sales/adminhtml_recurring_profile_grid" name="sales.recurring.profile.grid" output="toHtml"/>
+    </adminhtml_sales_recurring_profile_grid>
+
+    <adminhtml_sales_recurring_profile_view>
+        <reference name="content">
+            <block type="sales/adminhtml_recurring_profile_view" name="sales.recurring.profile.view" template="widget/view/container.phtml">
+                <action method="setDestElementId"><value>sales_recurring_profile_view</value></action>
+            </block>
+        </reference>
+        <reference name="left">
+            <block type="adminhtml/widget_tabs" name="sales.recurring.profile.view.tabs">
+                <action method="setDestElementId"><value>sales_recurring_profile_view</value></action>
+                <action method="setTitle" translate="value"><value>Recurring Profile View</value></action>
+                <action method="setId"><value>sales_recurring_profile_view_tabs</value></action>
+                <block type="sales/adminhtml_recurring_profile_view_tab_info" as="info_tab" name="sales.recurring.profile.tab.info" template="sales/recurring/profile/view.phtml">
+                    <block type="sales/recurring_profile_view" name="sales.recurring.profile.view.general" as="general" template="sales/recurring/profile/view/info.phtml">
+                        <action method="prepareReferenceInfo"/>
+                        <action method="addToParentGroup"><value>info_blocks_row_1</value></action>
+                        <action method="setViewColumn"><value>1</value></action>
+                        <action method="setViewLabel" translate="value"><value>Reference</value></action>
+                    </block>
+                    <block type="sales/recurring_profile_view" name="sales.recurring.profile.view.item" as="item" template="sales/recurring/profile/view/info.phtml">
+                        <action method="prepareItemInfo"/>
+                        <action method="addToParentGroup"><value>info_blocks_row_1</value></action>
+                        <action method="setViewColumn"><value>2</value></action>
+                        <action method="setViewLabel" translate="value"><value>Purchased Item</value></action>
+                    </block>
+                    <block type="sales/recurring_profile_view" name="sales.recurring.profile.view.schedule" as="profile" template="sales/recurring/profile/view/info.phtml">
+                        <action method="prepareScheduleInfo"/>
+                        <action method="addToParentGroup"><value>info_blocks_row_2</value></action>
+                        <action method="setViewColumn"><value>1</value></action>
+                        <action method="setViewLabel" translate="value"><value>Profile Schedule</value></action>
+                    </block>
+                    <block type="sales/recurring_profile_view" name="sales.recurring.profile.view.fees" as="fees" template="sales/recurring/profile/view/info.phtml">
+                        <action method="prepareFeesInfo"/>
+                        <action method="addToParentGroup"><value>info_blocks_row_2</value></action>
+                        <action method="setViewColumn"><value>2</value></action>
+                        <action method="setViewLabel" translate="value"><value>Profile Payments</value></action>
+                    </block>
+                    <block type="sales/recurring_profile_view" name="sales.recurring.profile.view.billing" as="billing_address" template="sales/recurring/profile/view/info.phtml">
+                        <action method="prepareAddressInfo"/>
+                        <action method="addToParentGroup"><value>info_blocks_row_3</value></action>
+                        <action method="setViewColumn"><value>1</value></action>
+                        <action method="setViewLabel" translate="value"><value>Billing Address</value></action>
+                    </block>
+                    <block type="sales/recurring_profile_view" name="sales.recurring.profile.view.shipping" as="shipping_address" template="sales/recurring/profile/view/info.phtml">
+                        <action method="setAddressType"><value>shipping</value></action>
+                        <action method="prepareAddressInfo"/>
+                        <action method="addToParentGroup"><value>info_blocks_row_3</value></action>
+                        <action method="setViewColumn"><value>2</value></action>
+                        <action method="setViewLabel" translate="value"><value>Shipping Address</value></action>
+                    </block>
+                </block>
+                <block type="sales/adminhtml_recurring_profile_view_tab_orders" as="orders_tab" name="sales.recurring.profile.tab.orders"/>
+                <action method="addTab"><name>recurring_profile_info</name><block>info_tab</block></action>
+                <action method="addTab"><name>recurring_profile_orders</name><block>orders_tab</block></action>
+            </block>
+        </reference>
+    </adminhtml_sales_recurring_profile_view>
+
+    <adminhtml_sales_recurring_profile_orders>
+        <remove name="root"/>
+        <block type="sales/adminhtml_recurring_profile_view_tab_orders" name="sales.recurring.profile.tab.orders" output="toHtml"/>
+    </adminhtml_sales_recurring_profile_orders>
+
+    <adminhtml_customer_edit>
+        <reference name="customer_edit_tabs">
+            <action method="addTab"><name>customer_edit_tab_agreements</name><block>sales/adminhtml_customer_edit_tab_agreement</block></action>
+        </reference>
+    </adminhtml_customer_edit>
+
 </layout>

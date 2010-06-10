@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Centinel
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,43 @@
 class Mage_Centinel_Block_Authentication extends Mage_Core_Block_Template
 {
     /**
+     * Strage for identifiers of related blocks
+     *
+     * @var array
+     */
+    protected $_relatedBlocks = array();
+
+    /**
+     * Flag - authentication start mode
+     * @see self::setAuthenticationStartMode
+     *
+     * @var bool
+     */
+    protected $_authenticationStartMode = false;
+
+    /**
+     * Add identifier of related block
+     *
+     * @param string $blockId
+     * @return Mage_Centinel_Block_Authentication
+     */
+    public function addRelatedBlock($blockId)
+    {
+        $this->_relatedBlocks[] = $blockId;
+        return $this;
+    }
+
+    /**
+     * Return identifiers of related blocks
+     *
+     * @return array
+     */
+    public function getRelatedBlocks()
+    {
+        return $this->_relatedBlocks;
+    }
+
+    /**
      * Check whether authentication is required and prepare some template data
      *
      * @return string
@@ -37,14 +74,14 @@ class Mage_Centinel_Block_Authentication extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         $method = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance();
-        if (!$method->getIsCentinelValidationEnabled()) {
-            return '';
+        if ($method->getIsCentinelValidationEnabled()) {
+            $centinel = $method->getCentinelValidator();
+            if ($centinel && $centinel->shouldAuthenticate()) {
+                $this->setAuthenticationStart(true);
+                $this->setFrameUrl($centinel->getAuthenticationStartUrl());
+                return parent::_toHtml();
+            }
         }
-        $centinel = $method->getCentinelValidator();
-        if ($centinel && $centinel->shouldAuthenticate()) {
-            $this->setFrameUrl($centinel->getAuthenticationStartUrl());
-            return parent::_toHtml();
-        }
-        return '';
+        return parent::_toHtml();
     }
 }

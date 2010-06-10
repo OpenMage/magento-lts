@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,7 +30,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Config_Form_Fieldset
     extends Mage_Adminhtml_Block_Abstract
@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset
     }
 
     /**
-     * Enter description here...
+     * Return header html for fieldset
      *
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset
 
         $html = '<div  class="entry-edit-head collapseable" ><a id="'.$element->getHtmlId().'-head" href="#" onclick="Fieldset.toggleCollapse(\''.$element->getHtmlId().'\', \''.$this->getUrl('*/*/state').'\'); return false;">'.$element->getLegend().'</a></div>';
         $html.= '<input id="'.$element->getHtmlId().'-state" name="config_state['.$element->getId().']" type="hidden" value="'.(int)$this->_getCollapseState($element).'" />';
-        $html.= '<fieldset class="config collapseable" id="'.$element->getHtmlId().'">';
+        $html.= '<fieldset class="'.$this->_getFieldsetCss().'" id="'.$element->getHtmlId().'">';
         $html.= '<legend>'.$element->getLegend().'</legend>';
 
         if ($element->getComment()) {
@@ -85,19 +85,114 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset
     }
 
     /**
-     * Enter description here...
+     * Return full css class name for form fieldset
+     *
+     * @return string
+     */
+    protected function _getFieldsetCss()
+    {
+        $configCss = (string)$this->getGroup()->fieldset_css;
+        return 'config collapseable'.($configCss ? ' ' . $configCss : '');
+    }
+
+    /**
+     * Return footer html for fieldset
+     * Add extra tooltip comments to elements
      *
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getFooterHtml($element)
     {
-        $html = '</tbody></table></fieldset>' . Mage::helper('adminhtml/js')->getScript("Fieldset.applyCollapse('{$element->getHtmlId()}')");
+        $tooltipsExist = false;
+        $html = '</tbody></table>';
+        foreach ($element->getSortedElements() as $field) {
+            if ($field->getTooltip()) {
+                $tooltipsExist = true;
+                $html .= sprintf('<div id="row_%s_comment" class="system-tooltip-box" style="display:none;">%s</div>',
+                    $field->getId(), $field->getTooltip()
+                );
+            }
+        }
+        $html .= '</fieldset>' . $this->_getExtraJs($element, $tooltipsExist);
         return $html;
     }
 
+    /**
+     * Return js code for fieldset:
+     * - observe fieldset rows;
+     * - apply collapse;
+     *
+     * @param Varien_Data_Form_Element_Abstract $element
+     * @param bool $tooltipsExist Init tooltips observer or not
+     * @return string
+     */
+    protected function _getExtraJs($element, $tooltipsExist = false)
+    {
+        $id = $element->getHtmlId();
+        $js = "Fieldset.applyCollapse('{$id}');";
+        if ($tooltipsExist) {
+            $js.= "$$('#{$id} table')[0].addClassName('system-tooltip-wrap');
+                   $$('#{$id} table tbody tr').each(function(tr) {
+                       Event.observe(tr, 'mouseover', function (event) {
+                           var relatedTarget = $(event.relatedTarget || event.fromElement);
+                           if(relatedTarget && (relatedTarget == this || relatedTarget.descendantOf(this))) {
+                               return;
+                           }
+                           showTooltip(event);
+                       });
+                       Event.observe(tr, 'mouseout', function (event) {
+                           var relatedTarget = $(event.relatedTarget || event.toElement);
+                           if(relatedTarget && (relatedTarget == this || relatedTarget.childOf(this))) {
+                               return;
+                           }
+                           hideTooltip(event);
+                       });
+                   });
+                   $$('#{$id} table')[0].select('input','select').each(function(field) {
+                       Event.observe(field, 'focus', function (event) {
+                           showTooltip(event);
+                       });
+                       Event.observe(field, 'blur', function (event) {
+                           hideTooltip(event);
+                       });
+                   });
+                   function showTooltip(event) {
+                       var tableHeight = Event.findElement(event, 'table').getStyle('height');
+                       var tr = Event.findElement(event, 'tr');
+                       var id = tr.id + '_comment';
+                       $$('div.system-tooltip-box').invoke('hide');
+                       if ($(id)) {
+                           $(id).show().setStyle({height : tableHeight});
+                           if(document.viewport.getWidth() < 1200) {
+                               $(id).addClassName('system-tooltip-small').setStyle({height : 'auto'});
+                           } else {
+                               $(id).removeClassName('system-tooltip-small');
+                           }
+                       }
+                   };
+                   function hideTooltip(event) {
+                       var tr = Event.findElement(event, 'tr');
+                       var id = tr.id + '_comment';
+                       if ($(id)) {
+                           setTimeout(function() { $(id).hide(); }, 1);
+                       }
+                   };";
+        }
+        return Mage::helper('adminhtml/js')->getScript($js);
+    }
+
+    /**
+     * Collapsed or expanded fieldset when page loaded?
+     *
+     * @param Varien_Data_Form_Element_Abstract $element
+     * @return bool
+     */
     protected function _getCollapseState($element)
     {
+        if ($element->getExpanded() !== null) {
+            return 1;
+        }
         $extra = Mage::getSingleton('admin/session')->getUser()->getExtra();
         if (isset($extra['configState'][$element->getId()])) {
             return $extra['configState'][$element->getId()];

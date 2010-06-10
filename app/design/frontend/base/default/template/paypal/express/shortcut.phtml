@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -29,4 +29,28 @@
  * @see Mage_Paypal_Block_Express_Shortcut
  */
 ?>
-<li><a href="<?php echo $this->getCheckoutUrl()?>" title="<?php echo Mage::helper('paypal')->__('PayPal Checkout');?>"><img src="<?php echo $this->getImageUrl()?>" alt="<?php echo Mage::helper('paypal')->__('PayPal Checkout');?>" /></a></li>
+<?php $shortcutHtmlId = $this->getShortcutHtmlId() ?>
+<a id="<?php echo $shortcutHtmlId ?>" href="<?php echo $this->getCheckoutUrl()?>">
+    <img src="<?php echo $this->getImageUrl()?>" alt="<?php echo Mage::helper('paypal')->__('Checkout with PayPal');?>" />
+</a>
+<?php if ($this->getConfirmationUrl() || $this->getIsInCatalogProduct()): ?>
+<?php if ($this->getIsInCatalogProduct()): ?>
+    <input type="hidden" id="pp_checkout_url" name="return_url" value="" />
+<?php endif; ?>
+<script type="text/javascript">
+//<![CDATA[
+    Event.observe('<?php echo $shortcutHtmlId ?>', 'click', function(event) {
+        <?php if ($this->getConfirmationUrl()): ?>
+            if (confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->getConfirmationMessage())?>')) {
+                this.href = '<?php echo $this->getConfirmationUrl() ?>';
+            }
+        <?php endif; ?>
+        <?php if ($this->getIsInCatalogProduct()): ?>
+            $('pp_checkout_url').value = this.href;
+            productAddToCartForm.submit();
+            event.stop();
+        <?php endif; ?>
+    });
+//]]>
+</script>
+<?php endif; ?>

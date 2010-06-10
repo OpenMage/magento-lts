@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -48,7 +48,7 @@
 
 <?php if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME
     || $_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME): ?>
-    &nbsp;&nbsp;<?php echo $this->getTimeHtml() ?>
+    <span class="time-picker"><?php echo $this->getTimeHtml() ?></span>
 <?php endif; ?>
 
     <input type="hidden" name="validate_datetime_<?php echo $_optionId ?>" class="validate-datetime-<?php echo $_optionId ?>" value="" />

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -75,7 +75,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
      */
     public function getName()
     {
-        return Mage::helper('catalog')->__('Catalog Url Rewrites');
+        return Mage::helper('catalog')->__('Catalog URL Rewrites');
     }
 
     /**
@@ -85,7 +85,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
      */
     public function getDescription()
     {
-        return Mage::helper('catalog')->__('Index product and categories url rewrites');
+        return Mage::helper('catalog')->__('Index product and categories URL rewrites');
     }
 
     /**
@@ -215,18 +215,26 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
     protected function _processEvent(Mage_Index_Model_Event $event)
     {
         $data = $event->getNewData();
-
         if (!empty($data['catalog_url_reindex_all'])) {
             $this->reindexAll();
         }
+
+        $urlModel = Mage::getSingleton('catalog/url');
+        
+        // Force rewrites history saving
+        $dataObject = $event->getDataObject();
+        if ($dataObject instanceof Varien_Object && $dataObject->hasData('save_rewrites_history')) {
+            $urlModel->setShouldSaveRewritesHistory($dataObject->getData('save_rewrites_history'));
+        }
+        
         if(isset($data['rewrite_product_ids'])) {
             foreach ($data['rewrite_product_ids'] as $productId) {
-                 Mage::getSingleton('catalog/url')->refreshProductRewrite($productId);
+                 $urlModel->refreshProductRewrite($productId);
             }
         }
         if (isset($data['rewrite_category_ids'])) {
             foreach ($data['rewrite_category_ids'] as $categoryId) {
-                Mage::getSingleton('catalog/url')->refreshCategoryRewrite($categoryId);
+                $urlModel->refreshCategoryRewrite($categoryId);
             }
         }
     }

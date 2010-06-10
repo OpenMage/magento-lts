@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -219,6 +219,31 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item extends Mage_C
             }
         }
 
+        return $this;
+    }
+
+    /**
+     * Clear compare items by visitor and/or customer
+     *
+     * @param int $visitor_id
+     * @param int $customer_id
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item
+     */
+    public function clearItems($visitor_id = null, $customer_id = null)
+    {
+        $where = array();
+        if ($customer_id) {
+            $customer_id = (int)$customer_id;
+            $where[] = $this->_getWriteAdapter()->quoteInto('customer_id=?', $customer_id);
+        }
+        if ($visitor_id) {
+            $visitor_id = (int)$visitor_id;
+            $where[] = $this->_getWriteAdapter()->quoteInto('visitor_id=?', $visitor_id);
+        }
+        if (!$where) {
+            return $this;
+        }
+        $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
         return $this;
     }
 

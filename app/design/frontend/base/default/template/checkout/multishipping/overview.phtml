@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -66,7 +66,7 @@
                 <div class="col-1 col-narrow">
                     <div class="box">
                         <div class="box-title">
-                            <h4><?php echo $this->__('Shipping to') ?> <span class="separator">|</span> <a href="<?php echo $this->getEditShippingAddressUrl($_address) ?>"><?php echo $this->__('Change') ?></a></h4>
+                            <h4><?php echo $this->__('Shipping To') ?> <span class="separator">|</span> <a href="<?php echo $this->getEditShippingAddressUrl($_address) ?>"><?php echo $this->__('Change') ?></a></h4>
                         </div>
                         <div class="box-content">
                             <address>
@@ -140,7 +140,7 @@
         </div>
         <?php if ($this->getQuote()->hasVirtualItems()): ?>
         <div class="col2-set">
-            <h2 class="legend"><?php echo $this->__('Other items in your order') ?></h2>
+            <h2 class="legend"><?php echo $this->__('Other Items in Your Order') ?></h2>
             <div class="col-1 col-narrow"></div>
             <div class="col-2 col-wide">
                 <h3><?php echo $this->__('Items') ?> <span class="separator">|</span> <a href="<?php echo $this->getVirtualProductEditUrl() ?>"><?php echo $this->__('Edit Items') ?></a></h3>

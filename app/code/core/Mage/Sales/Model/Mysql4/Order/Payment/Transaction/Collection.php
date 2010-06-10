@@ -20,15 +20,43 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payment transactions collection
  */
-class Mage_Sales_Model_Mysql4_Order_Payment_Transaction_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Sales_Model_Mysql4_Order_Payment_Transaction_Collection extends Mage_Sales_Model_Mysql4_Order_Collection_Abstract
 {
+    /**
+     * Order ID filter
+     *
+     * @var int
+     */
+    protected $_orderId = null;
+
+    /**
+     * Columns of order info that should be selected
+     *
+     * @var array
+     */
+    protected $_addOrderInformation = array();
+
+    /**
+     * Columns of payment info that should be selected
+     *
+     * @var array
+     */
+    protected $_addPaymentInformation = array();
+
+    /**
+     * Order Store ids
+     *
+     * @var array
+     */
+    protected $_storeIds = array();
+
     /**
      * Payment ID filter
      * @var int
@@ -48,12 +76,55 @@ class Mage_Sales_Model_Mysql4_Order_Payment_Transaction_Collection extends Mage_
     protected $_txnTypes = null;
 
     /**
+     * Order field for setOrderFilter
+     *
+     * @var string
+     */
+    protected $_orderField = 'order_id';
+
+    /**
      * Initialize collection items factory class
      */
     protected function _construct()
     {
         $this->_init('sales/order_payment_transaction');
         return parent::_construct();
+    }
+
+    /**
+     * Join order information
+     *
+     * @param array $keys
+     * @return Mage_Sales_Model_Mysql4_Order_Payment_Transaction_Collection
+     */
+    public function addOrderInformation(array $keys)
+    {
+        $this->_addOrderInformation = array_merge($this->_addOrderInformation, $keys);
+        return $this;
+    }
+
+    /**
+     * Join payment information
+     *
+     * @param array $keys
+     * @return Mage_Sales_Model_Mysql4_Order_Payment_Transaction_Collection
+     */
+    public function addPaymentInformation(array $keys)
+    {
+        $this->_addPaymentInformation = array_merge($this->_addPaymentInformation, $keys);
+        return $this;
+    }
+
+    /**
+     * Order ID filter setter
+     *
+     * @param int $orderId
+     * @return Mage_Sales_Model_Mysql4_Order_Payment_Transaction_Collection
+     */
+    public function addOrderIdFilter($orderId)
+    {
+        $this->_orderId = (int)$orderId;
+        return $this;
     }
 
     /**
@@ -98,29 +169,61 @@ class Mage_Sales_Model_Mysql4_Order_Payment_Transaction_Collection extends Mage_
     }
 
     /**
-     * Prepare filters and load the collection
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * Add filter by store ids
+     *
+     * @param int|array $storeIds
      * @return Mage_Sales_Model_Mysql4_Order_Payment_Transaction_Collection
      */
-    public function load($printQuery = false, $logQuery = false)
+    public function addStoreFilter($storeIds)
     {
+        $storeIds = (is_array($storeIds)) ? $storeIds : array($storeIds);
+        $this->_storeIds = array_merge($this->_storeIds, $storeIds);
+        return $this;
+    }
+
+    /**
+     * Prepare filters
+     */
+    protected function _beforeLoad()
+    {
+        parent::_beforeLoad();
+
         if ($this->isLoaded()) {
             return $this;
         }
 
         // filters
         if ($this->_paymentId) {
-            $this->getSelect()->where('payment_id = ?', $this->_paymentId);
+            $this->getSelect()->where('main_table.payment_id = ?', $this->_paymentId);
         }
         if ($this->_parentId) {
-            $this->getSelect()->where('parent_id = ?', $this->_parentId);
+            $this->getSelect()->where('main_table.parent_id = ?', $this->_parentId);
         }
         if ($this->_txnTypes) {
-            $this->getSelect()->where('txn_type IN(?)', $this->_txnTypes);
+            $this->getSelect()->where('main_table.txn_type IN(?)', $this->_txnTypes);
         }
-
-        return parent::load($printQuery, $logQuery);
+        if ($this->_orderId) {
+            $this->getSelect()->where('main_table.order_id = ?', $this->_orderId);
+        }
+        if ($this->_addPaymentInformation) {
+            $this->getSelect()->joinInner(
+                array('sop' => $this->getTable('sales/order_payment')),
+                'main_table.payment_id = sop.entity_id',
+                $this->_addPaymentInformation
+            );
+        }
+        if ($this->_storeIds) {
+            $this->getSelect()->where('so.store_id IN(?)', $this->_storeIds);
+            $this->addOrderInformation(array('store_id'));
+        }
+        if($this->_addOrderInformation) {
+            $this->getSelect()->joinInner(
+                array('so' => $this->getTable('sales/order')),
+                'main_table.order_id = so.entity_id',
+                $this->_addOrderInformation
+            );
+        }
+        return $this;
     }
 
     /**

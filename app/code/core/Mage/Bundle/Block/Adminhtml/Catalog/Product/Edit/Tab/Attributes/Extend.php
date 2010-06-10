@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +44,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
         $switchAttributeValue = $this->getProduct()->getData($switchAttributeCode);
 
         $html = '<select name="product[' . $switchAttributeCode . ']" id="' . $switchAttributeCode . '" type="select" class="required-entry select next-toinput"' . ($this->getProduct()->getId() && $this->getAttribute()->getAttributeCode() == 'price' || $this->getElement()->getReadonly() ? ' disabled="disabled"' : '') . '>
-            <option value="">' . $this->__('--Select--') . '</option>
+            <option value="">' . $this->__('-- Select --') . '</option>
             <option ' . ($switchAttributeValue == self::DYNAMIC ? 'selected' : '') . ' value="' . self::DYNAMIC . '">' . $this->__('Dynamic') . '</option>
             <option ' . ($switchAttributeValue == self::FIXED ? 'selected' : '') . ' value="' . self::FIXED . '">' . $this->__('Fixed') . '</option>
         </select>';

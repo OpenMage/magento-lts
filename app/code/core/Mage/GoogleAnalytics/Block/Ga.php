@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleAnalytics
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -177,6 +177,7 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
         (document.getElementsByTagName(\'head\')[0] || document.getElementsByTagName(\'body\')[0]).appendChild(ga);
     })();
 
+    var _gaq = _gaq || [];
     _gaq.push(["_setAccount", "' . $this->getAccount() . '"]);
     _gaq.push(["_trackPageview", "'.$this->getPageName().'"]);
 //]]>

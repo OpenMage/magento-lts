@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -112,7 +112,7 @@
                 <li>
                     <div class="col2-alt-set">
                         <div class="col-1">&nbsp;</div>
-                        <div class="col-2"><input type="text" name="street[]" value="<?php echo $this->htmlEscape($this->getFormData()->getStreet(1)) ?>" title="<?php echo $this->__('Street Address 2') ?>" id="street_2" class="input-text" /></div>
+                        <div class="col-2"><input type="text" name="street[]" value="<?php echo $this->htmlEscape($this->getFormData()->getStreet(1)) ?>" title="<?php echo $this->__('Street Address %s', 2) ?>" id="street_2" class="input-text" /></div>
                     </div><div class="clear"></div>
                 </li>
                 <li>
@@ -176,7 +176,7 @@
                 <div class="col-2">
                     <div class="form-buttons">
                         <button class="form-button" type="submit"><span><?php echo $this->__('Submit') ?></span></button><br />
-                        <a href="<?php echo $this->getBackUrl() ?>" class="left">&laquo; <?php echo $this->__('Back') ?></a>
+                        <a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>" class="left">&laquo; <?php echo $this->__('Back') ?></a>
                     </div>
                 </div>
             </div><div class="clear"></div>

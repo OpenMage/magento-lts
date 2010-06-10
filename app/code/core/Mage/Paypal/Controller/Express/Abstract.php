@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,6 +40,11 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     protected $_config = null;
 
     /**
+     * @var Mage_Sales_Model_Quote
+     */
+    protected $_quote = false;
+
+    /**
      * Instantiate config
      */
     protected function _construct()
@@ -55,9 +60,21 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     {
         try {
             $this->_initCheckout();
+
+            // billing agreement
+            $customerId = Mage::getSingleton('customer/session')->getCustomerId();
+            $isBARequested = (bool)$this->getRequest()
+                ->getParam(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT);
+            if ($customerId) {
+                $this->_checkout->setCustomerId($customerId);
+                $this->_checkout->setIsBillingAgreementRequested($isBARequested);
+            }
+
+            // giropay
             $this->_checkout->prepareGiropayUrls(Mage::getUrl('checkout/onepage/success'),
                 Mage::getUrl('paypal/express/cancel'), Mage::getUrl('checkout/onepage/success')
             );
+
             $token = $this->_checkout->start(Mage::getUrl('*/*/return'), Mage::getUrl('*/*/cancel'));
             if ($token && $url = $this->_checkout->getRedirectUrl()) {
                 $this->_initToken($token);
@@ -73,6 +90,22 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             Mage::logException($e);
         }
         $this->_redirect('checkout/cart');
+    }
+
+    /**
+     * Return shipping options items for shipping address from request
+     */
+    public function shippingOptionsCallbackAction()
+    {
+        try {
+            $quoteId = $this->getRequest()->getParam('quote_id');
+            $this->_quote = Mage::getModel('sales/quote')->load($quoteId);
+            $this->_initCheckout();
+            $response = $this->_checkout->getShippingOptionsCallbackResponse($this->getRequest()->getParams());
+            $this->getResponse()->setBody($response);
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
     }
 
     /**
@@ -92,11 +125,11 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
                         ->unsLastSuccessQuoteId()
                         ->unsLastOrderId()
                         ->unsLastRealOrderId()
-                        ->addSuccess($this->__('Express Checkout and Order have been cancelled.'))
+                        ->addSuccess($this->__('Express Checkout and Order have been canceled.'))
                     ;
                 }
             } else {
-                $this->_getCheckoutSession()->addSuccess($this->__('Express Checkout has been cancelled.'));
+                $this->_getCheckoutSession()->addSuccess($this->__('Express Checkout has been canceled.'));
             }
         } catch (Mage_Core_Exception $e) {
             $this->_getCheckoutSession()->addError($e->getMessage());
@@ -140,7 +173,6 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_initLayoutMessages('paypal/session');
             $this->getLayout()->getBlock('paypal.express.review')
                 ->setQuote($this->_getQuote())
-                ->setCanEditShippingAddress($this->_checkout->mayEditShippingAddress())
                 ->getChild('details')->setQuote($this->_getQuote())
             ;
             $this->renderLayout();
@@ -209,16 +241,41 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     {
         try {
             $this->_initCheckout();
-            $order = $this->_checkout->placeOrder($this->_initToken());
+            $this->_checkout->place($this->_initToken());
+
             // prepare session to success or cancellation page
+            $session = $this->_getCheckoutSession();
+            $session->clearHelperData();
+
+            // "last successful quote"
             $quoteId = $this->_getQuote()->getId();
-            $this->_getCheckoutSession()
-                ->setLastQuoteId($quoteId)
-                ->setLastSuccessQuoteId($quoteId)
-                ->setLastOrderId($order->getId())
-                ->setLastRealOrderId($order->getIncrementId())
-            ;
-            if ($url = $this->_checkout->getRedirectUrl()) {
+            $session->setLastQuoteId($quoteId)->setLastSuccessQuoteId($quoteId);
+
+            // an order may be created
+            $order = $this->_checkout->getOrder();
+            if ($order) {
+                $session->setLastOrderId($order->getId())
+                    ->setLastRealOrderId($order->getIncrementId());
+                // as well a billing agreement can be created
+                $agreement = $this->_checkout->getBillingAgreement();
+                if ($agreement) {
+                    $session->setLastBillingAgreementId($agreement->getId());
+                }
+            }
+
+            // recurring profiles may be created along with the order or without it
+            $profiles = $this->_checkout->getRecurringPaymentProfiles();
+            if ($profiles) {
+                $ids = array();
+                foreach($profiles as $profile) {
+                    $ids[] = $profile->getId();
+                }
+                $session->setLastRecurringProfileIds($ids);
+            }
+
+            // redirect if PayPal specified some URL (for example, to Giropay bank)
+            $url = $this->_checkout->getRedirectUrl();
+            if ($url) {
                 $this->getResponse()->setRedirect($url);
                 return;
             }
@@ -310,6 +367,9 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      */
     private function _getQuote()
     {
-        return $this->_getCheckoutSession()->getQuote();
+        if (!$this->_quote) {
+            $this->_quote = $this->_getCheckoutSession()->getQuote();
+        }
+        return $this->_quote;
     }
 }

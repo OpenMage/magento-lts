@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,6 +70,40 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             }
         }
         return $this->_aggregatedColumns;
+    }
+
+    /**
+     * Add column to grid
+     * Overriden to add support for visibility_filter column option
+     * It stands for conditional visibility of the column depending on filter field values
+     * Value of visibility_filter supports (filter_field_name => filter_field_value) pairs
+     *
+     * @param   string $columnId
+     * @param   array $column
+     * @return  Mage_Adminhtml_Block_Report_Grid_Abstract
+     */
+    public function addColumn($columnId, $column)
+    {
+        if (is_array($column) && array_key_exists('visibility_filter', $column)) {
+            $filterData = $this->getFilterData();
+            $visibilityFilter = $column['visibility_filter'];
+            if (!is_array($visibilityFilter)) {
+                $visibilityFilter = array($visibilityFilter);
+            }
+            foreach ($visibilityFilter as $k => $v) {
+                if (is_int($k)) {
+                    $filterFieldId = $v;
+                    $filterFieldValue = true;
+                } else {
+                    $filterFieldId = $k;
+                    $filterFieldValue = $v;
+                }
+                if (!$filterData->hasData($filterFieldId) || $filterData->getData($filterFieldId) != $filterFieldValue) {
+                    return $this;  // don't add column
+                }
+            }
+        }
+        return parent::addColumn($columnId, $column);
     }
 
     protected function _prepareCollection()

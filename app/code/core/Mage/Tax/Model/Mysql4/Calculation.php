@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,7 +58,7 @@ class Mage_Tax_Model_Mysql4_Calculation extends Mage_Core_Model_Mysql4_Abstract
 
     /**
      * Get tax rate information: calculation process data and tax rate
-     * 
+     *
      * @param   Varien_Object $request
      * @return  array
      */
@@ -70,7 +70,12 @@ class Mage_Tax_Model_Mysql4_Calculation extends Mage_Core_Model_Mysql4_Abstract
             'value'     => $this->_calculateRate($rates)
         );
     }
-    
+
+    /**
+     * Get tax rate for specific tax rate request
+     *
+     * @param Varien_Object $request
+     */
     public function getRate($request)
     {
         return $this->_calculateRate($this->_getRates($request));
@@ -187,20 +192,31 @@ class Mage_Tax_Model_Mysql4_Calculation extends Mage_Core_Model_Mysql4_Abstract
         $select = $this->_getReadAdapter()->select();
         $select
             ->from(array('main_table'=>$this->getMainTable()))
-            ->where('customer_tax_class_id = ?', $request->getCustomerClassId())
-            ->where('product_tax_class_id = ?', $request->getProductClassId());
+            ->where('customer_tax_class_id = ?', $request->getCustomerClassId());
+        if ($request->getProductClassId()) {
+            $select->where('product_tax_class_id IN (?)', $request->getProductClassId());
+        }
 
-        $select->join(array('rule'=>$this->getTable('tax/tax_calculation_rule')), 'rule.tax_calculation_rule_id = main_table.tax_calculation_rule_id', array('rule.priority', 'rule.position'));
-        $select->join(array('rate'=>$this->getTable('tax/tax_calculation_rate')), 'rate.tax_calculation_rate_id = main_table.tax_calculation_rate_id', array('value'=>'rate.rate', 'rate.tax_country_id', 'rate.tax_region_id', 'rate.tax_postcode', 'rate.tax_calculation_rate_id', 'rate.code'));
+        $select->join(
+            array('rule'=>$this->getTable('tax/tax_calculation_rule')),
+            'rule.tax_calculation_rule_id = main_table.tax_calculation_rule_id',
+            array('rule.priority', 'rule.position')
+        );
+        $select->join(
+            array('rate'=>$this->getTable('tax/tax_calculation_rate')),
+            'rate.tax_calculation_rate_id = main_table.tax_calculation_rate_id',
+            array('value'=>'rate.rate', 'rate.tax_country_id', 'rate.tax_region_id', 'rate.tax_postcode', 'rate.tax_calculation_rate_id', 'rate.code')
+        );
 
-        $select->joinLeft(array('title_table'=>$this->getTable('tax/tax_calculation_rate_title')), "rate.tax_calculation_rate_id = title_table.tax_calculation_rate_id AND title_table.store_id = '{$storeId}'", array('title'=>'IFNULL(title_table.value, rate.code)'));
+        $select->joinLeft(
+            array('title_table'=>$this->getTable('tax/tax_calculation_rate_title')),
+            "rate.tax_calculation_rate_id = title_table.tax_calculation_rate_id AND title_table.store_id = '{$storeId}'",
+            array('title'=>'IFNULL(title_table.value, rate.code)')
+        );
 
         $select
             ->where("rate.tax_country_id = ?", $request->getCountryId())
             ->where("rate.tax_region_id in ('*', '', ?)", $request->getRegionId());
-
-        $order = array('rule.priority ASC', 'rule.tax_calculation_rule_id ASC', 'rate.tax_country_id DESC', 'rate.tax_region_id DESC', 'rate.tax_postcode DESC', 'rate.rate DESC');
-        $select->order($order);
 
         $selectClone = clone $select;
 
@@ -216,6 +232,8 @@ class Mage_Tax_Model_Mysql4_Calculation extends Mage_Core_Model_Mysql4_Abstract
          * @see ZF-7592 issue http://framework.zend.com/issues/browse/ZF-7592
          */
         $select = $this->_getReadAdapter()->select()->union(array('(' . $select . ')', '(' . $selectClone . ')'));
+        $order = array('priority ASC', 'tax_calculation_rule_id ASC', 'tax_country_id DESC', 'tax_region_id DESC', 'tax_postcode DESC', 'value DESC');
+        $select->order($order);
 
         return $this->_getReadAdapter()->fetchAll($select);
 

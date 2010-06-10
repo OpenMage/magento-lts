@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -91,6 +91,13 @@ class Mage_Catalog_Model_Url
     protected $_categoryUrlSuffix = array();
 
     /**
+     * Flag to overwrite config settings for Catalog URL rewrites history maintainance
+     *
+     * @var bool
+     */
+    protected $_saveRewritesHistory = null;
+    
+    /**
      * Retrieve stores array or store model
      *
      * @param int $storeId
@@ -133,7 +140,33 @@ class Mage_Catalog_Model_Url
     {
         return $this->getResource()->getProductModel();
     }
-
+    
+    /**
+     * Setter for $_saveRewritesHistory
+     * Force Rewrites History save bypass config settings
+     *
+     * @return Mage_Catalog_Model_Url
+     */
+    public function setShouldSaveRewritesHistory($flag)
+    {
+        $this->_saveRewritesHistory = (bool)$flag;
+        return $this;
+    }
+    
+    /**
+     * Indicate whether to save URL Rewrite History or not (create redirects to old URLs)
+     *
+     * @param int $storeId Store View
+     * @return bool
+     */
+    public function getShouldSaveRewritesHistory($storeId = null)
+    {
+        if ($this->_saveRewritesHistory !== null) {
+            return $this->_saveRewritesHistory;
+        }
+        return Mage::helper('catalog')->shouldSaveUrlRewritesHistory($storeId);
+    }
+    
     /**
      * Refresh rewrite urls
      *
@@ -188,6 +221,10 @@ class Mage_Catalog_Model_Url
             );
 
             $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
+            
+            if ($this->getShouldSaveRewritesHistory($category->getStoreId())) {
+                $this->_saveRewriteHistory($rewriteData, $this->_rewrite);
+            }
 
             if ($category->getUrlKey() != $urlKey) {
                 $category->setUrlKey($urlKey);
@@ -259,6 +296,10 @@ class Mage_Catalog_Model_Url
 
         $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
 
+        if ($this->getShouldSaveRewritesHistory($category->getStoreId())) {
+            $this->_saveRewriteHistory($rewriteData, $this->_rewrite);
+        }
+        
         if ($updateKeys && $product->getUrlKey() != $urlKey) {
             $product->setUrlKey($urlKey);
             $this->getResource()->saveProductAttribute($product, 'url_key');
@@ -603,7 +644,7 @@ class Mage_Catalog_Model_Url
     public function generatePath($type = 'target', $product = null, $category = null, $parentPath = null)
     {
         if (!$product && !$category) {
-            Mage::throwException(Mage::helper('core')->__('Specify either category or product, or both.'));
+            Mage::throwException(Mage::helper('core')->__('Please specify either a category or a product, or both.'));
         }
 
         // generate id_path
@@ -644,7 +685,7 @@ class Mage_Catalog_Model_Url
 
             // for product & category
             if (!$category) {
-                Mage::throwException(Mage::helper('core')->__('Category object is required for determining product request path')); // why?
+                Mage::throwException(Mage::helper('core')->__('A category object is required for determining the product request path.')); // why?
             }
 
             if ($product->getUrlKey() == '') {
@@ -675,5 +716,37 @@ class Mage_Catalog_Model_Url
             return 'catalog/product/view/id/' . $product->getId() . '/category/' . $category->getId();
         }
         return 'catalog/product/view/id/' . $product->getId();
+    }
+    
+    /**
+     * Return unique string based on the time in microseconds.
+     *
+     * @return string
+     */
+    public function generateUniqueIdPath()
+    {
+        return str_replace('0.', '', str_replace(' ', '_', microtime()));
+    }
+    
+    /**
+     * Create Custom URL Rewrite for old product/category URL after url_key changed
+     * It will perform permanent redirect from old URL to new URL
+     *
+     * @param array $rewriteData New rewrite data
+     * @param Varien_Object $rewrite Rewrite model
+     * @return Mage_Catalog_Model_Url
+     */
+    protected function _saveRewriteHistory($rewriteData, $rewrite)
+    {
+        if ($rewrite instanceof Varien_Object && $rewrite->getId()) {
+            $rewriteData['target_path'] = $rewriteData['request_path'];
+            $rewriteData['request_path'] = $rewrite->getRequestPath();
+            $rewriteData['id_path'] = $this->generateUniqueIdPath();
+            $rewriteData['is_system'] = 0;
+            $rewriteData['options'] = 'RP'; // Redirect = Permanent
+            $this->getResource()->saveRewriteHistory($rewriteData);
+        }
+        
+        return $this;
     }
 }

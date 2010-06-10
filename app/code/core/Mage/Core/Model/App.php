@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -1194,21 +1194,40 @@ class Mage_Core_Model_App
                 $observer->setData(array('event'=>$event));
                 Varien_Profiler::start('OBSERVER: '.$obsName);
                 switch ($obs['type']) {
+                    case 'disabled':
+                        break;
                     case 'object': case 'model':
                         $method = $obs['method'];
                         $observer->addData($args);
                         $object = Mage::getModel($obs['model']);
-                        $object->$method($observer);
+                        $this->_callObserverMethod($object, $method, $observer);
                         break;
                     default:
                         $method = $obs['method'];
                         $observer->addData($args);
                         $object = Mage::getSingleton($obs['model']);
-                        $object->$method($observer);
+                        $this->_callObserverMethod($object, $method, $observer);
                         break;
                 }
                 Varien_Profiler::stop('OBSERVER: '.$obsName);
             }
+        }
+        return $this;
+    }
+
+    /**
+     * Added not existin observers methods calls protection
+     *
+     * @param object $object
+     * @param string $method
+     * @param Varien_Event_Observer $observer
+     */
+    protected function _callObserverMethod($object, $method, $observer)
+    {
+        if (method_exists($object, $method)) {
+            $object->$method($observer);
+        } elseif (Mage::getIsDeveloperMode()) {
+            Mage::throwException('Method "'.$method.'" is not defined in "'.get_class($object).'"');
         }
         return $this;
     }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -236,7 +236,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                     Mage::throwException(Mage::helper('adminhtml')->__('This account is inactive.'));
                 }
                 if (!$this->hasAssigned2Role($this->getId())) {
-                    Mage::throwException(Mage::helper('adminhtml')->__('Access Denied.'));
+                    Mage::throwException(Mage::helper('adminhtml')->__('Access denied.'));
                 }
                 $result = true;
             }
@@ -408,7 +408,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         }
 
         if ($this->userExists()) {
-            $errors[] = Mage::helper('adminhtml')->__('User with the same User Name or Email aleady exists');
+            $errors[] = Mage::helper('adminhtml')->__('A user with the same user name or email aleady exists.');
         }
 
         if (empty($errors)) {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
         $this->_updateButton('delete', 'label', Mage::helper('tag')->__('Delete Tag'));
 
         $this->addButton('save_and_edit_button', array(
-            'label'   => Mage::helper('tag')->__('Save And Continue Edit'),
+            'label'   => Mage::helper('tag')->__('Save and Continue Edit'),
             'onclick' => "saveAndContinueEdit('" . $this->getSaveAndContinueUrl() . "')",
             'class'   => 'save'
         ), 1);

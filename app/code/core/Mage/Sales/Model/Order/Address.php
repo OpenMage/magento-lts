@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,6 +28,9 @@
 class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstract
 {
     protected $_order;
+
+    protected $_eventPrefix = 'sales_order_address';
+    protected $_eventObject = 'address';
 
     protected function _construct()
     {
@@ -43,5 +46,21 @@ class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstrac
     public function getOrder()
     {
         return $this->_order;
+    }
+
+    /**
+     * Before object save manipulations
+     *
+     * @return Mage_Sales_Model_Order_Address
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+
+        if (!$this->getParentId() && $this->getOrder()) {
+            $this->setParentId($this->getOrder()->getId());
+        }
+
+        return $this;
     }
 }

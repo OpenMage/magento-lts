@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,6 +43,20 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     protected $_address = null;
 
     /**
+     * Various abstract abilities
+     * @var bool
+     */
+    protected $_canAddAmountToAddress = true;
+    protected $_canSetAddressAmount   = true;
+
+    /**
+     * Key for item row total getting
+     *
+     * @var string
+     */
+    protected $_itemRowTotalKey = null;
+
+    /**
      * Set total code code name
      *
      * @param string $code
@@ -62,6 +76,16 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     public function getCode()
     {
         return $this->_code;
+    }
+
+    /**
+     * Label getter
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return '';
     }
 
     /**
@@ -115,7 +139,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     {
         if ($this->_address === null) {
             Mage::throwException(
-                Mage::helper('sales')->__('Address model is not defined')
+                Mage::helper('sales')->__('Address model is not defined.')
             );
         }
         return $this->_address;
@@ -129,7 +153,9 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      */
     protected function _setAmount($amount)
     {
-        $this->_getAddress()->setTotalAmount($this->getCode(), $amount);
+        if ($this->_canSetAddressAmount) {
+            $this->_getAddress()->setTotalAmount($this->getCode(), $amount);
+        }
         return $this;
     }
 
@@ -141,7 +167,9 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      */
     protected function _setBaseAmount($baseAmount)
     {
-        $this->_getAddress()->setBaseTotalAmount($this->getCode(), $baseAmount);
+        if ($this->_canSetAddressAmount) {
+            $this->_getAddress()->setBaseTotalAmount($this->getCode(), $baseAmount);
+        }
         return $this;
     }
 
@@ -153,7 +181,9 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      */
     protected function _addAmount($amount)
     {
-        $this->_getAddress()->addTotalAmount($this->getCode(),$amount);
+        if ($this->_canAddAmountToAddress) {
+            $this->_getAddress()->addTotalAmount($this->getCode(),$amount);
+        }
         return $this;
     }
 
@@ -165,8 +195,63 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      */
     protected function _addBaseAmount($baseAmount)
     {
-        $this->_getAddress()->addBaseTotalAmount($this->getCode(), $baseAmount);
+        if ($this->_canAddAmountToAddress) {
+            $this->_getAddress()->addBaseTotalAmount($this->getCode(), $baseAmount);
+        }
         return $this;
+    }
+
+    /**
+     * Get all items except nominals
+     *
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return array
+     */
+    protected function _getAddressItems(Mage_Sales_Model_Quote_Address $address)
+    {
+        return $address->getAllNonNominalItems();
+    }
+
+    /**
+     * Getter for row default total
+     *
+     * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @return float
+     */
+    public function getItemRowTotal(Mage_Sales_Model_Quote_Item_Abstract $item)
+    {
+        if (!$this->_itemRowTotalKey) {
+            return 0;
+        }
+        return $item->getDataUsingMethod($this->_itemRowTotalKey);
+    }
+
+    /**
+     * Getter for row default base total
+     *
+     * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @return float
+     */
+    public function getItemBaseRowTotal(Mage_Sales_Model_Quote_Item_Abstract $item)
+    {
+        if (!$this->_itemRowTotalKey) {
+            return 0;
+        }
+        return $item->getDataUsingMethod('base_' . $this->_itemRowTotalKey);
+    }
+
+    /**
+     * Whether the item row total may be compouded with others
+     *
+     * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @return bool
+     */
+    public function getIsItemRowTotalCompoundable(Mage_Sales_Model_Quote_Item_Abstract $item)
+    {
+        if ($item->getData("skip_compound_{$this->_itemRowTotalKey}")) {
+            return false;
+        }
+        return true;
     }
 
     /**

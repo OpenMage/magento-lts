@@ -1,34 +1,41 @@
 /**
- * $Id: Separator.js 756 2008-03-29 19:53:48Z spocke $
+ * Separator.js
  *
- * @author Moxiecode
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+ * Copyright 2009, Moxiecode Systems AB
+ * Released under LGPL License.
+ *
+ * License: http://tinymce.moxiecode.com/license
+ * Contributing: http://tinymce.moxiecode.com/contributing
  */
 
-/**#@+
- * @class This class is used to create vertical separator between other controls.
- * @member tinymce.ui.Separator
- * @base tinymce.ui.Control
+/**
+ * This class is used to create vertical separator between other controls.
+ *
+ * @class tinymce.ui.Separator
+ * @extends tinymce.ui.Control
  */
 tinymce.create('tinymce.ui.Separator:tinymce.ui.Control', {
+	/**
+	 * Separator constructor.
+	 *
+	 * @constructor
+	 * @method Separator
+	 * @param {String} id Control id to use for the Separator.
+	 * @param {Object} s Optional name/value settings object.
+	 */
 	Separator : function(id, s) {
 		this.parent(id, s);
 		this.classPrefix = 'mceSeparator';
 	},
 
-	/**#@+
-	 * @method
-	 */
-
 	/**
 	 * Renders the separator as a HTML string. This method is much faster than using the DOM and when
 	 * creating a whole toolbar with buttons it does make a lot of difference.
 	 *
+	 * @method renderHTML
 	 * @return {String} HTML for the separator control element.
 	 */
 	renderHTML : function() {
 		return tinymce.DOM.createHTML('span', {'class' : this.classPrefix});
 	}
-
-	/**#@-*/
 });

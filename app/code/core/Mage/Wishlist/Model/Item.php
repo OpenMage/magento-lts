@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -82,10 +82,10 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
     public function validate()
     {
         if (!$this->getWishlistId()) {
-            Mage::throwException(Mage::helper('wishlist')->__('Can\'t specify wishlist'));
+            Mage::throwException(Mage::helper('wishlist')->__('Cannot specify wishlist.'));
         }
         if (!$this->getProductId()) {
-            Mage::throwException(Mage::helper('wishlist')->__('Can\'t specify product'));
+            Mage::throwException(Mage::helper('wishlist')->__('Cannot specify product.'));
         }
 
         return true;
@@ -162,7 +162,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
         $product = $this->_getData('product');
         if (is_null($product)) {
             if (!$this->getProductId()) {
-                Mage::throwException(Mage::helper('wishlist')->__('Can\'t specify product'));
+                Mage::throwException(Mage::helper('wishlist')->__('Cannot specify product.'));
             }
 
             $product = Mage::getModel('catalog/product')

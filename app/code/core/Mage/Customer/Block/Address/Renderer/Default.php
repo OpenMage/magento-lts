@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,11 +93,24 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
                 }
             }
         }
+
+        /**
+         * Remove data that mustn't show
+         */
+        if (!$this->helper('customer/address')->canShowConfig('prefix_show')) {
+            unset($data['prefix']);
+        }
+        if (!$this->helper('customer/address')->canShowConfig('middlename_show')) {
+            unset($data['middlename']);
+        }
+        if (!$this->helper('customer/address')->canShowConfig('suffix_show')) {
+            unset($data['suffix']);
+        }
+
         $formater->setVariables(array_merge($data, array('country'=>$address->getCountryModel()->getName())));
 
         $format = !is_null($format) ? $format : $this->getFormat($address);
 
         return $formater->filter($format);
     }
-
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +50,7 @@ class Mage_Catalog_Block_Product_View_Additional extends Mage_Core_Block_Templat
             foreach ($this->getSortedChildren() as $name) {
                 $block = $this->getLayout()->getBlock($name);
                 if (!$block) {
-                    Mage::exception(Mage::helper('catalog')->__('Invalid block: %s', $name));
+                    Mage::exception(Mage::helper('catalog')->__('Invalid block: %s.', $name));
                 }
                 $this->_list[] = $block->toHtml();
             }

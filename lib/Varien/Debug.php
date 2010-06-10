@@ -94,6 +94,10 @@ class Varien_Debug
                 } else {
                     $className = $data['class'];
                 }
+                if (isset($data['object'])) {
+                    $className .= sprintf('#%s#', spl_object_hash($data['object']));
+                }
+
                 $methodName = sprintf('%s%s%s(%s)',
                     $className,
                     isset($data['type']) ? $data['type'] : '->',
@@ -144,10 +148,8 @@ class Varien_Debug
     {
         $out = '';
         if (is_object($arg)) {
-            $out .= '&' . get_class($arg);
-            if ($arg instanceof Varien_Object) {
-                $out .= '#id=' . $arg->getId();
-            }
+            $out .= sprintf("&%s#%s#", get_class($arg), spl_object_hash($arg));
+
         } else if (is_resource($arg)) {
             $out .= '#[' . get_resource_type($arg) . ']';
         } else if (is_array($arg)) {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleBase
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +49,7 @@ class Mage_GoogleBase_TypesController extends Mage_Adminhtml_Controller_Action
     protected function _initItemType()
     {
         $this->_title($this->__('Catalog'))
-             ->_title($this->__('Google base'))
+             ->_title($this->__('Google Base'))
              ->_title($this->__('Manage Attributes'));
 
         Mage::register('current_item_type', Mage::getModel('googlebase/type'));
@@ -181,7 +181,7 @@ class Mage_GoogleBase_TypesController extends Mage_Adminhtml_Controller_Action
                 }
             }
 
-            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('googlebase')->__('Item type was successfully saved'));
+            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('googlebase')->__('The item type has been saved.'));
         } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         }

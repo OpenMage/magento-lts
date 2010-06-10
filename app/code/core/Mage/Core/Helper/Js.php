@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -168,17 +168,17 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                 'Please wait, loading...' => $this->__('Please wait, loading...'),
                 'Please choose to register or to checkout as a guest' => $this->__('Please choose to register or to checkout as a guest'),
                 'Error: Passwords do not match' => $this->__('Error: Passwords do not match'),
-                'Your order can not be completed at this time as there is no shipping methods available for it. Please make necessary changes in your shipping address.' =>
-                    $this->__('Your order can not be completed at this time as there is no shipping methods available for it. Please make necessary changes in your shipping address.'),
+                'Your order cannot be completed at this time as there is no shipping methods available for it. Please make necessary changes in your shipping address.' =>
+                    $this->__('Your order cannot be completed at this time as there is no shipping methods available for it. Please make necessary changes in your shipping address.'),
                 'Please specify shipping method.' => $this->__('Please specify shipping method.'),
-                'Your order can not be completed at this time as there is no payment methods available for it.' =>
-                    $this->__('Your order can not be completed at this time as there is no payment methods available for it.'),
+                'Your order cannot be completed at this time as there is no payment methods available for it.' =>
+                    $this->__('Your order cannot be completed at this time as there is no payment methods available for it.'),
                 'Please specify payment method.' => $this->__('Please specify payment method.'),
-                'Credit card number doesn\'t match credit card type' => $this->__('Credit card number doesn\'t match credit card type'),
-                'Card type doesn\'t match credit card number' => $this->__('Card type doesn\'t match credit card number'),
+                'Credit card number doesn\'t match credit card type' => $this->__('Credit card number does not match credit card type'),
+                'Card type does not match credit card number' => $this->__('Card type does not match credit card number'),
                 'Please enter a valid credit card verification number.' => $this->__('Please enter a valid credit card verification number.'),
                 'Please use only letters (a-z or A-Z), numbers (0-9) or underscore(_) in this field, first character should be a letter.' =>
-                    $this->__('Please use only letters (a-z or A-Z), numbers (0-9) or underscore(_) in this field, first character should be a letter.'),
+                    $this->__('Please use only letters (a-z or A-Z), numbers (0-9) or underscores (_) in this field, first character must be a letter.'),
                 'Please input a valid CSS-length. For example 100px or 77pt or 20em or .5ex or 50%' => $this->__('Please input a valid CSS-length. For example 100px or 77pt or 20em or .5ex or 50%'),
                 'Maximum length exceeded.' => $this->__('Maximum length exceeded.'),
 
@@ -187,6 +187,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
 
                 'Your session has been expired, you will be relogged in now.' => $this->__('Your session has been expired, you will be relogged in now.'),
                 'Incorrect credit card expiration date' => $this->__('Incorrect credit card expiration date'),
+            // Date
+                'This date is a required value.' => $this->__('This date is a required value.'),
             );
             foreach ($this->_translateData as $key=>$value) {
                 if ($key == $value) {

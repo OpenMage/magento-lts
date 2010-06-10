@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -98,7 +98,12 @@ Advanced search results
         </reference>
         <reference name="content">
             <block type="catalogsearch/advanced_result" name="catalogsearch_advanced_result" template="catalogsearch/advanced/result.phtml">
-                <block type="catalog/product_list" name="search_result_list" template="catalog/product/list.phtml"></block>
+                <block type="catalog/product_list" name="search_result_list" template="catalog/product/list.phtml">
+                    <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                        <block type="page/html_pager" name="product_list_toolbar_pager"/>
+                    </block>
+                    <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+                </block>
                 <action method="setListOrders"/>
                 <action method="setListModes"/>
                 <action method="setListCollection"/>

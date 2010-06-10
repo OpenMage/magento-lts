@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,7 +62,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
             $ruleModel->load($taxRuleId);
             if (!$ruleModel->getId()) {
                 Mage::getSingleton('adminhtml/session')->unsRuleData();
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('This rule no longer exists'));
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('This rule no longer exists.'));
                 $this->_redirect('*/*/');
                 return;
             }
@@ -92,7 +92,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
             try {
                 $ruleModel->save();
 
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('Tax rule was successfully saved'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rule has been saved.'));
 
                 if ($this->getRequest()->getParam('back')) {
                     $this->_redirect('*/*/edit', array('rule' => $ruleModel->getId()));
@@ -106,7 +106,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
             catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Error while saving this tax rule. Please try again later.'));
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while saving this tax rule.'));
             }
 
             Mage::getSingleton('adminhtml/session')->setRuleData($postData);
@@ -130,7 +130,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         try {
             $ruleModel->delete();
 
-            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('Tax rule was successfully deleted'));
+            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rule has been deleted.'));
             $this->_redirect('*/*/');
 
             return;
@@ -139,7 +139,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         }
         catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Error while deleting this tax rule. Please try again later.'));
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while deleting this tax rule.'));
         }
 
         $this->_redirectReferer();

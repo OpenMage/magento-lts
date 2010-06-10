@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -44,7 +44,7 @@ function startInstall(state)
 
 function installSuccess()
 {
-    alert("<?php echo $this->__("All packages were installed successfully, click 'Ok' to continue with installation") ?>");
+    alert("<?php echo $this->__("All packages were installed, click 'OK' to continue with installation.") ?>");
     location.href = "<?php echo $this->getNextUrl() ?>";
     $$('button').each(function(el) {
         el.disabled = true;
@@ -54,7 +54,7 @@ function installSuccess()
 
 function installFailure()
 {
-    alert("<?php echo $this->__("There was a problem installing Magento packages. Please read the log, correct errors and retry again.") ?>\n<?php echo $this->__("Alternatively you could try the 'Manual Downloads and Upgrades' method.") ?>");
+    alert("<?php echo $this->__("There was a problem installing Magento packages. Please read the log, correct errors and try again.") ?>\n<?php echo $this->__("Alternatively you could try the 'Manual Downloads and Upgrades' method.") ?>");
     $$('button').each(function(el) {
         el.disabled = true;
         el.removeClassName('disabled');
@@ -104,9 +104,9 @@ function installFailure()
     <legend><?php echo $this->__('Manual Downloads and Upgrades') ?></legend>
     <h4 class="legend"><?php echo $this->__('Manual Downloads and Upgrades') ?></h4>
 
-    <p><?php echo $this->__("If you are running install wizard over previously downloaded and installed Magento installation, proceed with this method.") ?></p>
+    <p><?php echo $this->__("If you are running the install wizard over a previously downloaded and installed Magento installation, proceed with this method.") ?></p>
     <p><?php echo $this->__("If you do not wish or are not able to have Magento folders writeable for the web process, you could use PEAR executable located in the root of Magento installation.") ?></p>
-    <p><?php echo $this->__("Please note that only UNIX, Linux and Mac OSX shells are currently supported. For Windows use the '%s' option.", $this->__('Package Management through the Web')) ?></p>
+    <p><?php echo $this->__("Please note that only UNIX, Linux and Mac OS X shells are currently supported. For Windows use the '%s' option.", $this->__('Package Management through the Web')) ?></p>
     <p><?php echo $this->__("Run this in your shell from Magento root folder:") ?></p>
     <pre>
 ./pear mage-setup

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +41,7 @@ abstract class Mage_Sales_Model_Mysql4_Abstract extends Mage_Core_Model_Mysql4_A
      */
     protected function _prepareDataForSave(Mage_Core_Model_Abstract $object)
     {
-        if (!$object->getId()) {
+        if (!$object->getId() || $object->isObjectNew()) {
             $object->setCreatedAt(now());
         }
         $object->setUpdatedAt(now());

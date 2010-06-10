@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleOptimizer
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,7 +93,7 @@ class Mage_GoogleOptimizer_Block_Adminhtml_Catalog_Product_Edit_Tab_Googleoptimi
                 array(
                     'name'  => 'conversion_page_url',
                     'label' => Mage::helper('googleoptimizer')->__('Conversion Page URL'),
-                    'text' => Mage::helper('googleoptimizer')->__('Please select store view to see the URL')
+                    'text' => Mage::helper('googleoptimizer')->__('Please select store view to see the URL.')
                 )
             );
         } else {
@@ -104,7 +104,7 @@ class Mage_GoogleOptimizer_Block_Adminhtml_Catalog_Product_Edit_Tab_Googleoptimi
                     'class' => 'input-text',
                     'readonly' => 'readonly',
                     'required' => false,
-                    'note' => Mage::helper('googleoptimizer')->__('Please copy and paste this value to experiment edit form')
+                    'note' => Mage::helper('googleoptimizer')->__('Please copy and paste this value to experiment edit form.')
                 )
             );
         }
@@ -145,7 +145,7 @@ class Mage_GoogleOptimizer_Block_Adminhtml_Catalog_Product_Edit_Tab_Googleoptimi
                 'values' => $attributes,
                 'required' => false,
                 'onchange' => 'googleOptimizerAttributesCheckAction(this)',
-                'note' => Mage::helper('googleoptimizer')->__('Limit is 8 attributes only.')
+                'note' => Mage::helper('googleoptimizer')->__('The limit is 8 attributes only.')
             )
         );
 

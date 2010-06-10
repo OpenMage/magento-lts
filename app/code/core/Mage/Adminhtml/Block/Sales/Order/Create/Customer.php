@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer extends Mage_Adminhtml_Bl
 
     public function getHeaderText()
     {
-        return Mage::helper('sales')->__('Please select a customer');
+        return Mage::helper('sales')->__('Please Select a Customer');
     }
 
     public function getButtonsHtml()

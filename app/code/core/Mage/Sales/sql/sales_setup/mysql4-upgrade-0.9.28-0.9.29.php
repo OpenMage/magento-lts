@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,7 +66,9 @@ $discountAttributeTable = $installer->getAttributeTable($entityTypeId, 'discount
 $baseDiscountAttributeId = $installer->getAttributeId($entityTypeId, 'base_discount_amount');
 $baseDiscountAttributeTable = $installer->getAttributeTable($entityTypeId, 'base_discount_amount');
 
-$preparedSql = sprintf($sql,
+$temporaryTableName = $installer->getConnection()->quoteIdentifier('sales_sql_update' . crc32(uniqid('sales')));
+
+$preparedSql = 'CREATE TEMPORARY TABLE ' . $temporaryTableName . ' ' . sprintf($sql,
     $orderAttributeTable,
     $discountAttributeTable,
     $discountAttributeId,
@@ -76,18 +78,23 @@ $preparedSql = sprintf($sql,
     $orderAttributeId
 );
 
-$stmt = $installer->getConnection()->query($preparedSql);
-while($row = $stmt->fetch()) {
-    $data = array(
-        'discount_refunded' => $row['order_discount'],
-        'base_discount_refunded' => $row['order_base_discount']
-    );
-    $installer->getConnection()->update(
-        $ordersTable,
-        $data,
-        $installer->getConnection()->quoteInto('entity_id=?', $row['order_id'])
-    );
-}
+$installer->getConnection()->query($preparedSql);
+$select = $installer->getConnection()->select();
+$select->join(array('to_update' => $temporaryTableName), 
+    'to_update.order_id = main_table.entity_id', 
+    array(
+        'discount_refunded' => 'order_discount',
+        'base_discount_refunded' => 'order_base_discount'
+    )
+);
+
+$installer->getConnection()->query(
+    $select->crossUpdateFromSelect(array('main_table'=>$ordersTable))
+);
+ 
+$installer->getConnection()->query(
+    'DROP TEMPORARY TABLE ' . $temporaryTableName
+);
 
 // Update discount_invoiced (base_discount_invoiced)
 $entityTypeId = $installer->getEntityTypeId('invoice');
@@ -98,7 +105,7 @@ $discountAttributeTable = $installer->getAttributeTable($entityTypeId, 'discount
 $baseDiscountAttributeId = $installer->getAttributeId($entityTypeId, 'base_discount_amount');
 $baseDiscountAttributeTable = $installer->getAttributeTable($entityTypeId, 'base_discount_amount');
 
-$preparedSql = sprintf($sql,
+$preparedSql = 'CREATE TEMPORARY TABLE ' . $temporaryTableName . ' ' . sprintf($sql,
     $orderAttributeTable,
     $discountAttributeTable,
     $discountAttributeId,
@@ -108,38 +115,38 @@ $preparedSql = sprintf($sql,
     $orderAttributeId
 );
 
-$stmt = $installer->getConnection()->query($preparedSql);
-while($row = $stmt->fetch()) {
-    $data = array(
-        'discount_invoiced' => $row['order_discount'],
-        'base_discount_invoiced' => $row['order_base_discount']
-    );
-    $installer->getConnection()->update(
-        $ordersTable,
-        $data,
-        $installer->getConnection()->quoteInto('entity_id=?', $row['order_id'])
-    );
-}
+$installer->getConnection()->query($preparedSql);
+$select = $installer->getConnection()->select();
+$select->join(array('to_update' => $temporaryTableName), 
+    'to_update.order_id = main_table.entity_id', 
+    array(
+        'discount_invoiced' => 'order_discount',
+        'base_discount_invoiced' => 'order_base_discount'
+    )
+);
+
+$installer->getConnection()->query(
+    $select->crossUpdateFromSelect(array('main_table'=>$ordersTable))
+);
+ 
+$installer->getConnection()->query(
+    'DROP TEMPORARY TABLE ' . $temporaryTableName
+);
 
 // Update discount_canceled (base_discount_canceled)
 $statusAttributeId = $installer->getAttributeId($ordersEntity['entity_type_id'], 'status');
 $statusAttributeTable = $installer->getAttributeTable($ordersEntity['entity_type_id'], 'status');
-$select = $installer->getConnection()->select()
-    ->from(
+$select = $installer->getConnection()->select();
+$select->from(
         array('s' => $statusAttributeTable),
         array('order_id' => 's.entity_id')
     )
     ->where('s.attribute_id=?', $statusAttributeId)
-    ->where('s.entity_type_id=?', $ordersEntity['entity_type_id'])
     ->where('s.value=?', Mage_Sales_Model_Order::STATE_CANCELED);
 
-$stmt = $installer->getConnection()->query($select);
-while($row = $stmt->fetch()) {
-    $entityId = $row['order_id'];
-    $installer->run("
-        UPDATE `{$ordersTable}` SET
-            `discount_canceled`=`discount_amount`-`discount_invoiced`,
-            `base_discount_canceled`=`base_discount_amount`-`base_discount_invoiced`
-        WHERE `entity_id`='{$entityId}'
-    ");
-}
+$installer->run("
+    UPDATE `{$ordersTable}` SET
+        `discount_canceled`=`discount_amount`-`discount_invoiced`,
+        `base_discount_canceled`=`base_discount_amount`-`base_discount_invoiced`
+    WHERE `entity_id`=IN({$select->assemble()});
+");

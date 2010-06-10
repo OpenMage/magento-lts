@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -79,7 +79,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
     protected function _beforeSave()
     {
         if (!$this->getTypeId()) {
-            Mage::throwException(Mage::helper('eav')->__('Invalid form type'));
+            Mage::throwException(Mage::helper('eav')->__('Invalid form type.'));
         }
         if (!$this->getStoreId() && $this->getLabel()) {
             $this->setStoreLabel($this->getStoreId(), $this->getLabel());

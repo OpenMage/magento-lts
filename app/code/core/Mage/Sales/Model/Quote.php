@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -225,6 +225,19 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $customerId = (int) $customer;
         }
         $this->_getResource()->loadByCustomerId($this, $customerId);
+        $this->_afterLoad();
+        return $this;
+    }
+
+    /**
+     * Loading only active quote
+     *
+     * @param int $quoteId
+     * @return Mage_Sales_Model_Quote
+     */
+    public function loadActive($quoteId)
+    {
+        $this->_getResource()->loadActive($this, $quoteId);
         $this->_afterLoad();
         return $this;
     }
@@ -616,6 +629,18 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function addItem(Mage_Sales_Model_Quote_Item $item)
     {
+        /**
+         * Temporary workaround for purchase process: it is too dangerous to purchase more than one nominal item
+         * or a mixture of nominal and non-nominal items, although technically possible.
+         *
+         * The problem is that currently it is implemented as sequential submission of nominal items and order, by one click.
+         * It makes logically impossible to make the process of the purchase failsafe.
+         * Proper solution is to submit items one by one with customer confirmation each time.
+         */
+        if ($item->isNominal() && $this->hasItems() || $this->hasNominalItems()) {
+            Mage::throwException(Mage::helper('sales')->__('Nominal item can be purchased standalone only. To proceed please remove other items from the quote.'));
+        }
+
         $item->setQuote($this);
         if (!$item->getId()) {
             $this->getItemsCollection()->addItem($item);
@@ -642,7 +667,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $request = new Varien_Object(array('qty'=>$request));
         }
         if (!($request instanceof Varien_Object)) {
-            Mage::throwException(Mage::helper('sales')->__('Invalid request for adding product to quote'));
+            Mage::throwException(Mage::helper('sales')->__('Invalid request for adding product to quote.'));
         }
 
         $cartCandidates = $product->getTypeInstance(true)
@@ -731,6 +756,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
         $item->setOptions($product->getCustomOptions())
             ->setProduct($product);
+
 
         $this->addItem($item);
 
@@ -1192,6 +1218,81 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         );
 
         return $this;
+    }
+
+    /**
+     * Whether there are recurring items
+     *
+     * @return bool
+     */
+    public function hasRecurringItems()
+    {
+        foreach ($this->getAllVisibleItems() as $item) {
+            if ($item->getProduct() && $item->getProduct()->isRecurring()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Getter whether quote has nominal items
+     * Can bypass treating virtual items as nominal
+     *
+     * @param bool $countVirtual
+     * @return bool
+     */
+    public function hasNominalItems($countVirtual = true)
+    {
+        foreach ($this->getAllVisibleItems() as $item) {
+            if ($item->isNominal()) {
+                if ((!$countVirtual) && $item->getProduct()->isVirtual()) {
+                    continue;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Whether quote has nominal items only
+     *
+     * @return bool
+     */
+    public function isNominal()
+    {
+        foreach ($this->getAllVisibleItems() as $item) {
+            if (!$item->isNominal()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Create recurring payment profiles basing on the current items
+     *
+     * @return array
+     */
+    public function prepareRecurringPaymentProfiles()
+    {
+        if (!$this->getTotalsCollectedFlag()) {
+            // Whoops! Make sure nominal totals must be calculated here.
+            throw new Exception('Quote totals must be collected before this operation.');
+        }
+
+        $result = array();
+        foreach ($this->getAllVisibleItems() as $item) {
+            $product = $item->getProduct();
+            if (is_object($product) && ($product->isRecurring())
+                && $profile = Mage::getModel('sales/recurring_profile')->importProduct($product)) {
+                $profile->importQuote($this);
+                $profile->importQuoteItem($item);
+                $result[] = $profile;
+            }
+        }
+        return $result;
     }
 
     protected function _validateCouponCode()

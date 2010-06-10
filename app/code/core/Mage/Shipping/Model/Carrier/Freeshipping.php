@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,6 +38,7 @@ class Mage_Shipping_Model_Carrier_Freeshipping
 {
 
     protected $_code = 'freeshipping';
+    protected $_isFixed = true;
 
     /**
      * FreeShipping Rates Collector

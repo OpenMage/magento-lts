@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -159,11 +159,18 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
 
     public function customerDetailAction()
     {
+        $detailBlock = $this->getLayout()->createBlock('adminhtml/report_tag_customer_detail');
+
+        $this->_title($this->__('Reports'))
+             ->_title($this->__('Tags'))
+             ->_title($this->__('Customers'))
+             ->_title($detailBlock->getHeaderText());
+
         $this->_initAction()
             ->_setActiveMenu('report/tag/customerDetail')
             ->_addBreadcrumb(Mage::helper('reports')->__('Customers Report'), Mage::helper('reports')->__('Customers Report'))
             ->_addBreadcrumb(Mage::helper('reports')->__('Customer Tags'), Mage::helper('reports')->__('Customer Tags'))
-            ->_addContent($this->getLayout()->createBlock('adminhtml/report_tag_customer_detail'))
+            ->_addContent($detailBlock)
             ->renderLayout();
     }
 
@@ -193,11 +200,18 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
 
     public function productDetailAction()
     {
+        $detailBlock = $this->getLayout()->createBlock('adminhtml/report_tag_product_detail');
+
+        $this->_title($this->__('Reports'))
+             ->_title($this->__('Tags'))
+             ->_title($this->__('Products'))
+             ->_title($detailBlock->getHeaderText());
+
         $this->_initAction()
             ->_setActiveMenu('report/tag/productDetail')
             ->_addBreadcrumb(Mage::helper('reports')->__('Products Report'), Mage::helper('reports')->__('Products Report'))
             ->_addBreadcrumb(Mage::helper('reports')->__('Product Tags'), Mage::helper('reports')->__('Product Tags'))
-            ->_addContent($this->getLayout()->createBlock('adminhtml/report_tag_product_detail'))
+            ->_addContent($detailBlock)
             ->renderLayout();
     }
 
@@ -227,11 +241,18 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
 
     public function tagDetailAction()
     {
+        $detailBlock = $this->getLayout()->createBlock('adminhtml/report_tag_popular_detail');
+
+        $this->_title($this->__('Reports'))
+             ->_title($this->__('Tags'))
+             ->_title($this->__('Popular'))
+             ->_title($detailBlock->getHeaderText());
+
         $this->_initAction()
             ->_setActiveMenu('report/tag/tagDetail')
             ->_addBreadcrumb(Mage::helper('reports')->__('Popular Tags'), Mage::helper('reports')->__('Popular Tags'))
             ->_addBreadcrumb(Mage::helper('reports')->__('Tag Detail'), Mage::helper('reports')->__('Tag Detail'))
-            ->_addContent($this->getLayout()->createBlock('adminhtml/report_tag_popular_detail'))
+            ->_addContent($detailBlock)
             ->renderLayout();
     }
 

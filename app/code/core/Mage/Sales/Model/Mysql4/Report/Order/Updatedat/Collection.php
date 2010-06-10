@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,17 +37,22 @@ class Mage_Sales_Model_Mysql4_Report_Order_Updatedat_Collection extends Mage_Sal
     protected $_periodFormat;
     protected $_inited = false;
     protected $_selectedColumns = array(
-        'orders_count'              => 'COUNT(e.entity_id)',
-        'total_qty_ordered'         => 'SUM(e.total_qty_ordered)',
-        'base_profit_amount'        => 'SUM(IFNULL(e.base_subtotal_invoiced, 0) * e.base_to_global_rate) + SUM(IFNULL(e.base_discount_refunded, 0) * e.base_to_global_rate) - SUM(IFNULL(e.base_subtotal_refunded, 0) * e.base_to_global_rate) - SUM(IFNULL(e.base_discount_invoiced, 0) * e.base_to_global_rate) - SUM(IFNULL(e.base_total_invoiced_cost, 0) * e.base_to_global_rate)',
-        'base_subtotal_amount'      => 'SUM(e.base_subtotal * e.base_to_global_rate)',
-        'base_tax_amount'           => 'SUM(e.base_tax_amount * e.base_to_global_rate)',
-        'base_shipping_amount'      => 'SUM(e.base_shipping_amount * e.base_to_global_rate)',
-        'base_discount_amount'      => 'SUM(e.base_discount_amount * e.base_to_global_rate)',
-        'base_grand_total_amount'   => 'SUM(e.base_grand_total * e.base_to_global_rate)',
-        'base_invoiced_amount'      => 'SUM(e.base_total_paid * e.base_to_global_rate)',
-        'base_refunded_amount'      => 'SUM(e.base_total_refunded * e.base_to_global_rate)',
-        'base_canceled_amount'      => 'SUM(IFNULL(e.subtotal_canceled, 0) * e.base_to_global_rate)'
+        'orders_count'                   => 'COUNT(e.entity_id)',
+        'total_qty_ordered'              => 'IFNULL(SUM(oi.total_qty_ordered), 0)',
+        'total_qty_invoiced'             => 'IFNULL(SUM(oi.total_qty_invoiced), 0)',
+        'total_income_amount'            => 'IFNULL(SUM((e.base_grand_total - IFNULL(e.base_total_canceled, 0)) * e.base_to_global_rate), 0)',
+        'total_revenue_amount'           => 'IFNULL(SUM((e.base_total_paid - IFNULL(e.base_total_refunded, 0)) * e.base_to_global_rate), 0)',
+        'total_profit_amount'            => 'IFNULL(SUM((e.base_total_paid - IFNULL(e.base_total_refunded, 0) - IFNULL(e.base_tax_invoiced, 0) - IFNULL(e.base_shipping_invoiced, 0) - IFNULL(e.base_total_invoiced_cost, 0)) * e.base_to_global_rate), 0)',
+        'total_invoiced_amount'          => 'IFNULL(SUM(e.base_total_invoiced * e.base_to_global_rate), 0)',
+        'total_canceled_amount'          => 'IFNULL(SUM(e.base_total_canceled * e.base_to_global_rate), 0)',
+        'total_paid_amount'              => 'IFNULL(SUM(e.base_total_paid * e.base_to_global_rate), 0)',
+        'total_refunded_amount'          => 'IFNULL(SUM(e.base_total_refunded * e.base_to_global_rate), 0)',
+        'total_tax_amount'               => 'IFNULL(SUM((e.base_tax_amount - IFNULL(e.base_tax_canceled, 0)) * e.base_to_global_rate), 0)',
+        'total_tax_amount_actual'        => 'IFNULL(SUM((e.base_tax_invoiced - IFNULL(e.base_tax_refunded, 0)) * e.base_to_global_rate), 0)',
+        'total_shipping_amount'          => 'IFNULL(SUM((e.base_shipping_amount - IFNULL(e.base_shipping_canceled, 0)) * e.base_to_global_rate), 0)',
+        'total_shipping_amount_actual'   => 'IFNULL(SUM((e.base_shipping_invoiced - IFNULL(e.base_shipping_refunded, 0)) * e.base_to_global_rate), 0)',
+        'total_discount_amount'          => 'IFNULL(SUM((ABS(e.base_discount_amount) - IFNULL(e.base_discount_canceled, 0)) * e.base_to_global_rate), 0)',
+        'total_discount_amount_actual'   => 'IFNULL(SUM((e.base_discount_invoiced - IFNULL(e.base_discount_refunded, 0)) * e.base_to_global_rate), 0)',
     );
 
     /**
@@ -146,29 +151,32 @@ class Mage_Sales_Model_Mysql4_Report_Order_Updatedat_Collection extends Mage_Sal
 
         $mainTable = $this->getResource()->getMainTable();
 
-        if (!is_null($this->_from) || !is_null($this->_to)) {
-            $where = (!is_null($this->_from)) ? "so.updated_at >= '{$this->_from}'" : '';
-            if (!is_null($this->_to)) {
-                $where .= (!empty($where)) ? " AND so.updated_at <= '{$this->_to}'" : "so.updated_at <= '{$this->_to}'";
-            }
-
-            $subQuery = clone $this->getSelect();
-            $subQuery->from(array('so' => $mainTable), array('DISTINCT DATE(so.updated_at)'))
-                ->where($where);
-        }
+        $selectOrderItem = $this->getConnection()->select()
+            ->from($this->getTable('sales/order_item'), array(
+                'order_id'           => 'order_id',
+                'total_qty_ordered'  => 'SUM(qty_ordered - IFNULL(qty_canceled, 0))',
+                'total_qty_invoiced' => 'SUM(qty_invoiced)',
+            ))
+            ->group('order_id');
 
         $select = $this->getSelect()
             ->from(array('e' => $mainTable), $columns)
+            ->join(array('oi' => $selectOrderItem), 'oi.order_id = e.entity_id', array())
             ->where('e.state NOT IN (?)', array(
                     Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
-                    Mage_Sales_Model_Order::STATE_NEW
+                    Mage_Sales_Model_Order::STATE_NEW,
+                    Mage_Sales_Model_Order::STATE_CANCELED,
                 ));
 
         $this->_applyStoresFilter();
         $this->_applyOrderStatusFilter();
 
-        if (!is_null($this->_from) || !is_null($this->_to)) {
-            $select->where("DATE(e.updated_at) IN(?)", new Zend_Db_Expr($subQuery));
+        if ($this->_to !== null) {
+            $select->where('DATE(e.updated_at) <= DATE(?)', $this->_to);
+        }
+
+        if ($this->_from !== null) {
+            $select->where('DATE(e.updated_at) >= DATE(?)', $this->_from);
         }
 
         if (!$this->isTotals()) {

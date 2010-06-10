@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +41,22 @@ class Mage_Paypal_Block_Express_Form extends Mage_Paypal_Block_Standard_Form
     protected function _construct()
     {
         $result = parent::_construct();
-        $this->setRedirectMessage(Mage::helper('paypal')->__('Your billing address will be ignored and you will be redirected to PayPal website.'));
+        $this->setRedirectMessage(Mage::helper('paypal')->__('You will be redirected to PayPal website.'));
         return $result;
+    }
+
+    /**
+     * Set data to block
+     *
+     * @return Mage_Core_Block_Abstract
+     */
+    protected function _beforeToHtml()
+    {
+        $customerId = Mage::getSingleton('customer/session')->getCustomerId();
+        if (Mage::helper('paypal')->shouldAskToCreateBillingAgreement($this->_config, $customerId)
+             && $this->canCreateBillingAgreement()) {
+            $this->setCreateBACode(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT);
+        }
+        return parent::_beforeToHtml();
     }
 }

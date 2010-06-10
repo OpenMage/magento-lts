@@ -20,17 +20,19 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <div id="<?php echo $this->getHtmlId() ?>">
 <table cellspacing="0" cellpadding="0" class="massaction">
 <tr>
-    <td><a href="#" onclick="return <?php echo $this->getJsObjectName() ?>.selectAll()"><?php echo $this->__('Select All') ?></a>
+    <td><?php if ($this->getUseSelectAll()):?>
+        <a href="#" onclick="return <?php echo $this->getJsObjectName() ?>.selectAll()"><?php echo $this->__('Select All') ?></a>
         <span class="separator">|</span>
         <a href="#" onclick="return <?php echo $this->getJsObjectName() ?>.unselectAll()"><?php echo $this->__('Unselect All') ?></a>
         <span class="separator">|</span>
+        <?php endif; ?>
         <a href="#" onclick="return <?php echo $this->getJsObjectName() ?>.selectVisible()"><?php echo $this->__('Select Visible') ?></a>
         <span class="separator">|</span>
         <a href="#" onclick="return <?php echo $this->getJsObjectName() ?>.unselectVisible()"><?php echo $this->__('Unselect Visible') ?></a>

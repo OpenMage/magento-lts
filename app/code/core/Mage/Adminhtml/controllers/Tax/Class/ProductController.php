@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -133,7 +133,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
         try {
             $classModel->delete();
 
-            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('Tax class was successfully deleted'));
+            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax class has been deleted.'));
             $this->getResponse()->setRedirect($this->getUrl("*/*/"));
             return;
         }
@@ -141,7 +141,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         }
         catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Error while deleting this class. Please try again later.'));
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while deleting this tax class.'));
         }
 
         $this->_redirectReferer();

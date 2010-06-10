@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -167,11 +167,15 @@ Emails
         <reference name="product.info">
             <block type="downloadable/catalog_product_view_type" name="product.info.downloadable" as="product_type_data" template="downloadable/catalog/product/type.phtml">
                  <block type="downloadable/catalog_product_samples" name="product.info.downloadable.samples" as="samples" template="downloadable/catalog/product/samples.phtml"/>
+                 <block type="core/text_list" name="product.info.downloadable.extra" as="product_type_data_extra"/>
             </block>
         </reference>
         <reference name="product.info.options.wrapper">
             <block type="downloadable/catalog_product_links" name="product.info.downloadable.options" as="type_downloadable_options" before="-" template="downloadable/catalog/product/links.phtml"/>
             <action method="insert"><block>product.info.downloadable.options</block></action>
+        </reference>
+        <reference name="product.info.downloadable.extra">
+            <block type="cataloginventory/stockqty_default" template="cataloginventory/stockqty/default.phtml"/>
         </reference>
     </PRODUCT_TYPE_downloadable>
 

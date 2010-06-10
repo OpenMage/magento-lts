@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -139,7 +139,7 @@ class Mage_Tax_Model_Mysql4_Report_Updatedat_Collection extends Mage_Sales_Model
 
         $select = $this->getSelect()
             ->from(array('e' => $mainTable), $columns)
-            ->joinInner(array('tax'=> $this->getTable('sales/order_tax')), 'e.entity_id = tax.order_id', array());
+            ->joinInner(array('tax'=> $this->getTable('tax/sales_order_tax')), 'e.entity_id = tax.order_id', array());
 
         $this->_applyStoresFilter();
         $this->_applyOrderStatusFilter();

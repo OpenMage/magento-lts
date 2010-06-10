@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /**
@@ -43,7 +43,7 @@
         <?php $isFirst = 1; ?>
 
         <?php foreach ($rates as $rate): ?>
-        <tr class="tax-details-<?php echo $taxIter; ?> tax-details<?php if ($isTop): echo ' tax-details-first'; endif; ?>" style="display:none;">
+        <tr class="summary-details-<?php echo $taxIter; ?> summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>" style="display:none;">
             <td class="a-right" style="<?php echo $_style ?>" colspan="<?php echo $this->getColspan(); ?>">
                 <?php echo $rate['title']; ?>
                 <?php if ($rate['percent']): ?>
@@ -62,10 +62,10 @@
         <?php endforeach; ?>
     <?php endforeach; ?>
 <?php endif;?>
-<tr <?php if ($this->helper('tax')->displayFullSummary() && $_value!=0): ?> class="tax-total" onclick="expandDetails(this, '.tax-details-<?php echo $taxIter;?>')"<?php endif; ?>>
+<tr <?php if ($this->helper('tax')->displayFullSummary() && $_value!=0): ?> class="summary-total" onclick="expandDetails(this, '.summary-details-<?php echo $taxIter;?>')"<?php endif; ?>>
     <td style="<?php echo $_style ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
         <?php if ($this->helper('tax')->displayFullSummary()): ?>
-            <div class="tax-collapse"><?php echo $this->getTotal()->getTitle() ?></div>
+            <div class="summary-collapse"><?php echo $this->getTotal()->getTitle() ?></div>
         <?php else: ?>
             <?php echo $this->getTotal()->getTitle() ?>
         <?php endif;?>

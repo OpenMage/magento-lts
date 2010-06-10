@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,9 +40,13 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 
     /**
      * Whether setting order again is required (for example when setting non-saved yet order)
+     * @deprecated after 1.4, wrong logic of setting order id
      * @var bool
      */
     private $_shouldSetOrderBeforeSave = false;
+
+    protected $_eventPrefix = 'sales_order_status_history';
+    protected $_eventObject = 'status_history';
 
     /**
      * Initialize resource model
@@ -61,11 +65,8 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     public function setOrder(Mage_Sales_Model_Order $order)
     {
         $this->_order = $order;
-        $id = $order->getId();
-        if (!$id) {
-            $this->_shouldSetOrderBeforeSave = true;
-        }
-        return $this->setParentId($id)->setStoreId($order->getStoreId());
+        $this->setStoreId($order->getStoreId());
+        return $this;
     }
 
     /**
@@ -130,13 +131,17 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 
     /**
      * Set order again if required
+     *
      * @return Mage_Sales_Model_Order_Status_History
      */
     protected function _beforeSave()
     {
-        if ($this->_shouldSetOrderBeforeSave) {
-            $this->setOrder($this->_order);
+        parent::_beforeSave();
+
+        if (!$this->getParentId() && $this->getOrder()) {
+            $this->setParentId($this->getOrder()->getId());
         }
-        return parent::_beforeSave();
+
+        return $this;
     }
 }

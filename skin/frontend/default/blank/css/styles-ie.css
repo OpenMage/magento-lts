@@ -19,10 +19,10 @@
  *
  * @category    design
  * @package     default_blank
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
- 
+
 /* IE 6 only */
 * html .validation-advice { height:13px; }
 * html .error-msg,
@@ -42,9 +42,6 @@
 #nav li,
 #nav li a { zoom:1; }
 #nav li { vertical-align:top; }
-/* Show Menu */
-#nav li.over ul.shown-sub { left:0; }
-#nav li.over li ul.shown-sub { left:100px; }
 /********** < Navigation styles */
 
 select { margin-bottom:1px; }
@@ -130,7 +127,8 @@ button.btn-checkout {}
 .advanced-search-summary,
 .advanced-search-summary p,
 .gift-messages-form .item,
-.send-friend .form-list li p { zoom:1; }
+.send-friend .form-list li p,
+.centinel .authentication { zoom:1; }
 
 /* Hover Fix */
 iframe.hover-fix { position:absolute; left:-1px; top:-1px; z-index:-1; background:transparent; filter:progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0); }

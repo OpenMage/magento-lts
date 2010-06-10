@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_PaypalUk
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,14 +35,14 @@ class Mage_PaypalUk_ExpressController extends Mage_Paypal_Controller_Express_Abs
      *
      * @var string
      */
-    protected $_configType = 'paypaluk/config';
+    protected $_configType = 'paypal/config';
 
     /**
      * Config method type
      *
      * @var string
      */
-    protected $_configMethod = Mage_PaypalUk_Model_Config::METHOD_WPP_PE_EXPRESS;
+    protected $_configMethod = Mage_Paypal_Model_Config::METHOD_WPP_PE_EXPRESS;
 
     /**
      * Checkout mode type

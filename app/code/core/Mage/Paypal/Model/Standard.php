@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -117,34 +117,35 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
      */
     public function getStandardCheckoutFormFields()
     {
+        $orderIncrementId = $this->getCheckout()->getLastRealOrderId();
+        $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
         $api = Mage::getModel('paypal/api_standard')->setConfigObject($this->getConfig());
-        $quote = $this->getQuote();
-        $api->setOrderId($this->getCheckout()->getLastRealOrderId()) // TODO reserved order id
-            ->setCurrencyCode($quote->getBaseCurrencyCode())
+        $api->setOrderId($orderIncrementId)
+            ->setCurrencyCode($order->getBaseCurrencyCode())
             //->setPaymentAction()
-            ->setNotifyUrl(Mage::getUrl('paypal/ipn/standard'))
+            ->setNotifyUrl(Mage::getUrl('paypal/ipn/'))
             ->setReturnUrl(Mage::getUrl('paypal/standard/success'))
-            ->setCancelUrl(Mage::getUrl('paypal/standard/cancel'))
-        ;
+            ->setCancelUrl(Mage::getUrl('paypal/standard/cancel'));
 
         // export address
-        $isQuoteVirtual = $quote->getIsVirtual();
-        $address = $isQuoteVirtual ? $quote->getBillingAddress() : $quote->getShippingAddress();
-        if ($isQuoteVirtual) {
+        $isOrderVirtual = $order->getIsVirtual();
+        $address = $isOrderVirtual ? $order->getBillingAddress() : $order->getShippingAddress();
+        if ($isOrderVirtual) {
             $api->setNoShipping(true);
-        } elseif ($address->getEmail()) {
+        }
+        elseif ($address->getEmail()) {
             $api->setAddress($address);
         }
 
-        list($items, $totals, $discountAmount, $shippingAmount) = Mage::helper('paypal')->prepareLineItems($quote, false, true);
+        list($items, $totals, $discountAmount, $shippingAmount) = Mage::helper('paypal')->prepareLineItems($order, false, true);
         // prepare line items if required in config
         if ($this->_config->lineItemsEnabled) {
             $api->setLineItems($items)->setLineItemTotals($totals)->setDiscountAmount($discountAmount);
         }
         // or values specific for aggregated order
         else {
-            $grandTotal = $quote->getBaseGrandTotal();
-            if (!$isQuoteVirtual) {
+            $grandTotal = $order->getBaseGrandTotal();
+            if (!$isOrderVirtual) {
                 $api->setShippingAmount($shippingAmount);
                 $grandTotal -= $shippingAmount;
             }
@@ -176,12 +177,37 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     {
         if (null === $this->_config) {
             $params = array($this->_code);
-            if ($this->getStore()) {
-                $params[] = (int)$this->getStore();
+            if ($store = $this->getStore()) {
+                $params[] = is_object($store) ? $store->getId() : $store;
             }
             $this->_config = Mage::getModel('paypal/config', $params);
         }
         return $this->_config;
+    }
+
+    /**
+     * Check whether payment method can be used
+     * @param Mage_Sales_Model_Quote
+     * @return bool
+     */
+    public function isAvailable($quote = null)
+    {
+        if ($this->getConfig()->isMethodAvailable() && parent::isAvailable($quote)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Custom getter for payment configuration
+     *
+     * @param string $field
+     * @param int $storeId
+     * @return mixed
+     */
+    public function getConfigData($field, $storeId = null)
+    {
+        return $this->getConfig()->$field;
     }
 
     /**

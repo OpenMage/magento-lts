@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -327,7 +327,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Compare data from two tax rate requests.
+     * Compare data and rates for two tax rate requests.
      * Return true if requests are semilar
      *
      * @param   Varien_Object $first
@@ -336,23 +336,23 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      */
     public function compareRequests($first, $second)
     {
-//        var_dump($first->getCountryId() , $second->getCountryId()); echo '<br>';
-//        var_dump($first->getRegionId(), $second->getRegionId());echo '<br>';
         $country = $first->getCountryId() == $second->getCountryId();
         /**
          * "0" support for admin dropdown with --please select--
          */
-        $region  = (int)$first->getRegionId() == (int)$second->getRegionId()
-            || $first->getRegionId() == '*'
-            || $second->getRegionId() == '*'
-            || $first->getRegionId() == '0'
-            || $second->getRegionId() == '0';
-            $postcode= $first->getPostcode() == $second->getPostcode()
-            || $first->getPostcode() == '*'
-            || $second->getPostcode() == '*';
+        $region  = (int)$first->getRegionId() == (int)$second->getRegionId();
+        $postcode= $first->getPostcode() == $second->getPostcode();
         $taxClass= $first->getCustomerClassId() == $second->getCustomerClassId();
 
         if ($country && $region && $postcode && $taxClass) {
+            return true;
+        }
+        /**
+         * Compare available tax rates for both requests
+         */
+        $firstReqRates = $this->_getResource()->getRateIds($first);
+        $secondReqRates = $this->_getResource()->getRateIds($second);
+        if ($firstReqRates === $secondReqRates) {
             return true;
         }
         return false;

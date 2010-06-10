@@ -19,7 +19,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -33,7 +33,7 @@ img           { border:0; vertical-align:top; }
 
 a             { color:#1e7ec8; text-decoration:underline; }
 a:hover       { text-decoration:none; }
-:focus        { outline: 0; }
+:focus        { outline:0; }
 
 /* Headings */
 h1,h2,h3,
@@ -353,7 +353,7 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 .data-table thead th { background:url(../images/bkg_th.gif) repeat-x 0 100% #d9e5ee; }
 
 .data-table tfoot { border-bottom:1px solid #d9dde3; }
-.data-table tfoot tr.first { background:url(../images/bkg_tfoot.gif) 0 0 repeat-x; }
+.data-table tfoot tr.first td { background:url(../images/bkg_tfoot.gif) 0 0 repeat-x; }
 .data-table tfoot tr { background-color:#dee5e8 !important; }
 .data-table tfoot td { padding-top:1px; padding-bottom:1px; border-bottom:0; border-right:1px solid #d9dde3; }
 .data-table tfoot strong { font-size:16px; }
@@ -371,14 +371,22 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 .data-table tbody td .option-label { font-weight:bold; font-style:italic; }
 .data-table tbody td .option-value { padding-left:10px; }
 
-/* Tax Details Row */
-tr.tax-total { cursor:pointer; }
-tr.tax-total td {}
-tr.tax-total .tax-collapse { float:right; text-align:right; padding-left:20px; background:url(../images/bkg_collapse.gif) 0 4px no-repeat; cursor:pointer; }
-tr.show-details .tax-collapse { background-position:0 -53px; }
+/* Generic Info Box */
+.info-box { background:#fff url(../images/bkg_block-title.gif) 0 0 repeat-x; border:1px solid #d0cbc1; padding:12px 15px; margin:0 0 15px; }
+.info-box h2 { font-weight:bold; font-size:13px; }
+
+.info-table th { font-weight:bold; padding:2px 15px 2px 0; }
+.info-table td { padding:2px 0; }
+
+/* Shopping cart total summary row expandable to details */
+tr.summary-total { cursor:pointer; }
+tr.summary-total td {}
+tr.summary-total .summary-collapse { float:right; text-align:right; padding-left:20px; background:url(../images/bkg_collapse.gif) 0 5px no-repeat; cursor:pointer; }
+tr.show-details .summary-collapse { background-position:0 -52px; }
 tr.show-details td {}
-tr.tax-details td { background-color:#f6f6f6; }
-tr.tax-details-first td {}
+tr.summary-details td { font-size:11px; background-color:#dae1e4; color:#626465; }
+tr.summary-details-first td { border-top:1px solid #d2d8db; }
+tr.summary-details-excluded { font-style:italic; }
 
 /* Shopping cart tax info */
 .cart-tax-info,
@@ -389,8 +397,7 @@ tr.tax-details-first td {}
 /* Class: std - styles for admin-controlled content */
 .std .subtitle { padding:0; }
 .std ol.ol { list-style:decimal outside; padding-left:1.5em; }
-.std ul.disc { margin:0 0 10px; }
-.std ul.disc { list-style:disc outside; padding-left:18px; }
+.std ul.disc { list-style:disc outside; padding-left:18px; margin:0 0 10px; }
 .std dl dt { font-weight:bold; }
 .std dl dd { margin:0 0 10px; }
 /*.std ul,
@@ -478,9 +485,9 @@ tr.tax-details-first td {}
 .nav-container { width:950px; padding:0 10px; background:url(../images/bkg_shadow.png) 50% 0 repeat-y; }
 #nav { padding:0 16px; background:#0a263d; font-size:13px; }
 
-/* ALL Levels */ /* Style consistent throughout all nav levels */
+/* All Levels */ /* Style consistent throughout all nav levels */
 #nav li { position:relative; text-align:left; }
-#nav li.over { z-index:999; }
+#nav li.over { z-index:998; }
 #nav a,
 #nav a:hover { display:block; line-height:1.3em; text-decoration:none; }
 #nav span { display:block; cursor:pointer; white-space:nowrap; }
@@ -498,7 +505,6 @@ tr.tax-details-first td {}
 /* 1st Level */
 #nav ul li,
 #nav ul li.active { float:none; margin:0; padding-bottom:1px; background:#ecf3f6 url(../images/bkg_nav1.gif) 0 100% repeat-x; }
-/*#nav ul li.over { background:#d5e4eb url(../images/bkg_nav1.gif) repeat-x 0 100%; }*/
 #nav ul li.last { background:#ecf3f6; padding-bottom:0; }
 
 #nav ul a,
@@ -506,21 +512,26 @@ tr.tax-details-first td {}
 #nav ul li a { font-weight:normal !important; }
 
 /* 2nd Level */
-#nav ul { position:absolute; width:15em; top:27px; left:-10000px; border:1px solid #899ba5; }
+#nav ul,
+#nav div { position:absolute; width:15em; top:27px; left:-10000px; border:1px solid #899ba5; }
+#nav div ul { position:static; width:auto; border:none; }
 
-/* Show menu */
-#nav li.over > ul { left:0; }
-#nav li.over > ul li.over > ul { left:100px; }
-#nav li.over ul ul { left:-10000px; }
+/* 3rd+ Level */
+#nav ul ul,
+#nav ul div { top:5px; }
 
 #nav ul li a { background:#ecf3f6; }
 #nav ul li a:hover { background:#d5e4eb; }
 #nav ul li a,
 #nav ul li a:hover { color:#2f2f2f !important; }
-#nav ul span, #nav ul li.last li span { padding:3px 15px 4px 15px; }
+#nav ul span,
+#nav ul li.last li span { padding:3px 15px 4px 15px; }
 
-/* 3rd+ Level */
-#nav ul ul { top:5px; }
+/* Show menu */
+#nav li ul.shown-sub,
+#nav li div.shown-sub { left:0; z-index:999; }
+#nav li .shown-sub ul.shown-sub,
+#nav li .shown-sub li div.shown-sub { left:100px; }
 /********** Navigation > */
 /* ======================================================================================= */
 
@@ -534,6 +545,7 @@ tr.tax-details-first td {}
 .block .block-subtitle { margin:0; padding:5px 9px; font-size:1em; font-weight:bold; color:#0a263c; }
 .block .block-content { background:#e7f1f4; }
 .block .block-content li.item { padding:7px 9px; }
+.block .block-content .product-name { color:#1e7ec8; }
 .block .btn-remove { float:right; margin:1px 0 2px 5px; }
 .block .actions { background:#dee5e8 url(../images/bkg_block-actions.gif) 0 0 repeat-x; padding:6px 9px; text-align:right; }
 .block .actions a { float:left; }
@@ -692,6 +704,10 @@ tr.tax-details-first td {}
 .block-login label { font-weight:bold; color:#666; }
 .block-login input.input-text { display:block; width:167px; margin:3px 0; }
 .block-login .actions { background:none; padding:0; margin:3px 0 0; }
+
+/* Paypal */
+.sidebar .paypal-logo { display:block; margin:10px 0; text-align:center; }
+.sidebar .paypal-logo a { float:none; }
 /* ======================================================================================= */
 
 
@@ -757,6 +773,21 @@ tr.tax-details-first td {}
 .availability span { font-weight:bold; }
 .availability.in-stock span {}
 .availability.out-of-stock span { color:#d83820; }
+
+.availability-only { margin:10px 0 7px; line-height:16px; background:url(../images/i_availability_only.gif) 0 50% no-repeat; padding-left:15px; }
+.availability-only span,
+.availability-only a { border-bottom:1px dashed #751d02; color:#000; cursor:help; }
+.availability-only a { background:url(../images/i_availability_only_arrow.gif) 100% 0 no-repeat; cursor:pointer; padding-right:15px; text-decoration:none; }
+.availability-only .expanded { background-position:100% -15px; }
+.availability-only strong { color:#be2c00; }
+
+.availability-only-details { margin:0 0 7px; }
+.availability-only-details th { background:#c2d3e0; font-size:10px; padding:0 8px; }
+.availability-only-details td { border-bottom:1px solid #d9dde3; font-size:11px; padding:2px 8px 1px; }
+.availability-only-details tr.odd { background:#f8f7f5; }
+.availability-only-details tr.even { background:#eeeded; }
+.availability-only-details tr.odd td.last { color:#339933; font-weight:bold; }
+
 .product-view .product-shop .availability { font-size:11px; }
 .product-view .product-shop .availability span { font-weight:normal; }
 
@@ -807,7 +838,7 @@ tr.tax-details-first td {}
 .price-including-tax .label { white-space:nowrap; color:#999; }
 .price-including-tax .price { font-size:13px; font-weight:bold; }
 
-/* FTP */
+/* FPT */
 .weee { display:block; font-size:11px; color:#444; }
 .weee .price { font-size:11px; font-weight:normal; }
 
@@ -858,6 +889,7 @@ tr.tax-details-first td {}
 .add-to-cart label { float:left; margin-right:5px; font-weight:bold; color:#666; }
 .add-to-cart .qty { float:left; margin-right:5px; }
 .add-to-cart button.button { float:left; }
+.add-to-cart .paypal-logo { clear:left; margin:0; padding:10px 0 0; text-align:right; }
 
 /* Add to Links + Add to Cart */
 .add-to-box { margin:10px 0; }
@@ -932,6 +964,7 @@ tr.tax-details-first td {}
 .product-options dl.last dd.last { border-bottom:0; padding-bottom:5px; margin-bottom:0; }
 .product-options dd input.input-text { width:98%; }
 .product-options dd input.datetime-picker { width:150px; }
+.product-options dd .time-picker { display:-moz-inline-box; display:inline-block; padding:2px 0; vertical-align:middle; }
 .product-options dd textarea { width:98%; height:8em; }
 .product-options dd select { width:99%; }
 .product-options dd .multiselect option { border-bottom:1px dotted #d9e5ee; padding:2px 4px; }
@@ -951,6 +984,7 @@ tr.tax-details-first td {}
 .product-options-bottom .tier-prices .price,
 .product-options-bottom .tier-prices .benefit { color:#e26703; }
 .product-options-bottom .price-box { float:left; margin:0; padding:0; }
+.col3-layout .product-options-bottom .price-box { float:none; padding:0 0 5px; }
 .product-options-bottom .price-label { float:left; padding-right:5px; }
 .product-options-bottom .price-tax { float:left; }
 .product-options-bottom .add-to-cart { float:right; }
@@ -1068,6 +1102,8 @@ tr.tax-details-first td {}
 
 /* Checkout Types */
 .cart .page-title .checkout-types li { margin:0 0 5px; }
+.cart .title-buttons .checkout-types { float:right; }
+.cart .title-buttons .checkout-types li { float:left; margin:0 0 5px 5px; }
 
 /* Shopping Cart Table */
 .cart-table th { padding:2px 10px; }
@@ -1112,7 +1148,10 @@ tr.tax-details-first td {}
 .cart .totals table { width:100%; margin:7px 0; }
 .cart .totals td { padding:0 15px; }
 .cart .totals tr.last td {}
-.cart .totals tfoot td { padding-top:10px; font-size:15px; border:none !important; }
+.cart .totals tfoot th { padding:5px 15px 5px 7px; }
+.cart .totals tfoot td { padding-top:5px; padding-bottom:5px; }
+.cart .totals tfoot th,
+.cart .totals tfoot td strong { font-size:15px; }
 .cart .totals .checkout-types { font-size:13px; padding:8px 15px 15px; text-align:right; }
 .cart .totals .checkout-types li { clear:both; margin:10px 0; }
 
@@ -1144,6 +1183,11 @@ tr.tax-details-first td {}
 .sp-methods select.month { width:154px; margin-right:10px; }
 .sp-methods select.year { width:96px; }
 .sp-methods input.cvv { width:3em !important; }
+
+.sp-methods .checkmo-list li { margin:0 0 5px; }
+.sp-methods .checkmo-list label { width:135px; padding-right:10px; text-align:right; }
+.sp-methods .checkmo-list address { float:left; }
+
 .sp-methods .centinel-logos a { margin-right:3px; }
 .sp-methods .centinel-logos img { vertical-align:middle; }
 
@@ -1195,6 +1239,8 @@ tr.tax-details-first td {}
 
 /* Centinel */
 .centinel {}
+.centinel .authentication { border:1px solid #ddd; background:#fff; }
+.centinel .authentication iframe { width:99%; height:400px; background:transparent !important; margin:0 !important; padding:0 !important; border:0 !important; }
 
 .opc .centinel { border:1px solid #bbb6a5; border-width:0 1px 1px; padding:10px 30px; }
 
@@ -1407,7 +1453,7 @@ tr.tax-details-first td {}
 
 .order-info-box { background:#fff url(../images/bkg_block-title.gif) 0 0 repeat-x; border:1px solid #d0cbc1; padding:12px 15px; margin:0 0 15px; }
 .order-info-box h2 { font-weight:bold; font-size:13px; }
-.order-info-box .box-payment p { margin:0 0 5px; }
+.order-info-box .box-payment p { margin:0 0 3px; }
 .order-info-box .box-payment th { font-weight:bold; padding-right:7px; }
 
 .order-items { width:100%; overflow-x:auto; }
@@ -1484,6 +1530,11 @@ tr.tax-details-first td {}
 .product-review .ratings-table { margin:0 0 10px; }
 .product-review dt { font-weight:bold; }
 .product-review dd { font-size:13px; margin:5px 0 0; }
+
+/* Billing Agreements */
+.billing-agreements .form-list li select { float:left; }
+.billing-agreements .form-list li button.button { float:left; margin-left:10px; }
+.billing-agreements .table-caption { font-weight:bold; font-size:13px; }
 /* ======================================================================================= */
 
 
@@ -1511,7 +1562,7 @@ tr.tax-details-first td {}
 /* Sample Data============================================================================ */
 .home-callout { margin-bottom:12px; }
 .home-callout img { display:block }
-/*.home-spot { float:left; width:470px; margin-left:20px; }*/
+.home-spot { float:left; width:470px; margin-left:20px; }
 .best-selling h3 { margin:12px 0 6px 0; color:#e25203; font-size:1.2em; }
 .best-selling table { border-top:1px solid #ccc; }
 .best-selling tr.odd { background:#eee url(../images/best_selling_tr_odd_bg.gif) 0 100% repeat-x; }
@@ -1537,6 +1588,7 @@ tr.tax-details-first td {}
 .col-main:after,
 .col2-set:after,
 .col3-set:after,
+.col3-layout .product-options-bottom .price-box:after,
 .col4-set:after,
 .search-autocomplete li:after,
 .block .block-content:after,

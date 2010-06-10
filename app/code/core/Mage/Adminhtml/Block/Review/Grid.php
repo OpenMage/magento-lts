@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -225,7 +225,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             ->toOptionArray();
         array_unshift($statuses, array('label'=>'', 'value'=>''));
         $this->getMassactionBlock()->addItem('update_status', array(
-            'label'         => Mage::helper('review')->__('Update status'),
+            'label'         => Mage::helper('review')->__('Update Status'),
             'url'           => $this->getUrl('*/*/massUpdateStatus', array('ret' => Mage::registry('usePendingFilter') ? 'pending' : 'index')),
             'additional'    => array(
                 'status'    => array(

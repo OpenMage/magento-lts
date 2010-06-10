@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -122,7 +122,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
             $r->setFreeMethodWeight($request->getFreeMethodWeight());
         }
 
-        $r->setValue($request->getPackageValue());
+        $r->setValue($request->getPackagePhysicalValue());
         $r->setValueWithDiscount($request->getPackageValueWithDiscount());
 
         $this->_rawRequest = $r;
@@ -393,6 +393,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
         $xml->addChild('PackageCount', '1');
 
         $request = $xml->asXML();
+        $debugData = array('request' => $request);
 /*
         $client = new Zend_Http_Client();
         $client->setUri($this->getConfigData('gateway_url'));
@@ -414,11 +415,15 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
             $responseBody = curl_exec($ch);
+            $debugData['result'] = $responseBody;
             curl_close ($ch);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
+            $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
             $responseBody = '';
         }
 
+        $this->_debug($debugData);
         return $this->_parseXmlResponse($responseBody);
     }
 
@@ -429,7 +434,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
 
         if (strlen(trim($response))>0) {
            if ($xml = $this->_parseXml($response)) {
-               
+
                if (is_object($xml->Error) && is_object($xml->Error->Message)) {
                    $errorTitle = (string)$xml->Error->Message;
                } elseif (is_object($xml->SoftError) && is_object($xml->SoftError->Message)) {
@@ -437,9 +442,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                } else {
                    $errorTitle = 'Unknown error';
                }
-                
+
                $allowedMethods = explode(",", $this->getConfigData('allowed_methods'));
-                
+
                foreach ($xml->Entry as $entry) {
                    if (in_array((string)$entry->Service, $allowedMethods)) {
                        $costArr[(string)$entry->Service] = (string)$entry->EstimatedCharges->DiscountedCharges->NetCharge;
@@ -481,7 +486,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     }
 
     /**
-     * Parse XML string and return XML document object or false 
+     * Parse XML string and return XML document object or false
      *
      * @param string $xmlContent
      * @return SimpleXMLElement|bool
@@ -645,6 +650,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
         $xml->addChild('DetailScans', '1');
 
         $request = $xml->asXML();
+        $debugData = array('request' => $request);
+
         try {
             $url = $this->getConfigData('gateway_url');
             if (!$url) {
@@ -657,11 +664,14 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
             $responseBody = curl_exec($ch);
+            $debugData['result'] = $responseBody;
             curl_close ($ch);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
+            $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
             $responseBody = '';
         }
-
+        $this->_debug($debugData);
         #echo "<xmp>".$responseBody."</xmp>";
         $this->_parseXmlTrackingResponse($tracking, $responseBody);
     }
@@ -671,7 +681,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
          $resultArr=array();
          if (strlen(trim($response))>0) {
             if ($xml = $this->_parseXml($response)) {
-                  
+
                  if (is_object($xml->Error) && is_object($xml->Error->Message)) {
                     $errorTitle = (string)$xml->Error->Message;
                  } elseif (is_object($xml->SoftError) && is_object($xml->SoftError->Message)) {

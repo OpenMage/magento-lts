@@ -19,7 +19,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -250,7 +250,9 @@ tr.td-noborder td { border:0; }
 .product-options dt { padding:0; margin:0; }
 .product-options dt label { font-weight:bold; }
 .product-options dd { margin:0 0 10px; padding:0 0 10px; border-bottom:1px solid #ddd; }
+.product-options dd img { padding:4px 0 0; vertical-align:middle; }
 .product-options dd select { width:100%; }
+.product-options dd .time-picker { display:inline-block; padding:4px 0 0; vertical-align:middle; }
 .product-options dl.last dd.last { margin:0; padding:0; border-bottom:0; }
 .product-options-bottom { margin:0 0 5px; }
 
@@ -314,6 +316,8 @@ h4.legend { margin:1px 0 5px 0; }
 .shipment-methods li { padding:10px 0; }
 .payment-methods dt, .payment-methods dd { padding:3px 0; }
 .payment-methods dd { margin-left:20px; padding:5px 0 10px 0; }
+.payment-methods .centinel-logos a { margin-right:3px; }
+.payment-methods .centinel-logos img { vertical-align:middle; }
 .v-fix { float:left; }
 .v-fix select { width:95px; }
 
@@ -384,6 +388,17 @@ h4.legend { margin:1px 0 5px 0; }
     border-top-color:#e96200;
     color:#e96200;
 }
+
+#checkout-review-load { border-right:1px solid #d9dde3; margin-right:0; }
+#checkout-review-load #checkout-review-table thead tr.first th:first-child { border-left:none; }
+.checkout-agreements { border:1px solid #d9dde3; border-left:none; padding:5px; }
+.checkout-agreements .agreement-content { padding:5px; }
+
+/* Centinel */
+.centinel {}
+.centinel .authentication { border:1px solid #ddd; background:#fff; }
+.centinel .authentication iframe { width:99%; height:400px; background:transparent !important; margin:0 !important; padding:0 !important; border:0 !important; }
+
 
 /********************* Customer */
 /* Date of Birth */

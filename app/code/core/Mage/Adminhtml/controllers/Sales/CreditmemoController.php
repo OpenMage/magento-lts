@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,25 @@
  */
 class Mage_Adminhtml_Sales_CreditmemoController extends Mage_Adminhtml_Controller_Sales_Creditmemo
 {
+    /**
+     * Export credit memo grid to CSV format
+     */
+    public function exportCsvAction()
+    {
+        $fileName   = 'creditmemos.csv';
+        $grid       = $this->getLayout()->createBlock('adminhtml/sales_creditmemo_grid');
+        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+    }
 
+    /**
+     *  Export credit memo grid to Excel XML format
+     */
+    public function exportExcelAction()
+    {
+        $fileName   = 'creditmemos.xml';
+        $grid       = $this->getLayout()->createBlock('adminhtml/sales_creditmemo_grid');
+        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+    }
 
     /**
      *  Index page
@@ -42,3 +60,4 @@ class Mage_Adminhtml_Sales_CreditmemoController extends Mage_Adminhtml_Controlle
         parent::indexAction();
     }
 }
+

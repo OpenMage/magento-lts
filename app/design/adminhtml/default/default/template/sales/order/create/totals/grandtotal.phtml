@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /**
@@ -34,7 +34,7 @@
         <strong><?php echo $this->helper('tax')->__('Grand Total Excl. Tax')?></strong>
     </td>
     <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <strong><?php echo $this->helper('checkout')->formatPrice($this->getTotalExclTax()) ?></strong>
+        <strong><?php echo $this->formatPrice($this->getTotalExclTax()) ?></strong>
     </td>
 </tr>
 <?php echo $this->renderTotals('taxes', $this->getColspan()); ?>
@@ -43,7 +43,7 @@
         <strong><?php echo $this->helper('tax')->__('Grand Total Incl. Tax')?></strong>
     </td>
     <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <strong><?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValue()) ?></strong>
+        <strong><?php echo $this->formatPrice($this->getTotal()->getValue()) ?></strong>
     </td>
 </tr>
 <?php else:?>
@@ -52,7 +52,7 @@
         <strong><?php echo $this->getTotal()->getTitle() ?></strong>
     </td>
     <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <strong><?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValue()) ?></strong>
+        <strong><?php echo $this->formatPrice($this->getTotal()->getValue()) ?></strong>
     </td>
 </tr>
 <?php endif;?>

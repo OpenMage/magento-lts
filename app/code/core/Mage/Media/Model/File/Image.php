@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Media
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -100,7 +100,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
         }
 
         if(!$resource) {
-            Mage::throwException(Mage::helper('media')->__('Image not exists or invalid'));
+            Mage::throwException(Mage::helper('media')->__('The image does not exist or is invalid.'));
         }
 
 
@@ -182,7 +182,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
         }
 
         if(!$result) {
-            Mage::throwException(Mage::helper('media')->__('Error while creating image'));
+            Mage::throwException(Mage::helper('media')->__('An error occurred while creating the image.'));
         }
 
         return $this;
@@ -198,7 +198,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     {
         $info = @getimagesize($object->getFilePath());
         if(!$info) {
-            Mage::throwException(Mage::helper('media')->__('Image not exists or invalid'));
+            Mage::throwException(Mage::helper('media')->__('The image does not exist or is invalid.'));
         }
 
         $info = array('width'=>$info[0], 'height'=>$info[1], 'type'=>$info[2]);

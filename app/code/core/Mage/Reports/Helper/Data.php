@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +47,7 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
             return $intervals;
         }
 
-        $start = Mage::app()->getLocale()->date($from, Varien_Date::DATE_INTERNAL_FORMAT);
+        $start = new Zend_Date($from, Varien_Date::DATE_INTERNAL_FORMAT);
 
         if ($period == self::REPORT_PERIOD_TYPE_DAY) {
             $dateStart = $start;
@@ -61,7 +61,7 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
             $dateStart = new Zend_Date(date("Y", $start->getTimestamp()), Varien_Date::DATE_INTERNAL_FORMAT);
         }
 
-        $dateEnd = Mage::app()->getLocale()->date($to, Varien_Date::DATE_INTERNAL_FORMAT);
+        $dateEnd = new Zend_Date($to, Varien_Date::DATE_INTERNAL_FORMAT);
 
         while ($dateStart->compare($dateEnd) <= 0) {
             switch ($period) {

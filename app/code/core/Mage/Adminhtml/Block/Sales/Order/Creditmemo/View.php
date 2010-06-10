@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -114,19 +114,12 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
     public function getHeaderText()
     {
         if ($this->getCreditmemo()->getEmailSent()) {
-            $emailSent = Mage::helper('sales')->__('Credit Memo email sent');
+            $emailSent = Mage::helper('sales')->__('the credit memo email was sent');
         }
         else {
-            $emailSent = Mage::helper('sales')->__('Credit Memo email not sent');
+            $emailSent = Mage::helper('sales')->__('the credit memo email is not sent');
         }
-
-        $header = Mage::helper('sales')->__('Credit Memo #%s | Date %s | Status %s (%s)',
-            $this->getCreditmemo()->getIncrementId(),
-            $this->formatDate($this->getCreditmemo()->getCreatedAtDate(), 'medium', true),
-            $this->getCreditmemo()->getStateName(),
-            $emailSent
-        );
-        return $header;
+        return Mage::helper('sales')->__('Credit Memo #%1$s | %3$s | %2$s (%4$s)', $this->getCreditmemo()->getIncrementId(), $this->formatDate($this->getCreditmemo()->getCreatedAtDate(), 'medium', true), $this->getCreditmemo()->getStateName(), $emailSent);
     }
 
     /**
@@ -207,6 +200,10 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
     public function updateBackButtonUrl($flag)
     {
         if ($flag) {
+            if ($this->getCreditmemo()->getBackUrl()) {
+                return $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getCreditmemo()->getBackUrl() . '\')');
+            }
+
             return $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getUrl('*/sales_creditmemo/') . '\')');
         }
         return $this;

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,8 +42,8 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Eav_Abstra
      */
     public function reindexAll()
     {
-        $this->cloneIndexTable(true);
-
+        $this->useIdxTable(true);
+        $this->clearTemporaryIndexTable();
         $this->_prepareIndex();
         $this->_prepareRelationIndex();
         $this->_removeNotVisibleEntityFromIndex();
@@ -63,7 +63,7 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Eav_Abstra
     {
         $adapter = $this->_getWriteAdapter();
 
-        $this->cloneIndexTable(true);
+        $this->clearTemporaryIndexTable();
 
         if (!is_array($processIds)) {
             $processIds = array($processIds);
@@ -113,7 +113,7 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Eav_Abstra
         if (!$isIndexable) {
             $this->_removeAttributeIndexData($attributeId);
         } else {
-            $this->cloneIndexTable(true);
+            $this->clearTemporaryIndexTable();
 
             $this->_prepareIndex(null, $attributeId);
             $this->_prepareRelationIndex();

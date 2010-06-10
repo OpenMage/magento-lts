@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -74,14 +74,6 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'index'     => 'name',
         ));
 
-        $this->addColumn('total_used', array(
-            'header'    => Mage::helper('tag')->__('Uses'),
-            'width'     => 140,
-            'align'     => 'right',
-            'index'     => 'uses',
-            'type'      => 'number',
-        ));
-
         $this->addColumn('products', array(
             'header'    => Mage::helper('tag')->__('Products'),
             'width'     => 140,
@@ -98,14 +90,6 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'type'      => 'number',
         ));
 
-        $this->addColumn('popularity', array(
-            'header'    => Mage::helper('tag')->__('Popularity'),
-            'width'     => 140,
-            'align'     => 'right',
-            'index'     => 'popularity',
-            'type'      => 'number',
-        ));
-
         $this->addColumn('status', array(
             'header'    => Mage::helper('tag')->__('Status'),
             'width'     => 90,
@@ -116,7 +100,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('visible_in', array(
-                'header'                => Mage::helper('tag')->__('Visible In'),
+                'header'                => Mage::helper('tag')->__('Store View'),
                 'type'                  => 'store',
                 'skipAllStoresLabel'    => true,
                 'index'                 => 'stores',

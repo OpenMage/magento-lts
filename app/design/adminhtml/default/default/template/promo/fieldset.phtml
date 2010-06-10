@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -30,6 +30,9 @@
         <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $_element->getLegend() ?></h4>
     </div>
     <fieldset id="<?php echo $_element->getHtmlId() ?>" <?php echo $_element->serialize(array('class')) ?>>
+    <?php if ($_element->getComment()): ?>
+        <p class="comment"><?php echo $this->escapeHtml($_element->getComment()) ?></p>
+    <?php endif; ?>
     <?php echo $_element->getChildrenHtml() ?>
     </fieldset>
 </div>

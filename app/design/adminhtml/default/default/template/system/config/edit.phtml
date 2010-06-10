@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -37,7 +37,10 @@
 <div class="content-header">
     <table cellspacing="0">
         <tr>
-            <td><h3><?php echo Mage::helper('adminhtml')->__($this->getTitle()) ?></h3></td><td class="form-buttons"><?php echo $this->getSaveButtonHtml() ?></td>
+            <td>
+                <h3<?php if($this->getHeaderCss()): ?> class="<?php echo $this->getHeaderCss()?>"<?php endif; ?>><?php echo Mage::helper('adminhtml')->__($this->getTitle()) ?></h3>
+            </td>
+            <td class="form-buttons"><?php echo $this->getSaveButtonHtml() ?></td>
          </tr>
     </table>
 </div>

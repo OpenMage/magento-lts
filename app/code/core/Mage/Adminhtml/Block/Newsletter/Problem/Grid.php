@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Newsletter_Problem_Grid extends Mage_Adminhtml_Block_
         $this->setSaveParametersInSession(true);
         $this->setMessageBlockVisibility(true);
         $this->setUseAjax(true);
-        $this->setEmptyText(Mage::helper('newsletter')->__('No problems found'));
+        $this->setEmptyText(Mage::helper('newsletter')->__('No problems found.'));
     }
 
     protected function _prepareCollection()

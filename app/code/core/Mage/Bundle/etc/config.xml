@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Bundle>
-            <version>0.1.11</version>
+            <version>0.1.12</version>
         </Mage_Bundle>
     </modules>
     <global>
@@ -55,6 +55,24 @@
                     <stock_index>
                         <table>catalog_product_bundle_stock_index</table>
                     </stock_index>
+                    <price_indexer_idx>
+                        <table>catalog_product_index_price_bundle_idx</table>
+                    </price_indexer_idx>
+                    <price_indexer_tmp>
+                        <table>catalog_product_index_price_bundle_tmp</table>
+                    </price_indexer_tmp>
+                    <selection_indexer_idx>
+                        <table>catalog_product_index_price_bundle_sel_idx</table>
+                    </selection_indexer_idx>
+                    <selection_indexer_tmp>
+                        <table>catalog_product_index_price_bundle_sel_tmp</table>
+                    </selection_indexer_tmp>
+                    <option_indexer_idx>
+                        <table>catalog_product_index_price_bundle_opt_idx</table>
+                    </option_indexer_idx>
+                    <option_indexer_tmp>
+                        <table>catalog_product_index_price_bundle_opt_tmp</table>
+                    </option_indexer_tmp>
                 </entities>
             </bundle_mysql4>
         </models>

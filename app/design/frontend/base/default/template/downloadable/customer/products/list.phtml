@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -29,11 +29,11 @@
  * @see Mage_Downloadable_Block_Customer_Products_List
  */
 ?>
-<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <?php $_items = $this->getItems(); ?>
 <div class="page-title">
     <h1><?php echo Mage::helper('downloadable')->__('My Downloadable Products') ?></h1>
 </div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <?php echo $this->getChildHtml('pager'); ?>
 <?php if(count($_items)): ?>
     <table class="data-table" id="my-downloadable-products-table">
@@ -70,5 +70,5 @@
 <?php endif; ?>
 <?php echo $this->getChildHtml('pager'); ?>
 <div class="buttons-set">
-    <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+    <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
 </div>

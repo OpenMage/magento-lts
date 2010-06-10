@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -61,8 +61,8 @@
                             <show_in_store>1</show_in_store>
                         </list_mode>
                         <grid_per_page_values translate="label comment">
-                            <label>Products per page on Grid allowed values</label>
-                            <comment>comma separated</comment>
+                            <label>Products per Page on Grid Allowed Values</label>
+                            <comment>Comma-separated.</comment>
                             <frontend_type>text</frontend_type>
                             <!--<source_model>adminhtml/system_config_source_catalog_gridPerPage</source_model>-->
                             <sort_order>2</sort_order>
@@ -71,8 +71,8 @@
                             <show_in_store>1</show_in_store>
                         </grid_per_page_values>
                         <grid_per_page translate="label comment">
-                            <label>Products per Page on Grid default value</label>
-                            <comment>must be in the allowed values list</comment>
+                            <label>Products per Page on Grid Default Value</label>
+                            <comment>Must be in the allowed values list.</comment>
                             <frontend_type>text</frontend_type>
                             <!--<source_model>adminhtml/system_config_source_catalog_gridPerPage</source_model>-->
                             <sort_order>3</sort_order>
@@ -81,8 +81,8 @@
                             <show_in_store>1</show_in_store>
                         </grid_per_page>
                         <list_per_page_values translate="label comment">
-                            <label>Products per Page on List allowed values</label>
-                            <comment>comma separated</comment>
+                            <label>Products per Page on List Allowed Values</label>
+                            <comment>Comma-separated.</comment>
                             <frontend_type>text</frontend_type>
                             <!--<source_model>adminhtml/system_config_source_catalog_gridPerPage</source_model>-->
                             <sort_order>4</sort_order>
@@ -91,8 +91,8 @@
                             <show_in_store>1</show_in_store>
                         </list_per_page_values>
                         <list_per_page translate="label comment">
-                            <label>Products per Page on List default value</label>
-                            <comment>must be in the allowed values list</comment>
+                            <label>Products per Page on List Default Value</label>
+                            <comment>Must be in the allowed values list.</comment>
                             <frontend_type>text</frontend_type>
                             <!--<source_model>adminhtml/system_config_source_catalog_listPerPage</source_model>-->
                             <sort_order>5</sort_order>
@@ -122,7 +122,7 @@
                             <show_in_store>0</show_in_store>
                         </flat_catalog_product>
                         <default_sort_by translate="label comment">
-                            <label>Product listing sort by</label>
+                            <label>Product Listing Sort by</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_catalog_listSort</source_model>
                             <sort_order>6</sort_order>
@@ -132,7 +132,7 @@
                         </default_sort_by>
                         <list_allow_all translate="label comment">
                             <label>Allow All Products per Page</label>
-                            <comment>whether to show "All" option in the "Show X Per Page" dropdown</comment>
+                            <comment>Whether to show "All" option in the "Show X Per Page" dropdown.</comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>6</sort_order>
@@ -140,6 +140,16 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </list_allow_all>
+                        <parse_url_directives translate="label comment">
+                            <label>Allow Dynamic Media URLs in Products and Categories</label>
+                            <comment>E.g. {{media url="path/to/image.jpg"}} {{skin url="path/to/picture.gif"}}. Dynamic directives parsing impacts catalog performance.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </parse_url_directives>
                     </fields>
                 </frontend>
                 <sitemap translate="label">
@@ -160,7 +170,7 @@
                             <show_in_store>1</show_in_store>
                         </tree_mode>
                         <lines_perpage translate="label">
-                            <label>Minimum Lines Per Page</label>
+                            <label>Minimum Lines per Page</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
@@ -207,7 +217,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>cache refresh needed</comment>
+                            <comment>Cache refresh needed.</comment>
                         </category_url_suffix>
                         <product_url_suffix translate="label comment">
                             <label>Product URL Suffix</label>
@@ -216,10 +226,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>cache refresh needed</comment>
+                            <comment>Cache refresh needed.</comment>
                         </product_url_suffix>
                         <product_use_categories translate="label">
-                            <label>Use categories path for product URLs</label>
+                            <label>Use Categories Path for Product URLs</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <backend_model>adminhtml/system_config_backend_seo_product</backend_model>
@@ -228,10 +238,19 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </product_use_categories>
+                        <save_rewrites_history translate="label">
+                            <label>Create Permanent Redirect for old URLs if Url key changed</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </save_rewrites_history>
                         <title_separator translate="label">
                             <label>Page Title Separator</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>5</sort_order>
+                            <sort_order>6</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -240,7 +259,7 @@
                             <label>Use Canonical Link Meta Tag For Categories</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>6</sort_order>
+                            <sort_order>7</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -249,7 +268,7 @@
                             <label>Use Canonical Link Meta Tag For Products</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>7</sort_order>
+                            <sort_order>8</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -265,8 +284,9 @@
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
-                        <scope translate="label">
+                        <scope translate="label comment">
                             <label>Catalog Price Scope</label>
+                            <comment><![CDATA[Defines the base currency scope ("Currency Setup" > "Currency Options" > "Base Currency")]]>.</comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_price_scope</source_model>
                             <backend_model>adminhtml/system_config_backend_price_scope</backend_model>
@@ -312,7 +332,7 @@
                             <show_in_store>1</show_in_store>
                         </use_calendar>
                         <date_fields_order translate="label">
-                            <label>Date fields order</label>
+                            <label>Date Fields Order</label>
                             <frontend_type>select</frontend_type>
                             <frontend_model>adminhtml/catalog_form_renderer_config_dateFieldsOrder</frontend_model>
                             <sort_order>2</sort_order>
@@ -321,7 +341,7 @@
                             <show_in_store>1</show_in_store>
                         </date_fields_order>
                         <time_format translate="label">
-                            <label>Time format</label>
+                            <label>Time Format</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_catalog_timeFormat</source_model>
                             <sort_order>3</sort_order>
@@ -331,7 +351,7 @@
                         </time_format>
                         <year_range translate="label comment">
                             <label>Year Range</label>
-                            <comment>Please, use four-digit year format</comment>
+                            <comment>Use four-digit year format.</comment>
                             <frontend_type>text</frontend_type>
                             <frontend_model>adminhtml/catalog_form_renderer_config_yearRange</frontend_model>
                             <sort_order>4</sort_order>
@@ -379,7 +399,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Example format 200x300</comment>
+                            <comment>Example format: 200x300.</comment>
                         </size>
                         <imageOpacity translate="label">
                             <label>Watermark Opacity, Percent</label>
@@ -399,7 +419,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Allowed file types (jpeg, gif, png).</comment>
+                            <comment>Allowed file types: jpeg, gif, png.</comment>
                         </image>
                         <position translate="label">
                             <label>Watermark Position</label>
@@ -414,5 +434,23 @@
                 </watermark>
             </groups>
         </design>
+        <cms>
+            <groups>
+                <wysiwyg>
+                    <fields>
+                        <use_static_urls_in_catalog translate="label comment">
+                            <label>Use Static URLs for Media Content in WYSIWYG for Catalog</label>
+                            <comment>Applicable to catalog products and categories only. Any media content will be inserted into editor as a static URL. It is not updated if the system configuration base URL changes.</comment>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </use_static_urls_in_catalog>
+                    </fields>
+                </wysiwyg>
+            </groups>
+        </cms>
     </sections>
 </config>

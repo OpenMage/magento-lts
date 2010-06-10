@@ -20,13 +20,15 @@
  *
  * @category    Mage
  * @package     Mage_CatalogRule
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
 {
+    const XML_NODE_RELATED_CACHE = 'global/catalogrule/related_cache_types';
+
     /**
      * Prefix of model events names
      *
@@ -91,8 +93,8 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
         $str = Mage::helper('catalogrule')->__("Name: %s", $this->getName()) ."\n"
              . Mage::helper('catalogrule')->__("Start at: %s", $this->getStartAt()) ."\n"
              . Mage::helper('catalogrule')->__("Expire at: %s", $this->getExpireAt()) ."\n"
-             . Mage::helper('catalogrule')->__("Customer registered: %s", $this->getCustomerRegistered()) ."\n"
-             . Mage::helper('catalogrule')->__("Customer is new buyer: %s", $this->getCustomerNewBuyer()) ."\n"
+             . Mage::helper('catalogrule')->__("Customer Registered: %s", $this->getCustomerRegistered()) ."\n"
+             . Mage::helper('catalogrule')->__("Customer is a New Buyer: %s", $this->getCustomerNewBuyer()) ."\n"
              . Mage::helper('catalogrule')->__("Description: %s", $this->getDescription()) ."\n\n"
              . $this->getConditions()->toStringRecursive() ."\n\n"
              . $this->getActions()->toStringRecursive() ."\n\n";
@@ -118,6 +120,21 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
         $out['customer_new_buyer'] = $this->getCustomerNewBuyer();
 
         return $out;
+    }
+
+    /**
+     * Invalidate related cache types
+     *
+     * @return Mage_CatalogRule_Model_Rule
+     */
+    protected function _invalidateCache()
+    {
+        $types = Mage::getConfig()->getNode(self::XML_NODE_RELATED_CACHE);
+        if ($types) {
+            $types = $types->asArray();
+            Mage::app()->getCacheInstance()->invalidateType(array_keys($types));
+        }
+        return $this;
     }
 
     /**
@@ -219,13 +236,14 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
     }
 
     /**
-     * Apply all price rules and refresh price index
+     * Apply all price rules, invalidate related cache and refresh price index
      *
      * @return Mage_CatalogRule_Model_Rule
      */
     public function applyAll()
     {
         $this->_getResource()->applyAllRulesForDateRange();
+        $this->_invalidateCache();
         $indexProcess = Mage::getSingleton('index/indexer')->getProcessByCode('catalog_product_price');
         if ($indexProcess) {
             $indexProcess->reindexAll();

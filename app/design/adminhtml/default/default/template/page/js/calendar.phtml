@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 // no notice of license for now
@@ -94,6 +94,7 @@ Calendar._TT["WK"] = <?php echo $week ?>;
 Calendar._TT["TIME"] = "<?php echo $this->__('Time:');?>";
 
 CalendarDateObject._LOCAL_TIMZEONE_OFFSET_SECONDS = <?php echo $this->getTimezoneOffsetSeconds() ?>;
+CalendarDateObject._SERVER_TIMZEONE_SECONDS = <?php echo $this->getStoreTimestamp() ?>;
 
 //]]>
 </script>

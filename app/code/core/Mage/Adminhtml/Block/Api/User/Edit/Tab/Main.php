@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -91,15 +91,15 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_W
         if ($model->getUserId()) {
             $fieldset->addField('password', 'password', array(
                 'name'  => 'new_api_key',
-                'label' => Mage::helper('adminhtml')->__('New Api Key'),
+                'label' => Mage::helper('adminhtml')->__('New API Key'),
                 'id'    => 'new_pass',
-                'title' => Mage::helper('adminhtml')->__('New Api Key'),
+                'title' => Mage::helper('adminhtml')->__('New API Key'),
                 'class' => 'input-text validate-password',
             ));
 
             $fieldset->addField('confirmation', 'password', array(
                 'name'  => 'api_key_confirmation',
-                'label' => Mage::helper('adminhtml')->__('Api Key Confirmation'),
+                'label' => Mage::helper('adminhtml')->__('API Key Confirmation'),
                 'id'    => 'confirmation',
                 'class' => 'input-text validate-cpassword',
             ));
@@ -107,17 +107,17 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_W
         else {
            $fieldset->addField('password', 'password', array(
                 'name'  => 'api_key',
-                'label' => Mage::helper('adminhtml')->__('Api Key'),
+                'label' => Mage::helper('adminhtml')->__('API Key'),
                 'id'    => 'customer_pass',
-                'title' => Mage::helper('adminhtml')->__('Api Key'),
+                'title' => Mage::helper('adminhtml')->__('API Key'),
                 'class' => 'input-text required-entry validate-password',
                 'required' => true,
             ));
            $fieldset->addField('confirmation', 'password', array(
                 'name'  => 'api_key_confirmation',
-                'label' => Mage::helper('adminhtml')->__('Api Key Confirmation'),
+                'label' => Mage::helper('adminhtml')->__('API Key Confirmation'),
                 'id'    => 'confirmation',
-                'title' => Mage::helper('adminhtml')->__('Api Key Confirmation'),
+                'title' => Mage::helper('adminhtml')->__('API Key Confirmation'),
                 'class' => 'input-text required-entry validate-cpassword',
                 'required' => true,
             ));

@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Strikeiron
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Strikeiron>
+            <version>0.9.1</version>
+        </Mage_Strikeiron>
+    </modules>
+    <global>
+        <currency>
+            <import>
+                <services>
+                    <strikeiron>
+                        <name>StrikeIron</name>
+                        <model>strikeiron/currency_import_strikeiron</model>
+                    </strikeiron>
+                </services>
+            </import>
+        </currency>
+        <models>
+            <strikeiron>
+                <class>Mage_Strikeiron_Model</class>
+                <resourceModel>strikeiron_mysql4</resourceModel>
+            </strikeiron>
+             <strikeiron_mysql4>
+                <class>Mage_Strikeiron_Model_Mysql4</class>
+                <entities>
+                    <tax_rate>
+                        <table>strikeiron_tax_rate</table>
+                    </tax_rate>
+                </entities>
+            </strikeiron_mysql4>
+        </models>
+        <resources>
+            <strikeiron_setup>
+                <setup>
+                    <module>Mage_Strikeiron</module>
+                </setup>
+            </strikeiron_setup>
+        </resources>
+        <events>
+            <customer_save_before>
+                <observers>
+                    <strikeiron_email_validation>
+                        <class>strikeiron/strikeiron</class>
+                        <method>customerSaveBeforeObserver</method>
+                    </strikeiron_email_validation>
+                </observers>
+            </customer_save_before>
+            <customer_address_save_before>
+                <observers>
+                    <strikeiron_address_validation>
+                        <class>strikeiron/strikeiron</class>
+                        <method>addressSaveBeforeObserver</method>
+                    </strikeiron_address_validation>
+                </observers>
+            </customer_address_save_before>
+            <tax_rate_data_fetch>
+                <observers>
+                    <strikeiron_tax_rate_fetch>
+                        <class>strikeiron/strikeiron</class>
+                        <method>getTaxRate</method>
+                    </strikeiron_tax_rate_fetch>
+                </observers>
+            </tax_rate_data_fetch>
+        </events>
+         <template>
+            <email>
+                <strikeiron_customer_error_email_template translate="label" module="directory">
+                    <label>Strikeiron Email Update Warnings</label>
+                    <file>strikeiron_email_warning.html</file>
+                    <type>text</type>
+                </strikeiron_customer_error_email_template>
+            </email>
+        </template>
+    </global>
+    <default>
+        <strikeiron>
+            <config>
+                <user backend_model="adminhtml/system_config_backend_encrypted"/>
+                <password backend_model="adminhtml/system_config_backend_encrypted"/>
+            </config>
+            <customer>
+                <undetermined_action>accept</undetermined_action>
+                <error_email_template>strikeiron_customer_error_email_template</error_email_template>
+            </customer>
+            <sales_tax>
+                <type>B</type>
+                <min_max>MAX</min_max>
+            </sales_tax>
+        </strikeiron>
+    </default>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_Strikeiron>
+                    <files>
+                        <default>Mage_Strikeiron.csv</default>
+                    </files>
+                </Mage_Strikeiron>
+            </modules>
+        </translate>
+    </adminhtml>
+    <frontend>
+        <routers>
+            <strikeiron>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Strikeiron</module>
+                    <frontName>strikeiron</frontName>
+                </args>
+            </strikeiron>
+        </routers>
+    </frontend>
+</config>

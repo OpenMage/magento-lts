@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -97,8 +97,33 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
     }
 
     /**
+     * Saving tag's base popularity
+     *
+     * @param Mage_Core_Model_Abstract $object
+     * @return Mage_Core_Model_Mysql4_Abstract
+     */
+    protected function _afterSave(Mage_Core_Model_Abstract $object)
+    {
+        if (!$object->getStore() || !Mage::app()->getStore()->isAdmin()) {
+            return parent::_afterSave($object);
+        }
+
+        $tagId = ($object->isObjectNew()) ? $object->getTagId() : $object->getId();
+
+        $writeAdapter = $this->_getWriteAdapter();
+        $writeAdapter->insertOnDuplicate($this->getTable('tag/properties'), array(
+            'tag_id'            => $tagId,
+            'store_id'          => $object->getStore(),
+            'base_popularity'   => (is_null($object->getBasePopularity())) ? 0 : $object->getBasePopularity()
+        ));
+
+        return parent::_afterSave($object);
+    }
+
+    /**
      * Getting base popularity per store view for specified tag
      *
+     * @deprecated after 1.4.0.0
      * @param int $tagId
      * @return array
      */
@@ -119,6 +144,7 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
     /**
      * Get aggregation data per store view
      *
+     * @deprecated after 1.4.0.0
      * @param int $tagId
      * @return array
      */
@@ -183,6 +209,7 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
     /**
      * Get global aggregation data for row with store_id = 0
      *
+     * @deprecated after 1.4.0.0
      * @param int $tagId
      * @return array
      */
@@ -239,6 +266,7 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
      * Getting statistics data into buffer.
      * Replacing our buffer array with new statistics and incoming data.
      *
+     * @deprecated after 1.4.0.0
      * @param Mage_Tag_Model_Tag $object
      * @return Mage_Tag_Model_Tag
      */
@@ -304,17 +332,27 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
     }
 
     /**
-     * Add summary data
+     * Add summary data to specified object
      *
+     * @deprecated after 1.4.0.0
      * @param Mage_Tag_Model_Tag $object
      * @return Mage_Tag_Model_Tag
      */
     public function addSummary($object)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('summary'))
-            ->where('tag_id = ?', (int)$object->getId())
-            ->where('store_id = ?', (int)$object->getStoreId())
+            ->from(array('relation' => $this->getTable('tag/relation')), array())
+            ->joinLeft(
+                array('summary' => $this->getTable('tag/summary')),
+                'relation.tag_id = summary.tag_id AND relation.store_id = summary.store_id',
+                array(
+                    'customers',
+                    'products',
+                    'popularity'
+                )
+            )
+            ->where('relation.tag_id = ?', (int)$object->getId())
+            ->where('relation.store_id = ?', (int)$object->getStoreId())
             ->limit(1);
 
         $row = $this->_getReadAdapter()->fetchRow($select);
@@ -322,6 +360,28 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
             $object->addData($row);
         }
         return $object;
+    }
+
+    /**
+     * Retrieve select object for load object data
+     * Redeclare parent method just for adding tag's base popularity if flag exists
+     *
+     * @param string $field
+     * @param mixed $value
+     * @param Mage_Core_Model_Abstract $object
+     * @return Zend_Db_Select
+     */
+    protected function _getLoadSelect($field, $value, $object)
+    {
+        $select = parent::_getLoadSelect($field, $value, $object);
+        if ($object->getAddBasePopularity() && $object->hasStoreId()) {
+            $select->joinLeft(
+                array('properties' => $this->getTable('tag/properties')),
+                "properties.tag_id = {$this->getMainTable()}.tag_id AND properties.store_id = {$object->getStoreId()}",
+                'base_popularity'
+            );
+        }
+        return $select;
     }
 
     /**

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +39,8 @@ class Mage_Reports_Model_Flag extends Mage_Core_Model_Flag
     const REPORT_SHIPPING_FLAG_CODE = 'report_shipping_aggregated';
     const REPORT_INVOICE_FLAG_CODE  = 'report_invoiced_aggregated';
     const REPORT_REFUNDED_FLAG_CODE = 'report_refunded_aggregated';
-    const REPORT_COUPNS_FLAG_CODE   = 'report_coupons_aggregated';
+    const REPORT_COUPONS_FLAG_CODE  = 'report_coupons_aggregated';
+    const REPORT_BESTSELLERS_FLAG_CODE = 'report_bestsellers_aggregated';
 
     /**
      * Setter for flag code

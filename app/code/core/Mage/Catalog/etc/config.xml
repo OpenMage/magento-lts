@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Catalog>
-            <version>1.4.0.0.21</version>
+            <version>1.4.0.0.28</version>
         </Mage_Catalog>
     </modules>
 
@@ -195,6 +195,78 @@
                     <product_index_price><table>catalog_product_index_price</table></product_index_price>
                     <product_index_tier_price><table>catalog_product_index_tier_price</table></product_index_tier_price>
                     <product_index_website><table>catalog_product_index_website</table></product_index_website>
+                    <product_price_indexer_cfg_option_aggregate_idx>
+                        <table>catalog_product_index_price_cfg_opt_agr_idx</table>
+                    </product_price_indexer_cfg_option_aggregate_idx>
+                    <product_price_indexer_cfg_option_aggregate_tmp>
+                        <table>catalog_product_index_price_cfg_opt_agr_tmp</table>
+                    </product_price_indexer_cfg_option_aggregate_tmp>
+                    <product_price_indexer_cfg_option_idx>
+                        <table>catalog_product_index_price_cfg_opt_idx</table>
+                    </product_price_indexer_cfg_option_idx>
+                    <product_price_indexer_cfg_option_tmp>
+                        <table>catalog_product_index_price_cfg_opt_tmp</table>
+                    </product_price_indexer_cfg_option_tmp>
+                    <product_price_indexer_final_idx>
+                        <table>catalog_product_index_price_final_idx</table>
+                    </product_price_indexer_final_idx>
+                    <product_price_indexer_final_tmp>
+                        <table>catalog_product_index_price_final_tmp</table>
+                    </product_price_indexer_final_tmp>
+                    <product_price_indexer_option_idx>
+                        <table>catalog_product_index_price_opt_idx</table>
+                    </product_price_indexer_option_idx>
+                    <product_price_indexer_option_tmp>
+                        <table>catalog_product_index_price_opt_tmp</table>
+                    </product_price_indexer_option_tmp>
+                    <product_price_indexer_option_aggregate_idx>
+                        <table>catalog_product_index_price_opt_agr_idx</table>
+                    </product_price_indexer_option_aggregate_idx>
+                    <product_price_indexer_option_aggregate_tmp>
+                        <table>catalog_product_index_price_opt_agr_tmp</table>
+                    </product_price_indexer_option_aggregate_tmp>
+                    <product_eav_indexer_idx>
+                        <table>catalog_product_index_eav_idx</table>
+                    </product_eav_indexer_idx>
+                    <product_eav_indexer_tmp>
+                        <table>catalog_product_index_eav_tmp</table>
+                    </product_eav_indexer_tmp>
+                    <product_eav_decimal_indexer_idx>
+                        <table>catalog_product_index_eav_decimal_idx</table>
+                    </product_eav_decimal_indexer_idx>
+                    <product_eav_decimal_indexer_tmp>
+                        <table>catalog_product_index_eav_decimal_tmp</table>
+                    </product_eav_decimal_indexer_tmp>
+                    <product_price_indexer_idx>
+                        <table>catalog_product_index_price_idx</table>
+                    </product_price_indexer_idx>
+                    <product_price_indexer_tmp>
+                        <table>catalog_product_index_price_tmp</table>
+                    </product_price_indexer_tmp>
+                    <category_product_indexer_idx>
+                        <table>catalog_category_product_index_idx</table>
+                    </category_product_indexer_idx>
+                    <category_product_indexer_tmp>
+                        <table>catalog_category_product_index_tmp</table>
+                    </category_product_indexer_tmp>
+                    <category_product_enabled_indexer_idx>
+                        <table>catalog_category_product_index_enbl_idx</table>
+                    </category_product_enabled_indexer_idx>
+                    <category_product_enabled_indexer_tmp>
+                        <table>catalog_category_product_index_enbl_tmp</table>
+                    </category_product_enabled_indexer_tmp>
+                    <category_anchor_indexer_idx>
+                        <table>catalog_category_anc_categs_index_idx</table>
+                    </category_anchor_indexer_idx>
+                    <category_anchor_indexer_tmp>
+                        <table>catalog_category_anc_categs_index_tmp</table>
+                    </category_anchor_indexer_tmp>
+                    <category_anchor_products_indexer_idx>
+                        <table>catalog_category_anc_products_index_idx</table>
+                    </category_anchor_products_indexer_idx>
+                    <category_anchor_products_indexer_tmp>
+                        <table>catalog_category_anc_products_index_tmp</table>
+                    </category_anchor_products_indexer_tmp>
                 </entities>
             </catalog_resource_eav_mysql4>
         </models>
@@ -477,6 +549,9 @@
                     <add_child_data>0</add_child_data>
                 </flat>
             </product>
+            <content>
+                <tempate_filter>catalog/template_filter</tempate_filter>
+            </content>
         </catalog>
         <eav_attributes>
             <catalog_product>
@@ -522,6 +597,16 @@
                 </Mage_Catalog>
             </modules>
         </translate>
+        <events>
+            <cms_wysiwyg_images_static_urls_allowed>
+                <observers>
+                    <catalog_wysiwyg>
+                        <class>catalog/observer</class>
+                        <method>catalogCheckIsUsingStaticUrlsAllowed</method>
+                    </catalog_wysiwyg>
+                </observers>
+            </cms_wysiwyg_images_static_urls_allowed>
+        </events>
     </adminhtml>
 
     <frontend>
@@ -635,6 +720,7 @@
                 <list_per_page>10</list_per_page>
                 <flat_catalog_category>0</flat_catalog_category>
                 <default_sort_by>position</default_sort_by>
+                <parse_url_directives>1</parse_url_directives>
             </frontend>
             <sitemap>
                 <tree_mode>0</tree_mode>
@@ -652,6 +738,7 @@
                 <product_url_suffix>.html</product_url_suffix>
                 <category_url_suffix>.html</category_url_suffix>
                 <product_use_categories>1</product_use_categories>
+                <save_rewrites_history>1</save_rewrites_history>
                 <title_separator>-</title_separator>
                 <category_canonical_tag>0</category_canonical_tag>
                 <product_canonical_tag>0</product_canonical_tag>

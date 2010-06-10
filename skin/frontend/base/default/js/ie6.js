@@ -19,29 +19,13 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-function toggleMenu(el, over)
-{
-    if (Element.childElements(el)) {
-    var uL = Element.childElements(el)[1];
-    var iS = true;
-    }
-    if (over) {
-        Element.addClassName(el, 'over');
-        
-        if(iS){ uL.addClassName('shown-sub')};
-    }
-    else {
-        Element.removeClassName(el, 'over');
-        if(iS){ uL.removeClassName('shown-sub')};
-    }
-}
 
 ieHover = function() {
     var items, iframe;
-    items = $$('#nav ul', '.truncated_full_value .item-options', '.tool-tip');
+    items = $$('#nav ul', '#nav div', '.truncated_full_value .item-options', '.tool-tip');
     $$('#checkout-step-payment', '.tool-tip').each(function(el) {
         el.show();
         el.setStyle({'visibility':'hidden'})

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,6 +37,8 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
 
     protected function _toHtml()
     {
+        $displayFormat = Varien_Date::convertZendToStrFtime($this->getFormat(), true, (bool)$this->getTime());
+
         $html  = '<input type="text" name="' . $this->getName() . '" id="' . $this->getId() . '" ';
         $html .= 'value="'.$this->getValue().'" class="'.$this->getClass().'" '.$this->getExtraParams().'/> ';
 
@@ -49,7 +51,8 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
         //<![CDATA[
             Calendar.setup({
                 inputField  : "' . $this->getId() . '",
-                ifFormat    : "' . $this->getFormat() . '",
+                ifFormat    : "' . $displayFormat . '",
+                showsTime   : "' . ($this->getTime() ? 'true' : 'false') . '",
                 button      : "' . $this->getId() . '_trig",
                 align       : "Bl",
                 singleClick : true

@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Chronopay
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Chronopay>
+            <version>0.1.0</version>
+        </Mage_Chronopay>
+    </modules>
+    <global>
+        <models>
+            <chronopay>
+                <class>Mage_Chronopay_Model</class>
+                <resourceModel>chronopay_mysql4</resourceModel>
+            </chronopay>
+            <chronopay_mysql4>
+                <class>Mage_Chronopay_Model_Mysql4</class>
+                <entities>
+                    <api_debug><table>chronopay_api_debug</table></api_debug>
+                </entities>
+            </chronopay_mysql4>
+        </models>
+        <resources>
+            <chronopay_setup>
+                <setup>
+                    <module>Mage_Chronopay</module>
+                    <class>Mage_Chronopay_Model_Mysql4_Setup</class>
+                </setup>
+            </chronopay_setup>
+        </resources>
+        <blocks>
+            <chronopay><class>Mage_Chronopay_Block</class></chronopay>
+        </blocks>
+        <payment>
+            <cc>
+                <types>
+                    <DI>
+                        <code>DI</code>
+                        <name>Discover</name>
+                        <order>60</order>
+                    </DI>
+                    <DICL>
+                        <code>DICL</code>
+                        <name>Diners Club</name>
+                        <order>62</order>
+                    </DICL>
+                    <ENR>
+                        <code>ENR</code>
+                        <name>enRoute</name>
+                        <order>63</order>
+                    </ENR>
+                    <SS>
+                        <code>SS</code>
+                        <name>Maestro/Solo</name>
+                        <order>64</order>
+                    </SS>
+                </types>
+            </cc>
+        </payment>
+    </global>
+    <frontend>
+        <secure_url>
+            <chronopay_standard>/chronopay/standard</chronopay_standard>
+        </secure_url>
+        <routers>
+            <chronopay>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Chronopay</module>
+                    <frontName>chronopay</frontName>
+                </args>
+            </chronopay>
+        </routers>
+        <translate>
+            <modules>
+                <Mage_Chronopay>
+                    <files>
+                        <default>Mage_Chronopay.csv</default>
+                    </files>
+                </Mage_Chronopay>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <chronopay>
+                    <file>chronopay.xml</file>
+                </chronopay>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_Chronopay>
+                    <files>
+                        <default>Mage_Chronopay.csv</default>
+                    </files>
+                </Mage_Chronopay>
+            </modules>
+        </translate>
+    </adminhtml>
+    <default>
+        <payment>
+            <chronopay_standard>
+                  <model>chronopay/standard</model>
+                  <title>ChronoPay Standard</title>
+                  <allowspecific>0</allowspecific>
+                  <transaction_type>O</transaction_type>
+            </chronopay_standard>
+            <chronopay_gateway>
+                  <model>chronopay/gateway</model>
+                  <title>ChronoPay Gateway</title>
+                  <allowspecific>0</allowspecific>
+                  <transaction_type>O</transaction_type>
+            </chronopay_gateway>
+        </payment>
+    </default>
+</config>

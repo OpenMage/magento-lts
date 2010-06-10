@@ -1,24 +1,24 @@
 /**
- * $Id: XHR.js 832 2008-05-02 11:01:57Z spocke $
+ * XHR.js
  *
- * @author Moxiecode
- * @copyright Copyright © 2004-2006, Moxiecode Systems AB, All rights reserved.
+ * Copyright 2009, Moxiecode Systems AB
+ * Released under LGPL License.
+ *
+ * License: http://tinymce.moxiecode.com/license
+ * Contributing: http://tinymce.moxiecode.com/contributing
  */
 
-/**#@+
- * @class This class enables you to send XMLHTTPRequests cross browser.
- * @member tinymce.util.XHR
+/**
+ * This class enables you to send XMLHTTPRequests cross browser.
+ * @class tinymce.util.XHR
  * @static
  */
 tinymce.create('static tinymce.util.XHR', {
-	/**#@+
-	 * @method
-	 */
-
 	/**
 	 * Sends a XMLHTTPRequest.
 	 * Consult the Wiki for details on what settings this method takes.
 	 *
+	 * @method send
 	 * @param {Object} o Object will target URL, callbacks and other info needed to make the request.
 	 */
 	send : function(o) {
@@ -53,6 +53,8 @@ tinymce.create('static tinymce.util.XHR', {
 			if (o.content_type)
 				x.setRequestHeader('Content-Type', o.content_type);
 
+			x.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
 			x.send(o.data);
 
 			function ready() {
@@ -74,7 +76,5 @@ tinymce.create('static tinymce.util.XHR', {
 			// Wait for response, onReadyStateChange can not be used since it leaks memory in IE
 			t = w.setTimeout(ready, 10);
 		}
-
-		/**#@-*/
 	}
 });

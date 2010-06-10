@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -32,13 +32,13 @@
  */
 ?>
 <div class="in-page">
-    <form action="<?php echo $this->getPostActionUrl() ?>" method="post">
+    <form id="checkout_multishipping_form" action="<?php echo $this->getPostActionUrl() ?>" method="post">
     <div class="page-head col2-set">
         <div class="col-1" style="width:60%;">
             <h3><?php echo $this->__('Ship to Multiple Addresses') ?></h3>
         </div>
         <div class="col-2 a-right" style="width:38%;">
-            <button class="form-button-alt" type="submit" onclick="$('add_new_address_flag').value=1"><span><?php echo $this->__('New Address') ?></span></button>
+            <button class="form-button-alt" type="button" onclick="$('add_new_address_flag').value=1; $('checkout_multishipping_form').submit();"><span><?php echo $this->__('New Address') ?></span></button>
         </div><div class="clear" />
     </div><br />
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>

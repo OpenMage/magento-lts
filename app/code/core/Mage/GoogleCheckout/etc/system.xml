@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -119,7 +119,7 @@
                             <show_in_store>0</show_in_store>
                         </locale>
                         <order_status translate="label">
-                            <label>New order status</label>
+                            <label>New Order Status</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_order_status_new</source_model>
                             <sort_order>60</sort_order>
@@ -225,7 +225,7 @@
                             <show_in_store>0</show_in_store>
                         </address_category>
                         <default_price translate="label">
-                            <label>Default price for methods</label>
+                            <label>Default Price for Methods</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
@@ -449,7 +449,7 @@
                             <show_in_store>0</show_in_store>
                         </active>
                         <schedule translate="label">
-                            <label>Delivery schedule</label>
+                            <label>Delivery Schedule</label>
                             <frontend_type>select</frontend_type>
                             <source_model>googlecheckout/source_shipping_virtual_schedule</source_model>
                             <sort_order>2</sort_order>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -138,7 +138,7 @@ class Mage_Tag_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Resour
         $tagsStores = array();
         if (sizeof($tagIds) > 0) {
             $select = $this->getConnection()->select()
-                ->from($this->getTable('tag/summary'), array('store_id', 'tag_id'))
+                ->from($this->getTable('tag/relation'), array('store_id', 'tag_id'))
                 ->where('tag_id IN(?)', $tagIds);
             $tagsRaw = $this->getConnection()->fetchAll($select);
             foreach ($tagsRaw as $tag) {
@@ -372,7 +372,7 @@ class Mage_Tag_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Resour
             ))
             ->join(array('t' => $tagTable),
                 't.tag_id = relation.tag_id',
-                array('tag_id', 'name', 'tag_status' => 'status', 'tag_name' => 'name')
+                array('tag_id', 'name', 'tag_status' => 'status', 'tag_name' => 'name', 'store_id' => 'first_store_id')
             );
 
         return $this;

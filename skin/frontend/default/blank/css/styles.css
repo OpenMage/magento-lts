@@ -19,7 +19,7 @@
  *
  * @category    design
  * @package     default_blank
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -32,7 +32,7 @@ img           { border:0; vertical-align:top; }
 
 a             { color:#05c; text-decoration:underline; }
 a:hover       { text-decoration:none; }
-:focus        { outline: 0; }
+:focus        { outline:0; }
 
 /* Headings */
 h1            { font-size:20px; font-weight:normal; line-height:1.15; }
@@ -347,14 +347,15 @@ p.required { font-size:10px; text-align:right; color:#f00; }
 .data-table th.label { font-weight:bold; background-color:#f6f6f6; }
 .data-table td.value {}
 
-/* Tax Details Row */
-tr.tax-total { cursor:pointer; }
-tr.tax-total td {}
-tr.tax-total .tax-collapse { float:right; text-align:right; padding-left:20px; background:url(../images/bkg_collapse.gif) 0 4px no-repeat; cursor:pointer; }
-tr.show-details .tax-collapse { background-position:0 -53px; }
+/* Shopping cart total summary row expandable to details */
+tr.summary-total { cursor:pointer; }
+tr.summary-total td {}
+tr.summary-total .summary-collapse { float:right; text-align:right; padding-left:20px; background:url(../images/bkg_collapse.gif) 0 4px no-repeat; cursor:pointer; }
+tr.show-details .summary-collapse { background-position:0 -53px; }
 tr.show-details td {}
-tr.tax-details td { font-size:11px; background-color:#dae1e4; color:#626465; }
-tr.tax-details-first td { border-top:1px solid #d2d8db; }
+tr.summary-details td { font-size:11px; background-color:#dae1e4; color:#626465; }
+tr.summary-details-first td { border-top:1px solid #d2d8db; }
+tr.summary-details-excluded { font-style:italic; }
 
 /* Shopping cart tax info */
 .cart-tax-info { display:block; }
@@ -368,8 +369,7 @@ tr.tax-details-first td { border-top:1px solid #d2d8db; }
 /* Class: std - styles for admin-controlled content */
 .std .subtitle { padding:0; }
 .std ol.ol { list-style:decimal outside; padding-left:1.5em; }
-.std ul.disc { margin:0 0 10px; }
-.std ul.disc { list-style:disc outside; padding-left:18px; }
+.std ul.disc { list-style:disc outside; padding-left:18px; margin:0 0 10px; }
 .std dl dt { font-weight:bold; }
 .std dl dd { margin:0 0 10px; }
 /*.std ul,
@@ -446,7 +446,7 @@ tr.tax-details-first td { border-top:1px solid #d2d8db; }
 
 /* All Levels */
 #nav li { text-align:left; position:relative; }
-#nav li.over { z-index:999; }
+#nav li.over { z-index:998; }
 #nav li.parent {}
 #nav li a { display:block; text-decoration:none; }
 #nav li a:hover { text-decoration:none; }
@@ -461,21 +461,26 @@ tr.tax-details-first td { border-top:1px solid #d2d8db; }
 #nav li.active a { color:#000; }
 
 /* 2nd Level */
-#nav ul { position:absolute; width:15em; top:25px; left:-10000px; border:1px solid #ddd; background:#fafafa; }
+#nav ul,
+#nav div { position:absolute; width:15em; top:25px; left:-10000px; border:1px solid #ddd; background:#fafafa; }
+#nav div ul { position:static; width:auto; border:none; }
+
+/* 3rd+ leven */
+#nav ul ul,
+#nav ul div { top:7px; }
+
 #nav ul li { float:none; border-bottom:1px solid #ddd; }
 #nav ul li.last { border-bottom:0; }
 #nav ul li a { float:none; padding:3px 9px; font-weight:normal; color:#888 !important; }
 #nav ul li a:hover { color:#000 !important; }
 #nav ul li.active > a,
-#nav ul li.over > a  { font-weight:bold; color:#000 !important; }
+#nav ul li.over > a { color:#000 !important; }
 
-/* 3rd+ leven */
-#nav ul ul { top:7px; }
-
-/* Show Menu */
-#nav li.over > ul { left:0; }
-#nav li.over > ul li.over > ul { left:100px; }
-#nav li.over ul ul { left:-10000px; }
+/* Show menu */
+#nav li ul.shown-sub,
+#nav li div.shown-sub { left:0; z-index:999; }
+#nav li .shown-sub ul.shown-sub,
+#nav li .shown-sub li div.shown-sub { left:100px; }
 /********** Navigation > */
 /* ======================================================================================= */
 
@@ -529,9 +534,9 @@ tr.tax-details-first td { border-top:1px solid #d2d8db; }
 .block-related {}
 .block-related li { padding:5px 0; }
 .block-related input.checkbox { float:left; margin-right:-20px; }
-.block-related .item { margin-left:20px; }
-.block-related .item .product-image { float:left; margin-right:-65px; }
-.block-related .item .product-details { margin-left:65px; }
+.block-related .product { margin-left:20px; }
+.block-related .product .product-image { float:left; margin-right:-65px; }
+.block-related .product .product-details { margin-left:65px; }
 
 /* Block: Compare Products */
 .block-compare {}
@@ -572,6 +577,10 @@ tr.tax-details-first td { border-top:1px solid #d2d8db; }
 /* Block: Login */
 .block-login label { font-weight:bold; color:#666; }
 .block-login input.input-text { display:block; width:167px; margin:3px 0; }
+
+/* Paypal */
+.sidebar .paypal-logo { display:block; margin:10px 0; text-align:center; }
+.sidebar .paypal-logo a { float:none; }
 /* ======================================================================================= */
 
 
@@ -638,6 +647,18 @@ tr.tax-details-first td { border-top:1px solid #d2d8db; }
 .availability.in-stock span {}
 .availability.out-of-stock span { color:#d83820; }
 
+.availability-only { margin:0 0 7px; }
+.availability-only span,
+.availability-only a { cursor:help; }
+.availability-only a { background:url(../images/i_availability_only_arrow.gif) 100% 0 no-repeat; cursor:pointer; padding-right:15px; }
+.availability-only .expanded { background-position:100% -15px; }
+.availability-only strong {}
+
+.availability-only-details { margin:0 0 7px; }
+.availability-only-details th { background:#f2f2f2; font-size:10px; padding:0 8px; }
+.availability-only-details td { border-bottom:1px solid #ddd; font-size:11px; padding:2px 8px 1px; }
+.availability-only-details tr.odd td.last {}
+
 /* Email to a Friend */
 .email-friend {}
 
@@ -683,7 +704,7 @@ tr.tax-details-first td { border-top:1px solid #d2d8db; }
 .price-including-tax .label { white-space:nowrap; }
 .price-including-tax .price { font-weight:bold; }
 
-/* FTP */
+/* FPT */
 .weee { display:block; font-size:11px; color:#444; }
 .weee .price { font-size:11px; font-weight:normal; }
 
@@ -728,6 +749,7 @@ tr.tax-details-first td { border-top:1px solid #d2d8db; }
 .add-to-cart label { float:left; margin-right:5px; }
 .add-to-cart .qty { float:left; }
 .add-to-cart button.button { float:left; margin-left:5px; }
+.add-to-cart .paypal-logo { clear:left; }
 
 /* Add to Links + Add to Cart */
 .add-to-box {}
@@ -779,6 +801,8 @@ tr.tax-details-first td { border-top:1px solid #d2d8db; }
 .product-options dd { margin:10px 0; }
 .product-options dl.last dd.last {}
 .product-options dd input.input-text { width:98%; }
+.product-options dd input.datetime-picker { width:150px; }
+.product-options dd .time-picker { display:-moz-inline-box; display:inline-block; padding:2px 0; vertical-align:middle; }
 .product-options dd textarea { width:98%; height:8em; }
 .product-options dd select { width:100%; }
 .product-options .options-list {}
@@ -857,6 +881,7 @@ tr.tax-details-first td { border-top:1px solid #d2d8db; }
 
 /* Checkout Types */
 .cart .checkout-types { float:right; text-align:right; }
+.cart .title-buttons .checkout-types li { float:left; margin:0 0 5px 5px; }
 
 /* Shopping Cart Table */
 .cart-table .item-msg { font-size:10px; }
@@ -881,6 +906,7 @@ tr.tax-details-first td { border-top:1px solid #d2d8db; }
 .cart .totals table th,
 .cart .totals table td { padding:5px; }
 .cart .totals table th { font-weight:bold; }
+.cart .totals table tfoot th {}
 
 /* Options Tool Tip */
 .item-options dt { font-weight:bold; font-style:italic; }
@@ -905,6 +931,11 @@ tr.tax-details-first td { border-top:1px solid #d2d8db; }
 .sp-methods select.month { width:150px; margin-right:10px; }
 .sp-methods select.year { width:96px; }
 .sp-methods input.cvv { width:3em !important; }
+
+.sp-methods .checkmo-list li { margin:0 0 5px; }
+.sp-methods .checkmo-list label { width:135px; padding-right:10px; text-align:right; }
+.sp-methods .checkmo-list address { float:left; }
+
 .sp-methods .centinel-logos a { margin-right:3px; }
 .sp-methods .centinel-logos img { vertical-align:middle; }
 
@@ -946,6 +977,8 @@ tr.tax-details-first td { border-top:1px solid #d2d8db; }
 
 /* Centinel */
 .centinel {}
+.centinel .authentication { border:1px solid #ddd; background:#fff; }
+.centinel .authentication iframe { width:99%; height:400px; background:transparent !important; margin:0 !important; padding:0 !important; border:0 !important; }
 
 /* Generic Info Set */
 .info-set {}

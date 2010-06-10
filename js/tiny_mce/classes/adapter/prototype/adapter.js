@@ -1,10 +1,11 @@
 /**
- * $Id: adapter.js 1000 2009-02-12 13:03:40Z spocke $
+ * adapter.js
  *
- * @author Moxiecode
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+ * Copyright 2009, Moxiecode Systems AB
+ * Released under LGPL License.
  *
- * This file contains all adapter logic needed to use prototype library as the base API for TinyMCE.
+ * License: http://tinymce.moxiecode.com/license
+ * Contributing: http://tinymce.moxiecode.com/contributing
  */
 
 // #ifdef prototype_adapter
@@ -23,9 +24,9 @@
 	// Add a "#ifndefjquery" statement around each core API function you add below
 	var patches = {
 		'tinymce.util.JSON' : {
-			serialize : function(o) {
+			/*serialize : function(o) {
 				return o.toJSON();
-			}
+			}*/
 		},
 	};
 

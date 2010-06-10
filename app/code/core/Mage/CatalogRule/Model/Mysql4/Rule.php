@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogRule
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -315,7 +315,7 @@ class Mage_CatalogRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
             ->from(array('rp'=>$this->getTable('catalogrule/rule_product')))
             ->where($read->quoteInto('rp.from_time=0 or rp.from_time<=?', $toDate)
             ." or ".$read->quoteInto('rp.to_time=0 or rp.to_time>=?', $fromDate))
-            ->order(array('rp.website_id', 'rp.customer_group_id', 'rp.product_id', 'rp.sort_order'));
+            ->order(array('rp.website_id', 'rp.customer_group_id', 'rp.product_id', 'rp.sort_order', 'rp.rule_id'));
 
         if (!is_null($productId)) {
             $select->where('rp.product_id=?', $productId);
@@ -513,9 +513,12 @@ class Mage_CatalogRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
 
             $write->delete($this->getTable('catalogrule/rule_group_website'), array());
 
+            $timestamp = Mage::getModel('core/date')->gmtTimestamp();
+
             $select = $write->select()
                 ->distinct(true)
-                ->from($this->getTable('catalogrule/rule_product'), array('rule_id', 'customer_group_id', 'website_id'));
+                ->from($this->getTable('catalogrule/rule_product'), array('rule_id', 'customer_group_id', 'website_id'))
+                ->where("{$timestamp} >= from_time AND {$timestamp} <= to_time");
             $query = $select->insertFromSelect($this->getTable('catalogrule/rule_group_website'));
             $write->query($query);
 

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,6 +38,20 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
      * @return int | string | Mage_Core_Model_Store
      */
     abstract public function getStore();
+
+    /**
+     * Processing object after save data
+     * Updates relevant grid table records.
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _afterSave()
+    {
+        if (!$this->getForceUpdateGridRecords()) {
+            $this->_getResource()->updateGridRecords($this->getId());
+        }
+        return parent::_afterSave();
+    }
 
     /**
      * Get object created at date affected current active store timezone

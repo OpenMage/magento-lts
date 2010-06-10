@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Cms
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,6 +64,11 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     {
         $page = Mage::getSingleton('cms/page');
         if (!is_null($pageId) && $pageId!==$page->getId()) {
+            $delimeterPosition = strrpos($pageId, '|');
+            if ($delimeterPosition) {
+                $pageId = substr($pageId, 0, $delimeterPosition);
+            }
+
             $page->setStoreId(Mage::app()->getStore()->getId());
             if (!$page->load($pageId)) {
                 return false;
@@ -96,7 +101,6 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
                         && $inRange) ? $page->getCustomRootTemplate() : $page->getRootTemplate();
             $action->getLayout()->helper('page/layout')->applyHandle($handle);
         }
-
 
         Mage::dispatchEvent('cms_page_render', array('page' => $page, 'controller_action' => $action));
 

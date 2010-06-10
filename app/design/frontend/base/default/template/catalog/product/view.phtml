@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -60,6 +60,7 @@
             <?php echo $this->getChildHtml('alert_urls') ?>
             <?php echo $this->getChildHtml('product_type_data') ?>
             <?php echo $this->getTierPriceHtml() ?>
+            <?php echo $this->getChildHtml('extrahint') ?>
 
             <?php if (!$this->hasOptions()):?>
                 <div class="add-to-box">
@@ -71,6 +72,7 @@
                     <?php endif; ?>
                     <?php echo $this->getChildHtml('addto') ?>
                 </div>
+                <?php echo $this->getChildHtml('extra_buttons') ?>
             <?php else:?>
                 <?php echo $this->getChildHtml('addto') ?>
             <?php endif; ?>
@@ -112,8 +114,14 @@
     </div>
 
     <div class="product-collateral">
-        <?php echo $this->getChildHtml('description') ?>
-        <?php echo $this->getChildHtml('additional') ?>
+<?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
+        <div class="box-collateral <?php echo "box-{$alias}"?>">
+            <?php if ($title = $this->getChildData($alias, 'title')):?>
+            <h2><?php echo $this->escapeHtml($title); ?></h2>
+            <?php endif;?>
+            <?php echo $html; ?>
+        </div>
+<?php endforeach;?>
         <?php echo $this->getChildHtml('upsell_products') ?>
         <?php echo $this->getChildHtml('product_additional_data') ?>
     </div>

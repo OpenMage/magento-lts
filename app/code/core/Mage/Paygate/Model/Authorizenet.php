@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paygate
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -177,12 +177,15 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             $payment->setStatus(self::STATUS_APPROVED);
             //$payment->setCcTransId($result->getTransactionId());
             $payment->setLastTransId($result->getTransactionId());
+            if (!$payment->getParentTransactionId() || $result->getTransactionId() != $payment->getParentTransactionId()) {
+                $payment->setTransactionId($result->getTransactionId());
+            }
             return $this;
         }
         if ($result->getResponseReasonText()) {
             Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
         }
-        Mage::throwException(Mage::helper('paygate')->__('Error in capturing the payment'));
+        Mage::throwException(Mage::helper('paygate')->__('Error in capturing the payment.'));
     }
 
 
@@ -208,7 +211,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
         }
         $payment->setStatus(self::STATUS_ERROR);
-        Mage::throwException(Mage::helper('paygate')->__('Invalid transaction id'));
+        Mage::throwException(Mage::helper('paygate')->__('Invalid transaction ID.'));
     }
 
     /**
@@ -239,7 +242,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             }
             Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
         }
-        Mage::throwException(Mage::helper('paygate')->__('Error in refunding the payment'));
+        Mage::throwException(Mage::helper('paygate')->__('Error in refunding the payment.'));
     }
 
     /**
@@ -354,6 +357,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
     protected function _postRequest(Varien_Object $request)
     {
+        $debugData = array('request' => $request->getData());
+
         $result = Mage::getModel('paygate/authorizenet_result');
 
         $client = new Varien_Http_Client();
@@ -368,41 +373,16 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         $client->setParameterPost($request->getData());
         $client->setMethod(Zend_Http_Client::POST);
 
-        if ($this->getConfigData('debug')) {
-            $requestDebug = clone $request;
-
-            foreach ($this->_debugReplacePrivateDataKeys as $key) {
-                if ($requestDebug->hasData($key)) {
-                    $requestDebug->setData($key, '***');
-                }
-            }
-
-            foreach( $requestDebug->getData() as $key => $value ) {
-                $requestData[] = strtoupper($key) . '=' . $value;
-            }
-
-            $requestData = join('&', $requestData);
-
-            $debug = Mage::getModel('paygate/authorizenet_debug')
-                ->setRequestBody($requestData)
-                ->setRequestSerialized(serialize($requestDebug->getData()))
-                ->setRequestDump(print_r($requestDebug->getData(),1))
-                ->save();
-        }
-
         try {
             $response = $client->request();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             $result->setResponseCode(-1)
                 ->setResponseReasonCode($e->getCode())
                 ->setResponseReasonText($e->getMessage());
 
-            if (!empty($debug)) {
-                $debug
-                    ->setResultSerialized(serialize($result->getData()))
-                    ->setResultDump(print_r($result->getData(),1))
-                    ->save();
-            }
+            $debugData['result'] = $result->getData();
+            $this->_debug($debugData);
             Mage::throwException($this->_wrapGatewayError($e->getMessage()));
         }
 
@@ -427,19 +407,15 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 ->setMd5Hash($r[37])
                 ->setCardCodeResponseCode($r[38])
                 ->setCAVVResponseCode( (isset($r[39])) ? $r[39] : null);
-        } else {
+        }
+        else {
              Mage::throwException(
-                Mage::helper('paygate')->__('Error in payment gateway')
+                Mage::helper('paygate')->__('Error in payment gateway.')
             );
         }
 
-        if (!empty($debug)) {
-            $debug
-                ->setResponseBody($responseBody)
-                ->setResultSerialized(serialize($result->getData()))
-                ->setResultDump(print_r($result->getData(),1))
-                ->save();
-        }
+        $debugData['result'] = $result->getData();
+        $this->_debug($debugData);
 
         return $result;
     }

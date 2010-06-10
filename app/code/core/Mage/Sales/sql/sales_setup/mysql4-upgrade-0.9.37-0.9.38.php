@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,16 +30,16 @@ $installer = $this;
 
 $installer->startSetup();
 $installer->run("
-UPDATE `{$installer->getTable('sales/order')}` AS `s`
-    LEFT JOIN `{$installer->getTable('customer/entity')}` AS `c`
+UPDATE `{$installer->getTable('sales_order')}` AS `s`
+    LEFT JOIN `{$installer->getTable('customer_entity')}` AS `c`
         ON `s`.`customer_id`=`c`.`entity_id`
     SET `s`.`customer_id`=NULL
 WHERE `c`.`entity_id` IS NULL;
 ");
-$installer->getConnection()->modifyColumn($installer->getTable('sales/order'), 'customer_id', 'INT UNSIGNED NULL DEFAULT NULL');
+$installer->getConnection()->modifyColumn($installer->getTable('sales_order'), 'customer_id', 'INT UNSIGNED NULL DEFAULT NULL');
 $installer->getConnection()->addConstraint('FK_SALES_ORDER_CUSTOMER',
-    $installer->getTable('sales/order'), 'customer_id',
-    $installer->getTable('customer/entity'), 'entity_id',
+    $installer->getTable('sales_order'), 'customer_id',
+    $installer->getTable('customer_entity'), 'entity_id',
     'set null', 'cascade'
 );
 

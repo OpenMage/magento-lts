@@ -1,934 +1,435 @@
 /**
- * $Id: EditorCommands.js 1070 2009-04-01 18:03:06Z spocke $
+ * EditorCommands.js
  *
- * @author Moxiecode
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+ * Copyright 2009, Moxiecode Systems AB
+ * Released under LGPL License.
+ *
+ * License: http://tinymce.moxiecode.com/license
+ * Contributing: http://tinymce.moxiecode.com/contributing
  */
 
 (function(tinymce) {
-	var each = tinymce.each, isIE = tinymce.isIE, isGecko = tinymce.isGecko, isOpera = tinymce.isOpera, isWebKit = tinymce.isWebKit;
+	// Added for compression purposes
+	var each = tinymce.each, undefined, TRUE = true, FALSE = false;
 
 	/**
-	 * This is a internal class and no method in this class should be called directly form the out side.
+	 * This class enables you to add custom editor commands and it contains
+	 * overrides for native browser commands to address various bugs and issues.
+	 *
+	 * @class tinymce.EditorCommands
 	 */
-	tinymce.create('tinymce.EditorCommands', {
-		EditorCommands : function(ed) {
-			this.editor = ed;
-		},
+	tinymce.EditorCommands = function(editor) {
+		var dom = editor.dom,
+			selection = editor.selection,
+			commands = {state: {}, exec : {}, value : {}},
+			settings = editor.settings,
+			bookmark;
 
-		execCommand : function(cmd, ui, val) {
-			var t = this, ed = t.editor, f;
+		/**
+		 * Executes the specified command.
+		 *
+		 * @method execCommand
+		 * @param {String} command Command to execute.
+		 * @param {Boolean} ui Optional user interface state.
+		 * @param {Object} value Optional value for command.
+		 * @return {Boolean} true/false if the command was found or not.
+		 */
+		function execCommand(command, ui, value) {
+			var func;
 
-			switch (cmd) {
-				// Ignore these
-				case 'mceResetDesignMode':
-				case 'mceBeginUndoLevel':
-					return true;
-
-				// Ignore these
-				case 'unlink':
-					t.UnLink();
-					return true;
-
-				// Bundle these together
-				case 'JustifyLeft':
-				case 'JustifyCenter':
-				case 'JustifyRight':
-				case 'JustifyFull':
-					t.mceJustify(cmd, cmd.substring(7).toLowerCase());
-					return true;
-
-				default:
-					f = this[cmd];
-
-					if (f) {
-						f.call(this, ui, val);
-						return true;
-					}
+			command = command.toLowerCase();
+			if (func = commands.exec[command]) {
+				func(command, ui, value);
+				return TRUE;
 			}
 
-			return false;
-		},
+			return FALSE;
+		};
 
-		Indent : function() {
-			var ed = this.editor, d = ed.dom, s = ed.selection, e, iv, iu;
+		/**
+		 * Queries the current state for a command for example if the current selection is "bold".
+		 *
+		 * @method queryCommandState
+		 * @param {String} command Command to check the state of.
+		 * @return {Boolean/Number} true/false if the selected contents is bold or not, -1 if it's not found.
+		 */
+		function queryCommandState(command) {
+			var func;
 
-			// Setup indent level
-			iv = ed.settings.indentation;
-			iu = /[a-z%]+$/i.exec(iv);
-			iv = parseInt(iv);
-
-			if (ed.settings.inline_styles && (!this.queryStateInsertUnorderedList() && !this.queryStateInsertOrderedList())) {
-				each(s.getSelectedBlocks(), function(e) {
-					d.setStyle(e, 'paddingLeft', (parseInt(e.style.paddingLeft || 0) + iv) + iu);
-				});
-
-				return;
-			}
-
-			ed.getDoc().execCommand('Indent', false, null);
-
-			if (isIE) {
-				d.getParent(s.getNode(), function(n) {
-					if (n.nodeName == 'BLOCKQUOTE') {
-						n.dir = n.style.cssText = '';
-					}
-				});
-			}
-		},
-
-		Outdent : function() {
-			var ed = this.editor, d = ed.dom, s = ed.selection, e, v, iv, iu;
-
-			// Setup indent level
-			iv = ed.settings.indentation;
-			iu = /[a-z%]+$/i.exec(iv);
-			iv = parseInt(iv);
-
-			if (ed.settings.inline_styles && (!this.queryStateInsertUnorderedList() && !this.queryStateInsertOrderedList())) {
-				each(s.getSelectedBlocks(), function(e) {
-					v = Math.max(0, parseInt(e.style.paddingLeft || 0) - iv);
-					d.setStyle(e, 'paddingLeft', v ? v + iu : '');
-				});
-
-				return;
-			}
-
-			ed.getDoc().execCommand('Outdent', false, null);
-		},
-
-/*
-		mceSetAttribute : function(u, v) {
-			var ed = this.editor, d = ed.dom, e;
-
-			if (e = d.getParent(ed.selection.getNode(), d.isBlock))
-				d.setAttrib(e, v.name, v.value);
-		},
-*/
-		mceSetContent : function(u, v) {
-			this.editor.setContent(v);
-		},
-
-		mceToggleVisualAid : function() {
-			var ed = this.editor;
-
-			ed.hasVisual = !ed.hasVisual;
-			ed.addVisual();
-		},
-
-		mceReplaceContent : function(u, v) {
-			var s = this.editor.selection;
-
-			s.setContent(v.replace(/\{\$selection\}/g, s.getContent({format : 'text'})));
-		},
-
-		mceInsertLink : function(u, v) {
-			var ed = this.editor, s = ed.selection, e = ed.dom.getParent(s.getNode(), 'a');
-
-			if (tinymce.is(v, 'string'))
-				v = {href : v};
-
-			function set(e) {
-				each(v, function(v, k) {
-					ed.dom.setAttrib(e, k, v);
-				});
-			};
-
-			if (!e) {
-				ed.execCommand('CreateLink', false, 'javascript:mctmp(0);');
-				each(ed.dom.select('a[href=javascript:mctmp(0);]'), function(e) {
-					set(e);
-				});
-			} else {
-				if (v.href)
-					set(e);
-				else
-					ed.dom.remove(e, 1);
-			}
-		},
-
-		UnLink : function() {
-			var ed = this.editor, s = ed.selection;
-
-			if (s.isCollapsed())
-				s.select(s.getNode());
-
-			ed.getDoc().execCommand('unlink', false, null);
-			s.collapse(0);
-		},
-
-		FontName : function(u, v) {
-			var t = this, ed = t.editor, s = ed.selection, e;
-
-			if (!v) {
-				if (s.isCollapsed())
-					s.select(s.getNode());
-			} else {
-				if (ed.settings.convert_fonts_to_spans)
-					t._applyInlineStyle('span', {style : {fontFamily : v}});
-				else
-					ed.getDoc().execCommand('FontName', false, v);
-			}
-		},
-
-		FontSize : function(u, v) {
-			var ed = this.editor, s = ed.settings, fc, fs;
-
-			// Use style options instead
-			if (s.convert_fonts_to_spans && v >= 1 && v <= 7) {
-				fs = tinymce.explode(s.font_size_style_values);
-				fc = tinymce.explode(s.font_size_classes);
-
-				if (fc)
-					v = fc[v - 1] || v;
-				else
-					v = fs[v - 1] || v;
-			}
-
-			if (v >= 1 && v <= 7)
-				ed.getDoc().execCommand('FontSize', false, v);
-			else
-				this._applyInlineStyle('span', {style : {fontSize : v}});
-		},
-
-		queryCommandValue : function(c) {
-			var f = this['queryValue' + c];
-
-			if (f)
-				return f.call(this, c);
-
-			return false;
-		},
-
-		queryCommandState : function(cmd) {
-			var f;
-
-			switch (cmd) {
-				// Bundle these together
-				case 'JustifyLeft':
-				case 'JustifyCenter':
-				case 'JustifyRight':
-				case 'JustifyFull':
-					return this.queryStateJustify(cmd, cmd.substring(7).toLowerCase());
-
-				default:
-					if (f = this['queryState' + cmd])
-						return f.call(this, cmd);
-			}
+			command = command.toLowerCase();
+			if (func = commands.state[command])
+				return func(command);
 
 			return -1;
-		},
+		};
 
-		_queryState : function(c) {
-			try {
-				return this.editor.getDoc().queryCommandState(c);
-			} catch (ex) {
-				// Ignore exception
-			}
-		},
+		/**
+		 * Queries the command value for example the current fontsize.
+		 *
+		 * @method queryCommandValue
+		 * @param {String} command Command to check the value of.
+		 * @return {Object} Command value of false if it's not found.
+		 */
+		function queryCommandValue(command) {
+			var func;
 
-		_queryVal : function(c) {
-			try {
-				return this.editor.getDoc().queryCommandValue(c);
-			} catch (ex) {
-				// Ignore exception
-			}
-		},
+			command = command.toLowerCase();
+			if (func = commands.value[command])
+				return func(command);
 
-		queryValueFontSize : function() {
-			var ed = this.editor, v = 0, p;
+			return FALSE;
+		};
 
-			if (p = ed.dom.getParent(ed.selection.getNode(), 'span'))
-				v = p.style.fontSize;
+		/**
+		 * Adds commands to the command collection.
+		 *
+		 * @method addCommands
+		 * @param {Object} command_list Name/value collection with commands to add, the names can also be comma separated.
+		 * @param {String} type Optional type to add, defaults to exec. Can be value or state as well.
+		 */
+		function addCommands(command_list, type) {
+			type = type || 'exec';
 
-			if (!v && (isOpera || isWebKit)) {
-				if (p = ed.dom.getParent(ed.selection.getNode(), 'font'))
-					v = p.size;
+			each(command_list, function(callback, command) {
+				each(command.toLowerCase().split(','), function(command) {
+					commands[type][command] = callback;
+				});
+			});
+		};
 
-				return v;
-			}
+		// Expose public methods
+		tinymce.extend(this, {
+			execCommand : execCommand,
+			queryCommandState : queryCommandState,
+			queryCommandValue : queryCommandValue,
+			addCommands : addCommands
+		});
 
-			return v || this._queryVal('FontSize');
-		},
+		// Private methods
 
-		queryValueFontName : function() {
-			var ed = this.editor, v = 0, p;
+		function execNativeCommand(command, ui, value) {
+			if (ui === undefined)
+				ui = FALSE;
 
-			if (p = ed.dom.getParent(ed.selection.getNode(), 'font'))
-				v = p.face;
+			if (value === undefined)
+				value = null;
 
-			if (p = ed.dom.getParent(ed.selection.getNode(), 'span'))
-				v = p.style.fontFamily.replace(/, /g, ',').replace(/[\'\"]/g, '').toLowerCase();
+			return editor.getDoc().execCommand(command, ui, value);
+		};
 
-			if (!v)
-				v = this._queryVal('FontName');
+		function isFormatMatch(name) {
+			return editor.formatter.match(name);
+		};
 
-			return v;
-		},
+		function toggleFormat(name, value) {
+			editor.formatter.toggle(name, value ? {value : value} : undefined);
+		};
 
-		mceJustify : function(c, v) {
-			var ed = this.editor, se = ed.selection, n = se.getNode(), nn = n.nodeName, bl, nb, dom = ed.dom, rm;
+		function storeSelection(type) {
+			bookmark = selection.getBookmark(type);
+		};
 
-			if (ed.settings.inline_styles && this.queryStateJustify(c, v))
-				rm = 1;
+		function restoreSelection() {
+			selection.moveToBookmark(bookmark);
+		};
 
-			bl = dom.getParent(n, ed.dom.isBlock);
+		// Add execCommand overrides
+		addCommands({
+			// Ignore these, added for compatibility
+			'mceResetDesignMode,mceBeginUndoLevel' : function() {},
 
-			if (nn == 'IMG') {
-				if (v == 'full')
-					return;
+			// Add undo manager logic
+			'mceEndUndoLevel,mceAddUndoLevel' : function() {
+				editor.undoManager.add();
+			},
 
-				if (rm) {
-					if (v == 'center')
-						dom.setStyle(bl || n.parentNode, 'textAlign', '');
+			'Cut,Copy,Paste' : function(command) {
+				var doc = editor.getDoc(), failed;
 
-					dom.setStyle(n, 'float', '');
-					this.mceRepaint();
-					return;
+				// Try executing the native command
+				try {
+					execNativeCommand(command);
+				} catch (ex) {
+					// Command failed
+					failed = TRUE;
 				}
 
-				if (v == 'center') {
-					// Do not change table elements
-					if (bl && /^(TD|TH)$/.test(bl.nodeName))
-						bl = 0;
+				// Present alert message about clipboard access not being available
+				if (failed || !doc.queryCommandEnabled(command)) {
+					if (tinymce.isGecko) {
+						editor.windowManager.confirm(editor.getLang('clipboard_msg'), function(state) {
+							if (state)
+								open('http://www.mozilla.org/editor/midasdemo/securityprefs.html', '_blank');
+						});
+					} else
+						editor.windowManager.alert(editor.getLang('clipboard_no_support'));
+				}
+			},
 
-					if (!bl || bl.childNodes.length > 1) {
-						nb = dom.create('p');
-						nb.appendChild(n.cloneNode(false));
+			// Override unlink command
+			unlink : function(command) {
+				if (selection.isCollapsed())
+					selection.select(selection.getNode());
 
-						if (bl)
-							dom.insertAfter(nb, bl);
-						else
-							dom.insertAfter(nb, n);
+				execNativeCommand(command);
+				selection.collapse(FALSE);
+			},
 
-						dom.remove(n);
-						n = nb.firstChild;
-						bl = nb;
+			// Override justify commands to use the text formatter engine
+			'JustifyLeft,JustifyCenter,JustifyRight,JustifyFull' : function(command) {
+				var align = command.substring(7);
+
+				// Remove all other alignments first
+				each('left,center,right,full'.split(','), function(name) {
+					if (align != name)
+						editor.formatter.remove('align' + name);
+				});
+
+				toggleFormat('align' + align);
+			},
+
+			// Override list commands to fix WebKit bug
+			'InsertUnorderedList,InsertOrderedList' : function(command) {
+				var listElm, listParent;
+
+				execNativeCommand(command);
+
+				// WebKit produces lists within block elements so we need to split them
+				// we will replace the native list creation logic to custom logic later on
+				// TODO: Remove this when the list creation logic is removed
+				listElm = dom.getParent(selection.getNode(), 'ol,ul');
+				if (listElm) {
+					listParent = listElm.parentNode;
+
+					// If list is within a text block then split that block
+					if (/^(H[1-6]|P|ADDRESS|PRE)$/.test(listParent.nodeName)) {
+						storeSelection();
+						dom.split(listParent, listElm);
+						restoreSelection();
 					}
+				}
+			},
 
-					dom.setStyle(bl, 'textAlign', v);
-					dom.setStyle(n, 'float', '');
+			// Override commands to use the text formatter engine
+			'Bold,Italic,Underline,Strikethrough' : function(command) {
+				toggleFormat(command);
+			},
+
+			// Override commands to use the text formatter engine
+			'ForeColor,HiliteColor,FontName' : function(command, ui, value) {
+				toggleFormat(command, value);
+			},
+
+			FontSize : function(command, ui, value) {
+				var fontClasses, fontSizes;
+
+				// Convert font size 1-7 to styles
+				if (value >= 1 && value <= 7) {
+					fontSizes = tinymce.explode(settings.font_size_style_values);
+					fontClasses = tinymce.explode(settings.font_size_classes);
+
+					if (fontClasses)
+						value = fontClasses[value - 1] || value;
+					else
+						value = fontSizes[value - 1] || value;
+				}
+
+				toggleFormat(command, value);
+			},
+
+			RemoveFormat : function(command) {
+				editor.formatter.remove(command);
+			},
+
+			mceBlockQuote : function(command) {
+				toggleFormat('blockquote');
+			},
+
+			FormatBlock : function(command, ui, value) {
+				return toggleFormat(value);
+			},
+
+			mceCleanup : function() {
+				storeSelection();
+				editor.setContent(editor.getContent({cleanup : TRUE}), {cleanup : TRUE});
+				restoreSelection();
+			},
+
+			mceRemoveNode : function(command, ui, value) {
+				var node = value || selection.getNode();
+
+				// Make sure that the body node isn't removed
+				if (node != ed.getBody()) {
+					storeSelection();
+					editor.dom.remove(node, TRUE);
+					restoreSelection();
+				}
+			},
+
+			mceSelectNodeDepth : function(command, ui, value) {
+				var counter = 0;
+
+				dom.getParent(selection.getNode(), function(node) {
+					if (node.nodeType == 1 && counter++ == value) {
+						selection.select(node);
+						return FALSE;
+					}
+				}, editor.getBody());
+			},
+
+			mceSelectNode : function(command, ui, value) {
+				selection.select(value);
+			},
+
+			mceInsertContent : function(command, ui, value) {
+				selection.setContent(value);
+			},
+
+			mceInsertRawHTML : function(command, ui, value) {
+				selection.setContent('tiny_mce_marker');
+				editor.setContent(editor.getContent().replace(/tiny_mce_marker/g, value));
+			},
+
+			mceSetContent : function(command, ui, value) {
+				editor.setContent(value);
+			},
+
+			'Indent,Outdent' : function(command) {
+				var intentValue, indentUnit, value;
+
+				// Setup indent level
+				intentValue = settings.indentation;
+				indentUnit = /[a-z%]+$/i.exec(intentValue);
+				intentValue = parseInt(intentValue);
+
+				if (!queryCommandState('InsertUnorderedList') && !queryCommandState('InsertOrderedList')) {
+					each(selection.getSelectedBlocks(), function(element) {
+						if (command == 'outdent') {
+							value = Math.max(0, parseInt(element.style.paddingLeft || 0) - intentValue);
+							dom.setStyle(element, 'paddingLeft', value ? value + indentUnit : '');
+						} else
+							dom.setStyle(element, 'paddingLeft', (parseInt(element.style.paddingLeft || 0) + intentValue) + indentUnit);
+					});
+				} else
+					execNativeCommand(command);
+			},
+
+			mceRepaint : function() {
+				var bookmark;
+
+				if (tinymce.isGecko) {
+					try {
+						storeSelection(TRUE);
+
+						if (selection.getSel())
+							selection.getSel().selectAllChildren(editor.getBody());
+
+						selection.collapse(TRUE);
+						restoreSelection();
+					} catch (ex) {
+						// Ignore
+					}
+				}
+			},
+
+			mceToggleFormat : function(command, ui, value) {
+				editor.formatter.toggle(value);
+			},
+
+			InsertHorizontalRule : function() {
+				selection.setContent('<hr />');
+			},
+
+			mceToggleVisualAid : function() {
+				editor.hasVisual = !editor.hasVisual;
+				editor.addVisual();
+			},
+
+			mceReplaceContent : function(command, ui, value) {
+				selection.setContent(value.replace(/\{\$selection\}/g, selection.getContent({format : 'text'})));
+			},
+
+			mceInsertLink : function(command, ui, value) {
+				var link = dom.getParent(selection.getNode(), 'a');
+
+				if (tinymce.is(value, 'string'))
+					value = {href : value};
+
+				if (!link) {
+					execNativeCommand('CreateLink', FALSE, 'javascript:mctmp(0);');
+					each(dom.select('a[href=javascript:mctmp(0);]'), function(link) {
+						dom.setAttribs(link, value);
+					});
 				} else {
-					dom.setStyle(n, 'float', v);
-					dom.setStyle(bl || n.parentNode, 'textAlign', '');
+					if (value.href)
+						dom.setAttribs(link, value);
+					else
+						ed.dom.remove(link, TRUE);
 				}
-
-				this.mceRepaint();
-				return;
 			}
+		});
 
-			// Handle the alignment outselfs, less quirks in all browsers
-			if (ed.settings.inline_styles && ed.settings.forced_root_block) {
-				if (rm)
-					v = '';
+		// Add queryCommandState overrides
+		addCommands({
+			// Override justify commands
+			'JustifyLeft,JustifyCenter,JustifyRight,JustifyFull' : function(command) {
+				return isFormatMatch('align' + command.substring(7));
+			},
 
-				each(se.getSelectedBlocks(dom.getParent(se.getStart(), dom.isBlock), dom.getParent(se.getEnd(), dom.isBlock)), function(e) {
-					dom.setAttrib(e, 'align', '');
-					dom.setStyle(e, 'textAlign', v == 'full' ? 'justify' : v);
-				});
+			'Bold,Italic,Underline,Strikethrough' : function(command) {
+				return isFormatMatch(command);
+			},
 
-				return;
-			} else if (!rm)
-				ed.getDoc().execCommand(c, false, null);
+			mceBlockQuote : function() {
+				return isFormatMatch('blockquote');
+			},
 
-			if (ed.settings.inline_styles) {
-				if (rm) {
-					dom.getParent(ed.selection.getNode(), function(n) {
-						if (n.style && n.style.textAlign)
-							dom.setStyle(n, 'textAlign', '');
-					});
+			Outdent : function() {
+				var node;
 
-					return;
+				if (settings.inline_styles) {
+					if ((node = dom.getParent(selection.getStart(), dom.isBlock)) && parseInt(node.style.paddingLeft) > 0)
+						return TRUE;
+
+					if ((node = dom.getParent(selection.getEnd(), dom.isBlock)) && parseInt(node.style.paddingLeft) > 0)
+						return TRUE;
 				}
 
-				each(dom.select('*'), function(n) {
-					var v = n.align;
+				return queryCommandState('InsertUnorderedList') || queryCommandState('InsertOrderedList') || (!settings.inline_styles && !!dom.getParent(selection.getNode(), 'BLOCKQUOTE'));
+			},
 
-					if (v) {
-						if (v == 'full')
-							v = 'justify';
-
-						dom.setStyle(n, 'textAlign', v);
-						dom.setAttrib(n, 'align', '');
-					}
-				});
+			'InsertUnorderedList,InsertOrderedList' : function(command) {
+				return dom.getParent(selection.getNode(), command == 'insertunorderedlist' ? 'UL' : 'OL');
 			}
-		},
+		}, 'state');
 
-		mceSetCSSClass : function(u, v) {
-			this.mceSetStyleInfo(0, {command : 'setattrib', name : 'class', value : v});
-		},
+		// Add queryCommandValue overrides
+		addCommands({
+			'FontSize,FontName' : function(command) {
+				var value = 0, parent;
 
-		getSelectedElement : function() {
-			var t = this, ed = t.editor, dom = ed.dom, se = ed.selection, r = se.getRng(), r1, r2, sc, ec, so, eo, e, sp, ep, re;
-
-			if (se.isCollapsed() || r.item)
-				return se.getNode();
-
-			// Setup regexp
-			re = ed.settings.merge_styles_invalid_parents;
-			if (tinymce.is(re, 'string'))
-				re = new RegExp(re, 'i');
-
-			if (isIE) {
-				r1 = r.duplicate();
-				r1.collapse(true);
-				sc = r1.parentElement();
-
-				r2 = r.duplicate();
-				r2.collapse(false);
-				ec = r2.parentElement();
-
-				if (sc != ec) {
-					r1.move('character', 1);
-					sc = r1.parentElement();
+				if (parent = dom.getParent(selection.getNode(), 'span')) {
+					if (command == 'fontsize')
+						value = parent.style.fontSize;
+					else
+						value = parent.style.fontFamily.replace(/, /g, ',').replace(/[\'\"]/g, '').toLowerCase();
 				}
 
-				if (sc == ec) {
-					r1 = r.duplicate();
-					r1.moveToElementText(sc);
-
-					if (r1.compareEndPoints('StartToStart', r) == 0 && r1.compareEndPoints('EndToEnd', r) == 0)
-						return re && re.test(sc.nodeName) ? null : sc;
-				}
-			} else {
-				function getParent(n) {
-					return dom.getParent(n, '*');
-				};
-
-				sc = r.startContainer;
-				ec = r.endContainer;
-				so = r.startOffset;
-				eo = r.endOffset;
-
-				if (!r.collapsed) {
-					if (sc == ec) {
-						if (so - eo < 2) {
-							if (sc.hasChildNodes()) {
-								sp = sc.childNodes[so];
-								return re && re.test(sp.nodeName) ? null : sp;
-							}
-						}
-					}
-				}
-
-				if (sc.nodeType != 3 || ec.nodeType != 3)
-					return null;
-
-				if (so == 0) {
-					sp = getParent(sc);
-
-					if (sp && sp.firstChild != sc)
-						sp = null;
-				}
-
-				if (so == sc.nodeValue.length) {
-					e = sc.nextSibling;
-
-					if (e && e.nodeType == 1)
-						sp = sc.nextSibling;
-				}
-
-				if (eo == 0) {
-					e = ec.previousSibling;
-
-					if (e && e.nodeType == 1)
-						ep = e;
-				}
-
-				if (eo == ec.nodeValue.length) {
-					ep = getParent(ec);
-
-					if (ep && ep.lastChild != ec)
-						ep = null;
-				}
-
-				// Same element
-				if (sp == ep)
-					return re && sp && re.test(sp.nodeName) ? null : sp;
+				return value;
 			}
+		}, 'value');
 
-			return null;
-		},
+		// Add undo manager logic
+		if (settings.custom_undo_redo) {
+			addCommands({
+				Undo : function() {
+					editor.undoManager.undo();
+				},
 
-		mceSetStyleInfo : function(u, v) {
-			var t = this, ed = t.editor, d = ed.getDoc(), dom = ed.dom, e, b, s = ed.selection, nn = v.wrapper || 'span', b = s.getBookmark(), re;
-
-			function set(n, e) {
-				if (n.nodeType == 1) {
-					switch (v.command) {
-						case 'setattrib':
-							return dom.setAttrib(n, v.name, v.value);
-
-						case 'setstyle':
-							return dom.setStyle(n, v.name, v.value);
-
-						case 'removeformat':
-							return dom.setAttrib(n, 'class', '');
-					}
-				}
-			};
-
-			// Setup regexp
-			re = ed.settings.merge_styles_invalid_parents;
-			if (tinymce.is(re, 'string'))
-				re = new RegExp(re, 'i');
-
-			// Set style info on selected element
-			if ((e = t.getSelectedElement()) && !ed.settings.force_span_wrappers)
-				set(e, 1);
-			else {
-				// Generate wrappers and set styles on them
-				d.execCommand('FontName', false, '__');
-				each(dom.select('span,font'), function(n) {
-					var sp, e;
-
-					if (dom.getAttrib(n, 'face') == '__' || n.style.fontFamily === '__') {
-						sp = dom.create(nn, {mce_new : '1'});
-
-						set(sp);
-
-						each (n.childNodes, function(n) {
-							sp.appendChild(n.cloneNode(true));
-						});
-
-						dom.replace(sp, n);
-					}
-				});
-			}
-
-			// Remove wrappers inside new ones
-			each(dom.select(nn).reverse(), function(n) {
-				var p = n.parentNode;
-
-				// Check if it's an old span in a new wrapper
-				if (!dom.getAttrib(n, 'mce_new')) {
-					// Find new wrapper
-					p = dom.getParent(n, '*[mce_new]');
-
-					if (p)
-						dom.remove(n, 1);
+				Redo : function() {
+					editor.undoManager.redo();
 				}
 			});
-
-			// Merge wrappers with parent wrappers
-			each(dom.select(nn).reverse(), function(n) {
-				var p = n.parentNode;
-
-				if (!p || !dom.getAttrib(n, 'mce_new'))
-					return;
-
-				if (ed.settings.force_span_wrappers && p.nodeName != 'SPAN')
-					return;
-
-				// Has parent of the same type and only child
-				if (p.nodeName == nn.toUpperCase() && p.childNodes.length == 1)
-					return dom.remove(p, 1);
-
-				// Has parent that is more suitable to have the class and only child
-				if (n.nodeType == 1 && (!re || !re.test(p.nodeName)) && p.childNodes.length == 1) {
-					set(p); // Set style info on parent instead
-					dom.setAttrib(n, 'class', '');
-				}
-			});
-
-			// Remove empty wrappers
-			each(dom.select(nn).reverse(), function(n) {
-				if (dom.getAttrib(n, 'mce_new') || (dom.getAttribs(n).length <= 1 && n.className === '')) {
-					if (!dom.getAttrib(n, 'class') && !dom.getAttrib(n, 'style'))
-						return dom.remove(n, 1);
-
-					dom.setAttrib(n, 'mce_new', ''); // Remove mce_new marker
-				}
-			});
-
-			s.moveToBookmark(b);
-		},
-
-		queryStateJustify : function(c, v) {
-			var ed = this.editor, n = ed.selection.getNode(), dom = ed.dom;
-
-			if (n && n.nodeName == 'IMG') {
-				if (dom.getStyle(n, 'float') == v)
-					return 1;
-
-				return n.parentNode.style.textAlign == v;
-			}
-
-			n = dom.getParent(ed.selection.getStart(), function(n) {
-				return n.nodeType == 1 && n.style.textAlign;
-			});
-
-			if (v == 'full')
-				v = 'justify';
-
-			if (ed.settings.inline_styles)
-				return (n && n.style.textAlign == v);
-
-			return this._queryState(c);
-		},
-
-		ForeColor : function(ui, v) {
-			var ed = this.editor;
-
-			if (ed.settings.convert_fonts_to_spans) {
-				this._applyInlineStyle('span', {style : {color : v}});
-				return;
-			} else
-				ed.getDoc().execCommand('ForeColor', false, v);
-		},
-
-		HiliteColor : function(ui, val) {
-			var t = this, ed = t.editor, d = ed.getDoc();
-
-			if (ed.settings.convert_fonts_to_spans) {
-				this._applyInlineStyle('span', {style : {backgroundColor : val}});
-				return;
-			}
-
-			function set(s) {
-				if (!isGecko)
-					return;
-
-				try {
-					// Try new Gecko method
-					d.execCommand("styleWithCSS", 0, s);
-				} catch (ex) {
-					// Use old
-					d.execCommand("useCSS", 0, !s);
-				}
-			};
-
-			if (isGecko || isOpera) {
-				set(true);
-				d.execCommand('hilitecolor', false, val);
-				set(false);
-			} else
-				d.execCommand('BackColor', false, val);
-		},
-
-		FormatBlock : function(ui, val) {
-			var t = this, ed = t.editor, s = ed.selection, dom = ed.dom, bl, nb, b;
-
-			function isBlock(n) {
-				return /^(P|DIV|H[1-6]|ADDRESS|BLOCKQUOTE|PRE)$/.test(n.nodeName);
-			};
-
-			bl = dom.getParent(s.getNode(), function(n) {
-				return isBlock(n);
-			});
-
-			// IE has an issue where it removes the parent div if you change format on the paragrah in <div><p>Content</p></div>
-			// FF and Opera doesn't change parent DIV elements if you switch format
-			if (bl) {
-				if ((isIE && isBlock(bl.parentNode)) || bl.nodeName == 'DIV') {
-					// Rename block element
-					nb = ed.dom.create(val);
-
-					each(dom.getAttribs(bl), function(v) {
-						dom.setAttrib(nb, v.nodeName, dom.getAttrib(bl, v.nodeName));
-					});
-
-					b = s.getBookmark();
-					dom.replace(nb, bl, 1);
-					s.moveToBookmark(b);
-					ed.nodeChanged();
-					return;
-				}
-			}
-
-			val = ed.settings.forced_root_block ? (val || '<p>') : val;
-
-			if (val.indexOf('<') == -1)
-				val = '<' + val + '>';
-
-			if (tinymce.isGecko)
-				val = val.replace(/<(div|blockquote|code|dt|dd|dl|samp)>/gi, '$1');
-
-			ed.getDoc().execCommand('FormatBlock', false, val);
-		},
-
-		mceCleanup : function() {
-			var ed = this.editor, s = ed.selection, b = s.getBookmark();
-			ed.setContent(ed.getContent());
-			s.moveToBookmark(b);
-		},
-
-		mceRemoveNode : function(ui, val) {
-			var ed = this.editor, s = ed.selection, b, n = val || s.getNode();
-
-			// Make sure that the body node isn't removed
-			if (n == ed.getBody())
-				return;
-
-			b = s.getBookmark();
-			ed.dom.remove(n, 1);
-			s.moveToBookmark(b);
-			ed.nodeChanged();
-		},
-
-		mceSelectNodeDepth : function(ui, val) {
-			var ed = this.editor, s = ed.selection, c = 0;
-
-			ed.dom.getParent(s.getNode(), function(n) {
-				if (n.nodeType == 1 && c++ == val) {
-					s.select(n);
-					ed.nodeChanged();
-					return false;
-				}
-			}, ed.getBody());
-		},
-
-		mceSelectNode : function(u, v) {
-			this.editor.selection.select(v);
-		},
-
-		mceInsertContent : function(ui, val) {
-			this.editor.selection.setContent(val);
-		},
-
-		mceInsertRawHTML : function(ui, val) {
-			var ed = this.editor;
-
-			ed.selection.setContent('tiny_mce_marker');
-			ed.setContent(ed.getContent().replace(/tiny_mce_marker/g, val));
-		},
-
-		mceRepaint : function() {
-			var s, b, e = this.editor;
-
-			if (tinymce.isGecko) {
-				try {
-					s = e.selection;
-					b = s.getBookmark(true);
-
-					if (s.getSel())
-						s.getSel().selectAllChildren(e.getBody());
-
-					s.collapse(true);
-					s.moveToBookmark(b);
-				} catch (ex) {
-					// Ignore
-				}
-			}
-		},
-
-		queryStateUnderline : function() {
-			var ed = this.editor, n = ed.selection.getNode();
-
-			if (n && n.nodeName == 'A')
-				return false;
-
-			return this._queryState('Underline');
-		},
-
-		queryStateOutdent : function() {
-			var ed = this.editor, n;
-
-			if (ed.settings.inline_styles) {
-				if ((n = ed.dom.getParent(ed.selection.getStart(), ed.dom.isBlock)) && parseInt(n.style.paddingLeft) > 0)
-					return true;
-
-				if ((n = ed.dom.getParent(ed.selection.getEnd(), ed.dom.isBlock)) && parseInt(n.style.paddingLeft) > 0)
-					return true;
-			}
-
-			return this.queryStateInsertUnorderedList() || this.queryStateInsertOrderedList() || (!ed.settings.inline_styles && !!ed.dom.getParent(ed.selection.getNode(), 'BLOCKQUOTE'));
-		},
-
-		queryStateInsertUnorderedList : function() {
-			return this.editor.dom.getParent(this.editor.selection.getNode(), 'UL');
-		},
-
-		queryStateInsertOrderedList : function() {
-			return this.editor.dom.getParent(this.editor.selection.getNode(), 'OL');
-		},
-
-		queryStatemceBlockQuote : function() {
-			return !!this.editor.dom.getParent(this.editor.selection.getStart(), function(n) {return n.nodeName === 'BLOCKQUOTE';});
-		},
-
-		_applyInlineStyle : function(na, at, op) {
-			var t = this, ed = t.editor, dom = ed.dom, bm, lo = {}, kh, found;
-
-			na = na.toUpperCase();
-
-			if (op && op.check_classes && at['class'])
-				op.check_classes.push(at['class']);
-
-			function removeEmpty() {
-				each(dom.select(na).reverse(), function(n) {
-					var c = 0;
-
-					// Check if there is any attributes
-					each(dom.getAttribs(n), function(an) {
-						if (an.nodeName.substring(0, 1) != '_' && dom.getAttrib(n, an.nodeName) != '') {
-							//console.log(dom.getOuterHTML(n), dom.getAttrib(n, an.nodeName));
-							c++;
-						}
-					});
-
-					// No attributes then remove the element and keep the children
-					if (c == 0)
-						dom.remove(n, 1);
-				});
-			};
-
-			function replaceFonts() {
-				var bm;
-
-				each(dom.select('span,font'), function(n) {
-					if (n.style.fontFamily == 'mceinline' || n.face == 'mceinline') {
-						if (!bm)
-							bm = ed.selection.getBookmark();
-
-						at._mce_new = '1';
-						dom.replace(dom.create(na, at), n, 1);
-					}
-				});
-
-				// Remove redundant elements
-				each(dom.select(na + '[_mce_new]'), function(n) {
-					function removeStyle(n) {
-						if (n.nodeType == 1) {
-							each(at.style, function(v, k) {
-								dom.setStyle(n, k, '');
-							});
-
-							// Remove spans with the same class or marked classes
-							if (at['class'] && n.className && op) {
-								each(op.check_classes, function(c) {
-									if (dom.hasClass(n, c))
-										dom.removeClass(n, c);
-								});
-							}
-						}
-					};
-
-					// Remove specified style information from child elements
-					each(dom.select(na, n), removeStyle);
-
-					// Remove the specified style information on parent if current node is only child (IE)
-					if (n.parentNode && n.parentNode.nodeType == 1 && n.parentNode.childNodes.length == 1)
-						removeStyle(n.parentNode);
-
-					// Remove the child elements style info if a parent already has it
-					dom.getParent(n.parentNode, function(pn) {
-						if (pn.nodeType == 1) {
-							if (at.style) {
-								each(at.style, function(v, k) {
-									var sv;
-
-									if (!lo[k] && (sv = dom.getStyle(pn, k))) {
-										if (sv === v)
-											dom.setStyle(n, k, '');
-
-										lo[k] = 1;
-									}
-								});
-							}
-
-							// Remove spans with the same class or marked classes
-							if (at['class'] && pn.className && op) {
-								each(op.check_classes, function(c) {
-									if (dom.hasClass(pn, c))
-										dom.removeClass(n, c);
-								});
-							}
-						}
-
-						return false;
-					});
-
-					n.removeAttribute('_mce_new');
-				});
-
-				removeEmpty();
-				ed.selection.moveToBookmark(bm);
-
-				return !!bm;
-			};
-
-			// Create inline elements
-			ed.focus();
-			ed.getDoc().execCommand('FontName', false, 'mceinline');
-			replaceFonts();
-
-			if (kh = t._applyInlineStyle.keyhandler) {
-				ed.onKeyUp.remove(kh);
-				ed.onKeyPress.remove(kh);
-				ed.onKeyDown.remove(kh);
-				ed.onSetContent.remove(t._applyInlineStyle.chandler);
-			}
-
-			if (ed.selection.isCollapsed()) {
-				// IE will format the current word so this code can't be executed on that browser
-				if (!isIE) {
-					each(dom.getParents(ed.selection.getNode(), 'span'), function(n) {
-						each(at.style, function(v, k) {
-							var kv;
-
-							if (kv = dom.getStyle(n, k)) {
-								if (kv == v) {
-									dom.setStyle(n, k, '');
-									found = 2;
-									return false;
-								}
-
-								found = 1;
-								return false;
-							}
-						});
-
-						if (found)
-							return false;
-					});
-
-					if (found == 2) {
-						bm = ed.selection.getBookmark();
-
-						removeEmpty();
-
-						ed.selection.moveToBookmark(bm);
-
-						// Node change needs to be detached since the onselect event
-						// for the select box will run the onclick handler after onselect call. Todo: Add a nicer fix!
-						window.setTimeout(function() {
-							ed.nodeChanged();
-						}, 1);
-
-						return;
-					}
-				}
-
-				// Start collecting styles
-				t._pendingStyles = tinymce.extend(t._pendingStyles || {}, at.style);
-
-				t._applyInlineStyle.chandler = ed.onSetContent.add(function() {
-					delete t._pendingStyles;
-				});
-
-				t._applyInlineStyle.keyhandler = kh = function(e) {
-					// Use pending styles
-					if (t._pendingStyles) {
-						at.style = t._pendingStyles;
-						delete t._pendingStyles;
-					}
-
-					if (replaceFonts()) {
-						ed.onKeyDown.remove(t._applyInlineStyle.keyhandler);
-						ed.onKeyPress.remove(t._applyInlineStyle.keyhandler);
-					}
-
-					if (e.type == 'keyup')
-						ed.onKeyUp.remove(t._applyInlineStyle.keyhandler);
-				};
-
-				ed.onKeyDown.add(kh);
-				ed.onKeyPress.add(kh);
-				ed.onKeyUp.add(kh);
-			} else
-				t._pendingStyles = 0;
 		}
-	});
+	};
 })(tinymce);

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,7 +65,7 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
         ));
 
         $this->addColumn('size', array(
-            'header'    => Mage::helper('backup')->__('Size, byte'),
+            'header'    => Mage::helper('backup')->__('Size, Bytes'),
             'index'     => 'size',
             'type'      => 'number',
             'sortable'  => false,

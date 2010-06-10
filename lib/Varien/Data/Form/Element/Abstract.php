@@ -195,6 +195,9 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
 
     public function getHtml()
     {
+        if ($this->getRequired()) {
+            $this->addClass('required-entry');
+        }
         if ($this->_renderer) {
             $html = $this->_renderer->render($this);
         }

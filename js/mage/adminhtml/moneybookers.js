@@ -11,8 +11,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Moneybookers
+ * @category    Phoenix
+ * @package     Phoenix_Moneybookers
  * @copyright   Copyright (c) 2009 Phoenix Medien GmbH & Co. KG (http://www.phoenix-medien.de)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -60,17 +60,17 @@ Moneybookers.prototype = {
     },
 
     button: function () {
-        var status, response;
+        var status, response, result;
         status = this.getStatus();
         if (status < 1) {
             response = this.getHttp(this.checkemailUrl + "?email=" + $("moneybookers_settings_moneybookers_email").value);
-            if (response.substr(0, 3) == "OK,") {
-                response = response.substr(3);
-                $("moneybookers_settings_customer_id").value = response;
-                $("moneybookers_settings_customer_id_hidden").value = response;
+            result = response.split(',');
+            if (result[0] == "OK") {
+                $("moneybookers_settings_customer_id").value = result[1];
+                $("moneybookers_settings_customer_id_hidden").value = result[1];
                 this.setStatus(1);
+                status = 1;
                 alert(this.txtNotStatus0);
-                this.alertSaveChanges();
             }
             else {
                 $("moneybookers_settings_customer_id").value = "";

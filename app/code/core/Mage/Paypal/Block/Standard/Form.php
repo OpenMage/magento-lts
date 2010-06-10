@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,23 +36,30 @@ class Mage_Paypal_Block_Standard_Form extends Mage_Payment_Block_Form
     protected $_methodCode = Mage_Paypal_Model_Config::METHOD_WPS;
 
     /**
+     * Config model instance
+     *
+     * @var Mage_Paypal_Model_Config
+     */
+    protected $_config;
+
+    /**
      * Set template and redirect message
      */
     protected function _construct()
     {
-        $config = Mage::getSingleton('paypal/config')->setMethod($this->getMethodCode());
+        $this->_config = Mage::getModel('paypal/config')->setMethod($this->getMethodCode());
         $locale = Mage::app()->getLocale();
         $mark = Mage::getConfig()->getBlockClassName('core/template');
         $mark = new $mark;
         $mark->setTemplate('paypal/payment/mark.phtml')
-            ->setPaymentAcceptanceMarkHref($config->getPaymentMarkWhatIsPaypalUrl($locale))
-            ->setPaymentAcceptanceMarkSrc($config->getPaymentMarkImageUrl($locale->getLocaleCode()))
+            ->setPaymentAcceptanceMarkHref($this->_config->getPaymentMarkWhatIsPaypalUrl($locale))
+            ->setPaymentAcceptanceMarkSrc($this->_config->getPaymentMarkImageUrl($locale->getLocaleCode()))
         ; // known issue: code above will render only static mark image
         $this->setTemplate('paypal/payment/redirect.phtml')
             ->setRedirectMessage(
                 Mage::helper('paypal')->__('You will be redirected to PayPal website when you place an order.')
             )
-            ->setBannerSrc($config->getPaymentFormLogoUrl($locale->getLocaleCode()))
+            ->setMethodTitle('') // Output PayPal mark, omit title
             ->setMethodLabelAfterHtml($mark->toHtml())
         ;
         return parent::_construct();

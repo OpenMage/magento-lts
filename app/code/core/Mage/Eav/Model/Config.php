@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -354,7 +354,7 @@ class Mage_Eav_Model_Config
         Varien_Profiler::start('EAV: '.__METHOD__);
 
         $attributesInfo = Mage::getResourceModel('eav/entity_attribute_collection')
-            ->setEntityTypeFilter($entityType->getId())
+            ->setEntityTypeFilter($entityType)
 //            ->addSetInfo()
             ->getData();
 
@@ -434,6 +434,11 @@ class Mage_Eav_Model_Config
         }
 
         if ($attribute) {
+            $entity = $entityType->getEntity();
+            if ($entity && in_array($attribute->getAttributeCode(), $entity->getDefaultAttributes())) {
+                $attribute->setBackendType(Mage_Eav_Model_Entity_Attribute_Abstract::TYPE_STATIC)
+                    ->setIsGlobal(1);
+            }
             $attribute->setEntityType($entityType)
                 ->setEntityTypeId($entityType->getId());
             $this->_addAttributeReference($attribute->getId(), $attribute->getAttributeCode(), $entityTypeCode);
@@ -469,7 +474,7 @@ class Mage_Eav_Model_Config
         if ($attributeSetId) {
 
             $attributesInfo = Mage::getResourceModel('eav/entity_attribute_collection')
-                ->setEntityTypeFilter($entityType->getId())
+                ->setEntityTypeFilter($entityType)
                 ->setAttributeSetFilter($attributeSetId)
 //                ->addSetInfo()
                 ->addStoreLabel($storeId)
@@ -519,7 +524,7 @@ class Mage_Eav_Model_Config
         Varien_Profiler::start('EAV: '.__METHOD__ . ':'.$entityTypeCode);
 
         $attributesInfo = Mage::getResourceModel('eav/entity_attribute_collection')
-            ->setEntityTypeFilter($entityType->getId())
+            ->setEntityTypeFilter($entityType)
             ->setCodeFilter($attributes)
 //            ->addSetInfo()
             ->getData();
@@ -533,7 +538,7 @@ class Mage_Eav_Model_Config
         $codes = array();
 
         foreach ($attributesInfo as $attribute) {
-            if (!isset($attribute['attribute_model'])) {
+            if (empty($attribute['attribute_model'])) {
                 $attribute['attribute_model'] = $entityType->getAttributeModel();
             }
 
@@ -612,7 +617,7 @@ class Mage_Eav_Model_Config
         $attributeCollection = $entityType->getEntityAttributeCollection();
         $attributesInfo = Mage::getResourceModel($attributeCollection)
             ->useLoadDataFields()
-            ->setEntityTypeFilter($entityType->getId())
+            ->setEntityTypeFilter($entityType)
             ->setCodeFilter($attributes)
             ->getData();
 
@@ -646,7 +651,7 @@ class Mage_Eav_Model_Config
             }
         }
 
-        if (isset($attributeData['attribute_model'])) {
+        if (!empty($attributeData['attribute_model'])) {
             $model = $attributeData['attribute_model'];
         }
         else {

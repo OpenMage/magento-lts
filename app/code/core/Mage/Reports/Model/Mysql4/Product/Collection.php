@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -184,7 +184,6 @@ class Mage_Reports_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Re
         $qtyOrderedTableName = $this->getTable('sales/order_item');
         $qtyOrderedFieldName = 'qty_ordered';
 
-        $productIdTableName = $this->getTable('sales/order_item');
         $productIdFieldName = 'product_id';
 
         $compositeTypeIds = Mage::getSingleton('catalog/product_type')->getCompositeTypes();
@@ -201,37 +200,16 @@ class Mage_Reports_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Re
             array('ordered_qty' => "SUM(order_items.{$qtyOrderedFieldName})")
         );
 
-        $order = Mage::getResourceSingleton('sales/order');
-        /* @var $order Mage_Sales_Model_Entity_Order */
-        $stateAttr = $order->getAttribute('state');
-        if ($stateAttr->getBackend()->isStatic()) {
-
-            $_joinCondition = $this->getConnection()->quoteInto(
+         $_joinCondition = $this->getConnection()->quoteInto(
                 'order.entity_id = order_items.order_id AND order.state<>?', Mage_Sales_Model_Order::STATE_CANCELED
-            );
-            $_joinCondition .= $dateFilter;
+         );
+         $_joinCondition .= $dateFilter;
+         $this->getSelect()->joinInner(
+            array('order' => $this->getTable('sales/order')),
+            $_joinCondition,
+            array()
+         );
 
-            $this->getSelect()->joinInner(
-                array('order' => $this->getTable('sales/order')),
-                $_joinCondition,
-                array()
-            );
-        } else {
-
-            $_joinCondition = 'order.entity_id = order_state.entity_id';
-            $_joinCondition .= $this->getConnection()->quoteInto(' AND order_state.attribute_id=? ', $stateAttr->getId());
-            $_joinCondition .= $this->getConnection()->quoteInto(' AND order_state.value<>? ', Mage_Sales_Model_Order::STATE_CANCELED);
-
-            $this->getSelect()
-                ->joinInner(
-                    array('order' => $this->getTable('sales/order')),
-                    'order.entity_id = order_items.order_id' . $dateFilter,
-                    array())
-                ->joinInner(
-                    array('order_state' => $stateAttr->getBackend()->getTable()),
-                    $_joinCondition,
-                    array());
-        }
 
         $this->getSelect()
             ->joinInner(array('e' => $this->getProductEntityTableName()),

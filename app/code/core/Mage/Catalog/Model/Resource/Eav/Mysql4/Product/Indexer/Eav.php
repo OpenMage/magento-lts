@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -77,7 +77,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Eav
     {
         $indexers = $this->getIndexers();
         if (!isset($indexers[$type])) {
-            Mage::throwException(Mage::helper('catalog')->__('Unknown eav indexer type "%s"', $type));
+            Mage::throwException(Mage::helper('catalog')->__('Unknown EAV indexer type "%s".', $type));
         }
         return $indexers[$type];
     }
@@ -179,11 +179,25 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Eav
      */
     public function reindexAll()
     {
+        $this->useIdxTable(true);
         foreach ($this->getIndexers() as $indexer) {
             /* @var $indexer Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Eav_Abstract */
             $indexer->reindexAll();
         }
 
         return $this;
+    }
+
+    /**
+     * Retrieve temporary source index table name
+     *
+     * @return string
+     */
+    public function getIdxTable($table = null)
+    {
+        if ($this->useIdxTable()) {
+           return $this->getTable('catalog/product_eav_indexer_idx');
+        }
+        return $this->getTable('catalog/product_eav_indexer_tmp');
     }
 }

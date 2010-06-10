@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -316,7 +316,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 $sizes
             );
         } catch (Exception $e) {
-            Mage::throwException(Mage::helper('catalog')->__("File options format is not valid"));
+            Mage::throwException(Mage::helper('catalog')->__("File options format is not valid."));
         }
     }
 
@@ -483,7 +483,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     {
         $io = new Varien_Io_File();
         if (!$io->isWriteable($path) && !$io->mkdir($path, 0777, true)) {
-            Mage::throwException(Mage::helper('catalog')->__("Cannot create writeable directory '%s'", $path));
+            Mage::throwException(Mage::helper('catalog')->__("Cannot create writeable directory '%s'.", $path));
         }
     }
 

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,11 +50,39 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
     protected $_resource;
 
     /**
+     * Fields to select in query
+     *
+     * @var array|null
+     */
+    protected $_fieldsToSelect = null;
+
+    /**
+     * Fields initial fields to select like id_field
+     *
+     * @var array|null
+     */
+    protected $_initialFieldsToSelect = null;
+
+    /**
+     * Fields to select changed flag
+     *
+     * @var booleam
+     */
+    protected $_fieldsToSelectChanged = false;
+
+    /**
      * Store joined tables here
      *
      * @var array
      */
     protected $_joinedTables = array();
+
+    /**
+     * Collection main table
+     *
+     * @var string
+     */
+    protected $_mainTable = null;
 
     /**
      * Collection constructor
@@ -79,9 +107,231 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
 
     }
 
+    /**
+     * Retrieve main table
+     *
+     * @return string
+     */
+    public function getMainTable()
+    {
+        if ($this->_mainTable === null) {
+            $this->setMainTable($this->getResource()->getMainTable());
+        }
+
+        return $this->_mainTable;
+    }
+
+    /**
+     * Set main collection table
+     *
+     * @param string $table
+     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     */
+    public function setMainTable($table)
+    {
+        if (strpos($table, '/') !== false) {
+            $table = $this->getTable($table);
+        }
+
+        if ($this->_mainTable !== null && $table !== $this->_mainTable && $this->getSelect() !== null) {
+            $from = $this->getSelect()->getPart(Zend_Db_Select::FROM);
+            if (isset($from['main_table'])) {
+                $from['main_table']['tableName'] = $table;
+            }
+            $this->getSelect()->setPart(Zend_Db_Select::FROM, $from);
+        }
+
+        $this->_mainTable = $table;
+        return $this;
+    }
+
+    /**
+     * Init collection select
+     *
+     * @return unknown
+     */
     protected function _initSelect()
     {
-        $this->getSelect()->from(array('main_table' => $this->getResource()->getMainTable()));
+        $this->getSelect()->from(array('main_table' => $this->getMainTable()));
+        return $this;
+    }
+
+    /**
+     * Get Zend_Db_Select instance and applies fields to select if needed
+     *
+     * @return Varien_Db_Select
+     */
+    public function getSelect()
+    {
+        if ($this->_select && $this->_fieldsToSelectChanged) {
+            $this->_fieldsToSelectChanged = false;
+            $this->_initSelectFields();
+        }
+        return parent::getSelect();
+    }
+
+    /**
+     * Init fields for select
+     *
+     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     */
+    protected function _initSelectFields()
+    {
+        $columns = $this->_select->getPart(Zend_Db_Select::COLUMNS);
+        $columnsToSelect = array();
+        foreach ($columns as $columnEntry) {
+            list($correlationName, $column, $alias) = $columnEntry;
+            if ($correlationName !== 'main_table') { // Add joined fields to select
+                if ($column instanceof Zend_Db_Expr) {
+                    $column = $column->__toString();
+                }
+                $key = ($alias !== null ? $alias : $column);
+                $columnsToSelect[$key] = $columnEntry;
+            }
+        }
+
+        $columns = $columnsToSelect;
+
+        $columnsToSelect = array_keys($columnsToSelect);
+
+        if ($this->_fieldsToSelect !== null) {
+            $insertIndex = 0;
+            foreach ($this->_fieldsToSelect as $alias => $field) {
+                if (!is_string($alias)) {
+                    $alias = null;
+                }
+
+                if ($field instanceof Zend_Db_Expr) {
+                    $column = $field->__toString();
+                } else {
+                    $column = $field;
+                }
+
+                if (($alias !== null && in_array($alias, $columnsToSelect)) || // If field already joined fron another table
+                    ($alias === null && isset($alias, $columnsToSelect))) {
+                    continue;
+                }
+
+                $columnEntry = array('main_table', $field, $alias);
+                array_splice($columns, $insertIndex, 0, array($columnEntry)); // Insert column
+                $insertIndex ++;
+
+            }
+        } else {
+            array_unshift($columns, array('main_table', '*', null));
+        }
+
+        $this->_select->setPart(Zend_Db_Select::COLUMNS, $columns);
+
+        return $this;
+    }
+
+    /**
+     * Retrieve initial fields to select like id field
+     *
+     * @return array
+     */
+    protected function _getInitialFieldsToSelect()
+    {
+        if ($this->_initialFieldsToSelect === null) {
+            $this->_initialFieldsToSelect = array();
+            $this->_initInitialFieldsToSelect();
+        }
+
+        return $this->_initialFieldsToSelect;
+    }
+
+    /**
+     * Initialize initial fields to select like id field
+     *
+     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     */
+    protected function _initInitialFieldsToSelect()
+    {
+        $idFieldName = $this->getResource()->getIdFieldName();
+        if ($idFieldName) {
+            $this->_initialFieldsToSelect[] = $idFieldName;
+        }
+        return $this;
+    }
+
+    /**
+     * Add field to select
+     *
+     * @param string|array $field
+     * @param string|null $alias
+     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     */
+    public function addFieldToSelect($field, $alias = null)
+    {
+        if ($field === '*') { // If we will select all fields
+            $this->_fieldsToSelect = null;
+            $this->_fieldsToSelectChanged = true;
+            return $this;
+        }
+
+        if (is_array($field)) {
+            if ($this->_fieldsToSelect === null) {
+                $this->_fieldsToSelect = $this->_getInitialFieldsToSelect();
+            }
+
+            foreach ($field as $key => $value) {
+                $this->addFieldToSelect(
+                    $value,
+                    (is_string($key) ? $key : null),
+                    false
+                );
+            }
+
+            $this->_fieldsToSelectChanged = true;
+            return $this;
+        }
+
+        if ($alias === null) {
+            $this->_fieldsToSelect[] = $field;
+        } else {
+            $this->_fieldsToSelect[$alias] = $field;
+        }
+
+        $this->_fieldsToSelectChanged = true;
+        return $this;
+    }
+
+    /**
+     * Removes field from select
+     *
+     * @param string|null $field
+     * @param boolean $isAlias Alias identifier
+     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     */
+    public function removeFieldFromSelect($field, $isAlias = false)
+    {
+        if ($isAlias) {
+            if (isset($this->_fieldsToSelect[$field])) {
+                unset($this->_fieldsToSelect[$field]);
+            }
+        } else {
+            foreach ($this->_fieldsToSelect as $key => $value) {
+                if ($value === $field) {
+                    unset($this->_fieldsToSelect[$key]);
+                    break;
+                }
+            }
+        }
+
+        $this->_fieldsToSelectChanged = true;
+        return $this;
+    }
+
+    /**
+     * Removes all fields from select
+     *
+     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     */
+    public function removeAllFieldsFromSelect()
+    {
+        $this->_fieldsToSelect = $this->_getInitialFieldsToSelect();
+        $this->_fieldsToSelectChanged = true;
         return $this;
     }
 
@@ -183,16 +433,14 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
     }
 
     /**
-     * Load data
+     * Redeclare before load method for adding event
      *
-     * @return  Varien_Data_Collection_Db
+     * @return Mage_Core_Model_Mysql4_Collection_Abstract
      */
-    public function load($printQuery = false, $logQuery = false)
+    protected function _beforeLoad()
     {
-        if (!$this->isLoaded()) {
-            Mage::dispatchEvent('core_collection_abstract_load_before', array('collection' => $this));
-        }
-        parent::load($printQuery, $logQuery);
+        parent::_beforeLoad();
+        Mage::dispatchEvent('core_collection_abstract_load_before', array('collection' => $this));
         return $this;
     }
 

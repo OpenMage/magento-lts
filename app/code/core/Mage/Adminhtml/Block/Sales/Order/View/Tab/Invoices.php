@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,24 +42,30 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices
         $this->setUseAjax(true);
     }
 
+    /**
+     * Retrieve collection class
+     *
+     * @return string
+     */
+    protected function _getCollectionClass()
+    {
+        return 'sales/order_invoice_grid_collection';
+    }
+
     protected function _prepareCollection()
     {
-        //TODO: add full name logic
-        $collection = Mage::getResourceModel('sales/order_invoice_collection')
-            ->addAttributeToSelect('order_id')
-            ->addAttributeToSelect('increment_id')
-            ->addAttributeToSelect('created_at')
-            ->addAttributeToSelect('state')
-            ->addAttributeToSelect('grand_total')
-            ->addAttributeToSelect('base_grand_total')
-            ->addAttributeToSelect('store_currency_code')
-            ->addAttributeToSelect('base_currency_code')
-            ->addAttributeToSelect('order_currency_code')
-            ->joinAttribute('billing_firstname', 'order_address/firstname', 'billing_address_id', null, 'left')
-            ->joinAttribute('billing_lastname', 'order_address/lastname', 'billing_address_id', null, 'left')
-            ->addExpressionAttributeToSelect('billing_name',
-                'CONCAT({{billing_firstname}}, " ", {{billing_lastname}})',
-                array('billing_firstname', 'billing_lastname'))
+        $collection = Mage::getResourceModel($this->_getCollectionClass())
+            ->addFieldToSelect('entity_id')
+            ->addFieldToSelect('created_at')
+            ->addFieldToSelect('order_id')
+            ->addFieldToSelect('increment_id')
+            ->addFieldToSelect('state')
+            ->addFieldToSelect('grand_total')
+            ->addFieldToSelect('base_grand_total')
+            ->addFieldToSelect('store_currency_code')
+            ->addFieldToSelect('base_currency_code')
+            ->addFieldToSelect('order_currency_code')
+            ->addFieldToSelect('billing_name')
             ->setOrderFilter($this->getOrder())
         ;
         $this->setCollection($collection);

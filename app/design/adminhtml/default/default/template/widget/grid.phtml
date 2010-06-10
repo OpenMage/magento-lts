@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -62,15 +62,15 @@ $numColumns = sizeof($this->getColumns());
             <?php $_curPage  = $this->getCollection()->getCurPage() ?>
             <?php $_lastPage = $this->getCollection()->getLastPageNumber() ?>
             <?php if($_curPage>1): ?>
-                <a href="#" title="<?php echo $this->__('Previous page') ?>" onclick="<?php echo $this->getId() ?>JsObject.setPage('<?php echo ($_curPage-1) ?>');return false;"><img src="<?php echo $this->getSkinUrl('images/pager_arrow_left.gif') ?>" alt="Go to Previous page" class="arrow"/></a>
+                <a href="#" title="<?php echo $this->__('Previous page') ?>" onclick="<?php echo $this->getJsObjectName() ?>.setPage('<?php echo ($_curPage-1) ?>');return false;"><img src="<?php echo $this->getSkinUrl('images/pager_arrow_left.gif') ?>" alt="Go to Previous page" class="arrow"/></a>
             <?php else: ?>
                 <img src="<?php echo $this->getSkinUrl('images/pager_arrow_left_off.gif') ?>" alt="Go to Previous page" class="arrow"/>
             <?php endif; ?>
 
-            <input type="text" name="<?php echo $this->getVarNamePage() ?>" value="<?php echo $_curPage ?>" class="input-text page" onkeypress="<?php echo $this->getId() ?>JsObject.inputPage(event, '<?php echo $_lastPage ?>')"/>
+            <input type="text" name="<?php echo $this->getVarNamePage() ?>" value="<?php echo $_curPage ?>" class="input-text page" onkeypress="<?php echo $this->getJsObjectName() ?>.inputPage(event, '<?php echo $_lastPage ?>')"/>
 
             <?php if($_curPage < $_lastPage): ?>
-                <a href="#" title="<?php echo $this->__('Next page') ?>" onclick="<?php echo $this->getId() ?>JsObject.setPage('<?php echo ($_curPage+1) ?>');return false;"><img src="<?php echo $this->getSkinUrl('images/pager_arrow_right.gif') ?>" alt="Go to Next page" class="arrow"/></a>
+                <a href="#" title="<?php echo $this->__('Next page') ?>" onclick="<?php echo $this->getJsObjectName() ?>.setPage('<?php echo ($_curPage+1) ?>');return false;"><img src="<?php echo $this->getSkinUrl('images/pager_arrow_right.gif') ?>" alt="Go to Next page" class="arrow"/></a>
             <?php else: ?>
                 <img src="<?php echo $this->getSkinUrl('images/pager_arrow_right_off.gif') ?>" alt="Go to Previous page" class="arrow"/>
             <?php endif; ?>
@@ -78,7 +78,7 @@ $numColumns = sizeof($this->getColumns());
             <?php echo $this->__('of %s pages', $this->getCollection()->getLastPageNumber()) ?>
             <span class="separator">|</span>
             <?php echo $this->__('View') ?>
-            <select name="<?php echo $this->getVarNameLimit() ?>" onchange="<?php echo $this->getId() ?>JsObject.loadByElement(this)">
+            <select name="<?php echo $this->getVarNameLimit() ?>" onchange="<?php echo $this->getJsObjectName() ?>.loadByElement(this)">
                 <option value="20"<?php if($this->getCollection()->getPageSize()==20): ?> selected="selected"<?php endif; ?>>20</option>
                 <option value="30"<?php if($this->getCollection()->getPageSize()==30): ?> selected="selected"<?php endif; ?>>30</option>
                 <option value="50"<?php if($this->getCollection()->getPageSize()==50): ?> selected="selected"<?php endif; ?>>50</option>

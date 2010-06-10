@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -60,10 +60,10 @@
     </div>
 </form>
 <?php elseif($this->getSaveMode()=='save'): ?>
-<h3><?php echo $this->__('Your gift message has been successfully saved') ?></h3>
+<h3><?php echo $this->__('The gift message has been saved.') ?></h3>
 <br /><button class="form-button" type="button" onclick="giftMessageWindowObject.close()"><span><?php echo $this->__('Close') ?></span></button>
 <?php else: ?>
-<h3><?php echo $this->__('Your gift message has been successfully removed') ?></h3>
+<h3><?php echo $this->__('The gift message has been removed.') ?></h3>
 <br /><button class="form-button" type="button" onclick="giftMessageWindowObject.close()"><span><?php echo $this->__('Close') ?></span></button>
 <?php endif; ?>
 <script type="text/javascript">

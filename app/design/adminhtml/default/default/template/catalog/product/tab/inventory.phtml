@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -55,7 +55,11 @@
 <?php if(!$this->getProduct()->isComposite()): ?>
         <tr>
             <td class="label"><label for="inventory_qty"><?php echo Mage::helper('catalog')->__('Qty') ?><span class="required">*</span></label></td>
-            <td class="value"><input type="text" class="input-text required-entry validate-number" id="inventory_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][qty]" value="<?php echo $this->getFieldValue('qty')*1 ?>" <?php echo $_readonly;?>/>
+            <td class="value">
+                <?php if (!$_readonly):?>
+                <input type="hidden" id="original_inventory_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][original_inventory_qty]" value="<?php echo $this->getFieldValue('qty')*1 ?>"/>
+                <?php endif;?>
+                <input type="text" class="input-text required-entry validate-number" id="inventory_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][qty]" value="<?php echo $this->getFieldValue('qty')*1 ?>" <?php echo $_readonly;?>/>
             </td>
             <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
         </tr>
@@ -132,6 +136,31 @@
         </tr>
 <?php endif; ?>
         <tr>
+            <td class="label"><label for="inventory_enable_qty_increments"><?php echo Mage::helper('catalog')->__('Enable Qty Increments') ?></label></td>
+            <td class="value"><select id="inventory_enable_qty_increments" name="<?php echo $this->getFieldSuffix() ?>[stock_data][enable_qty_increments]" class="select" <?php echo $_readonly;?>>
+                <option value="1"><?php echo Mage::helper('catalog')->__('Yes') ?></option>
+                <option value="0"<?php if ($this->getConfigFieldValue('enable_qty_increments') == 0): ?> selected="selected"<?php endif; ?>><?php echo Mage::helper('catalog')->__('No') ?></option>
+            </select>
+            <input type="hidden" id="inventory_enable_qty_increments_default" value="<?php echo $this->getDefaultConfigValue('enable_qty_increments'); ?>" />
+
+            <?php $_checked = ($this->getFieldValue('use_config_enable_qty_increments') || $this->IsNew()) ? 'checked="checked"' : '' ?>
+            <input type="checkbox" id="inventory_use_config_enable_qty_increments" name="<?php echo $this->getFieldSuffix() ?>[stock_data][use_config_enable_qty_increments]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);" class="checkbox" <?php echo $_readonly;?>/>
+            <label for="inventory_use_config_enable_qty_increments" class="normal"><?php echo Mage::helper('catalog')->__('Use Config Settings') ?></label>
+            <?php if (!$this->isReadonly()):?><script type="text/javascript">toggleValueElements($('inventory_use_config_enable_qty_increments'), $('inventory_use_config_enable_qty_increments').parentNode);</script><?php endif; ?></td>
+            <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
+        </tr>
+        <tr>
+            <td class="label"><label for="inventory_qty_increments"><?php echo Mage::helper('catalog')->__('Qty Increments') ?></label></td>
+            <td class="value">
+                <input type="text" class="input-text validate-number" id="inventory_qty_increments" name="<?php echo $this->getFieldSuffix() ?>[stock_data][qty_increments]" value="<?php echo $this->getFieldValue('qty_increments')*1 ?>" <?php echo $_readonly;?>/>
+                <?php $_checked = ($this->getFieldValue('use_config_qty_increments') || $this->IsNew()) ? 'checked="checked"' : '' ?>
+                <input type="checkbox" id="inventory_use_config_qty_increments" name="<?php echo $this->getFieldSuffix() ?>[stock_data][use_config_qty_increments]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);" class="checkbox" <?php echo $_readonly;?>/>
+                <label for="inventory_use_config_qty_increments" class="normal"><?php echo Mage::helper('catalog')->__('Use Config Settings') ?></label>
+                <?php if (!$this->isReadonly()):?><script type="text/javascript">toggleValueElements($('inventory_use_config_qty_increments'), $('inventory_use_config_qty_increments').parentNode);</script><?php endif; ?></td>
+            </td>
+            <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
+        </tr>
+        <tr>
             <td class="label"><label for="inventory_stock_availability"><?php echo Mage::helper('catalog')->__('Stock Availability') ?></label></td>
             <td class="value"><select id="inventory_stock_availability" name="<?php echo $this->getFieldSuffix() ?>[stock_data][is_in_stock]" class="select" <?php echo $_readonly;?>>
             <?php foreach ($this->getStockOption() as $option): ?>
@@ -181,6 +210,23 @@
     Event.observe($('inventory_manage_stock'), 'change', changeManageStockOption);
     Event.observe($('inventory_use_config_manage_stock'), 'change', changeManageStockOption);
     changeManageStockOption();
+
+    function applyEnableQtyIncrements() {
+        if ($('inventory_use_config_enable_qty_increments').checked) {
+            var enableQtyIncrements = $('inventory_enable_qty_increments_default').value;
+        }
+        else {
+            var enableQtyIncrements = $('inventory_enable_qty_increments').value;
+        }
+        if (enableQtyIncrements == 1) {
+            $('inventory_qty_increments').up('tr').show();
+        } else {
+            $('inventory_qty_increments').up('tr').hide();
+        }
+    }
+    Event.observe($('inventory_enable_qty_increments'), 'change', applyEnableQtyIncrements);
+    Event.observe($('inventory_use_config_enable_qty_increments'), 'change', applyEnableQtyIncrements);
+    applyEnableQtyIncrements();
     //]]>
     </script>
     </fieldset>

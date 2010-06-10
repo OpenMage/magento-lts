@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -85,10 +85,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Config extends Mage_Core_Model_Mysq
     public function getEntityTypeId()
     {
         if (is_null($this->_entityTypeId)) {
-            $select = $this->_getReadAdapter()->select()
-                ->from($this->getTable('eav/entity_type'), 'entity_type_id')
-                ->where('entity_type_code=?', 'catalog_product');
-            $this->_entityTypeId = $this->_getReadAdapter()->fetchOne($select);
+            $this->_entityTypeId = Mage::getSingleton('eav/config')->getEntityType('catalog_product')->getId();
         }
         return $this->_entityTypeId;
     }
@@ -103,8 +100,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Config extends Mage_Core_Model_Mysq
             ->from(array('main_table' => $this->getTable('eav/attribute')))
             ->join(
                 array('additional_table' => $this->getTable('catalog/eav_attribute')),
-                'main_table.attribute_id = additional_table.attribute_id',
-                array()
+                'main_table.attribute_id = additional_table.attribute_id'
             )
             ->joinLeft(
                  array('al' => $this->getTable('eav/attribute_label')),

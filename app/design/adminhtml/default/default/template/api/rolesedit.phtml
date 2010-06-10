@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -34,8 +34,8 @@
         <span class="field-row">
             <label for="all"><?php echo $this->__('Resource Access') ?></label>
             <select id="all" name="all" onchange="$('resources_container').toggle()" class="select">
-                <option value="0" <?php echo ($this->getEverythingAllowed()?'':'selected'); ?>><?php echo $this->__('Custom') ?></option>
-                <option value="1" <?php echo ($this->getEverythingAllowed()?'selected':''); ?>><?php echo $this->__('All') ?></option>
+                <option value="0" <?php echo ($this->getEverythingAllowed()?'':'selected="selected"'); ?>><?php echo $this->__('Custom') ?></option>
+                <option value="1" <?php echo ($this->getEverythingAllowed()?'selected="selected"':''); ?>><?php echo $this->__('All') ?></option>
             </select>
         </span>
 

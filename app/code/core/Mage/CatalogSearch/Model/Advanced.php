@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -167,7 +167,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
         if ($allConditions) {
             $this->getProductCollection()->addFieldsToFilter($allConditions);
         } else if (!$hasConditions) {
-            Mage::throwException(Mage::helper('catalogsearch')->__('You have to specify at least one search term'));
+            Mage::throwException(Mage::helper('catalogsearch')->__('Please specify at least one search term.'));
         }
 
         return $this;

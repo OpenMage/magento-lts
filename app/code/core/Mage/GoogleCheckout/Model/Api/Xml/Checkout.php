@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -99,13 +99,41 @@ EOT;
 
         $shippingDiscount = (float)$this->getQuote()->getShippingAddress()->getBaseDiscountAmount();
         $billingDiscount = (float)$this->getQuote()->getBillingAddress()->getBaseDiscountAmount();
-        if ($discount = $billingDiscount + $shippingDiscount) {
+        $discount = $billingDiscount + $shippingDiscount;
+
+        $discountItem = new Varien_Object(array(
+                'price' => $discount,
+                'name'  => $this->__('Cart Discount'),
+                'description' => $this->__('A virtual item to reflect the discount total')
+            ));
+
+        Mage::dispatchEvent('google_checkout_discount_item_price', array('quote' => $this->getQuote(), 'discount_item' => $discountItem));
+        $discount = $discountItem->getPrice();
+
+        if ($discount) {
             $xml .= <<<EOT
             <item>
                 <merchant-item-id>_INTERNAL_DISCOUNT_</merchant-item-id>
                 <item-name>{$this->__('Cart Discount')}</item-name>
                 <item-description>{$this->__('Virtual item to reflect discount total')}</item-description>
                 <unit-price currency="{$this->getCurrency()}">{$discount}</unit-price>
+                <quantity>1</quantity>
+                <item-weight unit="{$weightUnit}" value="0.00" />
+                <tax-table-selector>none</tax-table-selector>
+                {$this->_getDigitalContentXml($this->getQuote()->isVirtual())}
+            </item>
+
+EOT;
+        }
+        $hiddenTax = $this->getQuote()->getShippingAddress()->getBaseHiddenTaxAmount()
+            + $this->getQuote()->getBillingAddress()->getBaseHiddenTaxAmount();
+        if ($hiddenTax) {
+            $xml .= <<<EOT
+            <item>
+                <merchant-item-id>_INTERNAL_TAX_</merchant-item-id>
+                <item-name>{$this->__('Discount Tax')}</item-name>
+                <item-description>{$this->__('A virtual item to reflect the tax total')}</item-description>
+                <unit-price currency="{$this->getCurrency()}">{$hiddenTax}</unit-price>
                 <quantity>1</quantity>
                 <item-weight unit="{$weightUnit}" value="0.00" />
                 <tax-table-selector>none</tax-table-selector>
@@ -497,7 +525,7 @@ EOT;
 EOT;
                             }
                         } else {
-                            if (!empty($rate['postcode'])) {
+                            if (!empty($rate['country'])) {
                                 $xml .= <<<EOT
                                             <postal-area>
                                                 <country-code>{$rate['country']}</country-code>

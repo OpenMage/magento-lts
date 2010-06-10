@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,9 +32,9 @@ class Mage_Adminhtml_Model_System_Config_Backend_Sitemap extends Mage_Core_Model
     {
         $value     = $this->getValue();
             if ($value < 0 || $value > 1) {
-                throw new Exception(Mage::helper('sitemap')->__('Priority must be between 0 and 1'));
+                throw new Exception(Mage::helper('sitemap')->__('The priority must be between 0 and 1.'));
             } elseif (($value == 0) && !($value === '0' || $value === '0.0')) {
-                throw new Exception(Mage::helper('sitemap')->__('Priority must be between 0 and 1'));
+                throw new Exception(Mage::helper('sitemap')->__('The priority must be between 0 and 1.'));
             }
         return $this;
     }

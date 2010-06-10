@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -70,7 +70,7 @@ $numColumns = sizeof($this->getColumns());
                 </div>
 
                 <div class="f-left">
-                    <?php echo $this->__('Show by') ?>:
+                    <?php echo $this->__('Show By') ?>:
                     <select name="report_period" id="report_period" style="width:6em;">
                     <?php foreach ($this->getPeriods() as $_value=>$_label): ?>
                         <option value="<?php echo $_value ?>" <?php if($this->getFilter('report_period')==$_value): ?> selected<?php endif; ?>><?php echo $_label ?></option>

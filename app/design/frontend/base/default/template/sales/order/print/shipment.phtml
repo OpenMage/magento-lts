@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -53,7 +53,7 @@
             <h3><?php echo $this->__('Shipping Method') ?></h3>
              <?php echo $_order->getShippingDescription() ?>
              <?php if (count($_order->getTracksCollection()) > 0): ?>
-                <table class="data-table">
+                <table class="data-table" id="my-shipment-tracking">
                     <col />
                     <col />
                     <thead>
@@ -71,6 +71,7 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <script type="text/javascript">decorateTable('my-shipment-tracking');</script>
             <?php endif; ?>
         </div>
         <div class="col-2">

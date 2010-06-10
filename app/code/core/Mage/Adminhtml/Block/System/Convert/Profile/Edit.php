@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,10 +43,10 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit extends Mage_Adminhtml_Bl
         $this->_updateButton('save', 'label', Mage::helper('adminhtml')->__('Save Profile'));
         $this->_updateButton('delete', 'label', Mage::helper('adminhtml')->__('Delete Profile'));
         $this->_addButton('savecontinue', array(
-            'label' => Mage::helper('adminhtml')->__('Save and Continue Editing'),
+            'label' => Mage::helper('adminhtml')->__('Save and Continue Edit'),
             'onclick' => "$('edit_form').action += 'continue/true/'; editForm.submit();",
             'class' => 'save',
-        ), -1);
+        ), -100);
 
     }
 

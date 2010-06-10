@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -39,7 +39,7 @@
     </div>
     <form method="post" action="<?php echo $this->getFormActionUrl() ?>" id="reorder-validate-detail">
         <div class="block-content">
-            <p class="block-subtitle"><?php echo $this->__('Last ordered items') ?></p>
+            <p class="block-subtitle"><?php echo $this->__('Last Ordered Items') ?></p>
             <ol id="cart-sidebar-reorder">
             <?php $_showAddButtonFlag = false ?>
             <?php foreach ($_items as $_item): ?>
@@ -59,12 +59,12 @@
             </ol>
             <script type="text/javascript">decorateList('cart-sidebar-reorder')</script>
             <div id="cart-sidebar-reorder-advice-container"></div>
-                <div class="actions">
-                    <?php if ($_showAddButtonFlag): ?>
-                        <button type="submit" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
-                    <?php endif; ?>
-                    <a href="<?php echo $this->getUrl('customer/account') ?>"><?php echo $this->__('View All'); ?></a>
-                </div>
+            <div class="actions">
+                <?php if ($_showAddButtonFlag): ?>
+                    <button type="submit" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                <?php endif; ?>
+                <a href="<?php echo $this->getUrl('customer/account') ?>"><?php echo $this->__('View All'); ?></a>
+            </div>
         </div>
     </form>
 </div>

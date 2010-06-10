@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,7 +69,7 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
         try {
             $link->getResource()->saveProductLinks($product, $links, $typeId);
         } catch (Exception $e) {
-            $this->_fault('data_invalid', Mage::helper('catalog')->__('Link product not exists.'));
+            $this->_fault('data_invalid', Mage::helper('catalog')->__('Link product does not exist.'));
         }
 
         return true;
@@ -111,7 +111,7 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
         try {
             $link->getResource()->saveProductLinks($product, $links, $typeId);
         } catch (Exception $e) {
-            $this->_fault('data_invalid', Mage::helper('catalog')->__('Link product not exists.'));
+            $this->_fault('data_invalid', Mage::helper('catalog')->__('Link product does not exist.'));
         }
 
         return true;

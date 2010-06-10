@@ -22,6 +22,10 @@
 <script type="text/javascript">
 //<![CDATA[
     function initMoneybookers() {
+        if (!document.getElementById("moneybookers_settings_activationstatus")) {
+            // Don't perform for website and store view
+            return;
+        }
         document.getElementById("moneybookers_settings_activationstatus").style.display = "none";
         $('moneybookers_settings_activationstatus').up().insert('<button type="button" id="moneybookers_multifuncbutton" onclick="moneybookers.button()" style="display: none; margin-top: 1em;"><span id="moneybookers_multifuncbutton_label" style="display:block; margin-top:1em;"></span></button>');
         $('moneybookers_settings_activationstatus').up().insert('<span id="moneybookers_inf_div" style="display:block; margin-top:1em;"></span>');

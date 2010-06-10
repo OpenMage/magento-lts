@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -80,5 +80,15 @@ class Mage_Admin_Model_Observer
         }
 
         $session->refreshAcl();
+    }
+
+    /**
+     * Unset session first visit flag after displaying page
+     *
+     * @deprecated after 1.4.0.1, logic moved to admin session
+     * @param Varien_Event_Observer $event
+     */
+    public function actionPostDispatchAdmin($event)
+    {
     }
 }

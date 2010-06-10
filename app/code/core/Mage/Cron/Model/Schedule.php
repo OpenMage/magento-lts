@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Cron
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -197,9 +197,6 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      */
     public function tryLockJob()
     {
-        return ($this->_getResource()->trySetJobStatusAtomic(
-                $this->getId(),
-                self::STATUS_RUNNING,
-                self::STATUS_PENDING));
+        return $this->_getResource()->trySetJobStatusAtomic($this->getId(), self::STATUS_RUNNING,self::STATUS_PENDING);
     }
 }

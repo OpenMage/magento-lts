@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogRule
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -101,6 +101,8 @@ class Mage_CatalogRule_Model_Observer
 
         if ($observer->hasCustomerGroupId()) {
             $gId = $observer->getEvent()->getCustomerGroupId();
+        } elseif ($product->hasCustomerGroupId()) {
+            $gId = $product->hasCustomerGroupId();
         } else {
             $gId = Mage::getSingleton('customer/session')->getCustomerGroupId();
         }

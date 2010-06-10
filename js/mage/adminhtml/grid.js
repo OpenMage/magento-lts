@@ -19,7 +19,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var varienGrid = new Class.create();
@@ -323,6 +323,7 @@ varienGridMassaction.prototype = {
     errorText:'',
     items: {},
     gridIds: [],
+    useSelectAll: false,
     currentItem: false,
     fieldTemplate: new Template('<input type="hidden" name="#{name}" value="#{value}" />'),
     initialize: function (containerId, grid, checkedValues, formFieldNameInternal, formFieldName) {
@@ -349,6 +350,9 @@ varienGridMassaction.prototype = {
     },
     setUseAjax: function(flag) {
         this.useAjax = flag;
+    },
+    setUseSelectAll: function(flag) {
+        this.useSelectAll = flag;
     },
     initMassactionElements: function() {
         this.container      = $(this.containerId);
@@ -467,7 +471,7 @@ varienGridMassaction.prototype = {
         }.bind(this));
     },
     selectAll: function() {
-        this.setCheckedValues(this.getGridIds());
+        this.setCheckedValues((this.useSelectAll ? this.getGridIds() : this.getCheckboxesValuesAsString()));
         this.checkCheckboxes();
         this.updateCount();
         return false;
@@ -583,7 +587,7 @@ varienGridMassaction.prototype = {
         if(this.currentItem.complete) {
             try {
                 var listener = this.getListener(this.currentItem.complete) || Prototype.emptyFunction;
-                listener(grid, this, transport);
+                listener(this.grid, this, transport);
             } catch (e) {}
        }
     },

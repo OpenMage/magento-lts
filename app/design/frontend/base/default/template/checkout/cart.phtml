@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -36,7 +36,11 @@
         <h1><?php echo $this->__('Shopping Cart') ?></h1>
         <?php if(!$this->hasError()): ?>
         <ul class="checkout-types">
-            <?php echo $this->getChildHtml('top_methods') ?>
+        <?php foreach ($this->getMethods('top_methods') as $method): ?>
+            <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+            <li><?php echo $methodHtml; ?></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
         </ul>
         <?php endif; ?>
     </div>
@@ -120,7 +124,11 @@
             <?php echo $this->getChildHtml('totals'); ?>
             <?php if(!$this->hasError()): ?>
             <ul class="checkout-types">
-                <?php echo $this->getChildHtml('methods') ?>
+            <?php foreach ($this->getMethods('methods') as $method): ?>
+                <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+                <li><?php echo $methodHtml; ?></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
             </ul>
             <?php endif; ?>
         </div>

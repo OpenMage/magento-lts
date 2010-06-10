@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,9 +49,9 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
 
     public function indexAction()
     {
-             $this->loadLayout();
-            $this->_initLayoutMessages('customer/session');
-            $this->_initLayoutMessages('catalog/session');
+        $this->loadLayout();
+        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages('catalog/session');
 
         if ($block = $this->getLayout()->getBlock('customer_newsletter')) {
             $block->setRefererUrl($this->_getRefererUrl());
@@ -67,13 +67,17 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         }
         try {
             Mage::getSingleton('customer/session')->getCustomer()
-                ->setStoreId(Mage::app()->getStore()->getId())
-                ->setIsSubscribed((boolean)$this->getRequest()->getParam('is_subscribed', false))
-                ->save();
-            Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription was successfully saved'));
+            ->setStoreId(Mage::app()->getStore()->getId())
+            ->setIsSubscribed((boolean)$this->getRequest()->getParam('is_subscribed', false))
+            ->save();
+            if ((boolean)$this->getRequest()->getParam('is_subscribed', false)) {
+                Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been saved.'));
+            } else {
+                Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been removed.'));
+            }
         }
         catch (Exception $e) {
-            Mage::getSingleton('customer/session')->addError($this->__('There was an error while saving your subscription'));
+            Mage::getSingleton('customer/session')->addError($this->__('An error occurred while saving your subscription.'));
         }
         $this->_redirect('customer/account/');
     }

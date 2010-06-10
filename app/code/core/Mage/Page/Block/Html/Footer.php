@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Page
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,16 +45,19 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
     }
 
     /**
-     * Retrieve Key for caching block content
+     * Get cache key informative items
      *
-     * @return string
+     * @return array
      */
-    public function getCacheKey()
+    public function getCacheKeyInfo()
     {
-        return 'PAGE_FOOTER_' . Mage::app()->getStore()->getId()
-            . '_' . (int)Mage::app()->getStore()->isCurrentlySecure()
-            . '_' . Mage::getDesign()->getPackageName()
-            . '_' . Mage::getDesign()->getTheme('template');
+        return array(
+            'PAGE_FOOTER',
+            Mage::app()->getStore()->getId(),
+            (int)Mage::app()->getStore()->isCurrentlySecure(),
+            Mage::getDesign()->getPackageName(),
+            Mage::getDesign()->getTheme('template')
+        );
     }
 
     public function setCopyright($copyright)

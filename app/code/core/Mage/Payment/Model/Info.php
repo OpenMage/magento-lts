@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -80,7 +80,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
         } else {
             return $this->_getData('method_instance');
         }
-        Mage::throwException(Mage::helper('payment')->__('Cannot retrieve payment method instance'));
+        Mage::throwException(Mage::helper('payment')->__('Cannot retrieve payment method instance.'));
     }
 
     /**
@@ -158,6 +158,10 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
      */
     public function unsAdditionalInformation($key = null)
     {
+        if ($key && isset($this->_additionalInformation[$key])) {
+            unset($this->_additionalInformation[$key]);
+            return $this->setData('additional_information', $this->_additionalInformation);
+        }
         $this->_additionalInformation = -1;
         return $this->unsetData('additional_information');
     }

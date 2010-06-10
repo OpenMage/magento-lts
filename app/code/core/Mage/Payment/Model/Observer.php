@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,5 +62,50 @@ class Mage_Payment_Model_Observer
             $order->setForcedCanCreditmemo(true);
         }
         return $this;
+    }
+
+    /**
+     * Collect buy request and set it as custom option
+     *
+     * Also sets the collected information and schedule as informational static options
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function prepareProductRecurringProfileOptions($observer)
+    {
+        $product = $observer->getEvent()->getProduct();
+        $buyRequest = $observer->getEvent()->getBuyRequest();
+
+        if (!$product->isRecurring()) {
+            return;
+        }
+
+        $profile = Mage::getModel('payment/recurring_profile')
+            ->setLocale(Mage::app()->getLocale())
+            ->setStore(Mage::app()->getStore())
+            ->importBuyRequest($buyRequest)
+            ->importProduct($product);
+        if (!$profile) {
+            return;
+        }
+
+        // add the start datetime as product custom option
+        $product->addCustomOption(Mage_Payment_Model_Recurring_Profile::PRODUCT_OPTIONS_KEY,
+            serialize(array('start_datetime' => $profile->getStartDatetime()))
+        );
+
+        // duplicate as 'additional_options' to render with the product statically
+        $infoOptions = array(array(
+            'label' => $profile->getFieldLabel('start_datetime'),
+            'value' => $profile->exportStartDatetime(true),
+        ));
+
+        foreach ($profile->exportScheduleInfo() as $info) {
+            $infoOptions[] = array(
+                'label' => $info->getTitle(),
+                'value' => $info->getSchedule(),
+            );
+        }
+        $product->addCustomOption('additional_options', serialize($infoOptions));
     }
 }

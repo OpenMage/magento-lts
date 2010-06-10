@@ -1,0 +1,78 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_SalesRule
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+
+class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
+{
+    /**
+     * Coupon's owner rule instance
+     *
+     * @var Mage_SalesRule_Model_Rule
+     */
+    protected $_rule;
+
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_init('salesrule/coupon');
+    }
+
+    /**
+     * Processing object before save data
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _beforeSave()
+    {
+        if (!$this->getRuleId() && $this->_rule instanceof Mage_SalesRule_Model_Rule) {
+            $this->setRuleId($this->_rule->getId());
+        }
+        return parent::_beforeSave();
+    }
+
+    /**
+     * Set rule instance
+     *
+     * @param  Mage_SalesRule_Model_Rule
+     * @return Mage_SalesRule_Model_Coupon
+     */
+    public function setRule(Mage_SalesRule_Model_Rule $rule)
+    {
+        $this->_rule = $rule;
+        return $this;
+    }
+
+    /**
+     * Load primary coupon for specified rule
+     *
+     * @param Mage_SalesRule_Model_Rule|int Rule
+     */
+    public function loadPrimaryByRule($rule)
+    {
+        $this->getResource()->loadPrimaryByRule($this, $rule);
+        return $this;
+    }
+}

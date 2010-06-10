@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -81,7 +81,7 @@
                         </based_on>
                         <price_includes_tax translate="label comment">
                             <label>Catalog Prices</label>
-                            <comment>Whether Catalog Prices entered by Admin include Tax</comment>
+                            <comment>Whether catalog prices entered by admin include tax.</comment>
                             <frontend_type>select</frontend_type>
                             <backend_model>tax/config_price_include</backend_model>
                             <source_model>tax/system_config_source_priceType</source_model>
@@ -92,7 +92,7 @@
                         </price_includes_tax>
                         <shipping_includes_tax translate="label comment">
                             <label>Shipping Prices</label>
-                            <comment>Whether Shipping Amounts entered by Admin or obtained from Gateways include Tax</comment>
+                            <comment>Whether shipping amounts entered by admin or obtained from gateways include tax.</comment>
                             <frontend_type>select</frontend_type>
                             <backend_model>tax/config_price_include</backend_model>
                             <source_model>tax/system_config_source_priceType</source_model>
@@ -118,7 +118,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Apply Discount on Price Including Tax is calculated based on store tax, if 'Apply Tax after Discount' is selected.</comment>
+                            <comment>Apply discount on price including tax is calculated based on store tax, if "Apply Tax after Discount" is selected.</comment>
                         </discount_tax>
                         <apply_tax_on translate="label comment">
                             <label>Apply Tax On</label>
@@ -247,7 +247,7 @@
                             <show_in_store>1</show_in_store>
                         </grandtotal>
                         <full_summary translate="label">
-                            <label>Display full tax summary</label>
+                            <label>Display Full Tax Summary</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>60</sort_order>
@@ -319,7 +319,7 @@
                             <show_in_store>1</show_in_store>
                         </grandtotal>
                         <full_summary translate="label">
-                            <label>Display full tax summary</label>
+                            <label>Display Full Tax Summary</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>60</sort_order>

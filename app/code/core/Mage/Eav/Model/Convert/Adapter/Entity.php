@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -299,13 +299,13 @@ class Mage_Eav_Model_Convert_Adapter_Entity
     {
         $collection = $this->getData();
         if ($collection instanceof Mage_Eav_Model_Entity_Collection_Abstract) {
-            $this->addException(Mage::helper('eav')->__('Entity collections expected'), Varien_Convert_Exception::FATAL);
+            $this->addException(Mage::helper('eav')->__('Entity collections expected.'), Varien_Convert_Exception::FATAL);
         }
 
         $this->addException($collection->getSize().' records found.');
 
         if (!$collection instanceof Mage_Eav_Model_Entity_Collection_Abstract) {
-            $this->addException(Mage::helper('eav')->__('Entity collection expected'), Varien_Convert_Exception::FATAL);
+            $this->addException(Mage::helper('eav')->__('Entity collection expected.'), Varien_Convert_Exception::FATAL);
         }
         try {
             $i = 0;
@@ -313,7 +313,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity
                 $model->save();
                 $i++;
             }
-            $this->addException(Mage::helper('eav')->__("Saved ".$i." record(s)"));
+            $this->addException(Mage::helper('eav')->__("Saved %d record(s).", $i));
         }
         catch (Varien_Convert_Exception $e) {
             throw $e;

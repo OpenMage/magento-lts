@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -97,7 +97,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function getSharingConfig()
     {
         return Mage::getSingleton('customer/config_share');
-
     }
 
     /**
@@ -179,15 +178,16 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function getName()
     {
         $name = '';
-        if ($this->getPrefix()) {
+        $helper = Mage::helper('customer/address');
+        if ($helper->canShowConfig('prefix_show') && $this->getPrefix()) {
             $name .= $this->getPrefix() . ' ';
         }
         $name .= $this->getFirstname();
-        if ($this->getMiddlename()) {
+        if ($helper->canShowConfig('middlename_show') && $this->getMiddlename()) {
             $name .= ' ' . $this->getMiddlename();
         }
         $name .=  ' ' . $this->getLastname();
-        if ($this->getSuffix()) {
+        if ($helper->canShowConfig('suffix_show')&& $this->getSuffix()) {
             $name .= ' ' . $this->getSuffix();
         }
         return $name;
@@ -250,8 +250,10 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if (is_null($this->_addressesCollection)) {
             $this->_addressesCollection = $this->getAddressCollection()
                 ->setCustomerFilter($this)
-                ->addAttributeToSelect('*')
-                ->load();
+                ->addAttributeToSelect('*');
+            foreach ($this->_addressesCollection as $address) {
+                $address->setCustomer($this);
+            }
         }
 
         return $this->_addressesCollection;
@@ -628,6 +630,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         else {
             $storeId = $store;
         }
+
         $availableStores = $this->getSharedStoreIds();
         return in_array($storeId, $availableStores);
     }
@@ -709,42 +712,43 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function validate()
     {
         $errors = array();
-
+        $customerHelper = Mage::helper('customer');
+        $addressHelper = Mage::helper('customer/address');
         if (!Zend_Validate::is( trim($this->getFirstname()) , 'NotEmpty')) {
-            $errors[] = Mage::helper('customer')->__('First name can\'t be empty');
+            $errors[] = $customerHelper->__('The first name cannot be empty.');
         }
 
         if (!Zend_Validate::is( trim($this->getLastname()) , 'NotEmpty')) {
-            $errors[] = Mage::helper('customer')->__('Last name can\'t be empty');
+            $errors[] = $customerHelper->__('The last name cannot be empty.');
         }
 
         if (!Zend_Validate::is($this->getEmail(), 'EmailAddress')) {
-            $errors[] = Mage::helper('customer')->__('Invalid email address "%s"', $this->getEmail());
+            $errors[] = $customerHelper->__('Invalid email address "%s".', $this->getEmail());
         }
 
         $password = $this->getPassword();
         if (!$this->getId() && !Zend_Validate::is($password , 'NotEmpty')) {
-            $errors[] = Mage::helper('customer')->__('Password can\'t be empty');
+            $errors[] = $customerHelper->__('The password cannot be empty.');
         }
         if ($password && !Zend_Validate::is($password, 'StringLength', array(6))) {
-            $errors[] = Mage::helper('customer')->__('Password minimal length must be more %s', 6);
+            $errors[] = $customerHelper->__('The minimum password length is %s', 6);
         }
         $confirmation = $this->getConfirmation();
         if ($password != $confirmation) {
-            $errors[] = Mage::helper('customer')->__('Please make sure your passwords match.');
+            $errors[] = $customerHelper->__('Please make sure your passwords match.');
         }
 
-        if (('req' === Mage::helper('customer/address')->getConfig('dob_show'))
+        if (('req' === $addressHelper->getConfig('dob_show'))
             && '' == trim($this->getDob())) {
-            $errors[] = Mage::helper('customer')->__('Date of Birth is required.');
+            $errors[] = $customerHelper->__('The Date of Birth is required.');
         }
-        if (('req' === Mage::helper('customer/address')->getConfig('taxvat_show'))
+        if (('req' === $addressHelper->getConfig('taxvat_show'))
             && '' == trim($this->getTaxvat())) {
-            $errors[] = Mage::helper('customer')->__('TAX/VAT number is required.');
+            $errors[] = $customerHelper->__('The TAX/VAT number is required.');
         }
-        if (('req' === Mage::helper('customer/address')->getConfig('gender_show'))
+        if (('req' === $addressHelper->getConfig('gender_show'))
             && '' == trim($this->getGender())) {
-            $errors[] = Mage::helper('customer')->__('Gender is required.');
+            $errors[] = $customerHelper->__('Gender is required.');
         }
 
         if (empty($errors)) {
@@ -772,7 +776,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $website = Mage::getModel('core/website')->load($row['website_code'], 'code');
 
         if (!$website->getId()) {
-            $this->addError($hlp->__('Invalid website, skipping the record, line: %s', $line));
+            $this->addError($hlp->__('Invalid website, skipping the record, line: %s.', $line));
 
         } else {
             $row['website_id'] = $website->getWebsiteId();
@@ -781,18 +785,18 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
         // Validate Email
         if (empty($row['email'])) {
-            $this->addError($hlp->__('Missing email, skipping the record, line: %s', $line));
+            $this->addError($hlp->__('Missing email, skipping the record, line: %s.', $line));
         } else {
             $this->loadByEmail($row['email']);
         }
 
         if (empty($row['entity_id'])) {
             if ($this->getData('entity_id')) {
-                $this->addError($hlp->__('Customer email (%s) already exists, skipping the record , line: %s', $row['email'], $line));
+                $this->addError($hlp->__('The customer email (%s) already exists, skipping the record, line: %s.', $row['email'], $line));
             }
         } else {
             if ($row['entity_id'] != $this->getData('entity_id')) {
-                $this->addError($hlp->__('CustomerID and email didn\'t match, skipping the record , line: %s', $line));
+                $this->addError($hlp->__('The customer ID and email did not match, skipping the record, line: %s.', $line));
             } else {
                 $this->unsetData();
                 $this->load($row['entity_id']);
@@ -804,7 +808,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         }
 
         if (empty($row['website_code'])) {
-            $this->addError($hlp->__('Missing website, skipping the record, line: %s', $line));
+            $this->addError($hlp->__('Missing website, skipping the record, line: %s.', $line));
         }
 
         if (empty($row['group'])) {
@@ -812,10 +816,10 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         }
 
         if (empty($row['firstname'])) {
-            $this->addError($hlp->__('Missing firstname, skipping the record, line: %s', $line));
+            $this->addError($hlp->__('Missing first name, skipping the record, line: %s.', $line));
         }
         if (empty($row['lastname'])) {
-            $this->addError($hlp->__('Missing lastname, skipping the record, line: %s', $line));
+            $this->addError($hlp->__('Missing last name, skipping the record, line: %s.', $line));
         }
 
         if (!empty($row['password_new'])) {
@@ -841,7 +845,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 //                $source = $attribute->getSource();
 //                $optionId = $config->getSourceOptionId($source, $value);
 //                if (is_null($optionId)) {
-//                    $this->printError($hlp->__("Invalid attribute option specified for attribute attribute %s (%s)", $field, $value), $line);
+//                    $this->printError($hlp->__("Invalid attribute option specified for attribute attribute %s (%s).", $field, $value), $line);
 //                }
 //                $value = $optionId;
 //            }
@@ -850,7 +854,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         }
 
         if (!$this->validateAddress($row, 'billing')) {
-            $this->printError($hlp->__('Invalid billing address for (%s)', $row['email']), $line);
+            $this->printError($hlp->__('Invalid billing address for (%s).', $row['email']), $line);
         } else {
             // Handling billing address
             $billingAddress = $this->getPrimaryBillingAddress();
@@ -889,7 +893,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         }
 
         if (!$this->validateAddress($row, 'shipping')) {
-            $this->printError($hlp->__('Invalid shipping address for (%s)', $row['email']), $line);
+            $this->printError($hlp->__('Invalid shipping address for (%s).', $row['email']), $line);
         } else {
             // Handling shipping address
             $shippingAddress = $this->getPrimaryShippingAddress();

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -112,8 +112,8 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Conditions
         $fieldset = $form->addFieldset('options_fieldset', array('legend'=>Mage::helper('catalogrule')->__('Options')));
 
         $fieldset->addField('stop_rules_processing', 'select', array(
-            'label'     => Mage::helper('catalogrule')->__('Stop further rules processing'),
-            'title'     => Mage::helper('catalogrule')->__('Stop further rules processing'),
+            'label'     => Mage::helper('catalogrule')->__('Stop Further Rules Processing'),
+            'title'     => Mage::helper('catalogrule')->__('Stop Further Rules Processing'),
             'name'      => 'stop_rules_processing',
             'required' => true,
             'options'    => array(

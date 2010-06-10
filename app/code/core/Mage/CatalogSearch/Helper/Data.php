@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -299,5 +299,50 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                 );
             }
         }
+    }
+
+    /**
+     * Join index array to string by separator
+     * Support 2 level array gluing
+     *
+     * @param array $index
+     * @param string $separator
+     * @return string
+     */
+    public function prepareIndexdata($index, $separator = ' ')
+    {
+        $_index = array();
+        foreach ($index as $key => $value) {
+            if (!is_array($value)) {
+                $_index[] = $value;
+            }
+            else {
+                $_index = array_merge($_index, $value);
+            }
+        }
+        return join($separator, $_index);
+    }
+
+    /**
+     * Get current search engine resource model
+     *
+     * @return object|false
+     */
+    public function getEngine()
+    {
+//        $engine = (string)Mage::getConfig()->getNode('global/search/engine');
+        $engine = Mage::getStoreConfig('catalog/search/engine');
+        /**
+         * This needed if there already was saved in configuartion some none-default engine
+         * and module of that engine was disabled after that.
+         * Problem is in this engine in database configuration still set.
+         */
+        if ($engine && Mage::getConfig()->getResourceModelClassName($engine)) {
+            $model = Mage::getResourceSingleton($engine);
+            if ($model && $model->test()) {
+                return $model;
+            }
+        }
+        return Mage::getResourceSingleton('catalogsearch/fulltext_engine');
     }
 }

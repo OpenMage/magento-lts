@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Paygate
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -97,28 +97,6 @@
                 <allowspecific>0</allowspecific>
                 <currency>USD</currency>
             </authorizenet>
-
-            <verisign>
-                <active>0</active>
-                <cctypes>AE,VI,MC,DI</cctypes>
-                <debug>0</debug>
-                <model>paygate/payflow_pro</model>
-                <order_status>1</order_status>
-                <fraud_order_status>holded</fraud_order_status>
-                <partner></partner>
-                <payment_action>authorize</payment_action>
-                <pwd backend_model="adminhtml/system_config_backend_encrypted"/>
-                <tender>C</tender>
-                <title>Credit Card (Payflow Pro)</title>
-                <url>https://payflowpro.paypal.com/transaction</url>
-                <user backend_model="adminhtml/system_config_backend_encrypted"/>
-                <vendor/>
-                <verbosity>MEDIUM</verbosity>
-                <allowspecific>0</allowspecific>
-                <proxy_host/>
-                <proxy_port/>
-                <use_proxy>0</use_proxy>
-            </verisign>
         </payment>
     </default>
 </config>

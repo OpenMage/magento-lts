@@ -121,9 +121,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
         }
         $element = new $className($config);
         $element->setId($elementId);
-        if ($element->getRequired()) {
-            $element->addClass('required-entry');
-        }
         $this->addElement($element, $after);
         return $element;
     }

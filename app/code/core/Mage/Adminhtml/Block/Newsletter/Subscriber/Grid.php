@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -94,13 +94,13 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
         ));
 
         $this->addColumn('firstname', array(
-            'header'    => Mage::helper('newsletter')->__('Customer Firstname'),
+            'header'    => Mage::helper('newsletter')->__('Customer First Name'),
             'index'     => 'customer_firstname',
             'default'   =>    '----'
         ));
 
         $this->addColumn('lastname', array(
-            'header'    => Mage::helper('newsletter')->__('Customer Lastname'),
+            'header'    => Mage::helper('newsletter')->__('Customer Last Name'),
             'index'     => 'customer_lastname',
             'default'   =>    '----'
         ));
@@ -110,7 +110,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
             'index'     => 'subscriber_status',
             'type'      => 'options',
             'options'   => array(
-                Mage_Newsletter_Model_Subscriber::STATUS_NOT_ACTIVE   => Mage::helper('newsletter')->__('Not activated'),
+                Mage_Newsletter_Model_Subscriber::STATUS_NOT_ACTIVE   => Mage::helper('newsletter')->__('Not Activated'),
                 Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED   => Mage::helper('newsletter')->__('Subscribed'),
                 Mage_Newsletter_Model_Subscriber::STATUS_UNSUBSCRIBED => Mage::helper('newsletter')->__('Unsubscribed'),
             )

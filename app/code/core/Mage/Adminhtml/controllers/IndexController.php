@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -73,7 +73,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     {
         $auth = Mage::getSingleton('admin/session')->unsetAll();
         Mage::getSingleton('adminhtml/session')->unsetAll();
-        Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('You successfully logged out.'));
+        Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('You have logged out.'));
         $this->_redirect('*');
     }
 
@@ -86,13 +86,13 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $items[] = array(
                 'id'=>'error',
                 'type'=>'Error',
-                'name'=>Mage::helper('adminhtml')->__('Access Deny'),
-                'description'=>Mage::helper('adminhtml')->__('You have not enought permissions to use this functionality.')
+                'name'=>Mage::helper('adminhtml')->__('Access Denied'),
+                'description'=>Mage::helper('adminhtml')->__('You have not enough permissions to use this functionality.')
             );
             $totalCount = 1;
         } else {
             if (empty($searchModules)) {
-                $items[] = array('id'=>'error', 'type'=>'Error', 'name'=>Mage::helper('adminhtml')->__('No search modules registered'), 'description'=>Mage::helper('adminhtml')->__('Please make sure that all global admin search modules are installed and activated.'));
+                $items[] = array('id'=>'error', 'type'=>'Error', 'name'=>Mage::helper('adminhtml')->__('No search modules were registered'), 'description'=>Mage::helper('adminhtml')->__('Please make sure that all global admin search modules are installed and activated.'));
                 $totalCount = 1;
             } else {
                 $start = $this->getRequest()->getParam('start', 1);
@@ -193,10 +193,10 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                     break;
                 }
             } else {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Can\'t find email address.'));
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Cannot find the email address.'));
             }
         } elseif (!empty($params)) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Email address is empty.'));
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('The email address is empty.'));
         }
 
 
@@ -209,14 +209,6 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     protected function _isAllowed()
     {
-        /*if ( $this->getRequest()->getActionName() == 'login' && ! Mage::getSingleton('admin/session')->isAllowed('admin') ) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('You have not enought permissions to login.'));
-            $request = Mage::app()->getRequest();
-
-        } else {
-            return Mage::getSingleton('admin/session')->isAllowed('admin');
-        }
-        */
         return true;
     }
 }

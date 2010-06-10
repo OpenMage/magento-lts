@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,61 +33,17 @@
  */
 class Mage_Sales_Model_Mysql4_Quote_Payment extends Mage_Sales_Model_Mysql4_Abstract
 {
+    /**
+     * Serializeable field: additional_information
+     *
+     * @var array
+     */
+    protected $_serializableFields = array(
+        'additional_information' => array(null, array())
+    );
+
     protected function _construct()
     {
         $this->_init('sales/quote_payment', 'payment_id');
     }
-
-    /**
-     * Also serialize additional information
-     *
-     * @param Mage_Core_Model_Abstract $payment
-     */
-    protected function _beforeSave(Mage_Core_Model_Abstract $payment)
-    {
-        $additionalInformation = $payment->getData('additional_information');        
-        if (empty($additionalInformation)) {
-            $payment->setData('additional_information', null);
-        } elseif (is_array($additionalInformation)) {
-            $payment->setData('additional_information', serialize($additionalInformation));
-        }
-        return parent::_beforeSave($payment);
-    }
-
-    /**
-     * Unserialize additional information after loading the object
-     *
-     * @param Mage_Core_Model_Abstract $object $payment
-     */
-    protected function _afterLoad(Mage_Core_Model_Abstract $payment)
-    {
-        $this->unserializeFields($payment);
-        return parent::_afterLoad($payment);
-    }
-
-    /**
-     * Unserialize additional information after saving the object
-     *
-     * @param Mage_Core_Model_Abstract $payment
-     */
-    protected function _afterSave(Mage_Core_Model_Abstract $payment)
-    {
-        $this->unserializeFields($payment);
-        return parent::_afterSave($payment);
-    }
-
-    /**
-     * Unserialize additional data if required
-     * @param Mage_Sales_Model_Quote_Payment $payment
-     */
-    public function unserializeFields(Mage_Sales_Model_Quote_Payment $payment)
-    {
-        $additionalInformation = $payment->getData('additional_information');
-        if (empty($additionalInformation)) {
-            $payment->setData('additional_information', array());
-        } elseif (!is_array($additionalInformation)) {
-            $payment->setData('additional_information', unserialize($additionalInformation));
-        }
-    }
-    
 }

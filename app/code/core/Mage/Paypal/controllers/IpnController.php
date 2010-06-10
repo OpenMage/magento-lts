@@ -20,13 +20,29 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Unified IPN controller for all supported PayPal methods
  */
-class Mage_Paypal_IpnController extends Mage_Paypal_Controller_Ipn_Abstract
+class Mage_Paypal_IpnController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * Instantiate IPN model and pass IPN request to it
+     */
+    public function indexAction()
+    {
+        if (!$this->getRequest()->isPost()) {
+            return;
+        }
+
+        try {
+            $data = $this->getRequest()->getPost();
+            Mage::getModel('paypal/ipn')->processIpnRequest($data, new Varien_Http_Adapter_Curl());
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
+    }
 }

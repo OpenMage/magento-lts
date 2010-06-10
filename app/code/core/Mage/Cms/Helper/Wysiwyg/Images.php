@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Cms
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,6 +41,25 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      * @var string
      */
     protected $_currentUrl;
+
+    /**
+     * Currenty selected store ID if applicable
+     *
+     * @var int
+     */
+    protected $_storeId = null;
+
+
+    /**
+     * Set a specified store ID value 
+     *
+     * @param <type> $store
+     */
+    public function setStoreId($store)
+    {
+        $this->_storeId = $store;
+        return $this;
+    }
 
     /**
      * Images Storage root directory
@@ -127,22 +146,42 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Check whether using static URLs is allowed
+     *
+     * @return boolean
+     */
+    public function isUsingStaticUrlsAllowed()
+    {
+        $checkResult = new StdClass;
+        $checkResult->isAllowed = false;
+        Mage::dispatchEvent('cms_wysiwyg_images_static_urls_allowed', array(
+            'result'   => $checkResult,
+            'store_id' => $this->_storeId
+        ));
+        return $checkResult->isAllowed;
+    }
+
+    /**
      * Prepare Image insertion declaration for Wysiwyg or textarea(as_is mode)
      *
      * @param string $filename Filename transferred via Ajax
-     * @param bool $asIs Leave image HTML as is or transform it to controller directive
+     * @param bool $renderAsTag Leave image HTML as is or transform it to controller directive
      * @return string
      */
-    public function getImageHtmlDeclaration($filename, $asIs = false)
+    public function getImageHtmlDeclaration($filename, $renderAsTag = false)
     {
         $fileurl = $this->getCurrentUrl() . $filename;
         $mediaPath = str_replace(Mage::getBaseUrl('media'), '', $fileurl);
         $directive = sprintf('{{media url="%s"}}', $mediaPath);
-        if ($asIs) {
-            $html = sprintf('<img src="%s" alt="" />', $directive);
+        if ($renderAsTag) {
+            $html = sprintf('<img src="%s" alt="" />', $this->isUsingStaticUrlsAllowed() ? $fileurl : $directive);
         } else {
-            $directive = Mage::helper('core')->urlEncode($directive);
-            $html = Mage::helper('adminhtml')->getUrl('*/cms_wysiwyg/directive', array('___directive' => $directive));
+            if ($this->isUsingStaticUrlsAllowed()) {
+                $html = $fileurl; // $mediaPath;
+            } else {
+                $directive = Mage::helper('core')->urlEncode($directive);
+                $html = Mage::helper('adminhtml')->getUrl('*/cms_wysiwyg/directive', array('___directive' => $directive));
+            }
         }
         return $html;
     }
@@ -167,7 +206,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             }
             $io = new Varien_Io_File();
             if (!$io->isWriteable($currentPath) && !$io->mkdir($currentPath)) {
-                $message = Mage::helper('cms')->__('Directory %s is not writable by server',$currentPath);
+                $message = Mage::helper('cms')->__('The directory %s is not writable by server.',$currentPath);
                 Mage::throwException($message);
             }
             $this->_currentPath = $currentPath;
@@ -185,7 +224,8 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         if (!$this->_currentUrl) {
             $path = str_replace(Mage::getConfig()->getOptions()->getMediaDir(), '', $this->getCurrentPath());
             $path = trim($path, DS);
-            $this->_currentUrl = Mage::getBaseUrl('media') . $this->convertPathToUrl($path) . '/';
+            $this->_currentUrl = Mage::app()->getStore($this->_storeId)->getBaseUrl('media') .
+                                 $this->convertPathToUrl($path) . '/';
         }
         return $this->_currentUrl;
     }

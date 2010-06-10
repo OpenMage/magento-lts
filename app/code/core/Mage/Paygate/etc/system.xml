@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Paygate
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -65,7 +65,7 @@
                             <show_in_store>0</show_in_store>
                         </useccv>
                         <email_customer translate="label">
-                            <label>Email customer</label>
+                            <label>Email Customer</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>10</sort_order>
@@ -83,7 +83,7 @@
                             <show_in_store>0</show_in_store>
                         </login>
                         <merchant_email translate="label">
-                            <label>Merchant's email</label>
+                            <label>Merchant's Email</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>11</sort_order>
                             <show_in_default>1</show_in_default>
@@ -91,7 +91,7 @@
                             <show_in_store>0</show_in_store>
                         </merchant_email>
                         <order_status translate="label">
-                            <label>New order status</label>
+                            <label>New Order Status</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_order_status_processing</source_model>
                             <sort_order>4</sort_order>
@@ -100,7 +100,7 @@
                             <show_in_store>0</show_in_store>
                         </order_status>
                         <sort_order translate="label">
-                            <label>Sort order</label>
+                            <label>Sort Order</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
@@ -108,7 +108,7 @@
                             <show_in_store>0</show_in_store>
                         </sort_order>
                         <test translate="label">
-                            <label>Test mode</label>
+                            <label>Test Mode</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>5</sort_order>
@@ -134,7 +134,7 @@
                             <show_in_store>1</show_in_store>
                         </title>
                         <trans_key translate="label">
-                            <label>Transaction key</label>
+                            <label>Transaction Key</label>
                             <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <sort_order>3</sort_order>
@@ -160,7 +160,7 @@
                             <show_in_store>0</show_in_store>
                         </cgi_url>
                         <currency translate="label">
-                            <label>Accepted currency</label>
+                            <label>Accepted Currency</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_currency</source_model>
                             <sort_order>6</sort_order>
@@ -169,7 +169,7 @@
                             <show_in_store>0</show_in_store>
                         </currency>
                         <allowspecific translate="label">
-                            <label>Payment from applicable countries</label>
+                            <label>Payment from Applicable Countries</label>
                             <frontend_type>allowspecific</frontend_type>
                             <sort_order>50</sort_order>
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
@@ -178,7 +178,7 @@
                             <show_in_store>0</show_in_store>
                         </allowspecific>
                         <specificcountry translate="label">
-                            <label>Payment from Specific countries</label>
+                            <label>Payment from Specific Countries</label>
                             <frontend_type>multiselect</frontend_type>
                             <sort_order>51</sort_order>
                             <source_model>adminhtml/system_config_source_country</source_model>
@@ -206,243 +206,6 @@
                         </model>
                     </fields>
                 </authorizenet>
-                <verisign translate="label" module="paygate">
-                    <label>Payflow Pro</label>
-                    <frontend_type>text</frontend_type>
-                    <sort_order>30</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <fields>
-                        <active translate="label">
-                            <label>Enabled</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </active>
-                        <cctypes translate="label">
-                            <label>Credit Card Types</label>
-                            <frontend_type>multiselect</frontend_type>
-                            <source_model>paygate/payflow_source_cctype</source_model>
-                            <sort_order>15</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </cctypes>
-                        <useccv translate="label">
-                            <label>Credit Card Verification</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>16</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </useccv>
-                        <centinel translate="label">
-                            <label>3D Secure Card Validation</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>20</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </centinel>
-                        <centinel_is_mode_strict translate="label">
-                            <label>Severe 3D Secure Card Validation</label>
-                            <comment>Severe Validation Removes Chargeback Liability on Merchant</comment>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>25</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><centinel>1</centinel></depends>
-                        </centinel_is_mode_strict>
-                        <centinel_api_url translate="label">
-                            <label>Centinel API URL</label>
-                            <frontend_type>text</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>30</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><centinel>1</centinel></depends>
-                        </centinel_api_url>
-                        <order_status translate="label">
-                            <label>New order status</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_order_status_processing</source_model>
-                            <sort_order>2</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </order_status>
-                        <fraud_order_status translate="label">
-                            <label>Fraud order status</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_order_status</source_model>
-                            <sort_order>2</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </fraud_order_status>
-                        <partner translate="label">
-                            <label>Partner</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>3</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </partner>
-                        <pwd translate="label">
-                            <label>Password</label>
-                            <frontend_type>obscure</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-                            <sort_order>6</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </pwd>
-                        <use_proxy translate="label">
-                            <label>Use Proxy</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>30</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </use_proxy>
-                        <proxy_host translate="label">
-                            <label>Proxy Host</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>31</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </proxy_host>
-                        <proxy_port translate="label">
-                            <label>Proxy Port</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>32</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </proxy_port>
-                        <sort_order translate="label">
-                            <label>Sort order</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>100</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </sort_order>
-                        <tender translate="label">
-                            <label>TENDER</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>2</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </tender>
-                        <title translate="label">
-                            <label>Title</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>2</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </title>
-                        <url translate="label comment">
-                            <label>URL</label>
-                            <comment>Live: &lt;strong&gt;https://payflowpro.paypal.com/transaction&lt;/strong&gt;&lt;br /&gt;Test: &lt;strong&gt;https://pilot-payflowpro.paypal.com/transaction&lt;/strong&gt;</comment>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>2</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </url>
-                        <user translate="label">
-                            <label>User</label>
-                            <frontend_type>obscure</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-                            <sort_order>5</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </user>
-                        <vendor translate="label">
-                            <label>Merchant Login</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>4</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </vendor>
-                        <verbosity translate="label">
-                            <label>VERBOSITY</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>2</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </verbosity>
-                        <payment_action translate="label">
-                            <label>Payment Action</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>paygate/payflow_source_paymentAction</source_model>
-                            <sort_order>2</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </payment_action>
-                        <debug translate="label">
-                            <label>Debug</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>6</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </debug>
-                        <allowspecific translate="label">
-                            <label>Payment from applicable countries</label>
-                            <frontend_type>allowspecific</frontend_type>
-                            <sort_order>50</sort_order>
-                            <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </allowspecific>
-                        <specificcountry translate="label">
-                            <label>Payment from Specific countries</label>
-                            <frontend_type>multiselect</frontend_type>
-                            <sort_order>51</sort_order>
-                            <source_model>adminhtml/system_config_source_country</source_model>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </specificcountry>
-                        <min_order_total translate="label">
-                            <label>Minimum Order Total</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>98</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </min_order_total>
-                        <max_order_total translate="label">
-                            <label>Maximum Order Total</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>99</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </max_order_total>
-                    </fields>
-                </verisign>
             </groups>
         </payment>
     </sections>

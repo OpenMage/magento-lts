@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,7 +56,7 @@ class Mage_Catalog_Model_Layer_State extends Varien_Object
     public function setFilters($filters)
     {
         if (!is_array($filters)) {
-            Mage::throwException(Mage::helper('catalog')->__('Filters must be as array'));
+            Mage::throwException(Mage::helper('catalog')->__('The filters must be an array.'));
         }
         $this->setData('filters', $filters);
         return $this;

@@ -20,27 +20,29 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php echo $this->getChildHtml('items_before'); ?>
-<table cellspacing="0" class="shopping-cart checkout-review" id="checkout-review-table">
-    <thead>
-        <tr>
-            <th><?php echo $this->__('Product Name') ?></th>
-            <th class="a-center"><?php echo $this->__('Qty') ?></th>
-            <th class="a-right"><?php echo $this->__('Price') ?></th>
-            <th class="a-right"><?php echo $this->__('Subtotal') ?></th>
-        </tr>
-    </thead>
-    <?php echo $this->getChildHtml('totals'); ?>
-    <tbody>
-    <?php foreach($this->getItems() as $_item): ?>
-        <?php echo $this->getItemHtml($_item)?>
-    <?php endforeach ?>
-    </tbody>
-</table>
+<div id="checkout-review-table-wrapper">
+    <table cellspacing="0" class="shopping-cart checkout-review" id="checkout-review-table">
+        <thead>
+            <tr>
+                <th><?php echo $this->__('Product Name') ?></th>
+                <th class="a-center"><?php echo $this->__('Qty') ?></th>
+                <th class="a-right"><?php echo $this->__('Price') ?></th>
+                <th class="a-right"><?php echo $this->__('Subtotal') ?></th>
+            </tr>
+        </thead>
+        <?php echo $this->getChildHtml('totals'); ?>
+        <tbody>
+        <?php foreach($this->getItems() as $_item): ?>
+            <?php echo $this->getItemHtml($_item)?>
+        <?php endforeach ?>
+        </tbody>
+    </table>
+</div>
 <script type="text/javascript">
     decorateTable('checkout-review-table');
     truncateOptions();

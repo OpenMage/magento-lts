@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +29,6 @@ class Mage_SalesRule_Model_Mysql4_Rule_Collection extends Mage_Core_Model_Mysql4
 {
     protected function _construct()
     {
-        parent::_construct();
         $this->_init('salesrule/rule');
     }
 
@@ -39,15 +38,27 @@ class Mage_SalesRule_Model_Mysql4_Rule_Collection extends Mage_Core_Model_Mysql4
             $now = Mage::getModel('core/date')->date('Y-m-d');
         }
 
-        $this->addBindParam('coupon_code', $couponCode);
         $this->getSelect()->where('is_active=1');
         $this->getSelect()->where('find_in_set(?, website_ids)', (int)$websiteId);
         $this->getSelect()->where('find_in_set(?, customer_group_ids)', (int)$customerGroupId);
-        if (empty($couponCode)) {
-            $this->getSelect()->where("coupon_code is null or coupon_code=''");
-        }
-        else {
-            $this->getSelect()->where("coupon_code is null or coupon_code='' or coupon_code=:coupon_code");
+
+        if ($couponCode) {
+            $this->getSelect()->joinLeft(
+                array('extra_coupon' => $this->getTable('salesrule/coupon')),
+                'extra_coupon.rule_id = main_table.rule_id AND extra_coupon.is_primary IS NULL',
+                array()
+            );
+            $this->getSelect()->group('main_table.rule_id');
+            $this->getSelect()->where(''
+                . $this->getSelect()->getAdapter()->quoteInto(' main_table.coupon_type <> ?', Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC)
+                . $this->getSelect()->getAdapter()->quoteInto(' OR primary_coupon.code = ?', $couponCode)
+            );
+            $this->getSelect()->having(''
+                . $this->getSelect()->getAdapter()->quoteInto(' main_table.coupon_type <> ?', Mage_SalesRule_Model_Rule::COUPON_TYPE_AUTO)
+                . $this->getSelect()->getAdapter()->quoteInto(' OR FIND_IN_SET(?, GROUP_CONCAT(extra_coupon.code))', $couponCode)
+            );
+        } else {
+            $this->getSelect()->where('main_table.coupon_type = ?', Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON);
         }
         $this->getSelect()->where('from_date is null or from_date<=?', $now);
         $this->getSelect()->where('to_date is null or to_date>=?', $now);
@@ -74,6 +85,23 @@ class Mage_SalesRule_Model_Mysql4_Rule_Collection extends Mage_Core_Model_Mysql4
         if ($parts) {
             $this->getSelect()->where(new Zend_Db_Expr(implode(' OR ', $parts)));
         }
+        return $this;
+    }
+
+    /**
+     * Init collection select
+     *
+     * @return unknown
+     */
+    public function _initSelect()
+    {
+        parent::_initSelect();
+        $this->getSelect()
+            ->joinLeft(
+                array('primary_coupon' => $this->getTable('salesrule/coupon')),
+                'main_table.rule_id = primary_coupon.rule_id AND primary_coupon.is_primary = 1',
+                array('code')
+            );
         return $this;
     }
 }

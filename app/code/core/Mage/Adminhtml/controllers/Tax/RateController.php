@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -107,7 +107,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             try {
                 $rateModel->save();
 
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('Tax rate was successfully saved'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rate has been saved.'));
                 $this->getResponse()->setRedirect($this->getUrl("*/*/"));
                 return true;
             }
@@ -117,7 +117,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
             catch (Exception $e) {
-                //Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Error while saving this rate. Please try again later.'));
+                //Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while saving this rate.'));
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
 
@@ -170,7 +170,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 try {
                     $rateModel->delete();
 
-                    Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('Tax rate was successfully deleted'));
+                    Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rate has been deleted.'));
                     $this->getResponse()->setRedirect($this->getUrl("*/*/"));
                     return true;
                 }
@@ -178,7 +178,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                     Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 }
                 catch (Exception $e) {
-                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Error while deleting this rate. Please try again later.'));
+                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while deleting this rate.'));
                 }
                 if ($referer = $this->getRequest()->getServer('HTTP_REFERER')) {
                     $this->getResponse()->setRedirect($referer);
@@ -187,7 +187,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                     $this->getResponse()->setRedirect($this->getUrl("*/*/"));
                 }
             } else {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Error while deleting this rate. Incorrect rate ID'));
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while deleting this rate. Incorrect rate ID.'));
                 $this->getResponse()->setRedirect($this->getUrl('*/*/'));
             }
         }
@@ -260,7 +260,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             try {
                 $this->_importRates();
 
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('Tax rate was successfully imported'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rate has been imported.'));
             }
             catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());

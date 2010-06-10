@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,8 +56,11 @@ $installer->addAttribute('creditmemo', 'base_to_order_rate', array('type'=>'deci
  */
 
 $orderEntityType = $installer->getEntityType('order');
+$orderEntityType['entity_table'] = 'sales_order';
 $invoiceEntityType = $installer->getEntityType('invoice');
+$invoiceEntityType['entity_table'] = 'sales_order_entity';
 $creditmemoEntityType = $installer->getEntityType('creditmemo');
+$creditmemoEntityType['entity_table'] = 'sales_order_entity';
 
 $entityTypes = array($orderEntityType['entity_type_id'] => $orderEntityType,
     $invoiceEntityType['entity_type_id'] => $invoiceEntityType,

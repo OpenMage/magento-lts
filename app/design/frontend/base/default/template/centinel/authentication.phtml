@@ -20,52 +20,37 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<div class="centinel" id="centinel">
-    <h3><?php echo $this->__('Card Verification')?></h3>
-    <p><?php echo $this->__('Please verify the card with the issuer bank:') ?></p>
-    <iframe id="centinel_authenticate_iframe" src="<?php echo $this->getFrameUrl() ?>" style="width:99.5%; height:400px; position:relative; font-size:12px; background:#fff; font-weight:bold; white-space:nowrap; border:1px solid #ddd;"></iframe>
-</div>
-<script type="text/javascript">
-//<![CDATA[
-var centinelAutenticate = new Class.create();
-
-centinelAutenticate.prototype = {
-    initialize : function()
-    {
-        this.checkoutReviewSubmitBlockId = 'checkout-review-submit';
-        this.checkoutReviewTableBlockId = 'checkout-review-table-wrapper';
-        this.centinelBlockId = 'centinel';
-    },
-
-    start : function()
-    {
-        if($(this.checkoutReviewSubmitBlockId)) {
-            $(this.checkoutReviewSubmitBlockId).hide();
+<?php if ($this->getAuthenticationStart()):?>
+    <div class="centinel" id="centinel_authenticate_block">
+        <h3><?php echo $this->__('Card Verification')?></h3>
+        <p><?php echo $this->__('Please verify the card with the issuer bank:') ?></p>
+        <div class="authentication">
+            <iframe id="centinel_authenticate_iframe" frameborder="0" border="0" src=""></iframe>
+        </div>
+    </div>
+    <script type="text/javascript">
+    //<![CDATA[
+        CentinelAuthenticateController = new CentinelAuthenticate('centinel_authenticate_block', 'centinel_authenticate_iframe');
+        <?php foreach ($this->getRelatedBlocks() as $relatedBlockId):?>
+            CentinelAuthenticateController.addRelatedBlock('<?php echo $relatedBlockId ?>');
+        <?php endforeach;?>
+        <?php if ($this->getAuthenticationStartMode() == 'instant'): ?>
+            CentinelAuthenticateController.start('<?php echo $this->getFrameUrl() ?>');
+        <?php elseif ($this->getAuthenticationStartMode() == 'window'):?>
+            Event.observe(window, 'load', function(){CentinelAuthenticateController.start('<?php echo $this->getFrameUrl() ?>');});
+        <?php endif;?>
+    //]]>
+    </script>
+<?php else:?>
+    <script type="text/javascript">
+    //<![CDATA[
+        if (typeof CentinelAuthenticateController != 'undefined') {
+            CentinelAuthenticateController.cancel();
         }
-        if ($(this.checkoutReviewTableBlockId)) {
-            $(this.checkoutReviewTableBlockId).hide();
-        }
-    },
-
-    success : function()
-    {
-        if($(this.checkoutReviewSubmitBlockId)) {
-            $(this.checkoutReviewSubmitBlockId).show();
-        }
-        if ($(this.checkoutReviewTableBlockId)) {
-            $(this.checkoutReviewTableBlockId).show();
-        }
-        $(this.centinelBlockId).hide();
-    }
-}
-centinel = new centinelAutenticate();
-//for multishipping checkout
-Event.observe(window, 'load', function(){centinel.start();});
-//for onepage checkout
-centinel.start();
-//]]>
-</script>
+    //]]>
+    </script>
+<?php endif;?>

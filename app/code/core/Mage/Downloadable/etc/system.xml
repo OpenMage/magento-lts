@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -38,7 +38,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <order_item_status translate="label">
-                            <label>Order Item Status to enable Downloads</label>
+                            <label>Order Item Status to Enable Downloads</label>
                             <frontend_type>select</frontend_type>
                             <source_model>downloadable/system_config_source_orderitemstatus</source_model>
                             <sort_order>100</sort_order>
@@ -98,14 +98,14 @@
                             <show_in_store>1</show_in_store>
                         </content_disposition>
                         <disable_guest_checkout translate="label comment">
-                            <label>Disable Guest Checkout if cart contains downloadable items</label>
+                            <label>Disable Guest Checkout if Cart Contains Downloadable Items</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>800</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Guest checkout will only work with shareable</comment>
+                            <comment>Guest checkout will only work with shareable.</comment>
                         </disable_guest_checkout>
                     </fields>
                 </downloadable>

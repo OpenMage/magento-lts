@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Install
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -67,17 +67,17 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
 
             // check MySQL Server version
             if (version_compare($version, $requiredVersion) == -1) {
-                Mage::throwException(Mage::helper('install')->__('Database server version does not match system requirements (required: %s, actual: %s)', $requiredVersion, $version));
+                Mage::throwException(Mage::helper('install')->__('The database server version does not match system requirements (required: %s, actual: %s).', $requiredVersion, $version));
             }
 
             // check InnoDB support
             if (!isset($variables['have_innodb']) || $variables['have_innodb'] != 'YES') {
-                Mage::throwException(Mage::helper('install')->__('Database server does not support InnoDB storage engine'));
+                Mage::throwException(Mage::helper('install')->__('Database server does not support the InnoDB storage engine.'));
             }
         }
         catch (Exception $e){
             $this->_getInstaller()->getDataModel()->addError($e->getMessage());
-            Mage::throwException(Mage::helper('install')->__('Database connection error'));
+            Mage::throwException(Mage::helper('install')->__('Database connection error.'));
         }
     }
 

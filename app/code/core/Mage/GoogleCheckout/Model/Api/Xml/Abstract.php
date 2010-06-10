@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -162,24 +162,25 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
         );
 
         $url = $this->_getApiUrl();
-
         $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\r\n".$xml;
 
-        if (Mage::getStoreConfig('google/checkout/debug', $this->getStoreId())) {
-            $debug = Mage::getModel('googlecheckout/api_debug');
-            $debug->setDir('out')->setUrl($url)->setRequestBody($xml)->save();
+        $debugData = array('request' => $xml, 'dir' => 'out');
+
+        try {
+            $http = new Varien_Http_Adapter_Curl();
+            $http->write('POST', $url, '1.1', $headers, $xml);
+            $response = $http->read();
+            $response = preg_split('/^\r?$/m', $response, 2);
+            $response = trim($response[1]);
+            $debugData['result'] = $response;
+        }
+        catch (Exception $e) {
+            $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
+            $this->getApi()->debugData($debugData);
+            throw $e;
         }
 
-        $http = new Varien_Http_Adapter_Curl();
-        $http->write('POST', $url, '1.1', $headers, $xml);
-        $response = $http->read();
-        $response = preg_split('/^\r?$/m', $response, 2);
-        $response = trim($response[1]);
-
-        if (!empty($debug)) {
-            $debug->setResponseBody($response)->save();
-        }
-
+        $this->getApi()->debugData($debugData);
         $result = @simplexml_load_string($response);
         if (!$result) {
             $result = simplexml_load_string('<error><error-message>Invalid response from Google Checkout server</error-message></error>');
@@ -212,6 +213,7 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
     {
         if ($quote->getQuoteCurrencyCode() != $quote->getBaseCurrencyCode()) {
             $amount = $amount * $quote->getStoreToQuoteRate();
+            $amount = Mage::app()->getStore()->roundPrice($amount);
         }
         return $amount;
     }

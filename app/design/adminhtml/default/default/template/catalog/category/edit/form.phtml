@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -45,9 +45,9 @@
 <?php endif; ?>
 <iframe name="iframeSave" style="display:none; width:100%;" src="<?php echo $this->getJsUrl() ?>blank.html"></iframe>
 <form target="iframeSave" id="category_edit_form" action="<?php echo $this->getSaveUrl() ?>" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="isIframe" value="1" />
-    <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
     <div class="no-display">
+        <input type="hidden" name="isIframe" value="1" />
+        <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
         <input type="hidden" name="category_products" id="in_category_products" value="" />
         <input type="hidden" name="active_tab_id" id="active_tab_id" value="" />
     </div>

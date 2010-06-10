@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,8 +29,8 @@
 $installer = $this;
 
 $tablePaymentTransaction = $this->getTable('sales/payment_transaction');
-$tableOrders = $this->getTable('sales/order');
-$tableOrderPayment = $this->getTable('sales/order_entity');
+$tableOrders = $this->getTable('sales_order');
+$tableOrderPayment = $this->getTable('sales_order_entity');
 
 $installer->run("
 CREATE TABLE `{$tablePaymentTransaction}` (

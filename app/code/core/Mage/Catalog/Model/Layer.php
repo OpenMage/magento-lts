@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -183,10 +183,10 @@ class Mage_Catalog_Model_Layer extends Varien_Object
             $category = Mage::getModel('catalog/category')->load($category);
         }
         if (!$category instanceof Mage_Catalog_Model_Category) {
-            Mage::throwException(Mage::helper('catalog')->__('Category must be instance of Mage_Catalog_Model_Category'));
+            Mage::throwException(Mage::helper('catalog')->__('Category must be an instance of Mage_Catalog_Model_Category.'));
         }
         if (!$category->getId()) {
-            Mage::throwException(Mage::helper('catalog')->__('Invalid category'));
+            Mage::throwException(Mage::helper('catalog')->__('Invalid category.'));
         }
 
         if ($category->getId() != $this->getCurrentCategory()->getId()) {

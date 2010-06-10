@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -105,8 +105,8 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Conditions
 
         $fieldset->addField('actions', 'text', array(
             'name' => 'actions',
-            'label' => Mage::helper('salesrule')->__('Apply to'),
-            'title' => Mage::helper('salesrule')->__('Apply to'),
+            'label' => Mage::helper('salesrule')->__('Apply To'),
+            'title' => Mage::helper('salesrule')->__('Apply To'),
             'required' => true,
         ))->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/actions'));
 */

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleBase
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -119,10 +119,10 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
 
             if ($totalAdded > 0) {
                 $this->_getSession()->addSuccess(
-                    $this->__('Total of %d product(s) were successfully added to Google Base', $totalAdded)
+                    $this->__('Total of %d product(s) have been added to Google Base.', $totalAdded)
                 );
             } elseif (is_null($productIds)) {
-                $this->_getSession()->addError($this->__('Session expired during export. Please, revise exported products and repeat a process if necessary'));
+                $this->_getSession()->addError($this->__('Session expired during export. Please revise exported products and repeat the process if necessary.'));
             } else {
                 $this->_getSession()->addError($this->__('No products were added to Google Base'));
             }
@@ -157,7 +157,7 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
             }
             if ($totalDeleted > 0) {
                 $this->_getSession()->addSuccess(
-                    $this->__('Total of %d items(s) were successfully removed from Google Base', $totalDeleted)
+                    $this->__('Total of %d items(s) have been removed from Google Base.', $totalDeleted)
                 );
             } else {
                 $this->_getSession()->addError($this->__('No items were deleted from Google Base'));
@@ -192,7 +192,7 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
             }
             if ($totalPublished > 0) {
                 $this->_getSession()->addSuccess(
-                    $this->__('Total of %d items(s) were successfully published', $totalPublished)
+                    $this->__('Total of %d items(s) have been published.', $totalPublished)
                 );
             } else {
                 $this->_getSession()->addError($this->__('No items were published'));
@@ -227,10 +227,10 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
             }
             if ($totalHidden > 0) {
                 $this->_getSession()->addSuccess(
-                    $this->__('Total of %d items(s) were successfully saved as Inactive items', $totalHidden)
+                    $this->__('Total of %d items(s) have been saved as inactive items.', $totalHidden)
                 );
             } else {
-                $this->_getSession()->addError($this->__('No items were saved as Inactive items'));
+                $this->_getSession()->addError($this->__('No items were saved as inactive items'));
             }
         } catch (Zend_Gdata_App_CaptchaRequiredException $e) {
             $this->_getSession()->addError($e->getMessage());
@@ -279,7 +279,7 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
             }
 
             $this->_getSession()->addSuccess(
-                $this->__('Total of %d items(s) were successfully deleted, Total of %d items(s) were successfully updated', $totalDeleted, $totalUpdated)
+                $this->__('Total of %d items(s) have been deleted; total of %d items(s) have been updated.', $totalDeleted, $totalUpdated)
             );
 
         } catch (Zend_Gdata_App_CaptchaRequiredException $e) {
@@ -304,7 +304,7 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
                 Mage::helper('core')->urlDecode($this->getRequest()->getParam('captcha_token')),
                 $this->getRequest()->getParam('user_confirm')
             );
-            $this->_getSession()->addSuccess($this->__('Captcha confirmed successfully'));
+            $this->_getSession()->addSuccess($this->__('Captcha has been confirmed.'));
 
         } catch (Zend_Gdata_App_CaptchaRequiredException $e) {
             $this->_getSession()->addError($this->__('Captcha confirmation error: %s', $e->getMessage()));
@@ -344,7 +344,7 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
     {
         $store = Mage::app()->getStore((int)$this->getRequest()->getParam('store', 0));
         if ((!$store) || 0 == $store->getId()) {
-            Mage::throwException($this->__('Unable to select a Store View'));
+            Mage::throwException($this->__('Unable to select a Store View.'));
         }
         return $store;
     }

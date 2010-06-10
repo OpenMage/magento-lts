@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,12 +61,15 @@ class Mage_SalesRule_Model_Mysql4_Report_Collection extends Mage_Sales_Model_Mys
 
         if (!$this->isTotals() && !$this->isSubTotals()) {
             $this->_selectedColumns = array(
-                'period'            => $this->_periodFormat,
+                'period'                  => $this->_periodFormat,
                 'coupon_code',
-                'coupon_uses'       => 'SUM(coupon_uses)',
-                'subtotal_amount'   => 'SUM(subtotal_amount)',
-                'discount_amount'   => 'SUM(discount_amount)',
-                'total_amount'      => 'SUM(total_amount)'
+                'coupon_uses'             => 'SUM(coupon_uses)',
+                'subtotal_amount'         => 'SUM(subtotal_amount)',
+                'discount_amount'         => 'SUM(discount_amount)',
+                'total_amount'            => 'SUM(total_amount)',
+                'subtotal_amount_actual'  => 'SUM(subtotal_amount_actual)',
+                'discount_amount_actual'  => 'SUM(discount_amount_actual)',
+                'total_amount_actual'     => 'SUM(total_amount_actual)',
             );
         }
 
@@ -89,15 +92,12 @@ class Mage_SalesRule_Model_Mysql4_Report_Collection extends Mage_Sales_Model_Mys
     protected  function _initSelect()
     {
         $this->getSelect()->from($this->getResource()->getMainTable() , $this->_getSelectedColumns());
-        if (!$this->isTotals() && !$this->isSubTotals()) {
+        if ($this->isSubTotals()) {
+            $this->getSelect()->group($this->_periodFormat);
+        } else if (!$this->isTotals()) {
             $this->getSelect()->group(array(
                 $this->_periodFormat,
                 'coupon_code'
-            ));
-        }
-        if ($this->isSubTotals()) {
-            $this->getSelect()->group(array(
-                $this->_periodFormat
             ));
         }
         return $this;

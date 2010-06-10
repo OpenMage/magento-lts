@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rss
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,6 +37,23 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
 
     protected $_rssFeeds = array();
 
+
+    /**
+     * Add Link elements to head
+     *
+     * @return Mage_Rss_Block_List
+     */
+    protected function _prepareLayout()
+    {
+        $head   = $this->getLayout()->getBlock('head');
+        $feeds  = $this->getRssMiscFeeds();
+        if ($head && !empty($feeds)) {
+            foreach ($feeds as $feed) {
+                $head->addItem('rss', $feed['url'], 'title="'.$feed['label'].'"');
+            }
+        }
+        return parent::_prepareLayout();
+    }
 
     /**
      * Retrieve rss feeds

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,9 +64,21 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
 
             $this->_setFieldset($attributes, $fieldset, array('gallery'));
 
+            if ($urlKey = $form->getElement('url_key')) {
+                $urlKey->setRenderer(
+                    $this->getLayout()->createBlock('adminhtml/catalog_form_renderer_attribute_urlkey')
+                );
+            }
+
             if ($tierPrice = $form->getElement('tier_price')) {
                 $tierPrice->setRenderer(
                     $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_price_tier')
+                );
+            }
+
+            if ($recurringProfile = $form->getElement('recurring_profile')) {
+                $recurringProfile->setRenderer(
+                    $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_price_recurring')
                 );
             }
 

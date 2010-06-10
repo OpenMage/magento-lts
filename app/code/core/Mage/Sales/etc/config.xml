@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <!--
 /**
  * Magento
@@ -19,16 +19,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Sales
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    Mage
+ * @package     Mage_Sales
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Sales>
-            <version>0.9.56</version>
+            <version>1.4.0.15</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -121,6 +121,7 @@
                 <tax_string><to_order>*</to_order></tax_string>
                 <discount_amount><to_order>*</to_order></discount_amount>
                 <shipping_amount><to_order>*</to_order></shipping_amount>
+                <shipping_incl_tax><to_order>*</to_order></shipping_incl_tax>
                 <shipping_tax_amount><to_order>*</to_order></shipping_tax_amount>
                 <custbalance_amount><to_order>*</to_order></custbalance_amount>
                 <grand_total><to_order>*</to_order></grand_total>
@@ -129,9 +130,15 @@
                 <base_tax_amount><to_order>*</to_order></base_tax_amount>
                 <base_discount_amount><to_order>*</to_order></base_discount_amount>
                 <base_shipping_amount><to_order>*</to_order></base_shipping_amount>
+                <base_shipping_incl_tax><to_order>*</to_order></base_shipping_incl_tax>
                 <base_shipping_tax_amount><to_order>*</to_order></base_shipping_tax_amount>
                 <base_custbalance_amount><to_order>*</to_order></base_custbalance_amount>
                 <base_grand_total><to_order>*</to_order></base_grand_total>
+
+                <hidden_tax_amount><to_order>*</to_order></hidden_tax_amount>
+                <base_hidden_tax_amount><to_order>*</to_order></base_hidden_tax_amount>
+                <shipping_hidden_tax_amount><to_order>*</to_order></shipping_hidden_tax_amount>
+                <base_shipping_hidden_tax_amount><to_order>*</to_order></base_shipping_hidden_tax_amount>
 
                 <prefix><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></prefix>
                 <firstname><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></firstname>
@@ -198,6 +205,11 @@
                 <discount_amount><to_order_item_discount>*</to_order_item_discount></discount_amount>
                 <base_discount_amount><to_order_item_discount>*</to_order_item_discount></base_discount_amount>
                 <base_cost><to_order_item>*</to_order_item></base_cost>
+                <store_id><to_order_item>*</to_order_item></store_id>
+                <hidden_tax_amount><to_order_item>*</to_order_item></hidden_tax_amount>
+                <base_hidden_tax_amount><to_order_item>*</to_order_item></base_hidden_tax_amount>
+                <is_recurring><to_order_item>*</to_order_item></is_recurring>
+                <is_nominal><to_order_item>*</to_order_item></is_nominal>
             </sales_convert_quote_item>
 
             <sales_convert_order>
@@ -236,12 +248,14 @@
                 <tax_string><to_quote_address_shipping>*</to_quote_address_shipping></tax_string>
                 <discount_amount><to_quote_address_shipping>*</to_quote_address_shipping></discount_amount>
                 <shipping_amount><to_quote_address_shipping>*</to_quote_address_shipping></shipping_amount>
+                <shipping_incl_tax><to_quote_address_shipping>*</to_quote_address_shipping></shipping_incl_tax>
                 <custbalance_amount><to_quote_address_shipping>*</to_quote_address_shipping></custbalance_amount>
 
                 <base_subtotal><to_quote_address_shipping>*</to_quote_address_shipping></base_subtotal>
                 <base_tax_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_tax_amount>
                 <base_discount_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_discount_amount>
                 <base_shipping_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_shipping_amount>
+                <base_shipping_incl_tax><to_quote_address_shipping>*</to_quote_address_shipping></base_shipping_incl_tax>
                 <base_custbalance_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_custbalance_amount>
 
                 <shipping_tax_amount><to_cm>*</to_cm></shipping_tax_amount>
@@ -358,11 +372,51 @@
                     <quote_payment><table>sales_flat_quote_payment</table></quote_payment>
                     <quote_address_shipping_rate><table>sales_flat_quote_shipping_rate</table></quote_address_shipping_rate>
 
-                    <order><table>sales_order</table></order>
-                    <order_tax><table>sales_order_tax</table></order_tax>
+                    <order><table>sales_flat_order</table></order>
+                    <order_grid><table>sales_flat_order_grid</table></order_grid>
                     <order_item><table>sales_flat_order_item</table></order_item>
+                    <order_address><table>sales_flat_order_address</table></order_address>
+                    <order_payment><table>sales_flat_order_payment</table></order_payment>
+                    <order_status_history><table>sales_flat_order_status_history</table></order_status_history>
+
+                    <invoice><table>sales_flat_invoice</table></invoice>
+                    <invoice_grid><table>sales_flat_invoice_grid</table></invoice_grid>
+                    <invoice_item><table>sales_flat_invoice_item</table></invoice_item>
+                    <invoice_comment><table>sales_flat_invoice_comment</table></invoice_comment>
+
+                    <shipment><table>sales_flat_shipment</table></shipment>
+                    <shipment_grid><table>sales_flat_shipment_grid</table></shipment_grid>
+                    <shipment_item><table>sales_flat_shipment_item</table></shipment_item>
+                    <shipment_comment><table>sales_flat_shipment_comment</table></shipment_comment>
+                    <shipment_track><table>sales_flat_shipment_track</table></shipment_track>
+
+                    <creditmemo><table>sales_flat_creditmemo</table></creditmemo>
+                    <creditmemo_grid><table>sales_flat_creditmemo_grid</table></creditmemo_grid>
+                    <creditmemo_item><table>sales_flat_creditmemo_item</table></creditmemo_item>
+                    <creditmemo_comment><table>sales_flat_creditmemo_comment</table></creditmemo_comment>
+
+                    <recurring_profile><table>sales_recurring_profile</table></recurring_profile>
+                    <recurring_profile_order><table>sales_recurring_profile_order</table></recurring_profile_order>
+
+                    <!-- /**
+                          * @depraceted since 1.4 order taxes moved to tax module
+                          */
+                    -->
+                    <order_tax><table>sales_order_tax</table></order_tax>
+
+                    <!-- /**
+                          * @depraceted since 1.4 unused table configurations definition
+                          */
+                    -->
                     <order_item_option><table>sales_flat_order_item_option</table></order_item_option>
+
+
+                    <!-- /**
+                          * @depraceted since 1.4 sales order no more EAV
+                          */
+                    -->
                     <order_entity><table>sales_order_entity</table></order_entity>
+
 
                     <order_aggregated_created><table>sales_order_aggregated_created</table></order_aggregated_created>
                     <order_aggregated_updated><table>sales_order_aggregated_updated</table></order_aggregated_updated>
@@ -377,6 +431,14 @@
                     <refunded_aggregated_order><table>sales_refunded_aggregated_order</table></refunded_aggregated_order>
 
                     <payment_transaction><table>sales_payment_transaction</table></payment_transaction>
+
+                    <bestsellers_aggregated_daily><table>sales_bestsellers_aggregated_daily</table></bestsellers_aggregated_daily>
+                    <bestsellers_aggregated_monthly><table>sales_bestsellers_aggregated_monthly</table></bestsellers_aggregated_monthly>
+                    <bestsellers_aggregated_yearly><table>sales_bestsellers_aggregated_yearly</table></bestsellers_aggregated_yearly>
+
+                    <billing_agreement><table>sales_billing_agreement</table></billing_agreement>
+                    <billing_agreement_order><table>sales_billing_agreement_order</table></billing_agreement_order>
+
                     <!--order></order>
 
                     <invoice></invoice>
@@ -506,13 +568,18 @@
         <sales>
             <quote>
                 <totals>
+                    <nominal>
+                        <class>sales/quote_address_total_nominal</class>
+                        <before>subtotal</before>
+                    </nominal>
                     <subtotal>
                         <class>sales/quote_address_total_subtotal</class>
+                        <after>nominal</after>
                         <before>grand_total</before>
                     </subtotal>
                     <shipping>
                         <class>sales/quote_address_total_shipping</class>
-                        <after>subtotal,freeshipping</after>
+                        <after>subtotal,freeshipping,tax_subtotal</after>
                         <before>grand_total</before>
                     </shipping>
                     <grand_total>
@@ -520,6 +587,24 @@
                         <after>subtotal</after>
                     </grand_total>
                 </totals>
+                <nominal_totals>
+                    <recurring_initial_fee>
+                        <class>sales/quote_address_total_nominal_recurring_initial</class>
+                        <sort_order>10</sort_order>
+                    </recurring_initial_fee>
+                    <recurring_trial_payment>
+                        <class>sales/quote_address_total_nominal_recurring_trial</class>
+                        <sort_order>50</sort_order>
+                    </recurring_trial_payment>
+                    <nominal_subtotal>
+                        <class>sales/quote_address_total_nominal_subtotal</class>
+                        <sort_order>250</sort_order>
+                    </nominal_subtotal>
+                    <nominal_shipping>
+                        <class>sales/quote_address_total_nominal_shipping</class>
+                        <sort_order>1250</sort_order>
+                    </nominal_shipping>
+                </nominal_totals>
                 <item>
                     <product_attributes>
                         <sku/>
@@ -538,6 +623,8 @@
                         <special_to_date/>
                         <special_price/>
                         <cost/>
+                        <is_recurring/><!-- for totals calculation, placing and processing order -->
+                        <recurring_profile/><!-- for placing order -->
                     </product_attributes>
                 </item>
             </quote>
@@ -551,6 +638,7 @@
                     <closed translate="label"><label>Closed</label></closed>
                     <canceled translate="label"><label>Canceled</label></canceled>
                     <fraud translate="label"><label>Suspected Fraud</label></fraud>
+                    <payment_review translate="label"><label>Payment Review</label></payment_review>
                 </statuses>
                 <states>
                     <new translate="label">
@@ -598,10 +686,17 @@
                         <label>On Hold</label>
                         <statuses>
                             <holded default="1"/>
-                            <fraud/>
                         </statuses>
                         <visible_on_front/>
                     </holded>
+                    <payment_review translate="label">
+                        <label>Payment Review</label>
+                        <statuses>
+                            <payment_review default="1"/>
+                            <fraud/>
+                        </statuses>
+                        <visible_on_front/>
+                    </payment_review>
                 </states>
             </order>
             <order_invoice>
@@ -736,6 +831,12 @@
                 <sales module="Mage_Sales">
                     <file>sales.xml</file>
                 </sales>
+                <sales_billing_agreement module="Mage_Sales">
+                    <file>sales/billing_agreement.xml</file>
+                </sales_billing_agreement>
+                <sales_recurring_profile module="Mage_Sales">
+                    <file>sales/recurring_profile.xml</file>
+                </sales_recurring_profile>
             </updates>
         </layout>
     </frontend>
@@ -797,6 +898,22 @@
                     </sales_quote>
                 </observers>
             </catalog_product_status_update>
+            <catalog_product_edit_form_render_recurring>
+                <observers>
+                    <payment>
+                        <class>sales/observer</class>
+                        <method>prepareProductEditFormRecurringProfile</method>
+                    </payment>
+                </observers>
+            </catalog_product_edit_form_render_recurring>
+            <payment_method_is_active>
+                <observers>
+                    <sales_billing_agreement>
+                        <class>sales/observer</class>
+                        <method>restrictAdminBillingAgreementUsage</method>
+                    </sales_billing_agreement>
+                </observers>
+            </payment_method_is_active>
         </events>
     </adminhtml>
 
@@ -890,6 +1007,9 @@
                 <put_order_id>1</put_order_id>
             </creditmemo>
         </sales_pdf>
+        <dashboard>
+            <use_aggregated_data>0</use_aggregated_data>
+        </dashboard>
     </default>
 
     <crontab>
@@ -915,6 +1035,10 @@
                 <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
                 <run><model>sales/observer::aggregateSalesReportRefundedData</model></run>
             </aggregate_sales_report_refunded_data>
+            <aggregate_sales_report_bestsellers_data>
+                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
+                <run><model>sales/observer::aggregateSalesReportBestsellersData</model></run>
+            </aggregate_sales_report_bestsellers_data>
         </jobs>
     </crontab>
 </config>

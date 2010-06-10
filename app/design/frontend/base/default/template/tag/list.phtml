@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -29,12 +29,12 @@
     <?php echo $this->getChildHtml('list_before')?>
     <?php if( $this->getCount() ): ?>
     <h3><?php echo $this->__('Other people marked this product with these tags:') ?></h3>
-    <ul class="product-tags">
-        <?php $_iterator = 0; ?>
-        <?php foreach( $this->getTags() as $_tag ): ?>
-            <li<?php if( 1 == ++$_iterator && $this->getCount() != 1 ): ?> class="first"<?php elseif($_iterator == $this->getCount()): ?> class="last"<?php endif; ?>><a href="<?php echo $_tag->getTaggedProductsUrl() ?>"><?php echo $this->htmlEscape($_tag->getName()) ?></a> (<?php echo $_tag->getPopularity() ?>)</li>
-        <?php endforeach; ?>
+    <ul id="<?php echo $this->getUniqueHtmlId('product-tags_'); ?>" class="product-tags">
+        <?php echo $this->renderTags('<li><a href="%1$s">%2$s</a> (%3$s)</li>') ?>
     </ul>
+    <script type="text/javascript">
+        decorateGeneric($("<?php echo $this->getUniqueHtmlId('product-tags_'); ?>").select('li'), ['first', 'last']);
+    </script>
     <?php endif; ?>
     <form id="addTagForm" action="<?php echo $this->getFormAction(); ?>" method="get">
         <div class="form-add">
@@ -42,7 +42,11 @@
             <div class="input-box">
                 <input type="text" class="input-text required-entry" name="productTagName" id="productTagName" />
             </div>
-            <button type="button" title="<?php echo $this->__('Add Tags') ?>" class="button" onclick="submitTagForm()"><span><span><?php echo $this->__('Add Tags') ?></span></span></button>
+            <button type="button" title="<?php echo $this->__('Add Tags') ?>" class="button" onclick="submitTagForm()">
+                <span>
+                    <span><?php echo $this->__('Add Tags') ?></span>
+                </span>
+            </button>
         </div>
     </form>
     <p class="note"><?php echo $this->__("Use spaces to separate tags. Use single quotes (') for phrases.") ?></p>

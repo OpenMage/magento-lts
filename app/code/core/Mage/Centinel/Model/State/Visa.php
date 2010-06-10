@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Centinel
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +42,7 @@ class Mage_Centinel_Model_State_Visa extends Mage_Centinel_Model_StateAbstract
         } elseif (!$this->getIsModeStrict() && $this->_isLookupSoftSuccessful()) {
             return true;
         } else {
-        return false;
+            return false;
         }
     }
 
@@ -53,7 +53,7 @@ class Mage_Centinel_Model_State_Visa extends Mage_Centinel_Model_StateAbstract
      */
     public function isAuthenticateAllowed()
     {
-        return $this->_isLookupStrictSuccessful();
+        return $this->_isLookupStrictSuccessful() && is_null($this->getAuthenticateEciFlag());
     }
 
     /**

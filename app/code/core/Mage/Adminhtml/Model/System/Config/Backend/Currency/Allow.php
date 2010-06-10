@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,12 +47,12 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Allow extends Mage_Adm
         $exceptions = array();
         foreach ($this->_getAllowedCurrencies() as $currencyCode) {
             if (!in_array($currencyCode, $this->_getInstalledCurrencies())) {
-                $exceptions[] = Mage::helper('adminhtml')->__('Selected allow currency "%s" is not available in installed currencies', Mage::app()->getLocale()->currency($currencyCode)->getName());
+                $exceptions[] = Mage::helper('adminhtml')->__('Selected allowed currency "%s" is not available in installed currencies.', Mage::app()->getLocale()->currency($currencyCode)->getName());
             }
         }
 
         if (!in_array($this->_getCurrencyDefault(), $this->_getAllowedCurrencies())) {
-            $exceptions[] = Mage::helper('adminhtml')->__('Default display currency "%s" is not available in allowed currencies', Mage::app()->getLocale()->currency($this->_getCurrencyDefault())->getName());
+            $exceptions[] = Mage::helper('adminhtml')->__('Default display currency "%s" is not available in allowed currencies.', Mage::app()->getLocale()->currency($this->_getCurrencyDefault())->getName());
         }
 
         if ($exceptions) {

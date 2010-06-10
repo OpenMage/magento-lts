@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,23 +42,30 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos
         $this->setUseAjax(true);
     }
 
+    /**
+     * Retrieve collection class
+     *
+     * @return string
+     */
+    protected function _getCollectionClass()
+    {
+        return 'sales/order_creditmemo_grid_collection';
+    }
+
+
     protected function _prepareCollection()
     {
-        //TODO: add full name logic
-        $collection = Mage::getResourceModel('sales/order_creditmemo_collection')
-            ->addAttributeToSelect('increment_id')
-            ->addAttributeToSelect('created_at')
-            ->addAttributeToSelect('order_currency_code')
-            ->addAttributeToSelect('store_currency_code')
-            ->addAttributeToSelect('base_currency_code')
-            ->addAttributeToSelect('state')
-            ->addAttributeToSelect('grand_total')
-            ->addAttributeToSelect('base_grand_total')
-            ->joinAttribute('billing_firstname', 'order_address/firstname', 'billing_address_id', null, 'left')
-            ->joinAttribute('billing_lastname', 'order_address/lastname', 'billing_address_id', null, 'left')
-            ->addExpressionAttributeToSelect('billing_name',
-                'CONCAT({{billing_firstname}}, " ", {{billing_lastname}})',
-                array('billing_firstname', 'billing_lastname'))
+        $collection = Mage::getResourceModel($this->_getCollectionClass())
+            ->addFieldToSelect('entity_id')
+            ->addFieldToSelect('created_at')
+            ->addFieldToSelect('increment_id')
+            ->addFieldToSelect('order_currency_code')
+            ->addFieldToSelect('store_currency_code')
+            ->addFieldToSelect('base_currency_code')
+            ->addFieldToSelect('state')
+            ->addFieldToSelect('grand_total')
+            ->addFieldToSelect('base_grand_total')
+            ->addFieldToSelect('billing_name')
             ->setOrderFilter($this->getOrder())
         ;
         $this->setCollection($collection);
@@ -73,15 +80,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos
             'index' => 'increment_id',
         ));
 
-        /*$this->addColumn('billing_firstname', array(
-            'header' => Mage::helper('sales')->__('Bill to First name'),
-            'index' => 'billing_firstname',
-        ));
-
-        $this->addColumn('billing_lastname', array(
-            'header' => Mage::helper('sales')->__('Bill to Last name'),
-            'index' => 'billing_lastname',
-        ));*/
         $this->addColumn('billing_name', array(
             'header' => Mage::helper('sales')->__('Bill to Name'),
             'index' => 'billing_name',

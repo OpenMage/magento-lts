@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,14 +47,19 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
 
     public function indexAction()
     {
+        $storeId = (int) $this->getRequest()->getParam('store');
+
         try {
             Mage::helper('cms/wysiwyg_images')->getCurrentPath();
         } catch (Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
-        $this->_initAction()
-             ->loadLayout('overlay_popup')
-             ->renderLayout();
+        $this->_initAction()->loadLayout('overlay_popup');
+        $block = $this->getLayout()->getBlock('wysiwyg_images.js');
+        if ($block) {
+            $block->setStoreId($storeId);
+        }
+        $this->renderLayout();
     }
 
     public function treeJsonAction()
@@ -145,9 +150,15 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
     public function onInsertAction()
     {
         $helper = Mage::helper('cms/wysiwyg_images');
+        $storeId = $this->getRequest()->getParam('store');
+
         $filename = $this->getRequest()->getParam('filename');
         $filename = $helper->idDecode($filename);
         $asIs = $this->getRequest()->getParam('as_is');
+        
+        Mage::helper('catalog')->setStoreId($storeId);
+        $helper->setStoreId($storeId);
+
         $image = $helper->getImageHtmlDeclaration($filename, $asIs);
         $this->getResponse()->setBody($image);
     }

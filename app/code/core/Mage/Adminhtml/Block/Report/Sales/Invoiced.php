@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Report_Sales_Invoiced extends Mage_Adminhtml_Block_Wi
     public function __construct()
     {
         $this->_controller = 'report_sales_invoiced';
-        $this->_headerText = Mage::helper('reports')->__('Total Invoiced VS Paid Report');
+        $this->_headerText = Mage::helper('reports')->__('Total Invoiced vs. Paid Report');
         parent::__construct();
         $this->setTemplate('report/grid/container.phtml');
         $this->_removeButton('add');

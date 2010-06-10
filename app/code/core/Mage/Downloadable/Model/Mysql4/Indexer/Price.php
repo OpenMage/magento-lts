@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,6 +42,7 @@ class Mage_Downloadable_Model_Mysql4_Indexer_Price
      */
     public function reindexAll()
     {
+        $this->useIdxTable(true);
         $this->_prepareFinalPriceData();
         $this->_applyCustomOption();
         $this->_applyDownloadableLink();
@@ -74,7 +75,10 @@ class Mage_Downloadable_Model_Mysql4_Indexer_Price
      */
     protected function _getDownloadableLinkPriceTable()
     {
-        return $this->getIdxTable($this->getMainTable() . '_downloadable');
+        if ($this->useIdxTable()) {
+            return $this->getTable('downloadable/product_price_indexer_idx');
+        }
+        return $this->getTable('downloadable/product_price_indexer_tmp');
     }
 
     /**
@@ -84,23 +88,7 @@ class Mage_Downloadable_Model_Mysql4_Indexer_Price
      */
     protected function _prepareDownloadableLinkPriceTable()
     {
-        $write = $this->_getWriteAdapter();
-        $table = $this->_getDownloadableLinkPriceTable();
-
-        $query = sprintf('DROP TABLE IF EXISTS %s', $write->quoteIdentifier($table));
-        $write->query($query);
-
-        $query = sprintf('CREATE TABLE %s ('
-            . ' `entity_id` INT(10) UNSIGNED NOT NULL,'
-            . ' `customer_group_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `website_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `min_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `max_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' PRIMARY KEY (`entity_id`,`customer_group_id`,`website_id`)'
-            . ') ENGINE=MYISAM DEFAULT CHARSET=utf8',
-            $write->quoteIdentifier($table));
-        $write->query($query);
-
+        $this->_getWriteAdapter()->delete($this->_getDownloadableLinkPriceTable());
         return $this;
     }
 
@@ -164,7 +152,12 @@ class Mage_Downloadable_Model_Mysql4_Indexer_Price
         $query = $select->crossUpdateFromSelect(array('i' => $this->_getDefaultFinalPriceTable()));
         $write->query($query);
 
-        $write->truncate($table);
+        if ($this->useIdxTable()) {
+            $write->truncate($table);
+        }
+        else {
+            $write->delete($table);
+        }
 
         return $this;
     }

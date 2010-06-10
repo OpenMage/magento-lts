@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -61,7 +61,7 @@
         <div id="order-history_form">
             <span class="field-row">
                 <label class="normal" for="shipment_comment_text"><?php echo Mage::helper('sales')->__('Shipment Comments') ?></label>
-                <textarea id="shipment_comment_text" name="shipment[comment_text]" rows="3" cols="5" style="height:6em; width:99%;"></textarea>
+                <textarea id="shipment_comment_text" name="shipment[comment_text]" rows="3" cols="5" style="height:6em; width:99%;"><?php echo $this->getShipment()->getCommentText(); ?></textarea>
             </span>
             <div class="clear"></div>
         </div>

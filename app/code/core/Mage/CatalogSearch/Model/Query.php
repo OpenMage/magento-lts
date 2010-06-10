@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -112,7 +112,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Load Query object only by query text (skip 'synonym for')
+     * Load Query object only by query text (skip 'synonym For')
      *
      * @param string $text
      * @return Mage_CatalogSearch_Model_Query

@@ -128,7 +128,7 @@ Calendar.getAbsolutePos = function(element) {
         if (element) {
             if (element.tagName.toUpperCase() == 'BODY') break;
             var p = Calendar.getStyle(element, 'position');
-            if (p !== 'static') break;
+            if ((p !== 'static') && (p !== 'relative')) break;
         }
     } while (element);
 
@@ -1898,8 +1898,8 @@ function CalendarDateObject() {
         dateObj = new this.parent.constructor(arguments[0]);
     } else {
         dateObj = new this.parent.constructor();
-        if (typeof(CalendarDateObject._LOCAL_TIMZEONE_OFFSET_SECONDS) != "undefined") {
-            dateObj.setTime(dateObj.getTime()+(CalendarDateObject._LOCAL_TIMZEONE_OFFSET_SECONDS - dateObj.getTimezoneOffset())*1000);
+        if (typeof(CalendarDateObject._SERVER_TIMZEONE_SECONDS) != "undefined") {
+            dateObj.setTime((CalendarDateObject._SERVER_TIMZEONE_SECONDS + dateObj.getTimezoneOffset()*60)*1000);
         }
     }
     return dateObj;

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controller_Action
@@ -65,7 +65,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         if ($id) {
             $model->load($id);
             if (! $model->getId()) {
-                Mage::getSingleton('adminhtml/session')->addError($this->__('This user no longer exists'));
+                Mage::getSingleton('adminhtml/session')->addError($this->__('This user no longer exists.'));
                 $this->_redirect('*/*/');
                 return;
             }
@@ -97,7 +97,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
             $id = $this->getRequest()->getParam('user_id');
             $model = Mage::getModel('admin/user')->load($id);
             if (!$model->getId() && $id) {
-                Mage::getSingleton('adminhtml/session')->addError($this->__('This User no longer exists'));
+                Mage::getSingleton('adminhtml/session')->addError($this->__('This user no longer exists.'));
                 $this->_redirect('*/*/');
                 return;
             }
@@ -140,7 +140,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                         $model->setRoleIds( $rs )->setRoleUserId( $model->getUserId() )->saveRelations();
                     }
                 }
-                Mage::getSingleton('adminhtml/session')->addSuccess($this->__('User was successfully saved'));
+                Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been saved.'));
                 Mage::getSingleton('adminhtml/session')->setUserData(false);
                 $this->_redirect('*/*/edit', array('user_id' => $model->getUserId()));
                 return;
@@ -160,7 +160,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
 
         if ($id = $this->getRequest()->getParam('user_id')) {
             if ( $currentUser->getId() == $id ) {
-                Mage::getSingleton('adminhtml/session')->addError($this->__('You cannot delete account of yourself'));
+                Mage::getSingleton('adminhtml/session')->addError($this->__('You cannot delete your own account.'));
                 $this->_redirect('*/*/edit', array('user_id' => $id));
                 return;
             }
@@ -168,7 +168,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 $model = Mage::getModel('admin/user');
                 $model->setId($id);
                 $model->delete();
-                Mage::getSingleton('adminhtml/session')->addSuccess($this->__('User was successfully deleted'));
+                Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
             }
@@ -178,7 +178,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 return;
             }
         }
-        Mage::getSingleton('adminhtml/session')->addError($this->__('Unable to find a user to delete'));
+        Mage::getSingleton('adminhtml/session')->addError($this->__('Unable to find a user to delete.'));
         $this->_redirect('*/*/');
     }
 

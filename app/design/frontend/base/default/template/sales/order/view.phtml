@@ -20,44 +20,44 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if ($this->helper('giftmessage/message')->getIsMessagesAvailable('items', $this->getOrder())): ?>
-<script type="text/javascript">
-//<![CDATA[
-function giftMessageToogle(giftMessageIdentifier)
-{
-    var link = $('order-item-gift-message-link-'+giftMessageIdentifier);
-    var container = $('order-item-gift-message-'+giftMessageIdentifier);
-    var row = $('order-item-row-'+giftMessageIdentifier);
-    if(link.expanded) {
-        link.expanded = false;
-        link.removeClassName('expanded');
-        if(container.hasClassName('last')) {
-            row.addClassName('last');
-        }
-        container.hide();
-    } else {
-        link.expanded = true;
-        link.addClassName('expanded');
-        if(container.hasClassName('last')) {
-            row.removeClassName('last');
-        }
-        container.show();
-    }
-
-    return false;
-}
-//]]>
-</script>
-<?php endif; ?>
-<?php  $_order = $this->getOrder() ?>
 <div class="order-items">
+    <?php if ($this->helper('giftmessage/message')->getIsMessagesAvailable('items', $this->getOrder())): ?>
+    <script type="text/javascript">
+    //<![CDATA[
+    function giftMessageToogle(giftMessageIdentifier)
+    {
+        var link = $('order-item-gift-message-link-'+giftMessageIdentifier);
+        var container = $('order-item-gift-message-'+giftMessageIdentifier);
+        var row = $('order-item-row-'+giftMessageIdentifier);
+        if(link.expanded) {
+            link.expanded = false;
+            link.removeClassName('expanded');
+            if(container.hasClassName('last')) {
+                row.addClassName('last');
+            }
+            container.hide();
+        } else {
+            link.expanded = true;
+            link.addClassName('expanded');
+            if(container.hasClassName('last')) {
+                row.removeClassName('last');
+            }
+            container.show();
+        }
+    
+        return false;
+    }
+    //]]>
+    </script>
+    <?php endif; ?>
+    <?php $_order = $this->getOrder() ?>
     <h2><?php echo $this->__('Items Ordered') ?>
         <?php if ($_order->getTracksCollection()->count()) : ?>
-            <span class="separator">|</span> <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_order) ?>','trackorder','top=50,left=50,width=800,height=600,resizable=yes,scrollbars=yes'); return false;" title="<?php echo $this->__('Track your order') ?>"><?php echo $this->__('Track your order') ?></a>
+            <span class="separator">|</span> <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_order) ?>','trackorder','top=50,left=50,width=800,height=600,resizable=yes,scrollbars=yes'); return false;" title="<?php echo $this->__('Track Your Order') ?>"><?php echo $this->__('Track Your Order') ?></a>
         <?php endif; ?>
     </h2>
 
@@ -65,7 +65,7 @@ function giftMessageToogle(giftMessageIdentifier)
 
     <?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('order', $_order) && $_order->getGiftMessageId()): ?>
     <div class="order-gift-message">
-        <h2><?php echo $this->__('Gift Message for this Order') ?></h2>
+        <h2><?php echo $this->__('Gift Message for This Order') ?></h2>
         <?php $_giftMessage=$this->helper('giftmessage/message')->getGiftMessageForEntity($_order); ?>
         <dl class="gift-message">
             <dt><strong><?php echo $this->__('From:') ?></strong> <?php echo $this->htmlEscape($_giftMessage->getSender()) ?></dt>

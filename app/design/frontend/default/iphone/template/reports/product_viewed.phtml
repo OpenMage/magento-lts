@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* @var $this Mage_Reports_Block_Product_Viewed */
@@ -33,7 +33,7 @@
     <div class="content">
         <ol id="recently-viewed-items">
         <?php foreach ($_products as $_item): ?>
-            <li><a href="<?php echo $this->getProductUrl($_item) ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a></li>
+            <li><a href="<?php echo $this->getProductUrl($_item) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_item, $_item->getName() , 'name') ?></a></li>
         <?php endforeach; ?>
         </ol>
     </div>

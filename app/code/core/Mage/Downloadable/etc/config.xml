@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Downloadable>
-            <version>0.1.16</version>
+            <version>1.4.0.1</version>
         </Mage_Downloadable>
     </modules>
     <global>
@@ -94,6 +94,12 @@
                     <link_purchased_item>
                         <table>downloadable_link_purchased_item</table>
                     </link_purchased_item>
+                    <product_price_indexer_idx>
+                        <table>catalog_product_index_price_downlod_idx</table>
+                    </product_price_indexer_idx>
+                    <product_price_indexer_tmp>
+                        <table>catalog_product_index_price_downlod_tmp</table>
+                    </product_price_indexer_tmp>
                 </entities>
             </downloadable_mysql4>
         </models>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleAnalytics
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,7 +56,11 @@ class Mage_GoogleAnalytics_Model_Observer
         $analyticsBlock = Mage::app()->getFrontController()->getAction()->getLayout()->getBlock('google_analytics');
         if ($quoteId && ($analyticsBlock instanceof Mage_Core_Block_Abstract)) {
             $quote = Mage::getModel('sales/quote')->load($quoteId);
-            $analyticsBlock->setQuote($quote);
+            if ($quoteId == $quote->getId()) {
+                $analyticsBlock->setQuote($quote);
+            } else {
+                $analyticsBlock->setQuote($quoteId);
+            }
         }
     }
 }

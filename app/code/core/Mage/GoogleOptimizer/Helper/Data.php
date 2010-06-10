@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleOptimizer
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -108,7 +108,7 @@ class Mage_GoogleOptimizer_Helper_Data extends Mage_Core_Helper_Abstract
                 $newAttributeName .= substr($attributeName, 0, (self::MAX_ATTRIBUTE_LENGTH_LIMIT - strlen('product__'.$product->getId())));
                 $newAttributeName .= '_'.$product->getId();
             }
-            $attributeHtml = '<script>utmx_section("'.$newAttributeName.'")</script>' . $attributeHtml . '</noscript>';
+            $attributeHtml = '<script type="text/javascript">utmx_section("'.$newAttributeName.'")</script>' . $attributeHtml . '</noscript>';
         }
         return $attributeHtml;
     }

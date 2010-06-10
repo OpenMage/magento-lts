@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,6 +29,15 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
 {
     const FREE_SHIPPING_ITEM = 1;
     const FREE_SHIPPING_ADDRESS = 2;
+
+    const COUPON_TYPE_NO_COUPON = 1;
+    const COUPON_TYPE_SPECIFIC  = 2;
+    const COUPON_TYPE_AUTO      = 3;
+
+    /**
+     * @var Mage_SalesRule_Model_Coupon_CodegeneratorInterface
+     */
+    protected static $_couponCodeGenerator;
 
     /**
      * Prefix of model events names
@@ -48,6 +57,27 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
 
     protected $_labels = array();
 
+    /**
+     * Rule's primary coupon
+     *
+     * @var Mage_SalesRule_Model_Coupon
+     */
+    protected $_primaryCoupon;
+
+    /**
+     * Rule's subordinate coupons
+     *
+     * @var array of Mage_SalesRule_Model_Coupon
+     */
+    protected $_coupons;
+
+    /**
+     * Coupon types cache for lazy getter
+     *
+     * @var array
+     */
+    protected $_couponTypes;
+
     protected function _construct()
     {
         parent::_construct();
@@ -56,37 +86,53 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
     }
 
     /**
-     * Check unique coupon code before saving and clear coupon related cache
+     * Set code generator instance for auto generated coupons
      *
-     * @return Mage_SalesRule_Model_Rule
+     * @return Mage_SalesRule_Model_Coupon_CodegeneratorInterface
      */
-    protected function _beforeSave()
+    public static function getCouponCodeGenerator()
     {
-        $coupon = $this->getCouponCode();
-        if($coupon) {
-            $this->getResource()->addUniqueField(array(
-                'field' => 'coupon_code',
-                'title' => Mage::helper('salesRule')->__('Coupon with the same code')
-            ));
-            Mage::app()->cleanCache('salesrule_coupon_'.md5($coupon));
-        } else {
-            $this->getResource()->resetUniqueField();
+        if (!self::$_couponCodeGenerator) {
+            return Mage::getSingleton('salesrule/coupon_codegenerator', array('length' => 16));
         }
-        return parent::_beforeSave();
+        return self::$_couponCodeGenerator;
     }
 
     /**
-     * Delete rule coupon code related cache
+     * Set code generator instance for auto generated coupons
      *
-     * @return Mage_SalesRule_Model_Rule
+     * @param Mage_SalesRule_Model_Coupon_CodegeneratorInterface
      */
-    protected function _beforeDelete()
+    public static function setCouponCodeGenerator(Mage_SalesRule_Model_Coupon_CodegeneratorInterface $codeGenerator)
     {
-        $coupon = $this->getCouponCode();
-        if ($coupon) {
-            Mage::app()->cleanCache('salesrule_coupon_'.$coupon);
+        self::$_couponCodeGenerator = $codeGenerator;
+    }
+
+    /**
+     * Retrieve rule's primary coupon
+     *
+     * @return Mage_SalesRule_Model_Coupon
+     */
+    public function getPrimaryCoupon()
+    {
+        if ($this->_primaryCoupon === null) {
+            $this->_primaryCoupon = Mage::getModel('salesrule/coupon');
+            $this->_primaryCoupon->loadPrimaryByRule($this->getId());
+            $this->_primaryCoupon->setRule($this)->setIsPrimary(true);
         }
-        return parent::_beforeDelete();
+        return $this->_primaryCoupon;
+    }
+
+    /**
+     * Processing object after load data
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _afterLoad()
+    {
+        $this->setCouponCode($this->getPrimaryCoupon()->getCode());
+        $this->setUsesPerCoupon($this->getPrimaryCoupon()->getUsageLimit());
+        return parent::_afterLoad();
     }
 
     public function getConditionsInstance()
@@ -160,7 +206,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
     }
 
     /**
-     * Save rula labels after rule save
+     * Save rule labels after rule save
      *
      * @return Mage_SalesRule_Model_Rule
      */
@@ -168,6 +214,17 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
     {
         if ($this->hasStoreLabels()) {
             $this->_getResource()->saveStoreLabels($this->getId(), $this->getStoreLabels());
+        }
+        $couponCode = trim($this->getCouponCode());
+        if ($couponCode && $this->getCouponType() == self::COUPON_TYPE_SPECIFIC) {
+            $this->getPrimaryCoupon()
+                ->setCode($couponCode)
+                ->setUsageLimit($this->getUsesPerCoupon() ? $this->getUsesPerCoupon() : null)
+                ->setUsagePerCustomer($this->getUsesPerCustomer() ? $this->getUsesPerCustomer() : null)
+                ->setExpirationDate($this->getToDate())
+                ->save();
+        } else {
+            $this->getPrimaryCoupon()->delete();
         }
         return parent::_afterSave();
     }
@@ -207,5 +264,92 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
             $this->setStoreLabels($labels);
         }
         return $this->_getData('store_labels');
+    }
+
+    /**
+     * Retrieve subordinate coupons
+     *
+     * @return array of Mage_SalesRule_Model_Coupon
+     */
+    public function getCoupons()
+    {
+        if ($this->_coupons === null) {
+            $collection = Mage::getResourceModel('salesrule/coupon_collection');
+            /** @var Mage_SalesRule_Model_Mysql4_Coupon_Collection */
+            $collection->addRuleToFilter($this);
+            $this->_coupons = $collection->getItems();
+        }
+        return $this->_coupons;
+    }
+
+    /**
+     * Retrieve coupon types
+     *
+     * @return array
+     */
+    public function getCouponTypes()
+    {
+        if ($this->_couponTypes === null) {
+            $this->_couponTypes = array(
+                Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON => Mage::helper('salesrule')->__('No Coupon'),
+                Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC  => Mage::helper('salesrule')->__('Specific Coupon'),
+            );
+            $transport = new Varien_Object(array('coupon_types' => $this->_couponTypes, 'is_coupon_type_auto_visible' => false));
+            Mage::dispatchEvent('salesrule_rule_get_coupon_types', array('transport' => $transport));
+            $this->_couponTypes = $transport->getCouponTypes();
+            if ($transport->getIsCouponTypeAutoVisible()) {
+                $this->_couponTypes[Mage_SalesRule_Model_Rule::COUPON_TYPE_AUTO] = Mage::helper('salesrule')->__('Auto');
+            }
+        }
+        return $this->_couponTypes;
+    }
+
+    /**
+     * Acquire coupon instance
+     *
+     * @param  bool Whether or not to save newly created coupon
+     * @param  int Number of attempts to save newly created coupon
+     * @return Mage_SalesRule_Model_Coupon|null
+     */
+    public function acquireCoupon($saveNewlyCreated = true, $saveAttemptCount = 10)
+    {
+        if ($this->getCouponType() == self::COUPON_TYPE_NO_COUPON) {
+            return null;
+        }
+        if ($this->getCouponType() == self::COUPON_TYPE_SPECIFIC) {
+            return $this->getPrimaryCoupon();
+        }
+        /** @var Mage_SalesRule_Model_Coupon $coupon */
+        $coupon = Mage::getModel('salesrule/coupon');
+        $coupon->setRule($this)->setIsPrimary(false);
+        $coupon->setUsageLimit($this->getUsesPerCoupon() ? $this->getUsesPerCoupon() : null)
+                ->setUsagePerCustomer($this->getUsesPerCustomer() ? $this->getUsesPerCustomer() : null)
+                ->setExpirationDate($this->getToDate());
+
+        $couponCode = self::getCouponCodeGenerator()->generateCode();
+        $coupon->setCode($couponCode);
+        $ok = false;
+        if (!$saveNewlyCreated) {
+            $ok = true;
+        } else if ($this->getId()) {
+            for ($attemptNum = 0; $attemptNum < $saveAttemptCount; $attemptNum++) {
+                try {
+                    $coupon->save();
+                } catch (Exception $e) {
+                    if ($e instanceof Mage_Core_Exception || $coupon->getId()) {
+                        throw $e;
+                    }
+                    $coupon->setCode($couponCode . self::getCouponCodeGenerator()->getDelimiter() . sprintf('%04u', rand(0, 9999)));
+                    continue;
+                }
+                $ok = true;
+                break;
+            }
+        }
+        if (!$ok) {
+            Mage::throwException(Mage::helper('salesrule')->__('Can\'t acquire coupon.'));
+        }
+
+        return $coupon;
     }
 }

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -90,7 +90,7 @@
     <div class="entry-edit-head"><h4><?php echo Mage::helper('sales')->__('Credit Memo Comments') ?></h4></div>
     <fieldset id="history_form">
     <label class="normal" for="creditmemo_comment_text"><?php echo Mage::helper('sales')->__('Credit Memo Comments') ?></label><br/>
-    <textarea id="creditmemo_comment_text" name="creditmemo[comment_text]" rows="3" cols="5" style="width:98%;"><?php echo $this->getCreditmemo()->getData('commentText'); ?></textarea>
+    <textarea id="creditmemo_comment_text" name="creditmemo[comment_text]" rows="3" cols="5" style="width:98%;"><?php echo $this->getCreditmemo()->getCommentText(); ?></textarea>
     </fieldset>
 </div>
 <div class="box-right entry-edit">

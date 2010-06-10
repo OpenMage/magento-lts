@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
         */
 
         $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setType('button')
-            ->setClass('save')->setLabel($this->__('Run Profile In Popup'))
+            ->setClass('save')->setLabel($this->__('Run Profile in Popup'))
             ->setOnClick('runProfile(true)')
             ->toHtml();
 

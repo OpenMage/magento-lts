@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,6 +44,9 @@ class Mage_Customer_Model_Entity_Address extends Mage_Eav_Model_Entity_Abstract
 
     protected function _afterSave(Varien_Object $address)
     {
+        if ($address->getIsCustomerSaveTransaction()) {
+            return $this;
+        }
         if ($address->getId() && ($address->getIsDefaultBilling() || $address->getIsDefaultShipping())) {
             $customer = Mage::getModel('customer/customer')
                 ->load($address->getCustomerId());

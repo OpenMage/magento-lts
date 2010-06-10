@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -62,7 +62,9 @@
             if (response.attribute && $(response.attribute)) {
                 $(response.attribute).setHasError(true, productForm);
                 Validation.ajaxError($(response.attribute), response.message);
-                $(response.attribute).focus();
+                if (!Prototype.Browser.IE){
+                    $(response.attribute).focus();
+                }
             }
             else if ($('messages')) {
                 $('messages').innerHTML = '<ul class="messages"><li class="error-msg"><ul><li>' + response.message + '</li></ul></li></ul>';

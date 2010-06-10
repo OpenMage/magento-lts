@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -63,6 +63,7 @@
                     <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
                     <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_price+$_weeeTaxAmount,true,false) ?></span>
                 </span>
+                <br />
                 <span class="price-including-tax">
                     <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
                     <span class="price" id="price-including-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPriceInclTax+$_weeeTaxAmount,true,false) ?></span>
@@ -72,6 +73,7 @@
                     <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
                     <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_price+$_weeeTaxAmount,true,false) ?></span>
                 </span>
+                <br />
                 <span class="price-including-tax">
                     <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
                     <span class="price" id="price-including-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPriceInclTax+$_weeeTaxAmount,true,false) ?></span>
@@ -89,6 +91,7 @@
                     <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
                     <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_price+$_weeeTaxAmount,true,false) ?></span>
                 </span>
+                <br />
                 <span class="price-including-tax">
                     <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
                     <span class="price" id="price-including-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPriceInclTax+$_weeeTaxAmount,true,false) ?></span>
@@ -123,6 +126,7 @@
                     <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
                     <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_price,true,false) ?></span>
                 </span>
+                <br />
                 <span class="price-including-tax">
                     <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
                     <span class="price" id="price-including-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPriceInclTax,true,false) ?></span>
@@ -182,10 +186,11 @@
                         <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
                         <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPrice+$_weeeTaxAmount,true,false) ?></span>
                     </span>
-                <span class="price-including-tax">
-                    <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
-                    <span class="price" id="price-including-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPriceInclTax+$_weeeTaxAmount,true,false) ?></span>
-                </span>
+                    <br />
+                    <span class="price-including-tax">
+                        <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
+                        <span class="price" id="price-including-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPriceInclTax+$_weeeTaxAmount,true,false) ?></span>
+                    </span>
                 </p>
             <?php else: ?>
             <p class="special-price">
@@ -256,6 +261,7 @@
                     <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
                     <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPrice,true,false) ?></span>
                 </span>
+                <br />
                 <?php foreach ($_weeeTaxAttributes as $_weeeTaxAttribute): ?>
                     <span class="weee">
                         <small>
@@ -282,6 +288,7 @@
                         <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
                         <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPrice,true,false) ?></span>
                     </span>
+                    <br />
                     <span class="price-including-tax">
                         <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
                         <span class="price" id="price-including-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPriceInclTax,true,false) ?></span>

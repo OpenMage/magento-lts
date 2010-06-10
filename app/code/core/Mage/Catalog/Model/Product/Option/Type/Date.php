@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -81,11 +81,11 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
         } elseif (!$isValid && $option->getIsRequire() && !$this->getProduct()->getSkipCheckRequiredOption()) {
             $this->setIsValid(false);
             if (!$dateValid) {
-                Mage::throwException(Mage::helper('catalog')->__('Please specify date required option(s)'));
+                Mage::throwException(Mage::helper('catalog')->__('Please specify date required option(s).'));
             } elseif (!$timeValid) {
-                Mage::throwException(Mage::helper('catalog')->__('Please specify time required option(s)'));
+                Mage::throwException(Mage::helper('catalog')->__('Please specify time required option(s).'));
             } else {
-                Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option(s)'));
+                Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option(s).'));
             }
         } else {
             $this->setUserValue(null);

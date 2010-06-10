@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rss
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +47,7 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         //store id is store view id
         $storeId = $this->_getStoreId();
         $tagModel = Mage::registry('tag_model');
-        $newurl = Mage::getUrl('rss/catalog/new');
+        $newurl = Mage::getUrl('rss/catalog/tag/tagName/' . $tagModel->getName());
         $title = Mage::helper('rss')->__('Products tagged with %s', $tagModel->getName());
         $lang = Mage::getStoreConfig('general/locale/code');
 

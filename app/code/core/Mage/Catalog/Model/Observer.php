@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -217,5 +217,18 @@ class Mage_Catalog_Model_Observer
             Mage::getResourceModel('catalog/category_flat')->synchronize($category);
         }
         return $this;
+    }
+
+    /**
+     * Checking whether the using static urls in WYSIWYG allowed event
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Catalog_Model_Observer
+     */
+    public function catalogCheckIsUsingStaticUrlsAllowed(Varien_Event_Observer $observer)
+    {
+        $storeId = $observer->getEvent()->getData('store_id');
+        $result  = $observer->getEvent()->getData('result');
+        $result->isAllowed = Mage::helper('catalog')->setStoreId($storeId)->isUsingStaticUrlsAllowed();
     }
 }

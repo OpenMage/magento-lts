@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -90,7 +90,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
 
             // entity type check
             if ($model->getEntityTypeId() != $this->_entityTypeId) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('You cannot edit this attribute'));
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('This attribute cannot be edited.'));
                 $this->_redirect('*/*/');
                 return;
             }
@@ -158,7 +158,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
 
                 // entity type check
                 if ($model->getEntityTypeId() != $this->_entityTypeId) {
-                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('You cannot update this attribute'));
+                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('This attribute cannot be updated.'));
                     Mage::getSingleton('adminhtml/session')->setAttributeData($data);
                     $this->_redirect('*/*/');
                     return;
@@ -216,7 +216,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
 
             try {
                 $model->save();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('Product attribute was successfully saved'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('The product attribute has been saved.'));
 
                 /**
                  * Clear translation cache because attribute labels are stored in translation
@@ -253,14 +253,14 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
             // entity type check
             $model->load($id);
             if ($model->getEntityTypeId() != $this->_entityTypeId) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('You cannot delete this attribute'));
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('This attribute cannot be deleted.'));
                 $this->_redirect('*/*/');
                 return;
             }
 
             try {
                 $model->delete();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('Product attribute was successfully deleted'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('The product attribute has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
             }
@@ -270,7 +270,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 return;
             }
         }
-        Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('Unable to find an attribute to delete'));
+        Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('Unable to find an attribute to delete.'));
         $this->_redirect('*/*/');
     }
 

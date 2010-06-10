@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,11 +57,12 @@ class Mage_Adminhtml_Block_Report_Sales_Sales_Grid extends Mage_Adminhtml_Block_
             'sortable'      => false,
             'period_type'   => $this->getPeriodType(),
             'renderer'      => 'adminhtml/report_sales_grid_column_renderer_date',
-            'totals_label'  => Mage::helper('adminhtml')->__('Total')
+            'totals_label'  => Mage::helper('sales')->__('Total'),
+            'html_decorators' => array('nobr'),
         ));
 
         $this->addColumn('orders_count', array(
-            'header'    => Mage::helper('sales')->__('Number of Orders'),
+            'header'    => Mage::helper('sales')->__('Orders'),
             'index'     => 'orders_count',
             'type'      => 'number',
             'total'     => 'sum',
@@ -69,102 +70,153 @@ class Mage_Adminhtml_Block_Report_Sales_Sales_Grid extends Mage_Adminhtml_Block_
         ));
 
         $this->addColumn('total_qty_ordered', array(
-            'header'    => Mage::helper('sales')->__('Items Ordered'),
+            'header'    => Mage::helper('sales')->__('Sales Items'),
             'index'     => 'total_qty_ordered',
             'type'      => 'number',
             'total'     => 'sum',
             'sortable'  => false
         ));
 
+        $this->addColumn('total_qty_invoiced', array(
+            'header'    => Mage::helper('sales')->__('Items'),
+            'index'     => 'total_qty_invoiced',
+            'type'      => 'number',
+            'total'     => 'sum',
+            'sortable'  => false,
+            'visibility_filter' => array('show_actual_columns')
+        ));
+
         if ($this->getFilterData()->getStoreIds()) {
             $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
         }
-        $currency_code = $this->getCurrentCurrencyCode();
+        $currencyCode = $this->getCurrentCurrencyCode();
 
-        $this->addColumn('base_profit_amount', array(
+        $this->addColumn('total_income_amount', array(
+            'header'        => Mage::helper('sales')->__('Sales Total'),
+            'type'          => 'currency',
+            'currency_code' => $currencyCode,
+            'index'         => 'total_income_amount',
+            'total'         => 'sum',
+            'sortable'      => false
+        ));
+
+        $this->addColumn('total_revenue_amount', array(
+            'header'        => Mage::helper('sales')->__('Revenue'),
+            'type'          => 'currency',
+            'currency_code' => $currencyCode,
+            'index'         => 'total_revenue_amount',
+            'total'         => 'sum',
+            'sortable'      => false,
+            'visibility_filter' => array('show_actual_columns')
+        ));
+
+        $this->addColumn('total_profit_amount', array(
             'header'        => Mage::helper('sales')->__('Profit'),
             'type'          => 'currency',
-            'currency_code' => $currency_code,
-            'index'         => 'base_profit_amount',
+            'currency_code' => $currencyCode,
+            'index'         => 'total_profit_amount',
             'total'         => 'sum',
-            'sortable'      => false
+            'sortable'      => false,
+            'visibility_filter' => array('show_actual_columns')
         ));
 
-        $this->addColumn('base_subtotal_amount', array(
-            'header'        => Mage::helper('sales')->__('Subtotal'),
-            'type'          => 'currency',
-            'currency_code' => $currency_code,
-            'index'         => 'base_subtotal_amount',
-            'total'         => 'sum',
-            'sortable'      => false
-        ));
-
-        $this->addColumn('base_tax_amount', array(
-            'header'        => Mage::helper('sales')->__('Tax'),
-            'type'          => 'currency',
-            'currency_code' => $currency_code,
-            'index'         => 'base_tax_amount',
-            'total'         => 'sum',
-            'sortable'      => false
-        ));
-
-        $this->addColumn('base_shipping_amount', array(
-            'header'        => Mage::helper('sales')->__('Shipping'),
-            'type'          => 'currency',
-            'currency_code' => $currency_code,
-            'index'         => 'base_shipping_amount',
-            'total'         => 'sum',
-            'sortable'      => false
-        ));
-
-        $this->addColumn('base_discount_amount', array(
-            'header'        => Mage::helper('sales')->__('Discounts'),
-            'type'          => 'currency',
-            'currency_code' => $currency_code,
-            'index'         => 'base_discount_amount',
-            'total'         => 'sum',
-            'sortable'      => false
-        ));
-
-        $this->addColumn('base_grand_total_amount', array(
-            'header'        => Mage::helper('sales')->__('Total'),
-            'type'          => 'currency',
-            'currency_code' => $currency_code,
-            'index'         => 'base_grand_total_amount',
-            'total'         => 'sum',
-            'sortable'      => false
-        ));
-
-        $this->addColumn('base_invoiced_amount', array(
+        $this->addColumn('total_invoiced_amount', array(
             'header'        => Mage::helper('sales')->__('Invoiced'),
             'type'          => 'currency',
-            'currency_code' => $currency_code,
-            'index'         => 'base_invoiced_amount',
+            'currency_code' => $currencyCode,
+            'index'         => 'total_invoiced_amount',
             'total'         => 'sum',
             'sortable'      => false
         ));
 
-        $this->addColumn('base_refunded_amount', array(
+        $this->addColumn('total_paid_amount', array(
+            'header'        => Mage::helper('sales')->__('Paid'),
+            'type'          => 'currency',
+            'currency_code' => $currencyCode,
+            'index'         => 'total_paid_amount',
+            'total'         => 'sum',
+            'sortable'      => false,
+            'visibility_filter' => array('show_actual_columns')
+        ));
+
+        $this->addColumn('total_refunded_amount', array(
             'header'        => Mage::helper('sales')->__('Refunded'),
             'type'          => 'currency',
-            'currency_code' => $currency_code,
-            'index'         => 'base_refunded_amount',
+            'currency_code' => $currencyCode,
+            'index'         => 'total_refunded_amount',
             'total'         => 'sum',
             'sortable'      => false
         ));
 
-        $this->addColumn('base_canceled_amount', array(
+        $this->addColumn('total_tax_amount', array(
+            'header'        => Mage::helper('sales')->__('Sales Tax'),
+            'type'          => 'currency',
+            'currency_code' => $currencyCode,
+            'index'         => 'total_tax_amount',
+            'total'         => 'sum',
+            'sortable'      => false
+        ));
+
+        $this->addColumn('total_tax_amount_actual', array(
+            'header'        => Mage::helper('sales')->__('Tax'),
+            'type'          => 'currency',
+            'currency_code' => $currencyCode,
+            'index'         => 'total_tax_amount_actual',
+            'total'         => 'sum',
+            'sortable'      => false,
+            'visibility_filter' => array('show_actual_columns')
+        ));
+
+        $this->addColumn('total_shipping_amount', array(
+            'header'        => Mage::helper('sales')->__('Sales Shipping'),
+            'type'          => 'currency',
+            'currency_code' => $currencyCode,
+            'index'         => 'total_shipping_amount',
+            'total'         => 'sum',
+            'sortable'      => false
+        ));
+
+        $this->addColumn('total_shipping_amount_actual', array(
+            'header'        => Mage::helper('sales')->__('Shipping'),
+            'type'          => 'currency',
+            'currency_code' => $currencyCode,
+            'index'         => 'total_shipping_amount_actual',
+            'total'         => 'sum',
+            'sortable'      => false,
+            'visibility_filter' => array('show_actual_columns')
+        ));
+
+        $this->addColumn('total_discount_amount', array(
+            'header'        => Mage::helper('sales')->__('Sales Discount'),
+            'type'          => 'currency',
+            'currency_code' => $currencyCode,
+            'index'         => 'total_discount_amount',
+            'total'         => 'sum',
+            'sortable'      => false
+        ));
+
+        $this->addColumn('total_discount_amount_actual', array(
+            'header'        => Mage::helper('sales')->__('Discount'),
+            'type'          => 'currency',
+            'currency_code' => $currencyCode,
+            'index'         => 'total_discount_amount_actual',
+            'total'         => 'sum',
+            'sortable'      => false,
+            'visibility_filter' => array('show_actual_columns')
+        ));
+
+        $this->addColumn('total_canceled_amount', array(
             'header'        => Mage::helper('sales')->__('Canceled'),
             'type'          => 'currency',
-            'currency_code' => $currency_code,
-            'index'         => 'base_canceled_amount',
+            'currency_code' => $currencyCode,
+            'index'         => 'total_canceled_amount',
             'total'         => 'sum',
             'sortable'      => false
         ));
 
 
-        $this->addExportType('*/*/exportSalesCsv', Mage::helper('reports')->__('CSV'));
-        $this->addExportType('*/*/exportSalesExcel', Mage::helper('reports')->__('Excel'));
+        $this->addExportType('*/*/exportSalesCsv', Mage::helper('adminhtml')->__('CSV'));
+        $this->addExportType('*/*/exportSalesExcel', Mage::helper('adminhtml')->__('Excel'));
 
         return parent::_prepareColumns();
     }

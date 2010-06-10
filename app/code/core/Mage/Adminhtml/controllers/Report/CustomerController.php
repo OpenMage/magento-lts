@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -91,8 +91,8 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
 
         $this->_initAction()
             ->_setActiveMenu('report/customer/orders')
-            ->_addBreadcrumb(Mage::helper('reports')->__('Customers by number of orders'),
-                Mage::helper('reports')->__('Customers by number of orders'))
+            ->_addBreadcrumb(Mage::helper('reports')->__('Customers by Number of Orders'),
+                Mage::helper('reports')->__('Customers by Number of Orders'))
             ->_addContent($this->getLayout()->createBlock('adminhtml/report_customer_orders'))
             ->renderLayout();
     }
@@ -125,12 +125,12 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
     {
         $this->_title($this->__('Reports'))
              ->_title($this->__('Customers'))
-             ->_title($this->__('Customers By Orders Total'));
+             ->_title($this->__('Customers by Orders Total'));
 
         $this->_initAction()
             ->_setActiveMenu('report/customer/totals')
-            ->_addBreadcrumb(Mage::helper('reports')->__('Customers by orders total'),
-                Mage::helper('reports')->__('Customers by orders total'))
+            ->_addBreadcrumb(Mage::helper('reports')->__('Customers by Orders Total'),
+                Mage::helper('reports')->__('Customers by Orders Total'))
             ->_addContent($this->getLayout()->createBlock('adminhtml/report_customer_totals'))
             ->renderLayout();
     }

@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -42,7 +42,7 @@
     </tabs>
     <sections>
         <!--<web_track translate="label" module="core">
-            <label>Web tracking</label>
+            <label>Web Tracking</label>
             <frontend_type>text</frontend_type>
             <sort_order>180</sort_order>
             <show_in_default>1</show_in_default>
@@ -89,7 +89,7 @@
                     </fields>
                 </datashare-->
                 <modules_disable_output translate="label">
-                    <label>Disable modules output</label>
+                    <label>Disable Modules Output</label>
                     <frontend_type>text</frontend_type>
                     <frontend_model>adminhtml/system_config_form_fieldset_modules_disableOutput</frontend_model>
                     <sort_order>2</sort_order>
@@ -110,7 +110,7 @@
             <show_in_store>1</show_in_store>
             <groups>
                 <ident_custom1 translate="label">
-                    <label>Custom email 1</label>
+                    <label>Custom Email 1</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>4</sort_order>
                     <show_in_default>1</show_in_default>
@@ -118,7 +118,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <email translate="label">
-                            <label>Sender email</label>
+                            <label>Sender Email</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <validate>validate-email</validate>
@@ -128,7 +128,7 @@
                             <show_in_store>1</show_in_store>
                         </email>
                         <name translate="label">
-                            <label>Sender name</label>
+                            <label>Sender Name</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_email_sender</backend_model>
                             <validate>validate-emailSender</validate>
@@ -140,7 +140,7 @@
                     </fields>
                 </ident_custom1>
                 <ident_custom2 translate="label">
-                    <label>Custom email 2</label>
+                    <label>Custom Email 2</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>5</sort_order>
                     <show_in_default>1</show_in_default>
@@ -148,7 +148,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <email translate="label">
-                            <label>Sender email</label>
+                            <label>Sender Email</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <validate>validate-email</validate>
@@ -158,7 +158,7 @@
                             <show_in_store>1</show_in_store>
                         </email>
                         <name translate="label">
-                            <label>Sender name</label>
+                            <label>Sender Name</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_email_sender</backend_model>
                             <validate>validate-emailSender</validate>
@@ -170,7 +170,7 @@
                     </fields>
                 </ident_custom2>
                 <ident_general translate="label">
-                    <label>General contact</label>
+                    <label>General Contact</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
@@ -178,7 +178,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <email translate="label">
-                            <label>Sender email</label>
+                            <label>Sender Email</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <validate>validate-email</validate>
@@ -188,7 +188,7 @@
                             <show_in_store>1</show_in_store>
                         </email>
                         <name translate="label">
-                            <label>Sender name</label>
+                            <label>Sender Name</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_email_sender</backend_model>
                             <validate>validate-emailSender</validate>
@@ -200,7 +200,7 @@
                     </fields>
                 </ident_general>
                 <ident_sales translate="label">
-                    <label>Sales representative</label>
+                    <label>Sales Representative</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>2</sort_order>
                     <show_in_default>1</show_in_default>
@@ -208,7 +208,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <email translate="label">
-                            <label>Sender email</label>
+                            <label>Sender Email</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <validate>validate-email</validate>
@@ -218,7 +218,7 @@
                             <show_in_store>1</show_in_store>
                         </email>
                         <name translate="label">
-                            <label>Sender name</label>
+                            <label>Sender Name</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_email_sender</backend_model>
                             <validate>validate-emailSender</validate>
@@ -230,7 +230,7 @@
                     </fields>
                 </ident_sales>
                 <ident_support translate="label">
-                    <label>Customer support</label>
+                    <label>Customer Support</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>3</sort_order>
                     <show_in_default>1</show_in_default>
@@ -238,7 +238,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <email translate="label">
-                            <label>Sender email</label>
+                            <label>Sender Email</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <validate>validate-email</validate>
@@ -248,7 +248,7 @@
                             <show_in_store>1</show_in_store>
                         </email>
                         <name translate="label">
-                            <label>Sender name</label>
+                            <label>Sender Name</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_email_sender</backend_model>
                             <validate>validate-emailSender</validate>
@@ -280,7 +280,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <name translate="label">
-                            <label>Current package name</label>
+                            <label>Current Package Name</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_design_package</backend_model>
                             <sort_order>1</sort_order>
@@ -397,7 +397,7 @@
                     <fields>
                         <pagination_frame translate="label comment">
                             <label>Pagination Frame</label>
-                            <comment>How many Links to display at once</comment>
+                            <comment>How many links to display at once.</comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>7</sort_order>
                             <show_in_default>1</show_in_default>
@@ -406,7 +406,7 @@
                         </pagination_frame>
                         <pagination_frame_skip translate="label comment">
                             <label>Pagination Frame Skip</label>
-                            <comment>If the Current Frame Position does not cover Utmost Pages, will render Link to Current Position plus/minus this Value</comment>
+                            <comment>If the current frame position does not cover utmost pages, will render link to current position plus/minus this value.</comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>8</sort_order>
                             <show_in_default>1</show_in_default>
@@ -415,7 +415,7 @@
                         </pagination_frame_skip>
                         <anchor_text_for_previous translate="label comment">
                             <label>Anchor Text for Previous</label>
-                            <comment>Alternative text for Previous link in pagination menu. If empty, default arrow image will used</comment>
+                            <comment>Alternative text for previous link in pagination menu. If empty, default arrow image will used.</comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>9</sort_order>
                             <show_in_default>1</show_in_default>
@@ -424,7 +424,7 @@
                         </anchor_text_for_previous>
                         <anchor_text_for_next translate="label comment">
                             <label>Anchor Text for Next</label>
-                            <comment>Alternative text for Next Link in pagination menu. If empty, default arrow image will used</comment>
+                            <comment>Alternative text for next link in pagination menu. If empty, default arrow image will used.</comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
@@ -459,7 +459,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Leave empty for access from any location</comment>
+                            <comment>Leave empty for access from any location.</comment>
                         </allow_ips>
                     </fields>
                 </restrict>
@@ -525,7 +525,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Translate cache should be disabled for both Frontend and Admin inline translations</comment>
+                            <comment>Translate cache should be disabled for both frontend and admin inline translations.</comment>
                         </active_admin>
                     </fields>
                 </translate_inline>
@@ -575,7 +575,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <merge_files translate="label">
-                            <label>Merge JavaScript Files (beta)</label>
+                            <label>Merge JavaScript Files</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>10</sort_order>
@@ -626,7 +626,7 @@
             <show_in_store>1</show_in_store>
             <groups>
                 <country translate="label">
-                    <label>Countries options</label>
+                    <label>Countries Options</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
@@ -634,7 +634,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <allow translate="label">
-                            <label>Allow countries</label>
+                            <label>Allow Countries</label>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <sort_order>2</sort_order>
@@ -644,7 +644,7 @@
                             <can_be_empty>1</can_be_empty>
                         </allow>
                         <default translate="label">
-                            <label>Default country</label>
+                            <label>Default Country</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <sort_order>1</sort_order>
@@ -655,7 +655,7 @@
                     </fields>
                 </country>
                 <locale translate="label">
-                    <label>Locale options</label>
+                    <label>Locale Options</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>8</sort_order>
                     <show_in_default>1</show_in_default>
@@ -756,7 +756,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <disable translate="label">
-                            <label>Disable email communications</label>
+                            <label>Disable Email Communications</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>10</sort_order>
@@ -771,7 +771,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>For Windows Server Only</comment>
+                            <comment>For Windows server only.</comment>
                         </host>
                         <port translate="label">
                             <label>Port (25)</label>
@@ -780,7 +780,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>For Windows Server Only</comment>
+                            <comment>For Windows server only.</comment>
                         </port>
                         <!--
                         <auth translate="label">
@@ -871,7 +871,7 @@
                     </fields>
                 </emails>
                 <startup translate="label">
-                    <label>Startup page</label>
+                    <label>Startup Page</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
@@ -879,7 +879,7 @@
                     <show_in_store>0</show_in_store>
                     <fields>
                         <page translate="label">
-                            <label>Startup page</label>
+                            <label>Startup Page</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_admin_page</source_model>
                             <sort_order>1</sort_order>
@@ -898,7 +898,7 @@
                     <show_in_store>0</show_in_store>
                     <fields>
                         <use_custom translate="label">
-                            <label>Use custom admin URL</label>
+                            <label>Use Custom Admin URL</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <backend_model>adminhtml/system_config_backend_admin_usecustom</backend_model>
@@ -908,14 +908,14 @@
                             <show_in_store>0</show_in_store>
                         </use_custom>
                         <custom translate="label comment">
-                            <label>Custom admin URL</label>
+                            <label>Custom Admin URL</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_admin_custom</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Please make sure that Base URL ends with '/' (slash), e.g. http://yourdomain/magento/</comment>
+                            <comment>Make sure that base URL ends with '/' (slash), e.g. http://yourdomain/magento/</comment>
                         </custom>
                     </fields>
                 </url>
@@ -948,7 +948,7 @@
                         </use_case_sensitive_login>
                         <session_cookie_lifetime translate="label comment">
                             <label>Session Lifetime (seconds)</label>
-                            <comment>Values less than 60 are ignored. Please note, that changes will apply after logout.</comment>
+                            <comment>Values less than 60 are ignored. Note that changes will apply after logout.</comment>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -1086,7 +1086,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Please make sure that Base URL ends with '/' (slash), e.g. http://yourdomain/magento/</comment>
+                            <comment>Make sure that base URL ends with '/' (slash), e.g. http://yourdomain/magento/</comment>
                         </base_url>
                         <base_link_url translate="label comment">
                             <label>Base Link URL</label>
@@ -1096,7 +1096,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Please make sure that Base URL ends with '/' (slash), e.g. http://yourdomain/magento/</comment>
+                            <comment>Make sure that base URL ends with '/' (slash), e.g. http://yourdomain/magento/</comment>
                         </base_link_url>
                         <base_skin_url translate="label">
                             <label>Base Skin URL</label>
@@ -1154,7 +1154,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <front translate="label">
-                            <label>Default web url</label>
+                            <label>Default Web URL</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
@@ -1162,7 +1162,7 @@
                             <show_in_store>1</show_in_store>
                         </front>
                         <no_route translate="label">
-                            <label>Default no-route url</label>
+                            <label>Default No-route URL</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
@@ -1180,7 +1180,7 @@
                     <show_in_store>1</show_in_store>
                 </polls>
                 <cookie translate="label">
-                    <label>Session Cookie management</label>
+                    <label>Session Cookie Management</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>50</sort_order>
                     <show_in_default>1</show_in_default>
@@ -1268,7 +1268,7 @@
                         </use_http_user_agent>
                         <use_frontend_sid translate="label comment">
                             <label>Use SID on Frontend</label>
-                            <comment>Allows Customers to stay logged in when switching between different Stores.</comment>
+                            <comment>Allows customers to stay logged in when switching between different stores.</comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>50</sort_order>
@@ -1287,7 +1287,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <cookies translate="label" module="cms">
-                            <label>Redirect to CMS-page if cookies are disabled</label>
+                            <label>Redirect to CMS-page if Cookies are Disabled</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>100</sort_order>
@@ -1296,7 +1296,7 @@
                             <show_in_store>1</show_in_store>
                         </cookies>
                         <javascript translate="label" module="cms">
-                            <label>Show notice if JavaScript is disabled</label>
+                            <label>Show Notice if JavaScript is Disabled</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>200</sort_order>

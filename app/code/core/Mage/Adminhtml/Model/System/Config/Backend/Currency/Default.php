@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,11 +45,11 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Default extends Mage_A
     protected function _afterSave()
     {
         if (!in_array($this->getValue(), $this->_getInstalledCurrencies())) {
-            Mage::throwException(Mage::helper('adminhtml')->__('Selected default display currency is not available in installed currencies'));
+            Mage::throwException(Mage::helper('adminhtml')->__('Selected default display currency is not available in installed currencies.'));
         }
 
         if (!in_array($this->getValue(), $this->_getAllowedCurrencies())) {
-            Mage::throwException(Mage::helper('adminhtml')->__('Selected default display currency is not available in allowed currencies'));
+            Mage::throwException(Mage::helper('adminhtml')->__('Selected default display currency is not available in allowed currencies.'));
         }
 
         return $this;

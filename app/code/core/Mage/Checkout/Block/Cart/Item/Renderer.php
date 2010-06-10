@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -339,5 +339,15 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         }
 
         return $result;
+    }
+
+    /**
+     * Check whether Product is visible in site
+     *
+     * @return bool
+     */
+    public function isProductVisible()
+    {
+        return $this->getProduct()->isVisibleInSiteVisibility();
     }
 }

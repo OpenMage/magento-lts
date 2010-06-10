@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,7 +66,6 @@ class Mage_Tag_Model_Mysql4_Tag_Relation extends Mage_Core_Model_Mysql4_Abstract
             if ($model->hasStoreId()) {
                 $select->where("{$this->getMainTable()}.store_id = ?", $model->getStoreId());
             }
-
             $data = $read->fetchRow($select);
             $model->setData( ( is_array($data) ) ? $data : array() );
         }
@@ -86,9 +85,7 @@ class Mage_Tag_Model_Mysql4_Tag_Relation extends Mage_Core_Model_Mysql4_Abstract
             ->from($this->getMainTable(), 'product_id')
             ->where("tag_id=?", $model->getTagId());
 
-        if (is_null($model->getCustomerId())) {
-            $select->where('customer_id IS NULL');
-        } else {
+        if (!is_null($model->getCustomerId())) {
             $select->where('customer_id=?', $model->getCustomerId());
         }
 
@@ -96,6 +93,22 @@ class Mage_Tag_Model_Mysql4_Tag_Relation extends Mage_Core_Model_Mysql4_Abstract
             $select->where('store_id = ?', $model->getStoreId());
         }
 
+        return $this->_getReadAdapter()->fetchCol($select);
+    }
+
+    /**
+     * Retrieve related to product tag ids
+     *
+     * @param Mage_Tag_Model_Tag_Relation $model
+     * @return array
+     */
+    public function getRelatedTagIds($model)
+    {
+        $productIds = (is_array($model->getProductId())) ? $model->getProductId() : array($model->getProductId());
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getMainTable(), 'tag_id')
+            ->where("product_id IN(?)", $productIds)
+            ->order('tag_id');
         return $this->_getReadAdapter()->fetchCol($select);
     }
 

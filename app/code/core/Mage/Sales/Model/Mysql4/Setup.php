@@ -20,13 +20,17 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
 {
+    /**
+     * List of entities converted from EAV to flat data structure
+     * @var $_flatEntityTables array
+     */
     protected $_flatEntityTables = array(
         'quote'             => 'sales_flat_quote',
         'quote_item'        => 'sales_flat_quote_item',
@@ -34,18 +38,57 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
         'quote_address_item'=> 'sales_flat_quote_address_item',
         'quote_address_rate'=> 'sales_flat_quote_shipping_rate',
         'quote_payment'     => 'sales_flat_quote_payment',
+        'order'             => 'sales_flat_order',
+        'order_payment'     => 'sales_flat_order_payment',
         'order_item'        => 'sales_flat_order_item',
+        'order_address'     => 'sales_flat_order_address',
+        'order_status_history' => 'sales_flat_order_status_history',
+        'invoice'           => 'sales_flat_invoice',
+        'invoice_item'      => 'sales_flat_invoice_item',
+        'invoice_comment'   => 'sales_flat_invoice_comment',
+        'creditmemo'        => 'sales_flat_creditmemo',
+        'creditmemo_item'   => 'sales_flat_creditmemo_item',
+        'creditmemo_comment'=> 'sales_flat_creditmemo_comment',
+        'shipment'          => 'sales_flat_shipment',
+        'shipment_item'     => 'sales_flat_shipment_item',
+        'shipment_track'    => 'sales_flat_shipment_track',
+        'shipment_comment'  => 'sales_flat_shipment_comment',
     );
 
+    /**
+     * List of entities used with separate grid table
+     * @var $_flatEntitiesGrid array
+     */
+    protected $_flatEntitiesGrid = array(
+        'order',
+        'invoice',
+        'shipment',
+        'creditmemo'
+    );
+
+    /**
+     * Check if table exist for flat entity
+     *
+     * @param string $table
+     * @return bool
+     */
     protected function _flatTableExist($table)
     {
         return $this->getConnection()->fetchOne("show tables like '{$this->getTable($table)}'");
     }
 
+    /**
+     * Add entity attribute. Overwrited for flat entities support
+     *
+     * @param int|string $entityTypeId
+     * @param string $code
+     * @param array $attr
+     */
     public function addAttribute($entityTypeId, $code, array $attr)
     {
         if (isset($this->_flatEntityTables[$entityTypeId]) && $this->_flatTableExist($this->_flatEntityTables[$entityTypeId])) {
             $this->_addFlatAttribute($this->_flatEntityTables[$entityTypeId], $code, $attr);
+            $this->_addGridAttribute($this->_flatEntityTables[$entityTypeId], $code, $attr, $entityTypeId);
         }
         else {
             parent::addAttribute($entityTypeId, $code, $attr);
@@ -53,15 +96,45 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
         return $this;
     }
 
+    /**
+     * Add attribute as separate column in the table
+     *
+     * @param string $table
+     * @param string $attribute
+     * @param array $attr
+     */
     protected function _addFlatAttribute($table, $attribute, $attr)
     {
         $tableInfo = $this->getConnection()->describeTable($this->getTable($table));
         if (isset($tableInfo[$attribute])) {
             return $this;
         }
+        $columnDefinition = $this->_getAttributeColumnDefinition($attribute, $attr);
+        $this->getConnection()->addColumn($this->getTable($table), $attribute, $columnDefinition);
+        return $this;
+    }
+
+    /**
+     * Add attribute to grid table if necessary
+     * @param string $table
+     * @param string $attribute
+     * @param array $attr
+     * @param string $entityTypeId
+     */
+    protected function _addGridAttribute($table, $attribute, $attr, $entityTypeId)
+    {
+        if (in_array($entityTypeId, $this->_flatEntitiesGrid) && !empty($attr['grid'])) {
+            $columnDefinition = $this->_getAttributeColumnDefinition($attribute, $attr);
+            $this->getConnection()->addColumn($this->getTable($table . '_grid'), $attribute, $columnDefinition);
+        }
+        return $this;
+    }
+
+    protected function _getAttributeColumnDefinition($code, $data)
+    {
         $columnDefinition = '';
-        $type   = isset($attr['type']) ? $attr['type'] : 'varchar';
-        $req    = isset($attr['required']) ? $attr['required'] : false;
+        $type   = isset($data['type']) ? $data['type'] : 'varchar';
+        $req    = isset($data['required']) ? $data['required'] : false;
 
         switch ($type) {
             case 'int':
@@ -84,11 +157,8 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
         if ($req) {
             $columnDefinition.= ' NOT NULL';
         }
-
-        $this->getConnection()->addColumn($this->getTable($table), $attribute, $columnDefinition);
-        return $this;
+        return $columnDefinition;
     }
-
 
 
     public function getDefaultEntities()

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,12 +62,18 @@ class Mage_Downloadable_Model_Observer
     public function saveDownloadableOrderItem($observer)
     {
         $orderItem = $observer->getEvent()->getItem();
+        $product = $orderItem->getProduct();
+        if ($product && $product->getTypeId() != Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE) {
+            return $this;
+        }
         if (Mage::getModel('downloadable/link_purchased')->load($orderItem->getId(), 'order_item_id')->getId()) {
             return $this;
         }
-        $product = Mage::getModel('catalog/product')
-            ->setStoreId($orderItem->getOrder()->getStoreId())
-            ->load($orderItem->getProductId());
+        if (!$product) {
+            $product = Mage::getModel('catalog/product')
+                ->setStoreId($orderItem->getOrder()->getStoreId())
+                ->load($orderItem->getProductId());
+        }
         if ($product->getTypeId() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE) {
             $links = $product->getTypeInstance(true)->getLinks($product);
             if ($linkIds = $orderItem->getProductOptionByCode('links')) {

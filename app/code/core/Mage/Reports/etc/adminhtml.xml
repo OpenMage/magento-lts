@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -35,33 +35,29 @@
                     <title>Sales</title>
                     <children>
                         <sales translate="title" module="reports">
-                            <title>Sales</title>
+                            <title>Orders</title>
                             <action>adminhtml/report_sales/sales</action>
                         </sales>
                         <tax translate="title" module="reports">
                             <title>Tax</title>
                             <action>adminhtml/report_sales/tax</action>
                         </tax>
+                        <invoiced translate="title" module="reports">
+                            <title>Invoiced</title>
+                            <action>adminhtml/report_sales/invoiced</action>
+                        </invoiced>
                         <shipping translate="title" module="reports">
                             <title>Shipping</title>
                             <action>adminhtml/report_sales/shipping</action>
                         </shipping>
-                        <invoiced translate="title" module="reports">
-                            <title>Total Invoiced</title>
-                            <action>adminhtml/report_sales/invoiced</action>
-                        </invoiced>
                         <refunded translate="title" module="reports">
-                            <title>Total Refunded</title>
+                            <title>Refunds</title>
                             <action>adminhtml/report_sales/refunded</action>
                         </refunded>
                          <coupons translate="title" module="reports">
                             <title>Coupons</title>
                             <action>adminhtml/report_sales/coupons</action>
                         </coupons>
-                        <refresh_statistics translate="title" module="reports">
-                            <title>Refresh Statistics</title>
-                            <action>adminhtml/report_sales/refreshstatistics</action>
-                        </refresh_statistics>
                     </children>
                 </salesroot>
                 <shopcart translate="title" module="reports">
@@ -84,10 +80,10 @@
                 <products translate="title" module="reports">
                     <title>Products</title>
                     <children>
-                        <ordered translate="title" module="reports">
+                        <bestsellers translate="title" module="reports">
                             <title>Bestsellers</title>
-                            <action>adminhtml/report_product/ordered</action>
-                        </ordered>
+                            <action>adminhtml/report_sales/bestsellers</action>
+                        </bestsellers>
                         <sold translate="title" module="reports">
                             <title>Products Ordered</title>
                             <action>adminhtml/report_product/sold</action>
@@ -177,6 +173,11 @@
                     <title>Order Totals</title>
                     <action>adminhtml/report/totals</action>
                 </totals>-->
+                <refresh_statistics translate="title" module="reports">
+                    <sort_order>65535</sort_order>
+                    <title>Refresh Statistics</title>
+                    <action>adminhtml/report_statistics</action>
+                </refresh_statistics>
             </children>
         </report>
     </menu>
@@ -284,6 +285,9 @@
                             <search translate="title">
                                 <title>Search Terms</title>
                             </search>
+                            <statistics translate="title">
+                                <title>Statistics</title>
+                            </statistics>
                         </children>
                     </report>
                     <system>

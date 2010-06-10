@@ -20,10 +20,13 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @deprecated after 1.4, moved to tax module
+ */
 class Mage_Sales_Model_Order_Tax extends Mage_Core_Model_Abstract
 {
     protected function _construct()

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -95,6 +95,61 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Prepare array($productId=>$qty) based on array($productId => array('qty'=>$qty, 'item'=>$stockItem))
+     *
+     * @param array $items
+     */
+    protected function _prepareProductQtys($items)
+    {
+        $qtys = array();
+        foreach ($items as $productId => $item) {
+            if (empty($item['item'])) {
+                $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId);
+            } else {
+                $stockItem = $item['item'];
+            }
+            if ($stockItem->getId() && Mage::helper('catalogInventory')->isQty($stockItem->getTypeId())) {
+                $qtys[$productId] = $item['qty'];
+            }
+        }
+        return $qtys;
+    }
+
+    /**
+     * Subtract product qtys from stock
+     *
+     * @param array $items
+     */
+    public function registerProductsSale($items)
+    {
+        $qtys = $this->_prepareProductQtys($items);
+        $item = Mage::getModel('cataloginventory/stock_item');
+        $this->_getResource()->beginTransaction();
+        $stockInfo = $this->_getResource()->getProductsStock($this, array_keys($qtys), true);
+        foreach ($stockInfo as $itemInfo) {
+            $item->setData($itemInfo);
+            if (!$item->checkQty($qtys[$item->getProductId()])) {
+                $this->_getResource()->commit();
+                Mage::throwException(Mage::helper('cataloginventory')->__('Not all products are available in the requested quantity'));
+            }
+        }
+        $this->_getResource()->correctItemsQty($this, $qtys, '-');
+        $this->_getResource()->commit();
+        return $this;
+    }
+
+    /**
+     *
+     * @param unknown_type $items
+     */
+    public function revertProductsSale($items)
+    {
+        $qtys = $this->_prepareProductQtys($items);
+        $this->_getResource()->correctItemsQty($this, $qtys, '+');
+        return $this;
+    }
+
+    /**
      * Subtract ordered qty for product
      *
      * @param   Varien_Object $item
@@ -115,7 +170,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
             }
         }
         else {
-            Mage::throwException(Mage::helper('cataloginventory')->__('Can not specify product identifier for order item'));
+            Mage::throwException(Mage::helper('cataloginventory')->__('Cannot specify product identifier for the order item.'));
         }
         return $this;
     }

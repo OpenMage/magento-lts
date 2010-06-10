@@ -20,13 +20,16 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Payment information import/export model
+ * PayPal payment information model
+ *
+ * Aware of all PayPal payment methods
  * Collects and provides access to PayPal-specific payment data
+ * Provides business logic information about payment flow
  */
 class Mage_Paypal_Model_Info
 {
@@ -48,6 +51,13 @@ class Mage_Paypal_Model_Info
     const CENTINEL_VPAS  = 'centinel_vpas_result';
     const CENTINEL_ECI   = 'centinel_eci_result';
 
+    const PAYMENT_STATUS = 'payment_status';
+    const PENDING_REASON = 'pending_reason';
+    const IS_FRAUD       = 'is_fraud_detected';
+    const PAYMENT_STATUS_GLOBAL = 'paypal_payment_status';
+    const PENDING_REASON_GLOBAL = 'paypal_pending_reason';
+    const IS_FRAUD_GLOBAL       = 'paypal_is_fraud_detected';
+
     /**
      * All payment information map
      *
@@ -67,6 +77,36 @@ class Mage_Paypal_Model_Info
         self::CENTINEL_VPAS  => self::CENTINEL_VPAS,
         self::CENTINEL_ECI   => self::CENTINEL_ECI,
     );
+
+    /**
+     * System information map
+     *
+     * @var array
+     */
+    protected $_systemMap = array(
+        self::PAYMENT_STATUS => self::PAYMENT_STATUS_GLOBAL,
+        self::PENDING_REASON => self::PENDING_REASON_GLOBAL,
+        self::IS_FRAUD       => self::IS_FRAUD_GLOBAL,
+    );
+
+    /**
+     * PayPal payment status possible values
+     *
+     * @var string
+     */
+    const PAYMENTSTATUS_NONE         = 'none';
+    const PAYMENTSTATUS_COMPLETED    = 'completed';
+    const PAYMENTSTATUS_DENIED       = 'denied';
+    const PAYMENTSTATUS_EXPIRED      = 'expired';
+    const PAYMENTSTATUS_FAILED       = 'failed';
+    const PAYMENTSTATUS_INPROGRESS   = 'in_progress';
+    const PAYMENTSTATUS_PENDING      = 'pending';
+    const PAYMENTSTATUS_REFUNDED     = 'refunded';
+    const PAYMENTSTATUS_REFUNDEDPART = 'partially_refunded';
+    const PAYMENTSTATUS_REVERSED     = 'reversed';
+    const PAYMENTSTATUS_UNREVERSED   = 'canceled_reversal';
+    const PAYMENTSTATUS_PROCESSED    = 'processed';
+    const PAYMENTSTATUS_VOIDED       = 'voided';
 
     /**
      * Map of payment information available to customer
@@ -128,7 +168,11 @@ class Mage_Paypal_Model_Info
      */
     public function importToPayment($from, Mage_Payment_Model_Info $payment)
     {
-        Varien_Object_Mapper::accumulateByMap($from, array($payment, 'setAdditionalInformation'), $this->_paymentMap);
+        $fullMap = array_merge($this->_paymentMap, $this->_systemMap);
+        if (is_object($from)) {
+            $from = array($from, 'getDataUsingMethod');
+        }
+        Varien_Object_Mapper::accumulateByMap($from, array($payment, 'setAdditionalInformation'), $fullMap);
     }
 
     /**
@@ -141,10 +185,181 @@ class Mage_Paypal_Model_Info
      */
     public function &exportFromPayment(Mage_Payment_Model_Info $payment, $to, array $map = null)
     {
+        $fullMap = array_merge($this->_paymentMap, $this->_systemMap);
         Varien_Object_Mapper::accumulateByMap(array($payment, 'getAdditionalInformation'), $to,
-            $map ? $map : array_flip($this->_paymentMap)
+            $map ? $map : array_flip($fullMap)
         );
         return $to;
+    }
+
+    /**
+     * Check whether the payment is in review state
+     *
+     * @param Mage_Payment_Model_Info $payment
+     * @return bool
+     */
+    public static function isPaymentReviewRequired(Mage_Payment_Model_Info $payment)
+    {
+        $paymentStatus = $payment->getAdditionalInformation(self::PAYMENT_STATUS_GLOBAL);
+        if (self::PAYMENTSTATUS_PENDING === $paymentStatus) {
+            $pendingReason = $payment->getAdditionalInformation(self::PENDING_REASON_GLOBAL);
+            return !in_array($pendingReason, array('authorization', 'order'));
+        }
+        return false;
+    }
+
+    /**
+     * Check whether fraud order review detected and can be reviewed
+     *
+     * @param Mage_Payment_Model_Info $payment
+     * @return bool
+     */
+    public static function isFraudReviewAllowed(Mage_Payment_Model_Info $payment)
+    {
+        return self::isPaymentReviewRequired($payment)
+            && 1 == $payment->getAdditionalInformation(self::IS_FRAUD_GLOBAL);
+    }
+
+    /**
+     * Check whether the payment is completed
+     *
+     * @param Mage_Payment_Model_Info $payment
+     * @return bool
+     */
+    public static function isPaymentCompleted(Mage_Payment_Model_Info $payment)
+    {
+        $paymentStatus = $payment->getAdditionalInformation(self::PAYMENT_STATUS_GLOBAL);
+        return self::PAYMENTSTATUS_COMPLETED === $paymentStatus;
+    }
+
+    /**
+     * Check whether the payment was processed successfully
+     *
+     * @param Mage_Payment_Model_Info $payment
+     * @return bool
+     */
+    public static function isPaymentSuccessful(Mage_Payment_Model_Info $payment)
+    {
+        $paymentStatus = $payment->getAdditionalInformation(self::PAYMENT_STATUS_GLOBAL);
+        if (in_array($paymentStatus, array(
+            self::PAYMENTSTATUS_COMPLETED, self::PAYMENTSTATUS_INPROGRESS, self::PAYMENTSTATUS_REFUNDED,
+            self::PAYMENTSTATUS_REFUNDEDPART, self::PAYMENTSTATUS_UNREVERSED, self::PAYMENTSTATUS_PROCESSED,
+        ))) {
+            return true;
+        }
+        $pendingReason = $payment->getAdditionalInformation(self::PENDING_REASON_GLOBAL);
+        return self::PAYMENTSTATUS_PENDING === $paymentStatus
+            && in_array($pendingReason, array('authorization', 'order'));
+    }
+
+    /**
+     * Check whether the payment was processed unsuccessfully or failed
+     *
+     * @param Mage_Payment_Model_Info $payment
+     * @return bool
+     */
+    public static function isPaymentFailed(Mage_Payment_Model_Info $payment)
+    {
+        $paymentStatus = $payment->getAdditionalInformation(self::PAYMENT_STATUS_GLOBAL);
+        return in_array($paymentStatus, array(
+            self::PAYMENTSTATUS_DENIED, self::PAYMENTSTATUS_EXPIRED, self::PAYMENTSTATUS_FAILED,
+            self::PAYMENTSTATUS_REVERSED, self::PAYMENTSTATUS_VOIDED,
+        ));
+    }
+
+    /**
+     * Explain pending payment reason code
+     *
+     * @param string $code
+     * @return string
+     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_html_IPNandPDTVariables
+     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_GetTransactionDetails
+     */
+    public static function explainPendingReason($code)
+    {
+        switch ($code) {
+            case 'address':
+                return Mage::helper('paypal')->__('Customer did not include a confirmed address.');
+            case 'authorization':
+            case 'order':
+                return Mage::helper('paypal')->__('The payment is authorized but not settled.');
+            case 'echeck':
+                return Mage::helper('paypal')->__('The payment eCheck is not yet cleared.');
+            case 'intl':
+                return Mage::helper('paypal')->__('Merchant holds a non-U.S. account and does not have a withdrawal mechanism.');
+            case 'multi-currency': // break is intentionally omitted
+            case 'multi_currency': // break is intentionally omitted
+            case 'multicurrency':
+                return Mage::helper('paypal')->__('The payment curency does not match any of the merchant\'s balances currency.');
+            case 'paymentreview':
+                return Mage::helper('paypal')->__('The payment is pending while it is being reviewed by PayPal for risk.');
+            case 'unilateral':
+                return Mage::helper('paypal')->__('The payment is pending because it was made to an email address that is not yet registered or confirmed.');
+            case 'verify':
+                return Mage::helper('paypal')->__('The merchant account is not yet verified.');
+            case 'upgrade':
+                return Mage::helper('paypal')->__('The payment was made via credit card. In order to receive funds merchant must upgrade account to Business or Premier status.');
+            case 'none': // break is intentionally omitted
+            case 'other': // break is intentionally omitted
+            default:
+                return Mage::helper('paypal')->__('Unknown reason. Please contact PayPal customer service.');
+        }
+    }
+
+    /**
+     * Explain the refund or chargeback reason code
+     *
+     * @param $code
+     * @return string
+     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_html_IPNandPDTVariables
+     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_GetTransactionDetails
+     */
+    public static function explainReasonCode($code)
+    {
+        switch ($code) {
+            case 'chargeback':
+                return Mage::helper('paypal')->__('Chargeback by customer.');
+            case 'guarantee':
+                return Mage::helper('paypal')->__('Customer triggered a money-back guarantee.');
+            case 'buyer-complaint':
+                return Mage::helper('paypal')->__('Customer complaint.');
+            case 'refund':
+                return Mage::helper('paypal')->__('Refund issued by merchant.');
+            case 'adjustment_reversal':
+                return Mage::helper('paypal')->__('Reversal of an adjustment.');
+            case 'chargeback_reimbursement':
+                return Mage::helper('paypal')->__('Reimbursement for a chargeback.');
+            case 'chargeback_settlement':
+                return Mage::helper('paypal')->__('Settlement of a chargeback.');
+            case 'none': // break is intentionally omitted
+            case 'other':
+            default:
+                return Mage::helper('paypal')->__('Unknown reason. Please contact PayPal customer service.');
+        }
+    }
+
+    /**
+     * Whether a reversal/refund can be disputed with PayPal
+     *
+     * @param string $code
+     * @return bool;
+     */
+    public static function isReversalDisputable($code)
+    {
+        switch ($code) {
+            case 'none':
+            case 'other':
+            case 'chargeback':
+            case 'buyer-complaint':
+            case 'adjustment_reversal':
+                return true;
+            case 'guarantee':
+            case 'refund':
+            case 'chargeback_reimbursement':
+            case 'chargeback_settlement':
+            default:
+                return false;
+        }
     }
 
     /**
@@ -205,7 +420,7 @@ class Mage_Paypal_Model_Info
             case 'paypal_fraud_filters':
                 return Mage::helper('paypal')->__('Triggered Fraud Filters');
             case 'paypal_correlation_id':
-                return Mage::helper('paypal')->__('Last Corellation ID');
+                return Mage::helper('paypal')->__('Last Correlation ID');
             case 'paypal_avs_code':
                 return Mage::helper('paypal')->__('Address Verification System Response');
             case 'paypal_cvv2_match':

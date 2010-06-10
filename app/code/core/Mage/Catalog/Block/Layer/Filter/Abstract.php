@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -76,7 +76,7 @@ abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_
     protected function _initFilter()
     {
         if (!$this->_filterModelName) {
-            Mage::throwException(Mage::helper('catalog')->__('Filter model name must be declared'));
+            Mage::throwException(Mage::helper('catalog')->__('Filter model name must be declared.'));
         }
         $this->_filter = Mage::getModel($this->_filterModelName)
             ->setLayer($this->getLayer());

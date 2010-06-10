@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Select extends Mage_Admin
      */
     public function render(Varien_Object $row)
     {
-        $html = '<select name="'.( $this->getColumn()->getName() ? $this->getColumn()->getName() : $this->getColumn()->getId() ).'" ' . $this->getColumn()->getValidateClass() . '">';
+        $html = '<select name="'.( $this->getColumn()->getName() ? $this->getColumn()->getName() : $this->getColumn()->getId() ).'" ' . $this->getColumn()->getValidateClass() . '>';
         $value = $row->getData($this->getColumn()->getIndex());
         foreach ($this->getColumn()->getOptions() as $val => $label){
             $selected = ( ($val == $value && (!is_null($value))) ? ' selected="selected"' : '' );

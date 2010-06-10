@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -166,7 +166,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute extends Mage_Core_Model_Mysql4_Abst
         $frontendLabel = $object->getFrontendLabel();
         if (is_array($frontendLabel)) {
             if (!isset($frontendLabel[0]) || is_null($frontendLabel[0]) || $frontendLabel[0]=='') {
-                Mage::throwException(Mage::helper('eav')->__('Frontend label is not defined'));
+                Mage::throwException(Mage::helper('eav')->__('Frontend label is not defined.'));
             }
             $object->setFrontendLabel($frontendLabel[0]);
             $object->setStoreLabels($frontendLabel);
@@ -357,7 +357,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute extends Mage_Core_Model_Mysql4_Abst
 
                     // Default value
                     if (!isset($values[0])) {
-                        Mage::throwException(Mage::helper('eav')->__('Default option value is not defined'));
+                        Mage::throwException(Mage::helper('eav')->__('Default option value is not defined.'));
                     }
 
                     $write->delete($optionValueTable, $write->quoteInto('option_id=?', $intOptionId));

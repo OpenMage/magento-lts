@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,12 +53,10 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
             $storeId = (int)$this->getParam('store');
         }
 
-        $collection = Mage::getResourceModel('reports/product_collection')
-            ->addOrderedQty()
-            ->addAttributeToSelect(array('name', 'price'))
-            ->setStoreId($storeId)
+        $collection = Mage::getResourceModel('sales/report_bestsellers_collection')
+            ->setModel('catalog/product')
             ->addStoreFilter($storeId)
-            ->setOrder('ordered_qty', 'desc');
+        ;
 
         $this->setCollection($collection);
 
@@ -69,27 +67,27 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
     {
 
         $this->addColumn('name', array(
-            'header'    =>Mage::helper('reports')->__('Product Name'),
+            'header'    => Mage::helper('sales')->__('Product Name'),
             'sortable'  => false,
-            'index'     =>'name'
+            'index'     => 'product_name'
         ));
 
         $this->addColumn('price', array(
-            'header'    =>Mage::helper('reports')->__('Price'),
-            'width'     =>'120px',
-            'type'      =>'currency',
+            'header'    => Mage::helper('sales')->__('Price'),
+            'width'     => '120px',
+            'type'      => 'currency',
             'currency_code' => (string) Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode(),
             'sortable'  => false,
-            'index'     =>'price'
+            'index'     => 'product_price'
         ));
 
         $this->addColumn('ordered_qty', array(
-            'header'    =>Mage::helper('reports')->__('Quantity Ordered'),
-            'width'     =>'120px',
-            'align'     =>'right',
+            'header'    => Mage::helper('sales')->__('Quantity Ordered'),
+            'width'     => '120px',
+            'align'     => 'right',
             'sortable'  => false,
-            'index'     =>'ordered_qty',
-            'type'      =>'number'
+            'index'     => 'qty_ordered',
+            'type'      => 'number'
         ));
 
         $this->setFilterVisibility(false);

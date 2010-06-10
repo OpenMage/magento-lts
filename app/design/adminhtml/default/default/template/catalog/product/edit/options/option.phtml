@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -113,14 +113,16 @@ var productOption = {
                 Event.observe(buttons[i], 'click', this.remove.bind(this));
             }
         }
-        <?php if ($this->isReadonly()):?>
         var inputs = $$('div.product-custom-options button', 'div.product-custom-options input', 'div.product-custom-options select', 'div.product-custom-options textarea');
+        <?php if ($this->isReadonly()):?>
         for (var i=0, l = inputs.length; i < l; i ++) {
             inputs[i].disabled = true;
             if (inputs[i].tagName.toLowerCase()=='button') {
                 inputs[i].addClassName('disabled');
             }
         }
+        <?php else: ?>
+            inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el));  } )
         <?php endif;?>
     }
 }

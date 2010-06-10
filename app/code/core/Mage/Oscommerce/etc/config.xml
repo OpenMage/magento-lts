@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Oscommerce
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Oscommerce>
+            <version>0.8.10</version>
+        </Mage_Oscommerce>
+    </modules>
+    <global>
+        <models>
+            <oscommerce>
+                <class>Mage_Oscommerce_Model</class>
+                <resourceModel>oscommerce_mysql4</resourceModel>
+            </oscommerce>
+            <oscommerce_mysql4>
+                <class>Mage_Oscommerce_Model_Mysql4</class>
+                <entities>
+                    <oscommerce>
+                        <table>oscommerce_import</table>
+                    </oscommerce>
+                    <oscommerce_type>
+                        <table>oscommerce_import_type</table>
+                    </oscommerce_type>
+                    <oscommerce_ref>
+                        <table>oscommerce_ref</table>
+                    </oscommerce_ref>
+                    <catalog_product_website>
+                        <table>catalog_product_website</table>
+                    </catalog_product_website>
+                    <catalog_category>
+                        <table>catalog_category_entity</table>
+                    </catalog_category>
+                    <oscommerce_order>
+                        <table>oscommerce_orders</table>
+                    </oscommerce_order>
+                    <oscommerce_order_products>
+                        <table>oscommerce_orders_products</table>
+                    </oscommerce_order_products>
+                    <oscommerce_order_total>
+                        <table>oscommerce_orders_total</table>
+                    </oscommerce_order_total>
+                    <oscommerce_order_history>
+                        <table>oscommerce_orders_status_history</table>
+                    </oscommerce_order_history>
+                </entities>
+            </oscommerce_mysql4>
+        </models>
+        <blocks>
+            <oscommerce>
+                <class>Mage_Oscommerce_Block</class>
+            </oscommerce>
+        </blocks>
+        <resources>
+            <oscommerce_setup>
+                <setup>
+                    <module>Mage_Oscommerce</module>
+                </setup>
+            </oscommerce_setup>
+            <oscommerce_foreign>
+                <connection>
+                    <type>pdo_mysql</type>
+                    <model>mysql4</model>
+                    <active>1</active>
+                </connection>
+            </oscommerce_foreign>
+        </resources>
+    </global>
+    <admin>
+        <routers>
+            <oscommerce>
+                <use>admin</use>
+                <args>
+                    <module>Mage_Oscommerce</module>
+                    <frontName>oscommerce</frontName>
+                </args>
+            </oscommerce>
+        </routers>
+    </admin>
+    <adminhtml>
+        <events>
+            <controller_action_predispatch_oscommerce>
+                <observers>
+                    <auth>
+                        <class>admin/observer</class>
+                        <method>actionPreDispatchAdmin</method>
+                    </auth>
+                </observers>
+            </controller_action_predispatch_oscommerce>
+        </events>
+        <!--translate>
+            <modules>
+                <Mage_Oscommerce>
+                    <files>
+                        <default>Mage_Oscommerce.csv</default>
+                    </files>
+                </Mage_Oscommerce>
+            </modules>
+        </translate-->
+    </adminhtml>
+    <frontend>
+        <routers>
+            <oscommerce>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Oscommerce</module>
+                    <frontName>oscommerce</frontName>
+                </args>
+            </oscommerce>
+        </routers>
+        <layout>
+            <updates>
+                <oscommerce>
+                    <file>oscommerce.xml</file>
+                </oscommerce>
+            </updates>
+        </layout>
+        <!--translate>
+            <modules>
+                <Mage_Oscommerce>
+                    <files>
+                        <default>Mage_Oscommerce.csv</default>
+                    </files>
+                </Mage_Oscommerce>
+            </modules>
+        </translate-->
+    </frontend>
+    <default>
+        <oscommerce>
+            <import>
+                <max_rows>10</max_rows>
+            </import>
+        </oscommerce>
+    </default>
+</config>

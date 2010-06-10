@@ -21,11 +21,26 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
+    <menu>
+        <report>
+            <children>
+                <salesroot translate="title">
+                    <children>
+                        <paypal_settlement_reports translate="title">
+                            <title>PayPal Settlement Reports</title>
+                            <action>adminhtml/paypal_reports</action>
+                            <sort_order>100</sort_order>
+                        </paypal_settlement_reports>
+                    </children>
+                </salesroot>
+            </children>
+        </report>
+    </menu>
     <acl>
         <resources>
             <admin>
@@ -41,6 +56,25 @@
                             </config>
                         </children>
                     </system>
+                    <report>
+                        <children>
+                            <salesroot>
+                                <children>
+                                    <paypal_settlement_reports translate="title">
+                                        <title>PayPal Settlement Reports</title>
+                                        <children>
+                                            <view translate="title">
+                                                <title>View</title>
+                                            </view>
+                                            <fetch translate="title">
+                                                <title>Fetch</title>
+                                            </fetch>
+                                        </children>
+                                    </paypal_settlement_reports>
+                                </children>
+                            </salesroot>
+                        </children>
+                    </report>
                 </children>
             </admin>
         </resources>

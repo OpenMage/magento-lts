@@ -20,11 +20,17 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Mage_GoogleCheckout_Model_Api_Xml_Calculate extends Mage_GoogleCheckout_Model_Api_Xml_Abstract
 {
-
+    /**
+     * Abstract method implementation
+     */
+    protected function _getApiUrl()
+    {
+        return null;
+    }
 }

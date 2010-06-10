@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +38,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
         if (!$quote->getHasError() && ($amount>=self::MAXIMUM_AVAILABLE_NUMBER)) {
             $quote->setHasError(true);
             $quote->addMessage(
-                $this->__('Some items have quantities exceeding allowed quantities. Please select a lower quantity to checkout.')
+                $this->__('Items maximum quantity or price do not allow checkout.')
             );
         }
         return $this;

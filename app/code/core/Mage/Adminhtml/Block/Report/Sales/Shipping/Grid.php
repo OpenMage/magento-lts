@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,24 +52,25 @@ class Mage_Adminhtml_Block_Report_Sales_Shipping_Grid extends Mage_Adminhtml_Blo
     protected function _prepareColumns()
     {
         $this->addColumn('period', array(
-            'header'            => Mage::helper('adminhtml')->__('Period'),
+            'header'            => Mage::helper('sales')->__('Period'),
             'index'             => 'period',
             'width'             => 100,
             'sortable'          => false,
             'period_type'       => $this->getPeriodType(),
             'renderer'          => 'adminhtml/report_sales_grid_column_renderer_date',
-            'totals_label'      => Mage::helper('adminhtml')->__('Total'),
-            'subtotals_label'   => Mage::helper('adminhtml')->__('SubTotal')
+            'totals_label'      => Mage::helper('sales')->__('Total'),
+            'subtotals_label'   => Mage::helper('sales')->__('Subtotal'),
+            'html_decorators' => array('nobr'),
         ));
 
         $this->addColumn('shipping_description', array(
-            'header'    => Mage::helper('adminhtml')->__('Carrier/Method'),
+            'header'    => Mage::helper('sales')->__('Carrier/Method'),
             'index'     => 'shipping_description',
             'sortable'  => false
         ));
 
         $this->addColumn('orders_count', array(
-            'header'    => Mage::helper('adminhtml')->__('Number of Orders'),
+            'header'    => Mage::helper('sales')->__('Number of Orders'),
             'index'     => 'orders_count',
             'total'     => 'sum',
             'type'      => 'number',
@@ -82,10 +83,19 @@ class Mage_Adminhtml_Block_Report_Sales_Shipping_Grid extends Mage_Adminhtml_Blo
         }
 
         $this->addColumn('total_shipping', array(
-            'header'        => Mage::helper('adminhtml')->__('Total Shipping'),
+            'header'        => Mage::helper('sales')->__('Total Sales Shipping'),
             'type'          => 'currency',
             'currency_code' => $this->getCurrentCurrencyCode(),
             'index'         => 'total_shipping',
+            'total'         => 'sum',
+            'sortable'      => false
+        ));
+
+        $this->addColumn('total_shipping_actual', array(
+            'header'        => Mage::helper('sales')->__('Total Shipping'),
+            'type'          => 'currency',
+            'currency_code' => $this->getCurrentCurrencyCode(),
+            'index'         => 'total_shipping_actual',
             'total'         => 'sum',
             'sortable'      => false
         ));

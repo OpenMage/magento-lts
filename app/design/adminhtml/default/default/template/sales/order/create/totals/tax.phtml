@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -35,7 +35,7 @@
                 <?php $isFirst = 1; ?>
 
                 <?php foreach ($rates as $rate): ?>
-                <tr class="tax-details-<?php echo $taxIter; ?> tax-details<?php if ($isTop): echo ' tax-details-first'; endif; ?>" style="display:none;">
+                <tr class="summary-details-<?php echo $taxIter; ?> summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>" style="display:none;">
                     <td class="a-right" style="<?php echo $this->getTotal()->getStyle() ?>" colspan="<?php echo $this->getColspan(); ?>">
                         <?php echo $rate['title']; ?>
                         <?php if ($rate['percent']): ?>
@@ -54,11 +54,11 @@
                 <?php endforeach; ?>
             <?php endforeach; ?>
 <?php endif;?>
-<?php $class="{$this->getTotal()->getCode()} " . ($this->helper('tax')->displayFullSummary() ? 'tax-total' : ''); ?>
-<tr<?php if ($this->helper('tax')->displayFullSummary()): ?> onclick="expandDetails(this, '.tax-details-<?php echo $taxIter;?>')"<?php endif; ?> class="<?php echo $class;?>">
+<?php $class="{$this->getTotal()->getCode()} " . ($this->helper('tax')->displayFullSummary() ? 'summary-total' : ''); ?>
+<tr<?php if ($this->helper('tax')->displayFullSummary()): ?> onclick="expandDetails(this, '.summary-details-<?php echo $taxIter;?>')"<?php endif; ?> class="<?php echo $class;?>">
     <td style="<?php echo $this->getTotal()->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
         <?php if ($this->helper('tax')->displayFullSummary()): ?>
-            <div class="tax-collapse"><?php echo $this->getTotal()->getTitle() ?></div>
+            <div class="summary-collapse"><?php echo $this->getTotal()->getTitle() ?></div>
         <?php else: ?>
             <?php echo $this->getTotal()->getTitle() ?>
         <?php endif;?>

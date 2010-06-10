@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -116,7 +116,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
                 $model = Mage::registry('tagModel');
                 $model->deactivate();
                 $tag = Mage::getModel('tag/tag')->load($tagId)->aggregate();
-                Mage::getSingleton('tag/session')->addSuccess(Mage::helper('tag')->__('Your tag was successfully deleted'));
+                Mage::getSingleton('tag/session')->addSuccess(Mage::helper('tag')->__('The tag has been deleted.'));
                 $this->getResponse()->setRedirect(Mage::getUrl('*/*/', array(
                     self::PARAM_NAME_URL_ENCODED => Mage::helper('core')->urlEncode(Mage::getUrl('customer/account/'))
                 )));

@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Paypal>
-            <version>0.7.4</version>
+            <version>1.4.0.1</version>
         </Mage_Paypal>
     </modules>
     <global>
@@ -41,6 +41,8 @@
                 <class>Mage_Paypal_Model_Mysql4</class>
                 <entities>
                     <api_debug><table>paypal_api_debug</table></api_debug>
+                    <settlement_report><table>paypal_settlement_report</table></settlement_report>
+                    <settlement_report_row><table>paypal_settlement_report_row</table></settlement_report_row>
                 </entities>
             </paypal_mysql4>
         </models>
@@ -66,13 +68,23 @@
         <payment>
             <cc>
                 <types>
-                    <SS translate="name">
-                        <code>SS</code>
-                        <name>Maestro/Solo</name>
-                        <order>40</order>
-                    </SS>
+                    <SM translate="name">
+                        <code>SM</code>
+                        <name>Switch/Maestro</name>
+                        <order>60</order>
+                    </SM>
+                    <SO translate="name">
+                        <code>SO</code>
+                        <name>Solo</name>
+                        <order>61</order>
+                    </SO>
                 </types>
             </cc>
+        </payment>
+        <payment>
+            <groups>
+                <paypal>PayPal</paypal>
+            </groups>
         </payment>
     </global>
     <frontend>
@@ -105,6 +117,9 @@
                 </paypal>
             </updates>
         </layout>
+        <secure_url>
+            <paypal_express_callbackshippingoptions>paypal/express/callbackshippingoptions</paypal_express_callbackshippingoptions>
+        </secure_url>
     </frontend>
     <adminhtml>
         <translate>
@@ -119,42 +134,105 @@
     </adminhtml>
     <default>
         <paypal>
+            <style>
+                <logo>nowAccepting_150x60</logo>
+            </style>
             <wpp>
-                <business_account backend_model="adminhtml/system_config_backend_encrypted"/>
                 <api_password backend_model="adminhtml/system_config_backend_encrypted"/>
                 <api_signature backend_model="adminhtml/system_config_backend_encrypted"/>
                 <api_username backend_model="adminhtml/system_config_backend_encrypted"/>
                 <button_flavor>dynamic</button_flavor>
-                <button_type>ec-shortcut</button_type>
             </wpp>
-            <wps>
-                <business_account backend_model="adminhtml/system_config_backend_encrypted"/>
-            </wps>
+            <wpuk>
+                <user backend_model="adminhtml/system_config_backend_encrypted"/>
+                <pwd backend_model="adminhtml/system_config_backend_encrypted"/>
+            </wpuk>
+            <fetch_reports>
+                <ftp_login backend_model="adminhtml/system_config_backend_encrypted"/>
+                <ftp_password backend_model="adminhtml/system_config_backend_encrypted"/>
+                <schedule>1</schedule>
+                <time>00,00,00</time>
+            </fetch_reports>
         </paypal>
         <payment>
-            <paypal_express translate="title">
+            <paypal_express>
                 <model>paypal/express</model>
-                <title>PayPal</title>
-                <payment_action>Sale</payment_action>
-                <allowspecific>0</allowspecific>
-                <solution_type>Sole</solution_type>
+                <title>PayPal Express Checkout</title>
+                <payment_action>Authorization</payment_action>
+                <solution_type>Mark</solution_type>
                 <line_items_enabled>1</line_items_enabled>
+                <visible_on_cart>1</visible_on_cart>
+                <visible_on_product>1</visible_on_product>
+                <allow_ba_signup>never</allow_ba_signup>
+                <group>paypal</group>
             </paypal_express>
-            <paypal_direct translate="title">
-                <payment_action>Sale</payment_action>
+            <paypal_direct>
                 <model>paypal/direct</model>
-                <title>Debit or Credit Card</title>
-                <cctypes>AE,VI,MC,DI</cctypes>
-                <allowspecific>0</allowspecific>
-                <line_items_enabled>1</line_items_enabled>
+                <title>PayPal Direct Payment</title>
+                <payment_action>Authorization</payment_action>
+                <cctypes>VI,MC</cctypes>
+                <useccv>1</useccv>
+                <group>paypal</group>
             </paypal_direct>
-            <paypal_standard translate="title">
+            <paypal_standard>
                 <model>paypal/standard</model>
-                <title>PayPal</title>
-                <allowspecific>0</allowspecific>
+                <title>PayPal Website Payments Standard</title>
                 <payment_action>Sale</payment_action>
                 <line_items_enabled>1</line_items_enabled>
+                <group>paypal</group>
             </paypal_standard>
+            <paypaluk_express>
+                <title>PayPal Express Checkout Payflow Edition</title>
+                <payment_action>Authorization</payment_action>
+                <line_items_enabled>1</line_items_enabled>
+                <visible_on_cart>1</visible_on_cart>
+                <visible_on_product>1</visible_on_product>
+                <group>paypal</group>
+            </paypaluk_express>
+            <paypaluk_direct>
+                <title>PayPal Direct Payment Payflow Edition</title>
+                <payment_action>Authorization</payment_action>
+                <cctypes>VI,MC</cctypes>
+                <useccv>1</useccv>
+                <group>paypal</group>
+            </paypaluk_direct>
+            <verisign>
+                <model>paypal/payflowpro</model>
+                <title>Payflow Pro</title>
+                <payment_action>Authorization</payment_action>
+                <cctypes>AE,VI</cctypes>
+                <useccv>1</useccv>
+                <tender>C</tender>
+                <verbosity>MEDIUM</verbosity>
+                <user backend_model="adminhtml/system_config_backend_encrypted"/>
+                <pwd backend_model="adminhtml/system_config_backend_encrypted"/>
+                <group>paypal</group>
+            </verisign>
+            <paypal_billing_agreement>
+                <active>1</active>
+                <allow_billing_agreement_wizard>1</allow_billing_agreement_wizard>
+                <model>paypal/method_agreement</model>
+                <title>PayPal Billing Agreement</title>
+                <group>paypal</group>
+            </paypal_billing_agreement>
         </payment>
     </default>
+    <crontab>
+        <jobs>
+            <paypal_fetch_settlement_reports>
+                <run><model>paypal/observer::fetchReports</model></run>
+            </paypal_fetch_settlement_reports>
+        </jobs>
+    </crontab>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Mage_Paypal before="Mage_Adminhtml">Mage_Paypal_Adminhtml</Mage_Paypal>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
 </config>

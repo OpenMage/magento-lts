@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_modern
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -30,6 +30,7 @@
         <reference name="footer_links">
             <action method="addLink" translate="label title" module="rss" ifconfig="rss/config/active"><label>RSS</label><url>rss</url><title>RSS</title><prepare>true</prepare><urlParams/><position/><li/><a>class="link-rss"</a></action>
         </reference>
+        <block type="rss/list" name="head_rss" ifconfig="rss/config/active" />
     </default>
 <!--
 Default layout, loads most of the pages

@@ -19,10 +19,10 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
- 
+
 /* IE 6 only */
 * html .validation-advice { height:13px; }
 * html .error-msg,
@@ -44,9 +44,6 @@
 #nav li,
 #nav li a { zoom:1; }
 #nav li { vertical-align:top; }
-/* Show Menu */
-#nav li.over ul.shown-sub { left:0; }
-#nav li.over li ul.shown-sub { left:100px; }
 /********** < Navigation styles */
 
 select { margin-bottom:1px; }
@@ -69,6 +66,8 @@ table { face-color:expression(runtimeStyle.scrollbarFaceColor = '#fff', cellSpac
 .product-view .box-tags .product-tags li,
 .footer li { padding:0 4px 0 7px; }
 
+.product-options dd .time-picker select { margin:0; padding:0; }
+
 /* Clearer */
 .clearer { display:block; clear:both; font-size:0; line-height:0; height:0; overflow:hidden; }
 
@@ -84,6 +83,7 @@ table { face-color:expression(runtimeStyle.scrollbarFaceColor = '#fff', cellSpac
 .col-main,
 .col2-set,
 .col3-set,
+.col3-layout .product-options-bottom .price-box,
 .col4-set,
 .messages li,
 .search-autocomplete li,
@@ -137,7 +137,8 @@ table { face-color:expression(runtimeStyle.scrollbarFaceColor = '#fff', cellSpac
 .advanced-search-summary,
 .advanced-search-summary p,
 .gift-messages-form .item,
-.send-friend .form-list li p { zoom:1; }
+.send-friend .form-list li p,
+.centinel .authentication { zoom:1; }
 
 /* Hover Fix */
 iframe.hover-fix { position:absolute; left:-1px; top:-1px; z-index:-1; background:transparent; filter:progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0); }

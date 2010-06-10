@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,11 +48,11 @@ class Mage_Newsletter_Model_Mysql4_Queue extends Mage_Core_Model_Mysql4_Abstract
     public function addSubscribersToQueue(Mage_Newsletter_Model_Queue $queue, array $subscriberIds) 
     {
         if (count($subscriberIds)==0) {
-            Mage::throwException(Mage::helper('newsletter')->__('No subscribers selected'));
+            Mage::throwException(Mage::helper('newsletter')->__('No subscribers selected.'));
         }
         
         if (!$queue->getId() && $queue->getQueueStatus()!=Mage_Newsletter_Model_Queue::STATUS_NEVER) {
-            Mage::throwException(Mage::helper('newsletter')->__('Invalid queue selected'));
+            Mage::throwException(Mage::helper('newsletter')->__('Invalid queue selected.'));
         }
         
         $select = $this->_getWriteAdapter()->select();

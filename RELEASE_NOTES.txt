@@ -1,0 +1,642 @@
+==== 1.4.1.0 ====
+
+=== Improvements ===
+* Added ability to use static URLs for media in WYSIWYG or image browser. Added ability to enable parsing {{store}} and {{media}} directives on catalog frontend.
+* URL rewrites history: ability to auto-generate custom rewrite with redirect from old to new URL when changing product URL-key
+* Added ability to exclude a category from navigation menu
+* Various improvements in system configuration UI. Introduced ability to make actual configuration structure to be independent on the system.xml structure
+* Added "Only X left" inventory feature
+* Implemented Centinel functionality in iphone theme
+* Upgraded TinyMCE to v.3.3.2
+* Improved PayPal integration, includes:
+** Recurring payment profiles entity and purchasing of "subscription" products. In checkout they are treated as "nominal" items.
+** Billing agreements
+** "Pending Review" order state, "Pending Review" and "Suspected Fraud" order statuses and logic related with this. Triggers by PayPal IPR, FMF and Unilateral payments.
+** Functionality of transactions listing/searching and fetching from gateway
+** Fetching PayPal settlement reports via SFTP
+** Various improvements of PayPal integration on the frontend and admin UI
+* Added notice about creating offline creditmemo from order view page.
+* Added getter for recurring payment methods in payment helper.
+* Implemented abstract block ability to have arbitrary groups of child blocks and a method that returns such a group. Implemented a method that fetches data from child block by specified alias.
+* Implemented ability to specify "sort_order" instead of "before" and "after" in the totals declaration. All nominal totals declaration utilize "sort_order"
+* Added getter for specified object data by key in core/template block: method getObjectData()
+* Defined payment methods grouping, implemented getter for payment method list (with option to group them). Added ability to render grouped options in the "select" grid filter.
+** Moneybookers: utilized the payment methods grouping for all its methods; removed redundant "translate" attribute in the methods definition in config.
+*** Utilized payment methods grouping for PayPal peyment methods.
+* Added more verbosity to PayPal NVP and IPN debugging
+
+=== Changes ===
+* Sales module database structure changed from EAV into flat tables
+* Product custom URL rewrites redirect to SEF URL, rather than to catalog/product/view/id/
+* Reimplemented frontend top menu rendering logic (cross-browser and usability improvements)
+* Reviewed [logic of the sales reports|http://www.magentocommerce.com/wiki/doc/sales_reports_specifications]: Orders, Tax, Invoiced, Shipping, Refunds, Coupons
+* Reimplemented bestsellers report
+* Implemented 3D Secure validation for Maestro International and JCB cards
+* (!) Changed Shopping cart methods output (top + bottom): removed <li>-dependance from templates in other modules \-> moved to Checkout module
+* Moved the Payflow Pro payment method to PayPal module
+* Refactored sales/service_quote model: instead of submit() method the submitAll() should be used. It can submit nominal items separately from the order. The methods for submitting nominal items and order separately - are available as well.
+* Refactored onepage checkout model to use the new method sales/service_quote::submitAll(), added recurring profiles and billing agreements passing through the process until the success page
+* Utilized child blocks grouping to improve flexibility of rendering additional information in catalog/product/view template. The group is called "detailed_info"; any block from layout may insert itself to this group.
+* Removed redundant wrappers hard-coded into some catalog templates. Template of parent block is responsible for wrapping.
+* Refactored onepage checkout success block and template: simplified fetching related checkout information, added ability to render billing agreement and recurring profiles that might be created with the payment placement.
+
+=== Fixes ===
+* Fixed read/write connection issue during new customer order place. See http://www.magentocommerce.com/boards/viewthread/19363/P0/
+* Fixed tax rule ZIP range matching (numeric values were matched as strings)
+* Various tax fixes
+* Optimized search reindex process
+
+=== Known Issues ===
+* PayPal and Payflow pro modules are officially backwards incompatible.
+* The `sales_order_aggregated_created` table was re-created with new columns, it is not backwards compatible.
+
+=== Upgrade Path ===
+* Once upgraded, go to system configuration section and re-enter all PayPal-related settings carefully. Make sure to specify the proper merchant country and email.
+
+
+
+
+==== 1.4.x-devel-69025 ====
+
+=== Improvements ===
+* PayPal integration:
+** Settlement reports fetching from SFTP
+** Billing Agreements
+* Added website and store data to backend model when invoking in system configuration block
+* Added "original_data" key to elements when generating system configuration form
+
+=== Changes ===
+* Mage_Sales_Model_Order_Payment::canCapture() - move methodInstance::_canCapture before authorization transaction check
+* Sales/Payment changes:
+** Implemented pending payment review functionality. Includes "Payment Review" order state and statuses "Payment Review" and "Suspected Fraud". In this state the order cannot be fulfilled until the payment is approved.
+** Holding orders on pending transactions was replaced in favor of "Payment Review" state. The 'fraud' status was removed from 'holded' order state.
+** Transactions resource model unsets the "isObjectNew" if it had a lookup of autoincrement key before saving
+** Payment capture and capture notification mark invoice as paid only if needed: when it is pending and the transaction is not pending
+** fixed float casting error in Mage_Sales_Model_Order_Payment::_isCaptureFinal()
+** fixed showing up credit card type in CC payment block, if there is no credit card type information
+* PayPal Instant Payment Review and Fraud Management:
+** implemented methods for handling PayPal-specific payment statuses
+** added more data importing to payment info in PayPal: payment status, pending reason, "is_fraud_detected"
+** added importing of all required for payment processing information in different points of WPP API calls
+** implemented IPR and FMF handling for Website Payments Pro methods family (Express Checkout, Direct Payments)
+* Fixed PayPal payment info block to not render redundant CC-related information (it extends CC info block)
+* (!) Changed Shopping cart methods output (top + bottom): removed <li>-dependance from templates in other modules -> moved to Checkout module
+* Added throwing exception on an incorrect attempt of unholding order (TRJ-148987).
+
+
+
+
+==== 1.4.x-devel-68590 ====
+
+=== Improvements ===
+  * Implemented serializing/unserializing model fields on abstract level. See Mage_Core_Model_Mysql4_Abstract::$_serializableFields
+  * Implemented recurring payment profiles entity and purchasing of "subscription" products. In checkout they are treated as "nominal" items
+  * Implemented functionality of transactions listing/searching and fetching from gateway
+  * Upgraded TinyMCE to v.3.3.2
+  * Added ability to parse "{{media}}" and "{{store}}" CMS directives in the catalog
+  * Added ability to insert media content as static URLs in WYSIWYG or media browser mode
+  * Implemented "Pending Review" order state, "Pending Review" and "Suspected Fraud" order statuses and logic related with this
+  * Added ability to set fieldset always expanded (<expanded> node in system configuration for fieldset)
+  * Added ability to set number of "levels up" to form javascript dependencies controller block
+  * EAV: implemented a 'serialized' backend model
+  * Added ability to separate actual configuration path and form field path in system.xml - use node <config_path>
+  * Added ability to render "tooltips" in system configuration fieldsets - use node <tooltip>
+  * Enhanced PayPal integration:
+    * frontend and backend UI experience of PayPal solutions
+    * Instant update API integrataion
+    * Recurring payments integration
+    * Instant Payment Review and Fraud Management Filters integration
+    * EC unilateral payments integration
+    * Transactions fetching for PayPal WPP methods
+
+=== Changes ===
+  * Reimplemented PayPal system configuration in a dedicated section.
+  * Moved Payflow Pro payment method into PayPal module. Got rid of obsolete system configuration fields of this method.
+  * Refactored implementation of serializing 'additional_information' field in sales/order_payment, sales/quote_payment and sales/order_payment_transaction
+  * Introduced "Is Nominal" term in sales logic:
+  * Nominal items participate in catalog, but during checkout and order processing they have zero row total.
+  * Implemented separate shopping cart and address totals for nominal items: nominal totals, various changes/adjustments in existing totals
+  * Added ability to calculate shipping charges for a quote/address item individually (on code level, utilized by the nominal items)
+  * Reviewed credit card types supported by PayPal payment methods
+  * Changed skin styles from "tax-total" to more generic "summary-total" (it is used now not only for tax totals, but for nominal items as well)
+  * Moved field comments (aka "notes") of the product edit form from the last column under the field element.
+  * Varien_Data_Form_Element_Time: added a hidden element with ID to maintain HTML consistency
+  * Varien_Data_Form - changed logic of adding suffix/prefix to an element: when element doesn't have a name, the suffix will be result
+  * Varien_Data_Form_Abstract and Varien_Data_Form_Element_Abstract: moved adding 'required-entry' class to the element to the moment of its generation instead of the moment of its adding. It adds more flexibility to change properties when the object is not yet rendered.
+  * Added to Varien_Data_Collection_Db::_beforeLoad(), moved 'core_collection_abstract_load_before' event dispatching to Mage_Core_Model_Mysql4_Collection_Abstract::_beforeLoad()
+
+=== Fixes ===
+  * Fixed #21225: catalogProductUpdate / catalogProductCreate and tier_price attribute
+  * Fixed #16596: category.assignedProducts always returns an empty result
+  * Fixed js reference to non-existing element when CVV verification disabled and gateway supports SS-type credit cards
+
+=== Known Issues ===
+  * PayPal modules and Payflow Pro payment method backwards compatibility is officially not retained.
+  * Nominal item total calculations do not work properly for multishipping checkout.
+
+
+
+
+==== 1.4.x-devel-67099 ====
+
+=== Improvements ===
+  * Added isModuleEnabled() to core helper; Added ability to hide configuration fields if related module is not enabled (use 'if_module_enabled' node in system.xml)
+  * Implemented IDNA domains support in registration and login forms (see also #20203)
+
+=== Fixes ===
+  * Fixed #22490: .Biz domain email addresses cause checkout to throw error and return to main Checkout page. Fixed path argument passed to include function in Zend_Validate_Hostname::isValid() to be valid whether source code compiler is used or not
+  * Fixed Negative value in Shopping Cart in case Tax Calculation Method Based On Unit Price
+  * Fixed Subtotal (Incl.Tax) = -$0.01 during created credit memo with refund shipping
+  * Fixed: 100% discount of products -> the amounts of Tax and Grand Totals are or negative or not corectly
+
+
+
+
+==== 1.4.x-devel-66609 ====
+
+=== Improvements ===
+  * Implemented 3D Secure validation for Maestro International and JCB cards
+  * Added comments to system configuration fields "Catalog" > "Price" > "Catalog Price Scope" and "Currency Setup" > "Currency Options" > "Base Currency" that explain that base currency scope depends on the catalog prices scope.
+  * Added note to reports that aggregated data depends on timezone and must be re-aggregated completely after global timezone change.
+
+=== Changes ===
+  * Cleaned up iphone theme from redundant files
+  * Added Maestro International card type to credit card based payment methods (abstract).
+  * Changed option "Notify Customer" into two options "Notify Customer by Email" and "Visible on Frontend" when adding an order comment. All comments that had the old value = 0, will be not visible on the frontend.
+  * System configuration option "Sales" -> "Dashboard" -> "Use Aggregated Data" is marked as "beta"
+  * Added "delta" rounding during shipping excluding/including tax calculation
+  * Added discount tax as line item in PayPal
+  * Reviewed logic of the sales reports:
+    * Orders
+    * Tax
+    * Invoiced
+    * Shipping
+    * Refunds
+    * Coupons
+
+=== Fixes ===
+  * Fixed issue when product quantity was incorrectly updated in stock after an order is placed for a configurable and a bundle products
+  * Fixed #20697: wrong url rewrite resource model
+  * Fixed duplicating of coupon code in shopping cart view
+  * Fixed Catalog RSS feed showing prices including and excluding tax
+  * Fixed #21501: Problem with translate inline and translations
+  * Fixed setting URL key when using quick-create for simple products of the configurable.
+  * Fixed adding comments to sales documents (invoices, shipments, credit memos)
+  * Fixed #21816: Google Analytics Issue with Registration Checkout and Already Logged In
+  * Fixed issue with number of orders that were created by Google Checkout
+  * Fixed #22199: Duplicated Code - Useless Check
+  * Fixed applied tax saving for shipping tax
+  * Fixed issue that invoiced orders after cancelling become completed
+  * Fixed #21533: Missing tranlation for "This date is a required value" in javascript
+  * Fixed: Sales report last update date doesn't change after re-aggregating
+  * Fixed rounding special price of selections in bundle product view
+  * Fixed one day forward shift of dates in sales reports when showing empty rows
+  * Fixed missed calculation of base_total_canceled & total_canceled fields on order cancellation
+  * Fixed wrong calculation of base_discount_canceled & base_discount_canceled because of negative values of base_discount_amount in the sales order tables
+
+=== Known Issues ===
+  * The `sales_order_aggregated_created` table was re-created with new columns, it is not backwards compatible.
+
+
+
+==== 1.4.x-devel-66014 ====
+
+=== Improvements ===
+  * Enabled "Refresh" mass-action as default in cache management grid
+  * Implemented Centinel functionality in iphone theme
+  * Optimized search reindex process a bit
+
+=== Changes ===
+  * Added 3rd optional argument to javascript function toggleValueElements(checkbox, container, excludedElements) in tools.js (products mass-update javascript)
+  * Fixed #9600: Security compromised, Guest can subscribe a client to the newsletter
+    * Checking if subscribing email adress does not belong to another user
+    * If confirmation option selected and subscribing email is not user's login email - then confirmation is needed
+  * Fixed #21304: Security compromised, guest can spam any email address
+    * New config field added into cms -> customer -> newsletter "Allow Guest Subscription"
+
+=== Fixes ===
+  * Fixed order taxes report with Match Period To = Order Updated Date (typo)
+  * Fixed issue when invoiced and not shipped yet orders after cancelling becomes completed
+  * Fixed #21533: Missing tranlation for "This date is a required value" in javascript
+  * Fixed stock management checking for a stock item when the stock management is disabled for this item (the check should be bypassed)
+  * Fixed "New Products" RSS: added grouped and bundle products
+    * Fixed the feed so that it contains grouped products now
+    * The feed now shows the same products as shown in category view or "New products" widget (before the fix, incomplete products might be shown)
+  * Fixed: virtual / downloadable product isn't deleted from the shopping cart, if change qty to '0'
+  * Fixed #21866: 'Master Card' misspelling, should be spelled 'MasterCard' in credit card drop down options in checkout
+  * Fixed #21771: Adjustment Refund & Adjustment Fee not showing in View Credit Memo
+  * Fixed admin timeout issue inside iframe of Centinel validation
+  * Fixed/reviewed tax calculation for components:
+    * shipping price including tax in checkout process block
+    * order/invoice/creditmemo shipping incl tax calculation
+    * applied tax saving for shipping tax
+    * applied tax saving for shipping tax
+  * Fixed #16577: Dual Order with same Product
+  * Fixed: #14502: Newsletter un-subscription message on customer account inappropriate
+
+=== Known Issues ===
+  * PayPal Direct PayFlow Edition may stuck with processing orders, if transactions are processed at manager.paypal.com. The problem is that IPN does not contain PNREF - the PayFlow transaction ID. This issue won't be fixed neither on PayPal, nor on Magento side. The only recommendation to merchant is to either process orders on Magento side only or on manager.paypal.com only.
+
+
+
+
+==== 1.4.x-devel-65494 ====
+
+=== Improvements ===
+  * Added ability to have a comment for promotion rule fielset, similar to generic fieldset.
+  * Added method for getting self child selection options recursively for promotion rule combines
+  * Optimized catalog search system configuration fields sort order to make it more extendable.
+  * Added icon for some buttons in admin that don't do some action instantly, but redirect to other page.
+  * Added cache key generation on core template block level
+  * Added ability to register product ids for last viewed products index
+  * Added ability to disable observer call with <type>disabled</type> node (after backwards compatibility violation discovered)
+  * Performance improvements on Mage_Catalog_Helper_Output::productAttribute method level
+  * Added ability to use lazy connection instantiation on EAV resource models
+  * Added "_isStraight" flag support on Mage_Core_Controller_Request_Http - allows to process request without additional logic (url rewrites, custom design visitor logging)
+
+=== Changes ===
+  * Sales reports refactoring after migration to flat sales structure: added a few indexes, optimized statistics reaggregation, fixed issue with generating statistics in wrong timezone (it was in UTC, but needs to be in the admin timezone)
+  * Added Mage_Core_Helper_Abstract::stripTags() and utilized it in templates instead of strip_tags()
+  * Improved and optimized base design package templates and layouts, minor fixes in payment method templates.
+  * Moved fireEvent() function from adminhtml/events.js to a more generic js.js for future use
+  * Added Mage_Core_Model_Config_Data::getFieldsetDataValue($key) - ability to get a neighbour system configuration value in backend model, when saving system configuration
+  * Reviewed Magento user interface text labels and messages for proper grammar, informativeness and capital letters usage.
+  * Reimplemented top menu rendering logic: implemented Mage_Catalog_Block_Navigation::_renderCategoryMenuItemHtml(), deprecated Mage_Catalog_Block_Navigation::drawItem() and reimplemented to work through _renderCategoryMenuItemHtml for compatibility
+  * Added url rewrites on last viewed products collection
+  * Reimplemented products bestsellers report: report uses pre-aggregated data to improve performance
+  * Moved logic of reaggregating reports data from sales report controller into separate controller, added bestsellers report handling there
+
+=== Fixes ===
+  * Fixed #20782: Wrong prices exc. tax with discount in cart
+  * Fixed #21099: Wrong subtotal for manual order entry with manual price
+  * Fixed #21271: Price inc tax and exc. tax same for grouped product
+  * Fixed grid js object name in grid pager: now it uses block method instead of direct building
+  * Fixed changing notification when editing a product in various tabs:
+    * Downloadable products: links title (element had no id attribute and thus was omitted by the event dispatcher init code)
+    * Custom options: whatever was added with "Add option"
+    * Bundles: whatever was added with "Add option"
+    * All date input fields when using the calendar widget
+    * Prices: tiered prices box, all rows added with "Add tier"
+  * Fixed #6321: Add RSS urls to head section
+  * Fixed #21831: Tax Calculation Version 1.4.0.1 still incorrect
+  * Fixed #12067: iPhone Terms and Conditions Box
+  * Fixed #20631: Order totals when creating order from admin do not reflect currently selected currency
+  * Fixed #21777: Catalog pricerules
+  * Fixed #14591: Incorrect SKU for Configurable Product with Custom Options
+  * Fixed #20832: PayPal Standard tax issue: implemented proper tax and discounts validation/transferring with cart line items
+  * Fixed #17451: Header Links (top.links.phtml) does not output correctly because it is using the model code (the Toplinks block is deprecated)
+  * Fixed #21302: PayPal PayFlow Pro: card expiration date format should be MMYY, not MMYYYY. Also fixed country code typo issue.
+  * Fixed #21686: Typo in tag.xml
+  * Fixed extra quoting in select html element
+  * Fixed XHTML validation errors in admin in some places
+  * Fixed #21912: calculation error transfer between multishipping address
+  * Fixed typo in PayPal NVP API that caused impossibility to do partial captures
+
+
+
+
+==== 1.4.x-devel-64603 ====
+
+=== Improvements ===
+  * Implemented 3D Secure validation for the JCB credit cards
+  * Added "Only X Left" feature - an option to show on a product view page how many items remains in stock, if it is lower than specific threshold.
+  * (in progress) implementation of #7741: Customer group increase order size . The feature is called "Qty Increments" - to trade items in boxes only. I.e. allow to purchase 6, 12, 18 items etc...
+
+=== Changes ===
+  * Refactored frontend navigation menu HTML structure and javascripts: the menu expands and collapses with small delay making it more accessible for users. Fixed possible compatibility issue in Mage_Catalog_Block_Navigation::drawItem() and marked as deprecated after 1.4. Removed local calls of onmouseover/onmouseout events to improve SEO.
+  * Added ability to assign id for field containers (TR tag) using node <use_container_id>1</use_container_id> in system configuration
+  * Moving widgets.css below in the code for proper styles overriding.
+  * Moved JCB credit card declaration and implementation into the Mage_Payment module. Removed it from other modules (they will inherit JCB card from "CC" payment method)
+  * Modified Varien_Object_Mapper to check arrays using array_key_exists() instead of isset()
+  * Indexer changes (related to the #21031):
+    * Removed DROP/CREATE statements for index temporary tables
+    * Created static index temporary tables (InnoDB and MEMORY) and separated using those tables in reindexiAll() and reindexEntities()
+  * Added ability to set a comment in adminhtml generic fieldset renderer
+
+=== Fixes ===
+  * Fixed #21313: Display price including TAX
+  * Fixed #21632: Associated products don't get cached
+  * Minor bugfixes in 3D Secure integration (API debugging, improvements in css and javascript)
+  * 3D Secure integraion - fixed confused constant values in centinel service model
+  * Fixed autocomplete in year field on new user registration
+  * Fixed _isCaptureNeeded validation for PayPal pro (exception during invoicing captured transaction)
+  * Fixed typo in PayPal Direct API variable "AUTHSTATUS3DS" (error in official documentation)
+  * Moneybookers:
+    * fixed translations in the activation email
+    * minor fixes in account confirmation javascript
+    * Fixed #21752: Moneybookers configuration per store
+  * Fixed #21302: PayPal PayFlow Pro: card expiration date format should be MMYY, not MMYYYY
+  * Fixed #20932: unique key in catalog_product_link
+  * Fixed #21031: Simultaneous product->save() causes "Base table or view already exists: 1050 Table catalog_product_index_price_idx' already exists
+
+
+
+
+==== 1.4.x-devel-64038 ====
+
+=== Improvements ===
+  * Minor CSS improvements in frontend themes
+  * Image/media browser minor UI improvements
+  * Added default placeholder for skin images in wysiwyg
+  * Minor style improvements for widgets insertion overlay
+  * Implemented 3D Secure transactions debugging
+  * Added ability to set a writer adapter to the Mage::log() and to use Mage::log() regardless of system configuration settings
+  * Added Magento Variable icon for WYSIWYG
+  * Added ability to append custom class name to main pop-up window container
+  * Added explanation comments for Centinel Api Custom URL
+
+=== Changes ===
+  * Added element as parameter of system configuration field getCommentText method
+  * Added ability to use isObjectNew method of model for object save on resource model level
+  * Added additional blocks support on order history and last orders blocks level
+  * Made encryption key length check binary-safe
+  * Added full exception trace logging to cron_schedule table
+  * Moved shopping cart price rule coupon to separate table, improved shopping cart price rule management UI
+  * Added ability to specify model for system config field comment generation (system.xml):
+    * <comment><model>module/model</model></comment>
+    * requires getCommentText method definition from defined model
+  * Changed the way how payment methods debug transactions: instead of database the debug information is written into var/log/payment_<method_code>.log
+  * Updated text labels in sales reports: terminology for "report type" (period matches to)
+  * Added new column 'updated_at' for wishlist table. Changed controller and model logic to save new data.
+
+=== Fixes ===
+  * Fixed #21250: HTML code displaying like text in descriptions / List View Displaying HTML Entity Values
+  * Fixed #21251: html code shows in category product listing
+  * Fixed: Unit Price in Shopping Cart is incorrect when applying a Coupon Code
+  * Fixed #18536: Rounding error on Shipping Tax calculations
+  * Fixed bugs with row based tax calculation and shipping tax calculation
+  * Fixed width/height in WYSIWYG image insertion
+  * Fixed authorize.net payment transaction saving during capture
+  * Fixed #20890: Incorrect function name
+  * Fixed #21055: No Navigation on Advanced Search Results
+  * Fixed #20912: memory_limit suffix other than 'M'
+  * Fixed #20884: JS bug in Widget/Grid/Column/Action.php
+  * Fixed #7228: Credit Memo - Adjustment Fee $ or %
+  * Fixed #20832: paypal - standard Tax issue
+  * (in progress) UI minor fixes in 3D Secure validation process
+  * Added forgotten Moneybookers email template
+
+
+
+
+==== 1.4.x-devel-63512 ====
+
+=== Improvements ===
+  * Implemented #6321: Add RSS urls to head section
+  * Implemented #7293: Track IP in abandoned cart
+  * (in progress) Ability to not include a category into navigation menu
+
+=== Changes ===
+  * Refactored Sales module resource from EAV into flat structure.
+  * Sales entities data structure changes:
+    * Dashboard optimization + configuration option "Use Aggregated Data" for dashboard
+    * Inventory: moved stock items qty manipulations out of transaction, fixed qty upgrade logic (x+delta)
+    * Added configuration option "Automatically return Credit Memo item to Stock" for refunds autogeneration
+    * Removed downloadable products FK relation with sales module
+    * Sales order tax logic moved to tax module and relation with sales module by FK
+  * Sales, SalesRule and Checkout modules changes:
+    * Added product customer group property validation on sales rules level
+    * Added ability to assign quote object to checkout cart model
+    * Prevented redundant customer model load in customer address
+    * Optimized saveDownloadableOrderItem item in downloadable product observer
+  * Prevented double "order by" in collection select statement
+  * Added _beforeLoad support and not changed object save protection on core abstract level
+  * Extended abstract collection with add/remove fields to/from select
+  * Escaped html entities in mail form in 404, 503 and report.php error pages, prevented errors if global array $_SERVER is undefined
+  * Minor text changes in PayPal modules
+  * Added not existin observers methods calls protection
+  * Separated tax shipping total from tax subtotal. Now taxes for store prices (code tax_subtotal) calculates before shipping, then calculates shipping (code shipping) and taxes for shipping (code tax_shipping) and then calculates customer taxes (code tax).
+
+
+=== Fixes ===
+  * Fixed #21061: Global country tax applied instead of specific state tax
+  * Fixed catalog price rules different sorting when applying the rule vs. saving the product
+  * Fixed #20603: Async Google Analytics throws js error (_gaq not defined)
+  * Fixed SQL error possibility when adding bundle to cart
+  * Fixed #16684: ini_set of auto_detect_line_endings during Varien_Io_File::streamReadCsv
+  * Fixed #17748: Category chooser at price rules
+  * Fixed #20161: Special From Date for website
+  * Fixed Fatal error: Call to undefined method Mage_Admin_Model_Observer::actionPostDispatchAdmin() in \app\code\core\Mage\Core\Model\App.php on line 1207 (backward compatibility)
+
+
+
+
+==== 1.4.x-devel-62916 ====
+
+=== Improvements ===
+  * Improved visual design of widget and variable insertion, and media browser overlay
+  * Product custom URL rewrites redirect to SEF URL, rather than to catalog/product/view/id/
+  * URL rewrites history: ability to auto-generate custom rewrite with redirect from old to new URL when changing product URL-key
+  * Optimized getAttributeRawValue() method in catalog module for retrieving more then one attributes
+
+=== Changes ===
+  * Added javascript validation for JCB cards
+  * Changed confusing error message about quantity in shopping cart into proper one
+  * Added comments collection loading when invoice, credit memo or shipment created with adding comment: needed before adding first comment.
+  * Added Varien_Db_Ddl_Table
+  * Added method createTable from DDL to Varien_Db_Apater_Pdo_Mysql
+  * Removed getting Varien_Object id in Varien_Debug
+
+=== Fixes ===
+  * Fixed read/write connection issue during new customer order place. See http://www.magentocommerce.com/boards/viewthread/19363/P0/
+  * Fixed confusion with admin page title when editing product
+  * Fixed bug in Mage_Bundle_Model_Product_Type::getSelectionsCollection(): retrieved collection depends on passed optionIds only on first method call
+  * Fixed: New products RSS feed appears instead of the Special products RSS feed
+  * Fixed tax rule ZIP range matching (numeric values were matched as strings)
+  * Fixed #14055: New orders RSS feed displaying incorrect customer name
+  * Fixed #19192: Error when product inventory messed up on viewing order.
+  * Fixed minor visual design issues in themes and skins
+  * Fixed getting secure host URL in 404, 503 and report.php error pages
+  * Fixed up filtering of filenames of uploaded files
+  * Fixed position issue for cross-sell products
+  * Fixed #20372: importing images
+  * Fixed: #17845: Validation and Ampersand Flaws in Layered Navigation and other locations that use the fake query string
+  * Fixed #15592: Mage_Adminhtml_Model_System_Config_Source_Shipping_Allowedmethods::toOptionArray() not compatiable with parent method
+  * Made proper validate() independent of submit in form.js (Visions contribution)
+  * Fixed incorrect js logic on order create backend page (Visions contribution):
+    * Fixed: when create order, it is not possible to resubmit after initial validation failed (because submit button is disabled)
+    * Improved client side validation that new order has shipping address (it is required to click "get shipping method and rates"
+    * Improved client side validation that payment method is selected (like in checkout of frontend)
+  * Improved usability of sales admin (Visions patch):
+    * added ability to export csv or excel for orders, shipments, creditmemos, invoices
+    * made filter for creditmemo and shipment type text so it is possible to just enter one id and find object looking for (unified with orders and invoices, there it is already text not number)
+  * Fixed #17659: UPS Minimum Weight Required for Negotiated Rates
+  * Fixed #20580: Index module not translated
+
+=== Known Issues ===
+  * It is impossible to run more than one 3D Secure card validations simultaneously in one session. Not fixable.
+
+
+
+
+==== 1.4.0.1 ====
+
+=== Changes ===
+
+  * The error report exception printing is disabled by default for security reasons. To print the error report, copy the errors/local.xml.sample to errors/local.xml
+  * XSS vulnerabilities review
+  * Added Phoenix_Moneybookers payment method module (from now bundled in Magento out of the box)
+
+=== Fixes ===
+
+  * Fixed #20680: Catalog - Google Sitemap
+  * Fixed #20024: Error message 'Data saving problem' when try to checkout with multiple addresses (when address deleted during multishipping process)
+  * Fixed #20625: Fatal error: Exception thrown without a stack frame in Unknown on line 0 (Fixed cache backend instantiation when a shared PEAR library is in the include path)
+  * Fixed issues of upgrading from 1.3.x to 1.4.x through Magento Connect in some installations
+  * Fixed #20659: Unable to choose images for upload (duplicates: #20588, #20573, #20616, #20595)
+  * Fixed shell cron script runner
+  * Refixed #17963: Ampersand in Search Breadcrumb: Double-encoded
+
+=== Upgrade Notes ===
+
+  * We highly recommend disabling Magento cache before upgrading
+  * In layout of any custom theme the usage of catalog/product_list_toolbar block should be changed to page/html_pager:
+    1) Replace the catalog/product/list/toolbar.phtml of your theme by the new one
+    2) Update catalog.xml layout: <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml"> should be replaced into <block type="page/html_pager" name="product_list_toolbar_pager"/>
+
+
+
+
+==== 1.4.0.0 ====
+
+=== 1.4 Major Improvements since 1.3 ===
+  * Implemented 3D Secure credit card validation (Visa and Mastercard)
+  * Full reimplementation of PayPal modules, includes lot of new functionality and numerous bugfixes
+  * Full review of frontend themes, introduced design cross-package fallback and the base/default theme. Includes SEO and accessibility enhancements. Changes are oriented to dramatically reduce themes maintenance.
+  * Added ability to define arbitrary cache backends
+  * Optimized performance of sales reports, added new sales report types
+  * Added image/media uploader/browser, that can browse entire media folder
+  * Optimized performance of search indexer
+  * Made order processing workflow more informative and severe
+  * Reimplemented 404 and report pages, introduced 503 page, specifically for maintenance purposes
+  * Improved javascript files merging, added CSS files merging
+  * Added Widgets functionality, added several widgets out of the box
+  * Added Custom Variables functionality
+  * Added lot of new System Configuration options
+  * Improved order placement reliability
+  * Added WYSIWYG for CMS and Catalog
+  * Optimized cache initialization during startup
+  * Optimized export from grids in admin area
+  * Improved tax and discount totals calculation
+  * Replaced admin notification flash popup into a simple HTML overlay
+  * Implemented product and category URLs per store view
+  * Added ability to configure entry point using virtualhost environment configuration, rather than creating another physical entry point
+  * Optimized simple product view without custom options
+
+=== Coommunity Edition Changes since 1.4.0.0-rc1 ===
+
+== Improvements ==
+  * Implemented 3D Secure credit card (Visa, Mastercard) validation for payment methods:
+    * Saved CC
+    * PayPal Website Payments Pro - Direct Payments
+    * PayPal Website Payments Pro (Payflow Edition) - Direct Paymens
+    * Payflow Pro
+  * Improved modern theme: significantly reduced number of files in virtue of cross-package fallback to base/default theme
+  * Implemented #11012: Support canonical link tag
+  * Implemented WYSIWYG for newsletter templates
+  * Minor improvements in sales reports
+  * Renamed button "Refund" to "Refund Offline" on Credit Memo page for order
+  * 19963: Mage_Eav_Model_Entity_Setup::addAttributeToGroup() (visions patch)
+  * improved print.css for CE themes
+  * SEO and accessibility improvements in default/default, default/modern and default/blank themes
+  * left and right callouts templates, both callouts images and links are now controlled via catalog.xml
+  * Added relevant page titles in admin area
+  * Implemented column decorators and ability to use getter callback in admin grids
+  * Made fetching payment methods sort order properly: via getConfigData() rather getStoreConfig() (optimization for 3rd-party customizations)
+  * Implemented ability for page/html_wrapper block to not render the wrapper tag, made it output children sorted
+  * Implemented wrappers for inserting additional blocks in:
+    * before shopping cart line items list
+    * before onepage checkout login/registration form
+    * before customer registration form
+    * before newsletter subcription form (customer "My Account")
+    * before product review form
+    * before product tag submission form (product view page)
+  * Implemented giropay integration with PayPal Express Checkout
+  * Added before/after initialize and before/after validate events to opcheckout.js
+  * Optimized products toolbar functionality, prevent saving to session default grid parameters (for sorting, pager etc.)
+  * Added filter by website in "Last ordered items" block
+
+== Changes ===
+  * PayPal Website Payments Pro (Payflow Edition) is completely rewritten, as extending Mage_Paypal module. With breaking code backwards compatibility.
+  * Mage_Core_Model_Flag - moved setting flag_code to _construct()
+  * AmazonPayments module is removed from package and will be available as a separate extension on Magento Connect
+  * #19595: Varien_File_Uploader_Image not working - class is deprecated and should not be used
+  * Marked dead code Mage_Checkout_Model_Type_Abstract::_emailOrderConfirmation() as deprecated
+  * Reimplemented 404, 503 and report.php error pages: now fully configurable from errors/local.xml, with ability to override theme per entry point or even store view
+  * error report doesn't disclose the trace by default anymore
+  * Added to Catalog Product Price indexer upgrade operation by removing old temporary index tables if exists
+  * Product image uploader security measurements:
+    * disabled ability to run php scripts in "media" folder
+    * added callback validation to File/Uploader.php
+    * added image file validation to Catalog/Product/GalleryController.php
+  * Prevented flushing output buffer caused by exceptions in templates included by core/template block
+  * added default _type param to Design Package getters in core/design_package model
+  * Added additional qty parameter to event 'catalog_product_get_final_price'
+  * Updated sales sql-upgrades: fixed missing table prefixes in some places, rewrote adding foreign keys via methods
+  * Implemented 'any-value-validate' logic for Catalog Rules; common methods moved to parent (Mage_CatalogRule_Model_Rule_Condition_Product) class
+  * Expanded width of fields on product and category edit pages
+  * Added ability to render number sign in currency and number grid renderers
+  * Fixed datetime grid renderer to make it use getters (see parent class)
+  * Added Mage_Core_Block_Abstract::escapeHtml() instead of htmlEscape()
+  * Added ability to make output optional in page/html_pager block (when items total quantity is less than page size)
+  * Added ability disable product list toolbar params saving to session
+  * Added sorting by param name to query params part of url
+  * Made page/html_wrapper block treat children empty output as if there are no children.
+  * Implemented dynamic BN codes for PayPal. Pattern: Varien_Cart_(EC|DP|WPS)[_<country_code>] where country code is one of 18 country codes currently PayPal has localized market sites.  * Fixed session cookie renew functionality, added ability define cookie settings for javescript methods
+  * When LN filter for an anchor category is active not allow to use display mode "Static Block Only"
+  * Sales: made online operations and notifications updating "online" totals, instead of totals mixed with online/offline sales documents. Removed updating "base_amount_canceled" total update when voided payment (this was backwards compatibility violation)
+
+== Fixes ==
+  * Fixed 'tax_rate_data_fetch' event params
+  * Minor fixes in PayPal Express Checkout and PayPal Direct (non-reported bugs, terminology issues)
+  * Fixed #16210: Input field size decreased in category products grid
+  * Fixed #17281: Google Checkout: Incorrect assigning of [parent_id]
+  * Fixed #14251: Google Checkout still does not allow free shipping
+  * Fixed #11412: Rounding error in tax and shipping calculation
+  * Fixed #11836: No authentication on customer reviews url
+  * Fixed #13511: "Default web url" does not work as expected
+  * Fixed #14469: Newly created products for configurable products do not stick
+  * Fixed #14915: Invoice payment capture _needToAddDummy bug
+  * Fixed #15235: Special price bug with multiple websites
+  * Fixed #16425: printing in admin breaks top menu
+  * Fixed #16499: Require customer login for reviews not 100% working
+  * Fixed #17058: Currency Switch won't work on first time in shop frontend (session id issue)
+  * Fixed #17504: Birthday getting swapped (Month and Day)
+  * Fixed #17720: core_flag primary key is a smallint and has a max value of 65535
+  * Fixed #17793: Google Base Special Price not mapped to Price
+  * Fixed #Fixed #18127: Bundle Products pricing incorrectly when not required
+  * Fixed #18341: Bugs in dataflow: number of records
+  * Fixed #18745: Customer Import shouldn't send email
+  * Fixed #18868: Unable to use Mage::log() before config is read
+  * Fixed #19290: Changing 'My Account' info may destroy log in when password is blank
+  * Fixed some XSS vulnerabilities in admin
+  * Fixed #19448: Incorrect handling of empty attributes under PHP 5.2.0
+  * Fixed #19449: Google Base
+  * Fixed USPS First Class International and USPS Express Mail International shipping method that stopped working after gateway changes
+  * Fixed #19512: /index.php/checkout/onepage/getAddress/address/ allows everyone logged in to get all addresses
+  * Tax rates edit form won't clean on validation error anymore
+  * Fixed #19702: getLastOrderId missing parameter
+  * Fixed #19729: unable to translate "Display product options in" and "Product Type"
+  * Fixed #19753: Compare products page breaks if no attributes are marked as "Comparable"
+  * Fixed #19791: Shipment tracking not displayed from admin panel with store code in URLs enabled
+  * Fixed #19838: missing two escape characters in validation.js at the validate-email regex
+  * Fixed #19873: Minor warning fix
+  * Fixed #19904: please remove double file extensions in filenames of uploaded files
+  * Fixed #19954: Undefined variable
+  * Fixed #19960: Google Analytics Asynchronous Tracking Code
+  * Fixed #19964: cart sidebar shows zero total when displayed including tax
+  * Fixed #19969: Css is wong for gift-message-form
+  * Fixed #20023: Admin login is very slow when widgets.magentocommerce.com is down
+  * Fixed #20080: Dataflow Profiles Need to be Sorted
+  * Fixed #20250: Search'n'replace oversight
+  * A few fixes in URL rewrites logic
+  * Fixed #20350: WRONG "XML_PATH_SCHEDULE_GENERATE_EVERY"
+  * Fixed #20361: Move Category Failed
+  * Fixed #6564: Transactional Email Templates Using alt="Magento"
+  * Fixed #8514: Negative Number in Sorting
+  * Fixed Price indexer website date/rate
+  * Fixed tier_price and website table names in Catalog Product Price Default indexer
+  * Fixed command line installation - fatal caused by improper website initialization
+  * Implemented correct setting attributes to entity including situation when there are no attribute value for default sore
+  * Fixed #19263: Adminhtml Html Error: Double </label>
+  * Fixed "undefined index" notice when saving Table Rates without uploading import rates file.

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,25 +44,17 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
 
     protected function _prepareCollection()
     {
-        //TODO: add full name logic
-        $collection = Mage::getResourceModel('sales/order_collection')
-            ->addAttributeToSelect('increment_id')
-            ->addAttributeToSelect('created_at')
-            ->addAttributeToSelect('grand_total')
-            ->addAttributeToSelect('order_currency_code')
-            ->addAttributeToSelect('store_id')
-            ->joinAttribute('billing_firstname', 'order_address/firstname', 'billing_address_id', null, 'left')
-            ->joinAttribute('billing_lastname', 'order_address/lastname', 'billing_address_id', null, 'left')
-            ->joinAttribute('shipping_firstname', 'order_address/firstname', 'shipping_address_id', null, 'left')
-            ->joinAttribute('shipping_lastname', 'order_address/lastname', 'shipping_address_id', null, 'left')
-            ->addExpressionAttributeToSelect('billing_name',
-                'CONCAT({{billing_firstname}}, " ", {{billing_lastname}})',
-                array('billing_firstname', 'billing_lastname'))
-            ->addExpressionAttributeToSelect('shipping_name',
-                'CONCAT({{shipping_firstname}}, " ", {{shipping_lastname}})',
-                array('shipping_firstname', 'shipping_lastname'))
-
-            ->addAttributeToFilter('customer_id', Mage::registry('current_customer')->getEntityId())
+        $collection = Mage::getResourceModel('sales/order_grid_collection')
+            ->addFieldToSelect('entity_id')
+            ->addFieldToSelect('increment_id')
+            ->addFieldToSelect('customer_id')
+            ->addFieldToSelect('created_at')
+            ->addFieldToSelect('grand_total')
+            ->addFieldToSelect('order_currency_code')
+            ->addFieldToSelect('store_id')
+            ->addFieldToSelect('billing_name')
+            ->addFieldToSelect('shipping_name')
+            ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId())
         ;
         $this->setCollection($collection);
         return parent::_prepareCollection();

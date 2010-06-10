@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,7 +60,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     );
     protected $_exportToRequestFilters = array(
         'amount'   => '_filterAmount',
-        'shipping' => '_filterAmount',
+        'shipping' => '_filterAmount'
     );
 
     /**
@@ -74,11 +74,18 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     protected $_aggregatedOrderFields = array('item_name', 'amount', 'shipping');
 
     /**
-     * Keys that are not supposed to get into debug dump
+     * @deprecated after 1.4.1.0
      *
      * @var array
      */
     protected $_obscureDebugFor = array('business');
+
+   /**
+     * Fields that should be replaced in debug with '***'
+     *
+     * @var array
+     */
+    protected $_debugReplacePrivateDataKeys = array('business');
 
     /**
      * Line items export mapping settings
@@ -93,6 +100,10 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         'name'   => 'item_name_%d',
         'qty'    => 'quantity_%d',
         'amount' => 'amount_%d',
+    );
+
+    protected $_lineItemExportItemsFilters = array(
+         'qty'      => '_filterQty'
     );
 
     /**
@@ -138,7 +149,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         }
         // payer address
         $this->_importAddress($request);
-        $this->debugRequest($request); // TODO: this is not supposed to be called in getter
+        $this->_debug(array('request' => $request)); // TODO: this is not supposed to be called in getter
         return $request;
     }
 
@@ -160,21 +171,14 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         return strtolower(parent::getPaymentAction());
     }
 
+    /**
+     * @deprecated after 1.4.1.0
+     *
+     * @param array $request
+     */
     public function debugRequest($request)
     {
-        if (!$this->_config->debugFlag) {
-            return;
-        }
-        foreach ($this->_obscureDebugFor as $key) {
-            if (isset($request[$key])) {
-                $request[$key] = '***';
-            }
-        }
-        $debug = Mage::getModel('paypal/api_debug')
-            ->setApiEndpoint($this->_config->getPaypalUrl())
-            ->setRequestBody(var_export($request, 1))
-            ->save()
-        ;
+        return;
     }
 
     /**

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -67,7 +67,7 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
         }
         catch (Exception $e) {
             Mage::throwException(
-                Mage::helper('catalog')->__('There was an error while removing products from websites')
+                Mage::helper('catalog')->__('An error occurred while removing products from websites.')
             );
         }
         return $this;
@@ -87,7 +87,7 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
         }
         catch (Exception $e) {
             Mage::throwException(
-                Mage::helper('catalog')->__('There was an error while adding products to websites')
+                Mage::helper('catalog')->__('An error occurred while adding products to websites.')
             );
         }
         return $this;

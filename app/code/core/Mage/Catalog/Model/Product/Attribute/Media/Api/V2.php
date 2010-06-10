@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,7 +72,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api_V2 extends Mage_Catalog_Mod
         $gallery = $this->_getGalleryAttribute($product);
 
         if (!isset($data->file) || !isset($data->file->mime) || !isset($data->file->content)) {
-            $this->_fault('data_invalid', Mage::helper('catalog')->__('Image not specified.'));
+            $this->_fault('data_invalid', Mage::helper('catalog')->__('The image is not specified.'));
         }
 
         if (!isset($this->_mimeTypes[$data->file->mime])) {
@@ -81,7 +81,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api_V2 extends Mage_Catalog_Mod
 
         $fileContent = @base64_decode($data->file->content, true);
         if (!$fileContent) {
-            $this->_fault('data_invalid', Mage::helper('catalog')->__('Image content is not valid base64 data.'));
+            $this->_fault('data_invalid', Mage::helper('catalog')->__('The image contents is not valid base64 data.'));
         }
 
         unset($data->file->content);
@@ -127,7 +127,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api_V2 extends Mage_Catalog_Mod
         } catch (Mage_Core_Exception $e) {
             $this->_fault('not_created', $e->getMessage());
         } catch (Exception $e) {
-            $this->_fault('not_created', Mage::helper('catalog')->__('Can\'t create image.'));
+            $this->_fault('not_created', Mage::helper('catalog')->__('Cannot create image.'));
         }
 
         return $gallery->getBackend()->getRenamedImage($file);

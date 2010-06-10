@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +34,7 @@
 class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Totals extends Mage_Adminhtml_Block_Sales_Totals
 {
     protected $_creditmemo;
-    
+
     public function getCreditmemo()
     {
         if ($this->_creditmemo === null) {
@@ -64,14 +64,14 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Totals extends Mage_Adminhtml_
         parent::_initTotals();
         $this->addTotal(new Varien_Object(array(
             'code'      => 'adjustment_positive',
-            'value'     => $this->getSource()->getAdjustmentFeePositive(),
-            'base_value'=> $this->getSource()->getBaseAdjustmentFeePositive(),
+            'value'     => $this->getSource()->getAdjustmentPositive(),
+            'base_value'=> $this->getSource()->getBaseAdjustmentPositive(),
             'label'     => $this->helper('sales')->__('Adjustment Refund')
         )));
         $this->addTotal(new Varien_Object(array(
             'code'      => 'adjustment_negative',
-            'value'     => $this->getSource()->getAdjustmentFeeNegative(),
-            'base_value'=> $this->getSource()->getBaseAdjustmentFeeNegative(),
+            'value'     => $this->getSource()->getAdjustmentNegative(),
+            'base_value'=> $this->getSource()->getBaseAdjustmentNegative(),
             'label'     => $this->helper('sales')->__('Adjustment Fee')
         )));
         return $this;

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -192,11 +192,19 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
 
         $this->_prepareDataForSave($product, $productData);
 
-        if (is_array($errors = $product->validate())) {
-            $this->_fault('data_invalid', implode("\n", $errors));
-        }
-
         try {
+            /**
+             * @todo implement full validation process with errors returning which are ignoring now
+             * @todo see Mage_Catalog_Model_Product::validate()
+             */
+            if (is_array($errors = $product->validate())) {
+                $strErrors = array();
+                foreach($errors as $code=>$error) {
+                    $strErrors[] = ($error === true)? Mage::helper('catalog')->__('Attribute "%s" is invalid.', $code) : $error;
+                }
+                $this->_fault('data_invalid', implode("\n", $strErrors));
+            }
+
             $product->save();
         } catch (Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
@@ -247,14 +255,18 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         $this->_prepareDataForSave($product, $productData);
 
         try {
+            /**
+             * @todo implement full validation process with errors returning which are ignoring now
+             * @todo see Mage_Catalog_Model_Product::validate()
+             */
             if (is_array($errors = $product->validate())) {
-                $this->_fault('data_invalid', implode("\n", $errors));
+                $strErrors = array();
+                foreach($errors as $code=>$error) {
+                    $strErrors[] = ($error === true)? Mage::helper('catalog')->__('Value for "%s" is invalid.', $code) : Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $code, $error);
+                }
+                $this->_fault('data_invalid', implode("\n", $strErrors));
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
-        }
 
-        try {
             $product->save();
         } catch (Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
@@ -297,6 +309,11 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
                 $_stockData[$key] = $value;
             }
             $product->setStockData($_stockData);
+        }
+
+        if (property_exists($productData, 'tier_price')) {
+             $tierPrices = Mage::getModel('catalog/product_attribute_tierprice_api_V2')->prepareTierPrices($product, $productData->tier_price);
+             $product->setData(Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2::ATTRIBUTE_CODE, $tierPrices);
         }
     }
 

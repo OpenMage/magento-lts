@@ -19,7 +19,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -521,7 +521,7 @@ ShippingMethod.prototype = {
     validate: function() {
         var methods = document.getElementsByName('shipping_method');
         if (methods.length==0) {
-            alert(Translator.translate('Your order can not be completed at this time as there is no shipping methods available for it. Please make neccessary changes in your shipping address.'));
+            alert(Translator.translate('Your order cannot be completed at this time as there is no shipping methods available for it. Please make neccessary changes in your shipping address.'));
             return false;
         }
 
@@ -666,6 +666,9 @@ Payment.prototype = {
             form.style.display = '';
             var elements = form.select('input', 'select', 'textarea');
             for (var i=0; i<elements.length; i++) elements[i].disabled = false;
+        } else {
+            //Event fix for payment methods without form like "Check / Money order"
+            document.body.fire('payment-method:switched', {method_code : method});
         }
         this.currentMethod = method;
     },
@@ -696,7 +699,7 @@ Payment.prototype = {
         }
         var methods = document.getElementsByName('payment[method]');
         if (methods.length==0) {
-            alert(Translator.translate('Your order can not be completed at this time as there is no payment methods available for it.'));
+            alert(Translator.translate('Your order cannot be completed at this time as there is no payment methods available for it.'));
             return false;
         }
         for (var i=0; i<methods.length; i++) {

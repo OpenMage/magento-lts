@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -74,6 +74,29 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
                 align : "Bl",
                 singleClick : true
             });
+
+            $("'.$htmlId.'_to_trig").observe("click", showCalendar);
+            $("'.$htmlId.'_from_trig").observe("click", showCalendar);
+
+            function showCalendar(event){
+                var element = event.element(event);
+                var offset = $(element).viewportOffset();
+                var scrollOffset = $(element).cumulativeScrollOffset();
+                var dimensionsButton = $(element).getDimensions();
+                var index = $("widget-chooser").getStyle("zIndex");
+
+                $$("div.calendar").each(function(item){
+                    if ($(item).visible()) {
+                        var dimensionsCalendar = $(item).getDimensions();
+
+                        $(item).setStyle({
+                            "zIndex" : index + 1,
+                            "left" : offset[0] + scrollOffset[0] - dimensionsCalendar.width + dimensionsButton.width + "px",
+                            "top" : offset[1] + scrollOffset[1] + dimensionsButton.height + "px"
+                        });
+                    };
+                });
+            };
         </script>';
         return $html;
     }

@@ -20,8 +20,13 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * @see Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
  */
 ?>
 <?php $_element = $this->getElement() ?>
@@ -34,7 +39,12 @@
 <?php else: ?>
 <tr>
     <td class="label"><?php echo trim($this->getElementLabelHtml()) ?></td>
-    <td class="value"><?php echo trim($this->getElementHtml()) ?></td>
+    <td class="value">
+        <?php echo trim($this->getElementHtml()) ?>
+        <?php if ($_element->getNote()) : ?>
+            <p class="note"><?php echo $_element->getNote() ?></p>
+        <?php endif; ?>
+    </td>
     <td class="scope-label"><span class="nobr"><?php echo $this->getScopeLabel() ?></span></td>
     <?php if ($this->canDisplayUseDefault()): ?>
     <td class="value use-default">
@@ -42,6 +52,5 @@
         <label for="<?php echo $_element->getHtmlId() ?>_default" class="normal"><?php echo $this->__('Use Default Value') ?></label>
     </td>
     <?php endif; ?>
-    <td<?php if ($_element->getNote()): ?> class="note"<?php endif ?>><small><?php echo $_element->getNote()?$_element->getNote():'&nbsp;' ?></small></td>
 </tr>
 <?php endif; ?>

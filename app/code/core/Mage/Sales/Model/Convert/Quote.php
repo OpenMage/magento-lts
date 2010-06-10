@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -130,7 +130,8 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
             ->setQuoteParentItemId($item->getParentItemId())
             ->setProductId($item->getProductId())
             ->setProductType($item->getProductType())
-            ->setQtyBackordered($item->getBackorders());
+            ->setQtyBackordered($item->getBackorders())
+            ->setProduct($item->getProduct());
         $options = $item->getProductOrderOptions();
         if (!$options) {
             $options = $item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct());

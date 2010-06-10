@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,6 +42,7 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
      */
     public function reindexAll()
     {
+        $this->useIdxTable(true);
         $this->_prepareBundlePrice();
 
         return $this;
@@ -67,42 +68,10 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
      */
     protected function _getBundlePriceTable()
     {
-        return $this->getMainTable() . '_bundle';
-    }
-
-    /**
-     * Prepare temporary price index table for fixed bundle products
-     *
-     * @return Mage_Bundle_Model_Mysql4_Indexer_Price
-     */
-    protected function _prepareBundlePriceTable()
-    {
-        $write = $this->_getWriteAdapter();
-        $table = $this->_getBundlePriceTable();
-
-        $query = sprintf('DROP TABLE IF EXISTS %s', $write->quoteIdentifier($table));
-        $write->query($query);
-
-        $query = sprintf('CREATE TABLE %s ('
-            . ' `entity_id` INT(10) UNSIGNED NOT NULL,'
-            . ' `customer_group_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `website_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `tax_class_id` SMALLINT(5) UNSIGNED DEFAULT \'0\','
-            . ' `price_type` TINYINT(1) UNSIGNED NOT NULL,'
-            . ' `special_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `tier_percent` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `orig_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `min_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `max_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `tier_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `base_tier` DECIMAL(12,4) DEFAULT NULL,'
-            . ' PRIMARY KEY (`entity_id`,`customer_group_id`,`website_id`)'
-            . ') ENGINE=MYISAM DEFAULT CHARSET=utf8',
-            $write->quoteIdentifier($table));
-        $write->query($query);
-
-        return $this;
+        if ($this->useIdxTable()) {
+            return $this->getTable('bundle/price_indexer_idx');
+        }
+        return $this->getTable('bundle/price_indexer_tmp');
     }
 
     /**
@@ -112,7 +81,10 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
      */
     protected function _getBundleSelectionTable()
     {
-        return $this->getMainTable() . '_bndl_sel';
+        if ($this->useIdxTable()) {
+            return $this->getTable('bundle/selection_indexer_idx');
+        }
+        return $this->getTable('bundle/selection_indexer_tmp');
     }
 
     /**
@@ -122,7 +94,21 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
      */
     protected function _getBundleOptionTable()
     {
-        return $this->getMainTable() . '_bndl_opt';
+        if ($this->useIdxTable()) {
+            return $this->getTable('bundle/option_indexer_idx');
+        }
+        return $this->getTable('bundle/option_indexer_tmp');
+    }
+
+    /**
+     * Prepare temporary price index table for fixed bundle products
+     *
+     * @return Mage_Bundle_Model_Mysql4_Indexer_Price
+     */
+    protected function _prepareBundlePriceTable()
+    {
+        $this->_getWriteAdapter()->delete($this->_getBundlePriceTable());
+        return $this;
     }
 
     /**
@@ -132,27 +118,7 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
      */
     protected function _prepareBundleSelectionTable()
     {
-        $write = $this->_getWriteAdapter();
-        $table = $this->_getBundleSelectionTable();
-
-        $query = sprintf('DROP TABLE IF EXISTS %s', $write->quoteIdentifier($table));
-        $write->query($query);
-
-        $query = sprintf('CREATE TABLE %s ('
-            . ' `entity_id` INT(10) UNSIGNED NOT NULL,'
-            . ' `customer_group_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `website_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `option_id` INT(10) UNSIGNED DEFAULT \'0\','
-            . ' `selection_id` INT(10) UNSIGNED DEFAULT \'0\','
-            . ' `group_type` TINYINT(1) UNSIGNED DEFAULT \'0\','
-            . ' `is_required` TINYINT(1) UNSIGNED DEFAULT \'0\','
-            . ' `price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `tier_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' PRIMARY KEY (`entity_id`,`customer_group_id`,`website_id`, `option_id`, `selection_id`)'
-            . ') ENGINE=MYISAM DEFAULT CHARSET=utf8',
-            $write->quoteIdentifier($table));
-        $write->query($query);
-
+        $this->_getWriteAdapter()->delete($this->_getBundleSelectionTable());
         return $this;
     }
 
@@ -163,27 +129,7 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
      */
     protected function _prepareBundleOptionTable()
     {
-        $write = $this->_getWriteAdapter();
-        $table = $this->_getBundleOptionTable();
-
-        $query = sprintf('DROP TABLE IF EXISTS %s', $write->quoteIdentifier($table));
-        $write->query($query);
-
-        $query = sprintf('CREATE TABLE %s ('
-            . ' `entity_id` INT(10) UNSIGNED NOT NULL,'
-            . ' `customer_group_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `website_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `option_id` INT(10) UNSIGNED DEFAULT \'0\','
-            . ' `min_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `alt_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `max_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `tier_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' `alt_tier_price` DECIMAL(12,4) DEFAULT NULL,'
-            . ' PRIMARY KEY (`entity_id`,`customer_group_id`,`website_id`, `option_id`)'
-            . ') ENGINE=MYISAM DEFAULT CHARSET=utf8',
-            $write->quoteIdentifier($table));
-        $write->query($query);
-
+        $this->_getWriteAdapter()->delete($this->_getBundleOptionTable());
         return $this;
     }
 

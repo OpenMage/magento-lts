@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,16 +34,38 @@
  */
 class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const PRICE_SCOPE_GLOBAL            = 0;
-    const PRICE_SCOPE_WEBSITE           = 1;
-    const XML_PATH_PRICE_SCOPE          = 'catalog/price/scope';
-
+    const PRICE_SCOPE_GLOBAL               = 0;
+    const PRICE_SCOPE_WEBSITE              = 1;
+    const XML_PATH_PRICE_SCOPE             = 'catalog/price/scope';
+    const XML_PATH_SEO_SAVE_HISTORY        = 'catalog/seo/save_rewrites_history';
+    const CONFIG_USE_STATIC_URLS           = 'cms/wysiwyg/use_static_urls_in_catalog';
+    const CONFIG_PARSE_URL_DIRECTIVES      = 'catalog/frontend/parse_url_directives';
+    const XML_PATH_CONTENT_TEMPLATE_FILTER = 'global/catalog/content/tempate_filter';
+    
     /**
      * Breadcrumb Path cache
      *
      * @var string
      */
     protected $_categoryPath;
+
+    /**
+     * Currenty selected store ID if applicable
+     *
+     * @var int
+     */
+    protected $_storeId = null;
+
+    /**
+     * Set a specified store ID value
+     *
+     * @param int $store
+     */
+    public function setStoreId($store)
+    {
+        $this->_storeId = $store;
+        return $this;
+    }
 
     /**
      * Return current category path or get it from current category
@@ -203,5 +225,47 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     public function isPriceGlobal()
     {
         return $this->getPriceScope() == self::PRICE_SCOPE_GLOBAL;
+    }
+
+    /**
+     * Indicate whether to save URL Rewrite History or not (create redirects to old URLs)
+     *
+     * @param int $storeId Store View
+     * @return bool
+     */
+    public function shouldSaveUrlRewritesHistory($storeId = null)
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_SEO_SAVE_HISTORY, $storeId);
+    }
+
+    /**
+     * Check if the store is configured to use static URLs for media
+     *
+     * @return bool
+     */
+    public function isUsingStaticUrlsAllowed()
+    {
+        return Mage::getStoreConfigFlag(self::CONFIG_USE_STATIC_URLS, $this->_storeId);
+    }
+
+    /**
+     * Check if the parsing of URL directives is allowed for the catalog
+     *
+     * @return bool
+     */
+    public function isUrlDirectivesParsingAllowed()
+    {
+        return Mage::getStoreConfigFlag(self::CONFIG_PARSE_URL_DIRECTIVES, $this->_storeId);
+    }
+
+    /**
+     * Retrieve template processor for catalog content
+     *
+     * @return Varien_Filter_Template
+     */
+    public function getPageTemplateProcessor()
+    {
+        $model = (string)Mage::getConfig()->getNode(self::XML_PATH_CONTENT_TEMPLATE_FILTER);
+        return Mage::getModel($model);
     }
 }

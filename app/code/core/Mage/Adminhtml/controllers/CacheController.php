@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,7 +54,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
     public function flushAllAction()
     {
         Mage::app()->getCacheInstance()->flush();
-        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("Cache storage was flushed successfully."));
+        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("The cache storage has been flushed."));
         $this->_redirect('*/*');
     }
 
@@ -64,7 +64,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
     public function flushSystemAction()
     {
         Mage::app()->cleanCache();
-        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("Magento cache storage was flushed successfully ."));
+        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("The Magento cache storage has been flushed."));
         $this->_redirect('*/*');
     }
 
@@ -141,13 +141,13 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
             Mage::getModel('core/design_package')->cleanMergedJsCss();
             Mage::dispatchEvent('clean_media_cache_after');
             $this->_getSession()->addSuccess(
-                Mage::helper('adminhtml')->__('JavaScript/CSS cache was cleaned successfully.')
+                Mage::helper('adminhtml')->__('The JavaScript/CSS cache has been cleaned.')
             );
         }
         catch (Exception $e) {
             $this->_getSession()->addException(
                 $e,
-                Mage::helper('adminhtml')->__('Error while cleared JavaScript/CSS cache. Please try again later.')
+                Mage::helper('adminhtml')->__('An error occurred while clearing the JavaScript/CSS cache.')
             );
         }
         catch (Mage_Core_Exception $e) {
@@ -165,7 +165,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
             Mage::getModel('catalog/product_image')->clearCache();
             Mage::dispatchEvent('clean_catalog_images_cache_after');
             $this->_getSession()->addSuccess(
-                Mage::helper('adminhtml')->__('Image cache was cleaned successfully.')
+                Mage::helper('adminhtml')->__('The image cache was cleaned.')
             );
         }
         catch (Mage_Core_Exception $e) {
@@ -174,7 +174,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
         catch (Exception $e) {
             $this->_getSession()->addException(
                 $e,
-                Mage::helper('adminhtml')->__('Error while cleared Image cache. Please try again later.')
+                Mage::helper('adminhtml')->__('An error occurred while clearing the image cache.')
             );
         }
         $this->_redirect('*/*');

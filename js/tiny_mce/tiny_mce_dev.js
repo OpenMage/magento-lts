@@ -1,8 +1,11 @@
 /**
- * $Id: tiny_mce_dev.js 1128 2009-05-18 11:58:08Z spocke $
+ * tiny_mce_dev.js
  *
- * @author Moxiecode
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+ * Copyright 2009, Moxiecode Systems AB
+ * Released under LGPL License.
+ *
+ * License: http://tinymce.moxiecode.com/license
+ * Contributing: http://tinymce.moxiecode.com/contributing
  *
  * This file should only be used while developing TinyMCE 
  * tiny_mce.js or tiny_mce_src.js should be used in a production environment.
@@ -10,7 +13,7 @@
  */
 
 (function() {
-	var i, nl = document.getElementsByTagName('script'), base, src, p, li, query = '', it;
+	var i, nl = document.getElementsByTagName('script'), base, src, p, li, query = '', it, scripts = [];
 
 	if (window.tinyMCEPreInit) {
 		base = tinyMCEPreInit.base;
@@ -36,32 +39,19 @@
 		query[unescape(it[0])] = unescape(it[1]);
 	}
 
-	nl = null;
+	nl = null; // IE leak fix
 
 	function include(u) {
-		//document.write('<script type="text/javascript" src="' + base + '/classes/' + u + '"></script>');
-		var w = window, x = w.XMLHttpRequest, da;
+		scripts.push(base + '/classes/' + u);
+	};
 
-		u = base + '/classes/' + u;
+	function load() {
+		var i, html = '';
 
-		if (x && w.opera) {
-			x = new XMLHttpRequest();
-			x.open('GET', u, false);
-			x.async = false;
-			x.send('');
-			da = x.responseText;
+		for (i = 0; i < scripts.length; i++)
+			html += '<script type="text/javascript" src="' + scripts[i] + '"></script>\n';
 
-			// Evaluate script
-			if (!w.execScript) {
-				try {
-					eval.call(w, da);
-				} catch (ex) {
-					eval(da, w); // Firefox 3.0a8
-				}
-			} else
-				w.execScript(da); // IE
-		} else
-			document.write('<script type="text/javascript" src="' + u + '"></script>');
+		document.write(html);
 	};
 
 	// Firebug
@@ -91,9 +81,12 @@
 	include('dom/Element.js');
 	include('dom/Selection.js');
 	include('dom/XMLWriter.js');
+	include('dom/Schema.js');
 	include('dom/StringWriter.js');
 	include('dom/Serializer.js');
 	include('dom/ScriptLoader.js');
+	include('dom/TreeWalker.js');
+	include('dom/RangeUtils.js');
 	include('ui/Control.js');
 	include('ui/Container.js');
 	include('ui/Separator.js');
@@ -115,14 +108,13 @@
 	include('ForceBlocks.js');
 	include('ControlManager.js');
 	include('WindowManager.js');
+	include('Formatter.js');
 	include('CommandManager.js');
-	include('commands/RemoveFormat.js');
-	include('commands/BlockQuote.js');
-	include('commands/CutCopyPaste.js');
-	include('commands/InsertHorizontalRule.js');
-	include('commands/UndoRedo.js');
+	include('LegacyInput.js');
 
 	// Developer API
 	include('xml/Parser.js');
 	include('Developer.js');
+
+	load();
 }());

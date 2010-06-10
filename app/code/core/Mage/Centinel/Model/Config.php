@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Centinel
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -136,5 +136,15 @@ class Mage_Centinel_Model_Config
     private function _getServiceConfigValue($key)
     {
         return Mage::getStoreConfig($this->_serviceConfigPath . '/' . $key, $this->getStore());
+    }
+
+    /**
+     * Define if debugging is enabled
+     *
+     * @return bool
+     */
+    public function getDebugFlag()
+    {
+        return $this->_getServiceConfigValue('debug');
     }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,26 +52,11 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
     }
 
     /**
-     * Clean compiled JS/CSS when updating base url configuration settings
+     * Clean compiled JS/CSS when updating url configuration settings
      */
     protected function _afterSave()
     {
-        $unsecureUrl = $this->getData('groups/unsecure/fields/base_url/value');
-        $secureUrl = $this->getData('groups/secure/fields/base_url/value');
-
-        $oldUnsecureUrl = Mage::getConfig()->getNode(
-            Mage_Core_Model_Url::XML_PATH_UNSECURE_URL,
-            $this->getScope(),
-            $this->getScopeId()
-        );
-
-        $oldSecureUrl = Mage::getConfig()->getNode(
-            Mage_Core_Model_Url::XML_PATH_SECURE_URL,
-            $this->getScope(),
-            $this->getScopeId()
-        );
-
-        if ($unsecureUrl != $oldUnsecureUrl || $secureUrl != $oldSecureUrl) {
+        if ($this->isValueChanged()) {
             Mage::getModel('core/design_package')->cleanMergedJsCss();
         }
     }

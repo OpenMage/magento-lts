@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Weee
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,7 +61,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     {
         Mage_Sales_Model_Quote_Address_Total_Abstract::collect($address);
         $this->_isTaxAffected = false;
-        $items = $address->getAllItems();
+        $items = $this->_getAddressItems($address);
         if (!count($items)) {
             return $this;
         }
@@ -121,7 +121,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
         $baseTotalValue     = 0;
         $totalRowValue      = 0;
         $baseTotalRowValue  = 0;
-        
+
         foreach ($attributes as $k=>$attribute) {
             $baseValue      = $attribute->getAmount();
             $value          = $this->_store->convertPrice($baseValue);
@@ -165,7 +165,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 ))
             );
         }
-        
+
         $item->setWeeeTaxAppliedAmount($totalValue)
             ->setBaseWeeeTaxAppliedAmount($baseTotalValue)
             ->setWeeeTaxAppliedRowAmount($totalRowValue)
@@ -183,7 +183,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                null
             );
         }
-        
+
     }
 
     /**
@@ -257,7 +257,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      */
     protected function _recalculateParent(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
-        
+
     }
 
     /**
@@ -497,5 +497,15 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                null
             );
         }
+    }
+
+    /**
+     * No aggregated label for fixed product tax
+     *
+     * TODO: fix
+     */
+    public function getLabel()
+    {
+        return '';
     }
 }

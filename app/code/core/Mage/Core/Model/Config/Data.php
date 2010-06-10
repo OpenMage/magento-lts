@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -86,12 +86,25 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
         $storeCode   = $this->getStoreCode();
         $websiteCode = $this->getWebsiteCode();
         $path        = $this->getPath();
-        if ($websiteCode) {
-            return Mage::app()->getWebsite($websiteCode)->getConfig($path);
-        }
+
         if ($storeCode) {
             return Mage::app()->getStore($storeCode)->getConfig($path);
         }
+        if ($websiteCode) {
+            return Mage::app()->getWebsite($websiteCode)->getConfig($path);
+        }
         return (string) Mage::getConfig()->getNode('default/' . $path);
+    }
+    
+
+     /**
+     * Get value by key for new user data from <section>/groups/<group>/fields/<field>
+     * 
+     * @return string
+     */
+    public function getFieldsetDataValue($key)
+    {
+        $data = $this->_getData('fieldset_data');
+        return (is_array($data) && isset($data[$key])) ? $data[$key] : null;
     }
 }

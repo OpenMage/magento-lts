@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -373,10 +373,10 @@ class Mage_Customer_Model_Convert_Adapter_Customer
         }
 
         foreach ($collections as $storeId=>$collection) {
-            $this->addException(Mage::helper('customer')->__('Records for "'.$stores[$storeId].'" store found'));
+            $this->addException(Mage::helper('customer')->__('Records for %s store found.', $stores[$storeId]));
 
             if (!$collection instanceof Mage_Customer_Model_Entity_Customer_Collection) {
-                $this->addException(Mage::helper('customer')->__('Customer collection expected'), Mage_Dataflow_Model_Convert_Exception::FATAL);
+                $this->addException(Mage::helper('customer')->__('Customer collection expected.'), Mage_Dataflow_Model_Convert_Exception::FATAL);
             }
             try {
                 $i = 0;
@@ -398,10 +398,10 @@ class Mage_Customer_Model_Convert_Adapter_Customer
                     }
                     $i++;
                 }
-                $this->addException(Mage::helper('customer')->__("Saved ".$i." record(s)"));
+                $this->addException(Mage::helper('customer')->__("Saved %d record(s)", $i));
             } catch (Exception $e) {
                 if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
-                    $this->addException(Mage::helper('customer')->__('Problem saving the collection, aborting. Error: %s', $e->getMessage()),
+                    $this->addException(Mage::helper('customer')->__('An error occurred while saving the collection, aborting. Error: %s', $e->getMessage()),
                         Mage_Dataflow_Model_Convert_Exception::FATAL);
                 }
             }
@@ -421,18 +421,18 @@ class Mage_Customer_Model_Convert_Adapter_Customer
         $customer->setId(null);
 
         if (empty($importData['website'])) {
-            $message = Mage::helper('customer')->__('Skip import row, required field "%s" not defined', 'website');
+            $message = Mage::helper('customer')->__('Skipping import row, required field "%s" is not defined.', 'website');
             Mage::throwException($message);
         }
 
         $website = $this->getWebsiteByCode($importData['website']);
 
         if ($website === false) {
-            $message = Mage::helper('customer')->__('Skip import row, website "%s" field not exists', $importData['website']);
+            $message = Mage::helper('customer')->__('Skipping import row, website "%s" field does not exist.', $importData['website']);
             Mage::throwException($message);
         }
         if (empty($importData['email'])) {
-            $message = Mage::helper('customer')->__('Skip import row, required field "%s" not defined', 'email');
+            $message = Mage::helper('customer')->__('Skipping import row, required field "%s" is not defined.', 'email');
             Mage::throwException($message);
         }
 
@@ -445,14 +445,14 @@ class Mage_Customer_Model_Convert_Adapter_Customer
              */
             if (empty($importData['group_id']) || !isset($customerGroups[$importData['group_id']])) {
                 $value = isset($importData['group_id']) ? $importData['group_id'] : '';
-                $message = Mage::helper('catalog')->__('Skip import row, is not valid value "%s" for field "%s"', $value, 'group_id');
+                $message = Mage::helper('catalog')->__('Skipping import row, the value "%s" is not valid for the "%s" field.', $value, 'group_id');
                 Mage::throwException($message);
             }
             $customer->setGroupId($customerGroups[$importData['group_id']]);
 
             foreach ($this->_requiredFields as $field) {
                 if (!isset($importData[$field])) {
-                    $message = Mage::helper('catalog')->__('Skip import row, required field "%s" for new customer not defined', $field);
+                    $message = Mage::helper('catalog')->__('Skip import row, required field "%s" for the new customer is not defined.', $field);
                     Mage::throwException($message);
                 }
             }

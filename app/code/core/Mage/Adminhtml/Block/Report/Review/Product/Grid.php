@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -74,14 +74,14 @@ class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Blo
         ));
 
         $this->addColumn('avg_rating', array(
-            'header'    =>Mage::helper('reports')->__('Avg. rating'),
+            'header'    =>Mage::helper('reports')->__('Avg. Rating'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'avg_rating'
         ));
 
         $this->addColumn('avg_rating_approved', array(
-            'header'    =>Mage::helper('reports')->__('Avg. approved rating'),
+            'header'    =>Mage::helper('reports')->__('Avg. Approved Rating'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'avg_rating_approved'

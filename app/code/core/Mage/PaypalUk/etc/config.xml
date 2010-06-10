@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_PaypalUk
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -103,26 +103,12 @@
     </adminhtml>
 
     <default>
-        <paypal>
-            <wpuk>
-                <partner>PayPalUK</partner>
-                <user backend_model="adminhtml/system_config_backend_encrypted"/>
-                <pwd backend_model="adminhtml/system_config_backend_encrypted"/>
-            </wpuk>
-        </paypal>
         <payment>
             <paypaluk_express>
-                <payment_action>authorize</payment_action>
                 <model>paypaluk/express</model>
-                <title>PaypalUk Express</title>
-                <allowspecific>0</allowspecific>
             </paypaluk_express>
             <paypaluk_direct>
-                <payment_action>authorize</payment_action>
                 <model>paypaluk/direct</model>
-                <title>PaypalUk Direct</title>
-                <cctypes>AE,VI,MC,DI</cctypes>
-                <allowspecific>0</allowspecific>
             </paypaluk_direct>
         </payment>
     </default>

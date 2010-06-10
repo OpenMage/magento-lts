@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -44,7 +44,7 @@
             <show_in_store>1</show_in_store>
             <groups>
                 <totals_sort translate="label">
-                    <label>Checkout totals sort order</label>
+                    <label>Checkout Totals Sort Order</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
@@ -120,7 +120,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <logo translate="label comment">
-                            <label>Logo for PDF print-outs (200x50)</label>
+                            <label>Logo for PDF Print-outs (200x50)</label>
                             <frontend_type>image</frontend_type>
                             <backend_model>adminhtml/system_config_backend_image_pdf</backend_model>
                             <upload_dir config="system/filesystem/media" scope_info="1">sales/store/logo</upload_dir>
@@ -132,7 +132,7 @@
                             <comment>Default logo, will be used in PDF and HTML documents.&lt;br /&gt;(jpeg, tiff, png)</comment>
                         </logo>
                         <logo_html translate="label comment">
-                            <label>Logo for HTML print view</label>
+                            <label>Logo for HTML Print View</label>
                             <frontend_type>image</frontend_type>
                             <backend_model>adminhtml/system_config_backend_image</backend_model>
                             <upload_dir config="system/filesystem/media" scope_info="1">sales/store/logo_html</upload_dir>
@@ -155,7 +155,7 @@
                 </identity>
 
                 <minimum_order translate="label">
-                    <label>Minimum order amount</label>
+                    <label>Minimum Order Amount</label>
                     <sort_order>50</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -171,24 +171,24 @@
                             <show_in_store>0</show_in_store>
                         </active>
                         <amount translate="label comment">
-                            <label>Minimum amount</label>
+                            <label>Minimum Amount</label>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Subtotal after discount</comment>
+                            <comment>Subtotal after discount.</comment>
                         </amount>
                         <description translate="label comment">
-                            <label>Description message</label>
+                            <label>Description Message</label>
                             <sort_order>20</sort_order>
                             <frontend_type>textarea</frontend_type>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>This message will be shown in shopping cart when subtotal after discount less than minimum amount</comment>
+                            <comment>This message will be shown in shopping cart when subtotal after discount less than minimum amount.</comment>
                         </description>
                         <error_message translate="label">
-                            <label>Error to show in shopping cart</label>
+                            <label>Error to Show in Shopping Cart</label>
                             <sort_order>30</sort_order>
                             <frontend_type>textarea</frontend_type>
                             <show_in_default>1</show_in_default>
@@ -196,7 +196,7 @@
                             <show_in_store>1</show_in_store>
                         </error_message>
                         <multi_address translate="label">
-                            <label>Validate each address separately in multi-address checkout</label>
+                            <label>Validate Each Address Separately in Multi-address Checkout</label>
                             <sort_order>40</sort_order>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -205,25 +205,44 @@
                             <show_in_store>0</show_in_store>
                         </multi_address>
                         <multi_address_description translate="label comment">
-                            <label>Multi-address description message</label>
+                            <label>Multi-address Description Message</label>
                             <sort_order>50</sort_order>
                             <frontend_type>textarea</frontend_type>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>If empty, the default description above will be used</comment>
+                            <comment>If empty, the default description above will be used.</comment>
                         </multi_address_description>
                         <multi_address_error_message translate="label comment">
-                            <label>Multi-address error to show in shopping cart</label>
+                            <label>Multi-address Error to Show in Shopping Cart</label>
                             <sort_order>60</sort_order>
                             <frontend_type>textarea</frontend_type>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>If empty, the default error above will be used</comment>
+                            <comment>If empty, the default error above will be used.</comment>
                         </multi_address_error_message>
                     </fields>
                 </minimum_order>
+                <dashboard translate="label,comment">
+                    <label>Dashboard</label>
+                    <sort_order>60</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <use_aggregated_data translate="label">
+                            <label>Use Aggregated Data (beta)</label>
+                            <sort_order>10</sort_order>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Improves dashboard performance but provides non-realtime data.</comment>
+                        </use_aggregated_data>
+                    </fields>
+                </dashboard>
             </groups>
         </sales>
         <sales_email translate="label" module="sales">
@@ -286,7 +305,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>separate by ","</comment>
+                            <comment>Comma-separated.</comment>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Order Email Copy Method</label>
@@ -351,7 +370,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>separate by ","</comment>
+                            <comment>Comma-separated.</comment>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Order Email Copy Method</label>
@@ -416,7 +435,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>separate by ","</comment>
+                            <comment>Comma-separated.</comment>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Order Email Copy Method</label>
@@ -480,7 +499,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>separate by ","</comment>
+                            <comment>Comma-separated.</comment>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Order Email Copy Method</label>
@@ -545,7 +564,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>separate by ","</comment>
+                            <comment>Comma-separated.</comment>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Order Email Copy Method</label>
@@ -609,7 +628,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>separate by ","</comment>
+                            <comment>Comma-separated.</comment>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Order Email Copy Method</label>
@@ -674,7 +693,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>separate by ","</comment>
+                            <comment>Comma-separated.</comment>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Order Email Copy Method</label>
@@ -738,7 +757,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>separate by ","</comment>
+                            <comment>Comma-separated.</comment>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Order Email Copy Method</label>

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -38,6 +38,7 @@
 ?>
 
 <script type="text/javascript">
+//<![CDATA[
 var profileImportOnly = ['profile_number_of_records', 'profile_decimal_separator'];
 function showOption(select)
 {
@@ -157,6 +158,7 @@ Event.observe(window, 'load', function(){
         updateRun('profile_data_transfer');
     }
 });
+//]]>
 </script>
 
 <div id="profile-generator" class="entry-edit profile-generator">
@@ -547,6 +549,7 @@ Event.observe(window, 'load', function(){
 </div>
 
 <script type="text/javascript">
+//<![CDATA[
     $$('.option-control').each(showOption);
     changeEntityType();
 
@@ -601,5 +604,5 @@ Event.observe(window, 'load', function(){
             Element.hide($('__fieldmapping'));
         }
     }
-
+//]]>
 </script>

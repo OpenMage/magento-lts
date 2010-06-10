@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,6 +68,64 @@ class Mage_Core_Model_Translate_Inline
      * @var bool
      */
     protected $_isJson              = false;
+
+    /**
+     * List of global tags
+     *
+     * @var array
+     */
+    protected $_allowedTagsGlobal = array(
+        'script'    => 'String in Javascript',
+        'title'     => 'Page title',
+    );
+
+    /**
+     * List of simple tags
+     *
+     * @var array
+     */
+    protected $_allowedTagsSimple = array(
+        'legend'        => 'Caption for the fieldset element',
+        'label'         => 'Label for an input element.',
+        'option'        => 'Drop-down list option',
+        'button'        => 'Push button',
+        'a'             => 'Link label',
+        'b'             => 'Bold text',
+        'strong'        => 'Strong emphasized text',
+        'i'             => 'Italic text',
+        'em'            => 'Emphasized text',
+        'u'             => 'Underlined text',
+        'sup'           => 'Superscript text',
+        'sub'           => 'Subscript text',
+        'span'          => 'Span element',
+        'small'         => 'Smaller text',
+        'big'           => 'Bigger text',
+        'address'       => 'Contact information',
+        'blockquote'    => 'Long quotation',
+        'q'             => 'Short quotation',
+        'cite'          => 'Citation',
+        'dt'            => 'Item in a definition list',
+        'dd'            => 'Item description in a definition list.',
+        'caption'       => 'Table caption',
+        'th'            => 'Header cell in a table',
+        'td'            => 'Standard cell in a table',
+        'abbr'          => 'Abbreviated phrase',
+        'acronym'       => 'An acronym',
+        'var'           => 'Variable part of a text',
+        'dfn'           => 'Term',
+        'strike'        => 'Strikethrough text',
+        'del'           => 'Deleted text',
+        'ins'           => 'Inserted text',
+        'h1'            => 'Heading level 1',
+        'h2'            => 'Heading level 2',
+        'h3'            => 'Heading level 3',
+        'h4'            => 'Heading level 4',
+        'h5'            => 'Heading level 5',
+        'h6'            => 'Heading level 6',
+        'p'             => 'Paragraph',
+        'pre'           => 'Preformatted text',
+        'center'        => 'Centered text'
+    );
 
     /**
      * Is enabled and allowed Inline Translates
@@ -294,15 +352,10 @@ class Mage_Core_Model_Translate_Inline
 
         $nextTag = 0;
 
-        $location = array(
-            'script' => 'String in Javascript',
-            'title'  => 'Page title',
-            'select' => 'Dropdown option',
-            'button' => 'Button label',
-            'a'      => 'Link label',
-        );
+        $location = array_merge($this->_allowedTagsGlobal, $this->_allowedTagsSimple);
+        $tags = implode('|', array_merge(array_keys($this->_allowedTagsGlobal), array_keys($this->_allowedTagsSimple)));
+        $tagRegExp  = '#<(' . $tags . ')(\s+[^>]*|)(>)#i';
 
-        $tagRegExp  = '#<(script|title|select|button|a)(\s+[^>]*|)(>)#i';
         $tagMatch = array();
         while (preg_match($tagRegExp, $this->_content, $tagMatch, PREG_OFFSET_CAPTURE, $nextTag)) {
             $tagClosure = '</'.$tagMatch[1][0].'>';
@@ -326,33 +379,29 @@ class Mage_Core_Model_Translate_Inline
                 $trArr = array_unique($trArr);
                 $tag   = strtolower($tagMatch[1][0]);
 
-                switch ($tag) {
-                    case 'script': case 'title':
-                        $tagHtml .= '<span class="translate-inline-'.$tag
-                            .'" translate='.$quoteHtml.'['.join(',', $trArr).']'.$quoteHtml.'>'.strtoupper($tag).'</span>';
-                        break;
+                if (in_array($tag, array_keys($this->_allowedTagsGlobal))) {
+                    $tagHtml .= '<span class="translate-inline-'.$tag
+                        .'" translate='.$quoteHtml.'['.join(',', $trArr).']'.$quoteHtml.'>'.strtoupper($tag).'</span>';
                 }
                 $this->_content = substr_replace($this->_content, $tagHtml, $tagMatch[0][1], $tagLength);
 
-                switch ($tag) {
-                    case 'select': case 'button': case 'a':
-                        if (preg_match('# translate='.$quotePatern.'\[(.+?)\]'.$quotePatern.'#i', $tagMatch[0][0], $m, PREG_OFFSET_CAPTURE)) {
-                            foreach ($trArr as $i=>$tr) {
-                                if (strpos($m[1][0], $tr)!==false) {
-                                    unset($trArr[$i]);
-                                }
+                if (in_array($tag, array_keys($this->_allowedTagsSimple))) {
+                    if (preg_match('# translate='.$quotePatern.'\[(.+?)\]'.$quotePatern.'#i', $tagMatch[0][0], $m, PREG_OFFSET_CAPTURE)) {
+                        foreach ($trArr as $i=>$tr) {
+                            if (strpos($m[1][0], $tr)!==false) {
+                                unset($trArr[$i]);
                             }
-                            array_unshift($trArr, $m[1][0]);
-                            $start = $tagMatch[0][1]+$m[0][1];
-                            $len = strlen($m[0][0]);
-                        } else {
-                            $start = $tagMatch[2][1];
-                            $len = 0;
                         }
+                        array_unshift($trArr, $m[1][0]);
+                        $start = $tagMatch[0][1]+$m[0][1];
+                        $len = strlen($m[0][0]);
+                    } else {
+                        $start = $tagMatch[2][1];
+                        $len = 0;
+                    }
 
-                        $this->_content = substr_replace($this->_content,
-                            ' translate='.$quoteHtml.'['.join(',', $trArr).']'.$quoteHtml, $start, $len);
-                        break;
+                    $this->_content = substr_replace($this->_content,
+                        ' translate='.$quoteHtml.'['.join(',', $trArr).']'.$quoteHtml, $start, $len);
                 }
             }
 
@@ -390,7 +439,6 @@ class Mage_Core_Model_Translate_Inline
             {
                 $spanHtml = $m[3][0];
             }
-                $spanHtml = $m[3][0];
             $this->_content = substr_replace($this->_content, $spanHtml, $m[2][1], strlen($m[2][0]) );
             $next = $m[0][1];
         }

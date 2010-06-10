@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -30,11 +30,11 @@
 
     <checkout_cart_index>
         <reference name="checkout.cart.top_methods">
-            <block type="googlecheckout/link" name="checkout.cart.methods.googlecheckout" template="googlecheckout/link.phtml" before="-"/>
+            <block type="googlecheckout/link" name="checkout.cart.methods.googlecheckout.top" template="googlecheckout/link.phtml" before="-"/>
         </reference>
 
         <reference name="checkout.cart.methods">
-            <block type="googlecheckout/link" name="checkout.cart.methods.googlecheckout" template="googlecheckout/link.phtml"/>
+            <block type="googlecheckout/link" name="checkout.cart.methods.googlecheckout.bottom" template="googlecheckout/link.phtml"/>
         </reference>
 
         <reference name="google_analytics">

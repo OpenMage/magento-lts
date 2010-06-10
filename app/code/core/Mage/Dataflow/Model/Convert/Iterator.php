@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_Convert_Adapter_Abstract
@@ -94,7 +94,7 @@ function updateProgress(sessionId, idx, time, memory) {
     public function updateProgress($args)
     {
         $memory = !empty($args['memory']) ? $args['memory'] : '';
-        echo '<script>updateProgress("'.$args['row']['session_id'].'", "'.$args['idx'].'", "'.time().'", "'.$memory.'");</script>';
+        echo '<script type="text/javascript">updateProgress("'.$args['row']['session_id'].'", "'.$args['idx'].'", "'.time().'", "'.$memory.'");</script>';
         echo '<li>'.$memory.'</li>';
 
         return array();

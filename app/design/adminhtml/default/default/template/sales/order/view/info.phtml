@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -33,9 +33,9 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
     <!--Order Information-->
     <div class="entry-edit">
         <?php if ($_order->getEmailSent()):
-            $_email=$this->__('Order confirmation email sent');
+            $_email = Mage::helper('sales')->__('the order confirmation email was sent');
         else:
-            $_email=$this->__('Order confirmation email not sent');
+            $_email = Mage::helper('sales')->__('the order confirmation email is not sent');
         endif; ?>
         <div class="entry-edit-head">
         <?php if ($this->getNoUseOrderLink()): ?>
@@ -67,7 +67,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
             </tr>
             <?php if($_order->getRelationChildId()): ?>
             <tr>
-                <td class="label"><label><?php echo Mage::helper('sales')->__('Link to the new order') ?></label></td>
+                <td class="label"><label><?php echo Mage::helper('sales')->__('Link to the New Order') ?></label></td>
                 <td><a href="<?php echo $this->getViewUrl($_order->getRelationChildId()) ?>">
                     <?php echo $_order->getRelationChildRealId() ?>
                 </a></td>
@@ -75,7 +75,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
             <?php endif; ?>
             <?php if($_order->getRelationParentId()): ?>
             <tr>
-                <td class="label"><label><?php echo Mage::helper('sales')->__('Link to the previous order') ?></label></td>
+                <td class="label"><label><?php echo Mage::helper('sales')->__('Link to the Previous Order') ?></label></td>
                 <td><a href="<?php echo $this->getViewUrl($_order->getRelationParentId()) ?>">
                     <?php echo $_order->getRelationParentRealId() ?>
                 </a></td>

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* @var $this Mage_Catalog_Block_Product_Compare_List */
@@ -60,8 +60,8 @@
                     <th>&nbsp;</th>
                 <?php endif; ?>
                 <td>
-                    <a class="product-image" href="#" onclick="setPLocation('<?php echo $this->getProductUrl($_item) ?>', true)" title="<?php echo $this->htmlEscape($_item->getName()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(125, 125); ?>" width="125" height="125" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" /></a>
-                    <h2 class="product-name"><a href="#" onclick="setPLocation('<?php echo $this->getProductUrl($_item) ?>', true)" title="<?php echo $this->htmlEscape($_item->getName()) ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a></h2>
+                    <a class="product-image" href="#" onclick="setPLocation('<?php echo $this->getProductUrl($_item) ?>', true)" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(125, 125); ?>" width="125" height="125" alt="<?php echo $this->stripTags($_item->getName(), null, true) ?>" /></a>
+                    <h2 class="product-name"><a href="#" onclick="setPLocation('<?php echo $this->getProductUrl($_item) ?>', true)" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_item, $_item->getName(), 'name') ?></a></h2>
                     <?php echo $this->getReviewsSummaryHtml($_item, 'short') ?>
                     <?php echo $this->getPriceHtml($_item, true, '-compare-list-top') ?>
                     <?php if($_item->isSaleable()): ?>
@@ -98,7 +98,7 @@
                               echo substr($this->getProductAttributeValue($_item, $_attribute),0,10);
                               break;
                         default: ?>
-                            <?php echo nl2br($this->getProductAttributeValue($_item, $_attribute)) ?>
+                            <?php echo $this->helper('catalog/output')->productAttribute($_item, $this->getProductAttributeValue($_item, $_attribute), $_attribute->getCode()) ?>
                             <?php break;
                     } ?>
                 </td>

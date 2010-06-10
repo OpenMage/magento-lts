@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -35,24 +35,36 @@
         </tr>
     </thead>
 
-    <tfoot>
-        <?php if($_order->getGiftMessageId() && $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_order->getGiftMessageId())): ?>
-        <tr>
-            <td colspan="4" align="left" style="padding:3px 9px">
-            <strong><?php echo $this->__('Gift Message for this Order') ?></strong>
-            <br /><?php echo $this->__('From:'); ?> <?php echo $this->htmlEscape($_giftMessage->getSender()) ?>
-            <br /><?php echo $this->__('To:'); ?> <?php echo $this->htmlEscape($_giftMessage->getRecipient()) ?>
-            <br /><?php echo $this->__('Message:'); ?><br /> <?php echo $this->htmlEscape($_giftMessage->getMessage()) ?>
-            </td>
-        </tr>
-        <?php endif; ?>
-        <?php echo $this->getChildHtml('order_totals') ?>
-    </tfoot>
-
     <?php $i=0; foreach ($_order->getAllItems() as $_item): ?>
     <?php if($_item->getParentItem()) continue; else $i++; ?>
     <tbody<?php echo $i%2 ? ' bgcolor="#eeeded"' : '' ?>>
         <?php echo $this->getItemHtml($_item) ?>
     </tbody>
     <?php endforeach; ?>
+
+    <tbody>
+        <?php echo $this->getChildHtml('order_totals') ?>
+    </tbody>
+</table>
+
+<br />
+
+<table cellspacing="0" cellpadding="0" border="0" width="100%" style="border:1px solid #bebcb7; background:#f8f7f5;">
+    <thead>
+        <tr>
+            <th align="left" bgcolor="#d9e5ee" style="padding:3px 9px"><strong><?php echo $this->__('Gift Message for this Order') ?></strong></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <?php if($_order->getGiftMessageId() && $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_order->getGiftMessageId())): ?>
+        <tr>
+            <td colspan="4" align="left" style="padding:3px 9px">
+            <strong><?php echo $this->__('From:'); ?></strong> <?php echo $this->htmlEscape($_giftMessage->getSender()) ?>
+            <br /><strong><?php echo $this->__('To:'); ?></strong> <?php echo $this->htmlEscape($_giftMessage->getRecipient()) ?>
+            <br /><strong><?php echo $this->__('Message:'); ?></strong><br /> <?php echo $this->htmlEscape($_giftMessage->getMessage()) ?>
+            </td>
+        </tr>
+        <?php endif; ?>
+    </tbody>
 </table>

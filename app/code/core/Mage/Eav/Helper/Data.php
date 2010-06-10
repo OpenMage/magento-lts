@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,7 +59,7 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
             ),
             array(
                 'value' => 'validate-url',
-                'label' => Mage::helper('eav')->__('Url')
+                'label' => Mage::helper('eav')->__('URL')
             ),
             array(
                 'value' => 'validate-alpha',
@@ -67,7 +67,7 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
             ),
             array(
                 'value' => 'validate-alphanum',
-                'label' => Mage::helper('eav')->__('Letters(a-zA-Z) or Numbers(0-9)')
+                'label' => Mage::helper('eav')->__('Letters (a-z, A-Z) or Numbers (0-9)')
             )
         );
     }

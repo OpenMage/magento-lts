@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +55,7 @@ class Mage_Core_Model_Mysql4_Website extends Mage_Core_Model_Mysql4_Abstract
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if(!preg_match('/^[a-z]+[a-z0-9_]*$/', $object->getCode())) {
-            Mage::throwException(Mage::helper('core')->__('Website code should contain only letters (a-z), numbers (0-9) or underscore(_), first character should be a letter'));
+            Mage::throwException(Mage::helper('core')->__('Website code may only contain letters (a-z), numbers (0-9) or underscore(_), the first character must be a letter'));
         }
 
         return parent::_beforeSave($object);

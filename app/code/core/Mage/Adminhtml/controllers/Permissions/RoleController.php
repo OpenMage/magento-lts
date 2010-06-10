@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -108,8 +108,8 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             $breadCrumb      = $this->__('Edit Role');
             $breadCrumbTitle = $this->__('Edit Role');
         } else {
-            $breadCrumb = $this->__('Add new Role');
-            $breadCrumbTitle = $this->__('Add new Role');
+            $breadCrumb = $this->__('Add New Role');
+            $breadCrumbTitle = $this->__('Add New Role');
         }
 
         $this->_title($role->getId() ? $role->getRoleName() : $this->__('New Role'));
@@ -139,7 +139,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         $currentUser = Mage::getModel('admin/user')->setId(Mage::getSingleton('admin/session')->getUser()->getId());
 
         if (in_array($rid, $currentUser->getRoles()) ) {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('You can not delete self assigned roles.'));
+            Mage::getSingleton('adminhtml/session')->addError($this->__('Self-assigned roles cannot be deleted.'));
             $this->_redirect('*/*/editrole', array('rid' => $rid));
             return;
         }
@@ -147,9 +147,9 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         try {
             $role = $this->_initRole()->delete();
 
-            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Role successfully deleted.'));
+            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been deleted.'));
         } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('Error while deleting this role. Please try again later.'));
+            Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while deleting this role.'));
         }
 
         $this->_redirect("*/*/");
@@ -177,7 +177,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
         $role = $this->_initRole('role_id');
         if (!$role->getId() && $rid) {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('This Role no longer exists'));
+            Mage::getSingleton('adminhtml/session')->addError($this->__('This Role no longer exists.'));
             $this->_redirect('*/*/');
             return;
         }
@@ -203,11 +203,11 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             }
 
             $rid = $role->getId();
-            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Role successfully saved.'));
+            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has beensuccessfully saved.'));
         } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('Error while saving this role. Please try again later.'));
+            Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while saving this role.'));
         }
 
         //$this->getResponse()->setRedirect($this->getUrl("*/*/editrole/rid/$rid"));

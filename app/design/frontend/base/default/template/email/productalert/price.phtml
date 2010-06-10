@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -31,15 +31,15 @@
     <tr>
         <td><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>"><img src="<?php echo $_product->getThumbnailUrl() ?>" border="0" align="left" height="75" width="75" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" /></a></td>
         <td>
-            <div><a href="<?php echo $_product->getProductUrl() ?>"><b><?php echo $this->htmlEscape($_product->getName()) ?></b></a></div>
+            <p><a href="<?php echo $_product->getProductUrl() ?>"><strong><?php echo $this->htmlEscape($_product->getName()) ?></strong></a></p>
             <?php if ($shortDescription = $this->htmlEscape($_product->getShortDescription())): ?>
             <p><small><?php echo $shortDescription ?></small></p>
             <?php endif; ?>
             <p><?php if ($_product->getPrice() != $_product->getFinalPrice()): ?>
-                <?php echo $this->__('Regular Price:') ?> <strong><strike><?php echo $this->formatPrice($_product->getPrice()) ?></strike></strong><br />
-                <b><?php echo $this->__('Special price:') ?> <font color="red"><?php echo $this->formatPrice($_product->getFinalPrice()) ?></font></b>
+                <?php echo $this->__('Regular Price:') ?> <strong style="text-decoration:line-through;"><?php echo Mage::helper('core')->currency($_product->getPrice()) ?></strong><br />
+                <strong><?php echo $this->__('Special price:') ?> <span style="color:#f00;"><?php echo Mage::helper('core')->currency($_product->getFinalPrice()) ?></span></strong>
             <?php else: ?>
-                <b><?php echo $this->__('Price:') ?></b> <?php echo $this->formatPrice($_product->getPrice()) ?>
+                <strong><?php echo $this->__('Price:') ?></strong> <?php echo Mage::helper('core')->currency($_product->getPrice()) ?>
             <?php endif; ?></p>
             <p><small><a href="<?php echo $this->getProductUnsubscribeUrl($_product->getId()) ?>"><?php echo $this->__('Click here not to receive alerts for this product') ?></a></small></p>
         </td>

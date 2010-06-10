@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -94,7 +94,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
         ), 'is_user_defined');
 
         $this->addColumnAfter('is_filterable', array(
-            'header'=>Mage::helper('catalog')->__('Use In Layered Navigation'),
+            'header'=>Mage::helper('catalog')->__('Use in Layered Navigation'),
             'sortable'=>true,
             'index'=>'is_filterable',
             'type' => 'options',

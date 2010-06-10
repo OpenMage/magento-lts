@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 /**
@@ -160,7 +160,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
                 $this->getRequest()->getParams());
         }
         catch (Exception $e) {
-            $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Error while saving this template. Please try again later.'));
+            $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while saving this template.'));
             $this->_getSession()->setData('newsletter_template_form_data', $this->getRequest()->getParams());
         }
         $this->_forward('new');
@@ -182,7 +182,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
                 $this->_getSession()->addError($e->getMessage());
             }
             catch (Exception $e) {
-                $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Error while deleting this template. Please try again later.'));
+                $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while deleting this template.'));
             }
         }
         $this->_redirect('*/*');

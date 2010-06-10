@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -78,9 +78,10 @@
                 <td class="label"><label ><?php echo Mage::helper('compiler')->__('Scopes Compilation Settings')?></label></td>
                 <td class="value">
                     <?php foreach($this->getCompilationList() as $_frontName => $_classNames) : ?>
-                    <strong><?php echo $_frontName ?></strong><br/>
-                    <textarea style="width:70%" readonly="1"><?php echo $this->arrToSting($_classNames)?></textarea>
-                    <br/>
+                    <p>
+                        <label><strong><?php echo $_frontName ?></strong></label><br />
+                        <textarea style="width:70%" readonly="readonly" cols="5" rows="3"><?php echo $this->arrToSting($_classNames)?></textarea>
+                    </p>
                     <?php endforeach; ?>
                 </td>
             </tr>

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /**
@@ -34,7 +34,7 @@
         <?php echo $this->getExcludeTaxLabel() ?>
     </td>
     <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->getShippingExcludeTax()) ?>
+        <?php echo $this->formatPrice($this->getShippingExcludeTax()) ?>
     </td>
 </tr>
 <tr>
@@ -42,7 +42,7 @@
         <?php echo $this->getIncludeTaxLabel() ?>
     </td>
     <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->getShippingIncludeTax()) ?>
+        <?php echo $this->formatPrice($this->getShippingIncludeTax()) ?>
     </td>
 </tr>
 <?php elseif($this->displayIncludeTax()) : ?>
@@ -51,7 +51,7 @@
         <?php echo $this->getTotal()->getTitle() ?>
     </td>
     <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->getShippingIncludeTax()) ?>
+        <?php echo $this->formatPrice($this->getShippingIncludeTax()) ?>
     </td>
 </tr>
 <?php else:?>
@@ -60,7 +60,7 @@
         <?php echo $this->getTotal()->getTitle() ?>
     </td>
     <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->getShippingExcludeTax()) ?>
+        <?php echo $this->formatPrice($this->getShippingExcludeTax()) ?>
     </td>
 </tr>
 <?php endif;?>

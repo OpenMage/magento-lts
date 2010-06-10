@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -31,6 +31,11 @@
  */
 ?>
 <ul class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
-    <li><img src="<?php echo $this->getBannerSrc() ?>" alt="PayPal" /></li>
-    <li><?php echo $this->getRedirectMessage() ?></li>
+    <li class="form-alt"><?php echo $this->getRedirectMessage() ?></li>
+    <?php if ($code = $this->getCreateBACode()): ?>
+        <li class="form-alt">
+            <label for="<?php echo $code ?>"><input type="checkbox" id="<?php echo $code ?>" value="1" name="payment[<?php echo $code ?>]" class="checkbox" />
+            <?php echo $this->__('Sign a billing agreement to streamline further purchases with PayPal.') ?></label>
+        </li>
+    <?php endif; ?>
 </ul>

@@ -20,12 +20,19 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Mage_GoogleCheckout_Model_Api extends Varien_Object
 {
+    /**
+     * Fields that should be replaced in debug with '***'
+     *
+     * @var array
+     */
+    protected $_debugReplacePrivateDataKeys = array();
+
     protected function _getApi($area)
     {
         $api = Mage::getModel('googlecheckout/api_xml_'.$area)->setStoreId($this->getStoreId());
@@ -189,11 +196,36 @@ class Mage_GoogleCheckout_Model_Api extends Varien_Object
         return $api;
     }
 
-    public function processBeacon()
+    /**
+     * @deprecated after 1.4.1.0
+     *
+     */
+    public function processBeacon(){}
+
+    /**
+     * Log debug data to file
+     *
+     * @param mixed $debugData
+     */
+    public function debugData($debugData)
     {
-        $debug = Mage::getModel('googlecheckout/api_debug')->setDir('in')
-            ->setUrl('googlecheckout/api/beacon')
-            ->setRequestBody($_SERVER['QUERY_STRING'])
-            ->save();
+        if ($this->getDebugFlag()) {
+            Mage::getModel('core/log_adapter', 'payment_googlecheckout.log')
+               ->setFilterDataKeys($this->_debugReplacePrivateDataKeys)
+               ->log($debugData);
+        }
+    }
+
+    /**
+     * Define if debugging is enabled
+     *
+     * @return bool
+     */
+    public function getDebugFlag()
+    {
+        if (!$this->hasData('debug_flag')) {
+            $this->setData('debug_flag', Mage::getStoreConfig('google/checkout/debug', $this->getStoreId()));
+        }
+        return $this->getData('debug_flag');
     }
 }

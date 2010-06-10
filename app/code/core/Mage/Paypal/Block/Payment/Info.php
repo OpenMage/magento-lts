@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,18 @@
  */
 class Mage_Paypal_Block_Payment_Info extends Mage_Payment_Block_Info_Cc
 {
+    /**
+     * Don't show CC type for non-CC methods
+     *
+     * @return string|null
+     */
+    public function getCcTypeName()
+    {
+        if (Mage_Paypal_Model_Config::getIsCreditCardMethod($this->getInfo()->getMethod())) {
+            return parent::getCcTypeName();
+        }
+    }
+
     /**
      * Prepare PayPal-specific payment information
      *

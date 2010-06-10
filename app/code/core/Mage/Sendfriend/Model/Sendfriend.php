@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sendfriend
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -159,34 +159,34 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
 
         $name = $this->getSender()->getName();
         if (empty($name)) {
-            $errors[] = Mage::helper('sendfriend')->__('Sender name can\'t be empty');
+            $errors[] = Mage::helper('sendfriend')->__('The sender name cannot be empty.');
         }
 
         $email = $this->getSender()->getEmail();
         if (empty($email) OR !Zend_Validate::is($email, 'EmailAddress')) {
-            $errors[] = Mage::helper('sendfriend')->__('Invalid sender email');
+            $errors[] = Mage::helper('sendfriend')->__('Invalid sender email.');
         }
 
         $message = $this->getSender()->getMessage();
         if (empty($message)) {
-            $errors[] = Mage::helper('sendfriend')->__('Message can\'t be empty');
+            $errors[] = Mage::helper('sendfriend')->__('The message cannot be empty.');
         }
 
         if (!$this->getRecipients()->getEmails()) {
-            $errors[] = Mage::helper('sendfriend')->__('You have to specify at least one recipient');
+            $errors[] = Mage::helper('sendfriend')->__('At least one recipient must be specified.');
         }
 
         // validate recipients email addresses
         foreach ($this->getRecipients()->getEmails() as $email) {
             if (!Zend_Validate::is($email, 'EmailAddress')) {
-                $errors[] = Mage::helper('sendfriend')->__('You input invalid email address for recipient');
+                $errors[] = Mage::helper('sendfriend')->__('An invalid email address for recipient was entered.');
                 break;
             }
         }
 
         $maxRecipients = $this->getMaxRecipients();
         if (count($this->getRecipients()->getEmails()) > $maxRecipients) {
-            $errors[] = Mage::helper('sendfriend')->__('You cannot send more than %d emails at a time', $this->getMaxRecipients());
+            $errors[] = Mage::helper('sendfriend')->__('No more than %d emails can be sent at a time.', $this->getMaxRecipients());
         }
 
         if (empty($errors)) {
@@ -217,7 +217,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     {
         $cookie = $this->_getData('_cookie');
         if (!$cookie instanceof Mage_Core_Model_Cookie) {
-            Mage::throwException(Mage::helper('sendfriend')->__('Please define correct Cookie instance'));
+            Mage::throwException(Mage::helper('sendfriend')->__('Please define a correct Cookie instance.'));
         }
         return $cookie;
     }
@@ -339,7 +339,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     {
         $product = $this->_getData('_product');
         if (!$product instanceof Mage_Catalog_Model_Product) {
-            Mage::throwException(Mage::helper('sendfriend')->__('Please define correct Product instance'));
+            Mage::throwException(Mage::helper('sendfriend')->__('Please define a correct Product instance.'));
         }
         return $product;
     }
@@ -353,7 +353,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     public function setSender($sender)
     {
         if (!is_array($sender)) {
-            Mage::helper('sendfriend')->__('Invalid Sender information');
+            Mage::helper('sendfriend')->__('Invalid Sender Information');
         }
 
         return $this->setData('_sender', new Varien_Object($sender));
@@ -369,7 +369,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     {
         $sender = $this->_getData('_sender');
         if (!$sender instanceof Varien_Object) {
-            Mage::throwException(Mage::helper('sendfriend')->__('Please define correct Sender information'));
+            Mage::throwException(Mage::helper('sendfriend')->__('Please define the correct Sender information.'));
         }
         return $sender;
     }

@@ -20,11 +20,13 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @deprecated after 1.4, no more EAV for sales
+ */
 class Mage_Sales_Model_Mysql4_Order_Invoice_Attribute_Backend_Child
     extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {

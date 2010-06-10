@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -108,11 +108,15 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
                 $ccType = 'OT';
                 $ccTypeRegExpList = array(
-                    'VI' => '/^4[0-9]{12}([0-9]{3})?$/', // Visa
-                    'MC' => '/^5[1-5][0-9]{14}$/',       // Master Card
-                    'AE' => '/^3[47][0-9]{13}$/',        // American Express
-                    'DI' => '/^6011[0-9]{12}$/',          // Discovery
-                    'SS' => '/^((6759[0-9]{12})|(49[013][1356][0-9]{13})|(633[34][0-9]{12})|(633110[0-9]{10})|(564182[0-9]{10}))([0-9]{2,3})?$/'
+                    'SS'  => '/^((6759[0-9]{12})|(6334|6767[0-9]{12})|(6334|6767[0-9]{14,15})|(5018|5020|5038|6304|6759|6761|6763[0-9]{12,19})|(49[013][1356][0-9]{12})|(633[34][0-9]{12})|(633110[0-9]{10})|(564182[0-9]{10}))([0-9]{2,3})?$/', // Maestro / Solo
+                    'VI'  => '/^4[0-9]{12}([0-9]{3})?$/',             // Visa
+                    'MC'  => '/^5[1-5][0-9]{14}$/',                   // Master Card
+                    'AE'  => '/^3[47][0-9]{13}$/',                    // American Express
+                    'DI'  => '/^6011[0-9]{12}$/',                     // Discovery
+                    'JCB' => '/^(3[0-9]{15}|(2131|1800)[0-9]{11})$/', // JCB
+                     // Solo, Switch or Maestro. International safe 
+                    'SM' => '/(^(5[0678])\d{11,18}$)|(^(6[^05])\d{11,18}$)|(^(601)[^1]\d{9,16}$)|(^(6011)\d{9,11}$)|(^(6011)\d{13,16}$)|(^(65)\d{11,13}$)|(^(65)\d{15,18}$)|(^(49030)[2-9](\d{10}$|\d{12,13}$))|(^(49033)[5-9](\d{10}$|\d{12,13}$))|(^(49110)[1-2](\d{10}$|\d{12,13}$))|(^(49117)[4-9](\d{10}$|\d{12,13}$))|(^(49118)[0-2](\d{10}$|\d{12,13}$))|(^(4936)(\d{12}$|\d{14,15}$))/',
+                    'SO' => '/(^(6334)[5-9](\d{11}$|\d{13,14}$))|(^(6767)(\d{12}$|\d{14,15}$))/', // Solo only
                 );
 
                 foreach ($ccTypeRegExpList as $ccTypeMatch=>$ccTypeRegExp) {
@@ -124,7 +128,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
                 if (!$this->OtherCcType($info->getCcType()) && $ccType!=$info->getCcType()) {
                     $errorCode = 'ccsave_cc_type,ccsave_cc_number';
-                    $errorMsg = $this->_getHelper()->__('Credit card number mismatch with credit card type');
+                    $errorMsg = $this->_getHelper()->__('Credit card number mismatch with credit card type.');
                 }
             }
             else {
@@ -135,7 +139,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         }
         else {
             $errorCode = 'ccsave_cc_type';
-            $errorMsg = $this->_getHelper()->__('Credit card type is not allowed for this payment method');
+            $errorMsg = $this->_getHelper()->__('Credit card type is not allowed for this payment method.');
         }
 
         //validate credit card verification number
@@ -147,14 +151,14 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             }
         }
 
+        if ($ccType != 'SS' && !$this->_validateExpDate($info->getCcExpYear(), $info->getCcExpMonth())) {
+            $errorCode = 'ccsave_expiration,ccsave_expiration_yr';
+            $errorMsg = $this->_getHelper()->__('Incorrect credit card expiration date.');
+        }
+
         if($errorMsg){
             Mage::throwException($errorMsg);
             //throw Mage::exception('Mage_Payment', $errorMsg, $errorCode);
-        }
-
-        if ($ccType != 'SS' && !$this->_validateExpDate($info->getCcExpYear(), $info->getCcExpMonth())) {
-            $errorCode = 'ccsave_expiration,ccsave_expiration_yr';
-            $errorMsg = $this->_getHelper()->__('Incorrect credit card expiration date');
         }
 
         //This must be after all validation conditions
@@ -182,7 +186,10 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             'AE' => '/^[0-9]{4}$/',        // American Express
             'DI' => '/^[0-9]{3}$/',          // Discovery
             'SS' => '/^[0-9]{3,4}$/',
-            'OT' => '/^[0-9]{3,4}$/'
+            'SM' => '/^[0-9]{3,4}$/', // Switch or Maestro
+            'SO' => '/^[0-9]{3,4}$/', // Solo
+            'OT' => '/^[0-9]{3,4}$/',
+            'JCB' => '/^[0-9]{4}$/' //JCB
         );
         return $verificationExpList;
     }
@@ -374,5 +381,3 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         }
     }
 }
-
-

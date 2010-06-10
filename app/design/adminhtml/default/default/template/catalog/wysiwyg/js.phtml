@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -33,7 +33,10 @@ var catalogWysiwygEditor = {
     open : function(editorUrl, elementId) {
         if (editorUrl && elementId) {
             new Ajax.Request(editorUrl, {
-                parameters: {element_id:elementId+'_editor'},
+                parameters: {
+                    element_id: elementId+'_editor',
+                    store_id: '<?php echo $this->getStoreId() ?>'
+                },
                 onSuccess: function(transport) {
                     try {
                         this.openDialogWindow(transport.responseText, elementId);
@@ -55,9 +58,10 @@ var catalogWysiwygEditor = {
             resizable:true,
             closable:true,
             className:"magento",
+            windowClassName:"popup-window",
             title:'WYSIWYG Editor',
-            width:750,
-            height:600,
+            width:950,
+            height:555,
             zIndex:1000,
             recenterAuto:false,
             hideEffect:Element.hide,
@@ -78,6 +82,7 @@ var catalogWysiwygEditor = {
     okDialogWindow : function(dialogWindow) {
         if (dialogWindow.options.firedElementId) {
             wysiwygObj = eval('wysiwyg'+dialogWindow.options.firedElementId+'_editor');
+            wysiwygObj.turnOff();
             if (tinyMCE.get(wysiwygObj.id)) {
                 $(dialogWindow.options.firedElementId).value = tinyMCE.get(wysiwygObj.id).getContent();
             } else {

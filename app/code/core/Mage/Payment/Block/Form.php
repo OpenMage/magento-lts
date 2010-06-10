@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +39,7 @@ class Mage_Payment_Block_Form extends Mage_Core_Block_Template
         $method = $this->getData('method');
 
         if (!($method instanceof Mage_Payment_Model_Method_Abstract)) {
-            Mage::throwException($this->__('Cannot retrieve payment method model object.'));
+            Mage::throwException($this->__('Cannot retrieve the payment method model object.'));
         }
         return $method;
     }
@@ -63,5 +63,15 @@ class Mage_Payment_Block_Form extends Mage_Core_Block_Template
     public function getInfoData($field)
     {
         return $this->htmlEscape($this->getMethod()->getInfoInstance()->getData($field));
+    }
+
+    /**
+     * Check whether current payment method can create billing agreement
+     *
+     * @return bool
+     */
+    public function canCreateBillingAgreement()
+    {
+        return $this->getMethod()->canCreateBillingAgreement();
     }
 }

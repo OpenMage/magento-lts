@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -92,9 +92,9 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
             ->login($username, $apiKey);
 
         if ( $user->getId() && $user->getIsActive() != '1' ) {
-            Mage::throwException(Mage::helper('api')->__('Your Account has been deactivated.'));
+            Mage::throwException(Mage::helper('api')->__('Your account has been deactivated.'));
         } elseif (!Mage::getModel('api/user')->hasAssigned2Role($user->getId())) {
-            Mage::throwException(Mage::helper('api')->__('Access Denied.'));
+            Mage::throwException(Mage::helper('api')->__('Access denied.'));
         } else {
             if ($user->getId()) {
                 $this->setUser($user);

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -50,15 +50,15 @@
         <div class="col-1">
             <?php // Product Image ?>
             <div class="product-image">
-                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>">
-                    <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(65, 65); ?>" width="65" height="65" alt="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" />
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>">
+                    <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(65, 65); ?>" width="65" height="65" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
                 </a>
             </div>
         </div>
         <div class="col-2">
             <?php // Product description ?>
             <div class="product-shop">
-                <h5><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>"><?php echo $this->htmlEscape($_product->getName())?></a></h5>
+                <h5><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name') ?></a></h5>
                 <div class="product-price"><?php echo $this->getPriceHtml($_product, true) ?></div>
                 <?php if($_product->isSaleable()): ?>
                     <button type="button" class="form-button" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><?php echo $this->__('Add to Cart') ?></span></button>
@@ -68,8 +68,8 @@
             </div>
         </div><div class="clear"></div>
         <div class="description">
-            <?php echo nl2br($this->htmlEscape($_product->getShortDescription())) ?>
-            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>"><small><?php echo $this->__('Learn More') ?></small></a>
+            <?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
+            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><small><?php echo $this->__('Learn More') ?></small></a>
         </div>
     </div>
 </li>

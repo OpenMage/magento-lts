@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* @var $this Mage_Sendfriend_Block_Send */
@@ -117,7 +117,7 @@
         </div>
         <div class="buttons-set">
             <p class="back-link"><a href="#" onclick="history.back(); return false;"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
-            <button type="submit" class="button<?php if (!$this->canSend()):?> disabled<?php endif ?>"<?php if (!$this->canSend()):?> disabled="disabled"<?php endif ?>><span><span><?php echo $this->__('Send email') ?></span></span></button>
+            <button type="submit" class="button<?php if (!$this->canSend()):?> disabled<?php endif ?>"<?php if (!$this->canSend()):?> disabled="disabled"<?php endif ?>><span><span><?php echo $this->__('Send Email') ?></span></span></button>
             <div id="max_recipient_message" style="display:none;">
                 <?php if ($this->getMaxRecipients()): ?>
                   <p class="limit"><?php echo $this->__('Maximum %d email addresses allowed.', $this->getMaxRecipients()) ?></p>

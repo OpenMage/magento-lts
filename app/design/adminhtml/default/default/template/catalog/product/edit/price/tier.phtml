@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* @var $this Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier */
@@ -140,6 +140,8 @@ var tierPriceControl = {
         <?php if ($_readonly): ?>
         $('<?php echo $_htmlId ?>_container').select('input', 'select').each(this.disableElement);
         $('<?php echo $_htmlId ?>_container').up('table').select('button').each(this.disableElement);
+        <?php else: ?>
+        $('<?php echo $_htmlId ?>_container').select('input', 'select').each(function(el){ Event.observe(el, 'change', el.setHasChanges.bind(el)); });
         <?php endif; ?>
     },
     disableElement: function(el) {

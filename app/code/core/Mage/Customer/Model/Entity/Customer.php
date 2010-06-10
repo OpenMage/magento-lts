@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,10 +41,7 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
     {
         $resource = Mage::getSingleton('core/resource');
         $this->setType('customer');
-        $this->setConnection(
-            $resource->getConnection('customer_read'),
-            $resource->getConnection('customer_write')
-        );
+        $this->setConnection('customer_read', 'customer_write');
     }
 
     /**
@@ -77,10 +74,10 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
         parent::_beforeSave($customer);
 
         if (!$customer->getEmail()) {
-            Mage::throwException(Mage::helper('customer')->__('Customer email is required'));
+            Mage::throwException(Mage::helper('customer')->__('Customer email is required.'));
         }
 
-        $select = $this->_getReadAdapter()->select()
+        $select = $this->_getWriteAdapter()->select()
             ->from($this->getEntityTable(), array($this->getEntityIdField()))
             ->where('email=?', $customer->getEmail());
         if ($customer->getSharingConfig()->isWebsiteScope()) {
@@ -91,7 +88,7 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
         }
 
         if ($this->_getWriteAdapter()->fetchOne($select)) {
-            throw Mage::exception('Mage_Core', Mage::helper('customer')->__('Customer email already exists'),
+            throw Mage::exception('Mage_Core', Mage::helper('customer')->__('This customer email already exists.'),
                 Mage_Customer_Model_Customer::EXCEPTION_EMAIL_EXISTS
             );
         }
@@ -145,6 +142,7 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
             } else {
                 $address->setParentId($customer->getId())
                     ->setStoreId($customer->getStoreId())
+                    ->setIsCustomerSaveTransaction(true)
                     ->save();
                 if (($address->getIsPrimaryBilling() || $address->getIsDefaultBilling())
                     && $address->getId() != $defaultBillingId) {
@@ -155,12 +153,12 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
                     $customer->setData('default_shipping', $address->getId());
                 }
             }
-            if ($customer->dataHasChangedFor('default_billing')) {
-                $this->saveAttribute($customer, 'default_billing');
-            }
-            if ($customer->dataHasChangedFor('default_shipping')) {
-                $this->saveAttribute($customer, 'default_shipping');
-            }
+        }
+        if ($customer->dataHasChangedFor('default_billing')) {
+            $this->saveAttribute($customer, 'default_billing');
+        }
+        if ($customer->dataHasChangedFor('default_shipping')) {
+            $this->saveAttribute($customer, 'default_shipping');
         }
         return $this;
     }
@@ -198,7 +196,7 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
             ->where('email=:customer_email');
         if ($customer->getSharingConfig()->isWebsiteScope()) {
             if (!$customer->hasData('website_id')) {
-                Mage::throwException(Mage::helper('customer')->__('Customer website id must be specified, when using website scope.'));
+                Mage::throwException(Mage::helper('customer')->__('Customer website ID must be specified when using the website scope.'));
             }
             $select->where('website_id=?', (int)$customer->getWebsiteId());
         }

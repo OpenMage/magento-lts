@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -38,6 +38,9 @@
     <div class="fieldset <?php echo $_element->getClass() ?>" id="<?php echo $_element->getHtmlId() ?>">
 <?php endif; ?>
     <div class="hor-scroll">
+        <?php if ($_element->getComment()): ?>
+            <p class="comment"><?php echo $this->escapeHtml($_element->getComment()) ?></p>
+        <?php endif; ?>
         <?php if ($_element->hasHtmlContent()): ?>
             <?php echo $_element->getHtmlContent(); ?>
         <?php else: ?>

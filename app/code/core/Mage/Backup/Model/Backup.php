@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Backup
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -134,7 +134,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
     public function setFile(&$content)
     {
         if (!$this->hasData('time') || !$this->hasData('type') || !$this->hasData('path')) {
-            Mage::throwException(Mage::helper('backup')->__('Wrong order of creation for new backup'));
+            Mage::throwException(Mage::helper('backup')->__('Wrong order of creation for new backup.'));
         }
 
         $ioProxy = new Varien_Io_File();
@@ -169,12 +169,12 @@ class Mage_Backup_Model_Backup extends Varien_Object
     {
 
         if (!$this->exists()) {
-            Mage::throwException(Mage::helper('backup')->__("Backup file doesn't exist"));
+            Mage::throwException(Mage::helper('backup')->__("Backup file does not exist."));
         }
 
         $fResource = @fopen($this->getPath() . DS . $this->getFileName(), "rb");
         if (!$fResource) {
-            Mage::throwException(Mage::helper('backup')->__("Cannot read backup file"));
+            Mage::throwException(Mage::helper('backup')->__("Cannot read backup file."));
         }
 
         $content = '';
@@ -187,7 +187,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
 
         if ($compressed && !extension_loaded("zlib")) {
             fclose($fResource);
-            Mage::throwException(Mage::helper('backup')->__('File compressed with Zlib, but this extension is not installed on server'));
+            Mage::throwException(Mage::helper('backup')->__('The file was compressed with Zlib, but this extension is not installed on server.'));
         }
 
         if ($compressed) {
@@ -209,7 +209,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
     public function deleteFile()
     {
         if (!$this->exists()) {
-            Mage::throwException(Mage::helper('backup')->__("Backup file doesn't exist"));
+            Mage::throwException(Mage::helper('backup')->__("Backup file does not exist."));
         }
 
         $ioProxy = new Varien_Io_File();
@@ -227,7 +227,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
     public function open($write = false)
     {
         if (is_null($this->getPath())) {
-            Mage::exception('Mage_Backup', Mage::helper('backup')->__('Backup file path don\'t specify'));
+            Mage::exception('Mage_Backup', Mage::helper('backup')->__('Backup file path was not specified.'));
         }
 
         $ioAdapter = new Varien_Io_File();
@@ -244,7 +244,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
             $ioAdapter->rm($filePath);
         }
         if (!$write && !$ioAdapter->fileExists($filePath)) {
-            Mage::exception('Mage_Backup', Mage::helper('backup')->__('Backup file "%s" doesn\'t exist', $this->getFileName()));
+            Mage::exception('Mage_Backup', Mage::helper('backup')->__('Backup file "%s" does not exist.', $this->getFileName()));
         }
 
         $mode = $write ? 'wb' . self::COMPRESS_RATE : 'rb';
@@ -253,7 +253,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
             $this->_handler = gzopen($filePath, $mode);
         }
         catch (Exception $e) {
-            Mage::exception('Mage_Backup', Mage::helper('backup')->__('Backup file "%s" can\'t read or write', $this->getFileName()));
+            Mage::exception('Mage_Backup', Mage::helper('backup')->__('Backup file "%s" cannot be read from or written to.', $this->getFileName()));
         }
 
         return $this;
@@ -268,7 +268,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
     public function read($length)
     {
         if (is_null($this->_handler)) {
-            Mage::exception('Mage_Backup', Mage::helper('backup')->__('Backup file handler don\'t specify'));
+            Mage::exception('Mage_Backup', Mage::helper('backup')->__('Backup file handler was unspecified.'));
         }
 
         return gzread($this->_handler, $length);
@@ -277,7 +277,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
     public function eof()
     {
         if (is_null($this->_handler)) {
-            Mage::exception('Mage_Backup', Mage::helper('backup')->__('Backup file handler don\'t specify'));
+            Mage::exception('Mage_Backup', Mage::helper('backup')->__('Backup file handler was unspecified.'));
         }
 
         return gzeof($this->_handler);
@@ -292,14 +292,14 @@ class Mage_Backup_Model_Backup extends Varien_Object
     public function write($string)
     {
         if (is_null($this->_handler)) {
-            Mage::exception('Mage_Backup', Mage::helper('backup')->__('Backup file handler don\'t specify'));
+            Mage::exception('Mage_Backup', Mage::helper('backup')->__('Backup file handler was unspecified.'));
         }
 
         try {
             gzwrite($this->_handler, $string);
         }
         catch (Exception $e) {
-            Mage::exception('Mage_Backup', Mage::helper('backup')->__('Error write to Backup file "%s"', $this->getFileName()));
+            Mage::exception('Mage_Backup', Mage::helper('backup')->__('An error occurred while writing to the backup file "%s".', $this->getFileName()));
         }
 
         return $this;

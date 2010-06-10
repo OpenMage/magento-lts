@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -121,7 +121,7 @@ class Mage_Downloadable_Product_EditController extends Mage_Adminhtml_Catalog_Pr
             try {
                 $this->_processDownload($resource, $resourceType);
             } catch (Mage_Core_Exception $e) {
-                $this->_getCustomerSession()->addError(Mage::helper('downloadable')->__('Sorry, there was an error getting requested content'));
+                $this->_getCustomerSession()->addError(Mage::helper('downloadable')->__('An error occurred while getting the requested content.'));
             }
         }
     }

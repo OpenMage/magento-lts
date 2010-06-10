@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -94,6 +94,13 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
     protected $_isPkAutoIncrement = true;
 
     /**
+     * Use is object new method for save of object
+     *
+     * @var boolean
+     */
+    protected $_useIsObjectNew = false;
+
+    /**
      * Fields List for update in forsedSave
      *
      * @var array
@@ -120,6 +127,21 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
      * @var array
      */
     protected $_uniqueFields = null;
+
+    /**
+     * Serializable fields declaration
+     *
+     * Structure: array(
+     *     <field_name> => array(
+     *         <default_value_for_serialization>,
+     *         <default_for_unserialization>,
+     *         <whether_to_unset_empty_when serializing> // optional parameter
+     *     ),
+     * )
+     *
+     * @var array
+     */
+    protected $_serializableFields = array();
 
     /**
      * Standard resource model initialization
@@ -334,6 +356,7 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
             }
         }
 
+        $this->unserializeFields($object);
         $this->_afterLoad($object);
 
         return $this;
@@ -366,10 +389,11 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
             return $this->delete($object);
         }
 
+        $this->_serializeFields($object);
         $this->_beforeSave($object);
         $this->_checkUnique($object);
 
-        if (!is_null($object->getId())) {
+        if (!is_null($object->getId()) && (!$this->_useIsObjectNew || !$object->isObjectNew())) {
             $condition = $this->_getWriteAdapter()->quoteInto($this->getIdFieldName().'=?', $object->getId());
             /**
              * Not auto increment primary key support
@@ -389,8 +413,12 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
         } else {
             $this->_getWriteAdapter()->insert($this->getMainTable(), $this->_prepareDataForSave($object));
             $object->setId($this->_getWriteAdapter()->lastInsertId($this->getMainTable()));
+            if ($this->_useIsObjectNew) {
+                $object->isObjectNew(false);
+            }
         }
 
+        $this->unserializeFields($object);
         $this->_afterSave($object);
 
         return $this;
@@ -468,6 +496,19 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
     }
 
     /**
+     * Unserialize serializeable object fields
+     *
+     * @param Mage_Core_Model_Abstract $object
+     */
+    public function unserializeFields(Mage_Core_Model_Abstract $object)
+    {
+        foreach ($this->_serializableFields as $field => $parameters) {
+            list($serializeDefault, $unserializeDefault) = $parameters;
+            $this->_unserializeField($object, $field, $unserializeDefault);
+        }
+    }
+
+    /**
      * Initialize unique fields
      *
      * @return Mage_Core_Model_Mysql4_Abstract
@@ -518,12 +559,10 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
                 $fieldValue = $object->getData($field);
                 if ($fieldValue instanceof Zend_Db_Expr) {
                     $data[$field] = $fieldValue;
-                }
-                else {
+                } else {
                     if (null !== $fieldValue) {
                         $data[$field] = $this->_prepareValueForSave($fieldValue, $fields[$field]['DATA_TYPE']);
-                    }
-                    elseif (!empty($fields[$field]['NULLABLE'])) {
+                    } elseif (!empty($fields[$field]['NULLABLE'])) {
                         $data[$field] = null;
                     }
                 }
@@ -595,10 +634,10 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
 
         if (!empty($existent)) {
             if (count($existent) == 1 ) {
-                $error = Mage::helper('core')->__('%s already exists', $existent[0]);
+                $error = Mage::helper('core')->__('%s already exists.', $existent[0]);
             }
             else {
-                $error = Mage::helper('core')->__('%s already exist', implode(', ', $existent));
+                $error = Mage::helper('core')->__('%s already exist.', implode(', ', $existent));
             }
             Mage::throwException($error);
         }
@@ -658,6 +697,19 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
         return $this;
+    }
+
+    /**
+     * Serialize serializeable fields of the object
+     *
+     * @param Mage_Core_Model_Abstract $object
+     */
+    protected function _serializeFields(Mage_Core_Model_Abstract $object)
+    {
+        foreach ($this->_serializableFields as $field => $parameters) {
+            list($serializeDefault, $unserializeDefault) = $parameters;
+            $this->_serializeField($object, $field, $serializeDefault, isset($parameters[2]));
+        }
     }
 
     /**

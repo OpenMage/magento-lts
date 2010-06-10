@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,12 +37,12 @@ class Mage_Adminhtml_Catalog_Product_GroupController extends Mage_Adminhtml_Cont
               ->setAttributeSetId($this->getRequest()->getParam('attribute_set_id'));
 
         if( $model->itemExists() ) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('Error while saving this group. Group with the same name already exists.'));
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('A group with the same name already exists.'));
         } else {
             try {
                 $model->save();
             } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('Error while saving this group. Please try again later.'));
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('An error occurred while saving this group.'));
             }
         }
     }

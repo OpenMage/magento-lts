@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -88,6 +88,15 @@
                </checkout_payment_failed_template>
             </email>
         </template>
+        <sales>
+            <quote>
+                <totals>
+                    <nominal>
+                        <renderer>checkout/total_nominal</renderer>
+                    </nominal>
+                </totals>
+            </quote>
+        </sales>
     </global>
     <frontend>
         <secure_url>

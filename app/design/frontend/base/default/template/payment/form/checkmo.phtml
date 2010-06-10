@@ -20,24 +20,25 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php if ($this->getMethod()->getMailingAddress() || $this->getMethod()->getPayableTo()): ?>
-    <ul class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
+    <ul class="form-list checkmo-list" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
+        <?php if ($this->getMethod()->getPayableTo()): ?>
         <li>
-            <div class="input-box">
-                <?php if ($this->getMethod()->getPayableTo()): ?>
-                    <?php echo $this->__('<label>Make Check payable to</label>: %s', $this->getMethod()->getPayableTo()) ?><br />
-                <?php endif; ?>
-                <?php if ($this->getMethod()->getMailingAddress()): ?>
-                    <label><?php echo Mage::helper('payment')->__('Send Check to:') ?></label>
-                    <div class="checkmo-mailing-address">
-                        <?php echo nl2br($this->getMethod()->getMailingAddress()) ?>
-                    </div>
-                <?php endif; ?>
-            </div>
+            <label><?php echo $this->__('Make Check payable to:') ?></label>
+            <?php echo $this->getMethod()->getPayableTo() ?>
         </li>
+        <?php endif; ?>
+        <?php if ($this->getMethod()->getMailingAddress()): ?>
+        <li>
+            <label><?php echo Mage::helper('payment')->__('Send Check to:') ?></label>
+            <address class="checkmo-mailing-address">
+                <?php echo nl2br($this->getMethod()->getMailingAddress()) ?>
+            </address>
+        </li>
+        <?php endif; ?>
     </ul>
 <?php endif; ?>

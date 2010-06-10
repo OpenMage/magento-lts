@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -148,7 +148,7 @@ class Mage_Checkout_Model_Type_Onepage
      *
      * @return string
      */
-    public function getCheckoutMehod()
+    public function getCheckoutMethod()
     {
         if ($this->getCustomerSession()->isLoggedIn()) {
             return self::METHOD_CUSTOMER;
@@ -164,6 +164,17 @@ class Mage_Checkout_Model_Type_Onepage
     }
 
     /**
+     * Get quote checkout method
+     *
+     * @deprecated since 1.4.0.1
+     * @return string
+     */
+    public function getCheckoutMehod()
+    {
+        return $this->getCheckoutMethod();
+    }
+
+    /**
      * Specify chceckout method
      *
      * @param   string $method
@@ -172,7 +183,7 @@ class Mage_Checkout_Model_Type_Onepage
     public function saveCheckoutMethod($method)
     {
         if (empty($method)) {
-            return array('error' => -1, 'message' => $this->_helper->__('Invalid data'));
+            return array('error' => -1, 'message' => $this->_helper->__('Invalid data.'));
         }
 
         $this->getQuote()->setCheckoutMethod($method)->save();
@@ -207,7 +218,7 @@ class Mage_Checkout_Model_Type_Onepage
     public function saveBilling($data, $customerAddressId)
     {
         if (empty($data)) {
-            return array('error' => -1, 'message' => $this->_helper->__('Invalid data'));
+            return array('error' => -1, 'message' => $this->_helper->__('Invalid data.'));
         }
 
         $address = $this->getQuote()->getBillingAddress();
@@ -356,7 +367,7 @@ class Mage_Checkout_Model_Type_Onepage
     public function saveShipping($data, $customerAddressId)
     {
         if (empty($data)) {
-            return array('error' => -1, 'message' => $this->_helper->__('Invalid data'));
+            return array('error' => -1, 'message' => $this->_helper->__('Invalid data.'));
         }
         $address = $this->getQuote()->getShippingAddress();
 
@@ -426,7 +437,7 @@ class Mage_Checkout_Model_Type_Onepage
     public function savePayment($data)
     {
         if (empty($data)) {
-            return array('error' => -1, 'message' => $this->_helper->__('Invalid data'));
+            return array('error' => -1, 'message' => $this->_helper->__('Invalid data.'));
         }
         if ($this->getQuote()->isVirtual()) {
             $this->getQuote()->getBillingAddress()->setPaymentMethod(isset($data['method']) ? $data['method'] : null);
@@ -552,10 +563,10 @@ class Mage_Checkout_Model_Type_Onepage
         if (isset($customerBilling) && !$customer->getDefaultBilling()) {
             $customerBilling->setIsDefaultBilling(true);
         }
-        if ($shipping && isset($customerBilling) && !$customer->getDefaultShipping() && $shipping->getSameAsBilling()) {
-            $customerBilling->setIsDefaultShipping(true);
-        } elseif ($shipping && isset($customerShipping) && !$customer->getDefaultShipping()) {
+        if ($shipping && isset($customerShipping) && !$customer->getDefaultShipping()) {
             $customerShipping->setIsDefaultShipping(true);
+        } elseif (isset($customerBilling) && !$customer->getDefaultShipping()) {
+            $customerBilling->setIsDefaultShipping(true);
         }
         $quote->setCustomer($customer);
     }
@@ -590,7 +601,7 @@ class Mage_Checkout_Model_Type_Onepage
     {
         $this->validate();
         $isNewCustomer = false;
-        switch ($this->getCheckoutMehod()) {
+        switch ($this->getCheckoutMethod()) {
             case self::METHOD_GUEST:
                 $this->_prepareGuestQuote();
                 break;
@@ -604,7 +615,7 @@ class Mage_Checkout_Model_Type_Onepage
         }
 
         $service = Mage::getModel('sales/service_quote', $this->getQuote());
-        $order = $service->submit();
+        $service->submitAll();
 
         if ($isNewCustomer) {
             try {
@@ -613,29 +624,55 @@ class Mage_Checkout_Model_Type_Onepage
                 Mage::logException($e);
             }
         }
-        Mage::dispatchEvent('checkout_type_onepage_save_order_after', array('order'=>$order, 'quote'=>$this->getQuote()));
 
-        /**
-         * a flag to set that there will be redirect to third party after confirmation
-         * eg: paypal standard ipn
-         */
-        $redirectUrl = $this->getQuote()->getPayment()->getOrderPlaceRedirectUrl();
-        /**
-         * we only want to send to customer about new order when there is no redirect to third party
-         */
-        if(!$redirectUrl){
-            try {
-                $order->sendNewOrderEmail();
-            } catch (Exception $e) {
-                Mage::logException($e);
+        $this->_checkoutSession->setLastQuoteId($this->getQuote()->getId())
+            ->setLastSuccessQuoteId($this->getQuote()->getId())
+            ->clearHelperData()
+        ;
+
+        $order = $service->getOrder();
+        if ($order) {
+            Mage::dispatchEvent('checkout_type_onepage_save_order_after', array('order'=>$order, 'quote'=>$this->getQuote()));
+
+            /**
+             * a flag to set that there will be redirect to third party after confirmation
+             * eg: paypal standard ipn
+             */
+            $redirectUrl = $this->getQuote()->getPayment()->getOrderPlaceRedirectUrl();
+            /**
+             * we only want to send to customer about new order when there is no redirect to third party
+             */
+            if(!$redirectUrl){
+                try {
+                    $order->sendNewOrderEmail();
+                } catch (Exception $e) {
+                    Mage::logException($e);
+                }
+            }
+
+            // add order information to the session
+            $this->_checkoutSession->setLastOrderId($order->getId())
+                ->setRedirectUrl($redirectUrl)
+                ->setLastRealOrderId($order->getIncrementId());
+
+            // as well a billing agreement can be created
+            $agreement = $order->getPayment()->getBillingAgreement();
+            if ($agreement) {
+                $this->_checkoutSession->setLastBillingAgreementId($agreement->getId());
             }
         }
 
-        $this->getCheckout()->setLastQuoteId($this->getQuote()->getId())
-            ->setLastOrderId($order->getId())
-            ->setLastRealOrderId($order->getIncrementId())
-            ->setRedirectUrl($redirectUrl)
-            ->setLastSuccessQuoteId($this->getQuote()->getId());
+        // add recurring profiles information to the session
+        $profiles = $service->getRecurringPaymentProfiles();
+        if ($profiles) {
+            $ids = array();
+            foreach($profiles as $profile) {
+                $ids[] = $profile->getId();
+            }
+            $this->_checkoutSession->setLastRecurringProfileIds($ids);
+            // TODO: send recurring profile emails
+        }
+
         return $this;
     }
 
@@ -741,7 +778,7 @@ class Mage_Checkout_Model_Type_Onepage
 //        switch ($this->getQuote()->getCheckoutMethod()) {
 //        case Mage_Sales_Model_Quote::CHECKOUT_METHOD_GUEST:
 //            if (!$this->getQuote()->isAllowedGuestCheckout()) {
-//                Mage::throwException($this->_helper->__('Sorry, guest checkout is not enabled. Please try again or contact store owner.'));
+//                Mage::throwException($this->_helper->__('Sorry, guest checkout is not enabled. Please try again or contact the store owner.'));
 //            }
 //            $this->getQuote()->setCustomerId(null)
 //                ->setCustomerEmail($billing->getEmail())

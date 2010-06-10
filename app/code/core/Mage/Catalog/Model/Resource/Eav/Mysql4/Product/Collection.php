@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -358,6 +358,14 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
         if (count($this) > 0) {
             Mage::dispatchEvent('catalog_product_collection_load_after', array('collection'=>$this));
         }
+
+        foreach ($this as $product) {
+            if ($product->isRecurring() && $profile = $product->getRecurringProfile()) {
+                $product->setRecurringProfile(unserialize($profile));
+            }
+            // Mage::getSilgleton('catalog/product_attribute_backend_recurring')->afterLoad($product);
+        }
+
         return $this;
     }
 
@@ -525,7 +533,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
             $this->_productLimitationFilters['category_is_anchor'] = 1;
         }
 
-        $this->_applyProductLimitations();
+        ($this->getStoreId() == 0)? $this->_applyZeroStoreProductLimitations() : $this->_applyProductLimitations();
 
         return $this;
     }
@@ -1115,21 +1123,21 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
 
         $this->_allIdsCache = null;
         if (is_string($attribute) && $attribute == 'is_saleable') {
-            $isStockManagedInConfig = (int) Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK); 
+            $isStockManagedInConfig = (int) Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK);
             $inventoryTable = $this->getTable('cataloginventory_stock_item');
             $this->getSelect()->where(
                 $this->_getConditionSql(
                     "(
                         IF(
                             IF(
-                                $inventoryTable.use_config_manage_stock, 
-                                $isStockManagedInConfig, 
+                                $inventoryTable.use_config_manage_stock,
+                                $isStockManagedInConfig,
                                 $inventoryTable.manage_stock
-                            ), 
-                            $inventoryTable.is_in_stock, 
+                            ),
+                            $inventoryTable.is_in_stock,
                             1
                         )
-                    )", 
+                    )",
                     $condition
                 )
             );
@@ -1474,7 +1482,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
             $this->getSelect()->join(
                 array('price_index' => $this->getTable('catalog/product_index_price')),
                 $joinCond,
-                array('price', 'final_price', 'minimal_price'=>$minimalExpr , 'min_price', 'max_price', 'tier_price')
+                array('price', 'tax_class_id', 'final_price', 'minimal_price'=>$minimalExpr , 'min_price', 'max_price', 'tier_price')
             );
         } else {
             $fromPart['price_index']['joinCondition'] = $joinCond;
@@ -1485,12 +1493,31 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
     }
 
     /**
+     * Apply front-end price limitation filters to the collection
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     *
+     */
+    public function applyFrontendPriceLimitations()
+    {
+        $this->_productLimitationFilters['use_price_index'] = true;
+        if (!isset($this->_productLimitationFilters['customer_group_id'])) {
+            $this->_productLimitationFilters['customer_group_id'] = Mage::getSingleton('customer/session')->getCustomerGroupId();
+        }
+        if (!isset($this->_productLimitationFilters['website_id'])) {
+            $this->_productLimitationFilters['website_id'] = Mage::app()->getStore($this->getStoreId())->getWebsiteId();
+        }
+        $this->_applyProductLimitations();
+        return $this;
+    }
+
+    /**
      * Apply limitation filters to collection
      *
-     * Method allow use one time category product index table (or product website table)
+     * Method allows using one time category product index table (or product website table)
      * for different combinations of store_id/category_id/visibility filter states
      *
-     * Mehod support multiple changes in one collection object for this parameters
+     * Method supports multiple changes in one collection object for this parameters
      *
      * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
      */
@@ -1539,6 +1566,40 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
         Mage::dispatchEvent('catalog_product_collection_apply_limitations_after', array(
             'collection'    => $this
         ));
+
+        return $this;
+    }
+
+    /**
+     * Apply limitation filters to collection base on API
+     *
+     * Method allows using one time category product table
+     * for combinations of category_id filter states
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     */
+    protected function _applyZeroStoreProductLimitations()
+    {
+        $filters = $this->_productLimitationFilters;
+
+        $conditions = array(
+            'cat_pro.product_id=e.entity_id',
+            $this->getConnection()->quoteInto('cat_pro.category_id=?', $filters['category_id'])
+        );
+        $joinCond = join(' AND ', $conditions);
+
+        $fromPart = $this->getSelect()->getPart(Zend_Db_Select::FROM);
+        if (isset($fromPart['cat_pro'])) {
+            $fromPart['cat_pro']['joinCondition'] = $joinCond;
+            $this->getSelect()->setPart(Zend_Db_Select::FROM, $fromPart);
+        }
+        else {
+            $this->getSelect()->join(
+                array('cat_pro' => $this->getTable('catalog/category_product')),
+                $joinCond,
+                array('cat_index_position' => 'position')
+            );
+        }
 
         return $this;
     }

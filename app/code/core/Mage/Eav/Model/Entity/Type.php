@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -89,14 +89,14 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
         if (is_null($setId)) {
             if (is_null($this->_attributes)) {
                 $this->_attributes = $this->_getAttributeCollection()
-                    ->setEntityTypeFilter($this->getId());
+                    ->setEntityTypeFilter($this);
             }
             $collection = $this->_attributes;
         }
         else {
             if (!isset($this->_attributesBySet[$setId])) {
                 $this->_attributesBySet[$setId] = $this->_getAttributeCollection()
-                    ->setEntityTypeFilter($this->getId())
+                    ->setEntityTypeFilter($this)
                     ->setAttributeSetFilter($setId);
             }
             $collection = $this->_attributesBySet[$setId];
@@ -152,7 +152,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
              * store_id null we can have for entity from removed store
              */
             $storeId = 0;
-            //throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Valid store_id is expected!'));
+            //throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Valid store_id is expected.'));
         }
 
         // Start transaction to run SELECT ... FOR UPDATE

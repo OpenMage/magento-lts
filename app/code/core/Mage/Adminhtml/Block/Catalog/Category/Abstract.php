@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -139,8 +139,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
     {
         $root = Mage::registry('root');
         if (null === $root) {
-            $tree = Mage::getResourceSingleton('catalog/category_tree')
-                ->loadByIds($ids);
+            $categoryTreeResource = Mage::getResourceSingleton('catalog/category_tree');
+            $ids    = $categoryTreeResource->getExistingCategoryIdsBySpecifiedIds($ids);
+            $tree   = $categoryTreeResource->loadByIds($ids);
             $rootId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
             $root   = $tree->getNodeById($rootId);
             if ($root && $rootId != Mage_Catalog_Model_Category::TREE_ROOT_ID) {

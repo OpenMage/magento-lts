@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,12 +72,12 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
 
         foreach ($order->getCreditmemosCollection() as $_memo){
             $history[$_memo->getEntityId()] =
-                $this->_prepareHistoryItem($this->__('Credit Memo #%s created', $_memo->getIncrementId()),
+                $this->_prepareHistoryItem($this->__('Credit memo #%s created', $_memo->getIncrementId()),
                     $_memo->getEmailSent(), $_memo->getCreatedAtDate());
 
             foreach ($_memo->getCommentsCollection() as $_comment){
                 $history[$_comment->getEntityId()] =
-                    $this->_prepareHistoryItem($this->__('Credit Memo #%s comment added', $_memo->getIncrementId()),
+                    $this->_prepareHistoryItem($this->__('Credit memo #%s comment added', $_memo->getIncrementId()),
                         $_comment->getIsCustomerNotified(), $_comment->getCreatedAtDate(), $_comment->getComment());
             }
         }
@@ -139,7 +139,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
      */
     public function getItemTitle(array $item)
     {
-        return (isset($item['title']) ? $this->htmlEscape($item['title']) : '');
+        return (isset($item['title']) ? $this->escapeHtml($item['title']) : '');
     }
 
     /**
@@ -162,7 +162,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
      */
     public function getItemComment(array $item)
     {
-        return (isset($item['comment']) ? $this->htmlEscape($item['comment']) : '');
+        $allowedTags = array('b','br','strong','i','u');
+        return (isset($item['comment']) ? $this->escapeHtml($item['comment'], $allowedTags) : '');
     }
 
     /**

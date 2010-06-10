@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ProductAlert
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,7 +60,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         $product = Mage::getModel('catalog/product')->load($productId);
         if (!$product->getId() || !$product->isVisibleInCatalog()) {
             /* @var $product Mage_Catalog_Model_Product */
-            Mage::getSingleton('customer/session')->addError($this->__('Product not found'));
+            Mage::getSingleton('customer/session')->addError($this->__('The product is not found.'));
             $this->_redirect('customer/account/');
             return ;
         }
@@ -75,10 +75,10 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
                 $model->delete();
             }
 
-            $session->addSuccess($this->__('Alert subscription was deleted successfully'));
+            $session->addSuccess($this->__('The alert subscription has been deleted.'));
         }
         catch (Exception $e) {
-            $session->addException($e, $this->__('Please try again later'));
+            $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
         $this->_redirectUrl($product->getProductUrl());
     }
@@ -93,10 +93,10 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
                 $session->getCustomerId(),
                 Mage::app()->getStore()->getWebsiteId()
             );
-            $session->addSuccess($this->__('You will no longer receive price alerts for this product'));
+            $session->addSuccess($this->__('You will no longer receive price alerts for this product.'));
         }
         catch (Exception $e) {
-            $session->addException($e, $this->__('Please try again later'));
+            $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
         $this->_redirect('customer/account/');
     }
@@ -115,7 +115,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         $product = Mage::getModel('catalog/product')->load($productId);
         /* @var $product Mage_Catalog_Model_Product */
         if (!$product->getId() || !$product->isVisibleInCatalog()) {
-            Mage::getSingleton('customer/session')->addError($this->__('Product not found'));
+            Mage::getSingleton('customer/session')->addError($this->__('The product was not found.'));
             $this->_redirect('customer/account/');
             return ;
         }
@@ -129,10 +129,10 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
             if ($model->getId()) {
                 $model->delete();
             }
-            $session->addSuccess($this->__('You will no longer receive stock alerts for this product'));
+            $session->addSuccess($this->__('You will no longer receive stock alerts for this product.'));
         }
         catch (Exception $e) {
-            $session->addException($e, $this->__('Please try again later'));
+            $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
         $this->_redirectUrl($product->getProductUrl());
     }
@@ -147,10 +147,10 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
                 $session->getCustomerId(),
                 Mage::app()->getStore()->getWebsiteId()
             );
-            $session->addSuccess($this->__('You will no longer receive stock alerts'));
+            $session->addSuccess($this->__('You will no longer receive stock alerts.'));
         }
         catch (Exception $e) {
-            $session->addException($e, $this->__('Please try again later'));
+            $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
         $this->_redirect('customer/account/');
     }

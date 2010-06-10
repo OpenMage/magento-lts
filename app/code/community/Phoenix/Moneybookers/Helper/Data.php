@@ -42,22 +42,28 @@ class Phoenix_Moneybookers_Helper_Data extends Mage_Payment_Helper_Data
     public function activateEmail()
     {
         $storeId = Mage::app()->getStore()->getId();
-        $mailTemplate = Mage::getModel('core/email_template');
 
-        $mailTemplate->setDesignConfig(array('area' => 'frontend', 'store' => $storeId))
+        $translate = Mage::getSingleton('core/translate');
+        /* @var $translate Mage_Core_Model_Translate */
+        $translate->setTranslateInline(false);
+
+        Mage::getModel('core/email_template')
+            ->setDesignConfig(array('area' => 'frontend', 'store' => $storeId))
             ->sendTransactional(
                 'moneybookers_activateemail',
                 Mage::getStoreConfig(Mage_Sales_Model_Order::XML_PATH_EMAIL_IDENTITY, $storeId),
                 $this->_activationEmailTo,
-                $this->_activationEmailTo,
+                null,
                 array(
-                    'subject'    => $this->_activationEmailSubject,
-                    'email_addr' => Mage::getStoreConfig(self::XML_PATH_EMAIL),
-                    'url'        => Mage::getBaseUrl(),
+                    'subject'     => $this->_activationEmailSubject,
+                    'email_addr'  => Mage::getStoreConfig(self::XML_PATH_EMAIL),
+                    'url'         => Mage::getBaseUrl(),
                     'customer_id' => Mage::getStoreConfig(self::XML_PATH_CUSTOMER_ID),
-                    'language' => Mage::getModel('core/locale')->getDefaultLocale()
+                    'language'    => Mage::getModel('core/locale')->getDefaultLocale()
                 )
             );
+
+        $translate->setTranslateInline(true);
     }
 
     /**

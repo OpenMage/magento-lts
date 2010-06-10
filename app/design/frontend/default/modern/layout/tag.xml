@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_modern
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -35,9 +35,7 @@ Default layout, loads most of the pages
     <default>
         <!-- Mage_Tag -->
         <reference name="left">
-            <block type="tag/popular" name="tags_popular" template="tag/popular.phtm">
-                <action method="setTemplate"><template>tag/popular.phtml</template></action>
-            </block>
+            <block type="tag/popular" name="tags_popular" template="tag/popular.phtml"/>
         </reference>
 
     </default>

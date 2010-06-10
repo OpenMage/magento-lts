@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Centinel
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,11 +37,11 @@ class Mage_Centinel_Block_Authentication_Complete extends Mage_Core_Block_Templa
      */
     protected function _toHtml()
     {
-        $validator = Mage::registry('centinel_validator');
-        if (!$validator) {
-            return '';
+        $validator = Mage::registry('current_centinel_validator');
+        if ($validator) {
+            $this->setIsProcessed(true);
+            $this->setIsSuccess($validator->isAuthenticateSuccessful());
         }
-        $this->setIsSuccess($validator->isAuthenticateSuccessful());
         return parent::_toHtml();
     }
 }

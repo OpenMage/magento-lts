@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -73,6 +73,7 @@
            currentNode.setText(params.node_name);
        }*/
         var categoryContainer = $('category-edit-container');
+        var messagesContainer = $('messages');
         new Ajax.Request(url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true' ), {
             parameters:  params,
             evalScripts: true,
@@ -80,12 +81,23 @@
             onSuccess: function(transport) {
                 try {
                     if (transport.responseText.isJSON()) {
-                        var response = transport.responseText.evalJSON()
+                        var response = transport.responseText.evalJSON();
+                        var needUpdate = true;
                         if (response.error) {
                             alert(response.message);
+                            needUpdate = false;
                         }
                         if(response.ajaxExpired && response.ajaxRedirect) {
                             setLocation(response.ajaxRedirect);
+                            needUpdate = false;
+                        }
+                        if (needUpdate){
+                            if (response.content){
+                                $(categoryContainer).update(response.content);
+                            }
+                            if (response.messages){
+                                $(messagesContainer).update(response.messages);
+                            }
                         }
                     } else {
                         $(categoryContainer).update(transport.responseText);

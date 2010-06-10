@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -77,14 +77,10 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
         }
 
         $i = 0;
-        $storeId  = Mage::app()->getStore()->getId();
         $allItems = array_reverse($this->getItems());
         foreach ($allItems as $item) {
             /* @var $item Mage_Sales_Model_Quote_Item */
             if (!$item->getProduct()->isVisibleInSiteVisibility()) {
-                if ($item->getStoreId() == $storeId) {
-                    continue;
-                }
                 $productId = $item->getProduct()->getId();
                 $products  = Mage::getResourceSingleton('catalog/url')
                     ->getRewriteByProductStore(array($productId => $item->getStoreId()));
@@ -92,9 +88,6 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
                     continue;
                 }
                 $urlDataObject = new Varien_Object($products[$productId]);
-                if (!in_array($urlDataObject->getVisibility(), $item->getProduct()->getVisibleInSiteVisibilities())) {
-                    continue;
-                }
                 $item->getProduct()->setUrlDataObject($urlDataObject);
             }
 
@@ -225,16 +218,12 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
     }
 
     /**
-     * Render block HTML
+     * Define if Shopping Cart Sidebar enabled
      *
-     * @return string
+     * @return bool
      */
-    protected function _toHtml()
+    public function getIsNeedToDisplaySideBar()
     {
-        $html = '';
-        if ((bool) Mage::app()->getStore()->getConfig('checkout/sidebar/display')) {
-            $html = parent::_toHtml();
-        }
-        return $html;
+        return (bool) Mage::app()->getStore()->getConfig('checkout/sidebar/display');
     }
 }
