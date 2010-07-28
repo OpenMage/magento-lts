@@ -52,14 +52,16 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
          */
         if ($creditmemo->hasBaseShippingAmount()) {
             $baseShippingAmount = Mage::app()->getStore()->roundPrice($creditmemo->getBaseShippingAmount());
-            if ($isShippingInclTax) {
+            if ($isShippingInclTax && $baseShippingInclTax != 0) {
                 $part = $baseShippingAmount/$baseShippingInclTax;
                 $shippingInclTax    = Mage::app()->getStore()->roundPrice($shippingInclTax*$part);
                 $baseShippingInclTax= $baseShippingAmount;
-                $baseShippingAmount = Mage::app()->getStore()->roundPrice($baseShipping*$part);;
+                $baseShippingAmount = Mage::app()->getStore()->roundPrice($baseShipping*$part);
             }
             if ($baseShippingAmount<= $baseAllowedAmount) {
-                $shipping       = $shipping*$baseShippingAmount/$baseShipping;
+                if ($baseShipping != 0) {
+                    $shipping = $shipping*$baseShippingAmount/$baseShipping;
+                }
                 $shipping       = Mage::app()->getStore()->roundPrice($shipping);
                 $baseShipping   = $baseShippingAmount;
             } else {
@@ -69,8 +71,10 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
                 );
             }
         } else {
-            $shippingInclTax    = Mage::app()->getStore()->roundPrice($shippingInclTax * $allowedAmount/$shipping);
-            $baseShippingInclTax= Mage::app()->getStore()->roundPrice($baseShippingInclTax * $baseAllowedAmount/$baseShipping);
+            if ($baseShipping != 0) {
+                $shippingInclTax    = Mage::app()->getStore()->roundPrice($shippingInclTax * $allowedAmount/$shipping);
+                $baseShippingInclTax= Mage::app()->getStore()->roundPrice($baseShippingInclTax * $baseAllowedAmount/$baseShipping);
+            }
             $shipping           = $allowedAmount;
             $baseShipping       = $baseAllowedAmount;
         }

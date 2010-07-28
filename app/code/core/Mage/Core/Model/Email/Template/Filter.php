@@ -95,6 +95,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     public function setUseSessionInUrl($flag)
     {
+        $this->_useSessionInUrl = $flag;
         return $this;
     }
 

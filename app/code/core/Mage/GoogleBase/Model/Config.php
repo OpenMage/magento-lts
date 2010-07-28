@@ -68,7 +68,7 @@ class Mage_GoogleBase_Model_Config extends Varien_Object
      */
     public function getAccountPassword($storeId = null)
     {
-        return $this->getConfigData('password', $storeId);
+        return Mage::helper('core')->decrypt($this->getConfigData('password', $storeId));
     }
 
     /**

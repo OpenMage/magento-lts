@@ -108,7 +108,8 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
             } else {
                 $stockItem = $item['item'];
             }
-            if ($stockItem->getId() && Mage::helper('catalogInventory')->isQty($stockItem->getTypeId())) {
+            $canSubtractQty = $stockItem->getId() && $stockItem->canSubtractQty();
+            if ($canSubtractQty && Mage::helper('catalogInventory')->isQty($stockItem->getTypeId())) {
                 $qtys[$productId] = $item['qty'];
             }
         }
@@ -116,9 +117,11 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Subtract product qtys from stock
+     * Subtract product qtys from stock.
+     * Return array of items that require full save
      *
      * @param array $items
+     * @return array
      */
     public function registerProductsSale($items)
     {
@@ -126,16 +129,21 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
         $item = Mage::getModel('cataloginventory/stock_item');
         $this->_getResource()->beginTransaction();
         $stockInfo = $this->_getResource()->getProductsStock($this, array_keys($qtys), true);
+        $fullSaveItems = array();
         foreach ($stockInfo as $itemInfo) {
             $item->setData($itemInfo);
             if (!$item->checkQty($qtys[$item->getProductId()])) {
                 $this->_getResource()->commit();
                 Mage::throwException(Mage::helper('cataloginventory')->__('Not all products are available in the requested quantity'));
             }
+            $item->subtractQty($qtys[$item->getProductId()]);
+            if (!$item->verifyStock() || $item->verifyNotification()) {
+                $fullSaveItems[] = clone $item;
+            }
         }
         $this->_getResource()->correctItemsQty($this, $qtys, '-');
         $this->_getResource()->commit();
-        return $this;
+        return $fullSaveItems;
     }
 
     /**

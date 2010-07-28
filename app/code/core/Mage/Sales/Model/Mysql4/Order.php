@@ -89,4 +89,18 @@ class Mage_Sales_Model_Mysql4_Order extends Mage_Sales_Model_Mysql4_Order_Abstra
         }
         return $this->getReadConnection()->fetchPairs($select);
     }
+
+    /**
+     * Retrieve order_increment_id by order_id
+     *
+     * @param int $orderId
+     * @return string
+     */
+    public function getIncrementId($orderId)
+    {
+        $select = $this->getReadConnection()->select()
+            ->from($this->getMainTable(), array("increment_id"))
+            ->where('entity_id = ?', $orderId);
+        return $this->getReadConnection()->fetchOne($select);
+    }
 }

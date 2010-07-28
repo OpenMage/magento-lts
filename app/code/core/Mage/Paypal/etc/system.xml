@@ -558,8 +558,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                         </heading_cc>
-                        <cctypes translate="label">
+                        <cctypes translate="label comment">
                             <label>Allowed Credit Card Types</label>
+                            <comment><![CDATA[Supporting of American Express cards require additional agreement. Learn more at <a href="http://www.paypal.com/amexupdate">http://www.paypal.com/amexupdate</a>.]]></comment>
                             <config_path>payment/paypal_direct/cctypes</config_path>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>paypal/config::getWppCcTypesAsOptionArray</source_model>
@@ -1077,8 +1078,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                         </heading_cc>
-                        <cctypes translate="label">
+                        <cctypes translate="label comment">
                             <label>Allowed Credit Card Types</label>
+                            <comment><![CDATA[Supporting of American Express cards require additional agreement. Learn more at <a href="http://www.paypal.com/amexupdate">http://www.paypal.com/amexupdate</a>.]]></comment>
                             <config_path>payment/verisign/cctypes</config_path>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>paypal/config::getPayflowproCcTypesAsOptionArray</source_model>

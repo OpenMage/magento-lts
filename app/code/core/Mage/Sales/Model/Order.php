@@ -1807,7 +1807,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function prepareShipment($qtys = array())
     {
-        $shipment = Mage::getModel('sales/service_order', $this)->prepareInvoice($qtys);
+        $shipment = Mage::getModel('sales/service_order', $this)->prepareShipment($qtys);
         return $shipment;
     }
 

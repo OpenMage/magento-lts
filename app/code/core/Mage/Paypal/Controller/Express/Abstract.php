@@ -61,12 +61,16 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
         try {
             $this->_initCheckout();
 
+            $customer = Mage::getSingleton('customer/session')->getCustomer();
+            if ($customer && $customer->getId()) {
+                $this->_checkout->setCustomer($customer);
+            }
+
             // billing agreement
             $customerId = Mage::getSingleton('customer/session')->getCustomerId();
             $isBARequested = (bool)$this->getRequest()
                 ->getParam(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT);
-            if ($customerId) {
-                $this->_checkout->setCustomerId($customerId);
+            if ($customer && $customer->getId()) {
                 $this->_checkout->setIsBillingAgreementRequested($isBARequested);
             }
 

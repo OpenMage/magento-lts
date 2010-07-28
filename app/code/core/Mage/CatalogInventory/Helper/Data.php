@@ -94,7 +94,9 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
             'min_sale_qty',
             'max_sale_qty',
             'notify_stock_qty',
-            'manage_stock'
+            'manage_stock',
+            'enable_qty_increments',
+            'qty_increments',
         );
     }
 

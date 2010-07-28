@@ -474,17 +474,14 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 }
                 $this->getOnepage()->getCheckout()->setUpdateSection(null);
             }
-
-            $this->getOnepage()->getQuote()->save();
         } catch (Exception $e) {
             Mage::logException($e);
             Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepage()->getQuote(), $e->getMessage());
             $result['success']  = false;
             $result['error']    = true;
             $result['error_messages'] = $this->__('There was an error processing your order. Please contact us or try again later.');
-            $this->getOnepage()->getQuote()->save();
         }
-
+        $this->getOnepage()->getQuote()->save();
         /**
          * when there is redirect to third party, we don't want to save order yet.
          * we will save the order in return action.

@@ -57,4 +57,18 @@ class Mage_CatalogRule_Model_Mysql4_Rule_Collection extends Mage_Core_Model_Mysq
         }
         return $this;
     }
+
+    /**
+     * Find product attribute in conditions or actions
+     *
+     * @param string $attributeCode
+     * @return Mage_CatalogRule_Model_Mysql4_Rule_Collection
+     */
+    public function addAttributeInConditionFilter($attributeCode)
+    {
+        $match = sprintf('%%%s%%', substr(serialize(array('attribute' => $attributeCode)), 5, -1));
+        $this->addFieldToFilter('conditions_serialized', array('like' => $match));
+
+        return $this;
+    }
 }

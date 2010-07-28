@@ -100,6 +100,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
         </script>';
         return $html;
     }
+
     public function getEscapedValue($index=null)
     {
         $value = $this->getValue($index);

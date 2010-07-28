@@ -237,13 +237,30 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price extends Mage_
         if ($pCount * 0.3 < count($processIds) + $aCount + $bCount) {
             return $this->reindexAll();
         }
+        $this->reindexProductIds($processIds);
+        return $this;
+    }
 
+    /**
+     * Reindex product prices for specified product ids
+     *
+     * @param array | int $ids
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price
+     */
+    public function reindexProductIds($ids)
+    {
+        if (empty($ids)) {
+            return $this;
+        }
+        if (!is_array($ids)) {
+            $ids = array($ids);
+        }
         $this->clearTemporaryIndexTable();
-
+        $write  = $this->_getWriteAdapter();
         // retrieve products types
         $select = $write->select()
             ->from($this->getTable('catalog/product'), array('entity_id', 'type_id'))
-            ->where('entity_id IN(?)', $processIds);
+            ->where('entity_id IN(?)', $ids);
         $pairs  = $write->fetchPairs($select);
         $byType = array();
         foreach ($pairs as $productId => $productType) {
@@ -274,8 +291,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price extends Mage_
                 ->where('l.child_id IN(?)', $notCompositeIds);
             $pairs  = $write->fetchPairs($select);
             foreach ($pairs as $productId => $productType) {
-                if (!in_array($productId, $processIds)) {
-                    $processIds[] = $productId;
+                if (!in_array($productId, $ids)) {
+                    $ids[] = $productId;
                     $byType[$productType][$productId] = $productId;
                     $compositeIds[$productId] = $productId;
                 }
@@ -293,8 +310,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price extends Mage_
             }
         }
 
-        $this->_copyIndexDataToMainTable($processIds);
-
+        $this->_copyIndexDataToMainTable($ids);
         return $this;
     }
 

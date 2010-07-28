@@ -673,6 +673,11 @@ class Mage_Checkout_Model_Type_Onepage
             // TODO: send recurring profile emails
         }
 
+        Mage::dispatchEvent(
+            'checkout_submit_all_after',
+            array('order' => $order, 'quote' => $this->getQuote(), 'recurring_profiles' => $profiles)
+        );
+
         return $this;
     }
 

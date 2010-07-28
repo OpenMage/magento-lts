@@ -268,9 +268,27 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         return $this;
     }
 
+    /**
+     * Get conditions, if current prefix is undefined use 'conditions' key
+     *
+     * @return array
+     */
     public function getConditions()
     {
-        return $this->getData($this->getPrefix());
+        $key = $this->getPrefix() ? $this->getPrefix() : 'conditions';
+        return $this->getData($key);
+    }
+
+    /**
+     * Set conditions, if current prefix is undefined use 'conditions' key
+     *
+     * @param array $conditions
+     * @return Mage_Rule_Model_Condition_Combine
+     */
+    public function setConditions($conditions)
+    {
+        $key = $this->getPrefix() ? $this->getPrefix() : 'conditions';
+        return $this->setData($key, $conditions);
     }
 
     /**

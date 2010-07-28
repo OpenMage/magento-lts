@@ -103,18 +103,39 @@ class Mage_Centinel_Model_Observer extends Varien_Object
     }
 
     /**
-     * Reset validation data  
+     * Reset validation data
+     *
+     * @param Varien_Object $observer
+     * @return Mage_Centinel_Model_Observer
+     */
+    public function checkoutSubmitAllAfter($observer)
+    {
+        $method = false;
+
+        if ($order = $observer->getEvent()->getOrder()) {
+            $method = $order->getPayment()->getMethodInstance();
+        } elseif ($orders = $observer->getEvent()->getOrders()) {
+            if ($order = array_shift($orders)) {
+                $method = $order->getPayment()->getMethodInstance();
+            }
+        }
+
+        if ($method && $method->getIsCentinelValidationEnabled()) {
+            $method->getCentinelValidator()->reset();
+        }
+        return $this;
+    }
+
+    /**
+     * Reset validation data
+     * @deprecated back compatibility alias for checkoutSubmitAllAfter
      *
      * @param Varien_Object $observer
      * @return Mage_Centinel_Model_Observer
      */
     public function salesOrderPaymentPlaceEnd($observer)
     {
-        $payment = $observer->getEvent()->getPayment();
-        $method = $payment->getMethodInstance();
-        if ($method && $method->getIsCentinelValidationEnabled()) {
-            $method->getCentinelValidator()->reset();
-        }
+        $this->checkoutSubmitAllAfter($observer);
         return $this;
     }
 }

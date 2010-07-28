@@ -1,3 +1,115 @@
+==== 1.4.1.1 ====
+
+=== Changes ===
+* Checkout: added dispatching event 'checkout_submit_all_after' into all checkout models
+* Centinel: changed event for resetting validation state 
+* Added check for Order ID before try to lookup transactions by Transaction Id
+* Added cvv field for Mastero/Switch/Solo cards. Also fixed html formatting.
+* Re-factored saving relation of billing agreement with order.
+* Added Qty Increments update in products mass-update.
+* Added ability to update filter map in Varien_Data_Collection_Db
+* Added comment about American Express cards in PayPal system configuration (http://www.paypal.com/amexupdate).
+
+=== Fixes ===
+* Fixed Tax calculation for Downloadable product in purchase it through PayPal Express Checkout
+* Fixed "Notice: Undefined property: Mage_Catalog_Model_Template_Filter::$_useAbsoluteLinks " when you use WISIWYG Editor for field "Description"
+* Fixed Website PayPal Standard payment method is not working with Reward Point, Store Credit and gift Cards
+* Fixed Multiple address checkout with PauPalUK direct + 3d secure validation. Payment information error. Please start over.
+* Fixed Fatal error onBilling Agreement Related page with applied filters
+* Fixed The product's "Stock Status" is not changed from "In Stock" to "Out of Stock"
+* Fixed Qty of the product continues to decline when the "Decrease Stock When Order is Placed" is set to "No"
+* Fixed If set "Manage Stock" to "No": Qty decreasing when product is ordered
+* Fixed The bottom part of the list "Payment Method" in SCPR has too much free place
+** if title of Payment Method is empty, get it from overloaded configData('title') method of concrete Payment Method class
+** rework. Delegate to Mage::helper('payment')->getPaymentMethodList method for retrieve all payment methods
+** fixed by used new config features in 1.4.1 ver - <config_path> in system.xml
+** delete getConfigData method
+** add config_path with 'payment' section to each field in system.xml
+** in sql-upgrade change path to 'payment' section in core_config_data table
+* Fixed tax calculation in case Unit Price Tax with settings applying customer tax "After Discount".
+* Fixed Solo cards JS validation. Added expdate field to solo and maestro cards. Also removed some duplicates in credit card IIN ranges.
+* Fixed Maestro/Switch/Solo cards js validation on payment form: Added additional issue_number and issue_date checks.
+* Fixed fatal error in catalog/shopping cart rules based on recently deleted attribute.
+* Fixed incorrect redirect after order placing failed, during second try of order placing.
+* Fixed exception when "Created At" filter used on Transactions page.
+* Fixed incorrect redirect during multishipping checkout as guest.
+* Fixed issue with updating qty and addresses during checkout with multiple addresses which resets shipping address to the default billing address.
+* Payflow pro:
+** "Sale" action does not work.
+** Missed transaction ID on fraud services filter triggered.
+** Sub-standard order processing flow control and verbosity.
+** Inappropriate "state" passed to the gateway in the order addresses.
+* Fixed centinel JCB validation.
+* Fixed #14885: Unable to upload products into GoogleBase.
+* Fixed issue with creating credit memo for partial capture online invoice for the order witch where placed through Website Payments Pro (Payflow Edition) Payment method.
+* PayPal: fixed grammar in payment form/redirect text messages (EC, WPS)
+* Fixed: Subscribe to Order Status at the front end causing Fatal error: Call to undefined method Mage_Sales_Model_Mysql4_Order_Invoice::getDefaultAttributes() in app/code/core/Mage/Eav/Model/Config.php on line 438
+* Fixed fatal error when a configured payment method doesn't exist anymore
+* Fixed fatal error: Call to a member function getError() on a non-object in app/code/core/Mage/Shipping/Model/Shipping.php on line 143
+* Fixed syntax error caused by accidental manual conflict resolving in Mage_Api_Model_Server_Adapter_Soap
+* Fixed qty increments checking business logic for bundle products
+* Fixed Mage_Sales_Model_Mysql4_Order_Collection::addFieldToSearchFilter() to be compatible with flat sales structure
+* Fixed salesOrderList() broken API call
+* Fixed #18534: order_increment_id empty with api salesOrderInvoiceInfo
+* Fixed missing files and typo in Mage_Sales_Model_Order::prepareShipment() method described at http://www.magentocommerce.com/boards/viewthread/195761/P0/#top
+* Fixed adding tracking for sales_order_shipment.create API call; fixed #17820: Api v2 Shippment create not working
+* Fixed upgrading Sales module from backported 1.3 to 1.4: copied 0.9.38-0.9.39 upgrades to 1.3.99-1.4.0.0
+
+=== Known Issue ===
+* Google checkout notification duplicates orders or double-process them on timeouts
+
+
+
+==== 1.4.x-devel-73934 ====
+
+=== Changes ===
+* Re-factored saving relation of billing agreement with order.
+* Added Qty Increments update in products mass-update.
+
+== Fixes ==
+* Fixed tax calculation in case Unit Price Tax with settings applying customer tax "After Discount".
+* Fixed Solo cards JS validation. Added expdate field to solo and maestro cards. Also removed some duplicates in credit card IIN ranges.
+* Fixed Maestro/Switch/Solo cards js validation on payment form: Added additional issue_number and issue_date checks.
+* Fixed fatal error in catalog/shopping cart rules based on recently deleted attribute.
+* Fixed incorrect redirect after order placing failed, during second try of order placing.
+* Fixed exception when "Created At" filter used on Transactions page.
+* Fixed incorrect redirect during multishipping checkout as guest.
+* Fixed issue with updating qty and addresses during checkout with multiple addresses which resets shipping address to the default billing address.
+* Payflow pro:
+** "Sale" action does not work.
+** Missed transaction ID on fraud services filter triggered.
+** Sub-standard order processing flow control and verbosity.
+** Inappropriate "state" passed to the gateway in the order addresses.
+* Fixed centinel JCB validation.
+* Fixed #14885: Unable to upload products into GoogleBase.
+* Fixed issue with creating credit memo for partial capture online invoice for the order witch where placed through Website Payments Pro (Payflow Edition) Payment method.
+
+==== 1.4.x-devel-71052 ====
+
+=== Fixes ===
+* PayPal: fixed grammar in payment form/redirect text messages (EC, WPS)
+* Fixed: Subscribe to Order Status at the front end causing Fatal error: Call to undefined method Mage_Sales_Model_Mysql4_Order_Invoice::getDefaultAttributes() in app/code/core/Mage/Eav/Model/Config.php on line 438
+* Fixed fatal error when a configured payment method doesn't exist anymore
+* Fixed fatal error: Call to a member function getError() on a non-object in app/code/core/Mage/Shipping/Model/Shipping.php on line 143
+* Fixed syntax error caused by accidental manual conflict resolving in Mage_Api_Model_Server_Adapter_Soap
+
+
+==== 1.4.x-devel-70699 ====
+
+=== Changes ===
+* Added ability to update filter map in Varien_Data_Collection_Db
+* Added comment about American Express cards in PayPal system configuration (http://www.paypal.com/amexupdate).
+
+=== Fixes ===
+* Fixed qty increments checking business logic for bundle products
+* Fixed Mage_Sales_Model_Mysql4_Order_Collection::addFieldToSearchFilter() to be compatible with flat sales structure
+* Fixed salesOrderList() broken API call
+* Fixed #18534: order_increment_id empty with api salesOrderInvoiceInfo
+* Fixed missing files and typo in Mage_Sales_Model_Order::prepareShipment() method described at http://www.magentocommerce.com/boards/viewthread/195761/P0/#top
+* Fixed adding tracking for sales_order_shipment.create API call; fixed #17820: Api v2 Shippment create not working
+* Fixed upgrading Sales module from backported 1.3 to 1.4: copied 0.9.38-0.9.39 upgrades to 1.3.99-1.4.0.0
+
+
 ==== 1.4.1.0 ====
 
 === Improvements ===

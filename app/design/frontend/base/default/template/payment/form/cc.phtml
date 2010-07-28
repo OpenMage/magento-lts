@@ -96,7 +96,7 @@
                     <input type="text" title="<?php echo $this->__('Issue Number') ?>" class="input-text validate-cc-ukss cvv" id="<?php echo $_code ?>_cc_issue" name="payment[cc_ss_issue]" value="" />
                 </span>
             </li>
-    
+
             <li>
                 <label for="<?php echo $_code ?>_start_month"><?php echo $this->__('Start Date') ?>:</label>
                 <div class="input-box">
@@ -117,29 +117,21 @@
                 </div>
             </li>
             <li class="adv-container">&nbsp;</li>
-       </ul>
+        </ul>
         <script type="text/javascript">
         //<![CDATA[
         var SSChecked<?php echo $_code ?> = function() {
             var elm = $('<?php echo $_code ?>_cc_type');
             if (['SS','SM','SO'].indexOf(elm.value) != -1) {
                 $('<?php echo $_code ?>_cc_type_ss_div').show();
-                <?php if($this->hasVerification()): ?>
-                    $('<?php echo $_code ?>_cc_type_cvv_div').hide();
-                <?php endif; ?>
-                $('<?php echo $_code ?>_cc_type_exp_div').hide();
             } else {
                 $('<?php echo $_code ?>_cc_type_ss_div').hide();
-                <?php if($this->hasVerification()): ?>
-                    $('<?php echo $_code ?>_cc_type_cvv_div').show();
-                <?php endif; ?>
-                $('<?php echo $_code ?>_cc_type_exp_div').show();
             }
         };
-    
+
         Event.observe($('<?php echo $_code ?>_cc_type'), 'change', SSChecked<?php echo $_code ?>);
         SSChecked<?php echo $_code ?>();
-    
+
         Validation.addAllThese([
             ['validate-cc-ukss', 'Please enter issue number or start date for switch/solo card type.', function(v,elm) {
                       var endposition;
@@ -161,7 +153,7 @@
                       }
                       var ccType = ccTypeContainer.value;
 
-                      if(['SS','SM','SO'].indexOf(elm.value) == -1){
+                      if(['SS','SM','SO'].indexOf(ccType) == -1){
                           return true;
                       }
 
@@ -174,15 +166,13 @@
                       var ccSMonth  =  $(prefix + '_start_month').value;
                       var ccSYear   =  $(prefix + '_start_year').value;
 
-                      if((!ccIssue && !ccSMonth && !ccSYear) ||
-                         (!ccIssue && !ccSMonth && ccSYear)  ||
-                         (!ccIssue && ccSMonth && !ccSYear)
-                      ){
+                      var ccStartDatePresent = (ccSMonth && ccSYear) ? true : false;
+
+                      if (!ccStartDatePresent && !ccIssue){
                           return false;
                       }
 
                       return true;
-
             }]
         ]);
         //]]>

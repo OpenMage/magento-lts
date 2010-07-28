@@ -139,6 +139,9 @@ class Mage_Shipping_Model_Shipping
         if (false !== $result){
             if (!$result instanceof Mage_Shipping_Model_Rate_Result_Error) {
                 $result = $carrier->collectRates($request);
+                if (!$result) {
+                    return $this;
+                }
             }
             if ($carrier->getConfigData('showmethod') == 0 && $result->getError()) {
                 return $this;

@@ -49,7 +49,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Ad
      */
     public function getTabLabel()
     {
-        return $this->__('Genereal Information');
+        return $this->__('General Information');
     }
 
     /**
@@ -59,7 +59,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Ad
      */
     public function getTabTitle()
     {
-        return $this->__('Genereal Information');
+        return $this->__('General Information');
     }
 
     /**

@@ -8,5 +8,5 @@
 # Dynamic data that doesn't need to be in the repo
 /var/*
 /media/*
-/app/etc/local.xml
 /app/etc/use_cache.ser
+local.xml

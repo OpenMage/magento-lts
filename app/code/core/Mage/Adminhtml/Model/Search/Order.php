@@ -34,33 +34,22 @@ class Mage_Adminhtml_Model_Search_Order extends Varien_Object
             return $this;
         }
 
+        $query = $this->getQuery();
         //TODO: add full name logic
         $collection = Mage::getResourceModel('sales/order_collection')
             ->addAttributeToSelect('*')
+            ->addAttributeToSearchFilter(array(
+                array('attribute'=>'increment_id', 'like'=>$query.'%'),
+                array('attribute'=>'billing_firstname', 'like'=>$query.'%'),
+                array('attribute'=>'billing_lastname', 'like'=>$query.'%'),
+                array('attribute'=>'billing_telephone', 'like'=>$query.'%'),
+                array('attribute'=>'billing_postcode', 'like'=>$query.'%'),
 
-            ->joinAttribute('billing_firstname', 'order_address/firstname', 'billing_address_id')
-            ->joinAttribute('billing_lastname', 'order_address/lastname', 'billing_address_id')
-            ->joinAttribute('billing_telephone', 'order_address/telephone', 'billing_address_id')
-            ->joinAttribute('billing_postcode', 'order_address/postcode', 'billing_address_id')
-
-            ->joinAttribute('shipping_firstname', 'order_address/firstname', 'shipping_address_id')
-            ->joinAttribute('shipping_lastname', 'order_address/lastname', 'shipping_address_id')
-            ->joinAttribute('shipping_telephone', 'order_address/telephone', 'shipping_address_id')
-            ->joinAttribute('shipping_postcode', 'order_address/postcode', 'shipping_address_id')
-
-            ->addAttributeToFilter(array(
-                array('attribute'=>'increment_id', 'like'=>$this->getQuery().'%'),
-                array('attribute'=>'billing_firstname', 'like'=>$this->getQuery().'%'),
-                array('attribute'=>'billing_lastname', 'like'=>$this->getQuery().'%'),
-                array('attribute'=>'billing_telephone', 'like'=>$this->getQuery().'%'),
-                array('attribute'=>'billing_postcode', 'like'=>$this->getQuery().'%'),
-
-                array('attribute'=>'shipping_firstname', 'like'=>$this->getQuery().'%'),
-                array('attribute'=>'shipping_lastname', 'like'=>$this->getQuery().'%'),
-                array('attribute'=>'shipping_telephone', 'like'=>$this->getQuery().'%'),
-                array('attribute'=>'shipping_postcode', 'like'=>$this->getQuery().'%'),
+                array('attribute'=>'shipping_firstname', 'like'=>$query.'%'),
+                array('attribute'=>'shipping_lastname', 'like'=>$query.'%'),
+                array('attribute'=>'shipping_telephone', 'like'=>$query.'%'),
+                array('attribute'=>'shipping_postcode', 'like'=>$query.'%'),
             ))
-
             ->setCurPage($this->getStart())
             ->setPageSize($this->getLimit())
             ->load();

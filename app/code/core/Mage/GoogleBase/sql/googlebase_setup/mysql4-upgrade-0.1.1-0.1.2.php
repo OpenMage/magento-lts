@@ -19,16 +19,25 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category    Mage
- * @package     Mage_Adminhtml
+ * @package     Mage_GoogleBase
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_Adminhtml_Model_System_Config_Source_Payment_Allmethods
-{
-    public function toOptionArray()
-    {
-        $methods = Mage::helper('payment')->getPaymentMethodList(true, true, true);
-        return $methods;
-    }
+
+/* @var $installer Mage_Core_Model_Resource_Setup */
+$installer = $this;
+
+// encrypt google base passwords
+$select = $installer->getConnection()->select()
+    ->from($installer->getTable('core/config_data'))
+    ->where('path LIKE ?', 'google/googlebase/password');
+foreach ($installer->getConnection()->fetchAll($select) as $row) {
+    $bind  = array(
+        'value' => Mage::helper('core')->encrypt($row['value'])
+    );
+    $where = array(
+        'config_id=?' => $row['config_id']
+    );
+    $installer->getConnection()->update($installer->getTable('core/config_data'), $bind, $where);
 }

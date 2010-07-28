@@ -341,14 +341,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Add field filter to collection
      *
-     * If $attribute is an array will add OR condition with following format:
-     * array(
-     *     array('attribute'=>'firstname', 'like'=>'test%'),
-     *     array('attribute'=>'lastname', 'like'=>'test%'),
-     * )
-     *
      * @see self::_getConditionSql for $condition
-     * @param string|array $attribute
+     * @param string $field
      * @param null|string|array $condition
      * @return Mage_Eav_Model_Entity_Collection_Abstract
      */
@@ -794,5 +788,26 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             return $this->_cacheConf['tags'];
         }
         return array();
+    }
+
+    /**
+     * Add filter to Map
+     *
+     * @param string $filter
+     * @param string $alias
+     * @param string $group default 'fields'
+     *
+     * @return Varien_Data_Collection_Db
+     */
+    public function addFilterToMap($filter, $alias, $group = 'fields')
+    {
+        if (is_null($this->_map)) {
+            $this->_map = array($group => array());
+        } else if(is_null($this->_map[$group])) {
+            $this->_map[$group] = array();
+        }
+        $this->_map[$group][$filter] = $alias;
+
+        return $this;
     }
 }

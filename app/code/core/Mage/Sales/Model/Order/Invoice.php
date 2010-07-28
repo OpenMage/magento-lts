@@ -154,6 +154,16 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
+     * Retrieve the increment_id of the order
+     *
+     * @return string
+     */
+    public function getOrderIncrementId()
+    {
+        return Mage::getModel('sales/order')->getResource()->getIncrementId($this->getOrderId());
+    }
+
+    /**
      * Retrieve billing address
      *
      * @return Mage_Sales_Model_Order_Address

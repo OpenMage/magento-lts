@@ -65,6 +65,13 @@ class Mage_Sales_Model_Service_Quote
     protected $_order = null;
 
     /**
+     * If it is true, quote will be inactivate after submitting order or nominal items
+     *
+     * @var bool
+     */
+    protected $_shouldInactivateQuote = true;
+
+    /**
      * Class constructor
      *
      * @param Mage_Sales_Model_Quote $quote
@@ -160,7 +167,6 @@ class Mage_Sales_Model_Service_Quote
             }
             $order->addItem($orderItem);
         }
-        $quote->setIsActive(false);
 
         $transaction->addObject($order);
         $transaction->addCommitCallback(array($order, 'place'));
@@ -173,6 +179,7 @@ class Mage_Sales_Model_Service_Quote
         Mage::dispatchEvent('sales_model_service_quote_submit_before', array('order'=>$order, 'quote'=>$quote));
         try {
             $transaction->save();
+            $this->_inactivateQuote();
             Mage::dispatchEvent('sales_model_service_quote_submit_success', array('order'=>$order, 'quote'=>$quote));
         } catch (Exception $e) {
             Mage::dispatchEvent('sales_model_service_quote_submit_failure', array('order'=>$order, 'quote'=>$quote));
@@ -192,6 +199,7 @@ class Mage_Sales_Model_Service_Quote
     {
         $this->_validate();
         $this->_submitRecurringPaymentProfiles();
+        $this->_inactivateQuote();
         $this->_deleteNominalItems();
     }
 
@@ -201,9 +209,19 @@ class Mage_Sales_Model_Service_Quote
      */
     public function submitAll()
     {
-        $this->submitNominalItems();
+        // don't allow submitNominalItems() to inactivate quote
+        $shouldInactivateQuoteOld = $this->_shouldInactivateQuote;
+        $this->_shouldInactivateQuote = false;
+        try {
+            $this->submitNominalItems();
+            $this->_shouldInactivateQuote = $shouldInactivateQuoteOld;
+        } catch (Exception $e) {
+            $this->_shouldInactivateQuote = $shouldInactivateQuoteOld;
+            throw $e;
+        }
         // no need to submit the order if there are no normal items remained
         if (!$this->_quote->getAllVisibleItems()) {
+            $this->_inactivateQuote();
             return;
         }
         $this->submitOrder();
@@ -227,6 +245,19 @@ class Mage_Sales_Model_Service_Quote
     public function getOrder()
     {
         return $this->_order;
+    }
+
+    /**
+     * Inactivate quote
+     *
+     * @return Mage_Sales_Model_Service_Quote
+     */
+    protected function _inactivateQuote()
+    {
+        if ($this->_shouldInactivateQuote) {
+            $this->_quote->setIsActive(false);
+        }
+        return $this;
     }
 
     /**

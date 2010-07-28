@@ -265,6 +265,13 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         if (!$track->getId()) {
             $this->getTracksCollection()->addItem($track);
         }
+
+        /**
+         * Track saving is implemented in _afterSave()
+         * This enforces Mage_Core_Model_Abstract::save() not to skip _afterSave()
+         */
+        $this->_hasDataChanges = true;
+
         return $this;
     }
 

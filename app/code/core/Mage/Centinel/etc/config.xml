@@ -41,14 +41,14 @@
                     </centinel>
                 </observers>
             </sales_convert_quote_to_order>
-            <sales_order_payment_place_end>
+            <checkout_submit_all_after>
                 <observers>
                     <centinel>
                         <class>centinel/observer</class>
-                        <method>salesOrderPaymentPlaceEnd</method>
+                        <method>checkoutSubmitAllAfter</method>
                     </centinel>
                 </observers>
-            </sales_order_payment_place_end>
+            </checkout_submit_all_after>
         </events>
     </global>
     <frontend>

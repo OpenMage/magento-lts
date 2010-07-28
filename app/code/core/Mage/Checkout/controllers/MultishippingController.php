@@ -62,6 +62,16 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
     }
 
     /**
+     * Retrieve checkout session
+     *
+     * @return Mage_Checkout_Model_Session
+     */
+    protected function _getCheckoutSession()
+    {
+        return Mage::getSingleton('checkout/session');
+    }
+
+    /**
      * Action predispatch
      *
      * Check customer authentication for some actions
@@ -73,6 +83,23 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         parent::preDispatch();
 
         $action = $this->getRequest()->getActionName();
+
+        /**
+         * Catch index action call to set some flags before checkout/type_multishipping model initialization
+         */
+        if (preg_match('#^index#', $action)) {
+            $this->_getCheckoutSession()->getQuote()->setIsMultiShipping(true);
+            $this->_getCheckoutSession()->setCheckoutState(
+                Mage_Checkout_Model_Session::CHECKOUT_STATE_BEGIN
+            );
+        }
+        else if (!$this->_getCheckoutSession()->getQuote()->getIsMultiShipping()
+            && !preg_match('#^(login|register|success)#', $action)) {
+            $this->_redirect('*/*/index');
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
+            return $this;
+        }
+
         if (!preg_match('#^(login|register)#', $action)) {
             if (!Mage::getSingleton('customer/session')->authenticate($this, $this->_getHelper()->getMSLoginUrl())) {
                 $this->setFlag('', self::FLAG_NO_DISPATCH, true);
@@ -89,7 +116,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             return $this;
         }
 
-        if (Mage::getSingleton('checkout/session')->getCartWasUpdated(true)
+        if ($this->_getCheckoutSession()->getCartWasUpdated(true)
             && !in_array($action, array('index', 'login', 'register', 'addresses', 'success'))) {
             $this->_redirectUrl($this->_getHelper()->getCartUrl());
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
@@ -113,10 +140,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
      */
     public function indexAction()
     {
-        Mage::getSingleton('checkout/session')->setCartWasUpdated(false);
-        $this->_getCheckout()->getCheckoutSession()->setCheckoutState(
-            Mage_Checkout_Model_Session::CHECKOUT_STATE_BEGIN
-        );
+        $this->_getCheckoutSession()->setCartWasUpdated(false);
         $this->_redirect('*/*/addresses');
     }
 
@@ -222,11 +246,11 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             }
         }
         catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('checkout/session')->addError($e->getMessage());
+            $this->_getCheckoutSession()->addError($e->getMessage());
             $this->_redirect('*/*/addresses');
         }
         catch (Exception $e) {
-            Mage::getSingleton('checkout/session')->addException(
+            $this->_getCheckoutSession()->addException(
                 $e,
                 Mage::helper('checkout')->__('Data saving problem')
             );
@@ -322,7 +346,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             $this->_redirect('*/*/billing');
         }
         catch (Exception $e){
-            Mage::getSingleton('checkout/session')->addError($e->getMessage());
+            $this->_getCheckoutSession()->addError($e->getMessage());
             $this->_redirect('*/*/shipping');
         }
     }
@@ -370,7 +394,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 //            $this->_redirect('*/*/overview');
 //        }
 //        catch (Exception $e) {
-//            Mage::getSingleton('checkout/session')->addError($e->getMessage());
+//            $this->_getCheckoutSession()->addError($e->getMessage());
 //            $this->_redirect('*/*/billing');
 //        }
 //    }
@@ -425,12 +449,12 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             $this->renderLayout();
         }
         catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('checkout/session')->addError($e->getMessage());
+            $this->_getCheckoutSession()->addError($e->getMessage());
             $this->_redirect('*/*/billing');
         }
         catch (Exception $e) {
             Mage::logException($e);
-            Mage::getSingleton('checkout/session')->addException($e, $this->__('Cannot open the overview page'));
+            $this->_getCheckoutSession()->addException($e, $this->__('Cannot open the overview page'));
             $this->_redirect('*/*/billing');
         }
     }
@@ -445,7 +469,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             if ($requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds()) {
                 $postedAgreements = array_keys($this->getRequest()->getPost('agreement', array()));
                 if ($diff = array_diff($requiredAgreements, $postedAgreements)) {
-                    Mage::getSingleton('checkout/session')->addError($this->__('Please agree to all Terms and Conditions before placing the order.'));
+                    $this->_getCheckoutSession()->addError($this->__('Please agree to all Terms and Conditions before placing the order.'));
                     $this->_redirect('*/*/billing');
                     return;
                 }
@@ -473,17 +497,17 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         catch (Mage_Checkout_Exception $e) {
             Mage::helper('checkout')->sendPaymentFailedEmail($this->_getCheckout()->getQuote(), $e->getMessage(), 'multi-shipping');
             $this->_getCheckout()->getCheckoutSession()->clear();
-            Mage::getSingleton('checkout/session')->addError($e->getMessage());
+            $this->_getCheckoutSession()->addError($e->getMessage());
             $this->_redirect('*/cart');
         }
         catch (Mage_Core_Exception $e){
             Mage::helper('checkout')->sendPaymentFailedEmail($this->_getCheckout()->getQuote(), $e->getMessage(), 'multi-shipping');
-            Mage::getSingleton('checkout/session')->addError($e->getMessage());
+            $this->_getCheckoutSession()->addError($e->getMessage());
             $this->_redirect('*/*/billing');
         }
         catch (Exception $e){
             Mage::helper('checkout')->sendPaymentFailedEmail($this->_getCheckout()->getQuote(), $e->getMessage(), 'multi-shipping');
-            Mage::getSingleton('checkout/session')->addError('Order place error.');
+            $this->_getCheckoutSession()->addError('Order place error.');
             $this->_redirect('*/*/billing');
         }
     }

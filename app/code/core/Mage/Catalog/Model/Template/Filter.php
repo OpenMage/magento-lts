@@ -36,6 +36,45 @@
 class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
 {
     /**
+     * Use absolute links flag
+     *
+     * @var bool
+     */
+    protected $_useAbsoluteLinks = false;
+
+    /**
+     * Whether to allow SID in store directive: NO
+     *
+     * @var bool
+     */
+    protected $_useSessionInUrl = false;
+
+    /**
+     * Set use absolute links flag
+     *
+     * @param bool $flag
+     * @return Mage_Core_Model_Email_Template_Filter
+     */
+    public function setUseAbsoluteLinks($flag)
+    {
+        $this->_useAbsoluteLinks = $flag;
+        return $this;
+    }
+
+    /**
+     * Setter whether SID is allowed in store directive
+     * Doesn't set anything intentionally, since SID is not allowed in any kind of emails
+     *
+     * @param bool $flag
+     * @return Mage_Core_Model_Email_Template_Filter
+     */
+    public function setUseSessionInUrl($flag)
+    {
+        $this->_useSessionInUrl = $flag;
+        return $this;
+    }
+
+    /**
      * Retrieve Skin URL directive
      *
      * @param array $construction

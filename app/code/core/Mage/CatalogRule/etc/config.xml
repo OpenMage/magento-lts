@@ -133,6 +133,14 @@
                     </catalogrule>
                 </observers>
             </catalog_product_import_after>
+            <catalog_entity_attribute_delete_after>
+                <observers>
+                    <catalogrule>
+                        <class>catalogrule/observer</class>
+                        <method>catalogAttributeDeleteAfter</method>
+                    </catalogrule>
+                </observers>
+            </catalog_entity_attribute_delete_after>
         </events>
     </adminhtml>
 

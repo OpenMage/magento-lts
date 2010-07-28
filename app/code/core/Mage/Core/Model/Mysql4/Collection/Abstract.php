@@ -298,6 +298,36 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
     }
 
     /**
+     * Add attribute expression (SUM, COUNT, etc)
+     *
+     * Example: ('sub_total', 'SUM({{attribute}})', 'revenue')
+     * Example: ('sub_total', 'SUM({{revenue}})', 'revenue')
+     *
+     * For some functions like SUM use groupByAttribute.
+     *
+     * @param string $alias
+     * @param string $expression
+     * @param array $fields
+     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     */
+    public function addExpressionFieldToSelect($alias, $expression, $fields)
+    {
+        // validate alias
+        if(!is_array($fields)) {
+            $fields = array($fields=>$fields);
+        }
+
+        $fullExpression = $expression;
+        foreach($fields as $fieldKey=>$fieldItem) {
+            $fullExpression = str_replace('{{' . $fieldKey . '}}', $fieldItem, $fullExpression);
+        }
+        
+        $this->getSelect()->columns(array($alias=>$fullExpression));
+
+        return $this;
+    }
+
+    /**
      * Removes field from select
      *
      * @param string|null $field

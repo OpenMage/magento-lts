@@ -100,6 +100,7 @@ class Mage_Sales_Model_Mysql4_Order_Payment_Transaction_Collection extends Mage_
     public function addOrderInformation(array $keys)
     {
         $this->_addOrderInformation = array_merge($this->_addOrderInformation, $keys);
+        $this->addFilterToMap('created_at', 'main_table.created_at');
         return $this;
     }
 

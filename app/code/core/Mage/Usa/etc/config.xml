@@ -166,6 +166,7 @@
                 <handling_action>O</handling_action>
                 <negotiated_active>0</negotiated_active>
                 <mode_xml>1</mode_xml>
+                <type>UPS</type>
             </ups>
 
             <usps>

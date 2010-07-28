@@ -117,6 +117,16 @@
                 </Mage_SalesRule>
             </modules>
         </translate>
+        <events>
+            <catalog_entity_attribute_delete_after>
+                <observers>
+                    <salesrule>
+                        <class>salesrule/observer</class>
+                        <method>catalogAttributeDeleteAfter</method>
+                    </salesrule>
+                </observers>
+            </catalog_entity_attribute_delete_after>
+        </events>
     </adminhtml>
 
     <frontend>

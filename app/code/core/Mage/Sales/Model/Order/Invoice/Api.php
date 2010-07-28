@@ -102,14 +102,15 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     {
         $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
 
-        /* @var $invoice Mage_Sales_Model_Order_Invoice */
+        /* @var Mage_Sales_Model_Order_Invoice $invoice */
 
         if (!$invoice->getId()) {
             $this->_fault('not_exists');
         }
 
         $result = $this->_getAttributes($invoice, 'invoice');
-
+        $result['order_increment_id'] = $invoice->getOrderIncrementId();
+        
         $result['items'] = array();
         foreach ($invoice->getAllItems() as $item) {
             $result['items'][] = $this->_getAttributes($item, 'invoice_item');
@@ -119,7 +120,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
         foreach ($invoice->getCommentsCollection() as $comment) {
             $result['comments'][] = $this->_getAttributes($comment, 'invoice_comment');
         }
-
+        
         return $result;
     }
 

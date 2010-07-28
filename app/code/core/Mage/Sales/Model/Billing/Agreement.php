@@ -35,6 +35,13 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     const STATUS_CANCELED   = 'canceled';
 
     /**
+     * Related agreement orders
+     *
+     * @var array
+     */
+    protected $_relatedOrders = array();
+
+    /**
      * Init model
      *
      */
@@ -57,6 +64,19 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
             $this->setUpdatedAt($date);
         }
         return parent::_beforeSave();
+    }
+
+    /**
+     * Save agreement order relations
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _afterSave()
+    {
+        if (!empty($this->_relatedOrders)) {
+            $this->_saveOrderRelations();
+        }
+        return parent::_afterSave();
     }
 
     /**
@@ -231,8 +251,18 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      */
     public function addOrderRelation($orderId)
     {
-        $this->getResource()->addOrderRelation($this->getId(), $orderId);
+        $this->_relatedOrders[] = $orderId;
         return $this;
+    }
+
+    /**
+     * Save related orders
+     */
+    protected function _saveOrderRelations()
+    {
+        foreach ($this->_relatedOrders as $orderId) {
+            $this->getResource()->addOrderRelation($this->getId(), $orderId);
+        }
     }
 
 }

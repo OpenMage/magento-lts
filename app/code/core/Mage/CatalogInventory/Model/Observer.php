@@ -41,6 +41,8 @@ class Mage_CatalogInventory_Model_Observer
      */
     protected $_checkedProductsQty = array();
 
+    protected $_itemsForReindex = array();
+
     /**
      * Add stock information to product
      *
@@ -211,6 +213,17 @@ class Mage_CatalogInventory_Model_Observer
             $qty = $quoteItem->getProduct()->getTypeInstance(true)->prepareQuoteItemQty($qty, $quoteItem->getProduct());
             $quoteItem->setData('qty', $qty);
 
+            $stockItem = $quoteItem->getProduct()->getStockItem();
+            if ($stockItem) {
+                $result = $stockItem->checkQtyIncrements($qty);
+                if ($result->getHasError()) {
+                    $quoteItem->setHasError(true)
+                        ->setMessage($result->getMessage());
+                    $quoteItem->getQuote()->setHasError(true)
+                        ->addMessage($result->getQuoteMessage(), $result->getQuoteMessageIndex());
+                }
+            }
+
             foreach ($options as $option) {
                 /* @var $option Mage_Sales_Model_Quote_Item_Option */
                 $optionQty = $qty * $option->getValue();
@@ -221,6 +234,10 @@ class Mage_CatalogInventory_Model_Observer
                 if (!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item) {
                     Mage::throwException(Mage::helper('cataloginventory')->__('The stock item for Product in option is not valid.'));
                 }
+                /**
+                 * don't check qty increments value for option product
+                 */
+                $stockItem->setSuppressCheckQtyIncrements(true);
 
                 $qtyForCheck = $this->_getProductQtyForCheck($option->getProduct()->getId(), $increaseOptionQty);
 
@@ -341,14 +358,19 @@ class Mage_CatalogInventory_Model_Observer
     }
 
     /**
-     * Subtrack quote items qtys from stock items related with quote items products
+     * Subtrack quote items qtys from stock items related with quote items products.
+     * Used before order placing to make order save/place transaction smaller
+     *
      * @param Varien_Event_Observer $observer
      */
     public function subtractQuoteInventory(Varien_Event_Observer $observer)
     {
         $quote = $observer->getEvent()->getQuote();
         $items = $this->_getProductsQty($quote->getAllItems());
-        Mage::getSingleton('cataloginventory/stock')->registerProductsSale($items);
+        /**
+         * Remember items
+         */
+        $this->_itemsForReindex = Mage::getSingleton('cataloginventory/stock')->registerProductsSale($items);
         return $this;
     }
 
@@ -422,7 +444,8 @@ class Mage_CatalogInventory_Model_Observer
     }
 
     /**
-     * Refresh stock index for specific stock items
+     * Refresh stock index for specific stock items after succesful order placement
+     *
      * @param $observer
      */
     public function reindexQuoteInventory($observer)
@@ -439,6 +462,12 @@ class Mage_CatalogInventory_Model_Observer
             }
         }
         Mage::getResourceSingleton('cataloginventory/indexer_stock')->reindexProducts($productIds);
+        $productIds = array();
+        foreach ($this->_itemsForReindex as $item) {
+            $item->save();
+            $productIds[] = $item->getProductId();
+        }
+        Mage::getResourceSingleton('catalog/product_indexer_price')->reindexProductIds($productIds);
         return $this;
     }
 

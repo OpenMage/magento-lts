@@ -212,10 +212,24 @@ class Mage_Paypal_Model_Express_Checkout
      *
      * @param int $id
      * @return Mage_Paypal_Model_Express_Checkout
+     * @deprecated please use self::setCustomer
      */
     public function setCustomerId($id)
     {
         $this->_customerId = $id;
+        return $this;
+    }
+
+    /**
+     * Setter for customer
+     *
+     * @param Mage_Customer_Model_Customer $customer
+     * @return Mage_Paypal_Model_Express_Checkout
+     */
+    public function setCustomer($customer)
+    {
+        $this->_quote->assignCustomer($customer);
+        $this->_customerId = $customer->getId();
         return $this;
     }
 

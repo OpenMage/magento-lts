@@ -28,7 +28,7 @@
  * Backend for serialized array data
  *
  */
-class Mage_CatalogInventory_Model_System_Config_Backend_Minsaleqty extends Mage_Adminhtml_Model_System_Config_Backend_Serialized_Array
+class Mage_CatalogInventory_Model_System_Config_Backend_Minsaleqty extends Mage_Core_Model_Config_Data
 {
     /**
      * Process data after load
@@ -36,20 +36,8 @@ class Mage_CatalogInventory_Model_System_Config_Backend_Minsaleqty extends Mage_
     protected function _afterLoad()
     {
         $value = $this->getValue();
-        if (empty($value)) {
-            $this->setValue(array());
-        } else {
-            try {
-                parent::_afterLoad();
-            } catch(Exception $e) {
-                $this->setValue(array(
-                    Mage::helper('core')->uniqHash('_') => array(
-                        'customer_group_id' => Mage_Customer_Model_Group::CUST_GROUP_ALL,
-                        'min_sale_qty' => $value,
-                    )
-                ));
-            }
-        }
+        $value = Mage::helper('cataloginventory/minsaleqty')->makeArrayFieldValue($value);
+        $this->setValue($value);
     }
 
     /**
@@ -58,38 +46,7 @@ class Mage_CatalogInventory_Model_System_Config_Backend_Minsaleqty extends Mage_
     protected function _beforeSave()
     {
         $value = $this->getValue();
-        if (is_array($value)) {
-            unset($value['__empty']);
-
-            $foundGroups = array();
-            $hasGroupAllOnly = false;
-            $groupAllQty = null;
-            foreach ($value as $k => $v) {
-                if (in_array($v['customer_group_id'], $foundGroups)) {
-                    unset($value[$k]);
-                    continue;
-                }
-                $foundGroups[] = $v['customer_group_id'];
-                if ($v['customer_group_id'] == Mage_Customer_Model_Group::CUST_GROUP_ALL) {
-                    $hasGroupAllOnly = true;
-                    $groupAllQty = $v['min_sale_qty'];
-                } else {
-                    $hasGroupAllOnly = false;
-                }
-            }
-            if ($hasGroupAllOnly) {
-                $this->setValue($groupAllQty);
-            } else {
-                parent::_beforeSave();
-            }
-        }
-    }
-
-    /**
-     * Load model by raw value
-     */
-    public function loadByValue($value)
-    {
-        return $this->setValue($value)->afterLoad();
+        $value = Mage::helper('cataloginventory/minsaleqty')->makeStorableArrayFieldValue($value);
+        $this->setValue($value);
     }
 }

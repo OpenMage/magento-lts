@@ -132,6 +132,7 @@ class Mage_Api_Model_Server_Adapter_Soap
 
         } else {
             $this->fault('0', 'Unable to load Soap extension on the server');
+        }
         return $this;
     }
 

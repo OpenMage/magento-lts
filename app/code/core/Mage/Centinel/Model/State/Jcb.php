@@ -37,11 +37,12 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
      */
     public function isLookupSuccessful()
     {
-        if ($this->_isLookupStrictSuccessful() || $this->_isLookupSoftSuccessful()) {
+        if ($this->_isLookupStrictSuccessful()) {
             return true;
-        } else {
-            return false;
+        } elseif (!$this->getIsModeStrict() && $this->_isLookupSoftSuccessful()) {
+            return true;
         }
+        return false;
     }
 
     /**
@@ -106,7 +107,7 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
 
             //Test case 5
             if ($paResStatus == 'U' && $signatureVerification == 'Y' && $eciFlag == '07' &&
-                $xid != '' && $cavv == '' && $errorNo == '') {
+                $xid != '' && $cavv == '' && $errorNo == '0') {
                 if ($this->getIsModeStrict()) {
                     return false;
                 } else {
@@ -116,7 +117,7 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
 
             //Test case 10
             if ($paResStatus == '' && $signatureVerification == '' && $eciFlag == '07' &&
-                $xid == '' && $cavv == '' && $errorNo != '') {
+                $xid == '' && $cavv == '' && $errorNo != '0') {
                 return false;
             }
 
@@ -160,7 +161,7 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
         $enrolled = $this->getLookupEnrolled();
 
         //Test cases 5
-        if ($enrolled == 'N/A' && $acsUrl == '' && $payload == '' && $errorNo == '0') {
+        if ($enrolled == '' && $acsUrl == '' && $payload == '' && $errorNo == '0') {
             return true;
         }
 
@@ -170,7 +171,7 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
         }
 
         //Test cases 8,9
-        if ($enrolled == '' && $acsUrl == '' && $payload == '' && $errorNo != '') {
+        if ($enrolled == '' && $acsUrl == '' && $payload == '' && $errorNo != '0') {
             return true;
         }
 

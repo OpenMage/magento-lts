@@ -71,8 +71,10 @@ class Mage_CatalogInventory_Model_Mysql4_Stock extends Mage_Core_Model_Mysql4_Ab
     public function getProductsStock($stock, $productIds, $lockRows = false)
     {
         $itemTable = $this->getTable('cataloginventory/stock_item');
+        $productTable = $this->getTable('catalog/product');
         $select = $this->_getWriteAdapter()->select()
-            ->from($itemTable)
+            ->from(array('si' => $itemTable))
+            ->join(array('p' => $productTable), 'p.entity_id=si.product_id', array('type_id'))
             ->where('stock_id=?', $stock->getId())
             ->where('product_id IN(?)', $productIds)
             ->forUpdate($lockRows);

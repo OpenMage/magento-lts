@@ -23,8 +23,9 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 /**
- * Order Rss
+ * Order Rss Resource Model
  *
  * @category   Mage
  * @package    Mage_Rss
@@ -32,190 +33,129 @@
  */
 class Mage_Rss_Model_Mysql4_Order
 {
-    protected $_entityTypeIdsToTypes;
-    protected $_entityIdsToIncrementIds;
+    /**
+     * @var array
+     * @deprecated after 1.4.1.0
+     */
+    protected $_entityTypeIdsToTypes = array();
 
-    public function __construct()
-    {
-        $this->_entityTypeIdsToTypes = array();
-        $this->_entityIdsToIncrementIds = array();
-    }
+    /**
+     * @var array
+     * @deprecated after 1.4.1.0
+     */
+    protected $_entityIdsToIncrementIds = array();
 
+    /**
+     * @return array
+     * @deprecated after 1.4.1.0
+     */
     public function getEntityTypeIdsToTypes()
     {
         return $this->_entityTypeIdsToTypes;
     }
 
+    /**
+     * @return array
+     * @deprecated after 1.4.1.0
+     */
     public function getEntityIdsToIncrementIds()
     {
         return $this->_entityIdsToIncrementIds;
     }
 
+    /**
+     * @return array
+     * @deprecated after 1.4.1.0
+     */
+    public function getAllOrderEntityTypeIds()
+    {
+        return array();
+    }
+
+    /**
+     * @return array
+     * @deprecated after 1.4.1.0
+     */
+    public function getAllOrderEntityIds($orderId, $orderEntityTypes)
+    {
+        return array();
+    }
+
+    /**
+     * @return array
+     * @deprecated after 1.4.1.0
+     */
+    public function getAllEntityIds($entityIds = array())
+    {
+        return array();
+    }
+
+    /**
+     * @return array
+     * @deprecated after 1.4.1.0
+     */
+    public function getAllEntityTypeCommentIds()
+    {
+        return array();
+    }
+
+    /**
+     * Retrieve core resource model
+     *
+     * @return Mage_Core_Model_Resource
+     */
     public function getCoreResource()
     {
         return Mage::getSingleton('core/resource');
     }
 
-    public function getAllOrderEntityTypeIds()
-    {
-        $orderEntityTypes = array();
-        $etypeIds = array();
-        $oattrIds = array();
-        $eav = Mage::getSingleton('eav/config');
-        $oTable = '';
-        foreach (array(
-                'invoice'=>'sales/order_invoice',
-                'shipment'=>'sales/order_shipment',
-                'creditmemo'=>'sales/order_creditmemo'
-            ) as $entityTypeCode=>$entityModel) {
-                $entityType = $eav->getEntityType($entityTypeCode);
-                $entity = Mage::getResourceSingleton($entityModel);
-                $orderAttr = $eav->getAttribute($entityType, 'order_id');
-                if (!$oTable) {
-                    $orderAttr->setEntity($entity);
-                    $oTable = $orderAttr->getBackend()->getTable();
-                }
-                $this->_entityTypeIdsToTypes[$entityType->getId()] = $entityTypeCode;
-                $etypeIds[$entityType->getId()] = $entityTypeCode;
-                $oattrIds[] = $orderAttr->getId();
-        }
-        $orderEntityTypes = array(
-            'entityTypeIds' => $etypeIds,
-            'orderAttrIds' => $oattrIds,
-            'order_table' => $oTable);
-        return $orderEntityTypes;
-    }
-
-    public function getAllOrderEntityIds($oid, $orderEntityTypes)
-    {
-        $etypeIdsArr = array_keys($orderEntityTypes['entityTypeIds']);
-        $res = $this->getCoreResource();
-        $read = $res->getConnection('core_read');
-        $select = $read->select()
-             ->from(array('order' => $res->getTableName('sales/order')), array('entity_id'))
-             ->join($orderEntityTypes['order_table'],"{$orderEntityTypes['order_table']}.entity_id=order.entity_id
-             and {$orderEntityTypes['order_table']}.attribute_id in (".implode(',',$orderEntityTypes['orderAttrIds']).")
-             and {$orderEntityTypes['order_table']}.entity_type_id in (".implode(',', $etypeIdsArr).") and {$orderEntityTypes['order_table']}.value={$oid}"
-             ,array("{$orderEntityTypes['order_table']}.value"));
-
-        $results = $read->fetchAll($select);
-        $eIds = array($oid);
-        foreach($results as $result){
-            $eIds[] = $result['entity_id'];
-        }
-        return $eIds;
-    }
-
-    public function getAllEntityIds($entityIds = array())
+    /**
+     * Retrieve order comments
+     *
+     * @param int $orderId
+     * @return array
+     */
+    public function getAllCommentCollection($orderId)
     {
         $res = $this->getCoreResource();
         $read = $res->getConnection('core_read');
-        $entityIdStr = implode(',', $entityIds);
-        $select = $read->select()
-             ->from($res->getTableName('sales/order'), array('entity_id','increment_id'))
-             ->where('parent_id in (' .$entityIdStr.')')
-             ->orWhere('entity_id in (' .$entityIdStr.')');
-        $results = $read->fetchAll($select);
-        $eIds = array();
-        foreach($results as $result){
-            if($result['increment_id']) {
-               $this->_entityIdsToIncrementIds[$result['entity_id']] = $result['increment_id'];
-            }
-            $eIds[] = $result['entity_id'];
+
+        $fields = array(
+            'notified' => 'is_customer_notified',
+            'comment',
+            'created_at',
+        );
+        $commentSelects = array();
+        foreach (array('invoice', 'shipment', 'creditmemo') as $entityTypeCode) {
+            $mainTable  = $res->getTableName('sales/' . $entityTypeCode);
+            $slaveTable = $res->getTableName('sales/' . $entityTypeCode . '_comment');
+            $select = $read->select()
+                ->from(array('main' => $mainTable), array(
+                    'entity_id' => 'order_id',
+                    'entity_type_code' => new Zend_Db_Expr("'$entityTypeCode'")
+                ))
+                ->join(array('slave' => $slaveTable), 'main.entity_id = slave.parent_id', $fields)
+                ->where('main.order_id = ?', $orderId);
+            $commentSelects[] = '(' . $select . ')';
         }
-        return $eIds;
-    }
-
-    public function getAllEntityTypeCommentIds()
-    {
-        $entityTypes = array();
-        $eav = Mage::getSingleton('eav/config');
-        $etypeIds = array();
-        $cattrIds = array();
-        $nattrIds = array();
-        $cTable = '';
-        $nTable = '';
-        foreach (array(
-                'order_status_history'=>array('model' => 'sales/order_status_history', 'type' => 'order'),
-                'invoice_comment'=>array('model' => 'sales/order_invoice_comment', 'type' => 'invoice'),
-                'shipment_comment'=>array('model' => 'sales/order_shipment_comment', 'type' => 'shipment'),
-                'creditmemo_comment'=>array('model' => 'sales/order_creditmemo_comment', 'type' => 'creditmemo')
-            ) as $entityTypeCode=>$entityArr) {
-
-            $entityType = $eav->getEntityType($entityTypeCode);
-            $entity = Mage::getResourceSingleton($entityArr['model']);
-            $commentAttr = $eav->getAttribute($entityType, 'comment');
-            $notifiedAttr = $eav->getAttribute($entityType, 'is_customer_notified');
-            $statusAttr = $eav->getAttribute($entityType, 'status');
-#$statusAttr->setEntity($entity);
-#echo "****".$statusAttr->getBackend()->getTable()."****".$statusAttr->getId();
-            if (!$cTable) {
-                $commentAttr->setEntity($entity);
-                $cTable = $commentAttr->getBackend()->getTable();
-            }
-            if (!$nTable) {
-                $notifiedAttr->setEntity($entity);
-                $nTable = $notifiedAttr->getBackend()->getTable();
-            }
-            $etypeIds[] = $entityType->getId();
-            $cattrIds[] = $commentAttr->getId();
-            $nattrIds[] = $notifiedAttr->getId();
-            $this->_entityTypeIdsToTypes[$entityType->getId()] = $entityArr['type'];
-            /*
-            $entityTypes[$entityType->getId()] = array(
-                'table'=>$entityType->getEntityTable(),
-                'alias'  => $entityTypeCode,
-                'comment_attribute_id'=>$commentAttr->getId(),
-                'notified_attribute_id'=>$notifiedAttr->getId(),
-            );
-            */
-        }
-        $entityTypes = array(
-            'entityTypeIds' => $etypeIds,
-            'commentAttrIds' => $cattrIds,
-            'notifiedAttrIds' => $nattrIds,
-            'comment_table' => $cTable,
-            'notified_table' => $nTable);
-        return $entityTypes;
-    }
-
-    /*
-    entity_type_id IN (order_status_history, invoice_comment, shipment_comment, creditmemo_comment)
-    entity_id IN(order_id, credimemo_ids, invoice_ids, shipment_ids)
-    attribute_id IN(order_status/comment_text, ....)
-    */
-    public function getAllCommentCollection($oid)
-    {
-        $orderEntityTypes = $this->getAllOrderEntityTypeIds();
-        $entityIds = $this->getAllOrderEntityIds($oid, $orderEntityTypes);
-        $allEntityIds = $this->getAllEntityIds($entityIds);
-
-        $eTypes = $this->getAllEntityTypeCommentIds();
-        $etypeIds = implode(',',$eTypes['entityTypeIds']);
-
-        /*foreach($entityTypeIds as $eid=>$result){
-            $etIds[] = $eid;
-            $attributeIds[] = $result['comment_attribute_id'];
-            $attributeIds[] = $result['notified_attribute_id'];
-        }*/
-
-        $res = $this->getCoreResource();
-        $read = $res->getConnection('core_read');
         $select = $read->select()
-             ->from(array('order' => $res->getTableName('sales/order')), array('entity_id','created_at','entity_type_id','parent_id'))
-             ->where('order.entity_id in ('.implode(",", $allEntityIds).')')
-             ->join($eTypes['comment_table'],"{$eTypes['comment_table']}.entity_id=order.entity_id
-             and {$eTypes['comment_table']}.attribute_id in (".implode(',',$eTypes['commentAttrIds']).")
-             and {$eTypes['comment_table']}.entity_type_id in (".$etypeIds.")"
-             ,array('comment' => "{$eTypes['comment_table']}.value"))
-             ->join($eTypes['notified_table'],"{$eTypes['notified_table']}.entity_id=order.entity_id
-             and {$eTypes['notified_table']}.attribute_id in (".implode(',',$eTypes['notifiedAttrIds']).")
-             and {$eTypes['notified_table']}.entity_type_id in (".$etypeIds.") and {$eTypes['notified_table']}.value=1"
-             ,array('notified' =>"{$eTypes['notified_table']}.value"))
-             ->order('created_at desc')
-        ;
+            ->from($res->getTableName('sales/order_status_history'), array(
+                'entity_id' => 'parent_id',
+                'entity_type_code' => new Zend_Db_Expr("'order'")
+            ) + $fields)
+            ->where('parent_id = ?', $orderId)
+            ->where('is_visible_on_front > 0');
+        $commentSelects[] = '(' . $select . ')';
+
+        $commentSelect = $read->select()
+            ->union($commentSelects)
+            ->order('created_at desc');
+
+        $select = $read->select()
+            ->from(array('order' => $res->getTableName('sales/order')), array('increment_id'))
+            ->join(array('t' => $commentSelect), 't.entity_id = order.entity_id');
+
         return $read->fetchAll($select);
-
     }
 
 }

@@ -43,7 +43,7 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Renderer_Id
      */
     public function render(Varien_Object $row)
     {
-        $baseUrl = 'http://www.google.com/base/step2offer?docId=';
+        $baseUrl = 'http://www.google.com/merchants/view?docId=';
 
         $itemUrl = $row->getData($this->getColumn()->getIndex());
         $urlParts = parse_url($itemUrl);

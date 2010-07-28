@@ -242,7 +242,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         $quote = $this->getQuote();
         $isMultiShipping = (bool)(int)Mage::getStoreConfig('shipping/option/checkout_multiple');
         if ((!$quote) || !$quote->hasItems()) {
-            return false;
+            return $isMultiShipping;
         }
         $maximunQty = (int)Mage::getStoreConfig('shipping/option/checkout_multiple_maximum_qty');
         return $isMultiShipping

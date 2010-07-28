@@ -914,12 +914,18 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         $transactionId = $this->getTransactionId();
         if (null !== $transactionId) {
             // set transaction parameters
-            $transaction = Mage::getModel('sales/order_payment_transaction')
+            $transaction = false;
+            if ($this->getOrder()->getId()) {
+                $transaction = $this->_lookupTransaction($transactionId);
+            }
+            if (!$transaction) {
+                $transaction = Mage::getModel('sales/order_payment_transaction')->setTxnId($transactionId);
+            }
+            $transaction
                 ->setOrderPaymentObject($this)
                 ->setTxnType($type)
-                ->setTxnId($transactionId)
-                ->isFailsafe($failsafe)
-            ;
+                ->isFailsafe($failsafe);
+
             if ($this->hasIsTransactionClosed()) {
                 $transaction->setIsClosed((int)$this->getIsTransactionClosed());
             }
@@ -1041,13 +1047,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if (null === $txnId) {
             $txnId = $this->getTransactionId();
         }
-        if ($txnId) {
-            $transaction = Mage::getModel('sales/order_payment_transaction')
-                ->setOrderPaymentObject($this)
-                ->loadByTxnId($txnId);
-            return (bool)$transaction->getId();
-        }
-        return false;
+        return $txnId && $this->_lookupTransaction($txnId);
     }
 
     /**

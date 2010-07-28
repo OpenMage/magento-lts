@@ -205,19 +205,4 @@ abstract class Phoenix_Moneybookers_Model_Abstract extends Mage_Payment_Model_Me
         $paymentAction = $this->getConfigData('payment_action');
         return empty($paymentAction) ? true : $paymentAction;
     }
-
-    /**
-     * Retrieve information from payment configuration
-     *
-     * @param   string $field
-     * @return  mixed
-     */
-    public function getConfigData($field, $storeId = null)
-    {
-        if (null === $storeId) {
-            $storeId = $this->getStore();
-        }
-        $path = 'moneybookers/'.$this->getCode().'/'.$field;
-        return Mage::getStoreConfig($path, $storeId);
-    }
 }
