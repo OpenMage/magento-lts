@@ -38,4 +38,21 @@ class Mage_Install_Block_State extends Mage_Core_Block_Template
         $this->setTemplate('install/state.phtml');
         $this->assign('steps', Mage::getSingleton('install/wizard')->getSteps());
     }
+    
+    /**
+     * Get previous downloader steps
+     * 
+     * @return array
+     */
+    public function getDownloaderSteps()
+    {
+        if (Mage::app()->getCookie()->get('magento_downloader_session')) {
+            return array(
+                Mage::helper('install')->__('Welcome'),
+                Mage::helper('install')->__('Validation'),
+            );
+        } else {
+            return array();
+        }
+    }
 }

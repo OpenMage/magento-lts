@@ -1,0 +1,75 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="entry-edit">
+    <?php echo $this->getFormHtml() ?>
+
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__("Authors") ?></h4>
+    </div>
+    <fieldset id="authors_fieldset" class="grid">
+        <legend><?php echo $this->__("Authors") ?></legend>
+        <table class="data" cellspacing="0">
+            <thead>
+                <tr class="headings">
+                    <th><?php echo $this->__("Name") ?></th>
+                    <th><?php echo $this->__("User") ?></th>
+                    <th><?php echo $this->__("Email") ?></th>
+                    <th><?php echo $this->__("Remove") ?></th>
+                </tr>
+                <tr id="authors_template" style="display:none">
+<?php function showAuthorsTemplate($self, $_i=0) { ?>
+                    <td style="margin-bottom:5px;">
+                        <input class="input-text" style="width:160px;" name="authors[name][]" value="<?php echo $self->getValue('authors/name/'.$_i) ?>"/>
+                    </td><td style="margin-bottom:5px;">
+                        <input class="input-text" style="width:140px;" name="authors[user][]" value="<?php echo $self->getValue('authors/user/'.$_i) ?>"/>
+                    </td><td style="margin-bottom:5px;">
+                        <input class="input-text" style="width:160px;" name="authors[email][]" value="<?php echo $self->getValue('authors/email/'.$_i) ?>"/>
+                    </td><td style="margin-bottom:5px;">
+                        <?php echo $self->getRemoveRowButtonHtml('tr') ?>
+                    </td>
+<?php } ?>
+<?php showAuthorsTemplate($this) ?>
+                </tr>
+            </thead>
+            <tbody id="authors_container">
+            <?php if ($this->getData('authors/name')): ?>
+            <?php foreach ($this->getData('authors/name') as $_i=>$_dbField): ?>
+                <?php if (0===$_i) continue; ?>
+                <tr>
+<?php showAuthorsTemplate($this, $_i) ?>
+                </tr>
+            <?php endforeach ?>
+            <?php endif ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="a-right" colspan="4"><?php echo $this->getAddRowButtonHtml('authors_container', 'authors_template', $this->__('Add Author')) ?></td>
+                </tr>
+            </tfoot>
+        </table>
+    </fieldset>
+</div>

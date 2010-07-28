@@ -125,21 +125,21 @@ BOXES
 /* SECTION-SPECIFIC
 ******************************************************/
 
-/* Pear Package */
-.pear-packages table    { margin:6px 0; }
-.pear-packages td,.pear-packages th {
+/* Connect Package */
+.connect-packages table    { margin:6px 0; }
+.connect-packages td,.connect-packages th {
     padding:3px 5px;
     border-right:solid 1px #ccc;
     border-bottom:solid 1px #ccc;
     background:#f6f6f6;
     }
-.pear-packages th       { border-top:solid 1px #bbb; background:#ccc; text-align:left; }
-.pear-packages td.first { border-left:solid 1px #bbb; }
-.pear-packages td.last  { border-right:solid 1px #bbb; }
-.pear-packages tr.installed-latest td   { background:#dbf1d7; }
-.pear-packages tr.upgrade-available td  { background:#fcfbbb; }
-.pear-packages tr.stand-alone td        { background:#cbe8fb; }
-.pear-packages td .select               { width:100%; }
+.connect-packages th       { border-top:solid 1px #bbb; background:#ccc; text-align:left; }
+.connect-packages td.first { border-left:solid 1px #bbb; }
+.connect-packages td.last  { border-right:solid 1px #bbb; }
+.connect-packages tr.installed-latest td   { background:#dbf1d7; }
+.connect-packages tr.upgrade-available td  { background:#fcfbbb; }
+.connect-packages tr.stand-alone td        { background:#cbe8fb; }
+.connect-packages td .select               { width:100%; }
 .step-count             { background:#f77312; color:#fff; font-weight:bold; padding:0 4px; }
 
 

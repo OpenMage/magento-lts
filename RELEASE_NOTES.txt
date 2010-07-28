@@ -1,3 +1,8 @@
+==== 1.4.2.0-beta1 ====
+
+=== Major Highlights ===
+* Included new Magento Connect Manager 2
+
 ==== 1.4.1.1 ====
 
 === Changes ===

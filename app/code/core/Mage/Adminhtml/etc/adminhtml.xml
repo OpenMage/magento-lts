@@ -94,20 +94,6 @@
                         </roles>
                     </children>
                 </acl>
-                <extensions translate="title">
-                    <title>Magento Connect</title>
-                    <sort_order>80</sort_order>
-                    <children>
-                        <local translate="title">
-                            <title>Magento Connect Manager</title>
-                            <action>adminhtml/extensions_local</action>
-                        </local>
-                        <custom translate="title">
-                            <title>Package Extensions</title>
-                            <action>adminhtml/extensions_custom</action>
-                        </custom>
-                    </children>
-                </extensions>
                 <cache translate="title">
                     <title>Cache Management</title>
                     <action>adminhtml/cache</action>

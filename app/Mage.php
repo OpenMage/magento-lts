@@ -152,10 +152,10 @@ final class Mage
         return array(
             'major'     => '1',
             'minor'     => '4',
-            'revision'  => '1',
-            'patch'     => '1',
-            'stability' => '',
-            'number'    => '',
+            'revision'  => '2',
+            'patch'     => '0',
+            'stability' => 'beta',
+            'number'    => '1',
         );
     }
 

@@ -18,9 +18,9 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Varien
- * @package    Varien_Object
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @category   Mage
+ * @package    Mage_Connect
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -36,6 +36,15 @@ function useCustomPermissions (element)
     }
     document.getElementById('use_custom_permissions_mode_panel').style.display = disabledMode;
 }
+function changeDeploymentType (element)
+{
+    if (element.value == 'ftp') {
+        disabledMode = 'block';
+    } else {
+        disabledMode = 'none';
+    }
+    document.getElementById('deployment_type_panel').style.display = disabledMode;
+}
 </script>
 
 <h2 class="page-head">Settings</h2>
@@ -50,12 +59,21 @@ function useCustomPermissions (element)
         <p>Please note: extensions are provided as is. Make sure to backup your data before installing new extensions.</p>
         <table cellspacing="0" class="form-list">
             <tr>
+                <td class="label">Magento Connect Channel Protocol:</td>
+                <td class="value">
+                    <select id="protocol" name="protocol" style="width:150px;">
+                        <option value="http" <?php if ($this->get('protocol')=='http'):?>selected="selected"<?php endif ?>>Http</option>
+                        <option value="ftp" <?php if ($this->get('protocol')=='ftp'):?>selected="selected"<?php endif ?>>Ftp</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <td class="label">Preferred State:</td>
                 <td class="value">
                     <select id="preferred_state" name="preferred_state" style="width:150px;">
-                        <option value="stable" <?php if ($this->get('state')=='stable'):?>selected="selected"<?php endif ?>>Stable</option>
-                        <option value="beta" <?php if ($this->get('state')=='beta'):?>selected="selected"<?php endif ?>>Beta</option>
-                        <option value="alpha" <?php if ($this->get('state')=='alpha'):?>selected="selected"<?php endif ?>>Alpha</option>
+                        <option value="stable" <?php if ($this->get('preferred_state')=='stable'):?>selected="selected"<?php endif ?>>Stable</option>
+                        <option value="beta" <?php if ($this->get('preferred_state')=='beta'):?>selected="selected"<?php endif ?>>Beta</option>
+                        <option value="alpha" <?php if ($this->get('preferred_state')=='alpha'):?>selected="selected"<?php endif ?>>Alpha</option>
                     </select>
                 </td>
             </tr>
@@ -91,10 +109,48 @@ function useCustomPermissions (element)
                     <input id="chmod_file_mode" name="chmod_file_mode" value="<?php echo($this->get('chmod_file_mode'));?>" style="width:50px;" type="text"></input>
                 </td>
             </tr>
+        </table>
+
+        <p>Deployment.</p>
+        <table cellspacing="0" class="form-list">
             <tr>
-                <td class="label">Executable files:</td>
+                <td class="label">Deployment Type:</td>
                 <td class="value">
-                    <input id="chmod_file_mode_executable" name="chmod_file_mode_executable" value="<?php echo($this->get('chmod_file_mode_executable'));?>" style="width:50px;" type="text"></input>
+                    <input value="fs" type="radio" name="deployment_type" id="deployment_fs" onclick="changeDeploymentType(this)" <?php if ($this->get('deployment_type')=='fs'):?>checked="checked"<?php endif ?> <?php if ($this->get('fs_disabled')):?>disabled="disabled"<?php endif ?> />
+                    <label for="deployment_fs"> <span class="label">Local Filesystem</span> </label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">&nbsp;</td>
+                <td class="value">
+                    <input value="ftp" type="radio" name="deployment_type" id="deployment_ftp" onclick="changeDeploymentType(this)" <?php if ($this->get('deployment_type')=='ftp'):?>checked="checked"<?php endif ?> />
+                    <label for="deployment_ftp"><span class="label">FTP Connection</span></label>
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="0" class="form-list" id="deployment_type_panel" <?php if ($this->get('deployment_type')!='ftp'):?>style="display:none;"<?php endif ?>>
+            <tr>
+                <td class="label">FTP Host:</td>
+                <td class="value">
+                    <input id="ftp_host" name="ftp_host" value="<?php echo($this->get('ftp_host'));?>" style="width:250px;" type="text"></input>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">FTP Login:</td>
+                <td class="value">
+                    <input id="ftp_login" name="ftp_login" value="<?php echo($this->get('ftp_login'));?>" style="width:250px;" type="text"></input>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">FTP Password:</td>
+                <td class="value">
+                    <input id="ftp_password" name="ftp_password" value="<?php echo($this->get('ftp_password'));?>" style="width:250px;" type="password"></input>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Installation Path:</td>
+                <td class="value">
+                    <input id="ftp_path" name="ftp_path" value="<?php echo($this->get('ftp_path'));?>" style="width:250px;" type="text"></input>
                 </td>
             </tr>
         </table>
