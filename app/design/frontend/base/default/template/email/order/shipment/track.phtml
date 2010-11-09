@@ -27,16 +27,16 @@
 <?php $_shipment=$this->getShipment() ?>
 <?php $_order=$this->getOrder() ?>
 <?php if ($_shipment && $_order && $_shipment->getAllTracks()): ?>
-<table cellspacing="0" cellpadding="0" border="0" width="100%" style="border:1px solid #bebcb7; background:#f8f7f5;">
+<table cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #EAEAEA;">
     <thead>
         <tr>
-            <th align="left" bgcolor="#d9e5ee" style="padding:3px 9px"><?php echo $this->__('Shipped By') ?></th>
-            <th align="center" bgcolor="#d9e5ee" style="padding:3px 9px"><?php echo $this->__('Tracking Number') ?></th>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Shipped By') ?></th>
+            <th align="center" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Tracking Number') ?></th>
         </tr>
     </thead>
     <tbody>
     <?php $i=0; foreach ($_shipment->getAllTracks() as $_item): $i++ ?>
-        <tr <?php echo $i%2?'bgcolor="#eeeded"':'' ?>>
+        <tr <?php echo $i%2?'bgcolor="#F6F6F6"':'' ?>>
             <td align="left" valign="top" style="padding:3px 9px"><?php echo $_item->getTitle() ?></td>
             <td align="center" valign="top" style="padding:3px 9px"><?php echo $_item->getNumber() ?></td>
         </tr>

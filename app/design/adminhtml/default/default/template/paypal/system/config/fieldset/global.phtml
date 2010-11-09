@@ -34,8 +34,8 @@
     <col width="25%" />
     <thead>
         <tr>
-            <th><?php echo $this->escapeHtml($this->getFieldsetLabel()) ?></td>
-            <th class="paypal-selection-info"><a href="<?php echo $this->escapeHtml($this->getFieldsetHelpUrl()) ?>"><?php echo Mage::helper('paypal')->__('Help')?></a></td>
+            <th><?php echo $this->escapeHtml($this->getFieldsetLabel()) ?></th>
+            <th class="paypal-selection-info"><a href="<?php echo $this->escapeHtml($this->getFieldsetHelpUrl()) ?>"><?php echo Mage::helper('paypal')->__('Help')?></a></th>
         </tr>
     </thead>
     <tbody>
@@ -90,6 +90,7 @@ Event.observe(window, 'load', function() {
     ['ec','wps','ecpe'].each(function(m) {
         pConfig.trackMethod(m);
     });
+    pConfig.trackPayflowpro();
     pConfig.fastMode = false;
     pConfig.destruct();
 });
@@ -295,7 +296,8 @@ PaypalConfig.prototype = {
 
     trackBusinessAccount: function()
     {
-        if (!$('paypal_account_business_account').value) {
+        var elem = $('paypal_account_business_account');
+        if (!Validation.validate(elem) || !elem.value) {
             this.disableMethod('wps', true);
             this.disableMethod('ec', true);
             this.disabledMethods.push('wps','ec');
@@ -309,13 +311,18 @@ PaypalConfig.prototype = {
     trackWpp: function()
     {
         var enabled = this.getMethodSwitcher('wpp').checked;
+        var wpppeEnabled = this.getMethodSwitcher('wpppe').checked;
 
         if (enabled) {
             this.enableMethod('wpp',false);
-            this.enableMethod('ec',true);
+            if (!wpppeEnabled) {
+                this.enableMethod('ec',true);
+            }
         } else {
             this.disableMethod('wpp',false);
-            this.markMethodAsReadonly('ec',false);
+            if (!wpppeEnabled) {
+                this.markMethodAsReadonly('ec',false);
+            }
         }
         this.trackWps();
     },
@@ -338,7 +345,14 @@ PaypalConfig.prototype = {
         var wpppeEnabled = this.getMethodSwitcher('wpppe').checked;
         if (wpppeEnabled) {
             this.enableMethod('ecpe',true);
+            this.disableMethod('ec',true);
             return;
+        } else {
+            if (!this.getMethodSwitcher('wpp').checked) {
+                this.markMethodAsReadonly('ec', false);
+            } else {
+                this.enableMethod('ec',true);
+            }
         }
         var disabled = !wpppeEnabled && !this.getMethodSwitcher('payflowpro').checked;
         if (disabled) {
@@ -381,7 +395,7 @@ PaypalConfig.prototype = {
         isHidden ? fieldset.hide() : fieldset.show();
         var heading = fieldset.previous('div');
         var headingLink = heading.down('a');
-        isHidden ? heading.addClassName('disabled') : heading.removeClassName('disabled');
+        isHidden ? heading.addClassName('disabled').addClassName('no-display') : heading.removeClassName('disabled').removeClassName('no-display');
         if (isHidden) {
             headingLink.oldHref = headingLink.href;
             headingLink.oldOnclick = headingLink.onclick;

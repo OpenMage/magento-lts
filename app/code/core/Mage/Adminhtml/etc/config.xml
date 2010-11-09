@@ -70,6 +70,14 @@
                     </massaction>
                 </observers>
             </adminhtml_controller_action_predispatch_start>
+            <admin_user_authenticate_after>
+                <observers>
+                    <configuration_files_access_level_verification>
+                        <class>adminhtml/observer</class>
+                        <method>clearCacheConfigurationFilesAccessLevelVerification</method>
+                    </configuration_files_access_level_verification>
+                </observers>
+            </admin_user_authenticate_after>
         </events>
     </global>
 
@@ -163,6 +171,9 @@
                 <forgot_email_template>system_emails_forgot_email_template</forgot_email_template>
                 <forgot_email_identity>general</forgot_email_identity>
             </emails>
+            <dashboard>
+                <enable_charts>1</enable_charts>
+            </dashboard>
         </system>
     </default>
     <stores>

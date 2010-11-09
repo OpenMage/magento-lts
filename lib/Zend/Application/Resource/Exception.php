@@ -15,10 +15,15 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Exception.php 16200 2009-06-21 18:50:06Z thomas $
+ * @version    $Id: Exception.php 22610 2010-07-17 08:49:08Z torio $
  */
+
+/**
+ * @see Zend_Application_Exception
+ */
+#require_once 'Zend/Application/Exception.php';
 
 /**
  * Exception class for Zend_Application
@@ -27,7 +32,7 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Application_Resource_Exception extends Zend_Application_Exception

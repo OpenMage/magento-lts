@@ -14,45 +14,45 @@
  *
  * @category   Zend
  * @package    Zend_Amf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Server.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Server.php 21210 2010-02-27 10:37:39Z yoshida@zend.co.jp $
  */
 
-/** Zend_Server_Interface */
+/** @see Zend_Server_Interface */
 #require_once 'Zend/Server/Interface.php';
 
-/** Zend_Server_Reflection */
+/** @see Zend_Server_Reflection */
 #require_once 'Zend/Server/Reflection.php';
 
-/** Zend_Amf_Constants */
+/** @see Zend_Amf_Constants */
 #require_once 'Zend/Amf/Constants.php';
 
-/** Zend_Amf_Value_MessageBody */
+/** @see Zend_Amf_Value_MessageBody */
 #require_once 'Zend/Amf/Value/MessageBody.php';
 
-/** Zend_Amf_Value_MessageHeader */
+/** @see Zend_Amf_Value_MessageHeader */
 #require_once 'Zend/Amf/Value/MessageHeader.php';
 
-/** Zend_Amf_Value_Messaging_CommandMessage */
+/** @see Zend_Amf_Value_Messaging_CommandMessage */
 #require_once 'Zend/Amf/Value/Messaging/CommandMessage.php';
 
-/** Zend_Loader_PluginLoader */
+/** @see Zend_Loader_PluginLoader */
 #require_once 'Zend/Loader/PluginLoader.php';
 
-/** Zend_Amf_Parse_TypeLoader */
+/** @see Zend_Amf_Parse_TypeLoader */
 #require_once 'Zend/Amf/Parse/TypeLoader.php';
 
-/** Zend_Auth */
+/** @see Zend_Auth */
 #require_once 'Zend/Auth.php';
 /**
  * An AMF gateway server implementation to allow the connection of the Adobe Flash Player to
  * Zend Framework
  *
- * @todo       Make the relection methods cache and autoload.
+ * @todo       Make the reflection methods cache and autoload.
  * @package    Zend_Amf
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Amf_Server implements Zend_Server_Interface
@@ -228,7 +228,7 @@ class Zend_Amf_Server implements Zend_Server_Interface
      * Check if the ACL allows accessing the function or method
      *
      * @param string|object $object Object or class being accessed
-     * @param string $function Function or method being acessed
+     * @param string $function Function or method being accessed
      * @return unknown_type
      */
     protected function _checkAcl($object, $function)
@@ -314,7 +314,7 @@ class Zend_Amf_Server implements Zend_Server_Interface
                     $this->getLoader()->load($className);
                 } catch (Exception $e) {
                     #require_once 'Zend/Amf/Server/Exception.php';
-                    throw new Zend_Amf_Server_Exception('Class "' . $className . '" does not exist: '.$e->getMessage());
+                    throw new Zend_Amf_Server_Exception('Class "' . $className . '" does not exist: '.$e->getMessage(), 0, $e);
                 }
                 // Add the new loaded class to the server.
                 $this->setClass($className, $source);
@@ -350,7 +350,7 @@ class Zend_Amf_Server implements Zend_Server_Interface
                     $object = $info->getDeclaringClass()->newInstance();
                 } catch (Exception $e) {
                     #require_once 'Zend/Amf/Server/Exception.php';
-                    throw new Zend_Amf_Server_Exception('Error instantiating class ' . $class . ' to invoke method ' . $info->getName() . ': '.$e->getMessage(), 621);
+                    throw new Zend_Amf_Server_Exception('Error instantiating class ' . $class . ' to invoke method ' . $info->getName() . ': '.$e->getMessage(), 621, $e);
                 }
                 $this->_checkAcl($object, $info->getName());
                 $return = $info->invokeArgs($object, $params);
@@ -442,7 +442,7 @@ class Zend_Amf_Server implements Zend_Server_Interface
     }
 
     /**
-     * Handle AMF authenticaton
+     * Handle AMF authentication
      *
      * @param string $userid
      * @param string $password
@@ -488,7 +488,7 @@ class Zend_Amf_Server implements Zend_Server_Interface
         // create a response object to place the output from the services.
         $response = $this->getResponse();
 
-        // set reponse encoding
+        // set response encoding
         $response->setObjectEncoding($objectEncoding);
 
         $responseBody = $request->getAmfBodies();
@@ -628,7 +628,7 @@ class Zend_Amf_Server implements Zend_Server_Interface
         } catch (Exception $e) {
             // Handle any errors in the serialization and service  calls.
             #require_once 'Zend/Amf/Server/Exception.php';
-            throw new Zend_Amf_Server_Exception('Handle error: ' . $e->getMessage() . ' ' . $e->getLine());
+            throw new Zend_Amf_Server_Exception('Handle error: ' . $e->getMessage() . ' ' . $e->getLine(), 0, $e);
         }
 
         // Return the Amf serialized output string
@@ -673,7 +673,7 @@ class Zend_Amf_Server implements Zend_Server_Interface
     }
 
     /**
-     * Public access method to private Zend_Amf_Server_Response refrence
+     * Public access method to private Zend_Amf_Server_Response reference
      *
      * @param  string|Zend_Amf_Server_Response $response
      * @return Zend_Amf_Server
@@ -695,7 +695,7 @@ class Zend_Amf_Server implements Zend_Server_Interface
     }
 
     /**
-     * get a refrence to the Zend_Amf_response instance
+     * get a reference to the Zend_Amf_response instance
      *
      * @return Zend_Amf_Server_Response
      */

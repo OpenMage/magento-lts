@@ -76,15 +76,21 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
                     ->load()
                     ->addOptionToItems();
             } else {
-                 $ratingCollection = Mage::getModel('rating/rating')
+                $ratingCollection = Mage::getModel('rating/rating')
                     ->getResourceCollection()
                     ->addEntityFilter('product')
                     ->setStoreFilter($this->getRequest()->getParam('select_stores') ? $this->getRequest()->getParam('select_stores') : $this->getRequest()->getParam('stores'))
                     ->setPositionOrder()
                     ->load()
                     ->addOptionToItems();
-
-
+                if(intval($this->getRequest()->getParam('id'))){
+                    $this->_voteCollection = Mage::getModel('rating/rating_option_vote')
+                        ->getResourceCollection()
+                        ->setReviewFilter(intval($this->getRequest()->getParam('id')))
+                        ->addOptionInfo()
+                        ->load()
+                        ->addRatingOptions();
+                }
             }
             $this->setRatingCollection( ( $ratingCollection->getSize() ) ? $ratingCollection : false );
         }
@@ -104,9 +110,9 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
 
             if(isset($ratings[$option->getRatingId()])) {
                 return $option->getId() == $ratings[$option->getRatingId()];
+            }elseif(!$this->_voteCollection) {
+                return false;
             }
-
-            return false;
         }
 
         if($this->_voteCollection) {

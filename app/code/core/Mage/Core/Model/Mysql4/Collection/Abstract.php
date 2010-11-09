@@ -85,6 +85,25 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
     protected $_mainTable = null;
 
     /**
+     * Reset items data changed flag
+     *
+     * @var boolean
+     */
+    protected $_resetItemsDataChanged   = false;
+
+    /**
+     * Event prefix key
+     * @var string
+     */
+    protected $_eventPrefix = '';
+
+    /**
+     * Event object key
+     * @var string
+     */
+    protected $_eventObject = '';
+
+    /**
      * Collection constructor
      *
      * @param Mage_Core_Model_Mysql4_Abstract $resource
@@ -148,7 +167,7 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
     /**
      * Init collection select
      *
-     * @return unknown
+     * @return Mage_Core_Model_Mysql4_Collection_Abstract
      */
     protected function _initSelect()
     {
@@ -321,7 +340,7 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
         foreach($fields as $fieldKey=>$fieldItem) {
             $fullExpression = str_replace('{{' . $fieldKey . '}}', $fieldItem, $fullExpression);
         }
-        
+
         $this->getSelect()->columns(array($alias=>$fullExpression));
 
         return $this;
@@ -450,7 +469,7 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
         $idsSelect->columns(
             'main_table.' . $this->getResource()->getIdFieldName()
         );
-        return $this->getConnection()->fetchCol($idsSelect);
+        return $this->getConnection()->fetchCol($idsSelect, $this->_bindParams);
     }
 
     public function join($table, $cond, $cols='*')
@@ -471,6 +490,37 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
     {
         parent::_beforeLoad();
         Mage::dispatchEvent('core_collection_abstract_load_before', array('collection' => $this));
+        if ($this->_eventPrefix && $this->_eventObject) {
+            Mage::dispatchEvent($this->_eventPrefix.'_load_before', array(
+                $this->_eventObject => $this
+            ));
+        }
+        return $this;
+    }
+
+    /**
+     * Set reset items data changed flag
+     *
+     * @param boolean $flag
+     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     */
+    public function setResetItemsDataChanged($flag)
+    {
+        $this->_resetItemsDataChanged = (bool)$flag;
+        return $this;
+    }
+
+    /**
+     * Set flag data has changed to all collection items
+     *
+     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     */
+    public function resetItemsDataChanged()
+    {
+        foreach ($this->_items as $item) {
+            $item->setDataChanges(false);
+        }
+
         return $this;
     }
 
@@ -484,6 +534,9 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
         parent::_afterLoad();
         foreach ($this->_items as $item) {
             $item->setOrigData();
+            if ($this->_resetItemsDataChanged) {
+                $item->setDataChanges(false);
+            }
         }
         Mage::dispatchEvent('core_collection_abstract_load_after', array('collection' => $this));
         return $this;

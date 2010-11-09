@@ -34,7 +34,7 @@
 class Mage_Connect_Loader_Ftp
 {
 
-    const TEMPORARY_DIR = 'var/package/tmp';
+    const TEMPORARY_DIR = '../var/package/tmp';
 
     const FTP_USER = 'anonymous';
 
@@ -102,7 +102,14 @@ class Mage_Connect_Loader_Ftp
         $uri = $this->_ftpUser.":".$this->_ftpPassword."@".$uri;
         $this->getFtp()->connect("ftp://".$uri);
         $this->getFtp()->pasv(true);
-        $localFile = self::TEMPORARY_DIR.DS.time().".xml";
+        $tmpDir = self::TEMPORARY_DIR . DS;
+        if (!is_dir($tmpDir)) {
+            $tmpDir = sys_get_temp_dir();
+        }
+        if (substr($tmpDir, -1) != DS) {
+            $tmpDir .= DS;
+        }
+        $localFile = $tmpDir . time() . ".xml";
 
         if ($this->getFtp()->get($localFile, $remoteFile)) {
             $this->_responseBody = file_get_contents($localFile);

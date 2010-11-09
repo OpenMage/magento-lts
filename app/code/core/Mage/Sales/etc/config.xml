@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Sales>
-            <version>1.4.0.15</version>
+            <version>1.4.0.21</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -155,7 +155,7 @@
                 <country_id><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></country_id>
                 <telephone><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></telephone>
                 <fax><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></fax>
-                <email><to_customer_address>*</to_customer_address></email>
+                <email><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></email>
             </sales_convert_quote_address>
 
             <sales_convert_quote_payment>
@@ -198,7 +198,7 @@
                 <tax_string><to_order_item>*</to_order_item></tax_string>
                 <row_weight><to_order_item>*</to_order_item></row_weight>
                 <row_total><to_order_item>*</to_order_item></row_total>
-                <price><to_order_item>base_original_price</to_order_item></price>
+                <base_original_price><to_order_item>*</to_order_item></base_original_price>
                 <base_tax_amount><to_order_item>*</to_order_item></base_tax_amount>
                 <base_row_total><to_order_item>*</to_order_item></base_row_total>
                 <discount_percent><to_order_item_discount>*</to_order_item_discount></discount_percent>
@@ -625,6 +625,7 @@
                         <cost/>
                         <is_recurring/><!-- for totals calculation, placing and processing order -->
                         <recurring_profile/><!-- for placing order -->
+                        <gift_message_available/>
                     </product_attributes>
                 </item>
             </quote>

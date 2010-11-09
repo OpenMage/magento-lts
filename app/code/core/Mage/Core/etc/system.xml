@@ -956,6 +956,24 @@
                         </session_cookie_lifetime>
                     </fields>
                 </security>
+                <dashboard translate="label">
+                    <label>Dashboard</label>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enable_charts translate="label">
+                            <label>Enable Charts</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enable_charts>
+                    </fields>
+                </dashboard>
             </groups>
         </admin>
         <web translate="label" module="core">
@@ -986,13 +1004,14 @@
                             <show_in_store>0</show_in_store>
                         </use_store>
                         <redirect_to_base translate="label">
-                            <label>Redirect to Base URL if requested URL doesn't match it</label>
+                            <label>Auto-redirect to Base URL</label>
                             <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <source_model>adminhtml/system_config_source_web_redirect</source_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <comment>I.e. redirect from http://example.com/store/ to http://www.example.com/store/</comment>
                         </redirect_to_base>
                     </fields>
                 </url>
@@ -1129,6 +1148,7 @@
                             <label>Use Secure URLs in Frontend</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <backend_model>adminhtml/system_config_backend_secure</backend_model>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1138,6 +1158,7 @@
                             <label>Use Secure URLs in Admin</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <backend_model>adminhtml/system_config_backend_secure</backend_model>
                             <sort_order>65</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>

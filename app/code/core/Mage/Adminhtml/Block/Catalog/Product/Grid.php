@@ -79,8 +79,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         }
         else {
             $collection->addAttributeToSelect('price');
-            $collection->addAttributeToSelect('status');
-            $collection->addAttributeToSelect('visibility');
+            $collection->joinAttribute('status', 'catalog_product/status', 'entity_id', null, 'inner');
+            $collection->joinAttribute('visibility', 'catalog_product/visibility', 'entity_id', null, 'inner');
         }
 
         $this->setCollection($collection);

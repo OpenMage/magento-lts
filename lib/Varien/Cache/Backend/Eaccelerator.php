@@ -73,7 +73,7 @@ class Varien_Cache_Backend_Eaccelerator extends Zend_Cache_Backend implements Ze
      */
     public function test($id)
     {
-        $tmp = eaccelerator_fetch($id);
+        $tmp = eaccelerator_get($id);
         if (is_array($tmp)) {
             return $tmp[1];
         }

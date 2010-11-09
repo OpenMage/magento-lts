@@ -43,6 +43,7 @@ class Mage_Review_Model_Mysql4_Review_Product_Collection extends Mage_Catalog_Mo
         $this->_init('catalog/product');
         $this->setRowIdFieldName('review_id');
         $this->_reviewStoreTable = Mage::getSingleton('core/resource')->getTableName('review/review_store');
+        $this->_initTables();
     }
 
     protected function _initSelect()

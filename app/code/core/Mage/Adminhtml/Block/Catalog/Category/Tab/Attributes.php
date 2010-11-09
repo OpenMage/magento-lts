@@ -109,7 +109,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
                 ));
             }
         }
-        
+
         $this->_setFieldset($attributes, $fieldset);
 
         foreach ($attributes as $attribute) {
@@ -126,6 +126,21 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
                         $this->getLayout()->createBlock('adminhtml/catalog_form_renderer_attribute_urlkey')
                     );
                 }
+            }
+        }
+
+        if ($this->getCategory()->getLevel() == 1) {
+            $fieldset->removeField('custom_use_parent_settings');
+        } else {
+            if ($this->getCategory()->getCustomUseParentSettings()) {
+                foreach ($this->getCategory()->getDesignAttributes() as $attribute) {
+                    if ($element = $form->getElement($attribute->getAttributeCode())) {
+                        $element->setDisabled(true);
+                    }
+                }
+            }
+            if ($element = $form->getElement('custom_use_parent_settings')) {
+                $element->setOnclick('onCustomUseParentChanged(this)');
             }
         }
 

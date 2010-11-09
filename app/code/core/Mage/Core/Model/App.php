@@ -415,6 +415,7 @@ class Mage_Core_Model_App
             $this->_checkCookieStore($scopeType);
             $this->_checkGetStore($scopeType);
         }
+        $this->_useSessionInUrl = $this->getStore()->getConfig(Mage_Core_Model_Session_Abstract::XML_PATH_USE_FRONTEND_SID);
         return $this;
     }
 
@@ -474,9 +475,9 @@ class Mage_Core_Model_App
         if ($this->_currentStore == $store) {
             $store = $this->getStore($store);
             if ($store->getWebsite()->getDefaultStore()->getId() == $store->getId()) {
-                $this->getCookie()->delete('store');
+                $this->getCookie()->delete(Mage_Core_Model_Store::COOKIE_NAME);
             } else {
-                $this->getCookie()->set('store', $this->_currentStore, true);
+                $this->getCookie()->set(Mage_Core_Model_Store::COOKIE_NAME, $this->_currentStore, true);
             }
         }
         return $this;
@@ -494,7 +495,7 @@ class Mage_Core_Model_App
             return $this;
         }
 
-        $store  = $this->getCookie()->get('store');
+        $store = $this->getCookie()->get(Mage_Core_Model_Store::COOKIE_NAME);
         if ($store && isset($this->_stores[$store])
             && $this->_stores[$store]->getId()
             && $this->_stores[$store]->getIsActive()) {

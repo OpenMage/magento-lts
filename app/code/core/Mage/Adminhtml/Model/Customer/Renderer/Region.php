@@ -72,28 +72,45 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
                 break;
             }
         }
+
+        // Output two elements - for 'region' and for 'region_id'.
+        // Two elements are needed later upon form post - to properly set data to address model,
+        // otherwise old value can be left in region_id attribute and saved to DB.
+        // Depending on country selected either 'region' (input text) or 'region_id' (selectbox) is visible to user
+        $regionHtmlName = $element->getName();
+        $regionIdHtmlName = str_replace('region', 'region_id', $regionHtmlName);
+        $regionHtmlId = $element->getHtmlId();
+        $regionIdHtmlId = str_replace('region', 'region_id', $regionHtmlId);
+
         if ($regionCollection && $regionCollection->getSize()) {
             $elementClass = $element->getClass();
-            $element->setClass(str_replace('input-text', '', $elementClass));
             $html.= '<td class="label">'.$element->getLabelHtml().'</td>';
-            $html.= '<td class="value"><select id="'.$element->getHtmlId().'" name="'.$element->getName().'" '
-                 .$element->serialize($htmlAttributes).'>'."\n";
+            $html.= '<td class="value">';
+
+            $html .= '<select id="' . $regionIdHtmlId . '" name="' . $regionIdHtmlName . '" '
+                 . $element->serialize($htmlAttributes) .'>' . "\n";
             foreach ($regionCollection as $region) {
-                $selected = ($regionId==$region->getId()) ? ' selected="selected"' : '';
-                $html.= '<option value="'.$region->getId().'"'.$selected.'>'.$region->getName().'</option>';
+                $selected = ($regionId == $region->getId()) ? ' selected="selected"' : '';
+                $html .= '<option value="' . $region->getId() . '"' . $selected . '>' . $region->getName() . '</option>';
             }
-            $html.= '</select></td>';
+            $html.= '</select>' . "\n";
+
+            $html .= '<input type="hidden" name="' . $regionHtmlName . '" id="' . $regionHtmlId . '" value=""/>';
+
+            $html.= '</td>';
             $element->setClass($elementClass);
-        }
-        else {
+        } else {
             $element->setClass('input-text');
             $html.= '<td class="label"><label for="'.$element->getHtmlId().'">'
                 . $element->getLabel()
                 . ' <span class="required" style="display:none">*</span></label></td>';
 
             $element->setRequired(false);
-            $html.= '<td class="value"><input id="'.$element->getHtmlId().'" name="'.$element->getName()
-                 .'" value="'.$element->getEscapedValue().'"'.$element->serialize($htmlAttributes).'/></td>'."\n";
+            $html.= '<td class="value">';
+            $html .= '<input id="' . $regionHtmlId . '" name="' . $regionHtmlName
+                 . '" value="' . $element->getEscapedValue() . '" ' . $element->serialize($htmlAttributes) . "/>" . "\n";
+            $html .= '<input type="hidden" name="' . $regionIdHtmlName . '" id="' . $regionIdHtmlId . '" value=""/>';
+            $html .= '</td>'."\n";
         }
         $html.= '</tr>'."\n";
         return $html;

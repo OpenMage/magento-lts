@@ -73,7 +73,9 @@ Customer account home dashboard layout
         <update handle="customer_account"/>
         <reference name="my.account.wrapper">
             <block type="sales/order_history" name="sales.order.history">
-                <block type="core/text_list" name="sales.order.history.info" as="info"/>
+                <block type="core/text_list" name="sales.order.history.info" as="info" translate="label">
+                    <label>Order History Info</label>
+                </block>
             </block>
             <block type="customer/account_dashboard" name="customer.account.link.back" template="customer/account/link/back.phtml"/>
         </reference>
@@ -119,6 +121,7 @@ Customer account home dashboard layout
                         <action method="setValueProperties"><value>class="last a-right"</value></action>
                         <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml" />
                     </block>
+                    <block type="sales/order_comments" name="invoice_comments" template="sales/order/comments.phtml" />
                 </block>
             </block>
         </reference>
@@ -138,6 +141,7 @@ Customer account home dashboard layout
             <block type="sales/order_shipment" name="sales.order.shipment">
                 <block type="sales/order_shipment_items" name="shipment_items" template="sales/order/shipment/items.phtml">
                     <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/shipment/items/renderer/default.phtml</template></action>
+                    <block type="sales/order_comments" name="shipment_comments" template="sales/order/comments.phtml" />
                 </block>
             </block>
         </reference>
@@ -163,6 +167,7 @@ Customer account home dashboard layout
                         <action method="setValueProperties"><value>class="a-right"</value></action>
                         <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml"/>
                     </block>
+                    <block type="sales/order_comments" name="creditmemo_comments" template="sales/order/comments.phtml" />
                 </block>
             </block>
         </reference>

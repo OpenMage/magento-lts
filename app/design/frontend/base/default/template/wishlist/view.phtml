@@ -67,26 +67,26 @@
                             <span class="nobr"><?php echo $this->getFormatedDate($item->getAddedAt()) ?></span>
                         </td>
                         <td class="a-center">
-                        <?php if($item->isSaleable()): ?>
+                        <?php if ($item->isSaleable()): ?>
                             <button type="button" title="<?php echo $this->__('Add to Cart') ?>" onclick="setLocation('<?php echo $this->getItemAddToCartUrl($item) ?>')" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
                         <?php else: ?>
                             <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
                         <?php endif; ?>
                         </td>
                         <td>
-                            <a href="<?php echo $this->getItemRemoveUrl($item) ?>" title="<?php echo $this->__('Remove Item') ?>" onclick="return confirmRemoveWishlistItem();" class="btn-remove2"><?php echo $this->__('Remove item')?></a>
+                            <a href="<?php echo $this->getItemRemoveUrl($item) ?>" title="<?php echo $this->__('Remove Item') ?>" onclick="return confirmRemoveWishlistItem();" class="btn-remove btn-remove2"><?php echo $this->__('Remove item')?></a>
                         </td>
                     </tr>
                 <?php endforeach ?>
                 </tbody>
             </table>
             <script type="text/javascript">decorateTable('wishlist-table')</script>
-            <div class="buttons-set">
+            <div class="buttons-set buttons-set2">
                 <button type="submit" onclick="this.name='save_and_share'" title="<?php echo $this->__('Share Wishlist') ?>" class="button btn-share"><span><span><?php echo $this->__('Share Wishlist') ?></span></span></button>
                 <?php if($this->isSaleable()):?>
                     <button type="button" title="<?php echo $this->__('Add All to Cart') ?>" onclick="setLocation('<?php echo $this->getUrl('*/*/allcart') ?>')" class="button btn-add"><span><span><?php echo $this->__('Add All to Cart') ?></span></span></button>
                 <?php endif;?>
-                <button type="submit" onclick="this.name='do'" title="<?php echo $this->__('Update Wishlist') ?>" class="button btn-update"><span><span><?php echo $this->__('Update Wishlist') ?></span></span></button>
+                <button type="submit" title="<?php echo $this->__('Update Wishlist') ?>" onclick="this.name='do'" class="button btn-update"><span><span><?php echo $this->__('Update Wishlist') ?></span></span></button>
             </div>
         </fieldset>
     </form>
@@ -100,10 +100,10 @@
     }
 
     function focusComment(obj) {
-        if( obj.value == '<?php echo $this->__('Please enter your comments...') ?>' ) {
+        if( obj.value == '<?php echo $this->helper('wishlist')->defaultCommentString() ?>' ) {
             obj.value = '';
         } else if( obj.value == '' ) {
-            obj.value = '<?php echo $this->__('Please enter your comments...') ?>';
+            obj.value = '<?php echo $this->helper('wishlist')->defaultCommentString() ?>';
         }
     }
     //]]>

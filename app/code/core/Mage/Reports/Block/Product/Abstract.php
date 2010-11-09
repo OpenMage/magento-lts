@@ -111,7 +111,6 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
                 ->addAttributeToSelect($attributes)
                 ->excludeProductIds($this->_getModel()->getExcludeProductIds())
                 ->addUrlRewrite()
-                ->setAddedAtOrder()
                 ->setPageSize($this->getPageSize())
                 ->setCurPage(1);
             $ids = $this->getProductIds();
@@ -120,6 +119,8 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
             } else {
                 $this->_collection->addFilterByIds($ids);
             }
+            $this->_collection->setAddedAtOrder();
+
             Mage::getSingleton('catalog/product_visibility')
                 ->addVisibleInSiteFilterToCollection($this->_collection);
         }

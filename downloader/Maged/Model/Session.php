@@ -104,6 +104,11 @@ class Maged_Model_Session extends Maged_Model
         }
 
         try {
+            if ( (isset($_POST['username']) && empty($_POST['username'])) ||
+                 (isset($_POST['password']) && empty($_POST['password'])))
+            {
+                $this->addMessage('error', 'Invalid user name or password');
+            }
             if (empty($_POST['username']) || empty($_POST['password'])) {
                 $this->controller()->setAction('login');
                 return $this;

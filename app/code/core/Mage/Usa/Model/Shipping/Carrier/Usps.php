@@ -37,6 +37,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     extends Mage_Usa_Model_Shipping_Carrier_Abstract
     implements Mage_Shipping_Model_Carrier_Interface
 {
+    /**
+     * Destination Zip Code required flag
+     *
+     * @var boolean
+     */
+    protected $_isZipCodeRequired;
 
     protected $_code = 'usps';
 
@@ -45,6 +51,34 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     protected $_result = null;
 
     protected $_defaultGatewayUrl = 'http://production.shippingapis.com/ShippingAPI.dll';
+
+    /**
+     * Check is Zip Code Required
+     *
+     * @return boolean
+     */
+    public function isZipCodeRequired()
+    {
+        if (!is_null($this->_isZipCodeRequired)) {
+            return $this->_isZipCodeRequired;
+        }
+
+        return parent::isZipCodeRequired();
+    }
+
+    /**
+     * Processing additional validation to check is carrier applicable.
+     *
+     * @param Mage_Shipping_Model_Rate_Request $request
+     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|boolean
+     */
+    public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
+    {
+        // zip code required for US
+        $this->_isZipCodeRequired = $this->_isUSCountry($request->getDestCountryId());
+
+        return parent::proccessAdditionalValidation($request);
+    }
 
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -115,20 +149,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
 
         $r->setDestCountryId($destCountry);
 
-        /*
-        for GB, we cannot use United Kingdom
-        */
-        if ($destCountry=='GB') {
-           $countryName = 'Great Britain and Northern Ireland';
-        } else {
-             $countries = Mage::getResourceModel('directory/country_collection')
-                            ->addCountryIdFilter($destCountry)
-                            ->load()
-                            ->getItems();
-            $country = array_shift($countries);
-            $countryName = $country->getName();
+        if (!$this->_isUSCountry($destCountry)) {
+            $r->setDestCountryName($this->_getCountryName($destCountry));
         }
-        $r->setDestCountryName($countryName);
 
         if ($request->getDestPostcode()) {
             $r->setDestPostal($request->getDestPostcode());
@@ -172,7 +195,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     protected function _getXmlQuotes()
     {
         $r = $this->_rawRequest;
-        if ($r->getDestCountryId() == self::USA_COUNTRY_ID || $r->getDestCountryId() == self::PUERTORICO_COUNTRY_ID) {
+        if ($this->_isUSCountry($r->getDestCountryId())) {
             $xml = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><RateV3Request/>');
 
             $xml->addAttribute('USERID', $r->getUserId());
@@ -225,28 +248,31 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             $request = $xml->asXML();
         }
 
-        $debugData = array('request' => $request);
+        $responseBody = $this->_getCachedQuotes($request);
+        if ($responseBody === null) {
+            $debugData = array('request' => $request);
+            try {
+                $url = $this->getConfigData('gateway_url');
+                if (!$url) {
+                    $url = $this->_defaultGatewayUrl;
+                }
+                $client = new Zend_Http_Client();
+                $client->setUri($url);
+                $client->setConfig(array('maxredirects'=>0, 'timeout'=>30));
+                $client->setParameterGet('API', $api);
+                $client->setParameterGet('XML', $request);
+                $response = $client->request();
+                $responseBody = $response->getBody();
 
-        try {
-            $url = $this->getConfigData('gateway_url');
-            if (!$url) {
-                $url = $this->_defaultGatewayUrl;
+                $debugData['result'] = $responseBody;
+                $this->_setCachedQuotes($request, $responseBody);
             }
-            $client = new Zend_Http_Client();
-            $client->setUri($url);
-            $client->setConfig(array('maxredirects'=>0, 'timeout'=>30));
-            $client->setParameterGet('API', $api);
-            $client->setParameterGet('XML', $request);
-            $response = $client->request();
-            $responseBody = $response->getBody();
-            $debugData['result'] = $responseBody;
+            catch (Exception $e) {
+                $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
+                $responseBody = '';
+            }
+            $this->_debug($debugData);
         }
-        catch (Exception $e) {
-            $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
-            $responseBody = '';
-        }
-
-        $this->_debug($debugData);
         return $this->_parseXmlResponse($responseBody);;
     }
 
@@ -274,7 +300,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                         $allowedMethods = explode(",", $this->getConfigData('allowed_methods'));
                         $allMethods = $this->getCode('method');
                         $newMethod = false;
-                        if ($r->getDestCountryId() == self::USA_COUNTRY_ID || $r->getDestCountryId() == self::PUERTORICO_COUNTRY_ID) {
+                        if ($this->_isUSCountry($r->getDestCountryId())) {
                             if (is_object($xml->Package) && is_object($xml->Package->Postage)) {
                                 foreach ($xml->Package->Postage as $postage) {
 //                                    if (in_array($this->getCode('service_to_code', (string)$postage->MailService), $allowedMethods) && $this->getCode('service', $this->getCode('service_to_code', (string)$postage->MailService))) {
@@ -615,4 +641,265 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         return $arr;
     }
 
+    /**
+     * Check is Сoutry U.S. Possessions and Trust Territories
+     *
+     * @param string $countyId
+     * @return boolean
+     */
+    protected function _isUSCountry($countyId)
+    {
+        switch ($countyId) {
+            case 'AS': // Samoa American
+            case 'GU': // Guam
+            case 'MP': // Northern Mariana Islands
+            case 'PW': // Palau
+            case 'PR': // Puerto Rico
+            case 'VI': // Virgin Islands US
+            case 'US'; // United States
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Return USPS county name by country ISO 3166-1-alpha-2 code
+     * Return false for unknown countries
+     *
+     * @param string $countryId
+     * @return string|false
+     */
+    protected function _getCountryName($countryId)
+    {
+        $countries = array (
+          'AD' => 'Andorra',
+          'AE' => 'United Arab Emirates',
+          'AF' => 'Afghanistan',
+          'AG' => 'Antigua and Barbuda',
+          'AI' => 'Anguilla',
+          'AL' => 'Albania',
+          'AM' => 'Armenia',
+          'AN' => 'Netherlands Antilles',
+          'AO' => 'Angola',
+          'AR' => 'Argentina',
+          'AT' => 'Austria',
+          'AU' => 'Australia',
+          'AW' => 'Aruba',
+          'AX' => 'Aland Island (Finland)',
+          'AZ' => 'Azerbaijan',
+          'BA' => 'Bosnia-Herzegovina',
+          'BB' => 'Barbados',
+          'BD' => 'Bangladesh',
+          'BE' => 'Belgium',
+          'BF' => 'Burkina Faso',
+          'BG' => 'Bulgaria',
+          'BH' => 'Bahrain',
+          'BI' => 'Burundi',
+          'BJ' => 'Benin',
+          'BM' => 'Bermuda',
+          'BN' => 'Brunei Darussalam',
+          'BO' => 'Bolivia',
+          'BR' => 'Brazil',
+          'BS' => 'Bahamas',
+          'BT' => 'Bhutan',
+          'BW' => 'Botswana',
+          'BY' => 'Belarus',
+          'BZ' => 'Belize',
+          'CA' => 'Canada',
+          'CC' => 'Cocos Island (Australia)',
+          'CD' => 'Congo, Democratic Republic of the',
+          'CF' => 'Central African Republic',
+          'CG' => 'Congo, Republic of the',
+          'CH' => 'Switzerland',
+          'CI' => 'Cote d Ivoire (Ivory Coast)',
+          'CK' => 'Cook Islands (New Zealand)',
+          'CL' => 'Chile',
+          'CM' => 'Cameroon',
+          'CN' => 'China',
+          'CO' => 'Colombia',
+          'CR' => 'Costa Rica',
+          'CU' => 'Cuba',
+          'CV' => 'Cape Verde',
+          'CX' => 'Christmas Island (Australia)',
+          'CY' => 'Cyprus',
+          'CZ' => 'Czech Republic',
+          'DE' => 'Germany',
+          'DJ' => 'Djibouti',
+          'DK' => 'Denmark',
+          'DM' => 'Dominica',
+          'DO' => 'Dominican Republic',
+          'DZ' => 'Algeria',
+          'EC' => 'Ecuador',
+          'EE' => 'Estonia',
+          'EG' => 'Egypt',
+          'ER' => 'Eritrea',
+          'ES' => 'Spain',
+          'ET' => 'Ethiopia',
+          'FI' => 'Finland',
+          'FJ' => 'Fiji',
+          'FK' => 'Falkland Islands',
+          'FM' => 'Micronesia, Federated States of',
+          'FO' => 'Faroe Islands',
+          'FR' => 'France',
+          'GA' => 'Gabon',
+          'GB' => 'Great Britain and Northern Ireland',
+          'GD' => 'Grenada',
+          'GE' => 'Georgia, Republic of',
+          'GF' => 'French Guiana',
+          'GH' => 'Ghana',
+          'GI' => 'Gibraltar',
+          'GL' => 'Greenland',
+          'GM' => 'Gambia',
+          'GN' => 'Guinea',
+          'GP' => 'Guadeloupe',
+          'GQ' => 'Equatorial Guinea',
+          'GR' => 'Greece',
+          'GS' => 'South Georgia (Falkland Islands)',
+          'GT' => 'Guatemala',
+          'GW' => 'Guinea-Bissau',
+          'GY' => 'Guyana',
+          'HK' => 'Hong Kong',
+          'HN' => 'Honduras',
+          'HR' => 'Croatia',
+          'HT' => 'Haiti',
+          'HU' => 'Hungary',
+          'ID' => 'Indonesia',
+          'IE' => 'Ireland',
+          'IL' => 'Israel',
+          'IN' => 'India',
+          'IQ' => 'Iraq',
+          'IR' => 'Iran',
+          'IS' => 'Iceland',
+          'IT' => 'Italy',
+          'JM' => 'Jamaica',
+          'JO' => 'Jordan',
+          'JP' => 'Japan',
+          'KE' => 'Kenya',
+          'KG' => 'Kyrgyzstan',
+          'KH' => 'Cambodia',
+          'KI' => 'Kiribati',
+          'KM' => 'Comoros',
+          'KN' => 'Saint Kitts (St. Christopher and Nevis)',
+          'KP' => 'North Korea (Korea, Democratic People\'s Republic of)',
+          'KR' => 'South Korea (Korea, Republic of)',
+          'KW' => 'Kuwait',
+          'KY' => 'Cayman Islands',
+          'KZ' => 'Kazakhstan',
+          'LA' => 'Laos',
+          'LB' => 'Lebanon',
+          'LC' => 'Saint Lucia',
+          'LI' => 'Liechtenstein',
+          'LK' => 'Sri Lanka',
+          'LR' => 'Liberia',
+          'LS' => 'Lesotho',
+          'LT' => 'Lithuania',
+          'LU' => 'Luxembourg',
+          'LV' => 'Latvia',
+          'LY' => 'Libya',
+          'MA' => 'Morocco',
+          'MC' => 'Monaco (France)',
+          'MD' => 'Moldova',
+          'MG' => 'Madagascar',
+          'MK' => 'Macedonia, Republic of',
+          'ML' => 'Mali',
+          'MM' => 'Burma',
+          'MN' => 'Mongolia',
+          'MO' => 'Macao',
+          'MQ' => 'Martinique',
+          'MR' => 'Mauritania',
+          'MS' => 'Montserrat',
+          'MT' => 'Malta',
+          'MU' => 'Mauritius',
+          'MV' => 'Maldives',
+          'MW' => 'Malawi',
+          'MX' => 'Mexico',
+          'MY' => 'Malaysia',
+          'MZ' => 'Mozambique',
+          'NA' => 'Namibia',
+          'NC' => 'New Caledonia',
+          'NE' => 'Niger',
+          'NG' => 'Nigeria',
+          'NI' => 'Nicaragua',
+          'NL' => 'Netherlands',
+          'NO' => 'Norway',
+          'NP' => 'Nepal',
+          'NR' => 'Nauru',
+          'NZ' => 'New Zealand',
+          'OM' => 'Oman',
+          'PA' => 'Panama',
+          'PE' => 'Peru',
+          'PF' => 'French Polynesia',
+          'PG' => 'Papua New Guinea',
+          'PH' => 'Philippines',
+          'PK' => 'Pakistan',
+          'PL' => 'Poland',
+          'PM' => 'Saint Pierre and Miquelon',
+          'PN' => 'Pitcairn Island',
+          'PT' => 'Portugal',
+          'PY' => 'Paraguay',
+          'QA' => 'Qatar',
+          'RE' => 'Reunion',
+          'RO' => 'Romania',
+          'RS' => 'Serbia',
+          'RU' => 'Russia',
+          'RW' => 'Rwanda',
+          'SA' => 'Saudi Arabia',
+          'SB' => 'Solomon Islands',
+          'SC' => 'Seychelles',
+          'SD' => 'Sudan',
+          'SE' => 'Sweden',
+          'SG' => 'Singapore',
+          'SH' => 'Saint Helena',
+          'SI' => 'Slovenia',
+          'SK' => 'Slovak Republic',
+          'SL' => 'Sierra Leone',
+          'SM' => 'San Marino',
+          'SN' => 'Senegal',
+          'SO' => 'Somalia',
+          'SR' => 'Suriname',
+          'ST' => 'Sao Tome and Principe',
+          'SV' => 'El Salvador',
+          'SY' => 'Syrian Arab Republic',
+          'SZ' => 'Swaziland',
+          'TC' => 'Turks and Caicos Islands',
+          'TD' => 'Chad',
+          'TG' => 'Togo',
+          'TH' => 'Thailand',
+          'TJ' => 'Tajikistan',
+          'TK' => 'Tokelau (Union) Group (Western Samoa)',
+          'TL' => 'East Timor (Indonesia)',
+          'TM' => 'Turkmenistan',
+          'TN' => 'Tunisia',
+          'TO' => 'Tonga',
+          'TR' => 'Turkey',
+          'TT' => 'Trinidad and Tobago',
+          'TV' => 'Tuvalu',
+          'TW' => 'Taiwan',
+          'TZ' => 'Tanzania',
+          'UA' => 'Ukraine',
+          'UG' => 'Uganda',
+          'UY' => 'Uruguay',
+          'UZ' => 'Uzbekistan',
+          'VA' => 'Vatican City',
+          'VC' => 'Saint Vincent and the Grenadines',
+          'VE' => 'Venezuela',
+          'VG' => 'British Virgin Islands',
+          'VN' => 'Vietnam',
+          'VU' => 'Vanuatu',
+          'WF' => 'Wallis and Futuna Islands',
+          'WS' => 'Western Samoa',
+          'YE' => 'Yemen',
+          'YT' => 'Mayotte (France)',
+          'ZA' => 'South Africa',
+          'ZM' => 'Zambia',
+          'ZW' => 'Zimbabwe',
+        );
+
+        if (isset($countries[$countryId])) {
+            return $countries[$countryId];
+        }
+
+        return false;
+    }
 }

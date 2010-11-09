@@ -187,6 +187,6 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
      */
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('cache');
+        return Mage::getSingleton('admin/session')->isAllowed('system/cache');
     }
 }

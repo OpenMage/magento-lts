@@ -257,47 +257,70 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function getAllItems()
     {
-        $quoteItems = $this->getQuote()->getItemsCollection();
-        $addressItems = $this->getItemsCollection();
+        // We calculate item list once and cache it in three arrays - all items, nominal, non-nominal
+        $key = 'cached_items_' . ($this->_nominalOnly ? 'nominal' : ($this->_nominalOnly === false ? 'nonnominal' : 'all'));
+        if (!$this->hasData($key)) {
+            // For compatibility  we will use $this->_filterNominal to divide nominal items from non-nominal (because it can be overloaded)
+            // So keep current flag $this->_nominalOnly and restore it after cycle
+            $wasNominal = $this->_nominalOnly;
+            $this->_nominalOnly = true; // Now $this->_filterNominal() will return positive values for nominal items
 
-        $items = array();
-        if ($this->getQuote()->getIsMultiShipping() && $addressItems->count() > 0) {
-            foreach ($addressItems as $aItem) {
-                if ($aItem->isDeleted() || !$this->_filterNominal($aItem)) {
-                    continue;
-                }
+            $quoteItems = $this->getQuote()->getItemsCollection();
+            $addressItems = $this->getItemsCollection();
 
-                if (!$aItem->getQuoteItemImported()) {
-                    $qItem = $this->getQuote()->getItemById($aItem->getQuoteItemId());
-                    if ($qItem) {
-                        //$this->addItem($aItem);
-                        $aItem->importQuoteItem($qItem);
+            $items = array();
+            $nominalItems = array();
+            $nonNominalItems = array();
+            if ($this->getQuote()->getIsMultiShipping() && $addressItems->count() > 0) {
+                foreach ($addressItems as $aItem) {
+                    if ($aItem->isDeleted()) {
+                        continue;
+                    }
+
+                    if (!$aItem->getQuoteItemImported()) {
+                        $qItem = $this->getQuote()->getItemById($aItem->getQuoteItemId());
+                        if ($qItem) {
+                            $aItem->importQuoteItem($qItem);
+                        }
+                    }
+                    $items[] = $aItem;
+                    if ($this->_filterNominal($aItem)) {
+                        $nominalItems[] = $aItem;
+                    } else {
+                        $nonNominalItems[] = $aItem;
                     }
                 }
-                $items[] = $aItem;
-            }
-        } else {
-            $isQuoteVirtual = $this->getQuote()->isVirtual();
-            foreach ($quoteItems as $qItem) {
-                if ($qItem->isDeleted() || !$this->_filterNominal($qItem)) {
-                    continue;
-                }
+            } else {
+                /*
+                * For virtual quote we assign items only to billing address, otherwise - only to shipping address
+                */
+                $addressType = $this->getAddressType();
+                $canAddItems = $this->getQuote()->isVirtual() ? ($addressType == self::TYPE_BILLING) : ($addressType == self::TYPE_SHIPPING);
 
-                /**
-                 * For virtual quote we assign all items to billing address
-                 */
-                if ($isQuoteVirtual) {
-                    if ($this->getAddressType() == self::TYPE_BILLING) {
+                if ($canAddItems) {
+                    foreach ($quoteItems as $qItem) {
+                        if ($qItem->isDeleted()) {
+                            continue;
+                        }
                         $items[] = $qItem;
-                    }
-                } else {
-                    if ($this->getAddressType() == self::TYPE_SHIPPING) {
-                        $items[] = $qItem;
+                        if ($this->_filterNominal($qItem)) {
+                            $nominalItems[] = $qItem;
+                        } else {
+                            $nonNominalItems[] = $qItem;
+                        }
                     }
                 }
             }
+
+            // Cache calculated lists
+            $this->setData('cached_items_all', $items);
+            $this->setData('cached_items_nominal', $nominalItems);
+            $this->setData('cached_items_nonnominal', $nonNominalItems);
+
+            $this->_nominalOnly = $wasNominal; // Restore original value before we changed it
         }
 
+        $items = $this->getData($key);
         return $items;
     }
 
@@ -679,6 +702,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function requestShippingRates(Mage_Sales_Model_Quote_Item_Abstract $item = null)
     {
+        /** @var $request Mage_Shipping_Model_Rate_Request */
         $request = Mage::getModel('shipping/rate_request');
         $request->setAllItems($item ? array($item) : $this->getAllItems());
         $request->setDestCountryId($this->getCountryId());

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Crypt
  * @subpackage DiffieHellman
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DiffieHellman.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: DiffieHellman.php 22053 2010-04-29 14:29:52Z padraic $
  */
 
 /**
@@ -27,7 +27,7 @@
  *
  * @category   Zend
  * @package    Zend_Crypt
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Crypt_DiffieHellman
@@ -324,7 +324,7 @@ class Zend_Crypt_DiffieHellman
     public function getPrivateKey($type = self::NUMBER)
     {
         if (!$this->hasPrivateKey()) {
-            $this->setPrivateKey($this->_generatePrivateKey());
+            $this->setPrivateKey($this->_generatePrivateKey(), self::BINARY);
         }
         if ($type == self::BINARY) {
             return $this->_math->toBinary($this->_privateKey);

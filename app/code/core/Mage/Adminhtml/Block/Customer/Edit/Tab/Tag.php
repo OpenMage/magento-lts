@@ -103,7 +103,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Wi
         return parent::_prepareColumns();
     }
 
-    protected function getRowUrl($row)
+    public function getRowUrl($row)
     {
         return $this->getUrl('*/tag/edit', array(
             'tag_id' => $row->getTagId(),

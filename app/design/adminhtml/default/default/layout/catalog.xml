@@ -67,7 +67,7 @@
     </adminhtml_catalog_product_edit>
 
     <adminhtml_catalog_product_related>
-        <block type="core/text_list" name="root">
+        <block type="core/text_list" name="root" output="toHtml">
             <block type="adminhtml/catalog_product_edit_tab_related" name="catalog.product.edit.tab.related"/>
             <block type="adminhtml/widget_grid_serializer" name="related_grid_serializer">
                 <reference name="related_grid_serializer">
@@ -86,13 +86,13 @@
     </adminhtml_catalog_product_related>
 
     <adminhtml_catalog_product_relatedgrid>
-        <block type="core/text_list" name="root">
+        <block type="core/text_list" name="root" output="toHtml">
             <block type="adminhtml/catalog_product_edit_tab_related" name="catalog.product.edit.tab.related"/>
         </block>
     </adminhtml_catalog_product_relatedgrid>
 
     <adminhtml_catalog_product_upsell>
-        <block type="core/text_list" name="root">
+        <block type="core/text_list" name="root" output="toHtml">
             <block type="adminhtml/catalog_product_edit_tab_upsell" name="catalog.product.edit.tab.upsell"/>
             <block type="adminhtml/widget_grid_serializer" name="upsell_grid_serializer">
                 <reference name="upsell_grid_serializer">
@@ -111,13 +111,13 @@
     </adminhtml_catalog_product_upsell>
 
     <adminhtml_catalog_product_upsellgrid>
-        <block type="core/text_list" name="root">
+        <block type="core/text_list" name="root" output="toHtml">
             <block type="adminhtml/catalog_product_edit_tab_upsell" name="catalog.product.edit.tab.upsell"/>
         </block>
     </adminhtml_catalog_product_upsellgrid>
 
     <adminhtml_catalog_product_crosssell>
-        <block type="core/text_list" name="root">
+        <block type="core/text_list" name="root" output="toHtml">
             <block type="adminhtml/catalog_product_edit_tab_crosssell" name="catalog.product.edit.tab.crosssell"/>
             <block type="adminhtml/widget_grid_serializer" name="crosssell_grid_serializer">
                 <reference name="crosssell_grid_serializer">
@@ -136,7 +136,7 @@
     </adminhtml_catalog_product_crosssell>
 
     <adminhtml_catalog_product_crosssellgrid>
-        <block type="core/text_list" name="root">
+        <block type="core/text_list" name="root" output="toHtml">
             <block type="adminhtml/catalog_product_edit_tab_crosssell" name="catalog.product.edit.tab.crosssell"/>
         </block>
     </adminhtml_catalog_product_crosssellgrid>
@@ -156,7 +156,7 @@ Layout handle for grouped products
     </adminhtml_catalog_product_grouped>
 
     <adminhtml_catalog_product_supergroup>
-        <block type="core/text_list" name="root">
+        <block type="core/text_list" name="root" output="toHtml">
             <block type="adminhtml/catalog_product_edit_tab_super_group" name="catalog.product.edit.tab.super.group" />
             <block type="adminhtml/widget_grid_serializer" name="grouped_grid_serializer">
                 <reference name="grouped_grid_serializer">
@@ -214,6 +214,18 @@ Layout handle for configurable products
             <block type="adminhtml/catalog_product_edit_action_attribute" name="attribute" template="catalog/product/edit/action/attribute.phtml" />
         </reference>
     </adminhtml_catalog_product_action_attribute_edit>
+    
+    <adminhtml_catalog_product_attribute_edit>
+        <reference name="left">
+            <block type="adminhtml/catalog_product_attribute_edit_tabs" name="attribute_edit_tabs"></block>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/catalog_product_attribute_edit" name="attribute_edit_content"></block>
+        </reference>
+        <reference name="js">
+            <block type="adminhtml/template" name="attribute_edit_js" template="catalog/product/attribute/js.phtml"></block>
+        </reference>
+    </adminhtml_catalog_product_attribute_edit>
 
     <adminhtml_catalog_category_edit>
         <update handle="editor"/>

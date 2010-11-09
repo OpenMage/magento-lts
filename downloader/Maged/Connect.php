@@ -104,7 +104,7 @@ class Maged_Connect
     *
     * @return Maged_Connect
     */
-    public function getInstance()
+    public static function getInstance()
     {
         if (!self::$_instance) {
             self::$_instance = new self;
@@ -137,11 +137,12 @@ class Maged_Connect
     /**
     * Retrieve object of single config and set it to Mage_Connect_Command
     *
+    * @param bool $reload
     * @return Mage_Connect_Singleconfig
     */
-    public function getSingleConfig()
+    public function getSingleConfig($reload = false)
     {
-        if(!$this->_sconfig) {
+        if(!$this->_sconfig || $reload) {
             $this->_sconfig = new Mage_Connect_Singleconfig($this->getConfig()->magento_root . DIRECTORY_SEPARATOR . $this->getConfig()->downloader_path . DIRECTORY_SEPARATOR . Mage_Connect_Singleconfig::DEFAULT_SCONFIG_FILENAME);
         }
         Mage_Connect_Command::setSconfig($this->_sconfig);
@@ -266,6 +267,27 @@ class Maged_Connect
     }
 
     /**
+     *
+     * @param array $errors Error messages
+     * @return Maged_Connect
+     */
+    public function showConnectErrors($errors)
+    {
+        echo '<script type="text/javascript">';
+        $run = new Maged_Model_Connect_Request();
+        if ($callback = $run->get('failure_callback')) {
+            if (is_array($callback)) {
+                call_user_func_array($callback, array($result));
+            } else {
+                echo $callback;
+            }
+        }
+        echo '</script>';
+
+        return $this;
+    }
+
+    /**
      * Run Mage_COnnect_Command with html output console style
      *
      * @param array|Maged_Model $runParams command, options, params,
@@ -273,6 +295,12 @@ class Maged_Connect
      */
     public function runHtmlConsole($runParams)
     {
+        if (function_exists('apache_setenv')) {
+            apache_setenv('no-gzip', '1');
+        }
+        @ini_set('zlib.output_compression', 0);
+        @ini_set('implicit_flush', 1);
+        for ($i = 0; $i < ob_get_level(); $i++) { ob_end_flush(); }
         ob_implicit_flush();
 
         $fe = $this->getFrontend();

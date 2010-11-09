@@ -42,15 +42,10 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_B
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getResourceModel('reports/product_collection')
-            ->addAttributeToSelect('name')
-            ->addAttributeToSelect('price')
-            ->setStoreId('')
-            ->addCartsCount()
-            ->addOrdersCount()
-            ->setSelectCountSqlType(Mage_Reports_Model_Mysql4_Product_Collection::SELECT_COUNT_SQL_TYPE_CART);
-        /* @var $collection Mage_Reports_Model_Mysql4_Product_Collection */
-
+        /** @var $collection Mage_Reports_Model_Mysql4_Quote_Collection */
+        $collection = Mage::getResourceModel('reports/quote_collection');
+        $collection->prepareForProductsInCarts()
+            ->setSelectCountSqlType(Mage_Reports_Model_Mysql4_Quote_Collection::SELECT_COUNT_SQL_TYPE_CART);
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }

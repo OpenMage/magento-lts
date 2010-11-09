@@ -524,7 +524,8 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
         $this->loadLayout();
         $this->_initLayoutMessages('checkout/session');
-        Mage::dispatchEvent('checkout_multishipping_controller_success_action');
+        $ids = $this->_getCheckout()->getOrderIds();
+        Mage::dispatchEvent('checkout_multishipping_controller_success_action', array('order_ids' => $ids));
         $this->renderLayout();
     }
 

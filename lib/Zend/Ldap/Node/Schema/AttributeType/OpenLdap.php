@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Schema
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: OpenLdap.php 13453 2008-12-23 19:38:48Z sgehrig $
+ * @version    $Id: OpenLdap.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -36,7 +36,7 @@
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Schema
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Ldap_Node_Schema_AttributeType_OpenLdap extends Zend_Ldap_Node_Schema_Item

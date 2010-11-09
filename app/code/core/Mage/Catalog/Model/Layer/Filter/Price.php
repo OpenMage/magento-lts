@@ -33,6 +33,11 @@
  */
 class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Filter_Abstract
 {
+    const XML_PATH_RANGE_CALCULATION    = 'catalog/layered_navigation/price_range_calculation';
+    const XML_PATH_RANGE_STEP           = 'catalog/layered_navigation/price_range_step';
+
+    const RANGE_CALCULATION_AUTO    = 'auto';
+    const RANGE_CALCULATION_MANUAL  = 'manual';
     const MIN_RANGE_POWER = 10;
 
     /**
@@ -73,18 +78,37 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     public function getPriceRange()
     {
         $range = $this->getData('price_range');
-        if (is_null($range)) {
-            $maxPrice = $this->getMaxPriceInt();
-            $index = 1;
-            do {
-                $range = pow(10, (strlen(floor($maxPrice))-$index));
-                $items = $this->getRangeItemCounts($range);
-                $index++;
+        if (!$range) {
+            $currentCategory = Mage::registry('current_category_filter');
+            if ($currentCategory) {
+                $range = $currentCategory->getFilterPriceRange();
+            } else {
+                $range = $this->getLayer()->getCurrentCategory()->getFilterPriceRange();
             }
-            while($range>self::MIN_RANGE_POWER && count($items)<2);
+
+            $maxPrice = $this->getMaxPriceInt();
+            if (!$range) {
+                $calculation = Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_CALCULATION);
+                if ($calculation == self::RANGE_CALCULATION_AUTO) {
+                    $index = 1;
+                    do {
+                        $range = pow(10, (strlen(floor($maxPrice)) - $index));
+                        $items = $this->getRangeItemCounts($range);
+                        $index++;
+                    }
+                    while($range > self::MIN_RANGE_POWER && count($items) < 2);
+                } else {
+                    $range = Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_STEP);
+                }
+            }
+
+            while (ceil($maxPrice / $range) > 25) {
+                $range *= 10;
+            }
 
             $this->setData('price_range', $range);
         }
+
         return $range;
     }
 
@@ -138,7 +162,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
 
     /**
      * Get price aggreagation data cache key
-     *
+     * @deprecated after 1.4
      * @return string
      */
     protected function _getCacheKey()
@@ -161,33 +185,26 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      */
     protected function _getItemsData()
     {
-        $key = $this->_getCacheKey();
+        $range      = $this->getPriceRange();
+        $dbRanges   = $this->getRangeItemCounts($range);
+        $data       = array();
 
-        $data = $this->getLayer()->getAggregator()->getCacheData($key);
-        if ($data === null) {
-            $range      = $this->getPriceRange();
-            $dbRanges   = $this->getRangeItemCounts($range);
-            $data       = array();
-
-            foreach ($dbRanges as $index=>$count) {
-                $data[] = array(
-                    'label' => $this->_renderItemLabel($range, $index),
-                    'value' => $index . ',' . $range,
-                    'count' => $count,
-                );
-            }
-
-            $tags = array(
-                Mage_Catalog_Model_Product_Type_Price::CACHE_TAG,
+        foreach ($dbRanges as $index=>$count) {
+            $data[] = array(
+                'label' => $this->_renderItemLabel($range, $index),
+                'value' => $index . ',' . $range,
+                'count' => $count,
             );
-            $tags = $this->getLayer()->getStateTags($tags);
-            $this->getLayer()->getAggregator()->saveCacheData($data, $key, $tags);
         }
+
         return $data;
     }
 
     /**
      * Apply price range filter to collection
+     *
+     * @param Zend_Controller_Request_Abstract $request
+     * @param $filterBlock
      *
      * @return Mage_Catalog_Model_Layer_Filter_Price
      */
@@ -211,13 +228,26 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         if ((int)$index && (int)$range) {
             $this->setPriceRange((int)$range);
 
-            $this->_getResource()->applyFilterToCollection($this, $range, $index);
+            $this->_applyToCollection($range, $index);
             $this->getLayer()->getState()->addFilter(
                 $this->_createItem($this->_renderItemLabel($range, $index), $filter)
             );
 
             $this->_items = array();
         }
+        return $this;
+    }
+
+    /**
+     * Apply filter value to product collection based on filter range and selected value
+     *
+     * @param int $range
+     * @param int $index
+     * @return Mage_Catalog_Model_Layer_Filter_Price
+     */
+    protected function _applyToCollection($range, $index)
+    {
+        $this->_getResource()->applyFilterToCollection($this, $range, $index);
         return $this;
     }
 

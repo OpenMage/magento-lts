@@ -14,15 +14,15 @@
  *
  * @category   Zend
  * @package    Zend_Cache
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Cache.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Cache.php 21974 2010-04-23 17:10:17Z alexander $
  */
 
 
 /**
  * @package    Zend_Cache
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Cache
@@ -40,7 +40,8 @@ abstract class Zend_Cache
      *
      * @var array
      */
-    public static $standardBackends = array('File', 'Sqlite', 'Memcached', 'Apc', 'ZendPlatform', 'Xcache', 'TwoLevels');
+    public static $standardBackends = array('File', 'Sqlite', 'Memcached', 'Apc', 'ZendPlatform',
+                                            'Xcache', 'TwoLevels', 'ZendServer_Disk', 'ZendServer_ShMem');
 
     /**
      * Standard backends which implement the ExtendedInterface
@@ -201,11 +202,11 @@ abstract class Zend_Cache
      * @param  string $msg  Message for the exception
      * @throws Zend_Cache_Exception
      */
-    public static function throwException($msg)
+    public static function throwException($msg, Exception $e = null)
     {
         // For perfs reasons, we use this dynamic inclusion
         #require_once 'Zend/Cache/Exception.php';
-        throw new Zend_Cache_Exception($msg);
+        throw new Zend_Cache_Exception($msg, 0, $e);
     }
 
     /**
@@ -220,6 +221,10 @@ abstract class Zend_Cache
         $name = str_replace(array('-', '_', '.'), ' ', $name);
         $name = ucwords($name);
         $name = str_replace(' ', '', $name);
+        if (stripos($name, 'ZendServer') === 0) {
+            $name = 'ZendServer_' . substr($name, strlen('ZendServer'));
+        }
+
         return $name;
     }
 

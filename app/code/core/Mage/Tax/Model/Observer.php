@@ -172,5 +172,21 @@ class Mage_Tax_Model_Observer
         Mage::app()->getLocale()->revert();
         return $this;
     }
-}
 
+    /**
+     * Reset extra tax amounts on quote addresses before recollecting totals
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Tax_Model_Observer
+     */
+    public function quoteCollectTotalsBefore(Varien_Event_Observer $observer)
+    {
+        /* @var $quote Mage_Sales_Model_Quote */
+        $quote = $observer->getEvent()->getQuote();
+        foreach ($quote->getAllAddresses() as $address) {
+            $address->setExtraTaxAmount(0);
+            $address->setBaseExtraTaxAmount(0);
+        }
+        return $this;
+    }
+}

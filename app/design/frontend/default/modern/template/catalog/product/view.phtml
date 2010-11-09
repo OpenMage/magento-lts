@@ -102,10 +102,13 @@
     <script type="text/javascript">
     //<![CDATA[
             var productAddToCartForm = new VarienForm('product_addtocart_form');
-            productAddToCartForm.submit = function(){
-                    if (this.validator.validate()) {
-                            this.form.submit();
+            productAddToCartForm.submit = function(button) {
+                if (this.validator.validate()) {
+                    this.form.submit();
+                    if (button && button != 'undefined') {
+                        button.disabled = true;
                     }
+                }
             }.bind(productAddToCartForm);
     //]]>
     </script>

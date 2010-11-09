@@ -45,10 +45,10 @@
 function changeSubmitStatus(obj) {
     $('submitButton').disabled = !obj.checked;
     if(obj.checked){
-        $('submitButton').setStyle({'background':'#f18200','borderColor':''});
+        $('submitButton').setStyle({'background':'#f18200','borderColor':'','cursor':'pointer','color':'#C73615'});
     }
     else{
-        $('submitButton').setStyle({'background':'#bbb','borderColor':'#bbb'});
+        $('submitButton').setStyle({'background':'#bbb','borderColor':'#bbb','cursor':'default','color':'white'});
     }
 }
 //]]>

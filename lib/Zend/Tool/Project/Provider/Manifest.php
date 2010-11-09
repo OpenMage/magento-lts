@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Manifest.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Manifest.php 22608 2010-07-17 08:44:08Z torio $
  */
 
 /**
@@ -26,44 +26,9 @@
 #require_once 'Zend/Tool/Framework/Manifest/ProviderManifestable.php';
 
 /**
- * @see Zend_Tool_Project_Provider_Profile
- */
-#require_once 'Zend/Tool/Project/Provider/Profile.php';
-
-/**
- * @see Zend_Tool_Project_Provider_Project
- */
-#require_once 'Zend/Tool/Project/Provider/Project.php';
-
-/**
- * @see Zend_Tool_Project_Provider_Controller
- */
-#require_once 'Zend/Tool/Project/Provider/Controller.php';
-
-/**
- * @see Zend_Tool_Project_Provider_Action
- */
-#require_once 'Zend/Tool/Project/Provider/Action.php';
-
-/**
- * @see Zend_Tool_Project_Provider_View
- */
-#require_once 'Zend/Tool/Project/Provider/View.php';
-
-/**
- * @see Zend_Tool_Project_Provider_Module
- */
-#require_once 'Zend/Tool/Project/Provider/Module.php';
-
-/**
- * @see Zend_Tool_Project_Provider_ProjectProvider
- */
-#require_once 'Zend/Tool/Project/Provider/ProjectProvider.php';
-
-/**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Provider_Manifest implements
@@ -77,14 +42,34 @@ class Zend_Tool_Project_Provider_Manifest implements
      */
     public function getProviders()
     {
+        // the order here will represent what the output will look like when iterating a manifest
+        
         return array(
-            new Zend_Tool_Project_Provider_Profile(),
-            new Zend_Tool_Project_Provider_Project(),
-            new Zend_Tool_Project_Provider_Controller(),
-            new Zend_Tool_Project_Provider_Action(),
-            new Zend_Tool_Project_Provider_View(),
-            new Zend_Tool_Project_Provider_Module(),
-            new Zend_Tool_Project_Provider_ProjectProvider()
+            // top level project & profile providers
+            'Zend_Tool_Project_Provider_Profile',
+            'Zend_Tool_Project_Provider_Project',
+        
+            // app layer provider
+            'Zend_Tool_Project_Provider_Application',
+        
+            // MVC layer providers
+            'Zend_Tool_Project_Provider_Model',
+            'Zend_Tool_Project_Provider_View',
+            'Zend_Tool_Project_Provider_Controller',
+            'Zend_Tool_Project_Provider_Action',
+            
+            // hMVC provider
+            'Zend_Tool_Project_Provider_Module',
+        
+            // application problem providers
+            'Zend_Tool_Project_Provider_Form',
+            'Zend_Tool_Project_Provider_Layout',
+            'Zend_Tool_Project_Provider_DbAdapter',
+            'Zend_Tool_Project_Provider_DbTable',
+            
+            // provider within project provider
+            'Zend_Tool_Project_Provider_ProjectProvider',
+            
         );
     }
 }

@@ -39,6 +39,17 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     const PRODUCT_OPTIONS_KEY = 'recurring_profile_options';
 
     /**
+     * Period units
+     *
+     * @var string
+     */
+    const PERIOD_UNIT_DAY = 'day';
+    const PERIOD_UNIT_WEEK = 'week';
+    const PERIOD_UNIT_SEMI_MONTH = 'semi_month';
+    const PERIOD_UNIT_MONTH = 'month';
+    const PERIOD_UNIT_YEAR = 'year';
+
+    /**
      * Errors collected during validation
      *
      * @var array
@@ -93,17 +104,27 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             $this->_errors['schedule_description'][] = Mage::helper('payment')->__('Schedule description must be not empty.');
         }
 
-        // period unit and frequency, trial period unit and trial frequency
+        // period unit and frequency
         if (!$this->getPeriodUnit() || !in_array($this->getPeriodUnit(), $this->getAllPeriodUnits(false), true)) {
             $this->_errors['period_unit'][] = Mage::helper('payment')->__('Billing period unit is not defined or wrong.');
-        } elseif ($this->getPeriodFrequency()) {
-            $this->_validatePeriodFrequency('period_unit', 'period_frequency');
         }
+        if ($this->getPeriodFrequency() && !$this->_validatePeriodFrequency('period_unit', 'period_frequency')) {
+            $this->_errors['period_frequency'][] = Mage::helper('payment')->__('Period frequency is wrong.');;
+        }
+
+        // trial period unit, trial frequency, trial period max cycles, trial billing amount
         if ($this->getTrialPeriodUnit()) {
             if (!in_array($this->getTrialPeriodUnit(), $this->getAllPeriodUnits(false), true)) {
                 $this->_errors['trial_period_unit'][] = Mage::helper('payment')->__('Trial billing period unit is wrong.');
-            } elseif ($this->getTrialPeriodFrequency()) {
-                $this->_validatePeriodFrequency('trial_period_unit', 'trial_period_frequency');
+            }
+            if (!$this->getTrialPeriodFrequency() || !$this->_validatePeriodFrequency('trial_period_unit', 'trial_period_frequency')) {
+                $this->_errors['trial_period_frequency'][] = Mage::helper('payment')->__('Trial period frequency is wrong.');
+            }
+            if (!$this->getTrialPeriodMaxCycles()) {
+                $this->_errors['trial_period_max_cycles'][] = Mage::helper('payment')->__('Trial period max cycles is wrong.');
+            }
+            if (!$this->getTrialBillingAmount()) {
+                $this->_errors['trial_billing_amount'][] = Mage::helper('payment')->__('Trial billing amount is wrong.');
             }
         }
 
@@ -289,7 +310,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         if (!$datetime || !$this->_locale || !$this->_store) {
             return;
         }
-        $date = $this->_locale->storeDate($this->_store, $datetime, true);
+        $date = $this->_locale->storeDate($this->_store, strtotime($datetime), true);
         if ($asString) {
             return $date->toString($this->_locale->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT));
         }
@@ -328,7 +349,14 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      */
     public function getAllPeriodUnits($withLabels = true)
     {
-        $units = array('day', 'week', 'semi_month', 'month', 'year');
+        $units = array(
+            self::PERIOD_UNIT_DAY,
+            self::PERIOD_UNIT_WEEK,
+            self::PERIOD_UNIT_SEMI_MONTH,
+            self::PERIOD_UNIT_MONTH,
+            self::PERIOD_UNIT_YEAR
+        );
+
         if ($withLabels) {
             $result = array();
             foreach ($units as $unit) {
@@ -347,11 +375,11 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     public function getPeriodUnitLabel($unit)
     {
         switch ($unit) {
-            case 'day':  return Mage::helper('payment')->__('Day');
-            case 'week': return Mage::helper('payment')->__('Week');
-            case 'semi_month': return Mage::helper('payment')->__('Two Weeks');
-            case 'month': return Mage::helper('payment')->__('Month');
-            case 'year':  return Mage::helper('payment')->__('Year');
+            case self::PERIOD_UNIT_DAY:  return Mage::helper('payment')->__('Day');
+            case self::PERIOD_UNIT_WEEK: return Mage::helper('payment')->__('Week');
+            case self::PERIOD_UNIT_SEMI_MONTH: return Mage::helper('payment')->__('Two Weeks');
+            case self::PERIOD_UNIT_MONTH: return Mage::helper('payment')->__('Month');
+            case self::PERIOD_UNIT_YEAR:  return Mage::helper('payment')->__('Year');
         }
         return $unit;
     }
@@ -546,13 +574,14 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      *
      * @param string $unitKey
      * @param string $frequencyKey
+     * @return bool
      */
     protected function _validatePeriodFrequency($unitKey, $frequencyKey)
     {
-// TODO: implement
-        // check accordance of the unit and frequency
-                // $this->_errors
-        // if set, invoke payment method instance?
+        if ($this->getData($unitKey) == self::PERIOD_UNIT_SEMI_MONTH && $this->getData($frequencyKey) != 1) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -602,7 +631,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         if (!$period || !$frequency) {
             return $result;
         }
-        if ('semi_month' == $period) {
+        if (self::PERIOD_UNIT_SEMI_MONTH == $period) {
             $frequency = '';
         }
         $result[] = Mage::helper('payment')->__('%s %s cycle.', $frequency, $this->getPeriodUnitLabel($period));

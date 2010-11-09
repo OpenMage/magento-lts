@@ -51,6 +51,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
         $options = array(
             'save_path'=>Mage::getBaseDir('session'),
             'use_only_cookies'=>'off',
+            'throw_startup_exceptions' => E_ALL ^ E_NOTICE,
         );
         if ($this->getCookieDomain()) {
             $options['cookie_domain'] = $this->getCookieDomain();

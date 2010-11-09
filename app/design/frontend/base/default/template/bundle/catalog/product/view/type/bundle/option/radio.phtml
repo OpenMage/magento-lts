@@ -45,9 +45,10 @@
         <?php endif; ?>
         <label for="bundle-option-<?php echo $_option->getId() ?>-qty-input"><?php echo $this->__('Qty:') ?>&nbsp;</label><input onkeyup="bundle.changeOptionQty(this, event)" onblur="bundle.changeOptionQty(this, event)" <?php echo $_canChangeQty?'':'disabled="disabled"' ?> id="bundle-option-<?php echo $_option->getId() ?>-qty-input" class="input-text qty<?php echo $_canChangeQty?'':' qty-disabled' ?>" type="text" name="bundle_option_qty[<?php echo $_option->getId() ?>]" value="<?php echo $_defaultQty ?>" />
     </span>
-    <label><?php echo $this->htmlEscape($_option->getTitle()) ?><?php if ($_option->getRequired()) echo '<span class="required">&nbsp;*</span>' ?></label>
+    <label<?php if ($_option->getRequired()) echo ' class="required"' ?>><?php if ($_option->getRequired()) echo '<em>*</em>' ?><?php echo $this->htmlEscape($_option->getTitle()) ?></label>
 </dt>
 <dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
+    <div class="input-box">
     <?php if (count($_selections) == 1 && $_option->getRequired()): ?>
         <?php echo $this->getSelectionTitlePrice($_selections[0]) ?>
         <input type="hidden" name="bundle_option[<?php echo $_option->getId() ?>]" value="<?php echo $_selections[0]->getSelectionId() ?>" />
@@ -59,7 +60,7 @@
             </li>
         <?php endif; ?>
         <?php foreach($_selections as $_selection): ?>
-            <li><input type="radio" onclick="bundle.changeSelection(this)" class="radio<?php echo $_option->getRequired()?' validate-one-required-by-name':'' ?>" id="bundle-option-<?php echo $_option->getId() ?>-<?php echo $_selection->getSelectionId() ?>" name="bundle_option[<?php echo $_option->getId() ?>]"<?php echo ($_selection->getIsDefault() && $_selection->isSaleable())?' checked="checked" ':'' ?><?php echo !$_selection->isSaleable()?' disabled="disabled" ':'' ?>value="<?php echo $_selection->getSelectionId() ?>" />
+            <li><input type="radio" onclick="bundle.changeSelection(this)" class="radio<?php echo $_option->getRequired()?' validate-one-required-by-name':'' ?> change-container-classname" id="bundle-option-<?php echo $_option->getId() ?>-<?php echo $_selection->getSelectionId() ?>" name="bundle_option[<?php echo $_option->getId() ?>]"<?php echo ($_selection->getIsDefault() && $_selection->isSaleable())?' checked="checked" ':'' ?><?php echo !$_selection->isSaleable()?' disabled="disabled" ':'' ?>value="<?php echo $_selection->getSelectionId() ?>" />
             <span class="label"><label for="bundle-option-<?php echo $_option->getId() ?>-<?php echo $_selection->getSelectionId() ?>"><?php echo $this->getSelectionTitlePrice($_selection) ?></label></span>
             <?php if($_option->getRequired()): ?>
                 <?php echo $this->setValidationContainer('bundle-option-'.$_option->getId().'-'.$_selection->getSelectionId(), 'bundle-option-'.$_option->getId().'-container') ?>
@@ -67,6 +68,7 @@
             </li>
         <?php endforeach;?>
         </ul>
-        <span id="bundle-option-<?php echo $_option->getId() ?>-container"></span>
+        <div id="bundle-option-<?php echo $_option->getId() ?>-container"></div>
     <?php endif; ?>
+    </div>
 </dd>

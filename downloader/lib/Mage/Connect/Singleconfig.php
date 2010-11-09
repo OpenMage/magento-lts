@@ -224,6 +224,44 @@ class Mage_Connect_Singleconfig
         );
     }
 
+    /**
+     * Check channel, add if valid name and not exist
+     * @param string $chanName
+     * @param Mage_Connect_Config $config
+     * @param Mage_Connect_Rest $rest
+     * @return boolean
+     */
+    public function checkChannel($chanName, $config, $rest = null)
+    {
+        if ($this->isChannel($chanName)) {
+            return true;
+        }
+
+        $uri = '';
+
+        $_validator = new Mage_Connect_Validator();
+        if ($this->isChannelName($chanName)) {
+            $uri = $this->chanUrl($chanName);
+        } elseif ($_validator->validateUrl($chanName)) {
+            $uri = $chanName;
+        } elseif($chanName) {
+            $uri = $config->protocol.'://'.$chanName;
+        } else {
+            throw new Exception("'{$channel}' is not existant channel name / valid uri");
+        }
+
+        if ($uri && !$this->isChannel($uri)) {
+            if (!isset($rest)) {
+                $rest = new Mage_Connect_Rest($config->protocol);
+            }
+            $rest->setChannel($uri);
+            $data = $rest->getChannelInfo();
+            $data->uri = $uri;
+            $this->addChannel($data->name, $uri);
+        }
+
+        return $this->isChannel($uri);
+    }
 
     public function isChannel($chanName)
     {
@@ -635,6 +673,25 @@ class Mage_Connect_Singleconfig
         return $this->versionInRange($installedVersion, $versionMin, $versionMax);
     }
 
+    /**
+     * Check whether package installed or not. Return package if it installed
+     * 
+     * @param string $package package name
+     * @return array
+     */
+    public function isPackageInstalled($package)
+    {
+        $channels = $this->getChannelNames();
+        foreach ($channels as $channel) {
+            if ($installedPackage = $this->getPackage($channel, $package)) {
+                return array_merge(array('channel'=>$channel), $installedPackage);
+            }
+
+        }
+        return false;
+    }
+
+
     public function versionInRange($version, $versionMin = false, $versionMax = false)
     {
         if(false === $versionMin) {
@@ -849,9 +906,14 @@ class Mage_Connect_Singleconfig
         $conflicts = array();
         foreach($this->_data[self::K_CHAN] as $channel=>$data) {
             foreach($data[self::K_PACK] as $package) {
-                if($channel != $chanName) {
+                /**
+                 * @todo When we are building dependencies tree we should base this calculations not on full key as on 
+                 * a unique value but check it by parts. First part which should be checked is EXTENSION_NAME also this
+                 * part should be unique globally not per channel.
+                 */
+                /*if($channel != $chanName) {
                     continue;
-                }
+                }*/
                 $deps = $package[self::K_PACK_DEPS];
                 foreach($deps as $dep) {
                     if($dep['name'] != $packageName) {

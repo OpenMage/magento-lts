@@ -50,7 +50,7 @@
         <div class="header-top-container">
             <div class="header-top">
                 <h1 id="logo">
-                    <a href="<?php echo $this->baseUrl()?>"><img src="<?php echo $this->baseUrl()?>/skin/install/images/logo.gif" alt="Magento"/></a>
+                    <a href="<?php echo $this->baseUrl()?>"><img src="<?php echo $this->baseUrl()?>/skin/install/images/<?php echo($this->get('channel_logo')); ?>.gif" alt="Magento"/></a>
                 </h1>
             </div>
         </div>
@@ -72,6 +72,7 @@
     <li>Welcome</li>
     <li>Validation</li>
     <li>Magento Connect Manager Deployment</li>
+    <?php echo($this->get('channel_steps')); ?>
     <li style="color:green; font-weight:bold; ">Download</li>
     <li >License Agreement</li>
     <li >Localization</li>

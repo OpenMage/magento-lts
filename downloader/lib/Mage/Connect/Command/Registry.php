@@ -135,6 +135,8 @@ extends Mage_Connect_Command
         $this->cleanupParams($params);
         //$this->splitPackageArgs($params);
 
+        $cache = null;
+        $ftp = empty($options['ftp']) ? false : $options['ftp'];
         try {
             $channel = false;
             if(count($params) < 2) {
@@ -143,7 +145,6 @@ extends Mage_Connect_Command
             $channel = $params[0];
             $package = $params[1];
             $packager = $this->getPackager();
-            $ftp = empty($options['ftp']) ? false : $options['ftp'];
             if($ftp) {
                 list($cache, $ftpObj) = $packager->getRemoteCache($ftp);
             } else {
@@ -166,9 +167,67 @@ extends Mage_Connect_Command
             }
             $this->ui()->output($data);
         } catch (Exception $e) {
-            if($ftp) {
+            if ($ftp && isset($cache)) {
                 @unlink($cache->getFilename());
             }
+            $this->doError($command, $e->getMessage());
+        }
+    }
+
+    /**
+     * Synchronize manually installed package info with local cache
+     *
+     * @param string $command
+     * @param array $options
+     * @param array $params
+     */
+    public function doSync($command, $options, $params)
+    {
+        $this->cleanupParams($params);
+        try {
+            $packager = $this->getPackager();
+            $ftp = empty($options['ftp']) ? false : $options['ftp'];
+            if($ftp) {
+                list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
+            } else {
+                $config = $this->config();
+                $cache = $this->getSconfig();
+            }
+
+            $packageDir = $config->magento_root . DS . Mage_Connect_Package::PACKAGE_XML_DIR;
+            if (is_dir($packageDir)) {
+                $entries = scandir($packageDir);
+                foreach ((array)$entries as $entry) {
+                    $path =  $packageDir. DS .$entry;
+                    $info = pathinfo($path);
+                    if ($entry == '.' || $entry == '..' || is_dir($path) || $info['extension'] != 'xml') {
+                        continue;
+                    }
+
+                    if (is_readable($path)) {
+                        $data = file_get_contents($path);
+                        if ($data === false) {
+                            continue;
+                        }
+
+                        $package = new Mage_Connect_Package($data);
+                        $name = $package->getName();
+                        $channel = $package->getChannel();
+                        $version = $package->getVersion();
+                        if (!$cache->isChannel($channel) && $channel == $config->root_channel) {
+                            $cache->addChannel($channel, $config->root_channel_uri);
+                        }
+                        if (!$cache->hasPackage($channel, $name, $version, $version)) {
+                            $cache->addPackage($package);
+                            $this->ui()->output("Successfully added: {$channel}/{$name}-{$version}");
+                        }
+                    }
+                }
+                if ($ftp) {
+                    $packager->writeToRemoteCache($cache, $ftpObj);
+                }
+            }
+        } catch (Exception $e) {
             $this->doError($command, $e->getMessage());
         }
     }

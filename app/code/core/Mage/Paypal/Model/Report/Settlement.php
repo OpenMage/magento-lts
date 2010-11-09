@@ -120,7 +120,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 }
 
                 $encoded = file_get_contents($localCsv);
-                $decoded = iconv(self::FILES_IN_CHARSET, self::FILES_OUT_CHARSET.'//IGNORE', $encoded);
+                $decoded = @iconv(self::FILES_IN_CHARSET, self::FILES_OUT_CHARSET.'//IGNORE', $encoded);
                 file_put_contents($localCsv, $decoded);
 
                 // Set last modified date, this value will be overwritten during parsing
@@ -131,8 +131,11 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
 
                 $this->setReportDate($this->_fileNameToDate($filename))
                     ->setFilename($filename)
-                    ->parseCsv($localCsv)
-                    ->save();
+                    ->parseCsv($localCsv);
+
+                if ($this->getAccountId()) {
+                    $this->save();
+                }
 
                 if ($this->_dataSaveAllowed) {
                     $fetched += count($this->_rows);

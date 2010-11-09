@@ -63,7 +63,7 @@ class Maged_Model_Connect extends Maged_Model
      */
     public function installAll($force=false, $chanName='')
     {
-        $options = array();
+        $options = array('install_all'=>true);
         if ($force) {
             $this->connect()->cleanSconfig();
             $options['force'] = 1;
@@ -71,19 +71,68 @@ class Maged_Model_Connect extends Maged_Model
         $packages = array(
             'Mage_All_Latest',
         );
-        $ftp = $this->controller()->config()->get('ftp');
-        if(!empty($ftp))
-            $options['ftp'] = $ftp;
-        $params = array();
         $connectConfig = $this->connect()->getConfig();
-        $uri="connect20.magentocommerce.com/community";
-        $connectConfig->root_channel = $chanName;        
+        $ftp = $connectConfig->remote_config;
+        if (!empty($ftp)) {
+            $options['ftp'] = $ftp;
+        }
+        $params = array();
+
+        $uri = $this->controller()->channelConfig()->getRootChannelUri();
+
+        $this->controller()->channelConfig()->setCommandOptions($this->controller()->session(), $options);
+
+        $connectConfig->root_channel = $chanName;
         foreach ($packages as $package) {
             $params[] = $uri;
             $params[] = $package;
         }
         $this->connect()->runHtmlConsole(array('command'=>'install', 'options'=>$options, 'params'=>$params));
     }
+
+    /**
+     * Prepare to install package
+     *
+     * @param string $id
+     * @return array
+     */
+    public function prepareToInstall($id)
+    {
+        if (!preg_match('#^([^ ]+)\/([^-]+)(-[^-]+)?$#', $id, $match)) {
+            echo('Invalid package identifier provided: '.$id);
+            exit;
+        }
+
+        $channel = $match[1];
+        $package = $match[2];
+        $version = (!empty($match[3]) ? trim($match[3],'/\-') : '');
+
+        $connect = $this->connect();
+        $sconfig = $connect->getSingleConfig();
+
+        $options = array();
+        $params = array($channel, $package, $version);
+        $this->controller()->channelConfig()->setCommandOptions($this->controller()->session(), $options);
+
+        $connect->run('package-prepare', $options, $params);
+        $output = $connect->getOutput();
+        $errors = $connect->getFrontend()->getErrors();
+        $package_error = array();
+        foreach ($errors as $error){
+            if (isset($error[1])){
+                $package_error[] = $error[1];
+            }
+        }
+
+        $packages = array();
+        if (is_array($output) && isset($output['package-prepare'])){
+            $packages = array_merge($output['package-prepare'], array('errors'=>array('error'=>$package_error)));
+        } elseif (is_array($output) && !empty($package_error)) {
+            $packages = array('errors'=>array('error'=>$package_error));
+        }
+        return $packages;
+    }
+
 
     /**
      * Retrieve all installed packages
@@ -93,7 +142,7 @@ class Maged_Model_Connect extends Maged_Model
     public function getAllInstalledPackages()
     {
         $connect = $this->connect();
-        $sconfig = $connect->getSingleConfig();
+        $sconfig = $connect->getSingleConfig(true);
         $connect->run('list-installed');
         $output = $connect->getOutput();
         $packages = array();
@@ -111,7 +160,9 @@ class Maged_Model_Connect extends Maged_Model
         }
 
         if (!empty($_GET['updates'])) {
-            $result = $connect->run('list-upgrades');
+            $options = array();
+            $this->controller()->channelConfig()->setCommandOptions($this->controller()->session(), $options);
+            $result = $connect->run('list-upgrades', $options);
             $output = $connect->getOutput();
             if (is_array($output)) {
                 $channelData = $output;
@@ -142,20 +193,21 @@ class Maged_Model_Connect extends Maged_Model
                     $output = $connect->getOutput();
                     if (!empty($output['info']['releases'])) {
                         foreach ($output['info']['releases'] as $release) {
-                            if ($states[$release['s']]<min($preferredState, $states[$packages[$channel][$name]['stability']])) {
+                            $stability = $packages[$channel][$name]['stability'];
+                            if ($states[$release['s']] < min($preferredState, $states[$stability])) {
                                 continue;
                             }
-                            if (version_compare($version, $packages[$channel][$name]['version'])<1) {
+                            if (version_compare($release['v'], $packages[$channel][$name]['version']) < 1) {
                                 continue;
                             }
-                            $releases[$version] = $version.' ('.$release['state'].')';
+                            $releases[$release['v']] = $release['v'].' ('.$release['s'].')';
                         }
                     }
 
                     if ($releases) {
                         uksort($releases, 'version_compare');
-                        foreach ($releases as $release) {
-                            $actions['upgrade|'.$release['v']] = 'Upgrade to '.$release['v'];
+                        foreach ($releases as $version => $release) {
+                            $actions['upgrade|'.$version] = 'Upgrade to '.$release;
                         }
                     } else {
                         $a = explode(' ', $data['upgrade_latest'], 2);
@@ -210,9 +262,11 @@ class Maged_Model_Connect extends Maged_Model
         if (!empty($ignoreLocalModification)) {
             $options = array('ignorelocalmodification'=>1);
         }
-        if(!$this->controller()->isWritable()||strlen($this->controller()->config()->get('ftp'))>0){
-            $options['ftp'] = $this->controller()->config()->get('ftp');
+        if(!$this->controller()->isWritable()||strlen($this->connect()->getConfig()->__get('remote_config'))>0){
+            $options['ftp'] = $this->connect()->getConfig()->__get('remote_config');
         }
+
+        $this->controller()->channelConfig()->setCommandOptions($this->controller()->session(), $options);
 
         foreach ($actions as $action=>$packages) {
             foreach ($packages as $package) {
@@ -226,9 +280,14 @@ class Maged_Model_Connect extends Maged_Model
                         break;
 
                     case 'reinstall':
+                        $package_info = $this->connect()->getSingleConfig()->getPackage($package[0], $package[1]);
+                        if (isset($package_info['version'])) {
+                            $package[2] = $package_info['version'];
+                            $package[3] = $package_info['version'];
+                        }
                         $this->connect()->runHtmlConsole(array(
                             'command'=>'install',
-                            'options'=>array('force'=>1),
+                            'options'=>array_merge($options, array('force'=>1, 'nodeps'=>1)),
                             'params'=>$package
                         ));
                         break;
@@ -239,14 +298,14 @@ class Maged_Model_Connect extends Maged_Model
         $this->controller()->endInstall();
     }
 
-    
+
     public function installUploadedPackage($file)
     {
         $this->controller()->startInstall();
 
         $options = array();
-        if(!$this->controller()->isWritable()||strlen($this->controller()->config()->get('ftp'))>0){
-            $options['ftp'] = $this->controller()->config()->get('ftp');
+        if(!$this->controller()->isWritable()||strlen($this->connect()->getConfig()->__get('remote_config'))>0){
+            $options['ftp'] = $this->connect()->getConfig()->__get('remote_config');
         }
         $this->connect()->runHtmlConsole(array(
             'command'=>'install-file',
@@ -255,7 +314,7 @@ class Maged_Model_Connect extends Maged_Model
         ));
         $this->controller()->endInstall();
     }
-    
+
     /**
      * Install package by id
      *
@@ -282,9 +341,11 @@ class Maged_Model_Connect extends Maged_Model
         if ($force) {
             $options['force'] = 1;
         }
-        if(!$this->controller()->isWritable()||strlen($this->controller()->config()->get('ftp'))>0){
-            $options['ftp'] = $this->controller()->config()->get('ftp');
+        if(!$this->controller()->isWritable()||strlen($this->connect()->getConfig()->__get('remote_config'))>0){
+            $options['ftp'] = $this->connect()->getConfig()->__get('remote_config');
         }
+
+        $this->controller()->channelConfig()->setCommandOptions($this->controller()->session(), $options);
 
         $this->connect()->runHtmlConsole(array(
             'command'=>'install',
@@ -324,24 +385,90 @@ class Maged_Model_Connect extends Maged_Model
     }
 
     /**
+     * Validate settings post data.
+     *
+     * @param array $p
+     */
+    public function validateConfigPost($p)
+    {
+        $errors = array();
+        $configTestFile = 'connect.cfgt';
+        $configObj = $this->connect()->getConfig();
+        if ('ftp' == $p['deployment_type'] || '1' == $p['inst_protocol']) {
+            /*check ftp*/
+
+            $confFile = $configObj->downloader_path.DIRECTORY_SEPARATOR.$configTestFile;
+            try {
+                $ftpObj = new Mage_Connect_Ftp();
+                $ftpObj->connect($p['ftp']);
+                $tempFile = tempnam(sys_get_temp_dir(),'config');
+                $serial = md5('config test file');
+                $f = @fopen($tempFile, "w+");
+                @fwrite($f, $serial);
+                @fclose($f);
+                $ret=$ftpObj->upload($confFile, $tempFile);
+
+                //read file
+                if (!$errors && is_file($configTestFile)) {
+                    $size = filesize($configTestFile);
+                    if(!$size) {
+                        $errors[]='Unable to read saved settings. Please check Installation Path of FTP Connection.';
+                    }
+
+                    if (!$errors) {
+                        $f = @fopen($configTestFile, "r");
+                        @fseek($f, 0, SEEK_SET);
+
+                        $contents = @fread($f, strlen($serial));
+                        if ($serial != $contents) {
+                            $errors[]='Wrong Installation Path of FTP Connection.';
+                        }
+                        fclose($f);
+                    }
+                } else {
+                    $errors[] = 'Unable to read saved settings. Please check Installation Path of FTP Connection.';
+                }
+                $ftpObj->delete($confFile);
+                $ftpObj->close();
+            } catch (Exception $e) {
+                $errors[] = 'Deployment FTP Error. ' . $e->getMessage();
+            }
+        } else {
+            $p['ftp'] = '';
+        }
+
+        if ('1' == $p['use_custom_permissions_mode']) {
+            /*check permissions*/
+            if (octdec(intval($p['mkdir_mode'])) < 73 || octdec(intval($p['mkdir_mode'])) > 511) {
+                $errors[]='Folders permissions not valid. ';
+            }
+            if (octdec(intval($p['chmod_file_mode'])) < 73 || octdec(intval($p['chmod_file_mode'])) > 511) {
+                $errors[]='Files permissions not valid. ';
+            }
+        }
+        //$this->controller()->session()->addMessage('success', 'Settings has been successfully saved');
+        return $errors;
+    }
+    /**
      * Save settings.
      *
      * @param array $p
      */
     public function saveConfigPost($p)
     {
-        $configObj=$this->connect()->getConfig();
-        if('ftp' == $p['deployment_type'] || '1' == $p['inst_protocol']){
+        $configObj = $this->connect()->getConfig();
+        if ('ftp' == $p['deployment_type'] || '1' == $p['inst_protocol']){
             $this->set('ftp',$p['ftp']);
-        }else{
-            $p['ftp']='';
+        } else {
+            $p['ftp'] = '';
         }
-        $configObj->remote_config=$p['ftp'];
+        $configObj->remote_config = $p['ftp'];
         $configObj->preferred_state = $p['preferred_state'];
         $configObj->protocol = $p['protocol'];
-        if('1'==$p['use_custom_permissions_mode']){
-            $configObj->global_dir_mode=octdec(intval($p['mkdir_mode']));
-            $configObj->global_file_mode=octdec(intval($p['chmod_file_mode']));
+        $configObj->use_custom_permissions_mode = $p['use_custom_permissions_mode'];
+        if ('1' == $p['use_custom_permissions_mode']) {
+            $configObj->global_dir_mode = octdec(intval($p['mkdir_mode']));
+            $configObj->global_file_mode = octdec(intval($p['chmod_file_mode']));
         }
         $this->controller()->session()->addMessage('success', 'Settings has been successfully saved');
         return $this;

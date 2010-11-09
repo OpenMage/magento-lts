@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_TimeSync
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Sntp.php 16209 2009-06-21 19:20:34Z thomas $
+ * @version   $Id: Sntp.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -29,7 +29,7 @@
  *
  * @category  Zend
  * @package   Zend_TimeSync
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_TimeSync_Sntp extends Zend_TimeSync_Protocol

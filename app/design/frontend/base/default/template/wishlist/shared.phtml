@@ -53,13 +53,11 @@
                         <?php echo $this->getPriceHtml($item) ?>
                     </td>
                     <td><?php echo $this->getEscapedDescription($item) ?></td>
-                    <td>
-                        <ul class="add-to-links">
-                        <?php if ($item->isSaleable()): ?>
-                            <li><a href="#" onclick="setLocation('<?php echo $this->getAddToCartUrl($item) ?>'); return false;" class="link-cart"><?php echo $this->__('Add to Cart') ?></a></li>
-                        <?php endif;?>
-                        <li><a href="#" onclick="setLocation('<?php echo $this->getAddToWishlistUrl($item) ?>'); return false;" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
-                        </ul>
+                    <td class="a-center">
+                    <?php if ($item->isSaleable()): ?>
+                        <button type="button" title="<?php echo $this->__('Add to Cart') ?>" onclick="setLocation('<?php echo $this->getAddToCartUrl($item) ?>')" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                    <?php endif;?>
+                        <p><a href="#" onclick="setLocation('<?php echo $this->getAddToWishlistUrl($item) ?>'); return false;" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></p>
                     </td>
                 </tr>
                 <?php endforeach ?>

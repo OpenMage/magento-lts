@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -95,8 +95,9 @@ extends Mage_Connect_Frontend
         $methodMap = array(
             'list-upgrades'=> 'outputUpgrades',
             'list-available' => 'outputChannelsPackages',
-            'list-installed' => 'writeInstalledList',   
+            'list-installed' => 'writeInstalledList',
             'package-dependencies' => 'outputPackageDeps',
+            'package-prepare' => 'outputPackagePrepare',
             'list-files' => 'outputPackageContents',
             'config-help' => 'outputConfigHelp',
             'info' => 'outputRemoteInfo',
@@ -118,14 +119,14 @@ extends Mage_Connect_Frontend
     public function outputDeleted($data)
     {
         if(!count($data['data'])) {
-            return;            
-        }        
-        $this->writeln($data['title']);        
+            return;
+        }
+        $this->writeln($data['title']);
         foreach($data['data'] as $row) {
             $this->writeln("$row[0]/$row[1]");
         }
     }
-    
+
     public function outputListChannels($data)
     {
         $this->writeln($data['title']);
@@ -139,7 +140,7 @@ extends Mage_Connect_Frontend
             $this->writeln();
             $this->writeln($data['title_aliases']);
             foreach($aliases as $k=>$v) {
-                $this->writeln("$k => $v");                       
+                $this->writeln("$k => $v");
             }
         }
 
@@ -186,6 +187,20 @@ extends Mage_Connect_Frontend
         $this->writeln($title);
         foreach($data['data'] as $package) {
             $this->printf("%-20s %-20s %-20s %-20s\n", $package['channel'], $package['name'], $package['min'], $package['max']);
+        }
+    }
+
+    /**
+     * Output package prepare
+     * @param $data
+     * @return void
+     */
+    public function outputPackagePrepare($data)
+    {
+        $title = $data['title'];
+        $this->writeln($title);
+        foreach($data['data'] as $package) {
+            $this->printf("%-20s %-20s %-20s %-20s\n", $package['channel'], $package['name'], $package['version'], $package['install_state']);
         }
     }
 
@@ -303,7 +318,7 @@ extends Mage_Connect_Frontend
         foreach($data['data'] as $channel=>$packages) {
             $title = sprintf($data['channel-title'], $channel);
             $c = count($packages);
-            $totalCount += $c;          
+            $totalCount += $c;
             if(!$c) {
                 continue;
             }
@@ -438,4 +453,5 @@ extends Mage_Connect_Frontend
     }
 
 }
+
 

@@ -35,9 +35,13 @@
             <h1 id="logo"><a href="<?php echo $this->getUrl('') ?>"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
         </div>
         <div class="col-2">
-            <div class="user-links">
-                <?php echo $this->getChildHtml('user_links') ?>
+            <div class="switch-language">
+                <?php echo $this->getChildHtml('store_language') ?>
             </div>
+            <div class="clear"></div>
+            
+            <p class="welcome-msg"><?php echo $this->getWelcome()?></p>
+            <?php echo $this->getChildHtml('accountLinks') ?>
         </div>
     </div>
 </div>

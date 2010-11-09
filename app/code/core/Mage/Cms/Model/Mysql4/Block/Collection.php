@@ -34,10 +34,13 @@
 
 class Mage_Cms_Model_Mysql4_Block_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
-
+    /**
+     * Declare base table and mapping of some fields
+     */
     protected function _construct()
     {
         $this->_init('cms/block');
+        $this->_map['fields']['store'] = 'store_table.store_id';
     }
 
     public function toOptionArray()
@@ -46,25 +49,44 @@ class Mage_Cms_Model_Mysql4_Block_Collection extends Mage_Core_Model_Mysql4_Coll
     }
 
     /**
-     * Add Filter by store
+     * Add filter by store
      *
      * @param int|Mage_Core_Model_Store $store
-     * @return Mage_Cms_Model_Mysql4_Page_Collection
+     * @return Mage_Cms_Model_Mysql4_Block_Collection
      */
     public function addStoreFilter($store, $withAdmin = true)
     {
         if ($store instanceof Mage_Core_Model_Store) {
             $store = array($store->getId());
         }
-
-        $this->getSelect()->join(
-            array('store_table' => $this->getTable('cms/block_store')),
-            'main_table.block_id = store_table.block_id',
-            array()
-        )
-        ->where('store_table.store_id in (?)', ($withAdmin ? array(0, $store) : $store))
-        ->group('main_table.block_id');
-
+        $this->addFilter('store', array('in' => ($withAdmin ? array(0, $store) : $store)), 'public');
         return $this;
+    }
+
+    /**
+     * Get SQL for get record count
+     *
+     * @return Varien_Db_Select
+     */
+    public function getSelectCountSql()
+    {
+        $countSelect = parent::getSelectCountSql();
+        $countSelect->reset(Zend_Db_Select::GROUP);
+        return $countSelect;
+    }
+
+    /**
+     * Join store relation table if there is store filter
+     */
+    protected function _renderFiltersBefore()
+    {
+        if ($this->getFilter('store')) {
+            $this->getSelect()->join(
+                array('store_table' => $this->getTable('cms/block_store')),
+                'main_table.block_id = store_table.block_id',
+                array()
+            )->group('main_table.block_id');
+        }
+        return parent::_renderFiltersBefore();
     }
 }

@@ -30,7 +30,7 @@
     var payment = {};
     payment.switchMethod = order.switchPaymentMethod.bind(order);
 </script>
-<form id="edit_form" action="<?php echo $this->getSaveUrl() ?>" method="post">
+<form id="edit_form" action="<?php echo $this->getSaveUrl() ?>" method="post" enctype="multipart/form-data">
     <?php echo $this->getBlockHtml('formkey')?>
     <div id="order-message">
         <?php echo $this->getChildHtml('message') ?>

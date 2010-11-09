@@ -186,10 +186,9 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
         if ($product->hasUrlDataObject()) {
             $requestPath = $product->getUrlDataObject()->getUrlRewrite();
             $routeParams['_store'] = $product->getUrlDataObject()->getStoreId();
-        }
-        else {
+        } else {
             $requestPath = $product->getRequestPath();
-            if (empty($requestPath)) {
+            if (empty($requestPath) && $requestPath !== false) {
                 $idPath = sprintf('product/%d', $product->getEntityId());
                 if ($categoryId) {
                     $idPath = sprintf('%s/%d', $idPath, $categoryId);
@@ -200,6 +199,8 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
                 if ($rewrite->getId()) {
                     $requestPath = $rewrite->getRequestPath();
                     $product->setRequestPath($requestPath);
+                } else {
+                    $product->setRequestPath(false);
                 }
             }
         }
@@ -214,8 +215,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
 
         if (!empty($requestPath)) {
             $routeParams['_direct'] = $requestPath;
-        }
-        else {
+        } else {
             $routePath = 'catalog/product/view';
             $routeParams['id']  = $product->getId();
             $routeParams['s']   = $product->getUrlKey();

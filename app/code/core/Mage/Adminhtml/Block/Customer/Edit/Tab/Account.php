@@ -46,12 +46,21 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
 
         $customer = Mage::registry('current_customer');
 
+        /* @var $customerForm Mage_Customer_Model_Form */
+        $customerForm = Mage::getModel('customer/form');
+        $customerForm->setEntity($customer)
+            ->setFormCode('adminhtml_customer')
+            ->initDefaultValues();
+
         $fieldset = $form->addFieldset('base_fieldset',
             array('legend'=>Mage::helper('customer')->__('Account Information'))
         );
 
-
-        $this->_setFieldset($customer->getAttributes(), $fieldset);
+        $attributes = $customerForm->getAttributes();
+        foreach ($attributes as $attribute) {
+            $attribute->unsIsVisible();
+        }
+        $this->_setFieldset($attributes, $fieldset);
 
         if ($customer->getId()) {
             $form->getElement('website_id')->setDisabled('disabled');
@@ -59,8 +68,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
         } else {
             $fieldset->removeField('created_in');
         }
-
-        $form->getElement('email')->addClass('validate-email');
 
 //        if (Mage::app()->isSingleStoreMode()) {
 //            $fieldset->removeField('website_id');
@@ -110,8 +117,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                     }
                 }
             }
-        }
-        else {
+        } else {
             $newFieldset = $form->addFieldset(
                 'password_fieldset',
                 array('legend'=>Mage::helper('customer')->__('Password Management'))
@@ -142,9 +148,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
         }
 
         // make sendemail and sendmail_store_id disabled, if website_id has empty value
-        if ($sendemail = $form->getElement('sendemail_store_id')) {
+        $sendEmail = $form->getElement('sendemail_store_id');
+        if ($sendEmail) {
             $prefix = $form->getHtmlIdPrefix();
-            $sendemail->setAfterElementHtml(
+            $sendEmail->setAfterElementHtml(
                 '<script type="text/javascript">'
                 . "
                 $('{$prefix}website_id').disableSendemail = function() {
@@ -170,5 +177,19 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
         $form->setValues($customer->getData());
         $this->setForm($form);
         return $this;
+    }
+
+    /**
+     * Return predefined additional element types
+     *
+     * @return array
+     */
+    protected function _getAdditionalElementTypes()
+    {
+        return array(
+            'file'      => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_file'),
+            'image'     => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_image'),
+            'boolean'   => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_boolean'),
+        );
     }
 }

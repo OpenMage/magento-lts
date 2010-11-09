@@ -91,6 +91,9 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             $tracks = $this->getRequest()->getPost('tracking');
             if ($tracks) {
                 foreach ($tracks as $data) {
+                    if (empty($data['number'])) {
+                        Mage::throwException($this->__('Tracking number cannot be empty.'));
+                    }
                     $track = Mage::getModel('sales/order_shipment_track')
                         ->addData($data);
                     $shipment->addTrack($track);
@@ -184,7 +187,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
                 $comment = '';
                 if (!empty($data['comment_text'])) {
-                    $shipment->addComment($data['comment_text'], isset($data['comment_customer_notify']));
+                    $shipment->addComment($data['comment_text'], isset($data['comment_customer_notify']), isset($data['is_visible_on_front']));
                     if (isset($data['comment_customer_notify'])) {
                         $comment = $data['comment_text'];
                     }
@@ -380,12 +383,12 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 Mage::throwException($this->__('Comment text field cannot be empty.'));
             }
             $shipment = $this->_initShipment();
-            $shipment->addComment($data['comment'], isset($data['is_customer_notified']));
+            $shipment->addComment($data['comment'], isset($data['is_customer_notified']), isset($data['is_visible_on_front']));
             $shipment->sendUpdateEmail(!empty($data['is_customer_notified']), $data['comment']);
             $shipment->_hasDataChanges = true;
             $shipment->save();
 
-            $this->loadLayout();
+            $this->loadLayout(false);
             $response = $this->getLayout()->getBlock('shipment_comments')->toHtml();
         } catch (Mage_Core_Exception $e) {
             $response = array(

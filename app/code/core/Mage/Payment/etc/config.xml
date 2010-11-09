@@ -77,11 +77,16 @@
                         <name>Discover</name>
                         <order>30</order>
                     </DI>
-                    <SS>
-                        <code>SS</code>
-                        <name>Maestro/Solo</name>
+                    <SM>
+                        <code>SM</code>
+                        <name>Maestro/Switch</name>
                         <order>40</order>
-                    </SS>
+                    </SM>
+                    <SO>
+                        <code>SO</code>
+                        <name>Solo</name>
+                        <order>45</order>
+                    </SO>
                     <JCB>
                         <code>JCB</code>
                         <name>JCB</name>

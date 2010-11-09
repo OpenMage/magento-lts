@@ -15,40 +15,15 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Controller.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Controller.php 20967 2010-02-07 18:17:49Z ralph $
  */
-
-/**
- * @see Zend_Tool_Project_Provider_Abstract
- */
-#require_once 'Zend/Tool/Project/Provider/Abstract.php';
-
-/**
- * @see Zend_Tool_Framework_Registry
- */
-#require_once 'Zend/Tool/Framework/Registry.php';
-
-/**
- * @see Zend_Tool_Project_Provider_View
- */
-#require_once 'Zend/Tool/Project/Provider/View.php';
-
-/**
- * @see Zend_Tool_Project_Provider_Exception
- */
-#require_once 'Zend/Tool/Project/Provider/Exception.php';
-
-/**
- * @see Zend_Tool_Framework_Provider_Pretendable
- */
-#require_once 'Zend/Tool/Framework/Provider/Pretendable.php';
 
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Provider_Controller
@@ -81,7 +56,10 @@ class Zend_Tool_Project_Provider_Controller
             throw new Zend_Tool_Project_Provider_Exception($exceptionMessage);
         }
 
-        $newController = $controllersDirectory->createResource('controllerFile', array('controllerName' => $controllerName));
+        $newController = $controllersDirectory->createResource(
+            'controllerFile', 
+            array('controllerName' => $controllerName, 'moduleName' => $moduleName)
+            );
 
         return $newController;
     }
@@ -125,9 +103,9 @@ class Zend_Tool_Project_Provider_Controller
     }
 
     /**
-     * Enter description here...
+     * Create a new controller
      *
-     * @param string $name The name of the controller to create.
+     * @param string $name The name of the controller to create, in camelCase.
      * @param bool $indexActionIncluded Whether or not to create the index action.
      */
     public function create($name, $indexActionIncluded = true, $module = null)
@@ -142,6 +120,18 @@ class Zend_Tool_Project_Provider_Controller
             throw new Zend_Tool_Project_Provider_Exception('This project already has a controller named ' . $name);
         }
 
+        // Check that there is not a dash or underscore, return if doesnt match regex
+        if (preg_match('#[_-]#', $name)) {
+            throw new Zend_Tool_Project_Provider_Exception('Controller names should be camel cased.');
+        }
+        
+        $originalName = $name;
+        $name = ucfirst($name);
+        
+        // get request & response
+        $request = $this->_registry->getRequest();
+        $response = $this->_registry->getResponse();
+        
         try {
             $controllerResource = self::createResource($this->_loadedProfile, $name, $module);
             if ($indexActionIncluded) {
@@ -153,39 +143,50 @@ class Zend_Tool_Project_Provider_Controller
             }
 
         } catch (Exception $e) {
-            $response = $this->_registry->getResponse();
             $response->setException($e);
             return;
         }
 
+        // determime if we need to note to the user about the name
+        if (($name !== $originalName)) {
+            $tense = (($request->isPretend()) ? 'would be' : 'is');
+            $response->appendContent(
+                'Note: The canonical controller name that ' . $tense
+                    . ' used with other providers is "' . $name . '";'
+                    . ' not "' . $originalName . '" as supplied',
+                array('color' => array('yellow'))
+                );
+            unset($tense);
+        }
+        
         // do the creation
-        if ($this->_registry->getRequest()->isPretend()) {
-
-            $this->_registry->getResponse()->appendContent('Would create a controller at '  . $controllerResource->getContext()->getPath());
+        if ($request->isPretend()) {
+            
+            $response->appendContent('Would create a controller at '  . $controllerResource->getContext()->getPath());
 
             if (isset($indexActionResource)) {
-                $this->_registry->getResponse()->appendContent('Would create an index action method in controller ' . $name);
-                $this->_registry->getResponse()->appendContent('Would create a view script for the index action method at ' . $indexActionViewResource->getContext()->getPath());
+                $response->appendContent('Would create an index action method in controller ' . $name);
+                $response->appendContent('Would create a view script for the index action method at ' . $indexActionViewResource->getContext()->getPath());
             }
-
+            
             if ($testControllerResource) {
-                $this->_registry->getResponse()->appendContent('Would create a controller test file at ' . $testControllerResource->getContext()->getPath());
+                $response->appendContent('Would create a controller test file at ' . $testControllerResource->getContext()->getPath());
             }
 
         } else {
 
-            $this->_registry->getResponse()->appendContent('Creating a controller at ' . $controllerResource->getContext()->getPath());
+            $response->appendContent('Creating a controller at ' . $controllerResource->getContext()->getPath());
             $controllerResource->create();
 
             if (isset($indexActionResource)) {
-                $this->_registry->getResponse()->appendContent('Creating an index action method in controller ' . $name);
+                $response->appendContent('Creating an index action method in controller ' . $name);
                 $indexActionResource->create();
-                $this->_registry->getResponse()->appendContent('Creating a view script for the index action method at ' . $indexActionViewResource->getContext()->getPath());
+                $response->appendContent('Creating a view script for the index action method at ' . $indexActionViewResource->getContext()->getPath());
                 $indexActionViewResource->create();
             }
 
             if ($testControllerResource) {
-                $this->_registry->getResponse()->appendContent('Creating a controller test file at ' . $testControllerResource->getContext()->getPath());
+                $response->appendContent('Creating a controller test file at ' . $testControllerResource->getContext()->getPath());
                 $testControllerResource->create();
             }
 

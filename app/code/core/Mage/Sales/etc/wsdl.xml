@@ -72,6 +72,8 @@
                     <element name="customer_is_guest" type="xsd:string" minOccurs="0" />
                     <element name="email_sent" type="xsd:string" minOccurs="0" />
                     <element name="order_id" type="xsd:string" minOccurs="0" />
+                    <element name="gift_message_id" type="xsd:string" minOccurs="0" />
+                    <element name="gift_message" type="xsd:string" minOccurs="0" />
                     <element name="shipping_address" type="typens:salesOrderAddressEntity" minOccurs="0" />
                     <element name="billing_address" type="typens:salesOrderAddressEntity" minOccurs="0" />
                     <element name="items" type="typens:salesOrderItemEntityArray" minOccurs="0" />
@@ -153,6 +155,8 @@
                     <element name="row_invoiced" type="xsd:string" minOccurs="0" />
                     <element name="base_row_invoiced" type="xsd:string" minOccurs="0" />
                     <element name="row_weight" type="xsd:string" minOccurs="0" />
+                    <element name="gift_message_id" type="xsd:string" minOccurs="0" />
+                    <element name="gift_message" type="xsd:string" minOccurs="0" />
                     <element name="gift_message_available" type="xsd:string" minOccurs="0" />
                     <element name="base_tax_before_discount" type="xsd:string" minOccurs="0" />
                     <element name="tax_before_discount" type="xsd:string" minOccurs="0" />
@@ -220,6 +224,7 @@
                     <element name="is_active" type="xsd:string" minOccurs="0" />
                     <element name="is_customer_notified" type="xsd:string" minOccurs="0" />
                     <element name="status" type="xsd:string" minOccurs="0" />
+                    <element name="comment" type="xsd:string" minOccurs="0" />
                 </all>
             </complexType>
             <complexType name="salesOrderStatusHistoryEntityArray">

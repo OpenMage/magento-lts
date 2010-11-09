@@ -213,6 +213,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if ($clear) {
             $messages = clone $this->getData('messages');
             $this->getData('messages')->clear();
+            Mage::dispatchEvent('core_session_abstract_clear_messages');
             return $messages;
         }
         return $this->getData('messages');
@@ -248,6 +249,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     public function addMessage(Mage_Core_Model_Message_Abstract $message)
     {
         $this->getMessages()->add($message);
+        Mage::dispatchEvent('core_session_abstract_add_message');
         return $this;
     }
 
@@ -325,7 +327,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     {
         if (is_null($id) && $this->useSid()) {
             $_queryParam = $this->getSessionIdQueryParam();
-            if (isset($_GET[$_queryParam])) {
+            if (isset($_GET[$_queryParam]) && Mage::getSingleton('core/url')->isOwnOriginUrl()) {
                 $id = $_GET[$_queryParam];
                 /**
                  * No reason use crypt key for session

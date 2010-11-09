@@ -40,6 +40,10 @@
             <?php if($this->getCouponCode()): ?>
                 <p><strong><?php echo $this->getCouponCode() ?></strong> [<a href="#" onclick="order.applyCoupon(''); return false;" title="<?php echo Mage::helper('sales')->__('Remove Coupon Code') ?>"><?php echo Mage::helper('sales')->__('Remove') ?></a>]</p>
             <?php endif; ?>
+            <script type="text/javascript">
+                order.overlay('shipping-method-overlay', <?php if ($this->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif; ?>);
+                order.overlay('address-shipping-overlay', <?php if ($this->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif; ?>);
+            </script>
         </div>
     </fieldset>
 </div>

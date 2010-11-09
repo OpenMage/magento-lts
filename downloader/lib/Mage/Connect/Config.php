@@ -1,5 +1,28 @@
 <?php
-
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Connect
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
 class Mage_Connect_Config
 implements Iterator
 {
@@ -9,11 +32,12 @@ implements Iterator
     const DEFAULT_DOWNLOADER_PATH = "downloader";
     const DEFAULT_CACHE_PATH = ".cache";
 
+    protected $defaultProperties = array();
     protected $properties = array();
 
     protected function initProperties()
     {
-        $this->properties = array (
+        $this->defaultProperties = array (
            'php_ini' => array(
                 'type' => 'file',
                 'value' => '',
@@ -34,6 +58,13 @@ implements Iterator
                 'prompt' => 'preferred package state',
                 'doc' => 'preferred package state',
                 'rules' => array('beta','alpha','stable','devel')
+        ),
+           'use_custom_permissions_mode'  => array (
+                'type' => 'bool',
+                'value' => false,
+                'prompt' => 'Use custom permissions for directory and file creation',
+                'doc' => 'Use custom permissions for directory and file creation',
+                'possible' => 'true, false',
         ),
            'global_dir_mode' => array (
                 'type' => 'octal',
@@ -65,8 +96,7 @@ implements Iterator
         ),
             'root_channel_uri' => array(
                 'type' => 'string',
-//                'value' => 'http://connect20.magentocommerce.com/',
-                'value' => 'http://connect.kiev-dev/',
+                'value' => 'connect20.magentocommerce.com/',
                 'prompt' => '',
                 'doc' => "",
                 'possible' => '',
@@ -84,29 +114,26 @@ implements Iterator
                 'prompt' => '',
                 'doc' => "",
                 'possible' => 'ftp://name:password@host.com:port/path/to/folder/',
-        ),
-        
-        );
-
+        ));
+        $this->properties = $this->defaultProperties;
     }
-    
+
     public function getDownloaderPath()
     {
         return $this->magento_root . DIRECTORY_SEPARATOR . $this->downloader_path;
     }
-    
+
     public function getPackagesCacheDir()
     {
-        return $this->getDownloaderPath() . DIRECTORY_SEPARATOR . self::DEFAULT_CACHE_PATH;        
+        return $this->getDownloaderPath() . DIRECTORY_SEPARATOR . self::DEFAULT_CACHE_PATH;
     }
-    
+
     public function getChannelCacheDir($channel)
     {
         $channel = trim( $channel, "\\/");
-        return $this->getPackagesCacheDir(). DIRECTORY_SEPARATOR . $channel; 
+        return $this->getPackagesCacheDir(). DIRECTORY_SEPARATOR . $channel;
     }
-    
-    
+
     public function __construct($configFile = "connect.cfg")
     {
         $this->initProperties();
@@ -118,7 +145,7 @@ implements Iterator
     {
         return $this->_configFile;
     }
-    
+
     public function load()
     {
         $this->_configLoaded=false;
@@ -185,7 +212,6 @@ implements Iterator
         }
     }
 
-
     public function validate($key, $val)
     {
         $rules = $this->extractField($key, 'rules');
@@ -222,7 +248,6 @@ implements Iterator
         return $this->extractField($key, 'doc');
     }
 
-
     public function extractField($key, $field)
     {
         if(!isset($this->properties[$key][$field])) {
@@ -230,7 +255,6 @@ implements Iterator
         }
         return $this->properties[$key][$field];
     }
-
 
     public function hasKey($fld)
     {
@@ -298,4 +322,18 @@ implements Iterator
         return $out;
     }
 
+    /**
+    * Return default config value by key
+    *
+    * @param string $key
+    * @return mixed
+    */
+    public function getDefaultValue($key)
+    {
+        if (isset($this->defaultProperties[$key]['value'])) {
+            return $this->defaultProperties[$key]['value'];
+        }
+        return false;
+    }
 }
+

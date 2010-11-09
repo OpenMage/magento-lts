@@ -32,7 +32,6 @@
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 
 <div class="billing-agreements">
-    <div class="info-box" style="border:0">
     <?php $billingAgreements = $this->getBillingAgreements(); ?>
     <?php if (count($billingAgreements) > 0): ?>
         <?php echo $this->getChildHtml('pager'); ?>
@@ -70,7 +69,6 @@
     <?php else: ?>
         <p><?php echo $this->__('There are no billing agreements yet.')?></p>
     <?php endif; ?>
-    </div>
 
     <?php $paymentMethods = $this->getWizardPaymentMethodOptions() ?>
     <?php if ($paymentMethods): ?>

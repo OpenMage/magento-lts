@@ -28,7 +28,7 @@
     <h1><?php echo $this->__('Your order has been received') ?></h1>
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-<p><strong><?php echo $this->__('Thank you for your purchase!') ?></strong></p>
+<h2 class="sub-title"><?php echo $this->__('Thank you for your purchase!') ?></h2>
 
 <?php if ($this->getOrderId()):?>
 <?php if ($this->getCanViewOrder()) :?>
@@ -51,7 +51,7 @@
 
 <?php if ($profiles = $this->getRecurringProfiles()):?>
 <p><?php echo $this->__('Your recurring payment profiles:'); ?></p>
-<ul>
+<ul class="disc">
 <?php foreach($profiles as $profile):?>
 <?php $profileIdHtml = ($this->getCanViewProfiles() ? sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getProfileUrl($profile)), $this->escapeHtml($this->getObjectData($profile, 'reference_id'))) : $this->escapeHtml($this->getObjectData($profile, 'reference_id')));?>
     <li><?php echo $this->__('Payment profile # %s: "%s".', $profileIdHtml, $this->escapeHtml($this->getObjectData($profile, 'schedule_description')))?></li>

@@ -29,7 +29,7 @@
  * Prepares localization data for calendar
  *
  * @category   Mage
- * @package    Mage
+ * @package    Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template

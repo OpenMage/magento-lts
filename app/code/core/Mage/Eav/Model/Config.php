@@ -353,7 +353,7 @@ class Mage_Eav_Model_Config
         }
         Varien_Profiler::start('EAV: '.__METHOD__);
 
-        $attributesInfo = Mage::getResourceModel('eav/entity_attribute_collection')
+        $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection())
             ->setEntityTypeFilter($entityType)
 //            ->addSetInfo()
             ->getData();
@@ -473,7 +473,7 @@ class Mage_Eav_Model_Config
 
         if ($attributeSetId) {
 
-            $attributesInfo = Mage::getResourceModel('eav/entity_attribute_collection')
+            $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection())
                 ->setEntityTypeFilter($entityType)
                 ->setAttributeSetFilter($attributeSetId)
 //                ->addSetInfo()
@@ -523,7 +523,7 @@ class Mage_Eav_Model_Config
         }
         Varien_Profiler::start('EAV: '.__METHOD__ . ':'.$entityTypeCode);
 
-        $attributesInfo = Mage::getResourceModel('eav/entity_attribute_collection')
+        $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection())
             ->setEntityTypeFilter($entityType)
             ->setCodeFilter($attributes)
 //            ->addSetInfo()

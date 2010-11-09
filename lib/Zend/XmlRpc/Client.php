@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Client
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Client.php 17759 2009-08-22 21:26:21Z lars $
+ * @version    $Id: Client.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -71,7 +71,7 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Client
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_XmlRpc_Client
@@ -329,18 +329,28 @@ class Zend_XmlRpc_Client
                     Zend_XmlRpc_Value::XMLRPC_TYPE_STRING,
                     Zend_XmlRpc_Value::XMLRPC_TYPE_STRUCT,
                 );
-                $params = (array)$params;
+
+                if (!is_array($params)) {
+                    $params = array($params);
+                }
                 foreach ($params as $key => $param) {
+
+                    if ($param instanceof Zend_XmlRpc_Value) {
+                        continue;
+                    }
+
                     $type = Zend_XmlRpc_Value::AUTO_DETECT_TYPE;
                     foreach ($signatures as $signature) {
                         if (!is_array($signature)) {
                             continue;
                         }
+
                         if (isset($signature['parameters'][$key])) {
                             $type = $signature['parameters'][$key];
                             $type = in_array($type, $validTypes) ? $type : Zend_XmlRpc_Value::AUTO_DETECT_TYPE;
                         }
                     }
+
                     $params[$key] = Zend_XmlRpc_Value::getXmlRpcValue($param, $type);
                 }
             }

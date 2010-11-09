@@ -104,6 +104,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'REFUNDTRANSACTIONID' => 'refund_transaction_id',
         'COMPLETETYPE'    => 'complete_type',
         'AMT' => 'amount',
+        'ITEMAMT' => 'subtotal_amount',
         'GROSSREFUNDAMT' => 'refunded_amount', // possible mistake, check with API reference
 
         // payment/billing info
@@ -186,6 +187,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected $_exportToRequestFilters = array(
         'AMT'         => '_filterAmount',
+        'ITEMAMT'     => '_filterAmount',
         'TRIALAMT'    => '_filterAmount',
         'SHIPPINGAMT' => '_filterAmount',
         'TAXAMT'      => '_filterAmount',
@@ -220,7 +222,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'PAYMENTACTION', 'AMT', 'CURRENCYCODE', 'RETURNURL', 'CANCELURL', 'INVNUM', 'SOLUTIONTYPE', 'NOSHIPPING',
         'GIROPAYCANCELURL', 'GIROPAYSUCCESSURL', 'BANKTXNPENDINGURL',
         'PAGESTYLE', 'HDRIMG', 'HDRBORDERCOLOR', 'HDRBACKCOLOR', 'PAYFLOWCOLOR', 'LOCALECODE',
-        'BILLINGTYPE', 'SUBJECT',
+        'BILLINGTYPE', 'SUBJECT', 'ITEMAMT', 'SHIPPINGAMT', 'TAXAMT',
     );
     protected $_setExpressCheckoutResponse = array('TOKEN');
 
@@ -236,7 +238,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected $_doExpressCheckoutPaymentRequest = array(
         'TOKEN', 'PAYERID', 'PAYMENTACTION', 'AMT', 'CURRENCYCODE', 'IPADDRESS', 'BUTTONSOURCE', 'NOTIFYURL',
-        'RETURNFMFDETAILS', 'SUBJECT',
+        'RETURNFMFDETAILS', 'SUBJECT', 'ITEMAMT', 'SHIPPINGAMT', 'TAXAMT',
     );
     protected $_doExpressCheckoutPaymentResponse = array(
         'TRANSACTIONID', 'AMT', 'PAYMENTSTATUS', 'PENDINGREASON', 'REDIRECTREQUIRED', 'SUCCESSPAGEREDIRECTREQUESTED',
@@ -248,7 +250,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected $_doDirectPaymentRequest = array(
         'PAYMENTACTION', 'IPADDRESS', 'RETURNFMFDETAILS',
-        'AMT', 'CURRENCYCODE', 'INVNUM', 'NOTIFYURL', 'EMAIL', //, 'ITEMAMT', 'SHIPPINGAMT', 'TAXAMT',
+        'AMT', 'CURRENCYCODE', 'INVNUM', 'NOTIFYURL', 'EMAIL', 'ITEMAMT', 'SHIPPINGAMT', 'TAXAMT',
         'CREDITCARDTYPE', 'ACCT', 'EXPDATE', 'CVV2', 'STARTDATE', 'ISSUENUMBER',
         'AUTHSTATUS3DS', 'MPIVENDOR3DS', 'CAVV', 'ECI3DS', 'XID',
     );
@@ -401,11 +403,10 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * Line items export mapping settings
      * @var array
      */
-    protected $_lineItemExportTotals = array(
-        'subtotal' => 'ITEMAMT',
-        'shipping' => 'SHIPPINGAMT',
-        'tax'      => 'TAXAMT',
-        // 'shipping_discount' => 'SHIPPINGDISCOUNT', // currently ignored by API for some reason
+    protected $_lineItemTotalExportMap = array(
+        Mage_Paypal_Model_Cart::TOTAL_SUBTOTAL => 'ITEMAMT',
+        Mage_Paypal_Model_Cart::TOTAL_TAX      => 'TAXAMT',
+        Mage_Paypal_Model_Cart::TOTAL_SHIPPING => 'SHIPPINGAMT',
     );
     protected $_lineItemExportItemsFormat = array(
         'id'     => 'L_NUMBER%d',
@@ -462,7 +463,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      *
      * @var array
      */
-    protected $_doReferenceTransactionRequest = array('REFERENCEID', 'PAYMENTACTION', 'AMT');
+    protected $_doReferenceTransactionRequest = array('REFERENCEID', 'PAYMENTACTION', 'AMT', 'ITEMAMT', 'SHIPPINGAMT', 'TAXAMT',);
     protected $_doReferenceTransactionResponse = array('BILLINGAGREEMENTID', 'TRANSACTIONID');
 
     /**
@@ -544,10 +545,9 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $this->_exportLineItems($request);
 
         // import/suppress shipping address, if any
-        $address = $this->getAddress();
         $options = $this->getShippingOptions();
-        if ($address) {
-            $request = $this->_importAddress($address, $request);
+        if ($this->getAddress()) {
+            $request = $this->_importAddresses($request);
             $request['ADDROVERRIDE'] = 1;
         } elseif ($options && (count($options) < 10)) { // doesn't support more than 10 shipping options
             $request['CALLBACK'] = $this->getShippingOptionsCallbackUrl();
@@ -604,8 +604,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     {
         $request = $this->_exportToRequest($this->_doDirectPaymentRequest);
         $this->_exportLineItems($request);
-        if ($address = $this->getAddress()) {
-            $request = $this->_importAddress($address, $request);
+        if ($this->getAddress()) {
+            $request = $this->_importAddresses($request);
         }
         $response = $this->call(self::DO_DIRECT_PAYMENT, $request);
         $this->_importFromResponse($this->_doDirectPaymentResponse, $response);
@@ -792,25 +792,11 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         try {
             $response = $this->call('ManageRecurringPaymentsProfileStatus', $request);
         } catch (Mage_Core_Exception $e) {
-            // trying to cancel already canceled
-            if (in_array(11556, $this->_callErrors)) {
-                if ('Cancel' === $request['ACTION'] && $this->getIsAlreadyCanceled()) {
-                    return;
-                }
-            }
-            // trying to suspend already suspended +
-            // trying to suspend already canceled
-            elseif (in_array(11557, $this->_callErrors)) {
-                if ('Suspend' === $request['ACTION'] && $this->getIsAlreadySuspended()) {
-                    return;
-                }
-            }
-            // trying to activate already active +
-            // trying to activate already canceled
-            elseif (in_array(11558, $this->_callErrors)) {
-                if ('Reactivate' === $request['ACTION'] && $this->getIsAlreadyActive()) {
-                    return;
-                }
+            if ((in_array(11556, $this->_callErrors) && 'Cancel' === $request['ACTION'])
+                || (in_array(11557, $this->_callErrors) && 'Suspend' === $request['ACTION'])
+                || (in_array(11558, $this->_callErrors) && 'Reactivate' === $request['ACTION'])
+            ) {
+                Mage::throwException(Mage::helper('paypal')->__('Unable to change status. Current status is not correspond to real status.'));
             }
             throw $e;
         }
@@ -1021,6 +1007,22 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     }
 
     /**
+     * NVP doesn't support passing discount total as a separate amount - add it as a line item
+     *
+     * @param array $request
+     * @param int $i
+     * @return true|null
+     */
+    protected function _exportLineItems(array &$request, $i = 0)
+    {
+        if (!$this->_cart) {
+            return;
+        }
+        $this->_cart->isDiscountAsItem(true);
+        return parent::_exportLineItems($request, $i);
+    }
+
+    /**
      * Create billing and shipping addresses basing on response data
      * @param array $data
      */
@@ -1075,7 +1077,23 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     }
 
     /**
+     * Adopt specified request array to be compatible with Paypal
+     * Puerto Rico should be as state of USA and not as a country
+     *
+     * @param array $request
+     */
+    protected function _applyCountryWorkarounds(&$request)
+    {
+        if (isset($request['SHIPTOCOUNTRYCODE']) && $request['SHIPTOCOUNTRYCODE'] == 'PR') {
+            $request['SHIPTOCOUNTRYCODE'] = 'US';
+            $request['SHIPTOSTATE']       = 'PR';
+        }
+    }
+
+    /**
      * Prepare request data basing on provided address
+     *
+     * @deprecated after 1.4.2.0-beta1, use _importAddresses() instead
      *
      * @param Varien_Object $address
      * @param array $to
@@ -1083,19 +1101,35 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected function _importAddress(Varien_Object $address, array $to)
     {
-        $to = Varien_Object_Mapper::accumulateByMap($address, $to, array_flip($this->_billingAddressMap));
-        if ($regionCode = $this->_lookupRegionCodeFromAddress($address)) {
+        $this->setAddress($address);
+        return $this->_importAddresses($to);
+    }
+
+    /**
+     * Prepare request data basing on provided addresses
+     *
+     * @param array $to
+     * @return array
+     */
+    protected function _importAddresses(array $to)
+    {
+        $billingAddress  = ($this->getBillingAddress()) ? $this->getBillingAddress() : $this->getAddress();
+        $shippingAddress = $this->getAddress();
+
+        $to = Varien_Object_Mapper::accumulateByMap($billingAddress, $to, array_flip($this->_billingAddressMap));
+        if ($regionCode = $this->_lookupRegionCodeFromAddress($billingAddress)) {
             $to['STATE'] = $regionCode;
         }
         if (!$this->getSuppressShipping()) {
-            $to = Varien_Object_Mapper::accumulateByMap($address, $to, array_flip($this->_shippingAddressMap));
-            if ($regionCode = $this->_lookupRegionCodeFromAddress($address)) {
+            $to = Varien_Object_Mapper::accumulateByMap($shippingAddress, $to, array_flip($this->_shippingAddressMap));
+            if ($regionCode = $this->_lookupRegionCodeFromAddress($shippingAddress)) {
                 $to['SHIPTOSTATE'] = $regionCode;
             }
-            $this->_importStreetFromAddress($address, $to, 'SHIPTOSTREET', 'SHIPTOSTREET2');
-            $this->_importStreetFromAddress($address, $to, 'STREET', 'STREET2');
-            $to['SHIPTONAME'] = $address->getName();
+            $this->_importStreetFromAddress($shippingAddress, $to, 'SHIPTOSTREET', 'SHIPTOSTREET2');
+            $this->_importStreetFromAddress($billingAddress, $to, 'STREET', 'STREET2');
+            $to['SHIPTONAME'] = $shippingAddress->getName();
         }
+        $this->_applyCountryWorkarounds($to);
         return $to;
     }
 

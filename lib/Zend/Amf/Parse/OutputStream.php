@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage Parse
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: OutputStream.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: OutputStream.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /** Zend_Amf_Util_BinaryStream */
@@ -32,7 +32,7 @@
  * @uses       Zend_Amf_Util_BinaryStream
  * @package    Zend_Amf
  * @subpackage Parse
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Amf_Parse_OutputStream extends Zend_Amf_Util_BinaryStream

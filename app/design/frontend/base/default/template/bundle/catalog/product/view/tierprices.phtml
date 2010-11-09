@@ -33,7 +33,7 @@ $_product = $this->getProduct();
 $_tierPrices = $this->getTierPrices();
 ?>
 <?php if (count($_tierPrices) > 0): ?>
-    <ul class="tier-prices">
+    <ul class="tier-prices product-pricing">
     <?php foreach($_tierPrices as $_price): ?>
         <li><?php echo $this->__('Buy %1$s with %2$s discount each', $_price['price_qty'], '<strong class="benefit">'.($_price['price']*1).'%</strong>') ?></li>
     <?php endforeach ?>

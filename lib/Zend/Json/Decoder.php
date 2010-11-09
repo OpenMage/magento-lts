@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Json
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Decoder.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: Decoder.php 22655 2010-07-22 18:47:20Z mabe $
  */
 
 /**
@@ -29,7 +29,7 @@
  *
  * @category   Zend
  * @package    Zend_Json
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Json_Decoder
@@ -367,19 +367,19 @@ class Zend_Json_Decoder
                                 $result .= '/';
                                 break;
                             case 'b' :
-                                $result .= chr(8);
+                                $result .= "\x08";
                                 break;
                             case 'f' :
-                                $result .= chr(12);
+                                $result .= "\x0c";
                                 break;
                             case 'n' :
-                                $result .= chr(10);
+                                $result .= "\x0a";
                                 break;
                             case 'r' :
-                                $result .= chr(13);
+                                $result .= "\x0d";
                                 break;
                             case 't' :
-                                $result .= chr(9);
+                                $result .= "\x09";
                                 break;
                             case '\'' :
                                 $result .= '\'';

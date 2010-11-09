@@ -88,7 +88,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </links_target_new_window>
-                        <content_disposition translate="lable">
+                        <content_disposition translate="label">
                             <label>Use Content-Disposition</label>
                             <frontend_type>select</frontend_type>
                             <source_model>downloadable/system_config_source_contentdisposition</source_model>

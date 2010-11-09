@@ -109,6 +109,15 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                         rename($path.$uploadFile, $path.$newFilename);
                     }
                 }
+                //BOM deleting for UTF files
+                if (isset($newFilename) && $newFilename) {
+                    $contents = file_get_contents($path.$newFilename);
+                    if (ord($contents[0]) == 0xEF && ord($contents[1]) == 0xBB && ord($contents[2]) == 0xBF) {
+                        $contents = substr($contents, 3);
+                        file_put_contents($path.$newFilename, $contents);
+                    }
+                    unset($contents);
+                }
             }
         }
         parent::_afterSave();

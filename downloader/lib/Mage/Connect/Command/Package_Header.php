@@ -57,6 +57,15 @@ and the other as "package2.xml" in the archive"
 List all dependencies the package has.
 Can take a tgz / tar file, package.xml or a package name of an installed package.'
             ),
+        'package-prepare' => array(
+            'summary' => 'Show installation information of package',
+            'function' => 'doPackagePrepare',
+            'shortcut' => 'pp',
+            'options' => array(),
+            'doc' => '<package-file> or <package.xml> or <install-package-name>
+List all dependencies the package has.
+Can take a tgz / tar file, package.xml or a package name of an installed package.'
+            ),
       'convert' => array(
             'summary' => 'Convert old magento PEAR package to new format',
             'function' => 'doConvert',

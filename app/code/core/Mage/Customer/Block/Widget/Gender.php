@@ -49,7 +49,7 @@ class Mage_Customer_Block_Widget_Gender extends Mage_Customer_Block_Widget_Abstr
      */
     public function isEnabled()
     {
-        return (bool)$this->getConfig('gender_show');
+        return (bool)$this->_getAttribute('gender')->getIsVisible();
     }
 
     /**
@@ -59,7 +59,7 @@ class Mage_Customer_Block_Widget_Gender extends Mage_Customer_Block_Widget_Abstr
      */
     public function isRequired()
     {
-        return 'req' == $this->getConfig('gender_show');
+        return (bool)$this->_getAttribute('gender')->getIsRequired();
     }
 
     /**

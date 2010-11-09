@@ -31,7 +31,7 @@
  * @package    Varien_Data
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Varien_Data_Form_Element_Obscure extends Varien_Data_Form_Element_Text
+class Varien_Data_Form_Element_Obscure extends Varien_Data_Form_Element_Password
 {
     /**
      * @var string
@@ -51,5 +51,15 @@ class Varien_Data_Form_Element_Obscure extends Varien_Data_Form_Element_Text
             return $this->_obscuredValue;
         }
         return $value;
+    }
+
+    /**
+     * Returns list of html attributes possible to output in HTML
+     *
+     * @return array()
+     */
+    public function getHtmlAttributes()
+    {
+        return array('type', 'title', 'class', 'style', 'onclick', 'onchange', 'onkeyup', 'disabled', 'readonly', 'maxlength', 'tabindex');
     }
 }

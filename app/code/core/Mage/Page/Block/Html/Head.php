@@ -466,4 +466,37 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         }
         return $this->_data['includes'];
     }
+
+    /**
+     * Getter for path to Favicon
+     *
+     * @return string
+     */
+    public function getFaviconFile()
+    {
+        if (empty($this->_data['favicon_file'])) {
+            $this->_data['favicon_file'] = $this->_getFaviconFile();
+        }
+        return $this->_data['favicon_file'];
+    }
+
+    /**
+     * Retrieve path to Favicon
+     *
+     * @return string
+     */
+    protected function _getFaviconFile()
+    {
+        $folderName = Mage_Adminhtml_Model_System_Config_Backend_Image_Favicon::UPLOAD_DIR;
+        $storeConfig = Mage::getStoreConfig('design/head/shortcut_icon');
+        $faviconFile = Mage::getBaseUrl('media') . $folderName . '/' . $storeConfig;
+        $absolutePath = Mage::getBaseDir('media') . '/' . $folderName . '/' . $storeConfig;
+
+        if(!is_null($storeConfig) && is_file($absolutePath)) {
+            $url = $faviconFile;
+        } else {
+            $url = $this->getSkinUrl('favicon.ico');
+        }
+        return $url;
+    }
 }

@@ -34,6 +34,17 @@
  */
 class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Abstract
 {
+    /**
+     * Sales Qoute Billing Address instance
+     *
+     * @var Mage_Sales_Model_Quote_Address
+     */
+    protected $_address;
+
+    /**
+     * Initialize billing address step
+     *
+     */
     protected function _construct()
     {
         $this->getCheckout()->setStepData('billing', array(
@@ -56,24 +67,50 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         return true;
     }
 
+    /**
+     * Return country collection
+     *
+     * @return Mage_Directory_Model_Mysql4_Country_Collection
+     */
     public function getCountries()
     {
         return Mage::getResourceModel('directory/country_collection')->loadByStore();
     }
 
+    /**
+     * Return checkout method
+     *
+     * @return string
+     */
     public function getMethod()
     {
         return $this->getQuote()->getCheckoutMethod();
     }
 
-    public function getAddress() {
-        if ($this->isCustomerLoggedIn()) {
-            return $this->getQuote()->getBillingAddress();
-        } else {
-            return Mage::getModel('sales/quote_address');
+    /**
+     * Return Sales Quote Address model
+     *
+     * @return Mage_Sales_Model_Quote_Address
+     */
+    public function getAddress()
+    {
+        if (is_null($this->_address)) {
+            if ($this->isCustomerLoggedIn()) {
+                $this->_address = $this->getQuote()->getBillingAddress();
+            } else {
+                $this->_address = Mage::getModel('sales/quote_address');
+            }
         }
+
+        return $this->_address;
     }
 
+    /**
+     * Return Customer Address First Name
+     * If Sales Quote Address First Name is not defined - return Customer First Name
+     *
+     * @return string
+     */
     public function getFirstname()
     {
         $firstname = $this->getAddress()->getFirstname();
@@ -83,6 +120,12 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         return $firstname;
     }
 
+    /**
+     * Return Customer Address Last Name
+     * If Sales Quote Address Last Name is not defined - return Customer Last Name
+     *
+     * @return string
+     */
     public function getLastname()
     {
         $lastname = $this->getAddress()->getLastname();
@@ -92,6 +135,11 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         return $lastname;
     }
 
+    /**
+     * Check is Quote items can ship to
+     *
+     * @return boolean
+     */
     public function canShip()
     {
         return !$this->getQuote()->isVirtual();
@@ -99,6 +147,5 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
 
     public function getSaveUrl()
     {
-
     }
 }

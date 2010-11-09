@@ -46,7 +46,8 @@ Default layout, loads most of the pages
         <label>CMS Pages (All)</label>
         <reference name="content">
             <block type="core/template" name="page_content_heading" template="cms/content_heading.phtml"/>
-            <block type="page/html_wrapper" name="cms.wrapper">
+            <block type="page/html_wrapper" name="cms.wrapper" translate="label">
+                <label>CMS Content Wrapper</label>
                 <action method="setElementClass"><value>std</value></action>
                 <block type="cms/page" name="cms_page"/>
             </block>

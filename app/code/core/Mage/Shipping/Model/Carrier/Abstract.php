@@ -156,6 +156,10 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         return $this->getConfigData('sort_order');
     }
 
+    /**
+     * @param Mage_Shipping_Model_Rate_Request $request
+     * @return void
+     */
     protected function _updateFreeMethodQuote($request)
     {
         if ($request->getFreeMethodWeight()==$request->getPackageWeight()

@@ -131,13 +131,14 @@ class Varien_File_Uploader
 
     const SINGLE_STYLE = 0;
     const MULTIPLE_STYLE = 1;
+    const TMP_NAME_EMPTY = 666;
 
     function __construct($fileId)
     {
         $this->_setUploadFileId($fileId);
         if( !file_exists($this->_file['tmp_name']) ) {
-            throw new Exception('File was not uploaded.');
-            return;
+            $code = empty($this->_file['tmp_name']) ? self::TMP_NAME_EMPTY : 0;
+            throw new Exception('File was not uploaded.', $code);
         } else {
             $this->_fileExists = true;
         }

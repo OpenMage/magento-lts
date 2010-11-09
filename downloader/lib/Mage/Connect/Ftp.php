@@ -141,12 +141,12 @@ class Mage_Connect_Ftp
      * @param $timeout
      * @return unknown_type
      */
-    public function connect($string, $timeout = 900)
+    public function connect($string, $timeout = 90)
     {
         $params = $this->validateConnectionString($string);
         $port = isset($params['port']) ? intval($params['port']) : 21;
 
-        $this->_conn = ftp_connect($params['host'], $port, $timeout);
+        $this->_conn = @ftp_connect($params['host'], $port, $timeout);
 
         if(!$this->_conn) {
             throw new Exception("Cannot connect to host: {$params['host']}");
@@ -190,7 +190,7 @@ class Mage_Connect_Ftp
     public function put($remoteFile, $localFile, $mode = FTP_BINARY, $startPos = 0)
     {
         $this->checkConnected();
-        return ftp_put($this->_conn, $remoteFile, $localFile, $mode, $startPos);
+        return @ftp_put($this->_conn, $remoteFile, $localFile, $mode, $startPos);
     }
 
 
@@ -490,6 +490,11 @@ class Mage_Connect_Ftp
         return $str;
     }
     
+    /**
+     * Delete file
+     * @param string $file
+     * @return bool
+     */
     public function delete($file)
     {
         $this->checkConnected();
@@ -497,8 +502,16 @@ class Mage_Connect_Ftp
         return @ftp_delete($this->_conn, $file);        
     }
 
-    
-    
-
+    /**
+     * Remove directory
+     * @param string $dir
+     * @return bool
+     */
+    public function rmdir($dir)
+    {
+        $this->checkConnected();
+        $dir = $this->correctFilePath($dir);
+        return @ftp_rmdir($this->_conn, $dir);
+    }
 
 }

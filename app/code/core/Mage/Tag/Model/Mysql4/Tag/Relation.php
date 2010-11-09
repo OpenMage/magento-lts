@@ -83,14 +83,19 @@ class Mage_Tag_Model_Mysql4_Tag_Relation extends Mage_Core_Model_Mysql4_Abstract
     {
         $select = $this->_getReadAdapter()->select()
             ->from($this->getMainTable(), 'product_id')
-            ->where("tag_id=?", $model->getTagId());
+            ->where("{$this->getMainTable()}.tag_id=?", $model->getTagId());
 
         if (!is_null($model->getCustomerId())) {
-            $select->where('customer_id=?', $model->getCustomerId());
+            $select->where("{$this->getMainTable()}.customer_id=?", $model->getCustomerId());
         }
 
         if ($model->hasStoreId()) {
-            $select->where('store_id = ?', $model->getStoreId());
+            $select->where("{$this->getMainTable()}.store_id = ?", $model->getStoreId());
+        }
+
+        if (!is_null($model->getStatusFilter())) {
+            $select->join($this->getTable('tag/tag'), "{$this->getTable('tag/tag')}.tag_id = {$this->getMainTable()}.tag_id")
+                ->where("{$this->getTable('tag/tag')}.status = ?", $model->getStatusFilter());
         }
 
         return $this->_getReadAdapter()->fetchCol($select);
@@ -123,7 +128,7 @@ class Mage_Tag_Model_Mysql4_Tag_Relation extends Mage_Core_Model_Mysql4_Abstract
     {
         $condition = $this->_getWriteAdapter()->quoteInto('tag_id = ?', $tagId) . ' AND ';
         $condition.= $this->_getWriteAdapter()->quoteInto('customer_id = ?', $customerId);
-        $data = array('active'=>0);
+        $data = array('active' => Mage_Tag_Model_Tag_Relation::STATUS_NOT_ACTIVE);
         $this->_getWriteAdapter()->update($this->getMainTable(), $data, $condition);
         return $this;
     }

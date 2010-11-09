@@ -86,6 +86,9 @@ class Mage_Core_Model_Mysql4_Config extends Mage_Core_Model_Mysql4_Abstract
         $stores = array();
         $rows = $read->fetchAssoc("select store_id, code, name, website_id from ".$this->getTable('store')." order by sort_order asc");
         foreach ($rows as $s) {
+            if (!isset($websites[$s['website_id']])) {
+                continue;
+            }
             $xmlConfig->setNode('stores/'.$s['code'].'/system/store/id', $s['store_id']);
             $xmlConfig->setNode('stores/'.$s['code'].'/system/store/name', $s['name']);
             $xmlConfig->setNode('stores/'.$s['code'].'/system/website/id', $s['website_id']);

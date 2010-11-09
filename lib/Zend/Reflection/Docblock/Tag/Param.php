@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Param.php 19062 2009-11-19 21:04:08Z beberlei $
+ * @version    $Id: Param.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /** Zend_Reflection_Docblock_Tag */
@@ -25,7 +25,7 @@
 /**
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Reflection_Docblock_Tag_Param extends Zend_Reflection_Docblock_Tag

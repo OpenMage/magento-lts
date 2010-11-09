@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Frontend
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Function.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Function.php 22654 2010-07-22 18:44:13Z mabe $
  */
 
 
@@ -30,7 +30,7 @@
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Frontend
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Frontend_Function extends Zend_Cache_Core
@@ -72,60 +72,109 @@ class Zend_Cache_Frontend_Function extends Zend_Cache_Core
     /**
      * Main method : call the specified function or get the result from cache
      *
-     * @param  string $name             Function name
-     * @param  array  $parameters       Function parameters
-     * @param  array  $tags             Cache tags
-     * @param  int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
-     * @param  int   $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends
+     * @param  callback $callback         A valid callback
+     * @param  array    $parameters       Function parameters
+     * @param  array    $tags             Cache tags
+     * @param  int      $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
+     * @param  int      $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends
      * @return mixed Result
      */
-    public function call($name, $parameters = array(), $tags = array(), $specificLifetime = false, $priority = 8)
+    public function call($callback, array $parameters = array(), $tags = array(), $specificLifetime = false, $priority = 8)
     {
+        if (!is_callable($callback, true, $name)) {
+            Zend_Cache::throwException('Invalid callback');
+        }
+
         $cacheBool1 = $this->_specificOptions['cache_by_default'];
         $cacheBool2 = in_array($name, $this->_specificOptions['cached_functions']);
         $cacheBool3 = in_array($name, $this->_specificOptions['non_cached_functions']);
         $cache = (($cacheBool1 || $cacheBool2) && (!$cacheBool3));
         if (!$cache) {
-            // We do not have not cache
-            return call_user_func_array($name, $parameters);
+            // Caching of this callback is disabled
+            return call_user_func_array($callback, $parameters);
         }
-        $id = $this->_makeId($name, $parameters);
-        if ($this->test($id)) {
+
+        $id = $this->_makeId($callback, $parameters);
+        if ( ($rs = $this->load($id)) && isset($rs[0], $rs[1])) {
             // A cache is available
-            $result = $this->load($id);
-            $output = $result[0];
-            $return = $result[1];
+            $output = $rs[0];
+            $return = $rs[1];
         } else {
-            // A cache is not available
+            // A cache is not available (or not valid for this frontend)
             ob_start();
             ob_implicit_flush(false);
-            $return = call_user_func_array($name, $parameters);
+            $return = call_user_func_array($callback, $parameters);
             $output = ob_get_contents();
             ob_end_clean();
             $data = array($output, $return);
             $this->save($data, $id, $tags, $specificLifetime, $priority);
         }
+
         echo $output;
         return $return;
     }
 
     /**
+     * ZF-9970
+     *
+     * @deprecated
+     */
+    private function _makeId($callback, array $args)
+    {
+        return $this->makeId($callback, $args);
+    }
+
+    /**
      * Make a cache id from the function name and parameters
      *
-     * @param  string $name       Function name
-     * @param  array  $parameters Function parameters
+     * @param  callback $callback A valid callback
+     * @param  array    $args     Function parameters
      * @throws Zend_Cache_Exception
      * @return string Cache id
      */
-    private function _makeId($name, $parameters)
+    public function makeId($callback, array $args = array())
     {
-        if (!is_string($name)) {
-            Zend_Cache::throwException('Incorrect function name');
+        if (!is_callable($callback, true, $name)) {
+            Zend_Cache::throwException('Invalid callback');
         }
-        if (!is_array($parameters)) {
-            Zend_Cache::throwException('parameters argument must be an array');
+
+        // functions, methods and classnames are case-insensitive
+        $name = strtolower($name);
+
+        // generate a unique id for object callbacks
+        if (is_object($callback)) { // Closures & __invoke
+            $object = $callback;
+        } elseif (isset($callback[0])) { // array($object, 'method')
+            $object = $callback[0];
         }
-        return md5($name . serialize($parameters));
+        if (isset($object)) {
+            try {
+                $tmp = @serialize($callback);
+            } catch (Exception $e) {
+                Zend_Cache::throwException($e->getMessage());
+            }
+            if (!$tmp) {
+                $lastErr = error_get_last();
+                Zend_Cache::throwException("Can't serialize callback object to generate id: {$lastErr['message']}");
+            }
+            $name.= '__' . $tmp;
+        }
+
+        // generate a unique id for arguments
+        $argsStr = '';
+        if ($args) {
+            try {
+                $argsStr = @serialize(array_values($args));
+            } catch (Exception $e) {
+                Zend_Cache::throwException($e->getMessage());
+            }
+            if (!$argsStr) {
+                $lastErr = error_get_last();
+                throw Zend_Cache::throwException("Can't serialize arguments to generate id: {$lastErr['message']}");
+            }
+        }
+
+        return md5($name . $argsStr);
     }
 
 }

@@ -14,21 +14,23 @@
  *
  * @category   Zend
  * @package    Zend_Test
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @subpackage PHPUnit
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Exception.php 16874 2009-07-20 12:46:00Z mikaelkael $
+ * @version    $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-/** PHPUnit_Framework_ExpectationFailedException */
+/** @see PHPUnit_Framework_ExpectationFailedException */
 #require_once 'PHPUnit/Framework/ExpectationFailedException.php';
 
 /**
  * Zend_Test_PHPUnit_Constraint_Exception
  *
  * @uses       PHPUnit_Framework_ExpectationFailedException
+ * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Test_PHPUnit_Constraint_Exception extends PHPUnit_Framework_ExpectationFailedException

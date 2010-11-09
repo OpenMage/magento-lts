@@ -26,7 +26,6 @@
 ?>
 <?php $_item = $this->getItem()?>
 <tr>
-    <td class="a-center"><a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove Item')?>" class="btn-remove2"><?php echo $this->__('Remove Item') ?></a></td>
     <td><a href="<?php echo $this->getProductUrl() ?>" class="product-image" title="<?php echo $this->htmlEscape($this->getProductName()) ?>"><img src="<?php echo $this->getProductThumbnail()->resize(75); ?>" alt="<?php echo $this->htmlEscape($this->getProductName()) ?>" /></a></td>
     <td>
         <h2 class="product-name"><a href="<?php echo $this->getProductUrl() ?>"><?php echo $this->htmlEscape($this->getProductName()) ?></a></h2>
@@ -245,4 +244,5 @@
         <?php endif; ?>
     </td>
     <?php endif; ?>
+    <td class="a-center"><a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove Item')?>" class="btn-remove btn-remove2"><?php echo $this->__('Remove Item') ?></a></td>
 </tr>

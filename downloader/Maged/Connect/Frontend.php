@@ -80,24 +80,24 @@ class Maged_Connect_Frontend extends Mage_Connect_Frontend
 
         if ('stdout'===$this->_logStream) {
             if (is_string($data)) {
-                echo $data."<br/>";
+                echo $data."<br/>".str_repeat(" ", 256);
             } elseif (is_array($data)) {
                 $data = array_pop($data);
                 if (!empty($data['message']) && is_string($data['message'])) {
-                    echo $data['message']."<br/>";
+                    echo $data['message']."<br/>".str_repeat(" ", 256);
                 } elseif (!empty($data['data'])) {
                     if (is_string($data['data'])) {
-                        echo $data['data']."<br/>";
+                        echo $data['data']."<br/>".str_repeat(" ", 256);
                     } else {
                         if (isset($data['title'])) {
-                            echo $data['title']."<br/>";
+                            echo $data['title']."<br/>".str_repeat(" ", 256);
                         }
                         if (is_array($data['data'])) {
                             foreach ($data['data'] as $row) {
                                 foreach ($row as $msg) {
                                     echo "&nbsp;".$msg;
                                 }
-                                echo "<br/>";
+                                echo "<br/>".str_repeat(" ", 256);
                             }
                         } else {
                             echo "&nbsp;".$data['data'];

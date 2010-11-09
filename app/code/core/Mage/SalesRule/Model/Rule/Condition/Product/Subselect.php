@@ -67,7 +67,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect
         $hlp = Mage::helper('salesrule');
         $this->setAttributeOption(array(
             'qty'  => $hlp->__('total quantity'),
-            'row_total'  => $hlp->__('total amount'),
+            'base_row_total'  => $hlp->__('total amount'),
         ));
         return $this;
     }

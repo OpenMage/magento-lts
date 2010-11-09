@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Array.php 18701 2009-10-26 13:03:47Z matthew $
+ * @version    $Id: Array.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -31,7 +31,7 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Queue_Adapter_Array extends Zend_Queue_Adapter_AdapterAbstract
@@ -243,6 +243,7 @@ class Zend_Queue_Adapter_Array extends Zend_Queue_Adapter_AdapterAbstract
                     $data[] = $msg;
                     $count++;
                 }
+
             }
         }
 

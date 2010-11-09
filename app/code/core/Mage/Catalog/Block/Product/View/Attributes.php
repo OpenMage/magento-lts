@@ -59,21 +59,25 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
         foreach ($attributes as $attribute) {
 //            if ($attribute->getIsVisibleOnFront() && $attribute->getIsUserDefined() && !in_array($attribute->getAttributeCode(), $excludeAttr)) {
             if ($attribute->getIsVisibleOnFront() && !in_array($attribute->getAttributeCode(), $excludeAttr)) {
-
                 $value = $attribute->getFrontend()->getValue($product);
 
+                if (!$product->hasData($attribute->getAttributeCode())) {
+                    $value = Mage::helper('catalog')->__('N/A');
+                }
+                elseif ((string)$value == '') {
+                    $value = Mage::helper('catalog')->__('No');
+                }
+
                 // TODO this is temporary skipping eco taxes
-                if (is_string($value)) {
-                    if (strlen($value) && $product->hasData($attribute->getAttributeCode())) {
-                        if ($attribute->getFrontendInput() == 'price') {
-                            $value = Mage::app()->getStore()->convertPrice($value,true);
-                        }
-                        $data[$attribute->getAttributeCode()] = array(
-                           'label' => $attribute->getStoreLabel(),
-                           'value' => $value,
-                           'code'  => $attribute->getAttributeCode()
-                        );
+                if (is_string($value) && strlen($value)) {
+                    if ($attribute->getFrontendInput() == 'price') {
+                        $value = Mage::app()->getStore()->convertPrice($value,true);
                     }
+                    $data[$attribute->getAttributeCode()] = array(
+                        'label' => $attribute->getStoreLabel(),
+                        'value' => $value,
+                        'code'  => $attribute->getAttributeCode()
+                    );
                 }
             }
         }

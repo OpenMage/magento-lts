@@ -25,6 +25,7 @@
  */
 if($this->getIsShipping()):
     $_fieldsContainerId = 'order-shipping_address_fields';
+    $_addressChoiceContainerId = 'order-shipping_address_choice';
     ?>
     <script type="text/javascript">
     order.shippingAddressContainer = '<?php echo $_fieldsContainerId ?>';
@@ -33,6 +34,7 @@ if($this->getIsShipping()):
     <?php
 else:
     $_fieldsContainerId = 'order-billing_address_fields';
+    $_addressChoiceContainerId = 'order-billing_address_choice';
     ?>
     <script type="text/javascript">
     order.billingAddressContainer = '<?php echo $_fieldsContainerId ?>';
@@ -46,7 +48,7 @@ endif; ?>
      </div>
 
     <fieldset class="np">
-    <div class="order-choose-address">
+    <div id = "<?php echo $_addressChoiceContainerId ?>" class="order-choose-address">
         <?php echo Mage::helper('sales')->__('Select from existing customer addresses:') ?><br/>
         <?php $_id = $this->getForm()->getHtmlIdPrefix() . 'customer_address_id' ?>
         <select id="<?php echo $_id ?>"  name="<?php echo $this->getForm()->getHtmlNamePrefix()?>[customer_address_id]" style="width:97.5%;" onchange="order.selectAddress(this, '<?php echo $_fieldsContainerId ?>')">
@@ -81,7 +83,8 @@ endif; ?>
     <?php $hideElement = 'address-' . ($this->getIsShipping() ? 'shipping' : 'billing') . '-overlay'; ?>
     <div style="display:none;" id="<?php echo $hideElement ?>" class="overlay"><span><?php echo $this->__('Shipping address selection is not applicable') ?></span></div>
     <script type="text/javascript">
-        order.bindAddressFields('<?php echo $_fieldsContainerId ?>')
+        order.bindAddressFields('<?php echo $_fieldsContainerId ?>');
+        order.bindAddressFields('<?php echo $_addressChoiceContainerId ?>');
         <?php if($this->getIsShipping() && $this->getIsAsBilling()): ?>
         order.disableShippingAddress(true);
         <?php endif; ?>

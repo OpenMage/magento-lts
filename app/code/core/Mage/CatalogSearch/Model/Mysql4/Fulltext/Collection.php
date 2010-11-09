@@ -77,4 +77,14 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext_Collection
         }
         return $this;
     }
+
+    /**
+     * Stub method for campatibility with other search engines
+     *
+     * @return Mage_CatalogSearch_Model_Mysql4_Fulltext_Collection
+     */
+    public function setGeneralDefaultQuery()
+    {
+        return $this;
+    }
 }

@@ -156,7 +156,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
     {
         $select = $this->_getAdapter()->select()
             ->from($this->_getDataTable(), 'update_time')
-            ->where('id=:cach_id')
+            ->where('id=:cache_id')
             ->where('expire_time=0 OR expire_time>?', time());
         return $this->_getAdapter()->fetchOne($select, array('cache_id'=>$id));
     }
@@ -177,26 +177,24 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
     {
         $adapter    = $this->_getAdapter();
         $dataTable  = $this->_getDataTable();
-        $select = $adapter->select()
-            ->from($dataTable, 'id')
-            //->forUpdate(true)
-            ->where('id=:cache_id');
+
         $lifetime = $this->getLifetime($specificLifetime);
         $time     = time();
         $expire   = ($lifetime === 0 || $lifetime === null) ? 0 : $time+$lifetime;
-        $data = array(
-            'id'            => $id,
-            'data'          => $data,
-            'update_time'   => $time,
-            'expire_time'   => $expire
-        );
-        if ($this->_getAdapter()->fetchOne($select, array('cache_id'=>$id))) {
-            $result = $adapter->update($dataTable, $data, array('id=?'=>$id));
-        } else {
-            $data['create_time'] = $time;
-            $result = $adapter->insert($dataTable, $data);
-        }
 
+        $dataCol    = $adapter->quoteIdentifier('data');
+        $expireCol  = $adapter->quoteIdentifier('expire_time');
+        $query = "INSERT INTO {$dataTable} (
+                {$adapter->quoteIdentifier('id')},
+                {$dataCol},
+                {$adapter->quoteIdentifier('create_time')},
+                {$adapter->quoteIdentifier('update_time')},
+                {$expireCol})
+            VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE
+                {$dataCol}=VALUES({$dataCol}),
+                {$expireCol}=VALUES({$expireCol})";
+
+        $result = $adapter->query($query, array($id, $data, $time, $time, $expire))->rowCount();
         if (!$result) {
             return false;
         }

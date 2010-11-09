@@ -63,7 +63,7 @@ if(!window.toogleRequired) {
             });
         } else {
             objects.each(function(item) {
-                if(shippingMethod && shippingMethod.validator) {
+                if (typeof shippingMethod != 'undefined' && shippingMethod.validator) {
                    shippingMethod.validator.reset(item);
                 }
                 $(item).removeClassName('required-entry');
@@ -90,6 +90,7 @@ billing.onSave = function(evt){
 //]]>
 </script>
 <?php endif ?>
+<?php if ($this->isMessagesAvailable() || $this->isItemsAvailable()): ?>
 <?php switch ($this->getType()): ?>
 <?php case 'onepage_checkout': ?>
     <div class="gift-messages">
@@ -100,7 +101,7 @@ billing.onSave = function(evt){
     </div>
     <div class="gift-messages-form" id="allow-gift-message-container">
         <div class="inner-box">
-            <?php if (Mage::helper('giftmessage/message')->isMessagesAvailable('quote', $this->getEntity())): ?>
+            <?php if ($this->isMessagesAvailable()): ?>
                 <div class="whole-order">
                     <h4><?php echo $this->__('Enter a gift message for entire order.'); ?></h4>
                     <p><?php echo $this->__('You can leave this box blank if you do not wish to add a gift message for whole order.') ?></p>
@@ -204,7 +205,7 @@ billing.onSave = function(evt){
     </div>
     <div class="gift-messages-form" id="allow-gift-message-container-<?php echo $this->getEntity()->getId() ?>">
         <div class="inner-box">
-            <?php if (Mage::helper('giftmessage/message')->isMessagesAvailable('quote', $this->getEntity())): ?>
+            <?php if ($this->isMessagesAvailable()): ?>
                 <div class="whole-order">
                     <h4><?php echo $this->__('Enter a gift message for this address.'); ?></h4>
                     <p><?php echo $this->__('You can leave this box blank if you do not wish to add a gift message for this address.') ?></p>
@@ -297,3 +298,4 @@ billing.onSave = function(evt){
     </script>
     <?php break; ?>
 <?php endswitch ?>
+<?php endif; ?>

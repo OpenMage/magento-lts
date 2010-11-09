@@ -95,6 +95,11 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                             $value = null;
                         }
                         $attributesData[$attributeCode] = $value;
+                    } else if ($attribute->getFrontendInput() == 'multiselect') {
+                        if (is_array($value)) {
+                            $value = implode(',', $value);
+                        }
+                        $attributesData[$attributeCode] = $value;
                     }
                 }
 

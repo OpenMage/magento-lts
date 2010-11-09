@@ -15,10 +15,15 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Abstract.php 20967 2010-02-07 18:17:49Z ralph $
  */
+
+/**
+ * @see Zend_Loader_Autoloader
+ */
+#require_once 'Zend/Loader/Autoloader.php';
 
 /**
  * @see Zend_Tool_Framework_Registry_EnabledInterface
@@ -26,15 +31,9 @@
 #require_once 'Zend/Tool/Framework/Registry/EnabledInterface.php';
 
 /**
- * @see Zend_Tool_Framework_Registry
- */
-#require_once 'Zend/Tool/Framework/Registry.php';
-
-
-/**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framework_Registry_EnabledInterface
@@ -62,6 +61,16 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
 
     public function __construct($options = array())
     {
+        // require autoloader 
+        Zend_Loader_Autoloader::getInstance();
+
+        // this might look goofy, but this is setting up the
+        // registry for dependency injection into the client
+        $registry = new Zend_Tool_Framework_Registry();
+        $registry->setClient($this);
+
+        // NOTE: at this moment, $this->_registry should contain the registry object
+        
         if ($options) {
             $this->setOptions($options);
         }
@@ -96,17 +105,12 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
             return;
         }
 
-        // this might look goofy, but this is setting up the
-        // registry for dependency injection into the client
-        $registry = new Zend_Tool_Framework_Registry();
-        $registry->setClient($this);
-
-        // NOTE: at this moment, $this->_registry should contain
-        // the registry object
-
         // run any preInit
         $this->_preInit();
 
+        $manifest = $this->_registry->getManifestRepository();
+        $manifest->addManifest(new Zend_Tool_Framework_Client_Manifest());
+        
         // setup the debug log
         if (!$this->_debugLogger instanceof Zend_Log) {
             #require_once 'Zend/Log.php';
@@ -172,6 +176,16 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
     {
         $this->_registry = $registry;
         return $this;
+    }
+    
+    /**
+     * getRegistry();
+     * 
+     * @return Zend_Tool_Framework_Registry_Interface
+     */
+    public function getRegistry()
+    {
+    	return $this->_registry;
     }
 
     /**
@@ -266,8 +280,9 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
 
         // get the action name
         $actionName = $this->_registry->getRequest()->getActionName();
+        $specialtyName = $this->_registry->getRequest()->getSpecialtyName();
 
-        if (!$actionableMethod = $providerSignature->getActionableMethodByActionName($actionName)) {
+        if (!$actionableMethod = $providerSignature->getActionableMethodByActionName($actionName, $specialtyName)) {
             #require_once 'Zend/Tool/Framework/Client/Exception.php';
             throw new Zend_Tool_Framework_Client_Exception('Dispatcher error - actionable method not found');
         }
@@ -300,14 +315,15 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
             }
         }
 
-        if (($specialtyName = $this->_registry->getRequest()->getSpecialtyName()) != '_Global') {
-            $methodName .= $specialtyName;
-        }
-
-        if (method_exists($provider, $methodName)) {
-            call_user_func_array(array($provider, $methodName), $callParameters);
-        } elseif (method_exists($provider, $methodName . 'Action')) {
-            call_user_func_array(array($provider, $methodName . 'Action'), $callParameters);
+        $this->_handleDispatchExecution($provider, $methodName, $callParameters);
+    }
+    
+    protected function _handleDispatchExecution($class, $methodName, $callParameters)
+    {
+        if (method_exists($class, $methodName)) {
+            call_user_func_array(array($class, $methodName), $callParameters);
+        } elseif (method_exists($class, $methodName . 'Action')) {
+            call_user_func_array(array($class, $methodName . 'Action'), $callParameters);
         } else {
             #require_once 'Zend/Tool/Framework/Client/Exception.php';
             throw new Zend_Tool_Framework_Client_Exception('Not a supported method.');

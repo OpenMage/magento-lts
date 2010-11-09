@@ -64,5 +64,13 @@ List the files in an installed package.
 Displays information about a package. The package argument may be a
 local package file, an URL to a package file, or the name of an
 installed package.'
+            ),
+        'sync' => array(
+            'summary'  => 'Synchronize Manually Installed Packages',
+            'function' => 'doSync',
+            'shortcut' => 'snc',
+            'options'  => array(),
+            'doc'      => '<package>
+Synchronize manually installed package info with local cache.'
             )
         ); 

@@ -370,6 +370,9 @@ class Mage_Paypal_Model_Ipn
      */
     protected function _registerPaymentCapture()
     {
+        if ($this->getRequestData('transaction_entity') == 'auth') {
+            return;
+        }
         $this->_importPaymentInformation();
         $payment = $this->_order->getPayment();
         $payment->setTransactionId($this->getRequestData('txn_id'))

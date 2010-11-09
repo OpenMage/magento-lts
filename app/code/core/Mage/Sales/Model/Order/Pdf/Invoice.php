@@ -47,6 +47,7 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
         foreach ($invoices as $invoice) {
             if ($invoice->getStoreId()) {
                 Mage::app()->getLocale()->emulate($invoice->getStoreId());
+                Mage::app()->setCurrentStore($invoice->getStoreId());
             }
             $page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
             $pdf->pages[] = $page;

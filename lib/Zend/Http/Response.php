@@ -16,8 +16,8 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Response
- * @version    $Id: Response.php 17124 2009-07-26 09:46:42Z shahar $
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Response.php 22811 2010-08-08 10:33:21Z shahar $
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@
  *
  * @package    Zend_Http
  * @subpackage Response
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Http_Response
@@ -141,14 +141,14 @@ class Zend_Http_Response
      *
      * If no message is passed, the message will be guessed according to the response code.
      *
-     * @param int $code Response code (200, 404, ...)
-     * @param array $headers Headers array
+     * @param int    $code Response code (200, 404, ...)
+     * @param array  $headers Headers array
      * @param string $body Response body
      * @param string $version HTTP version
      * @param string $message Response code as text
      * @throws Zend_Http_Exception
      */
-    public function __construct($code, $headers, $body = null, $version = '1.1', $message = null)
+    public function __construct($code, array $headers, $body = null, $version = '1.1', $message = null)
     {
         // Make sure the response code is valid and set it
         if (self::responseCodeAsText($code) === null) {
@@ -158,15 +158,17 @@ class Zend_Http_Response
 
         $this->code = $code;
 
-        // Make sure we got valid headers and set them
-        if (! is_array($headers)) {
-            #require_once 'Zend/Http/Exception.php';
-            throw new Zend_Http_Exception('No valid headers were passed');
-    }
-
         foreach ($headers as $name => $value) {
-            if (is_int($name))
-                list($name, $value) = explode(": ", $value, 1);
+            if (is_int($name)) {
+                $header = explode(":", $value, 2);
+                if (count($header) != 2) {
+                    #require_once 'Zend/Http/Exception.php';
+                    throw new Zend_Http_Exception("'{$value}' is not a valid HTTP header");
+                }
+                
+                $name  = trim($header[0]);
+                $value = trim($header[1]);
+            }
 
             $this->headers[ucwords(strtolower($name))] = $value;
         }
@@ -487,8 +489,8 @@ class Zend_Http_Response
     /**
      * Extract the headers from a response string
      *
-     * @param string $response_str
-     * @return array
+     * @param   string $response_str
+     * @return  array
      */
     public static function extractHeaders($response_str)
     {
@@ -507,7 +509,8 @@ class Zend_Http_Response
             $line = trim($line, "\r\n");
             if ($line == "") break;
 
-            if (preg_match("|^([\w-]+):\s+(.+)|", $line, $m)) {
+            // Locate headers like 'Location: ...' and 'Location:...' (note the missing space)
+            if (preg_match("|^([\w-]+):\s*(.+)|", $line, $m)) {
                 unset($last_header);
                 $h_name = strtolower($m[1]);
                 $h_value = $m[2];

@@ -55,6 +55,13 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
     protected $_now;
 
     /**
+     * Cached data of prices calculated by price rules
+     *
+     * @var array
+     */
+    protected static $_priceRulesData = array();
+
+    /**
      * Init resource model and id field
      */
     protected function _construct()
@@ -248,5 +255,44 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
         if ($indexProcess) {
             $indexProcess->reindexAll();
         }
+    }
+
+    /**
+     * Calculate price using catalog price rule of product
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param float $price
+     * @return float|null
+     */
+    public function calcProductPriceRule(Mage_Catalog_Model_Product $product, $price)
+    {
+        $priceRules      = null;
+        $productId       = $product->getId();
+        $storeId         = $product->getStoreId();
+        $websiteId       = Mage::app()->getStore($storeId)->getWebsiteId();
+        $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+        $dateTs          = Mage::app()->getLocale()->storeTimeStamp($storeId);
+        $cacheKey        = date('Y-m-d', $dateTs)."|$websiteId|$customerGroupId|$productId|$price";
+
+        if (!array_key_exists($cacheKey, self::$_priceRulesData)) {
+            $rulesData = $this->_getResource()->getRulesFromProduct($dateTs, $websiteId, $customerGroupId, $productId);
+            if ($rulesData) {
+                foreach ($rulesData as $ruleData) {
+                    $priceRules = Mage::helper('catalogrule')->calcPriceRule(
+                        $ruleData['simple_action'],
+                        $ruleData['discount_amount'],
+                        $priceRules ? $priceRules :$price);
+                    if ($ruleData['stop_rules_processing']) {
+                        break;
+                    }
+                }
+                return self::$_priceRulesData[$cacheKey] = $priceRules;
+            } else {
+                self::$_priceRulesData[$cacheKey] = null;
+            }
+        } else {
+            return self::$_priceRulesData[$cacheKey];
+        }
+        return null;
     }
 }

@@ -175,4 +175,32 @@ class Mage_Bundle_Model_Mysql4_Selection extends Mage_Core_Model_Mysql4_Abstract
 
         return $adapter->fetchCol($select);
     }
+
+    /**
+     * Save bundle item price per website
+     *
+     * @param Mage_Bundle_Model_Selection $item
+     */
+    public function saveSelectionPrice($item)
+    {
+        if ($item->getDefaultPriceScope()) {
+            $this->_getWriteAdapter()->delete($this->getTable('bundle/selection_price'),
+            array(
+                'selection_id = ?' => $item->getSelectionId(),
+                'website_id = ?'   => $item->getWebsiteId()
+            ));
+        } else {
+             $values = array(
+                'selection_id' => $item->getSelectionId(),
+                'website_id'   => $item->getWebsiteId(),
+                'selection_price_type' => $item->getSelectionPriceType(),
+                'selection_price_value' => $item->getSelectionPriceValue()
+            );
+            $this->_getWriteAdapter()->insertOnDuplicate(
+                $this->getTable('bundle/selection_price'),
+                $values,
+                array('selection_price_type', 'selection_price_value')
+            );
+        }
+    }
 }

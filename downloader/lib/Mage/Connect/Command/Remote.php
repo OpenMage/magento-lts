@@ -41,6 +41,7 @@ extends Mage_Connect_Command
         $this->cleanupParams($params);
         try {
             $packager = new Mage_Connect_Packager();
+            $channelAuth = isset($options['auth'])?$options['auth']:array();
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
             if($ftp) {
                 list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
@@ -56,6 +57,9 @@ extends Mage_Connect_Command
                 $channels = $cache->getChannelNames();
             }
             $rest = $this->rest();
+            if(!empty($channelAuth)){
+                $rest->getLoader()->setCredentials($channelAuth['username'], $channelAuth['password']);
+            }
             $ups = $packager->getUpgradesList($channels, $cache, $config, $rest);
 
             if(count($ups)) {

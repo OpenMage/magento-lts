@@ -146,4 +146,20 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Set extends Mage_Core_Model_Mysql4_
 
         return $setInfo;
     }
+
+    /**
+     * Retrurn default attribute group id for attribute set id
+     *
+     * @param int $setId
+     * @return int|null
+     */
+    public function getDefaultGroupId($setId)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getTable('eav/attribute_group'), 'attribute_group_id')
+            ->where('attribute_set_id = ?', $setId)
+            ->where('default_id = ?', 1)
+            ->limit(1);
+        return $this->_getReadAdapter()->fetchOne($select);
+    }
 }

@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments extends Mag
         } else {
             $shipping = $source->getBaseShippingAmount();
         }
-        return $shipping*1;
+        return Mage::app()->getStore()->roundPrice($shipping) * 1;
     }
 
     /**

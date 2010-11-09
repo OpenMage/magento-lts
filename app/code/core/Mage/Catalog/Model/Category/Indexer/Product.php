@@ -93,7 +93,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
      */
     public function matchEvent(Mage_Index_Model_Event $event)
     {
-        $data       = $event->getNewData();
+        $data      = $event->getNewData();
         $resultKey = 'catalog_category_product_match_result';
         if (isset($data[$resultKey])) {
             return $data[$resultKey];

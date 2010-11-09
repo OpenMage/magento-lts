@@ -42,10 +42,7 @@ class Mage_Catalog_Block_Product_Widget_New
     protected function _construct()
     {
         parent::_construct();
-        $this->addColumnCountLayoutDepend('one_column', 5)
-            ->addColumnCountLayoutDepend('two_columns_left', 4)
-            ->addColumnCountLayoutDepend('two_columns_right', 4)
-            ->addColumnCountLayoutDepend('three_columns', 3);
+
         $this->addPriceBlockType('bundle', 'bundle/catalog_product_price', 'bundle/catalog/product/price.phtml');
     }
 

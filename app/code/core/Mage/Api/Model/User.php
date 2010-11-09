@@ -111,7 +111,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     }
 
     public function getCollection() {
-        return Mage::getResourceModel('admin/user_collection');
+        return Mage::getResourceModel('api/user_collection');
     }
 
     public function getName($separator=' ')

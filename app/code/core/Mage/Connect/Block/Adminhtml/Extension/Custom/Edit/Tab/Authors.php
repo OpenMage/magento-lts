@@ -54,4 +54,43 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Authors
     {
         return Mage::helper('connect')->__('Authors');
     }
+
+    /**
+     * Return add author button html
+     *
+     * @return string
+     */
+    public function getAddAuthorButtonHtml()
+    {
+        return $this->getLayout()->createBlock('adminhtml/widget_button')
+            ->setType('button')
+            ->setClass('add')
+            ->setLabel($this->__('Add Author'))
+            ->setOnClick('addAuthor()')
+            ->toHtml();
+    }
+
+    /**
+     * Return array of authors
+     *
+     * @return array
+     */
+    public function getAuthors()
+    {
+        $authors = array();
+        if ($this->getData('authors')) {
+            $temp = array();
+            foreach ($this->getData('authors') as $param => $values) {
+                if (is_array($values)) {
+                    foreach ($values as $key => $value) {
+                        $temp[$key][$param] =$value;
+                    }
+                }
+            }
+            foreach ($temp as $key => $value) {
+                $authors[$key] = Mage::helper('core')->jsonEncode($value);
+            }
+        }
+        return $authors;
+    }
 }

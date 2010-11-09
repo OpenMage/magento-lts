@@ -48,19 +48,35 @@ class Mage_GoogleCheckout_Model_Observer
             ->deliver($order->getExtOrderId(), $track->getCarrierCode(), $track->getNumber());
     }
 
+    /*
+     * Performs specifical actions on Google Checkout internal shipments saving
+     *
+     * @param Varien_Event_Observer $observer
+     * @return void
+     */
     public function salesOrderShipmentSaveAfter(Varien_Event_Observer $observer)
     {
-        $googleShipmentNames = array('googlecheckout_carrier', 'googlecheckout_merchant', 'googlecheckout_flatrate', 'googlecheckout_pickup');
-
         $shipment = $observer->getEvent()->getShipment();
         $order = $shipment->getOrder();
-
-        if (!in_array($order->getShippingMethod(), $googleShipmentNames)) {
+        $shippingMethod = $order->getShippingMethod(); // String in format of 'carrier_method'
+        if (!$shippingMethod) {
             return;
         }
 
-        $items = array();
+        // Process only Google Checkout internal methods
+        /* @var $gcCarrier Mage_GoogleCheckout_Model_Shipping */
+        $gcCarrier = Mage::getModel('googlecheckout/shipping');
+        list($carrierCode, $methodCode) = explode('_', $shippingMethod);
+        if ($gcCarrier->getCarrierCode() != $carrierCode) {
+            return;
+        }
+        $internalMethods = $gcCarrier->getInternallyAllowedMethods();
+        if (!isset($internalMethods[$methodCode])) {
+            return;
+        }
 
+        // Process this saving
+        $items = array();
         foreach ($shipment->getAllItems() as $item) {
             if ($item->getOrderItem()->getParentItemId()) {
                 continue;

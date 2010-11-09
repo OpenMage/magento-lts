@@ -122,7 +122,9 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
         $attribute = Mage::getSingleton('eav/config')->getAttribute('catalog_product', $attributeName);
         if ($attribute && $attribute->getId() && ($attribute->getFrontendInput() != 'media_image')
             && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())) {
-                $attributeHtml = $this->htmlEscape($attributeHtml);
+                if ($attribute->getFrontendInput() != 'price') {
+                    $attributeHtml = $this->escapeHtml($attributeHtml);
+                }
                 if ($attribute->getFrontendInput() == 'textarea') {
                     $attributeHtml = nl2br($attributeHtml);
                 }
@@ -132,10 +134,12 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
                 $attributeHtml = $this->_getTemplateProcessor()->filter($attributeHtml);
             }
         }
+
         $attributeHtml = $this->process('productAttribute', $attributeHtml, array(
             'product'   => $product,
             'attribute' => $attributeName
         ));
+
         return $attributeHtml;
     }
 
@@ -153,7 +157,7 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
 
         if ($attribute && ($attribute->getFrontendInput() != 'image')
             && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())) {
-            $attributeHtml = $this->htmlEscape($attributeHtml);
+            $attributeHtml = $this->escapeHtml($attributeHtml);
         }
         if ($attribute->getIsHtmlAllowedOnFront() && $attribute->getIsWysiwygEnabled()) {
             if (Mage::helper('catalog')->isUrlDirectivesParsingAllowed()) {

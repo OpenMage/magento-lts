@@ -63,11 +63,10 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
 
             $customer = Mage::getSingleton('customer/session')->getCustomer();
             if ($customer && $customer->getId()) {
-                $this->_checkout->setCustomer($customer);
+                $this->_checkout->setCustomerWithAddressChange($customer, null, $this->_getQuote()->getShippingAddress());
             }
 
             // billing agreement
-            $customerId = Mage::getSingleton('customer/session')->getCustomerId();
             $isBARequested = (bool)$this->getRequest()
                 ->getParam(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT);
             if ($customer && $customer->getId()) {
@@ -75,8 +74,10 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             }
 
             // giropay
-            $this->_checkout->prepareGiropayUrls(Mage::getUrl('checkout/onepage/success'),
-                Mage::getUrl('paypal/express/cancel'), Mage::getUrl('checkout/onepage/success')
+            $this->_checkout->prepareGiropayUrls(
+                Mage::getUrl('checkout/onepage/success'),
+                Mage::getUrl('paypal/express/cancel'),
+                Mage::getUrl('checkout/onepage/success')
             );
 
             $token = $this->_checkout->start(Mage::getUrl('*/*/return'), Mage::getUrl('*/*/cancel'));
@@ -85,14 +86,13 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
                 $this->getResponse()->setRedirect($url);
                 return;
             }
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_getCheckoutSession()->addError($e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_getCheckoutSession()->addError($this->__('Unable to start Express Checkout.'));
             Mage::logException($e);
         }
+
         $this->_redirect('checkout/cart');
     }
 
@@ -119,19 +119,19 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     {
         try {
             $this->_initToken(false);
+            // TODO verify if this logic of order cancelation is deprecated
             // if there is an order - cancel it
-            if ($orderId = $this->_getCheckoutSession()->getLastOrderId()) {
-                $order = Mage::getModel('sales/order')->load($orderId);
-                if ($order->getId()) {
-                    $order->cancel()->save();
-                    $this->_getCheckoutSession()
-                        ->unsLastQuoteId()
-                        ->unsLastSuccessQuoteId()
-                        ->unsLastOrderId()
-                        ->unsLastRealOrderId()
-                        ->addSuccess($this->__('Express Checkout and Order have been canceled.'))
-                    ;
-                }
+            $orderId = $this->_getCheckoutSession()->getLastOrderId();
+            $order = ($orderId) ? Mage::getModel('sales/order')->load($orderId) : false;
+            if ($order && $order->getId() && $order->getQuoteId() == $this->_getCheckoutSession()->getQuoteId()) {
+                $order->cancel()->save();
+                $this->_getCheckoutSession()
+                    ->unsLastQuoteId()
+                    ->unsLastSuccessQuoteId()
+                    ->unsLastOrderId()
+                    ->unsLastRealOrderId()
+                    ->addSuccess($this->__('Express Checkout and Order have been canceled.'))
+                ;
             } else {
                 $this->_getCheckoutSession()->addSuccess($this->__('Express Checkout has been canceled.'));
             }
@@ -141,6 +141,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_getCheckoutSession()->addError($this->__('Unable to cancel Express Checkout.'));
             Mage::logException($e);
         }
+
         $this->_redirect('checkout/cart');
     }
 
@@ -304,7 +305,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     private function _initCheckout()
     {
         $quote = $this->_getQuote();
-        if (!$quote->hasItems()) {
+        if (!$quote->hasItems() || $quote->getHasError()) {
             $this->getResponse()->setHeader('HTTP/1.1','403 Forbidden');
             Mage::throwException(Mage::helper('paypal')->__('Unable to initialize Express Checkout.'));
         }

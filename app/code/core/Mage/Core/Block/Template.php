@@ -194,7 +194,9 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     {
         Varien_Profiler::start($fileName);
 
-        extract ($this->_viewVars);
+        // EXTR_SKIP protects from overriding
+        // already defined variables
+        extract ($this->_viewVars, EXTR_SKIP);
         $do = $this->getDirectOutput();
 
         if (!$do) {
@@ -209,7 +211,13 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         }
 
         try {
-            include $this->_viewDir . DS . $fileName;
+            $includeFilePath = realpath($this->_viewDir . DS . $fileName);
+            if (strpos($includeFilePath, realpath($this->_viewDir)) === 0) {
+                include $includeFilePath;
+            } else {
+                Mage::log('Not valid template file:'.$fileName, Zend_Log::CRIT, null, null, true);
+            }
+
         } catch (Exception $e) {
             ob_get_clean();
             throw $e;

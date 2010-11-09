@@ -27,8 +27,8 @@
 <?php $_item = $this->getItem() ?>
 <?php $_order = $this->getItem()->getOrder(); ?>
 <tr>
-    <td align="left" valign="top" style="padding:3px 9px">
-        <strong><?php echo $this->htmlEscape($_item->getName()) ?></strong>
+    <td align="left" valign="top" style="padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+        <strong style="font-size:11px;"><?php echo $this->htmlEscape($_item->getName()) ?></strong>
         <?php if ($this->getItemOptions()): ?>
         <dl style="margin:0; padding:0;">
             <?php foreach ($this->getItemOptions() as $option): ?>
@@ -39,9 +39,9 @@
         <?php endif; ?>
         <?php echo $this->htmlEscape($_item->getDescription()) ?>
     </td>
-    <td align="left" valign="top" style="padding:3px 9px"><?php echo $this->htmlEscape($this->getSku($_item)) ?></td>
-    <td align="center" valign="top" style="padding:3px 9px"><?php echo $_item->getQty()*1 ?></td>
-    <td align="right" valign="top" style="padding:3px 9px">
+    <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo $this->htmlEscape($this->getSku($_item)) ?></td>
+    <td align="center" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo $_item->getQty()*1 ?></td>
+    <td align="right" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
         <?php if ($this->helper('tax')->displaySalesPriceExclTax($_order->getStore()) || $this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
             <?php if ($this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
                 <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax'); ?>:</span>

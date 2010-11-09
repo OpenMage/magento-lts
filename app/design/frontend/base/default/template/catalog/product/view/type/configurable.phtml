@@ -23,18 +23,9 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
+?>
+<?php
 /**
- * Super product options
- *
- * @see Mage_Catalog_Block_Product_View_Super_Config
+ * @deprecated after 1.4.1.0 in favor of default.phtml
  */
 ?>
-<?php $_product = $this->getProduct() ?>
-<?php if($_product->isSaleable()): ?>
-    <p class="availability in-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('In stock') ?></span></p>
-<?php else: ?>
-    <p class="availability out-of-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('Out of stock') ?></span></p>
-<?php endif; ?>
-<?php echo $this->getChildHtml('product_type_data_extra') ?>
-<?php echo $this->getPriceHtml($_product) ?>

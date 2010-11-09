@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Module.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Module.php 20993 2010-02-08 18:41:22Z matthew $
  */
 
 /**
@@ -43,7 +43,7 @@
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Provider_Module
@@ -153,6 +153,13 @@ class Zend_Tool_Project_Provider_Module
             foreach (new RecursiveIteratorIterator($enabledFilter, RecursiveIteratorIterator::SELF_FIRST) as $resource) {
                 $response->appendContent($resource->getContext()->getPath());
                 $resource->create();
+            }
+            
+            if (strtolower($name) == 'default') {
+                $response->appendContent('Added a key for the default module to the application.ini file');
+                $appConfigFile = $this->_loadedProfile->search('ApplicationConfigFile');
+                $appConfigFile->addStringItem('resources.frontController.params.prefixDefaultModule', '1', 'production');
+                $appConfigFile->create();
             }
 
             // store changes to the profile

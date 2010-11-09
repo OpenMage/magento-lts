@@ -27,19 +27,19 @@
 <?php $_invoice = $this->getInvoice() ?>
 <?php $_order   = $this->getOrder() ?>
 <?php if ($_invoice && $_order): ?>
-<table cellspacing="0" cellpadding="0" border="0" width="100%" style="border:1px solid #bebcb7; background:#f8f7f5;">
+<table cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #EAEAEA;">
     <thead>
         <tr>
-            <th align="left" bgcolor="#d9e5ee" style="padding:3px 9px"><?php echo $this->__('Item') ?></th>
-            <th align="left" bgcolor="#d9e5ee" style="padding:3px 9px"><?php echo $this->__('Sku') ?></th>
-            <th align="center" bgcolor="#d9e5ee" style="padding:3px 9px"><?php echo $this->__('Qty') ?></th>
-            <th align="right" bgcolor="#d9e5ee" style="padding:3px 9px"><?php echo $this->__('Subtotal') ?></th>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Item') ?></th>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Sku') ?></th>
+            <th align="center" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Qty') ?></th>
+            <th align="right" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Subtotal') ?></th>
         </tr>
     </thead>
 
     <?php $i=0; foreach ($_invoice->getAllItems() as $_item): ?>
     <?php if($_item->getOrderItem()->getParentItem()) continue; else $i++; ?>
-    <tbody<?php echo $i%2 ? ' bgcolor="#eeeded"' : '' ?>>
+    <tbody<?php echo $i%2 ? ' bgcolor="#F6F6F6"' : '' ?>>
         <?php echo $this->getItemHtml($_item) ?>
     </tbody>
     <?php endforeach; ?>

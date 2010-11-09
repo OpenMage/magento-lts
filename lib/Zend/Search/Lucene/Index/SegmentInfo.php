@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Index
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SegmentInfo.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: SegmentInfo.php 22724 2010-07-29 22:07:22Z alexander $
  */
 
 /** Zend_Search_Lucene_Index_TermsStream_Interface */
@@ -40,7 +40,7 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Index
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Index_SegmentInfo implements Zend_Search_Lucene_Index_TermsStream_Interface
@@ -276,7 +276,7 @@ class Zend_Search_Lucene_Index_SegmentInfo implements Zend_Search_Lucene_Index_T
                     // Compound file is not found or is not readable
                     $this->_isCompound = false;
                 } else {
-                    throw $e;
+                    throw new Zend_Search_Lucene_Exception($e->getMessage(), $e->getCode(), $e);
                 }
             }
         }
@@ -401,7 +401,7 @@ class Zend_Search_Lucene_Index_SegmentInfo implements Zend_Search_Lucene_Index_T
             }
         } catch(Zend_Search_Lucene_Exception $e) {
             if (strpos($e->getMessage(), 'is not readable') === false) {
-                throw $e;
+                throw new Zend_Search_Lucene_Exception($e->getMessage(), $e->getCode(), $e);
             }
             // There is no deletion file
             $this->_delGen = -1;
@@ -1113,8 +1113,9 @@ class Zend_Search_Lucene_Index_SegmentInfo implements Zend_Search_Lucene_Index_T
                             }
                         } else {
                             $docId += $docDelta/2;
+                            $freq = $frqFile->readVInt();
                             if (isset($filter[$docId])) {
-                                $result[$shift + $docId] = $frqFile->readVInt();
+                                $result[$shift + $docId] = $freq;
                                 $updatedFilterData[$docId] = 1; // 1 is just a some constant value, so we don't need additional var dereference here
                             }
                         }
@@ -1135,8 +1136,9 @@ class Zend_Search_Lucene_Index_SegmentInfo implements Zend_Search_Lucene_Index_T
                             }
                         } else {
                             $docId += $docDelta/2;
+                            $freq = $frqFile->readVInt();
                             if (isset($filter[$docId])) {
-                                $result[$shift + $docId] = $frqFile->readVInt();
+                                $result[$shift + $docId] = $freq;
                                 $updatedFilterData[$docId] = 1; // 1 is just some constant value, so we don't need additional var dereference here
                             }
                         }
@@ -1850,9 +1852,11 @@ class Zend_Search_Lucene_Index_SegmentInfo implements Zend_Search_Lucene_Index_T
                 break;
         }
 
-
+        // Calculate next segment start id (since $this->_docMap structure may be cleaned by $this->nextTerm() call)
+        $nextSegmentStartId = $startId + (($mode == self::SM_MERGE_INFO) ? count($this->_docMap) : $this->_docCount);
         $this->nextTerm();
-        return $startId + (($mode == self::SM_MERGE_INFO) ? count($this->_docMap) : $this->_docCount);
+
+        return $nextSegmentStartId;
     }
 
 

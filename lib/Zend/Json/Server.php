@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Json
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Server.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Server.php 22276 2010-05-24 18:31:59Z andyfowler $
  */
 
 /**
@@ -27,14 +27,13 @@
 /**
  * @category   Zend
  * @package    Zend_Json
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Json_Server extends Zend_Server_Abstract
 {
     /**#@+
      * Version Constants
-     * @const string
      */
     const VERSION_1 = '1.0';
     const VERSION_2 = '2.0';
@@ -527,10 +526,41 @@ class Zend_Json_Server extends Zend_Server_Abstract
             $params = $this->_getDefaultParams($params, $serviceParams);
         }
 
+        //Make sure named parameters are passed in correct order
+        if ( is_string( key( $params ) ) ) {
+
+            $callback = $invocable->getCallback();
+            if ('function' == $callback->getType()) {
+                $reflection = new ReflectionFunction( $callback->getFunction() );
+                $refParams  = $reflection->getParameters();
+            } else {
+                
+                $reflection = new ReflectionMethod( 
+                    $callback->getClass(),
+                    $callback->getMethod()
+                );
+                $refParams = $reflection->getParameters();
+            }
+
+            $orderedParams = array();
+            foreach( $reflection->getParameters() as $refParam ) {
+                if( isset( $params[ $refParam->getName() ] ) ) {
+                    $orderedParams[ $refParam->getName() ] = $params[ $refParam->getName() ];
+                } elseif( $refParam->isOptional() ) {
+                    $orderedParams[ $refParam->getName() ] = null;
+                } else {
+                    throw new Zend_Server_Exception( 
+                        'Missing required parameter: ' . $refParam->getName() 
+                    ); 
+                }
+            }
+            $params = $orderedParams;
+        }
+
         try {
             $result = $this->_dispatch($invocable, $params);
         } catch (Exception $e) {
-            return $this->fault($e->getMessage(), $e->getCode());
+            return $this->fault($e->getMessage(), $e->getCode(), $e);
         }
 
         $this->getResponse()->setResult($result);

@@ -70,32 +70,32 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
     protected function _prepareColumns()
     {
         $this->addColumn('name', array(
-            'header'    => Mage::helper('tag')->__('Tag'),
-            'index'     => 'name',
+            'header'        => Mage::helper('tag')->__('Tag'),
+            'index'         => 'name',
         ));
 
         $this->addColumn('products', array(
-            'header'    => Mage::helper('tag')->__('Products'),
-            'width'     => 140,
-            'align'     => 'right',
-            'index'     => 'products',
-            'type'      => 'number',
+            'header'        => Mage::helper('tag')->__('Products'),
+            'width'         => 140,
+            'align'         => 'right',
+            'index'         => 'products',
+            'type'          => 'number',
         ));
 
         $this->addColumn('customers', array(
-            'header'    => Mage::helper('tag')->__('Customers'),
-            'width'     => 140,
-            'align'     => 'right',
-            'index'     => 'customers',
-            'type'      => 'number',
+            'header'        => Mage::helper('tag')->__('Customers'),
+            'width'         => 140,
+            'align'         => 'right',
+            'index'         => 'customers',
+            'type'          => 'number',
         ));
 
         $this->addColumn('status', array(
-            'header'    => Mage::helper('tag')->__('Status'),
-            'width'     => 90,
-            'index'     => 'status',
-            'type'      => 'options',
-            'options'   => $this->helper('tag/data')->getStatusesArray(),
+            'header'        => Mage::helper('tag')->__('Status'),
+            'width'         => 90,
+            'index'         => 'status',
+            'type'          => 'options',
+            'options'       => $this->helper('tag/data')->getStatusesArray(),
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -128,16 +128,16 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         array_unshift($statuses, array('label'=>'', 'value'=>''));
 
         $this->getMassactionBlock()->addItem('status', array(
-             'label'=> Mage::helper('tag')->__('Change status'),
-             'url'  => $this->getUrl('*/*/massStatus', array('_current'=>true)),
-             'additional' => array(
-                    'visibility' => array(
-                         'name'     => 'status',
-                         'type'     => 'select',
-                         'class'    => 'required-entry',
-                         'label'    => Mage::helper('tag')->__('Status'),
-                         'values'   => $statuses
-                     )
+            'label'=> Mage::helper('tag')->__('Change status'),
+            'url'  => $this->getUrl('*/*/massStatus', array('_current'=>true)),
+            'additional' => array(
+                'visibility' => array(
+                    'name'     => 'status',
+                    'type'     => 'select',
+                    'class'    => 'required-entry',
+                    'label'    => Mage::helper('tag')->__('Status'),
+                    'values'   => $statuses
+                )
              )
         ));
 

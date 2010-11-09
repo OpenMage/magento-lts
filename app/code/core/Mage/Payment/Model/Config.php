@@ -66,7 +66,10 @@ class Mage_Payment_Model_Config
         $methods = array();
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
-            $methods[$code] = $this->_getMethod($code, $methodConfig);
+            $data = $this->_getMethod($code, $methodConfig);
+            if (false !== $data) {
+                $methods[$code] = $data;
+            }
         }
         return $methods;
     }
@@ -76,7 +79,16 @@ class Mage_Payment_Model_Config
         if (isset(self::$_methods[$code])) {
             return self::$_methods[$code];
         }
+        if (empty($config['model'])) {
+            return false;
+        }
         $modelName = $config['model'];
+
+        $className = Mage::getConfig()->getModelClassName($modelName);
+        if (!mageFindClassFile($className)) {
+            return false;
+        }
+
         $method = Mage::getModel($modelName);
         $method->setId($code)->setStore($store);
         self::$_methods[$code] = $method;

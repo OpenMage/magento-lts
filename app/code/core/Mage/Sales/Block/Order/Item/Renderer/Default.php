@@ -160,9 +160,9 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
      */
     public function getSku()
     {
-        if ($this->getOrderItem()->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
+        /*if ($this->getOrderItem()->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
             return $this->getOrderItem()->getProductOptionByCode('simple_sku');
-        }
+        }*/
         return $this->getItem()->getSku();
     }
 }

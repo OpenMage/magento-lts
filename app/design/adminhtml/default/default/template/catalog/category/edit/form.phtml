@@ -125,7 +125,10 @@
         }
     };
 
-    function categorySubmit(url) {
+    /**
+    * Create/edit some category
+    */
+    function categorySubmit(url, useAjax) {
         var activeTab = $('active_tab_id');
         if (activeTab) {
             if (activeTab.tabsJsObject && activeTab.tabsJsObject.activeTab) {
@@ -142,39 +145,45 @@
             params[fields[i].name] = fields[i].getValue();
         }
 
-        if (tree && tree.storeId==0 && !tree.addNodeTo) {
-            var currentNode = tree.getNodeById(tree.currentNodeId);
+        // Get info about what we're submitting - to properly update tree nodes
+        var categoryId = params['general[id]'] ? params['general[id]'] : 0;
+        var isCreating = categoryId == 0; // Separate variable is needed because '0' in javascript converts to TRUE
+        var path = params['general[path]'].split('/');
+        var parentId = path.pop();
+        if (parentId == categoryId) { // Maybe path includes category id itself
+            parentId = path.pop();
+        }
 
-            if (currentNode) {
-                if (params['general[is_active]']) {
-                    var oldClass = 'no-active-category';
-                    var newClass = 'active-category';
-                } else {
-                    var oldClass = 'active-category';
-                    var newClass = 'no-active-category';
+        // Make operations with category tree
+        if (isCreating) {
+            /* Some specific tasks for creating category */
+            if (!tree.currentNodeId) {
+                // First submit of form - select some node to be current
+                tree.currentNodeId = parentId;
+            }
+            tree.addNodeTo = parentId;
+        } else {
+            /* Some specific tasks for editing category */
+            // Maybe change category enabled/disabled style
+            if (tree && tree.storeId==0) {
+                var currentNode = tree.getNodeById(categoryId);
+
+                if (currentNode) {
+                    if (params['general[is_active]']) {
+                        var oldClass = 'no-active-category';
+                        var newClass = 'active-category';
+                    } else {
+                        var oldClass = 'active-category';
+                        var newClass = 'no-active-category';
+                    }
+
+                    Element.removeClassName(currentNode.ui.wrap.firstChild, oldClass);
+                    Element.addClassName(currentNode.ui.wrap.firstChild, newClass);
                 }
-
-                Element.removeClassName(currentNode.ui.wrap.firstChild, oldClass);
-                Element.addClassName(currentNode.ui.wrap.firstChild, newClass);
-
-          /*      var name = currentNode.text;
-
-                if (!name.match(/(\(\d+\))/)) {
-                   name = params['general[name]'];
-                } else {
-                    name = name.replace(/(.+)\(/,params['general[name]']+' (');
-                }
-                currentNode.setText(name);*/
             }
         }
 
-        /**
-         * We submit first loaded form
-         */
-        if (!tree.currentNodeId) {
-            tree.currentNodeId = tree.root.id;
-            tree.addNodeTo = tree.currentNodeId;
-        }
+        // Submit form
         categoryForm.submit();
     }
 
@@ -245,8 +254,5 @@
     }
     $('active_tab_id').tabsJsObject = <?php echo $_tabsJsObject ?>;
 <?php endif; ?>
-
-updateTopButtonToolbarToggle();
-
 //]]>
 </script>

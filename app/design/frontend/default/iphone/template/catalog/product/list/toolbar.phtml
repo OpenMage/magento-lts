@@ -32,16 +32,31 @@
  */
 ?>
 <?php if($this->getCollection()->getSize()): ?>
-    <div class="col2-set pager">
-        <div class="col-1">
-            <?php if($this->getLastPageNum()>1): ?>
-                <?php echo $this->__('%s to %s of %s', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
-            <?php else: ?>
-                <strong><?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
-            <?php endif; ?>
-        </div>
-        <div class="col-2 page-num a-right">
-            <?php echo $this->getPagerHtml() ?>
-        </div><div class="clear"></div>
+<div class="toolbar">
+    <div class="pager">
+        <?php echo $this->getPagerHtml() ?>
     </div>
+
+    <?php if( $this->isExpanded() ): ?>
+    <div class="sorter">
+        <div class="sort-by">
+            <label><?php echo $this->__('Sort By:') ?></label>
+            <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
+                <?php if($this->isOrderCurrent($_key)): ?>
+                    <span>
+                        <?php echo $_order ?>
+                        <?php if($this->getCurrentDirection() == 'desc'): ?>
+                            <a href="<?php echo $this->getOrderUrl(null, 'asc') ?>" title="<?php echo $this->__('Set Ascending Direction') ?>"><img src="<?php echo $this->getSkinUrl('images/i_desc_arrow.gif') ?>" alt="<?php echo $this->__('Set Ascending Direction') ?>" class="v-middle" /></a>
+                        <?php else: ?>
+                            <a href="<?php echo $this->getOrderUrl(null, 'desc') ?>" title="<?php echo $this->__('Set Descending Direction') ?>"><img src="<?php echo $this->getSkinUrl('images/i_asc_arrow.gif') ?>" alt="<?php echo $this->__('Set Descending Direction') ?>" class="v-middle" /></a>
+                        <?php endif; ?>
+                    </span>
+                <?php else: ?>
+                    <a href="<?php echo $this->getOrderUrl($_key, 'asc') ?>" title="<?php echo $_order ?>"><?php echo $_order ?></a>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>
 <?php endif ?>

@@ -876,7 +876,7 @@ class Mage_Core_Model_Url extends Varien_Object
         }
         $session = Mage::getSingleton('core/session');
         /* @var $session Mage_Core_Model_Session */
-        if (Mage::app()->getUseSessionVar()) {
+        if (Mage::app()->getUseSessionVar() && !$session->getSessionIdForHost($url)) {
             // secure URL
             if ($this->getSecure()) {
                 $this->setQueryParam('___SID', 'S');
@@ -985,5 +985,24 @@ class Mage_Core_Model_Url extends Varien_Object
             }
         }
         return '';
+    }
+
+    /**
+     * Check if users originated URL is one of the domain URLs assigned to stores
+     *
+     * @return boolean
+     */
+    public function isOwnOriginUrl()
+    {
+        $storeDomains = array();
+        $referer = parse_url(Mage::app()->getFrontController()->getRequest()->getServer('HTTP_REFERER'), PHP_URL_HOST);
+        foreach (Mage::app()->getStores() as $store) {
+            $storeDomains[] = parse_url($store->getBaseUrl(), PHP_URL_HOST);
+        }
+        $storeDomains = array_unique($storeDomains);
+        if (empty($referer) || in_array($referer, $storeDomains)) {
+            return true;
+        }
+        return false;
     }
 }

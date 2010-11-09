@@ -161,12 +161,8 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
                     'payment_method' => $this->_billingAgreementInstance->getMethodCode()))
             );
 
-            $methodCode = $this->_billingAgreementInstance->getMethodCode();
-            if (isset($this->_paymentMethods[$methodCode])) {
-                $this->setPaymentMethodTitle($this->_paymentMethods[$methodCode]);
-            } else {
-                $this->setPaymentMethodTitle($methodCode);
-            }
+            $paymentMethodTitle = $this->_billingAgreementInstance->getAgreementLabel();
+            $this->setPaymentMethodTitle($paymentMethodTitle);
 
             $createdAt = $this->_billingAgreementInstance->getCreatedAt();
             $updatedAt = $this->_billingAgreementInstance->getUpdatedAt();

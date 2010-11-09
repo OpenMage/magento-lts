@@ -95,9 +95,8 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
                 $value = $this->getUrl('*/billing_agreement/view', array('agreement' => $item->getAgreementId()));
                 break;
             case 'payment_method_label':
-                $this->_loadPaymentMethods();
-                $value = isset($this->_paymentMethods[$item->getMethodCode()])
-                    ? $this->_paymentMethods[$item->getMethodCode()] : $this->__('N/A');
+                $label = $item->getAgreementLabel();
+                $value = ($label) ? $label : $this->__('N/A');
                 break;
             case 'status':
                 $value = $item->getStatusLabel();

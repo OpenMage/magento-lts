@@ -29,7 +29,7 @@
  * CatalogInventory Default Stock Status Indexer Resource Model
  *
  * @category    Mage
- * @package     Mage_CatalogInventor
+ * @package     Mage_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Default

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage Parse
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TypeLoader.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: TypeLoader.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -47,7 +47,7 @@
  * @todo       PHP 5.3 can drastically change this class w/ namespace and the new call_user_func w/ namespace
  * @package    Zend_Amf
  * @subpackage Parse
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 final class Zend_Amf_Parse_TypeLoader
@@ -186,9 +186,9 @@ final class Zend_Amf_Parse_TypeLoader
     public static function getResourceParser($resource)
     {
         if(self::$_resourceLoader) {
-               $type = preg_replace("/[^A-Za-z0-9_]/", " ", get_resource_type($resource));
-               $type = str_replace(" ","", ucwords($type));
-               return self::$_resourceLoader->load($type);
+            $type = preg_replace("/[^A-Za-z0-9_]/", " ", get_resource_type($resource));
+            $type = str_replace(" ","", ucwords($type));
+            return self::$_resourceLoader->load($type);
         }
         return false;
     }
@@ -222,10 +222,10 @@ final class Zend_Amf_Parse_TypeLoader
             }
             return $resource;
         } catch(Zend_Amf_Exception $e) {
-            throw $e;
+            throw new Zend_Amf_Exception($e->getMessage(), $e->getCode(), $e);
         } catch(Exception $e) {
             #require_once 'Zend/Amf/Exception.php';
-            throw new Zend_Amf_Exception('Can not serialize resource type: '. get_resource_type($resource));
+            throw new Zend_Amf_Exception('Can not serialize resource type: '. get_resource_type($resource), 0, $e);
         }
     }
 }

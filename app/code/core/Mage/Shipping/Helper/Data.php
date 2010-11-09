@@ -72,7 +72,8 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
                  'hash' => Mage::helper('core')->urlEncode("{$key}:{$model->$method()}:{$model->getProtectCode()}")
              );
          }
-         $storeModel = Mage::app()->getStore($model->getStoreId());
+         $storeId = is_object($model) ? $model->getStoreId() : null;
+         $storeModel = Mage::app()->getStore($storeId);
          return $storeModel->getUrl('shipping/tracking/popup', $param);
     }
 
@@ -85,6 +86,9 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getTrackingPopUpUrlByOrderId($order = '')
     {
+        if ($order && !is_object($order)) {
+            $order = Mage::getModel('sales/order')->load($order);
+        }
         return $this->_getTrackingUrl('order_id', $order);
     }
 
@@ -97,6 +101,9 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getTrackingPopUpUrlByTrackId($track = '')
     {
+        if ($track && !is_object($track)) {
+            $track = Mage::getModel('sales/order_shipment_track')->load($track);
+        }
         return $this->_getTrackingUrl('track_id', $track, 'getEntityId');
     }
 
@@ -109,6 +116,9 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getTrackingPopUpUrlByShipId($ship = '')
     {
+        if ($ship && !is_object($ship)) {
+            $ship = Mage::getModel('sales/order_shipment')->load($ship);
+        }
         return $this->_getTrackingUrl('ship_id', $ship);
     }
 

@@ -127,6 +127,7 @@
                         <index_data_retreiver>downloadable/catalogIndex_data_downloadable</index_data_retreiver>
                         <composite>0</composite>
                         <price_indexer>downloadable/indexer_price</price_indexer>
+                        <can_use_qty_decimals>0</can_use_qty_decimals>
                     </downloadable>
                     <bundle>
                         <allowed_selection_types>

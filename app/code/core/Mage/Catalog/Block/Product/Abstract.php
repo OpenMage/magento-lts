@@ -301,7 +301,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
             ->addMinimalPrice()
             ->addFinalPrice()
             ->addTaxPercents()
-            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes());
+            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+            ->addUrlRewrite();
     }
 
     /**
@@ -438,6 +439,17 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     public function getPageLayout()
     {
         return $this->helper('page/layout')->getCurrentPageLayout();
+    }
+
+    /**
+     * Check whether the price can be shown for the specified product
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return bool
+     */
+    public function getCanShowProductPrice($product)
+    {
+        return $product->getCanShowPrice() !== false;
     }
 
     /**

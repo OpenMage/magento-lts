@@ -32,38 +32,12 @@
  * @package    Mage_Customer
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Customer_Model_Entity_Address_Attribute_Collection extends Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+class Mage_Customer_Model_Entity_Address_Attribute_Collection extends Mage_Customer_Model_Entity_Attribute_Collection
 {
-    protected function _initSelect()
-    {
-        $this->getSelect()->from(array('main_table' => $this->getResource()->getMainTable()))
-            ->where('main_table.entity_type_id=?', Mage::getModel('eav/entity')->setType('customer_address')->getTypeId())
-            ->join(
-                array('additional_table' => $this->getTable('customer/eav_attribute')),
-                'additional_table.attribute_id=main_table.attribute_id'
-            );
-        return $this;
-    }
-
     /**
-     * Specify attribute entity type filter
+     * Default attribute entity type code
      *
-     * @param   int $typeId
-     * @return  Mage_Customer_Model_Entity_Address_Attribute_Collection
+     * @var string
      */
-    public function setEntityTypeFilter($typeId)
-    {
-        return $this;
-    }
-
-    /**
-     * Specify filter by "is_visible" field
-     *
-     * @return Mage_Customer_Model_Entity_Address_Attribute_Collection
-     */
-    public function addVisibleFilter()
-    {
-        $this->getSelect()->where('additional_table.is_visible=?', 1);
-        return $this;
-    }
+    protected $_entityTypeCode      = 'customer_address';
 }

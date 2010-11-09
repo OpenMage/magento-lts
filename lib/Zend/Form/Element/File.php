@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Form
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,14 +27,14 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: File.php 16218 2009-06-21 19:44:04Z thomas $
+ * @version    $Id: File.php 22372 2010-06-04 20:17:58Z thomas $
  */
 class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
 {
     /**
-     * @const string Plugin loader type
+     * Plugin loader type
      */
     const TRANSFER_ADAPTER = 'TRANSFER_ADAPTER';
 
@@ -76,17 +76,18 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     public function loadDefaultDecorators()
     {
         if ($this->loadDefaultDecoratorsIsDisabled()) {
-            return;
+            return $this;
         }
 
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this->addDecorator('File')
                  ->addDecorator('Errors')
-                 ->addDecorator('Description')
+                 ->addDecorator('Description', array('tag' => 'p', 'class' => 'description'))
                  ->addDecorator('HtmlTag', array('tag' => 'dd'))
                  ->addDecorator('Label', array('tag' => 'dt'));
         }
+        return $this;
     }
 
     /**
@@ -428,13 +429,8 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
             $adapter->setOptions(array('ignoreNoFile' => true), $this->getName());
         } else {
             $adapter->setOptions(array('ignoreNoFile' => false), $this->getName());
-            if ($this->autoInsertNotEmptyValidator() and
-                   !$this->getValidator('NotEmpty'))
-            {
-                $validators = $this->getValidators();
-                $notEmpty   = array('validator' => 'NotEmpty', 'breakChainOnFailure' => true);
-                array_unshift($validators, $notEmpty);
-                $this->setValidators($validators);
+            if ($this->autoInsertNotEmptyValidator() && !$this->getValidator('NotEmpty')) {
+                $this->addValidator = array('validator' => 'NotEmpty', 'breakChainOnFailure' => true);
             }
         }
 
@@ -747,8 +743,17 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
      */
     public function getTranslator()
     {
-        $adapter = $this->getTransferAdapter();
-        return $adapter->getTranslator();
+        if ($this->translatorIsDisabled()) {
+            return null;
+        }
+
+        $translator = $this->getTransferAdapter()->getTranslator();
+        if (null === $translator) {
+            #require_once 'Zend/Form.php';
+            return Zend_Form::getDefaultTranslator();
+        }
+
+        return $translator;
     }
 
     /**

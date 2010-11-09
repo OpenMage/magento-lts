@@ -37,6 +37,13 @@ class Mage_Connect_Packager
     const CONFIG_FILE_NAME='downloader/connect.cfg';
     const CACHE_FILE_NAME='downloader/cache.cfg';
 
+    protected  $install_states = array(
+                    'install' => 'Ready to install',
+                    'upgrade' => 'Ready to upgrade',
+                    'already_installed' => 'Already installed',
+                    'wrong_version' => 'Wrong version',
+                );
+
     /**
      * Constructor
      * @param Mage_connect_Config $config
@@ -173,11 +180,31 @@ class Mage_Connect_Packager
     }
 
     /**
+     * Remove empty directories recursively up
+     * @param string $dir
+     * @param Mage_Connect_Ftp $ftp
+     */
+    protected function removeEmptyDirectory($dir, $ftp = null)
+    {
+        if ($ftp) {
+            if (count($ftp->nlist($dir))==0) {
+                if ($ftp->rmdir($dir)) {
+                    $this->removeEmptyDirectory(dirname($dir), $ftp);
+                }
+            }
+        } else {
+            if (@rmdir($dir)) {
+                $this->removeEmptyDirectory(dirname($dir), $ftp);
+            }
+        }
+    }
+
+    /**
      *
      * @param $chanName
      * @param $package
      * @param Mage_Connect_Singleconfig $cacheObj
-     * @param $ftp
+     * @param Mage_Connect_Config $configObj
      * @return unknown_type
      */
     public function processUninstallPackage($chanName, $package, $cacheObj, $configObj)
@@ -191,10 +218,14 @@ class Mage_Connect_Packager
             $filePath = dirname($file);
             $dest = $targetPath . DIRECTORY_SEPARATOR . $filePath . DIRECTORY_SEPARATOR . $fileName;
             if(@file_exists($dest)) {
-                //var_dump($dest);
                 @unlink($dest);
+                $this->removeEmptyDirectory(dirname($dest));
             }
         }
+
+        $destDir = $targetPath . DS . Mage_Connect_Package::PACKAGE_XML_DIR;
+        $destFile = $package->getReleaseFilename() . '.xml';
+        @unlink($destDir . DS . $destFile);
     }
 
     /**
@@ -212,7 +243,10 @@ class Mage_Connect_Packager
         $contents = $package->getContents();
         foreach($contents as $file) {
             $res = $ftp->delete($file);
+            $this->removeEmptyDirectory(dirname($file), $ftp);
         }
+        $remoteXml = Mage_Connect_Package::PACKAGE_XML_DIR . DS . $package->getReleaseFilename() . '.xml';
+        $ftp->delete($remoteXml);
         $ftp->chdir($ftpDir);
     }
 
@@ -220,24 +254,58 @@ class Mage_Connect_Packager
      * Validation of mode permissions
      *
      * @param int $mode
-     * @throws Exception
-     * @return int mode 
+     * @return int
      */
-    protected function validPermMode ($mode)
+    protected function validPermMode($mode)
     {
         $mode = intval($mode);
         if ($mode < 73 || $mode > 511) {
-            throw new Exception("Invalid mode permissions");
+            return false;
         }
-
-        return $mode;
+        return true;
+    }
+    /**
+     *
+     * Return correct global dir mode in octal representation
+     *
+     * @param Maged_Model_Config $config
+     * @return int
+     */
+    protected function _getDirMode($config)
+    {
+        if ($this->validPermMode($config->global_dir_mode)) {
+            return $config->global_dir_mode;
+        } else {
+            return $config->getDefaultValue('global_dir_mode');
+        }
     }
 
+    /**
+     * Return global file mode in octal representation
+     *
+     * @param Maged_Model_Config $config
+     * @return int
+     */
+    protected function _getFileMode($config)
+    {
+        if ($this->validPermMode($config->global_file_mode)) {
+            return $config->global_file_mode;
+        } else {
+            return $config->getDefaultValue('global_file_mode');
+        }
+    }
+
+    /**
+     * Convert FTP path
+     *
+     * @param string $str
+     * @return string
+     */
     protected function convertFtpPath($str)
     {
         return str_replace("\\", "/", $str);
     }
-    
+
     public function processInstallPackageFtp($package, $file, $configObj, $ftp)
     {
         $ftpDir = $ftp->getcwd();
@@ -246,8 +314,8 @@ class Mage_Connect_Packager
         $target = dirname($file).DS.$package->getReleaseFilename();
         @mkdir($target, 0777, true);
         $tar = $arc->unpack($file, $target);
-        $modeFile = is_string($configObj->global_file_mode)?$this->validPermMode(decoct(intval($configObj->global_file_mode))):$configObj->global_file_mode;
-        $modeDir = is_string($configObj->global_dir_mode)?$this->validPermMode(decoct(intval($configObj->global_dir_mode))):$configObj->global_dir_mode;
+        $modeFile = $this->_getFileMode($configObj);
+        $modeDir = $this->_getDirMode($configObj);
         foreach($contents as $file) {
             $fileName = basename($file);
             $filePath = $this->convertFtpPath(dirname($file));
@@ -261,6 +329,13 @@ class Mage_Connect_Packager
                 call_user_func_array(array($ftp,'upload'), $args);
             }
         }
+
+        $localXml = $tar . Mage_Connect_Package_Reader::DEFAULT_NAME_PACKAGE;
+        if (is_file($localXml)) {
+            $remoteXml = Mage_Connect_Package::PACKAGE_XML_DIR . DS . $package->getReleaseFilename() . '.xml';
+            $ftp->upload($remoteXml, $localXml, $modeDir, $modeFile);
+        }
+
         $ftp->chdir($ftpDir);
         Mage_System_Dirs::rm(array("-r",$target));
     }
@@ -279,8 +354,8 @@ class Mage_Connect_Packager
         $target = dirname($file).DS.$package->getReleaseFilename();
         @mkdir($target, 0777, true);
         $tar = $arc->unpack($file, $target);
-        $modeFile = is_string($configObj->global_file_mode)?$this->validPermMode(decoct(intval($configObj->global_file_mode))):$configObj->global_file_mode;
-        $modeDir = is_string($configObj->global_dir_mode)?$this->validPermMode(decoct(intval($configObj->global_dir_mode))):$configObj->global_dir_mode;
+        $modeFile = $this->_getFileMode($configObj);
+        $modeDir = $this->_getDirMode($configObj);
         foreach($contents as $file) {
             $fileName = basename($file);
             $filePath = dirname($file);
@@ -297,6 +372,17 @@ class Mage_Connect_Packager
                 @mkdir($dest, $modeDir);
             }
         }
+
+        $packageXml = $tar . Mage_Connect_Package_Reader::DEFAULT_NAME_PACKAGE;
+        if (is_file($packageXml)) {
+            $destDir = $targetPath . DS . Mage_Connect_Package::PACKAGE_XML_DIR;
+            $destFile = $package->getReleaseFilename() . '.xml';
+            $dest = $destDir . DS . $destFile;
+
+            @copy($packageXml, $dest);
+            @chmod($dest, $modeFile);
+        }
+
         Mage_System_Dirs::rm(array("-r",$target));
     }
 
@@ -358,7 +444,7 @@ class Mage_Connect_Packager
      * @param string/array $channels
      * @param Mage_Connect_Singleconfig $cacheObject
      * @param Mage_Connect_Rest $restObj optional
-     * @param bool $checkConflicts 
+     * @param bool $checkConflicts
      * @return array
      */
     public function getUpgradesList($channels, $cacheObject, $configObj, $restObj = null, $checkConflicts = false)
@@ -368,7 +454,7 @@ class Mage_Connect_Packager
         }
 
         if(!$restObj) {
-            $restObj = new Mage_Connect_Rest();
+            $restObj = new Mage_Connect_Rest($configObj->protocol);
         }
 
         $updates = array();
@@ -468,7 +554,7 @@ class Mage_Connect_Packager
             //print "Processing outer: {$keyOuter} \n";
             $hash[$keyOuter] = array (
                         'name' => $package,
-                        'channel' => $chanName,             
+                        'channel' => $chanName,
                         'version' => $version,
                         'packages' => $dependencies,
             );
@@ -503,6 +589,44 @@ class Mage_Connect_Packager
     }
 
     /**
+     * Add data to package dependencies hash array
+     * @param array $hash Package dependencies hash array
+     * @param string $name Package name
+     * @param string $channel Package chaannel
+     * @param string $downloaded_version Package downloaded version
+     * @param string $stability Package stability
+     * @param string $versionMin Required package minimum version
+     * @param string $versionMax Required package maximum version
+     * @param string $install_state Package install state
+     * @param string $message Package install message
+     * @param array $dependencies Package dependencies
+     */
+    private function addHashData(&$hash, $name, $channel, $downloaded_version = '', $stability = '', $versionMin = '',
+            $versionMax = '', $install_state = '', $message = '', $dependencies = '') 
+    {
+            /**
+             * @todo When we are building dependencies tree we should base this calculations not on full key as on a 
+             * unique value but check it by parts. First part which should be checked is EXTENSION_NAME also this 
+             * part should be unique globally not per channel.
+             */
+            //$key = $chanName . "/" . $package;
+            $key = $name;
+            $hash[$key] = array (
+                'name' => $name,
+                'channel' => $channel,
+                'downloaded_version' => $downloaded_version,
+                'stability' => $stability,
+                'min' => $versionMin,
+                'max' => $versionMax,
+                'install_state' => $install_state,
+                'message' => (isset($this->install_states[$install_state]) ? $this->install_states[$install_state] : '').$message,
+                'packages' => $dependencies,
+            );
+
+            return true;
+    }
+
+    /**
      * Get dependencies list/install order info
      *
      *
@@ -517,25 +641,31 @@ class Mage_Connect_Packager
      * @param Mage_Connect_Rest $rest
      * @return mixed
      */
-    public function getDependenciesList( $chanName, $package, $cache, $config, $versionMax = false, $versionMin = false, $withDepsRecursive = true, $forceRemote = false, $rest = null)
+    public function getDependenciesList( $chanName, $package, $cache, $config, $versionMax = false, $versionMin = false,
+            $withDepsRecursive = true, $forceRemote = false, $rest = null)
     {
 
         static $level = 0;
         static $_depsHash = array();
         static $_deps = array();
         static $_failed = array();
+        $install_state = 'install';
+        $version = '';
+        $stability = '';
+        $message = '';
+        $dependencies = array();
 
         $level++;
 
         try {
             $chanName = $cache->chanName($chanName);
 
-            if(!$rest){
+            if (!$rest){
                 $rest = new Mage_Connect_Rest($config->protocol);
             }
             $rest->setChannel($cache->chanUrl($chanName));
             $releases = $rest->getReleases($package);
-            if(!$releases || !count($releases)) {
+            if (!$releases || !count($releases)) {
                 throw new Exception("No releases for '{$package}', skipping");
             }
             $state = $config->preffered_state ? $confg->preffered_state : 'devel';
@@ -544,23 +674,65 @@ class Mage_Connect_Packager
                 throw new Exception("Version for '{$package}' was not detected");
             }
             $packageInfo = $rest->getPackageReleaseInfo($package, $version);
-            if(false === $packageInfo) {
+            if (false === $packageInfo) {
                 throw new Exception("Package release '{$package}' not found on server");
             }
-            $dependencies = $packageInfo->getDependencyPackages();
-            $keyOuter = $chanName . "/" . $package;
+            $stability = $packageInfo->getStability();
 
-            //print "Processing outer: {$keyOuter} \n";
-            $_depsHash[$keyOuter] = array (
-                        'name' => $package,
-                        'channel' => $chanName,             
-                        'downloaded_version' => $version,
-                        'min' => $versionMin,
-                        'max' => $versionMax,
-                        'packages' => $dependencies,
-            );
+            /**
+             * @todo check is package already installed
+             */
+            if ($installedPackage = $cache->isPackageInstalled($package)) {
+                if ($chanName == $installedPackage['channel']){
+                    /**
+                     * @todo check versions!!!
+                     */
+                    if (version_compare($version, $installedPackage['version'], '>')) {
+                        $install_state = 'upgrade';
+                    } elseif (version_compare($version, $installedPackage['version'], '<')) {
+                        $version = $installedPackage['version'];
+                        $stability = $installedPackage['stability'];
+                        $install_state = 'wrong_version';
+                    } else {
+                        $install_state = 'already_installed';
+                    }
+                } else {
+                    $install_state = 'incompatible';
+                }
+            }
 
-            if($withDepsRecursive) {
+            $deps_tmp = $packageInfo->getDependencyPackages();
+
+            /**
+             * @todo Select distinct packages grouped by name
+             */
+            $dependencies = array();
+            foreach ($deps_tmp as $row) {
+                if (isset($dependencies[$row['name']])) {
+                    if ($installedPackageDep = $cache->isPackageInstalled($row['name'])) {
+                        if ($installedPackageDep['channel'] == $row['channel']) {
+                            $dependencies[$row['name']]=$row;
+                        }
+                    } elseif ($config->root_channel == $row['channel']) {
+                        $dependencies[$row['name']] = $row;
+                    }
+                } else {
+                    $dependencies[$row['name']] = $row;
+                }
+            }
+            
+            /**
+             * @todo When we are building dependencies tree we should base this calculations not on full key as on a
+             * unique value but check it by parts. First part which should be checked is EXTENSION_NAME also this part
+             * should be unique globally not per channel.
+             */
+            // $keyOuter = $chanName . "/" . $package;
+            $keyOuter = $package;
+
+            $this->addHashData($_depsHash, $package, $chanName, $version, $stability, $versionMin,
+                    $versionMax, $install_state, $message, $dependencies);
+
+            if ($withDepsRecursive && 'incompatible' != $install_state) {
                 $flds = array('name','channel','min','max');
                 $fldsCount = count($flds);
                 foreach($dependencies as $row) {
@@ -569,7 +741,13 @@ class Mage_Connect_Packager
                         $$varName = $row[$key];
                     }
                     $method = __FUNCTION__;
-                    $keyInner = $pChannel . "/" . $pName;
+                    /**
+                     * @todo When we are building dependencies tree we should base this calculations not on full key as 
+                     * on a unique value but check it by parts. First part which should be checked is EXTENSION_NAME
+                     * also this part should be unique globally not per channel.
+                     */
+                    //$keyInner = $pChannel . "/" . $pName;
+                    $keyInner = $pName;
                     if(!isset($_depsHash[$keyInner])) {
                         $_deps[] = $row;
                         $this->$method($pChannel, $pName, $cache, $config,
@@ -602,7 +780,13 @@ class Mage_Connect_Packager
                         if(!$cache->hasVersionRangeIntersect($pMin,$pMax, $hasMin, $hasMax)) {
                             $reason = "Detected {$pName} conflict of versions: {$hasMin}-{$hasMax} and {$pMin}-{$pMax}";
                             unset($_depsHash[$keyInner]);
-                            $_failed[] = array('name'=>$pName, 'channel'=>$pChannel, 'max'=>$pMax, 'min'=>$pMin, 'reason'=>$reason);
+                            $_failed[] = array(
+                                'name'=>$pName,
+                                'channel'=>$pChannel,
+                                'max'=>$pMax,
+                                'min'=>$pMin,
+                                'reason'=>$reason
+                            );
                             continue;
                         }
                         $newMaxIsLess = version_compare($pMax, $hasMax, "<");
@@ -619,19 +803,19 @@ class Mage_Connect_Packager
         } catch (Exception $e) {
             $_failed[] = array('name'=>$package, 'channel'=>$chanName, 'max'=>$versionMax, 'min'=>$versionMin, 'reason'=>$e->getMessage());
         }
-        
-        
+
+
         $level--;
         if($level == 0) {
-            $out = $this->processDepsHash($_depsHash);
-            $deps = $_deps;   
+            $out = $this->processDepsHash($_depsHash, false);
+            $deps = $_deps;
             $failed = $_failed;
             $_depsHash = array();
             $_deps = array();
-            $_failed = array();    
-            return array('deps' => $deps, 'result' => $out, 'failed'=> $failed);    
+            $_failed = array();
+            return array('deps' => $deps, 'result' => $out, 'failed'=> $failed);
         }
-        
+
     }
 
 
@@ -662,13 +846,18 @@ class Mage_Connect_Packager
             foreach($depsHash as $key=>$data) {
                 $packages = $data['packages'];
                 foreach($packages as $pdata) {
-                    $pName = $pdata['channel'] . "/" . $pdata['name'];
+                    $pName = $pdata['name'];
                     if(isset($nodes[$key], $nodes[$pName])) {
                         $nodes[$key]->connectTo($nodes[$pName]);
                     }
                 }
             }
         }
+
+        if (!$graph->isAcyclic()) {
+            throw new Exception("Dependency references are cyclic");
+        }
+
         $result = $graph->topologicalSort();
         $sortReverse ? krsort($result) : ksort($result);
         $out = array();

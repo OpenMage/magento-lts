@@ -61,6 +61,10 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
     protected function _prepareForm()
     {
         $model  = $this->getModel();
+        $identity = Mage::getStoreConfig(Mage_Newsletter_Model_Subscriber::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY);
+        $identityName = Mage::getStoreConfig('trans_email/ident_'.$identity.'/name');
+        $identityEmail = Mage::getStoreConfig('trans_email/ident_'.$identity.'/email');
+
         $form   = new Varien_Data_Form(array(
             'id'        => 'edit_form',
             'action'    => $this->getData('action'),
@@ -100,7 +104,9 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
             'label'     => Mage::helper('newsletter')->__('Sender Name'),
             'title'     => Mage::helper('newsletter')->__('Sender Name'),
             'required'  => true,
-            'value'     => $model->getTemplateSenderName(),
+            'value'     => $model->getId() !== null 
+                ? $model->getTemplateSenderName()
+                : $identityName,
         ));
 
         $fieldset->addField('sender_email', 'text', array(
@@ -109,7 +115,9 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
             'title'     => Mage::helper('newsletter')->__('Sender Email'),
             'class'     => 'validate-email',
             'required'  => true,
-            'value'     => $model->getTemplateSenderEmail(),
+            'value'     => $model->getId() !== null 
+                ? $model->getTemplateSenderEmail()
+                : $identityEmail
         ));
 
 

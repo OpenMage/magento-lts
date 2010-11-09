@@ -459,6 +459,25 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
+     * Remove don't applicable attributes data
+     *
+     * @param Mage_Catalog_Model_Product $product
+     */
+    protected function _removeNotApplicableAttributes($product = null)
+    {
+        $product    = $this->getProduct($product);
+        $eavConfig  = Mage::getSingleton('eav/config');
+        $entityType = $product->getResource()->getEntityType();
+        foreach ($eavConfig->getEntityAttributeCodes($entityType, $product) as $attributeCode) {
+            $attribute = $eavConfig->getAttribute($entityType, $attributeCode);
+            $applyTo   = $attribute->getApplyTo();
+            if (is_array($applyTo) && count($applyTo) > 0 && !in_array($product->getTypeId(), $applyTo)) {
+                $product->unsetData($attribute->getAttributeCode());
+            }
+        }
+    }
+
+    /**
      * Before save type related data
      *
      * @param Mage_Catalog_Model_Product $product
@@ -466,6 +485,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function beforeSave($product = null)
     {
+        $this->_removeNotApplicableAttributes($product);
         $this->getProduct($product)->canAffectOptions(true);
         return $this;
     }
@@ -500,8 +520,26 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function getSku($product = null)
     {
-        $skuDelimiter = '-';
         $sku = $this->getProduct($product)->getData('sku');
+        if ($this->getProduct($product)->getCustomOption('option_ids')) {
+            $sku = $this->getOptionSku($product,$sku);
+        }
+        return $sku;
+    }
+
+    /**
+     * Default action to get sku of product with option
+     *
+     * @param Mage_Catalog_Model_Product $product Product with Custom Options
+     * @param string $sku Product SKU without option
+     * @return string
+     */
+    public function getOptionSku($product = null, $sku='')
+    {
+        $skuDelimiter = '-';
+        if(empty($sku)){
+            $sku = $this->getProduct($product)->getData('sku');
+        }
         if ($optionIds = $this->getProduct($product)->getCustomOption('option_ids')) {
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
                 if ($option = $this->getProduct($product)->getOptionById($optionId)) {
@@ -510,7 +548,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
 
                     $group = $option->groupFactory($option->getType())
                         ->setOption($option)->setListener(new Varien_Object());
-
+                    
                     if ($optionSku = $group->getOptionSku($quoteItemOption->getValue(), $skuDelimiter)) {
                         $sku .= $skuDelimiter . $optionSku;
                     }
@@ -528,7 +566,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         }
         return $sku;
     }
-
     /**
      * Default action to get weight of product
      *

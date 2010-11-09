@@ -58,9 +58,13 @@ class Mage_GoogleCheckout_Block_Link extends Mage_Core_Block_Template
         return $this->getUrl('googlecheckout/redirect/checkout');
     }
 
+    /**
+     * @deprecated after 1.4.1.1
+     * @return bool
+     */
     public function getIsActiveAanalytics()
     {
-        return Mage::getStoreConfig('google/analytics/active');
+        return false;
     }
 
     public function getImageWidth()
@@ -83,6 +87,7 @@ class Mage_GoogleCheckout_Block_Link extends Mage_Core_Block_Template
     {
         $quote = Mage::getSingleton('checkout/session')->getQuote();
         if (Mage::getModel('googlecheckout/payment')->isAvailable($quote) && $quote->validateMinimumAmount()) {
+            Mage::dispatchEvent('googlecheckout_block_link_html_before', array('block' => $this));
             return parent::_toHtml();
         }
         return '';

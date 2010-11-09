@@ -394,6 +394,16 @@ class Mage_Paypal_Model_Pro
      */
     public function updateRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile)
     {
+
+    }
+
+    /**
+     * Manage status
+     *
+     * @param Mage_Payment_Model_Recurring_Profile $profile
+     */
+    public function updateRecurringProfileStatus(Mage_Payment_Model_Recurring_Profile $profile)
+    {
         $api = $this->getApi();
         $action = null;
         switch ($profile->getNewState()) {
@@ -409,16 +419,6 @@ class Mage_Paypal_Model_Pro
             ->setAction($action)
             ->callManageRecurringPaymentsProfileStatus()
         ;
-    }
-
-    /**
-     * Manage status
-     *
-     * @param Mage_Payment_Model_Recurring_Profile $profile
-     */
-    public function updateRecurringProfileStatus(Mage_Payment_Model_Recurring_Profile $profile)
-    {
-
     }
 
     /**

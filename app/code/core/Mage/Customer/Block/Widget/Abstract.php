@@ -56,4 +56,15 @@ class Mage_Customer_Block_Widget_Abstract extends Mage_Core_Block_Template
     {
         return sprintf($this->getFieldNameFormat(), $field);
     }
+
+    /**
+     * Retrieve customer attribute instance
+     *
+     * @param string $attributeCode
+     * @return Mage_Customer_Model_Attribute
+     */
+    protected function _getAttribute($attributeCode)
+    {
+        return Mage::getSingleton('eav/config')->getAttribute('customer', $attributeCode);
+    }
 }

@@ -29,5 +29,30 @@
  */
 class Mage_CatalogRule_Helper_Data extends Mage_Core_Helper_Abstract
 {
-
+    /**
+     * Algorithm for calculating price rule
+     *
+     * @param  string $actionOperator
+     * @param  int $ruleAmount
+     * @param  float $price
+     * @return float|int
+     */
+    public function calcPriceRule ($actionOperator, $ruleAmount, $price)
+    {
+        switch ($actionOperator) {
+            case 'to_fixed':
+                $priceRule = $ruleAmount;
+                break;
+            case 'to_percent':
+                $priceRule= $price * $ruleAmount / 100;
+                break;
+            case 'by_fixed':
+                $priceRule -= $ruleAmount;
+                break;
+            case 'by_percent':
+                $priceRule = $price * (1 - $ruleAmount / 100);
+                break;
+        }
+        return max($priceRule, 0);
+    }
 }

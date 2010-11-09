@@ -393,37 +393,42 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
         $xml->addChild('PackageCount', '1');
 
         $request = $xml->asXML();
-        $debugData = array('request' => $request);
-/*
-        $client = new Zend_Http_Client();
-        $client->setUri($this->getConfigData('gateway_url'));
-        $client->setConfig(array('maxredirects'=>0, 'timeout'=>30));
-        $client->setParameterPost($request);
-        $response = $client->request();
-        $responseBody = $response->getBody();
-*/
 
-        try {
-            $url = $this->getConfigData('gateway_url');
-            if (!$url) {
-                $url = $this->_defaultGatewayUrl;
+        $responseBody = $this->_getCachedQuotes($request);
+        if ($responseBody === null) {
+            $debugData = array('request' => $request);
+    /*
+            $client = new Zend_Http_Client();
+            $client->setUri($this->getConfigData('gateway_url'));
+            $client->setConfig(array('maxredirects'=>0, 'timeout'=>30));
+            $client->setParameterPost($request);
+            $response = $client->request();
+            $responseBody = $response->getBody();
+    */
+
+            try {
+                $url = $this->getConfigData('gateway_url');
+                if (!$url) {
+                    $url = $this->_defaultGatewayUrl;
+                }
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
+                $responseBody = curl_exec($ch);
+                curl_close ($ch);
+
+                $debugData['result'] = $responseBody;
+                $this->_setCachedQuotes($request, $responseBody);
             }
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
-            $responseBody = curl_exec($ch);
-            $debugData['result'] = $responseBody;
-            curl_close ($ch);
+            catch (Exception $e) {
+                $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
+                $responseBody = '';
+            }
+            $this->_debug($debugData);
         }
-        catch (Exception $e) {
-            $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
-            $responseBody = '';
-        }
-
-        $this->_debug($debugData);
         return $this->_parseXmlResponse($responseBody);
     }
 

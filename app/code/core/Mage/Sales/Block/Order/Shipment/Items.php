@@ -50,4 +50,22 @@ class Mage_Sales_Block_Order_Shipment_Items extends Mage_Sales_Block_Items_Abstr
     public function getPrintAllShipmentsUrl($order){
         return Mage::getUrl('*/*/printShipment', array('order_id' => $order->getId()));
     }
+
+    /**
+     * Get html of shipment comments block
+     *
+     * @param   Mage_Sales_Model_Order_Shipment $shipment
+     * @return  string
+     */
+    public function getCommentsHtml($shipment)
+    {
+        $html = '';
+        $comments = $this->getChild('shipment_comments');
+        if ($comments) {
+            $comments->setEntity($shipment)
+                ->setTitle(Mage::helper('sales')->__('About Your Shipment'));
+            $html = $comments->toHtml();
+        }
+        return $html;
+    }
 }

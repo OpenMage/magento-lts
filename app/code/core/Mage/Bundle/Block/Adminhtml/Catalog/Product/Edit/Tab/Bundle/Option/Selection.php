@@ -33,21 +33,39 @@
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection extends Mage_Adminhtml_Block_Widget
 {
+    /**
+     * Initialize bundle option selection block
+     */
     public function __construct()
     {
         $this->setTemplate('bundle/product/edit/bundle/option/selection.phtml');
     }
 
+    /**
+     * Return field id
+     *
+     * @return string
+     */
     public function getFieldId()
     {
         return 'bundle_selection';
     }
 
+    /**
+     * Return field name
+     *
+     * @return string
+     */
     public function getFieldName()
     {
         return 'bundle_selections';
     }
 
+    /**
+     * Prepare block layout
+     *
+     * @return Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection
+     */
     protected function _prepareLayout()
     {
         $this->setChild('selection_delete_button',
@@ -58,15 +76,24 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
                     'on_click' => 'bSelection.remove(event)'
                 ))
         );
-
         return parent::_prepareLayout();
     }
 
+    /**
+     * Retrieve delete button html
+     *
+     * @return string
+     */
     public function getSelectionDeleteButtonHtml()
     {
         return $this->getChildHtml('selection_delete_button');
     }
 
+    /**
+     * Retrieve price type select html
+     *
+     * @return string
+     */
     public function getPriceTypeSelectHtml()
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
@@ -80,6 +107,11 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
         return $select->getHtml();
     }
 
+    /**
+     * Retrieve qty type select html
+     *
+     * @return string
+     */
     public function getQtyTypeSelectHtml()
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
@@ -93,8 +125,43 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
         return $select->getHtml();
     }
 
+    /**
+     * Return search url
+     *
+     * @return string
+     */
     public function getSelectionSearchUrl()
     {
         return $this->getUrl('bundle/selection/search');
+    }
+
+    /**
+     * Check if used website scope price
+     *
+     * @return string
+     */
+    public function isUsedWebsitePrice()
+    {
+        return !Mage::helper('catalog')->isPriceGlobal() && Mage::registry('product')->getStoreId();
+    }
+
+    /**
+     * Retrieve price scope checkbox html
+     *
+     * @return string
+     */
+    public function getCheckboxScopeHtml()
+    {
+        $checkboxHtml = '';
+        if ($this->isUsedWebsitePrice()) {
+            $id = $this->getFieldId().'_{{index}}_price_scope';
+            $name = $this->getFieldName().'[{{parentIndex}}][{{index}}][default_price_scope]';
+            $class = 'bundle-option-price-scope-checkbox';
+            $label = Mage::helper('bundle')->__('Use Default Value');
+
+            $checkboxHtml = '<input type="checkbox" id="'.$id.'" class="'.$class.'" name="'.$name.'" value="1" />';
+            $checkboxHtml .= '<label class="normal" for="'.$id.'">'.$label.'</label>';
+        }
+        return $checkboxHtml;
     }
 }

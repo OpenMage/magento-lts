@@ -113,12 +113,12 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
             $options = array();
             foreach ($this->getCustomer()->getAddresses() as $address) {
                 $options[] = array(
-                    'value'=>$address->getId(),
-                    'label'=>$address->format('oneline')
+                    'value' => $address->getId(),
+                    'label' => $address->format('oneline')
                 );
             }
 
-            $addressId = $this->getAddress()->getId();
+            $addressId = $this->getAddress()->getCustomerAddressId();
             if (empty($addressId)) {
                 if ($type=='billing') {
                     $address = $this->getCustomer()->getPrimaryBillingAddress();

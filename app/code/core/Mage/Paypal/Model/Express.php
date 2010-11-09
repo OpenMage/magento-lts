@@ -319,7 +319,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      */
     public function updateRecurringProfileStatus(Mage_Payment_Model_Recurring_Profile $profile)
     {
-        return $this->_pro->updateRecurringProfile($profile);
+        return $this->_pro->updateRecurringProfileStatus($profile);
     }
 
     /**
@@ -362,15 +362,9 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
             ->setNotifyUrl(Mage::getUrl('paypal/ipn/'))
             ->setInvNum($order->getIncrementId())
             ->setCurrencyCode($order->getBaseCurrencyCode())
+            ->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
+            ->setIsLineItemsEnabled($this->_pro->getConfig()->lineItemsEnabled)
         ;
-
-        // add line items
-        if ($this->_pro->getConfig()->lineItemsEnabled) {
-            list($items, $totals) = Mage::helper('paypal')->prepareLineItems($order);
-            if (Mage::helper('paypal')->areCartLineItemsValid($items, $totals, $amount)) {
-                $api->setLineItems($items)->setLineItemTotals($totals);
-            }
-        }
 
         // call api and get details from it
         $api->callDoExpressCheckoutPayment();

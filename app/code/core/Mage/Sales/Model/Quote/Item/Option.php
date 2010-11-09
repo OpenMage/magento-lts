@@ -45,6 +45,20 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Checks that item option model has data changes
+     *
+     * @return boolean
+     */
+    protected function _hasModelChanged()
+    {
+        if (!$this->hasDataChanges()) {
+            return false;
+        }
+
+        return $this->_getResource()->hasDataChanged($this);
+    }
+
+    /**
      * Set quote item
      *
      * @param   Mage_Sales_Model_Quote_Item $item

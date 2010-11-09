@@ -474,6 +474,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
         try {
             $productData = $this->getRequest()->getPost('product');
+
             if ($productData && !isset($productData['stock_data']['use_config_manage_stock'])) {
                 $productData['stock_data']['use_config_manage_stock'] = 0;
             }
@@ -491,6 +492,18 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             if ($productId = $this->getRequest()->getParam('id')) {
                 $product->load($productId);
             }
+
+            $dateFields = array();
+            $attributes = $product->getAttributes();
+            foreach ($attributes as $attrKey => $attribute) {
+                if ($attribute->getBackend()->getType() == 'datetime') {
+                    if (array_key_exists($attrKey, $productData) && $productData[$attrKey] != ''){
+                        $dateFields[] = $attrKey;
+                    }
+                }
+            }
+            $productData = $this->_filterDates($productData, $dateFields);
+
             $product->addData($productData);
             $product->validate();
             /**
@@ -712,8 +725,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     public function duplicateAction()
     {
-        $productId = (int) $this->getRequest()->getParam('id');
-        $product = Mage::getModel('catalog/product')->load($productId);
+        $product = $this->_initProduct();
         try {
             $newProduct = $product->duplicate();
             $this->_getSession()->addSuccess($this->__('The product has been duplicated.'));
@@ -869,6 +881,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $status     = (int)$this->getRequest()->getParam('status');
 
         try {
+            $this->_validateMassStatus($productIds, $status);
             Mage::getSingleton('catalog/product_action')
                 ->updateAttributes($productIds, array('status' => $status), $storeId);
 
@@ -879,11 +892,31 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         catch (Mage_Core_Model_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
+        catch (Mage_Core_Exception $e) {
+            $this->_getSession()->addError($e->getMessage());
+        }
         catch (Exception $e) {
             $this->_getSession()->addException($e, $this->__('An error occurred while updating the product(s) status.'));
         }
 
         $this->_redirect('*/*/', array('store'=> $storeId));
+    }
+
+    /**
+     * Validate batch of products before theirs status will be set
+     *
+     * @throws Mage_Core_Exception
+     * @param  array $productIds
+     * @param  int $status
+     * @return void
+     */
+    public function _validateMassStatus(array $productIds, $status)
+    {
+        if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
+            if (!Mage::getModel('catalog/product')->isProductsHasSku($productIds)) {
+                throw new Mage_Core_Exception($this->__('Some of the processed products have no SKU value. Please fill it.'));
+            }
+        }
     }
 
     /**

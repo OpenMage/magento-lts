@@ -31,13 +31,34 @@
 class Mage_CatalogSearch_Block_Layer extends Mage_Catalog_Block_Layer_View
 {
     /**
+     * Internal constructor
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        Mage::register('current_layer', $this->getLayer());
+    }
+
+    /**
      * Get attribute filter block name
+     *
+     * @deprecated after 1.4.1.0
      *
      * @return string
      */
     protected function _getAttributeFilterBlockName()
     {
         return 'catalogsearch/layer_filter_attribute';
+    }
+
+    /**
+     * Initialize blocks names
+     */
+    protected function _initBlocks()
+    {
+        parent::_initBlocks();
+
+        $this->_attributeFilterBlockName = 'catalogsearch/layer_filter_attribute';
     }
 
     /**
@@ -62,7 +83,7 @@ class Mage_CatalogSearch_Block_Layer extends Mage_Catalog_Block_Layer_View
             return false;
         }
         $availableResCount = (int) Mage::app()->getStore()
-            ->getConfig(Mage_CatalogSearch_Model_Layer::XML_PATH_DISPLAY_LAYER_COUNT );
+            ->getConfig(Mage_CatalogSearch_Model_Layer::XML_PATH_DISPLAY_LAYER_COUNT);
 
         if (!$availableResCount
             || ($availableResCount>=$this->getLayer()->getProductCollection()->getSize())) {

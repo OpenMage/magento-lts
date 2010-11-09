@@ -23,6 +23,7 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+/* @var $this Mage_Shipping_Block_Tracking_Popup */
 ?>
 <?php  $_results = $this->getTrackingInfo() ?>
 <div class="page-title title-buttons">
@@ -32,103 +33,103 @@
 <?php if(sizeof($_results)>0): ?>
 <?php foreach($_results as $shipid => $_result): ?>
     <?php if($shipid): ?>
-    <h2><?php echo $this->__('Shipment #').$shipid; ?></h2>
+    <h2 class="sub-title"><?php echo $this->__('Shipment #').$shipid; ?></h2>
     <?php endif; ?>
     <?php if(sizeof($_result)>0): ?>
         <?php $rowCount = sizeof($_result); $counter = 1; ?>
-        <?php foreach($_result as $track): ?>
-        <table class="tracking-table-popup">
-            <col width="15%" />
-            <col />
-            <tbody>
+        <?php $_id = 0; foreach($_result as $track): ?>
+            <table class="tracking-table-popup data-table" id="tracking-table-popup-<?php echo $_id ?>">
+                <col width="15%" />
+                <col />
+                <tbody>
                 <?php if(is_object($track)): ?>
-                <tr>
-                    <th><?php echo $this->__('Tracking Number:'); ?></th>
-                    <td><?php echo $track->getTracking(); ?></td>
-                </tr>
-                <?php if ($track->getCarrierTitle()): ?>
-                <tr>
-                    <th><?php echo $this->__('Carrier:'); ?></th>
-                    <td><?php echo $track->getCarrierTitle(); ?></td>
-                </tr>
-                <?php endif; ?>
-                <?php if($track->getErrorMessage()): ?>
-                <tr>
-                    <th><?php echo $this->__('Error:'); ?></th>
-                    <td class="error"><?php echo $this->__('Tracking information is currently not available. Please '); if ($this->getContactUsEnabled()) : ?><a href="<?php echo $this->getContactUs() ?>" onclick="this.target='_blank'"><?php echo $this->__('contact us') ?></a><?php echo $this->__(' for more information or '); endif; echo $this->__('email us at '); ?><a href="mailto:<?php echo $this->getStoreSupportEmail() ?>"><?php echo $this->getStoreSupportEmail() ?></a></td>
-                </tr>
-                <?php elseif($track->getTrackSummary()): ?>
-                <tr>
-                    <th><?php echo $this->__('Info:'); ?></th>
-                    <td><?php echo $track->getTrackSummary(); ?></td>
-                </tr>
-                <?php elseif($track->getUrl()): ?>
-                <tr>
-                    <th><?php echo $this->__('Track:'); ?></th>
-                    <td><a href="<?php echo $track->getUrl(); ?>" onclick="this.target='_blank'"><?php echo $track->getUrl(); ?></a></td>
-                </tr>
-                <?php else: ?>
-                    <?php if ($track->getStatus()): ?>
                     <tr>
-                        <th><?php echo $this->__('Status:'); ?></th>
-                        <td><?php echo $track->getStatus(); ?></td>
+                        <th class="label"><?php echo $this->__('Tracking Number:'); ?></th>
+                        <td class="value"><?php echo $track->getTracking(); ?></td>
+                    </tr>
+                    <?php if ($track->getCarrierTitle()): ?>
+                    <tr>
+                        <th class="label"><?php echo $this->__('Carrier:'); ?></th>
+                        <td class="value"><?php echo $track->getCarrierTitle(); ?></td>
                     </tr>
                     <?php endif; ?>
-
-                    <?php if ($track->getDeliverydate()): ?>
+                    <?php if($track->getErrorMessage()): ?>
                     <tr>
-                        <th><?php echo $this->__('Delivered on:'); ?></th>
-                        <td><?php echo $this->formatDeliveryDateTime($track->getDeliverydate(),$track->getDeliverytime()); ?></td>
+                        <th class="label"><?php echo $this->__('Error:'); ?></th>
+                        <td class="error"><?php echo $this->__('Tracking information is currently not available. Please '); if ($this->getContactUsEnabled()) : ?><a href="<?php echo $this->getContactUs() ?>" title="<?php echo $this->__('contact us') ?>" onclick="this.target='_blank'"><?php echo $this->__('contact us') ?></a><?php echo $this->__(' for more information or '); endif; echo $this->__('email us at '); ?><a href="mailto:<?php echo $this->getStoreSupportEmail() ?>"><?php echo $this->getStoreSupportEmail() ?></a></td>
                     </tr>
-                    <?php endif; ?>
-
-                    <?php if ($track->getSignedby()): ?>
+                    <?php elseif($track->getTrackSummary()): ?>
                     <tr>
-                        <th><?php echo $this->__('Signed by:'); ?></th>
-                        <td><?php echo $track->getSignedby(); ?></td>
+                        <th class="label"><?php echo $this->__('Info:'); ?></th>
+                        <td class="value"><?php echo $track->getTrackSummary(); ?></td>
                     </tr>
-                    <?php endif; ?>
-
-                    <?php if ($track->getDeliveryLocation()): ?>
+                    <?php elseif($track->getUrl()): ?>
                     <tr>
-                        <th><?php echo $this->__('Delivered to:'); ?></th>
-                        <td><?php echo $track->getDeliveryLocation(); ?></td>
+                        <th class="label"><?php echo $this->__('Track:'); ?></th>
+                        <td class="value"><a href="<?php echo $track->getUrl(); ?>" onclick="this.target='_blank'"><?php echo $track->getUrl(); ?></a></td>
                     </tr>
-                    <?php endif; ?>
+                    <?php else: ?>
+                        <?php if ($track->getStatus()): ?>
+                        <tr>
+                            <th class="label"><?php echo $this->__('Status:'); ?></th>
+                            <td class="value"><?php echo $track->getStatus(); ?></td>
+                        </tr>
+                        <?php endif; ?>
 
-                    <?php if ($track->getShippedDate()): ?>
-                    <tr>
-                        <th><?php echo $this->__('Shipped or billed on:'); ?></th>
-                        <td><?php echo $track->getShippedDate(); ?></td>
-                    </tr>
-                    <?php endif; ?>
+                        <?php if ($track->getDeliverydate()): ?>
+                        <tr>
+                            <th class="label"><?php echo $this->__('Delivered on:'); ?></th>
+                            <td class="value"><?php echo $this->formatDeliveryDateTime($track->getDeliverydate(),$track->getDeliverytime()); ?></td>
+                        </tr>
+                        <?php endif; ?>
 
-                    <?php if ($track->getService()): ?>
-                    <tr>
-                        <th><?php echo $this->__('Service Type:'); ?></th>
-                        <td><?php echo $track->getService(); ?></td>
-                    </tr>
-                    <?php endif; ?>
+                        <?php if ($track->getSignedby()): ?>
+                        <tr>
+                            <th class="label"><?php echo $this->__('Signed by:'); ?></th>
+                            <td class="value"><?php echo $track->getSignedby(); ?></td>
+                        </tr>
+                        <?php endif; ?>
 
-                    <?php if ($track->getWeight()): ?>
-                    <tr>
-                        <th><?php echo $this->__('Weight:'); ?></th>
-                        <td><?php echo $track->getWeight(); ?></td>
-                    </tr>
-                    <?php endif; ?>
+                        <?php if ($track->getDeliveryLocation()): ?>
+                        <tr>
+                            <th class="label"><?php echo $this->__('Delivered to:'); ?></th>
+                            <td class="value"><?php echo $track->getDeliveryLocation(); ?></td>
+                        </tr>
+                        <?php endif; ?>
 
+                        <?php if ($track->getShippedDate()): ?>
+                        <tr>
+                            <th class="label"><?php echo $this->__('Shipped or billed on:'); ?></th>
+                            <td class="value"><?php echo $track->getShippedDate(); ?></td>
+                        </tr>
+                        <?php endif; ?>
+
+                        <?php if ($track->getService()): ?>
+                        <tr>
+                            <th class="label"><?php echo $this->__('Service Type:'); ?></th>
+                            <td class="value"><?php echo $track->getService(); ?></td>
+                        </tr>
+                        <?php endif; ?>
+
+                        <?php if ($track->getWeight()): ?>
+                        <tr>
+                            <th class="label"><?php echo $this->__('Weight:'); ?></th>
+                            <td class="value"><?php echo $track->getWeight(); ?></td>
+                        </tr>
+                        <?php endif; ?>
                     <?php endif; ?>
-                    <?php elseif(isset($track['title']) && isset($track['number']) && $track['number']): ?>
+                <?php elseif(isset($track['title']) && isset($track['number']) && $track['number']): ?>
                     <!--if the tracking is custom value-->
                     <tr>
-                        <th><?php echo ($track['title'] ? $this->escapeHtml($track['title']) : $this->__('N/A')); ?>:</th>
-                        <td><?php echo (isset($track['number']) ? $this->escapeHtml($track['number']) : ''); ?></td>
+                        <th class="label"><?php echo ($track['title'] ? $this->escapeHtml($track['title']) : $this->__('N/A')); ?>:</th>
+                        <td class="value"><?php echo (isset($track['number']) ? $this->escapeHtml($track['number']) : ''); ?></td>
                     </tr>
-                    <?php endif; ?>
-                    </tbody>
-                </table>
-                <div class="divider"></div>
-                <?php if (is_object($track) && sizeof($track->getProgressdetail())>0): ?>
+                <?php endif; ?>
+                </tbody>
+            </table>
+            <script type="text/javascript">decorateTable('tracking-table-popup-<?php echo $_id++ ?>');</script>
+            <?php if (is_object($track) && sizeof($track->getProgressdetail())>0): ?>
+                <br />
                 <table class="data-table" id="track-history-table-<?php echo $track->getTracking(); ?>">
                     <col />
                     <col width="1" />
@@ -145,18 +146,19 @@
                    <tbody>
                    <?php foreach($track->getProgressdetail() as $_detail): ?>
                     <?php $_detailDate = (isset($_detail['deliverydate']) ? $this->formatDeliveryDate($_detail['deliverydate']) : '') ?>
-                    <?php $_detailTime = (isset($_detail['deliverytime']) ? $this->formatDeliveryTime($_detail['deliverytime'], $_detailDate) : '') ?>
+                    <?php $_detailTime = (isset($_detail['deliverytime']) ? $this->formatDeliveryTime($_detail['deliverytime'], $_detail['deliverydate']) : '') ?>
                         <tr>
                             <td><?php echo (isset($_detail['deliverylocation']) ? $_detail['deliverylocation'] : ''); ?></td>
-                            <td><?php echo $_detailDate ?></td>
-                            <td><?php echo $_detailTime ?></td>
+                            <td><span class="nobr"><?php echo $_detailDate ?></span></td>
+                            <td><span class="nobr"><?php echo $_detailTime ?></span></td>
                             <td><?php echo (isset($_detail['activity']) ? $_detail['activity'] : '') ?></td>
                         </tr>
                    <?php endforeach; ?>
                    </tbody>
                 </table>
                 <script type="text/javascript">decorateTable('track-history-table-<?php echo $track->getTracking(); ?>');</script>
-                <?php endif; ?>
+            <?php endif; ?>
+            <div class="divider"></div>
             <?php if($counter!=$rowCount): ?>
             <?php endif; ?>
             <?php $counter++; ?>
@@ -168,7 +170,7 @@
 
 <?php endforeach; ?>
 <?php else: ?>
-    <div><?php echo $this->__('There is no tracking available.'); ?></div>
+    <p><?php echo $this->__('There is no tracking available.'); ?></p>
 <?php endif; ?>
 <div class="buttons-set">
     <button type="button" title="<?php echo $this->__('Close Window') ?>" class="button" onclick="window.close(); window.opener.focus();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>

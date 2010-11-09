@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,9 +30,9 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Fieldset.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Fieldset.php 21967 2010-04-21 23:22:00Z alab $
  */
 class Zend_Form_Decorator_Fieldset extends Zend_Form_Decorator_Abstract
 {
@@ -126,12 +126,12 @@ class Zend_Form_Decorator_Fieldset extends Zend_Form_Decorator_Abstract
             return $content;
         }
 
-        $legend        = $this->getLegend();
-        $attribs       = $this->getOptions();
-        $name          = $element->getFullyQualifiedName();
+        $legend  = $this->getLegend();
+        $attribs = $this->getOptions();
+        $name    = $element->getFullyQualifiedName();
+        $id      = (string)$element->getId();
 
-        $id = $element->getId();
-        if (!empty($id)) {
+        if (!array_key_exists('id', $attribs) && '' !== $id) {
             $attribs['id'] = 'fieldset-' . $id;
         }
 

@@ -20,16 +20,30 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php $_recurringProfileInformation = $this->getRecurringProfileInformation();?>
-<table cellspacing="0" class="form-list">
-<?php foreach($_recurringProfileInformation as $label => $value):?>
-<tr>
-    <td class="label"><label><?php echo $label ?></label></td>
-    <td><strong><?php echo $value ?></label></strong></td>
-</tr>
+<?php /* @var $this Mage_Sales_Block_Recurring_Profile_View */?>
+<?php if ($this->getIsAddress()):?>
+
+<?php foreach ($this->getRenderedInfo() as $row):?>
+<address><?php echo nl2br($this->escapeHtml($this->getObjectData($row, 'value')))?></address>
 <?php endforeach;?>
+
+<?php else:?>
+
+<table cellspacing="0" class="form-list">
+<tbody>
+<?php foreach ($this->getRenderedInfo() as $row):?>
+<?php $isAmount = $this->getObjectData($row, 'is_amount');?>
+    <tr>
+    <td class="label"><label><?php echo $this->escapeHtml($this->getObjectData($row, 'label'))?></label></td>
+    <td<?php echo $isAmount ? ' class="a-right"' : ''?>>
+        <strong><?php echo $this->renderRowValue($row) ?></strong>
+    </td>
+    </tr>
+<?php endforeach;?>
+</tbody>
 </table>
+<?php endif;?>

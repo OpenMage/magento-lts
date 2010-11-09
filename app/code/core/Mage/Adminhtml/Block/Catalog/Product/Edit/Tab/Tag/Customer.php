@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag_Customer extends Mage_Ad
         return parent::_prepareColumns();
     }
 
-    protected function getRowUrl($row)
+    public function getRowUrl($row)
     {
         return $this->getUrl('*/customer/edit', array('id' => $row->getCustomerId()));
     }

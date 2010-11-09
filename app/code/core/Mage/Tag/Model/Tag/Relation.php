@@ -34,7 +34,11 @@
  */
 class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
 {
-    const STATUS_ACTIVE = 1;
+    /**
+     * Relation statuses
+     */
+    const STATUS_ACTIVE     = 1;
+    const STATUS_NOT_ACTIVE = 0;
 
     /**
      * Entity code.

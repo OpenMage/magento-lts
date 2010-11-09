@@ -47,6 +47,9 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
      */
     public function checkDatabase($data)
     {
+        if (!isset($data['db_name']) || empty($data['db_name'])) {
+            Mage::throwException(Mage::helper('install')->__('Database Name cannot be empty.'));
+        }
         $config = array(
             'host'      => $data['db_host'],
             'username'  => $data['db_user'],
@@ -76,7 +79,7 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
             }
         }
         catch (Exception $e){
-            $this->_getInstaller()->getDataModel()->addError($e->getMessage());
+            Mage::logException($e);
             Mage::throwException(Mage::helper('install')->__('Database connection error.'));
         }
     }

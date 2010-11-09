@@ -101,6 +101,10 @@ EOT;
         $billingDiscount = (float)$this->getQuote()->getBillingAddress()->getBaseDiscountAmount();
         $discount = $billingDiscount + $shippingDiscount;
 
+        // exclude shipping discount
+        // discount is negative value
+        $discount += $this->getQuote()->getShippingAddress()->getBaseShippingDiscountAmount();
+
         $discountItem = new Varien_Object(array(
                 'price' => $discount,
                 'name'  => $this->__('Cart Discount'),
@@ -114,8 +118,8 @@ EOT;
             $xml .= <<<EOT
             <item>
                 <merchant-item-id>_INTERNAL_DISCOUNT_</merchant-item-id>
-                <item-name>{$this->__('Cart Discount')}</item-name>
-                <item-description>{$this->__('Virtual item to reflect discount total')}</item-description>
+                <item-name>{$discountItem->getName()}</item-name>
+                <item-description>{$discountItem->getDescription()}</item-description>
                 <unit-price currency="{$this->getCurrency()}">{$discount}</unit-price>
                 <quantity>1</quantity>
                 <item-weight unit="{$weightUnit}" value="0.00" />

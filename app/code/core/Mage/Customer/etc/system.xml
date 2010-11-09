@@ -203,6 +203,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <backend_model>adminhtml/system_config_backend_customer_address_street</backend_model>
                             <comment>Leave empty for default (2). Valid range: 1-4</comment>
                         </street_lines>
                         <prefix_show translate="label comment">
@@ -210,6 +211,7 @@
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_nooptreq</source_model>
                             <sort_order>20</sort_order>
+                            <backend_model>adminhtml/system_config_backend_customer_show_address</backend_model>
                             <comment>The title that goes before name (Mr., Mrs., etc.)</comment>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -228,6 +230,7 @@
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <comment>Always optional.</comment>
+                            <backend_model>adminhtml/system_config_backend_customer_show_address</backend_model>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -238,6 +241,7 @@
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_nooptreq</source_model>
                             <comment>The suffix that goes after name (Jr., Sr., etc.)</comment>
+                            <backend_model>adminhtml/system_config_backend_customer_show_address</backend_model>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -256,6 +260,7 @@
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_nooptreq</source_model>
                             <sort_order>70</sort_order>
+                            <backend_model>adminhtml/system_config_backend_customer_show_customer</backend_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -264,6 +269,7 @@
                             <label>Show Tax/VAT Number</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_nooptreq</source_model>
+                            <backend_model>adminhtml/system_config_backend_customer_show_customer</backend_model>
                             <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -273,6 +279,7 @@
                             <label>Show Gender</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_nooptreq</source_model>
+                            <backend_model>adminhtml/system_config_backend_customer_show_customer</backend_model>
                             <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -299,6 +306,56 @@
                         </redirect_dashboard>
                     </fields>
                 </startup>
+                <address_templates translate="label">
+                    <label>Address Templates</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <text>
+                            <label>Text</label>    
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </text>
+                        <oneline>
+                            <label>Text One Line</label>    
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </oneline>
+                        <html>
+                            <label>HTML</label>    
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </html>
+                        <pdf>
+                            <label>PDF</label>    
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </pdf>
+                        <js_template>
+                            <label>JavaScript Template</label>    
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </js_template>
+                    </fields>
+                </address_templates>
             </groups>
         </customer>
     </sections>

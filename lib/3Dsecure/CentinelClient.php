@@ -40,7 +40,7 @@
 
 
 		function getValue($name) {
-		    if (!empty($this->response[$name])) {
+		    if (isset($this->response[$name])) {
                 return $this->response[$name];
 		    }else{
 		        return "";

@@ -32,8 +32,26 @@
 * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
 * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 */
-class Maged_Model_Config extends Maged_Model
+class Maged_Model_Config extends Maged_Model_Config_Abstract
 {
+    /**
+     * Get channel config class
+     * @return Maged_Model_Config_Interface
+     */
+    public function getChannelConfig()
+    {
+        $this->load();
+        $channel = trim($this->get('root_channel'));
+        if (!empty($channel)) {
+            try {
+                return $this->controller()->model('config_'.$channel, true);
+            } catch (Exception $e) {
+                throw new Exception('Not valid config.ini file.');
+            }
+        } else {
+            throw new Exception('Not valid config.ini file.');
+        }
+    }
 
     /**
     * Save post data to config
@@ -54,7 +72,6 @@ class Maged_Model_Config extends Maged_Model
             'root_channel_uri',
             'root_channel',
             'ftp',
-            'auth',
         );
         foreach ($configParams as $paramName){
             if (isset($p[$paramName])) {
@@ -64,81 +81,4 @@ class Maged_Model_Config extends Maged_Model
         $this->save();
         return $this;
     }
-
-    /**
-    * Retrive file name
-    *
-    * @return string
-    */
-    public function getFilename()
-    {
-        return $this->controller()->filepath('config.ini');
-    }
-
-    /**
-    * Load file
-    *
-    * @return Maged_Model_Config
-    */
-    public function load()
-    {
-        if (!file_exists($this->getFilename())) {
-            return $this;
-        }
-        $rows = file($this->getFilename());
-        if (!$rows) {
-            return $this;
-        }
-        foreach ($rows as $row) {
-            $arr = explode('=', $row, 2);
-            if (count($arr)!==2) {
-                continue;
-            }
-            $key = trim($arr[0]);
-            $value = trim($arr[1], " \t\"'\n");
-            if (!$key || $key[0]=='#' || $key[0]==';') {
-                continue;
-            }
-            $this->set($key, $value);
-        }
-        return $this;
-    }
-
-    /**
-    * Save file
-    *
-    * @return Maged_Model_Config
-    */
-    public function save()
-    {
-        if ((!is_writable($this->getFilename())&&is_file($this->getFilename()))||(dirname($this->getFilename())!=''&&!is_writable(dirname($this->getFilename())))) {
-            if(isset($this->_data['ftp'])&&!empty($this->_data['ftp'])&&strlen($this->get('downloader_path'))>0){
-                $confFile=$this->get('downloader_path').DIRECTORY_SEPARATOR.basename($this->getFilename());
-                $ftpObj = new Mage_Connect_Ftp();
-                $ftpObj->connect($this->_data['ftp']);
-                $tempFile = tempnam(sys_get_temp_dir(),'configini');
-                $fp = fopen($tempFile, 'w');
-                foreach ($this->_data as $k=>$v) {
-                    fwrite($fp, $k.'='.$v."\n");
-                }
-                fclose($fp);
-                $ret=$ftpObj->upload($confFile, $tempFile);
-                $ftpObj->close();
-            }else{
-                /* @TODO: show Warning message*/
-                $this->controller()->session()
-                    ->addMessage('warning', 'Invalid file permissions, could not save configuration.');
-                return $this;
-            }
-            /**/
-        }else{
-            $fp = fopen($this->getFilename(), 'w');
-            foreach ($this->_data as $k=>$v) {
-                fwrite($fp, $k.'='.$v."\n");
-            }
-            fclose($fp);
-        }
-        return $this;
-    }
-
 }

@@ -15,8 +15,8 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: HeadTitle.php 18951 2009-11-12 16:26:19Z alexander $
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: HeadTitle.php 22089 2010-05-04 11:49:03Z padraic $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@
  * @uses       Zend_View_Helper_Placeholder_Container_Standalone
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_Standalone
@@ -54,6 +54,13 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
     protected $_translator;
 
     /**
+     * Default title rendering order (i.e. order in which each title attached)
+     *
+     * @var string
+     */
+    protected $_defaultAttachOrder = null;
+
+    /**
      * Retrieve placeholder for title element and optionally set state
      *
      * @param  string $title
@@ -61,8 +68,13 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
      * @param  string $separator
      * @return Zend_View_Helper_HeadTitle
      */
-    public function headTitle($title = null, $setType = Zend_View_Helper_Placeholder_Container_Abstract::APPEND)
+    public function headTitle($title = null, $setType = null)
     {
+        if (is_null($setType) && is_null($this->getDefaultAttachOrder())) {
+            $setType = Zend_View_Helper_Placeholder_Container_Abstract::APPEND;
+        } elseif (is_null($setType) && !is_null($this->getDefaultAttachOrder())) {
+            $setType = $this->getDefaultAttachOrder();
+        }
         $title = (string) $title;
         if ($title !== '') {
             if ($setType == Zend_View_Helper_Placeholder_Container_Abstract::SET) {
@@ -75,6 +87,34 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
         }
 
         return $this;
+    }
+
+    /**
+     * Set a default order to add titles
+     *
+     * @param string $setType
+     */
+    public function setDefaultAttachOrder($setType)
+    {
+        if (!in_array($setType, array(
+            Zend_View_Helper_Placeholder_Container_Abstract::APPEND,
+            Zend_View_Helper_Placeholder_Container_Abstract::SET,
+            Zend_View_Helper_Placeholder_Container_Abstract::PREPEND
+        ))) {
+            #require_once 'Zend/View/Exception.php';
+            throw new Zend_View_Exception("You must use a valid attach order: 'PREPEND', 'APPEND' or 'SET'");
+        }
+        $this->_defaultAttachOrder = $setType;
+    }
+
+    /**
+     * Get the default attach order, if any.
+     *
+     * @return mixed
+     */
+    public function getDefaultAttachOrder()
+    {
+        return $this->_defaultAttachOrder;
     }
 
     /**
@@ -91,7 +131,9 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
             $this->_translator = $translate->getAdapter();
         } else {
             #require_once 'Zend/View/Exception.php';
-            throw new Zend_View_Exception("You must set an instance of Zend_Translate or Zend_Translate_Adapter");
+            $e = new Zend_View_Exception("You must set an instance of Zend_Translate or Zend_Translate_Adapter");
+            $e->setView($this->view);
+            throw $e;
         }
         return $this;
     }

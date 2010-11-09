@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Form
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,9 +27,9 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Abstract.php 21147 2010-02-23 14:42:04Z yoshida@zend.co.jp $
  */
 abstract class Zend_Form_Decorator_Abstract implements Zend_Form_Decorator_Interface
 {
@@ -244,7 +244,7 @@ abstract class Zend_Form_Decorator_Abstract implements Zend_Form_Decorator_Inter
      *
      * @param  string $content
      * @return string
-     * @throws Zend_Dorm_Decorator_Exception when unimplemented
+     * @throws Zend_Form_Decorator_Exception when unimplemented
      */
     public function render($content)
     {

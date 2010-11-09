@@ -153,6 +153,37 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
     }
 
     /**
+     * Prepare tier prices data for website
+     *
+     * @param array $priceData
+     * @param string $productTypeId
+     * @param int $websiteId
+     * @return array
+     */
+    public function preparePriceData(array $priceData, $productTypeId, $websiteId)
+    {
+        $rates  = $this->_getWebsiteRates();
+        $data   = array();
+        $price  = Mage::getSingleton('catalog/product_type')->priceFactory($productTypeId);
+        foreach ($priceData as $v) {
+            $key = join('-', array($v['cust_group'], $v['price_qty']));
+            if ($v['website_id'] == $websiteId) {
+                $data[$key] = $v;
+                $data[$key]['website_price'] = $v['price'];
+            } else if ($v['website_id'] == 0 && !isset($data[$key])) {
+                $data[$key] = $v;
+                $data[$key]['website_id'] = $websiteId;
+                if ($price->isTierPriceFixed()) {
+                    $data[$key]['price'] = $v['price'] * $rates[$websiteId]['rate'];
+                    $data[$key]['website_price'] = $v['price'] * $rates[$websiteId]['rate'];
+                }
+            }
+        }
+
+        return $data;
+    }
+
+    /**
      * Assign tier prices to product data
      *
      * @param Mage_Catalog_Model_Product $object
@@ -177,24 +208,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
         }
 
         if (!$object->getData('_edit_mode') && $websiteId) {
-            $rates        = $this->_getWebsiteRates();
-
-            $full = $data;
-            $data = array();
-            foreach ($full as $v) {
-                $key = join('-', array($v['cust_group'], $v['price_qty']));
-                if ($v['website_id'] == $websiteId) {
-                    $data[$key] = $v;
-                    $data[$key]['website_price'] = $v['price'];
-                } else if ($v['website_id'] == 0 && !isset($data[$key])) {
-                    $data[$key] = $v;
-                    $data[$key]['website_id'] = $websiteId;
-                    if ($object->getPriceModel()->isTierPriceFixed()) {
-                        $data[$key]['price'] = $v['price'] * $rates[$websiteId]['rate'];
-                        $data[$key]['website_price'] = $v['price'] * $rates[$websiteId]['rate'];
-                    }
-                }
-            }
+            $data = $this->preparePriceData($data, $object->getTypeId(), $websiteId);
         }
 
         $object->setData($this->getAttribute()->getName(), $data);

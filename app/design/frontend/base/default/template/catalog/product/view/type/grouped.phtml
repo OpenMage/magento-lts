@@ -31,9 +31,12 @@
  * @see Mage_Catalog_Block_Product_View_Type_Grouped
  */
 ?>
-<?php $_product = $this->getProduct() ?>
-<?php $_associatedProducts = $this->getAssociatedProducts() ?>
-<?php if($_product->isSaleable() && count($_associatedProducts)): ?>
+<?php
+$_product = $this->getProduct();
+$_associatedProducts = $this->getAssociatedProducts();
+$_hasAssociatedProducts = count($_associatedProducts) > 0;
+?>
+<?php if ($_product->isAvailable() && $_hasAssociatedProducts): ?>
     <p class="availability in-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('In stock') ?></span></p>
 <?php else: ?>
     <p class="availability out-of-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('Out of stock') ?></span></p>
@@ -46,22 +49,28 @@
     <thead>
         <tr>
             <th><?php echo $this->__('Product Name') ?></th>
+            <?php if ($this->getCanShowProductPrice($_product)): ?>
             <th class="a-right"><?php echo $this->__('Price') ?></th>
+            <?php endif; ?>
             <?php if ($_product->isSaleable()): ?>
             <th class="a-center"><?php echo $this->__('Qty') ?></th>
             <?php endif; ?>
         </tr>
     </thead>
     <tbody>
-    <?php if (count($_associatedProducts)): ?>
+    <?php if ($_hasAssociatedProducts): ?>
     <?php foreach ($_associatedProducts as $_item): ?>
         <?php $_finalPriceInclTax = $this->helper('tax')->getPrice($_item, $_item->getFinalPrice(), true) ?>
         <tr>
             <td><?php echo $this->htmlEscape($_item->getName()) ?></td>
+            <?php if ($this->getCanShowProductPrice($_product)): ?>
             <td class="a-right">
+                <?php if ($this->getCanShowProductPrice($_item)): ?>
                 <?php echo $this->getPriceHtml($_item, true) ?>
                 <?php echo $this->getTierPriceHtml($_item) ?>
+                <?php endif; ?>
             </td>
+            <?php endif; ?>
             <?php if ($_product->isSaleable()): ?>
             <td class="a-center">
             <?php if ($_item->isSaleable()) : ?>

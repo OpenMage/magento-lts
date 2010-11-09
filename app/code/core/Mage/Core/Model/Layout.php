@@ -37,7 +37,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     /**
      * Layout Update module
      *
-     * @var Mage_Core_Layout_Update
+     * @var Mage_Core_Model_Layout_Update
      */
     protected $_update;
 

@@ -57,13 +57,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
             'is_html_allowed_on_front'  => $this->_getValue($attr, 'is_html_allowed_on_front', 0),
             'is_visible_in_advanced_search'
                                         => $this->_getValue($attr, 'visible_in_advanced_search', 0),
-            'is_used_for_price_rules'   => $this->_getValue($attr, 'used_for_price_rules', 1),
             'is_filterable_in_search'   => $this->_getValue($attr, 'filterable_in_search', 0),
             'used_in_product_listing'   => $this->_getValue($attr, 'used_in_product_listing', 0),
             'used_for_sort_by'          => $this->_getValue($attr, 'used_for_sort_by', 0),
             'apply_to'                  => $this->_getValue($attr, 'apply_to', ''),
             'position'                  => $this->_getValue($attr, 'position', 0),
-            'is_configurable'           => $this->_getValue($attr, 'is_configurable', 1)
+            'is_configurable'           => $this->_getValue($attr, 'is_configurable', 1),
+            'is_used_for_promo_rules'   => $this->_getValue($attr, 'used_for_promo_rules', 0)
         ));
         return $data;
     }
@@ -1346,26 +1346,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'visible_on_front'  => false,
                         'unique'            => false,
                         'group'             => 'Design'
-                    ),
-                    'category_ids' => array(
-                        'type'              => 'static',
-                        'backend'           => '',
-                        'label'             => '',
-                        'frontend'          => '',
-                        'table'             => '',
-                        'input'             => '',
-                        'class'             => '',
-                        'source'            => '',
-                        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-                        'visible'           => false,
-                        'required'          => false,
-                        'user_defined'      => false,
-                        'default'           => '',
-                        'searchable'        => false,
-                        'filterable'        => false,
-                        'comparable'        => false,
-                        'visible_on_front'  => false,
-                        'unique'            => false,
                     ),
                     'options_container' => array(
                         'group'             => 'Design',

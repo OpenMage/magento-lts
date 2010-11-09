@@ -31,57 +31,82 @@
  * @see Mage_Checkout_Block_Cart
  */
 ?>
-<div class="page-head-alt button-level">
-    <div class="category-head" style="padding-left:5px;"><h2><?php echo $this->__('Shopping Cart') ?></h2></div>
-</div>
-<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-<form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
-<table cellspacing="0" id="shopping-cart-table" class="data-table box-table shopping-cart">
-    <thead>
-        <tr>
-            <th class="a-center"><?php echo $this->__('Qty') ?></th>
-            <th class="a-center"><?php echo $this->__('Product') ?></th>
-            <th class="a-center"><?php echo $this->__('Rem') ?></th>
-            <th class="a-right"><?php echo $this->__('Price') ?><?php echo $this->getIncExcTax(false) ?></th>
-            <th class="a-right"><?php echo $this->__('Subtotal') ?><?php echo $this->getIncExcTax(false) ?></th>
-        </tr>
-    </thead>
-    <tfoot>
-        <tr>
-            <td colspan="100" class="a-right">
-                <button class="form-button-alt" type="submit"><span><?php echo $this->__('Update Cart') ?></span></button>
-            </td>
-        </tr>
-    </tfoot>
-    <tbody>
-    <?php foreach($this->getItems() as $_item): ?>
-        <?php echo $this->getItemHtml($_item) ?>
-    <?php endforeach ?>
-    </tbody>
-</table>
-<script type="text/javascript">decorateTable('shopping-cart-table')</script>
-</form>
-<div class="shopping-cart-totals">
-    <?php echo $this->getChildHtml('totals'); ?>
-    <script type="text/javascript">decorateTable('shopping-cart-totals-table')</script>
-</div>
-<div class="clear"></div>
-<?php echo $this->getChildHtml('coupon') ?>
-<div class="clear"></div>
-<?php if(!$this->hasError()): ?>
-<div class="p-methods">
-    <ul class="checkout-types">
-    <?php foreach ($this->getMethods('methods') as $method): ?>
-        <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
-        <li><?php echo $methodHtml; ?></li>
-        <?php endif; ?>
-    <?php endforeach; ?>
-    </ul>
-</div>
-<?php endif; ?>
-<?php if($this->getContinueShoppingUrl()): ?>
-<p class="a-right" style="padding-right:5px;">
-    <a href="javascript:void(0);" onclick="setLocation('<?php echo $this->getContinueShoppingUrl() ?>')"><?php echo $this->__('Continue Shopping') ?> &raquo;</a>
-</p>
-<?php endif; ?>
-<br />
+<div class="cart">
+    <div class="page-title title-buttons">
+        <h1><?php echo $this->__('Shopping Cart') ?></h1>
+    </div>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <?php echo $this->getChildHtml('form_before') ?>
+    <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
+        <fieldset>
+            <table id="shopping-cart-table" class="data-table cart-table">
+            <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                <col width="1" />
+            <?php endif; ?>
+                <col />
+            <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                <col width="1" />
+            <?php endif; ?>
+            <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                <col width="1" />
+            <?php endif; ?>
+                <col width="1" />
+                <col width="1" />
+            <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                <col width="1" />
+            <?php endif; ?>
+
+            <?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
+                <thead>
+                    <tr>
+                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Rem') ?></th>
+                        <th rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Product Name') ?></span></th>
+                        <th class="a-center" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Unit Price') ?></span></th>
+                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Qty') ?></th>
+                        <th class="a-center" colspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Subtotal') ?></th>
+                    </tr>
+                    <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                    <tr>
+                        <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                        <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                        <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                        <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                    </tr>
+                    <?php endif; ?>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="50" class="a-right">
+                            <?php if($this->getContinueShoppingUrl()): ?>
+                                <div class="shopping-continue">
+                                    <a href="<?php echo $this->getContinueShoppingUrl() ?>" title="<?php echo $this->__('Continue Shopping') ?>">&laquo;<?php echo $this->__('Continue Shopping') ?></a>
+                                </div>
+                            <?php endif; ?>
+                            <button type="submit" title="<?php echo $this->__('Update Shopping Cart') ?>" class="button btn-update"><span><span><?php echo $this->__('Update Shopping Cart') ?></span></span></button>
+                        </td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                <?php foreach($this->getItems() as $_item): ?>
+                    <?php echo $this->getItemHtml($_item) ?>
+                <?php endforeach ?>
+                </tbody>
+            </table>
+            <script type="text/javascript">decorateTable('shopping-cart-table')</script>
+            
+            <div class="totals a-right">
+                <?php echo $this->getChildHtml('totals'); ?>
+            </div>
+        </fieldset>
+    </form>
+    
+    <?php echo $this->getChildHtml('coupon') ?>
+    <?php if(!$this->hasError()): ?>
+        <ul class="checkout-types">
+        <?php foreach ($this->getMethods('methods') as $method): ?>
+            <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+            <li><?php echo $methodHtml; ?></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>

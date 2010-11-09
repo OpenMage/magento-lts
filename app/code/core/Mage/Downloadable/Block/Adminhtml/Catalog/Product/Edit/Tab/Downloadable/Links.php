@@ -126,7 +126,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      */
     public function getUsedDefault()
     {
-        return is_null($this->getProduct()->getAttributeDefaultValue('links_title'));
+        return $this->getProduct()->getAttributeDefaultValue('links_title') === false;
     }
 
     /**

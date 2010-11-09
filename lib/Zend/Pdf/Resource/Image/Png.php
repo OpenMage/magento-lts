@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Png.php 18993 2009-11-15 17:09:16Z alexander $
+ * @version    $Id: Png.php 22655 2010-07-22 18:47:20Z mabe $
  */
 
 
@@ -35,7 +35,7 @@
  * PNG image
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
@@ -167,7 +167,7 @@ class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
 
                         case Zend_Pdf_Resource_Image_Png::PNG_CHANNEL_INDEXED:
                             //Find the first transparent color in the index, we will mask that. (This is a bit of a hack. This should be a SMask and mask all entries values).
-                            if(($trnsIdx = strpos($trnsData, chr(0))) !== false) {
+                            if(($trnsIdx = strpos($trnsData, "\0")) !== false) {
                                 $transparencyData = array(new Zend_Pdf_Element_Numeric($trnsIdx),
                                                           new Zend_Pdf_Element_Numeric($trnsIdx));
                             }

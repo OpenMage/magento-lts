@@ -211,4 +211,3 @@ extends Mage_Connect_Command
 }
 
 
-

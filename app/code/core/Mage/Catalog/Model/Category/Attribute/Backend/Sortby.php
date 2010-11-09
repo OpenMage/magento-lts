@@ -43,23 +43,51 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
      */
     public function validate($object)
     {
-        if (!parent::validate($object)) {
-            return false;
+        $attributeCode = $this->getAttribute()->getName();
+        $postDataConfig = ($object->getData('use_post_data_config'))? $object->getData('use_post_data_config') : array();
+        
+        $isUseConfig = false;
+        if ($postDataConfig) {
+            $isUseConfig = in_array($attributeCode, $postDataConfig);
+        }
+        
+        if ($this->getAttribute()->getIsRequired()) {
+            $attributeValue = $object->getData($attributeCode);
+            if ($this->getAttribute()->isValueEmpty($attributeValue)) {
+                if (is_array($attributeValue) && count($attributeValue)>0) {
+                } else {
+                    if(!$isUseConfig) {
+                        return false;
+                    }
+                }
+            }
         }
 
-        $attributeCode = $this->getAttribute()->getName();
+        if ($this->getAttribute()->getIsUnique()) {
+            if (!$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)) {
+                $label = $this->getAttribute()->getFrontend()->getLabel();
+                Mage::throwException(Mage::helper('eav')->__('The value of attribute "%s" must be unique.', $label));
+            }
+        }
+        
         if ($attributeCode == 'default_sort_by') {
             if ($available = $object->getData('available_sort_by')) {
                 if (!is_array($available)) {
                     $available = explode(',', $available);
                 }
-                if (!in_array($object->getData($attributeCode), $available)) {
+                $data = (!in_array('default_sort_by', $postDataConfig))? $object->getData($attributeCode):
+                       Mage::getStoreConfig("catalog/frontend/default_sort_by");
+                if (!in_array($data, $available)) {
+                    Mage::throwException(Mage::helper('eav')->__('Default Product Listing Sort by not exists on Available Product Listing Sort By'));
+                }
+            } else {
+                if (!in_array('available_sort_by', $postDataConfig)) {
                     Mage::throwException(Mage::helper('eav')->__('Default Product Listing Sort by not exists on Available Product Listing Sort By'));
                 }
             }
         }
 
-        return true;
+        return true;        
     }
 
     /**

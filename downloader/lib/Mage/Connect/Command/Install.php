@@ -44,6 +44,9 @@ extends Mage_Connect_Command
 
 
         $cache=null;
+        /**
+         * @var $cache Mage_Connect_Singleconfig
+         */
         $ftpObj=null;
 
 
@@ -55,6 +58,9 @@ extends Mage_Connect_Command
             $noFilesInstall = isset($options['nofiles']);
             $withDepsMode = !isset($options['nodeps']);
             $ignoreModifiedMode = true || !isset($options['ignorelocalmodification']);
+            $clearInstallMode = $command == 'install' && !$forceMode;
+            $installAll = isset($options['install_all']);
+            $channelAuth = isset($options['auth'])?$options['auth']:array();
 
             $rest = $this->rest();
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
@@ -99,12 +105,8 @@ extends Mage_Connect_Command
                 $this->doError($command, $err);
                 throw new Exception('Your Magento folder does not have sufficient write permissions, which downloader requires.');
             }
-            if('ftp'==$config->protocol){
-                if(isset($_SESSION['auth']['username'])){
-                    $login=$_SESSION['auth']['username'];
-                    $pass=$_SESSION['auth']['password'];
-                    $rest->getLoader()->setCredentials($login, $pass);
-                }
+            if(!empty($channelAuth)){
+                $rest->getLoader()->setCredentials($channelAuth['username'], $channelAuth['password']);
             }
 
             if($installFileMode) {
@@ -120,6 +122,7 @@ extends Mage_Connect_Command
                 }
 
                 $package = new Mage_Connect_Package($filename);
+                $package->setConfig($config);
                 $package->validate();
                 $errors = $package->getErrors();
                 if(count($errors)) {
@@ -132,7 +135,7 @@ extends Mage_Connect_Command
 
 
                 if(!$cache->isChannel($pChan)) {
-                    throw new Exception("'{$pChan}' is not installed channel");
+                    throw new Exception("The '{$pChan}' channel is not installed. Please use the MAGE shell script to install the '{$pChan}' channel.");
                 }
 
                 $conflicts = $cache->hasConflicts($pChan, $pName, $pVer);
@@ -203,24 +206,8 @@ extends Mage_Connect_Command
                 $package = $params[1];
                 $argVersionMax = isset($params[2]) ? $params[2]: false;
                 $argVersionMin = false;
-
-                if($cache->isChannelName($channel)) {
-                    $uri = $cache->chanUrl($channel);
-                } elseif($this->validator()->validateUrl($channel)) {
-                    $uri = $channel;
-                } elseif($channel) {
-                    $uri = $config->protocol.'://'.$channel;
-                } else {
-                    throw new Exception("'{$channel}' is not existant channel name / valid uri");
-                }
-
-                if($uri && !$cache->isChannel($uri)) {
-                    $rest->setChannel($uri);
-                    $data = $rest->getChannelInfo();
-                    $data->uri = $uri;
-                    $cache->addChannel($data->name, $uri);
-                    $this->ui()->output("Successfully added channel: ".$uri);
-                }
+                
+                $cache->checkChannel($channel, $config, $rest);
                 $channelName = $cache->chanName($channel);
                 $this->ui()->output("Checking dependencies of packages");
                 $packagesToInstall = $packager->getDependenciesList( $channelName, $package, $cache, $config, $argVersionMax, $argVersionMin, $withDepsMode, false, $rest);
@@ -275,13 +262,19 @@ extends Mage_Connect_Command
                     $pName = $package['name'];
                     $pChan = $package['channel'];
                     $pVer = $package['downloaded_version'];
+                    $pInstallState = $package['install_state'];
                     $rest->setChannel($cache->chanUrl($pChan));
 
                     /**
-                     * Upgrade mode
+                     * Skip existing packages
                      */
-                    if($upgradeMode && $cache->hasPackage($pChan, $pName, $pVer, $pVer)) {
+                    if ($upgradeMode && $cache->hasPackage($pChan, $pName, $pVer, $pVer) || ('already_installed' == $pInstallState && !$forceMode)) {
                         $this->ui()->output("Already installed: {$pChan}/{$pName} {$pVer}, skipping");
+                        continue;
+                    }
+
+                    if('incompartible' == $pInstallState) {
+                        $this->ui()->output("Package incompartible with installed Magento: {$pChan}/{$pName} {$pVer}, skipping");
                         continue;
                     }
 
@@ -296,11 +289,10 @@ extends Mage_Connect_Command
                         }
                     }
 
-
                     /**
                      * Modifications
                      */
-                    if ($upgradeMode && !$ignoreModifiedMode) {
+                    if (($upgradeMode || ($pInstallState == 'upgrade')) && !$ignoreModifiedMode) {
                         if($ftp) {
                             $modifications = $packager->getRemoteModifiedFiles($pChan, $pName, $cache, $config, $ftp);
                         } else {
@@ -337,9 +329,27 @@ extends Mage_Connect_Command
                         $rest->downloadPackageFileOfRelease($pName, $pVer, $file);
                         $this->ui()->output(sprintf("...done: %s bytes", number_format(filesize($file))));
                     }
+
+                    /**
+                     * Remove old version package before install new
+                     */
+                    if ($cache->hasPackage($pChan, $pName)) {
+                        if ($ftp) {
+                            $packager->processUninstallPackageFtp($pChan, $pName, $cache, $ftpObj);
+                        } else {
+                            $packager->processUninstallPackage($pChan, $pName, $cache, $config);
+                        }
+                        $cache->deletePackage($pChan, $pName);
+                    }
+
                     $package = new Mage_Connect_Package($file);
-
-
+                    if ($clearInstallMode && $pInstallState != 'upgrade' && !$installAll) {
+                        $this->validator()->validateContents($package->getContents(), $config);
+                        $errors = $this->validator()->getErrors();
+                        if (count($errors)) {
+                            throw new Exception("Package '{$pName}' is invalid\n" . implode("\n", $errors));
+                        }
+                    }
 
                     $conflicts = $package->checkPhpDependencies();
                     if(true !== $conflicts) {
@@ -361,7 +371,7 @@ extends Mage_Connect_Command
                             throw new Exception($err);
                         }
                     }
-
+                    
                     /**
                      * @todo: make "Use custom permissions" functionality working
                      */
@@ -487,16 +497,27 @@ extends Mage_Connect_Command
                             throw new Exception($errMessage);
                         }
                     }
-
+                } catch(Exception $e) {
+                    if($forceMode) {
+                        $this->doError($command, $e->getMessage());
+                    } else {
+                        throw new Exception($e->getMessage());
+                    }
+                }
+            }
+            foreach($list['list'] as $packageData) {
+                try {
                     list($chan, $pack) = array($packageData['channel'], $packageData['name']);
+                    $packageName = $packageData['channel'] . "/" . $packageData['name'];
+                    $this->ui()->output("Starting to uninstall $packageName ");
                     if($ftp) {
-                        $packager->processUninstallPackageFtp($chan, $pack, $cache,$ftpObj);
+                        $packager->processUninstallPackageFtp($chan, $pack, $cache, $ftpObj);
                     } else {
                         $packager->processUninstallPackage($chan, $pack, $cache, $config);
                     }
                     $cache->deletePackage($chan, $pack);
                     $deletedPackages[] = array($chan, $pack);
-
+                    $this->ui()->output("Package {$packageName} uninstalled");
                 } catch(Exception $e) {
                     if($forceMode) {
                         $this->doError($command, $e->getMessage());

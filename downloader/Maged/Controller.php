@@ -97,6 +97,13 @@ final class Maged_Controller
     private $_config;
 
     /**
+     * Config instance
+     *
+     * @var Maged_Model_Config
+     */
+    private $_localConfig;
+
+    /**
      * Session instance
      *
      * @var Maged_Model_Session
@@ -136,6 +143,7 @@ final class Maged_Controller
 
     /**
      * Get ftp string from post data
+     *
      * @param array $post post data
      * @return string FTP Url
      */
@@ -164,21 +172,6 @@ final class Maged_Controller
         }
         $_POST['ftp'] = $ftp;
         return $ftp;
-    }
-
-    /**
-     * Generates auth string from post data and puts back it into post
-     * 
-     * @param array $post post data
-     * @return string auth Url
-     */
-    private function reformAuthPost(&$post) 
-    {
-        if (!empty($post['auth_username']) and isset($post['auth_password'])) {
-            $post['auth'] = $post['auth_username'] .'@'. $post['auth_password'];
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -223,10 +216,11 @@ final class Maged_Controller
             } else {
                 $config=$this->config();
                 $this->view()->set('mage_url', dirname(dirname($_SERVER['SCRIPT_NAME'])));
-                $this->view()->set('use_custom_permissions_mode', $config->get('use_custom_permissions_mode')?$config->get('use_custom_permissions_mode'):'0');
-                $this->view()->set('mkdir_mode', $config->get('mkdir_mode'));
-                $this->view()->set('chmod_file_mode', $config->get('chmod_file_mode'));
-                $this->view()->set('protocol', $config->get('protocol'));
+                $this->view()->set('use_custom_permissions_mode', $config->__get('use_custom_permissions_mode')?$config->__get('use_custom_permissions_mode'):'0');
+                $this->view()->set('mkdir_mode', decoct($config->__get('global_dir_mode')));
+                $this->view()->set('chmod_file_mode', decoct($config->__get('global_file_mode')));
+                $this->view()->set('protocol', $config->__get('protocol'));
+                $this->channelConfig()->setInstallView($config,$this->view());
 
                 echo $this->view()->template('install/download.phtml');
             }
@@ -254,18 +248,30 @@ final class Maged_Controller
      */
     public function connectInstallAllAction()
     {
-        $p=$_POST;
+        $p = &$_POST;
+        $ftp = $this->getFtpPost($p);
+        $errors = $this->model('connect', true)->validateConfigPost($p);
+        /* todo show errors */
+        if ($errors) {
+            $message = "CONNECT ERROR: ";
+            foreach ($errors as $err) {
+                $message .= $err . "\n";
+            }
+            $this->model('connect', true)->connect()->runHtmlConsole($message);
+            $this->model('connect', true)->connect()->showConnectErrors($errors);
+            return;
+        }
+
         if( 1 == $p['inst_protocol']){
             $this->model('connect', true)->connect()->setRemoteConfig($this->getFtpPost($p));
         }
 
-        $this->config()->saveConfigPost($_POST);
-        $chan = $this->config()->get('root_channel');
-        if(empty($chan)) {
-            $chan = 'community';
-        }
+        $this->channelConfig()->setPostData($this->config(),$p);
+
+        $chan = $this->config()->__get('root_channel');
         $this->model('connect', true)->saveConfigPost($_POST);
         $this->model('connect', true)->installAll(!empty($_GET['force']), $chan);
+        $p = null;
     }
 
     /**
@@ -275,6 +281,11 @@ final class Maged_Controller
     public function connectPackagesAction()
     {
         $connect = $this->model('connect', true);
+
+        if (isset($_GET['loggedin'])) {
+            $connect->connect()->run('sync');
+        }
+
         $this->view()->set('connect', $connect);
         echo $this->view()->template('connect/packages.phtml');
     }
@@ -291,6 +302,28 @@ final class Maged_Controller
     }
 
     /**
+     * Prepare package to install, get dependency info.
+     *
+     */
+    public function connectPreparePackagePostAction()
+    {
+        if (!$_POST) {
+            echo "INVALID POST DATA";
+            return;
+        }
+        $prepareResult = $this->model('connect', true)->prepareToInstall($_POST['install_package_id']);
+
+        $packages = isset($prepareResult['data'])? $prepareResult['data']:array();
+        $errors = isset($prepareResult['errors'])? $prepareResult['errors']:array();
+
+        $this->view()->set('packages', $packages);
+        $this->view()->set('errors', $errors);
+        $this->view()->set('package_id', $_POST['install_package_id']);
+
+        echo $this->view()->template('connect/packages_prepare.phtml');
+    }
+
+    /**
      * Install package
      *
      */
@@ -300,7 +333,6 @@ final class Maged_Controller
             echo "INVALID POST DATA";
             return;
         }
-
         $this->model('connect', true)->installPackage($_POST['install_package_id']);
     }
 
@@ -344,16 +376,18 @@ final class Maged_Controller
      */
     public function settingsAction()
     {
-        $connectConfig = $this->model('connect', true)->connect()->getConfig();
         $config = $this->config();
-        $this->view()->set('preferred_state', $connectConfig->__get('preferred_state'));
-        $this->view()->set('protocol', $connectConfig->__get('protocol'));
-        $this->view()->set('use_custom_permissions_mode', $config->get('use_custom_permissions_mode'));
-        $this->view()->set('mkdir_mode', $config->get('mkdir_mode'));
-        $this->view()->set('chmod_file_mode', $config->get('chmod_file_mode'));
+        $this->view()->set('preferred_state', $config->__get('preferred_state'));
+        $this->view()->set('protocol', $config->__get('protocol'));
+
+        $this->view()->set('use_custom_permissions_mode', $config->__get('use_custom_permissions_mode'));
+        $this->view()->set('mkdir_mode', decoct($config->__get('global_dir_mode')));
+        $this->view()->set('chmod_file_mode', decoct($config->__get('global_file_mode')));
+
+        $this->channelConfig()->setSettingsView($this->session(), $this->view());
 
         $fs_disabled=!$this->isWritable();
-        $ftpParams=$connectConfig->__get('remote_config')?@parse_url($connectConfig->__get('remote_config')):'';
+        $ftpParams=$config->__get('remote_config')?@parse_url($config->__get('remote_config')):'';
 
         $this->view()->set('fs_disabled', $fs_disabled);
         $this->view()->set('deployment_type', ($fs_disabled||!empty($ftpParams)?'ftp':'fs'));
@@ -364,7 +398,6 @@ final class Maged_Controller
             $this->view()->set('ftp_password', $ftpParams['pass']);
             $this->view()->set('ftp_path', $ftpParams['path']);
         }
-
         echo $this->view()->template('settings.phtml');
     }
 
@@ -374,19 +407,31 @@ final class Maged_Controller
      */
     public function settingsPostAction()
     {
-        if(!strlen($this->config()->get('downloader_path'))){
-            $this->config()->set('downloader_path', $this->model('connect', true)->connect()->getConfig()->downloader_path);
-        }
         if ($_POST) {
-            if( 'ftp' == $_POST['deployment_type']&&!empty($_POST['ftp_host'])){
-                $this->model('connect', true)->connect()->setRemoteConfig($this->getFtpPost($_POST));
-            }else{
-                $this->model('connect', true)->connect()->setRemoteConfig('');
-                $_POST['ftp'] = '';
+            $ftp=$this->getFtpPost($_POST);
+            $errors = $this->model('connect', true)->validateConfigPost($_POST);
+            if ($errors) {
+                foreach ($errors as $err) {
+                    $this->session()->addMessage('error', $err);
+                }
+                $this->redirect($this->url('settings'));
+                return;
             }
-            $this->reformAuthPost($_POST);
-            $this->config()->saveConfigPost($_POST);
-            $this->model('connect', true)->saveConfigPost($_POST);
+            try {
+                if( 'ftp' == $_POST['deployment_type']&&!empty($_POST['ftp_host'])){
+                    $this->model('connect', true)->connect()->setRemoteConfig($ftp);
+                }else{
+                    $this->model('connect', true)->connect()->setRemoteConfig('');
+                    $_POST['ftp'] = '';
+                }
+                $this->channelConfig()->setPostData($this->config(), $_POST);
+                $this->model('connect', true)->saveConfigPost($_POST);
+                $this->channelConfig()->setSettingsSession($_POST, $this->session());
+                $this->model('connect', true)->connect()->run('sync');
+
+            } catch (Exception $e) {
+                $this->session()->addMessage('error', "Unable to save settings: ".$e->getMessage());
+            }
         }
         $this->redirect($this->url('settings'));
     }
@@ -536,14 +581,28 @@ final class Maged_Controller
     /**
      * Retrieve object of config
      *
-     * @return Maged_Model_Config
+     * @return Mage_Connect_Config
      */
     public function config()
     {
         if (!$this->_config) {
-            $this->_config = $this->model('config')->load();
+            //$this->_config = $this->model('config')->load();
+            $this->_config = $this->model('connect', true)->connect()->getConfig();
         }
         return $this->_config;
+    }
+
+    /**
+     * Retrieve object of channel config
+     *
+     * @return Maged_Model_Config_Interface
+     */
+    public function channelConfig()
+    {
+        if (!$this->_localConfig) {
+            $this->_localConfig = $this->model('config', true)->getChannelConfig();
+        }
+        return $this->_localConfig;
     }
 
     /**
@@ -689,6 +748,7 @@ final class Maged_Controller
             $this->_isDispatched = true;
 
             $method = $this->getActionMethod();
+            //echo($method);exit();
             $this->$method();
         }
 
@@ -776,10 +836,10 @@ final class Maged_Controller
     {
         if ($this->_getMaintenanceFlag()) {
             $maintenance_filename='maintenance.flag';
-            $connectConfig = $this->model('connect', true)->connect()->getConfig();
-            if(!$this->isWritable()||strlen($connectConfig->__get('remote_config'))>0){
+            $config = $this->config();
+            if(!$this->isWritable()||strlen($config->__get('remote_config'))>0){
                 $ftpObj = new Mage_Connect_Ftp();
-                $ftpObj->connect($connectConfig->__get('remote_config'));
+                $ftpObj->connect($config->__get('remote_config'));
                 $tempFile = tempnam(sys_get_temp_dir(),'maintenance');
                 @file_put_contents($tempFile, 'maintenance');
                 $ret=$ftpObj->upload($maintenance_filename, $tempFile);
@@ -796,26 +856,28 @@ final class Maged_Controller
      */
     public function endInstall()
     {
-        try {
-            if (!empty($_GET['clean_sessions'])) {
-                Mage::app()->cleanAllSessions();
+        if ($this->isInstalled()) {
+            try {
+                if (!empty($_GET['clean_sessions'])) {
+                    Mage::app()->cleanAllSessions();
+                }
+                Mage::app()->cleanCache();
+            } catch (Exception $e) {
+                $this->session()->addMessage('error', "Exception during cache and session cleaning: ".$e->getMessage());
             }
-            Mage::app()->cleanCache();
-        } catch (Exception $e) {
-            $this->session()->addMessage('error', "Exception during cache and session cleaning: ".$e->getMessage());
-        }
 
-        // reinit config and apply all updates
-        Mage::app()->getConfig()->reinit();
-        Mage_Core_Model_Resource_Setup::applyAllUpdates();
-        Mage_Core_Model_Resource_Setup::applyAllDataUpdates();
+            // reinit config and apply all updates
+            Mage::app()->getConfig()->reinit();
+            Mage_Core_Model_Resource_Setup::applyAllUpdates();
+            Mage_Core_Model_Resource_Setup::applyAllDataUpdates();
+        }
 
         if ($this->_getMaintenanceFlag()) {
             $maintenance_filename='maintenance.flag';
-            $connectConfig = $this->model('connect', true)->connect()->getConfig();
-            if(!$this->isWritable()&&strlen($connectConfig->__get('remote_config'))>0){
+            $config = $this->config();
+            if(!$this->isWritable()&&strlen($config->__get('remote_config'))>0){
                 $ftpObj = new Mage_Connect_Ftp();
-                $ftpObj->connect($connectConfig->__get('remote_config'));
+                $ftpObj->connect($config->__get('remote_config'));
                 $ftpObj->delete($maintenance_filename);
                 $ftpObj->close();
             }else{

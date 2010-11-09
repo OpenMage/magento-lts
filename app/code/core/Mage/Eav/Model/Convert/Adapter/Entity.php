@@ -146,6 +146,12 @@ class Mage_Eav_Model_Convert_Adapter_Entity
                         'like'      => '%'.$val.'%'
                     );
                     break;
+                case 'startsWith':
+                     $attr = array(
+                         'attribute' => $keyDB,
+                         'like'      => $val.'%'
+                     );
+                     break;
                 case 'fromTo':
                     $attr = array(
                         'attribute' => $keyDB,

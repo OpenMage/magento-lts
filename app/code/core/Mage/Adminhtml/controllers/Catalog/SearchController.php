@@ -75,20 +75,19 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
 
         Mage::register('current_catalog_search', $model);
 
-        $block = $this->getLayout()->createBlock('adminhtml/catalog_search_edit')
-            ->setData('action', $this->getUrl('*/catalog_search/save'));
-
         $this->_initAction();
 
         $this->_title($id ? $model->getQueryText() : $this->__('New Search'));
 
         $this->getLayout()->getBlock('head')->setCanLoadRulesJs(true);
 
-        $this
-            ->_addBreadcrumb($id ? Mage::helper('catalog')->__('Edit Search') : Mage::helper('catalog')->__('New Search'), $id ? Mage::helper('catalog')->__('Edit Search') : Mage::helper('catalog')->__('New Search'))
-            ->_addContent($block)
-            ->renderLayout();
+        $this->getLayout()->getBlock('catalog_search_edit')
+            ->setData('action', $this->getUrl('*/catalog_search/save'));
 
+        $this
+            ->_addBreadcrumb($id ? Mage::helper('catalog')->__('Edit Search') : Mage::helper('catalog')->__('New Search'), $id ? Mage::helper('catalog')->__('Edit Search') : Mage::helper('catalog')->__('New Search'));
+
+        $this->renderLayout();
     }
 
     /**
@@ -103,6 +102,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
         if ($this->getRequest()->isPost() && $data) {
             /* @var $model Mage_CatalogSearch_Model_Query */
             $model = Mage::getModel('catalogsearch/query');
+
             // validate query
             $queryText  = $this->getRequest()->getPost('query_text', false);
             $storeId    = $this->getRequest()->getPost('store_id', false);
@@ -125,6 +125,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                 $model->addData($data);
                 $model->setIsProcessed(0);
                 $model->save();
+
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
                 $hasError = true;

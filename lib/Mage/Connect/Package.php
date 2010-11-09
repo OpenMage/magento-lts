@@ -245,7 +245,7 @@ END;
         }
         return $this->_target;
     }
-    
+
     public function setTarget($arg)
     {
         if ($arg instanceof Mage_Connect_Package_Target) {
@@ -506,7 +506,7 @@ END;
                 }
                 if (is_dir($entry)) {
                     $baseName = basename($entry);
-                    if ('.'===$baseName || '..'===$baseName) {
+                    if (in_array($baseName, array('.', '..', '.svn'))) {
                         continue;
                     }
                     //for subdirectory call method recursively
@@ -554,8 +554,8 @@ END;
         $parent->addChild('max', $maxVersion);
         return $this;
     }
-    
-    
+
+
     /**
      * Check PHP version restriction
      * @param $phpVersion PHP_VERSION by default
@@ -565,7 +565,7 @@ END;
     {
         $min = $this->getDependencyPhpVersionMin();
         $max = $this->getDependencyPhpVersionMax();
-        
+
         $minOk = $min? version_compare(PHP_VERSION, $min, ">=") : true;
         $maxOk = $max? version_compare(PHP_VERSION, $max, "<=") : true;
 
@@ -574,16 +574,16 @@ END;
             if($min && $max) {
                 $err .= " >= $min and <= $max ";
             } elseif($min) {
-                $err .= " >= $min "; 
+                $err .= " >= $min ";
             } elseif($max) {
-                $err .=  " <= $max "; 
+                $err .=  " <= $max ";
             }
             $err .= " current is: ".PHP_VERSION;
-            return $err;                      
+            return $err;
         }
         return true;
     }
-    
+
 
     /**
      * Check PHP extensions availability
@@ -592,19 +592,19 @@ END;
      */
     public function checkPhpDependencies()
     {
-        $errors = array();        
-        foreach($this->getDependencyPhpExtensions() as $dep) 
+        $errors = array();
+        foreach($this->getDependencyPhpExtensions() as $dep)
         {
             if(!extension_loaded($dep['name'])) {
                 $errors[] = $dep;
-            }    
+            }
         }
         if(count($errors)) {
             return $errors;
         }
         return true;
     }
-    
+
 
     /**
      * Set dependency from php extensions.
@@ -643,14 +643,14 @@ END;
     public function setDependencyPackages($packages, $clear = false)
     {
         if($clear) {
-            unset($this->_packageXml->dependencies->required->package);            
+            unset($this->_packageXml->dependencies->required->package);
         }
-        
+
         foreach($packages as $_package) {
-            
+
             $filesArrayCondition = isset($_package['files']) && is_array($_package['files']);
-            $filesArray = $filesArrayCondition ? $_package['files'] : array(); 
-            
+            $filesArray = $filesArrayCondition ? $_package['files'] : array();
+
             $this->addDependencyPackage(
                 $_package['name'],
                 $_package['channel'],
@@ -661,8 +661,8 @@ END;
         }
         return $this;
     }
-    
-   
+
+
 
     /**
      * Add package to dependency packages.
@@ -689,14 +689,14 @@ END;
                     $node = $parent->addChild("file");
                     $node["target"] = $row['target'];
                     $node["path"] =  $row['path'];
-                           
+
                 }
             }
         }
         return $this;
     }
-    
-   
+
+
 
     /**
      * Add package to dependency extension.
@@ -1008,25 +1008,25 @@ END;
                 'name'    => (string)$_package->name,
                 'channel' => (string)$_package->channel,
                 'min'     => (string)$_package->min,
-                'max'     => (string)$_package->max,                
+                'max'     => (string)$_package->max,
             );
             if(isset($_package->files)) {
                 $add['files'] = array();
-                foreach($_package->files as $node) {   
-                    if(isset($node->file)) {     
-                        
+                foreach($_package->files as $node) {
+                    if(isset($node->file)) {
+
                         $add['files'][] = array('target' => (string) $node->file['target'], 'path'=> (string) $node->file['path']);
                     }
                 }
-            }            
+            }
             $this->_dependencyPackages[] = $add;
         }
         return $this->_dependencyPackages;
     }
 
-    
 
-    
+
+
     /**
      * Get string with XML content.
      *

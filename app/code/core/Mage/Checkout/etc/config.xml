@@ -54,6 +54,17 @@
                 <customer_taxvat><to_customer>taxvat</to_customer></customer_taxvat>
                 <customer_gender><to_customer>gender</to_customer></customer_gender>
             </checkout_onepage_billing>
+            <checkout_onepage_quote>
+                <customer_prefix><to_customer>prefix</to_customer></customer_prefix>
+                <customer_firstname><to_customer>firstname</to_customer></customer_firstname>
+                <customer_middlename><to_customer>middlename</to_customer></customer_middlename>
+                <customer_lastname><to_customer>lastname</to_customer></customer_lastname>
+                <customer_suffix><to_customer>suffix</to_customer></customer_suffix>
+                <customer_email><to_customer>email</to_customer></customer_email>
+                <customer_dob><to_customer>dob</to_customer></customer_dob>
+                <customer_taxvat><to_customer>taxvat</to_customer></customer_taxvat>
+                <customer_gender><to_customer>gender</to_customer></customer_gender>
+            </checkout_onepage_quote>
         </fieldsets>
         <blocks>
             <checkout><class>Mage_Checkout_Block</class></checkout>

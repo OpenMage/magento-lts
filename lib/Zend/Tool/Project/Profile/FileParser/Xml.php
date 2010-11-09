@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Xml.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Xml.php 20967 2010-02-07 18:17:49Z ralph $
  */
 
 #require_once 'Zend/Tool/Project/Profile/FileParser/Interface.php';
@@ -28,7 +28,7 @@
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Profile_FileParser_Interface
@@ -69,6 +69,14 @@ class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Prof
         $this->_profile = $profile;
         $xmlElement = new SimpleXMLElement('<projectProfile />');
 
+        if ($profile->hasAttribute('type')) {
+            $xmlElement->addAttribute('type', $profile->getAttribute('type'));
+        }
+        
+        if ($profile->hasAttribute('version')) {
+            $xmlElement->addAttribute('version', $profile->getAttribute('version'));
+        }
+        
         self::_serializeRecurser($profile, $xmlElement);
 
         $doc = new DOMDocument('1.0');
@@ -103,10 +111,19 @@ class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Prof
         if ($xmlDataIterator->getName() != 'projectProfile') {
             throw new Exception('Profiles must start with a projectProfile node');
         }
-
-
+        
+        if (isset($xmlDataIterator['type'])) {
+            $this->_profile->setAttribute('type', (string) $xmlDataIterator['type']);
+        }
+        
+        if (isset($xmlDataIterator['version'])) {
+            $this->_profile->setAttribute('version', (string) $xmlDataIterator['version']);
+        }
+        
+        // start un-serialization of the xml doc
         $this->_unserializeRecurser($xmlDataIterator);
 
+        // contexts should be initialized after the unwinding of the profile structure
         $this->_lazyLoadContexts();
 
         return $this->_profile;

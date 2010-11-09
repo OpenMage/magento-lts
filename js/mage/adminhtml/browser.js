@@ -228,7 +228,8 @@ Mediabrowser.prototype = {
     getTargetElement: function() {
         if (typeof(tinyMCE) != 'undefined' && tinyMCE.get(this.targetElementId)) {
             if ((opener = this.getMediaBrowserOpener())) {
-                return opener.document.getElementById('src') || opener.document.getElementById('href');
+                var targetElementId = tinyMceEditors.get(this.targetElementId).getMediaBrowserTargetElementId();
+                return opener.document.getElementById(targetElementId);
             } else {
                 return null;
             }

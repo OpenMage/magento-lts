@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Dom
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Query.php 17293 2009-07-30 02:34:37Z yoshida@zend.co.jp $
+ * @version    $Id: Query.php 21157 2010-02-23 17:52:15Z matthew $
  */
 
 /**
@@ -34,13 +34,13 @@
  *
  * @package    Zend_Dom
  * @subpackage Query
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Dom_Query
 {
     /**#@+
-     * @const string Document types
+     * Document types
      */
     const DOC_XML   = 'docXml';
     const DOC_HTML  = 'docHtml';
@@ -51,6 +51,12 @@ class Zend_Dom_Query
      * @var string
      */
     protected $_document;
+
+    /**
+     * DOMDocument errors, if any
+     * @var false|array
+     */
+    protected $_documentErrors = false;
 
     /**
      * Document type
@@ -80,7 +86,8 @@ class Zend_Dom_Query
         if (0 === strlen($document)) {
             return $this;
         }
-        if ('<?xml' == substr(trim($document), 0, 5)) {
+        // breaking XML declaration to make syntax highlighting work
+        if ('<' . '?xml' == substr(trim($document), 0, 5)) {
             return $this->setDocumentXml($document);
         }
         if (strstr($document, 'DTD XHTML')) {
@@ -149,6 +156,16 @@ class Zend_Dom_Query
     }
 
     /**
+     * Get any DOMDocument errors found
+     * 
+     * @return false|array
+     */
+    public function getDocumentErrors()
+    {
+        return $this->_documentErrors;
+    }
+
+    /**
      * Perform a CSS selector query
      *
      * @param  string $query
@@ -174,18 +191,25 @@ class Zend_Dom_Query
             throw new Zend_Dom_Exception('Cannot query; no document registered');
         }
 
+        libxml_use_internal_errors(true);
         $domDoc = new DOMDocument;
         $type   = $this->getDocumentType();
         switch ($type) {
             case self::DOC_XML:
-                $success = @$domDoc->loadXML($document);
+                $success = $domDoc->loadXML($document);
                 break;
             case self::DOC_HTML:
             case self::DOC_XHTML:
             default:
-                $success = @$domDoc->loadHTML($document);
+                $success = $domDoc->loadHTML($document);
                 break;
         }
+        $errors = libxml_get_errors();
+        if (!empty($errors)) {
+            $this->_documentErrors = $errors;
+            libxml_clear_errors();
+        }
+        libxml_use_internal_errors(false);
 
         if (!$success) {
             #require_once 'Zend/Dom/Exception.php';

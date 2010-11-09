@@ -30,11 +30,41 @@
  */
 class Mage_Sales_Model_Mysql4_Order_Address extends Mage_Sales_Model_Mysql4_Order_Abstract
 {
+    /**
+     * Event prefix
+     *
+     * @var string
+     */
     protected $_eventPrefix = 'sales_order_address_resource';
 
+    /**
+     * Resource initialization
+     */
     protected function _construct()
     {
         $this->_init('sales/order_address', 'entity_id');
     }
 
+    /**
+     * Return configuration for all attributes
+     *
+     * @return array
+     */
+    public function getAllAttributes()
+    {
+        $attributes = array(
+            'city' => Mage::helper('sales')->__('City'),
+            'company' => Mage::helper('sales')->__('Company'),
+            'country_id' => Mage::helper('sales')->__('Country'),
+            'email' => Mage::helper('sales')->__('Email'),
+            'firstname' => Mage::helper('sales')->__('First Name'),
+            'lastname' => Mage::helper('sales')->__('Last Name'),
+            'region_id' => Mage::helper('sales')->__('State/Province'),
+            'street' => Mage::helper('sales')->__('Street Address'),
+            'telephone' => Mage::helper('sales')->__('Telephone'),
+            'postcode' => Mage::helper('sales')->__('Zip/Postal Code')
+        );
+        asort($attributes);
+        return $attributes;
+    }
 }

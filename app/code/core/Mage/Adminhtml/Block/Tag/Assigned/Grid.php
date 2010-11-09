@@ -33,6 +33,8 @@
  */
 class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected $_currentTagModel;
+
     /**
      * Set grid params
      *
@@ -40,6 +42,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
     public function __construct()
     {
         parent::__construct();
+        $this->_currentTagModel = Mage::registry('current_tag');
         $this->setId('tag_assigned_product_grid');
         $this->setDefaultSort('entity_id');
         $this->setDefaultDir('DESC');
@@ -56,7 +59,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _getTagId()
     {
-        return Mage::registry('current_tag')->getId();
+        return $this->_currentTagModel->getId();
     }
 
     /**
@@ -110,6 +113,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
             ->addAttributeToSelect('name')
             ->addAttributeToSelect('attribute_set_id')
             ->addAttributeToSelect('type_id')
+            //->addAttributeToFilter('status', array(''))
             ->joinField('qty',
                 'cataloginventory/stock_item',
                 'qty',
@@ -266,6 +270,8 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getRelatedProducts()
     {
-        return Mage::registry('current_tag')->getRelatedProductIds();
+        return $this->_currentTagModel
+            ->setStatusFilter(Mage_Tag_Model_Tag::STATUS_APPROVED)
+            ->getRelatedProductIds();
     }
 }

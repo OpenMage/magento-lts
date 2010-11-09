@@ -235,7 +235,12 @@ class Mage_Checkout_Model_Cart extends Varien_Object
         }
 
         if ($product->getId()) {
-            $result = $this->getQuote()->addProduct($product, $request);
+            try {
+                $result = $this->getQuote()->addProduct($product, $request);
+            } catch (Mage_Core_Exception $e) {
+                $this->getCheckoutSession()->setUseNotice(false);
+                $result = $e->getMessage();
+            }
             /**
              * String we can get if prepare process has error
              */
@@ -251,7 +256,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object
             Mage::throwException(Mage::helper('checkout')->__('The product does not exist.'));
         }
 
-        Mage::dispatchEvent('checkout_cart_product_add_after', array('quote_item'=>$result, 'product'=>$product));
+        Mage::dispatchEvent('checkout_cart_product_add_after', array('quote_item' => $result, 'product' => $product));
         $this->getCheckoutSession()->setLastAddedProductId($product->getId());
         return $this;
     }
@@ -302,6 +307,50 @@ class Mage_Checkout_Model_Cart extends Varien_Object
     }
 
     /**
+     * Returns suggested quantities for items.
+     * Can be used to automatically fix user entered quantities before updating cart
+     * so that cart contains valid qty values
+     *
+     * $data is an array of ($quoteItemId => (item info array with 'qty' key), ...)
+     *
+     * @param   array $data
+     * @return  array
+     */
+    public function suggestItemsQty($data)
+    {
+        foreach ($data as $itemId => $itemInfo) {
+            if (!isset($itemInfo['qty'])) {
+                continue;
+            }
+            $qty = (float) $itemInfo['qty'];
+            if ($qty <= 0) {
+                continue;
+            }
+
+            $quoteItem = $this->getQuote()->getItemById($itemId);
+            if (!$quoteItem) {
+                continue;
+            }
+
+            $product = $quoteItem->getProduct();
+            if (!$product) {
+                continue;
+            }
+
+            /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
+            $stockItem = $product->getStockItem();
+            if (!$stockItem) {
+                continue;
+            }
+
+            $data[$itemId]['before_suggest_qty'] = $qty;
+            $data[$itemId]['qty'] = $stockItem->suggestQty($qty);
+        }
+
+        return $data;
+    }
+
+    /**
      * Update cart items information
      *
      * @param   array $data
@@ -311,6 +360,10 @@ class Mage_Checkout_Model_Cart extends Varien_Object
     {
         Mage::dispatchEvent('checkout_cart_update_items_before', array('cart'=>$this, 'info'=>$data));
 
+        /* @var $messageFactory Mage_Core_Model_Message */
+        $messageFactory = Mage::getSingleton('core/message');
+        $session = $this->getCheckoutSession();
+        $qtyRecalculatedFlag = false;
         foreach ($data as $itemId => $itemInfo) {
             $item = $this->getQuote()->getItemById($itemId);
             if (!$item) {
@@ -325,7 +378,19 @@ class Mage_Checkout_Model_Cart extends Varien_Object
             $qty = isset($itemInfo['qty']) ? (float) $itemInfo['qty'] : false;
             if ($qty > 0) {
                 $item->setQty($qty);
+
+                if (isset($itemInfo['before_suggest_qty']) && ($itemInfo['before_suggest_qty'] != $qty)) {
+                    $qtyRecalculatedFlag = true;
+                    $message = $messageFactory->notice(Mage::helper('checkout')->__('Quantity was recalculated from %d to %d', $itemInfo['before_suggest_qty'], $qty));
+                    $session->addQuoteItemMessage($item->getId(), $message);
+                }
             }
+        }
+
+        if ($qtyRecalculatedFlag) {
+            $session->addNotice(
+                Mage::helper('checkout')->__('Some products quantities were recalculated because of quantity increment mismatch')
+            );
         }
 
         Mage::dispatchEvent('checkout_cart_update_items_after', array('cart'=>$this, 'info'=>$data));

@@ -110,6 +110,19 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
     }
 
     /**
+     * Prepare select object for loading entity attributes values
+     *
+     * @param  array $selects
+     * @return Zend_Db_Select
+     */
+    protected function _prepareLoadSelect(array $selects)
+    {
+        $select = parent::_prepareLoadSelect($selects);
+        $select->order('store_id');
+        return $select;
+    }
+
+    /**
      * Initialize attribute value for object
      *
      * @param   Mage_Catalog_Model_Abstract $object
@@ -121,8 +134,9 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
         $attribute = $this->getAttribute($valueRow['attribute_id']);
         if ($attribute) {
             $attributeCode = $attribute->getAttributeCode();
+            $isDefaultStore = $valueRow['store_id'] == $this->getDefaultStoreId();
             if (isset($this->_attributes[$valueRow['attribute_id']])) {
-                if ($valueRow['store_id'] == $this->getDefaultStoreId()) {
+                if ($isDefaultStore) {
                     $object->setAttributeDefaultValue($attributeCode, $valueRow['value']);
                 }
                 else {
@@ -137,6 +151,9 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
             $valueId = $valueRow['value_id'];
 
             $object->setData($attributeCode, $value);
+            if (!$isDefaultStore) {
+                $object->setExistsStoreValueFlag($attributeCode);
+            }
             $attribute->getBackend()->setValueId($valueId);
         }
         return $this;

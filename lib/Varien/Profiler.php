@@ -86,12 +86,14 @@ class Varien_Profiler
         if (!self::$_enabled) {
             return;
         }
+		
+        $time = microtime(true); // Get current time as quick as possible to make more accurate calculations
 
         if (empty(self::$_timers[$timerName])) {
             self::reset($timerName);
         }
         if (false!==self::$_timers[$timerName]['start']) {
-            self::$_timers[$timerName]['sum'] += microtime(true)-self::$_timers[$timerName]['start'];
+            self::$_timers[$timerName]['sum'] += $time-self::$_timers[$timerName]['start'];
             self::$_timers[$timerName]['start'] = false;
             if (self::$_memory_get_usage) {
 	            self::$_timers[$timerName]['realmem'] += memory_get_usage(true)-self::$_timers[$timerName]['realmem_start'];

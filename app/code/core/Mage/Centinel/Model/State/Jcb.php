@@ -30,22 +30,6 @@
 class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
 {
     /**
-     * Analyse lookup`s results. If lookup is successful return true and false if it failure
-     * Result depends from flag self::getIsModeStrict()
-     *
-     * @return bool
-     */
-    public function isLookupSuccessful()
-    {
-        if ($this->_isLookupStrictSuccessful()) {
-            return true;
-        } elseif (!$this->getIsModeStrict() && $this->_isLookupSoftSuccessful()) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Analyse lookup`s results. If it has require params for authenticate, return true
      *
      * @return bool
@@ -136,7 +120,7 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
      *
      * @return bool
      */
-    private function _isLookupStrictSuccessful()
+    protected function _isLookupStrictSuccessful()
     {
         //Test cases 1-4, 6, 10-11
         if ($this->getLookupEnrolled() == 'Y' &&
@@ -153,7 +137,7 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
      *
      * @return bool
      */
-    private function _isLookupSoftSuccessful()
+    protected function _isLookupSoftSuccessful()
     {
         $acsUrl = $this->getLookupAcsUrl();
         $payload = $this->getLookupPayload();
@@ -171,11 +155,10 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
         }
 
         //Test cases 8,9
-        if ($enrolled == '' && $acsUrl == '' && $payload == '' && $errorNo != '0') {
+        if ($enrolled == 'U' && $acsUrl == '' && $payload == '' && $errorNo != '0') {
             return true;
         }
 
         return false;
     }
-
 }

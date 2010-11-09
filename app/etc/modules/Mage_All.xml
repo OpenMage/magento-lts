@@ -153,8 +153,8 @@
             <codePool>core</codePool>
             <depends>
                 <Mage_Rule/>
-        <Mage_Catalog/>
-        <Mage_Sales/>
+                <Mage_Catalog/>
+                <Mage_Sales/>
             </depends>
         </Mage_SalesRule>
         <Mage_Checkout>
@@ -162,6 +162,7 @@
             <codePool>core</codePool>
             <depends>
                 <Mage_Sales/>
+                <Mage_CatalogInventory/>
             </depends>
         </Mage_Checkout>
         <Mage_Shipping>

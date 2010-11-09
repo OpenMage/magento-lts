@@ -50,6 +50,13 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     protected $_defaultValues = array();
 
     /**
+     * This array contains codes of attributes which have value in current store
+     *
+     * @var array
+     */
+    protected $_storeValuesFlags = array();
+
+    /**
      * Locked attributes
      *
      * @var array
@@ -262,6 +269,30 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     public function getAttributeDefaultValue($attributeCode)
     {
         return array_key_exists($attributeCode, $this->_defaultValues) ? $this->_defaultValues[$attributeCode] : false;
+    }
+
+    /**
+     * Set attribute code flag if attribute has value in current store and does not use
+     * value of default store as value
+     *
+     * @param   string $attributeCode
+     * @return  Mage_Catalog_Model_Abstract
+     */
+    public function setExistsStoreValueFlag($attributeCode)
+    {
+        $this->_storeValuesFlags[$attributeCode] = true;
+        return $this;
+    }
+
+    /**
+     * Check if object attribute has value in current store
+     *
+     * @param   string $attributeCode
+     * @return  bool
+     */
+    public function getExistsStoreValueFlag($attributeCode)
+    {
+        return array_key_exists($attributeCode, $this->_storeValuesFlags);
     }
 
     /**

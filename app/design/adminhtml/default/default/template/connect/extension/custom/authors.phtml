@@ -24,9 +24,38 @@
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<script type="text/javascript">
+var id = 0;
+var authorTemplate =
+    '<tr>'+
+        '<td style="margin-bottom:5px;">'+
+            '<input class="input-text required-entry" style="width:160px;" name="authors[name][]" id="authors_name_{{id}}" value="{{name}}"/>'+
+        '</td>'+
+        '<td style="margin-bottom:5px;">'+
+            '<input class="input-text required-entry" style="width:140px;" name="authors[user][]" id="authors_user_{{id}}" value="{{user}}"/>'+
+        '</td>'+
+        '<td style="margin-bottom:5px;">'+
+            '<input class="input-text required-entry validate-email" style="width:160px;" name="authors[email][]" id="authors_email_{{id}}" value="{{email}}"/>'+
+        '</td>'+
+        '<td style="margin-bottom:5px;">'+
+            '<?php echo $this->jsQuoteEscape($this->getRemoveRowButtonHtml('tr')) ?>'+
+        '</td>'+
+    '</tr>';
+
+function addAuthor(data)
+{
+    if (data == undefined) {
+        data = {};
+    }
+    data.id = id++;
+
+    var template = new Template(authorTemplate, /(^|.|\r|\n)({{(\w+)}})/);
+    Element.insert($('authors_container'), {bottom: template.evaluate(data)});
+}
+</script>
+
 <div class="entry-edit">
     <?php echo $this->getFormHtml() ?>
-
     <div class="entry-edit-head">
         <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__("Authors") ?></h4>
     </div>
@@ -35,39 +64,26 @@
         <table class="data" cellspacing="0">
             <thead>
                 <tr class="headings">
-                    <th><?php echo $this->__("Name") ?></th>
-                    <th><?php echo $this->__("User") ?></th>
-                    <th><?php echo $this->__("Email") ?></th>
+                    <th><?php echo $this->__("Name") ?> <span class="required">*</span></th>
+                    <th><?php echo $this->__("User") ?> <span class="required">*</span></th>
+                    <th><?php echo $this->__("Email") ?> <span class="required">*</span></th>
                     <th><?php echo $this->__("Remove") ?></th>
-                </tr>
-                <tr id="authors_template" style="display:none">
-<?php function showAuthorsTemplate($self, $_i=0) { ?>
-                    <td style="margin-bottom:5px;">
-                        <input class="input-text" style="width:160px;" name="authors[name][]" value="<?php echo $self->getValue('authors/name/'.$_i) ?>"/>
-                    </td><td style="margin-bottom:5px;">
-                        <input class="input-text" style="width:140px;" name="authors[user][]" value="<?php echo $self->getValue('authors/user/'.$_i) ?>"/>
-                    </td><td style="margin-bottom:5px;">
-                        <input class="input-text" style="width:160px;" name="authors[email][]" value="<?php echo $self->getValue('authors/email/'.$_i) ?>"/>
-                    </td><td style="margin-bottom:5px;">
-                        <?php echo $self->getRemoveRowButtonHtml('tr') ?>
-                    </td>
-<?php } ?>
-<?php showAuthorsTemplate($this) ?>
                 </tr>
             </thead>
             <tbody id="authors_container">
-            <?php if ($this->getData('authors/name')): ?>
-            <?php foreach ($this->getData('authors/name') as $_i=>$_dbField): ?>
-                <?php if (0===$_i) continue; ?>
-                <tr>
-<?php showAuthorsTemplate($this, $_i) ?>
-                </tr>
-            <?php endforeach ?>
-            <?php endif ?>
+                <script type="text/javascript">
+                <?php if (count($this->getAuthors())): ?>
+                    <?php foreach ($this->getAuthors() as $author): ?>
+                        addAuthor(<?php echo $author ?>);
+                    <?php endforeach ?>
+                <?php else: ?>
+                    addAuthor();
+                <?php endif;?>
+                </script>
             </tbody>
             <tfoot>
                 <tr>
-                    <td class="a-right" colspan="4"><?php echo $this->getAddRowButtonHtml('authors_container', 'authors_template', $this->__('Add Author')) ?></td>
+                    <td class="a-right" colspan="4"><?php echo $this->getAddAuthorButtonHtml() ?></td>
                 </tr>
             </tfoot>
         </table>

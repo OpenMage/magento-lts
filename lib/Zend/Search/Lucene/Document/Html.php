@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Document
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Html.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Html.php 21946 2010-04-19 08:21:02Z alexander $
  */
 
 
@@ -31,7 +31,7 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Document
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
@@ -66,6 +66,17 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
      * @var boolean
      */
     private static $_excludeNoFollowLinks = false;
+
+    /**
+     *
+     * List of inline tags
+     *
+     * @var array
+     */
+    private $_inlineTags = array('a', 'abbr', 'acronym', 'dfn', 'em', 'strong', 'code',
+                                'samp', 'kbd', 'var', 'b', 'i', 'big', 'small', 'strike',
+                                'tt', 'u', 'font', 'span', 'bdo', 'cite', 'del', 'ins',
+                                'q', 'sub', 'sup');
 
     /**
      * Object constructor
@@ -155,6 +166,14 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
                 $this->_links[] = $href;
             }
         }
+        $linkNodes = $this->_doc->getElementsByTagName('area');
+        foreach ($linkNodes as $linkNode) {
+            if (($href = $linkNode->getAttribute('href')) != '' &&
+                (!self::$_excludeNoFollowLinks  ||  strtolower($linkNode->getAttribute('rel')) != 'nofollow' )
+               ) {
+                $this->_links[] = $href;
+            }
+        }
         $this->_links = array_unique($this->_links);
 
         $linkNodes = $xpath->query('/html/head/link');
@@ -197,8 +216,10 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
     private function _retrieveNodeText(DOMNode $node, &$text)
     {
         if ($node->nodeType == XML_TEXT_NODE) {
-            $text .= $node->nodeValue ;
-            $text .= ' ';
+            $text .= $node->nodeValue;
+            if(!in_array($node->parentNode->tagName, $this->_inlineTags)) {
+                $text .= ' ';
+            }
         } else if ($node->nodeType == XML_ELEMENT_NODE  &&  $node->nodeName != 'script') {
             foreach ($node->childNodes as $childNode) {
                 $this->_retrieveNodeText($childNode, $text);
@@ -305,7 +326,7 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
                                        . '</body></html>');
             if (!$success) {
                 #require_once 'Zend/Search/Lucene/Exception.php';
-                throw new Zend_Search_Lucene_Exception("Error occured while loading highlighted text fragment: '$highlightedNodeHtml'.");
+                throw new Zend_Search_Lucene_Exception("Error occured while loading highlighted text fragment: '$highlightedWordNodeSetHtml'.");
             }
             $highlightedWordNodeSetXpath = new DOMXPath($highlightedWordNodeSetDomDocument);
             $highlightedWordNodeSet      = $highlightedWordNodeSetXpath->query('/html/body')->item(0)->childNodes;

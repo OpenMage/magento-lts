@@ -27,6 +27,8 @@ var tinyMceWysiwygSetup = Class.create();
 tinyMceWysiwygSetup.prototype =
 {
     mediaBrowserOpener: null,
+    mediaBrowserTargetElementId: null,
+
     initialize: function(htmlId, config)
     {
         this.id = htmlId;
@@ -174,6 +176,7 @@ tinyMceWysiwygSetup.prototype =
 
         this.mediaBrowserOpener = o.win;
         this.mediaBrowserOpener.blur();
+        this.mediaBrowserTargetElementId = o.field;
 
         if (typeof(o.type) != 'undefined' && o.type != "") {
             typeTitle = 'image' == o.type ? this.translate('Insert Image...') : this.translate('Insert Media...');
@@ -191,6 +194,10 @@ tinyMceWysiwygSetup.prototype =
 
     getMediaBrowserOpener: function() {
         return this.mediaBrowserOpener;
+    },
+
+    getMediaBrowserTargetElementId: function() {
+        return this.mediaBrowserTargetElementId;
     },
 
     getToggleButton: function() {
@@ -250,15 +257,18 @@ tinyMceWysiwygSetup.prototype =
         }
     },
 
+    // retrieve directives URL with substituted directive value
+    makeDirectiveUrl: function(directive) {
+        return this.config.directives_url.replace('directive', 'directive/___directive/' + directive);
+    },
+
     encodeDirectives: function(content) {
         // collect all HTML tags with attributes that contain directives
-        return content.gsub(/<([a-z0-9\-\_]+.+?)([a-z0-9\-\_]+=["']\{\{.+?\}\}.*?["'].+?)>/i, function(match) {
+        return content.gsub(/<([a-z0-9\-\_]+.+?)([a-z0-9\-\_]+=".*?\{\{.+?\}\}.*?".+?)>/i, function(match) {
             var attributesString = match[2];
             // process tag attributes string
-            attributesString = attributesString.gsub(/([a-z0-9\-\_]+)=["'](\{\{.+?\}\})(.*?)["']/i, function(m) {
-                // include server URL only for images src to avoid unnecessary requests
-                var url = m[1].toLowerCase() == 'src' ? this.config.directives_url : '';
-                return m[1] + '="' + url + '___directive/' + Base64.mageEncode(m[2]) + '/' + m[3] + '"';
+            attributesString = attributesString.gsub(/([a-z0-9\-\_]+)="(.*?)(\{\{.+?\}\})(.*?)"/i, function(m) {
+                return m[1] + '="' + m[2] + this.makeDirectiveUrl(Base64.mageEncode(m[3])) + m[4] + '"';
             }.bind(this));
 
             return '<' + match[1] + attributesString + '>';
@@ -287,8 +297,11 @@ tinyMceWysiwygSetup.prototype =
     },
 
     decodeDirectives: function(content) {
-        return content.gsub(/([a-z0-9\-\_]+)=["]\S*?___directive\/([a-zA-Z0-9\-\_\,]+)\/(.*?)["]/i, function(match) {
-            return match[1] + '="' + Base64.mageDecode(match[2]) + '"';
+        // escape special chars in directives url to use it in regular expression
+        var url = this.makeDirectiveUrl('%directive%').replace(/([$^.?*!+:=()\[\]{}|\\])/g, '\\$1');
+        var reg = new RegExp(url.replace('%directive%', '([a-zA-Z0-9,_-]+)'));
+        return content.gsub(reg, function(match) {
+            return Base64.mageDecode(match[1]);
         }.bind(this));
     },
 

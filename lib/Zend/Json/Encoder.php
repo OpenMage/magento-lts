@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Json
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Encoder.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: Encoder.php 22453 2010-06-18 18:17:52Z ralph $
  */
 
 /**
@@ -24,7 +24,7 @@
  *
  * @category   Zend
  * @package    Zend_Json
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Json_Encoder
@@ -145,7 +145,7 @@ class Zend_Json_Encoder
         foreach ($propCollection as $name => $propValue) {
             if (isset($propValue)) {
                 $props .= ','
-                        . $this->_encodeValue($name)
+                        . $this->_encodeString($name)
                         . ':'
                         . $this->_encodeValue($propValue);
             }
@@ -252,8 +252,8 @@ class Zend_Json_Encoder
     {
         // Escape these characters with a backslash:
         // " \ / \n \r \t \b \f
-        $search  = array('\\', "\n", "\t", "\r", "\b", "\f", '"');
-        $replace = array('\\\\', '\\n', '\\t', '\\r', '\\b', '\\f', '\"');
+        $search  = array('\\', "\n", "\t", "\r", "\b", "\f", '"', '/');
+        $replace = array('\\\\', '\\n', '\\t', '\\r', '\\b', '\\f', '\"', '\\/');
         $string  = str_replace($search, $replace, $string);
 
         // Escape certain ASCII characters:

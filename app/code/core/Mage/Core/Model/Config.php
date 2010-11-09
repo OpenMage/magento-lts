@@ -812,21 +812,23 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         $name = explode('_', strtolower($name));
         $partsNum = count($name);
-        $i = 0;
+        $defaultNamespaceFlag = false;
         foreach ($this->_moduleNamespaces as $namespaceName => $namespace) {
             // assume the namespace is omitted (default namespace only, which comes first)
-            if (0 === $i) {
+            if ($defaultNamespaceFlag === false) {
+                $defaultNamespaceFlag = true;
                 $defaultNS = $namespaceName . '_' . $name[0];
                 if (isset($namespace[$defaultNS])) {
                     return $asFullModuleName ? $namespace[$defaultNS] : $name[0]; // return omitted as well
                 }
             }
             // assume namespace is qualified
-            $fullNS = $name[0] . '_' . $name[1];
-            if (2 <= $partsNum && isset($namespace[$fullNS])) {
-                return $asFullModuleName ? $namespace[$fullNS] : $fullNS;
+            if(isset($name[1])) {
+                $fullNS = $name[0] . '_' . $name[1];
+                if (2 <= $partsNum && isset($namespace[$fullNS])) {
+                    return $asFullModuleName ? $namespace[$fullNS] : $fullNS;
+                }
             }
-            $i++;
         }
         return '';
     }

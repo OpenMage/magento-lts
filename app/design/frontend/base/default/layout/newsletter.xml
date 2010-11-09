@@ -58,7 +58,8 @@ Customer account pages, rendered for all tabs in dashboard
         <update handle="customer_account"/>
         <reference name="my.account.wrapper">
             <block type="customer/newsletter" name="customer_newsletter">
-                <block type="page/html_wrapper" name="customer.newsletter.form.before" as="form_before">
+                <block type="page/html_wrapper" name="customer.newsletter.form.before" as="form_before" translate="label">
+                    <label>Newsletter Subscription Form Before</label>
                     <action method="setMayBeInvisible"><value>1</value></action>
                 </block>
             </block>

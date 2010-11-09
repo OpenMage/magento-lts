@@ -49,26 +49,26 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
             <table cellspacing="0" class="form-list">
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Order Date') ?></label></td>
-                <td><strong><?php echo $orderAdminDate ?></strong></td>
+                <td class="value"><strong><?php echo $orderAdminDate ?></strong></td>
             </tr>
             <?php if ($orderAdminDate != $orderStoreDate):?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Order Date (%s)', $_order->getCreatedAtStoreDate()->getTimezone()) ?></label></td>
-                <td><strong><?php echo $orderStoreDate ?></strong></td>
+                <td class="value"><strong><?php echo $orderStoreDate ?></strong></td>
             </tr>
             <?php endif;?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Order Status') ?></label></td>
-                <td><strong><span id="order_status"><?php echo $_order->getStatusLabel() ?></span></strong></td>
+                <td class="value"><strong><span id="order_status"><?php echo $_order->getStatusLabel() ?></span></strong></td>
             </tr>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Purchased From') ?></label></td>
-                <td><strong><?php echo $this->getOrderStoreName() ?></strong></td>
+                <td class="value"><strong><?php echo $this->getOrderStoreName() ?></strong></td>
             </tr>
             <?php if($_order->getRelationChildId()): ?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Link to the New Order') ?></label></td>
-                <td><a href="<?php echo $this->getViewUrl($_order->getRelationChildId()) ?>">
+                <td class="value"><a href="<?php echo $this->getViewUrl($_order->getRelationChildId()) ?>">
                     <?php echo $_order->getRelationChildRealId() ?>
                 </a></td>
             </tr>
@@ -76,7 +76,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
             <?php if($_order->getRelationParentId()): ?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Link to the Previous Order') ?></label></td>
-                <td><a href="<?php echo $this->getViewUrl($_order->getRelationParentId()) ?>">
+                <td class="value"><a href="<?php echo $this->getViewUrl($_order->getRelationParentId()) ?>">
                     <?php echo $_order->getRelationParentRealId() ?>
                 </a></td>
             </tr>
@@ -84,19 +84,19 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
             <?php if($_order->getRemoteIp()): ?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Placed from IP') ?></label></td>
-                <td><strong><?php echo $_order->getRemoteIp(); echo ($_order->getXForwardedFor())?' (' . $_order->getXForwardedFor() . ')':''; ?></strong></td>
+                <td class="value"><strong><?php echo $_order->getRemoteIp(); echo ($_order->getXForwardedFor())?' (' . $_order->getXForwardedFor() . ')':''; ?></strong></td>
             </tr>
             <?php endif; ?>
             <?php if($_order->getGlobalCurrencyCode() != $_order->getBaseCurrencyCode()): ?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('%s / %s rate:', $_order->getGlobalCurrencyCode(), $_order->getBaseCurrencyCode()) ?></label></td>
-                <td><strong><?php echo $_order->getBaseToGlobalRate() ?></strong></td>
+                <td class="value"><strong><?php echo $_order->getBaseToGlobalRate() ?></strong></td>
             </tr>
             <?php endif; ?>
             <?php if($_order->getBaseCurrencyCode() != $_order->getOrderCurrencyCode()): ?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('%s / %s rate:', $_order->getOrderCurrencyCode(), $_order->getBaseCurrencyCode()) ?></label></td>
-                <td><strong><?php echo $_order->getBaseToOrderRate() ?></strong></td>
+                <td class="value"><strong><?php echo $_order->getBaseToOrderRate() ?></strong></td>
             </tr>
             <?php endif; ?>
             </table>
@@ -114,7 +114,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
                 <table cellspacing="0" class="form-list">
                 <tr>
                     <td class="label"><label><?php echo Mage::helper('sales')->__('Customer Name') ?></label></td>
-                    <td>
+                    <td class="value">
                     <?php if ($_customerUrl=$this->getCustomerViewUrl()) : ?>
                         <a href="<?php echo $_customerUrl ?>" target="_blank"><strong><?php echo $this->htmlEscape($_order->getCustomerName()) ?></strong></a>
                     <?php else: ?>
@@ -124,26 +124,20 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
                 </tr>
                 <tr>
                     <td class="label"><label><?php echo Mage::helper('sales')->__('Email') ?></label></td>
-                    <td><a href="mailto:<?php echo $_order->getCustomerEmail() ?>"><strong><?php echo $_order->getCustomerEmail() ?></strong></a></td>
+                    <td class="value"><a href="mailto:<?php echo $_order->getCustomerEmail() ?>"><strong><?php echo $_order->getCustomerEmail() ?></strong></a></td>
                 </tr>
-                <?php if ($_groupName=$this->getCustomerGroupName()) : ?>
+                <?php if ($_groupName = $this->getCustomerGroupName()) : ?>
                 <tr>
                     <td class="label"><label><?php echo Mage::helper('sales')->__('Customer Group') ?></label></td>
-                    <td><strong><?php echo $_groupName ?></strong></td>
+                    <td class="value"><strong><?php echo $_groupName ?></strong></td>
                 </tr>
                 <?php endif; ?>
-                <?php if ($_dob=$this->getOrder()->getCustomerDob()) : ?>
+                <?php foreach ($this->getCustomerAccountData() as $data):?>
                 <tr>
-                    <td class="label"><label><?php echo Mage::helper('sales')->__('Date of Birth') ?></label></td>
-                    <td><strong><?php echo Mage::helper('core')->formatDate($_dob, 'medium') ?></strong></td>
+                    <td class="label"><label><?php echo $data['label'] ?></label></td>
+                    <td class="value"><strong><?php echo $data['value'] ?></strong></td>
                 </tr>
-                <?php endif; ?>
-                <?php if ($_taxvat = $_order->getCustomerTaxvat()):?>
-                <tr>
-                    <td class="label"><label><?php echo Mage::helper('sales')->__('TAX/VAT Number') ?></label></td>
-                    <td><strong><?php echo $this->htmlEscape($_taxvat)?></strong></td>
-                </tr>
-                <?php endif;?>
+                <?php endforeach;?>
                 </table>
             </div>
         </div>

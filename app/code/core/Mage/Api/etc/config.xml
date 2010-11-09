@@ -119,6 +119,7 @@
     <default>
         <api>
             <config>
+                <charset>UTF-8</charset>
                 <session_timeout>3600</session_timeout>
             </config>
         </api>

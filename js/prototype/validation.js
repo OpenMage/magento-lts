@@ -141,14 +141,12 @@ Validation.prototype = {
                 }, this).all();
             }
         } catch (e) {
-
         }
         if(!result && this.options.focusOnError) {
             try{
                 Form.getElements(this.form).findAll(function(elm){return $(elm).hasClassName('validation-failed')}).first().focus()
             }
             catch(e){
-
             }
         }
         this.options.onFormValidate(result, this.form);
@@ -421,6 +419,19 @@ Validation.addAllThese([
     ['validate-digits', 'Please use numbers only in this field. please avoid spaces or other characters such as dots or commas.', function(v) {
                 return Validation.get('IsEmpty').test(v) ||  !/[^\d]/.test(v);
             }],
+    ['validate-digits-range', 'The value is not within the specified range.', function(v, elm) {
+                var result = Validation.get('IsEmpty').test(v) ||  !/[^\d]/.test(v);
+                var reRange = new RegExp(/^digits-range-[0-9]+-[0-9]+$/);
+                $w(elm.className).each(function(name, index) {
+                    if (name.match(reRange) && result) {
+                        var min = parseInt(name.split('-')[2], 10);
+                        var max = parseInt(name.split('-')[3], 10);
+                        var val = parseInt(v, 10);
+                        result = (v >= min) && (v <= max);
+                    }
+                });
+                return result;
+            }],
     ['validate-alpha', 'Please use letters only (a-z or A-Z) in this field.', function (v) {
                 return Validation.get('IsEmpty').test(v) ||  /^[a-zA-Z]+$/.test(v)
             }],
@@ -486,16 +497,16 @@ Validation.addAllThese([
                 }
                 return (pass.value == conf.value);
             }],
-    ['validate-url', 'Please enter a valid URL. http:// is required', function (v) {
+    ['validate-url', 'Please enter a valid URL. Protocol is required (http://, https:// or ftp://)', function (v) {
                 return Validation.get('IsEmpty').test(v) || /^(http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(:(\d+))?\/?/i.test(v)
             }],
     ['validate-clean-url', 'Please enter a valid URL. For example http://www.example.com or www.example.com', function (v) {
                 return Validation.get('IsEmpty').test(v) || /^(http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+.(com|org|net|dk|at|us|tv|info|uk|co.uk|biz|se)$)(:(\d+))?\/?/i.test(v) || /^(www)((\.[A-Z0-9][A-Z0-9_-]*)+.(com|org|net|dk|at|us|tv|info|uk|co.uk|biz|se)$)(:(\d+))?\/?/i.test(v)
             }],
-    ['validate-identifier', 'Please enter a valid URL Key. For example "example-page", "example-page.html" or "anotherlevel/example-page"', function (v) {
+    ['validate-identifier', 'Please enter a valid URL Key. For example "example-page", "example-page.html" or "anotherlevel/example-page".', function (v) {
                 return Validation.get('IsEmpty').test(v) || /^[A-Z0-9][A-Z0-9_\/-]+(\.[A-Z0-9_-]+)*$/i.test(v)
             }],
-    ['validate-xml-identifier', 'Please enter a valid XML-identifier. For example something_1, block5, id-4', function (v) {
+    ['validate-xml-identifier', 'Please enter a valid XML-identifier. For example something_1, block5, id-4.', function (v) {
                 return Validation.get('IsEmpty').test(v) || /^[A-Z][A-Z0-9_\/-]*$/i.test(v)
             }],
     ['validate-ssn', 'Please enter a valid social security number. For example 123-45-6789.', function(v) {
@@ -589,7 +600,7 @@ Validation.addAllThese([
                 }
                 return validateCreditCard(v);
             }],
-    ['validate-cc-type', 'Credit card number doesn\'t match credit card type', function(v, elm) {
+    ['validate-cc-type', 'Credit card number does not match credit card type.', function(v, elm) {
                 // remove credit card number delimiters such as "-" and space
                 elm.value = removeDelimiters(elm.value);
                 v         = removeDelimiters(v);
@@ -629,7 +640,7 @@ Validation.addAllThese([
 
                 return true;
             }],
-     ['validate-cc-type-select', 'Card type doesn\'t match credit card number', function(v, elm) {
+     ['validate-cc-type-select', 'Card type does not match credit card number.', function(v, elm) {
                 var ccNumberContainer = $(elm.id.substr(0,elm.id.indexOf('_cc_type')) + '_cc_number');
                 if (Validation.isOnChange && Validation.get('IsEmpty').test(ccNumberContainer.value)) {
                     return true;
@@ -639,7 +650,7 @@ Validation.addAllThese([
                 }
                 return Validation.get('validate-cc-type').test(ccNumberContainer.value, ccNumberContainer);
             }],
-     ['validate-cc-exp', 'Incorrect credit card expiration date', function(v, elm) {
+     ['validate-cc-exp', 'Incorrect credit card expiration date.', function(v, elm) {
                 var ccExpMonth   = v;
                 var ccExpYear    = $(elm.id.substr(0,elm.id.indexOf('_expiration')) + '_expiration_yr').value;
                 var currentTime  = new Date();
@@ -676,25 +687,79 @@ Validation.addAllThese([
                 }
                 return true;
             }],
-     ['validate-css-length', 'Please input a valid CSS-length. For example 100px or 77pt or 20em or .5ex or 50%', function (v) {
+     ['validate-css-length', 'Please input a valid CSS-length. For example 100px or 77pt or 20em or .5ex or 50%.', function (v) {
                 if (v != '' && v) {
                     return /^[0-9\.]+(px|pt|em|ex|%)?$/.test(v) && (!(/\..*\./.test(v))) && !(/\.$/.test(v));
                 }
                 return true;
             }],
-     ['validate-length', 'Maximum length exceeded.', function (v, elm) {
-                var re = new RegExp(/^maximum-length-[0-9]+$/);
+     ['validate-length', 'Text length does not satisfy specified text range.', function (v, elm) {
+                var reMax = new RegExp(/^maximum-length-[0-9]+$/);
+                var reMin = new RegExp(/^minimum-length-[0-9]+$/);
                 var result = true;
                 $w(elm.className).each(function(name, index) {
-                        if (name.match(re) && result) {
-                           var length = name.split('-')[2];
-                           result = (v.length <= length);
-                        }
-                    });
+                    if (name.match(reMax) && result) {
+                       var length = name.split('-')[2];
+                       result = (v.length <= length);
+                    }
+                    if (name.match(reMin) && result && !Validation.get('IsEmpty').test(v)) {
+                        var length = name.split('-')[2];
+                        result = (v.length >= length);
+                    }
+                });
                 return result;
             }],
-     ['validate-percents', 'Please enter a number lower than 100', {max:100}]
+     ['validate-percents', 'Please enter a number lower than 100.', {max:100}],
+     ['required-file', 'Please select a file', function(v, elm) {
+         var result = !Validation.get('IsEmpty').test(v);
+         if (result === false) {
+             ovId = elm.id + '_value';
+             if ($(ovId)) {
+                 result = !Validation.get('IsEmpty').test($(ovId).value);
+             }
+         }
+         return result;
+     }],
+     ['validate-cc-ukss', 'Please enter issue number or start date for switch/solo card type.', function(v,elm) {
+         var endposition;
 
+         if (elm.id.match(/(.)+_cc_issue$/)) {
+             endposition = elm.id.indexOf('_cc_issue');
+         } else if (elm.id.match(/(.)+_start_month$/)) {
+             endposition = elm.id.indexOf('_start_month');
+         } else {
+             endposition = elm.id.indexOf('_start_year');
+         }
+
+         var prefix = elm.id.substr(0,endposition);
+
+         var ccTypeContainer = $(prefix + '_cc_type');
+
+         if (!ccTypeContainer) {
+               return true;
+         }
+         var ccType = ccTypeContainer.value;
+
+         if(['SS','SM','SO'].indexOf(ccType) == -1){
+             return true;
+         }
+
+         $(prefix + '_cc_issue').advaiceContainer
+           = $(prefix + '_start_month').advaiceContainer
+           = $(prefix + '_start_year').advaiceContainer
+           = $(prefix + '_cc_type_ss_div').down('ul li.adv-container');
+
+         var ccIssue   =  $(prefix + '_cc_issue').value;
+         var ccSMonth  =  $(prefix + '_start_month').value;
+         var ccSYear   =  $(prefix + '_start_year').value;
+
+         var ccStartDatePresent = (ccSMonth && ccSYear) ? true : false;
+
+         if (!ccStartDatePresent && !ccIssue){
+             return false;
+         }
+         return true;
+     }]
 ]);
 
 function removeDelimiters (v) {
@@ -735,7 +800,7 @@ function parseNumber(v)
  *     function validateCreditCard wich you can find above in this file
  */
 Validation.creditCartTypes = $H({
-    'SS': [new RegExp('^((6759[0-9]{12})|(5018|5020|5038|6304|6759|6761|6763[0-9]{12,19})|(49[013][1356][0-9]{12})|(6333[0-9]{12})|(6334[0-4]\d{11})|(633110[0-9]{10})|(564182[0-9]{10}))([0-9]{2,3})?$'), new RegExp('^([0-9]{3}|[0-9]{4})?$'), true],
+//    'SS': [new RegExp('^((6759[0-9]{12})|(5018|5020|5038|6304|6759|6761|6763[0-9]{12,19})|(49[013][1356][0-9]{12})|(6333[0-9]{12})|(6334[0-4]\d{11})|(633110[0-9]{10})|(564182[0-9]{10}))([0-9]{2,3})?$'), new RegExp('^([0-9]{3}|[0-9]{4})?$'), true],
     'SO': [new RegExp('^(6334[5-9]([0-9]{11}|[0-9]{13,14}))|(6767([0-9]{12}|[0-9]{14,15}))$'), new RegExp('^([0-9]{3}|[0-9]{4})?$'), true],
     'SM': [new RegExp('(^(5[0678])[0-9]{11,18}$)|(^(6[^05])[0-9]{11,18}$)|(^(601)[^1][0-9]{9,16}$)|(^(6011)[0-9]{9,11}$)|(^(6011)[0-9]{13,16}$)|(^(65)[0-9]{11,13}$)|(^(65)[0-9]{15,18}$)|(^(49030)[2-9]([0-9]{10}$|[0-9]{12,13}$))|(^(49033)[5-9]([0-9]{10}$|[0-9]{12,13}$))|(^(49110)[1-2]([0-9]{10}$|[0-9]{12,13}$))|(^(49117)[4-9]([0-9]{10}$|[0-9]{12,13}$))|(^(49118)[0-2]([0-9]{10}$|[0-9]{12,13}$))|(^(4936)([0-9]{12}$|[0-9]{14,15}$))'), new RegExp('^([0-9]{3}|[0-9]{4})?$'), true],
     'VI': [new RegExp('^4[0-9]{12}([0-9]{3})?$'), new RegExp('^[0-9]{3}$'), true],

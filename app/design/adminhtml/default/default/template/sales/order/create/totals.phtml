@@ -44,3 +44,21 @@
     <?php endif; ?>
     <p><?php echo $this->getButtonHtml(Mage::helper('sales')->__('Submit Order'),'order.submit()','save'); ?></p>
 </div>
+
+<script type="text/javascript">
+//<![CDATA[
+var sendEmailCheckbox = $('send_confirmation');
+if (sendEmailCheckbox) {
+    Event.observe(sendEmailCheckbox, 'change', notifyCustomerUpdate);
+    notifyCustomerUpdate();
+}
+
+function notifyCustomerUpdate() {
+    var sendEmailCheckbox = $('send_confirmation');
+    var notifyCustomerCheckbox = $('notify_customer');
+    if (!sendEmailCheckbox || !notifyCustomerCheckbox)
+        return;
+    notifyCustomerCheckbox.disabled = !sendEmailCheckbox.checked;
+}
+//]]>
+</script>

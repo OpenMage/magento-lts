@@ -203,6 +203,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
                 'url_rewrite.category_id=main_table.entity_id AND url_rewrite.is_system=1 AND url_rewrite.product_id IS NULL AND url_rewrite.store_id="'.$storeId.'" AND url_rewrite.id_path LIKE "category/%"',
                 array('request_path' => 'url_rewrite.request_path'))
             ->where('main_table.is_active = ?', '1')
+            ->where('main_table.include_in_menu', '1')
 //            ->order('main_table.path', 'ASC')
             ->order('main_table.position', 'ASC');
 
@@ -327,6 +328,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
                 ->addUrlRewriteToResult()
                 ->addParentPathFilter($parentPath)
                 ->addStoreFilter()
+                ->addIsActiveFilter()
+                ->addAttributeToFilter('include_in_menu', 1)
                 ->addSortedField($sorted);
             if ($toLoad) {
                 return $collection->load();
@@ -1015,6 +1018,19 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
     }
 
     /**
+     * Retrieve attribute instance
+     * Special for non static flat table
+     *
+     * @param mixed $attribute
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     */
+    public function getAttribute($attribute)
+    {
+        return Mage::getSingleton('catalog/config')
+            ->getAttribute('catalog_category', $attribute);
+    }
+
+    /**
      * Get count of active/not active children categories
      *
      * @param   Mage_Catalog_Model_Category $category
@@ -1072,6 +1088,25 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
             $categories[$row['entity_id']] = Mage::getModel('catalog/category')->setData($row);
         }
         return $categories;
+    }
+
+    /**
+     * Return parent category of current category with own custom design settings
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return Mage_Catalog_Model_Category
+     */
+    public function getParentDesignCategory($category)
+    {
+        $pathIds = array_reverse($category->getPathIds());
+        $select = $this->_getReadAdapter()->select()
+            ->from(array('main_table' => $this->getMainStoreTable($category->getStoreId())), '*')
+            ->where('entity_id IN (?)', $pathIds)
+            ->where('custom_use_parent_settings = ?', 0)
+            ->where('level != ?', 0)
+            ->order('level DESC');
+        $result = $this->_getReadAdapter()->fetchRow($select);
+        return Mage::getModel('catalog/category')->setData($result);
     }
 
     /**
@@ -1186,7 +1221,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
                 array(
                     'main_table.entity_id',
                     'main_table.custom_design',
-                    'main_table.custom_design_apply',
                     'main_table.custom_design_from',
                     'main_table.custom_design_to',
                 )

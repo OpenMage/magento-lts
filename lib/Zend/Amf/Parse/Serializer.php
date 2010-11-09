@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage Parse
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Serializer.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Serializer.php 21969 2010-04-22 03:54:59Z matthew $
  */
 
 /**
@@ -25,13 +25,13 @@
  *
  * @package    Zend_Amf
  * @subpackage Parse
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Amf_Parse_Serializer
 {
     /**
-     * Refrence to the current output stream being constructed
+     * Reference to the current output stream being constructed
      *
      * @var string
      */
@@ -53,7 +53,8 @@ abstract class Zend_Amf_Parse_Serializer
      *
      * @param  mixed $content
      * @param  int $markerType
+     * @param  mixed $contentByVal
      * @return void
      */
-    public abstract function writeTypeMarker($content, $markerType=null);
+    public abstract function writeTypeMarker(&$content, $markerType = null, $contentByVal = false);
 }

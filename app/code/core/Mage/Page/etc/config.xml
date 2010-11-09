@@ -46,7 +46,7 @@
             <layouts>
                 <empty module="page" translate="label">
                     <label>Empty</label>
-                    <template>page/one-column.phtml</template>
+                    <template>page/empty.phtml</template>
                     <layout_handle>page_empty</layout_handle>
                 </empty>
                 <one_column module="page" translate="label">

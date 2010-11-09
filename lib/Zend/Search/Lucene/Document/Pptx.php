@@ -15,16 +15,14 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Document
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Pptx.php 19035 2009-11-19 14:34:11Z alexander $
+ * @version    $Id: Pptx.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
 /** Zend_Search_Lucene_Document_OpenXml */
 #require_once 'Zend/Search/Lucene/Document/OpenXml.php';
-
-if (class_exists('ZipArchive', false)) {
 
 /**
  * Pptx document.
@@ -32,7 +30,7 @@ if (class_exists('ZipArchive', false)) {
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Document
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Document_Pptx extends Zend_Search_Lucene_Document_OpenXml
@@ -74,6 +72,11 @@ class Zend_Search_Lucene_Document_Pptx extends Zend_Search_Lucene_Document_OpenX
      */
     private function __construct($fileName, $storeContent)
     {
+        if (!class_exists('ZipArchive', false)) {
+            #require_once 'Zend/Search/Lucene/Exception.php';
+            throw new Zend_Search_Lucene_Exception('MS Office documents processing functionality requires Zip extension to be loaded');
+        }
+
         // Document data holders
         $slides = array();
         $slideNotes = array();
@@ -195,5 +198,3 @@ class Zend_Search_Lucene_Document_Pptx extends Zend_Search_Lucene_Document_OpenX
         return new Zend_Search_Lucene_Document_Pptx($fileName, $storeContent);
     }
 }
-
-} // end if (class_exists('ZipArchive'))

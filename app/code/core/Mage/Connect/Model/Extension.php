@@ -127,10 +127,6 @@ class Mage_Connect_Model_Extension extends Varien_Object
     {
         $authors = $this->getData('authors');
         foreach ($authors['name'] as $i => $name) {
-            if (0===$i) {
-                continue;
-            }
-
             $user  = $authors['user'][$i];
             $email = $authors['email'][$i];
             $this->getPackage()->addAuthor($name, $user, $email);

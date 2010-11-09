@@ -82,6 +82,9 @@ varienForm.prototype = {
     },
 
     _processValidationResult : function(transport){
+        if (typeof varienGlobalEvents != undefined) {
+            varienGlobalEvents.fireEvent('formValidateAjaxComplete', transport);
+        }
         var response = transport.responseText.evalJSON();
         if(response.error){
             if($('messages')){
@@ -440,14 +443,14 @@ FormElementDependenceController.prototype = {
 
         // toggle target row
         if (shouldShowUp) {
-            $(idTo).up(this._config.levels_up).select('input', 'select').each(function (item) {
+            $(idTo).up(this._config.levels_up).select('input', 'select', 'td').each(function (item) {
                 if (!item.type || item.type != 'hidden') { // don't touch hidden inputs, bc they may have custom logic
                     item.disabled = false;
                 }
             });
             $(idTo).up(this._config.levels_up).show();
         } else {
-            $(idTo).up(this._config.levels_up).select('input', 'select').each(function (item){
+            $(idTo).up(this._config.levels_up).select('input', 'select', 'td').each(function (item){
                 if (!item.type || item.type != 'hidden') { // don't touch hidden inputs, bc they may have custom logic
                     item.disabled = true;
                 }

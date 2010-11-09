@@ -110,9 +110,6 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
     {
         if ($invoiceId = $this->getRequest()->getParam('invoice_id')) {
             if ($invoice = Mage::getModel('sales/order_invoice')->load($invoiceId)) {
-                if ($invoice->getStoreId()) {
-                    Mage::app()->setCurrentStore($invoice->getStoreId());
-                }
                 $pdf = Mage::getModel('sales/order_pdf_invoice')->getPdf(array($invoice));
                 $this->_prepareDownloadResponse('invoice'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(), 'application/pdf');
             }

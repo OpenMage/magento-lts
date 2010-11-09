@@ -162,17 +162,12 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
      * Set giftmessage available default value to product
      * on catalog products collection load
      *
+     * @deprecated after 1.4.2.0-beta1
      * @param Varien_Object $observer
      * @return Mage_GiftMessage_Model_Observer
      */
     public function catalogEventProductCollectionAfterLoad($observer)
     {
-        $collection = $observer->getEvent()->getCollection();
-        foreach ($collection as $item) {
-            if($item->getGiftMessageAvailable()===null) {
-                $item->setGiftMessageAvailable(2);
-            }
-        }
         return $this;
     }
 
@@ -184,7 +179,12 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
      */
     public function salesEventOrderToQuote($observer)
     {
-        if($giftMessageId = $observer->getEvent()->getOrder()->getGiftMessageId()) {
+        $order = $observer->getEvent()->getOrder();
+        if (!Mage::helper('giftmessage/message')->isMessagesAvailable('order', $order, $order->getStore())){
+            return $this;
+        }
+        $giftMessageId = $order->getGiftMessageId();
+        if($giftMessageId) {
             $giftMessage = Mage::getModel('giftmessage/message')->load($giftMessageId)
                 ->setId(null)
                 ->save();
@@ -202,17 +202,21 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
      */
     public function salesEventOrderItemToQuoteItem($observer)
     {
+        /** @var $orderItem Mage_Sales_Model_Order_Item */
         $orderItem = $observer->getEvent()->getOrderItem();
+
+        if (!Mage::helper('giftmessage/message')->isMessagesAvailable('order_item', $orderItem, $orderItem->getStoreId())){
+            return $this;
+        }
+
+        /** @var $quoteItem Mage_Sales_Model_Quote_Item */
         $quoteItem = $observer->getEvent()->getQuoteItem();
-        /* @var $orderItem Mage_Sales_Model_Order_Item */
-        /* @var $quoteItem Mage_Sales_Model_Quote_Item */
         if ($giftMessageId = $orderItem->getGiftMessageId()) {
             $giftMessage = Mage::getModel('giftmessage/message')->load($giftMessageId)
                 ->setId(null)
                 ->save();
             $quoteItem->setGiftMessageId($giftMessage->getId());
         }
-
         return $this;
     }
 }

@@ -14,39 +14,40 @@
  *
  * @category   Zend
  * @package    Zend_Test
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ControllerTestCase.php 18605 2009-10-16 20:23:09Z matthew $
+ * @version    $Id: ControllerTestCase.php 20484 2010-01-21 18:13:31Z matthew $
  */
 
-/** PHPUnit_Framework_TestCase */
+/** @see PHPUnit_Framework_TestCase */
 #require_once 'PHPUnit/Framework/TestCase.php';
 
-/** PHPUnit_Runner_Version */
+/** @see PHPUnit_Runner_Version */
 #require_once 'PHPUnit/Runner/Version.php';
 
-/** Zend_Controller_Front */
+/** @see Zend_Controller_Front */
 #require_once 'Zend/Controller/Front.php';
 
-/** Zend_Controller_Action_HelperBroker */
+/** @see Zend_Controller_Action_HelperBroker */
 #require_once 'Zend/Controller/Action/HelperBroker.php';
 
-/** Zend_Layout */
+/** @see Zend_Layout */
 #require_once 'Zend/Layout.php';
 
-/** Zend_Session */
+/** @see Zend_Session */
 #require_once 'Zend/Session.php';
 
-/** Zend_Registry */
+/** @see Zend_Registry */
 #require_once 'Zend/Registry.php';
 
 /**
  * Functional testing scaffold for MVC applications
  *
  * @uses       PHPUnit_Framework_TestCase
+ * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Test_PHPUnit_ControllerTestCase extends PHPUnit_Framework_TestCase
@@ -184,13 +185,19 @@ abstract class Zend_Test_PHPUnit_ControllerTestCase extends PHPUnit_Framework_Te
             $request->setRequestUri($url);
         }
         $request->setPathInfo(null);
+
         $controller = $this->getFrontController();
         $this->frontController
              ->setRequest($request)
              ->setResponse($this->getResponse())
              ->throwExceptions(false)
              ->returnResponse(false);
-        $this->frontController->dispatch();
+
+        if ($this->bootstrap instanceof Zend_Application) {
+            $this->bootstrap->run();
+        } else {
+            $this->frontController->dispatch();
+        }
     }
 
     /**
@@ -1134,7 +1141,9 @@ abstract class Zend_Test_PHPUnit_ControllerTestCase extends PHPUnit_Framework_Te
             if (isset($step['object'])
                 && $step['object'] instanceof PHPUnit_Framework_TestCase
             ) {
-                if (version_compare(PHPUnit_Runner_Version::id(), '3.3.3', 'lt')) {
+                if (version_compare(PHPUnit_Runner_Version::id(), '3.3.0', 'lt')) {
+                    break;
+                } elseif (version_compare(PHPUnit_Runner_Version::id(), '3.3.3', 'lt')) {
                     $step['object']->incrementAssertionCounter();
                 } else {
                     $step['object']->addToAssertionCount(1);

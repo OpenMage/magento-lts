@@ -70,8 +70,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract
 
     /**
      * Load rewrite information for request
-     *
-     * if $path is array - that mean what we need try load for each item
+     * If $path is array - we must load possible records and choose one matching earlier record in array
      *
      * @param   mixed $path
      * @return  Mage_Core_Model_Url_Rewrite
@@ -79,18 +78,10 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract
     public function loadByRequestPath($path)
     {
         $this->setId(null);
-
-        if (is_array($path)) {
-            foreach ($path as $pathInfo) {
-                $this->load($pathInfo, 'request_path');
-                if ($this->getId()) {
-                    return $this;
-                }
-            }
-        }
-        else {
-            $this->load($path, 'request_path');
-        }
+        $this->_getResource()->loadByRequestPath($this, $path);
+        $this->_afterLoad();
+        $this->setOrigData();
+        $this->_hasDataChanges = false;
         return $this;
     }
 
@@ -197,20 +188,24 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract
             $this->setStoreId(Mage::app()->getStore()->getId());
         }
 
-        $requestCases = array();
-        $requestPath = trim($request->getPathInfo(), '/');
-
         /**
-         * We need try to find rewrites information for both cases
-         * More priority has url with query params
+         * We have two cases of incoming paths - with and without slashes at the end ("/somepath/" and "/somepath").
+         * Each of them matches two url rewrite request paths - with and without slashes at the end ("/somepath/" and "/somepath").
+         * Choose any matched rewrite, but in priority order that depends on same presence of slash and query params.
          */
-        if ($queryString = $this->_getQueryString()) {
-            $requestCases[] = $requestPath .'?'.$queryString;
-            $requestCases[] = $requestPath;
+        $requestCases = array();
+        $pathInfo = $request->getPathInfo();
+        $origSlash = (substr($pathInfo, -1) == '/') ? '/' : '';
+        $requestPath = trim($pathInfo, '/');
+
+        $altSlash = $origSlash ? '' : '/'; // If there were final slash - add nothing to less priority paths. And vice versa.
+        $queryString = $this->_getQueryString(); // Query params in request, matching "path + query" has more priority
+        if ($queryString) {
+            $requestCases[] = $requestPath . $origSlash . '?' . $queryString;
+            $requestCases[] = $requestPath . $altSlash . '?' . $queryString;
         }
-        else {
-            $requestCases[] = $requestPath;
-        }
+        $requestCases[] = $requestPath . $origSlash;
+        $requestCases[] = $requestPath . $altSlash;
 
         $this->loadByRequestPath($requestCases);
 
@@ -265,7 +260,8 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract
                 $targetUrl = $request->getBaseUrl(). '/' . $storeCode . '/' .$this->getTargetPath();
             }
 
-        if ($queryString = $this->_getQueryString()) {
+        $queryString = $this->_getQueryString();
+        if ($queryString) {
             $targetUrl .= '?'.$queryString;
         }
 

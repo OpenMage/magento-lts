@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
 
             foreach ($groupCollection as $group) {
                 $attributes = $product->getAttributes($group->getId(), true);
-                // do not add grops without attributes
+                // do not add groups without attributes
 
                 foreach ($attributes as $key => $attribute) {
                     if( !$attribute->getIsVisible() ) {
@@ -144,13 +144,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                 }
                 if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/tag')){
                     $this->addTab('tags', array(
-                     'label'     => Mage::helper('catalog')->__('Product Tags'),
-                     'url'   => $this->getUrl('*/*/tagGrid', array('_current' => true)),
-                     'class' => 'ajax',
+                     'label'    => Mage::helper('catalog')->__('Product Tags'),
+                     'url'      => $this->getUrl('*/*/tagGrid', array('_current' => true)),
+                     'class'    => 'ajax',
                     ));
 
                     $this->addTab('customers_tags', array(
-                        'label'     => Mage::helper('catalog')->__('Customers Tagged Product'),
+                        'label' => Mage::helper('catalog')->__('Customers Tagged Product'),
                         'url'   => $this->getUrl('*/*/tagCustomerGrid', array('_current' => true)),
                         'class' => 'ajax',
                     ));

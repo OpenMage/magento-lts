@@ -86,7 +86,7 @@ abstract class Mage_Reports_Model_Mysql4_Product_Index_Collection_Abstract
         if (empty($ids)) {
             $this->getSelect()->where('0');
         } else {
-            $this->getSelect()->where('entity_id IN(?)', $ids);
+            $this->getSelect()->where('e.entity_id IN(?)', $ids);
         }
         return $this;
     }

@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Attribute_Urlkey
         );
         $hidden =  new Varien_Data_Form_Element_Hidden($data);
         $hidden->setForm($element->getForm());
-        
+
         $storeId = $element->getForm()->getDataObject()->getStoreId();
         $data['html_id'] = $element->getHtmlId() . '_create_redirect';
         $data['label'] = Mage::helper('catalog')->__('Create Permanent Redirect for old URL');
@@ -59,7 +59,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Attribute_Urlkey
         $data['checked'] = Mage::helper('catalog')->shouldSaveUrlRewritesHistory($storeId);
         $checkbox = new Varien_Data_Form_Element_Checkbox($data);
         $checkbox->setForm($element->getForm());
-        
-        return parent::getElementHtml() . $hidden->getElementHtml() . $checkbox->getElementHtml() . $checkbox->getLabelHtml();
+
+        return parent::getElementHtml() . '<br/>' . $hidden->getElementHtml() . $checkbox->getElementHtml() . $checkbox->getLabelHtml();
     }
 }

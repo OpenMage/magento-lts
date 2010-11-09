@@ -138,6 +138,11 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
             $destCountry = self::PUERTORICO_COUNTRY_ID;
         }
 
+        // For UPS, Guam state of the USA will be represented by Guam country
+        if ($destCountry == self::USA_COUNTRY_ID && $request->getDestRegionCode() == self::GUAM_REGION_CODE) {
+            $destCountry = self::GUAM_COUNTRY_ID;
+        }
+
         $r->setDestCountry(Mage::getModel('directory/country')->load($destCountry)->getIso2Code());
 
         $r->setDestRegionCode($request->getDestRegionCode());
@@ -244,25 +249,32 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
             'weight_std'     => strtolower($r->getUnitMeasure()),
         );
         $params['47_rate_chart'] = $params['47_rate_chart']['label'];
-        $debugData = array('request' => $params);
-        try {
-            $url = $this->getConfigData('gateway_url');
-            if (!$url) {
-                $url = $this->_defaultCgiGatewayUrl;
+
+        $responseBody = $this->_getCachedQuotes($params);
+        if ($responseBody === null) {
+            $debugData = array('request' => $params);
+            try {
+                $url = $this->getConfigData('gateway_url');
+                if (!$url) {
+                    $url = $this->_defaultCgiGatewayUrl;
+                }
+                $client = new Zend_Http_Client();
+                $client->setUri($url);
+                $client->setConfig(array('maxredirects'=>0, 'timeout'=>30));
+                $client->setParameterGet($params);
+                $response = $client->request();
+                $responseBody = $response->getBody();
+
+                $debugData['result'] = $responseBody;
+                $this->_setCachedQuotes($params, $responseBody);
             }
-            $client = new Zend_Http_Client();
-            $client->setUri($url);
-            $client->setConfig(array('maxredirects'=>0, 'timeout'=>30));
-            $client->setParameterGet($params);
-            $response = $client->request();
-            $responseBody = $response->getBody();
-            $debugData['result'] = $responseBody;
+            catch (Exception $e) {
+                $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
+                $responseBody = '';
+            }
+            $this->_debug($debugData);
         }
-        catch (Exception $e) {
-            $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
-            $responseBody = '';
-        }
-        $this->_debug($debugData);
+
         return $this->_parseCgiResponse($responseBody);
     }
 
@@ -549,8 +561,14 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
             '48_container'   => $r->getContainer(),
             '49_residential' => $r->getDestType(),
         );
-        $params['10_action'] = $params['10_action']=='4'? 'Shop' : 'Rate';
-        $serviceCode = $r->getProduct() ? $r->getProduct() : '';
+
+        if ($params['10_action'] == '4') {
+            $params['10_action'] = 'Shop';
+            $serviceCode = null; // Service code is not relevant when we're asking ALL possible services' rates
+        } else {
+            $params['10_action'] = 'Rate';
+            $serviceCode = $r->getProduct() ? $r->getProduct() : '';
+        }
         $serviceDescription = $serviceCode ? $this->getShipmentByCode($serviceCode) : '';
 
 $xmlRequest .= <<< XMLRequest
@@ -570,11 +588,16 @@ $xmlRequest .= <<< XMLRequest
   </PickupType>
 
   <Shipment>
+XMLRequest;
 
-      <Service>
-          <Code>{$serviceCode}</Code>
-          <Description>{$serviceDescription}</Description>
-      </Service>
+        if ($serviceCode !== null) {
+            $xmlRequest .= "<Service>" .
+                "<Code>{$serviceCode}</Code>" .
+                "<Description>{$serviceDescription}</Description>" .
+                "</Service>";
+        }
+
+      $xmlRequest .= <<< XMLRequest
       <Shipper>
 XMLRequest;
 
@@ -631,25 +654,30 @@ $xmlRequest .= <<< XMLRequest
 XMLRequest;
 
 
-        $debugData = array('request' => $xmlRequest);
-        try {
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $xmlRequest);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, (boolean)$this->getConfigFlag('mode_xml'));
-            $xmlResponse = curl_exec ($ch);
-            $debugData['result'] = $xmlResponse;
-        }
-        catch (Exception $e) {
-            $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
-            $xmlResponse = '';
+        $xmlResponse = $this->_getCachedQuotes($xmlRequest);
+        if ($xmlResponse === null) {
+            $debugData = array('request' => $xmlRequest);
+            try {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_HEADER, 0);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $xmlRequest);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, (boolean)$this->getConfigFlag('mode_xml'));
+                $xmlResponse = curl_exec ($ch);
+
+                $debugData['result'] = $xmlResponse;
+                $this->_setCachedQuotes($xmlRequest, $xmlResponse);
+            }
+            catch (Exception $e) {
+                $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
+                $xmlResponse = '';
+            }
+            $this->_debug($debugData);
         }
 
-        $this->_debug($debugData);
         return $this->_parseXmlResponse($xmlResponse);
     }
 
@@ -962,12 +990,12 @@ XMLAuth;
      */
     public function getAllowedMethods()
     {
-        $allowed = explode(',', $this->getConfigData('allowed_methods'));
-        $arr = array();
-        foreach ($allowed as $k) {
-            $arr[$k] = $this->getCode('method', $k);
-        }
-        return $arr;
+         $allowed = explode(',', $this->getConfigData('allowed_methods'));
+         $arr = array();
+         $isByCode = $this->getConfigData('type') == 'UPS_XML';
+         foreach ($allowed as $k) {
+             $arr[$k] = $isByCode ? $this->getShipmentByCode($k) : $this->getCode('method', $k);
+         }
+         return $arr;
     }
-
 }

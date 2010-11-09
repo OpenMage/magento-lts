@@ -63,7 +63,7 @@ class Mage_Customer_Model_Entity_Setup extends Mage_Eav_Model_Entity_Setup
                 'increment_model'       => 'eav/entity_increment_numeric',
                 'increment_per_store'   => false,
                 'additional_attribute_table' => 'customer/eav_attribute',
-                'entity_attribute_collection' => 'customer/eav_attribute',
+                'entity_attribute_collection' => 'customer/attribute_collection',
                 'attributes' => array(
 //                    'entity_id'         => array('type'=>'static'),
 //                    'entity_type_id'    => array('type'=>'static'),
@@ -180,7 +180,7 @@ class Mage_Customer_Model_Entity_Setup extends Mage_Eav_Model_Entity_Setup
                 'entity_model'  =>'customer/customer_address',
                 'table' => 'customer/address_entity',
                 'additional_attribute_table' => 'customer/eav_attribute',
-                'entity_attribute_collection' => 'customer/eav_attribute',
+                'entity_attribute_collection' => 'customer/address_attribute_collection',
                 'attributes' => array(
 //                    'entity_id'         => array('type'=>'static'),
 //                    'entity_type_id'    => array('type'=>'static'),

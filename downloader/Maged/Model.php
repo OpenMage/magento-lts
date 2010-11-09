@@ -66,6 +66,7 @@ class Maged_Model
 
     /**
     * Retrieve controller
+    * @return Maged_Controller
     */
     public function controller()
     {

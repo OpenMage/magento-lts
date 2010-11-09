@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Search_Lucene
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: MultiSearcher.php 19037 2009-11-19 14:47:13Z alexander $
+ * @version    $Id: MultiSearcher.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -28,7 +28,7 @@
  *
  * @category   Zend
  * @package    Zend_Search_Lucene
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_Interface
@@ -794,10 +794,15 @@ class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_I
      * Set callback for choosing target index.
      *
      * @param callback $callback
+     * @throws Zend_Search_Lucene_Exception
      */
     public function setDocumentDistributorCallback($callback)
     {
-        if ($callback !== null  &&  !is_callable($callback))
+        if ($callback !== null  &&  !is_callable($callback)) {
+            #require_once 'Zend/Search/Lucene/Exception.php';
+            throw new Zend_Search_Lucene_Exception('$callback parameter must be a valid callback.');
+        }
+
         $this->_documentDistributorCallBack = $callback;
     }
 
@@ -822,7 +827,7 @@ class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_I
         if ($this->_documentDistributorCallBack !== null) {
             $index = call_user_func($this->_documentDistributorCallBack, $document, $this->_indices);
         } else {
-            $index = $this->_indices[ array_rand($this->_indices) ];
+            $index = $this->_indices[array_rand($this->_indices)];
         }
 
         $index->addDocument($document);
@@ -846,7 +851,7 @@ class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_I
     public function optimize()
     {
         foreach ($this->_indices as $index) {
-            $index->_optimise();
+            $index->optimise();
         }
     }
 

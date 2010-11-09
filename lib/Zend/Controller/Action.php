@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Action.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: Action.php 22793 2010-08-05 18:32:52Z matthew $
  */
 
 /**
@@ -37,7 +37,7 @@
 /**
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Controller_Action implements Zend_Controller_Action_Interface
@@ -580,7 +580,7 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
     protected function _getParam($paramName, $default = null)
     {
         $value = $this->getRequest()->getParam($paramName);
-        if ((null == $value) && (null !== $default)) {
+		 if ((null === $value || '' === $value) && (null !== $default)) {
             $value = $default;
         }
 

@@ -43,6 +43,13 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     protected function _construct()
     {
         parent::_construct();
+
+        $this->addColumnCountLayoutDepend('empty', 6)
+            ->addColumnCountLayoutDepend('one_column', 5)
+            ->addColumnCountLayoutDepend('two_columns_left', 4)
+            ->addColumnCountLayoutDepend('two_columns_right', 4)
+            ->addColumnCountLayoutDepend('three_columns', 3);
+
         $this->addData(array(
             'cache_lifetime'    => 86400,
             'cache_tags'        => array(Mage_Catalog_Model_Product::CACHE_TAG),

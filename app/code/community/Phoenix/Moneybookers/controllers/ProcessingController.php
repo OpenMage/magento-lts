@@ -56,9 +56,9 @@ class Phoenix_Moneybookers_ProcessingController extends Mage_Core_Controller_Fro
             );
             $order->save();
 
-            $session->getQuote()->setIsActive(false)->save();
             $session->setMoneybookersQuoteId($session->getQuoteId());
             $session->setMoneybookersRealOrderId($session->getLastRealOrderId());
+            $session->getQuote()->setIsActive(false)->save();
             $session->clear();
 
             $this->loadLayout();
@@ -99,8 +99,18 @@ class Phoenix_Moneybookers_ProcessingController extends Mage_Core_Controller_Fro
         $event = Mage::getModel('moneybookers/event')
                  ->setEventData($this->getRequest()->getParams());
         $message = $event->cancelEvent();
-        $this->_getCheckout()->setQuoteId($this->_getCheckout()->getMoneybookersQuoteId());
-        $this->_getCheckout()->addError($message);
+
+        // set quote to active
+        $session = $this->_getCheckout();
+        if ($quoteId = $session->getMoneybookersQuoteId()) {
+            $quote = Mage::getModel('sales/quote')->load($quoteId);
+            if ($quote->getId()) {
+                $quote->setIsActive(true)->save();
+                $session->setQuoteId($quoteId);
+            }
+        }
+
+        $session->addError($message);
         $this->_redirect('checkout/cart');
     }
 

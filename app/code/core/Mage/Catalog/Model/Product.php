@@ -152,7 +152,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Validate Product Data
      *
      * @todo implement full validation process with errors returning which are ignoring now
-     * 
+     *
      * @return Mage_Catalog_Model_Product
      */
     public function validate()
@@ -646,6 +646,19 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function getFormatedPrice()
     {
         return $this->getPriceModel()->getFormatedPrice($this);
+    }
+
+    /**
+     * Sets final price of product
+     *
+     * This func is equal to magic 'setFinalPrice()', but added as a separate func, because in cart with bundle products it's called
+     * very often in Item->getProduct(). So removing chaing of magic with more cpu consuming algorithms gives nice optimization boost.
+     *
+     * @return array
+     */
+    public function setFinalPrice($price)
+    {
+        $this->_data['final_price'] = $price;
     }
 
     /**
@@ -1188,7 +1201,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             'product'   => $this
         ));
 
-        $salable = $this->getTypeInstance(true)->isSalable($this);
+        $salable = $this->isAvailable();
 
         $object = new Varien_Object(array(
             'product'    => $this,
@@ -1199,6 +1212,16 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             'salable'   => $object
         ));
         return $object->getIsSalable();
+    }
+
+    /**
+     * Check whether the product type or stock allows to purchase the product
+     *
+     * @return bool
+     */
+    public function isAvailable()
+    {
+        return $this->getTypeInstance(true)->isSalable($this);
     }
 
     /**
@@ -1645,6 +1668,12 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function reset()
     {
+        foreach ($this->_data as $data){
+            if (is_object($data) && method_exists($data, 'reset')){
+                $data->reset();
+            }
+        }
+
         $this->setData(array());
         $this->setOrigData();
         $this->_customOptions       = array();
@@ -1672,5 +1701,25 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $tags[] = Mage_Catalog_Model_Category::CACHE_TAG.'_'.$categoryId;
         }
         return $tags;
+    }
+
+    /**
+     * Check for empty SKU on each product 
+     *
+     * @param  array $productIds
+     * @return boolean|null
+     */
+    public function isProductsHasSku(array $productIds)
+    {
+        $products = $this->_getResource()->getProductsSku($productIds);
+        if (count($products)) {
+            foreach ($products as $product) {
+                if (empty($product['sku'])) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return null;
     }
 }

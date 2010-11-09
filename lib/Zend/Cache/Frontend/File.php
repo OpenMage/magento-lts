@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Frontend
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: File.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: File.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -30,7 +30,7 @@
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Frontend
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Frontend_File extends Zend_Cache_Core
@@ -174,7 +174,7 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
      * Test if a cache is available for the given id
      *
      * @param  string $id Cache id
-     * @return boolean True is a cache is available, false else
+     * @return int|false Last modified time of cache entry if it is available, false otherwise
      */
     public function test($id)
     {

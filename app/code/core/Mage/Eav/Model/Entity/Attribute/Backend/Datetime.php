@@ -59,6 +59,11 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
         if (preg_match('/^[0-9]+$/', $date)) {
             $date = new Zend_Date((int)$date);
         }
+        // international format
+        else if (preg_match('#^\d{4}-\d{2}-\d{2}( \d{2}:\d{2}:\d{2})?$#', $date)) {
+            $zendDate = new Zend_Date();
+            $date = $zendDate->setIso($date);
+        }
         // parse this date in current locale, do not apply GMT offset
         else {
             $date = Mage::app()->getLocale()->date($date,

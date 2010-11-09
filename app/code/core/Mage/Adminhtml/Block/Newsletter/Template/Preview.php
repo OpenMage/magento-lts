@@ -36,7 +36,9 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview extends Mage_Adminhtml_Bl
 
     protected function _toHtml()
     {
+        /* @var $template Mage_Newsletter_Model_Template */
         $template = Mage::getModel('newsletter/template');
+
         if($id = (int)$this->getRequest()->getParam('id')) {
             $template->load($id);
         } else {
@@ -45,21 +47,28 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview extends Mage_Adminhtml_Bl
             $template->setTemplateStyles($this->getRequest()->getParam('styles'));
         }
 
-        Varien_Profiler::start("email_template_proccessing");
-        $vars = array();
-
-        if($this->getRequest()->getParam('subscriber')) {
-            $vars['subscriber'] = Mage::getModel('newsletter/subscriber')
-                ->load($this->getRequest()->getParam('subscriber'));
+        $storeId = (int)$this->getRequest()->getParam('store_id');
+        if(!$storeId) {
+            $storeId = Mage::app()->getDefaultStoreView()->getId();
         }
 
+        Varien_Profiler::start("newsletter_template_proccessing");
+        $vars = array();
+
+        $vars['subscriber'] = Mage::getModel('newsletter/subscriber');
+        if($this->getRequest()->getParam('subscriber')) {
+            $vars['subscriber']->load($this->getRequest()->getParam('subscriber'));
+        }
+
+        $template->emulateDesign($storeId);
         $templateProcessed = $template->getProcessedTemplate($vars, true);
+        $template->revertDesign();
 
         if($template->isPlain()) {
             $templateProcessed = "<pre>" . htmlspecialchars($templateProcessed) . "</pre>";
         }
 
-        Varien_Profiler::stop("email_template_proccessing");
+        Varien_Profiler::stop("newsletter_template_proccessing");
 
         return $templateProcessed;
     }

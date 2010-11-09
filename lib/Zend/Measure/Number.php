@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Measure
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Number.php 16220 2009-06-21 19:49:21Z thomas $
+ * @version   $Id: Number.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -28,12 +28,12 @@
 /**
  * Class for handling number conversions
  *
- * This class can only handle numbers without precission
+ * This class can only handle numbers without precision
  *
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Number
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Measure_Number extends Zend_Measure_Abstract
@@ -256,7 +256,7 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
                     $value = Zend_Locale_Format::getInteger($value, array('locale' => $locale));
                 } catch (Exception $e) {
                     #require_once 'Zend/Measure/Exception.php';
-                    throw new Zend_Measure_Exception($e->getMessage());
+                    throw new Zend_Measure_Exception($e->getMessage(), $e->getCode(), $e);
                 }
                 if (call_user_func(Zend_Locale_Math::$comp, $value, 0) < 0) {
                     $value = call_user_func(Zend_Locale_Math::$sqrt, call_user_func(Zend_Locale_Math::$pow, $value, 2));

@@ -28,13 +28,26 @@
  * Flat sales order creditmemo comments collection
  *
  */
-class Mage_Sales_Model_Mysql4_Order_Creditmemo_Comment_Collection extends Mage_Sales_Model_Mysql4_Collection_Abstract
+class Mage_Sales_Model_Mysql4_Order_Creditmemo_Comment_Collection extends Mage_Sales_Model_Mysql4_Order_Comment_Collection_Abstract
 {
+    /*
+     * @var string
+     */
     protected $_eventPrefix = 'sales_order_creditmemo_comment_collection';
+
+    /*
+     * @var string
+     */
     protected $_eventObject = 'order_creditmemo_comment_collection';
 
+    /*
+     * Inits creditmemo comment collection
+     *
+     * @return void
+     */
     protected function _construct()
     {
+        parent::_construct();
         $this->_init('sales/order_creditmemo_comment');
     }
 
@@ -46,19 +59,6 @@ class Mage_Sales_Model_Mysql4_Order_Creditmemo_Comment_Collection extends Mage_S
      */
     public function setCreditmemoFilter($creditmemoId)
     {
-        $this->addFieldToFilter('parent_id', $creditmemoId);
-        return $this;
-    }
-
-    /**
-     * Set created_at sort order
-     *
-     * @param string $direction
-     * @return Mage_Sales_Model_Mysql4_Order_Creditmemo_Comment_Collection
-     */
-    public function setCreatedAtOrder($direction='desc')
-    {
-        $this->setOrder('created_at', $direction);
-        return $this;
+        return $this->setParentFilter($creditmemoId);
     }
 }

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_CodeGenerator
  * @subpackage PHP
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Class.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Class.php 21916 2010-04-16 20:41:42Z matthew $
  */
 
 /**
@@ -48,7 +48,7 @@
 /**
  * @category   Zend
  * @package    Zend_CodeGenerator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_CodeGenerator_Php_Class extends Zend_CodeGenerator_Php_Abstract
@@ -470,8 +470,8 @@ class Zend_CodeGenerator_Php_Class extends Zend_CodeGenerator_Php_Abstract
 
         $output .= 'class ' . $this->getName();
 
-        if (null !== ($ec = $this->_extendedClass)) {
-            $output .= ' extends ' . $ec;
+        if ( !empty( $this->_extendedClass) ) {
+            $output .= ' extends ' . $this->_extendedClass;
         }
 
         $implemented = $this->getImplementedInterfaces();

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Search
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: QueryParserContext.php 18954 2009-11-12 20:01:33Z alexander $
+ * @version    $Id: QueryParserContext.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /** Zend_Search_Lucene_Search_QueryToken */
@@ -28,7 +28,7 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Search
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Search_QueryParserContext
@@ -327,7 +327,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
             //                                                          $e->getMessage() . '\'.' );
             // It's query syntax error message and it should be user friendly. So FSM message is omitted
             #require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
-            throw new Zend_Search_Lucene_Search_QueryParserException('Boolean expression error.');
+            throw new Zend_Search_Lucene_Search_QueryParserException('Boolean expression error.', 0, $e);
         }
 
         // Remove 'only negative' conjunctions

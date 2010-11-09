@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Xliff.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Xliff.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,36 +30,23 @@
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Translate_Adapter_Xliff extends Zend_Translate_Adapter {
     // Internal variables
     private $_file        = false;
+    private $_useId       = true;
     private $_cleared     = array();
     private $_transunit   = null;
     private $_source      = null;
     private $_target      = null;
+    private $_langId      = null;
     private $_scontent    = null;
     private $_tcontent    = null;
     private $_stag        = false;
     private $_ttag        = false;
     private $_data        = array();
-
-    /**
-     * Generates the xliff adapter
-     * This adapter reads with php's xml_parser
-     *
-     * @param  string              $data     Translation data
-     * @param  string|Zend_Locale  $locale   OPTIONAL Locale/Language to set, identical with locale identifier,
-     *                                       see Zend_Locale for more information
-     * @param  array               $options  OPTIONAL Options to set
-     */
-    public function __construct($data, $locale = null, array $options = array())
-    {
-        parent::__construct($data, $locale, $options);
-    }
-
 
     /**
      * Load translation data (XLIFF file reader)
@@ -77,6 +64,12 @@ class Zend_Translate_Adapter_Xliff extends Zend_Translate_Adapter {
         if (!is_readable($filename)) {
             #require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception('Translation file \'' . $filename . '\' is not readable.');
+        }
+
+        if (empty($options['useId'])) {
+            $this->_useId = false;
+        } else {
+            $this->_useId = true;
         }
 
         $encoding      = $this->_findEncoding($filename);
@@ -132,6 +125,7 @@ class Zend_Translate_Adapter_Xliff extends Zend_Translate_Adapter {
                     break;
                 case 'trans-unit':
                     $this->_transunit = true;
+                    $this->_langId = $attrib['id'];
                     break;
                 case 'source':
                     if ($this->_transunit === true) {
@@ -163,20 +157,35 @@ class Zend_Translate_Adapter_Xliff extends Zend_Translate_Adapter {
             switch (strtolower($name)) {
                 case 'trans-unit':
                     $this->_transunit = null;
-                    $this->_scontent = null;
-                    $this->_tcontent = null;
+                    $this->_langId    = null;
+                    $this->_scontent  = null;
+                    $this->_tcontent  = null;
                     break;
                 case 'source':
-                    if (!empty($this->_scontent) and !empty($this->_tcontent) or
-                        (isset($this->_data[$this->_source][$this->_scontent]) === false)) {
-                        $this->_data[$this->_source][$this->_scontent] = $this->_scontent;
+                    if ($this->_useId) {
+                        if (!empty($this->_scontent) && !empty($this->_langId) &&
+                            !isset($this->_data[$this->_source][$this->_langId])) {
+                            $this->_data[$this->_source][$this->_langId] = $this->_scontent;
+                        }
+                    } else {
+                        if (!empty($this->_scontent) &&
+                            !isset($this->_data[$this->_source][$this->_scontent])) {
+                            $this->_data[$this->_source][$this->_scontent] = $this->_scontent;
+                        }
                     }
                     $this->_stag = false;
                     break;
                 case 'target':
-                    if (!empty($this->_scontent) and !empty($this->_tcontent) or
-                        (isset($this->_data[$this->_source][$this->_scontent]) === false)) {
-                        $this->_data[$this->_target][$this->_scontent] = $this->_tcontent;
+                    if ($this->_useId) {
+                        if (!empty($this->_tcontent) && !empty($this->_langId) &&
+                            !isset($this->_data[$this->_target][$this->_langId])) {
+                            $this->_data[$this->_target][$this->_langId] = $this->_tcontent;
+                        }
+                    } else {
+                        if (!empty($this->_tcontent) && !empty($this->_scontent) &&
+                            !isset($this->_data[$this->_target][$this->_scontent])) {
+                            $this->_data[$this->_target][$this->_scontent] = $this->_tcontent;
+                        }
                     }
                     $this->_ttag = false;
                     break;

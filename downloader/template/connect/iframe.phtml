@@ -93,11 +93,12 @@ function addParamToUrl(url, param, value)
         url = url.substr(0, anchorPos);
     }
     getPos = url.search(/\?/);
-    //console.log(getPos);
     if (getPos != -1) {
         url.substr(getPos + 1).split('&').each(function(pv){
-            pv = pv.split('=');
-            params[pv[0]] = pv[1];
+            if (pv != 'loggedin') {
+                pv = pv.split('=');
+                params[pv[0]] = pv[1];
+            }
         });
         url = url.substr(0, getPos);
     }

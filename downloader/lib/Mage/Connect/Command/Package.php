@@ -75,6 +75,76 @@ extends Mage_Connect_Command
         }
     }
 
+    /**
+     * Display/get installation information for package
+     * @param string $command
+     * @param array $options
+     * @param array $params
+     * @return void/array
+     */
+    public function doPackagePrepare($command, $options, $params)
+    {
+        $this->cleanupParams($params);
+        $channelAuth = array();
+        if (isset($options['auth'])) {
+            $channelAuth = $options['auth'];
+            $options['auth'] = null;
+        }
+        try {
+
+            if(count($params) < 2) {
+                return $this->doError($command, "Argument count should be >= 2");
+            }
+
+            $channel = $params[0];
+            $package = $params[1];
+
+            $argVersionMin = isset($params[3]) ? $params[3] : false;
+            $argVersionMax = isset($params[2]) ? $params[2] : false;
+
+            $ftp = empty($options['ftp']) ? false : $options['ftp'];
+            $packager = $this->getPackager();
+            if ($ftp) {
+                list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
+            } else {
+                $cache = $this->getSconfig();
+                $config = $this->config();
+            }
+
+            $rest = new Mage_Connect_Rest($config->protocol);
+            if(!empty($channelAuth)){
+                $rest->getLoader()->setCredentials($channelAuth['username'], $channelAuth['password']);
+            }
+
+            $cache->checkChannel($channel, $config, $rest);
+
+            $data = $packager->getDependenciesList($channel, $package, $cache, $config, 
+                    $argVersionMax, $argVersionMin, true, false, $rest
+            );
+            
+            $result = array();
+            foreach ($data['result'] as $_package) {
+                $_result['channel'] = $_package['channel'];
+                $_result['name'] = $_package['name'];
+                $_result['version'] = $_package['downloaded_version'];
+                $_result['stability'] = $_package['stability'];
+                $_result['install_state'] = $_package['install_state'];
+                $_result['message'] = $_package['message'];
+                $result[] = $_result;
+            }
+            if (!count($data['result']) && isset($data['failed']) && !empty($data['failed'])) {
+                foreach ($data['failed'] as $_package) {
+                    $reason = $_package['channel'] . '/' . $_package['name'] . ': ' . $_package['reason'];
+                    $this->doError($command, $reason);
+                }
+            }
+
+            $this->ui()->output(array($command=> array('data'=>$result, 'title'=>"Package installation information for {$params[1]}: ")));
+
+        } catch (Exception $e) {
+            $this->doError($command, $e->getMessage());
+        }
+    }
 
     /**
      * Display/get dependencies

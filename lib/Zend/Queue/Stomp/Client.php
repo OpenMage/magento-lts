@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Stomp
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Client.php 17189 2009-07-27 17:41:34Z matthew $
+ * @version    $Id: Client.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -26,7 +26,7 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Stomp
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Queue_Stomp_Client

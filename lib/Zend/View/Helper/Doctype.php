@@ -15,8 +15,8 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Doctype.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Doctype.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@
  *
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
@@ -44,6 +44,7 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
     const XHTML1_TRANSITIONAL = 'XHTML1_TRANSITIONAL';
     const XHTML1_FRAMESET     = 'XHTML1_FRAMESET';
     const XHTML_BASIC1        = 'XHTML_BASIC1';
+    const XHTML5              = 'XHTML5';
     const HTML4_STRICT        = 'HTML4_STRICT';
     const HTML4_LOOSE         = 'HTML4_LOOSE';
     const HTML4_FRAMESET      = 'HTML4_FRAMESET';
@@ -87,6 +88,7 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
                     self::XHTML1_TRANSITIONAL => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">',
                     self::XHTML1_FRAMESET     => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">',
                     self::XHTML_BASIC1        => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.0//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd">',
+                    self::XHTML5              => '<!DOCTYPE html>',
                     self::HTML4_STRICT        => '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">',
                     self::HTML4_LOOSE         => '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
                     self::HTML4_FRAMESET      => '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">',
@@ -115,6 +117,7 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
                 case self::XHTML1_TRANSITIONAL:
                 case self::XHTML1_FRAMESET:
                 case self::XHTML_BASIC1:
+                case self::XHTML5:
                 case self::HTML4_STRICT:
                 case self::HTML4_LOOSE:
                 case self::HTML4_FRAMESET:
@@ -124,7 +127,9 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
                 default:
                     if (substr($doctype, 0, 9) != '<!DOCTYPE') {
                         #require_once 'Zend/View/Exception.php';
-                        throw new Zend_View_Exception('The specified doctype is malformed');
+                        $e = new Zend_View_Exception('The specified doctype is malformed');
+                        $e->setView($this->view);
+                        throw $e;
                     }
                     if (stristr($doctype, 'xhtml')) {
                         $type = self::CUSTOM_XHTML;
@@ -181,6 +186,15 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
     {
         return (stristr($this->getDoctype(), 'xhtml') ? true : false);
     }
+	
+	/**
+	 * Is doctype HTML5? (HeadMeta uses this for validation)
+	 *
+	 * @return booleean
+	 */
+	public function isHtml5() {
+		return (stristr($this->doctype(), '<!DOCTYPE html>') ? true : false);
+	}
 
     /**
      * String representation of doctype

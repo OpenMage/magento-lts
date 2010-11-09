@@ -236,6 +236,9 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public function getStatusId()
     {
         $backordered = (float)$this->getQtyBackordered();
+        if (!$backordered && $this->getHasChildren()) {
+            $backordered = (float)$this->_getQtyChildrenBackordered();
+        }
         $canceled    = (float)$this->getQtyCanceled();
         $invoiced    = (float)$this->getQtyInvoiced();
         $ordered     = (float)$this->getQtyOrdered();
@@ -275,6 +278,21 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Retrieve backordered qty of children items
+     *
+     * @return float|null
+     */
+    protected function _getQtyChildrenBackordered()
+    {
+        $backordered = null;
+        foreach ($this->_children as $childItem) {
+            $backordered += (float)$childItem->getQtyBackordered();
+        }
+
+        return $backordered;
+    }
+
+    /**
      * Retrieve status
      *
      * @return string
@@ -310,6 +328,8 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         if ($this->getStatusId() !== self::STATUS_CANCELED) {
             Mage::dispatchEvent('sales_order_item_cancel', array('item'=>$this));
             $this->setQtyCanceled($this->getQtyToCancel());
+            $this->setTaxCanceled($this->getTaxCanceled() + $this->getBaseTaxAmount() * $this->getQtyCanceled() / $this->getQtyOrdered());
+            $this->setHiddenTaxCanceled($this->getHiddenTaxCanceled() + $this->getHiddenTaxAmount() * $this->getQtyCanceled() / $this->getQtyOrdered());
         }
         return $this;
     }

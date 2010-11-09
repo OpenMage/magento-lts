@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_SalesRule>
-            <version>1.4.0.0.4</version>
+            <version>1.4.0.0.6</version>
         </Mage_SalesRule>
     </modules>
     <global>
@@ -56,6 +56,7 @@
                     <coupon_aggregated_order>
                         <table>coupon_aggregated_order</table>
                     </coupon_aggregated_order>
+                    <product_attribute><table>salesrule_product_attribute</table></product_attribute>
                 </entities>
             </salesrule_mysql4>
         </models>
@@ -83,6 +84,14 @@
                     </salesrule>
                 </observers>
             </sales_order_place_after>
+            <sales_quote_config_get_product_attributes>
+                <observers>
+                    <salesrule>
+                        <class>salesrule/observer</class>
+                        <method>addProductAttributes</method>
+                    </salesrule>
+                </observers>
+            </sales_quote_config_get_product_attributes>
         </events>
         <sales>
             <quote>
@@ -126,6 +135,14 @@
                     </salesrule>
                 </observers>
             </catalog_entity_attribute_delete_after>
+            <catalog_entity_attribute_save_after>
+                <observers>
+                    <salesrule>
+                        <class>salesrule/observer</class>
+                        <method>catalogAttributeSaveAfter</method>
+                    </salesrule>
+                </observers>
+            </catalog_entity_attribute_save_after>
         </events>
     </adminhtml>
 

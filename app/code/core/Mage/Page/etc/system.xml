@@ -37,6 +37,17 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
+                        <shortcut_icon translate="label comment">
+                            <label>Favicon Icon</label>
+                            <comment>Allowed file types: ICO, PNG, GIF, JPEG, APNG, SVG. Not all browsers support all these formats!</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image_favicon</backend_model>
+                            <base_url type="media" scope_info="1">favicon</base_url>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </shortcut_icon>
                         <default_title translate="label">
                             <label>Default Title</label>
                             <frontend_type>text</frontend_type>

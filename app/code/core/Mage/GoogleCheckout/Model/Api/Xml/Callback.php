@@ -26,6 +26,8 @@
 
 class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Model_Api_Xml_Abstract
 {
+    protected $_cachedShippingInfo = array(); // Cache of possible shipping carrier-methods combinations per storeId
+
     /**
      * Process notification from google
      * @return Mage_GoogleCheckout_Model_Api_Xml_Callback
@@ -56,8 +58,30 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         }
 
         $this->setRootName($root)->setRoot($data[$root]);
+        $serialNumber = $this->getData('root/serial-number');
+        $this->getGResponse()->setSerialNumber($serialNumber);
 
-        $this->getGResponse()->setSerialNumber($this->getData('root/serial-number'));
+        /*
+         * Prevent multiple notification processing
+         */
+        $notification = Mage::getModel('googlecheckout/notification')
+            ->setSerialNumber($serialNumber)
+            ->loadNotificationData();
+
+        if ($notification->getStartedAt()) {
+            if ($notification->isProcessed()) {
+                $this->getGResponse()->SendAck();
+                return;
+            }
+            if ($notification->isTimeout()) {
+                $notification->updateProcess();
+            } else {
+                $this->getGResponse()->SendServerErrorStatus();
+                return;
+            }
+        } else {
+            $notification->startProcess();
+        }
 
         $method = '_response'.uc_words($root, '', '-');
         if (method_exists($this, $method)) {
@@ -65,6 +89,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
 
             try {
                 $this->$method();
+                $notification->stopProcess();
             } catch (Exception $e) {
                 $this->getGResponse()->log->logError($e->__toString());
             }
@@ -76,6 +101,26 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         }
 
         return $this;
+    }
+
+    /**
+     * Load quote from request and make sure the proper payment method is set
+     *
+     * @return Mage_Sales_Model_Quote
+     */
+    protected function _loadQuote()
+    {
+        $quoteId = $this->getData('root/shopping-cart/merchant-private-data/quote-id/VALUE');
+        $storeId = $this->getData('root/shopping-cart/merchant-private-data/store-id/VALUE');
+        $quote = Mage::getModel('sales/quote')
+            ->setStoreId($storeId)
+            ->load($quoteId);
+        if ($quote->isVirtual()) {
+            $quote->getBillingAddress()->setPaymentMethod('googlecheckout');
+        } else {
+            $quote->getShippingAddress()->setPaymentMethod('googlecheckout');
+        }
+        return $quote;
     }
 
     protected function _getApiUrl()
@@ -115,11 +160,8 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
     {
         $merchantCalculations = new GoogleMerchantCalculations($this->getCurrency());
 
-        $quoteId = $this->getData('root/shopping-cart/merchant-private-data/quote-id/VALUE');
-        $storeId = $this->getData('root/shopping-cart/merchant-private-data/store-id/VALUE');
-        $quote = Mage::getModel('sales/quote')
-            ->setStoreId($storeId)
-            ->load($quoteId);
+        $quote = $this->_loadQuote();
+        $storeId = $quote->getStoreId();
 
         $billingAddress = $quote->getBillingAddress();
         $address = $quote->getShippingAddress();
@@ -139,9 +181,10 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         foreach ($methods['method'] as $method) {
             if ($method) {
                 list($carrierCode, $methodCode) = explode('/', $method);
-                $limitCarrier[] = $carrierCode;
+                $limitCarrier[$carrierCode] = $carrierCode;
             }
         }
+        $limitCarrier = array_values($limitCarrier);
 
         foreach($googleAddresses as $googleAddress) {
             $addressId = $googleAddress['id'];
@@ -163,90 +206,53 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
                 ->setPostcode($googleAddress['postal-code']['VALUE'])
                 ->setLimitCarrier($limitCarrier);
 
-            $address->setCollectShippingRates(true)
-                ->collectShippingRates()
-                ->collectTotals();
             $billingAddress->collectTotals();
 
-            if ($gRequestMethods = $this->getData('root/calculate/shipping/method')) {
-                $carriers = array();
-                $errors = array();
-                foreach (Mage::getStoreConfig('carriers', $storeId) as $carrierCode=>$carrierConfig) {
-                    if (!isset($carrierConfig['title'])) {
-                        continue;
-                    }
-                    $title = $carrierConfig['title'];
-                    foreach ($gRequestMethods as $method) {
-                        $methodName = is_array($method) ? $method['name'] : $method;
-                        if ($title && $method && strpos($methodName, $title)===0) {
-                            $carriers[$carrierCode] = $title;
-                            $errors[$title] = true;
-                        }
-                    }
+            $gRequestMethods = $this->getData('root/calculate/shipping/method');
+            if ($gRequestMethods) {
+                // Make stable format of $gRequestMethods for convenient usage
+                if (array_key_exists('VALUE', $gRequestMethods)) {
+                    $gRequestMethods = array($gRequestMethods);
                 }
 
-                $result = Mage::getModel('shipping/shipping')
-                    ->collectRatesByAddress($address, array_keys($carriers))
-                    ->getResult();
-
+                // Form list of mapping Google method names to applicable address rates
                 $rates = array();
-                $rateCodes = array();
-                foreach ($result->getAllRates() as $rate) {
+                $address->setCollectShippingRates(true)
+                    ->collectShippingRates();
+                foreach ($address->getAllShippingRates() as $rate) {
                     if ($rate instanceof Mage_Shipping_Model_Rate_Result_Error) {
-                        $errors[$rate->getCarrierTitle()] = 1;
-                    } else {
-                        $k = $rate->getCarrierTitle().' - '.$rate->getMethodTitle();
-                        if ($address->getFreeShipping()) {
-                            $price = 0;
-                        } else {
-                            $price = $rate->getPrice();
-                        }
-
-                        if ($price) {
-                            $price = Mage::helper('tax')->getShippingPrice($price, false, $address, null, $storeId);
-                        }
-
-                        $rates[$k] = $price;
-                        $rateCodes[$k] = $rate->getCarrier() . '_' . $rate->getMethod();
-                        unset($errors[$rate->getCarrierTitle()]);
+                        continue;
                     }
+                    $methodName = sprintf('%s - %s', $rate->getCarrierTitle(), $rate->getMethodTitle());
+                    $rates[$methodName] = $rate;
                 }
 
                 foreach ($gRequestMethods as $method) {
-                    $methodName = is_array($method) ? $method['name'] : $method;
                     $result = new GoogleResult($addressId);
-
-                    if (!empty($errors)) {
-                        $continue = false;
-                        foreach ($errors as $carrier=>$dummy) {
-                            if (strpos($methodName, $carrier)===0) {
-                                $result->SetShippingDetails($methodName, 0, "false");
-                                $merchantCalculations->AddResult($result);
-                                $continue = true;
-                                break;
-                            }
-                        }
-                        if ($continue) {
-                            continue;
-                        }
-                    }
+                    $methodName = $method['name'];
 
                     if (isset($rates[$methodName])) {
-                        if ($this->getData('root/calculate/tax/VALUE')=='true') {
-                            $address->setShippingMethod($rateCodes[$methodName]);
-                            $address->collectTotals();
+                        $rate = $rates[$methodName];
 
+                        $address->setShippingMethod($rate->getCode())
+                            ->setLimitCarrier($rate->getCarrier())
+                            ->setCollectShippingRates(true)
+                            ->collectTotals();
+                        $shippingRate = $address->getBaseShippingAmount() - $address->getBaseShippingDiscountAmount();
+                        $result->SetShippingDetails($methodName, $shippingRate, "true");
+
+                        if ($this->getData('root/calculate/tax/VALUE') == 'true') {
                             $taxAmount = $address->getBaseTaxAmount();
                             $taxAmount += $billingAddress->getBaseTaxAmount();
-
                             $result->setTaxDetails($taxAmount);
                         }
-
-                        $result->SetShippingDetails($methodName, $rates[$methodName], "true");
-                        $merchantCalculations->AddResult($result);
+                    } else {
+                        $result->SetShippingDetails($methodName, 0, "false");
                     }
+                    $merchantCalculations->AddResult($result);
                 }
-            } elseif ($this->getData('root/calculate/tax/VALUE')=='true') {
+
+            } else if ($this->getData('root/calculate/tax/VALUE')=='true') {
                 $address->setShippingMethod(null);
                 $address->setCollectShippingRates(true)->collectTotals();
                 $billingAddress->setCollectShippingRates(true)->collectTotals();
@@ -279,13 +285,10 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         }
 
         // IMPORT GOOGLE ORDER DATA INTO QUOTE
-        $quoteId = $this->getData('root/shopping-cart/merchant-private-data/quote-id/VALUE');
-        $storeId = $this->getData('root/shopping-cart/merchant-private-data/store-id/VALUE');
-        $quote = Mage::getModel('sales/quote')
-            ->setStoreId($storeId)
-            ->load($quoteId)
-            ->setIsActive(true)
-            ->reserveOrderId();
+        /* @var $quote Mage_Sales_Model_Quote */
+        $quote = $this->_loadQuote();
+        $quote->setIsActive(true)->reserveOrderId();
+        $storeId = $quote->getStoreId();
 
         Mage::app()->setCurrentStore(Mage::app()->getStore($storeId));
         if ($quote->getQuoteCurrencyCode() != $quote->getBaseCurrencyCode()) {
@@ -296,13 +299,17 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         $quote->setBillingAddress($billing);
 
         $shipping = $this->_importGoogleAddress($this->getData('root/buyer-shipping-address'));
+
         $quote->setShippingAddress($shipping);
+
         $this->_importGoogleTotals($quote->getShippingAddress());
+
         $quote->getPayment()->importData(array('method'=>'googlecheckout'));
 
         // CONVERT QUOTE TO ORDER
         $convertQuote = Mage::getSingleton('sales/convert_quote');
 
+        /* @var $order Mage_Sales_Model_Order */
         $order = $convertQuote->toOrder($quote);
 
         if ($quote->isVirtual()) {
@@ -310,7 +317,6 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         } else {
             $convertQuote->addressToOrder($quote->getShippingAddress(), $order);
         }
-
 
         $order->setExtOrderId($this->getGoogleOrderNumber());
         $order->setExtCustomerId($this->getData('root/buyer-id/VALUE'));
@@ -325,6 +331,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         }
 
         $order->setBillingAddress($convertQuote->addressToOrderAddress($quote->getBillingAddress()));
+
         if (!$quote->isVirtual()) {
             $order->setShippingAddress($convertQuote->addressToOrderAddress($quote->getShippingAddress()));
         }
@@ -359,6 +366,8 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         if ($emailAllowed) {
             Mage::getModel('newsletter/subscriber')->subscribe($order->getCustomerEmail());
         }
+
+        Mage::dispatchEvent('checkout_submit_all_after', array('order' => $order, 'quote' => $quote));
 
         $this->getGRequest()->SendMerchantOrderNumber($order->getExtOrderId(), $order->getIncrementId());
     }
@@ -410,6 +419,101 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
     }
 
     /**
+     * Returns array of possible shipping methods combinations
+     * Includes internal GoogleCheckout shipping methods, that can be created
+     * after successful Google Checkout
+     *
+     * @return array
+     */
+    protected function _getShippingInfos($storeId = null)
+    {
+        $cacheKey = ($storeId === null) ? 'nofilter' : $storeId;
+        if (!isset($this->_cachedShippingInfo[$cacheKey])) {
+            /* @var $shipping Mage_Shipping_Model_Shipping */
+            $shipping = Mage::getModel('shipping/shipping');
+            $carriers = Mage::getStoreConfig('carriers', $storeId);
+            $infos = array();
+
+            foreach (array_keys($carriers) as $carrierCode) {
+                $carrier = $shipping->getCarrierByCode($carrierCode);
+                if (!$carrier) {
+                    continue;
+                }
+
+                if ($carrierCode == 'googlecheckout') {
+                    // Add info about internal google checkout methods
+                    $methods = array_merge($carrier->getAllowedMethods(), $carrier->getInternallyAllowedMethods());
+                    $carrierName = 'Google Checkout';
+                } else {
+                    $methods = $carrier->getAllowedMethods();
+                    $carrierName = Mage::getStoreConfig('carriers/' . $carrierCode . '/title', $storeId);
+                }
+
+                foreach ($methods as $methodCode => $methodName) {
+                    $code = $carrierCode . '_' . $methodCode;
+                    $name = sprintf('%s - %s', $carrierName, $methodName);
+                    $infos[$code] = array(
+                        'code' => $code,
+                        'name' => $name, // Internal name for google checkout api - to distinguish it in google requests
+                        'carrier' => $carrierCode,
+                        'carrier_title' => $carrierName,
+                        'method' => $methodCode,
+                        'method_title' => $methodName
+                    );
+                }
+            }
+            $this->_cachedShippingInfo[$cacheKey] = $infos;
+        }
+
+        return $this->_cachedShippingInfo[$cacheKey];
+    }
+
+    /**
+     * Return shipping method code by shipping method name received from Google
+     *
+     * @param string $name
+     * @param int|string|Mage_Core_Model_Store $storeId
+     * @return string|false
+     */
+    protected function _getShippingMethodByName($name, $storeId = null)
+    {
+        $code = false;
+        $infos = $this->_getShippingInfos($storeId);
+        foreach ($infos as $info) {
+            if ($info['name'] == $name) {
+                $code = $info['code'];
+                break;
+            }
+        }
+        return $code;
+    }
+
+    /**
+     * Creates rate by method code
+     * Sets shipping rate's accurate description, titles and so on,
+     * so it will get in order description properly
+     *
+     * @param string $code
+     * @return Mage_Sales_Model_Quote_Address_Rate
+     */
+    protected function _createShippingRate($code, $storeId = null)
+    {
+        $rate = Mage::getModel('sales/quote_address_rate')
+            ->setCode($code);
+
+        $infos = $this->_getShippingInfos($storeId);
+        if (isset($infos[$code])) {
+            $info = $infos[$code];
+            $rate->setCarrier($info['carrier'])
+                ->setCarrierTitle($info['carrier_title'])
+                ->setMethod($info['method'])
+                ->setMethodTitle($info['method_title']);
+        }
+
+        return $rate;
+    }
+
+    /**
      * Import totals information from google request to quote address
      *
      * @param Varien_Object $qAddress
@@ -422,24 +526,29 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         );
         $qAddress->setBaseTaxAmount($this->getData('root/order-adjustment/total-tax/VALUE'));
 
+        $method = null;
         $prefix = 'root/order-adjustment/shipping/';
-        if ($shipping = $this->getData($prefix.'carrier-calculated-shipping-adjustment')) {
+        if (null !== ($shipping = $this->getData($prefix.'carrier-calculated-shipping-adjustment'))) {
             $method = 'googlecheckout_carrier';
-        } elseif ($shipping = $this->getData($prefix.'merchant-calculated-shipping-adjustment')) {
-            $method = 'googlecheckout_merchant';
-        } elseif ($shipping = $this->getData($prefix.'flat-rate-shipping-adjustment')) {
+        } else if (null !== ($shipping = $this->getData($prefix.'merchant-calculated-shipping-adjustment'))) {
+            $method = $this->_getShippingMethodByName($shipping['shipping-name']['VALUE']);
+            if ($method === false) {
+                $method = 'googlecheckout_merchant';
+            }
+        } else if (null !== ($shipping = $this->getData($prefix.'flat-rate-shipping-adjustment'))) {
             $method = 'googlecheckout_flatrate';
-        } elseif ($shipping = $this->getData($prefix.'pickup-shipping-adjustment')) {
+        } else if (null !== ($shipping = $this->getData($prefix.'pickup-shipping-adjustment'))) {
             $method = 'googlecheckout_pickup';
         }
-        if (!empty($method)) {
+
+        if ($method) {
             Mage::getSingleton('tax/config')->setShippingPriceIncludeTax(false);
-            $rate = Mage::getModel('sales/quote_address_rate')
-                ->setCode($method)
+            $rate = $this->_createShippingRate($method)
                 ->setPrice($shipping['shipping-cost']['VALUE']);
             $qAddress->addShippingRate($rate)
                 ->setShippingMethod($method)
-                ->setShippingDescription($shipping['shipping-name']['VALUE']);
+                ->setShippingDescription($shipping['shipping-name']['VALUE'])
+                ->setShippingAmountForDiscount(0); // We get from Google price with discounts applied via merchant calculations
 
             /*if (!Mage::helper('tax')->shippingPriceIncludesTax($quote->getStore())) {
                 $includingTax = Mage::helper('tax')->getShippingPrice($excludingTax, true, $qAddress, $quote->getCustomerTaxClassId());
@@ -556,7 +665,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         $msg .= '<br />'.$this->__('Latest Charge: %s', '<strong>' . $this->_formatAmount($latestCharged) . '</strong>');
         $msg .= '<br />'.$this->__('Total Charged: %s', '<strong>' . $this->_formatAmount($totalCharged) . '</strong>');
 
-        if (!$order->hasInvoices() && abs($order->getGrandTotal()-$latestCharged)<.0001) {
+        if (!$order->hasInvoices() && abs($order->getBaseGrandTotal() - $latestCharged)<.0001) {
             $invoice = $this->_createInvoice();
             $msg .= '<br />'.$this->__('Invoice Auto-Created: %s', '<strong>'.$invoice->getIncrementId().'</strong>');
         }
@@ -564,7 +673,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         foreach ($order->getInvoiceCollection() as $orderInvoice) {
             $open = Mage_Sales_Model_Order_Invoice::STATE_OPEN;
             $paid = Mage_Sales_Model_Order_Invoice::STATE_PAID;
-            if ($orderInvoice->getState() == $open && $orderInvoice->getGrandTotal() == $latestCharged) {
+            if ($orderInvoice->getState() == $open && $orderInvoice->getBaseGrandTotal() == $latestCharged) {
                 $orderInvoice->setState($paid)->save();
                 break;
             }
@@ -580,11 +689,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         $order = $this->getOrder();
 
         $invoice = $order->prepareInvoice();
-
-        if (!empty($data['comment_text'])) {
-            $invoice->addComment(Mage::helper('googlecheckout')->__('Auto-generated from GoogleCheckout Charge'));
-        }
-
+        $invoice->addComment(Mage::helper('googlecheckout')->__('Auto-generated from GoogleCheckout Charge'));
         $invoice->register();
         $invoice->pay();
 
@@ -615,29 +720,68 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         return $shipment;
     }
 
-
+    /**
+     * Process chargeback notification
+     */
     protected function _responseChargebackAmountNotification()
     {
         $this->getGResponse()->SendAck();
 
+        $latestChargeback = $this->getData('root/latest-chargeback-amount/VALUE');
+        $totalChargeback = $this->getData('root/total-chargeback-amount/VALUE');
+
+        $order = $this->getOrder();
+        if ($order->getBaseGrandTotal() == $totalChargeback) {
+            $creditmemo = Mage::getModel('sales/service_order', $order)
+                ->prepareCreditmemo()
+                ->setPaymentRefundDisallowed(true)
+                ->setAutomaticallyCreated(true)
+                ->register();
+
+            $creditmemo->addComment($this->__('Credit memo has been created automatically'));
+            $creditmemo->save();
+        }
+        $msg = $this->__('Google Chargeback:');
+        $msg .= '<br />'.$this->__('Latest Chargeback: %s', '<strong>' . $this->_formatAmount($latestChargeback) . '</strong>');
+        $msg .= '<br />'.$this->__('Total Chargeback: %s', '<strong>' . $this->_formatAmount($totalChargeback) . '</strong>');
+
+        $order->addStatusToHistory($order->getStatus(), $msg);
+        $order->save();
     }
 
     /**
      * Process refund notification
-     *
      */
     protected function _responseRefundAmountNotification()
     {
         $this->getGResponse()->SendAck();
 
-        $order = $this->getOrder();
-        $payment = $order->getPayment();
-
+        $latestRefunded = $this->getData('root/latest-refund-amount/VALUE');
         $totalRefunded = $this->getData('root/total-refund-amount/VALUE');
-        $payment->setAmountCharged($totalRefunded);
+
+        $order = $this->getOrder();
+        $amountRefundLeft = $order->getBaseGrandTotal() - $order->getBaseTotalRefunded();
+        if ($amountRefundLeft < $latestRefunded) {
+            $latestRefunded = $amountRefundLeft;
+            $totalRefunded  = $order->getBaseGrandTotal();
+        }
+
+        if ($order->getBaseTotalRefunded() > 0) {
+            $adjustment = array('adjustment_positive' => $latestRefunded);
+        } else {
+            $adjustment = array('adjustment_negative' => $order->getBaseGrandTotal() - $latestRefunded);
+        }
+
+        $creditmemo = Mage::getModel('sales/service_order', $order)
+            ->prepareCreditmemo($adjustment)
+            ->setPaymentRefundDisallowed(true)
+            ->setAutomaticallyCreated(true)
+            ->register()
+            ->addComment($this->__('Credit memo has been created automatically'))
+            ->save();
 
         $msg = $this->__('Google Refund:');
-        $msg .= '<br />'.$this->__('Latest Refund: %s', '<strong>' . $this->_formatAmount($this->getData('root/latest-refund-amount/VALUE')) . '</strong>');
+        $msg .= '<br />'.$this->__('Latest Refund: %s', '<strong>' . $this->_formatAmount($latestRefunded) . '</strong>');
         $msg .= '<br />'.$this->__('Total Refunded: %s', '<strong>' . $this->_formatAmount($totalRefunded) . '</strong>');
 
         $order->addStatusToHistory($order->getStatus(), $msg);

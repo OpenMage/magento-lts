@@ -413,5 +413,29 @@ class Mage_Connect_Validator
 	    return (bool) $minAccepted && $maxAccepted;
 	}
 
+    /**
+     * Validate contents of package
+     *
+     * @param array $contents
+     * @param Mage_Connect_Config $config
+     * @return bool
+     */
+    public function validateContents(array $contents, $config)
+    {
+        if (!count($contents)) {
+            $this->addError('Empty package contents section');
+            return false;
+        }
 
+        $targetPath = rtrim($config->magento_root, "\\/");
+        foreach ($contents as $file) {
+            $dest = $targetPath . DS . $file;
+            if (file_exists($dest)) {
+                $this->addError("'{$file}' already exists");
+                return false;
+            }
+        }
+        return true;
+    }
 }
+

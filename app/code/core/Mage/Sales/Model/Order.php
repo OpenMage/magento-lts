@@ -372,7 +372,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             return false;
         }
 
-        if ($this->getIsVirtual()) {
+        if ($this->getIsVirtual() || $this->isCanceled()) {
             return false;
         }
 
@@ -1600,7 +1600,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getCreatedAtFormated($format)
     {
-        return Mage::helper('core')->formatDate($this->getCreatedAtStoreDate(), $format);
+        return Mage::helper('core')->formatDate($this->getCreatedAtStoreDate(), $format, true);
     }
 
     public function getEmailCustomerNote()
@@ -1680,7 +1680,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             && !$this->canUnhold()
             && !$this->canInvoice()
             && !$this->canShip()) {
-            if ($this->canCreditmemo()) {
+            if (0 == $this->getBaseGrandTotal() || $this->canCreditmemo()) {
                 if ($this->getState() !== self::STATE_COMPLETE) {
                     $this->_setState(self::STATE_COMPLETE, true, '', $userNotification);
                 }

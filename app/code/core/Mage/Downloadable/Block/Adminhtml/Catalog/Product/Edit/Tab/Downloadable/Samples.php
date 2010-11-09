@@ -125,7 +125,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
      */
     public function getUsedDefault()
     {
-        return is_null($this->getProduct()->getAttributeDefaultValue('samples_title'));
+        return $this->getProduct()->getAttributeDefaultValue('samples_title') === false;
     }
 
     /**

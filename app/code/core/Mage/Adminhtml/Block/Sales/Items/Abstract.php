@@ -55,6 +55,13 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     protected $_columnRenders = array();
 
     /**
+     * Flag - if it is set method canEditQty will return value of it
+     *
+     * @var boolean | null
+     */
+    protected $_canEditQty = null;
+
+    /**
      * Init block
      *
      */
@@ -166,6 +173,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
 
         return $this->getItemRenderer($type)
             ->setItem($item)
+            ->setCanEditQty($this->canEditQty())
             ->toHtml();
     }
 
@@ -419,12 +427,31 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     }
 
     /**
+     * Setter for flag _canEditQty
+     *
+     * @return Mage_Adminhtml_Block_Sales_Items_Abstract
+     * @see self::_canEditQty
+     * @see self::canEditQty
+     */
+    public function setCanEditQty($value) {
+        $this->_canEditQty = $value;
+        return $this;
+    }
+
+    /**
      * Check availability to edit quantity of item
      *
      * @return boolean
      */
     public function canEditQty()
     {
+        /**
+         * If parent block has set
+         */
+        if (!is_null($this->_canEditQty)) {
+            return $this->_canEditQty;
+        }
+
         /**
          * Disable editing of quantity of item if creating of shipment forced
          * and ship partially disabled for order
