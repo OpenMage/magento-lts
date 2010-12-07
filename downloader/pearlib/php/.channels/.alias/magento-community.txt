@@ -1,0 +1,1 @@
+connect.magentocommerce.com/community

@@ -1,10 +1,11 @@
-==== 1.4.2.0-rc1 ====
-
-== Upgrade Notes ==
-* Those who installed Magento version 1.4.2.0-beta1 through Magento Connect should reinstall it manually, because its version number is the same as of the current release and no automatic update will be available for it.
+==== 1.4.2.0-rc2 ====
 
 === Major Highlights ===
 * Starting from this release we are including TheFind extension.
+* New Magento Connect Manager excluded from this version.
+
+== Upgrade Notes ==
+* Those who installed Magento version 1.4.2.0-beta1 or 1.4.2.0-rc1 through Magento Connect should reinstall it manually, because this version contains old version of Magento Connect Manager
 
 == Improvements ==
 * Added "Switch/Maestro" card type support to centinel 3DS validator. Added comment about maestro and 3d-secure to paypal system config

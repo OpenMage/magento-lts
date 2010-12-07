@@ -1,0 +1,85 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__("Package Information") ?></h4>
+    </div>
+    <fieldset>
+        <legend><?php echo $this->__("Package Information") ?></legend>
+        <table class="" cellspacing="5">
+            <tbody>
+                <tr><th><?php echo $this->__("Name:") ?></th><td><?php echo $this->getPkg()->getPackage() ?></td></tr>
+                <tr><th><?php echo $this->__("Channel:") ?></th><td><?php echo $this->getPkg()->getChannel() ?></td></tr>
+                <tr><th><?php echo $this->__("Summary:") ?></th><td><?php echo $this->getPkg()->getSummary() ?></td></tr>
+                <tr><th><?php echo $this->__("Description:") ?></th><td><?php echo nl2br($this->getPkg()->getDescription()) ?></td></tr>
+            </tbody>
+        </table>
+    </fieldset>
+
+    <div class="entry-edit-head">
+    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__("Current Release Information") ?></h4>
+    </div>
+    <fieldset>
+        <legend><?php echo $this->__("Current Release Information") ?></legend>
+        <table class="" cellspacing="5">
+            <tbody>
+                <tr><th><?php echo $this->__("Date:") ?></th><td><?php echo $this->getPkg()->getDate() ?> <?php echo $this->getPkg()->getTime() ?></td></tr>
+                <tr><th><?php echo $this->__("Version:") ?></th><td><?php echo $this->getPkg()->getVersion() ?> (<?php echo $this->getPkg()->getState() ?>)</td></tr>
+                <tr><th><?php echo $this->__("API:") ?></th><td><?php echo $this->getPkg()->getVersion('api') ?> (<?php echo $this->getPkg()->getState('api') ?>)</td></tr>
+                <tr><th><?php echo $this->__("License:") ?></th><td>
+                    <?php if ($_uri = $this->getPkg()->getLicenseLocation()): ?>
+                        <a href="<?php echo $_uri ?>" target="_blank">
+                    <?php endif ?>
+                    <?php echo $this->getPkg()->getLicense() ?>
+                    <?php if ($_uri): ?>
+                        </a>
+                    <?php endif ?>
+                </td></tr>
+                <tr><th><?php echo $this->__("Notes:") ?></th><td><?php echo nl2br($this->getPkg()->getNotes()) ?></td></tr>
+            </tbody>
+        </table>
+    </fieldset>
+
+    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__("Maintainers") ?></h4>
+    <fieldset>
+        <legend><?php echo $this->__("Maintainers") ?></legend>
+        <table class="" cellspacing="5">
+            <thead><th><?php echo $this->__("Role") ?></th><th><?php echo $this->__("Name") ?></th><th><?php echo $this->__("User") ?></th><th><?php echo $this->__("Email") ?></th></thead>
+            <tbody>
+            <?php foreach ($this->getPkg()->getMaintainers() as $_maint): ?>
+                <tr>
+                    <td><?php echo $_maint['role'] ?>:</td>
+                    <td><?php echo $_maint['name'] ?></td>
+                    <td><?php echo $_maint['handle'] ?></td>
+                    <td><?php echo $_maint['email'] ?></td>
+                    <td><?php if(empty($_maint['active']) || $_maint['active']!=='yes'): ?>(<?php echo $this->__("Inactive") ?>)<?php endif ?></td>
+                </tr>
+            <?php endforeach ?>
+            </tbody>
+        </table>
+    </fieldset>
+</div>
