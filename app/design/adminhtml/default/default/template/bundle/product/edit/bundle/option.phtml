@@ -42,7 +42,7 @@ optionTemplate = '<div id="<?php echo $this->getFieldId() ?>_{{index}}"  class="
                 '<th class="opt-title"><?php echo Mage::helper('bundle')->__('Store View Title') ?>  <span class="required">*</span></th>' +
                 <?php endif; ?>
                 '<th class="opt-type"><?php echo Mage::helper('bundle')->__('Input Type') ?></th>' +
-                '<th class="opt-req"><?php echo Mage::helper('bundle')->__('Is Required') ?></th>' +
+                '<th class="opt-req"><?php echo $this->jsQuoteEscape(Mage::helper('bundle')->__('Is Required')) ?></th>' +
                 '<th class="opt-order"><?php echo Mage::helper('bundle')->__('Position') ?></th>' +
                 '<th>&nbsp;</th>' +
             '</tr>' +

@@ -162,6 +162,13 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected $_exportTypes = array();
 
     /**
+     * Rows per page for import
+     *
+     * @var int
+     */
+    protected $_exportPageSize = 1000;
+
+    /**
      * Massaction row id field
      *
      * @var string
@@ -787,6 +794,23 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
      /**
+     * Returns url for RSS
+     * Can be overloaded in descendant classes to perform custom changes to url passed to addRssList()
+     *
+     * @param string $url
+     * @return string
+     */
+    protected function _getRssUrl($url)
+    {
+        $urlModel = Mage::getModel('core/url');
+        if (Mage::app()->getStore()->getStoreInUrl()) {
+            // Url in 'admin' store view won't be accessible, so form it in default store view frontend
+            $urlModel->setStore(Mage::app()->getDefaultStoreView());
+        }
+        return $urlModel->getUrl($url);
+    }
+
+     /**
      * Add new rss list to grid
      *
      * @param   string $url
@@ -797,7 +821,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $this->_rssLists[] = new Varien_Object(
             array(
-                'url'   => Mage::getModel('core/url')->getUrl($url),
+                'url'   => $this->_getRssUrl($url),
                 'label' => $label
             )
         );
@@ -879,7 +903,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
         while ($break !== true) {
             $collection = clone $originalCollection;
-            $collection->setPageSize(1000);
+            $collection->setPageSize($this->_exportPageSize);
             $collection->setCurPage($page);
             $collection->load();
             if (is_null($count)) {
@@ -1571,4 +1595,17 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_emptyCellLabel = $label;
         return $this;
     }
+
+    /**
+     * Return row url for js event handlers
+     *
+     * @param Mage_Catalog_Model_Product|Varien_Object
+     * @return string
+     */
+    public function getRowUrl($item)
+    {
+        $res = parent::getRowUrl($item);
+        return ($res ? $res : '#');
+    }
+
 }

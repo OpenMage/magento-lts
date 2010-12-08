@@ -91,6 +91,11 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
      */
     public function getCurrentPageLayout()
     {
+        if ($this->getLayout()->getBlock('root') &&
+            $this->getLayout()->getBlock('root')->getLayoutCode()) {
+            return $this->_getConfig()->getPageLayout($this->getLayout()->getBlock('root')->getLayoutCode());
+        }
+
         // All loaded handles
         $handles = $this->getLayout()->getUpdate()->getHandles();
         // Handles used in page layouts

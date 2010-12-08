@@ -66,6 +66,9 @@ class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml
             'button_label' => Mage::helper('paypal')->__($originalData['button_label']),
             'button_url'   => $originalData['button_url'],
             'html_id' => $element->getHtmlId(),
+            'sandbox_button_label' => Mage::helper('paypal')->__($originalData['sandbox_button_label']),
+            'sandbox_button_url'   => $originalData['sandbox_button_url'],
+            'sandbox_html_id' => 'sandbox_' . $element->getHtmlId(),
         ));
         return $this->_toHtml();
     }

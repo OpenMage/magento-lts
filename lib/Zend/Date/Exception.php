@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Date
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Exception.php 16203 2009-06-21 18:56:17Z thomas $
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Exception.php 20279 2010-01-14 15:21:47Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,17 +29,17 @@
 /**
  * @category   Zend
  * @package    Zend_Date
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Date_Exception extends Zend_Exception
 {
     protected $operand = null;
 
-    public function __construct($message, $op = null)
+    public function __construct($message, $code = 0, $e = null, $op = null)
     {
         $this->operand = $op;
-        parent::__construct($message);
+        parent::__construct($message, $code, $e);
     }
 
     public function getOperand()

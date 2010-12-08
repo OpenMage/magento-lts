@@ -106,43 +106,49 @@ class Mage_Newsletter_Model_Mysql4_Queue extends Mage_Core_Model_Mysql4_Abstract
                 $this->getTable('queue_store_link'), 
                 $this->_getWriteAdapter()->quoteInto('queue_id = ?', $queue->getId())
             );
-        
-        if (!is_array($queue->getStores())) { 
-            $stores = array(); 
+
+        if (!is_array($queue->getStores())) {
+            $stores = array();
         } else {
             $stores = $queue->getStores();
         }
-        
+
         foreach ($stores as $storeId) {
             $data = array();
             $data['store_id'] = $storeId;
             $data['queue_id'] = $queue->getId();
             $this->_getWriteAdapter()->insert($this->getTable('queue_store_link'), $data);
         }
-         
         $this->removeSubscribersFromQueue($queue);
 
-        if(count($stores)==0) {
+        if(count($stores) == 0) {
             return $this;
         }
+
         $subscribers = Mage::getResourceSingleton('newsletter/subscriber_collection')
             ->addFieldToFilter('store_id', array('in'=>$stores))
             ->useOnlySubscribed()
             ->load();
-         
+
         $subscriberIds = array();
-        
+
         foreach ($subscribers as $subscriber) {
             $subscriberIds[] = $subscriber->getId();
         }
-        
+
         if (count($subscriberIds) > 0) {
             $this->addSubscribersToQueue($queue, $subscriberIds);
         }
-        
+
         return $this;
     }
-    
+
+    /*
+     * Retrieving store id-s if they defined
+     * 
+     * @param Mage_Newsletter_Model_Queue
+     * @return array
+     * */
     public function getStores(Mage_Newsletter_Model_Queue $queue) 
     {
         $select = $this->_getReadAdapter()->select()
@@ -164,14 +170,9 @@ class Mage_Newsletter_Model_Mysql4_Queue extends Mage_Core_Model_Mysql4_Abstract
      */
     protected function _afterSave(Mage_Core_Model_Abstract $queue) 
     {
-        if($queue->getSaveTemplateFlag()) {
-            $queue->getTemplate()->save();
-        }
-        
         if($queue->getSaveStoresFlag()) {
-            $this->setStores($queue);           
+            $this->setStores($queue);
         }
-        
         return $this;
     }
     

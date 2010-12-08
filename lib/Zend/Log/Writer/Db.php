@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db.php 16219 2009-06-21 19:45:39Z thomas $
+ * @version    $Id: Db.php 22514 2010-07-01 14:11:18Z ramon $
  */
 
 /** Zend_Log_Writer_Abstract */
@@ -27,9 +27,9 @@
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db.php 16219 2009-06-21 19:45:39Z thomas $
+ * @version    $Id: Db.php 22514 2010-07-01 14:11:18Z ramon $
  */
 class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
 {
@@ -67,12 +67,39 @@ class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
     }
 
     /**
+     * Create a new instance of Zend_Log_Writer_Db
+     *
+     * @param  array|Zend_Config $config
+     * @return Zend_Log_Writer_Db
+     * @throws Zend_Log_Exception
+     */
+    static public function factory($config)
+    {
+        $config = self::_parseConfig($config);
+        $config = array_merge(array(
+            'db'        => null,
+            'table'     => null,
+            'columnMap' => null,
+        ), $config);
+
+        if (isset($config['columnmap'])) {
+            $config['columnMap'] = $config['columnmap'];
+        }
+
+        return new self(
+            $config['db'],
+            $config['table'],
+            $config['columnMap']
+        );
+    }
+
+    /**
      * Formatting is not possible on this writer
      */
-    public function setFormatter($formatter)
+    public function setFormatter(Zend_Log_Formatter_Interface $formatter)
     {
         #require_once 'Zend/Log/Exception.php';
-        throw new Zend_Log_Exception(get_class() . ' does not support formatting');
+        throw new Zend_Log_Exception(get_class($this) . ' does not support formatting');
     }
 
     /**
@@ -109,5 +136,4 @@ class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
 
         $this->_db->insert($this->_table, $dataToInsert);
     }
-
 }

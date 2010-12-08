@@ -240,22 +240,23 @@
                                     </profiles>
                                 </children>
                             </convert>
-                            <cache translate="title">
-                                <title>Cache Management</title>
-                            </cache>
                             <extensions translate="title">
                                 <title>Magento Connect</title>
+                                <sort_order>80</sort_order>
                                 <children>
                                     <local translate="title">
                                         <title>Magento Connect Manager</title>
-                                        <sort_order>0</sort_order>
+                                        <action>adminhtml/extensions_local</action>
                                     </local>
                                     <custom translate="title">
                                         <title>Package Extensions</title>
-                                        <sort_order>5</sort_order>
+                                        <action>adminhtml/extensions_custom</action>
                                     </custom>
                                 </children>
                             </extensions>
+                            <cache translate="title">
+                                <title>Cache Management</title>
+                            </cache>
                         </children>
                     </system>
                     <global_search translate="title">

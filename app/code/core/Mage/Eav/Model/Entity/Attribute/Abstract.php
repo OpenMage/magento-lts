@@ -370,15 +370,21 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             if (!$this->getSourceModel()) {
                 $this->setSourceModel($this->_getDefaultSourceModel());
             }
-            $this->_source = Mage::getModel($this->getSourceModel())
-                ->setAttribute($this);
+            $source = Mage::getModel($this->getSourceModel());
+            if (!$source) {
+                throw new Exception(sprintf('Source model "%s" not found for attribute "%s".',
+                    $this->getSourceModel(), $this->getAttributeCode()
+                ));
+            }
+            $this->_source = $source->setAttribute($this);
         }
         return $this->_source;
     }
 
     public function usesSource()
     {
-        return $this->getFrontendInput()==='select' || $this->getFrontendInput()==='multiselect';
+        return $this->getFrontendInput() === 'select' || $this->getFrontendInput() === 'multiselect'
+            || $this->getData('source_model') != '';
     }
 
     protected function _getDefaultBackendModel()

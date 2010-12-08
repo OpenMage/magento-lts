@@ -31,11 +31,15 @@ class Mage_Sales_Model_Mysql4_Quote_Address_Attribute_Frontend_Shipping
     public function fetchTotals(Mage_Sales_Model_Quote_Address $address)
     {
         $amount = $address->getShippingAmount();
-        if ($amount!=0) {
+        if ($amount != 0) {
+            $title = Mage::helper('sales')->__('Shipping & Handling');
+            if ($address->getShippingDescription()) {
+                $title .= ' (' . $address->getShippingDescription() . ')';
+            }
             $address->addTotal(array(
-                'code'=>'shipping',
-                'title'=>Mage::helper('sales')->__('Shipping & Handling').' ('.$address->getShippingDescription().')',
-                'value'=>$address->getShippingAmount()
+                'code' => 'shipping',
+                'title' => $title,
+                'value' => $address->getShippingAmount()
             ));
         }
         return $this;

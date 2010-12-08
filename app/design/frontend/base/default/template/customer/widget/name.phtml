@@ -42,6 +42,9 @@ For checkout/onepage/shipping.phtml:
    ->setFieldParams('onchange="shipping.setSameAsBilling(false);"')
    ->toHtml() ?>
 */
+/**
+ * @var Mage_Customer_Block_Widget_Name $this
+ */
 ?>
 <div class="<?php echo $this->getContainerClassName()?>">
 <?php if ($this->showPrefix()): ?>

@@ -67,7 +67,7 @@ button.btn-checkout { height:28px; }
 .cart .discount .buttons-set button.button,
 .cart .shipping .buttons-set button.button { height:19px; }
 
-table { face-color:expression(runtimeStyle.scrollbarFaceColor = '#fff', cellSpacing = 0); }
+table { scrollbar-face-color:expression(runtimeStyle.scrollbarFaceColor = '#fff', cellSpacing = 0); }
 
 .product-view .product-img-box .zoom.disabled { filter:alpha(opacity=30); }
 
@@ -129,6 +129,8 @@ table { face-color:expression(runtimeStyle.scrollbarFaceColor = '#fff', cellSpac
 .product-tabs,
 .product-view .product-img-box .more-views ul,
 .product-view .box-tags .form-add,
+.product-view .product-shop .short-description,
+.product-view .box-description,
 .product-options .options-list li,
 .product-options-bottom,
 .truncated,

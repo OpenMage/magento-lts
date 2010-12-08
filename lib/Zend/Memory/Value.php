@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Memory
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Value.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Value.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -26,8 +26,9 @@
  * It's an OO string wrapper.
  * Used to intercept string updates.
  *
+ * @category   Zend
  * @package    Zend_Memory
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @todo       also implement Countable for PHP 5.1 but not yet to stay 5.0 compatible
  */

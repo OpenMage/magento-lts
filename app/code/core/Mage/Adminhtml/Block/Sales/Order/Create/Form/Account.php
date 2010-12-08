@@ -29,131 +29,121 @@
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
+class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
 {
-    protected $_form;
-
-    protected function _prepareLayout()
-    {
-        Varien_Data_Form::setElementRenderer(
-            $this->getLayout()->createBlock('adminhtml/widget_form_renderer_element')
-        );
-        Varien_Data_Form::setFieldsetRenderer(
-            $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset')
-        );
-        Varien_Data_Form::setFieldsetElementRenderer(
-            $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element')
-        );
-    }
-
+    /**
+     * Return Header CSS Class
+     *
+     * @return string
+     */
     public function getHeaderCssClass()
     {
         return 'head-account';
     }
 
+    /**
+     * Return header text
+     *
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Account Information');
     }
 
-    public function getForm()
-    {
-        $this->_prepareForm();
-        return $this->_form;
-    }
-
+    /**
+     * Prepare Form and add elements to form
+     *
+     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Account
+     */
     protected function _prepareForm()
     {
-        if (!$this->_form) {
+        /* @var $customerModel Mage_Customer_Model_Customer */
+        $customerModel = Mage::getModel('customer/customer');
 
-            $display = $this->getDisplayFields();
+        /* @var $customerForm Mage_Customer_Model_Form */
+        $customerForm   = Mage::getModel('customer/form');
+        $customerForm->setFormCode('adminhtml_checkout')
+            ->setStore($this->getStore())
+            ->setEntity($customerModel);
 
-            $this->_form = new Varien_Data_Form();
-            $fieldset = $this->_form->addFieldset('main', array());
-            $customerModel = Mage::getModel('customer/customer');
+        // prepare customer attributes to show
+        $attributes     = array();
 
-            foreach ($customerModel->getAttributes() as $attribute) {
-                if (!array_key_exists($attribute->getAttributeCode(), $display)) {
-                    continue;
-                }
-
-                if ($inputType = $attribute->getFrontend()->getInputType()) {
-                    $field = $display[$attribute->getAttributeCode()];
-                    $element = $fieldset->addField($attribute->getAttributeCode(), $inputType,
-                        array(
-                            'name'      => $attribute->getAttributeCode(),
-                            'label'     => $attribute->getFrontend()->getLabel(),
-                            'class'     => isset($field['class']) ? $field['class'] : $attribute->getFrontend()->getClass(),
-                            'required'  => isset($field['required']) ? $field['required'] : $attribute->getIsRequired(),
-                        )
-                    )
-                    ->setEntityAttribute($attribute)
-                    ;
-
-                    if ($inputType == 'select' || $inputType == 'multiselect') {
-                        $element->setValues($attribute->getFrontend()->getSelectOptions());
-                    }
-                    $element->setSortOrder($display[$attribute->getAttributeCode()]);
-                }
+        // add system required attributes
+        foreach ($customerForm->getSystemAttributes() as $attribute) {
+            /* @var $attribute Mage_Customer_Model_Attribute */
+            if ($attribute->getIsRequired()) {
+                $attributes[$attribute->getAttributeCode()] = $attribute;
             }
+        }
 
-            /*
-            * want to sort element only when there are more than one element
-            */
-            if ($fieldset->getElements()->count()>1) {
-                $fieldset->getElements()->usort(array($this, '_sortMethods'));
-            }
+        if ($this->getQuote()->getCustomerIsGuest()) {
+            unset($attributes['group_id']);
+        }
 
-            $this->_form->addFieldNameSuffix('order[account]');
-            $this->_form->setValues($this->getCustomerData());
+        // add user defined attributes
+        foreach ($customerForm->getUserAttributes() as $attribute) {
+            /* @var $attribute Mage_Customer_Model_Attribute */
+            $attributes[$attribute->getAttributeCode()] = $attribute;
+        }
+
+        $fieldset = $this->_form->addFieldset('main', array());
+
+        $this->_addAttributesToForm($attributes, $fieldset);
+
+        $this->_form->addFieldNameSuffix('order[account]');
+        $this->_form->setValues($this->getFormValues());
+
+        return $this;
+    }
+
+    /**
+     * Add additional data to form element
+     *
+     * @param Varien_Data_Form_Element_Abstract $element
+     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+     */
+    protected function _addAdditionalFormElementData(Varien_Data_Form_Element_Abstract $element)
+    {
+        switch ($element->getId()) {
+            case 'email':
+                $element->setRequired(0);
+                $element->setClass('validate-email');
+                break;
         }
         return $this;
     }
 
-    public function _sortMethods($a, $b)
+    /**
+     * Return customer data
+     *
+     * @deprecated since 1.4.0.1
+     * @return array
+     */
+    public function getCustomerData()
     {
-        if (is_object($a)) {
-            return (int)$a->sort_order < (int)$b->sort_order ? -1 : ((int)$a->sort_order > (int)$b->sort_order ? 1 : 0);
-        }
-        return 0;
+        return $this->getFormValues();
     }
 
     /**
-     * Return new customer account fields for order
+     * Return Form Elements values
      *
      * @return array
      */
-    public function getDisplayFields()
-    {
-        $fields = array(
-            'group_id' => array(
-                'order' => 1
-            ),
-            'email' => array(
-                'order' => 2,
-                'class' => 'validate-email',
-                'required' => true
-            ),
-        );
-
-        if ($this->getQuote()->getCustomerIsGuest()) {
-            unset($fields['group_id']);
-        }
-
-        return $fields;
-    }
-
-
-    public function getCustomerData()
+    public function getFormValues()
     {
         $data = $this->getCustomer()->getData();
-        foreach ($this->getQuote()->getData() as $key=>$value) {
-            if (strstr($key, 'customer_')) {
-                $data[str_replace('customer_', '', $key)] = $value;
+        foreach ($this->getQuote()->getData() as $key => $value) {
+            if (strpos($key, 'customer_') === 0) {
+                $data[substr($key, 9)] = $value;
             }
         }
-        $data['group_id'] = $this->getCreateOrderModel()->getCustomerGroupId();
-        $data['email'] = ($this->getQuote()->getCustomerEmail() ? $this->getQuote()->getCustomerEmail() :$this->getCustomer()->getData('email'));
+        $data['group_id']   = $this->getCreateOrderModel()->getCustomerGroupId();
+        if ($this->getQuote()->getCustomerEmail()) {
+            $data['email']  = $this->getQuote()->getCustomerEmail();
+        }
+
         return $data;
     }
 }

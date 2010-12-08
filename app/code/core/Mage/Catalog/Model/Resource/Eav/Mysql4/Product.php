@@ -489,6 +489,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
      */
     public function duplicate($oldId, $newId)
     {
+        $adapter = $this->_getWriteAdapter();
         $eavTables = array('datetime', 'decimal', 'int', 'text', 'varchar');
 
         // duplicate EAV store values
@@ -497,33 +498,36 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
             $sql = 'REPLACE INTO `' . $tableName . '` '
                 . 'SELECT NULL, `entity_type_id`, `attribute_id`, `store_id`, ' . $newId . ', `value`'
                 . 'FROM `' . $tableName . '` WHERE `entity_id`=' . $oldId . ' AND `store_id`>0';
-            $this->_getWriteAdapter()->query($sql);
+            $adapter->query($sql);
         }
 
+        // set status as disabled
+        $statusAttribute      = $this->getAttribute('status');
+        $statusAttributeId    = $statusAttribute->getAttributeId();
+        $statusAttributeTable = $statusAttribute->getBackend()->getTable();
+        $updateCond[]         = 'store_id > 0';
+        $updateCond[]         = $adapter->quoteInto('entity_id = ?', $newId);
+        $updateCond[]         = $adapter->quoteInto('attribute_id = ?', $statusAttributeId);
+        $adapter->update(
+            $statusAttributeTable,
+            array('value' => Mage_Catalog_Model_Product_Status::STATUS_DISABLED),
+            $updateCond
+        );
+        
         return $this;
     }
 
-    public function getParentProductIds($object)
+    /**
+     * Get SKU through product identifiers
+     *
+     * @param  array $productIds
+     * @return array
+     */
+    public function getProductsSku(array $productIds)
     {
-        $childId = $object->getId();
-
-        $groupedProductsTable = $this->getTable('catalog/product_link');
-        $groupedLinkTypeId = Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED;
-
-        $configurableProductsTable = $this->getTable('catalog/product_super_link');
-
-        $groupedSelect = $this->_getReadAdapter()->select()
-            ->from(array('g'=>$groupedProductsTable), 'g.product_id')
-            ->where("g.linked_product_id = ?", $childId)
-            ->where("link_type_id = ?", $groupedLinkTypeId);
-
-        $groupedIds = $this->_getReadAdapter()->fetchCol($groupedSelect);
-
-        $configurableSelect = $this->_getReadAdapter()->select()
-            ->from(array('c'=>$configurableProductsTable), 'c.parent_id')
-            ->where("c.product_id = ?", $childId);
-
-        $configurableIds = $this->_getReadAdapter()->fetchCol($configurableSelect);
-        return array_merge($groupedIds, $configurableIds);
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getTable('catalog/product'), array('entity_id', 'sku'))
+            ->where('entity_id IN (?)', $productIds);
+        return $this->_getReadAdapter()->fetchAll($select);
     }
 }

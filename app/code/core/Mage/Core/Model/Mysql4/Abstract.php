@@ -571,6 +571,29 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
         return $data;
     }
 
+     /**
+     * Check that model data fields that can be saved
+     * has really changed comparing with origData
+     *
+     * @param Mage_Core_Model_Abstract $object
+     * @return boolean
+     */
+    public function hasDataChanged($object)
+    {
+        if (!$object->getOrigData()) {
+            return true;
+        }
+
+        $fields = $this->_getWriteAdapter()->describeTable($this->getMainTable());
+        foreach (array_keys($fields) as $field) {
+            if ($object->getOrigData($field) != $object->getData($field)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Prepare value for save
      *

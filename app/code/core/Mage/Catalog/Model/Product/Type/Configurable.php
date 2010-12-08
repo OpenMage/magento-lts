@@ -696,4 +696,23 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         $product = $this->getProduct($product);
         return array($this->getUsedProducts(null, $product));
     }
+
+    /**
+     * Get sku of product
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return string
+     */
+    public function getSku($product = null)
+    {
+        $sku = $this->getProduct($product)->getData('sku');
+        if ($simpleOption = $this->getProduct($product)->getCustomOption('simple_product')) {
+            $simple_sku = $simpleOption->getProduct($product)->getSku();
+            $sku = parent::getOptionSku($product, $simple_sku);
+        }else{
+            $sku = parent::getSku($product);
+        }
+        
+        return $sku;
+    }
 }

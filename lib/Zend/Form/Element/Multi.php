@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,9 +28,9 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Multi.php 16218 2009-06-21 19:44:04Z thomas $
+ * @version    $Id: Multi.php 22323 2010-05-30 11:15:38Z thomas $
  */
 abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
 {
@@ -308,10 +308,9 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
             return $value;
         } else {
             if (null !== ($translator = $this->getTranslator())) {
-                if ($translator->isTranslated($value)) {
-                    return $translator->translate($value);
-                }
+                return $translator->translate($value);
             }
+
             return $value;
         }
     }

@@ -88,4 +88,17 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
         return Mage::getSingleton('adminhtml/session_quote')->getQuote();
     }
 
+    /*
+    * Whether switch/solo card type available
+    */
+    public function hasSsCardType()
+    {
+        $availableTypes = explode(',', $this->getQuote()->getPayment()->getMethod()->getConfigData('cctypes'));
+        $ssPresenations = array_intersect(array('SS', 'SM', 'SO'), $availableTypes);
+        if ($availableTypes && count($ssPresenations) > 0) {
+            return true;
+        }
+        return false;
+    }
+
 }

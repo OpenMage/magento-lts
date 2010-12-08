@@ -47,6 +47,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
         foreach ($creditmemos as $creditmemo) {
             if ($creditmemo->getStoreId()) {
                 Mage::app()->getLocale()->emulate($creditmemo->getStoreId());
+                Mage::app()->setCurrentStore($creditmemo->getStoreId());
             }
             $page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
             $pdf->pages[] = $page;

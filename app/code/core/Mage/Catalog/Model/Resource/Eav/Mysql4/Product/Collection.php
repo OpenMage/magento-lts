@@ -128,6 +128,27 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
     protected $_isWebsiteFilter = false;
 
     /**
+     * Additional field filters, applied in _productLimitationJoinPrice()
+     *
+     * @var array
+     */
+    protected $_priceDataFieldFilters = array();
+
+    /**
+     * Map of price fields
+     *
+     * @var array
+     */
+    protected $_map = array('fields' => array(
+        'price'         => 'price_index.price',
+        'final_price'   => 'price_index.final_price',
+        'min_price'     => 'price_index.min_price',
+        'max_price'     => 'price_index.max_price',
+        'tier_price'    => 'price_index.tier_price',
+        'special_price' => 'price_index.special_price',
+    ));
+
+    /**
      * Retrieve Catalog Product Flat Helper object
      *
      * @return Mage_Catalog_Helper_Product_Flat
@@ -167,7 +188,14 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
         else {
             $this->_init('catalog/product');
         }
+        $this->_initTables();
+    }
 
+    /**
+     * Define product website and category product tables
+     */
+    protected function _initTables()
+    {
         $this->_productWebsiteTable = $this->getResource()->getTable('catalog/product_website');
         $this->_productCategoryTable= $this->getResource()->getTable('catalog/category_product');
     }
@@ -858,6 +886,21 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
     }
 
     /**
+     * Return array of unique product type ids in collection
+     *
+     * @return array
+     */
+    public function getProductTypeIds()
+    {
+        $select = clone $this->getSelect();
+        /* @var $select Zend_Db_Select */
+        $select->reset(Zend_Db_Select::COLUMNS);
+        $select->distinct(true);
+        $select->columns('type_id');
+        return $this->getConnection()->fetchCol($select);
+    }
+
+    /**
      * Joins url rewrite rules to collection
      *
      * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection
@@ -875,7 +918,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
         return $this;
     }
 
-
+    /**
+     * Add URL rewrites data to product
+     * If collection loadded - run processing else set flag
+     *
+     * @param int $categoryId
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     */
     public function addUrlRewrite($categoryId = '')
     {
         $this->_addUrlRewrite = true;
@@ -884,9 +933,18 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
         } else {
             $this->_urlRewriteCategory = 0;
         }
+
+        if ($this->isLoaded()) {
+            $this->_addUrlRewrite();
+        }
+
         return $this;
     }
 
+    /**
+     * Add URL rewrites to collection
+     *
+     */
     protected function _addUrlRewrite()
     {
         $urlRewrites = null;
@@ -935,6 +993,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
         foreach($this->getItems() as $item) {
             if (isset($urlRewrites[$item->getEntityId()])) {
                 $item->setData('request_path', $urlRewrites[$item->getEntityId()]);
+            } else {
+                $item->setData('request_path', false);
             }
         }
     }
@@ -985,7 +1045,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
 
             return $this;
         }
-        $wId = Mage::app()->getWebsite()->getId();
+        $wId = Mage::app()->getStore($this->getStoreId())->getWebsite()->getId();
         $gId = Mage::getSingleton('customer/session')->getCustomerGroupId();
 
         $storeDate = Mage::app()->getLocale()->storeTimeStamp($this->getStoreId());
@@ -1106,7 +1166,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
                     $sqlArr[] = $this->_getAttributeConditionSql($condition['attribute'], $condition, $joinType);
                 }
                 $conditionSql = '('.join(') OR (', $sqlArr).')';
-                $this->getSelect()->where($conditionSql);
+                $this->getSelect()->where($conditionSql, null, Varien_Db_Select::TYPE_CONDITION);
                 return $this;
             }
 
@@ -1122,28 +1182,29 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
         }
 
         $this->_allIdsCache = null;
+
         if (is_string($attribute) && $attribute == 'is_saleable') {
-            $isStockManagedInConfig = (int) Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK);
-            $inventoryTable = $this->getTable('cataloginventory_stock_item');
-            $this->getSelect()->where(
-                $this->_getConditionSql(
-                    "(
-                        IF(
-                            IF(
-                                $inventoryTable.use_config_manage_stock,
-                                $isStockManagedInConfig,
-                                $inventoryTable.manage_stock
-                            ),
-                            $inventoryTable.is_in_stock,
-                            1
-                        )
-                    )",
-                    $condition
-                )
-            );
+            $columns = $this->getSelect()->getPart(Zend_Db_Select::COLUMNS);
+            foreach ($columns as $columnEntry) {
+                list($correlationName, $column, $alias) = $columnEntry;
+                if ($alias == 'is_saleable') {
+                    if ($column instanceof Zend_Db_Expr) {
+                        $field = $column;
+                    } else {
+                        $adapter = $this->getSelect()->getAdapter();
+                        if (empty($correlationName)) {
+                            $field = $adapter->quoteColumnAs($column, $alias, true);
+                        } else {
+                            $field = $adapter->quoteColumnAs(array($correlationName, $column), $alias, true);
+                        }
+                    }
+                    $this->getSelect()->where("{$field} = ?", $condition);
+                    break;
+                }
+            }
+
             return $this;
-        }
-        else {
+        } else {
             return parent::addAttributeToFilter($attribute, $condition, $joinType);
         }
     }
@@ -1267,6 +1328,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
             }
 
             return $this;
+        } else if($attribute == 'is_saleable'){
+            $this->getSelect()->order("is_saleable " . $dir);
+            return $this;
         }
 
         $storeId = Mage::app()->getStore()->getId();
@@ -1274,11 +1338,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
             $this->addPriceData();
             $this->getSelect()->order("price_index.min_price {$dir}");
 
-            return $this;
-        }
-
-        if($attribute == 'is_saleable'){
-            $this->getSelect()->order("is_saleable " . $dir);
             return $this;
         }
 
@@ -1484,6 +1543,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
                 $joinCond,
                 array('price', 'tax_class_id', 'final_price', 'minimal_price'=>$minimalExpr , 'min_price', 'max_price', 'tier_price')
             );
+
+            // Set additional field filters
+            foreach ($this->_priceDataFieldFilters as $filterData) {
+                $this->getSelect()->where(call_user_func_array('sprintf', $filterData));
+            }
         } else {
             $fromPart['price_index']['joinCondition'] = $joinCond;
             $this->getSelect()->setPart(Zend_Db_Select::FROM, $fromPart);
@@ -1601,6 +1665,160 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
             );
         }
 
+        return $this;
+    }
+
+    /**
+     * Stub method
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     */
+    public function setGeneralDefoultQuery()
+    {
+        return $this;
+    }
+
+    /**
+     * Add category ids to loaded items
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     */
+    public function addCategoryIds()
+    {
+        if ($this->getFlag('category_ids_added')) {
+            return $this;
+        }
+        $ids = array_keys($this->_items);
+        if (empty($ids)) {
+            return $this;
+        }
+
+        $select = $this->getConnection()->select();
+
+        $select->from($this->_productCategoryTable, array('product_id', 'category_id'));
+        $select->where('product_id IN (?)', $ids);
+
+        $data = $this->getConnection()->fetchAll($select);
+
+        $categoryIds = array();
+        foreach ($data as $info) {
+            if (isset($categoryIds[$info['product_id']])) {
+                $categoryIds[$info['product_id']][] = $info['category_id'];
+            } else {
+                $categoryIds[$info['product_id']] = array($info['category_id']);
+            }
+        }
+
+
+        foreach ($this->getItems() as $item) {
+            $productId = $item->getId();
+            if (isset($categoryIds[$productId])) {
+                $item->setCategoryIds($categoryIds[$productId]);
+            } else {
+                $item->setCategoryIds(array());
+            }
+        }
+
+        $this->setFlag('category_ids_added', true);
+        return $this;
+    }
+
+    /**
+     * Add tier price data to loaded items
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     */
+    public function addTierPriceData()
+    {
+        if ($this->getFlag('tier_price_added')) {
+            return $this;
+        }
+
+        $tierPrices = array();
+        $productIds = array();
+        foreach ($this->getItems() as $item) {
+            $productIds[] = $item->getId();
+            $tierPrices[$item->getId()] = array();
+        }
+        if (!$productIds) {
+            return $this;
+        }
+
+        /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+        $attribute = $this->getAttribute('tier_price');
+        if ($attribute->isScopeGlobal()) {
+            $websiteId = 0;
+        } else if ($this->getStoreId()) {
+            $websiteId = Mage::app()->getStore($this->getStoreId())->getWebsiteId();
+        }
+
+        $adapter   = $this->getConnection();
+        $columns   = array(
+            'price_id'      => 'value_id',
+            'website_id'    => 'website_id',
+            'all_groups'    => 'all_groups',
+            'cust_group'    => 'customer_group_id',
+            'price_qty'     => 'qty',
+            'price'         => 'value',
+            'product_id'    => 'entity_id'
+        );
+        $select  = $adapter->select()
+            ->from($this->getTable('catalog/product_attribute_tier_price'), $columns)
+            ->where('entity_id IN(?)', $productIds)
+            ->order(array('entity_id','qty'));
+
+        if ($websiteId == '0') {
+            $select->where('website_id=?', $websiteId);
+        } else {
+            $select->where('website_id IN(?)', array('0', $websiteId));
+        }
+
+        foreach ($adapter->fetchAll($select) as $row) {
+            $tierPrices[$row['product_id']][] = array(
+                'website_id'    => $row['website_id'],
+                'cust_group'    => $row['all_groups'] ? Mage_Customer_Model_Group::CUST_GROUP_ALL : $row['cust_group'],
+                'price_qty'     => $row['price_qty'],
+                'price'         => $row['price'],
+                'website_price' => $row['price'],
+
+            );
+        }
+
+        /* @var $backend Mage_Catalog_Model_Product_Attribute_Backend_Tierprice */
+        $backend = $attribute->getBackend();
+
+        foreach ($this->getItems() as $item) {
+            $data = $tierPrices[$item->getId()];
+            if (!empty($data) && $websiteId) {
+                $data = $backend->preparePriceData($data, $item->getTypeId(), $websiteId);
+            }
+            $item->setData('tier_price', $data);
+        }
+
+        $this->setFlag('tier_price_added', true);
+        return $this;
+    }
+
+    /**
+     * Add field comparison expression
+     *
+     * @param string $comparisonFormat - expression for sprintf()
+     * @param array $fields - list of fields
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     */
+    public function addPriceDataFieldFilter($comparisonFormat, $fields)
+    {
+        if (!preg_match('/^%s( (<|>|=|<=|>=|<>) %s)*$/', $comparisonFormat)) {
+            throw new Exception('Invalid comparison format.');
+        }
+
+        if (!is_array($fields)) {
+            $fields = array($fields);
+        }
+        foreach ($fields as $key => $field) {
+            $fields[$key] = $this->_getMappedField($field);
+        }
+
+        $this->_priceDataFieldFilters[] = array_merge(array($comparisonFormat), $fields);
         return $this;
     }
 }

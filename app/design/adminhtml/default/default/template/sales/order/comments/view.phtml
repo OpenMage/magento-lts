@@ -30,12 +30,13 @@
         <label class="normal" for="history_comment"><?php echo Mage::helper('sales')->__('Comment Text') ?></label>
         <textarea name="comment[comment]" rows="3" cols="5" style="height:6em; width:99%;" id="history_comment"></textarea>
     </span>
-    <?php if ($this->canSendCommentEmail()): ?>
     <div class="f-left">
-        <input name="comment[is_customer_notified]" type="checkbox" id="history_notify" value="1" />
-        <label class="normal" for="history_notify"><?php echo Mage::helper('sales')->__('Notify Customer') ?></label>
+        <?php if ($this->canSendCommentEmail()): ?>
+            <input name="comment[is_customer_notified]" type="checkbox" id="history_notify" value="1" />
+            <label class="normal" for="history_notify"><?php echo Mage::helper('sales')->__('Notify Customer by Email') ?></label><br />
+        <?php endif; ?>
+        <input name="comment[is_visible_on_front]" type="checkbox" id="history_visible" value="1" /><label class="normal" for="history_visible"> <?php echo Mage::helper('sales')->__('Visible on Frontend') ?></label>
     </div>
-    <?php endif; ?>
     <div class="f-right">
         <?php echo $this->getChildHtml('submit_button') ?>
     </div>

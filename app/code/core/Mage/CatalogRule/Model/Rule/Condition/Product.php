@@ -111,6 +111,65 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
     }
 
     /**
+     * Prepares values options to be used as select options or hashed array
+     * Result is stored in following keys:
+     *  'value_select_options' - normal select array: array(array('value' => $value, 'label' => $label), ...)
+     *  'value_option' - hashed array: array($value => $label, ...),
+     *
+     * @return Mage_CatalogRule_Model_Rule_Condition_Product
+     */
+    protected function _prepareValueOptions()
+    {
+        // Check that both keys exist. Maybe somehow only one was set not in this routine, but externally.
+        $selectReady = $this->getData('value_select_options');
+        $hashedReady = $this->getData('value_option');
+        if ($selectReady && $hashedReady) {
+            return $this;
+        }
+
+        // Get array of select options. It will be used as source for hashed options
+        $selectOptions = null;
+        if ($this->getAttribute() === 'attribute_set_id') {
+            $entityTypeId = Mage::getSingleton('eav/config')
+                ->getEntityType('catalog_product')->getId();
+            $selectOptions = Mage::getResourceModel('eav/entity_attribute_set_collection')
+                ->setEntityTypeFilter($entityTypeId)
+                ->load()
+                ->toOptionArray();
+        } else if (is_object($this->getAttributeObject())) {
+            $attributeObject = $this->getAttributeObject();
+            if ($attributeObject->usesSource()) {
+                if ($attributeObject->getFrontendInput() == 'multiselect') {
+                    $addEmptyOption = false;
+                } else {
+                    $addEmptyOption = true;
+                }
+                $selectOptions = $attributeObject->getSource()->getAllOptions($addEmptyOption);
+            }
+        }
+
+        // Set new values only if we really got them
+        if ($selectOptions !== null) {
+            // Overwrite only not already existing values
+            if (!$selectReady) {
+                $this->setData('value_select_options', $selectOptions);
+            }
+            if (!$hashedReady) {
+                $hashedOptions = array();
+                foreach ($selectOptions as $o) {
+                    if (is_array($o['value'])) {
+                        continue; // We cannot use array as index
+                    }
+                    $hashedOptions[$o['value']] = $o['label'];
+                }
+                $this->setData('value_option', $hashedOptions);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Retrieve value by option
      *
      * @param mixed $option
@@ -118,34 +177,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
      */
     public function getValueOption($option=null)
     {
-        if (!$this->getData('value_option')) {
-            if ($this->getAttribute()==='attribute_set_id') {
-                $entityTypeId = Mage::getSingleton('eav/config')
-                    ->getEntityType('catalog_product')->getId();
-                $options = Mage::getResourceModel('eav/entity_attribute_set_collection')
-                    ->setEntityTypeFilter($entityTypeId)
-                    ->load()
-                    ->toOptionHash();
-                $this->setData('value_option', $options);
-            } elseif (is_object($this->getAttributeObject()) && $this->getAttributeObject()->usesSource()) {
-                if ($this->getAttributeObject()->getFrontendInput() == 'multiselect') {
-                    $addEmptyOption = false;
-                } else {
-                    $addEmptyOption = true;
-                }
-
-                $optionsArr = $this->getAttributeObject()->getSource()->getAllOptions($addEmptyOption);
-                $options = array();
-                foreach ($optionsArr as $o) {
-                    if (is_array($o['value'])) {
-
-                    } else {
-                        $options[$o['value']] = $o['label'];
-                    }
-                }
-                $this->setData('value_option', $options);
-            }
-        }
+        $this->_prepareValueOptions();
         return $this->getData('value_option'.(!is_null($option) ? '/'.$option : ''));
     }
 
@@ -156,24 +188,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
      */
     public function getValueSelectOptions()
     {
-        if (!$this->getData('value_select_options')) {
-            if ($this->getAttribute()==='attribute_set_id') {
-                $entityTypeId = Mage::getSingleton('eav/config')
-                    ->getEntityType('catalog_product')->getId();
-                $options = Mage::getResourceModel('eav/entity_attribute_set_collection')
-                    ->setEntityTypeFilter($entityTypeId)
-                    ->load()->toOptionArray();
-                $this->setData('value_select_options', $options);
-            } elseif (is_object($this->getAttributeObject()) && $this->getAttributeObject()->usesSource()) {
-                if ($this->getAttributeObject()->getFrontendInput() == 'multiselect') {
-                    $addEmptyOption = false;
-                } else {
-                    $addEmptyOption = true;
-                }
-                $optionsArr = $this->getAttributeObject()->getSource()->getAllOptions($addEmptyOption);
-                $this->setData('value_select_options', $optionsArr);
-            }
-        }
+        $this->_prepareValueOptions();
         return $this->getData('value_select_options');
     }
 
@@ -256,6 +271,9 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
             case 'date':
                 return 'date';
 
+            case 'boolean':
+                return 'boolean';
+
             default:
                 return 'string';
         }
@@ -276,6 +294,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         }
         switch ($this->getAttributeObject()->getFrontendInput()) {
             case 'select':
+            case 'boolean':
                 return 'select';
 
             case 'multiselect':
@@ -360,8 +379,24 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         $attribute = $this->getAttributeObject();
 
         if ($attribute && $attribute->getBackendType() == 'decimal') {
-            $arr['value'] = isset($arr['value']) ? Mage::app()->getLocale()->getNumber($arr['value']) : false;
-            $arr['is_value_parsed'] = isset($arr['is_value_parsed']) ? Mage::app()->getLocale()->getNumber($arr['is_value_parsed']) : false;
+            if (isset($arr['value'])) {
+                if (!empty($arr['operator'])
+                    && in_array($arr['operator'], array('!()', '()'))
+                    && false !== strpos($arr['value'], ',')) {
+
+                    $tmp = array();
+                    foreach (explode(',', $arr['value']) as $value) {
+                        $tmp[] = Mage::app()->getLocale()->getNumber($value);
+                    }
+                    $arr['value'] =  implode(',', $tmp);
+                } else {
+                    $arr['value'] =  Mage::app()->getLocale()->getNumber($arr['value']);
+                }
+            } else {
+                $arr['value'] = false;
+            }
+            $arr['is_value_parsed'] = isset($arr['is_value_parsed'])
+                ? Mage::app()->getLocale()->getNumber($arr['is_value_parsed']) : false;
         }
 
         return parent::loadArray($arr);
@@ -382,7 +417,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         } elseif (! isset($this->_entityAttributeValues[$object->getId()])) {
             $attr = $object->getResource()->getAttribute($attrCode);
 
-            if ($attr && $attr->getBackendType() == 'datetime' && ! is_int($this->getValue())) {
+            if ($attr && $attr->getBackendType() == 'datetime' && !is_int($this->getValue())) {
                 $this->setValue(strtotime($this->getValue()));
                 $value = strtotime($object->getData($attrCode));
                 return $this->validateAttribute($value);
@@ -400,8 +435,14 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
             $oldAttrValue = $object->hasData($attrCode) ? $object->getData($attrCode) : null; // remember old attribute state
 
             foreach ($this->_entityAttributeValues[$object->getId()] as $storeId => $value) {
-                $object->setData($attrCode, $value);
+                $attr = $object->getResource()->getAttribute($attrCode);
+                if ($attr && $attr->getBackendType() == 'datetime') {
+                    $value = strtotime($value);
+                } else if ($attr && $attr->getFrontendInput() == 'multiselect') {
+                    $value = strlen($value) ? explode(',', $value) : array();
+                }
 
+                $object->setData($attrCode, $value);
                 $result |= parent::validate($object);
 
                 if ($result) {

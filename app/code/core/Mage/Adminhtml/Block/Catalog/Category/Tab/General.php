@@ -70,18 +70,14 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
 //                ),
 //                'name'
 //            );
-            if ($this->getRequest()->getParam('parent')) {
-                $fieldset->addField('path', 'hidden', array(
-                    'name'  => 'path',
-                    'value' => $this->getRequest()->getParam('parent')
-                ));
-            } else {
-                $storeId = (int) $this->getRequest()->getParam('store');
-                $fieldset->addField('path', 'hidden', array(
-                    'name'  => 'path',
-                    'value' => 1
-                ));
+            $parentId = $this->getRequest()->getParam('parent');
+            if (!$parentId) {
+                $parentId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
             }
+            $fieldset->addField('path', 'hidden', array(
+                'name'  => 'path',
+                'value' => $parentId
+            ));
         } else {
             $fieldset->addField('id', 'hidden', array(
                 'name'  => 'id',

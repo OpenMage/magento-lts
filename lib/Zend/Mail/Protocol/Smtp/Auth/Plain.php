@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Protocol
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Plain.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Plain.php 22655 2010-07-22 18:47:20Z mabe $
  */
 
 
@@ -33,7 +33,7 @@
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Protocol
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Mail_Protocol_Smtp_Auth_Plain extends Zend_Mail_Protocol_Smtp
@@ -89,7 +89,7 @@ class Zend_Mail_Protocol_Smtp_Auth_Plain extends Zend_Mail_Protocol_Smtp
 
         $this->_send('AUTH PLAIN');
         $this->_expect(334);
-        $this->_send(base64_encode(chr(0) . $this->_username . chr(0) . $this->_password));
+        $this->_send(base64_encode("\0" . $this->_username . "\0" . $this->_password));
         $this->_expect(235);
         $this->_auth = true;
     }

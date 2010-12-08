@@ -66,7 +66,12 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
             );
             if($value) {
                 if($value['pricing_value'] != 0) {
-                    $finalPrice += $this->_calcSelectionPrice($value, $basePrice);
+                    $product->setConfigurablePrice($this->_calcSelectionPrice($value, $basePrice));
+                    Mage::dispatchEvent(
+                        'catalog_product_type_configurable_price',
+                        array('product' => $product)
+                    );
+                    $finalPrice += $product->getConfigurablePrice();
                 }
             }
         }

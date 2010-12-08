@@ -79,7 +79,7 @@ class Mage_Sales_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Mysql4_C
      */
     protected function _getAllIdsSelect($limit = null, $offset = null)
     {
-        $idsSelect = parent::getAllIds($limit, $offset);
+        $idsSelect = parent::_getAllIdsSelect($limit, $offset);
         $idsSelect->resetJoinLeft();
         return $idsSelect;
     }

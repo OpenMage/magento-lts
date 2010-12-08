@@ -26,10 +26,8 @@
 /**
  * Catalog breadcrumbs
  *
- * @package     Mage
- * @subpackage  Mage_Catalog
- * @copyright   Varien (c) 2007 (http://www.varien.com)
- * @license     http://www.opensource.org/licenses/osl-3.0.php
+ * @category    Mage
+ * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Block_Breadcrumbs extends Mage_Core_Block_Template

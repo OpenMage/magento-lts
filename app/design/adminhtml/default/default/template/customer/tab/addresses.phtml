@@ -71,7 +71,7 @@
             <div id="form_address_item_<?php echo $_address->getId() ?>" style="display:none">
             <?php
                     $this->getFormObject()->setValues($_address->getData())
-                            ->setHtmlIdPrefix("id{$_address->getId()}")
+                            ->setHtmlIdPrefix("_item{$_address->getId()}")
                             ->setFieldNameSuffix('address['.$_address->getId().']')
             ?>
             <?php echo $this->getFormObject()->getHtml() ?>
@@ -186,7 +186,7 @@ addressesModel.prototype = {
             $('form_'+item.id).addressItem = item;
 
             // set Zip optional/required
-            var countryElement = $('id' + item.id.replace(/address_item_/, '') + 'country_id');
+            var countryElement = $('_item' + item.id.replace(/address_item_/, '') + 'country_id');
             varienGlobalEvents.fireEvent("address_country_changed", countryElement);
         }
     },
@@ -366,18 +366,38 @@ addressesModel.prototype = {
             for(var i=0; i < fields.size(); i++){
                 if(fields[i].id){
                     var id = fields[i].id.replace(/^(_item)?[0-9]+/, '');
+                    var id = id.replace(/^(id)?[0-9]+/, '');
                     var value = fields[i].getValue();
-                    if(fields[i].tagName.toLowerCase()=='select'){
-                        data[id] = fields[i].options[fields[i].selectedIndex].text.escapeHTML();
-                    }
-                    else{
+                    var tagName = fields[i].tagName.toLowerCase();
+                    if (tagName == 'select') {
+                        if (fields[i].multiple) {
+                            var values = $([]);
+                            var l = fields[i].options.length;
+                            for (j=0; j<l; j++) {
+                                var o = fields[i].options[j];
+                                if (o.selected === true) {
+                                    values[values.length] = o.text.escapeHTML();
+                                }
+                            }
+                            data[id] = values.join(', ');
+                        } else {
+                            data[id] = fields[i].options[fields[i].selectedIndex].text.escapeHTML();
+                        }
+                    } else if (value !== null) {
                         data[id] = value.escapeHTML();
                     }
                 }
             }
+
+            // Set name of state to 'region' if list of states are in 'region_id' selectbox
+            if (!data['region'] && data['region_id']) {
+                data['region'] = data['region_id'];
+                delete data['region_id'];
+            }
+
+            // Set data to html
             var itemContainer = container.addressItem.getElementsBySelector('address');
             if(itemContainer[0]){
-
                 var html = this.itemContentTemplate.evaluate(data);
                 html = html.replace(new RegExp('(<br\\s*/?>\\s*){2,}','img'),'<br/>');
                 html = html.replace(new RegExp('<br\\s*/?>(\\s*,){1,}\\s*<br\\s*/?>','ig'),'<br/>');
@@ -390,20 +410,16 @@ addressesModel.prototype = {
 
     deleteAddress : function(item){
         if(confirm('<?php echo Mage::helper('customer')->__('Are you sure you want to delete this address?') ?>')){
-            if( item.isNewAddress || 1 == this.itemList.length){
-                if ( this.activeItem == item ) this.formContainer.removeChild(item.formBlock);
-            } else {
-                if($('deleted_'+item.id)){
-                    $('deleted_'+item.id).value = 1;
-                    if(item.formBlock){
-                        item.formBlock.addClassName('ignore-validation');
-                    }
+            if (!item.isNewAddress && $('deleted_'+item.id)){
+                $('deleted_'+item.id).value = 1;
+                if (item.formBlock){
+                    item.formBlock.addClassName('ignore-validation');
                 }
             }
+            if (this.activeItem == item && item != this.itemList[0]) this.setActiveItem(this.itemList[0]);
+            if (item == this.itemList[0] && (this.itemList[1])) this.setActiveItem(this.itemList[1]);
 
-            if ( this.activeItem == item && item != this.itemList[0] ) this.setActiveItem(this.itemList[0]);
-            if ( item == this.itemList[0] && (this.itemList[1]) ) this.setActiveItem(this.itemList[1]);
-
+            this.formContainer.removeChild(item.formBlock);
             this.itemContainer.removeChild(item);
             this.reloadItemList();
             this.setAddressAsDefault();
@@ -455,55 +471,79 @@ addressesModel.prototype = {
             var regionElement  = $(countryElement.id.replace(/country_id/, 'region'));
             if(regionElement){
                 this.regionElement = regionElement;
-                var url = this.regionsUrl+'parent/'+countryElement.value;
-                this.loader.load(url, {}, this.refreshRegionField.bind(this));
+                if (countryElement.value) {
+                    var url = this.regionsUrl + 'parent/' + countryElement.value;
+                    this.loader.load(url, {}, this.refreshRegionField.bind(this));
+                } else {
+                    // Set empty text field in region
+                    this.refreshRegionField('[]');
+                }
             }
             // set Zip optional/required
             varienGlobalEvents.fireEvent("address_country_changed", countryElement);
         }
     },
 
+    // serverResponse is either string with server response, or object to force some paricular data setting
     refreshRegionField : function(serverResponse){
-        if(serverResponse){
-            var data = eval('(' + serverResponse + ')');
-            var value = this.regionElement.value;
+        if (!serverResponse)
+            return;
+        var data = eval('(' + serverResponse + ')');
 
-            var row = Element.previous(this.regionElement.parentNode,0);
-            var reqLabel = Element.select(row, '.required');
-            if (data.length) {
-                var html = '<select name="'+this.regionElement.name+'" id="'+this.regionElement.id+'" class="required-entry select" title="'+this.regionElement.title+'">';
-                html+= '<option value=""></option>';
-                for (var i in data){
-                    if(data[i].label) {
-                        html+= '<option value="'+data[i].value+'"';
-                        if(this.regionElement.value && (this.regionElement.value == data[i].value || this.regionElement.value == data[i].label)){
-                            html+= ' selected="selected"';
-                        }
-                        html+='>'+data[i].label+'</option>';
+        var row = Element.previous(this.regionElement.parentNode,0);
+        var reqLabel = Element.select(row, '.required');
+
+        // Set regions and refresh controls
+        // We use a pair of 'region' and 'region_id' to properly submit data:
+        // manually entered text goes in 'region' and selected option id goes in 'region_id'
+        var regionHtmlName = this.regionElement.name;
+        var regionIdHtmlName = regionHtmlName.replace(/region/, 'region_id');
+        var regionHtmlId = this.regionElement.id;
+        var regionIdHtmlId = regionHtmlId.replace(/region/, 'region_id');
+        var newInputId = null; // id of imput that was added to a page - filled below
+
+        if (data.length) {
+            // Create visible selectbox 'region_id' and hidden 'region'
+            var html = '<select name="' + regionIdHtmlName + '" id="' + regionIdHtmlId + '" class="required-entry select" title="' + this.regionElement.title + '">';
+            html+= '<option value=""></option>';
+            for (var i in data){
+                if(data[i].label) {
+                    html+= '<option value="'+data[i].value+'"';
+                    if(this.regionElement.value && (this.regionElement.value == data[i].value || this.regionElement.value == data[i].label)){
+                        html+= ' selected="selected"';
                     }
+                    html+='>'+data[i].label+'</option>';
                 }
-                html+= '</select>';
-                if(reqLabel){
-                    reqLabel.each(function(item){Element.show(item)});
-                }
-
-                var parentNode = this.regionElement.parentNode;
-                var regionElementId = this.regionElement.id;
-                parentNode.innerHTML = html;
-                this.regionElement = $(regionElementId);
-
-                //new Insertion.Before(this.regionElement, html);
-                //Element.remove(this.regionElement);
             }
-            else{
-                var html = '<input type="text" name="'+this.regionElement.name+'" id="'+this.regionElement.id+'" class="input-text" title="'+this.regionElement.title+'">';
-                if(reqLabel){
-                    reqLabel.each(function(item){Element.hide(item)});
-                }
-                Element.insert(this.regionElement, {before: html});
-                Element.remove(this.regionElement);
+            html += '</select>';
+
+            html += '<input type="hidden" name="' + regionHtmlName + '" id="' + regionHtmlId + '"/>';
+
+            if (reqLabel) {
+                reqLabel.each(function(item){Element.show(item)});
             }
+
+            newInputId = regionIdHtmlId;
+        } else {
+            // Create visible text input 'region' and hidden 'region_id'
+            var html = '<input type="text" name="' + regionHtmlName + '" id="' + regionHtmlId + '" class="input-text" title="' + this.regionElement.title + '" />';
+            html += '<input type="hidden" name="' + regionIdHtmlName + '" id="' + regionIdHtmlId + '"/>';
+
+            if (reqLabel) {
+                reqLabel.each(function(item){Element.hide(item)});
+            }
+
+            newInputId = regionHtmlId;
         }
+
+        var parentNode = this.regionElement.parentNode;
+        parentNode.innerHTML = html;
+        this.regionElement = $(regionHtmlId);
+
+        // Updating in address info
+        var newInput = $(newInputId);
+        Event.observe(newInput, 'change', this.onItemFormFieldChange); // Restore observing to update address info
+        this.syncFormData(newInput); // Update address info now
     }
 }
 

@@ -33,6 +33,8 @@
  */
 class Varien_Db_Select extends Zend_Db_Select
 {
+    const TYPE_CONDITION    = 'TYPE_CONDITION';
+
     const STRAIGHT_JOIN_ON  = 'straight_join';
     const STRAIGHT_JOIN     = 'straightjoin';
     const SQL_STRAIGHT_JOIN = 'STRAIGHT_JOIN';
@@ -45,8 +47,10 @@ class Varien_Db_Select extends Zend_Db_Select
     public function __construct(Zend_Db_Adapter_Abstract $adapter)
     {
         parent::__construct($adapter);
-        self::$_joinTypes[] = self::STRAIGHT_JOIN_ON;
-        self::$_partsInit = array(self::STRAIGHT_JOIN => false) + self::$_partsInit;
+        if (!in_array(self::STRAIGHT_JOIN_ON, self::$_joinTypes)) {
+            self::$_joinTypes[] = self::STRAIGHT_JOIN_ON;
+            self::$_partsInit = array(self::STRAIGHT_JOIN => false) + self::$_partsInit;
+        }
     }
 
     /**
@@ -85,6 +89,12 @@ class Varien_Db_Select extends Zend_Db_Select
     {
         if (is_null($value) && is_null($type)) {
             $value = '';
+        }
+        /**
+         * Additional internal type used for really null value
+         */
+        if ($type == self::TYPE_CONDITION) {
+            $type = null;
         }
         if (is_array($value)) {
             $cond = $this->_adapter->quoteInto($cond, $value);

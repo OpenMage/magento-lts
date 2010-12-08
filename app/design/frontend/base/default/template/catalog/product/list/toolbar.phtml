@@ -80,7 +80,7 @@
             <select onchange="setLocation(this.value)">
             <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
                 <option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif; ?>>
-                    <?php echo $_order ?>
+                    <?php echo $this->__($_order) ?>
                 </option>
             <?php endforeach; ?>
             </select>

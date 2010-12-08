@@ -106,7 +106,8 @@
         </translate>
         <secure_url>
             <rss_catalog_review>/rss/catalog/review</rss_catalog_review>
-            <rss_order_new>/rss/catalog/review</rss_order_new>
+            <rss_order_new>/rss/order/new</rss_order_new>
+            <rss_catalog_notifystock>/rss/catalog/notifystock</rss_catalog_notifystock>
         </secure_url>
         <routers>
             <rss>

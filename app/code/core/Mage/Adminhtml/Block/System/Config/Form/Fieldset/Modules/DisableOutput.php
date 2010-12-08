@@ -82,7 +82,13 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput
     {
         $configData = $this->getConfigData();
         $path = 'advanced/modules_disable_output/'.$moduleName; //TODO: move as property of form
-        $data = isset($configData[$path]) ? $configData[$path] : array();
+        if (isset($configData[$path])) {
+            $data = $configData[$path];
+            $inherit = false;
+        } else {
+            $data = (int)(string)$this->getForm()->getConfigRoot()->descend($path);
+            $inherit = true;
+        }
 
         $e = $this->_getDummyElement();
 
@@ -91,8 +97,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput
                 'name'          => 'groups[modules_disable_output][fields]['.$moduleName.'][value]',
                 'label'         => $moduleName,
                 'value'         => $data,
-                'values'		=> $this->_getValues(),
-                'inherit'       => isset($configData[$path]) ? false : true,
+                'values'        => $this->_getValues(),
+                'inherit'       => $inherit,
                 'can_use_default_value' => $this->getForm()->canUseDefaultValue($e),
                 'can_use_website_value' => $this->getForm()->canUseWebsiteValue($e),
             ))->setRenderer($this->_getFieldRenderer());

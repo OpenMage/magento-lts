@@ -43,6 +43,7 @@
                 <block type="sales/recurring_profiles" name="sales.recurring.profiles.grid" as="grid" template="sales/recurring/grid.phtml">
                     <action method="prepareProfilesGrid"/>
                     <action method="setEmptyGridMessage" translate="value"><value>There are no recurring profiles yet.</value></action>
+                    <action method="setGridHtmlId"><value>recurring_profile_list_view</value></action>
                 </block>
             </block>
         </reference>

@@ -59,8 +59,10 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
         }
         $this->_calculator->init($store->getWebsiteId(), $quote->getCustomerGroupId(), $quote->getCouponCode());
 
+        $isAllFree = true;
         foreach ($items as $item) {
             if ($item->getNoDiscount()) {
+                $isAllFree = false;
                 $item->setFreeShipping(false);
             } else {
                 /**
@@ -70,19 +72,24 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
                     continue;
                 }
                 $this->_calculator->processFreeShipping($item);
+                $isItemFree = (bool)$item->getFreeShipping();
+                $isAllFree = $isAllFree && $isItemFree;
                 if ($item->getHasChildren() && $item->isChildrenCalculated()) {
                     foreach ($item->getChildren() as $child) {
                         $this->_calculator->processFreeShipping($child);
                         /**
                          * Parent free shipping we apply to all children
                          */
-                        if ($item->getFreeShipping()) {
-                            $child->setFreeShipping($item->getFreeShipping());
+                        if ($isItemFree) {
+                            $child->setFreeShipping($isItemFree);
                         }
 
                     }
                 }
             }
+        }
+        if ($isAllFree && !$address->getFreeShipping()) {
+            $address->setFreeShipping(true);
         }
         return $this;
     }

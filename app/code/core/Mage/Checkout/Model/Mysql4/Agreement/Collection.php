@@ -48,18 +48,28 @@ class Mage_Checkout_Model_Mysql4_Agreement_Collection extends Mage_Core_Model_My
      */
     public function addStoreFilter($store)
     {
+        // check and prepare data
         if ($store instanceof Mage_Core_Model_Store) {
             $store = array($store->getId());
+        }elseif(is_numeric($store)){
+            $store = array($store);
         }
-
+        $alias = 'store_table_' . implode('_', $store);
+        if ($this->getFlag($alias)) {
+            return $this;
+        }
         $read = $this->getConnection();
+
+        // add filter
         $this->getSelect()->join(
-            array('store_table' => $this->getTable('checkout/agreement_store')),
-            'main_table.agreement_id = store_table.agreement_id',
+            array($alias => $this->getTable('checkout/agreement_store')),
+            'main_table.agreement_id = '.$alias.'.agreement_id',
             array()
         )
-        ->where('store_table.store_id in (?)', ($this->_isStoreFilterWithAdmin ? array(0, $store) : $store))
+        ->where($alias . '.store_id in (?)', ($this->_isStoreFilterWithAdmin ? array(0, $store) : $store))
         ->group('main_table.agreement_id');
+
+        $this->setFlag($alias, true);
 
         return $this;
     }

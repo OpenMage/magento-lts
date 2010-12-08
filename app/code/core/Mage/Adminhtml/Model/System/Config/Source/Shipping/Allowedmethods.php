@@ -30,9 +30,6 @@
 class Mage_Adminhtml_Model_System_Config_Source_Shipping_Allowedmethods
     extends Mage_Adminhtml_Model_System_Config_Source_Shipping_Allmethods
 {
-    public function toOptionArray()
-    {
-        return parent::toOptionArray(true);
-    }
+
 
 }

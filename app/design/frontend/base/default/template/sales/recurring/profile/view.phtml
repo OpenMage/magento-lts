@@ -55,13 +55,12 @@
         <ul id="order-info-tabs">
         <?php foreach ($infoTabs as $block): ?>
             <?php if ($this->getObjectData($block, 'is_view_current')): ?>
-                <li class="current"><?php echo $this->escapeHtml($this->getObjectData($block, 'view_label')) ?></li>
+                <li class="current"><strong><?php echo $this->escapeHtml($this->getObjectData($block, 'view_label')) ?></strong></li>
             <?php else: ?>
                 <li><a href="<?php echo $this->escapeHtml($this->getObjectData($block, 'view_url')) ?>"><?php echo $this->escapeHtml($this->getObjectData($block, 'view_label')) ?></a></li>
             <?php endif; ?>
         <?php endforeach; ?>
         </ul>
-        <script type="text/javascript">decorateGeneric($('order-info-tabs').select('LI'),['first','last']);</script>
     </dd>
 </dl>
 

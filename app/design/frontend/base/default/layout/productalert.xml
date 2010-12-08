@@ -24,15 +24,22 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 -->
 <layout version="0.1.0">
     <catalog_product_view>
         <reference name="content">
             <reference name="product.info">
                 <reference name="alert.urls">
-                    <block type="productalert/price" name="productalert.price" as="productalert_price" template="productalert/price.phtml" />
-                    <block type="productalert/stock" name="productalert.stock" as="productalert_stock" />
+                    <block type="productalert/product_view" name="productalert.price" as="productalert_price" template="productalert/product/view.phtml">
+                        <action method="preparePriceAlertData"/>
+                        <action method="setHtmlClass"><value>alert-price link-price-alert</value></action>
+                        <action method="setSignupLabel" translate="value"><value>Sign up for price alert</value></action>
+                    </block>
+                    <block type="productalert/product_view" name="productalert.stock" as="productalert_stock" template="productalert/product/view.phtml">
+                        <action method="prepareStockAlertData"/>
+                        <action method="setHtmlClass"><value>alert-stock link-stock-alert</value></action>
+                        <action method="setSignupLabel" translate="value"><value>Sign up to get notified when this product is back in stock</value></action>
+                    </block>
                 </reference>
             </reference>
         </reference>

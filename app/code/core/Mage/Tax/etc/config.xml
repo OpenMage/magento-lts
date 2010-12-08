@@ -124,6 +124,14 @@
                     </tax>
                 </observers>
             </catalog_product_collection_load_after>
+            <sales_quote_collect_totals_before>
+                <observers>
+                    <tax>
+                        <class>tax/observer</class>
+                        <method>quoteCollectTotalsBefore</method>
+                    </tax>
+                </observers>
+            </sales_quote_collect_totals_before>
         </events>
         <sales>
             <quote>

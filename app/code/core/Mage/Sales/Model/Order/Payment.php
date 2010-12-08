@@ -562,23 +562,39 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             return $this;
         }
         $order = $this->getOrder();
+        $invoice = $this->_getInvoiceForTransactionId($this->getParentTransactionId());
 
-        // create an offline creditmemo (from order), if the entire grand total of order is covered by this refund
-        $creditmemo = null;
-        if ($amount == $order->getBaseGrandTotal()) {
-            /*
-            $creditmemo = $order->prepareCreditmemo()->register()->refund();
-            $this->_updateTotals(array(
-                'amount_refunded' => $creditmemo->getGrandTotal(),
-                'shipping_refunded' => $creditmemo->getShippingRefunded(),
-                'base_shipping_refunded' => $creditmemo->getBaseShippingRefunded()
-            ));
-            $order->addRelatedObject($creditmemo);
-            $this->setCreatedCreditmemo($creditmemo);
-            */
+        $baseGrandTotal = ($invoice) ? $invoice->getBaseGrandTotal() : $order->getBaseGrandTotal();
+        $amountRefundLeft = $baseGrandTotal - $order->getBaseTotalRefunded();
+        if ($amountRefundLeft < $amount) {
+            $amount = $amountRefundLeft;
         }
-        $this->_updateTotals(array('base_amount_refunded_online' => $amount));
 
+        if ($order->getBaseTotalRefunded() > 0) {
+            $adjustment = array('adjustment_positive' => $amount);
+        } else {
+            $adjustment = array('adjustment_negative' => $baseGrandTotal - $amount);
+        }
+
+        $serviceModel = Mage::getModel('sales/service_order', $order);
+        if ($invoice) {
+            $creditmemo = $serviceModel->prepareInvoiceCreditmemo($invoice, $adjustment);
+        } else {
+            $creditmemo = $serviceModel->prepareCreditmemo($adjustment);
+        }
+
+        $creditmemo->setPaymentRefundDisallowed(true)
+            ->setAutomaticallyCreated(true)
+            ->register()
+            ->addComment(Mage::helper('sales')->__('Credit memo has been created automatically'))
+            ->save();
+
+        $this->_updateTotals(array(
+            'amount_refunded' => $creditmemo->getGrandTotal(),
+            'base_amount_refunded_online' => $amount
+        ));
+
+        $this->setCreatedCreditmemo($creditmemo);
         // update transactions and order state
         $transaction = $this->_addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_REFUND, $creditmemo);
         $message = $this->_prependMessage(
@@ -734,7 +750,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                     $message = Mage::helper('sales')->__('Registered update about approved payment.');
                 } elseif ($this->getIsTransactionDenied()) {
                     $result = false;
-                    $message = Mage::helper('sales')->__('Registered update about approved payment.');
+                    $message = Mage::helper('sales')->__('Registered update about denied payment.');
                 } else {
                     $result = -1;
                     $message = Mage::helper('sales')->__('There is no update for the payment.');

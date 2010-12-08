@@ -165,7 +165,8 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
      */
     public function registerItemSale(Varien_Object $item)
     {
-        if ($productId = $item->getProductId()) {
+        $productId = $item->getProductId();
+        if ($productId) {
             $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId);
             if (Mage::helper('catalogInventory')->isQty($stockItem->getTypeId())) {
                 if ($item->getStoreId()) {
@@ -217,7 +218,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Enter description here...
+     * Adds filtering for collection to return only in stock products
      *
      * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection $collection
      * @return Mage_CatalogInventory_Model_Stock $this

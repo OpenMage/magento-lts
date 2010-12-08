@@ -50,7 +50,6 @@
         <fieldset>
             <table id="shopping-cart-table" class="data-table cart-table">
                 <col width="1" />
-                <col width="1" />
                 <col />
             <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
                 <col width="1" />
@@ -68,11 +67,11 @@
             <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
                 <col width="1" />
             <?php endif; ?>
+                <col width="1" />
 
             <?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
                 <thead>
                     <tr>
-                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center">&nbsp;</th>
                         <th rowspan="<?php echo $mergedCells; ?>">&nbsp;</th>
                         <th rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Product Name') ?></span></th>
                         <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
@@ -81,6 +80,7 @@
                         <th class="a-center" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Unit Price') ?></span></th>
                         <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Qty') ?></th>
                         <th class="a-center" colspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Subtotal') ?></th>
+                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center">&nbsp;</th>
                     </tr>
                     <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                     <tr>

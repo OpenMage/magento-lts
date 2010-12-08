@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Server
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -46,9 +46,9 @@
  * @category   Zend
  * @package    Zend_Server
  * @subpackage Reflection
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Abstract.php 16210 2009-06-21 19:22:17Z thomas $
+ * @version $Id: Abstract.php 20637 2010-01-25 22:33:22Z matthew $
  */
 abstract class Zend_Server_Reflection_Function_Abstract
 {
@@ -237,7 +237,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
             $return = new Zend_Server_Reflection_ReturnValue(array_shift($signature), $this->_returnDesc);
             $tmp    = array();
             foreach ($signature as $key => $type) {
-                $param = new Zend_Server_Reflection_Parameter($params[$key], $type, $this->_paramDesc[$key]);
+                $param = new Zend_Server_Reflection_Parameter($params[$key], $type, (isset($this->_paramDesc[$key]) ? $this->_paramDesc[$key] : null));
                 $param->setPosition($key);
                 $tmp[] = $param;
             }
@@ -293,7 +293,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
             // Get param types and description
             if (preg_match_all('/@param\s+([^\s]+)/m', $docBlock, $matches)) {
                 $paramTypesTmp = $matches[1];
-                if (preg_match_all('/@param\s+\S+\s+(\$^\S+)\s+(.*?)(@|\*\/)/s', $docBlock, $matches))
+                if (preg_match_all('/@param\s+\S+\s+(\$\S+)\s+(.*?)(@|\*\/)/s', $docBlock, $matches))
                 {
                     $paramDesc = $matches[2];
                     foreach ($paramDesc as $key => $value) {

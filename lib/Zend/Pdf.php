@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Pdf.php 18993 2009-11-15 17:09:16Z alexander $
+ * @version    $Id: Pdf.php 22655 2010-07-22 18:47:20Z mabe $
  */
 
 
@@ -72,7 +72,7 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf
@@ -1223,7 +1223,7 @@ class Zend_Pdf
                         if (extension_loaded('mbstring') === true) {
                             $detected = mb_detect_encoding($value);
                             if ($detected !== 'ASCII') {
-                                $value = chr(254) . chr(255) . mb_convert_encoding($value, 'UTF-16', $detected);
+                                $value = "\xfe\xff" . mb_convert_encoding($value, 'UTF-16', $detected);
                             }
                         }
                         $docInfo->$key = new Zend_Pdf_Element_String((string)$value);

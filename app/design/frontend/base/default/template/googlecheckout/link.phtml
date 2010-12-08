@@ -24,10 +24,11 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php echo $this->getBeforeHtml(); ?>
 <?php if ($this->getIsDisabled()): ?>
 <img src="<?php echo $this->htmlEscape($this->getImageUrl())?>" alt="<?php echo Mage::helper('googlecheckout')->__('Fast checkout through Google');?>" title="<?php echo Mage::helper('googlecheckout')->__('Fast Checkout through Google');?>" />
 <?php else: ?>
-<form method="post" action="<?php echo $this->getCheckoutUrl();?>"<?php if($this->getIsActiveAanalytics()):?> onsubmit="setUrchinInputCode(pageTracker)"<?php endif;?>>
+<form method="post" action="<?php echo $this->getCheckoutUrl();?>"<?php if ($this->getOnsubmitJs()):?> onsubmit="<?php echo $this->getOnsubmitJs() ?>"<?php endif;?>>
     <fieldset>
         <input type="hidden" name="analyticsdata" value="" />
         <input type="image" src="<?php echo $this->htmlEscape($this->getImageUrl())?>" title="<?php echo Mage::helper('googlecheckout')->__('Fast checkout through Google');?>" alt="<?php echo Mage::helper('googlecheckout')->__('Fast Checkout through Google');?>" />

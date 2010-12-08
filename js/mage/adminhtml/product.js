@@ -1029,4 +1029,20 @@ function onUrlkeyChanged(urlKey) {
     hidden.disabled = chbx.disabled;
 }
 
+function onCustomUseParentChanged(element) {
+    var useParent = (element.value == 1) ? true : false;
+    element.up(2).select('input', 'select', 'textarea').each(function(el){
+        if (element.id != el.id) {
+            el.disabled = useParent;
+        }
+    });
+    element.up(2).select('img').each(function(el){
+        if (useParent) {
+            el.hide();
+        } else {
+            el.show();
+        }
+    });
+}
+
 Event.observe(window, 'load', onCompleteDisableInited);

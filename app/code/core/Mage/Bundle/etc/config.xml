@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Bundle>
-            <version>0.1.12</version>
+            <version>0.1.13</version>
         </Mage_Bundle>
     </modules>
     <global>
@@ -49,6 +49,9 @@
                     <selection>
                         <table>catalog_product_bundle_selection</table>
                     </selection>
+                    <selection_price>
+                        <table>catalog_product_bundle_selection_price</table>
+                    </selection_price>
                     <price_index>
                         <table>catalog_product_bundle_price_index</table>
                     </price_index>

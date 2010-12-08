@@ -55,16 +55,16 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     public function getName()
     {
         $name = '';
-        $helper = Mage::helper('customer/address');
-        if ($helper->canShowConfig('prefix_show') && $this->getPrefix()) {
+        $config = Mage::getSingleton('eav/config');
+        if ($config->getAttribute('customer_address', 'prefix')->getIsVisible() && $this->getPrefix()) {
             $name .= $this->getPrefix() . ' ';
         }
         $name .= $this->getFirstname();
-        if ($helper->canShowConfig('middlename_show') && $this->getMiddlename()) {
+        if ($config->getAttribute('customer_address', 'middlename')->getIsVisible() && $this->getMiddlename()) {
             $name .= ' ' . $this->getMiddlename();
         }
         $name .=  ' ' . $this->getLastname();
-        if ($helper->canShowConfig('suffix_show')&& $this->getSuffix()) {
+        if ($config->getAttribute('customer_address', 'suffix')->getIsVisible() && $this->getSuffix()) {
             $name .= ' ' . $this->getSuffix();
         }
         return $name;
@@ -302,6 +302,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
             || !$formatType->getRenderer()) {
             return null;
         }
+        Mage::dispatchEvent('customer_address_format', array('type' => $formatType, 'address' => $this));
         return $formatType->getRenderer()->render($this);
     }
 

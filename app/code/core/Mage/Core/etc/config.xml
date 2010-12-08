@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Core>
-             <version>0.8.26</version>
+             <version>0.8.27</version>
         </Mage_Core>
     </modules>
 

@@ -60,7 +60,7 @@ class Mage_Api_Model_Mysql4_Acl extends Mage_Core_Model_Mysql4_Abstract
         $rolesArr = $this->_getReadAdapter()->fetchAll(
                         $this->_getReadAdapter()->select()
                             ->from($this->getTable('role'))
-                            ->order('tree_level')
+                            ->order(array('tree_level', 'role_type'))
                     );
         $this->loadRoles($acl, $rolesArr);
 

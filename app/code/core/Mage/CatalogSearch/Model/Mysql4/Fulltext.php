@@ -45,7 +45,7 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
      *
      * @var string
      */
-    protected $_separator = ' ';
+    protected $_separator = '|';
 
     /**
      * Array of Zend_Date objects per store
@@ -74,6 +74,32 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
     {
         $this->_init('catalogsearch/fulltext', 'product_id');
         $this->_engine = Mage::helper('catalogsearch')->getEngine();
+    }
+
+    /**
+     * Return options separator
+     *
+     * @return string
+     */
+    public function getSeparator()
+    {
+        return $this->_separator;
+    }
+
+    /**
+     * Update category'es products indexes
+     *
+     * @param array $productIds
+     * @param array $categoryIds
+     * @return Mage_CatalogSearch_Model_Mysql4_Fulltext
+     */
+    public function updateCategoryIndex($productIds, $categoryIds)
+    {
+        if ($this->_engine && $this->_engine->allowAdvancedIndex()) {
+            $this->_engine->updateCategoryIndex($productIds, $categoryIds);
+        }
+
+        return $this;
     }
 
     /**
@@ -132,8 +158,8 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
                 break;
             }
 
-            $productAttributes  = array();
-            $productRelations   = array();
+            $productAttributes = array();
+            $productRelations  = array();
             foreach ($products as $productData) {
                 $lastProductId = $productData['entity_id'];
                 $productAttributes[$productData['entity_id']] = $productData['entity_id'];
@@ -146,12 +172,21 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
                 }
             }
 
-            $productIndexes     = array();
-            $productAttributes  = $this->_getProductAttributes($storeId, $productAttributes, $dynamicFields);
+            $productIndexes    = array();
+            $productAttributes = $this->_getProductAttributes($storeId, $productAttributes, $dynamicFields);
             foreach ($products as $productData) {
+                /*
+                 * If using advanced index and there is no required fields - do not add to index.
+                 * Skipping out of stock products if there are no prices for them in catalog_product_index_price table
+                 */
+                if ($this->_engine->allowAdvancedIndex() &&
+                    (!isset($productData[$this->_engine->getFieldsPrefix() . 'categories']))) {
+                    continue;
+                }
                 if (!isset($productAttributes[$productData['entity_id']])) {
                     continue;
                 }
+
                 $protductAttr = $productAttributes[$productData['entity_id']];
                 if (!isset($protductAttr[$visibility->getId()]) || !in_array($protductAttr[$visibility->getId()], $visibilityVals)) {
                     continue;
@@ -172,6 +207,7 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
                 }
 
                 $index = $this->_prepareProductIndex($productIndex, $productData, $storeId);
+
                 $productIndexes[$productData['entity_id']] = $index;
                 //$this->_saveProductIndex($productData['entity_id'], $storeId, $index);
             }
@@ -219,7 +255,14 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
         $select->where('e.entity_id>?', $lastProductId)
             ->limit($limit)
             ->order('e.entity_id');
-        return $this->_getWriteAdapter()->fetchAll($select);
+
+        $result = $this->_getWriteAdapter()->fetchAll($select);
+        if ($this->_engine && $this->_engine->allowAdvancedIndex() && count($result) > 0) {
+            return $this->_engine->addAdvancedIndex($result, $storeId, $productIds);
+        }
+        else {
+            return $result;
+        }
     }
 
     /**
@@ -232,7 +275,7 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
         $this->beginTransaction();
         try {
             $this->_getWriteAdapter()->update($this->getTable('catalogsearch/search_query'), array('is_processed' => 0));
-            $this->_getWriteAdapter()->query("TRUNCATE TABLE {$this->getTable('catalogsearch/result')}");
+            $this->_getWriteAdapter()->query('TRUNCATE TABLE ' . $this->getTable('catalogsearch/result'));
 
             $this->commit();
         }
@@ -278,7 +321,7 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
             /* @var $stringHelper Mage_Core_Helper_String */
 
             $bind = array(
-                ':query'     => $queryText
+                ':query' => $queryText
             );
             $like = array();
 
@@ -296,7 +339,7 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
                     $likeI ++;
                 }
                 if ($like) {
-                    $likeCond = '(' . join(' AND ', $like) . ')';
+                    $likeCond = '(' . join(' OR ', $like) . ')';
                 }
             }
             if ($searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_FULLTEXT
@@ -308,8 +351,9 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
             }
 
             $sql = sprintf("INSERT INTO `{$this->getTable('catalogsearch/result')}` "
-                . "(SELECT '%d', `s`.`product_id`, MATCH (`s`.`data_index`) AGAINST (:query IN BOOLEAN MODE) "
-                . "FROM `{$this->getMainTable()}` AS `s` INNER JOIN `{$this->getTable('catalog/product')}` AS `e`"
+                . "(SELECT STRAIGHT_JOIN '%d', `s`.`product_id`, MATCH (`s`.`data_index`) "
+                . "AGAINST (:query IN BOOLEAN MODE) FROM `{$this->getMainTable()}` AS `s` "
+                . "INNER JOIN `{$this->getTable('catalog/product')}` AS `e` "
                 . "ON `e`.`entity_id`=`s`.`product_id` WHERE (%s%s%s) AND `s`.`store_id`='%d')"
                 . " ON DUPLICATE KEY UPDATE `relevance`=VALUES(`relevance`)",
                 $query->getId(),
@@ -346,32 +390,25 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
     {
         if (is_null($this->_searchableAttributes)) {
             $this->_searchableAttributes = array();
-            $entityType = $this->getEavConfig()->getEntityType('catalog_product');
-            $entity     = $entityType->getEntity();
 
-            $whereCond  = array(
-                $this->_getWriteAdapter()->quoteInto('additional_table.is_searchable=?', 1),
-                $this->_getWriteAdapter()->quoteInto('main_table.attribute_code IN(?)', array('status', 'visibility'))
-            );
+            $entityType   = $this->getEavConfig()->getEntityType('catalog_product');
+            $entity       = $entityType->getEntity();
 
-            $select = $this->_getWriteAdapter()->select()
-                ->from(array('main_table' => $this->getTable('eav/attribute')))
-                ->join(
-                    array('additional_table' => $this->getTable('catalog/eav_attribute')),
-                    'additional_table.attribute_id = main_table.attribute_id'
-                )
-                ->where('main_table.entity_type_id=?', $entityType->getEntityTypeId())
-                ->where(join(' OR ', $whereCond));
-            $attributesData = $this->_getWriteAdapter()->fetchAll($select);
-            $this->getEavConfig()->importAttributesData($entityType, $attributesData);
-            foreach ($attributesData as $attributeData) {
-                $attributeCode = $attributeData['attribute_code'];
-                $attribute = $this->getEavConfig()->getAttribute($entityType, $attributeCode);
+            $productAttributeCollection = Mage::getResourceModel('catalog/product_attribute_collection')
+                ->setEntityTypeFilter($entityType->getEntityTypeId());
+            if ($this->_engine && $this->_engine->allowAdvancedIndex()) {
+                $productAttributeCollection->addToIndexFilter(true);
+            } else {
+                $productAttributeCollection->addSearchableAttributeFilter();
+            }
+            $attributes = $productAttributeCollection->getItems();
+
+            foreach ($attributes as $attribute) {
                 $attribute->setEntity($entity);
                 $this->_searchableAttributes[$attribute->getId()] = $attribute;
             }
-            unset($attributesData);
         }
+
         if (!is_null($backendType)) {
             $attributes = array();
             foreach ($this->_searchableAttributes as $attribute) {
@@ -379,8 +416,10 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
                     $attributes[$attribute->getId()] = $attribute;
                 }
             }
+
             return $attributes;
         }
+
         return $this->_searchableAttributes;
     }
 
@@ -518,6 +557,7 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
     protected function _prepareProductIndex($indexData, $productData, $storeId)
     {
         $index = array();
+
         foreach ($this->_getSearchableAttributes('static') as $attribute) {
             if (isset($productData[$attribute->getAttributeCode()])) {
                 if ($value = $this->_getAttributeValue($attribute->getId(), $productData[$attribute->getAttributeCode()], $storeId)) {
@@ -536,11 +576,11 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
                 }
             }
         }
+
         foreach ($indexData as $attributeData) {
             foreach ($attributeData as $attributeId => $attributeValue) {
                 if ($value = $this->_getAttributeValue($attributeId, $attributeValue, $storeId)) {
                     $code = $this->_getSearchableAttribute($attributeId)->getAttributeCode();
-
                     //For grouped products
                     if (isset($index[$code])) {
                         if (!is_array($index[$code])) {
@@ -570,8 +610,13 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
         }
 
         if ($this->_engine) {
+            if ($this->_engine->allowAdvancedIndex()) {
+                $index += $this->_engine->addAllowedAdvancedIndexField($productData);
+            }
+
             return $this->_engine->prepareEntityIndex($index, $this->_separator);
         }
+
         return Mage::helper('catalogsearch')->prepareIndexdata($index, $this->_separator);
     }
 
@@ -585,7 +630,10 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
     protected function _getAttributeValue($attributeId, $value, $storeId)
     {
         $attribute = $this->_getSearchableAttribute($attributeId);
-        if (!$attribute->getIsSearchable()) {
+        if (!($attribute->getIsSearchable() ||
+            $attribute->getIsVisibleInAdvancedSearch() ||
+            $attribute->getIsFilterable() ||
+            $attribute->getIsFilterableInSearch())) {
             return null;
         }
         if ($attribute->usesSource()) {
@@ -603,7 +651,7 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
             $value = implode($this->_separator, $value);
         }
 
-        return preg_replace("#\s+#si", " ", trim(strip_tags($value)));
+        return preg_replace("#\s+#si", ' ', trim(strip_tags($value)));
     }
 
     /**
@@ -659,8 +707,10 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
         if (!is_empty_date($date)) {
             list($dateObj, $format) = $this->_dates[$storeId];
             $dateObj->setDate($date, Varien_Date::DATETIME_INTERNAL_FORMAT);
+
             return $dateObj->toString($format);
         }
+
         return null;
     }
 }

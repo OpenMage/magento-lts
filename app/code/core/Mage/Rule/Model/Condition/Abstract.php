@@ -79,6 +79,7 @@ abstract class Mage_Rule_Model_Condition_Abstract
                 'numeric'     => array('==', '!=', '>=', '>', '<=', '<', '()', '!()'),
                 'date'        => array('==', '>=', '<='),
                 'select'      => array('==', '!='),
+                'boolean'     => array('==', '!='),
                 'multiselect' => array('==', '!=', '{}', '!{}'),
                 'grid'        => array('()', '!()'),
             );
@@ -209,7 +210,11 @@ abstract class Mage_Rule_Model_Condition_Abstract
 
     public function getOperatorSelectOptions()
     {
-        $type = $this->getInputType();
+        if ($this->getAttribute() === 'category_ids') {
+            $type = 'multiselect';
+        } else {
+            $type = $this->getInputType();
+        }
         $opt = array();
         $operatorByType = $this->getOperatorByInputType();
         foreach ($this->getOperatorOption() as $k=>$v) {

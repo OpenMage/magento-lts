@@ -157,6 +157,7 @@ class Mage_Shipping_Model_Shipping
 
     public function collectRatesByAddress(Varien_Object $address, $limitCarrier=null)
     {
+        /** @var $request Mage_Shipping_Model_Rate_Request */
         $request = Mage::getModel('shipping/rate_request');
         $request->setAllItems($address->getAllItems());
         $request->setDestCountryId($address->getCountryId());

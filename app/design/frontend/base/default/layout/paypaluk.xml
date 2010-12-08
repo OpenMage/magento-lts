@@ -75,7 +75,8 @@
 
     <catalog_product_view>
         <reference name="product.info.addtocart">
-            <block type="page/html_wrapper" name="product.info.addtocart.paypaluk.wrapper">
+            <block type="page/html_wrapper" name="product.info.addtocart.paypaluk.wrapper" translate="label">
+                <label>PayPal Express Checkout (Payflow Edition) Shortcut Wrapper</label>
                 <action method="setHtmlTagName"><tag>p</tag></action>
                 <action method="setElementClass"><class>paypal-logo</class></action>
                 <block type="paypaluk/express_shortcut" name="product.info.addtocart.paypaluk" template="paypal/express/shortcut.phtml">

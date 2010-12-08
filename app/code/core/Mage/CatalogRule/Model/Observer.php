@@ -102,7 +102,7 @@ class Mage_CatalogRule_Model_Observer
         if ($observer->hasCustomerGroupId()) {
             $gId = $observer->getEvent()->getCustomerGroupId();
         } elseif ($product->hasCustomerGroupId()) {
-            $gId = $product->hasCustomerGroupId();
+            $gId = $product->getCustomerGroupId();
         } else {
             $gId = Mage::getSingleton('customer/session')->getCustomerGroupId();
         }
@@ -161,10 +161,31 @@ class Mage_CatalogRule_Model_Observer
     }
 
     /**
+     * Calculate price using catalog price rules of configurable product
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_CatalogRule_Model_Observer
+     */
+    public function catalogProductTypeConfigurablePrice(Varien_Event_Observer $observer)
+    {
+        $product = $observer->getEvent()->getProduct();
+        if ($product instanceof Mage_Catalog_Model_Product
+            && $product->getConfigurablePrice() !== null
+        ) {
+            $configurablePrice = $product->getConfigurablePrice();
+            $productPriceRule = Mage::getModel('catalogrule/rule')->calcProductPriceRule($product, $configurablePrice);
+            if ($productPriceRule !== null) {
+                $product->setConfigurablePrice($productPriceRule);
+            }
+        }
+        return $this;
+    }
+
+    /**
      * Daily update catalog price rule by cron
      * Update include interval 3 days - current day - 1 days before + 1 days after
-     * This method is called from cron process, cron is workink in UTC time and
-     * we shold generate data for interval -1 day ... +1 day
+     * This method is called from cron process, cron is working in UTC time and
+     * we should generate data for interval -1 day ... +1 day
      *
      * @param   Varien_Event_Observer $observer
      * @return  Mage_CatalogRule_Model_Observer
@@ -205,36 +226,33 @@ class Mage_CatalogRule_Model_Observer
     }
 
     /**
-     * After delete attribute check rules that contains deleted attribute
-     * If rules was found they will seted to inactive and added notice to admin session
+     * Check rules that contains affected attribute
+     * If rules were found they will be set to inactive and notice will be add to admin session
      *
-     * @param Varien_Event_Observer $observer
+     * @param string $attributeCode
      * @return Mage_CatalogRule_Model_Observer
      */
-    public function catalogAttributeDeleteAfter(Varien_Event_Observer $observer)
+    protected function _checkCatalogRulesAvailability($attributeCode)
     {
-        $attribute = $observer->getEvent()->getAttribute();
-        $attributeCode = $attribute->getAttributeCode();
-        if ($attribute->getIsUsedForPromoRules()) {
-            /* @var $collection Mage_CatalogRule_Model_Mysql4_Rule_Collection */
-            $collection = Mage::getResourceModel('catalogrule/rule_collection')
-                ->addAttributeInConditionFilter($attributeCode);
-            $hasRule = false;
-            foreach ($collection as $rule) {
-                /* @var $rule Mage_CatalogRule_Model_Rule */
-                $rule->setIsActive(0);
-                /* @var $conditionInstance Mage_CatalogRule_Model_Rule_Condition_Combine */
-                $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
-                $rule->save();
+        /* @var $collection Mage_CatalogRule_Model_Mysql4_Rule_Collection */
+        $collection = Mage::getResourceModel('catalogrule/rule_collection')
+            ->addAttributeInConditionFilter($attributeCode);
 
-                $hasRule = true;
-            }
+        $disabledRulesCount = 0;
+        foreach ($collection as $rule) {
+            /* @var $rule Mage_CatalogRule_Model_Rule */
+            $rule->setIsActive(0);
+            /* @var $rule->getConditions() Mage_CatalogRule_Model_Rule_Condition_Combine */
+            $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
+            $rule->save();
 
-            if ($hasRule) {
-                Mage::getModel('catalogrule/rule')->applyAll();
-                Mage::getSingleton('adminhtml/session')->addWarning(
-                    Mage::helper('catalogrule')->__('Catalog Price Rules based on deleted attribute "%s" has been disabled.', $attributeCode));
-            }
+            $disabledRulesCount++;
+        }
+
+        if ($disabledRulesCount) {
+            Mage::getModel('catalogrule/rule')->applyAll();
+            Mage::getSingleton('adminhtml/session')->addWarning(
+                Mage::helper('catalogrule')->__('%d Catalog Price Rules based on "%s" attribute have been disabled.', $disabledRulesCount, $attributeCode));
         }
 
         return $this;
@@ -260,5 +278,81 @@ class Mage_CatalogRule_Model_Observer
             }
         }
         $combine->setConditions($conditions);
+    }
+
+    /**
+     * After save attribute if it is not used for promo rules already check rules for containing this attribute
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_CatalogRule_Model_Observer
+     */
+    public function catalogAttributeSaveAfter(Varien_Event_Observer $observer)
+    {
+        $attribute = $observer->getEvent()->getAttribute();
+        if ($attribute->dataHasChangedFor('is_used_for_promo_rules') && !$attribute->getIsUsedForPromoRules()) {
+            $this->_checkCatalogRulesAvailability($attribute->getAttributeCode());
+        }
+
+        return $this;
+    }
+
+    /**
+     * After delete attribute check rules that contains deleted attribute
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_CatalogRule_Model_Observer
+     */
+    public function catalogAttributeDeleteAfter(Varien_Event_Observer $observer)
+    {
+        $attribute = $observer->getEvent()->getAttribute();
+        if ($attribute->getIsUsedForPromoRules()) {
+            $this->_checkCatalogRulesAvailability($attribute->getAttributeCode());
+        }
+
+        return $this;
+    }
+
+    public function prepareCatalogProductCollectionPrices(Varien_Event_Observer $observer)
+    {
+        /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
+        $collection = $observer->getEvent()->getCollection();
+        $store      = Mage::app()->getStore($observer->getEvent()->getStoreId());
+        $websiteId  = $store->getWebsiteId();
+        if ($observer->getEvent()->hasCustomerGroupId()) {
+            $groupId = $observer->getEvent()->getCustomerGroupId();
+        } else {
+            /* @var $session Mage_Customer_Model_Session */
+            $session = Mage::getSingleton('customer/session');
+            if ($session->isLoggedIn()) {
+                $groupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+            } else {
+                $groupId = Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
+            }
+        }
+        if ($observer->getEvent()->hasDate()) {
+            $date = $observer->getEvent()->getDate();
+        } else {
+            $date = Mage::app()->getLocale()->storeTimeStamp($store);
+        }
+
+        $productIds = array();
+        /* @var $product Mage_Core_Model_Product */
+        foreach ($collection as $product) {
+            $key = implode('|', array($date, $websiteId, $groupId, $product->getId()));
+            if (!isset($this->_rulePrices[$key])) {
+                $productIds[] = $product->getId();
+            }
+        }
+
+        if ($productIds) {
+            $rulePrices = Mage::getResourceModel('catalogrule/rule')
+                ->getRulePrices($date, $websiteId, $groupId, $productIds);
+            foreach ($productIds as $productId) {
+                $key = implode('|', array($date, $websiteId, $groupId, $productId));
+                $this->_rulePrices[$key] = isset($rulePrices[$productId]) ? $rulePrices[$productId] : false;
+            }
+        }
+
+        return $this;
     }
 }

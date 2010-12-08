@@ -60,8 +60,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 ini_set('session.save_handler', 'eaccelerator');
                 break;
             default:
-                session_module_name('files');
-                if (is_writable(Mage::getBaseDir('session'))) {
+                session_module_name($this->getSessionSaveMethod());
+                if (is_writable($this->getSessionSavePath())) {
                     session_save_path($this->getSessionSavePath());
                 }
                 break;
@@ -113,10 +113,13 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         }
 
         session_start();
+
         /**
-         * Renew cookie expiration time
-         */
-        $cookie->renew(session_name());
+        * Renew cookie expiration time if session id did not change
+        */
+        if ($cookie->get(session_name()) == $this->getSessionId()) {
+            $cookie->renew(session_name());
+        }
         Varien_Profiler::stop(__METHOD__.'/start');
 
         return $this;

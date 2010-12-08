@@ -36,6 +36,10 @@ class Mage_Bundle_Model_Mysql4_Selection_Collection
     extends Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
 {
     protected $_selectionTable;
+
+    /**
+     * Initialize collection
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -43,6 +47,9 @@ class Mage_Bundle_Model_Mysql4_Selection_Collection
         $this->_selectionTable = $this->getTable('bundle/selection');
     }
 
+    /**
+     * Initialize collection select
+     */
     protected function _initSelect()
     {
         parent::_initSelect();
@@ -52,6 +59,29 @@ class Mage_Bundle_Model_Mysql4_Selection_Collection
         );
     }
 
+    /**
+     * Join website scope prices to collection, override default prices
+     *
+     * @return Mage_Bundle_Model_Mysql4_Selection_Collection
+     */
+    public function joinPrices($websiteId)
+    {
+        $this->getSelect()->joinLeft(array('price' => $this->getTable('bundle/selection_price')),
+            'selection.selection_id = price.selection_id AND price.website_id = ' . $websiteId,
+             array(
+                'selection_price_type' => 'IFNULL(price.selection_price_type, selection.selection_price_type)',
+                'selection_price_value' => 'IFNULL(price.selection_price_value, selection.selection_price_value)',
+                'price_scope' => 'price.website_id'
+            )
+        );
+        return $this;
+    }
+
+    /**
+     * Apply option ids filter to collection
+     *
+     * @return Mage_Bundle_Model_Mysql4_Selection_Collection
+     */
     public function setOptionIdsFilter($optionIds)
     {
         if (!empty($optionIds)) {
@@ -60,6 +90,11 @@ class Mage_Bundle_Model_Mysql4_Selection_Collection
         return $this;
     }
 
+    /**
+     * Apply selection ids filter to collection
+     *
+     * @return Mage_Bundle_Model_Mysql4_Selection_Collection
+     */
     public function setSelectionIdsFilter($selectionIds)
     {
         if (!empty($selectionIds)) {
@@ -68,6 +103,11 @@ class Mage_Bundle_Model_Mysql4_Selection_Collection
         return $this;
     }
 
+    /**
+     * Set position order
+     *
+     * @return Mage_Bundle_Model_Mysql4_Selection_Collection
+     */
     public function setPositionOrder()
     {
         $this->getSelect()->order('selection.position asc')

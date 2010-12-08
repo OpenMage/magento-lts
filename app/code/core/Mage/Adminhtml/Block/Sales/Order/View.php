@@ -86,9 +86,13 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
 
         if ($this->_isAllowedAction('creditmemo') && $order->canCreditmemo()) {
             $message = Mage::helper('sales')->__('This will create an offline refund. To create an online refund, open an invoice and create credit memo for it. Do you wish to proceed?');
+            $onClick = "setLocation('{$this->getCreditmemoUrl()}')";
+            if ($order->getPayment()->getMethodInstance()->isGateway()) {
+                $onClick = "confirmSetLocation('{$message}', '{$this->getCreditmemoUrl()}')";
+            }
             $this->_addButton('order_creditmemo', array(
                 'label'     => Mage::helper('sales')->__('Credit Memo'),
-                'onclick'   => "confirmSetLocation('{$message}', '{$this->getCreditmemoUrl()}')",
+                'onclick'   => $onClick,
                 'class'     => 'go'
             ));
         }
@@ -157,7 +161,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             ));
         }
 
-        if ($this->_isAllowedAction('reorder') && $order->canReorder()) {
+        if ($this->_isAllowedAction('reorder') && $this->helper('sales/reorder')->canReorder($order)) {
             $this->_addButton('order_reorder', array(
                 'label'     => Mage::helper('sales')->__('Reorder'),
                 'onclick'   => 'setLocation(\'' . $this->getReorderUrl() . '\')',

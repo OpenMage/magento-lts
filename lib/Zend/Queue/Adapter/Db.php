@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db.php 18705 2009-10-26 13:05:13Z matthew $
+ * @version    $Id: Db.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -51,7 +51,7 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
@@ -152,7 +152,7 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
             $db = Zend_Db::factory($type, $options);
         } catch (Zend_Db_Exception $e) {
             #require_once 'Zend/Queue/Exception.php';
-            throw new Zend_Queue_Exception('Error connecting to database: ' . $e->getMessage(), $e->getCode());
+            throw new Zend_Queue_Exception('Error connecting to database: ' . $e->getMessage(), $e->getCode(), $e);
         }
 
         return $db;
@@ -215,7 +215,7 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
             }
         } catch (Exception $e) {
             #require_once 'Zend/Queue/Exception.php';
-            throw new Zend_Queue_Exception($e->getMessage(), $e->getCode());
+            throw new Zend_Queue_Exception($e->getMessage(), $e->getCode(), $e);
         }
 
         return false;
@@ -246,7 +246,7 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
                 $queue->delete();
             } catch (Exception $e) {
                 #require_once 'Zend/Queue/Exception.php';
-                throw new Zend_Queue_Exception($e->getMessage(), $e->getCode());
+                throw new Zend_Queue_Exception($e->getMessage(), $e->getCode(), $e);
             }
         }
 
@@ -349,7 +349,7 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
             $msg->save();
         } catch (Exception $e) {
             #require_once 'Zend/Queue/Exception.php';
-            throw new Zend_Queue_Exception($e->getMessage(), $e->getCode());
+            throw new Zend_Queue_Exception($e->getMessage(), $e->getCode(), $e);
         }
 
         $options = array(
@@ -434,7 +434,7 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
             $db->rollBack();
 
             #require_once 'Zend/Queue/Exception.php';
-            throw new Zend_Queue_Exception($e->getMessage(), $e->getCode());
+            throw new Zend_Queue_Exception($e->getMessage(), $e->getCode(), $e);
         }
 
         $options = array(

@@ -165,18 +165,20 @@ abstract class Mage_Reports_Model_Mysql4_Product_Index_Abstract extends Mage_Cor
             'visitor_id'    => $object->getVisitorId(),
             'customer_id'   => $object->getCustomerId(),
             'store_id'      => $object->getStoreId(),
-            'added_at'      => now(),
         );
+        $addedAt = new Zend_Date();
         $data = array();
         foreach ($productIds as $productId) {
             $productId = (int) $productId;
             if ($productId) {
                 $row['product_id'] = $productId;
+                $row['added_at'] = $addedAt->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
                 $data[] = $row;
             }
+            $addedAt->subSecond(1);
         }
         if (!empty($data)) {
-            $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), $data, array('product_id'));
+            $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), $data, array_keys($row));
         }
         return $this;
     }

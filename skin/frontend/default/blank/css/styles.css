@@ -302,7 +302,8 @@ p.required { font-size:10px; text-align:right; color:#f00; }
 .title-buttons h5,
 .title-buttons h6 { float:left; }
 
-.subtitle { clear:both; }
+.subtitle,
+.sub-title { clear:both; }
 
 /* Pager */
 .pager { border:1px solid #ddd; padding:5px; margin:5px 0; text-align:center; }
@@ -526,6 +527,8 @@ tr.summary-details-excluded { font-style:italic; }
 .block-cart .summary {}
 .block-cart .amount {}
 .block-cart .subtotal { text-align:center; }
+.block-cart .actions .paypal-logo { float:left; width:100%; margin:3px 0 0; text-align:right; }
+.block-cart .actions .paypal-logo .paypal-or { clear:both; display:block; padding:0 55px 5px 0; }
 
 /* Block: Wishlist */
 .block-wishlist {}
@@ -615,7 +618,7 @@ tr.summary-details-excluded { font-style:italic; }
 .products-list .price-box { float:left; margin:3px 13px 5px 0; }
 .products-list .availability { float:left; margin:3px 0 0; }
 .products-list .desc { clear:both; padding:6px 0 0; margin:0 0 15px; line-height:1.35; }
-.products-list .desc .link-more { font-size:11px; }
+.products-list .desc .link-learn { font-size:11px; }
 .products-list .add-to-links { clear:both; }
 .products-list .add-to-links li { display:inline; }
 .products-list .add-to-links .separator { display:inline; margin:0 2px; }
@@ -648,8 +651,6 @@ tr.summary-details-excluded { font-style:italic; }
 .availability.out-of-stock span { color:#d83820; }
 
 .availability-only { margin:0 0 7px; }
-.availability-only span,
-.availability-only a { cursor:help; }
 .availability-only a { background:url(../images/i_availability_only_arrow.gif) 100% 0 no-repeat; cursor:pointer; padding-right:15px; }
 .availability-only .expanded { background-position:100% -15px; }
 .availability-only strong {}
@@ -749,7 +750,9 @@ tr.summary-details-excluded { font-style:italic; }
 .add-to-cart label { float:left; margin-right:5px; }
 .add-to-cart .qty { float:left; }
 .add-to-cart button.button { float:left; margin-left:5px; }
-.add-to-cart .paypal-logo { clear:left; }
+.add-to-cart .paypal-logo { clear:left; text-align:right; }
+.add-to-cart .paypal-logo .paypal-or { clear:both; display:block; margin:5px 60px 5px 0; }
+.product-view .add-to-cart .paypal-logo { margin:0; }
 
 /* Add to Links + Add to Cart */
 .add-to-box {}
@@ -781,7 +784,8 @@ tr.summary-details-excluded { font-style:italic; }
 .product-view .product-img-box .more-views li { float:left; padding:1px; background-color:#ddd; margin:0 0 8px 4px ; }
 
 .product-image-popup { margin:0 auto; }
-.product-image-popup .nav { text-align:center; }
+.product-image-popup .buttons-set { float:right; clear:none; border:0; margin:0; padding:0; }
+.product-image-popup .nav { margin:0 100px; text-align:center; }
 .product-image-popup .image { display:block; }
 .product-image-popup .image-label {}
 
@@ -882,6 +886,8 @@ tr.summary-details-excluded { font-style:italic; }
 /* Checkout Types */
 .cart .checkout-types { float:right; text-align:right; }
 .cart .title-buttons .checkout-types li { float:left; margin:0 0 5px 5px; }
+.cart .checkout-types .paypal-or { margin:0 8px; line-height:2.3; }
+.cart .totals .checkout-types .paypal-or { clear:both; display:block; padding:3px 55px 8px 0; line-height:1.0; font-size:11px; }
 
 /* Shopping Cart Table */
 .cart-table .item-msg { font-size:10px; }
@@ -1075,18 +1081,16 @@ tr.summary-details-excluded { font-style:italic; }
 
 .order-items { width:100%; overflow-x:auto; }
 
-.order-gift-message { margin:15px 0; }
+.order-additional { margin:15px 0; }
+/* Order Gift Message */
 .gift-message dt strong { color:#666; }
-.gift-message dd { margin:5px 0 0; font-size:13px; }
-
-.order-about { margin:15px 0; }
+.gift-message dd { font-size:13px; margin:5px 0 0; }
+/* Order Comments */
 .order-about dt { font-weight:bold; }
 .order-about dd { font-size:13px; margin:0 0 7px; }
 
 .tracking-table { margin:0 0 15px; }
 .tracking-table th { font-weight:bold; white-space:nowrap; }
-.tracking-table th,
-.tracking-table td { padding:1px 5px 0 0; }
 
 .tracking-table-popup { width:100%; }
 .tracking-table-popup th { font-weight:bold; white-space:nowrap; }
@@ -1166,6 +1170,8 @@ tr.summary-details-excluded { font-style:italic; }
 .product-essential:after,
 .product-collateral:after,
 .product-view .product-img-box .more-views ul:after,
+.product-view .product-shop .short-description:after,
+.product-view .box-description:after,
 .product-view .box-tags .form-add:after,
 .product-options .options-list li:after,
 .product-options-bottom:after,

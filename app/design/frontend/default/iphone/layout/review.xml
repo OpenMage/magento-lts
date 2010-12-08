@@ -31,7 +31,7 @@
     <customer_account>
         <!-- Mage_Review -->
         <reference name="customer_account_navigation">
-            <action method="addLink" translate="label" module="review"><name>reviews</name><path>customer/review/</path><label>My Product Reviews</label></action>
+            <action method="addLink" translate="label" module="review"><name>reviews</name><path>review/customer</path><label>My Product Reviews</label></action>
         </reference>
 
     </customer_account>
@@ -43,10 +43,10 @@ Customer account home dashboard layout
     <customer_account_index>
 
         <!-- Mage_Review -->
-        <!-- reference name="customer_account_dashboard">
+        <reference name="customer_account_dashboard">
             <action method="unsetChild"><name>customer_account_dashboard_info1</name></action>
             <block type="review/customer_recent" name="customer_account_dashboard_info1" as="info1" template="review/customer/recent.phtml"/>
-        </reference -->
+        </reference>
 
     </customer_account_index>
 
@@ -58,7 +58,7 @@ Product reviews page (?)
     <reviews>
         <!-- Mage_Review -->
         <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
         </reference>
     </reviews>
 
@@ -66,25 +66,39 @@ Product reviews page (?)
 Product reviews page
 -->
 
-    <review_product_list>
-        <!-- Mage_Review -->
+    <review_product_list translate="label">
+        <label>Catalog Product Reviews List</label>
         <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
         </reference>
         <reference name="head">
             <action method="addJs"><script>varien/product.js</script></action>
         </reference>
         <reference name="content">
-            <block type="review/list_detailed" name="product.info" template="review/product/detailed.phtml">
-                <!--<action method="setTemplate"><param>1</param></action> -->
-                <action method="setUsePager"><param>1</param></action>
-                <block type="catalog/product_view_super_config" name="product.info.config" as="super_config" template="catalog/product/view/super/config.phtml"/>
-                <block type="catalog/product_view_super_group" name="product.info.group" as="super_group" template="catalog/product/view/super/group.phtml"/>
+            <block type="review/product_view" name="product.info" template="catalog/product/view.phtml">
+                <block type="catalog/product_view_media" name="product.info.media" as="media" template="catalog/product/view/media.phtml">
+                    <action method="disableGallery"/>
+                </block>
+                <block type="catalog/product_view" name="product.info.addto" as="addto" template="catalog/product/view/addto.phtml"/>
+                <block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="catalog/product/view/addtocart.phtml"/>
+                <block type="catalog/product_view" name="product.tierprices" as="tierprices" template="catalog/product/view/tierprices.phtml"/>
+                <block type="core/template" name="product.info.other" as="other" template="review/product/view/other.phtml"/>
+                <block type="page/html_pager" name="product_review_list.toolbar" />
+                <block type="core/template" name="product_review_list.count" template="review/product/view/count.phtml" />
+                <block type="review/product_view_list" name="product.info.product_additional_data" as="product_additional_data" template="review/product/view/list.phtml">
+                    <block type="review/form" name="product.review.form" as="review_form">
+                        <block type="page/html_wrapper" name="product.review.form.fields.before" as="form_fields_before" translate="label">
+                            <label>Review Form Fields Before</label>
+                            <action method="setMayBeInvisible"><value>1</value></action>
+                        </block>
+                    </block>
+                </block>
             </block>
         </reference>
     </review_product_list>
 
-    <review_product_view>
+    <review_product_view translate="label">
+        <label>Catalog Product Review View</label>
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
@@ -93,18 +107,21 @@ Product reviews page
         </reference>
     </review_product_view>
 
-    <review_customer_index>
+    <review_customer_index translate="label">
+        <label>Customer My Account Product Reviews</label>
         <update handle="customer_account"/>
-        <reference name="content">
+        <reference name="my.account.wrapper">
             <block type="review/customer_list" name="review_customer_list" template="review/customer/list.phtml"/>
         </reference>
     </review_customer_index>
 
-    <review_customer_view>
+    <review_customer_view translate="label">
+        <label>Customer My Account Review Details</label>
         <update handle="customer_account"/>
-        <reference name="content">
+        <reference name="my.account.wrapper">
             <block type="review/customer_view" name="customers_review"/>
         </reference>
     </review_customer_view>
 
 </layout>
+

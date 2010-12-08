@@ -92,20 +92,24 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             'after_text'    => $afterText,
         ));
 
+        $this->_links[$this->_getNewPosition($position)] = $link;
         if (intval($position) > 0) {
-            while (isset($this->_links[$position])) {
-                $position++;
-            }
-            $this->_links[$position] = $link;
-            ksort($this->_links);
-        } else {
-            $position = 0;
-            foreach ($this->_links as $k=>$v) {
-                $position = $k;
-            }
-            $this->_links[$position+10] = $link;
+             ksort($this->_links);
         }
 
+        return $this;
+    }
+
+    /**
+     * Add block to link list
+     *
+     * @param string $blockName
+     * @return Mage_Page_Block_Template_Links
+     */
+    public function addLinkBlock($blockName)
+    {
+        $block = $this->getLayout()->getBlock($blockName);
+        $this->_links[$this->_getNewPosition((int)$block->getPosition())] = $block;
         return $this;
     }
 
@@ -124,6 +128,28 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
         }
 
         return $this;
+    }
+
+    /**
+     * Get cache key informative items
+     * Provide string array key to share specific info item with FPC placeholder
+     *
+     * @return array
+     */
+    public function getCacheKeyInfo()
+    {
+        $links = array();
+        if (!empty($this->_links)) {
+            foreach ($this->_links as $position => $link) {
+                if ($link instanceof Varien_Object) {
+                    $links[$position] = $link->getData();
+                }
+            }
+        }
+        return parent::getCacheKeyInfo() + array(
+            'links' => base64_encode(serialize($links)),
+            'name' => $this->getNameInLayout()
+        );
     }
 
     /**
@@ -160,6 +186,28 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             $this->_links[key($this->_links)]->setIsLast(true);
         }
         return parent::_beforeToHtml();
+    }
+
+    /**
+     * Return new link position in list
+     *
+     * @param int $position
+     * @return int
+     */
+    protected function _getNewPosition($position = 0)
+    {
+        if (intval($position) > 0) {
+            while (isset($this->_links[$position])) {
+                $position++;
+            }
+        } else {
+            $position = 0;
+            foreach ($this->_links as $k=>$v) {
+                $position = $k;
+            }
+            $position += 10;
+        }
+        return $position;
     }
 
 }

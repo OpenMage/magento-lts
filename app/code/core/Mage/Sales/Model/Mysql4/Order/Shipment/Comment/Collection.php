@@ -28,13 +28,26 @@
  * Flat sales order shipment comments collection
  *
  */
-class Mage_Sales_Model_Mysql4_Order_Shipment_Comment_Collection extends Mage_Sales_Model_Mysql4_Collection_Abstract
+class Mage_Sales_Model_Mysql4_Order_Shipment_Comment_Collection extends Mage_Sales_Model_Mysql4_Order_Comment_Collection_Abstract
 {
+    /*
+     * @var string
+     */
     protected $_eventPrefix = 'sales_order_shipment_comment_collection';
+
+    /*
+     * @var string
+     */
     protected $_eventObject = 'order_shipment_comment_collection';
 
+    /*
+     * Inits shipment comment collection
+     *
+     * @return void
+     */
     protected function _construct()
     {
+        parent::_construct();
         $this->_init('sales/order_shipment_comment');
     }
 
@@ -46,19 +59,6 @@ class Mage_Sales_Model_Mysql4_Order_Shipment_Comment_Collection extends Mage_Sal
      */
     public function setShipmentFilter($shipmentId)
     {
-        $this->addFieldToFilter('parent_id', $shipmentId);
-        return $this;
-    }
-
-    /**
-     * Set created_at sort order
-     *
-     * @param string $direction
-     * @return Mage_Sales_Model_Mysql4_Order_Shipment_Comment_Collection
-     */
-    public function setCreatedAtOrder($direction='desc')
-    {
-        $this->setOrder('created_at', $direction);
-        return $this;
+        return $this->setParentFilter($shipmentId);
     }
 }

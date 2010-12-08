@@ -43,7 +43,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Attribute_Source_Layout ex
                    'label'=>(string)$layoutConfig->label
                 );
             }
-            array_unshift($this->_options, array('value'=>'', 'label'=>Mage::helper('catalog')->__('No layout updates.')));
+            array_unshift($this->_options, array('value'=>'', 'label'=>Mage::helper('catalog')->__('No layout updates')));
         }
         return $this->_options;
     }

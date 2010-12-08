@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage StrikeIron
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Base.php 16211 2009-06-21 19:23:55Z thomas $
+ * @version    $Id: Base.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -31,7 +31,7 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage StrikeIron
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_StrikeIron_Base
@@ -103,7 +103,7 @@ class Zend_Service_StrikeIron_Base
              * @see Zend_Service_StrikeIron_Exception
              */
             #require_once 'Zend/Service/StrikeIron/Exception.php';
-            throw new Zend_Service_StrikeIron_Exception($message, $e->getCode());
+            throw new Zend_Service_StrikeIron_Exception($message, $e->getCode(), $e);
         }
 
         // transform/decorate the result and return it

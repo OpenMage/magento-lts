@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action_Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Abstract.php 20261 2010-01-13 18:55:25Z matthew $
  */
 
 /**
@@ -29,7 +29,7 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action_Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Controller_Action_Helper_Abstract
@@ -75,11 +75,7 @@ abstract class Zend_Controller_Action_Helper_Abstract
      */
     public function getFrontController()
     {
-        if (null === $this->_frontController) {
-            $this->_frontController = Zend_Controller_Front::getInstance();
-        }
-
-        return $this->_frontController;
+        return Zend_Controller_Front::getInstance();
     }
 
     /**

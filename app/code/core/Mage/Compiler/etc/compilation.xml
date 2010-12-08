@@ -208,6 +208,16 @@
             <Mage_Core_Block_Profiler/>
             <Mage_Core_Block_Messages/>
             <Mage_Core_Block_Abstract/>
+            <Mage_Eav_Model_Config/>
+            <Mage_Eav_Model_Entity/>
+            <Mage_Eav_Model_Entity_Abstract/>
+            <Mage_Eav_Model_Entity_Attribute/>
+            <Mage_Eav_Model_Entity_Attribute_Abstract/>
+            <Mage_Eav_Model_Entity_Attribute_Interface/>
+            <Mage_Eav_Model_Entity_Interface/>
+            <Mage_Eav_Model_Entity_Type/>
+            <Mage_Eav_Model_Mysql4_Entity_Attribute/>
+            <Mage_Eav_Model_Mysql4_Entity_Type/>
         </default>
 
         <cms>
@@ -233,17 +243,7 @@
             <Mage_Catalog_Model_Resource_Eav_Mysql4_Config/>
             <Mage_Catalog_Model_Resource_Eav_Mysql4_Product/>
             <Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection/>
-            <Mage_Eav_Model_Config/>
-            <Mage_Eav_Model_Entity/>
-            <Mage_Eav_Model_Entity_Abstract/>
-            <Mage_Eav_Model_Entity_Attribute/>
-            <Mage_Eav_Model_Entity_Attribute_Abstract/>
-            <Mage_Eav_Model_Entity_Attribute_Interface/>
             <Mage_Eav_Model_Entity_Collection_Abstract/>
-            <Mage_Eav_Model_Entity_Interface/>
-            <Mage_Eav_Model_Entity_Type/>
-            <Mage_Eav_Model_Mysql4_Entity_Attribute/>
-            <Mage_Eav_Model_Mysql4_Entity_Type/>
         </catalog>
 
         <checkout>

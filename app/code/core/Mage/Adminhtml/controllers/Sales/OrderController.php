@@ -447,6 +447,9 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
         $document = $this->getRequest()->getPost('document');
     }
 
+    /**
+     * Print invoices for selected orders
+     */
     public function pdfinvoicesAction(){
         $orderIds = $this->getRequest()->getPost('order_ids');
         $flag = false;
@@ -471,12 +474,13 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 $this->_getSession()->addError($this->__('There are no printable documents related to selected orders.'));
                 $this->_redirect('*/*/');
             }
-
         }
         $this->_redirect('*/*/');
-
     }
 
+    /**
+     * Print shipments for selected orders
+     */
     public function pdfshipmentsAction(){
         $orderIds = $this->getRequest()->getPost('order_ids');
         $flag = false;
@@ -505,6 +509,9 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
         $this->_redirect('*/*/');
     }
 
+    /**
+     * Print creditmemos for selected orders
+     */
     public function pdfcreditmemosAction(){
         $orderIds = $this->getRequest()->getPost('order_ids');
         $flag = false;
@@ -533,6 +540,9 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
         $this->_redirect('*/*/');
     }
 
+    /**
+     * Print all documents for selected orders
+     */
     public function pdfdocsAction(){
         $orderIds = $this->getRequest()->getPost('order_ids');
         $flag = false;
@@ -610,6 +620,11 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
         $this->_redirect('*/*/view', array('order_id' => $order->getId()));
     }
 
+    /**
+     * Acl check for admin
+     *
+     * @return bool
+     */
     protected function _isAllowed()
     {
         if ($this->getRequest()->getActionName() == 'view') {

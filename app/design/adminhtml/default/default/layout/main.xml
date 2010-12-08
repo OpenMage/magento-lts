@@ -36,10 +36,16 @@ Supported layout update handles (special):
 - admin_denied
 - preview
 - systemPreview
-
 -->
 
 <layout>
+
+<!--
+Form key for inserting into various forms
+-->
+    <formkey>
+        <block type="core/template" name="formkey" as="formkey" template="formkey.phtml"/>
+    </formkey>
 
 <!--
 Default layout, loads most of the pages
@@ -75,6 +81,7 @@ Default layout, loads most of the pages
 
                 <action method="addCss"><name>reset.css</name></action>
                 <action method="addCss"><name>boxes.css</name></action>
+                <action method="addCss"><name>custom.css</name></action>
 
                 <action method="addItem"><type>skin_css</type><name>iestyles.css</name><params/><if>lt IE 8</if></action>
                 <action method="addItem"><type>skin_css</type><name>below_ie7.css</name><params/><if>lt IE 7</if></action>
@@ -110,10 +117,12 @@ Default layout, loads most of the pages
                 <block type="adminhtml/notification_baseurl" name="notification_baseurl" as="notification_baseurl" template="notification/baseurl.phtml"></block>
                 <block type="adminhtml/cache_notifications" name="cache_notifications" template="system/cache/notifications.phtml"></block>
                 <block type="adminhtml/notification_survey" name="notification_survey" template="notification/survey.phtml"/>
+                <block type="adminhtml/notification_security" name="notification_security" as="notification_security" template="notification/security.phtml"></block>
             </block>
             <block type="adminhtml/widget_breadcrumbs" name="breadcrumbs" as="breadcrumbs"></block>
 
-            <block type="core/template" name="formkey" as="formkey" template="formkey.phtml" />
+            <!--<update handle="formkey"/> this won't work, see the try/catch and a jammed exception in Mage_Core_Model_Layout::createBlock() -->
+            <block type="core/template" name="formkey" as="formkey" template="formkey.phtml"/>
             <block type="page/js_translate" name="js_translate" as="js_translate" template="page/js/translate.phtml"/>
             <block type="core/text_list" name="left" as="left"/>
             <block type="core/text_list" name="content" as="content"/>
@@ -199,6 +208,25 @@ Base preview layout (?)
             <block type="adminhtml/newsletter_template_preview" name="content" as="content"></block>
         </block>
     </preview>
+
+    <newsletter_template_preview>
+        <block type="core/template" name="root" output="toHtml" template="newsletter/template/preview.phtml">
+            <block type="adminhtml/newsletter_template_preview" name="content" as="content"></block>
+        </block>
+    </newsletter_template_preview>
+
+    <newsletter_template_preview_switcher>
+        <block type="core/template" name="root" output="toHtml" template="newsletter/template/preview/iframeswitcher.phtml">
+            <block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher" />
+            <block type="adminhtml/newsletter_template_preview_form" name="preview_form" />
+        </block>
+    </newsletter_template_preview_switcher>
+
+    <newsletter_queue_preview>
+        <block type="core/template" name="root" output="toHtml" template="newsletter/queue/preview.phtml">
+            <block type="adminhtml/newsletter_queue_preview" name="content" as="content"></block>
+        </block>
+    </newsletter_queue_preview>
 
 <!--
 Base customer alerts preview layout (?)

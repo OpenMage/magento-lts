@@ -34,7 +34,66 @@
 class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
 {
     /**
+     * State block name
+     *
+     * @var string
+     */
+    protected $_stateBlockName;
+
+    /**
+     * Category Block Name
+     *
+     * @var string
+     */
+    protected $_categoryBlockName;
+
+    /**
+     * Attribute Filter Block Name
+     * 
+     * @var string
+     */
+    protected $_attributeFilterBlockName;
+
+    /**
+     * Price Filter Block Name
+     *
+     * @var string
+     */
+    protected $_priceFilterBlockName;
+
+    /**
+     * Decimal Filter Block Name
+     *
+     * @var string
+     */
+    protected $_decimalFilterBlockName;
+
+    /**
+     * Internal constructor
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+
+        $this->_initBlocks();
+    }
+
+    /**
+     * Initialize blocks names
+     */
+    protected function _initBlocks()
+    {
+        $this->_stateBlockName = 'catalog/layer_state';
+        $this->_categoryBlockName = 'catalog/layer_filter_category';
+        $this->_attributeFilterBlockName = 'catalog/layer_filter_attribute';
+        $this->_priceFilterBlockName = 'catalog/layer_filter_price';
+        $this->_decimalFilterBlockName = 'catalog/layer_filter_decimal';
+    }
+
+    /**
      * Get attribute filter block name
+     *
+     * @deprecated after 1.4.1.0
      *
      * @return string
      */
@@ -50,26 +109,29 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
-        $stateBlock = $this->getLayout()->createBlock('catalog/layer_state')
+        $stateBlock = $this->getLayout()->createBlock($this->_stateBlockName)
             ->setLayer($this->getLayer());
 
-        $categryBlock = $this->getLayout()->createBlock('catalog/layer_filter_category')
+        $categoryBlock = $this->getLayout()->createBlock($this->_categoryBlockName)
             ->setLayer($this->getLayer())
             ->init();
 
         $this->setChild('layer_state', $stateBlock);
-        $this->setChild('category_filter', $categryBlock);
+        $this->setChild('category_filter', $categoryBlock);
 
         $filterableAttributes = $this->_getFilterableAttributes();
         foreach ($filterableAttributes as $attribute) {
-            $filterBlockName = $this->_getAttributeFilterBlockName();
             if ($attribute->getAttributeCode() == 'price') {
-                $filterBlockName = 'catalog/layer_filter_price';
-            } else if ($attribute->getBackendType() == 'decimal') {
-                $filterBlockName = 'catalog/layer_filter_decimal';
+                $filterBlockName = $this->_priceFilterBlockName;
+            }
+            elseif ($attribute->getBackendType() == 'decimal') {
+                $filterBlockName = $this->_decimalFilterBlockName;
+            }
+            else {
+                $filterBlockName = $this->_attributeFilterBlockName;
             }
 
-            $this->setChild($attribute->getAttributeCode().'_filter',
+            $this->setChild($attribute->getAttributeCode() . '_filter',
                 $this->getLayout()->createBlock($filterBlockName)
                     ->setLayer($this->getLayer())
                     ->setAttributeModel($attribute)
@@ -77,6 +139,7 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
         }
 
         $this->getLayer()->apply();
+
         return parent::_prepareLayout();
     }
 
@@ -102,6 +165,7 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
             $attributes = $this->getLayer()->getFilterableAttributes();
             $this->setData('_filterable_attributes', $attributes);
         }
+
         return $attributes;
     }
 
@@ -129,7 +193,7 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
 
         $filterableAttributes = $this->_getFilterableAttributes();
         foreach ($filterableAttributes as $attribute) {
-            $filters[] = $this->getChild($attribute->getAttributeCode().'_filter');
+            $filters[] = $this->getChild($attribute->getAttributeCode() . '_filter');
         }
 
         return $filters;
@@ -157,6 +221,7 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
                 return true;
             }
         }
+
         return false;
     }
 

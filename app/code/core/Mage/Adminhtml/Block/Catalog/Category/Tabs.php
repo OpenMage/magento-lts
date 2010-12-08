@@ -94,6 +94,15 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
     protected function _prepareLayout()
     {
         $categoryAttributes = $this->getCategory()->getAttributes();
+        if (!$this->getCategory()->getId()) {
+            foreach ($categoryAttributes as $attribute) {
+                $default = $attribute->getDefaultValue();
+                if ($default != '') {
+                    $this->getCategory()->setData($attribute->getAttributeCode(), $default);
+                }
+            }
+        }
+
         $attributeSetId     = $this->getCategory()->getDefaultAttributeSetId();
         $groupCollection    = Mage::getResourceModel('eav/entity_attribute_group_collection')
             ->setAttributeSetFilter($attributeSetId)

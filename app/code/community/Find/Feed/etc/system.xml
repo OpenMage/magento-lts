@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Find
+ * @package     Find_Feed
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <tabs>
+        <find translate="label" module="find_feed">
+            <label>The Find</label>
+            <sort_order>300</sort_order>
+        </find>
+    </tabs>
+    <sections>
+         <feed translate="label" module="find_feed">
+            <label>Feed</label>
+            <tab>find</tab>
+            <sort_order>10</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <settings translate="label">
+                    <label>Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>200</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <name translate="label">
+                            <label>FTP Settings</label>
+                        </name>
+                        <ftp_server translate="label">
+                            <label>FTP Server</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </ftp_server>
+                        <ftp_path translate="label">
+                            <label>FTP Path</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </ftp_path>
+                        <ftp_user translate="label comment">
+                            <label>FTP User</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[In order to access your FTP account information, you must first register and verify your store in TheFind Merchant Center.  Click <a href="https://merchant.thefind.com/mc/claim.fhtml">here</a> to get started.]]></comment>
+                        </ftp_user>
+                        <ftp_password translate="label">
+                            <label>FTP Password</label>
+                            <frontend_type>password</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </ftp_password>
+                        <findfeed_filename translate="label">
+                            <label>TheFind Feed Filename</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </findfeed_filename>
+                        <findfeed_update translate="label">
+                            <sort_order>40</sort_order>
+                            <label>Update TheFind Item when Product is Updated</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </findfeed_update>
+                        <cron_frequency translate="label comment">
+                            <label>Cron Frequency</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>find_feed/adminhtml_system_source_cron_frequency</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cron_frequency>
+                        <cron_hours translate="label comment">
+                            <label>Cron Hour</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>find_feed/adminhtml_system_source_cron_hours</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cron_hours>
+                    </fields>
+                </settings>
+            </groups>
+        </feed>
+    </sections>
+</config>

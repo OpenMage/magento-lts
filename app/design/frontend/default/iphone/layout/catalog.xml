@@ -43,7 +43,6 @@ Default layout, loads most of the pages
 -->
 
     <default>
-
         <!-- Mage_Catalog -->
         <reference name="top.menu">
             <block type="catalog/navigation" name="catalog.topnav" template="catalog/navigation/top.phtml"/>
@@ -57,7 +56,10 @@ Default layout, loads most of the pages
         </reference>
         <reference name="right">
             <block type="catalog/product_compare_sidebar" before="cart_sidebar" name="catalog.compare.sidebar" template="catalog/product/compare/sidebar.phtml"/>
-            <block type="core/template" name="right.permanent.callout" template="callouts/right_col.phtml"/>
+            <block type="core/template" name="right.permanent.callout" template="callouts/right_col.phtml">
+                <action method="setImgSrc"><src>images/media/col_right_callout.jpg</src></action>
+                <action method="setImgAlt" translate="alt" module="catalog"><alt>Keep your eyes open for our special Back to School items and save A LOT!</alt></action>
+            </block>
         </reference>
         <reference name="footer_links">
             <action method="addLink" translate="label title" module="catalog" ifconfig="catalog/seo/site_map"><label>Site Map</label><url helper="catalog/map/getCategoryUrl" /><title>Site Map</title></action>
@@ -65,12 +67,12 @@ Default layout, loads most of the pages
         <block type="catalog/product_price_template" name="catalog_product_price_template" />
     </default>
 
-
 <!--
 Category default layout
 -->
 
-    <catalog_category_default>
+    <catalog_category_default translate="label">
+        <label>Catalog Category (Non-Anchor)</label>
         <reference name="left">
             <block type="catalog/navigation" name="catalog.leftnav" after="currency" template="catalog/navigation/left.phtml"/>
         </reference>
@@ -91,6 +93,11 @@ Category default layout
                         -->
                         <action method="addPagerLimit"><mode>list</mode><limit>5</limit></action>
                     </block>
+                    <action method="addColumnCountLayoutDepend"><layout>empty</layout><count>6</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>one_column</layout><count>5</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>two_columns_left</layout><count>4</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>two_columns_right</layout><count>4</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>three_columns</layout><count>3</count></action>
                     <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
                 </block>
             </block>
@@ -101,13 +108,15 @@ Category default layout
 Category layered navigation layout
 -->
 
-    <catalog_category_layered>
+    <catalog_category_layered translate="label">
+        <label>Catalog Category (Anchor)</label>
         <reference name="left">
             <block type="catalog/layer_view" name="catalog.leftnav" after="currency" template="catalog/layer/view.phtml"/>
         </reference>
         <reference name="content">
             <block type="catalog/category_view" name="category.products" template="catalog/category/view.phtml">
                 <block type="catalog/product_list" name="product_list" template="catalog/product/list.phtml">
+                    <!-- <action method="addReviewSummaryTemplate"><type>default</type><template>review/helper/su.phtml</template></action> -->
                     <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
                         <block type="catalog/product_list_toolbar_pager" name="product_list_toolbar_pager"/>
                         <!-- The following code shows how to set your own pager increments -->
@@ -122,17 +131,23 @@ Category layered navigation layout
                             <action method="addPagerLimit"><mode>grid</mode><limit>3</limit></action>
                             <action method="addPagerLimit"><mode>grid</mode><limit>6</limit></action>
                             <action method="addPagerLimit"><mode>grid</mode><limit>9</limit></action>
-                            <action method="addPagerLimit"><mode>grid</mode><limit>all</limit><label>All</label></action>
+                            <action method="addPagerLimit" translate="label"><mode>grid</mode><limit>all</limit><label>All</label></action>
                         -->
                             <action method="addPagerLimit"><mode>list</mode><limit>5</limit></action>
                     </block>
+                    <action method="addColumnCountLayoutDepend"><layout>empty</layout><count>6</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>one_column</layout><count>5</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>two_columns_left</layout><count>4</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>two_columns_right</layout><count>4</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>three_columns</layout><count>3</count></action>
                     <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
                 </block>
             </block>
         </reference>
     </catalog_category_layered>
 
-    <catalog_category_layered_nochildren>
+    <catalog_category_layered_nochildren translate="label">
+        <label>Catalog Category (Without Subcategories)</label>
         <remove name="right.reports.product.viewed" />
         <reference name="right">
             <block type="reports/product_viewed" before="right.permanent.callout" name="left.reports.product.viewed" template="reports/product_viewed.phtml" />
@@ -143,10 +158,11 @@ Category layered navigation layout
 Compare products page
 -->
 
-    <catalog_product_compare_index>
+    <catalog_product_compare_index translate="label">
+        <label>Catalog Product Compare List</label>
         <!-- Mage_Catalog -->
         <reference name="root">
-            <action method="setTemplate"><template>page/one-column.phtml</template></action>
+            <action method="setTemplate"><template>page/popup.phtml</template></action>
         </reference>
         <reference name="head">
             <action method="addJs"><script>scriptaculous/scriptaculous.js</script></action>
@@ -158,9 +174,9 @@ Compare products page
     </catalog_product_compare_index>
 
     <customer_account_index>
-
         <reference name="right">
-            <action method="unsetChild"><name>catalog_compare_sidebar</name></action>
+            <action method="unsetChild"><name>catalog.compare.sidebar</name></action>
+
         </reference>
     </customer_account_index>
 
@@ -168,7 +184,8 @@ Compare products page
 Product view
 -->
 
-    <catalog_product_view>
+    <catalog_product_view translate="label">
+        <label>Catalog Product View (Any)</label>
         <!-- Mage_Catalog -->
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
@@ -181,70 +198,70 @@ Product view
             <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
         </reference>
         <reference name="content">
-            <!-- block type="catalog/product_view" name="product.info" template="catalog/product/view.phtml">
-                <block type="catalog/product_view_media" name="product.info.media" as="media" template="catalog/product/view/media.phtml"/>
-                <block type="core/text_list" name="alert.urls" as="alert_urls" />
-                <block type="catalog/product_list_upsell" name="product.info.upsell" as="upsell_products" template="catalog/product/list/upsell.phtml"/>
-                <block type="catalog/product_view_additional" name="product.info.additional" as="product_additional_data" />
-            </block -->
             <block type="catalog/product_view" name="product.info" template="catalog/product/view.phtml">
                 <!--
-                    <action method="addReviewSummaryTemplate"><type>default</type><template>review/helper/summary.phtml</template></action>
-                    <action method="addReviewSummaryTemplate"><type>short</type><template>review/helper/summary_short.phtml</template></action>
-                    <action method="addReviewSummaryTemplate"><type>...</type><template>...</template></action>
-                    -->
-                    <block type="catalog/product_view_media" name="product.info.media" as="media" template="catalog/product/view/media.phtml"/>
-                    <block type="core/text_list" name="alert.urls" as="alert_urls" />
-                    <block type="catalog/product_view" name="product.tierprices" as="tierprices" template="catalog/product/view/tierprices.phtml"/>
+                <action method="addReviewSummaryTemplate"><type>default</type><template>review/helper/summary.phtml</template></action>
+                <action method="addReviewSummaryTemplate"><type>short</type><template>review/helper/summary_short.phtml</template></action>
+                <action method="addReviewSummaryTemplate"><type>...</type><template>...</template></action>
+                -->
+                <block type="catalog/product_view_media" name="product.info.media" as="media" template="catalog/product/view/media.phtml"/>
+                <block type="core/text_list" name="alert.urls" as="alert_urls" translate="label">
+                    <label>Alert Urls</label>
+                </block>
 
-                    <block type="catalog/product_list_upsell" name="product.info.upsell" as="upsell_products" template="catalog/product/list/upsell.phtml">
-                        <action method="setColumnCount"><columns>4</columns></action>
-                        <action method="setItemLimit"><type>upsell</type><limit>4</limit></action>
-                    </block>
+                <action method="setTierPriceTemplate"><template>catalog/product/view/tierprices.phtml</template></action>
 
-                    <block type="catalog/product_view_additional" name="product.info.additional" as="product_additional_data" />
-                    <block type="catalog/product_view_description" name="product.description" as="description" template="catalog/product/view/description.phtml">
-                        <action method="addToParentGroup"><group>detailed_info</group></action>
-                        <action method="setTitle" translate="value"><value>Details</value></action>
-                    </block>
-                    <block type="catalog/product_view_attributes" name="product.attributes" as="additional" template="catalog/product/view/attributes.phtml"/>
-                    <block type="catalog/product_view" name="product.info.addto" as="addto" template="catalog/product/view/addto.phtml"/>
-                    <block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="catalog/product/view/addtocart.phtml"/>
+                <block type="catalog/product_list_upsell" name="product.info.upsell" as="upsell_products" template="catalog/product/list/upsell.phtml">
+                    <action method="setColumnCount"><columns>4</columns></action>
+                    <action method="setItemLimit"><type>upsell</type><limit>4</limit></action>
+                </block>
 
-                    <block type="core/text_list" name="product.info.extrahint" as="extrahint" translate="label">
-                        <label>Product View Extra Hint</label>
-                    </block>
+                <block type="catalog/product_view_additional" name="product.info.additional" as="product_additional_data" />
+                <block type="catalog/product_view_description" name="product.description" as="description" template="catalog/product/view/description.phtml">
+                    <action method="addToParentGroup"><group>detailed_info</group></action>
+                </block>
+                <block type="catalog/product_view_attributes" name="product.attributes" as="additional" template="catalog/product/view/attributes.phtml">
+                    <action method="addToParentGroup"><group>detailed_info</group></action>
+                </block>
+                <block type="catalog/product_view" name="product.info.addto" as="addto" template="catalog/product/view/addto.phtml"/>
+                <block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="catalog/product/view/addtocart.phtml"/>
 
-                    <block type="catalog/product_view" name="product.info.options.wrapper" as="product_options_wrapper" template="catalog/product/view/options/wrapper.phtml">
-                        <block type="core/template" name="options_js" template="catalog/product/view/options/js.phtml"/>
-                        <block type="catalog/product_view_options" name="product.info.options" as="product_options" template="catalog/product/view/options.phtml">
-                            <action method="addOptionRenderer"><type>text</type><block>catalog/product_view_options_type_text</block><template>catalog/product/view/options/type/text.phtml</template></action>
-                            <action method="addOptionRenderer"><type>file</type><block>catalog/product_view_options_type_file</block><template>catalog/product/view/options/type/file.phtml</template></action>
-                            <action method="addOptionRenderer"><type>select</type><block>catalog/product_view_options_type_select</block><template>catalog/product/view/options/type/select.phtml</template></action>
-                            <action method="addOptionRenderer"><type>date</type><block>catalog/product_view_options_type_date</block><template>catalog/product/view/options/type/date.phtml</template></action>
-                            <block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml"/>
-                        </block>
-                    </block>
-                    <block type="catalog/product_view" name="product.info.options.wrapper.bottom" as="product_options_wrapper_bottom" template="catalog/product/view/options/wrapper/bottom.phtml">
-                        <action method="insert"><block>product.tierprices</block></action>
-                        <block type="catalog/product_view" name="product.clone_prices" as="prices" template="catalog/product/view/price_clone.phtml"/>
-                        <action method="append"><block>product.info.addtocart</block></action>
-                    </block>
+                <block type="core/text_list" name="product.info.extrahint" as="extrahint" translate="label">
+                    <label>Product View Extra Hint</label>
+                </block>
 
-                    <block type="core/template_facade" name="product.info.container1" as="container1">
-                        <action method="setDataByKey"><key>alias_in_layout</key><value>container1</value></action>
-                        <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
-                        <action method="append"><block>product.info.options.wrapper</block></action>
-                        <action method="append"><block>product.info.options.wrapper.bottom</block></action>
+                <block type="catalog/product_view" name="product.info.options.wrapper" as="product_options_wrapper" template="catalog/product/view/options/wrapper.phtml" translate="label">
+                    <label>Info Column Options Wrapper</label>
+                    <block type="core/template" name="options_js" template="catalog/product/view/options/js.phtml"/>
+                    <block type="catalog/product_view_options" name="product.info.options" as="product_options" template="catalog/product/view/options.phtml">
+                        <action method="addOptionRenderer"><type>text</type><block>catalog/product_view_options_type_text</block><template>catalog/product/view/options/type/text.phtml</template></action>
+                        <action method="addOptionRenderer"><type>file</type><block>catalog/product_view_options_type_file</block><template>catalog/product/view/options/type/file.phtml</template></action>
+                        <action method="addOptionRenderer"><type>select</type><block>catalog/product_view_options_type_select</block><template>catalog/product/view/options/type/select.phtml</template></action>
+                        <action method="addOptionRenderer"><type>date</type><block>catalog/product_view_options_type_date</block><template>catalog/product/view/options/type/date.phtml</template></action>
+                </block>
+                        <block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml"/>
                     </block>
-                    <block type="core/template_facade" name="product.info.container2" as="container2">
-                        <action method="setDataByKey"><key>alias_in_layout</key><value>container2</value></action>
-                        <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
-                        <action method="append"><block>product.info.options.wrapper</block></action>
-                        <action method="append"><block>product.info.options.wrapper.bottom</block></action>
-                    </block>
-                    <action method="unsetCallChild"><child>container1</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
-                    <action method="unsetCallChild"><child>container2</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
+                <block type="catalog/product_view" name="product.info.options.wrapper.bottom" as="product_options_wrapper_bottom" template="catalog/product/view/options/wrapper/bottom.phtml" translate="label">
+                    <label>Bottom Block Options Wrapper</label>
+                    <action method="insert"><block>product.tierprices</block></action>
+                    <block type="catalog/product_view" name="product.clone_prices" as="prices" template="catalog/product/view/price_clone.phtml"/>
+                    <action method="append"><block>product.info.addtocart</block></action>
+                </block>
+
+                <block type="core/template_facade" name="product.info.container1" as="container1">
+                    <action method="setDataByKey"><key>alias_in_layout</key><value>container1</value></action>
+                    <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
+                    <action method="append"><block>product.info.options.wrapper</block></action>
+                    <action method="append"><block>product.info.options.wrapper.bottom</block></action>
+                </block>
+                <block type="core/template_facade" name="product.info.container2" as="container2">
+                    <action method="setDataByKey"><key>alias_in_layout</key><value>container2</value></action>
+                    <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
+                    <action method="append"><block>product.info.options.wrapper</block></action>
+                    <action method="append"><block>product.info.options.wrapper.bottom</block></action>
+                </block>
+                <action method="unsetCallChild"><child>container1</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
+                <action method="unsetCallChild"><child>container2</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
             </block>
         </reference>
         <reference name="right">
@@ -255,43 +272,58 @@ Product view
 <!--
 Additional block dependant on product type
 -->
-    <PRODUCT_TYPE_simple>
+    <PRODUCT_TYPE_simple translate="label" module="catalog">
+        <label>Catalog Product View (Simple)</label>
         <reference name="product.info">
-            <block type="catalog/product_view_type_simple" name="product.info.simple" as="product_type_data" template="catalog/product/view/type/simple.phtml">
-                <block type="core/text_list" name="product.info.simple.extra" as="product_type_data_extra"/>
+            <block type="catalog/product_view_type_simple" name="product.info.simple" as="product_type_data" template="catalog/product/view/type/default.phtml">
+                <block type="core/text_list" name="product.info.simple.extra" as="product_type_data_extra" translate="label">
+                    <label>Product Extra Info</label>
+                </block>
             </block>
         </reference>
     </PRODUCT_TYPE_simple>
-    <PRODUCT_TYPE_configurable>
+    <PRODUCT_TYPE_configurable translate="label" module="catalog">
+        <label>Catalog Product View (Configurable)</label>
         <reference name="product.info">
-            <block type="catalog/product_view_type_configurable" name="product.info.configurable" as="product_type_data" template="catalog/product/view/type/configurable.phtml">
-                <block type="core/text_list" name="product.info.configurable.extra" as="product_type_data_extra"/>
+            <block type="catalog/product_view_type_configurable" name="product.info.configurable" as="product_type_data" template="catalog/product/view/type/default.phtml">
+                <block type="core/text_list" name="product.info.configurable.extra" as="product_type_data_extra" translate="label">
+                    <label>Product Extra Info</label>
+                </block>
             </block>
         </reference>
         <reference name="product.info.options.wrapper">
             <block type="catalog/product_view_type_configurable" name="product.info.options.configurable" as="options_configurable" before="-" template="catalog/product/view/type/options/configurable.phtml"/>
         </reference>
     </PRODUCT_TYPE_configurable>
-    <PRODUCT_TYPE_grouped>
+    <PRODUCT_TYPE_grouped translate="label" module="catalog">
+        <label>Catalog Product View (Grouped)</label>
         <reference name="product.info">
             <block type="catalog/product_view_type_grouped" name="product.info.grouped" as="product_type_data" template="catalog/product/view/type/grouped.phtml">
-                <block type="core/text_list" name="product.info.grouped.extra" as="product_type_data_extra"/>
+                <block type="core/text_list" name="product.info.grouped.extra" as="product_type_data_extra" translate="label">
+                    <label>Product Extra Info</label>
+                </block>
             </block>
         </reference>
     </PRODUCT_TYPE_grouped>
-    <PRODUCT_TYPE_virtual>
+    <PRODUCT_TYPE_virtual translate="label" module="catalog">
+        <label>Catalog Product View (Virtual)</label>
         <reference name="product.info">
-            <block type="catalog/product_view_type_virtual" name="product.info.virtual" as="product_type_data" template="catalog/product/view/type/virtual.phtml">
-                <block type="core/text_list" name="product.info.virtual.extra" as="product_type_data_extra"/>
+            <block type="catalog/product_view_type_virtual" name="product.info.virtual" as="product_type_data" template="catalog/product/view/type/default.phtml">
+                <block type="core/text_list" name="product.info.virtual.extra" as="product_type_data_extra" translate="label">
+                    <label>Product Extra Info</label>
+                </block>
             </block>
         </reference>
     </PRODUCT_TYPE_virtual>
+
+
 
 <!--
 Product send to friend
 -->
 
-    <catalog_product_send>
+    <catalog_product_send translate="label">
+        <label>Catalog Product Email to a Friend</label>
         <!-- Mage_Catalog -->
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
@@ -309,10 +341,11 @@ Product send to friend
 Product additional images gallery popup
 -->
 
-    <catalog_product_gallery>
+    <catalog_product_gallery translate="label">
+        <label>Catalog Product Image Gallery Popup</label>
         <!-- Mage_Catalog -->
         <reference name="root">
-            <action method="setTemplate"><template>page/one-column.phtml</template></action>
+            <action method="setTemplate"><template>page/popup.phtml</template></action>
         </reference>
         <reference name="content">
             <block type="catalog/product_gallery" name="catalog_product_gallery" template="catalog/product/gallery.phtml"/>
@@ -323,7 +356,8 @@ Product additional images gallery popup
 SEO Site Map
 -->
 
-    <catalog_seo_sitemap>
+    <catalog_seo_sitemap translate="label">
+        <label>Catalog Seo Sitemap (Common)</label>
         <remove name="right"/>
         <remove name="left"/>
 
@@ -339,7 +373,8 @@ SEO Site Map
         </reference>
     </catalog_seo_sitemap>
 
-    <catalog_seo_sitemap_category>
+    <catalog_seo_sitemap_category translate="label">
+        <label>Catalog Seo Sitemap (Category List)</label>
         <update handle="catalog_seo_sitemap" />
         <reference name="seo.sitemap.container">
             <action method="setTitle" translate="title" module="catalog"><title>Categories</title></action>
@@ -354,7 +389,8 @@ SEO Site Map
         </reference>
     </catalog_seo_sitemap_category>
 
-    <catalog_seo_sitemap_category_tree>
+    <catalog_seo_sitemap_category_tree translate="label">
+        <label>Catalog Seo Sitemap (Category Tree)</label>
         <reference name="seo.sitemap.container">
             <remove name="seo.sitemap.pager.top" />
             <remove name="seo.sitemap.pager.bottom" />
@@ -368,7 +404,8 @@ SEO Site Map
         </reference>
     </catalog_seo_sitemap_category_tree>
 
-    <catalog_seo_sitemap_product>
+    <catalog_seo_sitemap_product translate="label">
+        <label>Catalog Seo Sitemap (Product List)</label>
         <update handle="catalog_seo_sitemap" />
         <reference name="seo.sitemap.container">
             <action method="setTitle" translate="title" module="catalog"><title>Products</title></action>
@@ -388,7 +425,8 @@ SEO Site Map
 Catalog search terms block
 -->
 
-    <catalog_seo_searchterm_popular>
+    <catalog_seo_searchterm_popular translate="label">
+        <label>Catalog Seo Popular Search Terms</label>
         <remove name="right"/>
         <remove name="left"/>
         <reference name="root">

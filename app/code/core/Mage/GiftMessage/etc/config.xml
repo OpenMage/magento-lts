@@ -60,6 +60,15 @@
                 </setup>
             </giftmessage_setup>
         </resources>
+        <sales>
+            <quote>
+                <item>
+                    <product_attributes>
+                        <gift_message_available/>
+                    </product_attributes>
+                </item>
+            </quote>
+        </sales>
     </global>
 
     <default>
@@ -185,15 +194,6 @@
                     </giftmessage>
                 </observers>
             </checkout_controller_multishipping_shipping_post>
-            <catalog_product_collection_load_after>
-                <observers>
-                    <giftmessage>
-                        <type>model</type>
-                        <class>giftmessage/observer</class>
-                        <method>catalogEventProductCollectionAfterLoad</method>
-                    </giftmessage>
-                </observers>
-            </catalog_product_collection_load_after>
             <sales_convert_order_to_quote>
                 <observers>
                     <giftmessage>

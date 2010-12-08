@@ -15,10 +15,16 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Locale.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Locale.php 20816 2010-02-01 21:13:54Z freak $
  */
+
+/**
+ * @see Zend_Application_Resource_ResourceAbstract
+ */
+#require_once 'Zend/Application/Resource/ResourceAbstract.php';
+
 
 /**
  * Resource for initializing the locale
@@ -27,7 +33,7 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Application_Resource_Locale
@@ -60,10 +66,15 @@ class Zend_Application_Resource_Locale
     {
         if (null === $this->_locale) {
             $options = $this->getOptions();
-            if (!isset($options['default'])) {
+            if(!isset($options['default'])) {
+                $this->_locale = new Zend_Locale();
+            } elseif(!isset($options['force']) ||
+                     (bool) $options['force'] == false)
+            {
+                // Don't force any locale, just go for auto detection
+                Zend_Locale::setDefault($options['default']);
                 $this->_locale = new Zend_Locale();
             } else {
-                Zend_Locale::setDefault($options['default']);
                 $this->_locale = new Zend_Locale($options['default']);
             }
 
@@ -72,6 +83,7 @@ class Zend_Application_Resource_Locale
                 : self::DEFAULT_REGISTRY_KEY;
             Zend_Registry::set($key, $this->_locale);
         }
+
         return $this->_locale;
     }
 }

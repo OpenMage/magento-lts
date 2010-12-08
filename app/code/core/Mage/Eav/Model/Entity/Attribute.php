@@ -101,6 +101,23 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             Mage::throwException(Mage::helper('eav')->__('The attribute code \'%s\' is reserved by system. Please try another attribute code.', $this->_data['attribute_code']));
         }
 
+        $defaultValue = $this->getDefaultValue();
+        $hasDefaultValue = ((string)$defaultValue != '');
+
+        if ($this->getBackendType() == 'decimal' && $hasDefaultValue) {
+            if (!Zend_Locale_Format::isNumber($defaultValue, array('locale' => Mage::app()->getLocale()->getLocaleCode()))) {
+                throw new Exception('Invalid default decimal value.');
+            }
+            try {
+                $filter = new Zend_Filter_LocalizedToNormalized(
+                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                );
+                $this->setDefaultValue($filter->filter($defaultValue));
+            } catch (Exception $e) {
+                throw new Exception('Invalid default decimal value.');
+            }
+        }
+
         if ($this->getBackendType() == 'datetime') {
             if (!$this->getBackendModel()) {
                 $this->setBackendModel('eav/entity_attribute_backend_datetime');
@@ -111,7 +128,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             }
 
             // save default date value as timestamp
-            if ($defaultValue = $this->getDefaultValue()) {
+            if ($hasDefaultValue) {
                 $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
                 try {
                     $defaultValue = Mage::app()->getLocale()->date($defaultValue, $format, null, false)->toValue();

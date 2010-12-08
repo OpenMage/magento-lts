@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_GoogleCheckout>
-            <version>0.7.3</version>
+            <version>0.7.4</version>
         </Mage_GoogleCheckout>
     </modules>
     <global>
@@ -50,6 +50,7 @@
                 <class>Mage_GoogleCheckout_Model_Mysql4</class>
                 <entities>
                     <api_debug><table>googlecheckout_api_debug</table></api_debug>
+                    <notification><table>googlecheckout_notification</table></notification>
                 </entities>
             </googlecheckout_mysql4>
         </models>
@@ -166,6 +167,7 @@ Something like this is to be added to resolve bug #4890
                 <use_secure_callback_url>0</use_secure_callback_url>
                 <disable_default_tax_tables>0</disable_default_tax_tables>
                 <hide_cart_contents>1</hide_cart_contents>
+                <title>Google Checkout</title>
             </checkout>
             <checkout_shipping_carrier>
                 <address_category>COMMERCIAL</address_category>

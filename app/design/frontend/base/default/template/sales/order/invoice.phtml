@@ -24,38 +24,40 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<div class="order-items order-details">
 <?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('order', $this->getOrder())): ?>
-<script type="text/javascript">
-//<![CDATA[
-function giftMessageToogle(giftMessageIdentifier)
-{
-    var link = $('order-item-gift-message-link-'+giftMessageIdentifier);
-    var container = $('order-item-gift-message-'+giftMessageIdentifier);
-    var row = $('order-item-row-'+giftMessageIdentifier);
-
-
-    if(link.expanded) {
-        link.expanded = false;
-        link.removeClassName('expanded');
-        if(container.hasClassName('last')) {
-            row.addClassName('last');
+    <script type="text/javascript">
+    //<![CDATA[
+    function giftMessageToogle(giftMessageIdentifier)
+    {
+        var link = $('order-item-gift-message-link-'+giftMessageIdentifier);
+        var container = $('order-item-gift-message-'+giftMessageIdentifier);
+        var row = $('order-item-row-'+giftMessageIdentifier);
+    
+    
+        if(link.expanded) {
+            link.expanded = false;
+            link.removeClassName('expanded');
+            if(container.hasClassName('last')) {
+                row.addClassName('last');
+            }
+            container.hide();
+        } else {
+            link.expanded = true;
+            link.addClassName('expanded');
+            if(container.hasClassName('last')) {
+                row.removeClassName('last');
+            }
+            container.show();
         }
-        container.hide();
-    } else {
-        link.expanded = true;
-        link.addClassName('expanded');
-        if(container.hasClassName('last')) {
-            row.removeClassName('last');
-        }
-        container.show();
+    
+        return false;
     }
-
-    return false;
-}
-//]]>
-</script>
+    //]]>
+    </script>
 <?php endif; ?>
-<?php echo $this->getChildHtml('invoice_items') ?>
-<div class="buttons-set">
-    <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to My Orders') ?></a></p>
+    <?php echo $this->getChildHtml('invoice_items') ?>
+    <div class="buttons-set">
+        <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to My Orders') ?></a></p>
+    </div>
 </div>

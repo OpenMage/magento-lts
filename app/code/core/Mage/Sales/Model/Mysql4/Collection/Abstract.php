@@ -30,9 +30,6 @@
  */
 abstract class Mage_Sales_Model_Mysql4_Collection_Abstract extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
-    protected $_eventPrefix = '';
-    protected $_eventObject = '';
-
     /**
      * Check if $attribute is Mage_Eav_Model_Entity_Attribute and convert to string field name
      *

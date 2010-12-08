@@ -14,15 +14,15 @@
  *
  * @category   Zend
  * @package    Zend_Application
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Application.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Application.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
  * @category   Zend
  * @package    Zend_Application
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Application
@@ -124,7 +124,15 @@ class Zend_Application
     public function setOptions(array $options)
     {
         if (!empty($options['config'])) {
-            $options = $this->mergeOptions($options, $this->_loadConfig($options['config']));
+            if (is_array($options['config'])) {
+                $_options = array();
+                foreach ($options['config'] as $tmp) {
+                    $_options = $this->mergeOptions($_options, $this->_loadConfig($tmp));
+                }
+                $options = $this->mergeOptions($_options, $options);
+            } else {
+                $options = $this->mergeOptions($this->_loadConfig($options['config']), $options);
+            }
         }
 
         $this->_options = $options;

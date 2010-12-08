@@ -48,22 +48,26 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Option extends Mage_Core_Model_Mysq
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Option
      */
     public function addOptionValueToCollection($collection, $attribute, $valueExpr) {
-        $attributeCode  = $attribute->getAttributeCode();
-        $optionTable1   = $attributeCode . '_option_value_t1';
-        $optionTable2   = $attributeCode . '_option_value_t2';
+        $adminStore    = Mage_Core_Model_App::ADMIN_STORE_ID;
+        $attributeCode = $attribute->getAttributeCode();
+        $optionTable1  = $attributeCode . '_option_value_t1';
+        $optionTable2  = $attributeCode . '_option_value_t2';
 
-        $collection->getSelect()
-            ->joinLeft(
-                array($optionTable1 => $this->getTable('eav/attribute_option_value')),
-                "`{$optionTable1}`.`option_id`={$valueExpr}"
-                . " AND `{$optionTable1}`.`store_id`='0'",
-                array())
-            ->joinLeft(
+        $collection->getSelect()->joinLeft(
+            array($optionTable1 => $this->getTable('eav/attribute_option_value')),
+            "`{$optionTable1}`.`option_id`={$valueExpr}"
+            . " AND `{$optionTable1}`.`store_id`='{$adminStore}'",
+            ($collection->getStoreId() != $adminStore) ? array() : array($attributeCode.'_value' => "{$optionTable1}.value")
+        );
+
+        if ($collection->getStoreId() != $adminStore) {
+            $collection->getSelect()->joinLeft(
                 array($optionTable2 => $this->getTable('eav/attribute_option_value')),
                 "`{$optionTable2}`.`option_id`={$valueExpr}"
                 . " AND `{$optionTable1}`.`store_id`='{$collection->getStoreId()}'",
-                array($attributeCode => "IFNULL(`{$optionTable2}`.`value`, `{$optionTable1}`.`value`)")
+                array($attributeCode.'_value' => "IFNULL(`{$optionTable2}`.`value`, `{$optionTable1}`.`value`)")
             );
+        }
 
         return $this;
     }

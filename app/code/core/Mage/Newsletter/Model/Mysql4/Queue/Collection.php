@@ -49,11 +49,11 @@ class Mage_Newsletter_Model_Mysql4_Queue_Collection extends Mage_Core_Model_Mysq
         $this->_init('newsletter/queue');
     }
 
-
     /**
      * Joines templates information
      *
      * @return Mage_Newsletter_Model_Mysql4_Queue_Collection
+     * @deprecated since 1.4.0.1
      */
     public function addTemplateInfo() {
         $this->getSelect()->joinLeft(array('template'=>$this->getTable('template')),

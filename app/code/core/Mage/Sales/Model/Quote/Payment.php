@@ -113,15 +113,15 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
      */
     protected function _beforeSave()
     {
+        if ($this->getQuote()) {
+            $this->setQuoteId($this->getQuote()->getId());
+        }
         try {
             $method = $this->getMethodInstance();
         } catch (Mage_Core_Exception $e) {
             return parent::_beforeSave();
         }
         $method->prepareSave();
-        if ($this->getQuote()) {
-            $this->setQuoteId($this->getQuote()->getId());
-        }
         return parent::_beforeSave();
     }
 

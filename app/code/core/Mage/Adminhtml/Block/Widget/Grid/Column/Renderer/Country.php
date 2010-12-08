@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Country extends Mage_Admi
         if ($data = $row->getData($this->getColumn()->getIndex())) {
             $name = Mage::app()->getLocale()->getCountryTranslation($data);
             if (empty($name)) {
-                $name = $data;
+                $name = $this->escapeHtml($data);
             }
             return $name;
         }

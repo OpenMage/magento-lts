@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: View.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: View.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -28,7 +28,7 @@
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Provider_View extends Zend_Tool_Project_Provider_Abstract
@@ -61,7 +61,7 @@ class Zend_Tool_Project_Provider_View extends Zend_Tool_Project_Provider_Abstrac
             $profileSearchParams = array('modulesDirectory', 'moduleDirectory' => array('moduleName' => $moduleName));
             $noModuleSearch = null;
         } else {
-            $noModuleSearch = array('ModulesDirectory');
+            $noModuleSearch = array('modulesDirectory');
         }
 
         $profileSearchParams[] = 'viewsDirectory';
@@ -74,7 +74,7 @@ class Zend_Tool_Project_Provider_View extends Zend_Tool_Project_Provider_Abstrac
 
         $profileSearchParams['viewControllerScriptsDirectory'] = array('forControllerName' => $controllerName);
 
-        // XXXXXXXXX below is failing b/c of above search params
+        // @todo check if below is failing b/c of above search params
         if (($viewControllerScriptsDirectory = $viewScriptsDirectory->search($profileSearchParams)) === false) {
             $viewControllerScriptsDirectory = $viewScriptsDirectory->createResource('viewControllerScriptsDirectory', array('forControllerName' => $controllerName));
         }

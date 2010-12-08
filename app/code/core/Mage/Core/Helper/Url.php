@@ -41,7 +41,10 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function getCurrentUrl()
     {
-        return $this->_getUrl('*/*/*', array('_current' => true, '_use_rewrite' => true));
+        $request = Mage::app()->getRequest();
+        $url = $request->getScheme() . '://' . $request->getHttpHost() . $request->getServer('REQUEST_URI');
+        return $url;
+//        return $this->_getUrl('*/*/*', array('_current' => true, '_use_rewrite' => true));
     }
 
     /**

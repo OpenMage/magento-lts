@@ -50,7 +50,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
      */
     protected function _prepareCollection()
     {
-        $collection = Mage::getResourceModel('sales/order_collection')
+        $collection = Mage::getResourceModel('sales/order_grid_collection')
             ->addRecurringProfilesFilter(Mage::registry('current_recurring_profile')->getId())
         ;
         $this->setCollection($collection);

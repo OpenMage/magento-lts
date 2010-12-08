@@ -43,28 +43,9 @@ class Mage_Customer_Model_Customer_Api_V2 extends Mage_Customer_Model_Customer_A
     protected function _prepareData($data)
     {
         if (null !== ($_data = get_object_vars($data))) {
-            return $_data;
+            return parent::_prepareData($_data);
         }
         return array();
-    }
-
-    /**
-     * Create new customer
-     *
-     * @param array $customerData
-     * @return int
-     */
-    public function create($customerData)
-    {
-        $customerData = $this->_prepareData($customerData);
-        try {
-            $customer = Mage::getModel('customer/customer')
-                ->setData($customerData)
-                ->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
-        }
-        return $customer->getId();
     }
 
     /**
@@ -125,30 +106,5 @@ class Mage_Customer_Model_Customer_Api_V2 extends Mage_Customer_Model_Customer_A
         }
 
         return $result;
-    }
-
-    /**
-     * Update customer data
-     *
-     * @param int $customerId
-     * @param array $customerData
-     * @return boolean
-     */
-    public function update($customerId, $customerData)
-    {
-        $customer = Mage::getModel('customer/customer')->load($customerId);
-
-        if (!$customer->getId()) {
-            $this->_fault('not_exists');
-        }
-
-        foreach ($this->getAllowedAttributes($customer) as $attributeCode=>$attribute) {
-            if (isset($customerData->$attributeCode)) {
-                $customer->setData($attributeCode, $customerData->$attributeCode);
-            }
-        }
-
-        $customer->save();
-        return true;
     }
 }

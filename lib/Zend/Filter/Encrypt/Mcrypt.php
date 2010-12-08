@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Mcrypt.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Mcrypt.php 20132 2010-01-07 21:33:50Z ralph $
  */
 
 /**
@@ -29,7 +29,7 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
@@ -54,6 +54,8 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
         'salt'                => false
     );
 
+    protected static $_srandCalled = false;
+    
     /**
      * Class constructor
      *
@@ -154,8 +156,19 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
         $cipher = $this->_openCipher();
         $size   = mcrypt_enc_get_iv_size($cipher);
         if (empty($vector)) {
-            srand();
-            $vector = mcrypt_create_iv($size, MCRYPT_RAND);
+            $this->_srand();
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' && version_compare(PHP_VERSION, '5.3.0', '<')) {
+                $method = MCRYPT_RAND;
+            } else {
+                if (file_exists('/dev/urandom') || (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')) {
+                    $method = MCRYPT_DEV_URANDOM;
+                } elseif (file_exists('/dev/random')) {
+                    $method = MCRYPT_DEV_RANDOM;
+                } else {
+                    $method = MCRYPT_RAND;
+                }
+            }
+            $vector = mcrypt_create_iv($size, $method);
         } else if (strlen($vector) != $size) {
             #require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception('The given vector has a wrong size for the set algorithm');
@@ -263,7 +276,7 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
 
         $keysizes = mcrypt_enc_get_supported_key_sizes($cipher);
         if (empty($keysizes) || ($this->_encryption['salt'] == true)) {
-            srand();
+            $this->_srand();
             $keysize = mcrypt_enc_get_key_size($cipher);
             $key     = substr(md5($key), 0, $keysize);
         } else if (!in_array(strlen($key), $keysizes)) {
@@ -278,5 +291,22 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
         }
 
         return $this;
+    }
+    
+    /**
+     * _srand() interception
+     * 
+     * @see ZF-8742
+     */
+    protected function _srand()
+    {
+        if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
+            return;
+        }
+        
+        if (!self::$_srandCalled) {
+            srand((double) microtime() * 1000000);
+            self::$_srandCalled = true;
+        }
     }
 }

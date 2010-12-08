@@ -35,26 +35,18 @@
 class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_Core_Helper_Data
 {
     /**
-     * Selected products for massupdate
+     * Selected products for mass-update
      *
      * @var Mage_Catalog_Model_Entity_Product_Collection
      */
     protected $_products;
 
     /**
-     * Array of products that not available in selected store
-     *
-     * @var array
-     */
-    protected $_productsNotInStore;
-
-    /**
-     * Same attribtes for selected products
+     * Array of same attributes for selected products
      *
      * @var Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
     protected $_attributes;
-
 
     /**
      * Excluded from batch update attribute codes
@@ -64,7 +56,8 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     protected $_excludedAttributes = array('url_key');
 
     /**
-     * Retrive product collection
+     * Return product collection with selected product filter
+     * Product collection didn't load
      *
      * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
      */
@@ -73,22 +66,20 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
         if (is_null($this->_products)) {
             $productsIds = $this->getProductIds();
 
-            if(!is_array($productsIds)) {
+            if (!is_array($productsIds)) {
                 $productsIds = array(0);
             }
 
             $this->_products = Mage::getResourceModel('catalog/product_collection')
                 ->setStoreId($this->getSelectedStoreId())
                 ->addIdFilter($productsIds);
-                //->load();
-                //->addStoreNamesToResult();
         }
 
         return $this->_products;
     }
 
     /**
-     * Retrive selected products ids from post or session
+     * Return array of selected product ids from post or session
      *
      * @return array|null
      */
@@ -96,7 +87,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     {
         $session = Mage::getSingleton('adminhtml/session');
 
-        if ($this->_getRequest()->isPost() && $this->_getRequest()->getActionName()=='edit') {
+        if ($this->_getRequest()->isPost() && $this->_getRequest()->getActionName() == 'edit') {
             $session->setProductIds($this->_getRequest()->getParam('product', null));
         }
 
@@ -104,17 +95,17 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     }
 
     /**
-     * Retrive selected store id
+     * Return selected store id from request
      *
      * @return integer
      */
     public function getSelectedStoreId()
     {
-        return (int) $this->_getRequest()->getParam('store', 0);
+        return (int)$this->_getRequest()->getParam('store', Mage_Core_Model_App::ADMIN_STORE_ID);
     }
 
     /**
-     * Retrive selected products' attribute sets
+     * Return array of attribute sets by selected products
      *
      * @return array
      */
@@ -124,24 +115,34 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     }
 
     /**
-     * Retrive same attributes for selected products without unique
+     * Return collection of same attributes for selected products without unique
      *
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
     public function getAttributes()
     {
         if (is_null($this->_attributes)) {
-            $this->_attributes = $this->getProducts()->getEntity()->getEntityType()->getAttributeCollection()
+            $this->_attributes  = Mage::getSingleton('eav/config')
+                ->getEntityType('catalog_product')
+                ->getAttributeCollection()
                 ->addIsNotUniqueFilter()
                 ->setInAllAttributeSetsFilter($this->getProductsSetIds());
 
-            foreach ($this->_excludedAttributes as $attributeCode) {
-                $this->_attributes->addFieldToFilter('attribute_code', array('neq'=>$attributeCode));
+            if ($this->_excludedAttributes) {
+                $this->_attributes->addFieldToFilter('attribute_code', array('nin' => $this->_excludedAttributes));
             }
 
-            $this->_attributes->load();
-            foreach($this->_attributes as $attribute) {
-                $attribute->setEntity($this->getProducts()->getEntity());
+            // check product type apply to limitation and remove attributes that impossible to change in mass-update
+            $productTypeIds  = $this->getProducts()->getProductTypeIds();
+            foreach ($this->_attributes as $attribute) {
+                /* @var $attribute Mage_Catalog_Model_Entity_Attribute */
+                foreach ($productTypeIds as $productTypeId) {
+                    $applyTo = $attribute->getApplyTo();
+                    if (count($applyTo) > 0 && !in_array($productTypeId, $applyTo)) {
+                        $this->_attributes->removeItemByKey($attribute->getId());
+                        break;
+                    }
+                }
             }
         }
 
@@ -149,23 +150,13 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     }
 
     /**
-     * Retrive products ids that not available for selected store
+     * Return product ids that not available for selected store
      *
+     * @deprecated since 1.4.1
      * @return array
      */
     public function getProductsNotInStoreIds()
     {
-        if (is_null($this->_productsNotInStore)) {
-            $this->_productsNotInStoreIds = array();
-            /*foreach ($this->getProducts() as $product) {
-                $stores = $product->getStores();
-                if (!isset($stores[$this->getSelectedStoreId()]) && $this->getSelectedStoreId() != 0) {
-                    $this->_productsNotInStoreIds[] = $product->getId();
-                }
-            }*/
-        }
-
-        return $this->_productsNotInStoreIds;
+        return array();
     }
-
 }

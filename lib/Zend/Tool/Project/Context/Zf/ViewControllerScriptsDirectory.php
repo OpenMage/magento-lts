@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ViewControllerScriptsDirectory.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: ViewControllerScriptsDirectory.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -33,7 +33,7 @@
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Context_Zf_ViewControllerScriptsDirectory extends Zend_Tool_Project_Context_Filesystem_Directory
@@ -57,7 +57,7 @@ class Zend_Tool_Project_Context_Zf_ViewControllerScriptsDirectory extends Zend_T
     public function init()
     {
         $this->_forControllerName = $this->_resource->getAttribute('forControllerName');
-        $this->_filesystemName = $this->_forControllerName;
+        $this->_filesystemName = $this->_convertControllerNameToFilesystemName($this->_forControllerName);
         parent::init();
         return $this;
     }
@@ -82,6 +82,14 @@ class Zend_Tool_Project_Context_Zf_ViewControllerScriptsDirectory extends Zend_T
     public function getName()
     {
         return 'ViewControllerScriptsDirectory';
+    }
+    
+    protected function _convertControllerNameToFilesystemName($controllerName)
+    {
+        $filter = new Zend_Filter();
+        $filter->addFilter(new Zend_Filter_Word_CamelCaseToDash())
+            ->addFilter(new Zend_Filter_StringToLower());
+        return $filter->filter($controllerName);
     }
 
 }

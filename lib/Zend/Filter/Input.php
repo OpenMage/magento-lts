@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Input.php 18186 2009-09-17 18:57:00Z matthew $
+ * @version    $Id: Input.php 22473 2010-06-20 08:30:04Z thomas $
  */
 
 /**
@@ -37,7 +37,7 @@
 /**
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_Input
@@ -143,6 +143,18 @@ class Zend_Filter_Input
      * input data have been processed.  Reset to False in setData() method.
      */
     protected $_processed = false;
+
+    /**
+     * Translation object
+     * @var Zend_Translate
+     */
+    protected $_translator;
+
+    /**
+     * Is translation disabled?
+     * @var Boolean
+     */
+    protected $_translatorDisabled = false;
 
     /**
      * @param array $filterRules
@@ -558,6 +570,74 @@ class Zend_Filter_Input
         return $this;
     }
 
+    /**
+     * Set translation object
+     *
+     * @param  Zend_Translate|Zend_Translate_Adapter|null $translator
+     * @return Zend_Filter_Input
+     */
+    public function setTranslator($translator = null)
+    {
+        if ((null === $translator) || ($translator instanceof Zend_Translate_Adapter)) {
+            $this->_translator = $translator;
+        } elseif ($translator instanceof Zend_Translate) {
+            $this->_translator = $translator->getAdapter();
+        } else {
+            #require_once 'Zend/Validate/Exception.php';
+            throw new Zend_Validate_Exception('Invalid translator specified');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Return translation object
+     *
+     * @return Zend_Translate_Adapter|null
+     */
+    public function getTranslator()
+    {
+        if ($this->translatorIsDisabled()) {
+            return null;
+        }
+
+        if ($this->_translator === null) {
+            #require_once 'Zend/Registry.php';
+            if (Zend_Registry::isRegistered('Zend_Translate')) {
+                $translator = Zend_Registry::get('Zend_Translate');
+                if ($translator instanceof Zend_Translate_Adapter) {
+                    return $translator;
+                } elseif ($translator instanceof Zend_Translate) {
+                    return $translator->getAdapter();
+                }
+            }
+        }
+
+        return $this->_translator;
+    }
+
+    /**
+     * Indicate whether or not translation should be disabled
+     *
+     * @param  bool $flag
+     * @return Zend_Filter_Input
+     */
+    public function setDisableTranslator($flag)
+    {
+        $this->_translatorDisabled = (bool) $flag;
+        return $this;
+    }
+
+    /**
+     * Is translation disabled?
+     *
+     * @return bool
+     */
+    public function translatorIsDisabled()
+    {
+        return $this->_translatorDisabled;
+    }
+
     /*
      * Protected methods
      */
@@ -662,6 +742,15 @@ class Zend_Filter_Input
     protected function _getMissingMessage($rule, $field)
     {
         $message = $this->_defaults[self::MISSING_MESSAGE];
+
+        if (null !== ($translator = $this->getTranslator())) {
+            if ($translator->isTranslated(self::MISSING_MESSAGE)) {
+                $message = $translator->translate(self::MISSING_MESSAGE);
+            } else {
+                $message = $translator->translate($message);
+            }
+        }
+
         $message = str_replace('%rule%', $rule, $message);
         $message = str_replace('%field%', $field, $message);
         return $message;
@@ -673,6 +762,15 @@ class Zend_Filter_Input
     protected function _getNotEmptyMessage($rule, $field)
     {
         $message = $this->_defaults[self::NOT_EMPTY_MESSAGE];
+
+        if (null !== ($translator = $this->getTranslator())) {
+            if ($translator->isTranslated(self::NOT_EMPTY_MESSAGE)) {
+                $message = $translator->translate(self::NOT_EMPTY_MESSAGE);
+            } else {
+                $message = $translator->translate($message);
+            }
+        }
+
         $message = str_replace('%rule%', $rule, $message);
         $message = str_replace('%field%', $field, $message);
         return $message;

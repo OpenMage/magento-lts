@@ -86,6 +86,7 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
                 'index'     => 'status',
                 'type'      => 'options',
                 'source'    => 'catalog/product_status',
+                'options'   => Mage::getSingleton('catalog/product_status')->getOptionArray(),
         ));
 
         /**

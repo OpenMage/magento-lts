@@ -15,21 +15,25 @@
  * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: QueryDataSet.php 16607 2009-07-09 21:51:46Z beberlei $
+ * @version    $Id: QueryDataSet.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
+/**
+ * @see PHPUnit_Extensions_Database_DataSet_QueryDataSet
+ */
 #require_once "PHPUnit/Extensions/Database/DataSet/QueryDataSet.php";
 
+/**
+ * @see PHPUnit_Extensions_Database_DB_IDatabaseConnection
+ */
 #require_once "PHPUnit/Extensions/Database/DB/IDatabaseConnection.php";
 
 /**
  * @see Zend_Test_PHPUnit_Db_DataSet_QueryTable
  */
 #require_once "Zend/Test/PHPUnit/Db/DataSet/QueryTable.php";
-
-
 
 /**
  * @see Zend_Db_Select
@@ -43,7 +47,7 @@
  * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Test_PHPUnit_Db_DataSet_QueryDataSet extends PHPUnit_Extensions_Database_DataSet_QueryDataSet

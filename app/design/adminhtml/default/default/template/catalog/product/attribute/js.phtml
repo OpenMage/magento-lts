@@ -27,16 +27,24 @@
 <script type="text/javascript">
 //<![CDATA[
 function saveAndContinueEdit(){
+    disableElements('save');
     var activeTab = product_attribute_tabsJsTabs.activeTab.id;
-    if (editForm.submit($('edit_form').action+'back/edit/tab/' + activeTab) != false) {
-        disableElements('save');
-    }
+    if (editForm.submit($('edit_form').action+'back/edit/tab/' + activeTab) == false) {
+        enableElements('save');
+     }
+    varienGlobalEvents.attachEventHandler('formValidateAjaxComplete', function (){
+        enableElements('save');
+    });
 }
 
 function saveAttribute(){
-    if (editForm.submit() != false) {
-        disableElements('save');
+    disableElements('save');
+    if (editForm.submit() == false){
+        enableElements('save');
     }
+    varienGlobalEvents.attachEventHandler('formValidateAjaxComplete', function (){
+        enableElements('save');
+    });
 }
 
 function toggleApplyVisibility(select) {

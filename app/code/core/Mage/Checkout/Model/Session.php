@@ -134,11 +134,14 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function loadCustomerQuote()
     {
+        if (!Mage::getSingleton('customer/session')->getCustomerId()) {
+            return $this;
+        }
         $customerQuote = Mage::getModel('sales/quote')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomerId());
 
-        if ($this->getQuoteId() != $customerQuote->getId()) {
+        if ($customerQuote->getId() && $this->getQuoteId() != $customerQuote->getId()) {
             if ($this->getQuoteId()) {
                 $customerQuote->merge($this->getQuote())
                     ->collectTotals()
@@ -151,6 +154,9 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
                 $this->_quote->delete();
             }
             $this->_quote = $customerQuote;
+        } else {
+            $this->getQuote()->setCustomer(Mage::getSingleton('customer/session')->getCustomer())
+                ->save();
         }
         return $this;
     }
@@ -193,6 +199,97 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
         return $steps[$step][$data];
     }
 
+    /**
+     * Retrieves list of all saved additional messages for different instances (e.g. quote items) in checkout session
+     * Returned: array(itemKey => messageCollection, ...)
+     * where itemKey is a unique hash (e.g 'quote_item17') to distinguish item messages among message collections
+     *
+     * @param bool $clear
+     *
+     * @return array
+     */
+    public function getAdditionalMessages($clear = false)
+    {
+        $additionalMessages = $this->getData('additional_messages');
+        if (!$additionalMessages) {
+            return array();
+        }
+        if ($clear) {
+            $this->setData('additional_messages', null);
+        }
+        return $additionalMessages;
+    }
+
+    /**
+     * Retrieves list of item additional messages
+     * itemKey is a unique hash (e.g 'quote_item17') to distinguish item messages among message collections
+     *
+     * @param string $itemKey
+     * @param bool $clear
+     *
+     * @return null|Mage_Core_Model_Message_Collection
+     */
+    public function getItemAdditionalMessages($itemKey, $clear = false)
+    {
+        $allMessages = $this->getAdditionalMessages();
+        if (!isset($allMessages[$itemKey])) {
+            return null;
+        }
+
+        $messages = $allMessages[$itemKey];
+        if ($clear) {
+            unset($allMessages[$itemKey]);
+            $this->setAdditionalMessages($allMessages);
+        }
+        return $messages;
+    }
+
+    /**
+     * Adds new message in this session to a list of additional messages for some item
+     * itemKey is a unique hash (e.g 'quote_item17') to distinguish item messages among message collections
+     *
+     * @param string $itemKey
+     * @param Mage_Core_Model_Message $message
+     *
+     * @return Mage_Checkout_Model_Session
+     */
+    public function addItemAdditionalMessage($itemKey, $message)
+    {
+        $allMessages = $this->getAdditionalMessages();
+        if (!isset($allMessages[$itemKey])) {
+            $allMessages[$itemKey] = Mage::getModel('core/message_collection');
+        }
+        $allMessages[$itemKey]->add($message);
+        $this->setAdditionalMessages($allMessages);
+
+        return $this;
+    }
+
+    /**
+     * Retrieves list of quote item messages
+     * @param int $itemId
+     * @param bool $clear
+     *
+     * @return null|Mage_Core_Model_Message_Collection
+     */
+    public function getQuoteItemMessages($itemId, $clear = false)
+    {
+        return $this->getItemAdditionalMessages('quote_item' . $itemId, $clear);
+    }
+
+    /**
+     * Adds new message to a list of quote item messages, saved in this session
+     *
+     * @param int $itemId
+     * @param Mage_Core_Model_Message $message
+     *
+     * @return Mage_Checkout_Model_Session
+     */
+    function addQuoteItemMessage($itemId, $message)
+    {
+        return $this->addItemAdditionalMessage('quote_item' . $itemId, $message);
+    }
+
     public function clear()
     {
         Mage::dispatchEvent('checkout_quote_destroy', array('quote'=>$this->getQuote()));
@@ -211,6 +308,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             ->setLastOrderId(null)
             ->setLastRealOrderId(null)
             ->setLastRecurringProfileIds(null)
+            ->setAdditionalMessages(null)
         ;
     }
 

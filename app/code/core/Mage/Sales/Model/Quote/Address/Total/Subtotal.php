@@ -90,7 +90,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
         }
 
         /**
-         * Quote super mode flag meen whot we work with quote without restriction
+         * Quote super mode flag mean what we work with quote without restriction
          */
         if ($item->getQuote()->getIsSuperMode()) {
             if (!$product) {
@@ -110,11 +110,13 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
                $quoteItem->getProduct(),
                $quoteItem->getQty()
             );
-            $item->setPrice($finalPrice);
+            $item->setPrice($finalPrice)
+                ->setBaseOriginalPrice($finalPrice);
             $item->calcRowTotal();
         } else if (!$quoteItem->getParentItem()) {
             $finalPrice = $product->getFinalPrice($quoteItem->getQty());
-            $item->setPrice($finalPrice);
+            $item->setPrice($finalPrice)
+                ->setBaseOriginalPrice($finalPrice);
             $item->calcRowTotal();
             $this->_addAmount($item->getRowTotal());
             $this->_addBaseAmount($item->getBaseRowTotal());

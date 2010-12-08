@@ -168,23 +168,21 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     {
         $session = $this->_getSession();
 
-        if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl() ) {
+        if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl()) {
 
             // Set default URL to redirect customer to
             $session->setBeforeAuthUrl(Mage::helper('customer')->getAccountUrl());
-
             // Redirect customer to the last page visited after logging in
-            if ($session->isLoggedIn())
-            {
+            if ($session->isLoggedIn()) {
                 if (!Mage::getStoreConfigFlag('customer/startup/redirect_dashboard')) {
-                    if ($referer = $this->getRequest()->getParam(Mage_Customer_Helper_Data::REFERER_QUERY_PARAM_NAME)) {
+                    $referer = $this->getRequest()->getParam(Mage_Customer_Helper_Data::REFERER_QUERY_PARAM_NAME);
+                    if ($referer) {
                         $referer = Mage::helper('core')->urlDecode($referer);
                         if ($this->_isUrlInternal($referer)) {
                             $session->setBeforeAuthUrl($referer);
                         }
                     }
-                }
-                else if ($session->getAfterAuthUrl()) {
+                } else if ($session->getAfterAuthUrl()) {
                     $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
                 }
             } else {
@@ -192,8 +190,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             }
         } else if ($session->getBeforeAuthUrl() == Mage::helper('customer')->getLogoutUrl()) {
             $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-        }
-        else {
+        } else {
             if (!$session->getAfterAuthUrl()) {
                 $session->setAfterAuthUrl($session->getBeforeAuthUrl());
             }
@@ -257,16 +254,12 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 $customer = Mage::getModel('customer/customer')->setId(null);
             }
 
-            $data = $this->_filterPostData($this->getRequest()->getPost());
+            /* @var $customerForm Mage_Customer_Model_Form */
+            $customerForm = Mage::getModel('customer/form');
+            $customerForm->setFormCode('customer_account_create')
+                ->setEntity($customer);
 
-            foreach (Mage::getConfig()->getFieldset('customer_account') as $code=>$node) {
-                if ($node->is('create') && isset($data[$code])) {
-                    if ($code == 'email') {
-                        $data[$code] = trim($data[$code]);
-                    }
-                    $customer->setData($code, $data[$code]);
-                }
-            }
+            $customerData = $customerForm->extractData($this->getRequest());
 
             if ($this->getRequest()->getParam('is_subscribed', false)) {
                 $customer->setIsSubscribed(1);
@@ -278,24 +271,45 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $customer->getGroupId();
 
             if ($this->getRequest()->getPost('create_address')) {
-                $address = Mage::getModel('customer/address')
-                    ->setData($this->getRequest()->getPost())
-                    ->setIsDefaultBilling($this->getRequest()->getParam('default_billing', false))
-                    ->setIsDefaultShipping($this->getRequest()->getParam('default_shipping', false))
-                    ->setId(null);
-                $customer->addAddress($address);
+                /* @var $address Mage_Customer_Model_Address */
+                $address = Mage::getModel('customer/address');
+                /* @var $addressForm Mage_Customer_Model_Form */
+                $addressForm = Mage::getModel('customer/form');
+                $addressForm->setFormCode('customer_register_address')
+                    ->setEntity($address);
 
-                $errors = $address->validate();
-                if (!is_array($errors)) {
-                    $errors = array();
+                $addressData    = $addressForm->extractData($this->getRequest(), 'address', false);
+                $addressErrors  = $addressForm->validateData($addressData);
+                if ($addressErrors === true) {
+                    $address->setId(null)
+                        ->setIsDefaultBilling($this->getRequest()->getParam('default_billing', false))
+                        ->setIsDefaultShipping($this->getRequest()->getParam('default_shipping', false));
+                    $addressForm->compactData($addressData);
+                    $customer->addAddress($address);
+
+                    $addressErrors = $address->validate();
+                    if (is_array($addressErrors)) {
+                        $errors = array_merge($errors, $addressErrors);
+                    }
+                } else {
+                    $errors = array_merge($errors, $addressErrors);
                 }
             }
 
             try {
-                $validationCustomer = $customer->validate();
-                if (is_array($validationCustomer)) {
-                    $errors = array_merge($validationCustomer, $errors);
+                $customerErrors = $customerForm->validateData($customerData);
+                if ($customerErrors !== true) {
+                    $errors = array_merge($customerErrors, $errors);
+                } else {
+                    $customerForm->compactData($customerData);
+                    $customer->setPassword($this->getRequest()->getPost('password'));
+                    $customer->setConfirmation($this->getRequest()->getPost('confirmation'));
+                    $customerErrors = $customer->validate();
+                    if (is_array($customerErrors)) {
+                        $errors = array_merge($customerErrors, $errors);
+                    }
                 }
+
                 $validationResult = count($errors) == 0;
 
                 if (true === $validationResult) {
@@ -306,8 +320,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                         $session->addSuccess($this->__('Account confirmation is required. Please, check your email for the confirmation link. To resend the confirmation email please <a href="%s">click here</a>.', Mage::helper('customer')->getEmailConfirmationUrl($customer->getEmail())));
                         $this->_redirectSuccess(Mage::getUrl('*/*/index', array('_secure'=>true)));
                         return;
-                    }
-                    else {
+                    } else {
                         $session->setCustomerAsLoggedIn($customer);
                         $url = $this->_welcomeCustomer($customer);
                         $this->_redirectSuccess($url);
@@ -319,29 +332,26 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                         foreach ($errors as $errorMessage) {
                             $session->addError($errorMessage);
                         }
-                    }
-                    else {
+                    } else {
                         $session->addError($this->__('Invalid customer data'));
                     }
                 }
-            }
-            catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception $e) {
                 $session->setCustomerFormData($this->getRequest()->getPost());
                 if ($e->getCode() === Mage_Customer_Model_Customer::EXCEPTION_EMAIL_EXISTS) {
                     $url = Mage::getUrl('customer/account/forgotpassword');
                     $message = $this->__('There is already an account with this email address. If you are sure that it is your email address, <a href="%s">click here</a> to get your password and access your account.', $url);
                     $session->setEscapeMessages(false);
-                }
-                else {
+                } else {
                     $message = $e->getMessage();
                 }
                 $session->addError($message);
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $session->setCustomerFormData($this->getRequest()->getPost())
                     ->addException($e, $this->__('Cannot save the customer.'));
             }
         }
+
         $this->_redirectError(Mage::getUrl('*/*/create', array('_secure' => true)));
     }
 
@@ -450,15 +460,13 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 if ($customer->getConfirmation()) {
                     $customer->sendNewAccountEmail('confirmation');
                     $this->_getSession()->addSuccess($this->__('Please, check your email for confirmation key.'));
-                }
-                else {
+                } else {
                     $this->_getSession()->addSuccess($this->__('This email does not require confirmation.'));
                 }
                 $this->_getSession()->setUsername($email);
                 $this->_redirectSuccess(Mage::getUrl('*/*/index', array('_secure' => true)));
-            }
-            catch (Exception $e) {
-                $this->_getSession()->addError($this->__('Wrong email.'));
+            } catch (Exception $e) {
+                $this->_getSession()->addException($e, $this->__('Wrong email.'));
                 $this->_redirectError(Mage::getUrl('*/*/*', array('email' => $email, '_secure' => true)));
             }
             return;
@@ -521,8 +529,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 catch (Exception $e){
                     $this->_getSession()->addError($e->getMessage());
                 }
-            }
-            else {
+            } else {
                 $this->_getSession()->addError($this->__('This email address was not found in our records.'));
                 $this->_getSession()->setForgottenEmail($email);
             }
@@ -544,7 +551,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('catalog/session');
 
-        if ($block = $this->getLayout()->getBlock('customer_edit')) {
+        $block = $this->getLayout()->getBlock('customer_edit');
+        if ($block) {
             $block->setRefererUrl($this->_getRefererUrl());
         }
         $data = $this->_getSession()->getCustomerFormData(true);
@@ -552,7 +560,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         if (!empty($data)) {
             $customer->addData($data);
         }
-        if($this->getRequest()->getParam('changepass')==1){
+        if ($this->getRequest()->getParam('changepass')==1){
             $customer->setChangePassword(1);
         }
 
@@ -571,55 +579,54 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
 
         if ($this->getRequest()->isPost()) {
-            $customer = Mage::getModel('customer/customer')
-                ->setId($this->_getSession()->getCustomerId())
-                ->setWebsiteId($this->_getSession()->getCustomer()->getWebsiteId());
+            /* @var $customer Mage_Customer_Model_Customer */
+            $customer = $this->_getSession()->getCustomer();
 
-            $fields = Mage::getConfig()->getFieldset('customer_account');
-            $data = $this->_filterPostData($this->getRequest()->getPost());
+            /* @var $customerForm Mage_Customer_Model_Form */
+            $customerForm = Mage::getModel('customer/form');
+            $customerForm->setFormCode('customer_account_edit')
+                ->setEntity($customer);
 
-            foreach ($fields as $code=>$node) {
-                if ($node->is('update') && isset($data[$code])) {
-                    $customer->setData($code, $data[$code]);
-                }
-            }
+            $customerData = $customerForm->extractData($this->getRequest());
 
-            $errors = $customer->validate();
-            if (!is_array($errors)) {
+            $errors = array();
+            $customerErrors = $customerForm->validateData($customerData);
+            if ($customerErrors !== true) {
+                $errors = array_merge($customerErrors, $errors);
+            } else {
+                $customerForm->compactData($customerData);
                 $errors = array();
-            }
 
-            /**
-             * we would like to preserver the existing group id
-             */
-            if ($this->_getSession()->getCustomerGroupId()) {
-                $customer->setGroupId($this->_getSession()->getCustomerGroupId());
-            }
+                // If password change was requested then add it to common validation scheme
+                if ($this->getRequest()->getParam('change_password')) {
+                    $currPass   = $this->getRequest()->getPost('current_password');
+                    $newPass    = $this->getRequest()->getPost('password');
+                    $confPass   = $this->getRequest()->getPost('confirmation');
 
-            if ($this->getRequest()->getParam('change_password')) {
-                $currPass = $this->getRequest()->getPost('current_password');
-                $newPass  = $this->getRequest()->getPost('password');
-                $confPass  = $this->getRequest()->getPost('confirmation');
+                    $oldPass = $this->_getSession()->getCustomer()->getPasswordHash();
+                    if (Mage::helper('core/string')->strpos($oldPass, ':')) {
+                        list($_salt, $salt) = explode(':', $oldPass);
+                    } else {
+                        $salt = false;
+                    }
 
-                if (empty($currPass) || empty($newPass) || empty($confPass)) {
-                    $errors[] = $this->__('The password fields cannot be empty.');
+                    if ($customer->hashPassword($currPass, $salt) == $oldPass) {
+                        if (strlen($newPass)) {
+                            // Set entered password and its confirmation - they will be validated later to match each other and be of right length
+                            $customer->setPassword($newPass);
+                            $customer->setConfirmation($confPass);
+                        } else {
+                            $errors[] = $this->__('New password field cannot be empty.');
+                        }
+                    } else {
+                        $errors[] = $this->__('Invalid current password');
+                    }
                 }
 
-                if ($newPass != $confPass) {
-                    $errors[] = $this->__('Please make sure your passwords match.');
-                }
-
-                $oldPass = $this->_getSession()->getCustomer()->getPasswordHash();
-                if (strpos($oldPass, ':')) {
-                    list($_salt, $salt) = explode(':', $oldPass);
-                } else {
-                    $salt = false;
-                }
-
-                if ($customer->hashPassword($currPass, $salt) == $oldPass) {
-                    $customer->setPassword($newPass);
-                } else {
-                    $errors[] = $this->__('Invalid current password');
+                // Validate account and compose list of errors if any
+                $customerErrors = $customer->validate();
+                if (is_array($customerErrors)) {
+                    $errors = array_merge($errors, $customerErrors);
                 }
             }
 
@@ -639,12 +646,10 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
                 $this->_redirect('customer/account');
                 return;
-            }
-            catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->setCustomerFormData($this->getRequest()->getPost())
                     ->addError($e->getMessage());
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $this->_getSession()->setCustomerFormData($this->getRequest()->getPost())
                     ->addException($e, $this->__('Cannot save the customer.'));
             }

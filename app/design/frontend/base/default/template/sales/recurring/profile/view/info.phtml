@@ -33,18 +33,15 @@
 
 <?php else:?>
 
-<table>
-<tbody>
-<?php foreach ($this->getRenderedInfo() as $row):?>
-<?php $value = $this->getObjectData($row, 'value');?>
-<?php $isAmount = $this->getObjectData($row, 'is_amount');?>
-    <tr>
-    <th><?php echo $this->escapeHtml($this->getObjectData($row, 'label'))?></th>
-    <td<?php echo $isAmount ? ' class="a-right"' : ''?>>
-<?php echo (is_array($value) ? nl2br($this->escapeHtml(implode("\n", $value))) : $this->escapeHtml($value)) ?>
-    </td>
-    </tr>
-<?php endforeach;?>
-</tbody>
+<table class="info-table">
+    <tbody>
+        <?php foreach ($this->getRenderedInfo() as $row):?>
+        <?php $isAmount = $this->getObjectData($row, 'is_amount');?>
+        <tr>
+            <th><?php echo $this->escapeHtml($this->getObjectData($row, 'label'))?>:</th>
+            <td><?php echo $this->renderRowValue($row) ?></td>
+        </tr>
+        <?php endforeach;?>
+    </tbody>
 </table>
 <?php endif;?>

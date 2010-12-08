@@ -35,6 +35,9 @@
 
 class Mage_Sales_Model_Mysql4_Quote_Address_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
+    protected $_eventPrefix = 'sales_quote_address_collection';
+    protected $_eventObject = 'quote_address_collection';
+
     protected function _construct()
     {
         $this->_init('sales/quote_address');
@@ -50,6 +53,22 @@ class Mage_Sales_Model_Mysql4_Quote_Address_Collection extends Mage_Core_Model_M
     public function setQuoteFilter($quoteId)
     {
         $this->addFieldToFilter('quote_id', $quoteId ? $quoteId : array('null' => 1));
+        return $this;
+    }
+
+    /**
+     * Redeclare after load method for dispatch event
+     *
+     * @return Mage_Sales_Model_Mysql4_Quote_Address_Collection
+     */
+    protected function _afterLoad()
+    {
+        parent::_afterLoad();
+
+        Mage::dispatchEvent($this->_eventPrefix.'_load_after', array(
+            $this->_eventObject => $this
+        ));
+
         return $this;
     }
 }

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormCheckbox.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: FormCheckbox.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -33,7 +33,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
@@ -127,10 +127,10 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
                 unset($checkedOptions['uncheckedValue']);
             }
             if (null === $checkedValue) {
-                $checkedValue = array_shift($checkedOptions);
+                $checkedValue = (string) array_shift($checkedOptions);
             }
             if (null === $uncheckedValue) {
-                $uncheckedValue = array_shift($checkedOptions);
+                $uncheckedValue = (string) array_shift($checkedOptions);
             }
         } elseif ($value !== null) {
             $uncheckedValue = self::$_defaultCheckedOptions['uncheckedValue'];
@@ -141,7 +141,7 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
 
         // is the element checked?
         $checkedString = '';
-        if ($checked || ($value === $checkedValue)) {
+        if ($checked || ((string) $value === $checkedValue)) {
             $checkedString = ' checked="checked"';
             $checked = true;
         } else {

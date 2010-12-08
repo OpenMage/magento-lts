@@ -37,4 +37,20 @@ class Mage_Sales_Model_Mysql4_Order_Address_Collection extends Mage_Sales_Model_
     {
         $this->_init('sales/order_address');
     }
+
+    /**
+     * Redeclare after load method for dispatch event
+     *
+     * @return Mage_Sales_Model_Mysql4_Order_Address_Collection
+     */
+    protected function _afterLoad()
+    {
+        parent::_afterLoad();
+
+        Mage::dispatchEvent($this->_eventPrefix.'_load_after', array(
+            $this->_eventObject => $this
+        ));
+
+        return $this;
+    }
 }

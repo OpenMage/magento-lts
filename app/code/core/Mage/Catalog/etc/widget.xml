@@ -134,7 +134,7 @@
                 </helper_block>
                 <sort_order>10</sort_order>
             </id_path>
-            <anchor_text translate="label desctiption">
+            <anchor_text translate="label description">
                 <visible>1</visible>
                 <label>Anchor Custom Text</label>
                 <description>If empty, the Category Name will be used</description>

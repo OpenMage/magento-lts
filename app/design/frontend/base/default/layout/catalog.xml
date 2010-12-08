@@ -274,16 +274,20 @@ Additional block dependant on product type
     <PRODUCT_TYPE_simple translate="label" module="catalog">
         <label>Catalog Product View (Simple)</label>
         <reference name="product.info">
-            <block type="catalog/product_view_type_simple" name="product.info.simple" as="product_type_data" template="catalog/product/view/type/simple.phtml">
-                <block type="core/text_list" name="product.info.simple.extra" as="product_type_data_extra"/>
+            <block type="catalog/product_view_type_simple" name="product.info.simple" as="product_type_data" template="catalog/product/view/type/default.phtml">
+                <block type="core/text_list" name="product.info.simple.extra" as="product_type_data_extra" translate="label">
+                    <label>Product Extra Info</label>
+                </block>
             </block>
         </reference>
     </PRODUCT_TYPE_simple>
     <PRODUCT_TYPE_configurable translate="label" module="catalog">
         <label>Catalog Product View (Configurable)</label>
         <reference name="product.info">
-            <block type="catalog/product_view_type_configurable" name="product.info.configurable" as="product_type_data" template="catalog/product/view/type/configurable.phtml">
-                <block type="core/text_list" name="product.info.configurable.extra" as="product_type_data_extra"/>
+            <block type="catalog/product_view_type_configurable" name="product.info.configurable" as="product_type_data" template="catalog/product/view/type/default.phtml">
+                <block type="core/text_list" name="product.info.configurable.extra" as="product_type_data_extra" translate="label">
+                    <label>Product Extra Info</label>
+                </block>
             </block>
         </reference>
         <reference name="product.info.options.wrapper">
@@ -294,15 +298,19 @@ Additional block dependant on product type
         <label>Catalog Product View (Grouped)</label>
         <reference name="product.info">
             <block type="catalog/product_view_type_grouped" name="product.info.grouped" as="product_type_data" template="catalog/product/view/type/grouped.phtml">
-                <block type="core/text_list" name="product.info.grouped.extra" as="product_type_data_extra"/>
+                <block type="core/text_list" name="product.info.grouped.extra" as="product_type_data_extra" translate="label">
+                    <label>Product Extra Info</label>
+                </block>
             </block>
         </reference>
     </PRODUCT_TYPE_grouped>
     <PRODUCT_TYPE_virtual translate="label" module="catalog">
         <label>Catalog Product View (Virtual)</label>
         <reference name="product.info">
-            <block type="catalog/product_view_type_virtual" name="product.info.virtual" as="product_type_data" template="catalog/product/view/type/virtual.phtml">
-                <block type="core/text_list" name="product.info.virtual.extra" as="product_type_data_extra"/>
+            <block type="catalog/product_view_type_virtual" name="product.info.virtual" as="product_type_data" template="catalog/product/view/type/default.phtml">
+                <block type="core/text_list" name="product.info.virtual.extra" as="product_type_data_extra" translate="label">
+                    <label>Product Extra Info</label>
+                </block>
             </block>
         </reference>
     </PRODUCT_TYPE_virtual>

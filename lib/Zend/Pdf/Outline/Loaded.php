@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Actions
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Loaded.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -39,7 +39,7 @@
  *
  * @package    Zend_Pdf
  * @subpackage Outlines
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Outline_Loaded extends Zend_Pdf_Outline
@@ -227,7 +227,7 @@ class Zend_Pdf_Outline_Loaded extends Zend_Pdf_Outline
      * Get outline target.
      *
      * @return Zend_Pdf_Target
-     * @thows Zend_Pdf_Exception
+     * @throws Zend_Pdf_Exception
      */
     public function getTarget()
     {

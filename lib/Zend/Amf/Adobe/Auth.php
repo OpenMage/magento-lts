@@ -14,18 +14,18 @@
  *
  * @category   Zend
  * @package    Zend_Amf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Auth.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Auth.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-/** Zend_Amf_Auth_Abstract */
+/** @see Zend_Amf_Auth_Abstract */
 #require_once 'Zend/Amf/Auth/Abstract.php';
 
-/** Zend_Acl */
+/** @see Zend_Acl */
 #require_once 'Zend/Acl.php';
 
-/** Zend_Auth_Result */
+/** @see Zend_Auth_Result */
 #require_once 'Zend/Auth/Result.php';
 
 /**
@@ -33,7 +33,7 @@
  *
  * @package    Zend_Amf
  * @subpackage Adobe
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Amf_Adobe_Auth extends Zend_Amf_Auth_Abstract
@@ -77,7 +77,7 @@ Roles file format:
             $this->_acl->addRole(new Zend_Acl_Role((string)$role["id"]));
             foreach($role->user as $user) {
                 $this->_users[(string)$user["name"]] = array("password" => (string)$user["password"],
-                                                        "role" => (string)$role["id"]);
+                                                             "role" => (string)$role["id"]);
             }
         }
     }

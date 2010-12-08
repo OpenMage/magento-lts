@@ -370,6 +370,12 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
 
         $orderItemInfo = $item->getData();
         $this->_cleanupArray($orderItemInfo);
+
+        $customOptions = $item->getOptionsByCode();
+        if ($customOptions['info_buyRequest']) {
+            $orderItemInfo['info_buyRequest'] = $customOptions['info_buyRequest']->getValue();
+        }
+
         $this->setOrderItemInfo($orderItemInfo);
 
         return $this->_filterValues();

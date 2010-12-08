@@ -144,14 +144,20 @@ class Mage_Tag_Model_Mysql4_Tag_Collection extends Mage_Core_Model_Mysql4_Collec
     public function addSummary($storeId)
     {
         if (!$this->getFlag('summary')) {
-            $joinCondition = $this->getConnection()->quoteInto(' AND summary.store_id IN(?)', $storeId);
+            $tableAlias = 'summary';
+            $joinCondition = $this->getConnection()->quoteInto(' AND '. $tableAlias .'.store_id IN(?)', $storeId);
 
             $this->getSelect()
                 ->joinLeft(
-                    array('summary'=>$this->getTable('tag/summary')),
-                    'main_table.tag_id=summary.tag_id' . $joinCondition,
+                    array($tableAlias => $this->getTable('tag/summary')),
+                    'main_table.tag_id='. $tableAlias .'.tag_id' . $joinCondition,
                     array('store_id','popularity', 'customers', 'products'
                 ));
+
+            $this->addFilterToMap('store_id', $tableAlias . '.store_id');
+            $this->addFilterToMap('popularity', $tableAlias . '.popularity');
+            $this->addFilterToMap('customers', $tableAlias . '.customers');
+            $this->addFilterToMap('products', $tableAlias . '.products');
 
             $this->setFlag('summary', true);
         }
@@ -264,9 +270,10 @@ class Mage_Tag_Model_Mysql4_Tag_Collection extends Mage_Core_Model_Mysql4_Collec
 
     public function setActiveFilter()
     {
-        $this->getSelect()->where('relation.active = 1');
+        $statusActive = Mage_Tag_Model_Tag_Relation::STATUS_ACTIVE;
+        $this->getSelect()->where('relation.active = ?', $statusActive);
         if($this->getFlag('prelation')) {
-            $this->getSelect()->where('prelation.active = 1');
+            $this->getSelect()->where('prelation.active = ?', $statusActive);
         }
         return $this;
     }

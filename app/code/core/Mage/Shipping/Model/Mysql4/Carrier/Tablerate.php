@@ -33,274 +33,427 @@
  */
 class Mage_Shipping_Model_Mysql4_Carrier_Tablerate extends Mage_Core_Model_Mysql4_Abstract
 {
+    /**
+     * Import table rates website ID
+     *
+     * @var int
+     */
+    protected $_importWebsiteId     = 0;
+
+    /**
+     * Errors in import process
+     *
+     * @var array
+     */
+    protected $_importErrors        = array();
+
+    /**
+     * Count of imported table rates
+     *
+     * @var int
+     */
+    protected $_importedRows        = 0;
+
+    /**
+     * Array of unique table rate keys to protect from duplicates
+     *
+     * @var array
+     */
+    protected $_importUniqueHash    = array();
+
+    /**
+     * Array of countries keyed by iso2 code
+     *
+     * @var array
+     */
+    protected $_importIso2Countries;
+
+    /**
+     * Array of countries keyed by iso3 code
+     *
+     * @var array
+     */
+    protected $_importIso3Countries;
+
+    /**
+     * Associative array of countries and regions
+     * [country_id][region_code] = region_id
+     *
+     * @var array
+     */
+    protected $_importRegions;
+
+    /**
+     * Import Table Rate condition name
+     *
+     * @var string
+     */
+    protected $_importConditionName;
+
+    /**
+     * Array of condition full names
+     *
+     * @var array
+     */
+    protected $_conditionFullNames  = array();
+
+    /**
+     * Define main table and id field name
+     *
+     * @return void
+     */
     protected function _construct()
     {
         $this->_init('shipping/tablerate', 'pk');
     }
 
+    /**
+     * Return table rate array or false by rate request
+     *
+     * @param Mage_Shipping_Model_Rate_Request $request
+     * @return array|false
+     */
     public function getRate(Mage_Shipping_Model_Rate_Request $request)
     {
-        $read = $this->_getReadAdapter();
-        $write = $this->_getWriteAdapter();
-
-        $select = $read->select()->from($this->getMainTable());
-        /*
-        //commented out code since we don't want to get state by using zip code
-        if (!$request->getDestCountryId() && !$request->getDestRegionId()) {
-
-            // assuming that request is coming from shopping cart
-            // for shipping prices pre-estimation...
-
-            // also probably it will be required to move this part to
-            // Sales/Model/Quote/Address.php !
-
-            $selectCountry = $read->select()->from(Mage::getSingleton('core/resource')->getTableName('usa/postcode'), array('country_id', 'region_id'));
-            $selectCountry->where('postcode=?', $request->getDestPostcode());
-            $selectCountry->limit(1);
-            $countryRegion = $read->fetchRow($selectCountry);
-            $region = $read->quote($countryRegion['region_id']);
-            $country = $read->quote($countryRegion['country_id']);
-        } else {
-            $region = $read->quote($request->getDestRegionId());
-            $country = $read->quote($request->getDestCountryId());
-        }
-        */
-//        $bind = array(
-//            'zip'       => $read->quote($request->getDestPostcode()),
-//            'region'    => $read->quote($request->getDestRegionId()),
-//            'country'   => $read->quote($request->getDestCountryId())
-//        );
-        $select->where(
-            $read->quoteInto(" (dest_country_id=? ", $request->getDestCountryId()).
-                $read->quoteInto(" AND dest_region_id=? ", $request->getDestRegionId()).
-                $read->quoteInto(" AND dest_zip=?) ", $request->getDestPostcode()).
-
-            $read->quoteInto(" OR (dest_country_id=? ", $request->getDestCountryId()).
-                $read->quoteInto(" AND dest_region_id=? AND dest_zip='') ", $request->getDestRegionId()).
-
-            $read->quoteInto(" OR (dest_country_id=? AND dest_region_id='0' AND dest_zip='') ", $request->getDestCountryId()).
-
-            $read->quoteInto(" OR (dest_country_id=? AND dest_region_id='0' ", $request->getDestCountryId()).
-                $read->quoteInto("  AND dest_zip=?) ", $request->getDestPostcode()).
-
-            " OR (dest_country_id='0' AND dest_region_id='0' AND dest_zip='')"
+        $adapter = $this->_getReadAdapter();
+        $bind    = array(
+            ':website_id'   => (int)$request->getWebsiteId(),
+            ':country_id'   => $request->getDestCountryId(),
+            ':region_id'    => $request->getDestRegionId(),
+            ':postcode'     => $request->getDestPostcode()
         );
+        $select  = $adapter->select()
+            ->from($this->getMainTable())
+            ->where('website_id=:website_id')
+            ->order(array('dest_country_id DESC', 'dest_region_id DESC', 'dest_zip DESC'))
+            ->limit(1);
 
-//        $select->where("(dest_zip=:zip)
-//                     OR (dest_region_id=:region AND dest_zip='')
-//                     OR (dest_country_id=:country AND dest_region_id='0' AND dest_zip='')
-//                     OR (dest_country_id='0' AND dest_region_id='0' AND dest_zip='')");
+        // render destination condition
+        $orWhere = '(' . implode(') OR (', array(
+            "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = :postcode",
+            "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = ''",
+            "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = ''",
+            "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = :postcode",
+            "dest_country_id = '0' AND dest_region_id = 0 AND dest_zip = ''",
+        )) . ')';
+        $select->where($orWhere);
+
+        // render condition by condition name
         if (is_array($request->getConditionName())) {
-            $i = 0;
+            $orWhere = array();
+            $i       = 0;
             foreach ($request->getConditionName() as $conditionName) {
-                if ($i == 0) {
-                    $select->where('condition_name=?', $conditionName);
-                } else {
-                    $select->orWhere('condition_name=?', $conditionName);
-                }
-                $select->where('condition_value<=?', $request->getData($conditionName));
-                $i++;
+                $bindNameKey  = sprintf(':condition_name_%d', $i);
+                $bindValueKey = sprintf(':condition_value_%d', $i);
+                $orWhere[] = "(condition_name = {$bindNameKey} AND condition_value <= {$bindValueKey})";
+                $bind[$bindNameKey]  = $conditionName;
+                $bind[$bindValueKey] = $request->getData($conditionName);
+                $i ++;
+            }
+
+            if ($orWhere) {
+                $select->where(implode(' OR ', $orWhere));
             }
         } else {
-            $select->where('condition_name=?', $request->getConditionName());
-            $select->where('condition_value<=?', $request->getData($request->getConditionName()));
+            $bind[':condition_name']  = $request->getConditionName();
+            $bind[':condition_value'] = $request->getData($request->getConditionName());
+
+            $select->where('condition_name = :condition_name');
+            $select->where('condition_value <= :condition_value');
         }
-        $select->where('website_id=?', $request->getWebsiteId());
 
-        $select->order('dest_country_id DESC');
-        $select->order('dest_region_id DESC');
-        $select->order('dest_zip DESC');
-        $select->order('condition_value DESC');
-        $select->limit(1);
-
-        /*
-        pdo has an issue. we cannot use bind
-        */
-        $row = $read->fetchRow($select);
-        return $row;
+        return $adapter->fetchRow($select, $bind);
     }
 
     /**
      * Upload table rate file and import data from it
      *
      * @param Varien_Object $object
-     * @return bool|Mage_Shipping_Model_Mysql4_Carrier_Tablerate
+     * @throws Mage_Core_Exception
+     * @return Mage_Shipping_Model_Mysql4_Carrier_Tablerate
      */
     public function uploadAndImport(Varien_Object $object)
     {
-        if (!isset($_FILES['groups'])) {
-            return false;
+        if (empty($_FILES['groups']['tmp_name']['tablerate']['fields']['import']['value'])) {
+            return $this;
         }
+
         $csvFile = $_FILES['groups']['tmp_name']['tablerate']['fields']['import']['value'];
+        $website = Mage::app()->getWebsite($object->getScopeId());
 
-        if (!empty($csvFile)) {
+        $this->_importWebsiteId     = (int)$website->getId();
+        $this->_importUniqueHash    = array();
+        $this->_importErrors        = array();
+        $this->_importedRows        = 0;
 
-            $csv = trim(file_get_contents($csvFile));
+        $io = new Varien_Io_File();
+        $info = pathinfo($csvFile);
+        $io->open(array('path' => $info['dirname']));
+        $io->streamOpen($info['basename'], 'r');
 
-            $table = Mage::getSingleton('core/resource')->getTableName('shipping/tablerate');
-
-            $websiteId = $object->getScopeId();
-            $websiteModel = Mage::app()->getWebsite($websiteId);
-            /*
-            getting condition name from post instead of the following commented logic
-            */
-
-            if (isset($_POST['groups']['tablerate']['fields']['condition_name']['inherit'])) {
-                $conditionName = (string)Mage::getConfig()->getNode('default/carriers/tablerate/condition_name');
-            } else {
-                $conditionName = $_POST['groups']['tablerate']['fields']['condition_name']['value'];
-            }
-
-//            $conditionName = $object->getValue();
-//            if ($conditionName{0} == '_') {
-//                $conditionName = Mage::helper('core/string')->substr($conditionName, 1, strpos($conditionName, '/')-1);
-//            } else {
-//                $conditionName = $websiteModel->getConfig('carriers/tablerate/condition_name');
-//            }
-            $conditionFullName = Mage::getModel('shipping/carrier_tablerate')->getCode('condition_name_short', $conditionName);
-            if (!empty($csv)) {
-                $exceptions = array();
-                $csvLines = explode("\n", $csv);
-                $csvLine = array_shift($csvLines);
-                $csvLine = $this->_getCsvValues($csvLine);
-                if (count($csvLine) < 5) {
-                    $exceptions[0] = Mage::helper('shipping')->__('Invalid Table Rates File Format');
-                }
-
-                $countryCodes = array();
-                $regionCodes = array();
-                foreach ($csvLines as $k=>$csvLine) {
-                    $csvLine = $this->_getCsvValues($csvLine);
-                    if (count($csvLine) > 0 && count($csvLine) < 5) {
-                        $exceptions[0] = Mage::helper('shipping')->__('Invalid Table Rates File Format');
-                    } else {
-                        $countryCodes[] = $csvLine[0];
-                        $regionCodes[] = $csvLine[1];
-                    }
-                }
-
-                if (empty($exceptions)) {
-                    $data = array();
-                    $countryCodesToIds = array();
-                    $regionCodesToIds = array();
-                    $countryCodesIso2 = array();
-
-                    $countryCollection = Mage::getResourceModel('directory/country_collection')->addCountryCodeFilter($countryCodes)->load();
-                    foreach ($countryCollection->getItems() as $country) {
-                        $countryCodesToIds[$country->getData('iso3_code')] = $country->getData('country_id');
-                        $countryCodesToIds[$country->getData('iso2_code')] = $country->getData('country_id');
-                        $countryCodesIso2[] = $country->getData('iso2_code');
-                    }
-
-                    $regionCollection = Mage::getResourceModel('directory/region_collection')
-                        ->addRegionCodeFilter($regionCodes)
-                        ->addCountryFilter($countryCodesIso2)
-                        ->load();
-
-                    foreach ($regionCollection->getItems() as $region) {
-                        $regionCodesToIds[$countryCodesToIds[$region->getData('country_id')]][$region->getData('code')] = $region->getData('region_id');
-                    }
-
-                    foreach ($csvLines as $k=>$csvLine) {
-                        $csvLine = $this->_getCsvValues($csvLine);
-
-                        if (empty($countryCodesToIds) || !array_key_exists($csvLine[0], $countryCodesToIds)) {
-                            $countryId = '0';
-                            if ($csvLine[0] != '*' && $csvLine[0] != '') {
-                                $exceptions[] = Mage::helper('shipping')->__('Invalid Country "%s" in the Row #%s.', $csvLine[0], ($k+1));
-                            }
-                        } else {
-                            $countryId = $countryCodesToIds[$csvLine[0]];
-                        }
-
-                        if (!isset($countryCodesToIds[$csvLine[0]])
-                            || !isset($regionCodesToIds[$countryCodesToIds[$csvLine[0]]])
-                            || !array_key_exists($csvLine[1], $regionCodesToIds[$countryCodesToIds[$csvLine[0]]])) {
-                            $regionId = '0';
-                            if ($csvLine[1] != '*' && $csvLine[1] != '') {
-                                $exceptions[] = Mage::helper('shipping')->__('Invalid Region/State "%s" in the Row #%s.', $csvLine[1], ($k+1));
-                            }
-                        } else {
-                            $regionId = $regionCodesToIds[$countryCodesToIds[$csvLine[0]]][$csvLine[1]];
-                        }
-
-                        if ($csvLine[2] == '*' || $csvLine[2] == '') {
-                            $zip = '';
-                        } else {
-                            $zip = $csvLine[2];
-                        }
-
-                        if (!$this->_isPositiveDecimalNumber($csvLine[3]) || $csvLine[3] == '*' || $csvLine[3] == '') {
-                            $exceptions[] = Mage::helper('shipping')->__('Invalid %s "%s" in the Row #%s.', $conditionFullName, $csvLine[3], ($k+1));
-                        } else {
-                            $csvLine[3] = (float)$csvLine[3];
-                        }
-
-                        if (!$this->_isPositiveDecimalNumber($csvLine[4])) {
-                            $exceptions[] = Mage::helper('shipping')->__('Invalid Shipping Price "%s" in the Row #%s.', $csvLine[4], ($k+1));
-                        } else {
-                            $csvLine[4] = (float)$csvLine[4];
-                        }
-
-                        $data[] = array('website_id'=>$websiteId, 'dest_country_id'=>$countryId, 'dest_region_id'=>$regionId, 'dest_zip'=>$zip, 'condition_name'=>$conditionName, 'condition_value'=>$csvLine[3], 'price'=>$csvLine[4]);
-                        $dataDetails[] = array('country'=>$csvLine[0], 'region'=>$csvLine[1]);
-                    }
-                }
-                if (empty($exceptions)) {
-                    $connection = $this->_getWriteAdapter();
-
-                    $condition = array(
-                        $connection->quoteInto('website_id = ?', $websiteId),
-                        $connection->quoteInto('condition_name = ?', $conditionName),
-                    );
-                    $connection->delete($table, $condition);
-
-                    foreach($data as $k=>$dataLine) {
-                        try {
-                            $connection->insert($table, $dataLine);
-                        } catch (Exception $e) {
-                            $exceptions[] = Mage::helper('shipping')->__('Duplicate Row #%s (Country "%s", Region/State "%s", Zip "%s" and Value "%s").', ($k+1), $dataDetails[$k]['country'], $dataDetails[$k]['region'], $dataLine['dest_zip'], $dataLine['condition_value']);
-                        }
-                    }
-                }
-
-                if (!empty($exceptions)) {
-                    throw new Exception( "\n" . implode("\n", $exceptions) );
-                }
-            }
+        // check and skip headers
+        $headers = $io->streamReadCsv();
+        if ($headers === false || count($headers) < 5) {
+            $io->streamClose();
+            Mage::throwException(Mage::helper('shipping')->__('Invalid Table Rates File Format'));
         }
+
+        if ($object->getData('groups/tablerate/fields/condition_name/inherit') == '1') {
+            $conditionName = (string)Mage::getConfig()->getNode('default/carriers/tablerate/condition_name');
+        } else {
+            $conditionName = $object->getData('groups/tablerate/fields/condition_name/value');
+        }
+        $this->_importConditionName = $conditionName;
+
+        $adapter = $this->_getWriteAdapter();
+        $adapter->beginTransaction();
+
+        try {
+            $rowNumber  = 1;
+            $importData = array();
+
+            $this->_loadDirectoryCountries();
+            $this->_loadDirectoryRegions();
+
+            // delete old data by website and condition name
+            $condition = array(
+                'website_id = ?'     => $this->_importWebsiteId,
+                'condition_name = ?' => $this->_importConditionName
+            );
+            $adapter->delete($this->getMainTable(), $condition);
+
+            while (false !== ($csvLine = $io->streamReadCsv())) {
+                $rowNumber ++;
+
+                if (empty($csvLine)) {
+                    continue;
+                }
+
+                $row = $this->_getImportRow($csvLine, $rowNumber);
+                if ($row !== false) {
+                    $importData[] = $row;
+                }
+
+                if (count($importData) == 5000) {
+                    $this->_saveImportData($importData);
+                    $importData = array();
+                }
+            }
+            $this->_saveImportData($importData);
+            $io->streamClose();
+        } catch (Mage_Core_Exception $e) {
+            $adapter->rollback();
+            $io->streamClose();
+            Mage::throwException($e->getMessage());
+        } catch (Exception $e) {
+            $adapter->rollback();
+            $io->streamClose();
+            Mage::logException($e);
+            Mage::throwException(Mage::helper('shipping')->__('An error occurred while import table rates.'));
+        }
+
+        $adapter->commit();
+
+        if ($this->_importErrors) {
+            $error = Mage::helper('shipping')->__('%1$d records have been imported. See the following list of errors for each record that has not been imported: %2$s',
+                $this->_importedRows, implode(" \n", $this->_importErrors));
+            Mage::throwException($error);
+        }
+
         return $this;
     }
 
-    protected function _getCsvValues($string, $separator=",")
+    /**
+     * Load directory countries
+     *
+     * @return Mage_Shipping_Model_Mysql4_Carrier_Tablerate
+     */
+    protected function _loadDirectoryCountries()
     {
-        $elements = explode($separator, trim($string));
-        for ($i = 0; $i < count($elements); $i++) {
-            $nquotes = substr_count($elements[$i], '"');
-            if ($nquotes %2 == 1) {
-                for ($j = $i+1; $j < count($elements); $j++) {
-                    if (substr_count($elements[$j], '"') > 0) {
-                        // Put the quoted string's pieces back together again
-                        array_splice($elements, $i, $j-$i+1, implode($separator, array_slice($elements, $i, $j-$i+1)));
-                        break;
-                    }
-                }
-            }
-            if ($nquotes > 0) {
-                // Remove first and last quotes, then merge pairs of quotes
-                $qstr =& $elements[$i];
-                $qstr = substr_replace($qstr, '', strpos($qstr, '"'), 1);
-                $qstr = substr_replace($qstr, '', strrpos($qstr, '"'), 1);
-                $qstr = str_replace('""', '"', $qstr);
-            }
-            $elements[$i] = trim($elements[$i]);
+        if (!is_null($this->_importIso2Countries) && !is_null($this->_importIso3Countries)) {
+            return $this;
         }
-        return $elements;
+
+        $this->_importIso2Countries = array();
+        $this->_importIso3Countries = array();
+
+        /** @var $collection Mage_Directory_Model_Mysql4_Country_Collection */
+        $collection = Mage::getResourceModel('directory/country_collection');
+        foreach ($collection->getData() as $row) {
+            $this->_importIso2Countries[$row['iso2_code']] = $row['country_id'];
+            $this->_importIso3Countries[$row['iso3_code']] = $row['country_id'];
+        }
+
+        return $this;
     }
 
-    protected function _isPositiveDecimalNumber($n)
+    /**
+     * Load directory regions
+     *
+     * @return Mage_Shipping_Model_Mysql4_Carrier_Tablerate
+     */
+    protected function _loadDirectoryRegions()
     {
-        return preg_match ("/^[0-9]+(\.[0-9]*)?$/", $n);
+        if (!is_null($this->_importRegions)) {
+            return $this;
+        }
+
+        $this->_importRegions = array();
+
+        /** @var $collection Mage_Directory_Model_Mysql4_Region_Collection */
+        $collection = Mage::getResourceModel('directory/region_collection');
+        foreach ($collection->getData() as $row) {
+            $this->_importRegions[$row['country_id']][$row['code']] = (int)$row['region_id'];
+        }
+
+        return $this;
     }
 
+    /**
+     * Return import condition full name by condition name code
+     *
+     * @return string
+     */
+    protected function _getConditionFullName($conditionName)
+    {
+        if (!isset($this->_conditionFullNames[$conditionName])) {
+            $name = Mage::getSingleton('shipping/carrier_tablerate')->getCode('condition_name_short', $conditionName);
+            $this->_conditionFullNames[$conditionName] = $name;
+        }
+
+        return $this->_conditionFullNames[$conditionName];
+    }
+
+    /**
+     * Validate row for import and return table rate array or false
+     * Error will be add to _importErrors array
+     *
+     * @param array $row
+     * @param int $rowNumber
+     * @return array|false
+     */
+    protected function _getImportRow($row, $rowNumber = 0)
+    {
+        // validate row
+        if (count($row) < 5) {
+            $this->_importErrors[] = Mage::helper('shipping')->__('Invalid Table Rates format in the Row #%s',
+                $rowNumber);
+            return false;
+        }
+        // validate country
+        if (isset($this->_importIso2Countries[$row[0]])) {
+            $countryId = $this->_importIso2Countries[$row[0]];
+        } else if (isset($this->_importIso3Countries[$row[0]])) {
+            $countryId = $this->_importIso3Countries[$row[0]];
+        } else if ($row[0] == '*' || $row[0] == '') {
+            $countryId = '0';
+        } else {
+            $this->_importErrors[] = Mage::helper('shipping')->__('Invalid Country "%s" in the Row #%s.',
+                $row[0], $rowNumber);
+            return false;
+        }
+
+        // validate region
+        if ($countryId != '0' && isset($this->_importRegions[$countryId][$row[1]])) {
+            $regionId = $this->_importRegions[$countryId][$row[1]];
+        } else if ($row[1] == '*' || $row[1] == '') {
+            $regionId = 0;
+        } else {
+            $this->_importErrors[] = Mage::helper('shipping')->__('Invalid Region/State "%s" in the Row #%s.',
+                $row[1], $rowNumber);
+            return false;
+        }
+
+        // detect zip code
+        if ($row[2] == '*' || $row[2] == '') {
+            $zipCode = '';
+        } else {
+            $zipCode = $row[2];
+        }
+
+        // validate condition value
+        $value = $this->_parseDecimalValue($row[3]);
+        if ($value === false) {
+            $this->_importErrors[] = Mage::helper('shipping')->__('Invalid %s "%s" in the Row #%s.',
+                $this->_getConditionFullName($this->_importConditionName), $row[3], $rowNumber);
+            return false;
+        }
+
+        // validate price
+        $price = $this->_parseDecimalValue($row[4]);
+        if ($price === false) {
+            $this->_importErrors[] = Mage::helper('shipping')->__('Invalid Shipping Price "%s" in the Row #%s.',
+                $row[4], $rowNumber);
+            return false;
+        }
+
+        // protect from duplicate
+        $hash = sprintf("%s-%d-%s-%F", $countryId, $regionId, $zipCode, $value);
+        if (isset($this->_importUniqueHash[$hash])) {
+            $this->_importErrors[] = Mage::helper('shipping')->__('Duplicate Row #%s (Country "%s", Region/State "%s", Zip "%s" and Value "%s").',
+                $rowNumber, $row[0], $row[1], $zipCode, $value);
+            return false;
+        }
+        $this->_importUniqueHash[$hash] = true;
+
+        return array(
+            $this->_importWebsiteId,    // website_id
+            $countryId,                 // dest_country_id
+            $regionId,                  // dest_region_id,
+            $zipCode,                   // dest_zip
+            $this->_importConditionName,// condition_name,
+            $value,                     // condition_value
+            $price                      // price
+        );
+    }
+
+    /**
+     * Save import data batch
+     *
+     * @param array $data
+     * @return Mage_Shipping_Model_Mysql4_Carrier_Tablerate
+     */
+    protected function _saveImportData(array $data)
+    {
+        if (!empty($data)) {
+            $columns = array('website_id', 'dest_country_id', 'dest_region_id', 'dest_zip',
+                'condition_name', 'condition_value', 'price');
+            $this->_getWriteAdapter()->insertArray($this->getMainTable(), $columns, $data);
+            $this->_importedRows += count($data);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Parse and validate positive decimal value
+     * Return false if value is not decimal or is not positive
+     *
+     * @param string $value
+     * @return bool|float
+     */
+    protected function _parseDecimalValue($value)
+    {
+        if (!is_numeric($value)) {
+            return false;
+        }
+        $value = (float)sprintf('%.4F', $value);
+        if ($value < 0.0000) {
+            return false;
+        }
+        return $value;
+    }
+
+    /**
+     * Parse and validate positive decimal value
+     *
+     * @see Mage_Shipping_Model_Mysql4_Carrier_Tablerate::_parseDecimalValue()
+     * @deprecated since 1.4.1.0
+     * @param string $value
+     * @return bool|float
+     */
+    protected function _isPositiveDecimalNumber($value)
+    {
+        return $this->_parseDecimalValue($value);
+    }
 }

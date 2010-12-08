@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Session
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Session.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Session.php 22588 2010-07-16 20:22:07Z ralph $
  * @since      Preview Release 0.2
  */
 
@@ -43,7 +43,7 @@
  *
  * @category   Zend
  * @package    Zend_Session
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Session extends Zend_Session_Abstract
@@ -528,11 +528,12 @@ class Zend_Session extends Zend_Session_Abstract
                 // Expire Namespace by Time (ENT)
                 if (isset($namespace_metadata['ENT']) && ($namespace_metadata['ENT'] > 0) && (time() > $namespace_metadata['ENT']) ) {
                     unset($_SESSION[$namespace]);
-                    unset($_SESSION['__ZF'][$namespace]['ENT']);
+                    unset($_SESSION['__ZF'][$namespace]);
                 }
 
-                // Expire Namespace by Global Hop (ENGH)
-                if (isset($namespace_metadata['ENGH']) && $namespace_metadata['ENGH'] >= 1) {
+                // Expire Namespace by Global Hop (ENGH) if it wasnt expired above
+                if (isset($_SESSION['__ZF'][$namespace]) && isset($namespace_metadata['ENGH']) && $namespace_metadata['ENGH'] >= 1) {
+
                     $_SESSION['__ZF'][$namespace]['ENGH']--;
 
                     if ($_SESSION['__ZF'][$namespace]['ENGH'] === 0) {
@@ -540,7 +541,7 @@ class Zend_Session extends Zend_Session_Abstract
                             parent::$_expiringData[$namespace] = $_SESSION[$namespace];
                             unset($_SESSION[$namespace]);
                         }
-                        unset($_SESSION['__ZF'][$namespace]['ENGH']);
+                        unset($_SESSION['__ZF'][$namespace]);
                     }
                 }
 
@@ -550,11 +551,10 @@ class Zend_Session extends Zend_Session_Abstract
                         if (time() > $time) {
                             unset($_SESSION[$namespace][$variable]);
                             unset($_SESSION['__ZF'][$namespace]['ENVT'][$variable]);
-
-                            if (empty($_SESSION['__ZF'][$namespace]['ENVT'])) {
-                                unset($_SESSION['__ZF'][$namespace]['ENVT']);
-                            }
                         }
+                    }
+                    if (empty($_SESSION['__ZF'][$namespace]['ENVT'])) {
+                        unset($_SESSION['__ZF'][$namespace]['ENVT']);
                     }
                 }
 
@@ -570,6 +570,9 @@ class Zend_Session extends Zend_Session_Abstract
                             }
                             unset($_SESSION['__ZF'][$namespace]['ENVGH'][$variable]);
                         }
+                    }
+                    if (empty($_SESSION['__ZF'][$namespace]['ENVGH'])) {
+                        unset($_SESSION['__ZF'][$namespace]['ENVGH']);    
                     }
                 }
             }

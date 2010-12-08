@@ -178,16 +178,16 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function getName()
     {
         $name = '';
-        $helper = Mage::helper('customer/address');
-        if ($helper->canShowConfig('prefix_show') && $this->getPrefix()) {
+        $config = Mage::getSingleton('eav/config');
+        if ($config->getAttribute('customer', 'prefix')->getIsVisible() && $this->getPrefix()) {
             $name .= $this->getPrefix() . ' ';
         }
         $name .= $this->getFirstname();
-        if ($helper->canShowConfig('middlename_show') && $this->getMiddlename()) {
+        if ($config->getAttribute('customer', 'middlename')->getIsVisible() && $this->getMiddlename()) {
             $name .= ' ' . $this->getMiddlename();
         }
         $name .=  ' ' . $this->getLastname();
-        if ($helper->canShowConfig('suffix_show')&& $this->getSuffix()) {
+        if ($config->getAttribute('customer', 'suffix')->getIsVisible() && $this->getSuffix()) {
             $name .= ' ' . $this->getSuffix();
         }
         return $name;
@@ -577,8 +577,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         Mage::getModel('core/email_template')
             ->setDesignConfig(array('area'=>'frontend', 'store'=>$storeId))
             ->sendTransactional(
-                Mage::getStoreConfig(self::XML_PATH_FORGOT_EMAIL_TEMPLATE),
-                Mage::getStoreConfig(self::XML_PATH_FORGOT_EMAIL_IDENTITY),
+                Mage::getStoreConfig(self::XML_PATH_FORGOT_EMAIL_TEMPLATE, $storeId),
+                Mage::getStoreConfig(self::XML_PATH_FORGOT_EMAIL_IDENTITY, $storeId),
                 $this->getEmail(),
                 $this->getName(),
                 array('customer'=>$this)
@@ -596,7 +596,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getGroupId()
     {
-        if (!$this->getData('group_id')) {
+        if (!$this->hasData('group_id')) {
             $storeId = $this->getStoreId() ? $this->getStoreId() : Mage::app()->getStore()->getId();
             $this->setData('group_id', Mage::getStoreConfig(Mage_Customer_Model_Group::XML_PATH_DEFAULT_ID, $storeId));
         }
@@ -656,7 +656,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if (is_null($ids)) {
             $ids = array();
             if ((bool)$this->getSharingConfig()->isWebsiteScope()) {
-                $ids = $this->getStore()->getWebsite()->getStoreIds();
+                $ids = Mage::app()->getWebsite($this->getWebsiteId())->getStoreIds();
             }
             else {
                 foreach (Mage::app()->getStores() as $store) {
@@ -705,7 +705,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Validate customer attribute values
+     * Validate customer attribute values.
+     * For existing customer password + confirmation will be validated only when password is set (i.e. its change is requested)
      *
      * @return bool
      */
@@ -713,7 +714,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     {
         $errors = array();
         $customerHelper = Mage::helper('customer');
-        $addressHelper = Mage::helper('customer/address');
         if (!Zend_Validate::is( trim($this->getFirstname()) , 'NotEmpty')) {
             $errors[] = $customerHelper->__('The first name cannot be empty.');
         }
@@ -730,7 +730,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if (!$this->getId() && !Zend_Validate::is($password , 'NotEmpty')) {
             $errors[] = $customerHelper->__('The password cannot be empty.');
         }
-        if ($password && !Zend_Validate::is($password, 'StringLength', array(6))) {
+        if (strlen($password) && !Zend_Validate::is($password, 'StringLength', array(6))) {
             $errors[] = $customerHelper->__('The minimum password length is %s', 6);
         }
         $confirmation = $this->getConfirmation();
@@ -738,16 +738,17 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $errors[] = $customerHelper->__('Please make sure your passwords match.');
         }
 
-        if (('req' === $addressHelper->getConfig('dob_show'))
-            && '' == trim($this->getDob())) {
+        $entityType = Mage::getSingleton('eav/config')->getEntityType('customer');
+        $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'dob');
+        if ($attribute->getIsRequired() && '' == trim($this->getDob())) {
             $errors[] = $customerHelper->__('The Date of Birth is required.');
         }
-        if (('req' === $addressHelper->getConfig('taxvat_show'))
-            && '' == trim($this->getTaxvat())) {
+        $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'taxvat');
+        if ($attribute->getIsRequired() && '' == trim($this->getTaxvat())) {
             $errors[] = $customerHelper->__('The TAX/VAT number is required.');
         }
-        if (('req' === $addressHelper->getConfig('gender_show'))
-            && '' == trim($this->getGender())) {
+        $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'gender');
+        if ($attribute->getIsRequired() && '' == trim($this->getGender())) {
             $errors[] = $customerHelper->__('Gender is required.');
         }
 
@@ -1108,5 +1109,30 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         foreach ($newAddressCollection as $address) {
             $this->addAddress(clone $address);
         }
+    }
+
+    /**
+     * Return Entity Type instance
+     *
+     * @return Mage_Eav_Model_Entity_Type
+     */
+    public function getEntityType()
+    {
+        return $this->_getResource()->getEntityType();
+    }
+
+    /**
+     * Return Entity Type ID
+     *
+     * @return int
+     */
+    public function getEntityTypeId()
+    {
+        $entityTypeId = $this->getData('entity_type_id');
+        if (!$entityTypeId) {
+            $entityTypeId = $this->getEntityType()->getId();
+            $this->setData('entity_type_id', $entityTypeId);
+        }
+        return $entityTypeId;
     }
 }

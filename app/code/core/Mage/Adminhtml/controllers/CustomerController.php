@@ -97,19 +97,47 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $this->_initCustomer();
         $this->loadLayout();
 
+        /* @var $customer Mage_Customer_Model_Customer */
         $customer = Mage::registry('current_customer');
 
         // set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getCustomerData(true);
 
-        if (isset($data['account'])) {
-            $customer->addData($data['account']);
-        }
-        if (isset($data['address']) && is_array($data['address'])) {
-            foreach ($data['address'] as $addressId => $address) {
-                $addressModel = Mage::getModel('customer/address')->setData($address)
-                    ->setId($addressId);
-                $customer->addAddress($addressModel);
+        // restore data from SESSION
+        if ($data) {
+            $request = clone $this->getRequest();
+            $request->setParams($data);
+
+            if (isset($data['account'])) {
+                /* @var $customerForm Mage_Customer_Model_Form */
+                $customerForm = Mage::getModel('customer/form');
+                $customerForm->setEntity($customer)
+                    ->setFormCode('adminhtml_customer')
+                    ->setIsAjaxRequest(true);
+                $formData = $customerForm->extractData($request, 'account');
+                $customerForm->restoreData($formData);
+            }
+
+            if (isset($data['address']) && is_array($data['address'])) {
+                /* @var $addressForm Mage_Customer_Model_Form */
+                $addressForm = Mage::getModel('customer/form');
+                $addressForm->setFormCode('adminhtml_customer_address');
+
+                foreach (array_keys($data['address']) as $addressId) {
+                    if ($addressId == '_template_') {
+                        continue;
+                    }
+
+                    $address = $customer->getAddressItemById($addressId);
+                    if (!$address) {
+                        $address = Mage::getModel('customer/address');
+                        $customer->addAddress($address);
+                    }
+
+                    $formData = $addressForm->setEntity($address)
+                        ->extractData($request);
+                    $addressForm->restoreData($formData);
+                }
             }
         }
 
@@ -156,87 +184,138 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
      */
     public function saveAction()
     {
-        if ($data = $this->getRequest()->getPost()) {
-            $data = $this->_filterPostData($data);
+        $data = $this->getRequest()->getPost();
+        if ($data) {
             $redirectBack   = $this->getRequest()->getParam('back', false);
             $this->_initCustomer('customer_id');
-            /** @var Mage_Customer_Model_Customer */
+
+            /* @var $customer Mage_Customer_Model_Customer */
             $customer = Mage::registry('current_customer');
-            // Prepare customer saving data
-            if (isset($data['account'])) {
-                if (isset($data['account']['email'])) {
-                    $data['account']['email'] = trim($data['account']['email']);
+
+            /* @var $customerForm Mage_Customer_Model_Form */
+            $customerForm = Mage::getModel('customer/form');
+            $customerForm->setEntity($customer)
+                ->setFormCode('adminhtml_customer')
+                ->ignoreInvisible(false)
+            ;
+
+            $formData   = $customerForm->extractData($this->getRequest(), 'account');
+            $errors     = $customerForm->validateData($formData);
+            if ($errors !== true) {
+                foreach ($errors as $error) {
+                    $this->_getSession()->addError($error);
                 }
-                $customer->addData($data['account']);
+                $this->_getSession()->setCustomerData($data);
+                $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', array('id' => $customer->getId())));
+                return;
             }
+
+            $customerForm->compactData($formData);
+
             // unset template data
             if (isset($data['address']['_template_'])) {
                 unset($data['address']['_template_']);
             }
 
             $modifiedAddresses = array();
+            if (!empty($data['address'])) {
+                /* @var $addressForm Mage_Customer_Model_Form */
+                $addressForm = Mage::getModel('customer/form');
+                $addressForm->setFormCode('adminhtml_customer_address')->ignoreInvisible(false);
 
-            if (! empty($data['address'])) {
-                foreach ($data['address'] as $index => $addressData) {
-                    if (($address = $customer->getAddressItemById($index))) {
-                        $addressId           = $index;
-                        $modifiedAddresses[] = $index;
-                    } else {
+                foreach (array_keys($data['address']) as $index) {
+                    $address = $customer->getAddressItemById($index);
+                    if (!$address) {
                         $address   = Mage::getModel('customer/address');
-                        $addressId = null;
-                        $customer->addAddress($address);
                     }
 
-                    $address->setData($addressData)
-                            ->setId($addressId)
-                            ->setPostIndex($index); // We need set post_index for detect default addresses
+                    $requestScope = sprintf('address/%s', $index);
+                    $formData = $addressForm->setEntity($address)
+                        ->extractData($this->getRequest(), $requestScope);
+                    $errors   = $addressForm->validateData($formData);
+                    if ($errors !== true) {
+                        foreach ($errors as $error) {
+                            $this->_getSession()->addError($error);
+                        }
+                        $this->_getSession()->setCustomerData($data);
+                        $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', array(
+                            'id' => $customer->getId())
+                        ));
+                        return;
+                    }
+
+                    $addressForm->compactData($formData);
+
+                    // Set post_index for detect default billing and shipping addresses
+                    $address->setPostIndex($index);
+
+                    if ($address->getId()) {
+                        $modifiedAddresses[] = $address->getId();
+                    } else {
+                        $customer->addAddress($address);
+                    }
                 }
             }
+
+            // default billing and shipping
+            if (isset($data['account']['default_billing'])) {
+                $customer->setData('default_billing', $data['account']['default_billing']);
+            }
+            if (isset($data['account']['default_shipping'])) {
+                $customer->setData('default_shipping', $data['account']['default_shipping']);
+            }
+
             // not modified customer addresses mark for delete
             foreach ($customer->getAddressesCollection() as $customerAddress) {
-                if ($customerAddress->getId() && ! in_array($customerAddress->getId(), $modifiedAddresses)) {
+                if ($customerAddress->getId() && !in_array($customerAddress->getId(), $modifiedAddresses)) {
                     $customerAddress->setData('_deleted', true);
                 }
             }
 
-            if(isset($data['subscription'])) {
+            if (isset($data['subscription'])) {
                 $customer->setIsSubscribed(true);
             } else {
                 $customer->setIsSubscribed(false);
             }
 
-            $isNewCustomer = !$customer->getId();
-            try {
-                if ($customer->getPassword() == 'auto') {
-                    $sendPassToEmail = true;
-                    $customer->setPassword($customer->generatePassword());
-                }
+            if (isset($data['account']['sendemail_store_id'])) {
+                $customer->setSendemailStoreId($data['account']['sendemail_store_id']);
+            }
 
+            $isNewCustomer = $customer->isObjectNew();
+            try {
+                $sendPassToEmail = false;
                 // force new customer active
                 if ($isNewCustomer) {
+                    $customer->setPassword($data['account']['password']);
                     $customer->setForceConfirmed(true);
+                    if ($customer->getPassword() == 'auto') {
+                        $sendPassToEmail = true;
+                        $customer->setPassword($customer->generatePassword());
+                    }
                 }
 
-                Mage::dispatchEvent('adminhtml_customer_prepare_save',
-                    array('customer' => $customer, 'request' => $this->getRequest())
-                );
+                Mage::dispatchEvent('adminhtml_customer_prepare_save', array(
+                    'customer'  => $customer,
+                    'request'   => $this->getRequest()
+                ));
 
                 $customer->save();
+
                 // send welcome email
-                if ($customer->getWebsiteId() && ($customer->hasData('sendemail') || isset($sendPassToEmail))) {
+                if ($customer->getWebsiteId() && (!empty($data['account']['sendemail']) || $sendPassToEmail)) {
                     $storeId = $customer->getSendemailStoreId();
                     if ($isNewCustomer) {
                         $customer->sendNewAccountEmail('registered', '', $storeId);
                     }
                     // confirm not confirmed customer
-                    elseif ((!$customer->getConfirmation())) {
+                    else if ((!$customer->getConfirmation())) {
                         $customer->sendNewAccountEmail('confirmed', '', $storeId);
                     }
                 }
 
-                // TODO? Send confirmation link, if deactivating account
-
-                if ($newPassword = $customer->getNewPassword()) {
+                if (!empty($data['account']['new_password'])) {
+                    $newPassword = $data['account']['new_password'];
                     if ($newPassword == 'auto') {
                         $newPassword = $customer->generatePassword();
                     }
@@ -244,10 +323,13 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                     $customer->sendPasswordReminderEmail();
                 }
 
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The customer has been saved.'));
-                Mage::dispatchEvent('adminhtml_customer_save_after',
-                    array('customer' => $customer, 'request' => $this->getRequest())
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('adminhtml')->__('The customer has been saved.')
                 );
+                Mage::dispatchEvent('adminhtml_customer_save_after', array(
+                    'customer'  => $customer,
+                    'request'   => $this->getRequest()
+                ));
 
                 if ($redirectBack) {
                     $this->_redirect('*/*/edit', array(
@@ -256,10 +338,14 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                     ));
                     return;
                 }
-            }
-            catch (Exception $e){
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                Mage::getSingleton('adminhtml/session')->setCustomerData($data);
+            } catch (Mage_Core_Exception $e) {
+                $this->_getSession()->addError($e->getMessage());
+                $this->_getSession()->setCustomerData($data);
+                $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', array('id' => $customer->getId())));
+            } catch (Exception $e) {
+                $this->_getSession()->addException($e,
+                    Mage::helper('adminhtml')->__('An error occurred while saving the customer.'));
+                $this->_getSession()->setCustomerData($data);
                 $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', array('id'=>$customer->getId())));
                 return;
             }
@@ -382,7 +468,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 ->setWebsite(Mage::app()->getWebsite($websiteId))
                 ->loadByCustomer(Mage::registry('current_customer'));
             $item = $quote->getItemById($deleteItemId);
-            if ($item->getId()) {
+            if ($item && $item->getId()) {
                 $quote->removeItem($deleteItemId);
                 $quote->collectTotals()->save();
             }
@@ -456,40 +542,85 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
     public function validateAction()
     {
-        $response = new Varien_Object();
+        $response       = new Varien_Object();
         $response->setError(0);
-        $websiteId = Mage::app()->getStore()->getWebsiteId();
-        $accountData = $this->getRequest()->getPost('account');
-
+        $websiteId      = Mage::app()->getStore()->getWebsiteId();
+        $accountData    = $this->getRequest()->getPost('account');
 
         $customer = Mage::getModel('customer/customer');
-        if ($id = $this->getRequest()->getParam('id')) {
-            $customer->load($id);
+        $customerId = $this->getRequest()->getParam('id');
+        if ($customerId) {
+            $customer->load($customerId);
             $websiteId = $customer->getWebsiteId();
-        }
-        if (isset($accountData['website_id'])) {
+        } else if (isset($accountData['website_id'])) {
             $websiteId = $accountData['website_id'];
         }
 
-        # Checking if we received email. If not - ERROR
-        if( !($accountData['email']) ) {
+        /* @var $customerForm Mage_Customer_Model_Form */
+        $customerForm = Mage::getModel('customer/form');
+        $customerForm->setEntity($customer)
+            ->setFormCode('adminhtml_customer')
+            ->setIsAjaxRequest(true)
+            ->ignoreInvisible(false)
+        ;
+
+        $data   = $customerForm->extractData($this->getRequest(), 'account');
+        $errors = $customerForm->validateData($data);
+        if ($errors !== true) {
+            foreach ($errors as $error) {
+                $this->_getSession()->addError($error);
+            }
             $response->setError(1);
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__("Please fill in 'email' field."));
-            $this->_initLayoutMessages('adminhtml/session');
-            $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
-        } else {
+        }
+
+        # additional validate email
+        if (!$response->getError()) {
             # Trying to load customer with the same email and return error message
             # if customer with the same email address exisits
             $checkCustomer = Mage::getModel('customer/customer')
                 ->setWebsiteId($websiteId);
             $checkCustomer->loadByEmail($accountData['email']);
-            if( $checkCustomer->getId() && ($checkCustomer->getId() != $customer->getId()) ) {
+            if ($checkCustomer->getId() && ($checkCustomer->getId() != $customer->getId())) {
                 $response->setError(1);
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Customer with the same email already exists.'));
-                $this->_initLayoutMessages('adminhtml/session');
-                $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
+                $this->_getSession()->addError(
+                    Mage::helper('adminhtml')->__('Customer with the same email already exists.')
+                );
             }
         }
+
+        $addressesData = $this->getRequest()->getParam('address');
+        if (is_array($addressesData)) {
+            /* @var $addressForm Mage_Customer_Model_Form */
+            $addressForm = Mage::getModel('customer/form');
+            $addressForm->setFormCode('adminhtml_customer_address')->ignoreInvisible(false);
+            foreach (array_keys($addressesData) as $index) {
+                if ($index == '_template_') {
+                    continue;
+                }
+                $address = $customer->getAddressItemById($index);
+                if (!$address) {
+                    $address   = Mage::getModel('customer/address');
+                }
+
+                $requestScope = sprintf('address/%s', $index);
+                $formData = $addressForm->setEntity($address)
+                    ->extractData($this->getRequest(), $requestScope);
+
+                $errors = $addressForm->validateData($formData);
+                if ($errors !== true) {
+                    foreach ($errors as $error) {
+                        $this->_getSession()->addError($error);
+                    }
+                    $response->setError(1);
+                }
+            }
+        }
+
+        if ($response->getError()) {
+            $this->_initLayoutMessages('adminhtml/session');
+            $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
+        }
+
         $this->getResponse()->setBody($response->toJson());
     }
 
@@ -592,6 +723,76 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         }
 
         $this->_redirect('*/*/index');
+    }
+
+    public function viewfileAction()
+    {
+        $file   = null;
+        $plain  = false;
+        if ($this->getRequest()->getParam('file')) {
+            // download file
+            $file   = Mage::helper('core')->urlDecode($this->getRequest()->getParam('file'));
+        } else if ($this->getRequest()->getParam('image')) {
+            // show plain image
+            $file   = Mage::helper('core')->urlDecode($this->getRequest()->getParam('image'));
+            $plain  = true;
+        } else {
+            return $this->norouteAction();
+        }
+
+        $path = Mage::getBaseDir('media') . DS . 'customer';
+
+        $ioFile = new Varien_Io_File();
+        $ioFile->open(array('path' => $path));
+        $fileName   = $ioFile->getCleanPath($path . $file);
+        $path       = $ioFile->getCleanPath($path);
+
+        if (!$ioFile->fileExists($fileName) || strpos($fileName, $path) !== 0) {
+            return $this->norouteAction();
+        }
+
+        if ($plain) {
+            $extension = pathinfo($fileName, PATHINFO_EXTENSION);
+            switch (strtolower($extension)) {
+                case 'gif':
+                    $contentType = 'image/gif';
+                    break;
+                case 'jpg':
+                    $contentType = 'image/jpeg';
+                    break;
+                case 'png':
+                    $contentType = 'image/png';
+                    break;
+                default:
+                    $contentType = 'application/octet-stream';
+                    break;
+            }
+
+            $ioFile->streamOpen($fileName, 'r');
+            $contentLength = $ioFile->streamStat('size');
+            $contentModify = $ioFile->streamStat('mtime');
+
+            $this->getResponse()
+                ->setHttpResponseCode(200)
+                ->setHeader('Pragma', 'public', true)
+                ->setHeader('Content-type', $contentType, true)
+                ->setHeader('Content-Length', $contentLength)
+                ->setHeader('Last-Modified', date('r', $contentModify))
+                ->clearBody();
+            $this->getResponse()->sendHeaders();
+
+            while (false !== ($buffer = $ioFile->streamRead())) {
+                echo $buffer;
+            }
+        } else {
+            $name = pathinfo($fileName, PATHINFO_BASENAME);
+            $this->_prepareDownloadResponse($name, array(
+                'type'  => 'filename',
+                'value' => $fileName
+            ));
+        }
+
+        exit();
     }
 
     protected function _isAllowed()

@@ -34,6 +34,10 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
 
     const USA_COUNTRY_ID = 'US';
     const PUERTORICO_COUNTRY_ID = 'PR';
+    const GUAM_COUNTRY_ID = 'GU';
+    const GUAM_REGION_CODE = 'GU';
+
+    protected static $_quotesCache = array();
 
     public function getTrackingInfo($tracking)
     {
@@ -115,6 +119,49 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         } elseif ($errorMsg) {
             return false;
         }
+        return $this;
+    }
+
+    /**
+     * Returns cache key for some request to carrier quotes service
+     *
+     * @param string|array $requestParams
+     * @return string
+     */
+    protected function _getQuotesCacheKey($requestParams)
+    {
+        if (is_array($requestParams)) {
+            $requestParams = implode(',', array_merge(array($this->getCarrierCode()), array_keys($requestParams), $requestParams));
+        }
+        return crc32($requestParams);
+    }
+
+    /**
+     * Checks whether some request to rates have already been done, so we have cache for it
+     * Used to reduce number of same requests done to carrier service during one session
+     *
+     * Returns cached response or null
+     *
+     * @param string|array $requestParams
+     * @return null|string
+     */
+    protected function _getCachedQuotes($requestParams)
+    {
+        $key = $this->_getQuotesCacheKey($requestParams);
+        return isset(self::$_quotesCache[$key]) ? self::$_quotesCache[$key] : null;
+    }
+
+    /**
+     * Sets received carrier quotes to cache
+     *
+     * @param string|array $requestParams
+     * @param string $response
+     * @return Mage_Usa_Model_Shipping_Carrier_Abstract
+     */
+    protected function _setCachedQuotes($requestParams, $response)
+    {
+        $key = $this->_getQuotesCacheKey($requestParams);
+        self::$_quotesCache[$key] = $response;
         return $this;
     }
 }

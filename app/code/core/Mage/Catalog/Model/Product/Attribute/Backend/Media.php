@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         }
 
 
-
+        
         $clearImages = array();
         $newImages   = array();
         $existImages = array();
@@ -148,7 +148,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         foreach ($object->getMediaAttributes() as $mediaAttribute) {
             $mediaAttrCode = $mediaAttribute->getAttributeCode();
             $attrData = $object->getData($mediaAttrCode);
-
+            
             if (in_array($attrData, $clearImages)) {
                 $object->setData($mediaAttrCode, false);
             }
@@ -256,9 +256,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $dispretionPath = Varien_File_Uploader::getDispretionPath($fileName);
         $fileName       = $dispretionPath . DS . $fileName;
 
-        $fileName = $dispretionPath . DS
-                  . Varien_File_Uploader::getNewFileName($this->_getConfig()->getTmpMediaPath($fileName));
-
+        $fileName = $this->_getNotDuplicatedFilename($fileName, $dispretionPath);
+        
         $ioAdapter = new Varien_Io_File();
         $ioAdapter->setAllowCreateFolders(true);
         $distanationDirectory = dirname($this->_getConfig()->getTmpMediaPath($fileName));
@@ -555,5 +554,30 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         );
 
         return $this;
+    }
+
+    /**
+     * Get filename which is not duplicated with other files in media temporary and media directories
+     *
+     * @param String $fileName
+     * @param String $dispretionPath
+     * @return String
+     */
+    protected function _getNotDuplicatedFilename($fileName, $dispretionPath)
+    {
+        $fileMediaName = $dispretionPath . DS
+                  . Varien_File_Uploader::getNewFileName($this->_getConfig()->getMediaPath($fileName));
+        $fileTmpMediaName = $dispretionPath . DS
+                  . Varien_File_Uploader::getNewFileName($this->_getConfig()->getTmpMediaPath($fileName));
+        
+        if ($fileMediaName != $fileTmpMediaName) {
+            if ($fileMediaName != $fileName) {
+                return $this->_getNotDuplicatedFileName($fileMediaName, $dispretionPath);
+            } elseif ($fileTmpMediaName != $fileName) {
+                return $this->_getNotDuplicatedFilename($fileTmpMediaName, $dispretionPath);
+            }
+        }
+
+        return $fileMediaName;
     }
 } // Class Mage_Catalog_Model_Product_Attribute_Backend_Media End

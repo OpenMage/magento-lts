@@ -93,12 +93,39 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
 
         // get store switcher or a hidden field with its id
         if (!Mage::app()->isSingleStoreMode()) {
+            $stores  = Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm();
+
+            //showing websites that only associated to products
+            if ($product && $product->getId()) {
+                $productStores = $product->getStoreIds() ? $product->getStoreIds() : array();
+                if  (!$productStores) {
+                    $stores = array(); //reset the stores
+                    Mage::getSingleton('adminhtml/session')->addError($this->__('Chosen product does not associated with any website.'));
+                }
+                if($stores){
+                    foreach ($stores as $i => $store) {
+                        if (isset($store['value']) && $store['value']) {
+                            $found = false;
+                            foreach ($store['value'] as $_v) {
+                                if (isset($_v['value']) && in_array($_v['value'],$productStores)) {
+                                   $found = true;
+                                   break;
+                                }
+                            }
+                            if (!$found) {
+                                $stores[$i]['value'] = array();
+                            }
+                        }
+                    }
+                }
+            }
+
             $element = $fieldset->addField('store_id', 'select', array(
                 'label'     => Mage::helper('adminhtml')->__('Store'),
                 'title'     => Mage::helper('adminhtml')->__('Store'),
                 'name'      => 'store_id',
                 'required'  => true,
-                'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(),
+                'values'    => $stores,
                 'disabled'  => true,
                 'value'     => $formValues['store_id'],
             ));
@@ -107,7 +134,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
             }
         }
         else {
-            $fieldset->addField('store_id', ($model->getId() ? 'hidden' : 'select'), array(
+            $fieldset->addField('store_id', 'hidden', array(
                 'name'      => 'store_id',
                 'value'     => Mage::app()->getStore(true)->getId()
             ));

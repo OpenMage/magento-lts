@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -43,12 +43,18 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HtmlTag.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: HtmlTag.php 20104 2010-01-06 21:26:01Z matthew $
  */
 class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
 {
+    /**
+     * Character encoding to use when escaping attributes
+     * @var string
+     */
+    protected $_encoding;
+
     /**
      * Placement; default to surround content
      * @var string
@@ -74,12 +80,13 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
     protected function _htmlAttribs(array $attribs)
     {
         $xhtml = '';
+        $enc   = $this->_getEncoding();
         foreach ((array) $attribs as $key => $val) {
-            $key = htmlspecialchars($key, ENT_COMPAT, 'UTF-8');
+            $key = htmlspecialchars($key, ENT_COMPAT, $enc);
             if (is_array($val)) {
                 $val = implode(' ', $val);
             }
-            $val    = htmlspecialchars($val, ENT_COMPAT, 'UTF-8');
+            $val    = htmlspecialchars($val, ENT_COMPAT, $enc);
             $xhtml .= " $key=\"$val\"";
         }
         return $xhtml;
@@ -215,5 +222,30 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
                      . $content
                      . (($closeOnly || !$openOnly) ? $this->_getCloseTag($tag) : '');
         }
+    }
+
+    /**
+     * Get encoding for use with htmlspecialchars()
+     * 
+     * @return string
+     */
+    protected function _getEncoding()
+    {
+        if (null !== $this->_encoding) {
+            return $this->_encoding;
+        }
+
+        if (null === ($element = $this->getElement())) {
+            $this->_encoding = 'UTF-8';
+        } elseif (null === ($view = $element->getView())) {
+            $this->_encoding = 'UTF-8';
+        } elseif (!$view instanceof Zend_View_Abstract
+            && !method_exists($view, 'getEncoding')
+        ) {
+            $this->_encoding = 'UTF-8';
+        } else {
+            $this->_encoding = $view->getEncoding();
+        }
+        return $this->_encoding;
     }
 }

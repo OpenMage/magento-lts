@@ -60,7 +60,7 @@
                 <strong><?php echo $_order->getShippingDescription() ?></strong>
                 <?php echo $this->helper('sales')->__('Total Shipping Charges'); ?>:
 
-                <?php if ($this->helper('tax')->displayShippingPriceIncludingTax()): ?>
+                <?php if ($this->helper('tax')->displaySalesPriceInclTax($this->getSource()->getStoreId())): ?>
                     <?php $_excl = $this->displayShippingPriceInclTax($_order); ?>
                 <?php else: ?>
                     <?php $_excl = $this->displayPriceAttribute('shipping_amount', false, ' '); ?>
@@ -68,7 +68,7 @@
                 <?php $_incl = $this->displayShippingPriceInclTax($_order); ?>
 
                 <?php echo $_excl; ?>
-                <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                <?php if ($this->helper('tax')->displaySalesBothPrices($this->getSource()->getStoreId()) && $_incl != $_excl): ?>
                     (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
                 <?php endif; ?>
             </fieldset>

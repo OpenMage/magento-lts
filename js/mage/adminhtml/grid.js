@@ -765,8 +765,8 @@ serializerController.prototype = {
     rowInit : function(grid, row) {
         if(this.multidimensionalMode){
             var checkbox = $(row).select('.checkbox')[0];
-            var selectors = this.inputsToManage.map(function (name) { return 'input[name="' + name + '"]' });
-            var inputs = $(row).select.apply($(row), selectors);
+            var selectors = this.inputsToManage.map(function (name) { return ['input[name="' + name + '"]', 'select[name="' + name + '"]']; });
+            var inputs = $(row).select.apply($(row), selectors.flatten());
             if(checkbox && inputs.length > 0) {
                 checkbox.inputElements = inputs;
                 for(var i = 0; i < inputs.length; i++) {

@@ -130,6 +130,22 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         return $this;
     }
 
+    /**
+     * Remove CSS class
+     *
+     * @param string $class
+     * @return Varien_Data_Form_Element_Abstract
+     */
+    public function removeClass($class)
+    {
+        $classes = array_unique(explode(' ', $this->getClass()));
+        if (false !== ($key = array_search($class, $classes))) {
+            unset($classes[$key]);
+        }
+        $this->setClass(implode(' ', $classes));
+        return $this;
+    }
+
     protected function _escape($string)
     {
         return htmlspecialchars($string, ENT_COMPAT);

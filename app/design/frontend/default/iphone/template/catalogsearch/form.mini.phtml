@@ -24,7 +24,7 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<div class="search-form" id="topSearch" style="display:none;">
+<div class="search-form">
     <div class="search-form-cont">
         <div class="col2-set">
             <form id="search_mini_form" name="search_mini_form" action="<?php echo $this->helper('catalogsearch')->getResultUrl() ?>" method="get">
@@ -35,7 +35,7 @@
             </div>
             <div class="col-2">
                 <input class="search-go" type="image" src="<?php echo $this->getSkinUrl('images/search-go-but.gif') ?>" alt="<?php echo $this->__('Search') ?>" />
-                <a class="search-close" href="javascript:void(0);" onclick="$('topSearch').hide(); return false;">&nbsp;</a>
+                <a class="search-close" href="javascript:void(0);" onclick="$('topSearch').hide(); return false;"></a>
             </div><div class="clear"></div>
             </form>
         </div>

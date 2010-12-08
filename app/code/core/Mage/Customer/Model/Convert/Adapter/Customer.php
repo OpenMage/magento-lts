@@ -443,12 +443,12 @@ class Mage_Customer_Model_Convert_Adapter_Customer
             /**
              * Check customer group
              */
-            if (empty($importData['group_id']) || !isset($customerGroups[$importData['group_id']])) {
-                $value = isset($importData['group_id']) ? $importData['group_id'] : '';
-                $message = Mage::helper('catalog')->__('Skipping import row, the value "%s" is not valid for the "%s" field.', $value, 'group_id');
+            if (empty($importData['group']) || !isset($customerGroups[$importData['group']])) {
+                $value = isset($importData['group']) ? $importData['group'] : '';
+                $message = Mage::helper('catalog')->__('Skipping import row, the value "%s" is not valid for the "%s" field.', $value, 'group');
                 Mage::throwException($message);
             }
-            $customer->setGroupId($customerGroups[$importData['group_id']]);
+            $customer->setGroupId($customerGroups[$importData['group']]);
 
             foreach ($this->_requiredFields as $field) {
                 if (!isset($importData[$field])) {
@@ -470,13 +470,13 @@ class Mage_Customer_Model_Convert_Adapter_Customer
                 $customer->setPasswordHash($customer->hashPassword($customer->generatePassword(8)));
             }
         }
-        elseif (!empty($importData['group_id'])) {
+        elseif (!empty($importData['group'])) {
             $customerGroups = $this->getCustomerGroups();
             /**
              * Check customer group
              */
-            if (isset($customerGroups[$importData['group_id']])) {
-                $customer->setGroupId($customerGroups[$importData['group_id']]);
+            if (isset($customerGroups[$importData['group']])) {
+                $customer->setGroupId($customerGroups[$importData['group']]);
             }
         }
 

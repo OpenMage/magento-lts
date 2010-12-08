@@ -31,7 +31,7 @@
  *  - Category save (changed assigned products list, category move, changed url key)
  *  - Store save (new store creation, changed store group) - require reindex all data
  *  - Store group save (changed root category or group website) - require reindex all data
- *  - Seo config saettings change - require reindex all data
+ *  - Seo config settings change - require reindex all data
  */
 class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
 {
@@ -220,19 +220,21 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
         }
 
         $urlModel = Mage::getSingleton('catalog/url');
-        
+
         // Force rewrites history saving
         $dataObject = $event->getDataObject();
         if ($dataObject instanceof Varien_Object && $dataObject->hasData('save_rewrites_history')) {
             $urlModel->setShouldSaveRewritesHistory($dataObject->getData('save_rewrites_history'));
         }
-        
+
         if(isset($data['rewrite_product_ids'])) {
+            $urlModel->clearStoreInvalidRewrites(); // Maybe some products were moved or removed from website
             foreach ($data['rewrite_product_ids'] as $productId) {
                  $urlModel->refreshProductRewrite($productId);
             }
         }
         if (isset($data['rewrite_category_ids'])) {
+            $urlModel->clearStoreInvalidRewrites(); // Maybe some categories were moved
             foreach ($data['rewrite_category_ids'] as $categoryId) {
                 $urlModel->refreshCategoryRewrite($categoryId);
             }

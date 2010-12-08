@@ -26,16 +26,16 @@
 /* @var $this Mage_Wishlist_Block_Share_Email_Items */
 ?>
 <?php $l = $this->getWishlistItemsCount() ?>
-<div style="border:1px solid #bebcb7; padding:15px; background:#f8f7f5;">
-<table cellspacing="0" cellpadding="0" border="0" width="100%">
+<div style="border:1px solid #E0E0E0; padding:15px; background:#F9F9F9;">
+<table cellspacing="0" cellpadding="0" border="0" width="650">
     <tr>
     <?php $i = 0; foreach ($this->getWishlistItems() as $item): $i++ ?>
         <td width="32%">
-            <p align="center"><a href="<?php echo $this->getProductUrl($item) ?>"><img src="<?php echo $this->helper('catalog/image')->init($item, 'small_image')->resize(135); ?>" style="border:1px solid #ccc;" width="135" height="135" alt="" /></a></p>
-            <p align="center"><a href="<?php echo $this->getProductUrl($item) ?>" style="color:#203548;"><strong><?php echo $this->htmlEscape($item->getName()) ?></strong></a></p>
-            <?php if($this->hasDescription($item)): ?><p align="center"><?php echo $this->__('Comment') ?>:<br /><?php echo $this->getEscapedDescription($item) ?></p><?php endif; ?>
-            <p align="center"><a href="<?php echo $this->getProductUrl($item) ?>" style="color:#1E7EC8;"><?php echo $this->__('View Product') ?></a> <small>
-            <?php if ($item->getIsSalable()): ?>|</small> <a href="<?php echo $this->getAddToCartUrl($item) ?>" style="color:#DC6809;"><strong><?php echo $this->__('Add to Cart') ?></strong></a><?php endif;?>
+            <p align="center" style="font-size:12px;"><a href="<?php echo $this->getProductUrl($item) ?>"><img src="<?php echo $this->helper('catalog/image')->init($item, 'small_image')->resize(135); ?>" style="border:1px solid #ccc;" width="135" height="135" alt="" /></a></p>
+            <p align="center" style="font-size:12px;"><a href="<?php echo $this->getProductUrl($item) ?>" style="color:#203548;"><strong><?php echo $this->htmlEscape($item->getName()) ?></strong></a></p>
+            <?php if($this->hasDescription($item)): ?><p align="center" style="font-size:12px;"><?php echo $this->__('Comment') ?>:<br /><?php echo $this->getEscapedDescription($item) ?></p><?php endif; ?>
+            <p align="center" style="font-size:12px;"><a href="<?php echo $this->getProductUrl($item) ?>" style="color:#1E7EC8;"><?php echo $this->__('View Product') ?></a> <small>
+            <?php if ($item->getIsSalable()): ?>|</small> <a href="<?php echo $this->getAddToCartUrl($item) ?>" style="color:#1E7EC8;"><strong><?php echo $this->__('Add to Cart') ?></strong></a><?php endif;?>
             </p></td>
         <?php if ($i%3!=0): ?>
             <td width="2%"></td>

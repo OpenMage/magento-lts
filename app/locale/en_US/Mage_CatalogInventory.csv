@@ -1,3 +1,4 @@
+"""%s"" is not available in the requested quantity. %s of the items will be backordered.","""%s"" is not available in the requested quantity. %s of the items will be backordered."
 "%s is not a correct comparsion method.","%s is not a correct comparsion method."
 "<strong>Note</strong> that these settings are applicable to cart line items, not the whole cart.","<strong>Note</strong> that these settings are applicable to cart line items, not the whole cart."
 "Add Minimum Qty","Add Minimum Qty"

@@ -23,6 +23,7 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+/* @var $this Mage_Adminhtml_Block_Newsletter_Template_Edit */
 ?>
 <div class="content-header">
    <h3 class="icon-head head-newsletter-list"><?php echo $this->getHeaderText() ?></h3>
@@ -33,10 +34,10 @@
                 <?php echo $this->getToPlainButtonHtml(); ?>
                 <?php echo $this->getToHtmlButtonHtml(); ?>
                 <?php endif ?>
+                <?php echo $this->getPreviewButtonHtml(); ?>
                 <?php if($this->getEditMode()): ?>
                 <?php echo $this->getDeleteButtonHtml(); ?>
                 <?php endif ?>
-                <?php echo $this->getPreviewButtonHtml(); ?>
                 <?php if($this->getEditMode()): ?>
                 <?php echo $this->getSaveAsButtonHtml(); ?>
                 <?php endif ?>
@@ -57,6 +58,7 @@
         <input type="hidden" id="preview_type" name="type" value="<?php echo $this->isTextType()?1:2 ?>" />
         <input type="hidden" id="preview_text" name="text" value="" />
         <input type="hidden" id="preview_styles" name="styles" value="" />
+        <input type="hidden" id="preview_id" name="id" value="" />
     </div>
 </form>
 <script type="text/javascript">
@@ -151,12 +153,17 @@
                 $('preview_type').value = 2;
             }
             if (this.isEditor() && tinyMCE.get(this.id)) {
-                $('preview_text').value = tinyMCE.get(this.id).getContent();
+                tinyMCE.triggerSave();
+                $('preview_text').value = $(this.id).value;
+                tinyMCE.triggerSave();
             } else {
                 $('preview_text').value = $(this.id).value;
             }
             if ($('template_styles') != undefined) {
                 $('preview_styles').value = $('template_styles').value;
+            }
+            if ($('id') != undefined) {
+                $('preview_id').value = $('id').value;
             }
             templatePreviewForm.submit();
             return false;

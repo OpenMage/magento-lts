@@ -60,9 +60,9 @@ class Mage_Customer_Model_Entity_Customer_Collection extends Mage_Eav_Model_Enti
         }
 
         $expr = 'CONCAT('
-            .(isset($fields['prefix']) ? 'IF({{prefix}} IS NOT NULL AND {{prefix}} != "", CONCAT({{prefix}}," "), ""),' : '')
-            .'{{firstname}}'.(isset($fields['middlename']) ?  ',IF({{middlename}} IS NOT NULL AND {{middlename}} != "", CONCAT(" ",{{middlename}}), "")' : '').'," ",{{lastname}}'
-            .(isset($fields['suffix']) ? ',IF({{suffix}} IS NOT NULL AND {{suffix}} != "", CONCAT(" ",{{suffix}}), "")' : '')
+            .(isset($fields['prefix']) ? 'IF({{prefix}} IS NOT NULL AND {{prefix}} != "", CONCAT(TRIM({{prefix}})," "), ""),' : '')
+            .'TRIM({{firstname}})'.(isset($fields['middlename']) ?  ',IF({{middlename}} IS NOT NULL AND {{middlename}} != "", CONCAT(" ",TRIM({{middlename}})), "")' : '').'," ",TRIM({{lastname}})'
+            .(isset($fields['suffix']) ? ',IF({{suffix}} IS NOT NULL AND {{suffix}} != "", CONCAT(" ",TRIM({{suffix}})), "")' : '')
         .')';
 
         $this->addExpressionAttributeToSelect('name', $expr, $fields);

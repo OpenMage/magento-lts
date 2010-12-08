@@ -242,6 +242,20 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
     }
 
     /**
+     * Remove characters and words not allowed by Google Base in title and content (description).
+     *
+     * (to avoid "Expected response code 200, got 400.
+     * Reason: There is a problem with the character encoding of this attribute")
+     *
+     * @param string $string
+     * @return string
+     */
+    protected function _cleanAtomAttribute($string)
+    {
+        return Mage::helper('core/string')->substr(preg_replace('/[\pC¢€•—™°½]|shipping/ui', '', $string), 0, 3500);
+    }
+
+    /**
      * Assign values to universal attribute of entry
      *
      * @return Mage_GoogleBase_Model_Service_Item
@@ -251,13 +265,19 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
         $service = $this->getService();
         $object = $this->getObject();
         $entry = $this->getEntry();
+        $attributeValues = $this->getAttributeValues();
 
         $this->_setAttribute('id', $object->getId() . '_' . $this->getStoreId(), 'text');
 
-        if ($object->getName()) {
-            $title = $service->newTitle()->setText( $object->getName() );
-            $entry->setTitle($title);
+        if (isset($attributeValues['title']['value'])) {
+            $titleText = $attributeValues['title']['value'];
+            unset($attributeValues['title']); // to prevent "Reason: Duplicate title" error
+        } elseif ($object->getName()) {
+            $titleText = $object->getName();
+        } else {
+            $titleText = 'no title';
         }
+        $entry->setTitle($service->newTitle()->setText($this->_cleanAtomAttribute($titleText)));
 
         if ($object->getUrl()) {
             $links = $entry->getLink();
@@ -275,13 +295,16 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
             $entry->setLink($links);
         }
 
-        if ($object->getDescription()) {
-            $content = $service->newContent()->setText( $object->getDescription() );
-            $entry->setContent($content);
+        if (isset($attributeValues['description']['value'])) {
+            $descrText = $attributeValues['description']['value'];
+            unset($attributeValues['description']); // to prevent "Reason: Duplicate description" error
+        } elseif ($object->getDescription()) {
+            $descrText = $object->getDescription();
+        } else {
+            $descrText = 'no description';
         }
+        $entry->setContent($service->newContent()->setText($this->_cleanAtomAttribute($descrText)));
 
-        $attributeValues = $this->getAttributeValues();
-        
         if (isset($attributeValues['price']['value']) && floatval($attributeValues['price']['value']) > 0) {
             $price = $attributeValues['price']['value'];
         } else {
@@ -304,6 +327,8 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
         $this->_setAttribute('condition', 'new', 'text');
         $this->_setAttribute('target_country', $targetCountry, 'text');
         $this->_setAttribute('item_language', $this->getConfig()->getCountryInfo($targetCountry, 'language'), 'text');
+        // set new 'attribute_values' with removed 'title' and/or 'description' keys to avoid 'duplicate' errors
+        $this->setAttributeValues($attributeValues);
 
         return $this;
     }

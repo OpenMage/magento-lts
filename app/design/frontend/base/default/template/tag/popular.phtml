@@ -29,7 +29,7 @@
         <strong><span><?php echo $this->__('Popular Tags'); ?></span></strong>
     </div>
     <div class="block-content">
-        <ul>
+        <ul class="tags-list">
             <?php foreach ($this->getTags() as $_tag): ?>
                 <li><a href="<?php echo $_tag->getTaggedProductsUrl() ?>" style="font-size:<?php echo $_tag->getRatio()*70+75 ?>%;"><?php echo $this->htmlEscape($_tag->getName()) ?></a></li>
             <?php endforeach; ?>

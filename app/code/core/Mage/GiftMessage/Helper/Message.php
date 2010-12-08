@@ -85,11 +85,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      */
     public function getInline($type, Varien_Object $entity, $dontDisplayContainer=false)
     {
-        if (in_array($type, array('onepage_checkout','multishipping_adress'))) {
-            if (!$this->isMessagesAvailable('items', $entity)) {
-                return '';
-            }
-        } elseif (!$this->isMessagesAvailable($type, $entity)) {
+        if (!in_array($type, array('onepage_checkout','multishipping_adress')) && !$this->isMessagesAvailable($type, $entity)) {
             return '';
         }
 
@@ -126,13 +122,13 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
         }
 
         if ($type=='item') {
-            return !$entity->getProduct()->isVirtual() && $resultItems && $this->_getDependenceFromStoreConfig(
+            return !$entity->getProduct()->isVirtual() && $this->_getDependenceFromStoreConfig(
                         $entity->getProduct()->getGiftMessageAvailable(),
                         $store
                    );
         } elseif ($type=='order_item') {
-            return !$entity->getIsVirtual() && $resultItems && $this->_getDependenceFromStoreConfig(
-                        (is_null($entity->getGiftMessageAvailable()) ? 2 : $entity->getGiftMessageAvailable()),
+            return !$entity->getIsVirtual() && $this->_getDependenceFromStoreConfig(
+                        $entity->getGiftMessageAvailable(),
                         $store
                     );
         } elseif ($type=='address_item') {

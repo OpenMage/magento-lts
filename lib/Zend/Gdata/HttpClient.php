@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HttpClient.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: HttpClient.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -34,7 +34,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_HttpClient extends Zend_Http_Client
@@ -96,7 +96,12 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      */
     public function setAuthSubPrivateKeyFile($file, $passphrase = null,
                                              $useIncludePath = false) {
-        $fp = fopen($file, "r", $useIncludePath);
+        $fp = @fopen($file, "r", $useIncludePath);
+        if (!$fp) {
+            #require_once 'Zend/Gdata/App/InvalidArgumentException.php';
+            throw new Zend_Gdata_App_InvalidArgumentException('Failed to open private key file for AuthSub.');
+        }
+
         $key = '';
         while (!feof($fp)) {
             $key .= fread($fp, 8192);
@@ -320,11 +325,11 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      *
      * @return Zend_Http_Client
      */
-    public function resetParameters()
+    public function resetParameters($clearAll = false)
     {
         $this->_streamingRequest = false;
 
-        return parent::resetParameters();
+        return parent::resetParameters($clearAll);
     }
 
     /**

@@ -31,14 +31,8 @@
  * @package    Mage_Newsletter
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
+class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template
 {
-    /**
-     * Types of template
-     */
-    const TYPE_TEXT = 1;
-    const TYPE_HTML = 2;
-
     /**
      * Template Text Preprocessed flag
      *
@@ -107,7 +101,6 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
     protected function _beforeSave()
     {
         $this->validate();
-        $this->getTemplateTextPreprocessed();
         return parent::_beforeSave();
     }
 
@@ -127,6 +120,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
      * Return true if this template can be used for sending queue as main template
      *
      * @return boolean
+     * @deprecated since 1.4.0.1
      */
     public function isValidForSend()
     {
@@ -137,13 +131,12 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Return true if template type eq text
+     * Getter for template type
      *
-     * @return boolean
+     * @return int|string
      */
-    public function isPlain()
-    {
-        return $this->getTemplateType() == self::TYPE_TEXT;
+    public function getType(){
+        return $this->getTemplateType();
     }
 
     /**
@@ -179,12 +172,18 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
      */
     public function getProcessedTemplate(array $variables = array(), $usePreprocess = false)
     {
-        $processor = Mage::helper('newsletter')->getTemplateProcessor();
         /* @var $processor Mage_Newsletter_Model_Template_Filter */
+        $processor = Mage::helper('newsletter')->getTemplateProcessor();
 
         if (!$this->_preprocessFlag) {
             $variables['this'] = $this;
         }
+
+        if (Mage::app()->isSingleStoreMode()) {
+            $processor->setStoreId(Mage::app()->getStore());
+        } else {
+            $processor->setStoreId(Mage::app()->getRequest()->getParam('store_id'));
+        } 
 
         $processor
             ->setIncludeProcessor(array($this, 'getInclude'))
@@ -233,6 +232,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
      * Retrieve mail object instance
      *
      * @return Zend_Mail
+     * @deprecated since 1.4.0.1
      */
     public function getMail()
     {
@@ -251,6 +251,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
      * @param   string|null                               $name         receiver name (if subscriber model not specified)
      * @param   Mage_Newsletter_Model_Queue|null          $queue        queue model, used for problems reporting.
      * @return boolean
+     * @deprecated since 1.4.0.1
      **/
     public function send($subscriber, array $variables = array(), $name=null, Mage_Newsletter_Model_Queue $queue=null)
     {
@@ -269,7 +270,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
             $email = (string) $subscriber;
         }
 
-        if (Mage::getStoreConfigFlag(Mage_Newsletter_Model_Subscriber::XML_PATH_SENDING_SET_RETURN_PATH)) {
+        if (Mage::getStoreConfigFlag(Mage_Core_Model_Email_Template::XML_PATH_SENDING_SET_RETURN_PATH)) {
             $this->getMail()->setReturnPath($this->getTemplateSenderEmail());
         }
 
@@ -325,6 +326,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
      * Prepare Process (with save)
      *
      * @return Mage_Newsletter_Model_Template
+     * @deprecated since 1.4.0.1
      */
     public function preprocess()
     {
@@ -361,7 +363,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
     {
         if (!$this->getData('template_text') && !$this->getId()) {
             $this->setData('template_text',
-                Mage::helper('newsletter')->__('<!-- This tag is for unsubscribe link  --> Follow this link to unsubscribe <a href="{{var subscriber.getUnsubscriptionLink()}}">{{var subscriber.getUnsubscriptionLink()}}</a>')
+                Mage::helper('newsletter')->__('Follow this link to unsubscribe <!-- This tag is for unsubscribe link  --><a href="{{var subscriber.getUnsubscriptionLink()}}">{{var subscriber.getUnsubscriptionLink()}}</a>')
             );
         }
 

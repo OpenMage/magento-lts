@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Locale
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Math.php 16221 2009-06-21 19:49:59Z thomas $
+ * @version    $Id: Math.php 21179 2010-02-23 21:59:42Z matthew $
  */
 
 
@@ -28,7 +28,7 @@
  *
  * @category   Zend
  * @package    Zend_Locale
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -65,7 +65,14 @@ class Zend_Locale_Math
     public static function round($op1, $precision = 0)
     {
         if (self::$_bcmathDisabled) {
-            return self::normalize(round($op1, $precision));
+            $op1 = round($op1, $precision);
+            if (strpos((string) $op1, 'E') === false) {
+                return self::normalize(round($op1, $precision));
+            }
+        }
+
+        if (strpos($op1, 'E') !== false) {
+            $op1 = self::floatalize($op1);
         }
 
         $op1    = trim(self::normalize($op1));
@@ -111,8 +118,14 @@ class Zend_Locale_Math
             $roundUp[$roundPos + $decPos] = '1';
 
             if ($op1 > 0) {
+                if (self::$_bcmathDisabled) {
+                    return Zend_Locale_Math_PhpMath::Add($op1, $roundUp, $precision);
+                }
                 return self::Add($op1, $roundUp, $precision);
             } else {
+                if (self::$_bcmathDisabled) {
+                    return Zend_Locale_Math_PhpMath::Sub($op1, $roundUp, $precision);
+                }
                 return self::Sub($op1, $roundUp, $precision);
             }
         } elseif ($precision >= 0) {
@@ -120,6 +133,35 @@ class Zend_Locale_Math
         }
 
         return (string) $op1;
+    }
+
+    /**
+     * Convert a scientific notation to float
+     * Additionally fixed a problem with PHP <= 5.2.x with big integers
+     *
+     * @param string $value
+     */
+    public static function floatalize($value)
+    {
+        $value = strtoupper($value);
+        if (strpos($value, 'E') === false) {
+            return $value;
+        }
+
+        $number = substr($value, 0, strpos($value, 'E'));
+        if (strpos($number, '.') !== false) {
+            $post   = strlen(substr($number, strpos($number, '.') + 1));
+            $mantis = substr($value, strpos($value, 'E') + 1);
+            if ($mantis < 0) {
+                $post += abs((int) $mantis);
+            }
+
+            $value = number_format($value, $post, '.', '');
+        } else {
+            $value = number_format($value, 0, '.', '');
+        }
+
+        return $value;
     }
 
     /**
@@ -305,8 +347,9 @@ class Zend_Locale_Math
     }
 }
 
-if ((defined('TESTS_ZEND_LOCALE_BCMATH_ENABLED') && !TESTS_ZEND_LOCALE_BCMATH_ENABLED)
-    || !extension_loaded('bcmath')) {
-    #require_once 'Zend/Locale/Math/PhpMath.php';
+if (!extension_loaded('bcmath')
+    || (defined('TESTS_ZEND_LOCALE_BCMATH_ENABLED') && !TESTS_ZEND_LOCALE_BCMATH_ENABLED)
+) {
+    require_once 'Zend/Locale/Math/PhpMath.php';
     Zend_Locale_Math_PhpMath::disable();
 }

@@ -46,8 +46,8 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         'currency_code' => 'currency_code',
         'amount'        => 'amount',
         'shipping'      => 'shipping_amount',
-        'tax_cart'      => 'tax_amount',
-        'discount_amount_cart' => 'discount_amount',
+        'tax'           => 'tax_amount',
+        'discount_amount' => 'discount_amount',
         // misc
         'item_name'        => 'cart_summary',
         // page design settings
@@ -60,7 +60,9 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     );
     protected $_exportToRequestFilters = array(
         'amount'   => '_filterAmount',
-        'shipping' => '_filterAmount'
+        'shipping' => '_filterAmount',
+        'tax'      => '_filterAmount',
+        'discount_amount' => '_filterAmount',
     );
 
     /**
@@ -69,16 +71,9 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
      */
     protected $_commonRequestFields = array(
         'business', 'invoice', 'currency_code', 'paymentaction', 'return', 'cancel_return', 'notify_url', 'bn',
-        'page_style', 'cpp_header_image', 'cpp_headerback_color', 'cpp_headerborder_color', 'cpp_payflow_color'
+        'page_style', 'cpp_header_image', 'cpp_headerback_color', 'cpp_headerborder_color', 'cpp_payflow_color',
+        'amount', 'shipping', 'tax', 'discount_amount', 'item_name',
     );
-    protected $_aggregatedOrderFields = array('item_name', 'amount', 'shipping');
-
-    /**
-     * @deprecated after 1.4.1.0
-     *
-     * @var array
-     */
-    protected $_obscureDebugFor = array('business');
 
    /**
      * Fields that should be replaced in debug with '***'
@@ -91,9 +86,11 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
      * Line items export mapping settings
      * @var array
      */
-    protected $_lineItemExportTotals = array(
-        'tax'      => 'tax_cart',
-        'discount' => 'discount_amount_cart',
+    protected $_lineItemTotalExportMap = array(
+        Mage_Paypal_Model_Cart::TOTAL_SUBTOTAL => 'amount',
+        Mage_Paypal_Model_Cart::TOTAL_DISCOUNT => 'discount_amount',
+        Mage_Paypal_Model_Cart::TOTAL_TAX      => 'tax',
+        Mage_Paypal_Model_Cart::TOTAL_SHIPPING => 'shipping',
     );
     protected $_lineItemExportItemsFormat = array(
         'id'     => 'item_number_%d',
@@ -131,22 +128,26 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     {
         $request = $this->_exportToRequest($this->_commonRequestFields);
         $request['charset'] = 'utf-8';
-        // cart line items
-        if ($this->getLineItems()) {
-            $this->_exportLineItems($request, 1);
+
+        $isLineItems = $this->_exportLineItems($request);
+        if ($isLineItems) {
             $request = array_merge($request, array(
                 'cmd'    => '_cart',
                 'upload' => 1,
             ));
-        }
-        // aggregated order
-        else {
-            $request = $this->_exportToRequest($this->_aggregatedOrderFields, $request);
+            if (isset($request['tax'])) {
+                $request['tax_cart'] = $request['tax'];
+            }
+            if (isset($request['discount_amount'])) {
+                $request['discount_amount_cart'] = $request['discount_amount'];
+            }
+        } else {
             $request = array_merge($request, array(
                 'cmd'           => '_ext-enter',
                 'redirect_cmd'  => '_xclick',
             ));
         }
+
         // payer address
         $this->_importAddress($request);
         $this->_debug(array('request' => $request)); // TODO: this is not supposed to be called in getter
@@ -182,6 +183,26 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     }
 
     /**
+     * Add shipping total as a line item.
+     * For some reason PayPal ignores shipping total variables exactly when line items is enabled
+     * Note that $i = 1
+     *
+     * @param array $request
+     * @param int $i
+     * @return true|null
+     */
+    protected function _exportLineItems(array &$request, $i = 1)
+    {
+        if (!$this->_cart) {
+            return;
+        }
+        if ($this->getIsLineItemsEnabled()) {
+            $this->_cart->isShippingAsItem(true);
+        }
+        return parent::_exportLineItems($request, $i);
+    }
+
+    /**
      * Import address object, if set, to the request
      *
      * @param array $request
@@ -195,11 +216,38 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
             }
             return;
         }
+
         $request = Varien_Object_Mapper::accumulateByMap($address, $request, array_flip($this->_addressMap));
-        if ($regionCode = $this->_lookupRegionCodeFromAddress($address)) {
+
+        // Address may come without email info (user is not always required to enter it), so add email from order
+        if (!$request['email']) {
+            $order = $this->getOrder();
+            if ($order) {
+                $request['email'] = $order->getCustomerEmail();
+            }
+        }
+
+        $regionCode = $this->_lookupRegionCodeFromAddress($address);
+        if ($regionCode) {
             $request['state'] = $regionCode;
         }
         $this->_importStreetFromAddress($address, $request, 'address1', 'address2');
+        $this->_applyCountryWorkarounds($request);
+
         $request['address_override'] = 1;
+    }
+
+    /**
+     * Adopt specified request array to be compatible with Paypal
+     * Puerto Rico should be as state of USA and not as a country
+     *
+     * @param array $request
+     */
+    protected function _applyCountryWorkarounds(&$request)
+    {
+        if (isset($request['country']) && $request['country'] == 'PR') {
+            $request['country'] = 'US';
+            $request['state']   = 'PR';
+        }
     }
 }

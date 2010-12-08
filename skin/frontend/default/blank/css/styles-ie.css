@@ -53,7 +53,7 @@ button.btn-checkout {}
 .form-list label { position:relative; z-index:0; }
 .form-list label.required em { position:absolute; top:0; right:-8px; }
 
-/*table { face-color:expression(runtimeStyle.scrollbarFaceColor = '#fff', cellSpacing = 0); }*/ /* Cellspacing fix for IE6-7 */
+/*table { scrollbar-face-color:expression(runtimeStyle.scrollbarFaceColor = '#fff', cellSpacing = 0); }*/ /* Cellspacing fix for IE6-7 */
 
 .tool-tip .btn-close a { margin:0; }
 
@@ -102,6 +102,8 @@ button.btn-checkout {}
 .product-essential,
 .product-collateral,
 .product-view .product-img-box .more-views ul,
+.product-view .product-shop .short-description,
+.product-view .box-description,
 .product-view .box-tags .form-add,
 .product-options .options-list li,
 .product-options-bottom,

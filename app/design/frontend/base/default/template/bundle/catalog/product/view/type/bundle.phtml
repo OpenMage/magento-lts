@@ -33,6 +33,8 @@
     var bundle = new Product.Bundle(<?php echo $this->getJsonConfig() ?>);
 //]]>
 </script>
+<?php endif; ?>
+<?php if ($_product->isAvailable()): ?>
     <p class="availability in-stock"><?php echo $this->helper('catalog')->__('Availability:') ?> <span><?php echo $this->helper('catalog')->__('In stock') ?></span></p>
 <?php else: ?>
     <p class="availability out-of-stock"><?php echo $this->helper('catalog')->__('Availability:') ?> <span><?php echo $this->helper('catalog')->__('Out of stock') ?></span></p>

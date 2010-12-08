@@ -29,6 +29,6 @@
 $installer = $this;
 
 $installer->startSetup();
-$installer->removeAttribute('catalog_category', 'category_ids');
+$installer->removeAttribute('catalog_product', 'category_ids');
 $installer->getConnection()->dropColumn($installer->getTable('catalog/product'), 'category_ids');
 $installer->endSetup();

@@ -253,6 +253,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
         return Mage::getModel('tag/tag_relation')
             ->setTagId($this->getTagId())
             ->setStoreId($this->getStoreId())
+            ->setStatusFilter($this->getStatusFilter())
             ->setCustomerId(null)
             ->getProductIds();
     }

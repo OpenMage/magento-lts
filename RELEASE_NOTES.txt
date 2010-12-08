@@ -1,3 +1,1019 @@
+==== 1.4.2.0 ====
+
+=== Major Highlights ===
+* Starting from this release we are including TheFind extension.
+* New Magento Connect Manager excluded from this version.
+
+== Upgrade Notes ==
+* Those who installed Magento version 1.4.2.0-beta1 or 1.4.2.0-rc1 through Magento Connect should reinstall it manually, because this version contains old version of Magento Connect Manager
+
+== Improvements ==
+* Added "Switch/Maestro" card type support to centinel 3DS validator. Added comment about maestro and 3d-secure to paypal system config
+* Added more flexible filters implementation in collections:
+** Varien_Data_Collection::addFilter() registers filters as objects and implements getFilter() method to be able to detect/modify already existing filters
+** Varien_Data_Collection_Db::_renderFilters():
+*** Added a hook _renderFiltersBefore()
+*** Implemented 'public' filter type, which maps the provided filter field from public into internal view and passes the "value" as a condition through _getConditionSql()
+** Added $this->_renderFilters() call to abstract EAV collection to accommodate the filters that may be set by addFilter() method
+* Added ability to pass multiple recipient emails and names to Mage_Core_Model_Email_Template::send()
+* Backordered Item Status for subitems in Orders
+** Added correct message at order for all backordered items. At back-end all items shows as backordered if their quantity is below or equal to zero
+** Fix of duplication backorder messages for composite product options with same backordered item - saving backorder messages per product id
+* Magento Connect Manager
+** checking cyclic dependency references and conflicts with local files
+**  implemented adding to MCM manually installed extension
+** changed upgrade logic, previous version of package should be deleted before install new
+** Implemented new download process and dependencies rules
+** Added correct behavior during extension reinstall, so dependencies will not reinstall automatically
+* Optimized rewrite selection from DB, added url rewrite and suffix validation at admin backend
+* Added verification of access level for app/etc/local.xml. 
+** Now if server configuration has issue and this file accessible from browser admin user gets notification in backend.
+* Upgraded Zend Framework to version 1.10.8
+* Added the Recurring Profiles tab in customer management
+* Implemented cache for shipping rates and fixing issues with rounding
+* Design packages and themes optimization/refactoring/improvements:
+** minor improvements and fixes
+** improved upgrade-ability of CE themes
+* iPhone Theme Refactoring
+* Added Widget settings sharing between widget types
+* For Invoices, Shipment, Credit Memos added possibility to show admin comments at user frontend (checkboxes "Visible on Frontend" in admin interface)
+** Added JS to enables/disable checkbox 'Append Comments' depending on checkbox 'Email Order Confirmation'
+** Refactored invoice/shipment/refund comments collections models to one abstract Comment Collection Model
+** Refactored Block Order Invoice/Shipment/Creditmemo comments to usage of common block and design - Block Order Comments
+* A little more accurate profiler - important for very quick measurements
+* Add Shopping Cart API
+* Implementing payment refund notifications
+* Added website price scope for bundle items
+* Added support of pending transaction to payflow pro. Also fixed "denied payment review" message in payment
+* Upgraded TinyMCE to v.3.3.7
+* Added to prototype validation by length min-length validation
+* Added Varien.DateElement for front-end date form fields and re-implemented Varien.DOB
+* Added functionality to disable dashboard charts in backend (System > Configuration > Admin > Dashboard)
+* Added functionality to disable dashboard charts during installation
+* Adminhtml W3C Validation improvements
+* Added ability to use session save method from configuration
+* Rendering customer attributes
+* Added favicon manager under System > Configuration > Design > HTML Head
+
+== Changes ==
+* Refactored shipping rates calculation to keep process solid and do not try to recreate internal process of calculation, as it was
+* Added caching of requests to shipping carriers, because otherwise we get too much duplicate requests during calculation of every shipping method
+* Refactored "Special products" RSS feeed
+* Shortened the names of all foreign keys longer than 49 characters
+* Compilation scope for some EAV models which was causing blank page after enabling compilation
+* Deleted Mage_Sales_Model_Recurring_Profile_Info, which was not on its place and added accidentally
+* Category and product design settings inheritance logic
+* Refactored one routine in Inventory Observer to remove code duplication
+* Disabling product attribute usage in promo rules not affect existing promo rules
+* Refactoring validation states for Centinel
+** Added template method Mage_Centinel_Model_StateAbstract::isLookupSuccessful
+* Add boolean type for catalog price rules and condition for category_ids
+* Removed Maestro/Switch/Solo card from system. Added Maestro/Switch and Solo cards to Chronopay and Cybersource methods
+* Mage_Adminhtml_Block_Sales_Order_Creditmemo block had dependence from 'canCapture' 'canCapturePartial'. It was changed to 'canRefund' 'canRefundPartialPerInvoice'. For set result of Mage_Adminhtml_Block_Sales_Items_Abstract::CanEditQty`s we can use setCanEditQty
+* Added Maestro/Switch and Solo Dollars card types for paypal_direct payment method. Also removed Maestro/Solo/Switch card type for this method
+* Removed "Shipping address" block on recurring profile view page if product is virtual. Also fixed virtual order detection
+* Refactored PayPal cart line items and cart totals calculation to accommodate various discounts and tax settings
+** added hidden discount and hidden shipping taxes to the calculation
+** eliminated cart line items logic from the helper, moved it to the paypal/cart model
+** simplified transferring of the totals and line items to PayPal API objects
+* Refactored sales rule discount detection on "buy_x_get_y" rule type
+* Added catalog_product table definition to product review collection
+* Changed type of obscure input field to 'password', so this field is hidden even when user enters data in it
+* Removed dependence to payment method on getting billing agreement method title. For now payment method title stored in billing agreement
+* Removed invoice creation thought zero subtotal checkout with new order status "pending"
+* Removed SID from url generation when Use SID on Frontend option is disabled
+* Added customer session validation for loadCustomerQuote method
+* Iphone clears.css has been deleted
+
+== Fixes ==
+* Fixed Default shipping address is passed to PayPal instead of the selected shipping address
+ * reverted cloning of shipping address and it's setting to quote.
+ * implemented method assignCustomerWithAddressChange() with setting billing and shipping addresses
+* Fixed Added transferring of last four digits of credit card number to give possibility refund authorize transactions.
+* Fixed Returning from paypal cancel existing order
+ * Canceling order in cancelAction() only if it was placed from current quote
+* Fixed Taxes->Incorrect product price and tax value on the last chechout step
+* Fixed Opening bestseller product (admin/dashboards) results in adding new product
+** fixed case when dashboard shows report for non-existing product (i.e. deleted one)
+* Fixed Bestsellers statistic bug
+** removed NULL values from statistic tables and changed foreign keys to cascade deleting stats for deleted products
+* Fixed Gift message displaying conditions not properly work on frontend and backend
+* Fixed QTY of product is incorrectly showed in Customer's Current Activities - Shopping Cart and Customer's Shopping Cart.
+* Fixed Gift message displaying conditions not properly work on frontend and backend - fixed missed bracked
+* Fixed Magento Connect Manager -> No warning message
+* Fixed Unable to upload community extention in Magento Connect Manager without Community Channel installed
+* Fixed Bundle product price calculated not correctly
+* Fixed Customer's email doesn't escalate to billing/shipping addresses
+** added copying email field from quote address to order address
+** added sending email to PayPal, when user's address doesn't contain email info
+* Fixed Catalog-specific attribute options do not load when using through catalog/output helper
+** method _getLoadDataFields at product attribute resource collection modified to select additional needed fields;
+* Fixed saving attribute value in store view scope only
+* Fixed Not searchable attributes are searched by Quick search.
+* Fixed Customers won't appear in the search results on the customer grid in the admin
+* Fixed Huge memory consumption on flat shipping rates import
+** decrease to 5000 count of data wich inserts into DB in one iterate, to avoid exceed of 128M memory_limit
+* Fixed Config fields "Disable output" doesn't implement inherited value
+* Fixed Category created for some store view not displayed on frontend
+** include_in_menu attribute was made as required to set default value when category created in specified store
+* Fixed creating of  "Shopping Cart Price Rule'
+** setActualProductAttributes method was called with 'attribute_set_id' value in $attributes param. But it does not exist in 'eav/attribute' table. So we need to check it
+* Fixed PayPal PE transaction_id detection: Overrided getPaypalTransactionId method in PE API -  changed transaction id getting to process payflow accounts not assigned to paypal side
+* Fixed Configurable Product Catalog Price Rule Issue: the main idea is to calculate price rule on configurable price separately from base price
+* Fixed fatal error during import large file
+* Fixed Shipping information is not displayed in backend after Google Checkout operations
+* Fixed Field Mapping Issue during customer import
+* Fixed CMS blocks grid inoperable with store filter in GWS-limited mode
+* Fixed incorrect qty increment behaviour
+** qty increment not decimal validate
+** when adding product with qty increment to cart - redirect to product's page
+** generate message about mismatch of qty increment when editing item qty at cart
+* Fixed ups/usps and Guam
+* Fidex issues with attaching product to multiple stores: refresh product index query update
+* Fixed displaying of bundle product weight
+* Fixed "Select a PayPal Solution" checkbox bug: Website Payments Pro and  Website Payments Pro Payflow Edition consider each other status in their checkboxes control logic
+* Fixed Invoice Comments Stripped When Quantities Updated
+* Fixed XSS security issue on frontend
+* Fixed Google Chekout: Discount for shipping amount doesn't apply
+* Fixed XSS issue in address form
+* Fixed Address in the customers address book cannot be deleted
+* Fixed CatalogSearch_Fulltext not being renewed for configurable products when editing attached simple products
+* Fixed Google Checkout: shipping method info is empty at order page in admin backend
+* Fixed Google Checkout: with discounted shipping - discount is applied again
+* Fixed Wrong timezone/DST in reports
+* Fixed coupon_code attribute inconsistency in some upgrade paths (from 1.4.0.0 to 1.4.1.0)
+* Fixed  Created extension archive through Magento Connect include ".svn" directories
+* Fixed version of downloader
+* Fixed Magento Connect: User should has a possibility to choose version for extension upgrade
+* Fixed Magento Connect: User shouldn't be able to download Magento into "0000 permissions" folders
+* Fixed Magento Connect: JS validation is absent for "Authors" tab on  package extensions page
+* Fixed Magento Connect: Saving information on settings page
+* Fixed Magento Connect: "Configuration" step - server validation is absent during installation
+* Fixed Magento Connect: "Log in" page - Message or some information about required fields doesn't appeared
+* Fixed Magento Connect: "Configuration" step - incorrect message appeared during installation
+* Fixed wrong shipping price in case of sales rule with fixed cart discount and 1 item in cart
+* Fixed the label for the configurable product attribute does not reflect correctly on the frontend
+* Fixed sales rule with fixed discount for whole cart doesn't work
+* Fixed "Slash for category or product urls causes error 404" 
+* Fixed Shared shopping cart on the stores with different domains
+** check origin url in all store urls
+** prevent to getting SID param from current query
+* Fixed #18454: Import profiles do not reset websites values
+* Fixed Issue with zero grand total express checkout for recurring products.
+* Fixed "Allow Gift message" setting on the product page doesn't work in Front.
+* Fixed "Duplicate" of bundle product leads to an error
+* Fixed Catalog sitemap for categories shows inactive sub categories if flat catalog enabled
+* Fixed Added support of all product attributes in conditions/actions of salesRules.
+* Fixed Disabling product attribute usage in promo rules not affect existing promo rules
+* Fixed "Cart Price Rule not working with Product Attributes" (boolean values not properly shown in rule conditions)
+* Fixed Wrong amounts invoiced with FPT
+* Fixed Wrong order status after refund and additional related issue on frontend during checkout
+* Fixed Unable to delete uploaded sample for downloadable product
+* Fixed Paypal Direct send wrong billing address to API
+* Fixed Incorrect viewing of category settings after refreshing page
+* Fixed Catalog price rule discount not working during backend order creation
+* Fixed Double headers for session cookie set
+* Fixed Custom design is not reset properly after shipment comment emails
+* Fixed Tax report displays incorrect figures
+* Fixed Removed invoice creation on "completed" IPN message with payment_entity = "auth" to prevent double capture creation on single transaction with IPR.
+* Fixed Image browser in WYSIWYG editor doesn't fill mouse over/out fields
+* Fixed Added rounding to "Refund Shipping" field on credit memo creation page.
+* Fixed Added additional error messages to customer address validation on PHP side while creating.
+* Fixed "No server side check for password length when customer edits his account information" 
+** Also added proper processing for password == '0', earlier it was considered as non-set password
+* Fixed WYSIWYG editor breaks directives that are not in src attribute
+* fixed directives decoding for a case when the secret key is present in URLs
+* Fixed Duplicate of a product creates it with no SKU value and is saved
+* Fixed Redundant catalog product attribute "category_ids" remains during upgrade from 1.3 to 1.4
+* Fixed Reports/Shopping cart/Products in carts optimization
+* Fixed "If all Storeviews value set up - disabled --> Front end shows default storeview instead of 404 page"
+* Fixed Added error on zero subtotal checkout with paypal express. Removed paypal express button on shopping cart with zero grand total.
+* Fixed Field labels and field values are not aligned vertically on Sales Orders in Admin
+* Fixed Spacing between field labels and field values is inappropriate on the Recurring Profiles tab in My Account section
+* Fixed Not searchable attributes are searched by Quick search.
+** Checking if attribute used in quick search before adding to fulltext field
+* Fixed Mage_Customer_Model_Customer::getGroupId can't return zero value
+* Fixed #23184: Huge memory consumption on flat shipping rates import
+* Optimized and refactored Table Rate import
+* Fixed Scrolling during category load results in some js-errors
+* Fixed "Javascript alert on "manage category" page"
+* Fixed Security Vulnerability on Mage_Core_Block_Template level
+* Fixed Merged CSS breaks Secure Pages (https)
+* Fixed SOAP webservices do not work when enabling "Add Store Code to URLs"
+* Fixed Incorrect displaying of the Start Date entered by customer while adding to the cart recurring product
+* Fixed Downloadable Product "lable" typo
+* Fixed While creating gift message from backend it disappears in case of refreshing page
+* Fixed Product export fails when the quantity of exported products is 25 000 or more (memory leak in products)
+* Fixed While creating gift message from backend it disappears in case of refreshing page
+* Fixed Google Chekout: Discount for shipping amount doesn't apply
+** onepage checkout recalculates shipping charges after setting the payment method (not solved yet in multishipping)
+** added warning about Carrier Calculated Shipping in Google Checkout system configuration
+** GC API callback now sets the payment method to quote on requests
+** the free shipping calculator now marks the entire address as "free shipping" if all its items have free shipping
+* Fixed On wide monitors checkbox "Create Permanent redirect" in admin backend wraps up to the end of input box
+* Fixed Tag isn't showed in Product Page and My account->My Tags, if tag are deleted by customer, approved by administrator, added by customer
+* Fixed Non standard images make troubles with "Next"/"Previous" buttons
+* Fixed There is no validation of the Tracking number field during first time creation of the shipment
+* Fixed Missed dollar sign in variable name
+* Fixed Incorrect escaping of Mage_Catalog_Model_Abstract::loadByAttribute method
+** Zend_DB_Select::where must get null values to skip quoting into $cond empty strings if value is null
+* Fixed "URL rewrites duplicating when assigning to root category"
+* Fixed Shipping method UPS_XML missing titles
+* Fixed The pager is missing for tagged product list
+* Fixed Report > Products Ordered ignores Store view switcher
+* Fixed Flat catalog index problem after upgrade with customizations present
+* Fixed Incorrect bundle items inventory decrements
+* Fixed Category and product design settings inheritance
+* Fixed Removed fatal error on removing non existent quote item from quote
+* Fixed Credit Card Maestro/Solo: The field "Start Date" is not displayed on order information page
+** deleted unused Maestro/Solo from Payment module config
+** moved Maestro/Switch and Solo card definition from Chronopay to Payment module config
+** deleted Meastro/Switch definition with incorrect code MS from Cybersource module config
+** fixed logic of showing "Issue number" and "Start Date" of Switch/Solo card on frontend
+* Added warning about offline refund
+* Fixed Mage_Checkout_Block_Cart_Item_Renderer::getIsInStock bug
+* Fixed Fatal on edit configurable product page, if custom required price attribute is used
+* Fixed #0011135: View invoice error with changed query string
+* Fixed Trailing semi-colon displayed on Profile Export page
+* Fixed New Orders & Other Authenticated RSS feeds should use HTTPS
+* Fixed Dataflow export products sku filter works as not "starts with", but "like"
+* Fixed Removed default shipping address assign on paypal express checkout
+* Fixed The customers from Puerto Rico can't pay with PayPal (Express Checkout in PaypalUk)
+* Fixed Shared shopping cart on the stores with different domains
+* Fixed Discount amount for the whole cart divide proportionally between all affected items according to their base price and then applied.
+* Fixed Removed store selector in single store mode on url rewrite edit page
+* Fixed Javascript validator's translation strings missing
+* Fixed Quick Search Autocomplete does not work via ajax http protocol for https page
+* Fixed Inventory->Qty Increments - unable to add
+* Fixed Loading search query performance issue
+* Fixed Changed labels in checkout and payment information blocs for credit cards Solo Maestro Switch 
+* Fixed Product q-ty doesnt decrease after google checkout
+** added same 'checkout_submit_all_after' event to  AmazonPayments
+** removed 'TODO' notice from Multishipping Checkout, because current scheme is better and will not be influenced by any Multishipping refactoring
+** fixed Observer reaction on 'checkout_submit_all_after' to include needed reindexing
+* Added checkout_multishipping_controller_success_action and checkout_onepage_controller_success_action events that pass the created order ids on frontend checkout success actions
+* Fixed Google Analytics tracking pages with wrong URI:
+** Completely reimplemented googleanalytics/ga block:
+*** it doesn't depend on session/quote, but just uses order_ids, if passed
+*** the page_name parameter is reimplemented as it was intended to be: an optional parameter that can be customized via layout for certain actions
+*** moved out the integration part with google checkout to observer
+*** eCommerce tracking passes shipping address instead of the billing address, if available
+*** replaced the "affiliation" into store frontend name in eCommerce tracking (as it is intended to be)
+*** eliminated passing order item "category" in eCommerce tracking (that never existed)
+*** optimized javascript code of GA with Google Checkout integration
+** Eliminated mutual code coupling between Google Analytics and Google Checkout modules
+** Improved integration of Google Analytics and Google Checkout:
+*** the GA integration should appear only when GC buttons are available
+*** there will be no integration when there is no GA tracking code configured
+*** the GA/GC integration seems like wasn't working because there was no pageTracker js variable accessible to the GC scripts
+* Fixed Wrong links in backend to "New Products/Low Stock/Customer reviews" RSS feeds
+* Fixed "Send auto-generated password" generates e-mail with incorrect template
+* Fixed Unable to refund Credit Memo because of Shipping Rounding
+* Fixed Added custom option info to recurring profile info page on frontend and backend.
+* Fixed Product Visibility and Status disappear when in search
+* Fixed Removed validation of new customer shipping address on backend for orders with virtual products only 
+* Fixed ability to buy Product which have status "Out of Stock" through a direct link on button "Checkout with PayPal"
+* Fixed All free shipping methods in absent in Transfer Shipping Options menu on PayPal side
+* Fixed Payment methods titles for the PDF prints through admin gets from default config instead of the storeview config
+* Fixed PayPal and Puerto Rico shipping address
+* Fixed "Transfer Shipping Options" pass on PayPal side not correct value for Flat Rate method
+* Fixed Centinel JCB validation test cases 8-9
+* Fixed Saving caterory in store view scope
+* Fixed Attribute upgrades moved from 1.4.0.0.15 to 1.4.0.0.33
+* Fixed that product tagged by administrator has wrong URL at front-end
+* Fixed refusal from Card Verification (through link Exit), does not allow to place order repeatedly
+** If lookup was filed and customer tries again we will do new lookup.
+** If lookup was success and customer tries again without some changes we will not do new lookup
+** If authentication was filed and customer tries again we will do new lookup and authentication
+** If authentication was success and customer tries again without some changes we will not do new lookup and authentication
+* Fixed #22536: Light-weight email templates. Wishlist share email fix
+* Fixed declaration of Mage_Cybersource_Model_Api_ExtendedSoapClient::__doRequest() compatibility with SoapClient::__doRequest()
+* Fixed Two registration emails from a wrong store and without a logo are sent when a customer is created in Admin panel
+* Fixed Reindex for bundle products with date fields
+* Fixed Status is "Ready" instead to be "Reindex required" then creating new subcategory in mode "Manual Update"
+** index status changed to STATUS_REQUIRE_REINDEX when search engine changes
+* Fixed #23321: Wrong type casting in method
+* Fixed Print-All Includes Tracking # from All Shipments on Every Shipment
+* Fixed Ignored 'Include in Navigation Menu' category option with enabled flat catalog.
+* Fixed Admin unable to add Image through WYSIWYG to description and Short description without intermediate product saving
+* Fixed QTY decrement after multishipping
+* Double clicking adds product to cart twice
+* Fixed Catalog Price Rule(for NOT LOGGEN IN customers) is not applied for shopping cart and while checkout as guest or while first registration.
+* Fixed Payment methods titles for the PDF prints through admin gets from default config instead of the storeview config
+* Fixed Mage_Adminhtml_Model_System_Config_Backend_Serialized::_afterLoad() does not check input for unserialize()
+* Fixed Sending letters through "Contact Us" form, leads to error
+* Fixed PayPal Express with Flat Rate: incorrect counting Shipping amounts per order
+* Fixed Saving attribute value in store view scope only causes data loss.
+* Fixed #22607: Dispose of Mage_GiftRegistry module
+* Fixed Related products are not saved when you attach them to a product
+* Fixed Added qty to bundle unit price calculation to quote totals recalculating.
+* Fixed Saving category cause: 'Exception' with message 'File was not uploaded.' in /home/vadim.kusakin/dev/qa/2759/lib/Varien/File/Uploader.php:139
+* Fixed Fixed MAGE-638 Magento Connect -> MCM -> If agreement checkbox is unchecked, "Continue" button should be disabled
+* Fixed Set the same column font size as in cells in PDF documents printing
+* Fixed Home page appears instead of predefined 404 page
+* Fixed Removed converting of "is one of" and "is not one of" values in decimal.
+* Fixed Wrong column type for order_increment_id on Invoice, Shipments, Creditmemo grids
+** order_increment_id was setted as "text" instead of "number" type
+* Fixed Inconsistency with credit memos showing buttons online vs offline
+* Fixed PayPal Express shortcut is missed on product page
+* Fixed An email is sent to a customer after its profile is edited in the Admin panel
+* Fixed that Payflow Pro includes only the first line of billing/shipping addresses into request
+* Fixed Incorrect showing of product page when inputing a product description with table which have attribute align = left
+* Fixed Wrong link for bestsellers in admin dashboard. Grids.php fixture doesn't do anything for this bug - just to beautify code.
+* Fixed Added fixes to reports - base_discount_amount is actually kept negative in DB.
+* Fixed Empty dropdown 'status' at the creation New Review Grid.
+* Fixed Incorrect work of "Recently Compared Products" functional on category's page
+* Fixed behavior when having single store, javascript raises exception and all followed code is not executed
+* Fixed that Special price for dynamic bundle applies twice
+* Fixed #21960: Labels in page/html_wrapper and core/text_list in layout 
+* Fixed GUI bugs on Recurrent Profile frontend part
+* Fixed Magento Connect -> Message about invalid URL is duplicated
+* Fixed that suspend Recurring Profile from front side leads to error
+* Fixed Missing pager for tagged product list
+* Fixed Wrong profiler output for getUrl in Category
+* Fixed Saving of billing agreement relation with order - added force billing agreement re-saving and fixed isValid method in agreement detection.  
+* Fixed Incorrect sort order reliable on mysql internal order during eav attribute load
+** move prepare select to separate method
+* Fixed passing additional totals to PayPal when cart line items are disabled:
+** simplified paypal/abstract api to just set the paypal/cart instance and the needed configuration settings
+** moved workarounds of setting shipping and discount totals as line items into the appropriate APIs: WPS and NVP
+* Fixed In My product Review short description HTML tags are shown
+* Fixed that Refund from google chekout don't display on the order in Magento
+* Fixed that "Compare Products" block does not appear on the category page and product page
+* Fixed Non-existing attribute's source model causes fatal error
+* Fixed Varien_Db_Select memory leak
+* Fixed #18569: Gift Messages not in OrderInfo returned array
+* Fixed PayPal API credentials wizard popup size
+* Fixed #11449: customer_id is mismatch with entity_id in customer.create
+* Fixed merging CSS-files with different skin domain to pick a proper base URL
+* Fixed Bad UI style on checkout success page
+* Fixed buying more than 1 virtual product in multishipping checkout
+* Fixed #22518: Wrong amount for second refund
+* Fixed #22776: Bug Causing Recursion Error
+* Fixed #22668: Incorrect reports for coupons
+* Fixed Products -> Product with "Out of stock" status displayed on frontend, but shouldn't
+* Fixed Password miss match for newly created in Back end customer
+* Fixed "There has been an error processing your request" page is displayed when specified order status is selected on Reports->Sales->Tax page
+* Fixed bug with 'Use Flat Catalog Category'
+* Fixed #13770, #16300, #21040 : Product Media Api Broken, product_media.create API overwrites image itself each upload, product_media.update API does not upgrade the image itself
+* Fixed #16306: Webservice with htaccess (changes in code style)
+* Fixed #22536: Light-weight email templates 
+* Fixed #18935: Soap api v2 multiple complexFilters with the same key
+* Fixed incorrect Window titles on frontend
+* Fixed Eliminated display currency usage (instead of the base website currency) in shopping cart price rule conditions
+* Fixed #21146: Magento falls into the white screen when saving URL rewrite for a product on the Default Store View
+** corrected syntax mistakes
+* Fixed batch of issues related to google checkout:
+** Invoice don't create automatically with Google Checkout
+** Google checkout invoice duplication
+** Automatically authorize the buyer's credit card for the full amount of the order
+** Refund from google checkout don't display on the order in Magento
+** Google Chekout: Discount for shipping amount doesn't apply
+** Different order amount in Google checkout and Magento orders
+** Applying of discount for shipping, when using google checkout
+** Order is in google sandbox doesn't contain gift card
+* Fixed #23461: Wrong attribute value in catalog link widget XML
+* Fixed getting complete state for orders with zero grand total when processed
+* Added Store id param to billing agreement entity.  Also fixed store setting in billing agreement payment method.
+* Fixed fatal error in payment method list fetching (MAGE-500)
+* Fixed #22575: Trace error during using filter "Products" on Tags page
+* Fixed Grids with settings remain active while disabled PayPal methods
+* Fixed configuration merger fatal error when store/website resource structure is inconsistent
+* Fixed PayPal admin setup: checkbox problem
+* Fixed Adding shipping address transferring on non guest checkout in Paypal Standard
+* Fixed "Save in address book" checkbox in the Shipping address area doesn't work while admin order creation
+* Fixed pre-selecting default address during checkout
+* Fixed Email with empty password is sent to a customer after an order is created in the Admin panel
+* Fixed Necessary to add data validation for filed "Trial Billing Frequency" in Recurring Profile
+* Fixed "Out of Stock" product is possible to purchase successfully through Shortcut button
+* Fixed phpdocs in lib/Varien and removed junk file
+* Fixed #21146: Magento falls into the white screen when saving URL rewrite for a product on the Default Store View
+* Fixed #21643: Fixed "wsdl" parameter validation for Soap V2
+** Changed class SoapServer with class Zend_Soap_server
+** Added ability to set response charset from admin panel: System->Configuration->Magento Core API
+* Fixed #21499: Default billing and shipping address
+* Fixed #21565: missing "comment" for salesOrderStatusHistoryEntity
+* Fixed #20481: Access Control List not retrieved for API user for resources() and resourceFaults() operations
+* Fixed #18367: FCGI Error on WSDL Url with Apache and mod_fastcgi
+* Fixed #22053: use HTTP 301 code instead of 302 in case of web/url/redirect_to_base
+* Fixed #20654: Admin order creation->Move mouse cursor isn't changed into hand while move it on some product for adding 
+* Fixed #21590: Attribute 'Date': testing for uniqueness fields not working
+* Fixed #21566: Type of attribute 'Price': Possible to add text value for field 'default value'
+* Fixed #22053: added optional behavior (301 or 302)
+* Fixed #21570: Review from not logged in user is saved in list of All Reviews when "Allow guests to write reviews = No"
+* Fixed #22090: Different values of Qty Increments during create and after duplicate products
+* Fixed #22489: Eliminate difference between bundle.js in different skins 
+* Fixed #22419: Set default stock_data if not exist in create/update product
+* Fixed #20227: "Review(x)" link should be added to the compare page.
+* Fixed #21570: Review from not logged in user is saved in list of All Reviews when "Allow guests to write reviews = No"
+* Fixed #20959: Locale problem in shipping tracking popup raises exception 
+* Fixed #21955: Layout cache ignores product column count update
+* Fixed #20011: After using filter "Color" or "Manufacture" in Configurable Product meaning from column is disappear
+* Fixed #21908: Incorrect attribute ordering in "Compare products" page.
+* Fixed #22222: Edit review-> if browse stores in the "Visible In " drop-down, rating values reseted 
+* Fixed #22075: Product Attribute title specified for StoreView isn't showing on the configurable product's page
+* Fixed #22605: catalog_category.level return root categories when website or store are null
+* Fixed #21806: Different values display on the shopping cart in front-end and back-end 
+* Fixed #20113: Shipping address display as default on the front-end and as not default on admin for one customer 
+* Fixed #22575: Trace error during using filter "Products" on Tags page
+** added 'filter_index' to array parameter in addColumn() method call
+* Fixed #14591: Incorrect SKU for Configurable Product with Custom Options 
+* Fixed #22476: Blank Column in Related Products Grid
+** deleted duplicate <col> output for editable columns
+* Fixed #22575: Trace error during using filter "Products" on Tags page
+** apply filter_index field values to index
+* Fixed #22644: A discrepancy between GT(Base) and GT(Purchased) 
+* Fixed #22645: Incorrect original price when using custom price in order. 
+* Fixed #22653: Missed checking for file existence in JS/CSS merger
+** checking in source file exists. If not - do not check last modification and force to merge target file again
+* Fixed #22594: Unable to place orders through checkout with multiple addresses with PayPal direct + zero subtotal for one order 
+* Fixed #21185: Newsletter confirmed automatically BEFORE account email is confirmed. 
+* Fixed #22167: "Add new row" button in downloadable product 
+* Fixed #21952: BUG - Category / Url Model (UYN-886991) 
+* Fixed #15334, #17794
+** API category did not pass validation process due to available_sort_by must be ArrayOfString
+** Added category validation for backend (missed)
+** Creating separate validation for available_sort_by and default_sort_by attributes
+* Fixed #22599 Upgrade from 1.1.8 to 1.8.0.0 database compatibility issues (PARTIAL)
+* Fixed #22661: 1 cent bug 
+* Fixed #22434: 100% discount of products -> the amounts of Tax and Grand Totals are or negative or not corectly 
+* Fixed #10073: Unnecessary option for downloadable products
+* Fixed #20014: Qty use decimals for downloadable
+* Fixed #22164: Incorrect message for maximum shipping amount
+* Fixed #22174: Custom 'Qty to Refund' isn't remembered after message about incorrect amount
+* Fixed #22182: The value of 'Customer Since' field to duplicate clients at different sites.
+* Fixed #22243: Add new review by admin->type of this review is 'guest', but should be 'administrator'
+* Fixed #22313: Time of order creation if not displayed by the "Order Created At (datetime)" template variable.
+* Fixed #22348: "Add to card" button is absent for giftcard product in the catalog
+* Fixed #22640: Creating customer unable after adress tab manipulations
+* Fixed #22670: Credit memo - incorrect shipping price displaying
+* Fixed #22798: Excl and Inc. Tax don't display on the Estimate Shipping and Tax block
+* Fixed #20088: Admin able to push on-line refund button for the capture off-line invoice
+* Fixed #16306: Webservice with htaccess. Added server authorization (.htaccess)
+* Fixed #22266: HEADERS ALREADY SENT Error during dataflow import
+** Additionally: moveing layout update in separate layout file of dataflow module.
+* Fixed #21412: The "Save Attribute" and "Save and Continue Edit" buttons become disabled after saving attribute with attribute code that exists
+* Fixed #22844: After login to admin got 404 instead Startup Page 
+* Fixed #22852: shopping cart price rule - search by ID - error page 
+* Fixed #15897: Unsubscription Email Sender in the Newsletters Subscription Options is not working correctly
+* Fixed #15899: Newsletters subscription confirmation in not working
+* Fixed #22908: Grid Serializer doesn't handle dropdowns as edit columns
+* Fixed #22946: 'Products Tagged by Administrators' grid contains information about product that is assigned by the customer
+* Fixed #22935: Issue with Google AdWords and DSMM Code 
+* Fixed #22910: view of system/design table with no records under IE 8 
+* Fixed #22914: view of URL rewrite table with no records under IE 8
+* Fixed #22935: Issue with Google AdWords and DSMM Code 
+* Fixed #22536: Light-weight email templates 
+* Fixed #23017: Memcache session fallback does not work
+* Fixed #22992: Trace appears during create reorder from front-end 
+* Fixed #22991: Cannot add items to shopping cart after active 'Use Flat Catalog Product' 
+* Fixed #22813: Google base Undefined Offset when Managing attribute mapping
+* Fixed #23138: URL rewrite error on product creation
+* Added Regions for baltic states and Finland
+* Fixed #23092: Memcached and compiler
+* Fixed #19804: sorting/searching by "inventory" field
+* Fixed #23241: Catalog price rule not correctly appy for customer group
+* Fixed #16294: WSDL missing attributes for customerCustomerEntity
+* Fixed #22851: Used wrong resource model for api/user
+* Fixed #18207: SOAP-ERROR: Parsing Schema: can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'
+* Fixed Fatal error: Call to undefined function eaccelerator_fetch()
+
+
+==== 1.4.x-devel-83018 ====
+
+== Fixes ==
+* Fixed Opening bestseller product (admin/dashboards) results in adding new product
+** fixed case when dashboard shows report for non-existing product (i.e. deleted one)
+* Fixed Bestsellers statistic bug
+** removed NULL values from statistic tables and changed foreign keys to cascade deleting stats for deleted products
+* Fixed Gift message displaying conditions not properly work on frontend and backend
+* Fixed QTY of product is incorrectly showed in Customer's Current Activities - Shopping Cart and Customer's Shopping Cart.
+* Fixed Gift message displaying conditions not properly work on frontend and backend - fixed missed bracked
+* Fixed Magento Connect Manager -> No warning message
+* Fixed Unable to upload community extention in Magento Connect Manager without Community Channel installed
+* Fixed Bundle product price calculated not correctly
+* Fixed Customer's email doesn't escalate to billing/shipping addresses
+** added copying email field from quote address to order address
+** added sending email to PayPal, when user's address doesn't contain email info
+
+==== 1.4.x-devel-82478 ====
+
+== Improvements ==
+* Added "Switch/Maestro" card type support to centinel 3DS validator. Added comment about maestro and 3d-secure to paypal system config
+* Added more flexible filters implementation in collections:
+** Varien_Data_Collection::addFilter() registers filters as objects and implements getFilter() method to be able to detect/modify already existing filters
+** Varien_Data_Collection_Db::_renderFilters():
+*** Added a hook _renderFiltersBefore()
+*** Implemented 'public' filter type, which maps the provided filter field from public into internal view and passes the "value" as a condition through _getConditionSql()
+** Added $this->_renderFilters() call to abstract EAV collection to accommodate the filters that may be set by addFilter() method
+* Added ability to pass multiple recipient emails and names to Mage_Core_Model_Email_Template::send()
+
+== Changes ==
+* Refactored shipping rates calculation to keep process solid and do not try to recreate internal process of calculation, as it was
+* Added caching of requests to shipping carriers, because otherwise we get too much duplicate requests during calculation of every shipping method
+* Refactored "Special products" RSS feeed
+
+== Fixes ==
+* Fixed Catalog-specific attribute options do not load when using through catalog/output helper
+** method _getLoadDataFields at product attribute resource collection modified to select additional needed fields;
+* Fixed saving attribute value in store view scope only
+* Fixed Not searchable attributes are searched by Quick search.
+* Fixed Customers won't appear in the search results on the customer grid in the admin
+* Fixed Huge memory consumption on flat shipping rates import
+** decrease to 5000 count of data wich inserts into DB in one iterate, to avoid exceed of 128M memory_limit
+* Fixed Config fields "Disable output" doesn't implement inherited value
+* Fixed Category created for some store view not displayed on frontend
+** include_in_menu attribute was made as required to set default value when category created in specified store
+* Fixed creating of  "Shopping Cart Price Rule'
+** setActualProductAttributes method was called with 'attribute_set_id' value in $attributes param. But it does not exist in 'eav/attribute' table. So we need to check it
+* Fixed PayPal PE transaction_id detection: Overrided getPaypalTransactionId method in PE API -  changed transaction id getting to process payflow accounts not assigned to paypal side
+* Fixed Configurable Product Catalog Price Rule Issue: the main idea is to calculate price rule on configurable price separately from base price
+* Fixed fatal error during import large file
+* Fixed Shipping information is not displayed in backend after Google Checkout operations
+* Fixed Field Mapping Issue during customer import
+* Fixed CMS blocks grid inoperable with store filter in GWS-limited mode
+* Fixed incorrect qty increment behaviour
+** qty increment not decimal validate
+** when adding product with qty increment to cart - redirect to product's page
+** generate message about mismatch of qty increment when editing item qty at cart
+* Fixed ups/usps and Guam
+* Fidex issues with attaching product to multiple stores: refresh product index query update
+* Fixed displaying of bundle product weight
+* Fixed "Select a PayPal Solution" checkbox bug: Website Payments Pro and  Website Payments Pro Payflow Edition consider each other status in their checkboxes control logic
+* Fixed Invoice Comments Stripped When Quantities Updated
+* Fixed XSS security issue on frontend
+
+==== 1.4.x-devel-81496 ====
+
+== Improvements ==
+* Backordered Item Status for subitems in Orders
+** Added correct message at order for all backordered items. At back-end all items shows as backordered if their quantity is below or equal to zero
+** Fix of duplication backorder messages for composite product options with same backordered item - saving backorder messages per product id
+* Magento Connect Manager
+** checking cyclic dependency references and conflicts with local files
+**  implemented adding to MCM manually installed extension
+** changed upgrade logic, previous version of package should be deleted before install new
+** Implemented new download process and dependencies rules
+** Added correct behavior during extension reinstall, so dependencies will not reinstall automatically
+
+== Changes ==
+* Shortened the names of all foreign keys longer than 49 characters
+
+== Fixes ==
+* Fixed Google Chekout: Discount for shipping amount doesn't apply
+* Fixed XSS issue in address form
+* Fixed Address in the customers address book cannot be deleted
+* Fixed CatalogSearch_Fulltext not being renewed for configurable products when editing attached simple products
+* Fixed Google Checkout: shipping method info is empty at order page in admin backend
+* Fixed Google Checkout: with discounted shipping - discount is applied again
+* Fixed Wrong timezone/DST in reports
+* Fixed coupon_code attribute inconsistency in some upgrade paths (from 1.4.0.0 to 1.4.1.0)
+* Fixed  Created extension archive through Magento Connect include ".svn" directories
+* Fixed version of downloader
+* Fixed Magento Connect: User should has a possibility to choose version for extension upgrade
+* Fixed Magento Connect: User shouldn't be able to download Magento into "0000 permissions" folders
+* Fixed Magento Connect: JS validation is absent for "Authors" tab on  package extensions page
+* Fixed Magento Connect: Saving information on settings page
+* Fixed Magento Connect: "Configuration" step - server validation is absent during installation
+* Fixed Magento Connect: "Log in" page - Message or some information about required fields doesn't appeared
+* Fixed Magento Connect: "Configuration" step - incorrect message appeared during installation
+* Fixed wrong shipping price in case of sales rule with fixed cart discount and 1 item in cart
+* Fixed the label for the configurable product attribute does not reflect correctly on the frontend
+* Fixed sales rule with fixed discount for whole cart doesn't work
+
+==== 1.4.x-devel-80991 ====
+
+== Improvements ==
+* Optimized rewrite selection from DB, added url rewrite and suffix validation at admin backend
+* Added verification of access level for app/etc/local.xml. 
+** Now if server configuration has issue and this file accessible from browser admin user gets notification in backend.
+
+== Changes ==
+* Compilation scope for some EAV models which was causing blank page after enabling compilation
+
+== Fixes ==
+* Fixed "Slash for category or product urls causes error 404" 
+* Fixed Shared shopping cart on the stores with different domains
+** check origin url in all store urls
+** prevent to getting SID param from current query
+* Fixed #18454: Import profiles do not reset websites values
+* Fixed Issue with zero grand total express checkout for recurring products.
+* Fixed "Allow Gift message" setting on the product page doesn't work in Front.
+* Fixed "Duplicate" of bundle product leads to an error
+* Fixed Catalog sitemap for categories shows inactive sub categories if flat catalog enabled
+* Fixed Added support of all product attributes in conditions/actions of salesRules.
+* Fixed Disabling product attribute usage in promo rules not affect existing promo rules
+* Fixed "Cart Price Rule not working with Product Attributes" (boolean values not properly shown in rule conditions)
+* Fixed Wrong amounts invoiced with FPT
+* Fixed Wrong order status after refund and additional related issue on frontend during checkout
+* Fixed Unable to delete uploaded sample for downloadable product
+* Fixed Paypal Direct send wrong billing address to API
+* Fixed Incorrect viewing of category settings after refreshing page
+* Fixed Catalog price rule discount not working during backend order creation
+* Fixed Double headers for session cookie set
+
+==== 1.4.x-devel-80262 ====
+
+== Improvements ==
+* Upgraded Zend Framework to version 1.10.8
+* Added the Recurring Profiles tab in customer management
+
+== Changes ==
+* Deleted Mage_Sales_Model_Recurring_Profile_Info, which was not on its place and added accidentally
+* Category and product design settings inheritance logic
+
+== Fixes ==
+* Fixed Custom design is not reset properly after shipment comment emails
+* Fixed Tax report displays incorrect figures
+* Fixed Removed invoice creation on "completed" IPN message with payment_entity = "auth" to prevent double capture creation on single transaction with IPR.
+* Fixed Image browser in WYSIWYG editor doesn't fill mouse over/out fields
+* Fixed Added rounding to "Refund Shipping" field on credit memo creation page.
+* Fixed Added additional error messages to customer address validation on PHP side while creating.
+* Fixed "No server side check for password length when customer edits his account information" 
+** Also added proper processing for password == '0', earlier it was considered as non-set password
+* Fixed WYSIWYG editor breaks directives that are not in src attribute
+* fixed directives decoding for a case when the secret key is present in URLs
+* Fixed Duplicate of a product creates it with no SKU value and is saved
+* Fixed Redundant catalog product attribute "category_ids" remains during upgrade from 1.3 to 1.4
+* Fixed Reports/Shopping cart/Products in carts optimization
+* Fixed "If all Storeviews value set up - disabled --> Front end shows default storeview instead of 404 page"
+* Fixed Added error on zero subtotal checkout with paypal express. Removed paypal express button on shopping cart with zero grand total.
+* Fixed Field labels and field values are not aligned vertically on Sales Orders in Admin
+* Fixed Spacing between field labels and field values is inappropriate on the Recurring Profiles tab in My Account section
+* Fixed Not searchable attributes are searched by Quick search.
+** Checking if attribute used in quick search before adding to fulltext field
+* Fixed Mage_Customer_Model_Customer::getGroupId can't return zero value
+* Fixed #23184: Huge memory consumption on flat shipping rates import
+* Optimized and refactored Table Rate import
+* Fixed Scrolling during category load results in some js-errors
+* Fixed "Javascript alert on "manage category" page"
+* Fixed Security Vulnerability on Mage_Core_Block_Template level
+* Fixed Merged CSS breaks Secure Pages (https)
+
+==== 1.4.x-devel-79607 ====
+
+== Improvements ==
+* Implemented cache for shipping rates and fixing issues with rounding
+
+== Changes ==
+* Refactored one routine in Inventory Observer to remove code duplication
+* Disabling product attribute usage in promo rules not affect existing promo rules
+
+== Fixes ==
+* Fixed SOAP webservices do not work when enabling "Add Store Code to URLs"
+* Fixed Incorrect displaying of the Start Date entered by customer while adding to the cart recurring product
+* Fixed Downloadable Product "lable" typo
+* Fixed While creating gift message from backend it disappears in case of refreshing page
+* Fixed Product export fails when the quantity of exported products is 25 000 or more (memory leak in products)
+* Fixed While creating gift message from backend it disappears in case of refreshing page
+* Fixed Google Chekout: Discount for shipping amount doesn't apply
+** onepage checkout recalculates shipping charges after setting the payment method (not solved yet in multishipping)
+** added warning about Carrier Calculated Shipping in Google Checkout system configuration
+** GC API callback now sets the payment method to quote on requests
+** the free shipping calculator now marks the entire address as "free shipping" if all its items have free shipping
+* Fixed On wide monitors checkbox "Create Permanent redirect" in admin backend wraps up to the end of input box
+* Fixed Tag isn't showed in Product Page and My account->My Tags, if tag are deleted by customer, approved by administrator, added by customer
+* Fixed Non standard images make troubles with "Next"/"Previous" buttons
+* Fixed There is no validation of the Tracking number field during first time creation of the shipment
+* Fixed Missed dollar sign in variable name
+* Fixed Incorrect escaping of Mage_Catalog_Model_Abstract::loadByAttribute method
+** Zend_DB_Select::where must get null values to skip quoting into $cond empty strings if value is null
+* Fixed "URL rewrites duplicating when assigning to root category"
+* Fixed Shipping method UPS_XML missing titles
+* Fixed The pager is missing for tagged product list
+* Fixed Report > Products Ordered ignores Store view switcher
+* Fixed Flat catalog index problem after upgrade with customizations present
+* Fixed Incorrect bundle items inventory decrements
+* Fixed Category and product design settings inheritance
+* Fixed Removed fatal error on removing non existent quote item from quote
+* Fixed Credit Card Maestro/Solo: The field "Start Date" is not displayed on order information page
+** deleted unused Maestro/Solo from Payment module config
+** moved Maestro/Switch and Solo card definition from Chronopay to Payment module config
+** deleted Meastro/Switch definition with incorrect code MS from Cybersource module config
+** fixed logic of showing "Issue number" and "Start Date" of Switch/Solo card on frontend
+* Added warning about offline refund
+* Fixed Mage_Checkout_Block_Cart_Item_Renderer::getIsInStock bug
+* Fixed Fatal on edit configurable product page, if custom required price attribute is used
+* Fixed #0011135: View invoice error with changed query string
+* Fixed Trailing semi-colon displayed on Profile Export page
+* Fixed New Orders & Other Authenticated RSS feeds should use HTTPS
+* Fixed Dataflow export products sku filter works as not "starts with", but "like"
+* Fixed Removed default shipping address assign on paypal express checkout
+* Fixed The customers from Puerto Rico can't pay with PayPal (Express Checkout in PaypalUk)
+* Fixed Shared shopping cart on the stores with different domains
+* Fixed Discount amount for the whole cart divide proportionally between all affected items according to their base price and then applied.
+* Fixed Removed store selector in single store mode on url rewrite edit page
+* Fixed Javascript validator's translation strings missing
+* Fixed Quick Search Autocomplete does not work via ajax http protocol for https page
+* Fixed Inventory->Qty Increments - unable to add
+* Fixed Loading search query performance issue
+* Fixed Changed labels in checkout and payment information blocs for credit cards Solo Maestro Switch 
+* Fixed Product q-ty doesnt decrease after google checkout
+** added same 'checkout_submit_all_after' event to  AmazonPayments
+** removed 'TODO' notice from Multishipping Checkout, because current scheme is better and will not be influenced by any Multishipping refactoring
+** fixed Observer reaction on 'checkout_submit_all_after' to include needed reindexing
+* Added checkout_multishipping_controller_success_action and checkout_onepage_controller_success_action events that pass the created order ids on frontend checkout success actions
+* Fixed Google Analytics tracking pages with wrong URI:
+** Completely reimplemented googleanalytics/ga block:
+*** it doesn't depend on session/quote, but just uses order_ids, if passed
+*** the page_name parameter is reimplemented as it was intended to be: an optional parameter that can be customized via layout for certain actions
+*** moved out the integration part with google checkout to observer
+*** eCommerce tracking passes shipping address instead of the billing address, if available
+*** replaced the "affiliation" into store frontend name in eCommerce tracking (as it is intended to be)
+*** eliminated passing order item "category" in eCommerce tracking (that never existed)
+*** optimized javascript code of GA with Google Checkout integration
+** Eliminated mutual code coupling between Google Analytics and Google Checkout modules
+** Improved integration of Google Analytics and Google Checkout:
+*** the GA integration should appear only when GC buttons are available
+*** there will be no integration when there is no GA tracking code configured
+*** the GA/GC integration seems like wasn't working because there was no pageTracker js variable accessible to the GC scripts
+* Fixed Wrong links in backend to "New Products/Low Stock/Customer reviews" RSS feeds
+* Fixed "Send auto-generated password" generates e-mail with incorrect template
+* Fixed Unable to refund Credit Memo because of Shipping Rounding
+* Fixed Added custom option info to recurring profile info page on frontend and backend.
+* Fixed Product Visibility and Status disappear when in search
+* Fixed Removed validation of new customer shipping address on backend for orders with virtual products only 
+
+
+==== 1.4.x-devel-78617 ====
+
+== Improvements ==
+* Design packages and themes optimization/refactoring/improvements:
+** minor improvements and fixes
+** improved upgrade-ability of CE themes
+* iPhone Theme Refactoring
+* Added Widget settings sharing between widget types
+* For Invoices, Shipment, Credit Memos added possibility to show admin comments at user frontend (checkboxes "Visible on Frontend" in admin interface)
+** Added JS to enables/disable checkbox 'Append Comments' depending on checkbox 'Email Order Confirmation'
+** Refactored invoice/shipment/refund comments collections models to one abstract Comment Collection Model
+** Refactored Block Order Invoice/Shipment/Creditmemo comments to usage of common block and design - Block Order Comments
+* A little more accurate profiler - important for very quick measurements
+* Add Shopping Cart API
+* Implementing payment refund notifications
+* Added website price scope for bundle items
+* Added support of pending transaction to payflow pro. Also fixed "denied payment review" message in payment
+
+== Changes ==
+* Refactoring validation states for Centinel
+** Added template method Mage_Centinel_Model_StateAbstract::isLookupSuccessful
+* Add boolean type for catalog price rules and condition for category_ids
+* Removed Maestro/Switch/Solo card from system. Added Maestro/Switch and Solo cards to Chronopay and Cybersource methods
+* Mage_Adminhtml_Block_Sales_Order_Creditmemo block had dependence from 'canCapture' 'canCapturePartial'. It was changed to 'canRefund' 'canRefundPartialPerInvoice'. For set result of Mage_Adminhtml_Block_Sales_Items_Abstract::CanEditQty`s we can use setCanEditQty
+* Added Maestro/Switch and Solo Dollars card types for paypal_direct payment method. Also removed Maestro/Solo/Switch card type for this method
+* Removed "Shipping address" block on recurring profile view page if product is virtual. Also fixed virtual order detection
+* Refactored PayPal cart line items and cart totals calculation to accommodate various discounts and tax settings
+** added hidden discount and hidden shipping taxes to the calculation
+** eliminated cart line items logic from the helper, moved it to the paypal/cart model
+** simplified transferring of the totals and line items to PayPal API objects
+* Refactored sales rule discount detection on "buy_x_get_y" rule type
+* Added catalog_product table definition to product review collection
+* Changed type of obscure input field to 'password', so this field is hidden even when user enters data in it
+* Removed dependence to payment method on getting billing agreement method title. For now payment method title stored in billing agreement
+* Removed invoice creation thought zero subtotal checkout with new order status "pending"
+
+== Fixes ==
+* Fixed ability to buy Product which have status "Out of Stock" through a direct link on button "Checkout with PayPal"
+* Fixed All free shipping methods in absent in Transfer Shipping Options menu on PayPal side
+* Fixed Payment methods titles for the PDF prints through admin gets from default config instead of the storeview config
+* Fixed PayPal and Puerto Rico shipping address
+* Fixed "Transfer Shipping Options" pass on PayPal side not correct value for Flat Rate method
+* Fixed Centinel JCB validation test cases 8-9
+* Fixed Saving caterory in store view scope
+* Fixed Attribute upgrades moved from 1.4.0.0.15 to 1.4.0.0.33
+* Fixed that product tagged by administrator has wrong URL at front-end
+* Fixed refusal from Card Verification (through link Exit), does not allow to place order repeatedly
+** If lookup was filed and customer tries again we will do new lookup.
+** If lookup was success and customer tries again without some changes we will not do new lookup
+** If authentication was filed and customer tries again we will do new lookup and authentication
+** If authentication was success and customer tries again without some changes we will not do new lookup and authentication
+* Fixed #22536: Light-weight email templates. Wishlist share email fix
+* Fixed declaration of Mage_Cybersource_Model_Api_ExtendedSoapClient::__doRequest() compatibility with SoapClient::__doRequest()
+* Fixed Two registration emails from a wrong store and without a logo are sent when a customer is created in Admin panel
+* Fixed Reindex for bundle products with date fields
+* Fixed Status is "Ready" instead to be "Reindex required" then creating new subcategory in mode "Manual Update"
+** index status changed to STATUS_REQUIRE_REINDEX when search engine changes
+* Fixed #23321: Wrong type casting in method
+* Fixed Print-All Includes Tracking # from All Shipments on Every Shipment
+* Fixed Ignored 'Include in Navigation Menu' category option with enabled flat catalog.
+* Fixed Admin unable to add Image through WYSIWYG to description and Short description without intermediate product saving
+* Fixed QTY decrement after multishipping
+* Double clicking adds product to cart twice
+* Fixed Catalog Price Rule(for NOT LOGGEN IN customers) is not applied for shopping cart and while checkout as guest or while first registration.
+* Fixed Payment methods titles for the PDF prints through admin gets from default config instead of the storeview config
+* Fixed Mage_Adminhtml_Model_System_Config_Backend_Serialized::_afterLoad() does not check input for unserialize()
+* Fixed Sending letters through "Contact Us" form, leads to error
+* Fixed PayPal Express with Flat Rate: incorrect counting Shipping amounts per order
+* Fixed Saving attribute value in store view scope only causes data loss.
+* Fixed #22607: Dispose of Mage_GiftRegistry module
+* Fixed Related products are not saved when you attach them to a product
+* Fixed Added qty to bundle unit price calculation to quote totals recalculating.
+* Fixed Saving category cause: 'Exception' with message 'File was not uploaded.' in /home/vadim.kusakin/dev/qa/2759/lib/Varien/File/Uploader.php:139
+* Fixed Fixed MAGE-638 Magento Connect -> MCM -> If agreement checkbox is unchecked, "Continue" button should be disabled
+* Fixed Set the same column font size as in cells in PDF documents printing
+* Fixed Home page appears instead of predefined 404 page
+* Fixed Removed converting of "is one of" and "is not one of" values in decimal.
+* Fixed Wrong column type for order_increment_id on Invoice, Shipments, Creditmemo grids
+** order_increment_id was setted as "text" instead of "number" type
+* Fixed Inconsistency with credit memos showing buttons online vs offline
+* Fixed PayPal Express shortcut is missed on product page
+* Fixed An email is sent to a customer after its profile is edited in the Admin panel
+* Fixed that Payflow Pro includes only the first line of billing/shipping addresses into request
+* Fixed Incorrect showing of product page when inputing a product description with table which have attribute align = left
+* Fixed Wrong link for bestsellers in admin dashboard. Grids.php fixture doesn't do anything for this bug - just to beautify code.
+* Fixed Added fixes to reports - base_discount_amount is actually kept negative in DB.
+* Fixed Empty dropdown 'status' at the creation New Review Grid.
+* Fixed Incorrect work of "Recently Compared Products" functional on category's page
+* Fixed behavior when having single store, javascript raises exception and all followed code is not executed
+* Fixed that Special price for dynamic bundle applies twice
+* Fixed #21960: Labels in page/html_wrapper and core/text_list in layout 
+* Fixed GUI bugs on Recurrent Profile frontend part
+* Fixed Magento Connect -> Message about invalid URL is duplicated
+* Fixed that suspend Recurring Profile from front side leads to error
+* Fixed Missing pager for tagged product list
+* Fixed Wrong profiler output for getUrl in Category
+* Fixed Saving of billing agreement relation with order - added force billing agreement re-saving and fixed isValid method in agreement detection.  
+* Fixed Incorrect sort order reliable on mysql internal order during eav attribute load
+** move prepare select to separate method
+* Fixed passing additional totals to PayPal when cart line items are disabled:
+** simplified paypal/abstract api to just set the paypal/cart instance and the needed configuration settings
+** moved workarounds of setting shipping and discount totals as line items into the appropriate APIs: WPS and NVP
+* Fixed In My product Review short description HTML tags are shown
+* Fixed that Refund from google chekout don't display on the order in Magento
+* Fixed that "Compare Products" block does not appear on the category page and product page
+* Fixed Non-existing attribute's source model causes fatal error
+* Fixed Varien_Db_Select memory leak
+
+
+==== 1.4.x-devel-77975 ====
+
+== Improvements ==
+* Upgraded Zend Framework to version 1.10.5
+* Upgraded TinyMCE to v.3.3.7
+* Added to prototype validation by length min-length validation
+* Added Varien.DateElement for front-end date form fields and re-implemented Varien.DOB
+* Added functionality to disable dashboard charts in backend (System > Configuration > Admin > Dashboard)
+* Added functionality to disable dashboard charts during installation
+* Adminhtml W3C Validation improvements
+* Added ability to use session save method from configuration
+
+== Changes ==
+* Removed SID from url generation when Use SID on Frontend option is disabled
+* Added customer session validation for loadCustomerQuote method
+* Iphone clears.css has been deleted
+
+== Fixes ==
+* Fixed #18569: Gift Messages not in OrderInfo returned array
+* Fixed PayPal API credentials wizard popup size
+* Fixed #11449: customer_id is mismatch with entity_id in customer.create
+* Fixed merging CSS-files with different skin domain to pick a proper base URL
+* Fixed Bad UI style on checkout success page
+* Fixed buying more than 1 virtual product in multishipping checkout
+* Fixed #22518: Wrong amount for second refund
+* Fixed #22776: Bug Causing Recursion Error
+* Fixed #22668: Incorrect reports for coupons
+* Fixed Products -> Product with "Out of stock" status displayed on frontend, but shouldn't
+* Fixed Password miss match for newly created in Back end customer
+* Fixed "There has been an error processing your request" page is displayed when specified order status is selected on Reports->Sales->Tax page
+* Fixed bug with 'Use Flat Catalog Category'
+* Fixed #13770, #16300, #21040 : Product Media Api Broken, product_media.create API overwrites image itself each upload, product_media.update API does not upgrade the image itself
+* Fixed #16306: Webservice with htaccess (changes in code style)
+* Fixed #22536: Light-weight email templates 
+* Fixed #18935: Soap api v2 multiple complexFilters with the same key
+* Fixed incorrect Window titles on frontend
+* Fixed Eliminated display currency usage (instead of the base website currency) in shopping cart price rule conditions
+* Fixed #21146: Magento falls into the white screen when saving URL rewrite for a product on the Default Store View
+** corrected syntax mistakes
+* Fixed batch of issues related to google checkout:
+** Invoice don't create automatically with Google Checkout
+** Google checkout invoice duplication
+** Automatically authorize the buyer's credit card for the full amount of the order
+** Refund from google checkout don't display on the order in Magento
+** Google Chekout: Discount for shipping amount doesn't apply
+** Different order amount in Google checkout and Magento orders
+** Applying of discount for shipping, when using google checkout
+** Order is in google sandbox doesn't contain gift card
+* Fixed #23461: Wrong attribute value in catalog link widget XML
+* Fixed getting complete state for orders with zero grand total when processed
+* Added Store id param to billing agreement entity.  Also fixed store setting in billing agreement payment method.
+* Fixed fatal error in payment method list fetching (MAGE-500)
+* Fixed #22575: Trace error during using filter "Products" on Tags page
+* Fixed Grids with settings remain active while disabled PayPal methods
+* Fixed configuration merger fatal error when store/website resource structure is inconsistent
+* Fixed PayPal admin setup: checkbox problem
+* Fixed Adding shipping address transferring on non guest checkout in Paypal Standard
+* Fixed "Save in address book" checkbox in the Shipping address area doesn't work while admin order creation
+* Fixed pre-selecting default address during checkout
+* Fixed Email with empty password is sent to a customer after an order is created in the Admin panel
+* Fixed Necessary to add data validation for filed "Trial Billing Frequency" in Recurring Profile
+* Fixed "Out of Stock" product is possible to purchase successfully through Shortcut button
+* Fixed phpdocs in lib/Varien and removed junk file
+
+
+==== 1.4.x-devel-77328 ====
+
+== Improvements ==
+* Rendering customer attributes
+* Added favicon manager under System > Configuration > Design > HTML Head
+
+== Fixes ==
+* Fixed #21146: Magento falls into the white screen when saving URL rewrite for a product on the Default Store View
+* Fixed #21643: Fixed "wsdl" parameter validation for Soap V2
+** Changed class SoapServer with class Zend_Soap_server
+** Added ability to set response charset from admin panel: System->Configuration->Magento Core API
+* Fixed #21499: Default billing and shipping address
+* Fixed #21565: missing "comment" for salesOrderStatusHistoryEntity
+* Fixed #20481: Access Control List not retrieved for API user for resources() and resourceFaults() operations
+* Fixed #18367: FCGI Error on WSDL Url with Apache and mod_fastcgi
+* Fixed #22053: use HTTP 301 code instead of 302 in case of web/url/redirect_to_base
+* Fixed #20654: Admin order creation->Move mouse cursor isn't changed into hand while move it on some product for adding 
+* Fixed #21590: Attribute 'Date': testing for uniqueness fields not working
+* Fixed #21566: Type of attribute 'Price': Possible to add text value for field 'default value'
+* Fixed #22053: added optional behavior (301 or 302)
+* Fixed #21570: Review from not logged in user is saved in list of All Reviews when "Allow guests to write reviews = No"
+* Fixed #22090: Different values of Qty Increments during create and after duplicate products
+* Fixed #22489: Eliminate difference between bundle.js in different skins 
+* Fixed #22419: Set default stock_data if not exist in create/update product
+* Fixed #20227: "Review(x)" link should be added to the compare page.
+* Fixed #21570: Review from not logged in user is saved in list of All Reviews when "Allow guests to write reviews = No"
+* Fixed #20959: Locale problem in shipping tracking popup raises exception 
+* Fixed #21955: Layout cache ignores product column count update
+* Fixed #20011: After using filter "Color" or "Manufacture" in Configurable Product meaning from column is disappear
+* Fixed #21908: Incorrect attribute ordering in "Compare products" page.
+* Fixed #22222: Edit review-> if browse stores in the "Visible In " drop-down, rating values reseted 
+* Fixed #22075: Product Attribute title specified for StoreView isn't showing on the configurable product's page
+* Fixed #22605: catalog_category.level return root categories when website or store are null
+* Fixed #21806: Different values display on the shopping cart in front-end and back-end 
+* Fixed #20113: Shipping address display as default on the front-end and as not default on admin for one customer 
+* Fixed #22575: Trace error during using filter "Products" on Tags page
+** added 'filter_index' to array parameter in addColumn() method call
+* Fixed #14591: Incorrect SKU for Configurable Product with Custom Options 
+* Fixed #22476: Blank Column in Related Products Grid
+** deleted duplicate <col> output for editable columns
+* Fixed #22575: Trace error during using filter "Products" on Tags page
+** apply filter_index field values to index
+* Fixed #22644: A discrepancy between GT(Base) and GT(Purchased) 
+* Fixed #22645: Incorrect original price when using custom price in order. 
+* Fixed #22653: Missed checking for file existents in JS/CSS merger
+** cheking in source file exists. If not - do not check last modification and force to merge target file again
+* Fixed #22594: Unable to place orders through checkout with multiple addresses with PayPal direct + zero subtotal for one order 
+* Fixed #21185: Newsletter confirmed automatically BEFORE account email is confirmed. 
+* Fixed #22167: "Add new row" button in downloadable product 
+* Fixed #21952: BUG - Category / Url Model (UYN-886991) 
+* Fixed #15334, #17794
+** API category did not pass validation process due to available_sort_by must be ArrayOfString
+** Added category validation for backend (missed)
+** Creating separate validation for available_sort_by and default_sort_by attributes
+* Fixed #22599 Upgrade from 1.1.8 to 1.8.0.0 database compatibility issues (PARTIAL)
+* Fixed #22661: 1 cent bug 
+* Fixed #22434: 100% discount of products -> the amounts of Tax and Grand Totals are or negative or not corectly 
+* Fixed #10073: Unnecessary option for downloadable products
+* Fixed #20014: Qty use decimals for downloadable
+* Fixed #22164: Incorrect message for maximum shipping amount
+* Fixed #22174: Custom 'Qty to Refund' isn't remembered after message about incorrect amount
+* Fixed #22182: The value of 'Customer Since' field to duplicate clients at different sites.
+* Fixed #22243: Add new review by admin->type of this review is 'guest', but should be 'administrator'
+* Fixed #22313: Time of order creation if not displayed by the "Order Created At (datetime)" template variable.
+* Fixed #22348: "Add to card" button is absent for giftcard product in the catalog
+* Fixed #22640: Creating customer unable after adress tab manipulations
+* Fixed #22670: Credit memo - incorrect shipping price displaying
+* Fixed #22798: Excl and Inc. Tax don't display on the Estimate Shipping and Tax block
+* Fixed #20088: Admin able to push on-line refund button for the capture off-line invoice
+* Fixed #16306: Webservice with htaccess. Added server authorization (.htaccess)
+* Fixed #22266: HEADERS ALREADY SENT Error during dataflow import
+** Additionally: moveing layout update in separate layout file of dataflow module.
+* Fixed #21412: The "Save Attribute" and "Save and Continue Edit" buttons become disabled after saving attribute with attribute code that exists
+* Fixed #22844: After login to admin got 404 instead Startup Page 
+* Fixed #22852: shopping cart price rule - search by ID - error page 
+* Fixed #15897: Unsubscription Email Sender in the Newsletters Subscription Options is not working correctly
+* Fixed #15899: Newsletters subscription confirmation in not working
+* Fixed #22908: Grid Serializer doesn't handle dropdowns as edit columns
+* Fixed #22946: 'Products Tagged by Administrators' grid contains information about product that is assigned by the customer
+* Fixed #22935: Issue with Google AdWords and DSMM Code 
+* Fixed #22910: view of system/design table with no records under IE 8 
+* Fixed #22914: view of URL rewrite table with no records under IE 8
+* Fixed #22935: Issue with Google AdWords and DSMM Code 
+* Fixed #22536: Light-weight email templates 
+* Fixed #23017: Memcache session fallback does not work
+* Fixed #22992: Trace appears during create reorder from front-end 
+* Fixed #22991: Cannot add items to shopping cart after active 'Use Flat Catalog Product' 
+* Fixed #22813: Google base Undefined Offset when Managing attribute mapping
+* Fixed #23138: URL rewrite error on product creation
+* Added Regions for baltic states and Finland
+* Fixed #23092: Memcached and compiler
+* Fixed #19804: sorting/searching by "inventory" field
+* Fixed #23241: Catalog price rule not correctly appy for customer group
+* Fixed #16294: WSDL missing attributes for customerCustomerEntity
+* Fixed #22851: Used wrong resource model for api/user
+* Fixed #18207: SOAP-ERROR: Parsing Schema: can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'
+* Fixed Fatal error: Call to undefined function eaccelerator_fetch() 
+
+
+
+==== 1.4.2.0-beta1 ====
+
+=== Major Highlights ===
+* Included new Magento Connect Manager 2
+
 ==== 1.4.1.1 ====
 
 === Changes ===

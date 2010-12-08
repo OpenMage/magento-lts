@@ -89,7 +89,7 @@
     <?php if ($this->hasSsCardType()): ?>
     <li id="<?php echo $_code ?>_cc_type_ss_div">
         <ul class="inner-form">
-            <li class="form-alt"><label for="<?php echo $_code ?>_cc_issue" class="required"><em>*</em><?php echo $this->__('Switch/Solo Only') ?></label></li>
+            <li class="form-alt"><label for="<?php echo $_code ?>_cc_issue" class="required"><em>*</em><?php echo $this->__('Switch/Solo/Maestro Only') ?></label></li>
             <li>
                 <label for="<?php echo $_code ?>_cc_issue"><?php echo $this->__('Issue Number') ?>:</label>
                 <span class="input-box">
@@ -131,52 +131,8 @@
 
         Event.observe($('<?php echo $_code ?>_cc_type'), 'change', SSChecked<?php echo $_code ?>);
         SSChecked<?php echo $_code ?>();
-
-        Validation.addAllThese([
-            ['validate-cc-ukss', 'Please enter issue number or start date for switch/solo card type.', function(v,elm) {
-                      var endposition;
-
-                      if (elm.id.match(/(.)+_cc_issue$/)) {
-                          endposition = elm.id.indexOf('_cc_issue');
-                      } else if (elm.id.match(/(.)+_start_month$/)) {
-                          endposition = elm.id.indexOf('_start_month');
-                      } else {
-                          endposition = elm.id.indexOf('_start_year');
-                      }
-
-                      var prefix = elm.id.substr(0,endposition);
-
-                      var ccTypeContainer = $(prefix + '_cc_type');
-
-                      if (!ccTypeContainer) {
-                            return true;
-                      }
-                      var ccType = ccTypeContainer.value;
-
-                      if(['SS','SM','SO'].indexOf(ccType) == -1){
-                          return true;
-                      }
-
-                      $(prefix + '_cc_issue').advaiceContainer
-                        = $(prefix + '_start_month').advaiceContainer
-                        = $(prefix + '_start_year').advaiceContainer
-                        = $(prefix + '_cc_type_ss_div').down('ul li.adv-container');
-
-                      var ccIssue   =  $(prefix + '_cc_issue').value;
-                      var ccSMonth  =  $(prefix + '_start_month').value;
-                      var ccSYear   =  $(prefix + '_start_year').value;
-
-                      var ccStartDatePresent = (ccSMonth && ccSYear) ? true : false;
-
-                      if (!ccStartDatePresent && !ccIssue){
-                          return false;
-                      }
-
-                      return true;
-            }]
-        ]);
         //]]>
         </script>
     </li>
-<?php endif; ?>
+    <?php endif; ?>
 </ul>

@@ -15,15 +15,10 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormFile.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: FormFile.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-/**
- * @see Zend_Tool_Project_Context_Filesystem_File
- */
-#require_once 'Zend/Tool/Project/Context/Filesystem/File.php';
 
 /**
  * This class is the front most class for utilizing Zend_Tool_Project
@@ -33,12 +28,45 @@
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Project_Context_Zf_FormFile extends Zend_Tool_Project_Context_Filesystem_File
+class Zend_Tool_Project_Context_Zf_FormFile extends Zend_Tool_Project_Context_Zf_AbstractClassFile
 {
 
+    /**
+     * @var string
+     */
+    protected $_formName = 'Base';
+    
+    /**
+     * @var string
+     */
+    protected $_filesystemName = 'formName';
+    
+    /**
+     * init()
+     *
+     */
+    public function init()
+    {
+        $this->_formName = $this->_resource->getAttribute('formName');
+        $this->_filesystemName = ucfirst($this->_formName) . '.php';
+        parent::init();
+    }
+
+    /**
+     * getPersistentAttributes
+     *
+     * @return array
+     */
+    public function getPersistentAttributes()
+    {
+        return array(
+            'formName' => $this->getFormName()
+            );
+    }
+    
     /**
      * getName()
      *
@@ -49,4 +77,32 @@ class Zend_Tool_Project_Context_Zf_FormFile extends Zend_Tool_Project_Context_Fi
         return 'FormFile';
     }
 
+    public function getFormName()
+    {
+        return $this->_formName;
+    }
+    
+    public function getContents()
+    {
+        
+        $className = $this->getFullClassName($this->_formName, 'Form');
+        
+        $codeGenFile = new Zend_CodeGenerator_Php_File(array(
+            'fileName' => $this->getPath(),
+            'classes' => array(
+                new Zend_CodeGenerator_Php_Class(array(
+                    'name' => $className,
+                    'extendedClass' => 'Zend_Form',
+                    'methods' => array(
+                        new Zend_CodeGenerator_Php_Method(array(
+                            'name' => 'init',
+                            'body' => '/* Form Elements & Other Definitions Here ... */',
+                            ))
+                        )
+                
+                    ))
+                )
+            ));
+        return $codeGenFile->generate();
+    }
 }

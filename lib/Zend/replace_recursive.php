@@ -25,7 +25,7 @@ function replace_recursive($dir)
 
         $replaced = preg_replace("/([^#])require_once/", "\$1#require_once", $orig);
 
-        if (strpos($file, 'Zend/Locale/Math.php')!==false) {
+        if (strpos($file, 'Locale/Math.php')!==false) {
             $replaced = str_replace(
                 "#require_once 'Zend/Locale/Math/PhpMath.php';",
                 "require_once 'Zend/Locale/Math/PhpMath.php';",

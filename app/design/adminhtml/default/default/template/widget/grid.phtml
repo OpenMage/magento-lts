@@ -120,9 +120,6 @@ $numColumns = sizeof($this->getColumns());
     <table cellspacing="0" class="data" id="<?php echo $this->getId() ?>_table">
         <?php foreach ($this->getColumns() as $_column): ?>
         <col <?php echo $_column->getHtmlProperty() ?> />
-        <?php if ($_column->getEditable() && !$_column->getEditOnly()) : ?>
-        <col <?php echo $_column->getHtmlProperty() ?> />
-        <?php endif ?>
         <?php endforeach; ?>
         <?php if ($this->getHeadersVisibility() || $this->getFilterVisibility()): ?>
             <thead>
@@ -197,7 +194,7 @@ $numColumns = sizeof($this->getColumns());
         <?php endforeach; ?>
         <?php elseif ($this->getEmptyText()): ?>
             <tr>
-                <td class="empty-text <?php echo $this->getEmptyTextClass() ?>" colspan="100"><?php echo $this->getEmptyText() ?></td>
+                <td class="empty-text <?php echo $this->getEmptyTextClass() ?>" colspan="<?php echo $numColumns ?>"><?php echo $this->getEmptyText() ?></td>
             </tr>
         <?php endif; ?>
         </tbody>

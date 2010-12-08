@@ -54,10 +54,8 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
         $lineCount = $this->getLineCount();
 
         for ($i=0; $i<$lineCount; $i++){
-            if ($i==0) {
-                if($this->getRequired()){
-                    $this->setClass('input-text required-entry');
-                }
+            if ($i==0 && $this->getRequired()){
+                $this->setClass('input-text required-entry');
             }
             else {
                 $this->setClass('input-text');

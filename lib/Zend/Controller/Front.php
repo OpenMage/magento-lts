@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Front.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: Front.php 20246 2010-01-12 21:36:08Z dasprid $
  */
 
 
@@ -32,7 +32,7 @@
 /**
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Front
@@ -287,9 +287,9 @@ class Zend_Controller_Front
     {
         try{
             $dir = new DirectoryIterator($path);
-        }catch(Exception $e){
+        } catch(Exception $e) {
             #require_once 'Zend/Controller/Exception.php';
-            throw new Zend_Controller_Exception("Directory $path not readable");
+            throw new Zend_Controller_Exception("Directory $path not readable", 0, $e);
         }
         foreach ($dir as $file) {
             if ($file->isDot() || !$file->isDir()) {
@@ -907,7 +907,15 @@ class Zend_Controller_Front
             */
             $this->_plugins->routeStartup($this->_request);
 
-            $router->route($this->_request);
+            try {
+                $router->route($this->_request);
+            }  catch (Exception $e) {
+                if ($this->throwExceptions()) {
+                    throw $e;
+                }
+
+                $this->_response->setException($e);
+            }
 
             /**
             * Notify plugins of router completion

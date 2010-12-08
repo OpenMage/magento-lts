@@ -14,12 +14,19 @@
  *
  * @category   Zend
  * @package    Zend_Soap
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Wsdl.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Wsdl.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
+/**
+ * @see Zend_Soap_Wsdl_Strategy_Interface
+ */
 #require_once "Zend/Soap/Wsdl/Strategy/Interface.php";
+
+/**
+ * @see Zend_Soap_Wsdl_Strategy_Abstract
+ */
 #require_once "Zend/Soap/Wsdl/Strategy/Abstract.php";
 
 /**

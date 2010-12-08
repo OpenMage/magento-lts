@@ -36,10 +36,6 @@
         <reference name="checkout.cart.methods">
             <block type="googlecheckout/link" name="checkout.cart.methods.googlecheckout.bottom" template="googlecheckout/link.phtml"/>
         </reference>
-
-        <reference name="google_analytics">
-            <action method="setGoogleCheckout"><flag>true</flag></action>
-        </reference>
     </checkout_cart_index>
 
     <googlecheckout_redirect_redirect>

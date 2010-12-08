@@ -124,8 +124,9 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     {
         $ccTypes = explode(',', $this->_pro->getConfig()->cctypes);
         $country = $this->_pro->getConfig()->getMerchantCountry();
+
         if ($country == 'GB') {
-            $ccTypes = array_intersect(array('SS', 'MC', 'DI', 'VI'), $ccTypes);
+            $ccTypes = array_intersect(array('SM', 'SO', 'MC', 'DI', 'VI'), $ccTypes);
         } elseif ($country == 'CA') {
             $ccTypes = array_intersect(array('MC', 'VI'), $ccTypes);
         }
@@ -324,20 +325,18 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
             $this->getCentinelValidator()->exportCmpiData($api);
         }
 
-        // add shipping address
+        // add shipping and billing addresses
         if ($order->getIsVirtual()) {
             $api->setAddress($order->getBillingAddress())->setSuppressShipping(true);
         } else {
             $api->setAddress($order->getShippingAddress());
+            $api->setBillingAddress($order->getBillingAddress());
         }
 
         // add line items
-        if ($this->_pro->getConfig()->lineItemsEnabled) {
-            list($items, $totals) = Mage::helper('paypal')->prepareLineItems($order);
-            if (Mage::helper('paypal')->areCartLineItemsValid($items, $totals, $amount)) {
-                $api->setLineItems($items)->setLineItemTotals($totals);
-            }
-        }
+        $api->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
+            ->setIsLineItemsEnabled($this->_pro->getConfig()->lineItemsEnabled)
+        ;
 
         // call api and import transaction and other payment information
         $api->callDoDirectPayment();

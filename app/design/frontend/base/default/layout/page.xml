@@ -59,14 +59,18 @@ Default layout, loads most of the pages
                 <action method="addItem"><type>skin_js</type><name>js/ie6.js</name><params/><if>lt IE 7</if></action>
             </block>
 
-            <block type="core/text_list" name="after_body_start" as="after_body_start"/>
+            <block type="core/text_list" name="after_body_start" as="after_body_start" translate="label">
+                <label>Page Top</label>
+            </block>
 
             <block type="page/html_notices" name="global_notices" as="global_notices" template="page/html/notices.phtml" />
 
             <block type="page/html_header" name="header" as="header">
                 <block type="page/template_links" name="top.links" as="topLinks"/>
                 <block type="page/switch" name="store_language" as="store_language" template="page/switch/languages.phtml"/>
-                <block type="core/text_list" name="top.menu" as="topMenu"/>
+                <block type="core/text_list" name="top.menu" as="topMenu" translate="label">
+                    <label>Navigation Bar</label>
+                </block>
                 <block type="page/html_wrapper" name="top.container" as="topContainer" translate="label">
                     <label>Page Header</label>
                     <action method="setElementClass"><value>top-container</value></action>
@@ -99,7 +103,9 @@ Default layout, loads most of the pages
                 <block type="page/template_links" name="footer_links" as="footer_links" template="page/template/links.phtml"/>
             </block>
 
-            <block type="core/text_list" name="before_body_end" as="before_body_end"/>
+            <block type="core/text_list" name="before_body_end" as="before_body_end" translate="label">
+                <label>Page Bottom</label>
+            </block>
         </block>
 
         <block type="core/profiler" output="toHtml" name="core_profiler"/>

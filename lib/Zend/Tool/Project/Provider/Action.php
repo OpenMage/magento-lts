@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Action.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Action.php 20967 2010-02-07 18:17:49Z ralph $
  */
 
 /**
@@ -33,7 +33,7 @@
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Provider_Action
@@ -87,8 +87,12 @@ class Zend_Tool_Project_Provider_Action
             throw new Zend_Tool_Project_Provider_Exception('Zend_Tool_Project_Provider_Action::createResource() expects \"controllerName\" is the name of a controller resource to create.');
         }
 
-       $controllerFile = self::_getControllerFileResource($profile, $controllerName, $moduleName);
+        $controllerFile = self::_getControllerFileResource($profile, $controllerName, $moduleName);
 
+        if ($controllerFile == null) {
+            throw new Zend_Tool_Project_Provider_Exception('Controller ' . $controllerName . ' was not found.');
+        }
+       
         return (($controllerFile->search(array('actionMethod' => array('actionName' => $actionName)))) instanceof Zend_Tool_Project_Profile_Resource);
     }
 
@@ -117,28 +121,70 @@ class Zend_Tool_Project_Provider_Action
     /**
      * create()
      *
-     * @param string $name
-     * @param string $controllerName
-     * @param bool $viewIncluded
+     * @param string $name           Action name for controller, in camelCase format.
+     * @param string $controllerName Controller name action should be applied to.
+     * @param bool $viewIncluded     Whether the view should the view be included.
+     * @param string $module         Module name action should be applied to.
      */
-    public function create($name, $controllerName = 'index', $viewIncluded = true, $module = null)
+    public function create($name, $controllerName = 'Index', $viewIncluded = true, $module = null)
     {
 
         $this->_loadProfile();
 
+        // Check that there is not a dash or underscore, return if doesnt match regex
+        if (preg_match('#[_-]#', $name)) {
+            throw new Zend_Tool_Project_Provider_Exception('Action names should be camel cased.');
+        }
+        
+        $originalName = $name;
+        $originalControllerName = $controllerName;
+        
+        // ensure it is camelCase (lower first letter)
+        $name = strtolower(substr($name, 0, 1)) . substr($name, 1);
+        
+        // ensure controller is MixedCase
+        $controllerName = ucfirst($controllerName);
+        
         if (self::hasResource($this->_loadedProfile, $name, $controllerName, $module)) {
             throw new Zend_Tool_Project_Provider_Exception('This controller (' . $controllerName . ') already has an action named (' . $name . ')');
         }
-
+        
         $actionMethod = self::createResource($this->_loadedProfile, $name, $controllerName, $module);
 
-        if ($this->_registry->getRequest()->isPretend()) {
-            $this->_registry->getResponse()->appendContent(
+        // get request/response object
+        $request = $this->_registry->getRequest();
+        $response = $this->_registry->getResponse();
+        
+        // alert the user about inline converted names
+        $tense = (($request->isPretend()) ? 'would be' : 'is');
+        
+        if ($name !== $originalName) {
+            $response->appendContent(
+                'Note: The canonical action name that ' . $tense
+                    . ' used with other providers is "' . $name . '";'
+                    . ' not "' . $originalName . '" as supplied',
+                array('color' => array('yellow'))
+                );
+        }
+        
+        if ($controllerName !== $originalControllerName) {
+            $response->appendContent(
+                'Note: The canonical controller name that ' . $tense
+                    . ' used with other providers is "' . $controllerName . '";'
+                    . ' not "' . $originalControllerName . '" as supplied',
+                array('color' => array('yellow'))
+                );
+        }
+        
+        unset($tense);
+        
+        if ($request->isPretend()) {
+            $response->appendContent(
                 'Would create an action named ' . $name .
                 ' inside controller at ' . $actionMethod->getParentResource()->getContext()->getPath()
                 );
         } else {
-            $this->_registry->getResponse()->appendContent(
+            $response->appendContent(
                 'Creating an action named ' . $name .
                 ' inside controller at ' . $actionMethod->getParentResource()->getContext()->getPath()
                 );
@@ -150,11 +196,11 @@ class Zend_Tool_Project_Provider_Action
             $viewResource = Zend_Tool_Project_Provider_View::createResource($this->_loadedProfile, $name, $controllerName, $module);
 
             if ($this->_registry->getRequest()->isPretend()) {
-                $this->_registry->getResponse()->appendContent(
+                $response->appendContent(
                     'Would create a view script for the ' . $name . ' action method at ' . $viewResource->getContext()->getPath()
                     );
             } else {
-                $this->_registry->getResponse()->appendContent(
+                $response->appendContent(
                     'Creating a view script for the ' . $name . ' action method at ' . $viewResource->getContext()->getPath()
                     );
                 $viewResource->create();

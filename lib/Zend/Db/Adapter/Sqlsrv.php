@@ -15,8 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Sqlsrv.php 21197 2010-02-24 16:12:53Z rob $
  */
 
 /**
@@ -33,7 +34,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
@@ -147,11 +148,11 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
             foreach ($this->_config['driver_options'] as $option => $value) {
                 // A value may be a constant.
                 if (is_string($value)) {
-                    $constantValue = @constant(strtoupper($value));
-                    if ($constantValue === null) {
-                        $connectionInfo[$option] = $value;
+                    $constantName = strtoupper($value);
+                    if (defined($constantName)) {
+                        $connectionInfo[$option] = constant($constantName);
                     } else {
-                        $connectionInfo[$option] = $constantValue;
+                        $connectionInfo[$option] = $value;
                     }
                 }
             }
@@ -604,23 +605,29 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
             throw new Zend_Db_Adapter_Exception("LIMIT argument offset=$offset is not valid");
         }
 
-        $orderby = stristr($sql, 'ORDER BY');
-        if ($orderby !== false) {
-            $sort  = (stripos($orderby, ' desc') !== false) ? 'desc' : 'asc';
-            $order = str_ireplace('ORDER BY', '', $orderby);
-            $order = trim(preg_replace('/\bASC\b|\bDESC\b/i', '', $order));
-        }
-
-        $sql = preg_replace('/^SELECT\s/i', 'SELECT TOP ' . ($count+$offset) . ' ', $sql);
-
-        $sql = 'SELECT * FROM (SELECT TOP ' . $count . ' * FROM (' . $sql . ') AS inner_tbl';
-        if ($orderby !== false) {
-            $sql .= ' ORDER BY ' . $order . ' ';
-            $sql .= (stripos($sort, 'asc') !== false) ? 'DESC' : 'ASC';
-        }
-        $sql .= ') AS outer_tbl';
-        if ($orderby !== false) {
-            $sql .= ' ORDER BY ' . $order . ' ' . $sort;
+        if ($offset == 0) {
+            $sql = preg_replace('/^SELECT\s/i', 'SELECT TOP ' . $count . ' ', $sql);
+        } else {
+            $orderby = stristr($sql, 'ORDER BY');
+            if ($orderby !== false) {
+                $sort  = (stripos($orderby, ' desc') !== false) ? 'desc' : 'asc';
+                $order = str_ireplace('ORDER BY', '', $orderby);
+                $order = trim(preg_replace('/\bASC\b|\bDESC\b/i', '', $order));
+            }
+    
+            $sql = preg_replace('/^SELECT\s/i', 'SELECT TOP ' . ($count+$offset) . ' ', $sql);
+    
+            $sql = 'SELECT * FROM (SELECT TOP ' . $count . ' * FROM (' . $sql . ') AS inner_tbl';
+            if ($orderby !== false) {
+                $innerOrder = preg_replace('/\".*\".\"(.*)\"/i', '"inner_tbl"."$1"', $order);
+                $sql .= ' ORDER BY ' . $innerOrder . ' ';
+                $sql .= (stripos($sort, 'asc') !== false) ? 'DESC' : 'ASC';
+            }
+            $sql .= ') AS outer_tbl';
+            if ($orderby !== false) {
+                $outerOrder = preg_replace('/\".*\".\"(.*)\"/i', '"outer_tbl"."$1"', $order);
+                $sql .= ' ORDER BY ' . $outerOrder . ' ' . $sort;
+            }
         }
 
         return $sql;

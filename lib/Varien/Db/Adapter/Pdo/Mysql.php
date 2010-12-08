@@ -269,9 +269,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
      */
     public function raw_query($sql)
     {
+        $tries = 0;
         do {
             $retry = false;
-            $tries = 0;
             try {
                 $result = $this->getConnection()->query($sql);
             } catch (PDOException $e) {
@@ -1507,7 +1507,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
             $line = array();
             if ($columnsCount == 1) {
                 if ($row instanceof Zend_Db_Expr) {
-                    $line = $value->__toString();
+                    $line = $row->__toString();
                 } else {
                     $line = '?';
                     $bind[] = $row;

@@ -34,6 +34,14 @@
  */
 class Mage_Payment_Model_Method_Free extends Mage_Payment_Model_Method_Abstract
 {
+
+    /**
+     * Payment Method features
+     * @var bool
+     */
+    protected $_canAuthorize                = true;
+    protected $_canCapture                  = true;
+
     /**
      * Payment code name
      *
@@ -51,5 +59,18 @@ class Mage_Payment_Model_Method_Free extends Mage_Payment_Model_Method_Abstract
     {
         return parent::isAvailable($quote) && (!empty($quote))
             && (Mage::app()->getStore()->roundPrice($quote->getGrandTotal()) == 0);
+    }
+
+    /**
+     * Get config peyment action
+     *
+     * @return string
+     */
+    public function getConfigPaymentAction()
+    {
+        if ('pending' == $this->getConfigData('order_status')) {
+            return Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE;
+        }
+        return parent::getConfigPaymentAction();
     }
 }

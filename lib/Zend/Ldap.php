@@ -15,15 +15,15 @@
  *
  * @category   Zend
  * @package    Zend_Ldap
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ldap.php 18881 2009-11-06 10:55:19Z sgehrig $
+ * @version    $Id: Ldap.php 22502 2010-06-29 08:19:18Z sgehrig $
  */
 
 /**
  * @category   Zend
  * @package    Zend_Ldap
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Ldap
@@ -57,6 +57,15 @@ class Zend_Ldap
      * @var resource
      */
     protected $_resource = null;
+
+    /**
+     * FALSE if no user is bound to the LDAP resource
+     * NULL if there has been an anonymous bind
+     * username of the currently bound user
+     *
+     * @var boolean|null|string
+     */
+    protected $_boundUser = false;
 
     /**
      * Caches the RootDSE
@@ -108,9 +117,18 @@ class Zend_Ldap
      *
      * @param  array|Zend_Config $options Options used in connecting, binding, etc.
      * @return void
+     * @throws Zend_Ldap_Exception if ext/ldap is not installed
      */
     public function __construct($options = array())
     {
+        if (!extension_loaded('ldap')) {
+            /**
+             * @see Zend_Ldap_Exception
+             */
+            #require_once 'Zend/Ldap/Exception.php';
+            throw new Zend_Ldap_Exception(null, 'LDAP extension not loaded',
+                Zend_Ldap_Exception::LDAP_X_EXTENSION_NOT_LOADED);
+        }
         $this->setOptions($options);
     }
 
@@ -129,6 +147,9 @@ class Zend_Ldap
      */
     public function getResource()
     {
+        if (!is_resource($this->_resource) || $this->_boundUser === false) {
+            $this->bind();
+        }
         return $this->_resource;
     }
 
@@ -139,7 +160,7 @@ class Zend_Ldap
      */
     public function getLastErrorCode()
     {
-        $ret = @ldap_get_option($this->getResource(), LDAP_OPT_ERROR_NUMBER, $err);
+        $ret = @ldap_get_option($this->_resource, LDAP_OPT_ERROR_NUMBER, $err);
         if ($ret === true) {
             if ($err <= -1 && $err >= -17) {
                 /**
@@ -172,7 +193,7 @@ class Zend_Ldap
          * different things so we just try to collect what we
          * can and eliminate dupes.
          */
-        $estr1 = @ldap_error($this->getResource());
+        $estr1 = @ldap_error($this->_resource);
         if ($errorCode !== 0 && $estr1 === 'Success') {
             $estr1 = @ldap_err2str($errorCode);
         }
@@ -180,7 +201,7 @@ class Zend_Ldap
             $errorMessages[] = $estr1;
         }
 
-        @ldap_get_option($this->getResource(), LDAP_OPT_ERROR_STRING, $estr2);
+        @ldap_get_option($this->_resource, LDAP_OPT_ERROR_STRING, $estr2);
         if (!empty($estr2) && !in_array($estr2, $errorMessages)) {
             $errorMessages[] = $estr2;
         }
@@ -197,6 +218,20 @@ class Zend_Ldap
             $message .= '(no error message from LDAP)';
         }
         return $message;
+    }
+
+    /**
+     * Get the currently bound user
+     *
+     * FALSE if no user is bound to the LDAP resource
+     * NULL if there has been an anonymous bind
+     * username of the currently bound user
+     *
+     * @return false|null|string
+     */
+    public function getBoundUser()
+    {
+        return $this->_boundUser;
     }
 
     /**
@@ -662,22 +697,21 @@ class Zend_Ldap
      */
     public function disconnect()
     {
-        if (is_resource($this->getResource())) {
-            if (!extension_loaded('ldap')) {
-                /**
-                 * @see Zend_Ldap_Exception
-                 */
-                #require_once 'Zend/Ldap/Exception.php';
-                throw new Zend_Ldap_Exception(null, 'LDAP extension not loaded',
-                    Zend_Ldap_Exception::LDAP_X_EXTENSION_NOT_LOADED);
-            }
-            @ldap_unbind($this->getResource());
+        if (is_resource($this->_resource)) {
+            @ldap_unbind($this->_resource);
         }
         $this->_resource = null;
+        $this->_boundUser = false;
         return $this;
     }
 
     /**
+     * To connect using SSL it seems the client tries to verify the server
+     * certificate by default. One way to disable this behavior is to set
+     * 'TLS_REQCERT never' in OpenLDAP's ldap.conf and restarting Apache. Or,
+     * if you really care about the server's cert you can put a cert on the
+     * web server.
+     *
      * @param  string  $host        The hostname of the LDAP server to connect to
      * @param  int     $port        The port number of the LDAP server to connect to
      * @param  boolean $useSsl      Use SSL
@@ -714,41 +748,38 @@ class Zend_Ldap
             throw new Zend_Ldap_Exception(null, 'A host parameter is required');
         }
 
-        /* To connect using SSL it seems the client tries to verify the server
-         * certificate by default. One way to disable this behavior is to set
-         * 'TLS_REQCERT never' in OpenLDAP's ldap.conf and restarting Apache. Or,
-         * if you really care about the server's cert you can put a cert on the
-         * web server.
-         */
-        $url = ($useSsl) ? "ldaps://$host" : "ldap://$host";
-        if ($port) {
-            $url .= ":$port";
-        }
-
+        $useUri = false;
         /* Because ldap_connect doesn't really try to connect, any connect error
          * will actually occur during the ldap_bind call. Therefore, we save the
          * connect string here for reporting it in error handling in bind().
          */
-        $this->_connectString = $url;
+        $hosts = array();
+        if (preg_match_all('~ldap(?:i|s)?://~', $host, $hosts, PREG_SET_ORDER) > 0) {
+            $this->_connectString = $host;
+            $useUri = true;
+            $useSsl = false;
+        } else {
+            if ($useSsl) {
+                $this->_connectString = 'ldaps://' . $host;
+                $useUri = true;
+            } else {
+                $this->_connectString = 'ldap://' . $host;
+            }
+            if ($port) {
+                $this->_connectString .= ':' . $port;
+            }
+        }
 
         $this->disconnect();
-
-        if (!extension_loaded('ldap')) {
-            /**
-             * @see Zend_Ldap_Exception
-             */
-            #require_once 'Zend/Ldap/Exception.php';
-            throw new Zend_Ldap_Exception(null, 'LDAP extension not loaded',
-                Zend_Ldap_Exception::LDAP_X_EXTENSION_NOT_LOADED);
-        }
 
         /* Only OpenLDAP 2.2 + supports URLs so if SSL is not requested, just
          * use the old form.
          */
-        $resource = ($useSsl) ? @ldap_connect($url) : @ldap_connect($host, $port);
+        $resource = ($useUri) ? @ldap_connect($this->_connectString) : @ldap_connect($host, $port);
 
         if (is_resource($resource) === true) {
             $this->_resource = $resource;
+            $this->_boundUser = false;
 
             $optReferrals = ($this->_getOptReferrals()) ? 1 : 0;
             if (@ldap_set_option($resource, LDAP_OPT_PROTOCOL_VERSION, 3) &&
@@ -789,9 +820,10 @@ class Zend_Ldap
             $moreCreds = false;
         }
 
-        if ($username === null) {
+        if (empty($username)) {
             /* Perform anonymous bind
              */
+            $username = null;
             $password = null;
         } else {
             /* Check to make sure the username is in DN form.
@@ -834,7 +866,7 @@ class Zend_Ldap
             }
         }
 
-        if (!is_resource($this->getResource())) {
+        if (!is_resource($this->_resource)) {
             $this->connect();
         }
 
@@ -846,7 +878,8 @@ class Zend_Ldap
             $zle = new Zend_Ldap_Exception(null,
                 'Empty password not allowed - see allowEmptyPassword option.');
         } else {
-            if (@ldap_bind($this->getResource(), $username, $password)) {
+            if (@ldap_bind($this->_resource, $username, $password)) {
+                $this->_boundUser = $username;
                 return $this;
             }
 
@@ -872,18 +905,49 @@ class Zend_Ldap
     /**
      * A global LDAP search routine for finding information.
      *
-     * @param  string|Zend_Ldap_Filter_Abstract $filter
-     * @param  string|Zend_Ldap_Dn|null         $basedn
-     * @param  integer                          $scope
-     * @param  array                            $attributes
-     * @param  string|null                      $sort
-     * @param  string|null                      $collectionClass
+     * Options can be either passed as single parameters according to the
+     * method signature or as an array with one or more of the following keys
+     * - filter
+     * - baseDn
+     * - scope
+     * - attributes
+     * - sort
+     * - collectionClass
+     *
+     * @param  string|Zend_Ldap_Filter_Abstract|array $filter
+     * @param  string|Zend_Ldap_Dn|null               $basedn
+     * @param  integer                                $scope
+     * @param  array                                  $attributes
+     * @param  string|null                            $sort
+     * @param  string|null                            $collectionClass
      * @return Zend_Ldap_Collection
      * @throws Zend_Ldap_Exception
      */
     public function search($filter, $basedn = null, $scope = self::SEARCH_SCOPE_SUB,
         array $attributes = array(), $sort = null, $collectionClass = null)
     {
+        if (is_array($filter)) {
+            $options = array_change_key_case($filter, CASE_LOWER);
+            foreach ($options as $key => $value) {
+                switch ($key) {
+                    case 'filter':
+                    case 'basedn':
+                    case 'scope':
+                    case 'sort':
+                        $$key = $value;
+                        break;
+                    case 'attributes':
+                        if (is_array($value)) {
+                            $attributes = $value;
+                        }
+                        break;
+                    case 'collectionclass':
+                        $collectionClass = $value;
+                        break;
+                }
+            }
+        }
+
         if ($basedn === null) {
             $basedn = $this->getBaseDn();
         }
@@ -917,7 +981,7 @@ class Zend_Ldap
         }
         if (!is_null($sort) && is_string($sort)) {
             $isSorted = @ldap_sort($this->getResource(), $search, $sort);
-            if($search === false) {
+            if($isSorted === false) {
                 /**
                  * @see Zend_Ldap_Exception
                  */
@@ -931,6 +995,19 @@ class Zend_Ldap
          */
         #require_once 'Zend/Ldap/Collection/Iterator/Default.php';
         $iterator = new Zend_Ldap_Collection_Iterator_Default($this, $search);
+        return $this->_createCollection($iterator, $collectionClass);
+    }
+
+    /**
+     * Extension point for collection creation
+     *
+     * @param  Zend_Ldap_Collection_Iterator_Default	$iterator
+     * @param  string|null								$collectionClass
+     * @return Zend_Ldap_Collection
+     * @throws Zend_Ldap_Exception
+     */
+    protected function _createCollection(Zend_Ldap_Collection_Iterator_Default $iterator, $collectionClass)
+    {
         if ($collectionClass === null) {
             /**
              * Zend_Ldap_Collection
@@ -1006,19 +1083,43 @@ class Zend_Ldap
     /**
      * Search LDAP registry for entries matching filter and optional attributes
      *
-     * @param  string|Zend_Ldap_Filter_Abstract $filter
-     * @param  string|Zend_Ldap_Dn|null         $basedn
-     * @param  integer                          $scope
-     * @param  array                            $attributes
-     * @param  string|null                      $sort
+     * Options can be either passed as single parameters according to the
+     * method signature or as an array with one or more of the following keys
+     * - filter
+     * - baseDn
+     * - scope
+     * - attributes
+     * - sort
+     * - reverseSort
+     *
+     * @param  string|Zend_Ldap_Filter_Abstract|array $filter
+     * @param  string|Zend_Ldap_Dn|null               $basedn
+     * @param  integer                                $scope
+     * @param  array                                  $attributes
+     * @param  string|null                            $sort
+     * @param  boolean                                $reverseSort
      * @return array
      * @throws Zend_Ldap_Exception
      */
     public function searchEntries($filter, $basedn = null, $scope = self::SEARCH_SCOPE_SUB,
-        array $attributes = array(), $sort = null)
+        array $attributes = array(), $sort = null, $reverseSort = false)
     {
+        if (is_array($filter)) {
+            $filter = array_change_key_case($filter, CASE_LOWER);
+            if (isset($filter['collectionclass'])) {
+                unset($filter['collectionclass']);
+            }
+            if (isset($filter['reversesort'])) {
+                $reverseSort = $filter['reversesort'];
+                unset($filter['reversesort']);
+            }
+        }
         $result = $this->search($filter, $basedn, $scope, $attributes, $sort);
-        return $result->toArray();
+        $items = $result->toArray();
+        if ((bool)$reverseSort === true) {
+            $items = array_reverse($items, false);
+        }
+        return $items;
     }
 
     /**
@@ -1108,10 +1209,10 @@ class Zend_Ldap
         $rdnParts = $dn->getRdn(Zend_Ldap_Dn::ATTR_CASEFOLD_LOWER);
         foreach ($rdnParts as $key => $value) {
             $value = Zend_Ldap_Dn::unescapeValue($value);
-            if (!array_key_exists($key, $entry) ||
-                    !in_array($value, $entry[$key]) ||
-                    count($entry[$key]) !== 1) {
+            if (!array_key_exists($key, $entry)) {
                 $entry[$key] = array($value);
+            } else if (!in_array($value, $entry[$key])) {
+                $entry[$key] = array_merge(array($value), $entry[$key]);
             }
         }
         $adAttributes = array('distinguishedname', 'instancetype', 'name', 'objectcategory',
@@ -1149,10 +1250,16 @@ class Zend_Ldap
         self::prepareLdapEntryArray($entry);
 
         $rdnParts = $dn->getRdn(Zend_Ldap_Dn::ATTR_CASEFOLD_LOWER);
+        foreach ($rdnParts as $key => $value) {
+            $value = Zend_Ldap_Dn::unescapeValue($value);
+            if (array_key_exists($key, $entry) && !in_array($value, $entry[$key])) {
+                $entry[$key] = array_merge(array($value), $entry[$key]);
+            }
+        }
+
         $adAttributes = array('distinguishedname', 'instancetype', 'name', 'objectcategory',
             'objectguid', 'usnchanged', 'usncreated', 'whenchanged', 'whencreated');
-        $stripAttributes = array_merge(array_keys($rdnParts), $adAttributes);
-        foreach ($stripAttributes as $attr) {
+        foreach ($adAttributes as $attr) {
             if (array_key_exists($attr, $entry)) {
                 unset($entry[$attr]);
             }

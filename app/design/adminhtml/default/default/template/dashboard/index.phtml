@@ -25,6 +25,7 @@
  */
 ?>
 
+<?php if (is_array($this->getChild('diagrams')->getTabsIds())) : ?>
 <script type="text/javascript">
 //<![CDATA[
 function changeDiagramsPeriod(periodObj) {
@@ -86,6 +87,7 @@ function toggleCal(id) {
 }
 //]]>
 </script>
+<?php endif; ?>
 <div class="content-header">
     <table cellspacing="0">
         <tr>
@@ -114,7 +116,9 @@ function toggleCal(id) {
             <td>
                 <div class="entry-edit" style="border:1px solid #ccc;">
                     <?php echo $this->getChildHtml('diagrams') ?>
+                    <?php if (is_array($this->getChild('diagrams')->getTabsIds())) : ?>
                         <div id="diagram_tab_content"></div>
+                    <?php endif; ?>
                     <div style="margin:20px;">
                         <?php echo $this->getChildHtml('totals') ?>
                     </div>

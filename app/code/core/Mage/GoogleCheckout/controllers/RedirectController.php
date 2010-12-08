@@ -32,45 +32,55 @@
 class Mage_GoogleCheckout_RedirectController extends Mage_Core_Controller_Front_Action
 {
     /**
-     *  Send request to Google Checkout and return Responce Api
+     *  Send request to Google Checkout and return Response Api
      *
      *  @return	  object Mage_GoogleCheckout_Model_Api_Xml_Checkout
      */
     protected function _getApi ()
     {
         $session = Mage::getSingleton('checkout/session');
-
         $api = Mage::getModel('googlecheckout/api');
+        /* @var $quote Mage_Sales_Model_Quote */
+        $quote = $session->getQuote();
 
-        if (!$session->getQuote()->hasItems()) {
+        if (!$quote->hasItems()) {
             $this->getResponse()->setRedirect(Mage::getUrl('checkout/cart'));
             $api->setError(true);
         }
 
         $storeQuote = Mage::getModel('sales/quote')->setStoreId(Mage::app()->getStore()->getId());
-        $storeQuote->merge($session->getQuote());
+        $storeQuote->merge($quote);
         $storeQuote
-            ->setItemsCount($session->getQuote()->getItemsCount())
-            ->setItemsQty($session->getQuote()->getItemsQty())
+            ->setItemsCount($quote->getItemsCount())
+            ->setItemsQty($quote->getItemsQty())
             ->setChangedFlag(false);
         $storeQuote->save();
 
-        $baseCurrency = $session->getQuote()->getBaseCurrencyCode();
-        $currency = Mage::app()->getStore($session->getQuote()->getStoreId())->getBaseCurrency();
-        $session->getQuote()
-            ->collectTotals()
-            ->save();
+        $baseCurrency = $quote->getBaseCurrencyCode();
+        $currency = Mage::app()->getStore($quote->getStoreId())->getBaseCurrency();
+
+
+        /*
+         * Set payment method to google checkout, so all price rules will work out this case
+         * and will use right sales rules
+         */
+        if ($quote->isVirtual()) {
+            $quote->getBillingAddress()->setPaymentMethod('googlecheckout');
+        } else {
+            $quote->getShippingAddress()->setPaymentMethod('googlecheckout');
+        }
+
+        $quote->collectTotals()->save();
 
         if (!$api->getError()) {
             $api = $api->setAnalyticsData($this->getRequest()->getPost('analyticsdata'))
-                ->checkout($session->getQuote());
+                ->checkout($quote);
 
             $response = $api->getResponse();
             if ($api->getError()) {
                 Mage::getSingleton('checkout/session')->addError($api->getError());
             } else {
-                $oldQuote = $session->getQuote();
-                $oldQuote->setIsActive(false)->save();
+                $quote->setIsActive(false)->save();
                 $session->replaceQuote($storeQuote);
                 Mage::getModel('checkout/cart')->init()->save();
                 if (Mage::getStoreConfigFlag('google/checkout/hide_cart_contents')) {

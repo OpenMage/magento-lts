@@ -29,7 +29,7 @@
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <p class="my-tag-edit">
-    <a href="#" title="<?php echo $this->__('Delete') ?>" onclick="if(confirm('<?php echo $this->__('Are you sure you want to delete this tag?') ?>')) window.location='<?php echo $this->getTagInfo()->getRemoveTagUrl(); ?>'; return false;" class="btn-remove"><?php echo $this->__('Delete') ?></a>
+    <a href="#" title="<?php echo $this->__('Delete') ?>" onclick="if(confirm('<?php echo $this->__('Are you sure you want to delete this tag?') ?>')) window.location='<?php echo $this->getTagInfo()->getRemoveTagUrl(); ?>'; return false;" class="button btn-remove"><span><?php echo $this->__('Delete') ?></span></a>
     <?php echo $this->__('<strong>Tag Name:</strong> %s', $this->htmlEscape($this->getTagInfo()->getName())) ?>
 </p>
 <div class="clearer"></div>

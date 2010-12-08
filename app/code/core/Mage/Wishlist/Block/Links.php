@@ -32,17 +32,27 @@
  * @package     Mage_Wishlist
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Wishlist_Block_Links extends Mage_Core_Block_Template
+class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
 {
     /**
-     * Add link on wishlist page in parent block
+     * Message after link text
      *
-     * @return Mage_Wishlist_Block_Links
+     * @var string
      */
-    public function addWishlistLink()
+    protected $_afterText = 'class="top-link-wishlist"';
+
+    /**
+     * Position in link list
+     * @var int
+     */
+    protected $_position = 30;
+
+    /**
+     * Set link title, label and url
+     */
+    public function __construct()
     {
-        $parentBlock = $this->getParentBlock();
-        if ($parentBlock && $this->helper('wishlist')->isAllow()) {
+        if ($this->helper('wishlist')->isAllow()) {
             $count = $this->helper('wishlist')->getItemCount();
             if ($count > 1) {
                 $text = $this->__('My Wishlist (%d items)', $count);
@@ -53,8 +63,11 @@ class Mage_Wishlist_Block_Links extends Mage_Core_Block_Template
             else {
                 $text = $this->__('My Wishlist');
             }
-            $parentBlock->addLink($text, 'wishlist', $text, true, array(), 30, null, 'class="top-link-wishlist"');
+            $this->_label = $text;
+            $this->_title = $text;
+            $this->_url = $this->getUrl('wishlist');
+
+            parent::__construct();
         }
-        return $this;
     }
 }

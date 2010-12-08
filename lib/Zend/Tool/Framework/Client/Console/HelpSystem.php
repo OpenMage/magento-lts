@@ -15,15 +15,15 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HelpSystem.php 18305 2009-09-19 16:31:16Z beberlei $
+ * @version    $Id: HelpSystem.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Framework_Client_Console_HelpSystem
@@ -63,13 +63,9 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
         // break apart the message into wrapped chunks
         $errorMessages = explode(PHP_EOL, wordwrap($errorMessage, 70, PHP_EOL, false));
 
-        $text = '                       An Error Has Occurred                            ';
-        $this->_response->appendContent($text, array('color' => array('hiWhite', 'bgRed')));
-
-        foreach ($errorMessages as $errorMessage) {
-            $errorMessage = sprintf('%-70s', $errorMessage);
-            $this->_response->appendContent(' ' . $errorMessage . ' ', array('color' => array('white', 'bgRed')));
-        }
+        $text = 'An Error Has Occurred';
+        $this->_response->appendContent($text, array('color' => array('hiWhite', 'bgRed'), 'aligncenter' => true));
+        $this->_response->appendContent($errorMessage, array('indention' => 1, 'blockize' => 72, 'color' => array('white', 'bgRed')));
 
         if ($exception && $this->_registry->getRequest()->isDebug()) {
             $this->_response->appendContent($exception->getTraceAsString());
@@ -246,6 +242,14 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
                     'clientName'    => 'console'
                     ));
 
+                $actionableGlobalMetadatas = $manifest->getMetadatas(array(
+                    'type'          => 'Tool',
+                    'name'          => 'actionableMethodLongParams',
+                    'providerName'  => $providerName,
+                    'actionName'    => $actionName,
+                    'clientName'    => 'console'
+                    ));
+
                 if ($actionableGlobalLongParamMetadata) {
 
                     if (!$providerNameDisplayed) {
@@ -260,19 +264,15 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
                     $actionIsGlobal = false;
                 }
 
-                $actionableGlobalMetadatas = $manifest->getMetadatas(array(
-                    'type'          => 'Tool',
-                    'name'          => 'actionableMethodLongParams',
-                    'providerName'  => $providerName,
-                    'actionName'    => $actionName,
-                    'clientName'    => 'console'
-                    ));
-
+                // check for providers without a _Global action
+                $isSingleSpecialProviderAction = false;
                 if (!$actionIsGlobal && count($actionableGlobalMetadatas) == 1) {
-                    $this->_response->appendContent('single special action/provider');
+                    $isSingleSpecialProviderAction = true;
+                    $this->_respondWithProviderName($providerMetadata);
+                    $providerNameDisplayed = true;
                 }
-
-                if ($includeAllSpecialties) {
+                
+                if ($includeAllSpecialties || $isSingleSpecialProviderAction) {
 
                     foreach ($providerSignature->getSpecialties() as $specialtyName) {
 
@@ -303,6 +303,9 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
 
                     }
                 }
+                
+                // reset the special flag for single provider action with specialty
+                $isSingleSpecialProviderAction = false;
 
                 if (!$includeAllSpecialties && count($actionableGlobalMetadatas) > 1) {
                     $this->_response->appendContent('    Note: There are specialties, use ', array('color' => 'yellow', 'separator' => false));

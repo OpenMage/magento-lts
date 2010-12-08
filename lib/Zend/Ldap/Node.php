@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Node
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Node.php 18881 2009-11-06 10:55:19Z sgehrig $
+ * @version    $Id: Node.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -35,7 +35,7 @@
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Node
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, RecursiveIterator

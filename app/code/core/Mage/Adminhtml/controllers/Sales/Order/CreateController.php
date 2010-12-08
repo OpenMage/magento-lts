@@ -128,6 +128,11 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         }
 
         /**
+         * Initialize catalog rule data
+         */
+        $this->_getOrderCreateModel()->initRuleData();
+
+        /**
          * init first billing address, need for virtual products
          */
         $this->_getOrderCreateModel()->getBillingAddress();
@@ -217,7 +222,6 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         Mage::dispatchEvent('adminhtml_sales_order_create_process_data', $eventData);
 
         $this->_getOrderCreateModel()
-            ->initRuleData()
             ->saveQuote();
 
         if ($paymentData = $this->getRequest()->getPost('payment')) {
@@ -265,10 +269,10 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     public function indexAction()
     {
         $this->_title($this->__('Sales'))->_title($this->__('Orders'))->_title($this->__('New Order'));
+        $this->_initSession();
         $this->loadLayout();
 
-        $this->_initSession()
-            ->_setActiveMenu('sales/order')
+        $this->_setActiveMenu('sales/order')
             ->renderLayout();
     }
 
@@ -381,6 +385,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             }
 
             $order = $this->_getOrderCreateModel()
+                ->setIsValidate(true)
                 ->importPostData($this->getRequest()->getPost('order'))
                 ->createOrder();
 

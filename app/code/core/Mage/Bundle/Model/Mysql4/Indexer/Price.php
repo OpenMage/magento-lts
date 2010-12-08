@@ -302,14 +302,21 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
         $write = $this->_getWriteAdapter();
 
         if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
-            $priceExpr = new Zend_Db_Expr("IF(bs.selection_price_type = 1, "
-                . "ROUND(i.price * (bs.selection_price_value / 100), 4), IF(i.special_price > 0, "
-                . "ROUND(bs.selection_price_value * (i.special_price / 100), 4), bs.selection_price_value)) "
-                . "* bs.selection_qty");
-            $tierExpr = new Zend_Db_Expr("IF(i.base_tier IS NOT NULL, IF(bs.selection_price_type = 1, "
-                . "ROUND(i.base_tier - (i.base_tier * (bs.selection_price_value / 100)), 4), IF(i.tier_percent > 0, "
-                . "ROUND(bs.selection_price_value - (bs.selection_price_value * (i.tier_percent / 100)), 4), "
-                . "bs.selection_price_value)) * bs.selection_qty, NULL)");
+            $priceExpr = new Zend_Db_Expr("IF(IF(bsp.selection_price_type IS NULL, bs.selection_price_type, "
+                . "bsp.selection_price_type) = 1, "
+                . "ROUND(i.price * (IF(bsp.selection_price_value IS NULL, bs.selection_price_value, "
+                . "bsp.selection_price_value) / 100), 4), IF(i.special_price > 0, "
+                . "ROUND(IF(bsp.selection_price_value IS NULL, bs.selection_price_value, bsp.selection_price_value) "
+                . "* (i.special_price / 100), 4), IF(bsp.selection_price_value IS NULL, bs.selection_price_value, "
+                . "bsp.selection_price_value))) * bs.selection_qty");
+            $tierExpr = new Zend_Db_Expr("IF(i.base_tier IS NOT NULL, IF(IF(bsp.selection_price_type IS NULL, "
+                . "bs.selection_price_type, bsp.selection_price_type) = 1, "
+                . "ROUND(i.base_tier - (i.base_tier * (IF(bsp.selection_price_value IS NULL, bs.selection_price_value, "
+                . "bsp.selection_price_value) / 100)), 4), IF(i.tier_percent > 0, "
+                . "ROUND(IF(bsp.selection_price_value IS NULL, bs.selection_price_value, bsp.selection_price_value) "
+                . "- (IF(bsp.selection_price_value IS NULL, bs.selection_price_value, bsp.selection_price_value) "
+                . "* (i.tier_percent / 100)), 4), IF(bsp.selection_price_value IS NULL, bs.selection_price_value, "
+                . "bsp.selection_price_value))) * bs.selection_qty, NULL)");
         } else {
             $priceExpr = new Zend_Db_Expr("IF(i.special_price > 0, ROUND(idx.min_price * (i.special_price / 100), 4), "
                 . "idx.min_price) * bs.selection_qty");
@@ -329,6 +336,10 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
                 array('bs' => $this->getTable('bundle/selection')),
                 'bs.option_id = bo.option_id',
                 array('selection_id'))
+             ->joinLeft(
+                array('bsp' => $this->getTable('bundle/selection_price')),
+                'bs.selection_id = bsp.selection_id AND bsp.website_id = i.website_id',
+                array(''))
             ->join(
                 array('idx' => $this->getIdxTable()),
                 'bs.product_id = idx.entity_id AND i.customer_group_id = idx.customer_group_id'

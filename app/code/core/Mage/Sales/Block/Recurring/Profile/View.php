@@ -125,6 +125,56 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
                 $this->_addInfo(array('label' => $label, 'value' => $value,));
             }
         }
+
+        $request = $this->_profile->getInfoValue($key, 'info_buyRequest');
+        if (empty($request)) {
+            return;
+        }
+
+        $request = unserialize($request);
+        if (empty($request['options'])) {
+            return;
+        }
+
+        $options = Mage::getModel('catalog/product_option')->getCollection()
+            ->addIdsToFilter(array_keys($request['options']))
+            ->addTitleToResult($this->_profile->getInfoValue($key, 'store_id'))
+            ->addValuesToResult();
+
+        $productMock = Mage::getModel('catalog/product');
+        $quoteItemOptionMock = Mage::getModel('sales/quote_item_option');
+        foreach ($options as $option) {
+            $quoteItemOptionMock->setId($option->getId());
+
+            $group = $option->groupFactory($option->getType())
+                ->setOption($option)
+                ->setRequest(new Varien_Object($request))
+                ->setProduct($productMock)
+                ->setUseQuotePath(true)
+                ->setQuoteItemOption($quoteItemOptionMock)
+                ->validateUserValue($request['options']);
+
+            $skipHtmlEscaping = false;
+            if ('file' == $option->getType()) {
+                $skipHtmlEscaping = true;
+
+                $downloadParams = array(
+                    'id'  => $this->_profile->getId(),
+                    'option_id' => $option->getId(),
+                    'key' => $request['options'][$option->getId()]['secret_key']
+                );
+                $group->setCustomOptionDownloadUrl('sales/download/downloadProfileCustomOption')
+                    ->setCustomOptionUrlParams($downloadParams);
+            }
+
+            $optionValue = $group->prepareForCart();
+
+            $this->_addInfo(array(
+                'label' => $option->getTitle(),
+                'value' => $group->getFormattedOptionValue($optionValue),
+                'skip_html_escaping' => $skipHtmlEscaping
+            ));
+        }
     }
 
     /**
@@ -180,7 +230,8 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
         $this->_shouldRenderInfo = true;
 
         if ('shipping' == $this->getAddressType()) {
-            if ('1' == $this->_profile->getInfoValue('order_info', 'is_virtual')) {
+            if ('1' == $this->_profile->getInfoValue('order_item_info', 'is_virtual')) {
+                $this->getParentBlock()->unsetChild('sales.recurring.profile.view.shipping');
                 return;
             }
             $key = 'shipping_address_info';
@@ -256,6 +307,24 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
         if ($orders) {
             $this->setGridElements($orders);
         }
+    }
+
+    /**
+     * Get rendered row value
+     *
+     * @param Varien_Object $row
+     * @return string
+     */
+    public function renderRowValue(Varien_Object $row)
+    {
+        $value = $row->getValue();
+        if (is_array($value)) {
+            $value = implode("\n", $value);
+        }
+        if (!$row->getSkipHtmlEscaping()) {
+            $value = $this->escapeHtml($value);
+        }
+        return nl2br($value);
     }
 
     /**

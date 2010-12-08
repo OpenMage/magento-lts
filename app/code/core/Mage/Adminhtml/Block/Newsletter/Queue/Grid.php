@@ -47,7 +47,6 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('newsletter/queue_collection')
-            ->addTemplateInfo()
             ->addSubscribersInfo();
 
         $this->setCollection($collection);
@@ -79,9 +78,9 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
             'default'	=> 	' ---- '
         ));
 
-        $this->addColumn('template_subject', array(
+        $this->addColumn('newsletter_subject', array(
             'header'    =>  Mage::helper('newsletter')->__('Subject'),
-            'index'     =>	'template_subject'
+            'index'     =>  'newsletter_subject'
         ));
 
          $this->addColumn('status', array(

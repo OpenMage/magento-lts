@@ -125,4 +125,29 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
     {
         $this->setId(null);
     }
+
+    /**
+     * Return Entity Type instance
+     *
+     * @return Mage_Eav_Model_Entity_Type
+     */
+    public function getEntityType()
+    {
+        return $this->_getResource()->getEntityType();
+    }
+
+    /**
+     * Return Entity Type ID
+     *
+     * @return int
+     */
+    public function getEntityTypeId()
+    {
+        $entityTypeId = $this->getData('entity_type_id');
+        if (!$entityTypeId) {
+            $entityTypeId = $this->getEntityType()->getId();
+            $this->setData('entity_type_id', $entityTypeId);
+        }
+        return $entityTypeId;
+    }
 }

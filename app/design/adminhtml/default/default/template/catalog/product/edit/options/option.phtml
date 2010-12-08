@@ -39,7 +39,7 @@ var firstStepTemplate = '<div class="option-box" id="option_{{id}}">'+
                 '<tr>'+
                     '<th class="opt-title"><?php echo Mage::helper('catalog')->__('Title') ?> <span class="required">*</span></th>'+
                     '<th class="opt-type"><?php echo Mage::helper('catalog')->__('Input Type') ?> <span class="required">*</span></th>'+
-                    '<th class="opt-req"><?php echo Mage::helper('catalog')->__('Is Required') ?></th>'+
+                    '<th class="opt-req"><?php echo $this->jsQuoteEscape(Mage::helper('catalog')->__('Is Required')) ?></th>'+
                     '<th class="opt-order"><?php echo Mage::helper('catalog')->__('Sort Order') ?></th>'+
                     '<th class="a-right"><?php echo $this->jsQuoteEscape($this->getDeleteButtonHtml()) ?></th>'+
                 '</tr>'+

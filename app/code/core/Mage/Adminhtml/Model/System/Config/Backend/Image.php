@@ -49,32 +49,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image extends Mage_Core_Model_C
 
         if ($_FILES['groups']['tmp_name'][$this->getGroupId()]['fields'][$this->getField()]['value']){
 
-            $fieldConfig = $this->getFieldConfig();
-            /* @var $fieldConfig Varien_Simplexml_Element */
-
-            if (empty($fieldConfig->upload_dir)) {
-                Mage::throwException(Mage::helper('catalog')->__('The base directory to upload image file is not specified.'));
-            }
-
-            $uploadDir =  (string)$fieldConfig->upload_dir;
-
-            $el = $fieldConfig->descend('upload_dir');
-
-            /**
-             * Add scope info
-             */
-            if (!empty($el['scope_info'])) {
-                $uploadDir = $this->_appendScopeInfo($uploadDir);
-            }
-
-            /**
-             * Take root from config
-             */
-            if (!empty($el['config'])) {
-                $uploadRoot = (string)Mage::getConfig()->getNode((string)$el['config'], $this->getScope(), $this->getScopeId());
-                $uploadRoot = Mage::getConfig()->substDistroServerVars($uploadRoot);
-                $uploadDir = $uploadRoot . '/' . $uploadDir;
-            }
+            $uploadDir = $this->_getUploadDir();
 
             try {
                 $file = array();
@@ -90,19 +65,75 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image extends Mage_Core_Model_C
             }
 
             if ($filename = $uploader->getUploadedFileName()) {
-
-                /**
-                 * Add scope info
-                 */
-                if (!empty($el['scope_info'])) {
+                if ($this->_addWhetherScopeInfo()) {
                     $filename = $this->_prependScopeInfo($filename);
                 }
-
                 $this->setValue($filename);
             }
         }
 
         return $this;
+    }
+
+    /**
+     * Makes a decision about whether to add info about the scope.
+     * 
+     * @return boolean 
+     */
+    protected function _addWhetherScopeInfo()
+    {
+        $fieldConfig = $this->getFieldConfig();
+        $el = $fieldConfig->descend('upload_dir');
+        return (!empty($el['scope_info']));
+    }
+
+    /**
+     * Return path to directory for upload file
+     *
+     * @return string
+     * @throw Mage_Core_Exception 
+     */
+    protected function _getUploadDir()
+    {
+        $fieldConfig = $this->getFieldConfig();
+        /* @var $fieldConfig Varien_Simplexml_Element */
+        
+        if (empty($fieldConfig->upload_dir)) {
+            Mage::throwException(Mage::helper('catalog')->__('The base directory to upload image file is not specified.'));
+        }
+
+        $uploadDir = (string)$fieldConfig->upload_dir;
+
+        $el = $fieldConfig->descend('upload_dir');
+
+        /**
+         * Add scope info
+         */
+        if (!empty($el['scope_info'])) {
+            $uploadDir = $this->_appendScopeInfo($uploadDir);
+        }
+
+        /**
+         * Take root from config
+         */
+        if (!empty($el['config'])) {
+            $uploadRoot = $this->_getUploadRoot((string)$el['config']);
+            $uploadDir = $uploadRoot . '/' . $uploadDir;
+        }
+        return $uploadDir;
+    }
+
+    /**
+     * Return the root part of directory path for uploading
+     *
+     * @var string
+     * @return string
+     */
+    protected function _getUploadRoot($token)
+    {
+        $uploadRoot = (string)Mage::getConfig()->getNode($token, $this->getScope(), $this->getScopeId());
+        $uploadRoot = Mage::getConfig()->substDistroServerVars($uploadRoot);
+        return $uploadRoot;
     }
 
     /**
@@ -144,3 +175,4 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image extends Mage_Core_Model_C
         return array('jpg', 'jpeg', 'gif', 'png');
     }
 }
+

@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Csv.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Csv.php 21662 2010-03-27 20:23:42Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Translate_Adapter_Csv extends Zend_Translate_Adapter
@@ -40,17 +40,34 @@ class Zend_Translate_Adapter_Csv extends Zend_Translate_Adapter
     /**
      * Generates the adapter
      *
-     * @param  string              $data     Translation data
-     * @param  string|Zend_Locale  $locale   OPTIONAL Locale/Language to set, identical with locale identifier,
-     *                                       see Zend_Locale for more information
-     * @param  array               $options  Options for this adapter
+     * @param  array|Zend_Config $options Translation content
      */
-    public function __construct($data, $locale = null, array $options = array())
+    public function __construct($options = array())
     {
         $this->_options['delimiter'] = ";";
         $this->_options['length']    = 0;
         $this->_options['enclosure'] = '"';
-        parent::__construct($data, $locale, $options);
+
+        if ($options instanceof Zend_Config) {
+            $options = $options->toArray();
+        } else if (func_num_args() > 1) {
+            $args               = func_get_args();
+            $options            = array();
+            $options['content'] = array_shift($args);
+
+            if (!empty($args)) {
+                $options['locale'] = array_shift($args);
+            }
+
+            if (!empty($args)) {
+                $opt     = array_shift($args);
+                $options = array_merge($opt, $options);
+            }
+        } else if (!is_array($options)) {
+            $options = array('content' => $options);
+        }
+
+        parent::__construct($options);
     }
 
     /**

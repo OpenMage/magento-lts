@@ -392,6 +392,19 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
+     * Return config root node for current scope
+     *
+     * @return Varien_Simplexml_Element
+     */
+    public function getConfigRoot()
+    {
+        if (empty($this->_configRoot)) {
+            $this->_configRoot = Mage::getConfig()->getNode(null, $this->getScope(), $this->getScopeCode());
+        }
+        return $this->_configRoot;
+    }
+
+    /**
      * Set "original_data" array to the element, composed from nodes with scalar values
      *
      * @param Varien_Data_Form_Element_Abstract $field

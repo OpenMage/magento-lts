@@ -86,6 +86,22 @@
                     </catalogrule>
                 </observers>
             </catalog_product_get_final_price>
+            <prepare_catalog_product_collection_prices>
+                <observers>
+                    <catalogrule>
+                        <class>catalogrule/observer</class>
+                        <method>prepareCatalogProductCollectionPrices</method>
+                    </catalogrule>
+                </observers>
+            </prepare_catalog_product_collection_prices>
+            <catalog_product_type_configurable_price>
+                <observers>
+                    <catalogrule>
+                        <class>catalogrule/observer</class>
+                        <method>catalogProductTypeConfigurablePrice</method>
+                    </catalogrule>
+                </observers>
+            </catalog_product_type_configurable_price>
         </events>
         <translate>
             <modules>
@@ -141,6 +157,14 @@
                     </catalogrule>
                 </observers>
             </catalog_entity_attribute_delete_after>
+            <catalog_entity_attribute_save_after>
+                <observers>
+                    <catalogrule>
+                        <class>catalogrule/observer</class>
+                        <method>catalogAttributeSaveAfter</method>
+                    </catalogrule>
+                </observers>
+            </catalog_entity_attribute_save_after>
         </events>
     </adminhtml>
 

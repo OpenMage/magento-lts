@@ -271,7 +271,6 @@ ul.tabs-horiz li a.notloaded    { color:#999 !important; }
 ul.tabs-horiz li a.active       { border-bottom:1px solid #fff; background:#fff; }
 
 
-
 /* MESSAGES
 *******************************************************************************/
 .notification-global { padding:5px 27px 5px 47px; background:#fff9e9 url(images/error_msg_icon.gif) 27px 5px no-repeat; border-bottom:1px solid #eee2be; border-top:1px solid #eee2be; font-size:11px; line-height:16px; margin:0 0 -3px; color:#444; position:relative; }
@@ -388,7 +387,10 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .grid tr.on-mouse .form-list tr { background:#fcf5dd !important; } /* Follows grid row background-color */
 .grid tr .form-list             { margin:8px 0; }
 .field-row                      { display:block; margin-bottom:5px; }
-span.delete-image               { display:block; white-space:nowrap; padding-left:25px; }
+span.delete-image,
+span.delete-file                { display:block; white-space:nowrap; padding-left:25px; }
+span.delete-file				{ padding:0; }
+
 
 /* Back compatibility with span forms */
 .entry-edit .field-row          { display:block; }
@@ -1250,19 +1252,6 @@ ul.super-product-attributes { padding-left:15px; }
 .options-box .option-header .tree { margin:5px 0 0; }
 
 /* CMS Popup Window */
-.popup-window .table_window { border:none; }
-.popup-window .magento_nw,
-.popup-window .magento_n,
-.popup-window .magento_ne { height:28px; }
-.popup-window { border:1px solid #555; }
-.popup-window .bot { display:none; }
-.popup-window .top { background-color:#fff; background-image:none; }
-.popup-window .top td { background:url(images/window_top.png) repeat-x; border-bottom:1px solid #e6e6e6; }
-.popup-window .magento_w,
-.popup-window .magento_e,
-.popup-window .magento_content { background:url(images/window_content.png) repeat-x 0 0 #fafafa; }
-.popup-window .title_window { color:#fff; font-family:Arial, Helvetica, sans-serif; font-size:12px; height:auto; line-height:28px; margin:0; }
-.popup-window .magento_close { background-image:url(images/window_close.png); height:16px; right:7px; top:5px; width:16px; }
 .popup-window .magento_message { padding:0 18px; }
 .popup-window .content-header { font-family:Arial, Helvetica, sans-serif; padding-top:9px; }
 .popup-window .content-header h3 { color:#eb5e00; padding:0; }

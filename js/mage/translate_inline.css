@@ -27,8 +27,10 @@
 .translate-inline-script, .translate-inline-title { background:yellow; color:black; font-weight:bold; }
 #translate-inline-trig { position:absolute;left:-1000px; opacity:.8; filter:alpha(opacity=80); cursor:pointer; margin-top:10px; z-index:1000;}
 
-.magento_table_container { background:#cbdee6; margin:10px; padding:8px 10px; }
+.magento_table_container { background:#e7efef; margin:10px; padding:10px; }
 .magento_table_container table { width:100%; }
-.magento_table_container td { padding:3px 0; text-align:left; }
-.magento_table_container td.label  { padding-right:9px; width:120px; }
-.magento_table_container td.value input.input-text { width:95%; }
+.magento_table_container td { padding:2px 0 !important; text-align:left; }
+.magento_table_container th.label { width:150px; padding:2px 9px 2px 0 !important; font-weight:bold; }
+.magento_table_container td.value .input-text { width:98%; }
+.magento_table_container td.value textarea.input-text { height:8em; }
+p.accent { color:#d12c01; }

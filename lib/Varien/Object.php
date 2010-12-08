@@ -691,7 +691,7 @@ class Varien_Object implements ArrayAccess
     }
 
     /**
-     * Compare onject data with original data
+     * Compare object data with original data
      *
      * @param string $field
      * @return boolean
@@ -701,6 +701,18 @@ class Varien_Object implements ArrayAccess
         $newData = $this->getData($field);
         $origData = $this->getOrigData($field);
         return $newData!=$origData;
+    }
+
+    /**
+     * Clears data changes status
+     *
+     * @param boolean $value
+     * @return Varien_Object
+     */
+    public function setDataChanges($value)
+    {
+        $this->_hasDataChanges = (bool)$value;
+        return $this;
     }
 
     /**

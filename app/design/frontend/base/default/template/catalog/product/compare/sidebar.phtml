@@ -25,7 +25,7 @@
  */
 /* @var $this Mage_Catalog_Block_Product_Compare_Sidebar */
 ?>
-<div class="block block-compare">
+<div class="block block-list block-compare">
     <div class="block-title">
         <strong><span><?php echo $this->__('Compare Products') ?>
             <?php if($this->helper('catalog/product_compare')->getItemCount()>0): ?>
@@ -39,7 +39,7 @@
         <?php foreach($this->helper('catalog/product_compare')->getItemCollection() as $_index=>$_item): ?>
             <li class="item">
                 <input type="hidden" class="compare-item-id" value="<?php echo $_item->getId() ?>" />
-                <a href="<?php echo $this->helper('catalog/product_compare')->getRemoveUrl($_item) ?>" title="<?php echo $this->__('Remove This Item') ?>" class="btn-remove" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the comparison list?') ?>');"><?php echo $this->__('Remove This Item') ?></a>
+                <a href="<?php echo $this->helper('catalog/product_compare')->getRemoveUrl($_item) ?>" title="<?php echo $this->__('Remove This Item') ?>" class="btn-remove" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the compare products?') ?>');"><?php echo $this->__('Remove This Item') ?></a>
                 <p class="product-name"><a href="<?php echo $this->getProductUrl($_item) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_item, $_item->getName(), 'name') ?></a></p>
             </li>
         <?php endforeach; ?>

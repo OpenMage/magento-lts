@@ -323,7 +323,9 @@ class Mage_Paypal_Model_Config
                 break;
             case self::METHOD_WPP_EXPRESS:
                 // check for direct payments dependence
-                if ($this->isMethodActive(self::METHOD_WPP_DIRECT)) {
+                if ($this->isMethodActive(self::METHOD_WPP_PE_DIRECT)) {
+                    $result = false;
+                } elseif ($this->isMethodActive(self::METHOD_WPP_DIRECT)) {
                     $result = true;
                 }
                 break;
@@ -900,7 +902,7 @@ class Mage_Paypal_Model_Config
      */
     public function getWppCcTypesAsOptionArray()
     {
-        $model = Mage::getModel('payment/source_cctype')->setAllowedTypes(array('AE', 'VI', 'MC', 'SS', 'DI'));
+        $model = Mage::getModel('payment/source_cctype')->setAllowedTypes(array('AE', 'VI', 'MC', 'SM', 'SO', 'DI'));
         return $model->toOptionArray();
     }
 

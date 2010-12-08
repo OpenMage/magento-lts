@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
         $this->setDestElementId('edit_form');
         $this->setShowGlobalIcon(false);
     }
-    
+
     /**
      * Preparing global layout
      *
@@ -71,7 +71,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
         Varien_Data_Form::setFieldsetElementRenderer(
             $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element')
         );
-        
+
         return parent::_prepareLayout();
     }
 
@@ -199,9 +199,11 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
 
                 if ($inputType == 'select' || $inputType == 'multiselect') {
                     $element->setValues($attribute->getSource()->getAllOptions(true, true));
-                } elseif ($inputType == 'date') {
+                } else if ($inputType == 'date') {
                     $element->setImage($this->getSkinUrl('images/grid-cal.gif'));
                     $element->setFormat(Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT));
+                } else if ($inputType == 'multiline') {
+                    $element->setLineCount($attribute->getMultilineCount());
                 }
             }
         }

@@ -124,6 +124,14 @@
                     </inventory>
                 </observers>
             </sales_quote_item_qty_set_after>
+            <checkout_submit_all_after>
+                <observers>
+                    <inventory>
+                        <class>cataloginventory/observer</class>
+                        <method>checkoutAllSubmitAfter</method>
+                    </inventory>
+                </observers>
+            </checkout_submit_all_after>
             <sales_model_service_quote_submit_before>
                 <observers>
                     <inventory>

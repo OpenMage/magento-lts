@@ -15,17 +15,29 @@
  * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Truncate.php 19106 2009-11-20 17:15:30Z beberlei $
+ * @version    $Id: Truncate.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
+/**
+ * @see PHPUnit_Extensions_Database_Operation_IDatabaseOperation
+ */
 #require_once "PHPUnit/Extensions/Database/Operation/IDatabaseOperation.php";
 
+/**
+ * @see PHPUnit_Extensions_Database_DB_IDatabaseConnection
+ */
 #require_once "PHPUnit/Extensions/Database/DB/IDatabaseConnection.php";
 
+/**
+ * @see PHPUnit_Extensions_Database_DataSet_IDataSet
+ */
 #require_once "PHPUnit/Extensions/Database/DataSet/IDataSet.php";
 
+/**
+ * @see PHPUnit_Extensions_Database_Operation_Exception
+ */
 #require_once "PHPUnit/Extensions/Database/Operation/Exception.php";
 
 /**
@@ -40,7 +52,7 @@
  * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Test_PHPUnit_Db_Operation_Truncate implements PHPUnit_Extensions_Database_Operation_IDatabaseOperation

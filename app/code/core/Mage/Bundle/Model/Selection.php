@@ -33,9 +33,32 @@
  */
 class Mage_Bundle_Model_Selection extends Mage_Core_Model_Abstract
 {
+    /**
+     * Initialize resource model
+     */
     protected function _construct()
     {
         $this->_init('bundle/selection');
         parent::_construct();
+    }
+
+    /**
+     * Processing object before save data
+     *
+     * @return Mage_Bundle_Model_Selection
+     */
+    protected function _beforeSave()
+    {
+        $storeId = Mage::registry('product')->getStoreId();
+        if (!Mage::helper('catalog')->isPriceGlobal() && $storeId) {
+            $this->setWebsiteId(Mage::app()->getStore($storeId)->getWebsiteId());
+            $this->getResource()->saveSelectionPrice($this);
+
+            if (!$this->getDefaultPriceScope()) {
+                $this->unsSelectionPriceValue();
+                $this->unsSelectionPriceType();
+            }
+        }
+        parent::_beforeSave();
     }
 }

@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
                 'label'     => Mage::helper('sales')->__('Submit Shipment'),
                 'class'     => 'save submit-button',
-                'onclick'   => 'disableElements(\'submit-button\');$(\'edit_form\').submit()',
+                'onclick'   => 'if(editForm.submit()) disableElements(\'submit-button\');',
             ))
         );
 

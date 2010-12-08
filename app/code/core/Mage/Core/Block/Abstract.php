@@ -143,6 +143,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
     protected static $_urlModel;
 
+    /**
+     * @var Varien_Object
+     */
+    private static $_transportObject;
+
 
     /**
      * Internal constructor, that is called from real constructor
@@ -769,13 +774,12 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         /**
          * Use single transport object instance for all blocks
          */
-        static $transport;
-        if ($transport === null) {
-            $transport = new Varien_Object;
+        if (self::$_transportObject === null) {
+            self::$_transportObject = new Varien_Object;
         }
-        $transport->setHtml($html);
-        Mage::dispatchEvent('core_block_abstract_to_html_after', array('block' => $this, 'transport' => $transport));
-        $html = $transport->getHtml();
+        self::$_transportObject->setHtml($html);
+        Mage::dispatchEvent('core_block_abstract_to_html_after', array('block' => $this, 'transport' => self::$_transportObject));
+        $html = self::$_transportObject->getHtml();
 
         return $html;
     }

@@ -26,7 +26,7 @@
 
 class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 {
-    const XML_PATH_INDEXER_DATA    = 'global/index/indexer';
+    const XML_PATH_INDEXER_DATA     = 'global/index/indexer';
     /**
      * Process statuses
      */
@@ -37,17 +37,17 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Process event statuses
      */
-    const EVENT_STATUS_NEW      = 'new';
-    const EVENT_STATUS_DONE     = 'done';
-    const EVENT_STATUS_ERROR    = 'error';
-    const EVENT_STATUS_WORKING  = 'working';
+    const EVENT_STATUS_NEW          = 'new';
+    const EVENT_STATUS_DONE         = 'done';
+    const EVENT_STATUS_ERROR        = 'error';
+    const EVENT_STATUS_WORKING      = 'working';
 
     /**
      * Process modes
      * Process mode allow disable automatic process events processing
      */
-    const MODE_MANUAL   = 'manual';
-    const MODE_REAL_TIME= 'real_time';
+    const MODE_MANUAL              = 'manual';
+    const MODE_REAL_TIME           = 'real_time';
 
     /**
      * Indexer stategy object
@@ -176,6 +176,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     public function processEvent(Mage_Index_Model_Event $event)
     {
         if ($this->getMode() == self::MODE_MANUAL) {
+            $this->changeStatus(self::STATUS_REQUIRE_REINDEX);
             return $this;
         }
         if (!$this->getIndexer()->matchEvent($event)) {

@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn('order_increment_id', array(
             'header'    => Mage::helper('sales')->__('Order #'),
             'index'     => 'order_increment_id',
-            'type'      => 'number',
+            'type'      => 'text',
         ));
 
         $this->addColumn('order_created_at', array(

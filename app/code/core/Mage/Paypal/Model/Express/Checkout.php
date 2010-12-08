@@ -234,12 +234,32 @@ class Mage_Paypal_Model_Express_Checkout
     }
 
     /**
+     * Setter for customer with billing and shipping address changing ability
+     *
+     * @param  Mage_Customer_Model_Customer   $customer
+     * @param  Mage_Sales_Model_Quote_Address $billingAddress
+     * @param  Mage_Sales_Model_Quote_Address $shippingAddress
+     * @return Mage_Paypal_Model_Express_Checkout
+     */
+    public function setCustomerWithAddressChange($customer, $billingAddress = null, $shippingAddress = null)
+    {
+        $this->_quote->assignCustomerWithAddressChange($customer, $billingAddress, $shippingAddress);
+        $this->_customerId = $customer->getId();
+        return $this;
+    }
+
+    /**
      * Reserve order ID for specified quote and start checkout on PayPal
      * @return string
      */
     public function start($returnUrl, $cancelUrl)
     {
         $this->_quote->collectTotals();
+
+        if (!$this->_quote->getGrandTotal() && !$this->_quote->hasNominalItems()) {
+            Mage::throwException(Mage::helper('paypal')->__('PayPal does not support processing orders with zero amount. To complete your purchase, proceed to the standard checkout process.'));
+        }
+
         $this->_quote->reserveOrderId()->save();
         // prepare API
         $this->_getApi();
@@ -277,16 +297,16 @@ class Mage_Paypal_Model_Express_Checkout
             );
             $this->_quote->getPayment()->save();
         }
-        // add line items
-        if ($this->_config->lineItemsEnabled) {
-            list($items, $totals) = Mage::helper('paypal')->prepareLineItems($this->_quote);
-            if (Mage::helper('paypal')->areCartLineItemsValid($items, $totals, $this->_quote->getBaseGrandTotal())) {
-                $this->_api->setLineItems($items)->setLineItemTotals($totals);
-            }
 
-            // add shipping options
-            if ($this->_config->transferShippingOptions
-                && !$this->_quote->getIsVirtual() && !$this->_quote->hasNominalItems()) {
+        // add line items
+        $paypalCart = Mage::getModel('paypal/cart', array($this->_quote));
+        $this->_api->setPaypalCart($paypalCart)
+            ->setIsLineItemsEnabled($this->_config->lineItemsEnabled)
+        ;
+
+        // add shipping options if needed and line items are available
+        if ($this->_config->lineItemsEnabled && $this->_config->transferShippingOptions && $paypalCart->getItems()) {
+            if (!$this->_quote->getIsVirtual() && !$this->_quote->hasNominalItems()) {
                 if ($options = $this->_prepareShippingOptions($address, true)) {
                     $this->_api->setShippingOptionsCallbackUrl(
                         Mage::getUrl('*/*/shippingOptionsCallback', array('quote_id' => $this->_quote->getId()))
@@ -344,7 +364,7 @@ class Mage_Paypal_Model_Express_Checkout
                     foreach ($exportedShippingAddress->getExportedKeys() as $key) {
                         $shippingAddress->setDataUsingMethod($key, $exportedShippingAddress->getData($key));
                     }
-                    $shippingAddress->setCollectShippingRates(true)->collectShippingRates();
+                    $shippingAddress->setCollectShippingRates(true);
                 }
 
                 // import shipping method
@@ -416,7 +436,7 @@ class Mage_Paypal_Model_Express_Checkout
                 foreach ($address->getExportedKeys() as $key) {
                     $quoteAddress->setDataUsingMethod($key, $address->getData($key));
                 }
-                $quoteAddress->setCollectShippingRates(true)->collectShippingRates();
+                $quoteAddress->setCollectShippingRates(true)->collectTotals();
                 $options = $this->_prepareShippingOptions($quoteAddress, false);
             }
             $response = $this->_api->setShippingOptions($options)->formatShippingOptionsCallback();
@@ -604,7 +624,7 @@ class Mage_Paypal_Model_Express_Checkout
         foreach ($address->getGroupedAllShippingRates() as $group) {
             foreach ($group as $rate) {
                 $amount = (float)$rate->getPrice();
-                if (!$rate->getMethodTitle() || 0.00 == $amount) {
+                if ($rate->getErrorMessage()) {
                     continue;
                 }
                 $isDefault = $address->getShippingMethod() === $rate->getCode();

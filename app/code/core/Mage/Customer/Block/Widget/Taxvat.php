@@ -34,12 +34,12 @@ class Mage_Customer_Block_Widget_Taxvat extends Mage_Customer_Block_Widget_Abstr
 
     public function isEnabled()
     {
-        return (bool)$this->getConfig('taxvat_show');
+        return (bool)$this->_getAttribute('taxvat')->getIsVisible();
     }
 
     public function isRequired()
     {
-        return 'req' == $this->getConfig('taxvat_show');
+        return (bool)$this->_getAttribute('taxvat')->getIsRequired();
     }
 
     public function getCustomer()

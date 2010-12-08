@@ -97,17 +97,17 @@ TranslateInline.prototype = {
         var content = '<form id="translate-inline-form">';
         var t = new Template(
             '<div class="magento_table_container"><table cellspacing="0">'+
-            '<tr><td class="label">Location: </td><td class="value">#{location}</td></tr>'+
-            '<tr><td class="label">Scope: </td><td class="value">#{scope}</td></tr>'+
-            '<tr><td class="label">Shown: </td><td class="value">#{shown_escape}</td></tr>'+
-            '<tr><td class="label">Original: </td><td class="value">#{original_escape}</td></tr>'+
-            '<tr><td class="label">Translated: </td><td class="value">#{translated_escape}</td></tr>'+
-            '<tr><td class="label"><label for="perstore_#{i}">Store View Specific:</label> </td><td class="value">'+
+            '<tr><th class="label">Location:</th><td class="value">#{location}</td></tr>'+
+            '<tr><th class="label">Scope:</th><td class="value">#{scope}</td></tr>'+
+            '<tr><th class="label">Shown:</th><td class="value">#{shown_escape}</td></tr>'+
+            '<tr><th class="label">Original:</th><td class="value">#{original_escape}</td></tr>'+
+            '<tr><th class="label">Translated:</th><td class="value">#{translated_escape}</td></tr>'+
+            '<tr><th class="label"><label for="perstore_#{i}">Store View Specific:</label></th><td class="value">'+
                 '<input id="perstore_#{i}" name="translate[#{i}][perstore]" type="checkbox" value="1"/>'+
             '</td></tr>'+
-            '<tr><td class="label"><label for="custom_#{i}">Custom:</label> </td><td class="value">'+
+            '<tr><th class="label"><label for="custom_#{i}">Custom:</label></th><td class="value">'+
                 '<input name="translate[#{i}][original]" type="hidden" value="#{scope}::#{original_escape}"/>'+
-                '<input id="custom_#{i}" name="translate[#{i}][custom]" class="input-text" value="#{translated_escape}"/>'+
+                '<input id="custom_#{i}" name="translate[#{i}][custom]" class="input-text" value="#{translated_escape}" />'+
             '</td></tr>'+
             '</table></div>'
         );
@@ -131,14 +131,14 @@ TranslateInline.prototype = {
             closable:true,
             className:"magento",
             title:"Translation",
-            width:500,
-            height:400,
+            width:650,
+            height:470,
             zIndex:1000,
             recenterAuto:false,
             hideEffect:Element.hide,
             showEffect:Element.show,
             id:"translate-inline",
-            buttonClass:"form-button",
+            buttonClass:"form-button button",
             okLabel:"Submit",
             ok: this.formOk.bind(this),
             cancel: this.formClose.bind(this),

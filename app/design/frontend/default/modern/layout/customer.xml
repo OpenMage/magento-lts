@@ -132,7 +132,9 @@ New customer registration
         </reference>
         <reference name="content">
             <block type="customer/form_register" name="customer_form_register" template="customer/form/register.phtml">
-                <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before"/>
+                <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before" translate="label">
+                    <label>Form Fields Before</label>
+                </block>
             </block>
         </reference>
     </customer_account_create>
@@ -188,7 +190,8 @@ Customer account pages, rendered for all tabs in dashboard
         </reference>
         
         <reference name="content">
-            <block type="page/html_wrapper" name="my.account.wrapper">
+            <block type="page/html_wrapper" name="my.account.wrapper" translate="label">
+                <label>My Account Wrapper</label>
                 <action method="setElementClass"><value>my-account</value></action>
             </block>
         </reference>

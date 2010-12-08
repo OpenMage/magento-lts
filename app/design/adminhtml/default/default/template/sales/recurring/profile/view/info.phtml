@@ -36,12 +36,11 @@
 <table cellspacing="0" class="form-list">
 <tbody>
 <?php foreach ($this->getRenderedInfo() as $row):?>
-<?php $value = $this->getObjectData($row, 'value');?>
 <?php $isAmount = $this->getObjectData($row, 'is_amount');?>
     <tr>
     <td class="label"><label><?php echo $this->escapeHtml($this->getObjectData($row, 'label'))?></label></td>
     <td<?php echo $isAmount ? ' class="a-right"' : ''?>>
-<strong><?php echo (is_array($value) ? nl2br($this->escapeHtml(implode("\n", $value))) : $this->escapeHtml($value)) ?></strong>
+        <strong><?php echo $this->renderRowValue($row) ?></strong>
     </td>
     </tr>
 <?php endforeach;?>

@@ -163,6 +163,7 @@
                        <qty_increments translate="label">
                             <label>Qty Increments</label>
                             <frontend_type>text</frontend_type>
+                            <backend_model>cataloginventory/system_config_backend_qtyincrements</backend_model>
                             <sort_order>9</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>

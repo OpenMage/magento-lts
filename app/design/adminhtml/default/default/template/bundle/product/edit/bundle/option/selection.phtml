@@ -34,8 +34,8 @@ var bundleTemplateBox = '<table class="border" cellpadding="0" cellspacing="0">'
     '            <th class="type-price price-type-box"><?php echo Mage::helper('catalog')->__('Price') ?></th>' +
     '            <th class="type-type price-type-box"><?php echo Mage::helper('bundle')->__('Price Type') ?></th>' +
     '            <th class="type-price"><?php echo Mage::helper('bundle')->__('Default Qty') ?></th>' +
-    '            <th class="type-uqty qty-box"><?php echo Mage::helper('bundle')->__('User Defined Qty') ?></th>' +
-    '             <th class="type-order"><?php echo Mage::helper('bundle')->__('Position') ?></th>' +
+    '            <th class="type-uqty qty-box"><?php echo$this->jsQuoteEscape(Mage::helper('bundle')->__('User Defined Qty')) ?></th>' +
+    '            <th class="type-order"><?php echo Mage::helper('bundle')->__('Position') ?></th>' +
     '            <th style="width:1px"><?php echo Mage::helper('bundle')->__('Default') ?></th>' +
     '            <th class="last">&nbsp;</th>' +
     '        </tr>' +
@@ -54,8 +54,8 @@ var bundleTemplateRow ='<td>' +
                 '        <strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong> {{sku}}' +
                 '    </div>' +
                 '</td>' +
-                '<td class="price-type-box"><input class="input-text required-entry validate-zero-or-greater" type="text" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][selection_price_value]" value="{{selection_price_value}}"></td>' +
-                '<td class="price-type-box"><?php echo $this->getPriceTypeSelectHtml() ?></td>' +
+                '<td class="price-type-box"><input id="<?php echo $this->getFieldId() ?>_{{index}}_price_value" class="input-text required-entry validate-zero-or-greater" type="text" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][selection_price_value]" value="{{selection_price_value}}"></td>' +
+                '<td class="price-type-box"><?php echo $this->getPriceTypeSelectHtml() ?><div><?php echo $this->getCheckboxScopeHtml() ?></div></td>' +
                 '<td><input class="input-text required-entry validate-zero-or-greater" type="text" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][selection_qty]" value="{{selection_qty}}"></td>' +
                 '<td class="qty-box"><?php echo $this->getQtyTypeSelectHtml() ?></td>' +
                 '<td><input class="input-text required-entry validate-zero-or-greater" type="text" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][position]" value="{{position}}"></td>' +
@@ -65,6 +65,7 @@ var bundleTemplateRow ='<td>' +
 Bundle.Selection = Class.create();
 Bundle.Selection.prototype = {
     idLabel : '<?php echo $this->getFieldId() ?>',
+    scopePrice : <?php echo (int)$this->isUsedWebsitePrice() ?>,
     templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
     templateBox : '',
     templateRow : '',
@@ -152,6 +153,18 @@ Bundle.Selection.prototype = {
             });
         }
 
+        var checkbox = $(this.idLabel + '_'+data.index+'_price_scope');
+        if (checkbox && this.scopePrice) {
+            if (data.price_scope === undefined) {
+                checkbox.up().hide();
+            } else if(!data.price_scope) {
+                checkbox.checked = true;
+                this.addScope(null, checkbox);
+            }
+        }
+
+        this.bindScopeCheckbox();
+
         if (option_type.value == 'multi' || option_type.value == 'checkbox') {
             /**
              * Hide not needed elements (user defined qty select box)
@@ -174,6 +187,32 @@ Bundle.Selection.prototype = {
                     elem.hide();
                 }
             );
+        }
+    },
+
+    bindScopeCheckbox : function(){
+        var checkboxes = $$('.bundle-option-price-scope-checkbox');
+        for (var i=0;i<checkboxes.length;i++) {
+            if (!$(checkboxes[i]).binded) {
+                $(checkboxes[i]).binded = true;
+                Event.observe(checkboxes[i], 'click', this.addScope.bind(this));
+            }
+        }
+    },
+
+    addScope : function(event, element){
+        if (element == undefined) {
+            element = $(Event.element(event));
+        }
+        var priceValue = $(element.id.sub('scope', 'value'));
+        var priceType = $(element.id.sub('scope', 'type'));
+
+        if (element.checked) {
+            priceValue.disable();
+            priceType.disable();
+        } else {
+            priceValue.enable();
+            priceType.enable();
         }
     },
 

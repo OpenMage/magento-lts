@@ -165,7 +165,7 @@ class Mage_Adminhtml_Extensions_CustomController extends Mage_Adminhtml_Controll
                 $this->_redirect('*/*');
                 #$this->_forward('reset');
             } else {
-                $session->addError($result->getMessage());
+                $session->addError(/*$result->getMessage()*/'Error');
                 $this->_redirect('*/*');
             }
         }

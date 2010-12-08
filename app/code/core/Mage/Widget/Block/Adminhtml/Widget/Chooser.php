@@ -157,6 +157,9 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
         if ($this->getHiddenEnabled()) {
             $hidden = new Varien_Data_Form_Element_Hidden($element->getData());
             $hidden->setId("{$chooserId}value")->setForm($element->getForm());
+            if ($element->getRequired()) {
+                $hidden->addClass('required-entry');
+            }
             $hiddenHtml = $hidden->getElementHtml();
             $element->setValue('');
         }
@@ -173,10 +176,12 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
         // render label and chooser scripts
         $configJson = Mage::helper('core')->jsonEncode($config->getData());
         return '
+            <label class="widget-option-label" id="'.$chooserId . 'label">'.($this->getLabel() ? $this->getLabel() : Mage::helper('widget')->__('Not Selected')).'</label>
+            <div id="'.$chooserId . 'advice-container" class="hidden"></div>
             <script type="text/javascript">
                 '.$chooserId.' = new WysiwygWidget.chooser("'.$chooserId.'", "'.$this->getSourceUrl().'", '.$configJson.');
+                $("'.$chooserId.'value").advaiceContainer = "'.$chooserId.'advice-container";
             </script>
-            <label class="widget-option-label" id="'.$chooserId . 'label">'.($this->getLabel() ? $this->getLabel() : Mage::helper('widget')->__('Not Selected')).'</label>
         ';
     }
 }

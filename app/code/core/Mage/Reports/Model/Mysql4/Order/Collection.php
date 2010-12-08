@@ -285,13 +285,13 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Mysql4
 
         if ($isFilter == 0) {
             $this->getSelect()->columns(array(
-                'revenue' => 'SUM((main_table.base_subtotal-IFNULL(main_table.base_subtotal_refunded,0)-IFNULL(main_table.base_subtotal_canceled,0)-IFNULL(main_table.base_discount_amount,0)+IFNULL(main_table.base_discount_refunded,0))*main_table.base_to_global_rate)',
+                'revenue' => 'SUM((main_table.base_subtotal-IFNULL(main_table.base_subtotal_refunded,0)-IFNULL(main_table.base_subtotal_canceled,0)-ABS(IFNULL(main_table.base_discount_amount,0))+IFNULL(main_table.base_discount_refunded,0))*main_table.base_to_global_rate)',
                 'tax' => 'SUM((main_table.base_tax_amount-IFNULL(main_table.base_tax_refunded,0)-IFNULL(main_table.base_tax_canceled,0))*main_table.base_to_global_rate)',
                 'shipping' => 'SUM((main_table.base_shipping_amount-IFNULL(main_table.base_shipping_refunded,0)-IFNULL(main_table.base_shipping_canceled,0))*main_table.base_to_global_rate)',
             ));
         } else {
             $this->getSelect()->columns(array(
-                'revenue' => 'SUM((main_table.base_subtotal-IFNULL(main_table.base_subtotal_refunded,0)-IFNULL(main_table.base_subtotal_canceled,0)-IFNULL(main_table.base_discount_amount,0)+IFNULL(main_table.base_discount_refunded,0)))',
+                'revenue' => 'SUM((main_table.base_subtotal-IFNULL(main_table.base_subtotal_refunded,0)-IFNULL(main_table.base_subtotal_canceled,0)-ABS(IFNULL(main_table.base_discount_amount,0))+IFNULL(main_table.base_discount_refunded,0)))',
                 'tax' => 'SUM((main_table.base_tax_amount-IFNULL(main_table.base_tax_refunded,0)-IFNULL(main_table.base_tax_canceled,0)))',
                 'shipping' => 'SUM((main_table.base_shipping_amount-IFNULL(main_table.base_shipping_refunded,0)-IFNULL(main_table.base_shipping_canceled,0)))',
             ));
@@ -370,7 +370,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Mysql4
             $this->setMainTable('sales/order');
             $this->removeAllFieldsFromSelect();
             $expr = 'IFNULL(main_table.base_subtotal, 0) - IFNULL(main_table.base_subtotal_refunded, 0)'
-                . ' - IFNULL(main_table.base_subtotal_canceled, 0) - IFNULL(main_table.base_discount_amount, 0)'
+                . ' - IFNULL(main_table.base_subtotal_canceled, 0) - ABS(IFNULL(main_table.base_discount_amount, 0))'
                 . ' + IFNULL(main_table.base_discount_refunded, 0)';
 
             $this->getSelect()->columns(array(
