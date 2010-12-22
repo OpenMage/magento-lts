@@ -144,7 +144,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->setFormData(false);
                 // check if 'Save and Continue'
                 if ($this->getRequest()->getParam('back')) {
-                    $this->_redirect('*/*/edit', array('page_id' => $model->getId()));
+                    $this->_redirect('*/*/edit', array('page_id' => $model->getId(), '_current'=>true));
                     return;
                 }
                 // go to grid

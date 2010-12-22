@@ -1,0 +1,389 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @copyright  Copyright (c) 2010 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+body { margin: 0; padding: 0 }
+
+.main-frame
+{ 
+    background:url(../images/xmlconnect/mobile_preview/mm-frame.gif) 0 0 no-repeat;
+    padding:4px;
+}
+
+.main-block 
+{
+    width:320px;
+    height:490px;
+    position:relative;
+    overflow:hidden;
+}
+.header-sign-1
+{
+    font:bold 13px/19px arial !important;
+    color:#e9e9e9;
+    float:left;    
+    padding:0 15px 0 6px;
+}
+.top-header 
+{
+    height:19px    
+}
+
+.battery 
+{
+    height:16px;
+    width:25px;
+    float:right;
+    margin:-2px 5px 5px 13px;
+}
+
+.volume 
+{
+    height:16px; 
+    width:25px;     
+    float:left;
+    margin-top:-2px;
+}
+
+.antenna 
+{
+    height:16px; 
+    width:18px;     
+    float:left;
+    margin-left:6px;
+}
+.time 
+{     
+    position:relative;
+    left:35px;
+    text-align:center;
+    font:bold 13px/19px arial;
+    color:#e9e9e9;
+    float:left;
+}
+
+.main-header 
+{
+    width:100%; 
+    height:44px;
+    color:#f3f3f3;
+    padding:0;
+    position:relative;
+}
+
+.login-btn
+{
+    float:right;
+    height:30px;
+    width:68px;
+    margin-top:7px;
+    font:bold 11px/30px arial;
+    color:#e9e9e9;
+}
+
+.login-body
+{
+    float:left;
+    background:url(../images/xmlconnect/mobile_preview/login-btn.png) 0 0 repeat-x;
+    line-height:29px;
+    height:29px;
+    padding:0 8px;
+}
+
+.login-left, .login-right, .login-left-alt
+{
+    float:left;
+    font:bold 1px/1px arial;
+    width:3px;
+    height:29px;
+}
+.login-left
+{
+    background:url(../images/xmlconnect/mobile_preview/login-btn-left.png) 0 0 no-repeat;
+}
+.login-left-alt 
+{
+    background:url(../images/xmlconnect/mobile_preview/login-btn-left-alt.png) 0 0 no-repeat;
+    width:12px;
+}
+.login-right
+{
+    width:4px;
+    background:url(../images/xmlconnect/mobile_preview/login-btn-right.png) 0 0 no-repeat;
+}
+
+.main-header .gradient { 
+    height:44px; 
+    width:100%;
+    position:absolute;
+    background:url(../images/xmlconnect/mobile_preview/gradients/header2.png) 0 0 no-repeat;
+    left:0;
+}
+
+.header-buttons,
+.header-buttons td { height:40px !important; padding:0 !important; margin:0 !important; }
+
+.info 
+{
+    text-align:center;
+    vertical-align:middle;
+    width:30px;
+    height:42px;
+}
+.logo-small 
+{
+    width:165px;
+    height:44px;
+    overflow:hidden;
+    text-align:center;
+    vertical-align:middle;
+}
+
+.logo-small div
+{
+    width:165px;
+    height:41px;
+    overflow:hidden;
+    text-align:center;
+    vertical-align:middle;
+}
+
+.logo-small img { vertical-align:middle; }
+.logo-small .sh-title { text-align:left; height:30px; vertical-align:middle; }
+.logo-small .sh-title1, 
+.logo-small .sh-title2 { font:bold 16px/44px arial !important; color:#000; position:relative; }
+.logo-small .sh-title2 { color:#fff; position:absolute; top:-13px; left:-1px; }
+
+.edit-filter {
+    width:75px;
+    float:left;
+    margin-right:10px;
+    margin-top:0;
+}           
+
+.back-button { float:left; margin:0 0 0 7px; width:60px; }
+
+.clearB 
+{
+	clear: both; 
+	height: 1px;
+}
+
+.filter-header
+{
+	height: 22px;
+	text-align: center;
+	vertical-align: middle;
+}
+.filter-header .gradient
+{
+    height:22px; 
+    width:100%;
+    position:absolute;
+    background:url(../images/xmlconnect/mobile_preview/gradients/header3.png) 0 0 repeat-x;
+    left:0;
+}
+.filter-applied 
+{
+	padding-top:1px;
+    color:#fff;
+    font:bold 10px/18px arial;
+}
+.filter-circle
+{
+    margin-left:99px;
+    display:block;
+    float:left;
+	width: 18px;
+	height: 18px;
+	background:url(../images/xmlconnect/mobile_preview/circle.png) 0 0 no-repeat;
+}
+.filter-text
+{
+    float:left;
+	padding: 0 0 0 5px;
+	font:bold 11px/20px arial;
+}
+.filter-lines
+{
+	float:right;
+	width:25px;
+	height:22px;
+	padding:0 25px 0 0;
+	background:url(../images/xmlconnect/mobile_preview/lines-h.png) 29px 7px no-repeat;
+}
+.sort-block 
+{
+	height:42px;
+	text-align: center;
+}
+.sort-block-inner 
+{
+	position:relative;
+    height:42px;
+    background:url(../images/xmlconnect/mobile_preview/gradients/sort-bg.png) 0 0 repeat-x !important;
+}
+.sort-block-inner-txt 
+{
+	float:left;  
+	width:75px; 
+	height:26px; 
+	padding-top: 12px; 
+    font:bold 11px/18px arial !important;
+}
+
+.sort-buttons
+{
+	text-align:center;
+	font:bold 11px/11px arial;
+	padding:0 5px 0 0;
+    width:234px; 
+    height:26px; 
+    margin-top:8px
+}
+
+.active 
+{
+	color: #e9e9e9;
+}
+
+.inactive 
+{
+	color: #333;
+} 
+
+.item 
+{
+	height: 91px;
+    position:relative;
+}
+
+.item .gradient
+{
+    height:88px; 
+    width:100%;
+    position:absolute;
+    bottom:0;
+    background: url(../images/xmlconnect/mobile_preview/gradients/item-bg.png) 0 0 repeat-x; 
+    left:0;
+}
+
+.slider
+{
+
+}
+
+.slider-item
+{
+	background: url('../images/xmlconnect/mobile_preview/actionsBg.png') left center repeat-x; 
+	width: 20%; 
+	height: 100%;
+	float: left;
+	text-align: center;
+}
+.slider-image
+{
+	position: relative;
+	top: 20px;
+}
+
+.slider-item-text
+{
+	position: relative;
+	top: 30px;
+}
+
+.lines-v 
+{
+	height: 91px;
+	width: 20px;
+	background: url('../images/xmlconnect/mobile_preview/lines-v.png') center center no-repeat;
+	float: left;
+}
+.arrow 
+{
+	height: 91px;
+	width: 20px;
+	background: url('../images/xmlconnect/mobile_preview/arrow.png') center center no-repeat;
+	float: right;
+}
+.item-image 
+{
+	padding: 10px 0 0 10px;
+	float: left;	
+}
+.item-info
+{
+	float: left;	
+	text-align: left;
+	padding: 10px 0 0 20px;
+}
+.item-title 
+{
+	padding:0;	
+}
+
+.item-rate img 
+{
+    margin:0 !important; padding:0 !important;
+}
+
+.item-rate span
+{
+	position: relative;
+	top: -2px;
+	left: 0px;
+	font: bold 12px arial;
+	color: #333;	
+}
+
+.item-rate
+{
+	float: left;
+	display: block;
+}	
+
+.bottom-buttons 
+{
+    height:50px;    
+    position:absolute;
+    bottom:0;
+    background:#060606;
+    width:320px;
+}
+
+.bottom-buttons .gradient { 
+    position:absolute;
+    width:320px;
+    background:url(../images/xmlconnect/mobile_preview/gradients/footer.png) 0 0 no-repeat !important;
+}
+
+.bottom-button 
+{
+    height:26px;
+}
+.bottom-button p 
+{
+    text-align:center;
+    font:normal 10px/11px arial;
+    color:#9f9f9f;
+    margin-top:32px;
+}

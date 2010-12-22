@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Translate
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Gettext.php 22655 2010-07-22 18:47:20Z mabe $
+ * @version    $Id: Gettext.php 22653 2010-07-22 18:41:39Z mabe $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 

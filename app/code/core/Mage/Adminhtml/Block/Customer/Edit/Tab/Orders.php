@@ -55,8 +55,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
             ->addFieldToSelect('billing_name')
             ->addFieldToSelect('shipping_name')
             ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId())
-            ->setFlag('is_customer_mode', true)
-        ;
+            ->setIsCustomerMode(true);
+
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }

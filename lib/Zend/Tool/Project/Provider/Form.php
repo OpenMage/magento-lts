@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Form.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Form.php 23209 2010-10-21 16:09:34Z ralph $
  */
 
 /**
@@ -88,6 +88,30 @@ class Zend_Tool_Project_Provider_Form extends Zend_Tool_Project_Provider_Abstrac
         $profileSearchParams[] = 'formsDirectory';
 
         return $profile->search($profileSearchParams);
+    }
+    
+    public function enable($module = null)
+    {
+        $this->_loadProfile(self::NO_PROFILE_THROW_EXCEPTION);
+
+        // determine if testing is enabled in the project
+        $testingEnabled = Zend_Tool_Project_Provider_Test::isTestingEnabled($this->_loadedProfile);
+
+        $formDirectoryResource = self::_getFormsDirectoryResource($this->_loadedProfile, $module);
+        
+        if ($formDirectoryResource->isEnabled()) {
+            throw new Zend_Tool_Project_Provider_Exception('This project already has forms enabled.');
+        } else {
+            if ($this->_registry->getRequest()->isPretend()) {
+                $this->_registry->getResponse()->appendContent('Would enable forms directory at ' . $formDirectoryResource->getContext()->getPath());
+            } else {
+                $this->_registry->getResponse()->appendContent('Enabling forms directory at ' . $formDirectoryResource->getContext()->getPath());
+                $formDirectoryResource->setEnabled(true);
+                $formDirectoryResource->create();
+                $this->_storeProfile();                
+            }
+
+        }
     }
     
     /**

@@ -17,7 +17,7 @@
  * @subpackage Storage
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Storage.php 23167 2010-10-19 17:53:31Z mabe $
  */
 
 /**
@@ -205,13 +205,13 @@ class Zend_Service_WindowsAzure_Storage
 			$this->_usePathStyleUri = true;
 		}
 		
-		if (is_null($this->_credentials)) {
+		if ($this->_credentials === null) {
 		    $this->_credentials = new Zend_Service_WindowsAzure_Credentials_SharedKey(
 		    	$this->_accountName, $this->_accountKey, $this->_usePathStyleUri);
 		}
 		
 		$this->_retryPolicy = $retryPolicy;
-		if (is_null($this->_retryPolicy)) {
+		if ($this->_retryPolicy === null) {
 		    $this->_retryPolicy = Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract::noRetry();
 		}
 		
@@ -238,6 +238,16 @@ class Zend_Service_WindowsAzure_Storage
 	{
 		$this->_httpClientChannel->setAdapter($adapterInstance);
 	}
+
+    /**
+     * Retrieve HTTP client channel
+     * 
+     * @return Zend_Http_Client_Adapter_Interface
+     */
+    public function getHttpClientChannel()
+    {
+        return $this->_httpClientChannel;
+    }
 	
 	/**
 	 * Set retry policy to use when making requests
@@ -247,7 +257,7 @@ class Zend_Service_WindowsAzure_Storage
 	public function setRetryPolicy(Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract $retryPolicy = null)
 	{
 		$this->_retryPolicy = $retryPolicy;
-		if (is_null($this->_retryPolicy)) {
+		if ($this->_retryPolicy === null) {
 		    $this->_retryPolicy = Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract::noRetry();
 		}
 	}
@@ -362,7 +372,7 @@ class Zend_Service_WindowsAzure_Storage
 		}
 			
 		// Clean headers
-		if (is_null($headers)) {
+		if ($headers === null) {
 		    $headers = array();
 		}
 		
@@ -411,7 +421,7 @@ class Zend_Service_WindowsAzure_Storage
 	 */
 	protected function _parseResponse(Zend_Http_Response $response = null)
 	{
-		if (is_null($response)) {
+		if ($response === null) {
 			throw new Zend_Service_WindowsAzure_Exception('Response should not be null.');
 		}
 		
@@ -493,7 +503,7 @@ class Zend_Service_WindowsAzure_Storage
 	protected function _parseMetadataElement($element = null)
 	{
 		// Metadata present?
-		if (!is_null($element) && isset($element->Metadata) && !is_null($element->Metadata)) {
+		if ($element !== null && isset($element->Metadata) && $element->Metadata !== null) {
 			return get_object_vars($element->Metadata);
 		}
 
@@ -511,7 +521,7 @@ class Zend_Service_WindowsAzure_Storage
 	    $tz = @date_default_timezone_get();
 	    @date_default_timezone_set('UTC');
 	    
-	    if (is_null($timestamp)) {
+	    if ($timestamp === null) {
 	        $timestamp = time();
 	    }
 	        

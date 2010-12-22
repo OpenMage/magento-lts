@@ -16,7 +16,7 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Proxy.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Proxy.php 22797 2010-08-06 15:02:12Z alexander $
  */
 
 /** Zend_Pdf_ElementFactory_Interface */
@@ -54,6 +54,16 @@ class Zend_Pdf_ElementFactory_Proxy implements Zend_Pdf_ElementFactory_Interface
     {
         $this->_factory->close();
         $this->_factory = null;
+    }
+
+    /**
+     * Get factory
+     *
+     * @return Zend_Pdf_ElementFactory_Interface
+     */
+    public function getFactory()
+    {
+        return $this->_factory->getFactory();
     }
 
     /**

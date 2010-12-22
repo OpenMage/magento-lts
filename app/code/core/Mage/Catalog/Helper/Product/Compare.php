@@ -187,17 +187,22 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
 
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $this->_itemCollection->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
-            }
-            else {
+            } else {
                 $this->_itemCollection->setVisitorId(Mage::getSingleton('log/visitor')->getId());
             }
 
             Mage::getSingleton('catalog/product_visibility')
                 ->addVisibleInSiteFilterToCollection($this->_itemCollection);
 
+            /* Price data is added to consider item stock status using price index */
+            $this->_itemCollection->addPriceData();
+
             $this->_itemCollection->addAttributeToSelect('name')
                 ->addUrlRewrite()
                 ->load();
+                
+            /* update compare items count */
+            $this->_getSession()->setCatalogCompareItemsCount(count($this->_itemCollection));
         }
 
         return $this->_itemCollection;
@@ -206,7 +211,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Calculate cache product compare collection
      *
-     * @param bool $logout
+     * @param  bool $logout
      * @return Mage_Catalog_Helper_Product_Compare
      */
     public function calculate($logout = false)
@@ -214,17 +219,18 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
         // first visit
         if (!$this->_getSession()->hasCatalogCompareItemsCount()) {
             $count = 0;
-        }
-        else {
+        } else {
             /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection */
             $collection = Mage::getResourceModel('catalog/product_compare_item_collection')
                 ->useProductItem(true);
             if (!$logout && Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $collection->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
-            }
-            else {
+            } else {
                 $collection->setVisitorId(Mage::getSingleton('log/visitor')->getId());
             }
+
+            /* Price data is added to consider item stock status using price index */
+            $collection->addPriceData();
 
             Mage::getSingleton('catalog/product_visibility')
                 ->addVisibleInSiteFilterToCollection($collection);

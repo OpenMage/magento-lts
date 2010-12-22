@@ -33,10 +33,16 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
 {
+    /**
+     * Storage action on selected item
+     *
+     * @var string
+     */
+    protected $_sidebarStorageAction = 'add_wishlist_item';
 
-    public function __construct()
+    protected function _construct()
     {
-        parent::__construct();
+        parent::_construct();
         $this->setId('sales_order_create_sidebar_wishlist');
         $this->setDataId('wishlist');
     }
@@ -55,22 +61,51 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
     {
         $collection = $this->getData('item_collection');
         if (is_null($collection)) {
-            if ($collection = $this->getCreateOrderModel()->getCustomerWishlist()) {
-                $collection = $collection->getProductCollection()
-                    ->addAttributeToSelect('name')
-                    ->addAttributeToSelect('price')
-                    ->addAttributeToSelect('small_image')
-                    ->load();
+            $collection = $this->getCreateOrderModel()->getCustomerWishlist(true);
+            if ($collection) {
+                $collection = $collection->getItemCollection()->load();
             }
             $this->setData('item_collection', $collection);
         }
         return $collection;
     }
 
-    public function getItemId($item)
+    /**
+     * Retrieve all items
+     *
+     * @return array
+     */
+    public function getItems()
     {
-        return $item->getWishlistItemId();
+        $items = parent::getItems();
+        foreach ($items as $item) {
+            $product = $item->getProduct();
+            $item->setName($product->getName());
+            $item->setPrice($product->getPrice());
+            $item->setTypeId($product->getTypeId());
+        }
+        return $items;
     }
 
-}
+    /**
+     * Retrieve product identifier linked with item
+     *
+     * @param   Mage_Wishlist_Model_Item $item
+     * @return  int
+     */
+    public function getProductId($item)
+    {
+        return $item->getProduct()->getId();
+    }
 
+    /**
+     * Retrieve identifier of block item
+     *
+     * @param   Varien_Object $item
+     * @return  int
+     */
+    public function getIdentifierId($item)
+    {
+        return $item->getId();
+    }
+}

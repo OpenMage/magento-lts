@@ -17,7 +17,7 @@
  * @subpackage Ldif
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Encoder.php 21007 2010-02-09 13:40:16Z sgehrig $
+ * @version    $Id: Encoder.php 21005 2010-02-09 13:16:26Z sgehrig $
  */
 
 /**

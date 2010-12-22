@@ -56,12 +56,14 @@
                     <sort_order>40</sort_order>
                     <children>
                         <gui translate="title">
-                            <title>Profiles</title>
+                            <title>Dataflow - Profiles</title>
                             <action>adminhtml/system_convert_gui</action>
+                            <sort_order>30</sort_order>
                         </gui>
                         <profiles translate="title">
-                            <title>Advanced Profiles</title>
+                            <title>Dataflow - Advance Profiles</title>
                             <action>adminhtml/system_convert_profile</action>
+                            <sort_order>40</sort_order>
                         </profiles>
                     </children>
                 </convert>
@@ -94,20 +96,6 @@
                         </roles>
                     </children>
                 </acl>
-                <extensions translate="title">
-                    <title>Magento Connect</title>
-                    <sort_order>80</sort_order>
-                    <children>
-                        <local translate="title">
-                            <title>Magento Connect Manager</title>
-                            <action>adminhtml/extensions_local</action>
-                        </local>
-                        <custom translate="title">
-                            <title>Package Extensions</title>
-                            <action>adminhtml/extensions_custom</action>
-                        </custom>
-                    </children>
-                </extensions>
                 <cache translate="title">
                     <title>Cache Management</title>
                     <action>adminhtml/cache</action>
@@ -233,30 +221,29 @@
                                 <title>Import/Export</title>
                                 <children>
                                     <gui translate="title">
-                                        <title>Profiles</title>
+                                        <title>Dataflow - Profiles</title>
                                     </gui>
                                     <profiles translate="title">
-                                        <title>Advanced Profiles</title>
+                                        <title>Dataflow - Advanced Profiles</title>
                                     </profiles>
                                 </children>
                             </convert>
-                            <extensions translate="title">
-                                <title>Magento Connect</title>
-                                <sort_order>80</sort_order>
-                                <children>
-                                    <local translate="title">
-                                        <title>Magento Connect Manager</title>
-                                        <action>adminhtml/extensions_local</action>
-                                    </local>
-                                    <custom translate="title">
-                                        <title>Package Extensions</title>
-                                        <action>adminhtml/extensions_custom</action>
-                                    </custom>
-                                </children>
-                            </extensions>
                             <cache translate="title">
                                 <title>Cache Management</title>
                             </cache>
+                            <extensions translate="title">
+                                <title>Magento Connect</title>
+                                <children>
+                                    <local translate="title">
+                                        <title>Magento Connect Manager</title>
+                                        <sort_order>0</sort_order>
+                                    </local>
+                                    <custom translate="title">
+                                        <title>Package Extensions</title>
+                                        <sort_order>5</sort_order>
+                                    </custom>
+                                </children>
+                            </extensions>
                         </children>
                     </system>
                     <global_search translate="title">

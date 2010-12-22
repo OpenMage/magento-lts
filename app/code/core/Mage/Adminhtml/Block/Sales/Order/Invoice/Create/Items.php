@@ -64,11 +64,15 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
                 break;
             }
         }
-        $_submitLabel = $this->getOrder()->getForcedDoShipmentWithInvoice()?'Submit Invoice and Shipment':'Submit Invoice';
+        if ($this->getOrder()->getForcedDoShipmentWithInvoice()) {
+            $_submitLabel = Mage::helper('sales')->__('Submit Invoice and Shipment');
+        } else {
+            $_submitLabel = Mage::helper('sales')->__('Submit Invoice');
+        }
         $this->setChild(
             'submit_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-                'label'     => Mage::helper('sales')->__('%s', $_submitLabel),
+                'label'     => $_submitLabel,
                 'class'     => 'save submit-button' . $_submitButtonClass,
                 'onclick'   => 'disableElements(\'submit-button\');$(\'edit_form\').submit()',
                 'disabled'  => $this->_disableSubmitButton

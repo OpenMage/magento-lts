@@ -70,13 +70,13 @@
     </global>
     <admin>
         <routers>
-            <googlebase>
-                <use>admin</use>
+            <adminhtml>
                 <args>
-                    <module>Mage_GoogleBase</module>
-                    <frontName>googlebase</frontName>
+                    <modules>
+                        <Mage_GoogleBase before="Mage_Adminhtml">Mage_GoogleBase_Adminhtml</Mage_GoogleBase>
+                    </modules>
                 </args>
-            </googlebase>
+            </adminhtml>
         </routers>
     </admin>
     <adminhtml>
@@ -115,17 +115,6 @@
             </updates>
         </layout>
     </adminhtml>
-    <frontend>
-        <routers>
-            <googlebase>
-                <use>standard</use>
-                <args>
-                    <module>Mage_GoogleBase</module>
-                    <frontName>googlebase</frontName>
-                </args>
-            </googlebase>
-        </routers>
-    </frontend>
     <default>
         <google>
             <base>

@@ -89,7 +89,7 @@ class Mage_Adminhtml_Block_Report_Sales_Bestsellers_Grid extends Mage_Adminhtml_
 
 
         $this->addExportType('*/*/exportBestsellersCsv', Mage::helper('adminhtml')->__('CSV'));
-        $this->addExportType('*/*/exportBestsellersExcel', Mage::helper('adminhtml')->__('Excel'));
+        $this->addExportType('*/*/exportBestsellersExcel', Mage::helper('adminhtml')->__('Excel XML'));
 
         return parent::_prepareColumns();
     }

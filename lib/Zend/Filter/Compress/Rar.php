@@ -16,7 +16,7 @@
  * @package    Zend_Filter
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Rar.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Rar.php 22662 2010-07-24 17:37:36Z mabe $
  */
 
 /**
@@ -176,7 +176,7 @@ class Zend_Filter_Compress_Rar extends Zend_Filter_Compress_CompressAbstract
     public function compress($content)
     {
         $callback = $this->getCallback();
-        if (is_null($callback)) {
+        if ($callback === null) {
             #require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception('No compression callback available');
         }
@@ -210,7 +210,7 @@ class Zend_Filter_Compress_Rar extends Zend_Filter_Compress_CompressAbstract
         }
 
         $password = $this->getPassword();
-        if (!is_null($password)) {
+        if ($password !== null) {
             $archive = rar_open($archive, $password);
         } else {
             $archive = rar_open($archive);

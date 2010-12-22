@@ -74,6 +74,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
         Mage::register('category', $category);
         Mage::register('current_category', $category);
+        Mage::getSingleton('cms/wysiwyg_config')->setStoreId($this->getRequest()->getParam('store'));
         return $category;
     }
     /**
@@ -177,7 +178,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 ->setLastEditedCategory($category->getId());
 //            $this->_initLayoutMessages('adminhtml/session');
             $this->loadLayout();
-            $this->getResponse()->setBody(Zend_Json::encode(array(
+            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array(
                 'messages' => $this->getLayout()->getMessagesBlock()->getGroupedHtml(),
                 'content' =>
                     $this->getLayout()->getBlock('category.edit')->getFormHtml()

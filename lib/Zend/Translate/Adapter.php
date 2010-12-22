@@ -17,7 +17,7 @@
  * @subpackage Zend_Translate_Adapter
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Adapter.php 22586 2010-07-16 20:12:01Z thomas $
+ * @version    $Id: Adapter.php 22726 2010-07-30 10:52:07Z thomas $
  */
 
 /**
@@ -86,6 +86,7 @@ abstract class Zend_Translate_Adapter {
      *   'locale'          => the actual set locale to use
      *   'log'             => a instance of Zend_Log where logs are written to
      *   'logMessage'      => message to be logged
+     *   'logPriority'     => priority which is used to write the log message
      *   'logUntranslated' => when true, untranslated messages are not logged
      *   'reload'          => reloads the cache by reading the content again
      *   'scan'            => searches for translation files using the LOCALE constants
@@ -101,6 +102,7 @@ abstract class Zend_Translate_Adapter {
         'locale'          => 'auto',
         'log'             => null,
         'logMessage'      => "Untranslated message within '%locale%': %message%",
+        'logPriority'     => 5,
         'logUntranslated' => false,
         'reload'          => false,
         'route'           => null,
@@ -423,7 +425,7 @@ abstract class Zend_Translate_Adapter {
             if (!isset($this->_translate[$temp[0]]) and !isset($this->_translate[$locale])) {
                 if (!$this->_options['disableNotices']) {
                     if ($this->_options['log']) {
-                        $this->_options['log']->notice("The language '{$locale}' has to be added before it can be used.");
+                        $this->_options['log']->log("The language '{$locale}' has to be added before it can be used.", $this->_options['logPriority']);
                     } else {
                         trigger_error("The language '{$locale}' has to be added before it can be used.", E_USER_NOTICE);
                     }
@@ -436,7 +438,7 @@ abstract class Zend_Translate_Adapter {
         if (empty($this->_translate[$locale])) {
             if (!$this->_options['disableNotices']) {
                 if ($this->_options['log']) {
-                    $this->_options['log']->notice("No translation for the language '{$locale}' available.");
+                    $this->_options['log']->log("No translation for the language '{$locale}' available.", $this->_options['logPriority']);
                 } else {
                     trigger_error("No translation for the language '{$locale}' available.", E_USER_NOTICE);
                 }
@@ -817,7 +819,7 @@ abstract class Zend_Translate_Adapter {
             $message = str_replace('%message%', $message, $this->_options['logMessage']);
             $message = str_replace('%locale%', $locale, $message);
             if ($this->_options['log']) {
-                $this->_options['log']->notice($message);
+                $this->_options['log']->log($message, $this->_options['logPriority']);
             } else {
                 trigger_error($message, E_USER_NOTICE);
             }

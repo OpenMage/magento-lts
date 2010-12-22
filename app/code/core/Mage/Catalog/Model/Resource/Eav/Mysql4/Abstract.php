@@ -68,6 +68,30 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
     }
 
     /**
+     * Check whether attribute instance (attribute, backend, frontend or source) has method and applicable
+     *
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Eav_Model_Entity_Attribute_Backend_Abstract|Mage_Eav_Model_Entity_Attribute_Frontend_Abstract|Mage_Eav_Model_Entity_Attribute_Source_Abstract $instance
+     * @param string $method
+     * @param array $args array of arguments
+     * @return boolean
+     */
+    protected function _isCallableAttributeInstance($instance, $method, $args)
+    {
+        if ($instance instanceof Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+            && ($method == 'beforeSave' || $method = 'afterSave')
+        ) {
+            $attributeCode = $instance->getAttribute()->getAttributeCode();
+            if (isset($args[0]) && $args[0] instanceof Varien_Object && $args[0]->getData($attributeCode) === false) {
+                return false;
+            }
+        }
+
+        return parent::_isCallableAttributeInstance($instance, $method, $args);
+    }
+
+
+
+    /**
      * Retrieve select object for loading entity attributes values
      *
      * Join attribute store value

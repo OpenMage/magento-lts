@@ -108,6 +108,7 @@
 "The block has been saved.","The block has been saved."
 "The directory %s is not writable by server.","The directory %s is not writable by server."
 "The page URL key cannot consist only of numbers.","The page URL key cannot consist only of numbers."
+"The page URL key contains capital letters or disallowed symbols.","The page URL key contains capital letters or disallowed symbols."
 "The page has been deleted.","The page has been deleted."
 "The page has been saved.","The page has been saved."
 "This block no longer exists.","This block no longer exists."

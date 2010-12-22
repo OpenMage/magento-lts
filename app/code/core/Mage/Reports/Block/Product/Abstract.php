@@ -113,6 +113,10 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
                 ->addUrlRewrite()
                 ->setPageSize($this->getPageSize())
                 ->setCurPage(1);
+
+            /* Price data is added to consider item stock status using price index */
+            $this->_collection->addPriceData();
+
             $ids = $this->getProductIds();
             if (empty($ids)) {
                 $this->_collection->addIndexFilter();

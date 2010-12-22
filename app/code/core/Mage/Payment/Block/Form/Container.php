@@ -116,15 +116,14 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
             $quote = $this->getQuote();
             $store = $quote ? $quote->getStoreId() : null;
             $methods = $this->helper('payment')->getStoreMethods($store, $quote);
-            $total = $quote->getBaseGrandTotal();
+            $total = $quote->getBaseSubtotal();
             foreach ($methods as $key => $method) {
                 if ($this->_canUseMethod($method)
                     && ($total != 0
                         || $method->getCode() == 'free'
                         || ($quote->hasRecurringItems() && $method->canManageRecurringProfiles()))) {
                     $this->_assignMethod($method);
-                }
-                else {
+                } else {
                     unset($methods[$key]);
                 }
             }

@@ -17,7 +17,7 @@
  * @subpackage Response
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Http.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Http.php 22096 2010-05-04 15:37:23Z wadearnold $
  */
 
 /** Zend_Amf_Response */
@@ -41,8 +41,9 @@ class Zend_Amf_Response_Http extends Zend_Amf_Response
     public function getResponse()
     {
         if (!headers_sent()) {
-            header('Cache-Control: cache, must-revalidate');
-            header('Pragma: public');
+            header('Cache-Control: no-cache, must-revalidate');
+            header('Expires: Thu, 19 Nov 1981 08:52:00 GMT');
+            header('Pragma: no-cache');
             header('Content-Type: application/x-amf');
         }
         return parent::getResponse();

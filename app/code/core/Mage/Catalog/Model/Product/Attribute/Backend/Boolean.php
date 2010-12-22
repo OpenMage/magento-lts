@@ -1,0 +1,84 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * Product attribute for enable/disable option
+ *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_Catalog_Model_Product_Attribute_Backend_Boolean extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+{
+    /**
+     * Attribute allow values on product level
+     */
+    const ATTRIBUTE_NOT_ALLOWED  = '0';
+    const ATTRIBUTE_ALLOWED      = '1';
+    const ATTRIBUTE_CONFIG_ALLOW = '2';
+
+    /**
+     * Set attribute default value if value empty
+     *
+     * @param Varien_Object $object
+     */
+    public function afterLoad($object)
+    {
+        if(!$object->hasData($this->getAttribute()->getAttributeCode())) {
+            $object->setData($this->getAttribute()->getAttributeCode(), $this->getDefaultValue());
+        }
+    }
+
+    /**
+     * Set attribute default value if value empty
+     *
+     * @param Varien_Object $object
+     */
+    public function beforeSave($object)
+    {
+        if($object->hasData($this->getAttribute()->getAttributeCode())
+            && $object->getData($this->getAttribute()->getAttributeCode()) == $this->getDefaultValue()) {
+            $object->unsData($this->getAttribute()->getAttributeCode());
+        }
+    }
+
+    /**
+     * Validate attribute data
+     *
+     * @param Varien_Object $object
+     * @return boolean
+     */
+    public function validate($object)
+    {
+        $optionsAllowed = array(
+            self::ATTRIBUTE_NOT_ALLOWED,
+            self::ATTRIBUTE_ALLOWED,
+            self::ATTRIBUTE_CONFIG_ALLOW
+        );
+        $value = $object->getData($this->getAttribute()->getAttributeCode());
+        return in_array($value, $optionsAllowed)? true : false;
+    }
+}

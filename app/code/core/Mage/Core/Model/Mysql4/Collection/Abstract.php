@@ -92,13 +92,15 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
     protected $_resetItemsDataChanged   = false;
 
     /**
-     * Event prefix key
+     * Name prefix of events that are dispatched by model
+     *
      * @var string
      */
     protected $_eventPrefix = '';
 
     /**
-     * Event object key
+     * Name of event parameter
+     *
      * @var string
      */
     protected $_eventObject = '';
@@ -539,6 +541,11 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
             }
         }
         Mage::dispatchEvent('core_collection_abstract_load_after', array('collection' => $this));
+        if ($this->_eventPrefix && $this->_eventObject) {
+            Mage::dispatchEvent($this->_eventPrefix.'_load_after', array(
+                $this->_eventObject => $this
+            ));
+        }
         return $this;
     }
 

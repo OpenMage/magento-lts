@@ -17,7 +17,7 @@
  * @subpackage Resource
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Exception.php 22610 2010-07-17 08:49:08Z torio $
+ * @version    $Id: Exception.php 22609 2010-07-17 08:47:59Z torio $
  */
 
 /**

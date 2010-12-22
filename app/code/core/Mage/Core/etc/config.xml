@@ -54,6 +54,8 @@
                     <convert_history><table>core_convert_history</table></convert_history>
                     <design_change><table>design_change</table></design_change>
                     <flag><table>core_flag</table></flag>
+                    <file_storage><table>core_file_storage</table></file_storage>
+                    <directory_storage><table>core_directory_storage</table></directory_storage>
                 </entities>
             </core_mysql4>
         </models>
@@ -203,6 +205,9 @@
             <translate_inline>
                 <active>0</active>
                 <active_admin>0</active_admin>
+                <invalid_caches>
+                    <block_html/>
+                </invalid_caches>
             </translate_inline>
             <log>
                 <active>0</active>
@@ -221,6 +226,11 @@
                 <host>localhost</host>
                 <port>25</port>
             </smtp>
+
+            <media_storage_configuration>
+                <media_storage>0</media_storage>
+                <media_database>default_setup</media_database>
+            </media_storage_configuration>
         </system>
 
         <trans_email>
@@ -300,7 +310,6 @@
                 <cookies>1</cookies>
                 <javascript>1</javascript>
             </browser_capabilities>
-
         </web>
 
         <admin>

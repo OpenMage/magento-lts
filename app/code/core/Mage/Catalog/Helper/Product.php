@@ -259,4 +259,143 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         }
         return null;
     }
+
+    /**
+     * Inits product to be used for product controller actions and layouts
+     * $params can have following data:
+     *   'category_id' - id of category to check and append to product as current.
+     *     If empty (except FALSE) - will be guessed (e.g. from last visited) to load as current.
+     *
+     * @param int $productId
+     * @param Mage_Core_Controller_Front_Action $controller
+     * @param Varien_Object $params
+     *
+     * @return false|Mage_Catalog_Model_Product
+     */
+    public function initProduct($productId, $controller, $params = null)
+    {
+        // Prepare data for routine
+        if (!$params) {
+            $params = new Varien_Object();
+        }
+
+        // Init and load product
+        Mage::dispatchEvent('catalog_controller_product_init_before', array('controller_action' => $controller));
+
+        if (!$productId) {
+            return false;
+        }
+
+        $product = Mage::getModel('catalog/product')
+            ->setStoreId(Mage::app()->getStore()->getId())
+            ->load($productId);
+
+        if (!$this->canShow($product)) {
+            return false;
+        }
+        if (!in_array(Mage::app()->getStore()->getWebsiteId(), $product->getWebsiteIds())) {
+            return false;
+        }
+
+        // Load product current category
+        $categoryId = $params->getCategoryId();
+        if (!$categoryId && ($categoryId !== false)) {
+            $lastId = Mage::getSingleton('catalog/session')->getLastVisitedCategoryId();
+            if ($product->canBeShowInCategory($lastId)) {
+                $categoryId = $lastId;
+            }
+        }
+
+        if ($categoryId) {
+            $category = Mage::getModel('catalog/category')->load($categoryId);
+            $product->setCategory($category);
+            Mage::register('current_category', $category);
+        }
+
+        // Register current data and dispatch final events
+        Mage::register('current_product', $product);
+        Mage::register('product', $product);
+
+        try {
+            Mage::dispatchEvent('catalog_controller_product_init', array('product' => $product));
+            Mage::dispatchEvent('catalog_controller_product_init_after', array('product' => $product, 'controller_action' => $controller));
+        } catch (Mage_Core_Exception $e) {
+            Mage::logException($e);
+            return false;
+        }
+
+        return $product;
+    }
+
+    /**
+     * Prepares product options by buyRequest: retrieves values and assigns them as default.
+     * Also parses and adds product management related values - e.g. qty
+     *
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  Varien_Object $buyRequest
+     * @return Mage_Catalog_Helper_Product
+     */
+    public function prepareProductOptions($product, $buyRequest)
+    {
+        $optionValues = $product->processBuyRequest($buyRequest);
+        $optionValues->setQty($buyRequest->getQty());
+        $product->setPreconfiguredValues($optionValues);
+
+        return $this;
+    }
+
+    /**
+     * Process buyRequest file options
+     * Set $buyRequest file options from $itemBuyRequest and $configurationItemId in some cases
+     *
+     * @param Varien_Object $buyRequest
+     * @param Varien_Object $itemBuyRequest
+     * @param int $configurationItemId
+     * @return Varien_Object
+     */
+    public function processBuyRequestFiles (Varien_Object $buyRequest, Varien_Object $itemBuyRequest = null,
+        $configurationItemId = null)
+    {
+        if ($buyRequest->hasData()) {
+            $optionsFileAction = array();
+            foreach ($buyRequest->getData() as $key => $action) {
+                if ($action) {
+                    if (preg_match('/options_(\d+)_file_action/', $key, $match)) {
+                        $optionsFileAction[$action][] = $match[1];
+                    }
+                }
+            }
+            if (!empty($optionsFileAction['save_old']) && $itemBuyRequest->hasOptions()) {
+                $itemOptions = $itemBuyRequest->getOptions();
+                if (is_array($itemOptions)) {
+                    foreach ($optionsFileAction['save_old'] as $optionFileId) {
+                        if (array_key_exists($optionFileId, $itemOptions)) {
+                            $buyRequestOptions = $buyRequest->hasOptions() ? $buyRequest->getOptions() : array();
+                            $buyRequestOptions[$optionFileId] = $itemOptions[$optionFileId];
+                            if ($configurationItemId) {
+                                $buyRequestOptions[$optionFileId]['configuration_itemid'] = $configurationItemId;
+                            }
+                            $buyRequest->setOptions($buyRequestOptions);
+                            foreach ($_FILES as $key => $action) {
+                                if (sprintf('options_%s_file', $optionFileId) == $key
+                                    || sprintf('item_%s_options_%s_file', $configurationItemId, $optionFileId) == $key
+                                ) {
+                                    unset($_FILES[$key]);
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if (!empty($optionsFileAction['save_new']) && $configurationItemId) {
+                foreach ($optionsFileAction['save_new'] as $optionFileId){
+                    $buyRequestOptions = $buyRequest->hasOptions() ? $buyRequest->getOptions() : array();
+                    $buyRequestOptions[$optionFileId]['configuration_itemid'] = $configurationItemId;
+                    $buyRequest->setOptions($buyRequestOptions);
+                }
+            }
+        }
+
+        return $buyRequest;
+    }
+
 }

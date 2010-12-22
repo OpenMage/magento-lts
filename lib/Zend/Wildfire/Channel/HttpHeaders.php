@@ -17,7 +17,7 @@
  * @subpackage Channel
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HttpHeaders.php 21353 2010-03-06 02:21:47Z cadorn $
+ * @version    $Id: HttpHeaders.php 23096 2010-10-12 20:36:15Z cadorn $
  */
 
 /** Zend_Wildfire_Channel_Interface */
@@ -269,7 +269,11 @@ class Zend_Wildfire_Channel_HttpHeaders extends Zend_Controller_Plugin_Abstract 
         ) {
             return true;
         }
-        
+
+        if (!($this->getRequest() instanceof Zend_Controller_Request_Http)) {
+            return false;
+        }
+
         return ($this->getResponse()->canSendHeaders()
                 && (preg_match_all(
                         '/\s?FirePHP\/([\.\d]*)\s?/si',

@@ -1,0 +1,43 @@
+<script type="text/javascript">
+//<![CDATA[
+    /**
+     * Post form data and process response via AJAX.
+     *
+     * @return void
+     */
+    varienForm.prototype.getFilter = function()
+    {
+        if ($('entity') && $F('entity')) {
+            var url = $(this.formId).action;
+            url += ((url.slice(-1) != '/') ? '/' : '') + 'entity/' + $F('entity');
+
+            new Ajax.Updater ('export_filter_grid_container', url, {
+                method:      'post',
+                //parameters:  $(this.formId).serialize(),
+                evalScripts: true,
+                onComplete:  function(){$('export_filter_container').show();}
+            });
+        } else {
+            $('export_filter_container').hide();
+        }
+    };
+
+    /**
+     * Continue export process after filter settings.
+     *
+     * return void
+     */
+    function getFile()
+    {
+        if ($('entity') && $('file_format')) {
+            var form      = $('export_filter_form');
+            var oldAction = form.action;
+            form.action   = oldAction + ((oldAction.slice(-1) != '/') ? '/' : '') + 'entity/' + $F('entity') + '/file_format/' + $F('file_format');
+            form.submit();
+            form.action   = oldAction;
+        } else {
+            alert('Invalid data');
+        }
+    }
+//]]>
+</script>

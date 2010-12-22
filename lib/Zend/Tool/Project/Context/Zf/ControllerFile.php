@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ControllerFile.php 22876 2010-08-21 19:14:42Z ralph $
+ * @version    $Id: ControllerFile.php 23204 2010-10-21 15:35:21Z ralph $
  */
 
 /**
@@ -113,11 +113,11 @@ class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Cont
                         new Zend_CodeGenerator_Php_Method(array(
                             'name' => 'init',
                             'body' => '/* Initialize action controller here */',
-                        	))
-                    	)
-                	))
-            	)
-        	));
+                            ))
+                        )
+                    ))
+                )
+            ));
 
 
         if ($className == 'ErrorController') {

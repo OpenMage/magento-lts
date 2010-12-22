@@ -106,6 +106,7 @@
         initialize : function(config){
             this.config = config;
             this.reloadPrice();
+            document.observe("dom:loaded", this.reloadPrice.bind(this));
         },
         reloadPrice : function(){
             price = new Number();

@@ -26,38 +26,30 @@
 
 ?>
 
-<?php $_option = $this->getOption() ?>
-<?php $_selections = $_option->getSelections() ?>
-<?php $_showSingle = (count($_selections) == 1 && $_option->getRequired()) ?>
-<dt><span class="qty-holder">
-        <?php if ($_default = $_option->getDefaultSelection()): ?>
-            <?php $_defaultQty = $_default->getSelectionQty()*1 ?>
-            <?php $_canChangeQty = $_default->getSelectionCanChangeQty() ?>
-        <?php else: ?>
-            <?php if (!$_showSingle): ?>
-                <?php $_defaultQty = '0' ?>
-                <?php $_canChangeQty = false ?>
-            <?php else: ?>
-                <?php $_defaultQty = $_selections[0]->getSelectionQty()*1 ?>
-                <?php $_canChangeQty = $_selections[0]->getSelectionCanChangeQty() ?>
-            <?php endif; ?>
-        <?php endif; ?>
-        <label for="bundle-option-<?php echo $_option->getId() ?>-qty-input"><?php echo $this->__('Qty:') ?>&nbsp;</label><input onkeyup="bundle.changeOptionQty(this, event)" onblur="bundle.changeOptionQty(this, event)" <?php echo $_canChangeQty?'':'disabled="disabled"' ?> id="bundle-option-<?php echo $_option->getId() ?>-qty-input" class="input-text qty<?php echo $_canChangeQty?'':' qty-disabled' ?>" type="text" name="bundle_option_qty[<?php echo $_option->getId() ?>]" value="<?php echo $_defaultQty ?>" />
-    </span>
-    <label<?php if ($_option->getRequired()) echo ' class="required"' ?>><?php if ($_option->getRequired()) echo '<em>*</em>' ?><?php echo $this->htmlEscape($_option->getTitle()) ?></label>
+<?php /* @var $this Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Select */ ?>
+<?php $_option      = $this->getOption(); ?>
+<?php $_selections  = $_option->getSelections(); ?>
+<?php $_default     = $_option->getDefaultSelection(); ?>
+<?php list($_defaultQty, $_canChangeQty) = $this->_getDefaultValues(); ?>
+
+<dt>
+    <label<?php if ($_option->getRequired()) echo ' class="required"' ?>><?php echo $this->htmlEscape($_option->getTitle()) ?><?php if ($_option->getRequired()) echo '<em>*</em>' ?></label>
 </dt>
 <dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
     <div class="input-box">
-    <?php if ($_showSingle): ?>
+    <?php if ($this->_showSingle()): ?>
         <?php echo $this->getSelectionTitlePrice($_selections[0]) ?>
-        <input type="hidden" name="bundle_option[<?php echo $_option->getId() ?>]" value="<?php echo $_selections[0]->getSelectionId() ?>" />
+        <input type="hidden" name="bundle_option[<?php echo $_option->getId() ?>]" value="<?php echo $_selections[0]->getSelectionId() ?>"/>
     <?php else:?>
         <select onchange="bundle.changeSelection(this)" id="bundle-option-<?php echo $_option->getId() ?>" name="bundle_option[<?php echo $_option->getId() ?>]" class="bundle-option-<?php echo $_option->getId() ?><?php if ($_option->getRequired()) echo ' required-entry' ?> bundle-option-select change-container-classname">
             <option value=""><?php echo $this->__('Choose a selection...') ?></option>
-        <?php foreach($_selections as $_selection): ?>
-            <option value="<?php echo $_selection->getSelectionId() ?>"<?php echo ($_selection->getIsDefault() && $_selection->isSaleable())?' selected="selected" ':'' ?><?php echo !$_selection->isSaleable()?' disabled="disabled" ':'' ?>><?php echo $this->getSelectionTitlePrice($_selection, false) ?></option>
-        <?php endforeach;?>
+        <?php foreach ($_selections as $_selection): ?>
+            <option value="<?php echo $_selection->getSelectionId() ?>"<?php if ($this->_isSelected($_selection)) echo ' selected="selected"' ?><?php if (!$_selection->isSaleable()) echo ' disabled="disabled"' ?>><?php echo $this->getSelectionTitlePrice($_selection, false) ?></option>
+        <?php endforeach; ?>
         </select>
     <?php endif; ?>
     </div>
+    <span class="qty-holder">
+        <label for="bundle-option-<?php echo $_option->getId() ?>-qty-input"><?php echo $this->__('Qty:') ?>&nbsp;</label><input onkeyup="bundle.changeOptionQty(this, event)" onblur="bundle.changeOptionQty(this, event)" <?php if (!$_canChangeQty) echo ' disabled="disabled"' ?> id="bundle-option-<?php echo $_option->getId() ?>-qty-input" class="input-text qty<?php if (!$_canChangeQty) echo ' qty-disabled' ?>" type="text" name="bundle_option_qty[<?php echo $_option->getId() ?>]" value="<?php echo $_defaultQty ?>"/>
+    </span>
 </dd>

@@ -44,11 +44,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
     {
         $actions = $this->getColumn()->getActions();
         if ( empty($actions) || !is_array($actions) ) {
-            return '&nbsp';
+            return '&nbsp;';
         }
 
         if(sizeof($actions)==1 && !$this->getColumn()->getNoLink()) {
-            foreach ($actions as $action){
+            foreach ($actions as $action) {
                 if ( is_array($action) ) {
                     return $this->_toLinkHtml($action, $row);
                 }

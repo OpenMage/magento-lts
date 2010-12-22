@@ -39,6 +39,13 @@ abstract class Mage_Index_Model_Mysql4_Abstract extends Mage_Core_Model_Mysql4_A
      */
     protected $_isNeedUseIdxTable = false;
 
+    /**
+     * Flag that defines if need to disable keys during data inserting
+     *
+     * @var bool
+     */
+    protected $_isDisableKeys = true;
+
     public function reindexAll()
     {
         $this->useIdxTable(true);
@@ -153,7 +160,11 @@ abstract class Mage_Index_Model_Mysql4_Abstract extends Mage_Core_Model_Mysql4_A
             $from   = $this->_getIndexAdapter();
             $to     = $this->_getWriteAdapter();
         }
-        $to->query("ALTER TABLE {$destTable} DISABLE KEYS");
+
+        if ($this->useDisableKeys()) {
+            $to->query("ALTER TABLE {$destTable} DISABLE KEYS");
+        }
+
         if ($from === $to) {
             $sql = 'INSERT INTO ' . $destTable . ' ' . $select;
             $to->query($sql);
@@ -174,7 +185,11 @@ abstract class Mage_Index_Model_Mysql4_Abstract extends Mage_Core_Model_Mysql4_A
                 $to->insertArray($destTable, $columns, $data);
             }
         }
-        $to->query("ALTER TABLE {$destTable} ENABLE KEYS");
+
+        if ($this->useDisableKeys()) {
+            $to->query("ALTER TABLE {$destTable} ENABLE KEYS");
+        }
+
         return $this;
     }
 
@@ -192,6 +207,21 @@ abstract class Mage_Index_Model_Mysql4_Abstract extends Mage_Core_Model_Mysql4_A
         return $this->_isNeedUseIdxTable;
     }
 
+    /**
+     * Set or get flag that defines if need to disable keys during data inserting
+     *
+     * @param bool $value
+     * @return Mage_Index_Model_Mysql4_Abstract
+     */
+    public function useDisableKeys($value = null)
+    {
+        if (!is_null($value)) {
+            $this->_isDisableKeys = (bool)$value;
+        }
+        return $this->_isDisableKeys;
+    }
+    
+    
     /**
      * Clean up temporary index table
      */

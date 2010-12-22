@@ -91,17 +91,16 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
      */
     public function canShow()
     {
+        if (!is_null($this->_available)) {
+            return $this->_available;
+        }
+
         if (!Mage::getSingleton('admin/session')->isFirstPageAfterLogin()) {
             $this->_available = false;
             return false;
         }
 
         if (!$this->isOutputEnabled('Mage_AdminNotification')) {
-            $this->_available = false;
-            return false;
-        }
-
-        if (!$this->_getHelper()->isReadablePopupObject()) {
             $this->_available = false;
             return false;
         }

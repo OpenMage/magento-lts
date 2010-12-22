@@ -1,11 +1,564 @@
+==== 1.5.0.0-alpha1 ====
+
+=== Major Highlights ===
+Balance Response, Partial Authorization Transactions, Authorization Reversals Support for MasterCard and Discover
+3D Secure authentication for Authorize.net payment method
+PayflowLink payment method
+Authorize.Net SIM payment method
+Improved Import/Export functionality
+Ability to order composite products from backend and some extra functionality
+- reconfigure already added products on front end
+- adding preconfigured products in wish-list
+Alternative media storage
+- Database
+- CDN
+Order status management
+- ability to add new status and assign to some state
+- from now on statuses stored in appropriate DB table instead of configuration file
+Ability to edit order addresses
+- this functionality admin has link to edit address for order view page
+Magento Mobile included in base packaging
+
+=== Improvements ===
+Upgraded Zend Framework to 1.11.0
+Implemented new process of hashing parameters in Ogone payment method
+- implemented an advanced hashing method that invokes all transaction parameters for building security hash
+- updated fields sort order in system configuration
+- added the new parameter which designates whether to use the old or advanced hashing method
+- made SHA-IN and SHA-OUT sys config parameter titles corresponding to parameter titles on merchant site in Ogone
+- major refactoring of the Ogone helper: simplified public interface of hash validation, added support for SHA-1, SHA-256 and SHA-512 algorithms (not selectable in system config)
+- optimized performance of debugging and building redirect form: removed 2 excessive calls (one from template, another from debugging - it invoked form building even if debugging was disabled)
+- since the form is built from a block, prevented injecting SID parameter to URLs when building form
+- added HTML escaping in the template hidden fields
+- added new system configuration parameter - hashing algorithm
+- verified/fixed all API hashing parameters in accordance to documentation v.5.0
+
+=== Fixes ===
+Fixed Cannot open menu configuration-general-design
+Fixed Added backend design exception model
+Fixed The options in the action dropdown for export are incorrectly labeled in the Sales section
+Fixed Checking if address exists was added before save address'es attributes (to prevent foreign key error in case of two users were logged in under one account in the same time).
+Fixed URL rewrite algorithm was changed: fix for permanent link for old URLs.
+Fixed Incorrect number of used card is shown after you have returned to 'Shopping Cart' in partial authorization (Authorize.Net)
+Fixed In one page checkout incorrect information for declined card is shown for partial authorization(Authorize.Net)
+Fixed Bundle products shoved without options
+Fixed Instructions on the Payflow Link Configuration Menu
+Fixed rate model checks rate to existens in rule before delete action
+Fixed store name 'Demo Store' was changes to variable with real store name var store.getFrontendName()
+Fixed Place order does not work with free shipping
+Fixed possibility to find product in advanced search with from-to price is 0 was fixed
+Fixed FPT with prices included tax problem
+Fixed Instable work of back-end notification
+- For now pop-up window doesn't go to our side. Flash availability check is removed
+- little refactoring
+- method Mage_AdminNotification_Helper_Data::isReadablePopupObject() marked as deprecated
+Fixed Onepage checkout - Shipping address issues
+- added resetting property to save billing address in address book
+- added saving of new shipping address
+- simplified condition in order preparation routine
+Fixed Backordered Item Status on Orders
+- saving current ordered items number for stock item and calculating backorder qty according to it
+Fixed The product category is empty after moving category with products to another one
+Fixed Magento Connect -> If substitute channel for package extension, MCM will send authorization data to the fake URL
+Fixed Image Label is not Uploading properly
+Fixed Category Tree -> Changing category color
+Fixed With enabled "Inline Translation" its impossible to finish purchase
+- Added checking for escaped html end tag
+Fixed #0024559: Special Price to Date can not set Use Default Value
+Fixed CMS -> Manage Pages: It's possible to save New Page with capital letters in URL key
+- corrected js validation;
+- added server-side url key validation.
+Fixed Makeup of subcategories dropdown menu at front-end glitter with category fields bar
+- removed property "z-index: 1" for #nav li.level-top
+Revert changes from rev #83486
+Fixed Tier prices are not recalculated in bundle product configuration with different currency
+Fixed On Multi store installation, 'specials' rss feed includes specials from other stores
+Fixed Subscribe to Order Status - translation problem
+Fixed There is a spelling error with the translation
+Fixed Single Coupon applying for each shipping location rather than whole order
+- applying cart fixed rules for first shipping address order only
+- store which quote address cart fixed rule was applied for in SalesRule_Model_Validator
+Added method getDefaultCountry and constant XML_PATH_DEFAULT_COUNTRY into Mage_Core_Helper_Data
+Added more abstract system config backend model for uploading files:
+- removed duplicated logic from system config backend image model.
+Fixed Grand total doubles when processing multi-shipping checkout and ordinary checkout
+- cleaning address information when checkout type changes from multi-shipping to onepage
+Fixed Problem with admin roles
+Checkout page IE6/7 CSS bug fixed.
+Fixed Edit product->"Inventory" tab - "Qty Increments" error contain mistake
+Fixed No field for "Search Query"
+Fixed Character "b" is added to Review
+Fixed Retain the selected tab on editing CMS page
+Fixed Invoices Tax class not displayed
+Fixed Full tax summary on invoice
+Fixed working with partial authorizations on first card submit
+Fixed CMS can't create Hierarchy Node Link widget in IE8
+Fixed The Wrong / not exist Url should be redirect to 404 page
+Fixed Interface Locale needs additional country
+Fixed The product category is empty after moving category with products to another one
+Fixed 'Gateway error: A valid amount is required' appears during create Credit Memo for order, which uses Authorize.net
+Fixed #19807: Product with visibility- Nowhere display on the fron-end in 'Last ordered items' block, if order create on back-end
+Fixed Displaying Out of Stock Products on the front-end
+- added price data for consider item stock status for wish-list and compare products items collections, in reorder for product collection which sales order item collection based on.
+Fixed active tabs in store view scope while disabled PayPal methods
+- Added functionality that disables corresponding methods in store view scope.
+- Fixed related bug: in website view scope Express Checkout PE checkbox appears improperly checked after page load.
+Fixed Active tabs in store view scope while disabled PayPal methods
+Fixed Bundle price wrong when static qty above 1
+Fixed No "Suspected Fraud" status for hacked orders
+Fixed PayPal API Certificate uses settings from the default configuration, instead of the website
+Fixed Don't show (-) in totals when shipping title and shiping method empty in a configuration
+Fixed Product with price 0.00 possibility purchase through Shortcut PayPal button
+Fixed Archived orders not displayed in customer's orders list
+Fixed Fatal error on magento compilation
+Fixed Mage::app() call is not overriding cache/var directories
+Fixed After switching "Manage Stock" option, product prices index does not invalidate
+Fixed Transfer Cart Line: dropdown with shipping Rates is absent on PayPal side
+Fixed Can't choose Group at the creation new Order by admin
+Fixed PayPal API Certificate uses settings from the default configuration, instead of the website
+- added forgotten file from rev 84979
+Fixed Bug in Error Message display for Send to Friend (Mage_Sendfriend_ProductController)
+Fixed Admin order creation JS error message
+Fixed Problems with category sort order
+Fixed Button "Credit Memo" after refund partial per invoice is enabled
+Fixed Report don't show order with status "Canceled"
+Fixed Wrong quantity checks architecture in inventory observer
+Fixed On page 404, link "go back" does not work
+Fixed Category editing "Use Parent Category Settings" inconsistent behavior (Google Chrome)
+Fixed Set products per Page
+Fixed product review filter by customer does not work
+- type is administrator when customer_id is NULL and store_id is admin store id
+Fixed Product review filter by customer does not work
+Fixed WYSIWYG Editor disabling issue
+Fixed Quantity increment for Group Product Issue
+Fixed #15780: Add configuration option to ignore SID on frontend
+- Changed fieldset scope from global to website, because the field has website scope.
+Fixed Message "The product has required options" appears twice in the back-end order for items with mandatory custom options
+Fixed Meta description can be more than 255 chars
+Fixed When creating a new customer from the backend in "Manage Customers", the welcome email is empty
+Fixed  Image Label is not Uploading properly
+- Slightly changed logic in adding image algorithms due to possible existence of added pictures
+Fixed  JavaScript Calendar Date Range
+- Also little fix to maintain corporate standards
+Fixed Gift message displaying conditions not properly work on frontend and backend:
+Fixed flat catalog tables do not contain varchar values for store view level
+Fixed Add check "Use Default" for dependent form elements (in the admin), because if field "Use Default" it should be always disabled.
+Fixed #21084: "can not" -> "cannot" text changes (found only one occurrence of "can not" and changed it)
+Fixed New added required attribute should be filled in by customer before checkout
+Fixed PayPal Billing Agreement presents in payment methods when no BA are created during admin order creation
+Fixed Free Shipping Banner appears to be hard coded into the template file - replaced hardcoded callouts with CNS blocks. Two CMS blocks should be added to RR install.
+Fixed Empty order status field
+- Configuration mistake
+Fixed Cart Rule discount with Fixed amount for a whole Cart is not applied for OnePageCheckout
+Fixed Coupon with "Apply fixed amount discount for whole cart" does not apply to bundle products with dynamic price
+Fixed Frontend additional attributes issue with price attributes.
+Fixed Unable to translate "Submit Invoice" button
+Fixed Undefined index after clicking on Print Shipment
+Fixed Customer cannot be confirmed from the admin
+Fixed Inline Translations don't work if you have more than one store
+Fixed Invitation link has a session ID parameter
+Fixed Magento creates order even if response from PaypalUk is empty
+- response validation has been added
+Fixed Displaying Out of Stock Products on the front-end
+Fixed Incorrect billing/shipping address transfer from magento to PayPal (WPP Payflow Edition, WPP Payflow Edition EC )
+Fixed User cannot be associated with webservice role if he was selected in the Role Users of Role inforamation Page
+Fixed CSS Merger Cache Ignores Hostname and HTTPS
+- removed "beta" mark on CSS merger feature in system configuration, because known issue with different host names for different store views is solved
+- split merged CSS storage into 2 parts: "css" and "css_secure"
+- included "port" and "base host name" parameters into merger hash generation algorithm as parameters
+Fixed: Default country setting not affect country select field default value on frontend 
+Fixed Credit card data Iframe for PayflowLink is displayed on Order Review step for all payment methods
+Fixed The Wrong / not exist  Url should be redirect to 404 page
+- Added section availability in preDispatch
+Fixed Report > Products Ordered ignores Store view switcher
+- reforming $storeIds checks
+Fixed Report > Products Ordered ignores Store view switcher
+Fixed Cannot create or save after editing customer's Address, "Please enter the street" error appears on frontend
+Fixed Magento allows admin to create category/product url rewrite for a store that doesn't have this category/product
+- Showing websites that only associated to current category or product.
+Fixed Magento allows admin to create category/product url rewrite for a store that doesn't have this category/product
+- Fixed coding standards
+Fixed Not all session data destroyed on logout
+Fixed Inline Translation - Pages View Issue
+- move cache types list in config
+Fixed Shop By index range is build based on Excl. Tax value, but filter products in catalog based on Incl tax value. filter works incorrect
+- it was problem with facets calculation, when we use Solr
+Fixed Security issue - processing of disallowed actions with orders through direct URL
+- wrong Credit Memo ACL resource name
+Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat
+Fixed Different order amount in Google checkout and Magento orders
+Fixed Bundle Product w/o required option calculates wrong fixed minimal price
+Fixed Admin unable to uninstall payment method without editing config
+- getMethodInstance method was rewrited
+- Added instance check in some payment models according to this
+Fixed lastInsertId invokes when no insert where proceed
+Fixed Changing the root category for a store doesn't work correctly
+Fixed Unable to translate notice messages, errors and success messages
+Fixed Problems with newsletter template preview on newsletter queue edit page
+Fixed Tax of shipping method Flat Rate is not passed to the order while Google Checkout
+Fixed Product Flat Data reindex
+- disable flat data usage during reindex process
+Fixed Catalog Rule does not work properly when condition uses Contains
+Fixed Wrong prices (currency) for shipping price via UPS XML rates
+Fixed Unable to translate product edit/create page
+Fixed During product save operation, Magento disables keys for catalog_product_index_* tables.
+Fixed FPT with prices included tax problem
+- Added 'Catalog Prices' option check
+Fixed Google Analytics e-commerce tracking not working
+Fixed Empty bundle selections are shown as item options
+Fixed Subtotal for Bundle product with quantity 2 calculates as for one
+Fixed Remove initSessionLayoutMessages() from ProductController
+Fixed Incorrect value of field "Custom Layout Update" causes fatal error
+Fixed Duplicate of a product creates it with no SKU value and is saved
+Fixed Field "Meta Description" should be has limit of 255 characters
+Fixed Row subtotal is not displayed for Downloadable product in Backend
+Fixed Bad styling of product options displayed in wishlist
+Fixed Need to show item options of customer shopping cart at backend
+Fixed Wishlist item configuration is not saved at backend
+Fixed "OK" button instead of "Ok" must be on product configuration popups in backend
+Fixed Products wishlist items are not sorted by added_at
+Fixed Mage_Core_Model_Template doesn't properly restore old design context
+Fixed StoreView value not in FlatCatalog for multiple-select type attribute
+Fixed Rule condition "is one of" disappeared for category_ids attribute
+- Added "is one of" and "is not one of" to multiselect type conditions
+Fixed Security issue - the way to get URL-path of Admin side through Front-end URL
+Fixed Pictures does not appears on the additional information tab on front end for product attribute with Catalog Input Type for Store Owner= Text Area
+Fixed Add method which was accidentally removed
+- Deprecated methods Mage_Catalog_Model_Product::loadParentProductIds, Mage_Catalog_Model_Resource_Eav_Mysql4_Product::getParentProductIds
+Fixed Can't create refund online for Google Chekout
+Fixed After pressing 'Cancel Payment' link nothing happens in Payflow Link payment method
+Fixed class Mage_Core_Model_Store has problem with _processConfigValue and processSubst
+- Added "@deprecated after 1.4.2.0" mark for processSubst() in Mage_Core_Model_Store
+Fixed Category tree is missing for product, assigned to root category
+Fixed Unable to translate "Delete Image" checkbox
+Fixed wrong XML paths in isAllowed() method for system->Admin roles controllers.
+Fixed Magento falls into the white screen when saving URL rewrite for a product on the Default Store View
+- Changed exception message
+Fixed Different shipping amount for creditmemo from order page and invoice page
+Fixed Tax rates with zip ranges doesn't match to addresses with asterisk ( * ) as zip code value
+Fixed Fedex doesn't react to overrided in website scope BaseCurrency value.
+Fixed Export Customers. Map billing or shipping street in the mapping interface. They won't be exported
+Fixed Advanced Import Profiles doesn't work
+Fixed Add New Customer Form: checkbox "Send Welcome Email" is not disabled if "Associate to Website"="Admin"
+Fixed JS validation prevent submit form
+Fixed Payment action: Ogone Default Operation is not working at all
+Fixed There are no ability to create several Refunds to Order completed using Partial Authorization
+Fixed Incorrect shipping tax calculation on invoice creditmemos with included tax
+Fixed URL key wasn't used while product save
+Fixed Inline Translations don't work if you have more than one store
+Fixed Tax Report Shows Wrong Tax Percent After Changing Tax Rate
+- added grouping by tax percent in report collections
+- modified unique key in the tax report aggregation table to allow generating report with grouping by tax percents
+- data in the tax report aggregation table is truncated and lifetime statistics must be re-generated after upgrade
+Fixed make increment_id fields unique in sales tables
+Fixed Added items to the Wishlist in the "Manage Shopping Cart" are not shown
+Fixed Orders: More than one filter to the same field is not possible
+- Function items was changed.
+Fixed Invoices: More than one filter to the same field is not possible
+- Function items was changed.
+Fixed Report counts configurable products twice
+Fixed Tax rate with ZIP XXXXX* doesn't match to customer zip XXXXX
+Fixed Method Mage_Wishlist_Block_Links::addWishlistLink removed
+- Added "@deprecated after 1.4.2.0"
+Fixed "Subscribed to Newsletter" success e-mail couldn't be sent if you changed customer's subscription in admin.
+Fixed Problems with newsletter template preview on newsletter queue edit page
+Fixed Dashboard reports bug
+- Added discount to Mage_Reports_Model_Mysql4_Order_Collection:::addSumAvgTotals()
+Fixed Google base timeout
+- Timeout is 60 seconds now.
+Fixed Bundle product is not shipped correctly
+Fixed Unable to translate product edit/create page
+Fixed Dataflow customers export optimization
+- customer groups are storing in memory instead of DB queries
+Fixed Price layer navigation does not count product with zero price
+Fixed Import Product doesn't work
+- added empty file checking
+Fixed Price Indexer does not apply configurable options surcharges for customer groups different to "NOT LOGGED IN"
+Fixed Category Update Not Reflected in Left Nav
+Fixed Notify Stock RSS Includes Products without stock
+Fixed FPT is not shown in the order review page (for website)
+Fixed SQL Upgrades have wrong implementation
+Fixed Email to a friend error, existing Order Send Email error
+- Added ability to access to /admin/sales_order/email/ action
+Fixed Total Refunded Report shows Offline Refunded orders like Online Refunded
+Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not USA
+- Added Mage::log() for errors @ Mage_Usa_Model_Shipping_Carrier_Ups::_parseXmlResponse()
+
+
+==== 1.5.x-devel-88903 ====
+
+=== Major Highlights ===
+Balance Response, Partial Authorization Transactions, Authorization Reversals Support for MasterCard and Discover
+3D Secure authentication for Authorize.net payment method
+PayflowLink payment method
+Improved Import/Export functionality
+Ability to order composite products from backend and some extra functionality
+- reconfigure already added products on front end
+- adding preconfigured products in wish-list
+Alternative media storage
+- Database
+- CDN
+Order status management
+- ability to add new status and assign to some state
+- from now on statuses stored in appropriate DB table instead of configuration file
+Ability to edit order addresses
+- this functionality admin has link to edit address for order view page
+
+=== Improvements ===
+Upgraded Zend Framework to 1.11.0
+Implemented new process of hashing parameters in Ogone payment method
+- implemented an advanced hashing method that invokes all transaction parameters for building security hash
+- updated fields sort order in system configuration
+- added the new parameter which designates whether to use the old or advanced hashing method
+- made SHA-IN and SHA-OUT sys config parameter titles corresponding to parameter titles on merchant site in Ogone
+- major refactoring of the Ogone helper: simplified public interface of hash validation, added support for SHA-1, SHA-256 and SHA-512 algorithms (not selectable in system config)
+- optimized performance of debugging and building redirect form: removed 2 excessive calls (one from template, another from debugging - it invoked form building even if debugging was disabled)
+- since the form is built from a block, prevented injecting SID parameter to URLs when building form
+- added HTML escaping in the template hidden fields
+- added new system configuration parameter - hashing algorithm
+- verified/fixed all API hashing parameters in accordance to documentation v.5.0
+
+=== Fixes ===
+Fixed Onepage checkout - Shipping address issues
+- added resetting property to save billing address in address book
+- added saving of new shipping address
+- simplified condition in order preparation routine
+Fixed Backordered Item Status on Orders
+- saving current ordered items number for stock item and calculating backorder qty according to it
+Fixed The product category is empty after moving category with products to another one
+Fixed Magento Connect -> If substitute channel for package extension, MCM will send authorization data to the fake URL
+Fixed Image Label is not Uploading properly
+Fixed Category Tree -> Changing category color
+Fixed With enabled "Inline Translation" its impossible to finish purchase
+- Added checking for escaped html end tag
+Fixed #0024559: Special Price to Date can not set Use Default Value
+Fixed CMS -> Manage Pages: It's possible to save New Page with capital letters in URL key
+- corrected js validation;
+- added server-side url key validation.
+Fixed Makeup of subcategories dropdown menu at front-end glitter with category fields bar
+- removed property "z-index: 1" for #nav li.level-top
+Revert changes from rev #83486
+Fixed Tier prices are not recalculated in bundle product configuration with different currency
+Fixed On Multi store installation, 'specials' rss feed includes specials from other stores
+Fixed Subscribe to Order Status - translation problem
+Fixed There is a spelling error with the translation
+Fixed Single Coupon applying for each shipping location rather than whole order
+- applying cart fixed rules for first shipping address order only
+- store which quote address cart fixed rule was applied for in SalesRule_Model_Validator
+Added method getDefaultCountry and constant XML_PATH_DEFAULT_COUNTRY into Mage_Core_Helper_Data
+Added more abstract system config backend model for uploading files:
+- removed duplicated logic from system config backend image model.
+Fixed Grand total doubles when processing multi-shipping checkout and ordinary checkout
+- cleaning address information when checkout type changes from multi-shipping to onepage
+Fixed Problem with admin roles
+Checkout page IE6/7 CSS bug fixed.
+Fixed Edit product->"Inventory" tab - "Qty Increments" error contain mistake
+Fixed No field for "Search Query"
+Fixed Character "b" is added to Review
+Fixed Retain the selected tab on editing CMS page
+Fixed Invoices Tax class not displayed
+Fixed Full tax summary on invoice
+Fixed working with partial authorizations on first card submit
+Fixed CMS can't create Hierarchy Node Link widget in IE8
+Fixed The Wrong / not exist Url should be redirect to 404 page
+Fixed Interface Locale needs additional country
+Fixed The product category is empty after moving category with products to another one
+Fixed 'Gateway error: A valid amount is required' appears during create Credit Memo for order, which uses Authorize.net
+Fixed #19807: Product with visibility- Nowhere display on the fron-end in 'Last ordered items' block, if order create on back-end
+Fixed Displaying Out of Stock Products on the front-end
+- added price data for consider item stock status for wish-list and compare products items collections, in reorder for product collection which sales order item collection based on.
+Fixed active tabs in store view scope while disabled PayPal methods
+- Added functionality that disables corresponding methods in store view scope.
+- Fixed related bug: in website view scope Express Checkout PE checkbox appears improperly checked after page load.
+Fixed Active tabs in store view scope while disabled PayPal methods
+Fixed Bundle price wrong when static qty above 1
+Fixed No "Suspected Fraud" status for hacked orders
+Fixed PayPal API Certificate uses settings from the default configuration, instead of the website
+Fixed Don't show (-) in totals when shipping title and shiping method empty in a configuration
+Fixed Product with price 0.00 possibility purchase through Shortcut PayPal button
+Fixed Archived orders not displayed in customer's orders list
+Fixed Fatal error on magento compilation
+Fixed Mage::app() call is not overriding cache/var directories
+Fixed After switching "Manage Stock" option, product prices index does not invalidate
+Fixed Transfer Cart Line: dropdown with shipping Rates is absent on PayPal side
+Fixed Can't choose Group at the creation new Order by admin
+Fixed PayPal API Certificate uses settings from the default configuration, instead of the website
+- added forgotten file from rev 84979
+Fixed Bug in Error Message display for Send to Friend (Mage_Sendfriend_ProductController)
+Fixed Admin order creation JS error message
+Fixed Problems with category sort order
+Fixed Button "Credit Memo" after refund partial per invoice is enabled
+Fixed Report don't show order with status "Canceled"
+Fixed Wrong quantity checks architecture in inventory observer
+Fixed On page 404, link "go back" does not work
+Fixed Category editing "Use Parent Category Settings" inconsistent behavior (Google Chrome)
+Fixed Set products per Page
+Fixed product review filter by customer does not work
+- type is administrator when customer_id is NULL and store_id is admin store id
+Fixed Product review filter by customer does not work
+Fixed WYSIWYG Editor disabling issue
+Fixed Quantity increment for Group Product Issue
+Fixed #15780: Add configuration option to ignore SID on frontend
+- Changed fieldset scope from global to website, because the field has website scope.
+Fixed Message "The product has required options" appears twice in the back-end order for items with mandatory custom options
+Fixed Meta description can be more than 255 chars
+Fixed When creating a new customer from the backend in "Manage Customers", the welcome email is empty
+Fixed  Image Label is not Uploading properly
+- Slightly changed logic in adding image algorithms due to possible existence of added pictures
+Fixed  JavaScript Calendar Date Range
+- Also little fix to maintain corporate standards
+Fixed Gift message displaying conditions not properly work on frontend and backend:
+Fixed flat catalog tables do not contain varchar values for store view level
+Fixed Add check "Use Default" for dependent form elements (in the admin), because if field "Use Default" it should be always disabled.
+Fixed #21084: "can not" -> "cannot" text changes (found only one occurrence of "can not" and changed it)
+Fixed New added required attribute should be filled in by customer before checkout
+Fixed PayPal Billing Agreement presents in payment methods when no BA are created during admin order creation
+Fixed Free Shipping Banner appears to be hard coded into the template file - replaced hardcoded callouts with CNS blocks. Two CMS blocks should be added to RR install.
+Fixed Empty order status field
+- Configuration mistake
+Fixed Cart Rule discount with Fixed amount for a whole Cart is not applied for OnePageCheckout
+Fixed Coupon with "Apply fixed amount discount for whole cart" does not apply to bundle products with dynamic price
+Fixed Frontend additional attributes issue with price attributes.
+Fixed Unable to translate "Submit Invoice" button
+Fixed Undefined index after clicking on Print Shipment
+Fixed Customer cannot be confirmed from the admin
+Fixed Inline Translations don't work if you have more than one store
+Fixed Invitation link has a session ID parameter
+Fixed Magento creates order even if response from PaypalUk is empty
+- response validation has been added
+Fixed Displaying Out of Stock Products on the front-end
+Fixed Incorrect billing/shipping address transfer from magento to PayPal (WPP Payflow Edition, WPP Payflow Edition EC )
+Fixed User cannot be associated with webservice role if he was selected in the Role Users of Role inforamation Page
+Fixed CSS Merger Cache Ignores Hostname and HTTPS
+- removed "beta" mark on CSS merger feature in system configuration, because known issue with different host names for different store views is solved
+- split merged CSS storage into 2 parts: "css" and "css_secure"
+- included "port" and "base host name" parameters into merger hash generation algorithm as parameters
+Fixed: Default country setting not affect country select field default value on frontend 
+Fixed Credit card data Iframe for PayflowLink is displayed on Order Review step for all payment methods
+Fixed The Wrong / not exist  Url should be redirect to 404 page
+- Added section availability in preDispatch
+Fixed Report > Products Ordered ignores Store view switcher
+- reforming $storeIds checks
+Fixed Report > Products Ordered ignores Store view switcher
+Fixed Cannot create or save after editing customer's Address, "Please enter the street" error appears on frontend
+Fixed Magento allows admin to create category/product url rewrite for a store that doesn't have this category/product
+- Showing websites that only associated to current category or product.
+Fixed Magento allows admin to create category/product url rewrite for a store that doesn't have this category/product
+- Fixed coding standards
+Fixed Not all session data destroyed on logout
+Fixed Inline Translation - Pages View Issue
+- move cache types list in config
+Fixed Shop By index range is build based on Excl. Tax value, but filter products in catalog based on Incl tax value. filter works incorrect
+- it was problem with facets calculation, when we use Solr
+Fixed Security issue - processing of disallowed actions with orders through direct URL
+- wrong Credit Memo ACL resource name
+Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat
+Fixed Different order amount in Google checkout and Magento orders
+Fixed Bundle Product w/o required option calculates wrong fixed minimal price
+Fixed Admin unable to uninstall payment method without editing config
+- getMethodInstance method was rewrited
+- Added instance check in some payment models according to this
+Fixed lastInsertId invokes when no insert where proceed
+Fixed Changing the root category for a store doesn't work correctly
+Fixed Unable to translate notice messages, errors and success messages
+Fixed Problems with newsletter template preview on newsletter queue edit page
+Fixed Tax of shipping method Flat Rate is not passed to the order while Google Checkout
+Fixed Product Flat Data reindex
+- disable flat data usage during reindex process
+Fixed Catalog Rule does not work properly when condition uses Contains
+Fixed Wrong prices (currency) for shipping price via UPS XML rates
+Fixed Unable to translate product edit/create page
+Fixed During product save operation, Magento disables keys for catalog_product_index_* tables.
+Fixed FPT with prices included tax problem
+- Added 'Catalog Prices' option check
+Fixed Google Analytics e-commerce tracking not working
+Fixed Empty bundle selections are shown as item options
+Fixed Subtotal for Bundle product with quantity 2 calculates as for one
+Fixed Remove initSessionLayoutMessages() from ProductController
+Fixed Incorrect value of field "Custom Layout Update" causes fatal error
+Fixed Duplicate of a product creates it with no SKU value and is saved
+Fixed Field "Meta Description" should be has limit of 255 characters
+Fixed Row subtotal is not displayed for Downloadable product in Backend
+Fixed Bad styling of product options displayed in wishlist
+Fixed Need to show item options of customer shopping cart at backend
+Fixed Wishlist item configuration is not saved at backend
+Fixed "OK" button instead of "Ok" must be on product configuration popups in backend
+Fixed Products wishlist items are not sorted by added_at
+Fixed Mage_Core_Model_Template doesn't properly restore old design context
+Fixed StoreView value not in FlatCatalog for multiple-select type attribute
+Fixed Rule condition "is one of" disappeared for category_ids attribute
+- Added "is one of" and "is not one of" to multiselect type conditions
+Fixed Security issue - the way to get URL-path of Admin side through Front-end URL
+Fixed Pictures does not appears on the additional information tab on front end for product attribute with Catalog Input Type for Store Owner= Text Area
+Fixed Add method which was accidentally removed
+- Deprecated methods Mage_Catalog_Model_Product::loadParentProductIds, Mage_Catalog_Model_Resource_Eav_Mysql4_Product::getParentProductIds
+Fixed Can't create refund online for Google Chekout
+Fixed After pressing 'Cancel Payment' link nothing happens in Payflow Link payment method
+Fixed class Mage_Core_Model_Store has problem with _processConfigValue and processSubst
+- Added "@deprecated after 1.4.2.0" mark for processSubst() in Mage_Core_Model_Store
+Fixed Category tree is missing for product, assigned to root category
+Fixed Unable to translate "Delete Image" checkbox
+Fixed wrong XML paths in isAllowed() method for system->Admin roles controllers.
+Fixed Magento falls into the white screen when saving URL rewrite for a product on the Default Store View
+- Changed exception message
+Fixed Different shipping amount for creditmemo from order page and invoice page
+Fixed Tax rates with zip ranges doesn't match to addresses with asterisk ( * ) as zip code value
+Fixed Fedex doesn't react to overrided in website scope BaseCurrency value.
+Fixed Export Customers. Map billing or shipping street in the mapping interface. They won't be exported
+Fixed Advanced Import Profiles doesn't work
+Fixed Add New Customer Form: checkbox "Send Welcome Email" is not disabled if "Associate to Website"="Admin"
+Fixed JS validation prevent submit form
+Fixed Payment action: Ogone Default Operation is not working at all
+Fixed There are no ability to create several Refunds to Order completed using Partial Authorization
+Fixed Incorrect shipping tax calculation on invoice creditmemos with included tax
+Fixed URL key wasn't used while product save
+Fixed Inline Translations don't work if you have more than one store
+Fixed Tax Report Shows Wrong Tax Percent After Changing Tax Rate
+- added grouping by tax percent in report collections
+- modified unique key in the tax report aggregation table to allow generating report with grouping by tax percents
+- data in the tax report aggregation table is truncated and lifetime statistics must be re-generated after upgrade
+Fixed make increment_id fields unique in sales tables
+Fixed Added items to the Wishlist in the "Manage Shopping Cart" are not shown
+Fixed Orders: More than one filter to the same field is not possible
+- Function items was changed.
+Fixed Invoices: More than one filter to the same field is not possible
+- Function items was changed.
+Fixed Report counts configurable products twice
+Fixed Tax rate with ZIP XXXXX* doesn't match to customer zip XXXXX
+Fixed Method Mage_Wishlist_Block_Links::addWishlistLink removed
+- Added "@deprecated after 1.4.2.0"
+Fixed "Subscribed to Newsletter" success e-mail couldn't be sent if you changed customer's subscription in admin.
+Fixed Problems with newsletter template preview on newsletter queue edit page
+Fixed Dashboard reports bug
+- Added discount to Mage_Reports_Model_Mysql4_Order_Collection:::addSumAvgTotals()
+Fixed Google base timeout
+- Timeout is 60 seconds now.
+Fixed Bundle product is not shipped correctly
+Fixed Unable to translate product edit/create page
+Fixed Dataflow customers export optimization
+- customer groups are storing in memory instead of DB queries
+Fixed Price layer navigation does not count product with zero price
+Fixed Import Product doesn't work
+- added empty file checking
+Fixed Price Indexer does not apply configurable options surcharges for customer groups different to "NOT LOGGED IN"
+Fixed Category Update Not Reflected in Left Nav
+Fixed Notify Stock RSS Includes Products without stock
+Fixed FPT is not shown in the order review page (for website)
+Fixed SQL Upgrades have wrong implementation
+Fixed Email to a friend error, existing Order Send Email error
+- Added ability to access to /admin/sales_order/email/ action
+Fixed Total Refunded Report shows Offline Refunded orders like Online Refunded
+Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not USA
+- Added Mage::log() for errors @ Mage_Usa_Model_Shipping_Carrier_Ups::_parseXmlResponse()
+
+
 ==== 1.4.2.0 ====
 
 === Major Highlights ===
 * Starting from this release we are including TheFind extension.
-* New Magento Connect Manager excluded from this version.
 
 == Upgrade Notes ==
-* Those who installed Magento version 1.4.2.0-beta1 or 1.4.2.0-rc1 through Magento Connect should reinstall it manually, because this version contains old version of Magento Connect Manager
+* Those who installed Magento version 1.4.2.0-beta1 or 1.4.2.0-rc1 through Magento Connect should reinstall it manually, because its version number is the same as of the current release and no automatic update will be available for it.
 
 == Improvements ==
 * Added "Switch/Maestro" card type support to centinel 3DS validator. Added comment about maestro and 3d-secure to paypal system config
@@ -308,7 +861,7 @@
 * Fixed Related products are not saved when you attach them to a product
 * Fixed Added qty to bundle unit price calculation to quote totals recalculating.
 * Fixed Saving category cause: 'Exception' with message 'File was not uploaded.' in /home/vadim.kusakin/dev/qa/2759/lib/Varien/File/Uploader.php:139
-* Fixed Fixed MAGE-638 Magento Connect -> MCM -> If agreement checkbox is unchecked, "Continue" button should be disabled
+* Fixed Fixed Magento Connect -> MCM -> If agreement checkbox is unchecked, "Continue" button should be disabled
 * Fixed Set the same column font size as in cells in PDF documents printing
 * Fixed Home page appears instead of predefined 404 page
 * Fixed Removed converting of "is one of" and "is not one of" values in decimal.
@@ -375,7 +928,7 @@
 * Fixed #23461: Wrong attribute value in catalog link widget XML
 * Fixed getting complete state for orders with zero grand total when processed
 * Added Store id param to billing agreement entity.  Also fixed store setting in billing agreement payment method.
-* Fixed fatal error in payment method list fetching (MAGE-500)
+* Fixed fatal error in payment method list fetching
 * Fixed #22575: Trace error during using filter "Products" on Tags page
 * Fixed Grids with settings remain active while disabled PayPal methods
 * Fixed configuration merger fatal error when store/website resource structure is inconsistent
@@ -808,7 +1361,7 @@
 * Fixed Related products are not saved when you attach them to a product
 * Fixed Added qty to bundle unit price calculation to quote totals recalculating.
 * Fixed Saving category cause: 'Exception' with message 'File was not uploaded.' in /home/vadim.kusakin/dev/qa/2759/lib/Varien/File/Uploader.php:139
-* Fixed Fixed MAGE-638 Magento Connect -> MCM -> If agreement checkbox is unchecked, "Continue" button should be disabled
+* Fixed Fixed Magento Connect -> MCM -> If agreement checkbox is unchecked, "Continue" button should be disabled
 * Fixed Set the same column font size as in cells in PDF documents printing
 * Fixed Home page appears instead of predefined 404 page
 * Fixed Removed converting of "is one of" and "is not one of" values in decimal.
@@ -895,7 +1448,6 @@
 * Fixed #23461: Wrong attribute value in catalog link widget XML
 * Fixed getting complete state for orders with zero grand total when processed
 * Added Store id param to billing agreement entity.  Also fixed store setting in billing agreement payment method.
-* Fixed fatal error in payment method list fetching (MAGE-500)
 * Fixed #22575: Trace error during using filter "Products" on Tags page
 * Fixed Grids with settings remain active while disabled PayPal methods
 * Fixed configuration merger fatal error when store/website resource structure is inconsistent

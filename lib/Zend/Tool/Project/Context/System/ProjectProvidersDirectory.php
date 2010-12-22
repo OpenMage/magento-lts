@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ProjectProvidersDirectory.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: ProjectProvidersDirectory.php 23202 2010-10-21 15:08:15Z ralph $
  */
 
 /**
@@ -66,32 +66,22 @@ class Zend_Tool_Project_Context_System_ProjectProvidersDirectory
     {
         return 'ProjectProvidersDirectory';
     }
-
-    /**
-     * init()
-     *
-     * @return Zend_Tool_Project_Context_System_ProjectProvidersDirectory
-     */
-    public function init()
+    
+    public function loadProviders(Zend_Tool_Framework_Registry_Interface $registry)
     {
-        parent::init();
-
         if (file_exists($this->getPath())) {
 
+            $providerRepository = $registry->getProviderRepository();
+            
             foreach (new DirectoryIterator($this->getPath()) as $item) {
-                if ($item->isFile()) {
-                    $loadableFiles[] = $item->getPathname();
+                if ($item->isFile() && (($suffixStart = strpos($item->getFilename(), 'Provider.php')) !== false)) {
+                    $className = substr($item->getFilename(), 0, $suffixStart+8);
+                    // $loadableFiles[$className] = $item->getPathname();
+                    include_once $item->getPathname();
+                    $providerRepository->addProvider(new $className());
                 }
             }
-
-            if ($loadableFiles) {
-
-                // @todo process and add the files to the system for usage.
-
-            }
         }
-
-        return $this;
     }
 
 }

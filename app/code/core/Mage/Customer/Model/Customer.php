@@ -514,11 +514,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         /* @var $translate Mage_Core_Model_Translate */
         $translate->setTranslateInline(false);
 
-        $storeId = ($storeId == '0')?$this->getSendemailStoreId():$storeId;
-        if ($this->getWebsiteId() != '0' && $storeId == '0') {
-            $storeIds = Mage::app()->getWebsite($this->getWebsiteId())->getStoreIds();
-            reset($storeIds);
-            $storeId = current($storeIds);
+        if (!$storeId) {
+            $storeId = $this->_getWebsiteStoreId($this->getSendemailStoreId());
         }
 
         Mage::getModel('core/email_template')
@@ -568,10 +565,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $translate->setTranslateInline(false);
 
         $storeId = $this->getStoreId();
-        if ($this->getWebsiteId() != '0' && $storeId == '0') {
-            $storeIds = Mage::app()->getWebsite($this->getWebsiteId())->getStoreIds();
-            reset($storeIds);
-            $storeId = current($storeIds);
+        if (!$storeId) {
+            $storeId = $this->_getWebsiteStoreId();
         }
 
         Mage::getModel('core/email_template')
@@ -1134,5 +1129,22 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $this->setData('entity_type_id', $entityTypeId);
         }
         return $entityTypeId;
+    }
+    
+    /**
+     * Get either first store ID from a set website or the provided as default
+     *
+     * @param int|string|null $storeId
+     *
+     * @return int
+     */
+    protected function _getWebsiteStoreId($defaultStoreId = null)
+    {
+        if ($this->getWebsiteId() != 0 && empty($defaultStoreId)) {
+            $storeIds = Mage::app()->getWebsite($this->getWebsiteId())->getStoreIds();
+            reset($storeIds);
+            $defaultStoreId = current($storeIds);
+        }
+        return $defaultStoreId;
     }
 }

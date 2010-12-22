@@ -16,7 +16,7 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Pdf.php 22655 2010-07-22 18:47:20Z mabe $
+ * @version    $Id: Pdf.php 22908 2010-08-25 20:52:47Z alexander $
  */
 
 
@@ -46,6 +46,12 @@
 
 /** Zend_Pdf_Font */
 #require_once 'Zend/Pdf/Font.php';
+
+/** Zend_Pdf_Resource_Extractor */
+#require_once 'Zend/Pdf/Resource/Extractor.php';
+
+/** Zend_Pdf_Canvas */
+#require_once 'Zend/Pdf/Canvas.php';
 
 
 /** Internally used classes */
@@ -286,7 +292,7 @@ class Zend_Pdf
      * from a file.
 
      * $revision used to roll back document to specified version
-     * (0 - currtent version, 1 - previous version, 2 - ...)
+     * (0 - current version, 1 - previous version, 2 - ...)
      *
      * @param string  $source - PDF file to load
      * @param integer $revision

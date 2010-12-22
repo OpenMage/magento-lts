@@ -86,7 +86,7 @@ class Mage_GoogleAnalytics_Model_Observer
 
         // make sure to track google checkout "onsubmit"
         $onsubmitJs = $block->getOnsubmitJs();
-        $block->setOnsubmitJs($onsubmitJs . ($onsubmitJs ? '; ' : '') . 'setUrchinInputCode(pageTracker);');
+        $block->setOnsubmitJs($onsubmitJs . ($onsubmitJs ? '; ' : '') . '_gaq.push(function() {var pageTracker = _gaq._getAsyncTracker(); setUrchinInputCode(pageTracker);});');
 
         // add a link that includes google checkout/analytics script, to the first instance of the link block
         if ($this->_isGoogleCheckoutLinkAdded) {

@@ -89,7 +89,9 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Eav_Abstra
             $adapter->delete($this->getMainTable(), $where);
 
             // insert new index
+            $this->useDisableKeys(false);
             $this->insertFromTable($this->getIdxTable(), $this->getMainTable());
+            $this->useDisableKeys(true);
 
             $adapter->commit();
         } catch (Exception $e) {

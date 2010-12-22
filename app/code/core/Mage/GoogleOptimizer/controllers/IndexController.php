@@ -24,6 +24,8 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+require_once 'Mage/GoogleOptimizer/controllers/Adminhtml/Googleoptimizer/IndexController.php';
+
 /**
  * GoogleOptimizer Front Controller
  *
@@ -31,27 +33,9 @@
  * @package    Mage_GoogleOptimizer
  * @name       Mage_GoogleOptimizer_IndexController
  * @author     Magento Core Team <core@magentocommerce.com>
+ * @deprecated  after 1.4.2.0 Mage_GoogleOptimizer_Adminhtml_Googleoptimizer_IndexController is used
 */
-class Mage_GoogleOptimizer_IndexController extends Mage_Adminhtml_Controller_Action
+class Mage_GoogleOptimizer_IndexController extends Mage_GoogleOptimizer_Adminhtml_Googleoptimizer_IndexController
 {
-    /**
-     * Retrieve js scripts by parsing remote Google Optimizer page
-     */
-    public function codesAction()
-    {
-        if ($this->getRequest()->getQuery('url')) {
-            $client = new Varien_Http_Client($this->getRequest()->getQuery('url'));
-            $response = $client->request(Varien_Http_Client::GET);
-            $result = array();
-            if (preg_match_all('/<textarea[^>]*id="([_a-zA-Z0-9]+)"[^>]*>([^<]+)<\/textarea>/', $response->getRawBody(), $matches)) {
-                $c = count($matches[1]);
-                for ($i = 0; $i < $c; $i++) {
-                    $id = $matches[1][$i];
-                    $code = $matches[2][$i];
-                    $result[$id] = $code;
-                }
-            }
-            $this->getResponse()->setBody( Mage::helper('core')->jsonEncode($result) );
-        }
-    }
+
 }

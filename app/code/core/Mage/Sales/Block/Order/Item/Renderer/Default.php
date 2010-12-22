@@ -165,4 +165,14 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
         }*/
         return $this->getItem()->getSku();
     }
+
+    /**
+     * Return product additional information block
+     *
+     * @return Mage_Core_Block_Abstract
+     */
+    public function getProductAdditionalInformationBlock()
+    {
+        return $this->getLayout()->getBlock('additional.product.info');
+    }
 }

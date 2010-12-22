@@ -80,7 +80,7 @@ class Mage_Adminhtml_Block_Report_Review_Customer_Grid extends Mage_Adminhtml_Bl
         $this->setFilterVisibility(false);
 
         $this->addExportType('*/*/exportCustomerCsv', Mage::helper('reports')->__('CSV'));
-        $this->addExportType('*/*/exportCustomerExcel', Mage::helper('reports')->__('Excel'));
+        $this->addExportType('*/*/exportCustomerExcel', Mage::helper('reports')->__('Excel XML'));
 
         return parent::_prepareColumns();
     }

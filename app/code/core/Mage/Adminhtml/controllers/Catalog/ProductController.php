@@ -124,6 +124,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
         Mage::register('product', $product);
         Mage::register('current_product', $product);
+        Mage::getSingleton('cms/wysiwyg_config')->setStoreId($this->getRequest()->getParam('store'));
         return $product;
     }
 
@@ -281,9 +282,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     public function gridAction()
     {
         $this->loadLayout();
-        $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/catalog_product_grid')->toHtml()
-        );
+        $this->renderLayout();
     }
 
     /**
@@ -306,10 +305,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     public function categoriesAction()
     {
         $this->_initProduct();
-
-        $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_categories')->toHtml()
-        );
+        $this->loadLayout();
+        $this->renderLayout();
     }
 
     /**
@@ -319,10 +316,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     public function optionsAction()
     {
         $this->_initProduct();
-
-        $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_options', 'admin.product.options')->toHtml()
-        );
+        $this->loadLayout();
+        $this->renderLayout();
     }
 
     /**
@@ -429,12 +424,11 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     public function reviewsAction()
     {
         $this->_initProduct();
-        $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_reviews', 'admin.product.reviews')
+        $this->loadLayout();
+        $this->getLayout()->getBlock('admin.product.reviews')
                 ->setProductId(Mage::registry('product')->getId())
-                ->setUseAjax(true)
-                ->toHtml()
-        );
+                ->setUseAjax(true);
+        $this->renderLayout();
     }
 
     /**
@@ -775,11 +769,10 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     public function tagGridAction()
     {
-        $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_tag', 'admin.product.tags')
-                ->setProductId($this->getRequest()->getParam('id'))
-                ->toHtml()
-        );
+        $this->loadLayout();
+        $this->getLayout()->getBlock('admin.product.tags')
+                ->setProductId($this->getRequest()->getParam('id'));
+        $this->renderLayout();
     }
 
     /**
@@ -914,7 +907,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     {
         if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
             if (!Mage::getModel('catalog/product')->isProductsHasSku($productIds)) {
-                throw new Mage_Core_Exception($this->__('Some of the processed products have no SKU value. Please fill it.'));
+                throw new Mage_Core_Exception($this->__('Some of the processed products have no SKU value defined. Please fill it prior to performing operations on these products.'));
             }
         }
     }
@@ -925,11 +918,10 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     public function tagCustomerGridAction()
     {
-        $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_tag_customer', 'admin.product.tags.customers')
-                ->setProductId($this->getRequest()->getParam('id'))
-                ->toHtml()
-        );
+        $this->loadLayout();
+        $this->getLayout()->getBlock('admin.product.tags.customers')
+                ->setProductId($this->getRequest()->getParam('id'));
+        $this->renderLayout();
     }
 
     public function quickCreateAction()

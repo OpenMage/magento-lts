@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Varien
- * @package    Varien_Object
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -50,7 +50,7 @@
         <div class="header-top-container">
             <div class="header-top">
                 <h1 id="logo">
-                    <a href="<?php echo $this->baseUrl()?>"><img src="<?php echo $this->baseUrl()?>/skin/install/images/logo.gif" alt="Magento"/></a>
+                    <a href="<?php echo $this->baseUrl()?>"><img src="<?php echo $this->baseUrl()?>/skin/install/images/<?php echo($this->get('channel_logo')); ?>.gif" alt="Magento"/></a>
                 </h1>
             </div>
         </div>
@@ -69,6 +69,10 @@
                 <div style="border:1px solid #ccc; background:#f6f6f6;">
     <h2 style="margin-bottom:0; border-bottom:1px solid #ccc; padding:4px 10px; color:#3c5974; font-size:1.4em;">Installation</h2>
 <ol style="padding:10px; border-top:1px solid #fff;">
+    <li>Welcome</li>
+    <li>Validation</li>
+    <li>Magento Connect Manager Deployment</li>
+    <?php echo($this->get('channel_steps')); ?>
     <li style="color:green; font-weight:bold; ">Download</li>
     <li >License Agreement</li>
     <li >Localization</li>

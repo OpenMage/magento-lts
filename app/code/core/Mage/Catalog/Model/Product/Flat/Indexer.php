@@ -179,9 +179,17 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        $this->_getResource()->removeProduct($productIds, $store);
-        $this->_getResource()->updateProduct($productIds, $store);
-        $this->_getResource()->updateRelationProducts($store, $productIds);
+        $resource = $this->_getResource();
+        $resource->beginTransaction();
+        try {
+            $resource->removeProduct($productIds, $store);
+            $resource->updateProduct($productIds, $store);
+            $resource->updateRelationProducts($store, $productIds);
+            $resource->commit();
+        } catch (Exception $e){
+            $resource->rollBack();
+            throw $e;
+        }
 
         return $this;
     }
@@ -201,10 +209,18 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
             }
             return $this;
         }
-
-        $this->_getResource()->removeProduct($productIds, $store);
-        $this->_getResource()->saveProduct($productIds, $store);
-        $this->_getResource()->updateRelationProducts($store, $productIds);
+        
+        $resource = $this->_getResource();
+        $resource->beginTransaction();
+        try {
+            $resource->removeProduct($productIds, $store);
+            $resource->saveProduct($productIds, $store);
+            $resource->updateRelationProducts($store, $productIds);
+            $resource->commit();
+        } catch (Exception $e){
+            $resource->rollBack();
+            throw $e;
+        }
 
         return $this;
     }

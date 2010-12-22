@@ -550,7 +550,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
                     sprintf('`%1$s`.entity_id=e.entity_id AND `%1$s`.attribute_id=%2$d AND `%1$s`.entity_type_id=e.entity_type_id AND `%1$s`.store_id=%3$d',
                         $storeTableAs, $attribute->getData('attribute_id'), $this->getStoreId()
                     ),
-                    array($attributeCode => new Zend_Db_Expr("IF(`{$storeTableAs}`.value>0, `{$storeTableAs}`.value, `$defaultTableAs`.value)"))
+                    array($attributeCode => new Zend_Db_Expr("IF(LENGTH(`{$storeTableAs}`.value)>0, `{$storeTableAs}`.value, `$defaultTableAs`.value)"))
                 );
             }
         }

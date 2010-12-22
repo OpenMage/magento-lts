@@ -16,7 +16,7 @@
  * @package    Zend_Memory
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Memory.php 20805 2010-02-01 15:52:15Z alexander $
+ * @version    $Id: Memory.php 20804 2010-02-01 15:49:16Z alexander $
  */
 
 /** Zend_Memory_Exception */

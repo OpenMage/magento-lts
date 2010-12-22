@@ -81,13 +81,13 @@
             <image/>
         </attributes>
         <routers>
-            <googleoptimizer>
-                <use>admin</use>
+            <adminhtml>
                 <args>
-                    <module>Mage_GoogleOptimizer</module>
-                    <frontName>googleoptimizer</frontName>
+                    <modules>
+                        <Mage_GoogleOptimizer before="Mage_Adminhtml">Mage_GoogleOptimizer_Adminhtml</Mage_GoogleOptimizer>
+                    </modules>
                 </args>
-            </googleoptimizer>
+            </adminhtml>
         </routers>
     </admin>
     <frontend>

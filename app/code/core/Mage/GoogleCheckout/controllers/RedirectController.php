@@ -94,6 +94,8 @@ class Mage_GoogleCheckout_RedirectController extends Mage_Core_Controller_Front_
 
     public function checkoutAction()
     {
+        $session = Mage::getSingleton('checkout/session');
+        Mage::dispatchEvent('googlecheckout_checkout_before', array('quote' => $session->getQuote()));
         $api = $this->_getApi();
 
         if ($api->getError()) {

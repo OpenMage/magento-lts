@@ -219,6 +219,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($this->isLoggedIn()) {
             Mage::dispatchEvent('customer_logout', array('customer' => $this->getCustomer()) );
             $this->setId(null);
+            $this->getCookie()->delete($this->getSessionName());
         }
         return $this;
     }

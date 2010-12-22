@@ -31,11 +31,10 @@
  * @see Mage_Catalog_Block_Product_View_Type_Grouped
  */
 ?>
-<?php
-$_product = $this->getProduct();
-$_associatedProducts = $this->getAssociatedProducts();
-$_hasAssociatedProducts = count($_associatedProducts) > 0;
-?>
+<?php $this->setPreconfiguredValue(); ?>
+<?php $_product = $this->getProduct(); ?>
+<?php $_associatedProducts = $this->getAssociatedProducts(); ?>
+<?php $_hasAssociatedProducts = count($_associatedProducts) > 0; ?>
 <?php if ($_product->isAvailable() && $_hasAssociatedProducts): ?>
     <p class="availability in-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('In stock') ?></span></p>
 <?php else: ?>

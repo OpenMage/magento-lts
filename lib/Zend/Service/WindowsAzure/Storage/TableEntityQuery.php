@@ -17,7 +17,7 @@
  * @subpackage Storage
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: TableEntityQuery.php 23167 2010-10-19 17:53:31Z mabe $
  */
 
 /**
@@ -129,7 +129,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	{
 	    $condition = $this->_replaceOperators($condition);
 	    
-	    if (!is_null($value)) {
+	    if ($value !== null) {
 	        $condition = $this->_quoteInto($condition, $value);
 	    }
 	    
@@ -211,7 +211,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 			$query[] = '$orderby=' . ($urlEncode ? self::encodeQuery($orderBy) : $orderBy);
 		}
 		
-		if (!is_null($this->_top)) {
+		if ($this->_top !== null) {
 			$query[] = '$top=' . $this->_top;
 		}
 		
@@ -234,15 +234,15 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	    if ($includeParentheses) {
 	        $identifier .= '(';
 	        
-	        if (!is_null($this->_partitionKey)) {
+	        if ($this->_partitionKey !== null) {
 	            $identifier .= 'PartitionKey=\'' . $this->_partitionKey . '\'';
 	        }
 	            
-	        if (!is_null($this->_partitionKey) && !is_null($this->_rowKey)) {
+	        if ($this->_partitionKey !== null && $this->_rowKey !== null) {
 	            $identifier .= ', ';
 	        }
 	            
-	        if (!is_null($this->_rowKey)) {
+	        if ($this->_rowKey !== null) {
 	            $identifier .= 'RowKey=\'' . $this->_rowKey . '\'';
 	        }
 	            

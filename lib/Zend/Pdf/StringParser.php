@@ -16,7 +16,7 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: StringParser.php 22312 2010-05-27 13:11:23Z padraic $
+ * @version    $Id: StringParser.php 22311 2010-05-27 12:57:37Z padraic $
  */
 
 

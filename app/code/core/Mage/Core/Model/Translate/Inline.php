@@ -246,7 +246,8 @@ class Mage_Core_Model_Translate_Inline
         }
 
         $baseJsUrl = Mage::getBaseUrl('js');
-        $ajaxUrl = Mage::getUrl('core/ajax/translate', array('_secure'=>Mage::app()->getStore()->isCurrentlySecure()));
+        $url_prefix = Mage::app()->getStore()->isAdmin() ? 'adminhtml' : 'core';
+        $ajaxUrl = Mage::getUrl($url_prefix.'/ajax/translate', array('_secure'=>Mage::app()->getStore()->isCurrentlySecure()));
         $trigImg = Mage::getDesign()->getSkinUrl('images/fam_book_open.png');
 
         ob_start();
@@ -359,7 +360,12 @@ class Mage_Core_Model_Translate_Inline
         $tagMatch = array();
         while (preg_match($tagRegExp, $this->_content, $tagMatch, PREG_OFFSET_CAPTURE, $nextTag)) {
             $tagClosure = '</'.$tagMatch[1][0].'>';
-            $tagLength = stripos($this->_content, $tagClosure, $tagMatch[0][1])-$tagMatch[0][1]+strlen($tagClosure);
+            $tagClosurePos = stripos($this->_content, $tagClosure, $tagMatch[0][1]);
+            if ($tagClosurePos === false) {
+                $tagClosure = '<\/'.$tagMatch[1][0].'>';
+                $tagClosurePos = stripos($this->_content, $tagClosure, $tagMatch[0][1]);
+            }
+            $tagLength = $tagClosurePos-$tagMatch[0][1]+strlen($tagClosure);
 
             $next       = 0;
             $tagHtml    = substr($this->_content, $tagMatch[0][1], $tagLength);
@@ -427,7 +433,6 @@ class Mage_Core_Model_Translate_Inline
         while (preg_match('#(>|title=\")*('.$this->_tokenRegex.')#', $this->_content, $m, PREG_OFFSET_CAPTURE, $next)) {
             if(-1 == $m[1][1])//title was not found - this is not an attribute
             {
-
                 $tr = '{shown:\''.$this->_escape($m[3][0]).'\','
                     .'translated:\''.$this->_escape($m[4][0]).'\','
                     .'original:\''.$this->_escape($m[5][0]).'\','

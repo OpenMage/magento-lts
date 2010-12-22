@@ -133,7 +133,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
      */
     public function getShipmentTracks($shipment)
     {
-        return $this->_tracks[$shipment->getId()];
+        return isset($this->_tracks[$shipment->getId()]) ? $this->_tracks[$shipment->getId()] : null;
     }
 
     /**

@@ -37,7 +37,7 @@
  * @package  Zend_XmlRpc
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Response.php 20208 2010-01-11 22:37:37Z lars $
+ * @version $Id: Response.php 21359 2010-03-07 00:54:02Z lars $
  */
 class Zend_XmlRpc_Response
 {
@@ -177,8 +177,11 @@ class Zend_XmlRpc_Response
         }
 
         try {
+            $useInternalXmlErrors = libxml_use_internal_errors(true);
             $xml = new SimpleXMLElement($response);
+            libxml_use_internal_errors($useInternalXmlErrors);
         } catch (Exception $e) {
+            libxml_use_internal_errors($useInternalXmlErrors);
             // Not valid XML
             $this->_fault = new Zend_XmlRpc_Fault(651);
             $this->_fault->setEncoding($this->getEncoding());

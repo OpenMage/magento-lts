@@ -231,13 +231,13 @@
             </catalog_product_dataflow>
         </fieldsets>
         <routers>
-            <bundle>
-                <use>admin</use>
+            <adminhtml>
                 <args>
-                    <module>Mage_Bundle</module>
-                    <frontName>bundle</frontName>
+                    <modules>
+                        <Mage_Bundle before="Mage_Adminhtml">Mage_Bundle_Adminhtml</Mage_Bundle>
+                    </modules>
                 </args>
-            </bundle>
+            </adminhtml>
         </routers>
     </admin>
     <adminhtml>
@@ -257,6 +257,15 @@
                 </bundle>
             </updates>
         </layout>
+        <sales>
+            <order>
+                <create>
+                    <available_product_types>
+                        <bundle/>
+                    </available_product_types>
+                </create>
+            </order>
+        </sales>
         <events>
             <catalog_product_prepare_save>
                 <observers>

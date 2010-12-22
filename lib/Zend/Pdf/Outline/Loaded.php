@@ -17,7 +17,7 @@
  * @subpackage Actions
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Loaded.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Loaded.php 23195 2010-10-21 10:12:12Z alexander $
  */
 
 
@@ -335,8 +335,11 @@ class Zend_Pdf_Outline_Loaded extends Zend_Pdf_Outline
             $childOutlinesCount = abs($childOutlinesCount);
 
             $childDictionary = $dictionary->First;
-            for ($count = 0; $count < $childOutlinesCount; $count++) {
-                if ($childDictionary === null) {
+
+            $children = new SplObjectStorage();
+            while ($childDictionary !== null) {
+                // Check children structure for cyclic references
+                if ($children->contains($childDictionary)) {
                     #require_once 'Zend/Pdf/Exception.php';
                     throw new Zend_Pdf_Exception('Outline childs load error.');
                 }
@@ -346,11 +349,6 @@ class Zend_Pdf_Outline_Loaded extends Zend_Pdf_Outline
                 }
 
                 $childDictionary = $childDictionary->Next;
-            }
-
-            if ($childDictionary !== null) {
-                #require_once 'Zend/Pdf/Exception.php';
-                throw new Zend_Pdf_Exception('Outline childs load error.');
             }
 
             $this->_originalChildOutlines = $this->childOutlines;

@@ -34,7 +34,7 @@
  * @subpackage Decorator
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormErrors.php 22317 2010-05-29 10:13:31Z alab $
+ * @version    $Id: FormErrors.php 22316 2010-05-29 10:03:37Z alab $
  */
 class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
 {

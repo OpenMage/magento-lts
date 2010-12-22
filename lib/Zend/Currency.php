@@ -16,7 +16,7 @@
  * @package   Zend_Currency
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Currency.php 22369 2010-06-04 14:54:43Z thomas $
+ * @version   $Id: Currency.php 22708 2010-07-28 07:25:16Z thomas $
  */
 
 /**
@@ -77,7 +77,8 @@ class Zend_Currency
         'symbol'    => null,
         'locale'    => null,
         'value'     => 0,
-        'service'   => null
+        'service'   => null,
+        'tag'       => 'Zend_Locale'
     );
 
     /**
@@ -431,7 +432,7 @@ class Zend_Currency
             throw new Zend_Currency_Exception('No currency defined');
         }
 
-        $data = Zend_Locale_Data::getContent('', 'regiontocurrency', $currency);
+        $data = Zend_Locale_Data::getContent($this->_options['locale'], 'regiontocurrency', $currency);
 
         $result = explode(' ', $data);
         return $result;
@@ -453,7 +454,10 @@ class Zend_Currency
             }
         }
 
-        return Zend_Locale_Data::getList('', 'regiontocurrency', $region);
+        $data = Zend_Locale_Data::getContent($this->_options['locale'], 'currencytoregion', $region);
+
+        $result = explode(' ', $data);
+        return $result;
     }
 
     /**
@@ -483,8 +487,7 @@ class Zend_Currency
      */
     public static function getCache()
     {
-        $cache = Zend_Locale_Data::getCache();
-        return $cache;
+        return Zend_Locale_Data::getCache();
     }
 
     /**
@@ -521,11 +524,12 @@ class Zend_Currency
     /**
      * Clears all set cache data
      *
+     * @param string $tag Tag to clear when the default tag name is not used
      * @return void
      */
-    public static function clearCache()
+    public static function clearCache($tag = null)
     {
-        Zend_Locale_Data::clearCache();
+        Zend_Locale_Data::clearCache($tag);
     }
 
     /**

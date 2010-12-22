@@ -17,7 +17,7 @@
  * @subpackage Filter
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Message.php 20982 2010-02-08 15:51:36Z matthew $
+ * @version    $Id: Message.php 20981 2010-02-08 15:51:02Z matthew $
  */
 
 /** Zend_Log_Filter_Abstract */
@@ -29,7 +29,7 @@
  * @subpackage Filter
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Message.php 20982 2010-02-08 15:51:36Z matthew $
+ * @version    $Id: Message.php 20981 2010-02-08 15:51:02Z matthew $
  */
 class Zend_Log_Filter_Message extends Zend_Log_Filter_Abstract
 {

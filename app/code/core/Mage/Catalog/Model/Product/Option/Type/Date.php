@@ -78,7 +78,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
                     'date_internal' => isset($value['date_internal']) ? $value['date_internal'] : '',
                 )
             );
-        } elseif (!$isValid && $option->getIsRequire() && !$this->getProduct()->getSkipCheckRequiredOption()) {
+        } elseif (!$isValid && $option->getIsRequire() && !$this->getSkipCheckRequiredOption()) {
             $this->setIsValid(false);
             if (!$dateValid) {
                 Mage::throwException(Mage::helper('catalog')->__('Please specify date required option(s).'));
@@ -227,9 +227,8 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      */
     public function prepareOptionValueForRequest($optionValue)
     {
-//        return array('date_internal' => $optionValue);
-        $quoteItem = $this->getQuoteItem();
-        $infoBuyRequest = $quoteItem->getOptionByCode('info_buyRequest');
+        $confItem = $this->getConfigurationItem();
+        $infoBuyRequest = $confItem->getOptionByCode('info_buyRequest');
         try {
             $value = unserialize($infoBuyRequest->getValue());
             if (is_array($value) && isset($value['options']) && isset($value['options'][$this->getOption()->getId()])) {

@@ -102,7 +102,7 @@ class Mage_Adminhtml_Block_Report_Sales_Refunded_Grid extends Mage_Adminhtml_Blo
         ));
 
         $this->addExportType('*/*/exportRefundedCsv', Mage::helper('adminhtml')->__('CSV'));
-        $this->addExportType('*/*/exportRefundedExcel', Mage::helper('adminhtml')->__('Excel'));
+        $this->addExportType('*/*/exportRefundedExcel', Mage::helper('adminhtml')->__('Excel XML'));
 
         return parent::_prepareColumns();
     }

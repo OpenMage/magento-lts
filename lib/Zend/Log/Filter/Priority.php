@@ -17,7 +17,7 @@
  * @subpackage Filter
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Priority.php 20260 2010-01-13 18:29:22Z ralph $
+ * @version    $Id: Priority.php 22662 2010-07-24 17:37:36Z mabe $
  */
 
 /** Zend_Log_Filter_Abstract */
@@ -29,7 +29,7 @@
  * @subpackage Filter
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Priority.php 20260 2010-01-13 18:29:22Z ralph $
+ * @version    $Id: Priority.php 22662 2010-07-24 17:37:36Z mabe $
  */
 class Zend_Log_Filter_Priority extends Zend_Log_Filter_Abstract
 {
@@ -59,7 +59,7 @@ class Zend_Log_Filter_Priority extends Zend_Log_Filter_Abstract
         }
 
         $this->_priority = $priority;
-        $this->_operator = is_null($operator) ? '<=' : $operator;
+        $this->_operator = $operator === null ? '<=' : $operator;
     }
 
     /**

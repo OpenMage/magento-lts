@@ -217,4 +217,15 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
         }
         return $amount;
     }
+
+    /**
+     * Get Tax Class for Shipping option
+     *
+     * @param Mage_Sales_Model_Quote $quote
+     * @return mixed
+     */
+    protected function _getTaxClassForShipping($quote)
+    {
+        return Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_SHIPPING_TAX_CLASS, $quote->getStoreId());
+    }
 }

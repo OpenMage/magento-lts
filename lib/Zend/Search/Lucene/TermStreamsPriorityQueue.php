@@ -17,7 +17,7 @@
  * @subpackage Index
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TermStreamsPriorityQueue.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: TermStreamsPriorityQueue.php 22987 2010-09-21 10:39:53Z alexander $
  */
 
 /** Zend_Search_Lucene_Index_TermsStream_Interface */
@@ -90,7 +90,7 @@ class Zend_Search_Lucene_TermStreamsPriorityQueue implements Zend_Search_Lucene_
     }
 
     /**
-     * Skip terms stream up to specified term preffix.
+     * Skip terms stream up to the specified term preffix.
      *
      * Prefix contains fully specified field info and portion of searched term
      *
@@ -98,13 +98,9 @@ class Zend_Search_Lucene_TermStreamsPriorityQueue implements Zend_Search_Lucene_
      */
     public function skipTo(Zend_Search_Lucene_Index_Term $prefix)
     {
-        $termStreams = array();
+        $this->_termsStreamQueue = new Zend_Search_Lucene_Index_TermsPriorityQueue();
 
-        while (($termStream = $this->_termsStreamQueue->pop()) !== null) {
-            $termStreams[] = $termStream;
-        }
-
-        foreach ($termStreams as $termStream) {
+        foreach ($this->_termStreams as $termStream) {
             $termStream->skipTo($prefix);
 
             if ($termStream->currentTerm() !== null) {
@@ -112,7 +108,7 @@ class Zend_Search_Lucene_TermStreamsPriorityQueue implements Zend_Search_Lucene_
             }
         }
 
-        $this->nextTerm();
+        return $this->nextTerm();
     }
 
     /**

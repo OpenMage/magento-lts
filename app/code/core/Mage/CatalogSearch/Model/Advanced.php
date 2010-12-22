@@ -139,8 +139,8 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             $value = $values[$attribute->getAttributeCode()];
 
             if ($attribute->getAttributeCode() == 'price') {
-                if ((isset($value['from']) && !empty($value['from'])) ||
-                    (isset($value['to']) && !empty($value['to']))) {
+                if ((isset($value['from']) && strlen(trim($value['from']))) ||
+                    (isset($value['to']) && strlen(trim($value['to'])))) {
                     if (isset($value['currency']) && !empty($value['currency'])) {
                         $rate = Mage::app()->getStore()->getBaseCurrency()->getRate($value['currency']);
                     }

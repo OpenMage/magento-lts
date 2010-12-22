@@ -60,6 +60,8 @@ class Mage_GoogleBase_Model_Service extends Varien_Object
                     Zend_Gdata_ClientLogin::CLIENTLOGIN_URI,
                     $type
                 );
+                $configTimeout = array('timeout' => 60);
+                $client->setConfig($configTimeout);
                 Mage::register($this->_clientRegistryId, $client);
             }
         } catch (Zend_Gdata_App_CaptchaRequiredException $e) {

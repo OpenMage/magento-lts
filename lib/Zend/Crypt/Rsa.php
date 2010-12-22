@@ -17,7 +17,7 @@
  * @subpackage Rsa
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Rsa.php 22042 2010-04-28 19:33:31Z padraic $
+ * @version    $Id: Rsa.php 22662 2010-07-24 17:37:36Z mabe $
  */
 
 /**
@@ -190,7 +190,7 @@ class Zend_Crypt_Rsa
     {
         $config = null;
         $passPhrase = null;
-        if (!is_null($configargs)) {
+        if ($configargs !== null) {
             if (isset($configargs['passPhrase'])) {
                 $passPhrase = $configargs['passPhrase'];
                 unset($configargs['passPhrase']);

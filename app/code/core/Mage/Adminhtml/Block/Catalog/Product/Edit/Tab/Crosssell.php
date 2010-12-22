@@ -46,6 +46,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
         if ($this->_getProduct()->getId()) {
             $this->setDefaultFilter(array('in_products'=>1));
         }
+        if ($this->isReadonly()) {
+            $this->setFilterVisibility(false);
+        }
     }
 
     /**

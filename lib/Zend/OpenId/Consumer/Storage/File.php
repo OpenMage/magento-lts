@@ -18,7 +18,7 @@
  * @subpackage Zend_OpenId_Consumer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: File.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: File.php 23161 2010-10-19 16:08:36Z matthew $
  */
 
 /**
@@ -479,20 +479,24 @@ class Zend_OpenId_Consumer_Storage_File extends Zend_OpenId_Consumer_Storage
         }
         try {
             if (!is_int($date) && !is_string($date)) {
-                foreach (glob($this->_dir . '/nonce_*') as $name) {
+                $nonceFiles = glob($this->_dir . '/nonce_*');
+                foreach ((array) $nonceFiles as $name) {
                     @unlink($name);
                 }
+                unset($nonceFiles);
             } else {
                 if (is_string($date)) {
                     $time = time($date);
                 } else {
                     $time = $date;
                 }
-                foreach (glob($this->_dir . '/nonce_*') as $name) {
+                $nonceFiles = glob($this->_dir . '/nonce_*');
+                foreach ((array) $nonceFiles as $name) {
                     if (filemtime($name) < $time) {
                         @unlink($name);
                     }
                 }
+                unset($nonceFiles);
             }
             if ($lock !== false) {
                 fclose($lock);

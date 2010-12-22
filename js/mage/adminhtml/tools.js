@@ -714,3 +714,18 @@ var Base64 = {
         return string;
     }
 };
+
+/**
+ * Array functions
+ */
+
+/**
+ * Callback function for sort numeric values
+ *
+ * @param val1
+ * @param val2
+ */
+function sortNumeric(val1, val2) 
+{
+	return val1 - val2;
+}

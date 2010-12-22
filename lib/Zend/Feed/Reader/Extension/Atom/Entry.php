@@ -16,7 +16,7 @@
  * @package    Zend_Feed_Reader
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Entry.php 22301 2010-05-26 10:15:13Z padraic $
+ * @version    $Id: Entry.php 23170 2010-10-19 18:29:24Z mabe $
  */
 
 /**
@@ -584,7 +584,7 @@ class Zend_Feed_Reader_Extension_Atom_Entry
     protected function _absolutiseUri($link)
     {
         if (!Zend_Uri::check($link)) {
-            if (!is_null($this->getBaseUrl())) {
+            if ($this->getBaseUrl() !== null) {
                 $link = $this->getBaseUrl() . $link;
                 if (!Zend_Uri::check($link)) {
                     $link = null;

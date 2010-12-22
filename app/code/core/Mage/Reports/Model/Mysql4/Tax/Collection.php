@@ -55,10 +55,15 @@ class Mage_Reports_Model_Mysql4_Tax_Collection extends Mage_Sales_Model_Entity_O
         return $this;
     }
 
+    /**
+     * Set store filter to collection
+     *
+     * @param array $setStoreIds
+     * @return Mage_Reports_Model_Mysql4_Tax_Collection
+     */
     public function setStoreIds($storeIds)
     {
-        $vals = array_values($storeIds);
-        if (count($storeIds) >= 1 && $vals[0] != '') {
+        if ($storeIds) {
             $this->getSelect()
                 ->where('e.store_id in (?)', (array)$storeIds)
                 ->columns(array('tax'=>'SUM(tax_table.base_real_amount)'));

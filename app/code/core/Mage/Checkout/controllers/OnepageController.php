@@ -40,6 +40,13 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     {
         parent::preDispatch();
         $this->_preDispatchValidateCustomer();
+
+        $checkoutSessionQuote = Mage::getSingleton('checkout/session')->getQuote();
+        if ($checkoutSessionQuote->getIsMultiShipping()) {
+            $checkoutSessionQuote->setIsMultiShipping(false);
+            $checkoutSessionQuote->removeAllAddresses();
+        }
+
         return $this;
     }
 
@@ -453,6 +460,16 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $redirectUrl = $this->getOnepage()->getCheckout()->getRedirectUrl();
             $result['success'] = true;
             $result['error']   = false;
+        } catch (Mage_Payment_Model_Info_Exception $e) {
+            $message = $e->getMessage();
+            if( !empty($message) ) {
+                $result['error_messages'] = $message;
+            }
+            $result['goto_section'] = 'payment';
+            $result['update_section'] = array(
+                'name' => 'payment-method',
+                'html' => $this->_getPaymentMethodsHtml()
+            );
         } catch (Mage_Core_Exception $e) {
             Mage::logException($e);
             Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepage()->getQuote(), $e->getMessage());

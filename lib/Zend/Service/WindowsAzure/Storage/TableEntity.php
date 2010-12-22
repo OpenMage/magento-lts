@@ -17,7 +17,7 @@
  * @subpackage Storage
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: TableEntity.php 23167 2010-10-19 17:53:31Z mabe $
  */
 
 /**
@@ -35,6 +35,8 @@
  */
 class Zend_Service_WindowsAzure_Storage_TableEntity
 {
+    const DEFAULT_TIMESTAMP = '1900-01-01T00:00:00';
+
     /**
      * Partition key
      * 
@@ -54,7 +56,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntity
      * 
      * @var string
      */
-    protected $_timestamp = '1900-01-01T00:00:00';
+    protected $_timestamp;
     
     /**
      * Etag
@@ -127,6 +129,9 @@ class Zend_Service_WindowsAzure_Storage_TableEntity
      */
     public function getTimestamp()
     {
+        if (null === $this->_timestamp) {
+            $this->setTimestamp(self::DEFAULT_TIMESTAMP);
+        }
         return $this->_timestamp;
     }
     
@@ -263,7 +268,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntity
         $properties = $type->getProperties();
         foreach ($properties as $property) {
             $accessor = self::getAzureAccessor($property);
-            if (!is_null($accessor)) {
+            if ($accessor !== null) {
                 $azureAccessors[] = $accessor;
             }
         }
@@ -272,7 +277,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntity
         $methods = $type->getMethods();
         foreach ($methods as $method) {
             $accessor = self::getAzureAccessor($method);
-            if (!is_null($accessor)) {
+            if ($accessor !== null) {
                 $azureAccessors[] = $accessor;
             }
         }

@@ -109,29 +109,66 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     }
 
     /**
+     * Getter for Configuration Item Option
+     *
+     * @return Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
+     */
+    public function getConfigurationItemOption()
+    {
+        if ($this->_getData('configuration_item_option') instanceof Mage_Catalog_Model_Product_Configuration_Item_Option_Interface) {
+            return $this->_getData('configuration_item_option');
+        }
+
+        // Back compatibility with quote specific keys to set configuration item options
+        if ($this->_getData('quote_item_option') instanceof Mage_Sales_Model_Quote_Item_Option) {
+            return $this->_getData('quote_item_option');
+        }
+
+        Mage::throwException(Mage::helper('catalog')->__('Wrong configuration item option instance in options group.'));
+    }
+
+    /**
      * Getter for Quote Item Option
+     * Deprecated in favor of getConfigurationItemOption()
+     *
+     * @deprecated after 1.4.2.0
      *
      * @return Mage_Sales_Model_Quote_Item_Option
      */
     public function getQuoteItemOption()
     {
-        if ($this->_getData('quote_item_option') instanceof Mage_Sales_Model_Quote_Item_Option) {
-            return $this->_getData('quote_item_option');
+        return $this->getConfigurationItemOption();
+    }
+
+    /**
+     * Getter for Configuration Item
+     *
+     * @return Mage_Catalog_Model_Product_Configuration_Item_Interface
+     */
+    public function getConfigurationItem()
+    {
+        if ($this->_getData('configuration_item') instanceof Mage_Catalog_Model_Product_Configuration_Item_Interface) {
+            return $this->_getData('configuration_item');
         }
-        Mage::throwException(Mage::helper('catalog')->__('Wrong quote item option instance in options group.'));
+
+        // Back compatibility with quote specific keys to set configuration item
+        if ($this->_getData('quote_item') instanceof Mage_Sales_Model_Quote_Item) {
+            return $this->_getData('quote_item');
+        }
+
+        Mage::throwException(Mage::helper('catalog')->__('Wrong configuration item instance in options group.'));
     }
 
     /**
      * Getter for Quote Item
+     * Deprecated in favor of getConfigurationItem()
      *
+     * @deprecated after 1.4.2.0
      * @return Mage_Sales_Model_Quote_Item
      */
     public function getQuoteItem()
     {
-        if ($this->_getData('quote_item') instanceof Mage_Sales_Model_Quote_Item) {
-            return $this->_getData('quote_item');
-        }
-        Mage::throwException(Mage::helper('catalog')->__('Wrong quote item instance in options group.'));
+        return $this->getConfigurationItem();
     }
 
     /**
@@ -172,13 +209,24 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         $this->setIsValid(false);
 
         $option = $this->getOption();
-        if (!isset($values[$option->getId()]) && $option->getIsRequire() && !$this->getProduct()->getSkipCheckRequiredOption()) {
+        if (!isset($values[$option->getId()]) && $option->getIsRequire() && !$this->getSkipCheckRequiredOption()) {
             Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option(s).'));
         } elseif (isset($values[$option->getId()])) {
             $this->setUserValue($values[$option->getId()]);
             $this->setIsValid(true);
         }
         return $this;
+    }
+
+    /**
+     * Check skip required option validation
+     *
+     * @return bool
+     */
+    public function getSkipCheckRequiredOption()
+    {
+        return $this->getProduct()->getSkipCheckRequiredOption() ||
+            $this->getProcessMode() == Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE;
     }
 
     /**

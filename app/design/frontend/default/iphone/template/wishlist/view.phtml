@@ -34,7 +34,7 @@
     </div>
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
     <?php if ($this->hasWishlistItems()): ?>
-    <form action="<?php echo $this->getUrl('*/*/update') ?>" method="post">
+    <form id="wishlist-view-form" action="<?php echo $this->getUrl('*/*/update') ?>" method="post">
         <fieldset>
             <?php echo $this->getBlockHtml('formkey')?>
             <table class="data-table" id="wishlist-table">
@@ -61,18 +61,22 @@
                             <span class="nobr"><?php echo $this->getFormatedDate($item->getAddedAt()) ?></span>
                         </td>
                         <td class="a-center">
+                        <?php if ($item->canHaveQty()): ?>
+                            <p><input type="text" class="input-text qty" name="qty[<?php echo $item->getId() ?>]" value="<?php echo $this->getAddToCartQty($item) * 1 ?>" /></p>
+                        <?php endif; ?>
                         <?php if($item->isSaleable()): ?>
-                            <button type="button" title="<?php echo $this->__('Add to Cart') ?>" onclick="setLocation('<?php echo $this->getItemAddToCartUrl($item) ?>')" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                            <button type="button" title="<?php echo $this->__('Add to Cart') ?>" onclick="addWItemToCart(<?php echo $item->getId(); ?>)" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
                         <?php else: ?>
                             <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
                         <?php endif; ?>
+                            <p><a href="<?php echo $this->getItemConfigureUrl($item) ?>"><?php echo $this->__('Edit') ?></a></p>
                             <a href="<?php echo $this->getItemRemoveUrl($item) ?>" title="<?php echo $this->__('Remove Item') ?>" onclick="return confirmRemoveWishlistItem();" class="btn-remove2"><?php echo $this->__('Remove item')?></a>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="3">
                             <span><?php echo $this->__('Comment:') ?></span>
-                            <textarea name="description[<?php echo $item->getWishlistItemId() ?>]" rows="3" cols="5" onfocus="focusComment(this)" onblur="focusComment(this)" title="<?php echo $this->__('Comment') ?>"><?php echo $this->hasDescription($item) ? $this->getEscapedDescription($item) : $this->helper('wishlist')->defaultCommentString() ?></textarea>
+                            <textarea name="description[<?php echo $item->getWishlistItemId() ?>]" rows="3" cols="5" onfocus="focusComment(this)" onblur="focusComment(this)" title="<?php echo $this->__('Comment') ?>"><?php echo $this->getCommentValue($item); ?></textarea>
                         </td>
                     </tr>
                 <?php endforeach ?>
@@ -82,7 +86,7 @@
             <div class="buttons-set buttons-set2">
                 <button type="submit" onclick="this.name='save_and_share'" title="<?php echo $this->__('Share Wishlist') ?>" class="button btn-share"><span><span><?php echo $this->__('Share Wishlist') ?></span></span></button>
                 <?php if($this->isSaleable()):?>
-                    <button type="button" title="<?php echo $this->__('Add All to Cart') ?>" onclick="setLocation('<?php echo $this->getUrl('*/*/allcart') ?>')" class="button btn-add"><span><span><?php echo $this->__('Add All to Cart') ?></span></span></button>
+                    <button type="button" title="<?php echo $this->__('Add All to Cart') ?>" onclick="addAllWItemsToCart()" class="button btn-add"><span><span><?php echo $this->__('Add All to Cart') ?></span></span></button>
                 <?php endif;?>
                 <button type="submit" onclick="this.name='do'" title="<?php echo $this->__('Update Wishlist') ?>" class="button btn-update"><span><span><?php echo $this->__('Update Wishlist') ?></span></span></button>
             </div>
@@ -103,6 +107,32 @@
         } else if( obj.value == '' ) {
             obj.value = '<?php echo $this->helper('wishlist')->defaultCommentString() ?>';
         }
+    }
+
+    function addWItemToCart(itemId) {
+        var url = '<?php echo $this->getItemAddToCartUrl('%item%') ?>';
+        url = url.gsub('%item%', itemId);
+        var form = $('wishlist-view-form');
+        if (form) {
+            var input = form['qty[' + itemId + ']'];
+            if (input) {
+                var separator = (url.indexOf('?') >= 0) ? '&' : '?';
+                url += separator + input.name + '=' + encodeURIComponent(input.value);
+            }
+        }
+        setLocation(url);
+    }
+
+    function addAllWItemsToCart() {
+        var url = '<?php echo $this->getUrl('*/*/allcart') ?>';
+        var separator = (url.indexOf('?') >= 0) ? '&' : '?';
+        $$('#wishlist-view-form .qty').each(
+            function (input, index) {
+                url += separator + input.name + '=' + encodeURIComponent(input.value);
+                separator = '&';
+            }
+        );
+        setLocation(url);
     }
     //]]>
     </script>

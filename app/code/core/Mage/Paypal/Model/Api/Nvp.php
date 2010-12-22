@@ -483,6 +483,15 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'VI' => 'Visa', 'MC' => 'MasterCard', 'DI' => 'Discover', 'AE' => 'Amex', 'SM' => 'Maestro', 'SO' => 'Solo');
 
     /**
+     * Required fields in the response
+     *
+     * @var array
+     */
+    protected $_requiredResponseParams = array(
+        self::DO_DIRECT_PAYMENT => array('ACK', 'CORRELATIONID', 'AMT')
+    );
+    
+    /**
      * Warning codes recollected after each API call
      *
      * @var array
@@ -510,7 +519,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     public function getApiEndpoint()
     {
-        return sprintf('https://api-3t%s.paypal.com/nvp', $this->_config->sandboxFlag ? '.sandbox' : '');
+        $url = $this->getUseCertAuthentication() ? 'https://api%s.paypal.com/nvp' : 'https://api-3t%s.paypal.com/nvp';
+        return sprintf($url, $this->_config->sandboxFlag ? '.sandbox' : '');
     }
 
     /**
@@ -549,7 +559,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         if ($this->getAddress()) {
             $request = $this->_importAddresses($request);
             $request['ADDROVERRIDE'] = 1;
-        } elseif ($options && (count($options) < 10)) { // doesn't support more than 10 shipping options
+        } elseif ($options && (count($options) <= 10)) { // doesn't support more than 10 shipping options
             $request['CALLBACK'] = $this->getShippingOptionsCallbackUrl();
             $request['CALLBACKTIMEOUT'] = 6; // max value
             $request['MAXAMT'] = $request['AMT'] + 999.00; // it is impossible to calculate max amount
@@ -868,8 +878,12 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     {
         $request = $this->_addMethodToRequest($methodName, $request);
         $eachCallRequest = $this->_prepareEachCallRequest($methodName);
+        if ($this->getUseCertAuthentication()) {
+            if ($key = array_search('SIGNATURE', $eachCallRequest)) {
+                unset($eachCallRequest[$key]);
+            }
+        }
         $request = $this->_exportToRequest($eachCallRequest, $request);
-
         $debugData = array('url' => $this->getApiEndpoint(), $methodName => $request);
 
         try {
@@ -877,6 +891,9 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             $config = array('timeout' => 30);
             if ($this->getUseProxy()) {
                 $config['proxy'] = $this->getProxyHost(). ':' . $this->getProxyPort();
+            }
+            if ($this->getUseCertAuthentication()) {
+                $config['ssl_cert'] = $this->getApiCertificate();
             }
             $http->setConfig($config);
             $http->write(Zend_Http_Client::POST, $this->getApiEndpoint(), '1.1', array(), $this->_buildQuery($request));
@@ -904,6 +921,14 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             Mage::throwException(Mage::helper('paypal')->__('Unable to communicate with the PayPal gateway.'));
         }
 
+        
+        if (!$this->_validateResponse($methodName, $response)) {
+            Mage::logException(new Exception(
+                Mage::helper('paypal')->__("PayPal response hasn't required fields.")
+            ));
+            Mage::throwException(Mage::helper('paypal')->__('There was an error processing your order. Please contact us or try again later.'));
+        }
+        
         $this->_callErrors = array();
         if ($this->_isCallSuccessful($response)) {
             if ($this->_rawResponseNeeded) {
@@ -977,6 +1002,25 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         }
         return false;
     }
+    
+    /**
+     * Validate response array.
+     * 
+     * @param string $method
+     * @param array $response
+     * @return bool
+     */
+    protected function _validateResponse($method, $response) 
+    {
+        if (isset($this->_requiredResponseParams[$method])) {
+            foreach ($this->_requiredResponseParams[$method] as $param) {
+                if (!isset($response[$param])) {
+                    return false;
+                }    
+            }
+        }
+        return true;
+    } 
 
     /**
      * Parse an NVP response string into an associative array

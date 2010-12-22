@@ -17,7 +17,7 @@
  * @subpackage Resource
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Translate.php 21770 2010-04-05 20:16:08Z thomas $
+ * @version    $Id: Translate.php 22968 2010-09-18 19:50:02Z intiilapa $
  */
 
 /**
@@ -67,9 +67,14 @@ class Zend_Application_Resource_Translate extends Zend_Application_Resource_Reso
         if (null === $this->_translate) {
             $options = $this->getOptions();
 
-            if (!isset($options['data'])) {
+            if (!isset($options['content']) && !isset($options['data'])) {
                 #require_once 'Zend/Application/Resource/Exception.php';
                 throw new Zend_Application_Resource_Exception('No translation source data provided.');
+            } else if (array_key_exists('content', $options) && array_key_exists('data', $options)) {
+                #require_once 'Zend/Application/Resource/Exception.php';
+                throw new Zend_Application_Resource_Exception(
+                    'Conflict on translation source data: choose only one key between content and data.'
+                );
             }
 
             if (empty($options['adapter'])) {
@@ -84,6 +89,21 @@ class Zend_Application_Resource_Translate extends Zend_Application_Resource_Reso
             if (isset($options['options'])) {
                 foreach($options['options'] as $key => $value) {
                     $options[$key] = $value;
+                }
+            }
+
+            if (!empty($options['cache']) && is_string($options['cache'])) {
+                $bootstrap = $this->getBootstrap();
+                if ($bootstrap instanceof Zend_Application_Bootstrap_ResourceBootstrapper &&
+                    $bootstrap->hasPluginResource('CacheManager')
+                ) {
+                    $cacheManager = $bootstrap->bootstrap('CacheManager')
+                        ->getResource('CacheManager');
+                    if (null !== $cacheManager &&
+                        $cacheManager->hasCache($options['cache'])
+                    ) {
+                        $options['cache'] = $cacheManager->getCache($options['cache']);
+                    }
                 }
             }
 

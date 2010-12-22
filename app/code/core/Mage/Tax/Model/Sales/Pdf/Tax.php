@@ -44,6 +44,18 @@ class Mage_Tax_Model_Sales_Pdf_Tax extends Mage_Sales_Model_Order_Pdf_Total_Defa
         if ($config->displaySalesTaxWithGrandTotal($store)) {
             return array();
         }
-        return parent::getTotalsForDisplay();
+
+        $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
+        $totals = array();
+
+        if ($config->displaySalesFullSummary($store)) {
+           $totals = $this->getFullTaxInfo();
+        }
+
+        $totals = array_merge($totals, parent::getTotalsForDisplay());
+
+        return $totals;
     }
+
+
 }

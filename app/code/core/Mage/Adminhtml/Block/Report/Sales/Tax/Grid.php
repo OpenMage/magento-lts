@@ -101,7 +101,7 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
         ));
 
         $this->addExportType('*/*/exportTaxCsv', Mage::helper('adminhtml')->__('CSV'));
-        $this->addExportType('*/*/exportTaxExcel', Mage::helper('adminhtml')->__('Excel'));
+        $this->addExportType('*/*/exportTaxExcel', Mage::helper('adminhtml')->__('Excel XML'));
 
         return parent::_prepareColumns();
     }

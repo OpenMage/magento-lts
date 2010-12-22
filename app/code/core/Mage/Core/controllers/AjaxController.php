@@ -23,22 +23,25 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+/**
+ * Frontend ajax controller
+ *
+ * @category    Mage
+ * @package     Mage_Core
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Core_AjaxController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * Ajax action for inline translation
+     *
+     */
     public function translateAction ()
     {
-        if ($translate = $this->getRequest()->getPost('translate')) {
-            try {
-                if ($area = $this->getRequest()->getPost('area')) {
-                    Mage::getDesign()->setArea($area);
-                }
-                Mage::getModel('core/translate_inline')->processAjaxPost($translate);
-                echo "{success:true}";
-            }
-            catch (Exception $e) {
-                echo "{error:true,message:'" . $e->getMessage() . "'}";
-            }
-        }
+        $translation = $this->getRequest()->getPost('translate');
+        $area = $this->getRequest()->getPost('area');
+        echo Mage::helper('core/translate')->apply($translation, $area);
         exit();
     }
 }

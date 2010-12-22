@@ -16,7 +16,7 @@
  * @package    Zend_Feed_Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Feed.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Deleted.php 22662 2010-07-24 17:37:36Z mabe $
  */
 
 #require_once 'Zend/Feed/Writer/Feed/FeedAbstract.php';
@@ -126,7 +126,7 @@ class Zend_Feed_Writer_Deleted
     public function setWhen($date = null)
     {
         $zdate = null;
-        if (is_null($date)) {
+        if ($date === null) {
             $zdate = new Zend_Date;
         } elseif (ctype_digit($date) && strlen($date) == 10) {
             $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);

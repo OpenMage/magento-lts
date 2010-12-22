@@ -17,7 +17,7 @@
  * @subpackage Parse
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Serializer.php 21969 2010-04-22 03:54:59Z matthew $
+ * @version    $Id: Serializer.php 21968 2010-04-22 03:53:34Z matthew $
  */
 
 /**

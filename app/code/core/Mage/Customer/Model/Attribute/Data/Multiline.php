@@ -74,6 +74,8 @@ class Mage_Customer_Model_Attribute_Data_Multiline extends Mage_Customer_Model_A
         for ($i = 0; $i < $attribute->getMultilineCount(); $i ++) {
             if (!isset($value[$i])) {
                 $value[$i] = null;
+            } else {
+                $value[$i] = trim($value[$i]);
             }
             // validate first line
             if ($i == 0) {

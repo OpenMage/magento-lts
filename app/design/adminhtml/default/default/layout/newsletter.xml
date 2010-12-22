@@ -37,20 +37,30 @@
     <adminhtml_newsletter_queue_edit>
         <update handle="editor"/>
         <reference name="content">
-            <block type="adminhtml/newsletter_queue_edit" name="queue_edit" template="newsletter/queue/edit.phtml">
-                <block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher" />
-            </block>
+            <block type="adminhtml/newsletter_queue_edit" name="queue_edit" template="newsletter/queue/edit.phtml" />
         </reference>
     </adminhtml_newsletter_queue_edit>
-    
+
+    <adminhtml_newsletter_queue_preview>
+        <reference name="root">
+            <action method="setTemplate"><template>newsletter/preview/iframeswitcher.phtml</template></action>
+            <block type="adminhtml/newsletter_queue_preview_form" name="preview_form" />
+            <block type="adminhtml/store_switcher" name="store_switcher" template="newsletter/preview/store.phtml" />
+        </reference>
+    </adminhtml_newsletter_queue_preview>
+
     <adminhtml_newsletter_template_preview>
         <reference name="root">
-            <action method="setTemplate"><template>newsletter/template/preview/iframeswitcher.phtml</template></action>
+            <action method="setTemplate"><template>newsletter/preview/iframeswitcher.phtml</template></action>
             <block type="adminhtml/newsletter_template_preview_form" name="preview_form" />
-            <block type="adminhtml/store_switcher" name="store_switcher" template="newsletter/template/preview/store.phtml" />
+            <block type="adminhtml/store_switcher" name="store_switcher" template="newsletter/preview/store.phtml" />
         </reference>
     </adminhtml_newsletter_template_preview>
-    
+
+    <newsletter_queue_preview>
+        <block type="adminhtml/newsletter_queue_preview" name="preview_template" />
+    </newsletter_queue_preview>
+
     <newsletter_template_preview>
         <block type="adminhtml/newsletter_template_preview" name="preview_template" />
     </newsletter_template_preview>

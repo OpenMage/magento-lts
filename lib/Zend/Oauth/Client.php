@@ -16,7 +16,7 @@
  * @package    Zend_Oauth
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Client.php 22051 2010-04-29 13:51:41Z padraic $
+ * @version    $Id: Client.php 23076 2010-10-10 21:37:20Z padraic $
  */
 
 /** Zend_Oauth */
@@ -74,11 +74,14 @@ class Zend_Oauth_Client extends Zend_Http_Client
      * @param  array|Zend_Config $config
      * @return void
      */
-    public function __construct(array $oauthOptions, $uri = null, $config = null)
+    public function __construct($oauthOptions, $uri = null, $config = null)
     {
+        if (!isset($config['rfc3986_strict'])) {
+            $config['rfc3986_strict'] = true;
+        }
         parent::__construct($uri, $config);
         $this->_config = new Zend_Oauth_Config;
-        if (!is_null($oauthOptions)) {
+        if ($oauthOptions !== null) {
             if ($oauthOptions instanceof Zend_Config) {
                 $oauthOptions = $oauthOptions->toArray();
             }
@@ -95,7 +98,7 @@ class Zend_Oauth_Client extends Zend_Http_Client
     {
         return $this->adapter;
     }
-    
+
    /**
      * Load the connection adapter
      *
@@ -217,7 +220,7 @@ class Zend_Oauth_Client extends Zend_Http_Client
      */
     public function request($method = null)
     {
-        if (!is_null($method)) {
+        if ($method !== null) {
             $this->setMethod($method);
         }
         $this->prepareOauth();
@@ -260,7 +263,7 @@ class Zend_Oauth_Client extends Zend_Http_Client
                 $this->_config,
                 $this->_getSignableParametersAsQueryString()
             );
-            $this->setRawData($raw);
+            $this->setRawData($raw, 'application/x-www-form-urlencoded');
             $this->paramsPost = array();
         } elseif ($requestScheme == Zend_Oauth::REQUEST_SCHEME_QUERYSTRING) {
             $params = array();
@@ -269,8 +272,8 @@ class Zend_Oauth_Client extends Zend_Http_Client
                 $queryParts = explode('&', $this->getUri()->getQuery());
                 foreach ($queryParts as $queryPart) {
                     $kvTuple = explode('=', $queryPart);
-                    $params[$kvTuple[0]] = 
-                        (array_key_exists(1, $kvTuple) ? $kvTuple[1] : NULL);
+                    $params[urldecode($kvTuple[0])] =
+                        (array_key_exists(1, $kvTuple) ? urldecode($kvTuple[1]) : NULL);
                 }
             }
             if (!empty($this->paramsPost)) {

@@ -147,32 +147,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
 
         $form->setHtmlIdPrefix($this->_getFieldIdPrefix());
 
-        $fieldset->addField('sender','text',
-            array(
-                'name'  =>  $this->_getFieldName('sender'),
-                'label' =>  Mage::helper('sales')->__('From'),
-                'required' =>  $this->getMessage()->getMessage() ? true : false
-            )
-        );
-        $fieldset->addField('recipient','text',
-            array(
-                'name'  =>  $this->_getFieldName('recipient'),
-                'label' =>  Mage::helper('sales')->__('To'),
-                'required' =>  $this->getMessage()->getMessage() ? true : false
-            )
-        );
-
-        $fieldset->addField('message', 'textarea',
-            array(
-                'name'      =>  $this->_getFieldName('message'),
-                'label'     =>  Mage::helper('sales')->__('Message'),
-                'rows'      =>  '5',
-                'cols'      =>  '20',
-                'onchange'  =>  'giftMessagesController.toogleRequired(\'' . $this->_getFieldId('message')
-                             .  '\', [\'' . $this->_getFieldId('sender')
-                             .  '\', \'' . $this->_getFieldId('recipient') . '\']);'
-            )
-        );
+        if ($this->getEntityType() == 'item') {
+            $this->_prepareHiddenFields($fieldset);
+        } else {
+            $this->_prepareVisibleFields($fieldset);
+        }
 
         // Set default sender and recipient from billing and shipping adresses
         if(!$this->getMessage()->getSender()) {
@@ -191,6 +170,74 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
         $form->setValues($this->getMessage()->getData());
 
         $this->setForm($form);
+        return $this;
+    }
+
+    /**
+     * Prepare form fieldset
+     * All fields are hidden
+     *
+     * @param Varien_Data_Form_Element_Fieldset $fieldset
+     *
+     * @return Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form
+     */
+    protected function _prepareHiddenFields(Varien_Data_Form_Element_Fieldset $fieldset)
+    {
+        $fieldset->addField('sender', 'hidden',
+            array(
+                'name' => $this->_getFieldName('sender')
+            )
+        );
+        $fieldset->addField('recipient', 'hidden',
+            array(
+                'name' => $this->_getFieldName('recipient')
+            )
+        );
+
+        $fieldset->addField('message', 'hidden',
+            array(
+                'name' => $this->_getFieldName('message')
+            )
+        );
+        return $this;
+    }
+
+    /**
+     * Prepare form fieldset
+     * All fields are visible
+     *
+     * @param Varien_Data_Form_Element_Fieldset $fieldset
+     *
+     * @return Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form
+     */
+    protected function _prepareVisibleFields(Varien_Data_Form_Element_Fieldset $fieldset)
+    {
+        $fieldset->addField('sender', 'text',
+            array(
+                'name'     => $this->_getFieldName('sender'),
+                'label'    => Mage::helper('sales')->__('From'),
+                'required' => $this->getMessage()->getMessage() ? true : false
+            )
+        );
+        $fieldset->addField('recipient', 'text',
+            array(
+                'name'     => $this->_getFieldName('recipient'),
+                'label'    => Mage::helper('sales')->__('To'),
+                'required' => $this->getMessage()->getMessage() ? true : false
+            )
+        );
+
+        $fieldset->addField('message', 'textarea',
+            array(
+                'name'      => $this->_getFieldName('message'),
+                'label'     => Mage::helper('sales')->__('Message'),
+                'rows'      => '5',
+                'cols'      => '20',
+                'onchange'  => 'giftMessagesController.toogleRequired(\'' . $this->_getFieldId('message')
+                             . '\', [\'' . $this->_getFieldId('sender')
+                             . '\', \'' . $this->_getFieldId('recipient') . '\']);'
+            )
+        );
         return $this;
     }
 

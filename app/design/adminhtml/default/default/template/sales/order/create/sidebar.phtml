@@ -39,3 +39,27 @@
 <?php endforeach; ?>
 <?php echo $this->getChildHtml('bottom_button'); ?>
 </div>
+<script>
+function addSidebarCompositeListType() {
+    productConfigure.addListType('sidebar', {
+        urlFetch: '<?php echo $this->getUrl('*/sales_order_create/configureProductToAdd') ?>',
+        urlConfirm: '<?php echo $this->getUrl('*/sales_order_create/addConfigured') ?>'
+    });
+    productConfigure.addListType('sidebar_wishlist', {
+        urlFetch: '<?php echo $this->getUrl('*/customer_wishlist_product_composite_wishlist/configure') ?>',
+        urlConfirm: '<?php echo $this->getUrl('*/sales_order_create/addConfigured') ?>'
+    });
+}
+
+if (typeof(sidebarListTypeWorkedOn) == 'undefined') {
+    sidebarListTypeWorkedOn = false;
+}
+if (!sidebarListTypeWorkedOn) {
+    if (typeof(productConfigure) == 'undefined') {
+        Event.observe(window, 'load',  addSidebarCompositeListType);
+    } else {
+        addSidebarCompositeListType();
+    }
+    sidebarListTypeWorkedOn = true;
+}
+</script>

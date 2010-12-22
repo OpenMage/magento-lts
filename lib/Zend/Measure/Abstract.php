@@ -16,7 +16,7 @@
  * @package   Zend_Measure
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Abstract.php 21330 2010-03-04 22:07:38Z thomas $
+ * @version   $Id: Abstract.php 21329 2010-03-04 22:06:08Z thomas $
  */
 
 /**

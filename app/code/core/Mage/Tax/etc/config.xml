@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Tax>
-            <version>1.4.0.0</version>
+            <version>1.4.0.1</version>
         </Mage_Tax>
     </modules>
     <global>

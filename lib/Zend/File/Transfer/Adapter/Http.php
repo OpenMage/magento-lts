@@ -16,7 +16,7 @@
  * @package   Zend_File_Transfer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Http.php 22564 2010-07-15 20:43:55Z thomas $
+ * @version   $Id: Http.php 22563 2010-07-15 20:42:04Z thomas $
  */
 
 /**

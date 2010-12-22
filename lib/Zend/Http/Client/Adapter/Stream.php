@@ -16,7 +16,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Client_Adapter
- * @version    $Id: Interface.php 16214 2009-06-21 19:34:03Z thomas $
+ * @version    $Id: Stream.php 20785 2010-01-31 09:43:03Z mikaelkael $
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */

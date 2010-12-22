@@ -172,13 +172,18 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     {
         if (!$this->getData('items')) {
             $items = array();
-            foreach ($this->getEntity()->getAllItems() as $item) {
+
+            $entityItems = $this->getEntity()->getAllItems();
+            Mage::dispatchEvent('gift_options_prepare_items', array('items' => $entityItems));
+
+            $type = substr($this->getType(), 0, 5) == 'multi' ? 'address_item' : 'item';
+            foreach ($entityItems as $item) {
                 if ($item->getParentItem()) {
                     continue;
                 }
-                $type = substr($this->getType(), 0, 5) == 'multi' ? 'address_item' : 'item';
-                if ($this->helper('giftmessage/message')->isMessagesAvailable($type, $item)) {
-                    $items[] = $item;
+                if ($this->helper('giftmessage/message')->isMessagesAvailable($type, $item)
+                    || $item->getIsGiftOptionsAvailable()) {
+                        $items[] = $item;
                 }
             }
             $this->setData('items', $items);

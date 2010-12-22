@@ -110,7 +110,7 @@ class Mage_Adminhtml_Block_Report_Sales_Invoiced_Grid extends Mage_Adminhtml_Blo
         ));
 
         $this->addExportType('*/*/exportInvoicedCsv', Mage::helper('adminhtml')->__('CSV'));
-        $this->addExportType('*/*/exportInvoicedExcel', Mage::helper('adminhtml')->__('Excel'));
+        $this->addExportType('*/*/exportInvoicedExcel', Mage::helper('adminhtml')->__('Excel XML'));
 
         return parent::_prepareColumns();
     }

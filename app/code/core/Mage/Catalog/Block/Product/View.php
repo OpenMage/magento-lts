@@ -60,7 +60,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             if ($description) {
                 $headBlock->setDescription( ($description) );
             } else {
-                $headBlock->setDescription($product->getDescription());
+                $headBlock->setDescription(Mage::helper('core/string')->substr($product->getDescription(), 0, 255));
             }
             if ($this->helper('catalog/product')->canUseCanonicalTag()) {
                 $params = array('_ignore_category'=>true);
@@ -188,5 +188,42 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     public function hasRequiredOptions()
     {
         return $this->getProduct()->getTypeInstance(true)->hasRequiredOptions($this->getProduct());
+    }
+
+    /**
+     * Define if setting of product options must be shown instantly.
+     * Used in case when options are usually hidden and shown only when user
+     * presses some button or link. In editing mode we better show these options
+     * instantly.
+     *
+     * @return bool
+     */
+    public function isStartCustomization()
+    {
+        return $this->getProduct()->getConfigureMode() || Mage::app()->getRequest()->getParam('startcustomization');
+    }
+
+    /**
+     * Get default qty - either as preconfigured, or as 1.
+     * Also restricts it by minimal qty.
+     *
+     * @param null|Mage_Catalog_Model_Product
+     *
+     * @return int|float
+     */
+    public function getProductDefaultQty($product = null)
+    {
+        if (!$product) {
+            $product = $this->getProduct();
+        }
+
+        $qty = $this->getMinimalQty($product);
+        $config = $product->getPreconfiguredValues();
+        $configQty = $config->getQty();
+        if ($configQty > $qty) {
+            $qty = $configQty;
+        }
+
+        return $qty;
     }
 }

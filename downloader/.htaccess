@@ -4,3 +4,8 @@
     RemoveOutputFilter GZIP
 
 </IfModule>
+
+<Files ~ "\.(cfg|ini|xml)$">
+    order allow,deny
+    deny from all
+</Files> 

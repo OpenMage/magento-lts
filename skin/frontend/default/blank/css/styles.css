@@ -408,6 +408,11 @@ tr.summary-details-excluded { font-style:italic; }
 .link-rss { background:url(../images/i_rss.gif) 0 1px no-repeat; padding-left:18px; white-space:nowrap; }
 .btn-remove { display:block; width:11px; height:11px; font-size:0; line-height:0; background:url(../images/btn_remove.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
 .btn-remove2 { display:block; width:16px; height:16px; font-size:0; line-height:0; background:url(../images/btn_trash.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
+.btn-edit    { display:block; width:11px; height:11px; font-size:0; line-height:0; background:url(../images/btn_edit.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
+
+.cards-list dt { margin:5px 0 0; }
+.cards-list .offset { padding:2px 0 2px 20px; }
+
 
 .separator { margin:0 3px; }
 
@@ -495,7 +500,8 @@ tr.summary-details-excluded { font-style:italic; }
 .block .block-subtitle { font-size:13px; font-weight:bold; }
 .block .block-content { padding:10px; }
 .block .block-content li.item { padding:5px 0; }
-.block .btn-remove { float:right; }
+.block .btn-remove,
+.block .btn-edit { float:right;}
 .block .actions { text-align:right; }
 .block .actions a { float:left; }
 .block .empty {}
@@ -944,6 +950,9 @@ tr.summary-details-excluded { font-style:italic; }
 
 .sp-methods .centinel-logos a { margin-right:3px; }
 .sp-methods .centinel-logos img { vertical-align:middle; }
+
+.sp-methods .release-amounts { margin:0.5em 0 1em; }
+.sp-methods .release-amounts button { float:left; margin:5px 10px 0 0; }
 
 .please-wait { float:right; margin-right:5px; }
 .please-wait img { vertical-align:middle; }

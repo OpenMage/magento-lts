@@ -17,7 +17,7 @@
  * @subpackage Renderer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: RendererAbstract.php 20316 2010-01-15 22:27:00Z mikaelkael $
+ * @version    $Id: RendererAbstract.php 22999 2010-09-23 19:43:14Z mikaelkael $
  */
 
 /**
@@ -80,7 +80,7 @@ abstract class Zend_Barcode_Renderer_RendererAbstract
 
     /**
      * Barcode object
-     * @var Zend_Barcode_Object
+     * @var Zend_Barcode_Object_ObjectAbstract
      */
     protected $_barcode;
 
@@ -529,12 +529,12 @@ abstract class Zend_Barcode_Renderer_RendererAbstract
      * @param float $orientation
      */
     abstract protected function _drawText(
-        $text, 
-        $size, 
-        $position, 
-        $font, 
-        $color, 
-        $alignment = 'center', 
+        $text,
+        $size,
+        $position,
+        $font,
+        $color,
+        $alignment = 'center',
         $orientation = 0
     );
 }

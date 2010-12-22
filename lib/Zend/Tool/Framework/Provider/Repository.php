@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Repository.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Repository.php 23202 2010-10-21 15:08:15Z ralph $
  */
 
 /**
@@ -160,7 +160,12 @@ class Zend_Tool_Framework_Provider_Repository
     {
 
         // process all providers in the unprocessedProviders array
-        foreach ($this->_unprocessedProviders as $providerName => $provider) {
+        //foreach ($this->_unprocessedProviders as $providerName => $provider) {
+        reset($this->_unprocessedProviders);
+        while ($this->_unprocessedProviders) {
+            
+            $providerName = key($this->_unprocessedProviders);
+            $provider = array_shift($this->_unprocessedProviders);
 
             // create a signature for the provided provider
             $providerSignature = new Zend_Tool_Framework_Provider_Signature($provider);
@@ -178,8 +183,10 @@ class Zend_Tool_Framework_Provider_Repository
             $this->_providerSignatures[$providerName] = $providerSignature;
             $this->_providers[$providerName]          = $providerSignature->getProvider();
 
-            // remove from unprocessed array
-            unset($this->_unprocessedProviders[$providerName]);
+            if ($provider instanceof Zend_Tool_Framework_Provider_Initializable) {
+                $provider->initialize();
+            }
+
         }
 
     }
@@ -255,7 +262,10 @@ class Zend_Tool_Framework_Provider_Repository
     protected function _parseName(Zend_Tool_Framework_Provider_Interface $provider)
     {
         $className = get_class($provider);
-        $providerName = substr($className, strrpos($className, '_')+1);
+        $providerName = $className;
+        if (strpos($providerName, '_') !== false) {
+            $providerName = substr($providerName, strrpos($providerName, '_')+1);
+        }
         if (substr($providerName, -8) == 'Provider') {
             $providerName = substr($providerName, 0, strlen($providerName)-8);
         }

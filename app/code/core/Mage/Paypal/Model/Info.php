@@ -474,6 +474,7 @@ class Mage_Paypal_Model_Info
         switch ($value) {
             // Visa, MasterCard, Discover and American Express
             case 'A':
+            case 'YN':
                 return Mage::helper('paypal')->__('Matched Address only (no ZIP)');
             case 'B': // international "A"
                 return Mage::helper('paypal')->__('Matched Address only (no ZIP). International');
@@ -494,8 +495,10 @@ class Mage_Paypal_Model_Info
             case 'I':
                 return Mage::helper('paypal')->__('N/A. International Unavailable');
             case 'Z':
+            case 'NY':
                 return Mage::helper('paypal')->__('Matched five-digit ZIP only (no Address)');
             case 'P': // international "Z"
+            case 'NY':
                 return Mage::helper('paypal')->__('Matched Postal Code only (no Address)');
             case 'R':
                 return Mage::helper('paypal')->__('N/A. Retry');

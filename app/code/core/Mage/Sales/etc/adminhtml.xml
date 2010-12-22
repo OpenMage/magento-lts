@@ -69,6 +69,15 @@
                 </billing_agreement>
             </children>
          </sales>
+         <system>
+            <children>
+                <order_statuses translate="title" module="sales">
+                    <title>Order Statuses</title>
+                    <action>adminhtml/sales_order_status</action>
+                    <sort_order>105</sort_order>
+                </order_statuses>
+            </children>
+         </system>
     </menu>
     <acl>
         <resources>
@@ -85,6 +94,7 @@
                                         <children>
                                             <create translate="title"><title>Create</title></create>
                                             <view translate="title"><title>View</title></view>
+                                            <email translate="title"><title>Send Order Email</title></email>
                                             <reorder translate="title"><title>Reorder</title></reorder>
                                             <edit translate="title"><title>Edit</title></edit>
                                             <cancel translate="title"><title>Cancel</title></cancel>
@@ -153,6 +163,10 @@
                     </sales>
                     <system>
                         <children>
+                            <order_statuses>
+                                <title>Order Statuses</title>
+                                <sort_order>15</sort_order>
+                            </order_statuses>
                             <config>
                                 <children>
                                     <sales translate="title">

@@ -718,11 +718,20 @@ class Mage_Catalog_Model_Url
             /**
              * Check if existing request past can be used
              */
-            if (!empty($requestPath) && strpos($existingRequestPath, $requestPath) !== false) {
+            if ($product->getUrlKey() == '' && !empty($requestPath) && strpos($existingRequestPath, $requestPath) !== false) {
                 $existingRequestPath = str_replace($requestPath, '', $existingRequestPath);
                 if (preg_match('#^-([0-9]+)$#i', $existingRequestPath)) {
                     return $this->_rewrites[$idPath]->getRequestPath();
                 }
+            }
+            /**
+             * check if current generated request path is one of the old paths
+             */
+            $fullPath = $requestPath.$suffix;
+            $finalOldTargetPath = $this->getResource()->findFinalTargetPath($fullPath, $storeId);
+            if ($finalOldTargetPath && $finalOldTargetPath == $idPath) {
+                $this->getResource()->deleteRewrite($fullPath, $storeId);
+                return $fullPath;
             }
         }
         /**

@@ -17,7 +17,7 @@
  * @subpackage Stomp
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Frame.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Frame.php 22662 2010-07-24 17:37:36Z mabe $
  */
 
 /**
@@ -195,7 +195,7 @@ class Zend_Queue_Stomp_Frame
      */
     public function getBody()
     {
-        return is_null($this->_body)
+        return $this->_body === null
             ? false
             : $this->_body;
     }
@@ -211,7 +211,7 @@ class Zend_Queue_Stomp_Frame
      */
     public function setBody($body)
     {
-        if (!is_string($body) && !is_null($body)) {
+        if (!is_string($body) && $body !== null) {
             #require_once 'Zend/Queue/Exception.php';
             throw new Zend_Queue_Exception('$body is not a string or null');
         }
@@ -229,7 +229,7 @@ class Zend_Queue_Stomp_Frame
      */
     public function getCommand()
     {
-        return is_null($this->_command)
+        return $this->_command === null
             ? false
             : $this->_command;
     }
@@ -243,7 +243,7 @@ class Zend_Queue_Stomp_Frame
      */
     public function setCommand($command)
     {
-        if (!is_string($command) && !is_null($command)) {
+        if (!is_string($command) && $command !== null) {
             #require_once 'Zend/Queue/Exception.php';
             throw new Zend_Queue_Exception('$command is not a string or null');
         }

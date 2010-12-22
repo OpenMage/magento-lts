@@ -73,6 +73,11 @@
     </adminhtml_sales_billing_agreement_customergrid>
 
     <adminhtml_sales_order_view>
+        <reference name="head">
+            <action method="addJs"><file>mage/adminhtml/giftmessage.js</file></action>
+            <action method="addJs"><file>mage/adminhtml/giftoptions.js</file></action>
+            <action method="addJs"><file>mage/adminhtml/giftoptions/tooltip.js</file></action>
+        </reference>
         <reference name="content">
             <block type="adminhtml/sales_order_view" name="sales_order_edit"></block>
         </reference>
@@ -86,10 +91,16 @@
                         <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>sales/items/column/qty.phtml</template></action>
                         <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>sales/items/column/name.phtml</template></action>
                         <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name_grouped</block><template>sales/items/column/name.phtml</template><type>grouped</type></action>
+                        <block type="core/text_list" name="order_item_extra_info"></block>
+                    </block>
+                    <block type="adminhtml/template" name="popup_window" template="giftmessage/popup.phtml">
+                        <block type="adminhtml/template" name="gift_options_form" template="giftmessage/giftoptionsform.phtml" />
                     </block>
                     <block type="adminhtml/sales_order_payment" name="order_payment"/>
                     <block type="adminhtml/sales_order_view_history" name="order_history" template="sales/order/view/history.phtml"></block>
-                    <block type="adminhtml/sales_order_view_giftmessage" name="order_giftmessage" template="sales/order/view/giftmessage.phtml"></block>
+                    <block type="adminhtml/template" name="gift_options" template="sales/order/giftoptions.phtml">
+                        <block type="adminhtml/sales_order_view_giftmessage" name="order_giftmessage" template="sales/order/view/giftmessage.phtml"></block>
+                    </block>
                     <block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/totals.phtml">
                         <block type="adminhtml/sales_order_totals_tax" name="tax" template="sales/order/totals/tax.phtml" />
                         <!--<block type="adminhtml/sales_order_totals_item" name="footer" template="sales/order/totals/footer.phtml">
@@ -489,6 +500,10 @@
         <reference name="head">
             <action method="addJs"><file>mage/adminhtml/sales.js</file></action>
             <action method="addJs"><file>mage/adminhtml/giftmessage.js</file></action>
+            <action method="addJs"><file>mage/adminhtml/product/composite/configure.js</file></action>
+            <action method="addJs"><file>varien/configurable.js</file></action>
+            <action method="addJs"><file>mage/adminhtml/giftoptions.js</file></action>
+            <action method="addJs"><file>mage/adminhtml/giftoptions/tooltip.js</file></action>
             <block type="adminhtml/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />
         </reference>
         <reference name="js">
@@ -534,11 +549,17 @@
                                 <block type="adminhtml/sales_order_create_coupons" template="sales/order/create/coupons/form.phtml" name="coupons">
                                     <block type="adminhtml/sales_order_create_coupons_form" template="sales/order/create/coupons/form.phtml" name="form" />
                                 </block>
+                                <block type="adminhtml/template" name="popup_window" template="giftmessage/popup.phtml">
+                                    <block type="adminhtml/template" name="gift_options_form" template="giftmessage/giftoptionsform.phtml" />
+                                </block>
                             </block>
                         </block>
                         <block type="adminhtml/sales_order_create_comment" template="sales/order/create/comment.phtml" name="comment" />
                         <block type="adminhtml/sales_order_create_totals" template="sales/order/create/totals.phtml" name="totals" />
-                        <block type="adminhtml/sales_order_create_giftmessage" template="sales/order/create/giftmessage.phtml" name="giftmessage" />
+                        <block type="adminhtml/template" name="gift_options" template="sales/order/giftoptions.phtml">
+                            <block type="adminhtml/sales_order_create_giftmessage" template="sales/order/create/giftmessage.phtml" name="giftmessage" />
+                        </block>
+                        <block type="core/text_list" name="order_item_extra_info"></block>
                     </block>
                 </block>
             </block>
@@ -593,11 +614,17 @@
                         <block type="adminhtml/sales_order_create_coupons" template="sales/order/create/coupons/form.phtml" name="coupons">
                             <block type="adminhtml/sales_order_create_coupons_form" template="sales/order/create/coupons/form.phtml" name="form" />
                         </block>
+                        <block type="adminhtml/template" name="popup_window" template="giftmessage/popup.phtml">
+                            <block type="adminhtml/template" name="gift_options_form" template="giftmessage/giftoptionsform.phtml" />
+                        </block>
                     </block>
                 </block>
                 <block type="adminhtml/sales_order_create_comment" template="sales/order/create/comment.phtml" name="comment" />
                 <block type="adminhtml/sales_order_create_totals" template="sales/order/create/totals.phtml" name="totals" />
-                <block type="adminhtml/sales_order_create_giftmessage" template="sales/order/create/giftmessage.phtml" name="giftmessage" />
+                <block type="adminhtml/template" name="gift_options" template="sales/order/giftoptions.phtml">
+                    <block type="adminhtml/sales_order_create_giftmessage" template="sales/order/create/giftmessage.phtml" name="giftmessage" />
+                </block>
+                <block type="core/text_list" name="order_item_extra_info"></block>
             </block>
         </reference>
     </adminhtml_sales_order_create_load_block_data>
@@ -686,8 +713,12 @@
                     <block type="adminhtml/sales_order_create_coupons" template="sales/order/create/coupons/form.phtml" name="coupons">
                         <block type="adminhtml/sales_order_create_coupons_form" template="sales/order/create/coupons/form.phtml" name="form" />
                     </block>
+                    <block type="adminhtml/template" name="popup_window" template="giftmessage/popup.phtml">
+                        <block type="adminhtml/template" name="gift_options_form" template="giftmessage/giftoptionsform.phtml" />
+                    </block>
                 </block>
             </block>
+            <block type="core/text_list" name="order_item_extra_info"></block>
         </reference>
     </adminhtml_sales_order_create_load_block_items>
 
@@ -1017,4 +1048,29 @@
         </reference>
     </adminhtml_customer_edit>
 
+    <adminhtml_sales_order_status_index>
+        <reference name="content">
+            <block type="adminhtml/sales_order_status" name="sales_order_status.grid.container"></block>
+        </reference>
+    </adminhtml_sales_order_status_index>
+    <adminhtml_sales_order_status_new>
+        <reference name="content">
+            <block type="adminhtml/sales_order_status_new" name="sales_order_status.new.container"></block>
+        </reference>
+    </adminhtml_sales_order_status_new>
+    <adminhtml_sales_order_status_edit>
+        <reference name="content">
+            <block type="adminhtml/sales_order_status_edit" name="sales_order_status.edit.container"></block>
+        </reference>
+    </adminhtml_sales_order_status_edit>
+    <adminhtml_sales_order_status_assign>
+        <reference name="content">
+            <block type="adminhtml/sales_order_status_assign" name="sales_order_status.assign.container"></block>
+        </reference>
+    </adminhtml_sales_order_status_assign>
+    <adminhtml_sales_order_address>
+        <reference name="content">
+            <block type="adminhtml/sales_order_address" name="sales_order_address.form.container"></block>
+        </reference>
+    </adminhtml_sales_order_address>
 </layout>

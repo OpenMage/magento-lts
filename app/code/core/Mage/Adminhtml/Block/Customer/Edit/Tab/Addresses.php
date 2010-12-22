@@ -186,4 +186,19 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
             'boolean'   => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_boolean'),
         );
     }
+
+    /**
+     * Return JSON object with countries associated to possible websites
+     *
+     * @return string
+     */
+    public function getDefaultCountriesJson() {
+        $websites = Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm(false, true);
+        $result = array();
+        foreach ($websites as $website) {
+            $result[$website['value']] = Mage::app()->getWebsite($website['value'])->getConfig(Mage_Core_Helper_Data::XML_PATH_DEFAULT_COUNTRY);
+        }
+
+        return Mage::helper('core')->jsonEncode($result);
+    }
 }

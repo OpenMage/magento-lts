@@ -16,6 +16,7 @@
  * @package    Zend_Feed_Pubsubhubbub
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Subscriber.php 23170 2010-10-19 18:29:24Z mabe $
  */
 
 /**
@@ -149,7 +150,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
      */
     public function __construct($config = null)
     {
-        if (!is_null($config)) {
+        if ($config !== null) {
             $this->setConfig($config);
         }
     }
@@ -470,7 +471,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
             $this->removeParameter($name);
             return $this;
         }
-        if (empty($value) || (!is_string($value) && !is_null($value))) {
+        if (empty($value) || (!is_string($value) && $value !== null)) {
             #require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
             throw new Zend_Feed_Pubsubhubbub_Exception('Invalid parameter "value"'
                 . ' of "' . $value . '" must be a non-empty string');
@@ -637,7 +638,10 @@ class Zend_Feed_Pubsubhubbub_Subscriber
                 $client->setAuth($auth[0], $auth[1]);
             }
             $client->setUri($url);
-            $client->setRawData($this->_getRequestParameters($url, $mode));
+            $client->setRawData(
+                $this->_getRequestParameters($url, $mode),
+                'application/x-www-form-urlencoded'
+            );
             $response = $client->request();
             if ($response->getStatus() !== 204
                 && $response->getStatus() !== 202
@@ -732,7 +736,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
             $params['hub.callback'] = rtrim($this->getCallbackUrl(), '/')
                 . '/' . Zend_Feed_Pubsubhubbub::urlencode($key);
         }
-        if ($mode == 'subscribe' && !is_null($this->getLeaseSeconds())) {
+        if ($mode == 'subscribe' && $this->getLeaseSeconds() !== null) {
             $params['hub.lease_seconds'] = $this->getLeaseSeconds();
         }
 

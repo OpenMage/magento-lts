@@ -32,7 +32,8 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection extends Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection
+    extends Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
 {
     /**
      * Customer Filter
@@ -57,14 +58,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection ext
 
     /**
      * Initialize resources
-     *
      */
     protected function _construct()
     {
         $this->_init('catalog/product_compare_item', 'catalog/product');
-
-        $this->_productWebsiteTable = $this->getResource()->getTable('catalog/product_website');
-        $this->_productCategoryTable= $this->getResource()->getTable('catalog/category_product');
+        $this->_initTables();
     }
 
     /**
@@ -312,8 +310,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection ext
      */
     public function clear()
     {
-        Mage::getResourceSingleton('catalog/product_compare_item')->clearItems($this->getVisitorId(), $this->getCustomerId());
+        Mage::getResourceSingleton('catalog/product_compare_item')
+            ->clearItems($this->getVisitorId(), $this->getCustomerId());
         Mage::dispatchEvent('catalog_product_compare_item_collection_clear');
+
         return $this;
     }
 

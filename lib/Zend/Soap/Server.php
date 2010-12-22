@@ -33,7 +33,7 @@
  * @uses       Zend_Server_Interface
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Server.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Server.php 22223 2010-05-21 08:06:47Z jan $
  */
 class Zend_Soap_Server implements Zend_Server_Interface
 {
@@ -210,6 +210,8 @@ class Zend_Soap_Server implements Zend_Server_Interface
                     $this->setWsdl($value);
                     break;
                 case 'featues':
+                    trigger_error(__METHOD__ . ': the option "featues" is deprecated as of 1.10.x and will be removed with 2.0.0; use "features" instead', E_USER_NOTICE);
+                case 'features':
                     $this->setSoapFeatures($value);
                     break;
                 case 'cache_wsdl':

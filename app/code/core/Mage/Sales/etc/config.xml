@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Sales>
-            <version>1.4.0.21</version>
+            <version>1.4.0.23</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -378,6 +378,9 @@
                     <order_address><table>sales_flat_order_address</table></order_address>
                     <order_payment><table>sales_flat_order_payment</table></order_payment>
                     <order_status_history><table>sales_flat_order_status_history</table></order_status_history>
+                    <order_status><table>sales_order_status</table></order_status>
+                    <order_status_state><table>sales_order_status_state</table></order_status_state>
+                    <order_status_label><table>sales_order_status_label</table></order_status_label>
 
                     <invoice><table>sales_flat_invoice</table></invoice>
                     <invoice_grid><table>sales_flat_invoice_grid</table></invoice_grid>
@@ -630,6 +633,10 @@
                 </item>
             </quote>
             <order>
+                <!-- /**
+                      * @depraceted after 1.4.2, statuses are saved into sales_order_status table
+                      */
+                -->
                 <statuses>
                     <pending translate="label"><label>Pending</label></pending>
                     <pending_payment translate="label"><label>Pending Payment</label></pending_payment>

@@ -17,7 +17,7 @@
  * @subpackage Resource
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Navigation.php 20816 2010-02-01 21:13:54Z freak $
+ * @version    $Id: Navigation.php 22882 2010-08-22 14:00:16Z freak $
  */
 
 /**
@@ -58,6 +58,10 @@ class Zend_Application_Resource_Navigation
             $options = $this->getOptions();
             $pages = isset($options['pages']) ? $options['pages'] : array();
             $this->_container = new Zend_Navigation($pages);
+            
+            if(isset($options['defaultPageType'])) {
+                Zend_Navigation_Page::setDefaultPageType($options['defaultPageType']);
+            }
         }
 
         $this->store();

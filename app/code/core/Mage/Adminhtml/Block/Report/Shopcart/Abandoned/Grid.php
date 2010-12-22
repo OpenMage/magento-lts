@@ -158,7 +158,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         ));
 
         $this->addExportType('*/*/exportAbandonedCsv', Mage::helper('reports')->__('CSV'));
-        $this->addExportType('*/*/exportAbandonedExcel', Mage::helper('reports')->__('Excel'));
+        $this->addExportType('*/*/exportAbandonedExcel', Mage::helper('reports')->__('Excel XML'));
 
         return parent::_prepareColumns();
     }

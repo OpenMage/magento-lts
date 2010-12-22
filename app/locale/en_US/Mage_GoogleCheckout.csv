@@ -1,4 +1,5 @@
 "* Select shipping method","* Select shipping method"
+"<br />Warning: <strong>%s</strong><br />","<br />Warning: <strong>%s</strong><br />"
 "<strong style=""color:red"">Warning!</strong> This option disables the merchant calculated shipping. With this option, Google API ignores any attempt to affect shipping prices.","<strong style=""color:red"">Warning!</strong> This option disables the merchant calculated shipping. With this option, Google API ignores any attempt to affect shipping prices."
 "A virtual item to reflect the discount total","A virtual item to reflect the discount total"
 "A virtual item to reflect the tax total","A virtual item to reflect the tax total"
@@ -86,6 +87,7 @@
 "Sandbox","Sandbox"
 "Secure Callback URL","Secure Callback URL"
 "Small - %s","Small - %s"
+"The tax amount has been applied based on the information received from Google Checkout, because tax amount received from Google Checkout is different from the calculated tax amount","The tax amount has been applied based on the information received from Google Checkout, because tax amount received from Google Checkout is different from the calculated tax amount"
 "Title","Title"
 "Total Chargeback: %s","Total Chargeback: %s"
 "Total Charged: %s","Total Charged: %s"

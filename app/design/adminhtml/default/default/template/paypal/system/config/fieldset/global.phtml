@@ -77,6 +77,7 @@ Event.observe(window, 'load', function() {
     Element.observe('paypal_account_merchant_country', 'change', pConfig.trackMerchantCountry.bind(pConfig));
     Element.observe('paypal_global_wpp', 'click', pConfig.trackWpp.bind(pConfig));
     Element.observe('paypal_global_wpp_pe', 'click', pConfig.trackWppPe.bind(pConfig));
+    Element.observe('paypal_global_payflow_link', 'click', pConfig.trackWppPl.bind(pConfig));
     Element.observe('paypal_global_verisign', 'click', pConfig.trackPayflowpro.bind(pConfig));
     ['ec','wps','ecpe'].each(function(m) {
         Element.observe(pConfig.getMethodSwitcher(m).id, 'click', pConfig.trackMethod.bind(pConfig, m));
@@ -85,6 +86,7 @@ Event.observe(window, 'load', function() {
     pConfig.trackMerchantCountry();
     pConfig.trackBusinessAccount();
     pConfig.trackWpp();
+    pConfig.trackWppPl();
     pConfig.trackWppPe();
     pConfig.trackWps();
     ['ec','wps','ecpe'].each(function(m) {
@@ -103,6 +105,7 @@ PaypalConfig.prototype = {
             wps: $H({switcher: 'wps', fieldset: 'wps'}),
             wpp: $H({switcher: 'wpp', fieldset: 'wpp'}),
             wpppe: $H({switcher: 'wpp_pe', fieldset: 'wpp_pe'}),
+            wpppl: $H({switcher: 'payflow_link', fieldset: 'payflow_link'}),
             ecpe: $H({switcher: 'express_pe', fieldset: 'express_pe'}),
             payflowpro: $H({switcher: 'verisign', fieldset: 'verisign'})
         });
@@ -334,6 +337,11 @@ PaypalConfig.prototype = {
         this.trackWps();
     },
 
+    trackWppPl: function()
+    {
+        this.trackMethod('wpppl');
+    },
+
     trackPayflowpro: function()
     {
         this.trackMethod('payflowpro');
@@ -344,7 +352,12 @@ PaypalConfig.prototype = {
     {
         var wpppeEnabled = this.getMethodSwitcher('wpppe').checked;
         if (wpppeEnabled) {
-            this.enableMethod('ecpe',true);
+            // Do not enable ecpe based on wpppe state on page load
+            if (!this.fastMode) {
+                this.enableMethod('ecpe',true);
+            } else {
+                this.markMethodAsReadonly('ecpe', true);
+            }
             this.disableMethod('ec',true);
             return;
         } else {

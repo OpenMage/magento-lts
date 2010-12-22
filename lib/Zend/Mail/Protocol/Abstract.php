@@ -18,7 +18,7 @@
  * @subpackage Protocol
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 21635 2010-03-24 15:25:13Z yoshida@zend.co.jp $
+ * @version    $Id: Abstract.php 22602 2010-07-16 22:37:31Z freak $
  */
 
 
@@ -44,7 +44,7 @@
  * @subpackage Protocol
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 21635 2010-03-24 15:25:13Z yoshida@zend.co.jp $
+ * @version    $Id: Abstract.php 22602 2010-07-16 22:37:31Z freak $
  * @todo Implement proxy settings
  */
 abstract class Zend_Mail_Protocol_Abstract
@@ -62,8 +62,9 @@ abstract class Zend_Mail_Protocol_Abstract
 
     /**
      * Maximum of the transaction log
+     * @var integer
      */
-    const MAXIMUM_LOG = 64;
+    protected $_maximumLog = 64;
 
 
     /**
@@ -159,6 +160,28 @@ abstract class Zend_Mail_Protocol_Abstract
         $this->_disconnect();
     }
 
+    /**
+     * Set the maximum log size 
+     * 
+     * @param integer $maximumLog Maximum log size
+     * @return void
+     */
+    public function setMaximumLog($maximumLog)
+    {
+        $this->_maximumLog = (int) $maximumLog;
+    }
+    
+    
+    /**
+     * Get the maximum log size 
+     * 
+     * @return int the maximum log size
+     */
+    public function getMaximumLog()
+    {
+        return $this->_maximumLog;
+    }
+    
 
     /**
      * Create a connection to the remote host
@@ -219,7 +242,7 @@ abstract class Zend_Mail_Protocol_Abstract
      */
     protected function _addLog($value)
     {
-        if (count($this->_log) >= self::MAXIMUM_LOG) {
+        if ($this->_maximumLog >= 0 && count($this->_log) >= $this->_maximumLog) {
             array_shift($this->_log);
         }
 

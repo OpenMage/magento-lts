@@ -169,7 +169,7 @@
                 var currentNode = tree.getNodeById(categoryId);
 
                 if (currentNode) {
-                    if (params['general[is_active]']) {
+                    if (parseInt(params['general[is_active]'])) {
                         var oldClass = 'no-active-category';
                         var newClass = 'active-category';
                     } else {

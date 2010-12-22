@@ -17,8 +17,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /****************************************************/
@@ -96,11 +98,17 @@ input.form-radio { margin-right:3px;}
     background-color:#618499;
     }
 
+.fieldset-download .form-button { margin:0.8em 0 0; }
+    
 
 /* Form lists */
 .form-list li { margin-bottom:6px; }
 .form-list li .input-box .input-text, .form-list li .input-box textarea { width:250px; }
 .form-list li .input-box select { width:256px;}
+
+table.form-list td { padding:2px 5px 2px 0; width:225px; }
+table.form-list input { width:248px; }
+table.form-list select { width:254px; }
 
 .group-select {
     margin:28px 0;

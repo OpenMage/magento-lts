@@ -1,4 +1,5 @@
 /*
+ * @version    $Id: queue_sqlite.sql 20874 2010-02-03 13:14:59Z matthew $
 Sample grant for SQLite
 
 CREATE ROLE queue LOGIN

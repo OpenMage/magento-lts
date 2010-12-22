@@ -145,7 +145,7 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Product extends Mage_Adminhtml_Block
 
     public function getGridUrl()
     {
-        return $this->getUrl('googlebase/selection/grid', array('index' => $this->getIndex(),'_current'=>true));
+        return $this->getUrl('*/googlebase_selection/grid', array('index' => $this->getIndex(),'_current'=>true));
     }
 
     protected function _getGoogleBaseProductIds()

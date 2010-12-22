@@ -35,6 +35,30 @@
 abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Front_Action
 {
     /**
+     * Filter to convert localized values to internal ones
+     * @var Zend_Filter_LocalizedToNormalized
+     */
+    protected $_localFilter = null;
+
+    /**
+     * Processes localized qty (entered by user at frontend) into internal php format
+     *
+     * @param string $qty
+     * @return float|int|null
+     */
+    protected function _processLocalizedQty($qty)
+    {
+        if (!$this->_localFilter) {
+            $this->_localFilter = new Zend_Filter_LocalizedToNormalized(array('locale' => Mage::app()->getLocale()->getLocaleCode()));
+        }
+        $qty = $this->_localFilter->filter($qty);
+        if ($qty < 0) {
+            $qty = null;
+        }
+        return $qty;
+    }
+
+    /**
      * Retrieve current wishlist instance
      *
      * @return Mage_Wishlist_Model_Wishlist|false
@@ -58,14 +82,26 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
         $addedItems = array();
         $notSalable = array();
         $hasOptions = array();
-        $isGrouped  = array();
 
         $cart       = Mage::getSingleton('checkout/cart');
-        $collection = $wishlist->getItemCollection();
+        $collection = $wishlist->getItemCollection()
+                ->setVisibilityFilter();
 
+        $qtys = $this->getRequest()->getParam('qty');
         foreach ($collection as $item) {
             /** @var Mage_Wishlist_Model_Item */
             try {
+                $item->unsProduct();
+
+                // Set qty
+                if (isset($qtys[$item->getId()])) {
+                    $qty = $this->_processLocalizedQty($qtys[$item->getId()]);
+                    if ($qty) {
+                        $item->setQty($qty);
+                    }
+                }
+
+                // Add to cart
                 if ($item->addToCart($cart, $isOwner)) {
                     $addedItems[] = $item->getProduct();
                 }
@@ -75,10 +111,8 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
                     $notSalable[] = $item;
                 } else if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS) {
                     $hasOptions[] = $item;
-                } else if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_IS_GROUPED_PRODUCT) {
-                    $isGrouped[] = $item;
                 } else {
-                    $messages[] = $e->getMessage();
+                    $messages[] = $this->__('%s for "%s".', trim($e->getMessage(), '.'), $item->getProduct()->getName());
                 }
             } catch (Exception $e) {
                 Mage::logException($e);
@@ -107,14 +141,6 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             $messages[] = Mage::helper('wishlist')->__('Unable to add the following product(s) to shopping cart: %s.', join(', ', $products));
         }
 
-        if ($isGrouped) {
-            $products = array();
-            foreach ($isGrouped as $item) {
-                $products[] = '"' . $item->getProduct()->getName() . '"';
-            }
-            $messages[] = Mage::helper('wishlist')->__('Product(s) %s are grouped. Each of them can be added to cart separately only.', join(', ', $products));
-        }
-
         if ($hasOptions) {
             $products = array();
             foreach ($hasOptions as $item) {
@@ -127,12 +153,6 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             $isMessageSole = (count($messages) == 1);
             if ($isMessageSole && count($hasOptions) == 1) {
                 $item = $hasOptions[0];
-                if ($isOwner) {
-                    $item->delete();
-                }
-                $redirectUrl = $item->getProductUrl();
-            } elseif ($isMessageSole && count($isGrouped) == 1) {
-                $item = $isGrouped[0];
                 if ($isOwner) {
                     $item->delete();
                 }

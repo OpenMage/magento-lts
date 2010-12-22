@@ -81,6 +81,7 @@ Category default layout
                     <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
                         <block type="page/html_pager" name="product_list_toolbar_pager"/>
                         <!-- The following code shows how to set your own pager increments -->
+                        <!-- 
                             <action method="setDefaultListPerPage"><limit>10</limit></action>
                             <action method="setDefaultGridPerPage"><limit>8</limit></action>
                             <action method="addPagerLimit"><mode>list</mode><limit>10</limit></action>
@@ -91,6 +92,7 @@ Category default layout
                             <action method="addPagerLimit"><mode>grid</mode><limit>16</limit></action>
                             <action method="addPagerLimit"><mode>grid</mode><limit>24</limit></action>
                             <action method="addPagerLimit" translate="label"><mode>grid</mode><limit>all</limit><label>All</label></action>
+                        -->
                     </block>
                     <!--action method="addColumnCountLayoutDepend"><layout>empty</layout><count>6</count></action>
                     <action method="addColumnCountLayoutDepend"><layout>one_column</layout><count>5</count></action>
@@ -123,6 +125,7 @@ Category layered navigation layout
                     <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
                         <block type="page/html_pager" name="product_list_toolbar_pager"/>
                         <!-- The following code shows how to set your own pager increments -->
+                        <!-- 
                             <action method="setDefaultListPerPage"><limit>10</limit></action>
                             <action method="setDefaultGridPerPage"><limit>8</limit></action>
                             <action method="addPagerLimit"><mode>list</mode><limit>10</limit></action>
@@ -133,6 +136,7 @@ Category layered navigation layout
                             <action method="addPagerLimit"><mode>grid</mode><limit>16</limit></action>
                             <action method="addPagerLimit"><mode>grid</mode><limit>24</limit></action>
                             <action method="addPagerLimit" translate="label"><mode>grid</mode><limit>all</limit><label>All</label></action>
+                        -->
                     </block>
                     <!--action method="addColumnCountLayoutDepend"><layout>empty</layout><count>6</count></action>
                     <action method="addColumnCountLayoutDepend"><layout>one_column</layout><count>5</count></action>
@@ -185,6 +189,7 @@ Product view
         </reference>
         <reference name="head">
             <action method="addJs"><script>varien/product.js</script></action>
+            <action method="addJs"><script>varien/configurable.js</script></action>
 
             <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/><!--<if/><condition>can_load_calendar_js</condition>--></action>
             <action method="addItem"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
@@ -234,6 +239,7 @@ Product view
                     <action method="insert"><block>product.tierprices</block></action>
                     <block type="catalog/product_view" name="product.clone_prices" as="prices" template="catalog/product/view/price_clone.phtml"/>
                     <action method="append"><block>product.info.addtocart</block></action>
+                    <action method="append"><block>product.info.addto</block></action>
                 </block>
 
                 <block type="core/template_facade" name="product.info.container1" as="container1">

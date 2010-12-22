@@ -126,6 +126,12 @@
             <action method="addItemRender"><type>downloadable</type><block>downloadable/sales_order_item_renderer_downloadable</block><template>downloadable/sales/order/creditmemo/items/renderer/downloadable.phtml</template></action>
         </reference>
     </sales_order_creditmemo>
+    
+    <wishlist_index_index>
+        <reference name="customer.wishlist">
+            <action method="addOptionsRenderCfg"><type>downloadable</type><helper>downloadable/catalog_product_configuration</helper></action>
+        </reference>
+    </wishlist_index_index>
 
 <!--
 Print pages

@@ -24,89 +24,17 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+require_once 'Mage/Compiler/controllers/Adminhtml/Compiler/ProcessController.php';
+
 /**
  * Compiler process controller
  *
  * @category    Mage
  * @package     Mage_Compiler
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated  after 1.4.2.0 Mage_Compiler_Adminhtml_Compiler_ProcessController is used
  */
-class Mage_Compiler_ProcessController extends Mage_Adminhtml_Controller_Action
+class Mage_Compiler_ProcessController extends Mage_Compiler_Adminhtml_Compiler_ProcessController
 {
-    protected $_compiler = null;
 
-    public function preDispatch()
-    {
-        parent::preDispatch();
-    }
-
-    /**
-     * Get compiler process object
-     *
-     * @return Mage_Compiler_Model_Process
-     */
-    protected function _getCompiler()
-    {
-        if ($this->_compiler === null) {
-            $this->_compiler = Mage::getModel('compiler/process');
-        }
-        return $this->_compiler;
-    }
-    public function indexAction()
-    {
-        $this->_title($this->__('System'))->_title($this->__('Tools'))->_title($this->__('Compilation'));
-
-        $this->loadLayout();
-        $this->_setActiveMenu('system/tools');
-        $this->renderLayout();
-    }
-
-    public function runAction()
-    {
-        try {
-            $this->_getCompiler()->run();
-            Mage::getSingleton('adminhtml/session')->addSuccess(
-                Mage::helper('compiler')->__('The compilation has completed.')
-            );
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError(
-                Mage::helper('compiler')->__('Compilation error')
-            );
-        }
-        $this->_redirect('*/*/');
-    }
-
-    public function recompileAction()
-    {
-        /**
-         * Add redirect heades before clear compiled sources
-         */
-        $this->_redirect('*/*/run');
-        $this->_getCompiler()->clear();
-    }
-
-    public function disableAction()
-    {
-        $this->_getCompiler()->registerIncludePath(false);
-        Mage::getSingleton('adminhtml/session')->addSuccess(
-            Mage::helper('compiler')->__('Compiler include path is disabled.')
-        );
-        $this->_redirect('*/*/');
-    }
-
-    public function enableAction()
-    {
-        $this->_getCompiler()->registerIncludePath();
-        Mage::getSingleton('adminhtml/session')->addSuccess(
-            Mage::helper('compiler')->__('Compiler include path is enabled.')
-        );
-        $this->_redirect('*/*/');
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/tools/compiler');
-    }
 }

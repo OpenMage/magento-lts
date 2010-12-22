@@ -51,6 +51,7 @@
             <table id="shopping-cart-table" class="data-table cart-table">
                 <col width="1" />
                 <col />
+                <col width="1" />
             <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
                 <col width="1" />
             <?php endif ?>
@@ -74,6 +75,7 @@
                     <tr>
                         <th rowspan="<?php echo $mergedCells; ?>">&nbsp;</th>
                         <th rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Product Name') ?></span></th>
+                        <th rowspan="<?php echo $mergedCells; ?>"></th>
                         <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
                         <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><span class="nobr"><?php echo $this->__('Move to Wishlist') ?></span></th>
                         <?php endif ?>

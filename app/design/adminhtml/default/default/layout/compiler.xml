@@ -27,9 +27,9 @@
 -->
 
 <layout>
-    <compiler_process_index>
+    <adminhtml_compiler_process_index>
         <reference name="content">
             <block type="compiler/process" name="compiler_process" template="compiler/process.phtml"></block>
         </reference>
-    </compiler_process_index>
+    </adminhtml_compiler_process_index>
 </layout>

@@ -47,7 +47,7 @@ class Mage_CatalogRule_Helper_Data extends Mage_Core_Helper_Abstract
                 $priceRule= $price * $ruleAmount / 100;
                 break;
             case 'by_fixed':
-                $priceRule -= $ruleAmount;
+                $priceRule = $price - $ruleAmount;
                 break;
             case 'by_percent':
                 $priceRule = $price * (1 - $ruleAmount / 100);

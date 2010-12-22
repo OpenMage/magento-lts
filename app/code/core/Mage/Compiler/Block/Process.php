@@ -75,7 +75,7 @@ class Mage_Compiler_Block_Process extends Mage_Adminhtml_Block_Template
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('compiler')->__('Disable'),
-                        'onclick' => 'setLocation(\'' . $this->getUrl('compiler/process/disable') . '\')',
+                        'onclick' => 'setLocation(\'' . $this->getUrl('*/compiler_process/disable') . '\')',
                         'class'     => 'save'
             )));
         } else {
@@ -83,7 +83,7 @@ class Mage_Compiler_Block_Process extends Mage_Adminhtml_Block_Template
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('compiler')->__('Enable'),
-                        'onclick' => 'setLocation(\'' . $this->getUrl('compiler/process/enable') . '\')',
+                        'onclick' => 'setLocation(\'' . $this->getUrl('*/compiler_process/enable') . '\')',
                         'class'     => 'save'
             )));
         }
@@ -126,7 +126,7 @@ class Mage_Compiler_Block_Process extends Mage_Adminhtml_Block_Template
      */
     public function getRunFormAction()
     {
-        return $this->getUrl('compiler/process/recompile');
+        return $this->getUrl('*/compiler_process/recompile');
     }
 
     /**

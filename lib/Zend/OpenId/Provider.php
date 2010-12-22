@@ -18,7 +18,7 @@
  * @subpackage Zend_OpenId_Provider
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Provider.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Provider.php 23088 2010-10-11 19:53:24Z padraic $
  */
 
 /**
@@ -770,12 +770,34 @@ class Zend_OpenId_Provider
                 $data .= $params['openid_' . strtr($key,'.','_')]."\n";
             }
         }
-        if (base64_decode($params['openid_sig']) ===
-            Zend_OpenId::hashHmac($macFunc, $data, $secret)) {
+        if ($this->_secureStringCompare(base64_decode($params['openid_sig']),
+            Zend_OpenId::hashHmac($macFunc, $data, $secret))) {
             $ret['is_valid'] = 'true';
         } else {
             $ret['is_valid'] = 'false';
         }
         return $ret;
+    }
+    
+    /**
+     * Securely compare two strings for equality while avoided C level memcmp()
+     * optimisations capable of leaking timing information useful to an attacker
+     * attempting to iteratively guess the unknown string (e.g. password) being
+     * compared against.
+     *
+     * @param string $a
+     * @param string $b
+     * @return bool
+     */
+    protected function _secureStringCompare($a, $b)
+    {
+        if (strlen($a) !== strlen($b)) {
+            return false;
+        }
+        $result = 0;
+        for ($i = 0; $i < strlen($a); $i++) {
+            $result |= ord($a[$i]) ^ ord($b[$i]);
+        }
+        return $result == 0;
     }
 }

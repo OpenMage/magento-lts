@@ -278,12 +278,30 @@ Product.Config.prototype = {
             $(this.settings[i]).nextSetting   = nextSetting;
             childSettings.push(this.settings[i]);
         }
-
-        // try retireve options from url
+        
+        // Set default values - from config and overwrite them by url values
+        if (config.defaultValues) {
+            this.values = config.defaultValues;
+        }
+        
         var separatorIndex = window.location.href.indexOf('#');
-        if (separatorIndex!=-1) {
+        if (separatorIndex != -1) {
             var paramsStr = window.location.href.substr(separatorIndex+1);
-            this.values = paramsStr.toQueryParams();
+            var urlValues = paramsStr.toQueryParams();
+            if (!this.values) {
+                this.values = {};
+            }
+            for (var i in urlValues) {
+                this.values[i] = urlValues[i];
+            }
+        }
+
+        this.configureForValues();
+        document.observe("dom:loaded", this.configureForValues.bind(this));
+    },
+    
+    configureForValues: function () {
+        if (this.values) {
             this.settings.each(function(element){
                 var attributeId = element.attributeId;
                 element.value = (typeof(this.values[attributeId]) == 'undefined')? '' : this.values[attributeId];

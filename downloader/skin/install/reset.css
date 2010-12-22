@@ -17,8 +17,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /******************************************/
 /***********[ Mage_CSS_A Reset ]***********/
@@ -27,11 +29,11 @@
 * { margin:0; padding:0; }
 
 body {
-	background-color: #496778;
-	color:#2f2f2f;
-	font:12px/1.55em arial, helvetica, sans-serif;
-	text-align:center;
-	}
+    background-color: #496778;
+    color:#2f2f2f;
+    font:12px/1.55em arial, helvetica, sans-serif;
+    text-align:center;
+    }
 
 a { color:#1e7ec8; text-decoration:underline; }
 a:hover { color:#1e7ec8; text-decoration:underline; }
@@ -39,10 +41,10 @@ a img { border:0;}
 
 /* Heading */
 h1, h2, h3, h4, h5, h6, .head {
-	margin-bottom:.4em;
-	line-height:1.3em;
-	color:#0A263C;
-	}
+    margin-bottom:.4em;
+    line-height:1.3em;
+    color:#0A263C;
+    }
 h2 { font-size:1.5em; }
 h3 { font-size:1.35em; }
 h4 { font-size:1.05em; }

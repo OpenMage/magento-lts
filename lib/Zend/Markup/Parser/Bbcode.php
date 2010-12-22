@@ -17,7 +17,7 @@
  * @subpackage Parser
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Bbcode.php 21128 2010-02-21 15:36:07Z kokx $
+ * @version    $Id: Bbcode.php 21127 2010-02-21 15:35:03Z kokx $
  */
 
 /**

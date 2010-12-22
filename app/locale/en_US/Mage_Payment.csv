@@ -15,7 +15,6 @@
 "Billing Period","Billing Period"
 "Billing Period Unit","Billing Period Unit"
 "Billing period unit is not defined or wrong.","Billing period unit is not defined or wrong."
-"Cannot load configuration for payment method ""%s""","Cannot load configuration for payment method ""%s"""
 "Cannot retrieve payment method instance.","Cannot retrieve payment method instance."
 "Cannot retrieve the payment info model object.","Cannot retrieve the payment info model object."
 "Cannot retrieve the payment method model object.","Cannot retrieve the payment method model object."

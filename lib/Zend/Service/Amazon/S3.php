@@ -17,7 +17,7 @@
  * @subpackage Amazon_S3
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: S3.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: S3.php 23224 2010-10-22 13:45:57Z matthew $
  */
 
 /**
@@ -190,6 +190,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
      */
     public function isObjectAvailable($object)
     {
+        $object = $this->_fixupObjectName($object);
         $response = $this->_makeRequest('HEAD', $object);
 
         return ($response->getStatus() == 200);
@@ -503,6 +504,57 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
     }
 
     /**
+     * Copy an object
+     *
+     * @param  string $sourceObject  Source object name
+     * @param  string $destObject    Destination object name
+     * @param  array  $meta          (OPTIONAL) Metadata to apply to desination object.
+     *                               Set to null to copy metadata from source object.
+     * @return boolean
+     */
+    public function copyObject($sourceObject, $destObject, $meta = null)
+    {
+        $sourceObject = $this->_fixupObjectName($sourceObject);
+        $destObject   = $this->_fixupObjectName($destObject);
+
+        $headers = (is_array($meta)) ? $meta : array();
+        $headers['x-amz-copy-source'] = $sourceObject;
+        $headers['x-amz-metadata-directive'] = $meta === null ? 'COPY' : 'REPLACE';
+
+        $response = $this->_makeRequest('PUT', $destObject, null, $headers);
+
+        if ($response->getStatus() == 200 && !stristr($response->getBody(), '<Error>')) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Move an object
+     *
+     * Performs a copy to dest + verify + remove source
+     *
+     * @param string $sourceObject  Source object name
+     * @param string $destObject    Destination object name
+     * @param array  $meta          (OPTIONAL) Metadata to apply to destination object.
+     *                              Set to null to retain existing metadata.
+     */
+    public function moveObject($sourceObject, $destObject, $meta = null)
+    {
+        $sourceInfo = $this->getInfo($sourceObject);
+
+        $this->copyObject($sourceObject, $destObject, $meta);
+        $destInfo = $this->getInfo($destObject);
+
+        if ($sourceInfo['etag'] === $destInfo['etag']) {
+            return $this->removeObject($sourceObject);
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Make a request to Amazon S3
      *
      * @param  string $method	Request method
@@ -556,10 +608,13 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
         $client->setAuth(false);
         // Work around buglet in HTTP client - it doesn't clean headers
         // Remove when ZHC is fixed
-        $client->setHeaders(array('Content-MD5' => null,
-                                  'Expect'      => null,
-                                  'Range'       => null,
-                                  'x-amz-acl'   => null));
+        $client->setHeaders(array('Content-MD5'              => null,
+                                  'Content-Encoding'         => null,
+                                  'Expect'                   => null,
+                                  'Range'                    => null,
+                                  'x-amz-acl'                => null,
+                                  'x-amz-copy-source'        => null,
+                                  'x-amz-metadata-directive' => null));
 
         $client->setHeaders($headers);
 

@@ -55,6 +55,13 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     protected $_messagesSecondLevelTagName = 'li';
 
     /**
+     * Store content wrapper html tag name for messages html output
+     *
+     * @var string
+     */
+    protected $_messagesContentWrapperTagName = 'span';
+
+    /**
      * Flag which require message text escape
      *
      * @var bool
@@ -231,7 +238,9 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
 
                 foreach ( $messages as $message ) {
                     $html.= '<' . $this->_messagesSecondLevelTagName . '>';
+                    $html.= '<' . $this->_messagesContentWrapperTagName . '>';
                     $html.= ($this->_escapeMessageFlag) ? $this->htmlEscape($message->getText()) : $message->getText();
+                    $html.= '</' . $this->_messagesContentWrapperTagName . '>';
                     $html.= '</' . $this->_messagesSecondLevelTagName . '>';
                 }
                 $html .= '</' . $this->_messagesFirstLevelTagName . '>';

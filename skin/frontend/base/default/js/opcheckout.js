@@ -527,7 +527,7 @@ ShippingMethod.prototype = {
     validate: function() {
         var methods = document.getElementsByName('shipping_method');
         if (methods.length==0) {
-            alert(Translator.translate('Your order cannot be completed at this time as there is no shipping methods available for it. Please make neccessary changes in your shipping address.'));
+            alert(Translator.translate('Your order cannot be completed at this time as there is no shipping methods available for it. Please make necessary changes in your shipping address.'));
             return false;
         }
 
@@ -583,7 +583,6 @@ ShippingMethod.prototype = {
 
         if (response.update_section) {
             $('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
-            response.update_section.html.evalScripts();
         }
 
         payment.initWhatIsCvvListeners();
@@ -660,22 +659,29 @@ Payment.prototype = {
 
     switchMethod: function(method){
         if (this.currentMethod && $('payment_form_'+this.currentMethod)) {
-            var form = $('payment_form_'+this.currentMethod);
-            form.style.display = 'none';
-            var elements = form.select('input', 'select', 'textarea');
-            for (var i=0; i<elements.length; i++) elements[i].disabled = true;
+            this.changeVisible(this.currentMethod, true);
         }
         if ($('payment_form_'+method)){
-            var form = $('payment_form_'+method);
-            form.style.display = '';
-            var elements = form.select('input', 'select', 'textarea');
-            for (var i=0; i<elements.length; i++) elements[i].disabled = false;
-            form.fire('payment-method:switched', {method_code : method});
+            this.changeVisible(method, false);
+            $('payment_form_'+method).fire('payment-method:switched', {method_code : method});
         } else {
             //Event fix for payment methods without form like "Check / Money order"
             document.body.fire('payment-method:switched', {method_code : method});
         }
         this.currentMethod = method;
+    },
+
+    changeVisible: function(method, mode) {
+        var block = 'payment_form_' + method;
+        [block + '_before', block, block + '_after'].each(function(el) {
+            element = $(el);
+            if (element) {
+                element.style.display = (mode) ? 'none' : '';
+                element.select('input', 'select', 'textarea').each(function(field) {
+                    field.disabled = mode;
+                });
+            }
+        });
     },
 
     addBeforeValidateFunction : function(code, func) {
@@ -855,12 +861,13 @@ Review.prototype = {
                 if (typeof(msg)=='object') {
                     msg = msg.join("\n");
                 }
-                alert(msg);
+                if (msg) {
+                    alert(msg);
+                }
             }
 
             if (response.update_section) {
                 $('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
-                response.update_section.html.evalScripts();
             }
 
             if (response.goto_section) {

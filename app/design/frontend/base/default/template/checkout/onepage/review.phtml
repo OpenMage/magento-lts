@@ -27,18 +27,3 @@
 <div class="order-review" id="checkout-review-load">
     <?php echo $this->getChildHtml('info') ?>
 </div>
-<div id="checkout-review-submit">
-    <?php echo $this->getChildHtml('agreements') ?>
-    <div class="buttons-set" id="review-buttons-container">
-        <p class="f-left"><?php echo $this->__('Forgot an Item?') ?> <a href="<?php echo $this->getUrl('checkout/cart') ?>"><?php echo $this->__('Edit Your Cart') ?></a></p>
-        <button type="submit" title="<?php echo $this->__('Place Order') ?>" class="button btn-checkout" onclick="review.save();"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
-        <span class="please-wait" id="review-please-wait" style="display:none;">
-            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Submitting order information...') ?>" title="<?php echo $this->__('Submitting order information...') ?>" class="v-middle" /> <?php echo $this->__('Submitting order information...') ?>
-        </span>
-    </div>
-    <script type="text/javascript">
-    //<![CDATA[
-        var review = new Review('<?php echo $this->getUrl('checkout/onepage/saveOrder') ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));
-    //]]>
-    </script>
-</div>

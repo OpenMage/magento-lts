@@ -157,6 +157,7 @@ class Mage_Sales_Model_Mysql4_Report_Order_Updatedat_Collection extends Mage_Sal
                 'total_qty_ordered'  => 'SUM(qty_ordered - IFNULL(qty_canceled, 0))',
                 'total_qty_invoiced' => 'SUM(qty_invoiced)',
             ))
+            ->where('parent_item_id IS NULL')
             ->group('order_id');
 
         $select = $this->getSelect()
@@ -164,8 +165,7 @@ class Mage_Sales_Model_Mysql4_Report_Order_Updatedat_Collection extends Mage_Sal
             ->join(array('oi' => $selectOrderItem), 'oi.order_id = e.entity_id', array())
             ->where('e.state NOT IN (?)', array(
                     Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
-                    Mage_Sales_Model_Order::STATE_NEW,
-                    Mage_Sales_Model_Order::STATE_CANCELED,
+                    Mage_Sales_Model_Order::STATE_NEW
                 ));
 
         $this->_applyStoresFilter();

@@ -599,7 +599,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
             'CLP' => 'CHP', // Chilean Pesos
             'TWD' => 'NTD', // New Taiwan Dollars
         );
-        $currencyCode = Mage::app()->getBaseCurrencyCode();
+        $currencyCode = Mage::app()->getStore()->getBaseCurrencyCode();
         return isset($codes[$currencyCode]) ? $codes[$currencyCode] : $currencyCode;
     }
 

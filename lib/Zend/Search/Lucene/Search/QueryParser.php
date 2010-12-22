@@ -17,7 +17,7 @@
  * @subpackage Search
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: QueryParser.php 21638 2010-03-24 17:56:46Z alexander $
+ * @version    $Id: QueryParser.php 21637 2010-03-24 17:52:04Z alexander $
  */
 
 

@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Signature.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Signature.php 23202 2010-10-21 15:08:15Z ralph $
  */
 
 /**
@@ -239,7 +239,10 @@ class Zend_Tool_Framework_Provider_Signature implements Zend_Tool_Framework_Regi
 
         if ($this->_name == null) {
             $className = get_class($this->_provider);
-            $name = substr($className, strrpos($className, '_')+1);
+            $name = $className;
+            if (strpos($name, '_')) {
+                $name = substr($name, strrpos($name, '_')+1);
+            }
             $name = preg_replace('#(Provider|Manifest)$#', '', $name);
             $this->_name = $name;
         }

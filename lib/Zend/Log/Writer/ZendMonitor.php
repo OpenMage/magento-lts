@@ -17,7 +17,7 @@
  * @subpackage Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ZendMonitor.php 22533 2010-07-07 02:38:14Z ramon $
+ * @version    $Id: ZendMonitor.php 22531 2010-07-07 02:17:52Z ramon $
  */
 
 /** Zend_Log_Writer_Abstract */
@@ -29,7 +29,7 @@
  * @subpackage Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ZendMonitor.php 22533 2010-07-07 02:38:14Z ramon $
+ * @version    $Id: ZendMonitor.php 22531 2010-07-07 02:17:52Z ramon $
  */
 class Zend_Log_Writer_ZendMonitor extends Zend_Log_Writer_Abstract
 {

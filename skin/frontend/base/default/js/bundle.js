@@ -30,6 +30,22 @@ Product.Bundle = Class.create();
 Product.Bundle.prototype = {
     initialize: function(config){
         this.config = config;
+
+        // Set preconfigured values for correct price base calculation
+        if (config.defaultValues) {
+            for (var option in config.defaultValues) {
+                if (this.config['options'][option].isMulti) {
+                    var selected = new Array();
+                    for (var i = 0; i < config.defaultValues[option].length; i++) {
+                        selected.push(config.defaultValues[option][i]);
+                    }
+                    this.config.selected[option] = selected;
+                } else {
+                    this.config.selected[option] = new Array(config.defaultValues[option] + "");
+                }
+            }
+        }
+
         this.reloadPrice();
     },
     changeSelection: function(selection){

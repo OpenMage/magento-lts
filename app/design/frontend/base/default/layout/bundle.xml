@@ -91,6 +91,12 @@ Adding custom product price block
             <action method="addPriceBlockType"><type>bundle</type><block>bundle/catalog_product_price</block><template>bundle/catalog/product/price.phtml</template></action>
         </reference>
     </default>
+    
+    <wishlist_index_index>
+        <reference name="customer.wishlist">
+            <action method="addOptionsRenderCfg"><type>bundle</type><helper>bundle/catalog_product_configuration</helper></action>
+        </reference>
+    </wishlist_index_index>
 
     <catalog_product_view>
         <reference name="catalog.product.related">

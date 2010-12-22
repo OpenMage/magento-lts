@@ -208,13 +208,14 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
 
         $this->_paymentMethodInstance = (isset($baData['method_code']))
             ? Mage::helper('payment')->getMethodInstance($baData['method_code'])
-                ->setStore($payment->getMethodInstance()->getStore())
             : $payment->getMethodInstance();
-
-        $this->setCustomerId($payment->getOrder()->getCustomerId())
-            ->setMethodCode($this->_paymentMethodInstance->getCode())
-            ->setReferenceId($baData['billing_agreement_id'])
-            ->setStatus(self::STATUS_ACTIVE);
+        if ($this->_paymentMethodInstance) {
+            $this->_paymentMethodInstance->setStore($payment->getMethodInstance()->getStore());
+            $this->setCustomerId($payment->getOrder()->getCustomerId())
+                ->setMethodCode($this->_paymentMethodInstance->getCode())
+                ->setReferenceId($baData['billing_agreement_id'])
+                ->setStatus(self::STATUS_ACTIVE);
+        }
         return $this;
     }
 

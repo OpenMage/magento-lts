@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Wishlist>
-            <version>0.7.8</version>
+            <version>0.7.9</version>
         </Mage_Wishlist>
     </modules>
     <global>
@@ -51,6 +51,10 @@
                     <item>
                         <table>wishlist_item</table>
                     </item>
+                    <item>
+                        <table>wishlist_item</table>
+                    </item>
+                    <item_option><table>wishlist_item_option</table></item_option>
                 </entities>
             </wishlist_mysql4>
         </models>

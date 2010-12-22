@@ -17,7 +17,7 @@
  * @subpackage DeveloperGarden
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SecurityTokenResponse.php 20166 2010-01-09 19:00:17Z bkarwin $
+ * @version    $Id: SecurityTokenResponse.php 21189 2010-02-24 01:50:33Z stas $
  */
 
 /**
@@ -71,7 +71,7 @@ class Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenRes
     public function getTokenData()
     {
         if (empty($this->tokenData)) {
-            #require_once 'Zend/Services/DeveloperGarden/Response/Exception.php';
+            #require_once 'Zend/Service/DeveloperGarden/Response/Exception.php';
             throw new Zend_Service_DeveloperGarden_Response_Exception('No valid tokenData found.');
         }
 

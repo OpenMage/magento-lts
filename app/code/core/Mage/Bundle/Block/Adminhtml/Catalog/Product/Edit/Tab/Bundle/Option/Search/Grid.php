@@ -152,7 +152,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
 
     public function getGridUrl()
     {
-        return $this->getUrl('bundle/selection/grid', array('index' => $this->getIndex(), 'productss' => implode(',', $this->_getProducts())));
+        return $this->getUrl('*/bundle_selection/grid', array('index' => $this->getIndex(), 'productss' => implode(',', $this->_getProducts())));
     }
 
     protected function _getSelectedProducts()

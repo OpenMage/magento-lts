@@ -17,7 +17,7 @@
  * @subpackage Element
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Captcha.php 22329 2010-05-30 15:12:58Z bittarman $
+ * @version    $Id: Captcha.php 22328 2010-05-30 15:09:06Z bittarman $
  */
 
 /** @see Zend_Form_Element_Xhtml */
@@ -265,7 +265,7 @@ class Zend_Form_Element_Captcha extends Zend_Form_Element_Xhtml
         if (empty($decorators)) {
             $this->addDecorator('Errors')
                  ->addDecorator('Description', array('tag' => 'p', 'class' => 'description'))
-                 ->addDecorator('HtmlTag', array('tag' => 'dd'))
+                 ->addDecorator('HtmlTag', array('tag' => 'dd', 'id' => $this->getName() . '-element'))
                  ->addDecorator('Label', array('tag' => 'dt'));
         }
         return $this;

@@ -23,15 +23,9 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
-
-/**
- * Downloadable product links
- *
- * @see Mage_Downloadable_Block_Catalog_Product_Links
- */
 ?>
-<?php $_linksPurchasedSeparately = $this->getLinksPurchasedSeparately() ?>
+<?php /* @var $this Mage_Downloadable_Block_Catalog_Product_Links */ ?>
+<?php $_linksPurchasedSeparately = $this->getLinksPurchasedSeparately(); ?>
 <?php if ($this->getProduct()->isSaleable() && $this->hasLinks()):?>
     <dl>
         <?php $_links = $this->getLinks(); ?>
@@ -42,7 +36,7 @@
             <?php foreach ($_links as $_link): ?>
                 <li>
                     <?php if ($_linksPurchasedSeparately): ?>
-                        <input type="checkbox" class="checkbox<?php if($_isRequired):?> validate-one-required-by-name<?php endif; ?> product-downloadable-link" onclick="dConfig.reloadPrice()" name="links[]" id="links_<?php echo $_link->getId() ?>" value="<?php echo $_link->getId() ?>" />
+                        <input type="checkbox" class="checkbox<?php if($_isRequired):?> validate-one-required-by-name<?php endif; ?> product-downloadable-link" onclick="dConfig.reloadPrice()" name="links[]" id="links_<?php echo $_link->getId() ?>" value="<?php echo $_link->getId(); ?>" <?php echo $this->getLinkCheckedValue($_link); ?> />
                     <?php endif; ?>
                     <span class="label">
                         <label for="links_<?php echo $_link->getId() ?>">
@@ -80,6 +74,7 @@
             initialize : function(config){
                 this.config = config;
                 this.reloadPrice();
+                document.observe("dom:loaded", this.reloadPrice.bind(this));
             },
             reloadPrice : function(){
                 var price = 0;

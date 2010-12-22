@@ -49,33 +49,56 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
             }
 
             $filePath = Mage::getBaseDir() . $info['order_path'];
-            if (!is_file($filePath) || !is_readable($filePath)) {
-                // try get file from quote
+            if ((!is_file($filePath) || !is_readable($filePath)) && !$this->_processDatabaseFile($filePath)) {
+                //try get file from quote
                 $filePath = Mage::getBaseDir() . $info['quote_path'];
-                if (!is_file($filePath) || !is_readable($filePath)) {
+                if ((!is_file($filePath) || !is_readable($filePath)) && !$this->_processDatabaseFile($filePath)) {
                     throw new Exception();
                 }
             }
-
-            $this->getResponse()
-                ->setHttpResponseCode(200)
-                ->setHeader('Pragma', 'public', true)
-                ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
-                ->setHeader('Content-type', $info['type'], true)
-                ->setHeader('Content-Length', $info['size'])
-                ->setHeader('Content-Disposition', 'inline' . '; filename='.$info['title']);
-
-            $this->getResponse()
-                ->clearBody();
-            $this->getResponse()
-                ->sendHeaders();
-
-            readfile($filePath);
-
+            $this->_prepareDownloadResponse($info['title'], array(
+               'value' => $filePath,
+               'type'  => 'filename'
+            ));
         } catch (Exception $e) {
             $this->_forward('noRoute');
         }
     }
+
+    /**
+     * Check file in database storage if needed and place it on file system
+     *
+     * @param string $filePath
+     * @return bool
+     */
+    protected function _processDatabaseFile($filePath)
+    {
+        if (!Mage::helper('core/file_storage_database')->checkDbUsage()) {
+            return false;
+        }
+
+        $relativePath = Mage::helper('core/file_storage_database')->getMediaRelativePath($filePath);
+        $file = Mage::getModel('core/file_storage_database')->loadByFilename($relativePath);
+
+        if (!$file->getId()) {
+            return false;
+        }
+
+        $directory = dirname($filePath);
+        @mkdir($directory, 0777, true);
+
+        $io = new Varien_Io_File();
+        $io->cd($directory);
+
+        $io->streamOpen($filePath);
+        $io->streamLock(true);
+        $io->streamWrite($file->getContent());
+        $io->streamUnlock();
+        $io->streamClose();
+
+        return true;
+    }
+
     /**
      * Profile custom options download action
      */

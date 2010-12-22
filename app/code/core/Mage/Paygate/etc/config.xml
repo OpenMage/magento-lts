@@ -76,7 +76,27 @@
                 </Mage_Paygate>
             </modules>
         </translate>
+        <routers>
+            <paygate>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Paygate</module>
+                    <frontName>paygate</frontName>
+                </args>
+            </paygate>
+        </routers>
     </frontend>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Mage_Paygate before="Mage_Adminhtml">Mage_Paygate_Adminhtml</Mage_Paygate>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
 
     <default>
         <payment>
@@ -89,7 +109,7 @@
                 <login backend_model="adminhtml/system_config_backend_encrypted"/>
                 <merchant_email></merchant_email>
                 <model>paygate/authorizenet</model>
-                <order_status>1</order_status>
+                <order_status>processing</order_status>
                 <payment_action>authorize</payment_action>
                 <test>1</test>
                 <title>Credit Card (Authorize.net)</title>

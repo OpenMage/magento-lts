@@ -34,6 +34,128 @@
  */
 class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bundle_Block_Catalog_Product_Price
 {
+    /**
+     * Store preconfigured options
+     *
+     * @var int|array|string
+     */
+    protected $_selectedOptions = null;
+
+    /**
+     * Show if option has a single selection
+     *
+     * @var bool
+     */
+    protected $_showSingle = null;
+
+    /**
+     * Check if option has a single selection
+     *
+     * @return bool
+     */
+    protected function _showSingle()
+    {
+        if (is_null($this->_showSingle)) {
+            $_option        = $this->getOption();
+            $_selections    = $_option->getSelections();
+
+            $this->_showSingle = (count($_selections) == 1 && $_option->getRequired());
+        }
+
+        return $this->_showSingle;
+    }
+
+    /**
+     * Retrieve default values for template
+     *
+     * @return array
+     */
+    protected function _getDefaultValues()
+    {
+        $_option            = $this->getOption();
+        $_default           = $_option->getDefaultSelection();
+        $_selections        = $_option->getSelections();
+        $selectedOptions    = $this->_getSelectedOptions();
+
+        if ($_default && empty($selectedOptions)) {
+            $_defaultQty = $_default->getSelectionQty()*1;
+            $_canChangeQty = $_default->getSelectionCanChangeQty();
+        } elseif (!$this->_showSingle() || $this->getProduct()->hasPreconfiguredValues()) {
+            $_defaultQty = $this->_getSelectedQty();
+            $_canChangeQty = (bool)$_defaultQty;
+        } else {
+            $_defaultQty = $_selections[0]->getSelectionQty()*1;
+            $_canChangeQty = $_selections[0]->getSelectionCanChangeQty();
+        }
+
+        return array($_defaultQty, $_canChangeQty);
+    }
+
+    /**
+     * Collect selected options
+     *
+     * @return void
+     */
+    protected function _getSelectedOptions()
+    {
+        if (is_null($this->_selectedOptions)) {
+            $this->_selectedOptions = array();
+            $option = $this->getOption();
+
+            if ($this->getProduct()->hasPreconfiguredValues()) {
+                $configValue = $this->getProduct()->getPreconfiguredValues()
+                    ->getData('bundle_option/' . $option->getId());
+                if ($configValue) {
+                    $this->_selectedOptions = $configValue;
+                } elseif (!$option->getRequired()) {
+                    $this->_selectedOptions = 'None';
+                }
+            }
+        }
+
+        return $this->_selectedOptions;
+    }
+
+    /**
+     * Define if selection is selected
+     *
+     * @param  Mage_Catalog_Model_Product $selection
+     * @return bool
+     */
+    protected function _isSelected($selection)
+    {
+        $selectedOptions = $this->_getSelectedOptions();
+        if (is_numeric($selectedOptions)) {
+            return ($selection->getSelectionId() == $this->_getSelectedOptions());
+        } elseif (is_array($selectedOptions) && !empty($selectedOptions)) {
+            return in_array($selection->getSelectionId(), $this->_getSelectedOptions());
+        } elseif ($selectedOptions == 'None') {
+            return false;
+        } else {
+            return ($selection->getIsDefault() && $selection->isSaleable());
+        }
+    }
+
+    /**
+     * Retrieve selected option qty
+     *
+     * @return int
+     */
+    protected function _getSelectedQty()
+    {
+        if ($this->getProduct()->hasPreconfiguredValues()) {
+            $selectedQty = (int)$this->getProduct()->getPreconfiguredValues()
+                ->getData('bundle_option_qty/' . $this->getOption()->getId());
+            if ($selectedQty < 0) {
+                $selectedQty = 0;
+            }
+        } else {
+            $selectedQty = 0;
+        }
+
+        return $selectedQty;
+    }
+
     public function getProduct()
     {
         if (!$this->hasData('product')) {
@@ -46,17 +168,24 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     {
         $price = $this->getProduct()->getPriceModel()->getSelectionPreFinalPrice($this->getProduct(), $_selection);
         return $_selection->getSelectionQty()*1 . ' x ' . $_selection->getName() . ' &nbsp; ' .
-            ($includeContainer ? '<span class="price-notice">':'') . '+' .
-            $this->formatPriceString($price, $includeContainer) . ($includeContainer ? '</span>':'');
+            ($includeContainer ? '<span class="price-notice">' : '') . '+' .
+            $this->formatPriceString($price, $includeContainer) . ($includeContainer ? '</span>' : '');
     }
 
     public function getSelectionTitlePrice($_selection, $includeContainer = true)
     {
         $price = $this->getProduct()->getPriceModel()->getSelectionPreFinalPrice($this->getProduct(), $_selection, 1);
-        return $_selection->getName() . ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">':'') . '+' .
-            $this->formatPriceString($price, $includeContainer) . ($includeContainer ? '</span>':'');
+        return $_selection->getName() . ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '') . '+' .
+            $this->formatPriceString($price, $includeContainer) . ($includeContainer ? '</span>' : '');
     }
 
+    /**
+     * Set JS validation container for element
+     *
+     * @param int $elementId
+     * @param int $containerId
+     * @return string
+     */
     public function setValidationContainer($elementId, $containerId)
     {
         return '<script type="text/javascript">
@@ -65,16 +194,28 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
             </script>';
     }
 
+    /**
+     * Format price string
+     *
+     * @param float $price
+     * @param bool $includeContainer
+     * @return string
+     */
     public function formatPriceString($price, $includeContainer = true)
     {
-        $priceTax = Mage::helper('tax')->getPrice($this->getProduct(), $price);
-        $priceIncTax = Mage::helper('tax')->getPrice($this->getProduct(), $price, true);
+        $taxHelper  = Mage::helper('tax');
+        $coreHelper = $this->helper('core');
+        $product    = $this->getProduct();
 
-        if (Mage::helper('tax')->displayBothPrices() && $priceTax != $priceIncTax) {
-            $formated = Mage::helper('core')->currency($priceTax, true, $includeContainer);
-            $formated .= ' (+'.Mage::helper('core')->currency($priceIncTax, true, $includeContainer).' '.Mage::helper('tax')->__('Incl. Tax').')';
-        } else {
-            $formated = $this->helper('core')->currency($priceTax, true, $includeContainer);
+        $priceTax    = $taxHelper->getPrice($product, $price);
+        $priceIncTax = $taxHelper->getPrice($product, $price, true);
+
+        $formated = $coreHelper->currencyByStore($priceTax, $product->getStore(), true, $includeContainer);
+        if ($taxHelper->displayBothPrices() && $priceTax != $priceIncTax) {
+            $formated .=
+                    ' (+' .
+                    $coreHelper->currencyByStore($priceIncTax, $product->getStore(), true, $includeContainer) .
+                    ' ' . $this->__('Incl. Tax') . ')';
         }
 
         return $formated;

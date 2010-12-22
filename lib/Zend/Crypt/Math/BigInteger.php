@@ -17,7 +17,7 @@
  * @subpackage Math
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BigInteger.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: BigInteger.php 22662 2010-07-24 17:37:36Z mabe $
  */
 
 /**
@@ -61,7 +61,7 @@ class Zend_Crypt_Math_BigInteger
      */
     public function __construct($extension = null)
     {
-        if (!is_null($extension) && !in_array($extension, array('bcmath', 'gmp', 'bigint'))) {
+        if ($extension !== null && !in_array($extension, array('bcmath', 'gmp', 'bigint'))) {
             #require_once('Zend/Crypt/Math/BigInteger/Exception.php');
             throw new Zend_Crypt_Math_BigInteger_Exception('Invalid extension type; please use one of bcmath, gmp or bigint');
         }
@@ -90,7 +90,7 @@ class Zend_Crypt_Math_BigInteger
      */
     protected function _loadAdapter($extension = null)
     {
-        if (is_null($extension)) {
+        if ($extension === null) {
             if (extension_loaded('gmp')) {
                 $extension = 'gmp';
             //} elseif (extension_loaded('big_int')) {

@@ -114,23 +114,28 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
         if ($value['pricing_value'] == 0) {
             return '';
         }
+
+        $taxHelper = Mage::helper('tax');
+        $store = $this->getProduct()->getStore();
+
         $sign = '+';
         if ($value['pricing_value'] < 0) {
             $sign = '-';
             $value['pricing_value'] = 0 - $value['pricing_value'];
         }
+
         $priceStr = $sign;
         $_priceInclTax = $this->getPrice($value['pricing_value'], true);
         $_priceExclTax = $this->getPrice($value['pricing_value']);
-        if (Mage::helper('tax')->displayPriceIncludingTax()) {
-            $priceStr .= $this->helper('core')->currency($_priceInclTax, true, $flag);
-        } elseif (Mage::helper('tax')->displayPriceExcludingTax()) {
-            $priceStr .= $this->helper('core')->currency($_priceExclTax, true, $flag);
-        } elseif (Mage::helper('tax')->displayBothPrices()) {
-            $priceStr .= $this->helper('core')->currency($_priceExclTax, true, $flag);
+        if ($taxHelper->displayPriceIncludingTax()) {
+            $priceStr .= $this->helper('core')->currencyByStore($_priceInclTax, $store, true, $flag);
+        } elseif ($taxHelper->displayPriceExcludingTax()) {
+            $priceStr .= $this->helper('core')->currencyByStore($_priceExclTax, $store, true, $flag);
+        } elseif ($taxHelper->displayBothPrices()) {
+            $priceStr .= $this->helper('core')->currencyByStore($_priceExclTax, $store, true, $flag);
             if ($_priceInclTax != $_priceExclTax) {
                 $priceStr .= ' ('.$sign.$this->helper('core')
-                    ->currency($_priceInclTax, true, $flag).' '.$this->__('Incl. Tax').')';
+                    ->currencyByStore($_priceInclTax, $store, true, $flag).' '.$this->__('Incl. Tax').')';
             }
         }
 

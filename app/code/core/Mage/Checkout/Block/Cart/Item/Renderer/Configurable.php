@@ -107,8 +107,9 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
      */
     public function getOptionList()
     {
-        $options = array_merge($this->getProductAttributes(), $this->getProductOptions());
+        /* @var $helper Mage_Catalog_Helper_Product_Configuration */
+        $helper = Mage::helper('catalog/product_configuration');
+        $options = $helper->getConfigurableOptions($this->getItem());
         return $options;
     }
-
 }

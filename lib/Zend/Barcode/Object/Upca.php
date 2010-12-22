@@ -17,7 +17,7 @@
  * @subpackage Object
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Upca.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Upca.php 21667 2010-03-28 17:45:14Z mikaelkael $
  */
 
 /**
@@ -49,6 +49,7 @@ class Zend_Barcode_Object_Upca extends Zend_Barcode_Object_Ean13
     {
         $this->_barcodeLength = 12;
         $this->_mandatoryChecksum = true;
+        $this->_mandatoryQuietZones = true;
     }
 
     /**

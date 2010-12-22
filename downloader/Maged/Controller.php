@@ -18,179 +18,461 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Varien
- * @package    Varien_Object
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Connect
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-include_once "Maged/Model.php";
-include_once "Maged/View.php";
-include_once "Maged/Exception.php";
+/**
+* Class Controller
+*
+* @category   Mage
+* @package    Mage_Connect
+* @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+* @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*/
 
 final class Maged_Controller
 {
+    /**
+     * Request key of action
+     */
     const ACTION_KEY = 'A';
 
+    /**
+     * Instance of class
+     *
+     * @var Maged_Controller
+     */
     private static $_instance;
 
+    /**
+     * Current action name
+     *
+     * @var string
+     */
     private $_action;
+
+    /**
+     * Controller is dispathed flag
+     *
+     * @var bool
+     */
     private $_isDispatched = false;
+
+    /**
+     * Redirect to URL
+     *
+     * @var string
+     */
     private $_redirectUrl;
+
+    /**
+     * Downloader dir path
+     *
+     * @var string
+     */
     private $_rootDir;
 
+    /**
+     * Magento root dir path
+     *
+     * @var string
+     */
+    private $_mageDir;
+
+    /**
+     * View instance
+     *
+     * @var Maged_View
+     */
     private $_view;
+
+    /**
+     * Config instance
+     *
+     * @var Maged_Model_Config
+     */
     private $_config;
+
+    /**
+     * Config instance
+     *
+     * @var Maged_Model_Config
+     */
+    private $_localConfig;
+
+    /**
+     * Session instance
+     *
+     * @var Maged_Model_Session
+     */
     private $_session;
 
+    /**
+     * Root dir is writable flag
+     *
+     * @var bool
+     */
     private $_writable;
 
-    private $_useCache;
+    /**
+     * Use maintenance flag
+     *
+     * @var bool
+     */
+    protected $_maintenance;
+
+    /**
+     * Maintenance file path
+     *
+     * @var string
+     */
+    protected $_maintenanceFile;
+
+    /**
+     * Register array for singletons
+     *
+     * @var array
+     */
+    protected $_singletons = array();
 
     //////////////////////////// ACTIONS
 
+
+    /**
+     * Get ftp string from post data
+     *
+     * @param array $post post data
+     * @return string FTP Url
+     */
+    private function getFtpPost($post){
+        if(!empty($post['ftp_path'])&&strpos($post['ftp_path'], '/')!==0){
+            $post['ftp_path']='/'.$post['ftp_path'];
+        }
+        if(!empty($post['ftp_path'])&&substr($post['ftp_path'], -1)!='/'){
+            $post['ftp_path'].='/';
+        }
+        $post['ftp_proto']='ftp://';
+        if($start=stripos($post['ftp_host'],'ftp://')!==false){
+            $post['ftp_proto']='ftp://';
+            $post['ftp_host']=substr($post['ftp_host'], $start+6-1);
+        }
+        if($start=stripos($post['ftp_host'],'ftps://')!==false){
+            $post['ftp_proto']='ftps://';
+            $post['ftp_host']=substr($post['ftp_host'], $start+7-1);
+        }
+        if(!empty($post['ftp_login'])&&!empty($post['ftp_password'])){
+            $ftp=sprintf("%s%s:%s@%s%s", $post['ftp_proto'], $post['ftp_login'],$post['ftp_password'],$post['ftp_host'],$post['ftp_path']);
+        }elseif(!empty($post['ftp_login'])){
+            $ftp=sprintf("%s%s@%s%s", $post['ftp_proto'], $post['ftp_login'],$post['ftp_host'],$post['ftp_path']);
+        }else{
+            $ftp=$post['ftp_proto'].$post['ftp_host'].$post['ftp_path'];
+        }
+        $_POST['ftp'] = $ftp;
+        return $ftp;
+    }
+
+    /**
+     * NoRoute
+     *
+     */
     public function norouteAction()
     {
         header("HTTP/1.0 404 Invalid Action");
         echo $this->view()->template('noroute.phtml');
     }
 
+    /**
+     * Login
+     *
+     */
     public function loginAction()
     {
         $this->view()->set('username', !empty($_GET['username']) ? $_GET['username'] : '');
         echo $this->view()->template('login.phtml');
     }
 
+    /**
+     * Logout
+     *
+     */
     public function logoutAction()
     {
         $this->session()->logout();
         $this->redirect($this->url());
     }
 
+    /**
+     * Index
+     *
+     */
     public function indexAction()
     {
         if (!$this->isInstalled()) {
-            if (!$this->isWritable()) {
+            if (false&&!$this->isWritable()) {
                 echo $this->view()->template('install/writable.phtml');
             } else {
+                $config=$this->config();
                 $this->view()->set('mage_url', dirname(dirname($_SERVER['SCRIPT_NAME'])));
-                
-                $this->view()->set('use_custom_permissions_mode', $this->config()->get('use_custom_permissions_mode'));
-                $this->view()->set('mkdir_mode', $this->config()->get('mkdir_mode'));
-                $this->view()->set('chmod_file_mode', $this->config()->get('chmod_file_mode'));
-                $this->view()->set('chmod_file_mode_executable', $this->config()->get('chmod_file_mode_executable'));
-                
+                $this->view()->set('use_custom_permissions_mode', $config->__get('use_custom_permissions_mode')?$config->__get('use_custom_permissions_mode'):'0');
+                $this->view()->set('mkdir_mode', decoct($config->__get('global_dir_mode')));
+                $this->view()->set('chmod_file_mode', decoct($config->__get('global_file_mode')));
+                $this->view()->set('protocol', $config->__get('protocol'));
+                $this->channelConfig()->setInstallView($config,$this->view());
+
                 echo $this->view()->template('install/download.phtml');
             }
         } else {
-            if (!$this->isWritable()) {
+            if (false&&!$this->isWritable()) {
                 echo $this->view()->template('writable.phtml');
             } else {
-                $this->forward('pearPackages');
+                $this->forward('connectPackages');
             }
         }
     }
 
+    /**
+     * Empty Action
+     *
+     */
     public function emptyAction()
     {
-        $this->model('pear', true)->pear()->runHtmlConsole('Please wait, preparing for updates...');
+        $this->model('connect', true)->connect()->runHtmlConsole('Please wait, preparing for updates...');
     }
 
-    public function pearGlobalAction()
+    /**
+     * Install all magento
+     *
+     */
+    public function connectInstallAllAction()
     {
-        echo $this->view()->template('pear/global.phtml');
+        $p = &$_POST;
+        $ftp = $this->getFtpPost($p);
+        $errors = $this->model('connect', true)->validateConfigPost($p);
+        /* todo show errors */
+        if ($errors) {
+            $message = "CONNECT ERROR: ";
+            foreach ($errors as $err) {
+                $message .= $err . "\n";
+            }
+            $this->model('connect', true)->connect()->runHtmlConsole($message);
+            $this->model('connect', true)->connect()->showConnectErrors($errors);
+            return;
+        }
+
+        if( 1 == $p['inst_protocol']){
+            $this->model('connect', true)->connect()->setRemoteConfig($this->getFtpPost($p));
+        }
+
+        $this->channelConfig()->setPostData($this->config(),$p);
+
+        $chan = $this->config()->__get('root_channel');
+        $this->model('connect', true)->saveConfigPost($_POST);
+        $this->channelConfig()->setSettingsSession($_POST, $this->session());
+        $this->model('connect', true)->installAll(!empty($_GET['force']), $chan);
+        $p = null;
     }
 
-    public function pearInstallAllAction()
+    /**
+     * Connect packages
+     *
+     */
+    public function connectPackagesAction()
     {
-        $this->config()->saveConfigPost($_POST);
-        $this->model('pear', true)->installAll(!empty($_GET['force']));
+        $connect = $this->model('connect', true);
+
+        if (isset($_GET['loggedin'])) {
+            $connect->connect()->run('sync');
+        }
+
+        $this->view()->set('connect', $connect);
+        echo $this->view()->template('connect/packages.phtml');
     }
 
-    public function pearUpgradeAllAction()
-    {
-        $this->model('pear', true)->upgradeAll();
-    }
-
-    public function pearPackagesAction()
-    {
-        $pear = $this->model('pear', true);
-        $this->view()->set('pear', $pear);
-        $this->view()->set('channels', $pear->pear()->getMagentoChannels());
-        echo $this->view()->template('pear/packages.phtml');
-    }
-
-    public function pearPackagesPostAction()
+    /**
+     * Connect packages POST
+     *
+     */
+    public function connectPackagesPostAction()
     {
         $actions = isset($_POST['actions']) ? $_POST['actions'] : array();
-        $this->model('pear', true)->applyPackagesActions($actions);
+        $ignoreLocalModification = isset($_POST['ignore_local_modification'])?$_POST['ignore_local_modification']:'';
+        $this->model('connect', true)->applyPackagesActions($actions, $ignoreLocalModification);
     }
 
-    public function pearInstallPackagePostAction()
+    /**
+     * Prepare package to install, get dependency info.
+     *
+     */
+    public function connectPreparePackagePostAction()
     {
         if (!$_POST) {
             echo "INVALID POST DATA";
             return;
         }
-        $this->model('pear', true)->installPackage($_POST['install_package_id']);
+        $prepareResult = $this->model('connect', true)->prepareToInstall($_POST['install_package_id']);
+
+        $packages = isset($prepareResult['data'])? $prepareResult['data']:array();
+        $errors = isset($prepareResult['errors'])? $prepareResult['errors']:array();
+
+        $this->view()->set('packages', $packages);
+        $this->view()->set('errors', $errors);
+        $this->view()->set('package_id', $_POST['install_package_id']);
+
+        echo $this->view()->template('connect/packages_prepare.phtml');
     }
 
-    public function distUpgradeAction()
-    {
-        $pear = $this->model('pear', true);
-        $this->view()->set('pear', $pear);
-        $this->view()->set('state', $pear->getPreferredState());
-        echo $this->view()->template('pear/dist.phtml');
-    }
-
-    public function distUpgradePostAction()
+    /**
+     * Install package
+     *
+     */
+    public function connectInstallPackagePostAction()
     {
         if (!$_POST) {
             echo "INVALID POST DATA";
             return;
         }
-        $result = $this->model('pear', true)->distUpgrade($_POST['version']);
+        $this->model('connect', true)->installPackage($_POST['install_package_id']);
     }
 
+    /**
+     * Install uploaded package
+     *
+     */
+    public function connectInstallPackageUploadAction()
+    {
+        if (!$_FILES) {
+            echo "No file was uploaded";
+            return;
+        }
+
+        if(empty($_FILES['file'])) {
+            echo "No file was uploaded";
+            return;
+        }
+
+        $info =& $_FILES['file'];
+
+        if(0 !== intval($info['error'])) {
+            echo "File upload problem";
+            return;
+        }
+
+        $target = $this->_mageDir . DS . "var/".uniqid().$info['name'];
+        $res = move_uploaded_file($info['tmp_name'], $target);
+        if(false === $res) {
+            echo "Error moving uploaded file";
+            return;
+        }
+
+        $this->model('connect', true)->installUploadedPackage($target);
+        @unlink($target);
+    }
+
+    /**
+     * Settings
+     *
+     */
     public function settingsAction()
     {
-        $pearConfig = $this->model('pear', true)->pear()->getConfig();
-        $this->view()->set('state', $pearConfig->get('preferred_state'));
-        $this->view()->set('mage_dir', $pearConfig->get('mage_dir'));
+        $config = $this->config();
+        $this->view()->set('preferred_state', $config->__get('preferred_state'));
+        $this->view()->set('protocol', $config->__get('protocol'));
 
-        $this->view()->set('use_custom_permissions_mode', $this->config()->get('use_custom_permissions_mode'));
-        $this->view()->set('mkdir_mode', $this->config()->get('mkdir_mode'));
-        $this->view()->set('chmod_file_mode', $this->config()->get('chmod_file_mode'));
-        $this->view()->set('chmod_file_mode_executable', $this->config()->get('chmod_file_mode_executable'));
-                
+        $this->view()->set('use_custom_permissions_mode', $config->__get('use_custom_permissions_mode'));
+        $this->view()->set('mkdir_mode', decoct($config->__get('global_dir_mode')));
+        $this->view()->set('chmod_file_mode', decoct($config->__get('global_file_mode')));
+
+        $this->channelConfig()->setSettingsView($this->session(), $this->view());
+
+        $fs_disabled=!$this->isWritable();
+        $ftpParams=$config->__get('remote_config')?@parse_url($config->__get('remote_config')):'';
+
+        $this->view()->set('fs_disabled', $fs_disabled);
+        $this->view()->set('deployment_type', ($fs_disabled||!empty($ftpParams)?'ftp':'fs'));
+
+        if(!empty($ftpParams)){
+            $this->view()->set('ftp_host', sprintf("%s://%s",$ftpParams['scheme'],$ftpParams['host']));
+            $this->view()->set('ftp_login', $ftpParams['user']);
+            $this->view()->set('ftp_password', $ftpParams['pass']);
+            $this->view()->set('ftp_path', $ftpParams['path']);
+        }
         echo $this->view()->template('settings.phtml');
     }
 
+    /**
+     * Settings post
+     *
+     */
     public function settingsPostAction()
     {
         if ($_POST) {
-            $this->config()->saveConfigPost($_POST);
-            $this->model('pear', true)->saveConfigPost($_POST);
+            $ftp=$this->getFtpPost($_POST);
+            $errors = $this->model('connect', true)->validateConfigPost($_POST);
+            if ($errors) {
+                foreach ($errors as $err) {
+                    $this->session()->addMessage('error', $err);
+                }
+                $this->redirect($this->url('settings'));
+                return;
+            }
+            try {
+                if( 'ftp' == $_POST['deployment_type']&&!empty($_POST['ftp_host'])){
+                    $this->model('connect', true)->connect()->setRemoteConfig($ftp);
+                }else{
+                    $this->model('connect', true)->connect()->setRemoteConfig('');
+                    $_POST['ftp'] = '';
+                }
+                $this->channelConfig()->setPostData($this->config(), $_POST);
+                $this->model('connect', true)->saveConfigPost($_POST);
+                $this->channelConfig()->setSettingsSession($_POST, $this->session());
+                $this->model('connect', true)->connect()->run('sync');
+
+            } catch (Exception $e) {
+                $this->session()->addMessage('error', "Unable to save settings: ".$e->getMessage());
+            }
         }
         $this->redirect($this->url('settings'));
     }
 
     //////////////////////////// ABSTRACT
 
+    /**
+     * Constructor
+     *
+     */
+    public function __construct()
+    {
+        $this->_rootDir = dirname(dirname(__FILE__));
+        $this->_mageDir = dirname($this->_rootDir);
+    }
+
+    /**
+     * Run
+     *
+     */
     public static function run()
     {
         try {
             self::singleton()->dispatch();
         } catch (Exception $e) {
-            echo self::singleton()->view()->set('exception', $e)->template("exception.phtml");
+            echo $e->getMessage();
+            //echo self::singleton()->view()->set('exception', $e)->template("exception.phtml");
         }
     }
 
+    /**
+     * Initialize object of class
+     *
+     * @return Maged_Controller
+     */
     public static function singleton()
     {
         if (!self::$_instance) {
             self::$_instance = new self;
-            
+
             if (self::$_instance->isDownloaded() && self::$_instance->isInstalled()) {
                 Mage::app();
                 Mage::getSingleton('adminhtml/url')->turnOffSecretKey();
@@ -199,40 +481,65 @@ final class Maged_Controller
         return self::$_instance;
     }
 
-    public function __construct()
-    {
-        $this->_rootDir = dirname(dirname(__FILE__));
-        $this->_mageDir = dirname($this->_rootDir);
-    }
-
+    /**
+     * Retrieve Downloader root dir
+     *
+     * @return string
+     */
     public function getRootDir()
     {
         return $this->_rootDir;
     }
 
+    /**
+     * Retrieve Magento root dir
+     *
+     * @return string
+     */
     public function getMageDir()
     {
         return $this->_mageDir;
     }
 
+    /**
+     * Retrieve Mage Class file path
+     *
+     * @return string
+     */
     public function getMageFilename()
     {
         $ds = DIRECTORY_SEPARATOR;
-        return $this->getMageDir().$ds.'app'.$ds.'Mage.php';
+        return $this->getMageDir() . $ds . 'app' . $ds . 'Mage.php';
     }
 
+    /**
+     * Retrieve path for Varien_Profiler
+     *
+     * @return string
+     */
     public function getVarFilename()
     {
         $ds = DIRECTORY_SEPARATOR;
-        return $this->getMageDir().$ds.'lib'.$ds.'Varien'.$ds.'Profiler.php';
+        return $this->getMageDir() . $ds . 'lib' . $ds . 'Varien' . $ds . 'Profiler.php';
     }
 
-    public function filepath($name='')
+    /**
+     * Retrieve downloader file path
+     *
+     * @param string $name
+     * @return string
+     */
+    public function filepath($name = '')
     {
         $ds = DIRECTORY_SEPARATOR;
-        return rtrim($this->getRootDir().$ds.str_replace('/', $ds, $name), $ds);
+        return rtrim($this->getRootDir() . $ds . str_replace('/', $ds, $name), $ds);
     }
 
+    /**
+     * Retrieve object of view
+     *
+     * @return Maged_View
+     */
     public function view()
     {
         if (!$this->_view) {
@@ -241,7 +548,14 @@ final class Maged_Controller
         return $this->_view;
     }
 
-    public function model($model=null, $singleton=false)
+    /**
+     * Retrieve object of model
+     *
+     * @param string $model
+     * @param boolean $singleton
+     * @return Maged_Model
+     */
+    public function model($model = null, $singleton = false)
     {
         if ($singleton && isset($this->_singletons[$model])) {
             return $this->_singletons[$model];
@@ -265,14 +579,38 @@ final class Maged_Controller
         return $object;
     }
 
+    /**
+     * Retrieve object of config
+     *
+     * @return Mage_Connect_Config
+     */
     public function config()
     {
         if (!$this->_config) {
-            $this->_config = $this->model('config')->load();
+            //$this->_config = $this->model('config')->load();
+            $this->_config = $this->model('connect', true)->connect()->getConfig();
         }
         return $this->_config;
     }
 
+    /**
+     * Retrieve object of channel config
+     *
+     * @return Maged_Model_Config_Interface
+     */
+    public function channelConfig()
+    {
+        if (!$this->_localConfig) {
+            $this->_localConfig = $this->model('config', true)->getChannelConfig();
+        }
+        return $this->_localConfig;
+    }
+
+    /**
+     * Retrieve object of session
+     *
+     * @return Maged_Model_Session
+     */
     public function session()
     {
         if (!$this->_session) {
@@ -281,6 +619,12 @@ final class Maged_Controller
         return $this->_session;
     }
 
+    /**
+     * Set Controller action
+     *
+     * @param string $action
+     * @return Maged_Controller
+     */
     public function setAction($action=null)
     {
         if (is_null($action)) {
@@ -289,20 +633,31 @@ final class Maged_Controller
             }
             $action = !empty($_GET[self::ACTION_KEY]) ? $_GET[self::ACTION_KEY] : 'index';
         }
-        if (empty($action) || !is_string($action)
-            || !method_exists($this, $this->getActionMethod($action))) {
+        if (empty($action) || !is_string($action) || !method_exists($this, $this->getActionMethod($action))) {
             $action = 'noroute';
         }
         $this->_action = $action;
         return $this;
     }
 
+    /**
+     * Retrieve Controller action name
+     *
+     * @return string
+     */
     public function getAction()
     {
         return $this->_action;
     }
 
-    public function redirect($url, $force=false)
+    /**
+     * Set Redirect to URL
+     *
+     * @param string $url
+     * @param bool $force
+     * @return Maged_Controller
+     */
+    public function redirect($url, $force = false)
     {
         $this->_redirectUrl = $url;
         if ($force) {
@@ -311,6 +666,11 @@ final class Maged_Controller
         return $this;
     }
 
+    /**
+     * Precess redirect
+     *
+     * @return Maged_Controller
+     */
     public function processRedirect()
     {
         if ($this->_redirectUrl) {
@@ -325,6 +685,12 @@ final class Maged_Controller
         return $this;
     }
 
+    /**
+     * Forward to action
+     *
+     * @param string $action
+     * @return Maged_Controller
+     */
     public function forward($action)
     {
         $this->setAction($action);
@@ -332,29 +698,47 @@ final class Maged_Controller
         return $this;
     }
 
+    /**
+     * Retrieve action method by action name
+     *
+     * @param string $action
+     * @return string
+     */
     public function getActionMethod($action = null)
     {
         $method = (!is_null($action) ? $action : $this->_action).'Action';
         return $method;
     }
 
-    public function url($action='', $params=array())
+    /**
+     * Generate URL for action
+     *
+     * @param string $action
+     * @param array $params
+     */
+    public function url($action = '', $params = array())
     {
-        $paramsStr = '';
-        foreach ($params as $k=>$v) {
-            $paramStr .= '&'.$k.'='.urlencode($v);
+        $args = array();
+        foreach ($params as $k => $v) {
+            $args[] = sprintf('%s=%s', rawurlencode($k), rawurlencode($v));
         }
-        return $_SERVER['SCRIPT_NAME'].'?'.self::ACTION_KEY.'='.$action.$paramsStr;
+        $args = $args ? join('&', $args) : '';
+
+        return sprintf('%s?%s=%s%s', $_SERVER['SCRIPT_NAME'], self::ACTION_KEY, rawurlencode($action), $args);
     }
 
+    /**
+     * Dispatch process
+     *
+     */
     public function dispatch()
     {
         header('Content-type: text/html; charset=UTF-8');
 
         $this->setAction();
 
-        if (!$this->isWritable() || !$this->isInstalled()) {
-            if (!in_array($this->getAction(), array('index', 'pearInstallAll', 'empty'))) {
+        if (!$this->isInstalled()) {
+            if (!in_array($this->getAction(), array('index', 'connectInstallAll', 'empty'))) {
                 $this->setAction('index');
             }
         } else {
@@ -365,57 +749,141 @@ final class Maged_Controller
             $this->_isDispatched = true;
 
             $method = $this->getActionMethod();
+            //echo($method);exit();
             $this->$method();
         }
 
         $this->processRedirect();
     }
 
+    /**
+     * Check root dir is writable
+     *
+     * @return bool
+     */
     public function isWritable()
     {
         if (is_null($this->_writable)) {
             $this->_writable = is_writable($this->getMageDir() . DIRECTORY_SEPARATOR)
                 && is_writable($this->filepath())
-                && (!file_exists($this->filepath('config.ini') || is_writable($this->filepath('config.ini'))))
-                && (!file_exists($this->filepath('pearlib/config.ini') || is_writable($this->filepath('pearlib/pear.ini'))))
-                && is_writable($this->filepath('pearlib/php'));
+                && (!file_exists($this->filepath('config.ini') || is_writable($this->filepath('config.ini'))));
 
         }
         return $this->_writable;
     }
 
+    /**
+     * Check is Magento files downloaded
+     *
+     * @return bool
+     */
     public function isDownloaded()
     {
-        return file_exists($this->getMageFilename())
-            && file_exists($this->getVarFilename());
+        return file_exists($this->getMageFilename()) && file_exists($this->getVarFilename());
     }
 
+    /**
+     * Check is Magento installed
+     *
+     * @return bool
+     */
     public function isInstalled()
     {
         if (!$this->isDownloaded()) {
             return false;
         }
         if (!class_exists('Mage', false)) {
+            if (!file_exists($this->getMageFilename())) {
+                return false;
+            }
             include_once $this->getMageFilename();
             Mage::setIsDownloader();
         }
         return Mage::isInstalled();
     }
 
-    public function startInstall()
+    /**
+     * Retrieve Maintenance flag
+     *
+     * @return bool
+     */
+    protected function _getMaintenanceFlag()
     {
-
+        if (is_null($this->_maintenance)) {
+            $this->_maintenance = !empty($_REQUEST['maintenance']) && $_REQUEST['maintenance'] == '1' ? true : false;
+        }
+        return $this->_maintenance;
     }
 
+    /**
+     * Retrieve Maintenance Flag file path
+     *
+     * @return string
+     */
+    protected function _getMaintenanceFilePath()
+    {
+        if (is_null($this->_maintenanceFile)) {
+            $path = dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR;
+            $this->_maintenanceFile = $path . 'maintenance.flag';
+        }
+        return $this->_maintenanceFile;
+    }
+
+    /**
+     * Begin install package(s)
+     *
+     */
+    public function startInstall()
+    {
+        if ($this->_getMaintenanceFlag()) {
+            $maintenance_filename='maintenance.flag';
+            $config = $this->config();
+            if(!$this->isWritable()||strlen($config->__get('remote_config'))>0){
+                $ftpObj = new Mage_Connect_Ftp();
+                $ftpObj->connect($config->__get('remote_config'));
+                $tempFile = tempnam(sys_get_temp_dir(),'maintenance');
+                @file_put_contents($tempFile, 'maintenance');
+                $ret=$ftpObj->upload($maintenance_filename, $tempFile);
+                $ftpObj->close();
+            }else{
+                @file_put_contents($this->_getMaintenanceFilePath(), 'maintenance');
+            }
+        }
+    }
+
+    /**
+     * End install package(s)
+     *
+     */
     public function endInstall()
     {
-        try {
-            if (!empty($_GET['clean_sessions'])) {
-                Mage::app()->cleanAllSessions();
+        if ($this->isInstalled()) {
+            try {
+                if (!empty($_GET['clean_sessions'])) {
+                    Mage::app()->cleanAllSessions();
+                }
+                Mage::app()->cleanCache();
+            } catch (Exception $e) {
+                $this->session()->addMessage('error', "Exception during cache and session cleaning: ".$e->getMessage());
             }
-            Mage::app()->cleanCache();
-        } catch (Exception $e) {
-            $this->session()->addMessage('error', "Exception during cache and session cleaning: ".$e->getMessage());
+
+            // reinit config and apply all updates
+            Mage::app()->getConfig()->reinit();
+            Mage_Core_Model_Resource_Setup::applyAllUpdates();
+            Mage_Core_Model_Resource_Setup::applyAllDataUpdates();
+        }
+
+        if ($this->_getMaintenanceFlag()) {
+            $maintenance_filename='maintenance.flag';
+            $config = $this->config();
+            if(!$this->isWritable()&&strlen($config->__get('remote_config'))>0){
+                $ftpObj = new Mage_Connect_Ftp();
+                $ftpObj->connect($config->__get('remote_config'));
+                $ftpObj->delete($maintenance_filename);
+                $ftpObj->close();
+            }else{
+                @unlink($this->_getMaintenanceFilePath());
+            }
         }
     }
 }

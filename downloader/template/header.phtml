@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -50,7 +50,7 @@
         <div class="main">
         <?php if ($this->controller()->getAction()!='login' && !$this->get('exception')): ?>
             <div class="nav">
-            <?php if ($this->controller()->isWritable()): ?>
+            <?php if (true||$this->controller()->isWritable()): ?>
                 <?php if ($this->controller()->session()->getUserId()): ?>
                     <a href="<?php echo $this->url('logout') ?>" class="f-right" style="margin:0px 10px;">Log Out</a>
                     <?php if ($returnUrl = $this->controller()->session()->getReturnUrl()): ?>
@@ -58,7 +58,7 @@
                     <?php endif; ?>
                 <?php endif; ?>
                 <ul>
-                    <li class="first"><a <?php echo $this->getNavLinkParams('pearPackages') ?>>Extensions</a></li>
+                    <li class="first"><a <?php echo $this->getNavLinkParams('connectPackages') ?>>Extensions</a></li>
                     <li class="last"><a <?php echo $this->getNavLinkParams('settings') ?>>Settings</a></li>
                 </ul>
              <?php else: ?>

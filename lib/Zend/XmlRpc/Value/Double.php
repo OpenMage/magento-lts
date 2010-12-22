@@ -17,7 +17,7 @@
  * @subpackage Value
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Double.php 21159 2010-02-23 17:56:52Z matthew $
+ * @version    $Id: Double.php 21158 2010-02-23 17:56:23Z matthew $
  */
 
 

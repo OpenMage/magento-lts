@@ -71,7 +71,7 @@ class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Blo
         ));
 
         $this->addExportType('*/*/exportViewedCsv', Mage::helper('reports')->__('CSV'));
-        $this->addExportType('*/*/exportViewedExcel', Mage::helper('reports')->__('Excel'));
+        $this->addExportType('*/*/exportViewedExcel', Mage::helper('reports')->__('Excel XML'));
 
         return parent::_prepareColumns();
     }

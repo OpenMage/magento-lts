@@ -16,7 +16,7 @@
  * @package    Zend_Feed_Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Entry.php 20326 2010-01-16 00:20:43Z padraic $
+ * @version    $Id: Entry.php 22662 2010-07-24 17:37:36Z mabe $
  */
  
 /**
@@ -90,7 +90,7 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
         $clink->setAttribute('type', 'text/html');
         $clink->setAttribute('href', $link);
         $count = $this->getDataContainer()->getCommentCount();
-        if (!is_null($count)) {
+        if ($count !== null) {
             $clink->setAttribute('thr:count', $count);
         }
         $root->appendChild($clink);
@@ -116,7 +116,7 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
             $flink->setAttribute('type', 'application/'. $link['type'] .'+xml');
             $flink->setAttribute('href', $link['uri']);
             $count = $this->getDataContainer()->getCommentCount();
-            if (!is_null($count)) {
+            if ($count !== null) {
                 $flink->setAttribute('thr:count', $count);
             }
             $root->appendChild($flink);
@@ -134,7 +134,7 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
     protected function _setCommentCount(DOMDocument $dom, DOMElement $root)
     {
         $count = $this->getDataContainer()->getCommentCount();
-        if (is_null($count)) {
+        if ($count === null) {
             return;
         }
         $tcount = $this->_dom->createElement('thr:total');

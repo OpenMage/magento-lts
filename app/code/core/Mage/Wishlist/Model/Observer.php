@@ -69,6 +69,9 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
             if (!empty($itemInfo['wishlist'])) {
                 if ($item = $cart->getQuote()->getItemById($itemId)) {
                     $productId = $item->getProductId();
+
+                    $wishlist->addNewItem($productId, $item->getBuyRequest());
+                    
                     $productIds[] = $productId;
                     $cart->getQuote()->removeItem($itemId);
                 }
@@ -76,9 +79,6 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
         }
 
         if (!empty($productIds)) {
-            foreach ($productIds as $productId) {
-                $wishlist->addNewItem($productId);
-            }
             $wishlist->save();
             Mage::helper('wishlist')->calculate();
         }

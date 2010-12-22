@@ -116,7 +116,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
         $this->setCountTotals(true);
 
         $this->addExportType('*/*/exportProductsCsv', Mage::helper('reports')->__('CSV'));
-        $this->addExportType('*/*/exportProductsExcel', Mage::helper('reports')->__('Excel'));
+        $this->addExportType('*/*/exportProductsExcel', Mage::helper('reports')->__('Excel XML'));
 
         return parent::_prepareColumns();
     }

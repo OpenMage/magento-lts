@@ -140,7 +140,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
                 }
             }
             if ($element = $form->getElement('custom_use_parent_settings')) {
-                $element->setOnclick('onCustomUseParentChanged(this)');
+                $element->setData('onchange', 'onCustomUseParentChanged(this)');
             }
         }
 

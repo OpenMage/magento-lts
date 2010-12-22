@@ -52,14 +52,14 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      */
     protected $_designConfig;
 
-            
+
     /**
      * Configuration of emulated desing package.
      *
      * @var Varien_Object|boolean
      */
     protected $_emulatedDesignConfig = false;
-            
+
     /**
      * Applying of design config
      *
@@ -104,8 +104,10 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
                 Mage::getDesign()->setArea($this->getDesignConfig()->getOldArea());
             }
 
-            if ($this->getDesignConfig()->getOldStore()) {
-                Mage::getDesign()->setStore($this->getDesignConfig()->getOldStore());
+            if ($this->getDesignConfig()->hasOldStore()) {
+                $oldStore = $this->getDesignConfig()->getOldStore();
+                Mage::getDesign()->setStore($oldStore);
+                Mage::app()->setCurrentStore($oldStore);
                 Mage::getDesign()->setTheme('');
                 Mage::getDesign()->setPackageName('');
             }

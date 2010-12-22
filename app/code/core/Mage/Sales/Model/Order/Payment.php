@@ -277,7 +277,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 $message = Mage::helper('sales')->__('Capturing amount of %s is pending approval on gateway.', $this->_formatPrice($amountToCapture));
                 $state = Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW;
                 if ($this->getIsFraudDetected()) {
-                    $status = 'fraud';
+                    $status = Mage_Sales_Model_Order::STATUS_FRAUD;
                 }
                 $invoice->setIsPaid(false);
             } else { // normal online capture: invoice is marked as "paid"
@@ -330,6 +330,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 $order->addRelatedObject($invoice);
                 $this->setCreatedInvoice($invoice);
             } else {
+                $this->setIsFraudDetected(true);
                 $this->_updateTotals(array('base_amount_paid_online' => $amount));
             }
         }
@@ -339,11 +340,17 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $message = Mage::helper('sales')->__('Capturing amount of %s is pending approval on gateway.', $this->_formatPrice($amount));
             $state = Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW;
             if ($this->getIsFraudDetected()) {
-                $status = 'fraud';
+                $message = Mage::helper('sales')->__('Order is suspended as its capture amount %s is suspected to be fraudulent.', $this->_formatPrice($amount));
+                $status = Mage_Sales_Model_Order::STATUS_FRAUD;
             }
         } else {
             $message = Mage::helper('sales')->__('Registered notification about captured amount of %s.', $this->_formatPrice($amount));
             $state = Mage_Sales_Model_Order::STATE_PROCESSING;
+            if ($this->getIsFraudDetected()) {
+                $state = Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW;
+                $message = Mage::helper('sales')->__('Order is suspended as its capture amount %s is suspected to be fraudulent.', $this->_formatPrice($amount));
+                $status = Mage_Sales_Model_Order::STATUS_FRAUD;
+            }
             // register capture for an existing invoice
             if ($invoice && Mage_Sales_Model_Order_Invoice::STATE_OPEN == $invoice->getState()) {
                 $invoice->pay();
@@ -803,22 +810,21 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         $state  = Mage_Sales_Model_Order::STATE_PROCESSING;
         $status = true;
         if ($isOnline) {
-
             // invoke authorization on gateway
             $this->getMethodInstance()->setStore($order->getStoreId())->authorize($this, $amount);
-
-            // similar logic of "payment review" order as in capturing
-            if ($this->getIsTransactionPending()) {
-                $message = Mage::helper('sales')->__('Authorizing amount of %s is pending approval on gateway.', $this->_formatPrice($amount));
-                $state = Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW;
-                if ($this->getIsFraudDetected()) {
-                    $status = 'fraud';
-                }
-            } else {
-                $message = Mage::helper('sales')->__('Authorized amount of %s.', $this->_formatPrice($amount));
-            }
         } else {
             $message = Mage::helper('sales')->__('Registered notification about authorized amount of %s.', $this->_formatPrice($amount));
+        }
+
+        // similar logic of "payment review" order as in capturing
+        if ($this->getIsTransactionPending()) {
+            $message = Mage::helper('sales')->__('Authorizing amount of %s is pending approval on gateway.', $this->_formatPrice($amount));
+            $state = Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW;
+            if ($this->getIsFraudDetected()) {
+                $status = Mage_Sales_Model_Order::STATUS_FRAUD;
+            }
+        } else {
+            $message = Mage::helper('sales')->__('Authorized amount of %s.', $this->_formatPrice($amount));
         }
 
         // update transactions, order state and add comments
@@ -926,6 +932,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     protected function _addTransaction($type, $salesDocument = null, $failsafe = false)
     {
+        if ($this->getSkipTransactionCreation()) {
+            $this->unsTransactionId();
+            return null;
+        }
+
         // look for set transaction ids
         $transactionId = $this->getTransactionId();
         if (null !== $transactionId) {
@@ -985,11 +996,20 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param string $type
      * @param Mage_Sales_Model_Abstract $salesDocument
      * @param bool $failsafe
+     * @param string $message
      * @return null|Mage_Sales_Model_Order_Payment_Transaction
      */
-    public function addTransaction($type, $salesDocument = null, $failsafe = false)
+    public function addTransaction($type, $salesDocument = null, $failsafe = false, $message = false)
     {
-        return $this->_addTransaction($type, $salesDocument, $failsafe);
+        $transaction = $this->_addTransaction($type, $salesDocument, $failsafe);
+
+        if ($message) {
+            $order = $this->getOrder();
+            $message = $this->_appendTransactionToMessage($transaction, $message);
+            $order->addStatusHistoryComment($message);
+        }
+
+        return $transaction;
     }
 
     /**
@@ -1273,6 +1293,17 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     public function setTransactionAdditionalInfo($key, $value)
     {
         $this->_transactionAdditionalInfo[$key] = $value;
+    }
+
+    /**
+     * Reset transaction additional info property
+     *
+     * @return Mage_Sales_Model_Order_Payment
+     */
+    public function resetTransactionAdditionalInfo()
+    {
+        $this->_transactionAdditionalInfo = array();
+        return $this;
     }
 
     /**

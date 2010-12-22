@@ -173,13 +173,20 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
      */
     protected function _validateProducts()
     {
-        if (!is_array($this->_getHelper()->getProductIds())) {
-            $this->_getSession()->addError($this->__('Please select products for attributes update'));
-            $this->_redirect('*/catalog_product/', array('_current'=>true));
-            return false;
+        $error = false;
+        $productIds = $this->_getHelper()->getProductIds();
+        if (!is_array($productIds)) {
+            $error = $this->__('Please select products for attributes update');
+        } else if (!Mage::getModel('catalog/product')->isProductsHasSku($productIds)) {
+            $error = $this->__('Some of the processed products have no SKU value defined. Please fill it prior to performing operations on these products.');
         }
 
-        return true;
+        if ($error) {
+            $this->_getSession()->addError($error);
+            $this->_redirect('*/catalog_product/', array('_current'=>true));
+        }
+
+        return !$error;
     }
 
     /**
@@ -195,5 +202,49 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
     protected function _isAllowed()
     {
         return Mage::getSingleton('admin/session')->isAllowed('catalog/update_attributes');
+    }
+
+    /**
+     * Attributes validation action
+     *
+     */
+    public function validateAction()
+    {
+        $response = new Varien_Object();
+        $response->setError(false);
+        $attributesData = $this->getRequest()->getParam('attributes', array());
+        $data = new Varien_Object();
+
+        try {
+            if ($attributesData) {
+                $dateFormat = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
+                $storeId    = $this->_getHelper()->getSelectedStoreId();
+
+                foreach ($attributesData as $attributeCode => $value) {
+                    $attribute = Mage::getSingleton('eav/config')
+                        ->getAttribute('catalog_product', $attributeCode);
+                    if (!$attribute->getAttributeId()) {
+                        unset($attributesData[$attributeCode]);
+                        continue;
+                    }
+                    $data->setData($attributeCode, $value);
+                    $attribute->getBackend()->validate($data);
+                }
+            }
+        } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
+            $response->setError(true);
+            $response->setAttribute($e->getAttributeCode());
+            $response->setMessage($e->getMessage());
+        } catch (Mage_Core_Exception $e) {
+            $response->setError(true);
+            $response->setMessage($e->getMessage());
+        } catch (Exception $e) {
+            $this->_getSession()->addException($e, $this->__('An error occurred while updating the product(s) attributes.'));
+            $this->_initLayoutMessages('adminhtml/session');
+            $response->setError(true);
+            $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
+        }
+
+        $this->getResponse()->setBody($response->toJson());
     }
 }

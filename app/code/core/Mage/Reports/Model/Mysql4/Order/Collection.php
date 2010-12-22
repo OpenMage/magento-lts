@@ -423,10 +423,14 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Mysql4
         return $this;
     }
 
+    /**
+     * Set store filter collection
+     * @param  array $storeIds
+     * @return Mage_Reports_Model_Mysql4_Order_Collection
+     */
     public function setStoreIds($storeIds)
     {
-        $vals = array_values($storeIds);
-        if (count($storeIds) >= 1 && $vals[0] != '') {
+        if ($storeIds) {
             $this->getSelect()->columns(array(
                 'subtotal' => 'SUM(main_table.base_subtotal)',
                 'tax' => 'SUM(main_table.base_tax_amount)',
@@ -523,8 +527,17 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Mysql4
          * calculate average and total amount
          */
         $expr = ($storeId == 0)
-            ? '(main_table.base_subtotal-IFNULL(main_table.base_subtotal_refunded,0)-IFNULL(main_table.base_subtotal_canceled,0))*main_table.base_to_global_rate'
-            : 'main_table.base_subtotal-IFNULL(main_table.base_subtotal_canceled,0)-IFNULL(main_table.base_subtotal_refunded,0)';
+            ? '(main_table.base_subtotal
+                    - IFNULL(main_table.base_subtotal_refunded, 0)
+                    - IFNULL(main_table.base_subtotal_canceled, 0)
+                    - ABS(main_table.base_discount_amount)
+                    - IFNULL(main_table.base_discount_canceled, 0)
+                ) * main_table.base_to_global_rate'
+            : 'main_table.base_subtotal
+                    - IFNULL(main_table.base_subtotal_canceled, 0)
+                    - IFNULL(main_table.base_subtotal_refunded, 0)
+                    - ABS(main_table.base_discount_amount)
+                    - IFNULL(main_table.base_discount_canceled, 0)';
 
         $this->getSelect()
             ->columns(array("orders_avg_amount" => "AVG({$expr})"))

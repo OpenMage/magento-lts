@@ -17,7 +17,7 @@
  * @subpackage DeveloperGarden
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ClientAbstract.php 20419 2010-01-19 13:20:12Z bate $
+ * @version    $Id: ClientAbstract.php 22662 2010-07-24 17:37:36Z mabe $
  */
 
 /**
@@ -334,7 +334,7 @@ abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
             $options['classmap'] = $this->_classMap;
         }
         $wsdlCache = Zend_Service_DeveloperGarden_SecurityTokenServer_Cache::getWsdlCache();
-        if (!is_null($wsdlCache)) {
+        if ($wsdlCache !== null) {
             $options['cache_wsdl'] = $wsdlCache;
         }
         return $options;

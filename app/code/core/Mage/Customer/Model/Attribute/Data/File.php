@@ -140,33 +140,36 @@ class Mage_Customer_Model_Attribute_Data_File extends Mage_Customer_Model_Attrib
      */
     public function validateValue($value)
     {
-        if ($this->getIsAjaxRequest()) {
-            return true;
-        }
-
         $errors     = array();
         $attribute  = $this->getAttribute();
         $label      = $attribute->getStoreLabel();
 
-        $toDelete   = !empty($value['delete']) ? true : false;
-        $toUpload   = !empty($value['tmp_name']) ? true : false;
-
-        if (!$toUpload && !$toDelete && $this->getEntity()->getData($attribute->getAttributeCode())) {
-            return true;
+        if (is_array($value)) {
+            $toDelete   = !empty($value['delete']) ? true : false;
+            $toUpload   = !empty($value['tmp_name']) ? true : false;
+        
+            if (!$toUpload && !$toDelete && $this->getEntity()->getData($attribute->getAttributeCode())) {
+                return true;
+            }
+        
+            if (!$attribute->getIsRequired() && !$toUpload) {
+                return true;
+            }
+        
+            if ($attribute->getIsRequired() && !$toUpload) {
+                $errors[] = Mage::helper('customer')->__('"%s" is a required value.', $label);
+            }
+        
+            if ($toUpload) {
+                $errors = array_merge($errors, $this->_validateByRules($value));
+            }
+        } else {
+            $filePath = Mage::getBaseDir('media') . DS . 'customer' . $value;
+            if ($attribute->getIsRequired() && !file_exists($filePath)) {
+                $errors[] = Mage::helper('customer')->__('"%s" is a required value.', $label);
+            }
         }
-
-        if (!$attribute->getIsRequired() && !$toUpload) {
-            return true;
-        }
-
-        if ($attribute->getIsRequired() && !$toUpload) {
-            $errors[] = Mage::helper('customer')->__('"%s" is a required value.', $label);
-        }
-
-        if ($toUpload) {
-            $errors = array_merge($errors, $this->_validateByRules($value));
-        }
-
+        
         if (count($errors) == 0) {
             return true;
         }
@@ -214,7 +217,7 @@ class Mage_Customer_Model_Attribute_Data_File extends Mage_Customer_Model_Attrib
 
         if (!empty($value['tmp_name'])) {
             try {
-                $uploader = new Varien_File_Uploader($value);
+                $uploader = new Mage_Core_Model_File_Uploader($value);
                 $uploader->setFilesDispersion(true);
                 $uploader->setFilenamesCaseSensitivity(false);
                 $uploader->setAllowRenameFiles(true);

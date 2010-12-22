@@ -17,7 +17,7 @@
  * @subpackage Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db.php 22514 2010-07-01 14:11:18Z ramon $
+ * @version    $Id: Db.php 22513 2010-07-01 13:48:39Z ramon $
  */
 
 /** Zend_Log_Writer_Abstract */
@@ -29,7 +29,7 @@
  * @subpackage Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db.php 22514 2010-07-01 14:11:18Z ramon $
+ * @version    $Id: Db.php 22513 2010-07-01 13:48:39Z ramon $
  */
 class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
 {

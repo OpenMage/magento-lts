@@ -33,10 +33,17 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
+    implements Mage_Catalog_Model_Product_Configuration_Item_Interface
 {
     const EXCEPTION_CODE_NOT_SALABLE            = 901;
     const EXCEPTION_CODE_HAS_REQUIRED_OPTIONS   = 902;
-    const EXCEPTION_CODE_IS_GROUPED_PRODUCT     = 903;
+    const EXCEPTION_CODE_IS_GROUPED_PRODUCT     = 903; // deprecated after 1.4.2.0, because we can store product configuration and add grouped products
+
+    /**
+     * Custom path to download attached file
+     * @var string
+     */
+    protected $_customOptionDownloadUrl = 'wishlist/index/downloadCustomOption';
 
    /**
      * Prefix of model events names
@@ -55,6 +62,33 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
     protected $_eventObject = 'item';
 
     /**
+     * Item options array
+     *
+     * @var array
+     */
+    protected $_options             = array();
+
+    /**
+     * Item options by code cache
+     *
+     * @var array
+     */
+    protected $_optionsByCode       = array();
+
+    /**
+     * Not Represent options
+     *
+     * @var array
+     */
+    protected $_notRepresentOptions = array('info_buyRequest');
+
+    /**
+     * Flag stating that options were successfully saved
+     *
+     */
+    protected $_flagOptionsSaved = null;
+
+    /**
      * Initialize resource model
      *
      */
@@ -71,6 +105,108 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
     protected function _getResource()
     {
         return parent::_getResource();
+    }
+
+    /**
+     * Check if two options array are identical
+     *
+     * @param array $options1
+     * @param array $options2
+     * @return bool
+     */
+    protected function _compareOptions($options1, $options2)
+    {
+        $skipOptions = array('id', 'qty', 'return_url');
+        foreach ($options1 as $code => $value) {
+            if (in_array($code, $skipOptions)) {
+                continue;
+            }
+            if (!isset($options2[$code]) || $options2[$code] != $value) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Register option code
+     *
+     * @param   Mage_Wishlist_Model_Item_Option $option
+     * @return  Mage_Wishlist_Model_Item
+     */
+    protected function _addOptionCode($option)
+    {
+        if (!isset($this->_optionsByCode[$option->getCode()])) {
+            $this->_optionsByCode[$option->getCode()] = $option;
+        }
+        else {
+            Mage::throwException(Mage::helper('sales')->__('An item option with code %s already exists.', $option->getCode()));
+        }
+        return $this;
+    }
+
+    /**
+     * Checks that item model has data changes.
+     * Call save item options if model isn't need to save in DB
+     *
+     * @return boolean
+     */
+    protected function _hasModelChanged()
+    {
+        if (!$this->hasDataChanges()) {
+            return false;
+        }
+
+        return $this->_getResource()->hasDataChanged($this);
+    }
+
+    /**
+     * Save item options
+     *
+     * @return Mage_Wishlist_Model_Item
+     */
+    protected function _saveItemOptions()
+    {
+        foreach ($this->_options as $index => $option) {
+            if ($option->isDeleted()) {
+                $option->delete();
+                unset($this->_options[$index]);
+                unset($this->_optionsByCode[$option->getCode()]);
+            } else {
+                $option->save();
+            }
+        }
+
+        $this->_flagOptionsSaved = true; // Report to watchers that options were saved
+
+        return $this;
+    }
+
+    /**
+     * Save model plus its options
+     * Ensures saving options in case when resource model was not changed
+     */
+    public function save()
+    {
+        $hasDataChanges = $this->hasDataChanges();
+        $this->_flagOptionsSaved = false;
+
+        parent::save();
+
+        if ($hasDataChanges && !$this->_flagOptionsSaved) {
+            $this->_saveItemOptions();
+        }
+    }
+
+    /**
+     * Save item options after item saved
+     *
+     * @return Mage_Wishlist_Model_Item
+     */
+    protected function _afterSave()
+    {
+        $this->_saveItemOptions();
+        return parent::_afterSave();
     }
 
     /**
@@ -166,10 +302,17 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
             }
 
             $product = Mage::getModel('catalog/product')
+                ->setStoreId($this->getStoreId())
                 ->load($this->getProductId());
 
             $this->setData('product', $product);
         }
+
+        /**
+         * Reset product final price because it related to custom options
+         */
+        $product->setFinalPrice(null);
+        $product->setCustomOptions($this->_optionsByCode);
         return $product;
     }
 
@@ -188,11 +331,6 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
     {
         $product = $this->getProduct();
 
-        if (Mage_Catalog_Model_Product_Type::TYPE_GROUPED == $product->getTypeId()) {
-            throw new Mage_Core_Exception(null, self::EXCEPTION_CODE_IS_GROUPED_PRODUCT);
-        }
-
-        $product->setQty(1);
         $storeId = $this->getStoreId();
 
         if ($product->getStatus() != Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
@@ -219,11 +357,9 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
             throw new Mage_Core_Exception(null, self::EXCEPTION_CODE_NOT_SALABLE);
         }
 
-        if ($product->getTypeInstance(true)->hasRequiredOptions($product)) {
-            throw new Mage_Core_Exception(null, self::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS);
-        }
+        $buyRequest = $this->getBuyRequest();
 
-        $cart->addProduct($product);
+        $cart->addProduct($product, $buyRequest);
         if (!$product->isVisibleInSiteVisibility()) {
             $cart->getQuote()->getItemByProduct($product)->setStoreId($storeId);
         }
@@ -252,5 +388,262 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
         }
 
         return $product->getUrlModel()->getUrl($product, array('_query' => $query));
+    }
+
+    /**
+     * Returns formatted buy request - object, holding request received from
+     * product view page with keys and options for configured product
+     *
+     * @return Varien_Object
+     */
+    public function getBuyRequest()
+    {
+        $option = $this->getOptionByCode('info_buyRequest');
+        if ($option) {
+            $buyRequest = new Varien_Object(unserialize($option->getValue()));
+        } else {
+            $buyRequest = new Varien_Object();
+        }
+
+        $buyRequest->setQty($this->getQty()*1);
+        return $buyRequest;
+    }
+
+    /**
+     * Set buy request - object, holding request received from
+     * product view page with keys and options for configured product
+     * @param Varien_Object $buyRequest
+     * @return Mage_Wishlist_Model_Item
+     */
+    public function setBuyRequest($buyRequest)
+    {
+        $buyRequest->setId($this->getId());
+
+        $_buyRequest = serialize($buyRequest->getData());
+        $this->setData('buy_request', $_buyRequest);
+        return $this;
+    }
+
+    /**
+     * Check product representation in item
+     *
+     * @param   Mage_Catalog_Model_Product $product
+     * @param   Varien_Object $buyRequest
+     * @return  bool
+     */
+    public function isRepresent($product, $buyRequest)
+    {
+        if ($this->getProductId() != $product->getId()) {
+            return false;
+        }
+
+        $selfOptions = $this->getBuyRequest()->getData();
+
+        if (empty($buyRequest) && !empty($selfOptions)) {
+            return false;
+        }
+        if (empty($selfOptions) && !empty($buyRequest)) {
+            if (!$product->isComposite()){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        $requestArray = $buyRequest->getData();
+
+        if(!$this->_compareOptions($requestArray, $selfOptions)){
+            return false;
+        }
+        if(!$this->_compareOptions($selfOptions, $requestArray)){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Check product representation in item
+     *
+     * @param   Mage_Catalog_Model_Product $product
+     * @return  bool
+     */
+    public function representProduct($product)
+    {
+        $itemProduct = $this->getProduct();
+        if ($itemProduct->getId() != $product->getId()) {
+            return false;
+        }
+
+        $itemOptions    = $this->getOptionsByCode();
+        $productOptions = $product->getCustomOptions();
+
+        if(!$this->compareOptions($itemOptions, $productOptions)){
+            return false;
+        }
+        if(!$this->compareOptions($productOptions, $itemOptions)){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Check if two options array are identical
+     * First options array is prerogative
+     * Second options array checked against first one
+     *
+     * @param array $options1
+     * @param array $options2
+     * @return bool
+     */
+    public function compareOptions($options1, $options2)
+    {
+        foreach ($options1 as $option) {
+            $code = $option->getCode();
+            if (in_array($code, $this->_notRepresentOptions )) {
+                continue;
+            }
+            if ( !isset($options2[$code])
+                || ($options2[$code]->getValue() === null)
+                || $options2[$code]->getValue() != $option->getValue()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Initialize item options
+     *
+     * @param   array $options
+     * @return  Mage_Wishlist_Model_Item
+     */
+    public function setOptions($options)
+    {
+        foreach ($options as $option) {
+            $this->addOption($option);
+        }
+        return $this;
+    }
+
+    /**
+     * Get all item options
+     *
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->_options;
+    }
+
+    /**
+     * Get all item options as array with codes in array key
+     *
+     * @return array
+     */
+    public function getOptionsByCode()
+    {
+        return $this->_optionsByCode;
+    }
+
+    /**
+     * Add option to item
+     *
+     * @param   Mage_Wishlist_Model_Item_Option $option
+     * @return  Mage_Wishlist_Model_Item
+     */
+    public function addOption($option)
+    {
+        if (is_array($option)) {
+            $option = Mage::getModel('wishlist/item_option')->setData($option)
+                ->setItem($this);
+        } else if ($option instanceof Mage_Wishlist_Model_Item_Option) {
+            $option->setItem($this);
+        } else if ($option instanceof Varien_Object) {
+            $option = Mage::getModel('wishlist/item_option')->setData($option->getData())
+               ->setProduct($option->getProduct())
+               ->setItem($this);
+        } else {
+            Mage::throwException(Mage::helper('sales')->__('Invalid item option format.'));
+        }
+
+        $exOption = $this->getOptionByCode($option->getCode());
+        if ($exOption) {
+            $exOption->addData($option->getData());
+        } else {
+            $this->_addOptionCode($option);
+            $this->_options[] = $option;
+        }
+        return $this;
+    }
+
+    /**
+     *Remove option from item options
+     *
+     * @param string $code
+     * @return Mage_Wishlist_Model_Item
+     */
+    public function removeOption($code)
+    {
+        $option = $this->getOptionByCode($code);
+        if ($option) {
+            $option->isDeleted(true);
+        }
+        return $this;
+    }
+
+    /**
+     * Get item option by code
+     *
+     * @param   string $code
+     * @return  Mage_Wishlist_Model_Item_Option || null
+     */
+    public function getOptionByCode($code)
+    {
+        if (isset($this->_optionsByCode[$code]) && !$this->_optionsByCode[$code]->isDeleted()) {
+            return $this->_optionsByCode[$code];
+        }
+        return null;
+    }
+
+    /**
+     * Returns whether Qty field is valid for this item
+     *
+     * @return bool
+     */
+    public function canHaveQty()
+    {
+        $product = $this->getProduct();
+        return $product->getTypeId() != Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE;
+    }
+
+    /**
+     * Get current custom option download url
+     */
+    public function getCustomDownloadUrl()
+    {
+        return $this->_customOptionDownloadUrl;
+    }
+
+    /**
+     * Sets custom option download url
+     */
+    public function setCustomDownloadUrl($url)
+    {
+        $this->_customOptionDownloadUrl = $url;
+    }
+
+    /**
+     * Returns special download params (if needed) for custom option with type = 'file'.
+     * Needed to implement Mage_Catalog_Model_Product_Configuration_Item_Interface.
+     *
+     * We have to customize only controller url, so return it.
+     *
+     * @return null|Varien_Object
+     */
+    public function getFileDownloadParams()
+    {
+        $params = new Varien_Object();
+        $params->setUrl($this->_customOptionDownloadUrl);
+        return $params;
     }
 }

@@ -28,7 +28,7 @@
  * @package    Zend_Form
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Form.php 22465 2010-06-19 17:41:03Z alab $
+ * @version    $Id: Form.php 22930 2010-09-09 18:45:18Z matthew $
  */
 class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
 {
@@ -1785,7 +1785,6 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             if (isset($this->_elements[$element])) {
                 $add = $this->getElement($element);
                 if (null !== $add) {
-                    unset($this->_order[$element]);
                     $group[] = $add;
                 }
             }
@@ -1798,12 +1797,17 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         $name = (string) $name;
 
         if (is_array($options)) {
+            $options['form']     = $this;
             $options['elements'] = $group;
         } elseif ($options instanceof Zend_Config) {
             $options = $options->toArray();
+            $options['form']     = $this;
             $options['elements'] = $group;
         } else {
-            $options = array('elements' => $group);
+            $options = array(
+                'form'     => $this,
+                'elements' => $group,
+            );
         }
 
         if (isset($options['displayGroupClass'])) {
@@ -1850,6 +1854,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         }
 
         $this->_displayGroups[$name] = $group;
+        $group->setForm($this);
 
         if (!empty($this->_displayGroupPrefixPaths)) {
             $this->_displayGroups[$name]->addPrefixPaths($this->_displayGroupPrefixPaths);
@@ -2222,7 +2227,8 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         }
         $context = $data;
         foreach ($this->getElements() as $key => $element) {
-            if (null !== $translator && !$element->hasTranslator()) {
+            if (null !== $translator && $this->hasTranslator()
+                    && !$element->hasTranslator()) {
                 $element->setTranslator($translator);
             }
             $check = $data;
@@ -3274,6 +3280,20 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                  ->addDecorator('Form');
         }
         return $this;
+    }
+
+    /**
+     * Remove an element from iteration
+     * 
+     * @param  string $name Element/group/form name
+     * @return void
+     */
+    public function removeFromIteration($name)
+    {
+        if (array_key_exists($name, $this->_order)) {
+            unset($this->_order[$name]);
+            $this->_orderUpdated = true;
+        }
     }
 
     /**

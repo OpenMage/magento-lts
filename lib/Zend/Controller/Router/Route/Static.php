@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @subpackage Router
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Static.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Static.php 23210 2010-10-21 16:10:55Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -76,7 +76,9 @@ class Zend_Controller_Router_Route_Static extends Zend_Controller_Router_Route_A
     public function match($path, $partial = false)
     {
         if ($partial) {
-            if (substr($path, 0, strlen($this->_route)) === $this->_route) {
+            if ((empty($path) && empty($this->_route))
+                || (substr($path, 0, strlen($this->_route)) === $this->_route)
+            ) {
                 $this->setMatchedPath($this->_route);
                 return $this->_defaults;
             }

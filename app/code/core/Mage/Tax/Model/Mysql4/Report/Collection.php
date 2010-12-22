@@ -89,10 +89,7 @@ class Mage_Tax_Model_Mysql4_Report_Collection extends Mage_Sales_Model_Mysql4_Re
     {
         $this->getSelect()->from($this->getResource()->getMainTable() , $this->_getSelectedColumns());
         if (!$this->isTotals() && !$this->isSubTotals()) {
-            $this->getSelect()->group(array(
-                $this->_periodFormat,
-                'code'
-            ));
+            $this->getSelect()->group(array($this->_periodFormat, 'code', 'percent'));
         }
 
         if ($this->isSubTotals()) {

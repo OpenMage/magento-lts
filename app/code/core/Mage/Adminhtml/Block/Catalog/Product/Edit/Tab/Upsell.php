@@ -47,6 +47,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
         if ($this->_getProduct()->getId()) {
             $this->setDefaultFilter(array('in_products'=>1));
         }
+        if ($this->isReadonly()) {
+            $this->setFilterVisibility(false);
+        }
     }
 
     /**

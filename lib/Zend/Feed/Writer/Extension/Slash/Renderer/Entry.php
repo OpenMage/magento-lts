@@ -16,7 +16,7 @@
  * @package    Zend_Feed_Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Entry.php 20326 2010-01-16 00:20:43Z padraic $
+ * @version    $Id: Entry.php 23077 2010-10-10 23:06:49Z padraic $
  */
  
 /**
@@ -81,7 +81,7 @@ class Zend_Feed_Writer_Extension_Slash_Renderer_Entry
     {
         $count = $this->getDataContainer()->getCommentCount();
         if (!$count) {
-            $count = 0;
+            return;
         }
         $tcount = $this->_dom->createElement('slash:comments');
         $tcount->nodeValue = $count;

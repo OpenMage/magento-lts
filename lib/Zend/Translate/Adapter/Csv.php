@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Translate
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Csv.php 21662 2010-03-27 20:23:42Z thomas $
+ * @version    $Id: Csv.php 21661 2010-03-27 20:20:27Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 

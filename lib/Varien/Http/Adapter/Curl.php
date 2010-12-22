@@ -57,6 +57,9 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         if (isset($this->_config['proxy'])) {
             curl_setopt ($this->_getResource(), CURLOPT_PROXY, $this->_config['proxy']);
         }
+        if (isset($this->_config['ssl_cert'])) {
+            curl_setopt($this->_getResource(), CURLOPT_SSLCERT, $this->_config['ssl_cert']);
+        }
 
         return $this;
     }

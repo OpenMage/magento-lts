@@ -17,7 +17,7 @@
  * @subpackage Node
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Node.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Node.php 22662 2010-07-24 17:37:36Z mabe $
  */
 
 /**
@@ -99,7 +99,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
     protected function __construct(Zend_Ldap_Dn $dn, array $data, $fromDataSource, Zend_Ldap $ldap = null)
     {
         parent::__construct($dn, $data, $fromDataSource);
-        if (!is_null($ldap)) $this->attachLdap($ldap);
+        if ($ldap !== null) $this->attachLdap($ldap);
         else $this->detachLdap();
     }
 
@@ -136,7 +136,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
      */
     public function getLdap()
     {
-        if (is_null($this->_ldap)) {
+        if ($this->_ldap === null) {
             /**
              * @see Zend_Ldap_Exception
              */
@@ -205,7 +205,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
      */
     public function isAttached()
     {
-        return (!is_null($this->_ldap));
+        return ($this->_ldap !== null);
     }
 
     /**

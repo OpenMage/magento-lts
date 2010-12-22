@@ -26,48 +26,14 @@
 ?>
 <?php $_item = $this->getItem() ?>
 <?php $this->setPriceDataObject($_item) ?>
-<tr class="border">
+<tr<?php if ($this->canDisplayGiftmessage()): ?> class="border"<?php endif; ?>>
     <td class="giftmessage-single-item">
         <?php if ($this->canDisplayContainer()): ?>
         <div id="<?php echo $this->getHtmlId() ?>" class="item-container">
         <?php endif; ?>
-        <?php if ($this->canDisplayGiftmessage()): ?>
-        <div class="item-text">
-            <?php echo $this->getColumnHtml($_item, 'name') ?>
-              <div class="action-link-holder">
-                <a class="action-link" href="#" onclick="return giftMessagesController.toogleGiftMessage('<?php echo $this->getHtmlId() ?>')">
-                <span class="default-text">
-                  <span class="add"<?php if($this->getMessage()->getId()): ?> style="display:none;"<?php endif;?>><?php echo $this->helper('sales')->__('Add Gift Messsage') ?></span>
-                  <span class="edit"<?php if(!$this->getMessage()->getId()): ?> style="display:none;"<?php endif;?>><?php echo $this->helper('sales')->__('Edit Gift Messsage') ?></span></span><span class="close-text" style="display:none;"><?php echo $this->helper('sales')->__('Save and Close Message') ?></span></a>
-              </div>
-        </div>
-        <div class="gift-form" style="display:none;" id="<?php echo $this->getFieldId('edit') ?>">
-        <form id="<?php echo $this->getFieldId('form') ?>" action="<?php echo $this->getSaveUrl() ?>">
-            <div class="entry-edit">
-                <fieldset>
-                    <input type="hidden" id="<?php echo $this->getFieldId('type') ?>" name="<?php echo $this->getFieldName('type') ?>" value="order_item" />
-                    <span class="field-row">
-                        <label for="<?php echo $this->getFieldId('sender') ?>"><?php echo $this->helper('sales')->__('From Name') ?></label><br />
-                        <input class="input-text" type="text" id="<?php echo $this->getFieldId('sender') ?>" name="<?php echo $this->getFieldName('sender') ?>" value="<?php echo $this->htmlEscape($this->getMessage()->getSender()) ?>" />
-                    </span>
-                    <span class="field-row">
-                        <label for="<?php echo $this->getFieldId('recipient') ?>"><?php echo $this->helper('sales')->__('To Name') ?></label><br />
-                        <input class="input-text" type="text" id="<?php echo $this->getFieldId('recipient') ?>" name="<?php echo $this->getFieldName('recipient') ?>"  value="<?php echo $this->htmlEscape($this->getMessage()->getRecipient()) ?>" />
-                    </span>
-                    <div class="clear"></div>
-                    <span class="field-row last">
-                        <label for="<?php echo $this->getFieldId('message') ?>"><?php echo $this->helper('sales')->__('Gift Message') ?></label><br />
-                        <textarea id="<?php echo $this->getFieldId('message') ?>" onchange="giftMessagesController.toogleRequired('<?php echo $this->getFieldId('message') ?>', ['<?php echo $this->getFieldId('sender') ?>','<?php echo $this->getFieldId('recipient') ?>']);" name="<?php echo $this->getFieldName('message') ?>" rows="3" cols="5"><?php echo $this->htmlEscape($this->getMessage()->getMessage()) ?></textarea>
-                    </span>
-                </fieldset>
-            </div>
-        </form>
-        </div>
-        <?php else: ?>
         <div class="item-text">
             <?php echo $this->getColumnHtml($_item, 'downloadable') ?>
         </div>
-        <?php endif; ?>
         <?php if ($this->canDisplayContainer()): ?>
         </div>
         <?php endif ?>

@@ -31,6 +31,7 @@
             <td><h3><?php echo $this->getHeaderText() ?></h3></td>
             <td class="form-buttons">
                 <?php echo $this->getBackButtonHtml() ?>
+                <?php echo $this->getPreviewButtonHtml(); ?>
                 <?php if(!$this->getIsPreview()): ?>
                     <?php echo $this->getResetButtonHtml() ?>
                     <?php echo $this->getSaveButtonHtml() ?>
@@ -42,9 +43,6 @@
         </tr>
     </table>
 </div>
-<?php if( !$this->isSingleStoreMode() ): ?>
-<?php echo $this->getChildHtml('store_switcher');?>
-<?php endif;?>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="queue_edit_form">
     <?php echo $this->getBlockHtml('formkey')?>
     <div class="no-display">
@@ -58,25 +56,11 @@
         <input type="hidden" id="preview_type" name="type" value="<?php echo $this->getIsTextType()?1:2 ?>" />
         <input type="hidden" id="preview_text" name="text" value="" />
         <input type="hidden" id="preview_styles" name="styles" value="" />
-<?php if (!$this->isSingleStoreMode()): ?>
-        <input type="hidden" id="preview_store_id" name="store_id" value="" />
-<?php endif; ?>
+        <input type="hidden" id="preview_id" name="id" value="" />
     </div>
 </form>
 <script type="text/javascript">
 //<![CDATA[
-Event.observe($('store_switcher'), 'change', switchStore(this));
-
-function switchStore(obj){
-    if(obj.value) {
-        $('preview_store_id').value = obj.value;
-        queueControl.preview();
-    }else{
-        return false;
-    }
-}
-
-
 var queueForm = new varienForm('queue_edit_form');
 var newsletterPreviewForm = new varienForm('newsletter_queue_preview_form');
 
@@ -96,6 +80,9 @@ var queueControl = {
         }
         if ($('styles') != undefined) {
             $('preview_styles').value = $('styles').value;
+        }
+        if ($('id') != undefined) {
+            $('preview_id').value = $('id').value;
         }
         newsletterPreviewForm.submit();
         return false;

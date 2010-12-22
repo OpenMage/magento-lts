@@ -44,6 +44,7 @@
                 <col width="1" />
             <?php endif; ?>
                 <col />
+                <col width="1" />
             <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
                 <col width="1" />
             <?php endif; ?>
@@ -61,6 +62,7 @@
                     <tr>
                         <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Rem') ?></th>
                         <th rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Product Name') ?></span></th>
+                        <th rowspan="<?php echo $mergedCells; ?>"></th>
                         <th class="a-center" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Unit Price') ?></span></th>
                         <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Qty') ?></th>
                         <th class="a-center" colspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Subtotal') ?></th>
@@ -93,13 +95,13 @@
                 </tbody>
             </table>
             <script type="text/javascript">decorateTable('shopping-cart-table')</script>
-            
+
             <div class="totals a-right">
                 <?php echo $this->getChildHtml('totals'); ?>
             </div>
         </fieldset>
     </form>
-    
+
     <?php echo $this->getChildHtml('coupon') ?>
     <?php if(!$this->hasError()): ?>
         <ul class="checkout-types">

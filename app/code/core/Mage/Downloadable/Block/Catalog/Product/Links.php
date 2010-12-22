@@ -90,19 +90,26 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
             return '';
         }
 
-        $_priceInclTax = Mage::helper('tax')->getPrice($link->getProduct(), $price, true);
-        $_priceExclTax = Mage::helper('tax')->getPrice($link->getProduct(), $price);
+        $taxCalculation = Mage::getSingleton('tax/calculation');
+        if (!$taxCalculation->getCustomer() && Mage::registry('current_customer')) {
+            $taxCalculation->setCustomer(Mage::registry('current_customer'));
+        }
+
+        $taxHelper = Mage::helper('tax');
+        $coreHelper = $this->helper('core');
+        $_priceInclTax = $taxHelper->getPrice($link->getProduct(), $price, true);
+        $_priceExclTax = $taxHelper->getPrice($link->getProduct(), $price);
 
         $priceStr = '<span class="price-notice">+';
-        if (Mage::helper('tax')->displayPriceIncludingTax()) {
-            $priceStr .= $this->helper('core')->currency($_priceInclTax, true, true);
-        } elseif (Mage::helper('tax')->displayPriceExcludingTax()) {
-            $priceStr .= $this->helper('core')->currency($_priceExclTax, true, true);
-        } elseif (Mage::helper('tax')->displayBothPrices()) {
-            $priceStr .= $this->helper('core')->currency($_priceExclTax, true, true);
+        if ($taxHelper->displayPriceIncludingTax()) {
+            $priceStr .= $coreHelper->currencyByStore($_priceInclTax, 3);
+        } elseif ($taxHelper->displayPriceExcludingTax()) {
+            $priceStr .= $coreHelper->currencyByStore($_priceExclTax, 3);
+        } elseif ($taxHelper->displayBothPrices()) {
+            $priceStr .= $coreHelper->currencyByStore($_priceExclTax, 3);
             if ($_priceInclTax != $_priceExclTax) {
-                $priceStr .= ' (+'.$this->helper('core')
-                    ->currency($_priceInclTax, true, true).' '.$this->__('Incl. Tax').')';
+                $priceStr .= ' (+'.$coreHelper
+                    ->currencyByStore($_priceInclTax, 3).' '.$this->__('Incl. Tax').')';
             }
         }
         $priceStr .= '</span>';
@@ -118,12 +125,13 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     public function getJsonConfig()
     {
         $config = array();
+        $coreHelper = Mage::helper('core');
 
         foreach ($this->getLinks() as $link) {
-            $config[$link->getId()] = Mage::helper('core')->currency($link->getPrice(), false, false);
+            $config[$link->getId()] = $coreHelper->currency($link->getPrice(), false, false);
         }
 
-        return Mage::helper('core')->jsonEncode($config);
+        return $coreHelper->jsonEncode($config);
     }
 
     public function getLinkSamlpeUrl($link)
@@ -154,4 +162,30 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
         return Mage::getStoreConfigFlag(Mage_Downloadable_Model_Link::XML_PATH_TARGET_NEW_WINDOW);
     }
 
+    /**
+     * Returns whether link checked by default or not
+     *
+     * @param Mage_Downloadable_Model_Link $link
+     * @return bool
+     */
+    public function getIsLinkChecked($link)
+    {
+        $configValue = $this->getProduct()->getPreconfiguredValues()->getLinks();
+        if (!$configValue || !is_array($configValue)) {
+            return false;
+        }
+
+        return $configValue && (in_array($link->getId(), $configValue));
+    }
+
+    /**
+     * Returns value for link's input checkbox - either 'checked' or ''
+     *
+     * @param Mage_Downloadable_Model_Link $link
+     * @return string
+     */
+    public function getLinkCheckedValue($link)
+    {
+        return $this->getIsLinkChecked($link) ? 'checked' : '';
+    }
 }

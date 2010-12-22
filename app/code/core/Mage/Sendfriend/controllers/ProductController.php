@@ -119,7 +119,7 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
             return;
         }
 
-        if ($model->getMaxSendsToFriend()) {
+        if ($model->getMaxSendsToFriend() && $model->isExceedLimit()) {
             Mage::getSingleton('catalog/session')->addNotice(
                 $this->__('The messages cannot be sent more than %d times in an hour', $model->getMaxSendsToFriend())
             );

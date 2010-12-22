@@ -24,24 +24,26 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* @var $this Mage_Wishlist_Block_Customer_Sidebar */
+$_itemsCount = $this->helper('wishlist')->getItemCount() > 0 ? count($this->getWishlistItems()) : 0;
 ?>
 <?php if ($this->helper('wishlist')->isAllow()) : ?>
 <div class="block block-wishlist">
     <div class="block-title">
-        <strong><span><?php echo $this->__('My Wishlist <small>(%d)</small>', $this->helper('wishlist')->getItemCount()) ?></span></strong>
+        <strong><span><?php echo $this->__('My Wishlist <small>(%d)</small>', $_itemsCount) ?></span></strong>
     </div>
     <div class="block-content">
     <p class="block-subtitle"><?php echo $this->__('Last Added Items') ?></p>
     <?php if ($this->hasWishlistItems()): ?>
     <ol class="mini-products-list" id="wishlist-sidebar">
      <?php foreach ($this->getWishlistItems() as $_item): ?>
+        <?php $product = $_item->getProduct(); ?>
         <li class="item">
-            <a href="<?php echo $this->getProductUrl($_item) ?>" title="<?php echo $this->htmlEscape($_item->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(50); ?>" width="50" height="50" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" /></a>
+            <a href="<?php echo $this->getProductUrl($product) ?>" title="<?php echo $this->htmlEscape($product->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(50); ?>" width="50" height="50" alt="<?php echo $this->htmlEscape($product->getName()) ?>" /></a>
             <div class="product-details">
                 <a href="<?php echo $this->getItemRemoveUrl($_item) ?>" title="<?php echo $this->__('Remove This Item') ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the wishlist?') ?>');" class="btn-remove"><?php echo $this->__('Remove This Item') ?></a>
-                <p class="product-name"><a href="<?php echo $this->getProductUrl($_item) ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a></p>
-                <?php echo $this->getPriceHtml($_item, false, '-wishlist') ?>
-                <?php if ($_item->isSaleable()): ?>
+                <p class="product-name"><a href="<?php echo $this->getProductUrl($product) ?>"><?php echo $this->htmlEscape($product->getName()) ?></a></p>
+                <?php echo $this->getPriceHtml($product, false, '-wishlist') ?>
+                <?php if ($product->isSaleable()): ?>
                     <a href="<?php echo $this->getAddToCartItemUrl($_item) ?>" class="link-cart"><?php echo $this->__('Add to Cart') ?></a>
                 <?php endif; ?>
             </div>

@@ -170,8 +170,13 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
             $file = Mage::helper('downloadable/file')->getFilePath(
                 Mage_Downloadable_Model_Link::getBasePath(), $item->getLinkFile()
             );
+
+            if ($item->getLinkFile() && !is_file($file)) {
+                Mage::helper('core/file_storage_database')->saveFileToFilesystem($file);
+            }
+
             if ($item->getLinkFile() && is_file($file)) {
-                $name = '<a href="' . $this->getUrl('downloadableadmin/product_edit/link', array('id' => $item->getId(), '_secure' => true)) . '">' .
+                $name = '<a href="' . $this->getUrl('*/downloadable_product_edit/link', array('id' => $item->getId(), '_secure' => true)) . '">' .
                     Mage::helper('downloadable/file')->getFileFromPathFile($item->getLinkFile()) .
                     '</a>';
                 $tmpLinkItem['file_save'] = array(
@@ -264,7 +269,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      */
     public function getConfigJson($type='links')
     {
-        $this->getConfig()->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('downloadableadmin/file/upload', array('type' => $type, '_secure' => true)));
+        $this->getConfig()->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/downloadable_file/upload', array('type' => $type, '_secure' => true)));
         $this->getConfig()->setParams(array('form_key' => $this->getFormKey()));
         $this->getConfig()->setFileField($type);
         $this->getConfig()->setFilters(array(

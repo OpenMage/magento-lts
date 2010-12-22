@@ -39,12 +39,4 @@ class Mage_Adminhtml_Block_Sales_Order_View_Form extends Mage_Adminhtml_Block_Te
         parent::_construct();
         $this->setTemplate('sales/order/view/form.phtml');
     }
-
-    protected function _prepareLayout()
-    {
-        $this->getLayout()->getBlock('head')
-            ->addJs('mage/adminhtml/giftmessage.js');
-
-        parent::_prepareLayout();
-    }
 }

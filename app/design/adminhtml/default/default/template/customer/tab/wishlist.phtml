@@ -29,23 +29,40 @@
 <script type="text/javascript">
 //<!--
 wishlistControl = {
+    reload: function (urlParams) {
+        if (!urlParams) {
+            urlParams = '';
+        }
+        var url = <?php echo $this->getJsObjectName() ?>.url + '?ajax=true' + urlParams;
+        new Ajax.Updater(
+            <?php echo $this->getJsObjectName() ?>.containerId,
+            url,
+            {
+                parameters: {form_key: FORM_KEY},
+                onComplete: <?php echo $this->getJsObjectName() ?>.initGrid.bind(<?php echo $this->getJsObjectName() ?>),
+                evalScripts:true
+            }
+        );
+    },
+
+    configureItem: function (itemId) {
+        productConfigure.setOnLoadIFrameCallback('wishlist', this.cbOnLoadIframe.bind(this));
+        productConfigure.showItemConfiguration('wishlist', itemId);
+        return false;
+    },
+
+    cbOnLoadIframe: function (response) {
+        if (!response.ok) {
+            return;
+        }
+        this.reload();
+    },
+
     removeItem: function (itemId) {
         if(!confirm('<?php echo Mage::helper('customer')->__('Are you sure that you want to remove this item?') ?>')) {
             return false;
         }
-
-        var url = <?php echo $this->getJsObjectName() ?>.url;
-
-        new Ajax.Updater(
-                <?php echo $this->getJsObjectName() ?>.containerId,
-                url+'?ajax=true&delete='+itemId,
-                {
-                    parameters: {form_key: FORM_KEY},
-                    onComplete:<?php echo $this->getJsObjectName() ?>.initGrid.bind(<?php echo $this->getJsObjectName() ?>),
-                    evalScripts:true
-                }
-            );
-
+        this.reload('&delete=' + itemId);
         return false;
     }
 }

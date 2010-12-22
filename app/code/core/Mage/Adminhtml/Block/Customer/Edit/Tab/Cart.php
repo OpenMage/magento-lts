@@ -30,11 +30,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
@@ -70,59 +69,75 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
     protected function _prepareColumns()
     {
         $this->addColumn('product_id', array(
-            'header' => Mage::helper('customer')->__('Product ID'),
-            'index' => 'product_id',
-            'width' => '100px',
+            'header'    => Mage::helper('catalog')->__('Product ID'),
+            'index'     => 'product_id',
+            'width'     => '100px',
         ));
 
         $this->addColumn('name', array(
-            'header' => Mage::helper('customer')->__('Product Name'),
-            'index' => 'name',
+            'header'    => Mage::helper('catalog')->__('Product Name'),
+            'index'     => 'name',
+            'renderer'  => 'adminhtml/customer_edit_tab_view_grid_renderer_item'
         ));
 
         $this->addColumn('sku', array(
-            'header' => Mage::helper('customer')->__('SKU'),
-            'index' => 'sku',
-            'width' => '100px',
+            'header'    => Mage::helper('catalog')->__('SKU'),
+            'index'     => 'sku',
+            'width'     => '100px',
         ));
 
         $this->addColumn('qty', array(
-            'header' => Mage::helper('customer')->__('Qty'),
-            'index' => 'qty',
-            'type'  => 'number',
-            'width' => '60px',
+            'header'    => Mage::helper('catalog')->__('Qty'),
+            'index'     => 'qty',
+            'type'      => 'number',
+            'width'     => '60px',
         ));
 
         $this->addColumn('price', array(
-            'header' => Mage::helper('customer')->__('Price'),
-            'index' => 'price',
-            'type'  => 'currency',
+            'header'        => Mage::helper('catalog')->__('Price'),
+            'index'         => 'price',
+            'type'          => 'currency',
             'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
         ));
 
         $this->addColumn('total', array(
-            'header' => Mage::helper('customer')->__('Total'),
-            'index' => 'row_total',
-            'type'  => 'currency',
+            'header'        => Mage::helper('sales')->__('Total'),
+            'index'         => 'row_total',
+            'type'          => 'currency',
             'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
         ));
 
         $this->addColumn('action', array(
             'header'    => Mage::helper('customer')->__('Action'),
             'index'     => 'quote_item_id',
-            'type'      => 'action',
+            'renderer'  => 'adminhtml/customer_grid_renderer_multiaction',
             'filter'    => false,
             'sortable'  => false,
             'actions'   => array(
                 array(
-                    'caption' =>  Mage::helper('customer')->__('Delete'),
-                    'url'     =>  '#',
-                    'onclick' =>  'return ' . $this->getJsObjectName() . 'cartControl.removeItem($item_id);'
+                    'caption'           => Mage::helper('customer')->__('Configure'),
+                    'url'               => 'javascript:void(0)',
+                    'process'           => 'configurable',
+                    'control_object'    => $this->getJsObjectName() . 'cartControl'
+                ),
+                array(
+                    'caption'   => Mage::helper('customer')->__('Delete'),
+                    'url'       => '#',
+                    'onclick'   => 'return ' . $this->getJsObjectName() . 'cartControl.removeItem($item_id);'
                 )
             )
         ));
 
         return parent::_prepareColumns();
+    }
+
+    /**
+     * Gets customer assigned to this block
+     *
+     * @return Mage_Customer_Model_Customer
+     */
+    public function getCustomer() {
+        return Mage::registry('current_customer');
     }
 
     public function getGridUrl()

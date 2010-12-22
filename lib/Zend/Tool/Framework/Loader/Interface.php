@@ -13,18 +13,18 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Tool
+ * @package    Zend_Tool
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Interface.php 21308 2010-03-03 15:42:27Z elazar $
  */
 
 /**
  * Basic Interface for factilities that load Zend_Tool providers or manifests.
  *
  * @category   Zend
- * @package    Tool
+ * @package    Zend_Tool
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License

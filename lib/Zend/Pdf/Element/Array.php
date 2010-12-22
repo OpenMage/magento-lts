@@ -16,7 +16,7 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Array.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Array.php 22797 2010-08-06 15:02:12Z alexander $
  */
 
 
@@ -126,6 +126,39 @@ class Zend_Pdf_Element_Array extends Zend_Pdf_Element
         $outStr .= ']';
 
         return $outStr;
+    }
+
+    /**
+     * Detach PDF object from the factory (if applicable), clone it and attach to new factory.
+     *
+     * @param Zend_Pdf_ElementFactory $factory  The factory to attach
+     * @param array &$processed  List of already processed indirect objects, used to avoid objects duplication
+     * @param integer $mode  Cloning mode (defines filter for objects cloning)
+     * @returns Zend_Pdf_Element
+     */
+    public function makeClone(Zend_Pdf_ElementFactory $factory, array &$processed, $mode)
+    {
+        $newArray = new self();
+
+        foreach ($this->items as $key => $value) {
+            $newArray->items[$key] = $value->makeClone($factory, $processed, $mode);
+        }
+
+        return $newArray;
+    }
+
+    /**
+     * Set top level parent indirect object.
+     *
+     * @param Zend_Pdf_Element_Object $parent
+     */
+    public function setParentObject(Zend_Pdf_Element_Object $parent)
+    {
+        parent::setParentObject($parent);
+
+        foreach ($this->items as $item) {
+            $item->setParentObject($parent);
+        }
     }
 
     /**

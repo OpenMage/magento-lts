@@ -16,7 +16,7 @@
  * @package   Zend_Date
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Date.php 22321 2010-05-30 09:35:10Z thomas $
+ * @version   $Id: Date.php 22713 2010-07-29 11:41:56Z thomas $
  */
 
 /**
@@ -274,6 +274,7 @@ class Zend_Date extends Zend_Date_DateObject
                             }
 
                             parent::$_cache = $value;
+                            parent::$_cacheTags = Zend_Date_DateObject::_getTagSupportForCache();
                             Zend_Locale_Data::setCache($value);
                         }
                         break;
@@ -557,7 +558,7 @@ class Zend_Date extends Zend_Date_DateObject
         $comment = false;
         $format  = '';
         $orig    = '';
-        for ($i = 0; $i < strlen($part); ++$i) {
+        for ($i = 0; isset($part[$i]); ++$i) {
             if ($part[$i] == "'") {
                 $comment = $comment ? false : true;
                 if (isset($part[$i+1]) && ($part[$i+1] == "'")) {

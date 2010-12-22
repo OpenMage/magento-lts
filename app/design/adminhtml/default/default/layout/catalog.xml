@@ -66,6 +66,42 @@
         </reference>
     </adminhtml_catalog_product_edit>
 
+    <adminhtml_catalog_product_categories>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/catalog_product_edit_tab_categories" name="catalog.product.edit.tab.categories"/>
+        </block>
+    </adminhtml_catalog_product_categories>
+
+    <adminhtml_catalog_product_reviews>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/catalog_product_edit_tab_reviews" name="admin.product.reviews"/>
+        </block>
+    </adminhtml_catalog_product_reviews>
+
+    <adminhtml_catalog_product_taggrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/catalog_product_edit_tab_tag" name="admin.product.tags"/>
+        </block>
+    </adminhtml_catalog_product_taggrid>
+
+    <adminhtml_catalog_product_tagcustomergrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/catalog_product_edit_tab_tag_customer" name="admin.product.tags.customers"/>
+        </block>
+    </adminhtml_catalog_product_tagcustomergrid>
+
+    <adminhtml_catalog_product_options>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/catalog_product_edit_tab_options" name="admin.product.options"/>
+        </block>
+    </adminhtml_catalog_product_options>
+
+    <adminhtml_catalog_product_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/catalog_product_grid" name="admin.product.grid"/>
+        </block>
+    </adminhtml_catalog_product_grid>
+
     <adminhtml_catalog_product_related>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="adminhtml/catalog_product_edit_tab_related" name="catalog.product.edit.tab.related"/>
@@ -239,5 +275,40 @@ Layout handle for configurable products
             <block type="core/template" template="catalog/wysiwyg/js.phtml" name="catalog.wysiwyg.js" />
         </reference>
     </adminhtml_catalog_category_edit>
+
+    <ADMINHTML_CATALOG_PRODUCT_COMPOSITE_CONFIGURE>
+        <block type="adminhtml/catalog_product_composite_fieldset" name="product.composite.fieldset" output="toHtml">
+            <block name="product.composite.fieldset.options" type="adminhtml/catalog_product_composite_fieldset_options" template="catalog/product/composite/fieldset/options.phtml">
+                <action method="addOptionRenderer"><type>text</type><block>catalog/product_view_options_type_text</block><template>catalog/product/composite/fieldset/options/type/text.phtml</template></action>
+                <action method="addOptionRenderer"><type>file</type><block>catalog/product_view_options_type_file</block><template>catalog/product/composite/fieldset/options/type/file.phtml</template></action>
+                <action method="addOptionRenderer"><type>select</type><block>catalog/product_view_options_type_select</block><template>catalog/product/composite/fieldset/options/type/select.phtml</template></action>
+                <action method="addOptionRenderer"><type>date</type><block>catalog/product_view_options_type_date</block><template>catalog/product/composite/fieldset/options/type/date.phtml</template></action>
+                <block type="core/template" name="product.composite.fieldset.options.js" as="options_js" template="catalog/product/composite/fieldset/options/js.phtml"/>
+            </block>
+            <block type="adminhtml/catalog_product_composite_fieldset_qty" name="product.composite.fieldset.qty" template="catalog/product/composite/fieldset/qty.phtml"/>
+        </block>
+    </ADMINHTML_CATALOG_PRODUCT_COMPOSITE_CONFIGURE>
+    
+    <ADMINHTML_CATALOG_PRODUCT_COMPOSITE_CONFIGURE_ERROR>
+        <block type="adminhtml/catalog_product_composite_error" name="product.composite.error" output="toHtml" />
+    </ADMINHTML_CATALOG_PRODUCT_COMPOSITE_CONFIGURE_ERROR>
+    
+    <ADMINHTML_CATALOG_PRODUCT_COMPOSITE_UPDATE_RESULT>
+        <block type="adminhtml/catalog_product_composite_update_result" name="product.composite.update.result" output="toHtml" />
+    </ADMINHTML_CATALOG_PRODUCT_COMPOSITE_UPDATE_RESULT>
+<!--
+Additional block in composite_fieldset block dependant on product type
+-->
+    <PRODUCT_TYPE_configurable>
+        <reference name="product.composite.fieldset">
+            <block type="adminhtml/catalog_product_composite_fieldset_configurable" name="product.composite.fieldset.configurable" before="product.composite.fieldset.options" template="catalog/product/composite/fieldset/configurable.phtml" />
+        </reference>
+    </PRODUCT_TYPE_configurable>
+    <PRODUCT_TYPE_grouped>
+        <reference name="product.composite.fieldset">
+            <block type="adminhtml/catalog_product_composite_fieldset_grouped" name="product.composite.fieldset.grouped" before="product.composite.fieldset.options" template="catalog/product/composite/fieldset/grouped.phtml"/>
+            <remove name="product.composite.fieldset.qty"/>
+        </reference>
+    </PRODUCT_TYPE_grouped>
 
 </layout>

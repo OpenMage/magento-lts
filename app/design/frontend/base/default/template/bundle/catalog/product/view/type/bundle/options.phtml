@@ -25,10 +25,8 @@
  */
 ?>
 
-<?php
-$_product = $this->getProduct();
-$_options = Mage::helper('core')->decorateArray($this->getOptions());
-?>
+<?php $_product = $this->getProduct(); ?>
+<?php $_options = Mage::helper('core')->decorateArray($this->getOptions()); ?>
 <?php if ($_product->isSaleable()):?>
     <?php if (count($_options)): ?>
         <dl>

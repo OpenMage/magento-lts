@@ -210,7 +210,10 @@ Object.extend(Validation, {
         }
         else{
             elm.advices.each(function(pair){
-                this.hideAdvice(elm, pair.value);
+                if (!advice || pair.value.id != advice.id) {
+                    // hide non-current advice after delay
+                    this.hideAdvice(elm, pair.value);
+                }
             }.bind(this));
         }
         elm.advices.set(adviceName, advice);
@@ -233,7 +236,9 @@ Object.extend(Validation, {
         }
     },
     hideAdvice : function(elm, advice){
-        if(advice != null) advice.hide();
+        if (advice != null) {
+            new Effect.Fade(advice, {duration : 1, afterFinishInternal : function() {advice.hide();}});
+        }
     },
     updateCallback : function(elm, status) {
         if (typeof elm.callbackFunction != 'undefined') {
@@ -416,7 +421,7 @@ Validation.addAllThese([
     ['validate-number', 'Please enter a valid number in this field.', function(v) {
                 return Validation.get('IsEmpty').test(v) || (!isNaN(parseNumber(v)) && !/^\s+$/.test(parseNumber(v)));
             }],
-    ['validate-digits', 'Please use numbers only in this field. please avoid spaces or other characters such as dots or commas.', function(v) {
+    ['validate-digits', 'Please use numbers only in this field. Please avoid spaces or other characters such as dots or commas.', function(v) {
                 return Validation.get('IsEmpty').test(v) ||  !/[^\d]/.test(v);
             }],
     ['validate-digits-range', 'The value is not within the specified range.', function(v, elm) {
@@ -504,7 +509,7 @@ Validation.addAllThese([
                 return Validation.get('IsEmpty').test(v) || /^(http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+.(com|org|net|dk|at|us|tv|info|uk|co.uk|biz|se)$)(:(\d+))?\/?/i.test(v) || /^(www)((\.[A-Z0-9][A-Z0-9_-]*)+.(com|org|net|dk|at|us|tv|info|uk|co.uk|biz|se)$)(:(\d+))?\/?/i.test(v)
             }],
     ['validate-identifier', 'Please enter a valid URL Key. For example "example-page", "example-page.html" or "anotherlevel/example-page".', function (v) {
-                return Validation.get('IsEmpty').test(v) || /^[A-Z0-9][A-Z0-9_\/-]+(\.[A-Z0-9_-]+)*$/i.test(v)
+                return Validation.get('IsEmpty').test(v) || /^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/.test(v)
             }],
     ['validate-xml-identifier', 'Please enter a valid XML-identifier. For example something_1, block5, id-4.', function (v) {
                 return Validation.get('IsEmpty').test(v) || /^[A-Z][A-Z0-9_\/-]*$/i.test(v)

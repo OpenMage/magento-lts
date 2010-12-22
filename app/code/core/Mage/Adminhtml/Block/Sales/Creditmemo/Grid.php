@@ -123,7 +123,7 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
         ));
 
         $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
-        $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel'));
+        $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel XML'));
 
         return parent::_prepareColumns();
     }

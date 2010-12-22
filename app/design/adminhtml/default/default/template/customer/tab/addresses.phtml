@@ -112,7 +112,7 @@
     <?php
         // Set form template elements prefix
         $this->getFormObject()->setHtmlIdPrefix($_templatePrefix)
-                ->setValues(array())
+                ->setValues(array('country_id' => Mage::helper('core')->getDefaultCountry($customer->getStore())))
                 ->setFieldNameSuffix('address['.$_templatePrefix.']');
     ?>
     <?php echo $this->getFormObject()->getHtml() ?>
@@ -135,6 +135,7 @@ addressesModel.prototype = {
         this.formContainer= $('address_form_container');
         this.baseItemId   = 'new_item';
 
+        this.defaultCountries = <?php echo $this->getDefaultCountriesJson(); ?>;
         this.itemContentTemplate = new Template('<?php echo $this->helper('customer/address')->getFormat('js_template')?>');
 
         this.onNewAddressClick  = this.addNewAddress.bindAsEventListener(this);
@@ -217,6 +218,10 @@ addressesModel.prototype = {
 
             $('_item'+this.itemCount+'firstname').value = $('_accountfirstname').value;
             $('_item'+this.itemCount+'lastname').value = $('_accountlastname').value;
+
+            if ($('_accountwebsite_id').value !== '' && undefined !== this.defaultCountries[$('_accountwebsite_id').value]) {
+                $('_item'+this.itemCount+'country_id').value = this.defaultCountries[$('_accountwebsite_id').value];
+            }
 
             Element.hide(newForm);
             var template = '<li id="' + this.baseItemId+this.itemCount + '">';

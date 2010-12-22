@@ -69,6 +69,14 @@
                     </catalogrule>
                 </observers>
             </prepare_catalog_product_price_index_table>
+            <catalog_product_type_configurable_price>
+                <observers>
+                    <catalogrule>
+                        <class>catalogrule/observer</class>
+                        <method>catalogProductTypeConfigurablePrice</method>
+                    </catalogrule>
+                </observers>
+            </catalog_product_type_configurable_price>
         </events>
         <catalogrule>
             <related_cache_types>
@@ -94,14 +102,6 @@
                     </catalogrule>
                 </observers>
             </prepare_catalog_product_collection_prices>
-            <catalog_product_type_configurable_price>
-                <observers>
-                    <catalogrule>
-                        <class>catalogrule/observer</class>
-                        <method>catalogProductTypeConfigurablePrice</method>
-                    </catalogrule>
-                </observers>
-            </catalog_product_type_configurable_price>
         </events>
         <translate>
             <modules>

@@ -68,6 +68,11 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     const STATE_PAYMENT_REVIEW  = 'payment_review';
 
     /**
+     * Order statuses
+     */
+    const STATUS_FRAUD  = 'fraud';
+
+    /**
      * Order flags
      */
     const ACTION_FLAG_CANCEL    = 'cancel';
@@ -108,6 +113,13 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @var array
      */
     protected $_actionFlag = array();
+
+    /**
+     * Flag: if after order placing we can send new email to the customer.
+     *
+     * @var bool
+     */
+    protected $_canSendNewEmailFlag = true;
 
     /**
      * Initialize resource model
@@ -156,6 +168,28 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function setActionFlag($action, $flag)
     {
         $this->_actionFlag[$action] = (boolean) $flag;
+        return $this;
+    }
+
+    /**
+     * Return flag for order if it can sends new email to customer.
+     *
+     * @return bool
+     */
+    public function getCanSendNewEmailFlag()
+    {
+        return $this->_canSendNewEmailFlag;
+    }
+
+    /**
+     * Set flag for order if it can sends new email to customer.
+     *
+     * @param bool $flag
+     * @return Mage_Sales_Model_Order
+     */
+    public function setCanSendNewEmailFlag($flag)
+    {
+        $this->_canSendNewEmailFlag = (boolean) $flag;
         return $this;
     }
 
@@ -433,15 +467,32 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         foreach ($this->getItemsCollection() as $item) {
             $products[] = $item->getProductId();
         }
-        $productsCollection = Mage::getModel('catalog/product')->getCollection()
-            ->setStoreId($this->getStoreId());
 
         if (!empty($products)) {
-            $productsCollection->addIdFilter($products)
+            /*
+             * @TODO ACPAOC: Use product collection here, but ensure that product is loaded with order store id, otherwise there'll be problems with isSalable()
+             * for configurables, bundles and other composites
+             *
+             */
+            /*
+            $productsCollection = Mage::getModel('catalog/product')->getCollection()
+                ->setStoreId($this->getStoreId())
+                ->addIdFilter($products)
                 ->addAttributeToSelect('status')
                 ->load();
+
             foreach ($productsCollection as $product) {
                 if (!$product->isSalable()) {
+                    return false;
+                }
+            }
+            */
+
+            foreach ($products as $productId) {
+                $product = Mage::getModel('catalog/product')
+                    ->setStoreId($this->getStoreId())
+                    ->load($productId);
+                if (!$product->getId() || !$product->isSalable()) {
                     return false;
                 }
             }
@@ -1091,13 +1142,11 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     {
         $collection = Mage::getModel('sales/order_item')->getCollection()
             ->setOrderFilter($this)
-            ->setRandomOrder()
-            ->setPageSize($limit);
+            ->setRandomOrder();
 
         if ($nonChildrenOnly) {
             $collection->filterByParent();
         }
-
         $products = array();
         foreach ($collection as $item) {
             $products[] = $item->getProductId();
@@ -1106,11 +1155,17 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $productsCollection = Mage::getModel('catalog/product')
             ->getCollection()
             ->addIdFilter($products)
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds())
+            /* Price data is added to consider item stock status using price index */
+            ->addPriceData()
+            ->setPageSize($limit)
             ->load();
-        Mage::getSingleton('catalog/product_visibility')
-            ->addVisibleInSiteFilterToCollection($productsCollection);
+
         foreach ($collection as $item) {
-            $item->setProduct($productsCollection->getItemById($item->getProductId()));
+            $product = $productsCollection->getItemById($item->getProductId());
+            if ($product) {
+                $item->setProduct($product);
+            }
         }
 
         return $collection;

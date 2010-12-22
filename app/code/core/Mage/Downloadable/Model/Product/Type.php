@@ -273,15 +273,17 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     }
 
     /**
-     * Prepare Product object before adding to Shopping Cart
+     * Prepare product and its configuration to be added to some products list.
+     * Perform standard preparation process and then prepare options for downloadable links.
      *
      * @param Varien_Object $buyRequest
      * @param Mage_Catalog_Model_Product $product
+     * @param string $processMode
      * @return array|string
      */
-    public function prepareForCart(Varien_Object $buyRequest, $product = null)
+    protected function _prepareProduct(Varien_Object $buyRequest, $product, $processMode)
     {
-        $result = parent::prepareForCart($buyRequest, $product);
+        $result = parent::_prepareProduct($buyRequest, $product, $processMode);
 
         if (is_string($result)) {
             return $result;
@@ -315,10 +317,33 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
             $this->getProduct($product)->addCustomOption('downloadable_link_ids', implode(',', $preparedLinks));
             return $result;
         }
-        if ($this->getLinkSelectionRequired($product)) {
+        if ($this->getLinkSelectionRequired($product) && $this->_isStrictProcessMode($processMode)) {
             return Mage::helper('downloadable')->__('Please specify product link(s).');
         }
         return $result;
+    }
+
+    /**
+     * Check if product can be bought
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_Bundle_Model_Product_Type
+     * @throws Mage_Core_Exception
+     */
+    public function checkProductBuyState($product = null)
+    {
+        parent::checkProductBuyState($product);
+        $product = $this->getProduct($product);
+        $option = $product->getCustomOption('info_buyRequest');
+        if ($option instanceof Mage_Sales_Model_Quote_Item_Option) {
+            $buyRequest = new Varien_Object(unserialize($option->getValue()));
+            if (!$buyRequest->hasLinks()) {
+                Mage::throwException(
+                    Mage::helper('downloadable')->__('Please specify product link(s).')
+                );
+            }
+        }
+        return $this;
     }
 
     /**
@@ -423,5 +448,22 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     public function isSalable($product = null)
     {
         return $this->hasLinks($product) && parent::isSalable($product);
+    }
+
+    /**
+     * Prepare selected options for downloadable product
+     *
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  Varien_Object $buyRequest
+     * @return array
+     */
+    public function processBuyRequest($product, $buyRequest)
+    {
+        $links = $buyRequest->getLinks();
+        $links = (is_array($links)) ? array_filter($links, 'intval') : array();
+
+        $options = array('links' => $links);
+
+        return $options;
     }
 }

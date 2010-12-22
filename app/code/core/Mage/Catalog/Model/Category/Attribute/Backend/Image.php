@@ -57,12 +57,13 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
             $uploader = new Varien_File_Uploader($this->getAttribute()->getName());
             $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
             $uploader->setAllowRenameFiles(true);
-            $uploader->save($path);
+            $result = $uploader->save($path);
+            $result['file'] = Mage::helper('core/file_storage_database')->saveUploadedFile($result);
 
-            $object->setData($this->getAttribute()->getName(), $uploader->getUploadedFileName());
+            $object->setData($this->getAttribute()->getName(), $result['file']);
             $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getName());
         } catch (Exception $e) {
-            if ($e->getCode() != Varien_File_Uploader::TMP_NAME_EMPTY) { 
+            if ($e->getCode() != Varien_File_Uploader::TMP_NAME_EMPTY) {
                 Mage::logException($e);
             }
             /** @TODO ??? */

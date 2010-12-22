@@ -168,6 +168,8 @@ class Mage_Sales_Model_Service_Quote
             $order->addItem($orderItem);
         }
 
+        $order->setQuote($quote);
+
         $transaction->addObject($order);
         $transaction->addCommitCallback(array($order, 'place'));
         $transaction->addCommitCallback(array($order, 'save'));

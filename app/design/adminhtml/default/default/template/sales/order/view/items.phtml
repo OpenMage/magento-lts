@@ -57,6 +57,7 @@
             <?php if ($_item->getParentItem()) continue; else $i++;?>
             <tbody class="<?php echo $i%2?'even':'odd' ?>">
                 <?php echo $this->getItemHtml($_item) ?>
+                <?php echo $this->getItemExtraInfoHtml($_item) ?>
             </tbody>
         <?php endforeach; ?>
     </table>

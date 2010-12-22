@@ -165,10 +165,7 @@ class Mage_Tax_Model_Mysql4_Report_Updatedat_Collection extends Mage_Sales_Model
         }
 
         if (!$this->isTotals() && !$this->isSubTotals()) {
-            $select->group(array(
-                $this->_periodFormat,
-                'code'
-            ));
+            $select->group(array($this->_periodFormat, 'code', 'percent'));
         }
 
         if ($this->isSubTotals()) {

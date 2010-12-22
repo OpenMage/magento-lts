@@ -145,6 +145,17 @@ class Varien_File_Uploader
     }
 
     /**
+     * After save logic
+     *
+     * @param  array $result
+     * @return Varien_File_Uploader
+     */
+    protected function _afterSave($result)
+    {
+        return $this;
+    }
+
+    /**
      * Used to save uploaded file into destination folder with
      * original or new file name (if specified)
      *
@@ -195,10 +206,11 @@ class Varien_File_Uploader
             $result = $this->_file;
             $result['path'] = $destinationFolder;
             $result['file'] = $fileName;
-            return $result;
-        } else {
-            return $result;
+
+            $this->_afterSave($result);
         }
+
+        return $result;
     }
 
     /**

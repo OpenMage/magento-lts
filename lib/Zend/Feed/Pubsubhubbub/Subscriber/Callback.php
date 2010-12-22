@@ -16,6 +16,7 @@
  * @package    Zend_Feed_Pubsubhubbub
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Callback.php 23069 2010-10-10 10:57:42Z padraic $
  */
 
 /**
@@ -101,13 +102,14 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
          * SHOULD be validated/processed by an asynchronous process so as
          * to avoid holding up responses to the Hub.
          */
+        $contentType = $this->_getHeader('Content-Type');
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'
             && $this->_hasValidVerifyToken(null, false)
-            && ($this->_getHeader('Content-Type') == 'application/atom+xml'
-                || $this->_getHeader('Content-Type') == 'application/rss+xml'
-                || $this->_getHeader('Content-Type') == 'application/xml'
-                || $this->_getHeader('Content-Type') == 'text/xml'
-                || $this->_getHeader('Content-Type') == 'application/rdf+xml')
+            && (stripos($contentType, 'application/atom+xml') === 0
+                || stripos($contentType, 'application/rss+xml') === 0
+                || stripos($contentType, 'application/xml') === 0
+                || stripos($contentType, 'text/xml') === 0
+                || stripos($contentType, 'application/rdf+xml') === 0)
         ) {
             $this->setFeedUpdate($this->_getRawBody());
             $this->getHttpResponse()
@@ -207,7 +209,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
      */
     public function hasFeedUpdate()
     {
-        if (is_null($this->_feedUpdate)) {
+        if ($this->_feedUpdate === null) {
             return false;
         }
         return true;

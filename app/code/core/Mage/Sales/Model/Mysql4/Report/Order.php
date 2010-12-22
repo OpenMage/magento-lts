@@ -99,6 +99,7 @@ class Mage_Sales_Model_Mysql4_Report_Order extends Mage_Sales_Model_Mysql4_Repor
                 'total_qty_invoiced' => 'SUM(qty_invoiced)',
             );
             $selectOrderItem->from($this->getTable('sales/order_item'), $cols)
+                ->where('parent_item_id IS NULL')
                 ->group('order_id');
             if ($subSelect !== null) {
                 //$selectOrderItem->where($this->_makeConditionFromDateRangeSelect($subSelect, 'created_at'));
@@ -108,8 +109,7 @@ class Mage_Sales_Model_Mysql4_Report_Order extends Mage_Sales_Model_Mysql4_Repor
                 ->join(array('oi' => $selectOrderItem), 'oi.order_id = o.entity_id', array())
                 ->where('o.state NOT IN (?)', array(
                     Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
-                    Mage_Sales_Model_Order::STATE_NEW,
-                    Mage_Sales_Model_Order::STATE_CANCELED,
+                    Mage_Sales_Model_Order::STATE_NEW
                 ));
 
             if ($subSelect !== null) {

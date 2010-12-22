@@ -17,7 +17,7 @@
  * @subpackage Object
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ean13.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Ean13.php 22999 2010-09-23 19:43:14Z mikaelkael $
  */
 
 /**
@@ -62,17 +62,17 @@ class Zend_Barcode_Object_Ean13 extends Zend_Barcode_Object_ObjectAbstract
         ));
 
     protected $_parities = array(
-		0 => array('A','A','A','A','A','A'),
-		1 => array('A','A','B','A','B','B'),
-		2 => array('A','A','B','B','A','B'),
-		3 => array('A','A','B','B','B','A'),
-		4 => array('A','B','A','A','B','B'),
-		5 => array('A','B','B','A','A','B'),
-		6 => array('A','B','B','B','A','A'),
-		7 => array('A','B','A','B','A','B'),
-		8 => array('A','B','A','B','B','A'),
-		9 => array('A','B','B','A','B','A')
-	);
+        0 => array('A','A','A','A','A','A'),
+        1 => array('A','A','B','A','B','B'),
+        2 => array('A','A','B','B','A','B'),
+        3 => array('A','A','B','B','B','A'),
+        4 => array('A','B','A','A','B','B'),
+        5 => array('A','B','B','A','A','B'),
+        6 => array('A','B','B','B','A','A'),
+        7 => array('A','B','A','B','A','B'),
+        8 => array('A','B','A','B','B','A'),
+        9 => array('A','B','B','A','B','A')
+    );
 
     /**
      * Default options for Postnet barcode
@@ -82,6 +82,7 @@ class Zend_Barcode_Object_Ean13 extends Zend_Barcode_Object_ObjectAbstract
     {
         $this->_barcodeLength = 13;
         $this->_mandatoryChecksum = true;
+        $this->_mandatoryQuietZones = true;
     }
 
     /**

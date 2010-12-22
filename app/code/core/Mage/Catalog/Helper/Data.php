@@ -41,7 +41,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     const CONFIG_USE_STATIC_URLS           = 'cms/wysiwyg/use_static_urls_in_catalog';
     const CONFIG_PARSE_URL_DIRECTIVES      = 'catalog/frontend/parse_url_directives';
     const XML_PATH_CONTENT_TEMPLATE_FILTER = 'global/catalog/content/tempate_filter';
-    
+
     /**
      * Breadcrumb Path cache
      *

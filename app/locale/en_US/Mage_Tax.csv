@@ -125,6 +125,7 @@
 "Tax Rules","Tax Rules"
 "Tax Section","Tax Section"
 "Tax Titles","Tax Titles"
+"Tax rate cannot be removed. It exists in tax rule","Tax rate cannot be removed. It exists in tax rule"
 "Tax rates at the same priority are added, others are compounded.","Tax rates at the same priority are added, others are compounded."
 "The tax class has been deleted.","The tax class has been deleted."
 "The tax class has been saved.","The tax class has been saved."

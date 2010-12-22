@@ -434,25 +434,34 @@ Varien.DateElement.prototype = {
         this.advice.hide();
     },
     validate: function() {
-        var error = false;
-        if (this.day.value=='' && this.month.value=='' && this.year.value=='') {
+        var error = false, day = parseInt(this.day.value) || 0, month = parseInt(this.month.value) || 0, year = parseInt(this.year.value) || 0;
+        if (!day && !month && !year) {
             if (this.required) {
                 error = 'This date is a required value.';
             } else {
                 this.full.value = '';
             }
-        } else if (this.day.value=='' || this.month.value=='' || this.year.value=='') {
+        } else if (!day || !month || !year) {
             error = 'Please enter a valid full date.';
         } else {
-            var date = new Date();
-            if (this.day.value<1 || this.day.value>31) {
-                error = 'Please enter a valid day (1-31).';
-            } else if (this.month.value<1 || this.month.value>12) {
+            var date = new Date, curyear = date.getFullYear(), countDaysInMonth = 0, errorType = null;
+            date.setYear(year); date.setMonth(month-1); date.setDate(32);
+            countDaysInMonth = 32 - date.getDate();
+            if(!countDaysInMonth || countDaysInMonth>31) countDaysInMonth = 31;
+             
+            if (day<1 || day>countDaysInMonth) {
+                errorType = 'day';
+                error = 'Please enter a valid day (1-%d).';
+            } else if (month<1 || month>12) {
+                errorType = 'month';
                 error = 'Please enter a valid month (1-12).';
-            } else if (this.year.value<1900 || this.year.value>date.getFullYear()) {
-                error = 'Please enter a valid year (1900-'+date.getFullYear()+').';
+            } else if (year<1900 || year>curyear) {
+                errorType = 'year';
+                error = 'Please enter a valid year (1900-%d).';
             } else {
-                this.full.value = this.format.replace(/(%m|%b)/i, this.month.value).replace(/(%d|%e)/i, this.day.value).replace(/%y/i, this.year.value);
+                if(day % 10 == day) this.day.value = '0'+day;
+                if(month % 10 == month) this.month.value = '0'+month;
+                this.full.value = this.format.replace(/%[mb]/i, this.month.value).replace(/%[de]/i, this.day.value).replace(/%y/i, this.year.value);
                 var testFull = this.month.value + '/' + this.day.value + '/'+ this.year.value;
                 var test = new Date(testFull);
                 if (isNaN(test)) {
@@ -463,11 +472,10 @@ Varien.DateElement.prototype = {
 
         if (error !== false) {
             try {
-                this.advice.innerHTML = Translator.translate(error);
+                error = Translator.translate(error);
             }
-            catch (e) {
-                this.advice.innerHTML = error;
-            }
+            catch (e) {}
+            this.advice.innerHTML = error.replace('%d', errorType == 'day' ? countDaysInMonth : curyear);
             this.advice.show();
             return false;
         }

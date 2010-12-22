@@ -17,7 +17,7 @@
  * @subpackage Ec2
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Instance.php 22048 2010-04-28 22:23:19Z shahar $
+ * @version    $Id: Instance.php 22046 2010-04-28 22:12:32Z shahar $
  */
 
 /**

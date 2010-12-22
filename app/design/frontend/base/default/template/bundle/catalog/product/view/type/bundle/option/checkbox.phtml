@@ -25,24 +25,26 @@
  */
 
 ?>
+
+<?php /* @var $this Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Checkbox */ ?>
 <?php $_option = $this->getOption() ?>
 <?php $_selections = $_option->getSelections() ?>
-<dt><label<?php if ($_option->getRequired()) echo ' class="required"' ?>><?php if ($_option->getRequired()) echo '<em>*</em>' ?><?php echo $this->htmlEscape($_option->getTitle()) ?></label></dt>
+<dt><label<?php if ($_option->getRequired()) echo ' class="required"' ?>><?php echo $this->htmlEscape($_option->getTitle()) ?><?php if ($_option->getRequired()) echo '<em>*</em>' ?></label></dt>
 <dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
     <div class="input-box">
     <?php if (count($_selections) == 1 && $_option->getRequired()): ?>
         <?php echo $this->getSelectionQtyTitlePrice($_selections[0]) ?>
-        <input type="hidden" name="bundle_option[<?php echo $_option->getId() ?>]" value="<?php echo $_selections[0]->getSelectionId() ?>" />
+        <input type="hidden" name="bundle_option[<?php echo $_option->getId() ?>]" value="<?php echo $_selections[0]->getSelectionId() ?>"/>
     <?php else:?>
         <ul class="options-list">
         <?php foreach($_selections as $_selection): ?>
-            <li><input onclick="bundle.changeSelection(this)" class="change-container-classname checkbox bundle-option-<?php echo $_option->getId() ?> <?php echo $_option->getRequired() ? 'validate-one-required-by-name' : '' ?>" id="bundle-option-<?php echo $_option->getId() ?>-<?php echo $_selection->getSelectionId() ?>" type="checkbox" name="bundle_option[<?php echo $_option->getId() ?>][]"<?php echo ($_selection->getIsDefault() && $_selection->isSaleable())?' checked="checked" ':'' ?><?php echo !$_selection->isSaleable()?' disabled="disabled" ':'' ?> value="<?php echo $_selection->getSelectionId() ?>" />
+            <li><input onclick="bundle.changeSelection(this)" class="change-container-classname checkbox bundle-option-<?php echo $_option->getId() ?> <?php if ($_option->getRequired()) echo 'validate-one-required-by-name' ?>" id="bundle-option-<?php echo $_option->getId() ?>-<?php echo $_selection->getSelectionId() ?>" type="checkbox" name="bundle_option[<?php echo $_option->getId() ?>][]"<?php if ($this->_isSelected($_selection)) echo ' checked="checked"' ?><?php if (!$_selection->isSaleable()) echo ' disabled="disabled"' ?> value="<?php echo $_selection->getSelectionId() ?>"/>
                 <span class="label"><label for="bundle-option-<?php echo $_option->getId() ?>-<?php echo $_selection->getSelectionId() ?>"><?php echo $this->getSelectionQtyTitlePrice($_selection) ?></label></span>
                 <?php if($_option->getRequired()): ?>
                     <?php echo $this->setValidationContainer('bundle-option-'.$_option->getId().'-'.$_selection->getSelectionId(), 'bundle-option-'.$_option->getId().'-container') ?>
                 <?php endif; ?>
             </li>
-        <?php endforeach;?>
+        <?php endforeach; ?>
         </ul>
         <div id="bundle-option-<?php echo $_option->getId() ?>-container"></div>
     <?php endif; ?>

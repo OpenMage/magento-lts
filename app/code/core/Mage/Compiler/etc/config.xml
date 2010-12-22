@@ -56,13 +56,13 @@
     </global>
     <admin>
         <routers>
-            <compiler>
-                <use>admin</use>
+            <adminhtml>
                 <args>
-                    <module>Mage_Compiler</module>
-                    <frontName>compiler</frontName>
+                    <modules>
+                        <Mage_Compiler before="Mage_Adminhtml">Mage_Compiler_Adminhtml</Mage_Compiler>
+                    </modules>
                 </args>
-            </compiler>
+            </adminhtml>
         </routers>
     </admin>
     <adminhtml>

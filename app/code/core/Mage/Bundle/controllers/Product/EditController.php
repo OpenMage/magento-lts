@@ -24,7 +24,7 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-require_once 'Mage/Adminhtml/controllers/Catalog/ProductController.php';
+require_once 'Mage/Bundle/controllers/Adminhtml/Bundle/Product/EditController.php';
 
 /**
  * Adminhtml bundle product edit
@@ -32,21 +32,9 @@ require_once 'Mage/Adminhtml/controllers/Catalog/ProductController.php';
  * @category    Mage
  * @package     Mage_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated  after 1.4.2.0 Mage_Bundle_Adminhtml_Product_EditController is used
  */
-class Mage_Bundle_Product_EditController extends Mage_Adminhtml_Catalog_ProductController
+class Mage_Bundle_Product_EditController extends Mage_Bundle_Adminhtml_Bundle_Product_EditController
 {
-    protected function _construct()
-    {
-        $this->setUsedModuleName('Mage_Bundle');
-    }
 
-    public function formAction()
-    {
-        $product = $this->_initProduct();
-        $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle', 'admin.product.bundle.items')
-                ->setProductId($product->getId())
-                ->toHtml()
-        );
-    }
 }

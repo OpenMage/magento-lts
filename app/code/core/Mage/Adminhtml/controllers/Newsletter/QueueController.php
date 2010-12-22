@@ -58,12 +58,32 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
         $this->renderLayout();
     }
 
+
     /**
-     * Preview Newsletter template
+     * Drop Newsletter queue template
+     */
+    public function dropAction ()
+    {
+        $this->loadLayout('newsletter_queue_preview');
+        $this->renderLayout();
+    }
+    
+    /**
+     * Preview Newsletter queue template
      */
     public function previewAction()
     {
-        $this->loadLayout('newsletter_queue_preview');
+        $this->loadLayout();
+        $data = $this->getRequest()->getParams();
+        if (empty($data) || !isset($data['id'])) {
+            $this->_forward('noRoute');
+            return $this;
+        }
+
+        // set default value for selected store
+        $data['preview_store_id'] = Mage::app()->getDefaultStoreView()->getId();
+
+        $this->getLayout()->getBlock('preview_form')->setFormData($data);
         $this->renderLayout();
     }
 

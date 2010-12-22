@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_ImportExport
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_ImportExport>
+            <version>0.1.0</version>
+        </Mage_ImportExport>
+    </modules>
+    <global>
+        <models>
+            <importexport>
+                <class>Mage_ImportExport_Model</class>
+                <resourceModel>importexport_mysql4</resourceModel>
+            </importexport>
+             <importexport_mysql4>
+                <class>Mage_ImportExport_Model_Mysql4</class>
+                <entities>
+                    <importdata>
+                        <table>importexport_importdata</table>
+                    </importdata>
+                </entities>
+            </importexport_mysql4>
+        </models>
+        <blocks>
+            <importexport>
+                <class>Mage_ImportExport_Block</class>
+            </importexport>
+        </blocks>
+        <helpers>
+            <importexport>
+                <class>Mage_ImportExport_Helper</class>
+            </importexport>
+        </helpers>
+        <resources>
+            <importexport_setup>
+                <setup>
+                    <module>Mage_ImportExport</module>
+                    <class>Mage_ImportExport_Model_Mysql4_Setup</class>
+                </setup>
+            </importexport_setup>
+        </resources>
+        <importexport>
+            <import_entities>
+                <catalog_product translate="entity_label" module="importexport">
+                    <model_token>importexport/import_entity_product</model_token>
+                    <label>Products</label>
+                </catalog_product>
+                <customer translate="entity_label" module="importexport">
+                    <model_token>importexport/import_entity_customer</model_token>
+                    <label>Customers</label>
+                </customer>
+                <!--<order translate="entity_label" module="importexport">
+                    <model_token>importexport/import_entity_order</model_token>
+                    <label>Orders</label>
+                </order>-->
+            </import_entities>
+            <export_entities>
+                <catalog_product translate="entity_label" module="importexport">
+                    <model_token>importexport/export_entity_product</model_token>
+                    <label>Products</label>
+                </catalog_product>
+                <customer translate="entity_label" module="importexport">
+                    <model_token>importexport/export_entity_customer</model_token>
+                    <label>Customers</label>
+                </customer>
+                <!--<order translate="entity_label" module="importexport">
+                    <model_token>importexport/export_entity_order</model_token>
+                    <label>Orders</label>
+                </order>-->
+            </export_entities>
+            <export_file_formats>
+                <csv translate="entity_label" module="importexport">
+                    <model_token>importexport/export_adapter_csv</model_token>
+                    <label>CSV</label>
+                </csv>
+                <!--<msxml translate="entity_label" module="importexport">
+                    <model_token>importexport/export_adapter_msxml</model_token>
+                    <label>MS XML</label>
+                </msxml>-->
+            </export_file_formats>
+            <import_product_types>
+                <simple>importexport/import_entity_product_type_simple</simple>
+                <configurable>importexport/import_entity_product_type_configurable</configurable>
+                <virtual>importexport/import_entity_product_type_simple</virtual>
+                <grouped>importexport/import_entity_product_type_grouped</grouped>
+            </import_product_types>
+            <export_product_types>
+                <simple>importexport/export_entity_product_type_simple</simple>
+                <configurable>importexport/export_entity_product_type_configurable</configurable>
+                <virtual>importexport/export_entity_product_type_simple</virtual>
+                <grouped>importexport/export_entity_product_type_grouped</grouped>
+            </export_product_types>
+        </importexport>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <importexport before="Mage_Adminhtml">Mage_ImportExport_Adminhtml</importexport>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <importexport>
+                    <file>importexport.xml</file>
+                </importexport>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>

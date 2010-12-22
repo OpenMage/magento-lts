@@ -1,0 +1,299 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_XmlConnect>
+            <version>1.4.0.8</version>
+        </Mage_XmlConnect>
+    </modules>
+    <global>
+        <models>
+            <xmlconnect>
+                <class>Mage_XmlConnect_Model</class>
+                <resourceModel>xmlconnect_mysql4</resourceModel>
+            </xmlconnect>
+            <xmlconnect_mysql4>
+                <class>Mage_XmlConnect_Model_Mysql4</class>
+                <entities>
+                    <application><table>xmlconnect_application</table></application>
+                    <history><table>xmlconnect_history</table></history>
+                    <application_design><table>xmlconnect_application</table></application_design>
+                </entities>
+            </xmlconnect_mysql4>
+        </models>
+        <blocks>
+            <xmlconnect>
+                <class>Mage_XmlConnect_Block</class>
+            </xmlconnect>
+        </blocks>
+        <helpers>
+            <xmlconnect>
+                <class>Mage_XmlConnect_Helper</class>
+            </xmlconnect>
+        </helpers>
+        <resources>
+            <xmlconnect_setup>
+                <setup>
+                    <module>Mage_XmlConnect</module>
+                    <class>Mage_XmlConnect_Model_Mysql4_Setup</class>
+                </setup>
+            </xmlconnect_setup>
+        </resources>
+        <request>
+            <direct_front_name>
+                <xmlconnect/>
+            </direct_front_name>
+        </request>
+    </global>
+    <admin>
+         <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <xmlconnect before="Mage_Adminhtml">Mage_XmlConnect_Adminhtml</xmlconnect>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <mage_xmlconnect>
+                    <file>xmlconnect.xml</file>
+                </mage_xmlconnect>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Mage_XmlConnect>
+                    <files>
+                        <default>Mage_XmlConnect.csv</default>
+                    </files>
+                </Mage_XmlConnect>
+            </modules>
+        </translate>
+        <events>
+            <core_config_data_save_after>
+                <observers>
+                    <xmlconnect>
+                        <class>xmlconnect/observer</class>
+                        <method>changeUpdatedAtParamOnConfigSave</method>
+                    </xmlconnect>
+                </observers>
+            </core_config_data_save_after>
+        </events>
+    </adminhtml>
+    <frontend>
+        <routers>
+            <xmlconnect>
+                <use>standard</use>
+                <args>
+                    <module>Mage_XmlConnect</module>
+                    <frontName>xmlconnect</frontName>
+                </args>
+            </xmlconnect>
+        </routers>
+        <layout>
+            <updates>
+                <xmlconnect>
+                    <file>xmlconnect.xml</file>
+                </xmlconnect>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Mage_XmlConnect>
+                    <files>
+                        <default>Mage_XmlConnect.csv</default>
+                    </files>
+                </Mage_XmlConnect>
+            </modules>
+        </translate>
+    </frontend>
+    <default>
+        <payment>
+            <paypal_mep>
+                <active>1</active>
+                <model>xmlconnect/payment_method_paypal_mep</model>
+                <title>PayPal Mobile Payments Library</title>
+                <allowspecific>0</allowspecific>
+                <group>paypal</group>
+            </paypal_mep>
+        </payment>
+        <screen_size>
+            <!-- WARNING !!!!!  ALL IMAGE NODES MUST END ON "icon"|"Icon"|"Image"  !!!!!  -->
+            <default>
+                <content>
+                        <product_small>70</product_small>
+                        <product_big>130</product_big>
+                        <category>80</category>
+                        <product_gallery_big>280</product_gallery_big>
+                        <product_gallery_small>40</product_gallery_small>
+                </content>
+                <interface>
+                    <native>
+                        <navigationBar>
+                            <icon> <widthMax>150</widthMax> <heightMax>35</heightMax> </icon>
+                        </navigationBar>
+                        <sortingBar>
+                            <backgroundImage> <width>320</width> <height>40</height> </backgroundImage>
+                        </sortingBar>
+                        <tabBar>
+                            <home> <icon> <heightMax>35</heightMax> </icon> </home>
+                            <shop> <icon> <heightMax>35</heightMax> </icon> </shop>
+                            <search> <icon> <heightMax>35</heightMax> </icon> </search>
+                            <cart> <icon> <heightMax>35</heightMax> </icon> </cart>
+                            <more> <icon> <heightMax>35</heightMax> </icon> </more>
+                        </tabBar>
+                        <body>
+                            <bannerImage> <width>320</width> <height>230</height> </bannerImage>
+                            <itemBackgroundIcon> <width>90</width> <height>120</height> </itemBackgroundIcon>
+                            <backgroundImage> <width>320</width> <height>367</height> </backgroundImage>
+                            <rowBackgroundIcon> <width>320</width> <height>90</height> </rowBackgroundIcon>
+                            <rowAttributeIcon> <widthMax>30</widthMax> <heightMax>90</heightMax> </rowAttributeIcon>
+                            <addToCartBackgroundIcon> <width>136</width> <height>28</height> </addToCartBackgroundIcon>
+                            <actionsBackgroundIcon> <width>107</width> <height>37</height> </actionsBackgroundIcon>
+                            <reviewsBackgroundIcon> <width>320</width> <height>37</height> </reviewsBackgroundIcon>
+                        </body>
+                        <appliedFilters>
+                            <backgroundImage> <width>320</width> <height>20</height> </backgroundImage>
+                        </appliedFilters>
+                        <itemActions>
+                            <backgroundImage> <width>320</width> <height>90</height> </backgroundImage>
+                            <viewGalleryIcon> <widthMax>40</widthMax> <heightMax>40</heightMax> </viewGalleryIcon>
+                            <tellAFriendIcon> <widthMax>40</widthMax> <heightMax>40</heightMax> </tellAFriendIcon>
+                            <addToWishlistIcon> <widthMax>40</widthMax> <heightMax>40</heightMax> </addToWishlistIcon>
+                            <addToCartIcon> <widthMax>40</widthMax> <heightMax>40</heightMax> </addToCartIcon>
+                            <viewDetailsIcon> <widthMax>40</widthMax> <heightMax>40</heightMax> </viewDetailsIcon>
+                            <radioEnabledIcon> <widthMax>20</widthMax> <heightMax>20</heightMax> </radioEnabledIcon>
+                            <radioDisabledIcon> <widthMax>20</widthMax> <heightMax>20</heightMax> </radioDisabledIcon>
+                            <checkBoxEnabledIcon> <widthMax>20</widthMax> <heightMax>20</heightMax> </checkBoxEnabledIcon>
+                            <checkBoxDisabledIcon> <widthMax>20</widthMax> <heightMax>20</heightMax> </checkBoxDisabledIcon>
+                        </itemActions>
+                    </native>
+                    <submit>
+                        <icon> <width>512</width> <height>512</height> </icon>
+                        <loader_image> <width>320</width> <height>460</height> </loader_image>
+                        <logo> <width>57</width> <height>57</height> </logo>
+                        <big_logo> <width>100</width> <height>100</height> </big_logo>
+                    </submit>
+                </interface>
+            </default>
+            <_320x480>
+                <default>
+                    <source>default</source>
+                </default>
+                <a>
+                    <source>default</source>
+                    <updates>
+                        <u1>
+                            <path>interface/native/tabBar</path>
+                            <function>zoom</function>
+                            <data>1.02857</data>
+                        </u1>
+                    </updates>
+                </a>
+                <b>
+                    <source>default</source>
+                    <updates>
+                        <u1>
+                            <path>interface/native/tabBar</path>
+                            <!-- 48px -->
+                            <function>zoom</function>
+                            <data>1.31428</data>
+                        </u1>
+                    </updates>
+                </b>
+                <c>
+                    <source>default</source>
+                    <updates>
+                        <u1>
+                            <path>interface/native/tabBar</path>
+                            <!-- 72px -->
+                            <function>zoom</function>
+                            <data>2.05714</data>
+                        </u1>
+<!-- example rules
+                        <u2>
+                            <path>interface/native/body</path>
+                            <function>delete</function>
+                            <data>rowBackgroundIcon</data>
+                        </u2>
+                        <u3>
+                            <path>interface/native/body</path>
+                            <function>delete</function>
+                            <data>rowAttributeIcon</data>
+                        </u3>
+                        <u4>
+                            <path>interface/native/navigationBar</path>
+                            <function>insert</function>
+                            <data>
+                                <big_icon><widthMax>20</widthMax> <heightMax>20</heightMax></big_icon>
+                                <big_icon2><widthMax>20</widthMax> <heightMax>20</heightMax></big_icon2>
+                                <big_icon3><widthMax>20</widthMax> <heightMax>20</heightMax></big_icon3>
+                            </data>
+                        </u4>
+                        <u5>
+                            <path>interface/native/itemActions/viewDetailsIcon</path>
+                            <function>update</function>
+                            <data>
+                                <widthMax>333</widthMax> <heightMax>333</heightMax>
+                            </data>
+                        </u5>
+-->
+                    </updates>
+                </c>
+            </_320x480>
+            <_640x960>
+                <default>
+                    <source>default</source>
+                    <updates>
+                        <u1>
+                            <path>/</path>
+                            <function>zoom</function>
+                            <data>2.0</data>
+                        </u1>
+                    </updates>
+                </default>
+            </_640x960>
+        </screen_size>
+        <xmlconnect>
+            <mobile_application>
+                <magentocommerce_url>www.magentocommerce.com/mobile/activate/</magentocommerce_url>
+                <activation_key_url>http://www.magentocommerce.com/product/mobile</activation_key_url>
+                <resubmission_key_url>http://www.magentocommerce.com/product/mobile#resubmission</resubmission_key_url>
+            </mobile_application>
+            <devices>
+                <iphone>
+                    <tab_limit>5</tab_limit>
+                </iphone>
+            </devices>
+        </xmlconnect>
+    </default>
+</config>

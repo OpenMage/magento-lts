@@ -17,7 +17,7 @@
  * @subpackage Transport
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Sendmail.php 21605 2010-03-22 15:09:03Z yoshida@zend.co.jp $
+ * @version    $Id: Sendmail.php 21603 2010-03-22 12:47:11Z yoshida@zend.co.jp $
  */
 
 

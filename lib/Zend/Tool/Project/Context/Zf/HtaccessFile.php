@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HtaccessFile.php 20969 2010-02-07 18:20:02Z ralph $
+ * @version    $Id: HtaccessFile.php 20897 2010-02-04 06:31:52Z ralph $
  */
 
 /**

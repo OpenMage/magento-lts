@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Http.php 20984 2010-02-08 16:25:08Z matthew $
+ * @version    $Id: Http.php 23229 2010-10-25 14:16:21Z matthew $
  */
 
 /** @see Zend_Controller_Request_Abstract */
@@ -979,7 +979,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
 
         // Try to get it from the $_SERVER array first
         $temp = 'HTTP_' . strtoupper(str_replace('-', '_', $header));
-        if (!empty($_SERVER[$temp])) {
+        if (isset($_SERVER[$temp])) {
             return $_SERVER[$temp];
         }
 
@@ -987,8 +987,14 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
         // Apache
         if (function_exists('apache_request_headers')) {
             $headers = apache_request_headers();
-            if (!empty($headers[$header])) {
+            if (isset($headers[$header])) {
                 return $headers[$header];
+            }
+            $header = strtolower($header);
+            foreach ($headers as $key => $value) {
+                if (strtolower($key) == $header) {
+                    return $value;
+                }
             }
         }
 

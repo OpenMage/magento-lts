@@ -17,8 +17,11 @@
  * @subpackage Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Syslog.php 22632 2010-07-18 18:30:08Z ramon $
+ * @version    $Id: Syslog.php 22977 2010-09-19 12:44:00Z intiilapa $
  */
+
+/** Zend_Log */
+#require_once 'Zend/Log.php';
 
 /** Zend_Log_Writer_Abstract */
 #require_once 'Zend/Log/Writer/Abstract.php';
@@ -179,7 +182,7 @@ class Zend_Log_Writer_Syslog extends Zend_Log_Writer_Abstract
     public function setFacility($facility)
     {
         if ($this->_facility === $facility) {
-            return;
+            return $this;
         }
 
         if (!count($this->_validFacilities)) {
@@ -200,6 +203,7 @@ class Zend_Log_Writer_Syslog extends Zend_Log_Writer_Abstract
 
         $this->_facility = $facility;
         $this->_initializeSyslog();
+        return $this;
     }
 
     /**
@@ -211,10 +215,11 @@ class Zend_Log_Writer_Syslog extends Zend_Log_Writer_Abstract
     public function setApplicationName($application)
     {
         if ($this->_application === $application) {
-            return;
+            return $this;
         }
         $this->_application = $application;
         $this->_initializeSyslog();
+        return $this;
     }
 
     /**

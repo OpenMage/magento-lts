@@ -100,7 +100,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
         $this->setFilterVisibility(false);
 
         $this->addExportType('*/*/exportPopularCsv', Mage::helper('reports')->__('CSV'));
-        $this->addExportType('*/*/exportPopularExcel', Mage::helper('reports')->__('Excel'));
+        $this->addExportType('*/*/exportPopularExcel', Mage::helper('reports')->__('Excel XML'));
 
         return parent::_prepareColumns();
     }

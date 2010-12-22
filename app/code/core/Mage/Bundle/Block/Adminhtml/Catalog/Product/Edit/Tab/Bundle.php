@@ -43,7 +43,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
 
     public function getTabUrl()
     {
-        return $this->getUrl('bundle/product_edit/form', array('_current' => true));
+        return $this->getUrl('*/bundle_product_edit/form', array('_current' => true));
     }
 
     public function getTabClass()

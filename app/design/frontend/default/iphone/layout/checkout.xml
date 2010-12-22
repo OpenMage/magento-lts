@@ -101,6 +101,11 @@ Default layout, loads most of the pages
             <label>Additional Product Info</label>
         </block>
     </checkout_cart_index>
+    
+    <checkout_cart_configure translate="label">
+        <label>Configure Cart Item</label>
+        <update handle="catalog_product_view"/>
+    </checkout_cart_configure>
 
 <!--
 Multi address shipping checkout main layout,
@@ -329,9 +334,7 @@ One page checkout main layout
                         <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
                     </block>
                 </block>
-                <block type="checkout/onepage_review" name="checkout.onepage.review" as="review" template="checkout/onepage/review.phtml">
-                    <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
-                </block>
+                <block type="checkout/onepage_review" name="checkout.onepage.review" as="review" template="checkout/onepage/review.phtml"/>
             </block>
         </reference>
     </checkout_onepage_index>
@@ -405,6 +408,8 @@ One page checkout order review block
             <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before" translate="label">
                 <label>Items Before</label>
             </block>
+            <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
+            <block type="core/template" name="checkout.onepage.review.button" as="button" template="checkout/onepage/review/button.phtml"/>
         </block>
     </checkout_onepage_review>
 

@@ -1,0 +1,9 @@
+.dropdown { float:left; width:200px; border:1px solid #ccc; position:relative; }
+.dropdown a { padding:3px 18px 3px 10px ; display:block; text-decoration:none; color:#000; position:relative; }
+.dropdown a:hover { background:#ccc; }
+.dropdown a span { right:18px; margin-top:2px; position:absolute; }
+.dropdown li.ddtitle a,
+.dropdown li.ddtitle a:hover { background:url(../images/xmlconnect/dropdown-arrow.gif) 100% 8px no-repeat; }
+.dropdown li.ddlist { background:#fff; left:0; position:absolute; border:1px solid #ccc; border-top:0; width:200px; margin:-1px 0 0 -1px !important; padding:1px 0 0 0; }
+.dropdown li { zoom:1; }
+/* .accordion dt { background:red !important; } */

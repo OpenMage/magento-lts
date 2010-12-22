@@ -80,12 +80,7 @@ class Mage_Tax_Model_Mysql4_Report_Tax extends Mage_Reports_Model_Mysql4_Report_
                 $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'e.created_at'));
             }
 
-            $select->group(array(
-                'period',
-                'store_id',
-                'code',
-                'order_status'
-            ));
+            $select->group(array('period', 'store_id', 'code', 'tax.percent', 'order_status'));
 
             $writeAdapter->query($select->insertFromSelect($this->getMainTable(), array_keys($columns)));
 
@@ -109,11 +104,7 @@ class Mage_Tax_Model_Mysql4_Report_Tax extends Mage_Reports_Model_Mysql4_Report_
                 $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
-            $select->group(array(
-                'period',
-                'code',
-                'order_status'
-            ));
+            $select->group(array('period', 'code', 'percent', 'order_status'));
 
             $writeAdapter->query($select->insertFromSelect($this->getMainTable(), array_keys($columns)));
 

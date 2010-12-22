@@ -247,7 +247,29 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
                             $result->setTaxDetails($taxAmount);
                         }
                     } else {
-                        $result->SetShippingDetails($methodName, 0, "false");
+                        $shippingTaxClass = $this->_getTaxClassForShipping($quote->getStoreId());
+                        if ($shippingTaxClass &&
+                            $this->getData('root/calculate/tax/VALUE') == 'true') {
+                            $i = 1;
+                            $price = Mage::getStoreConfig('google/checkout_shipping_flatrate/price_'.$i, $quote->getStoreId());
+                            $price = number_format($price, 2, '.','');
+                            $price = (float) Mage::helper('tax')->getShippingPrice($price, false, false);
+                            $address->setShippingMethod(null);
+                            $address->setCollectShippingRates(true)->collectTotals();
+                            $billingAddress->setCollectShippingRates(true)->collectTotals();
+                            $address->setBaseShippingAmount($price);
+                            $address->setShippingAmount(
+                                $this->_reCalculateToStoreCurrency($price, $quote)
+                            );
+                            $this->_applyShippingTaxClass($address);
+                            $taxAmount = $address->getBaseTaxAmount();
+                            $taxAmount += $billingAddress->getBaseTaxAmount();
+                            $result->SetShippingDetails($methodName, $price - $address->getBaseShippingDiscountAmount(), "true");
+                            $result->setTaxDetails($taxAmount);
+                            $i++;
+                        } else {
+                            $result->SetShippingDetails($methodName, 0, "false");
+                        }
                     }
                     $merchantCalculations->AddResult($result);
                 }
@@ -256,6 +278,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
                 $address->setShippingMethod(null);
                 $address->setCollectShippingRates(true)->collectTotals();
                 $billingAddress->setCollectShippingRates(true)->collectTotals();
+                $this->_applyShippingTaxClass($address);
 
                 $taxAmount = $address->getBaseTaxAmount();
                 $taxAmount += $billingAddress->getBaseTaxAmount();
@@ -267,6 +290,35 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         }
 
         $this->getGResponse()->ProcessMerchantCalculations($merchantCalculations);
+    }
+
+    /**
+     * Apply shipping tax class
+     *
+     * @param Varien_Object $qAddress
+     * @param mixed $shippingTaxClass
+     */
+    protected function _applyShippingTaxClass($qAddress, $shippingTaxClass)
+    {
+        $quote = $qAddress->getQuote();
+        $taxCalculationModel = Mage::getSingleton('tax/calculation');
+        $request = $taxCalculationModel->getRateRequest($qAddress);
+        $taxCalculationModel->processShippingAmount($qAddress);
+        $rate = $taxCalculationModel->getRate($request->setProductClassId($shippingTaxClass));
+
+        if (!Mage::helper('tax')->shippingPriceIncludesTax()) {
+            $shippingTax    = $qAddress->getShippingAmount() * $rate/100;
+            $shippingBaseTax= $qAddress->getBaseShippingAmount() * $rate/100;
+        } else {
+            $shippingTax    = $qAddress->getShippingTaxAmount();
+            $shippingBaseTax= $qAddress->getBaseShippingTaxAmount();
+        }
+
+        $shippingTax    = $quote->getStore()->roundPrice($shippingTax);
+        $shippingBaseTax= $quote->getStore()->roundPrice($shippingBaseTax);
+
+        $qAddress->setTaxAmount($qAddress->getTaxAmount() + $shippingTax);
+        $qAddress->setBaseTaxAmount($qAddress->getBaseTaxAmount() + $shippingBaseTax);
     }
 
     /**
@@ -305,6 +357,8 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         $this->_importGoogleTotals($quote->getShippingAddress());
 
         $quote->getPayment()->importData(array('method'=>'googlecheckout'));
+
+        $taxMessage = $this->_applyCustomTax($quote->getShippingAddress());
 
         // CONVERT QUOTE TO ORDER
         $convertQuote = Mage::getSingleton('sales/convert_quote');
@@ -355,6 +409,9 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         $message = $this->__('Google Order Number: %s', '<strong>'.$this->getGoogleOrderNumber()).'</strong><br />'.
             $this->__('Google Buyer ID: %s', '<strong>'.$this->getData('root/buyer-id/VALUE').'</strong><br />').
             $this->__('Is Buyer Willing to Receive Marketing Emails: %s', '<strong>' . $emailStr . '</strong>');
+        if ($taxMessage) {
+            $message .= $this->__('<br />Warning: <strong>%s</strong><br />', $taxMessage);
+        }
 
         $order->addStatusToHistory($order->getStatus(), $message);
         $order->place();
@@ -370,6 +427,61 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         Mage::dispatchEvent('checkout_submit_all_after', array('order' => $order, 'quote' => $quote));
 
         $this->getGRequest()->SendMerchantOrderNumber($order->getExtOrderId(), $order->getIncrementId());
+    }
+
+    /**
+     * If tax value differs tax which is setted on magento,
+     * apply Google tax and recollect quote
+     *
+     * @param Varien_Object $qAddress
+     * @return string | false
+     */
+    protected function _applyCustomTax($qAddress)
+    {
+        $quote = $qAddress->getQuote();
+        $qTaxAmount = $qAddress->getBaseTaxAmount();
+        $newTaxAmount = $this->getData('root/order-adjustment/total-tax/VALUE');
+
+        if ($qTaxAmount != $newTaxAmount) {
+            $taxQuotient = (int) $qTaxAmount ? $newTaxAmount/$qTaxAmount : $newTaxAmount;
+
+            $qAddress->setTaxAmount(
+                $this->_reCalculateToStoreCurrency($newTaxAmount, $quote)
+            );
+            $qAddress->setBaseTaxAmount($newTaxAmount);
+
+            $grandTotal = $qAddress->getBaseGrandTotal() - $qTaxAmount + $newTaxAmount;
+            $qAddress->setGrandTotal(
+                $this->_reCalculateToStoreCurrency($grandTotal, $quote)
+            );
+            $qAddress->setBaseGrandTotal($grandTotal);
+
+            $subtotalInclTax = $qAddress->getSubtotalInclTax() - $qTaxAmount + $newTaxAmount;
+            $qAddress->setSubtotalInclTax($subtotalInclTax);
+
+            foreach ($quote->getAllVisibleItems() as $item) {
+                if ($item->getParentItem()) {
+                    continue;
+                }
+                if ($item->getTaxAmount()) {
+                    $item->setTaxAmount($item->getTaxAmount()*$taxQuotient);
+                    $item->setBaseTaxAmount($item->getBaseTaxAmount()*$taxQuotient);
+                    $taxPercent = round(($item->getTaxAmount()/$item->getRowTotal())*100);
+                    $item->setTaxPercent($taxPercent);
+                }
+            }
+
+            $grandTotal = $quote->getBaseGrandTotal() - $qTaxAmount + $newTaxAmount;
+            $quote->setGrandTotal(
+                $this->_reCalculateToStoreCurrency($grandTotal, $quote)
+            );
+            $quote->setBaseGrandTotal($grandTotal);
+
+            $message = $this->__('The tax amount has been applied based on the information received from Google Checkout, because tax amount received from Google Checkout is different from the calculated tax amount');
+            return $message;
+        }
+
+        return false;
     }
 
     /**
@@ -674,7 +786,9 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
             $open = Mage_Sales_Model_Order_Invoice::STATE_OPEN;
             $paid = Mage_Sales_Model_Order_Invoice::STATE_PAID;
             if ($orderInvoice->getState() == $open && $orderInvoice->getBaseGrandTotal() == $latestCharged) {
-                $orderInvoice->setState($paid)->save();
+                $orderInvoice->setState($paid)
+                    ->setTransactionId($this->getGoogleOrderNumber())
+                    ->save();
                 break;
             }
         }

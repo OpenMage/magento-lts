@@ -18,7 +18,7 @@
  * @subpackage Amazon
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Item.php 21884 2010-04-16 15:08:34Z dragonbe $
+ * @version    $Id: Item.php 21883 2010-04-16 14:57:07Z dragonbe $
  */
 
 

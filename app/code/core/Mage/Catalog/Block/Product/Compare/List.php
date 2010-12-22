@@ -151,8 +151,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
         if ($attribute->getSourceModel() || in_array($attribute->getFrontendInput(), array('select','boolean','multiselect'))) {
             //$value = $attribute->getSource()->getOptionText($product->getData($attribute->getAttributeCode()));
             $value = $attribute->getFrontend()->getValue($product);
-        }
-        else {
+        } else {
             $value = $product->getData($attribute->getAttributeCode());
         }
         return ((string)$value == '') ? Mage::helper('catalog')->__('No') : $value;

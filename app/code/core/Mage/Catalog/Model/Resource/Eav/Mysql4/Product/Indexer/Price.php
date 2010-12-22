@@ -130,7 +130,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price extends Mage_
             $write->delete($this->getIdxTable(), $where);
 
             // insert new index
+            $this->useDisableKeys(false);
             $this->insertFromTable($this->getIdxTable(), $this->getMainTable());
+            $this->useDisableKeys(true);
 
             $this->commit();
         } catch (Exception $e) {

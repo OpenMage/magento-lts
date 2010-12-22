@@ -17,7 +17,7 @@
  * @subpackage LiveDocx
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: LiveDocx.php 23022 2010-10-05 15:30:55Z jonathan_maron $
  */
 
 /**
@@ -34,7 +34,7 @@ class Zend_Service_LiveDocx
      * LiveDocx service version
      * @since LiveDocx 1.0
      */
-    const VERSION = '1.2';
+    const VERSION = '2.0';
 
     /**
      * SOAP client used to connect to LiveDocx service

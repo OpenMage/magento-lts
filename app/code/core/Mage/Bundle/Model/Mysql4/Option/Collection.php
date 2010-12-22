@@ -79,7 +79,7 @@ class Mage_Bundle_Model_Mysql4_Option_Collection extends Mage_Core_Model_Mysql4_
     /**
      * Append selection to options
      * stripBefore - indicates to reload
-     * appendAll - indecates do we need to filter by saleable and required custom options
+     * appendAll - indicates do we need to filter by saleable and required custom options
      *
      * @param Mage_Bundle_Model_Mysql4_Selection_Collection $selectionsCollection
      * @param bool $stripBefore
@@ -93,9 +93,9 @@ class Mage_Bundle_Model_Mysql4_Option_Collection extends Mage_Core_Model_Mysql4_
         }
 
         if (!$this->_selectionsAppended) {
-            foreach ($selectionsCollection->getItems() as $key=>$_selection) {
+            foreach ($selectionsCollection->getItems() as $key => $_selection) {
                 if ($_option = $this->getItemById($_selection->getOptionId())) {
-                    if ((!$appendAll && $_selection->isSalable() && !$_selection->getRequiredOptions()) || $appendAll) {
+                    if ($appendAll || ($_selection->isSalable() && !$_selection->getRequiredOptions())) {
                         $_selection->setOption($_option);
                         $_option->addSelection($_selection);
                     } else {
@@ -105,6 +105,7 @@ class Mage_Bundle_Model_Mysql4_Option_Collection extends Mage_Core_Model_Mysql4_
             }
             $this->_selectionsAppended = true;
         }
+
         return $this->getItems();
     }
 

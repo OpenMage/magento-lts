@@ -1,0 +1,57 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+    <div id="gift_options_giftmessage">
+        <fieldset>
+            <span><?php echo Mage::helper('sales')->__('Gift Message'); ?></span>
+            <table cellspacing="0" class="form-list">
+                <tbody>
+                    <tr>
+                        <td class="hidden" colspan="2"><input type="hidden" name="current_item_giftmessage_type" id="current_item_giftmessage_type"></td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="current_item_giftmessage_sender"><?php echo Mage::helper('sales')->__('From'); ?></label></td>
+                        <td class="value">
+                            <input type="text" class="input-text" name="current_item_giftmessage_sender" id="current_item_giftmessage_sender">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="current_item_giftmessage_recipient"><?php echo Mage::helper('sales')->__('To'); ?></label></td>
+                        <td class="value">
+                            <input type="text" class="input-text" name="current_item_giftmessage_recipient" id="current_item_giftmessage_recipient">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="current_item_giftmessage_message"><?php echo Mage::helper('sales')->__('Message'); ?></label></td>
+                        <td class="value">
+                            <textarea class="textarea" onchange="giftMessagesController.toogleRequired('current_item_giftmessage_message', ['current_item_giftmessage_sender', 'current_item_giftmessage_recipient']);" cols="15" rows="2" name="current_item_giftmessage_message" id="current_item_giftmessage_message"></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </fieldset>
+    </div>

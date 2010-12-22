@@ -355,6 +355,10 @@ EOT;
             return '';
         }
 
+        //if isset Tax Class for Shipping - create abbility to manage shipping rates in MerchantCalculationCallback
+        $nodeName = $this->_getTaxClassForShipping($this->getQuote()) ?
+            'merchant-calculated-shipping' : 'flat-rate-shipping';
+
         for ($xml='', $i=1; $i<=3; $i++) {
             $allowSpecific = Mage::getStoreConfigFlag('google/checkout_shipping_flatrate/sallowspecific_'.$i, $this->getQuote()->getStoreId());
             $specificCountries = Mage::getStoreConfig('google/checkout_shipping_flatrate/specificcountry_'.$i, $this->getQuote()->getStoreId());
@@ -370,14 +374,14 @@ EOT;
             }
 
             $xml .= <<<EOT
-                <flat-rate-shipping name="{$title}">
+                <{$nodeName} name="{$title}">
                     <shipping-restrictions>
                         <allowed-areas>
                         {$allowedAreasXml}
                         </allowed-areas>
                     </shipping-restrictions>
                     <price currency="{$this->getCurrency()}">{$price}</price>
-                </flat-rate-shipping>
+                </{$nodeName}>
 EOT;
         }
         $this->_shippingCalculated = true;

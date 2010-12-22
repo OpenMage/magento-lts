@@ -32,7 +32,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Word.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Word.php 21793 2010-04-08 00:51:31Z stas $
  */
 abstract class Zend_Captcha_Word extends Zend_Captcha_Base
 {
@@ -131,7 +131,7 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
      *
      * @return string
      */
-    public function getSessionClass()
+	public function getSessionClass()
     {
         return $this->_sessionClass;
     }
@@ -230,6 +230,28 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
 	}
 
     /**
+     * Numbers should be included in the pattern?
+     * 
+     * @return bool
+     */
+    public function getUseNumbers()
+    {
+        return $this->_useNumbers;
+    }
+
+	/**
+	 * Set if numbers should be included in the pattern
+	 * 
+     * @param $_useNumbers numbers should be included in the pattern?
+     * @return Zend_Captcha_Word
+     */
+    public function setUseNumbers($_useNumbers)
+    {
+        $this->_useNumbers = $_useNumbers;
+        return $this;
+    }
+	
+	/**
      * Get session object
      *
      * @return Zend_Session_Namespace

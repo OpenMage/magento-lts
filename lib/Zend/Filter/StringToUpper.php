@@ -16,7 +16,7 @@
  * @package    Zend_Filter
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: StringToUpper.php 20912 2010-02-04 19:44:42Z thomas $
+ * @version    $Id: StringToUpper.php 22790 2010-08-03 19:16:33Z thomas $
  */
 
 /**
@@ -55,6 +55,10 @@ class Zend_Filter_StringToUpper implements Zend_Filter_Interface
                 $temp['encoding'] = array_shift($options);
             }
             $options = $temp;
+        }
+
+        if (!array_key_exists('encoding', $options) && function_exists('mb_internal_encoding')) {
+            $options['encoding'] = mb_internal_encoding();
         }
 
         if (array_key_exists('encoding', $options)) {

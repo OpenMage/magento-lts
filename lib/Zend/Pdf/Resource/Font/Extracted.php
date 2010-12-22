@@ -17,7 +17,7 @@
  * @subpackage Fonts
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Extracted.php 20893 2010-02-03 22:59:25Z yoshida@zend.co.jp $
+ * @version    $Id: Extracted.php 20866 2010-02-03 05:30:07Z yoshida@zend.co.jp $
  */
 
 

@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_GiftMessage>
-            <version>0.7.2</version>
+            <version>0.7.3</version>
         </Mage_GiftMessage>
     </modules>
     <global>
@@ -146,6 +146,13 @@
                  </observers>
             </sales_convert_order_item_to_quote_item>
         </events>
+        <layout>
+            <updates>
+                <giftmessage>
+                    <file>giftmessage.xml</file>
+                </giftmessage>
+            </updates>
+        </layout>
     </adminhtml>
     <frontend>
         <events>
@@ -223,11 +230,11 @@
             </modules>
         </translate>
         <layout>
-          <updates>
-              <giftmessage>
-                  <file>giftmessage.xml</file>
-              </giftmessage>
-          </updates>
-      </layout>
+            <updates>
+                <giftmessage>
+                    <file>giftmessage.xml</file>
+                </giftmessage>
+            </updates>
+        </layout>
     </frontend>
 </config>

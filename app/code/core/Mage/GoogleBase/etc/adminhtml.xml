@@ -34,11 +34,11 @@
                     <children>
                         <types translate="title" module="googlebase">
                             <title>Manage Attributes</title>
-                            <action>googlebase/types</action>
+                            <action>adminhtml/googlebase_types</action>
                         </types>
                         <items translate="title" module="googlebase">
                             <title>Manage Items</title>
-                            <action>googlebase/items</action>
+                            <action>adminhtml/googlebase_items</action>
                         </items>
                     </children>
                     <sort_order>70</sort_order>

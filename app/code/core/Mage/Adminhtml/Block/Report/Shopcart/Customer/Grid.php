@@ -97,7 +97,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_
         $this->setFilterVisibility(false);
 
         $this->addExportType('*/*/exportCustomerCsv', Mage::helper('reports')->__('CSV'));
-        $this->addExportType('*/*/exportCustomerExcel', Mage::helper('reports')->__('Excel'));
+        $this->addExportType('*/*/exportCustomerExcel', Mage::helper('reports')->__('Excel XML'));
 
         return parent::_prepareColumns();
     }

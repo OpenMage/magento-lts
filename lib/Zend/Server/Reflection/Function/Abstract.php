@@ -48,7 +48,7 @@
  * @subpackage Reflection
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Abstract.php 20637 2010-01-25 22:33:22Z matthew $
+ * @version $Id: Abstract.php 23183 2010-10-20 18:34:33Z ralph $
  */
 abstract class Zend_Server_Reflection_Function_Abstract
 {
@@ -339,7 +339,9 @@ abstract class Zend_Server_Reflection_Function_Abstract
             #require_once 'Zend/Server/Reflection/Exception.php';
             throw new Zend_Server_Reflection_Exception(
                'Variable number of arguments is not supported for services (except optional parameters). '
-             . 'Number of function arguments must correspond to actual number of arguments described in a docblock.');
+             . 'Number of function arguments in ' . $function->getDeclaringClass()->getName() . '::'
+             . $function->getName() . '() must correspond to actual number of arguments described in the '
+             . 'docblock.');
         }
 
         $paramTypes = array();

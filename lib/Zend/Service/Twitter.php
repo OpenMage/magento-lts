@@ -17,7 +17,7 @@
  * @subpackage Twitter
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Twitter.php 22629 2010-07-18 14:22:49Z padraic $
+ * @version    $Id: Twitter.php 22662 2010-07-24 17:37:36Z mabe $
  */
 
 /**
@@ -145,7 +145,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
             $this->setLocalHttpClient($options['accessToken']->getHttpClient($options));
         } else {
             $this->setLocalHttpClient(clone self::getHttpClient());
-            if (is_null($consumer)) {
+            if ($consumer === null) {
                 $this->_oauthConsumer = new Zend_Oauth_Consumer($options);
             } else {
                 $this->_oauthConsumer = $consumer;

@@ -55,7 +55,7 @@
                         <compiler translate="title" module="compiler">
                             <title>Compilation</title>
                             <sort_order>1000</sort_order>
-                            <action>compiler/process</action>
+                            <action>adminhtml/compiler_process</action>
                         </compiler>
                     </children>
                 </tools>

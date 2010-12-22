@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Console.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Console.php 23204 2010-10-21 15:35:21Z ralph $
  */
 
 /**
@@ -119,8 +119,8 @@ class Zend_Tool_Framework_Client_Console
     
     public function setClassesToLoad($classesToLoad)
     {
-    	$this->_classesToLoad = $classesToLoad;
-    	return $this;
+        $this->_classesToLoad = $classesToLoad;
+        return $this;
     }
 
     /**
@@ -150,11 +150,11 @@ class Zend_Tool_Framework_Client_Console
             );
             
         if ($this->_classesToLoad) {
-        	if (is_string($this->_classesToLoad)) {
-        		$classesToLoad[] = $this->_classesToLoad;
-        	} elseif (is_array($this->_classesToLoad)) {
-        		$classesToLoad = array_merge($classesToLoad, $this->_classesToLoad);
-        	}
+            if (is_string($this->_classesToLoad)) {
+                $classesToLoad[] = $this->_classesToLoad;
+            } elseif (is_array($this->_classesToLoad)) {
+                $classesToLoad = array_merge($classesToLoad, $this->_classesToLoad);
+            }
         }
         
         // add classes to the basic loader from the config file basicloader.classes.1 ..

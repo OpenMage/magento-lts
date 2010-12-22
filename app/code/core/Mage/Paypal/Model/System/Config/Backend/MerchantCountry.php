@@ -31,6 +31,7 @@ class Mage_Paypal_Model_System_Config_Backend_MerchantCountry extends Mage_Core_
 {
     /**
      * Config path to default country
+     * @deprecated since 1.4.1.0
      * @var string
      */
     const XML_PATH_COUNTRY_DEFAULT = 'general/country/default';
@@ -43,9 +44,10 @@ class Mage_Paypal_Model_System_Config_Backend_MerchantCountry extends Mage_Core_
         $value = (string)$this->getValue();
         if (empty($value)) {
             if ($this->getWebsite()) {
-                $defaultCountry = Mage::app()->getWebsite($this->getWebsite())->getConfig(self::XML_PATH_COUNTRY_DEFAULT);
+                $defaultCountry = Mage::app()->getWebsite($this->getWebsite())
+                    ->getConfig(Mage_Core_Helper_Data::XML_PATH_DEFAULT_COUNTRY);
             } else {
-                $defaultCountry = Mage::getStoreConfig(self::XML_PATH_COUNTRY_DEFAULT, $this->getStore());
+                $defaultCountry = Mage::helper('core')->getDefaultCountry($this->getStore());
             }
             $this->setValue($defaultCountry);
         }

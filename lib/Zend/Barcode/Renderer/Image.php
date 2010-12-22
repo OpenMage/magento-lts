@@ -17,7 +17,7 @@
  * @subpackage Renderer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Image.php 20367 2010-01-18 04:51:23Z ralph $
+ * @version    $Id: Image.php 22999 2010-09-23 19:43:14Z mikaelkael $
  */
 
 /** @see Zend_Barcode_Renderer_RendererAbstract*/
@@ -435,14 +435,14 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
             }
             imagestring($this->_resource, $font, $positionX, $positionY, $text, $color);
         } else {
-            
+
             if (!function_exists('imagettfbbox')) {
                 #require_once 'Zend/Barcode/Renderer/Exception.php';
                 throw new Zend_Barcode_Renderer_Exception(
                     'A font was provided, but this instance of PHP does not have TTF (FreeType) support'
                     );
             }
-            
+
             $box = imagettfbbox($size, 0, $font, $text);
             switch ($alignment) {
                 case 'left':

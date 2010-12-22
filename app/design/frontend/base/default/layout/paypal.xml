@@ -126,4 +126,17 @@ Available logo types can be assigned with action="setLogoType":
             <block type="paypal/express_shortcut" name="paypal.partner.cart_sidebar.shortcut" template="paypal/express/shortcut.phtml"/>
         </reference>
     </default>
+
+    <checkout_onepage_review>
+        <reference name="checkout.onepage.review.info.items.after">
+            <block type="paypal/payflow_link_iframe" name="payflow.link.iframe" />
+        </reference>
+        <reference name="checkout.onepage.review.button">
+            <action method="setTemplate"><template helper="paypal/payflow/getReviewButtonTemplate"><name>paypal/payflow/link/review/button.phtml</name><block>checkout.onepage.review.button</block></template></action>
+        </reference>
+    </checkout_onepage_review>
+
+    <paypal_payflow_link_iframe>
+        <block type="paypal/payflow_link_iframe" name="payflow.link.iframe" template="paypal/payflow/link/form.phtml" />
+    </paypal_payflow_link_iframe>
 </layout>

@@ -90,7 +90,7 @@ class Mage_Adminhtml_Block_Report_Customer_Orders_Grid extends Mage_Adminhtml_Bl
         ));
 
         $this->addExportType('*/*/exportOrdersCsv', Mage::helper('reports')->__('CSV'));
-        $this->addExportType('*/*/exportOrdersExcel', Mage::helper('reports')->__('Excel'));
+        $this->addExportType('*/*/exportOrdersExcel', Mage::helper('reports')->__('Excel XML'));
 
         return parent::_prepareColumns();
     }

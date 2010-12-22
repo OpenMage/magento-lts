@@ -16,7 +16,7 @@
  * @package    Zend_Feed_Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Feed.php 20326 2010-01-16 00:20:43Z padraic $
+ * @version    $Id: Feed.php 22662 2010-07-24 17:37:36Z mabe $
  */
  
 /**
@@ -109,7 +109,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
     protected function _setBlock(DOMDocument $dom, DOMElement $root)
     {
         $block = $this->getDataContainer()->getItunesBlock();
-        if (is_null($block)) {
+        if ($block === null) {
             return;
         }
         $el = $dom->createElement('itunes:block');
@@ -200,7 +200,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
     protected function _setExplicit(DOMDocument $dom, DOMElement $root)
     {
         $explicit = $this->getDataContainer()->getItunesExplicit();
-        if (is_null($explicit)) {
+        if ($explicit === null) {
             return;
         }
         $el = $dom->createElement('itunes:explicit');

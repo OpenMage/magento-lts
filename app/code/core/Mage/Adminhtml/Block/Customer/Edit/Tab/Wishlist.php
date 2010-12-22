@@ -49,6 +49,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     protected $_parentTemplate;
 
     /**
+     * List of helpers to show options for product cells
+     */
+    protected $_productHelpers = array();
+
+    /**
      * Initialize Grid
      *
      */
@@ -60,6 +65,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
         $this->_parentTemplate = $this->getTemplate();
         $this->setTemplate('customer/tab/wishlist.phtml');
         $this->setEmptyText(Mage::helper('customer')->__('No Items Found'));
+        $this->addProductConfigurationHelper('default', 'catalog/product_configuration');
     }
 
     /**
@@ -82,13 +88,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
         $wishlist = Mage::getModel('wishlist/wishlist');
         $collection = $wishlist->loadByCustomer($this->_getCustomer())
             ->setSharedStoreIds($wishlist->getSharedStoreIds(false))
-            ->getProductCollection()
-                ->resetSortOrder()
-                ->addAttributeToSelect('name')
-                ->addAttributeToSelect('price')
-                ->addAttributeToSelect('small_image')
-                ->setDaysInWishlist(true)
-                ->addStoreData();
+            ->getItemCollection()
+            ->resetSortOrder()
+            ->addDaysInWishlist()
+            ->addStoreData();
 
         $this->setCollection($collection);
 
@@ -102,48 +105,48 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      */
     protected function _prepareColumns()
     {
-
-        /*$this->addColumn('product_id', array(
-            'header'    => Mage::helper('customer')->__('ID'),
-            'index'     => 'product_id',
-            'type'      => 'number',
-            'width'     => '130px'
-        ));*/
-
         $this->addColumn('product_name', array(
-            'header'    => Mage::helper('customer')->__('Product name'),
-            'index'     => 'name'
+            'header'    => Mage::helper('catalog')->__('Product name'),
+            'index'     => 'product_name',
+            'renderer'  => 'adminhtml/customer_edit_tab_view_grid_renderer_item'
         ));
 
         $this->addColumn('description', array(
-            'header'    => Mage::helper('customer')->__('User description'),
-            'index'     => 'wishlist_item_description',
+            'header'    => Mage::helper('wishlist')->__('User description'),
+            'index'     => 'description',
             'renderer'  => 'adminhtml/customer_edit_tab_wishlist_grid_renderer_description'
+        ));
+
+        $this->addColumn('qty', array(
+            'header'    => Mage::helper('catalog')->__('Qty'),
+            'index'     => 'qty',
+            'type'      => 'number',
+            'width'     => '60px'
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store', array(
-                'header'    => Mage::helper('customer')->__('Added From'),
+                'header'    => Mage::helper('wishlist')->__('Added From'),
                 'index'     => 'store_name',
                 'type'      => 'store'
             ));
         }
 
         $this->addColumn('visible_in', array(
-            'header'    => Mage::helper('customer')->__('Visible In'),
+            'header'    => Mage::helper('wishlist')->__('Visible In'),
             'index'     => 'item_store_id',
             'type'      => 'store'
         ));
 
         $this->addColumn('added_at', array(
-            'header'    => Mage::helper('customer')->__('Date Added'),
+            'header'    => Mage::helper('wishlist')->__('Date Added'),
             'index'     => 'added_at',
             'gmtoffset' => true,
             'type'      => 'date'
         ));
 
         $this->addColumn('days', array(
-            'header'    => Mage::helper('customer')->__('Days in Wishlist'),
+            'header'    => Mage::helper('wishlist')->__('Days in Wishlist'),
             'index'     => 'days_in_wishlist',
             'type'      => 'number'
         ));
@@ -151,14 +154,20 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
         $this->addColumn('action', array(
             'header'    => Mage::helper('customer')->__('Action'),
             'index'     => 'wishlist_item_id',
-            'type'      => 'action',
+            'renderer'  => 'adminhtml/customer_grid_renderer_multiaction',
             'filter'    => false,
             'sortable'  => false,
             'actions'   => array(
                 array(
-                    'caption' =>  Mage::helper('customer')->__('Delete'),
-                    'url'     =>  '#',
-                    'onclick' =>  'return wishlistControl.removeItem($wishlist_item_id);'
+                    'caption'   => Mage::helper('customer')->__('Configure'),
+                    'url'       => 'javascript:void(0)',
+                    'process'   => 'configurable',
+                    'control_object' => 'wishlistControl'
+                ),
+                array(
+                    'caption'   => Mage::helper('customer')->__('Delete'),
+                    'url'       => '#',
+                    'onclick'   => 'return wishlistControl.removeItem($wishlist_item_id);'
                 )
             )
         ));
@@ -215,5 +224,29 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_product/edit', array('id' => $row->getProductId()));
+    }
+
+    /**
+     * Adds product type helper depended on product type (used to show options in item cell)
+     *
+     * @param string $productType
+     * @param string $helperName
+     *
+     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist
+     */
+    public function addProductConfigurationHelper($productType, $helperName)
+    {
+        $this->_productHelpers[$productType] = $helperName;
+        return $this;
+    }
+
+    /**
+     * Returns array of product configuration helpers
+     *
+     * @return array
+     */
+    public function getProductConfigurationHelpers()
+    {
+        return $this->_productHelpers;
     }
 }

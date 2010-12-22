@@ -17,7 +17,7 @@
  * @subpackage LiveDocx
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: MailMerge.php 23022 2010-10-05 15:30:55Z jonathan_maron $
  */
 
 /** Zend_Date **/
@@ -40,7 +40,8 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
      * URI of LiveDocx.MailMerge WSDL
      * @since LiveDocx 1.0 
      */
-    const WSDL = 'https://api.livedocx.com/1.2/mailmerge.asmx?WSDL';
+    //const WSDL = 'https://api.livedocx.com/1.2/mailmerge.asmx?WSDL';
+    const WSDL = 'https://api.livedocx.com/2.0/mailmerge.asmx?WSDL';
 
     /**
      * Field values
@@ -85,6 +86,12 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
      */
     public function setLocalTemplate($filename)
     {
+        if (!is_readable($filename)) {
+            throw new Zend_Service_LiveDocx_Exception(
+                'Cannot read local template from disk.'
+            );
+        }
+
         $this->logIn();
         
         try {
@@ -838,27 +845,6 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
 
         return $ret;
     }
-    
-    /*
-     * Return supported image formats (lowercase)
-     *
-     * @return array
-     * @since  LiveDocx 1.2
-     */
-    public function getImageFormats()
-    {
-        $this->logIn();
-        
-        $ret    = array();
-        $result = $this->getSoapClient()->GetImageFormats();
-
-        if (isset($result->GetImageFormatsResult->string)) {
-            $ret = $result->GetImageFormatsResult->string;
-            $ret = array_map('strtolower', $ret);
-        }
-
-        return $ret;
-    }
         
     /**
      * Return the names of all fonts that are installed on backend server
@@ -898,7 +884,178 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
         }
 
         return $ret;
-    }    
+    }
+
+    /**
+     * Return supported image formats from which can be imported (lowercase)
+     *
+     * @return array
+     * @since  LiveDocx 2.0
+     */
+    public function getImageImportFormats()
+    {
+        $this->logIn();
+
+        $ret    = array();
+        $result = $this->getSoapClient()->GetImageImportFormats();
+
+        if (isset($result->GetImageImportFormatsResult->string)) {
+            $ret = $result->GetImageImportFormatsResult->string;
+            $ret = array_map('strtolower', $ret);
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Return supported image formats to which can be exported (lowercase)
+     *
+     * @return array
+     * @since  LiveDocx 2.0
+     */
+    public function getImageExportFormats()
+    {
+        $this->logIn();
+
+        $ret    = array();
+        $result = $this->getSoapClient()->GetImageExportFormats();
+
+        if (isset($result->GetImageExportFormatsResult->string)) {
+            $ret = $result->GetImageExportFormatsResult->string;
+            $ret = array_map('strtolower', $ret);
+        }
+
+        return $ret;
+    }
+
+    /*
+     * Return supported image formats (lowercase)
+     *
+     * @return array
+     * @since  LiveDocx 1.2
+     * @deprecated since LiveDocx 2.0
+     */
+    public function getImageFormats()
+    {
+        $replacement = 'getImageExportFormats';
+
+        /*
+        $errorMessage = sprintf(
+                        "%s::%s is deprecated as of LiveDocx 2.0. "
+                      . "It has been replaced by %s::%s() (drop in replacement)",
+                        __CLASS__, __FUNCTION__, __CLASS__, $replacement);
+
+        trigger_error($errorMessage, E_USER_NOTICE);
+        */
+        
+        return $this->$replacement();
+    }
+
+    /**
+     * Upload an image file to LiveDocx service
+     *
+     * @param  string $filename
+     * @return void
+     * @throws Zend_Service_LiveDocx_Exception
+     * @since  LiveDocx 2.0
+     */
+    public function uploadImage($filename)
+    {
+        $this->logIn();
+
+        try {
+            $this->getSoapClient()->UploadImage(array(
+                'image'    => base64_encode(file_get_contents($filename)),
+                'filename' => basename($filename),
+            ));
+        } catch (Exception $e) {
+            #require_once 'Zend/Service/LiveDocx/Exception.php';
+            throw new Zend_Service_LiveDocx_Exception(
+                'Cannot upload image', 0, $e
+            );
+        }
+    }
+
+    /**
+     * Download an image file from LiveDocx service
+     *
+     * @param  string $filename
+     * @return void
+     * @throws Zend_Service_LiveDocx_Exception
+     * @since  LiveDocx 2.0
+     */
+    public function downloadImage($filename)
+    {
+        $this->logIn();
+
+        try {
+            $result = $this->getSoapClient()->DownloadImage(array(
+                'filename' => basename($filename),
+            ));
+        } catch (Exception $e) {
+            #require_once 'Zend/Service/LiveDocx/Exception.php';
+            throw new Zend_Service_LiveDocx_Exception(
+                'Cannot download image', 0, $e
+            );
+        }
+
+        return base64_decode($result->DownloadImageResult);
+    }
+
+    /**
+     * List all images stored on LiveDocx service
+     *
+     * @return array
+     * @since  LiveDocx 2.0
+     */
+    public function listImages()
+    {
+        $this->logIn();
+
+        $ret    = array();
+        $result = $this->getSoapClient()->ListImages();
+
+        if (isset($result->ListImagesResult)) {
+            $ret = $this->_backendListArrayToMultiAssocArray($result->ListImagesResult);
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Delete an image file from LiveDocx service
+     *
+     * @param  string $filename
+     * @return void
+     * @throws Zend_Service_LiveDocx_Exception
+     * @since  LiveDocx 2.0
+     */
+    public function deleteImage($filename)
+    {
+        $this->logIn();
+
+        $this->getSoapClient()->DeleteImage(array(
+            'filename' => basename($filename),
+        ));
+    }
+
+    /**
+     * Check whether an image file is available on LiveDocx service
+     *
+     * @param  string $filename
+     * @return boolean
+     * @since  LiveDocx 2.0
+     */
+    public function imageExists($filename)
+    {
+        $this->logIn();
+
+        $result = $this->getSoapClient()->ImageExists(array(
+            'filename' => basename($filename),
+        ));
+
+        return (boolean) $result->ImageExistsResult;
+    }
 
     /**
      * Convert LiveDocx service return value from list methods to consistent PHP array
@@ -975,4 +1132,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
 
         return array_merge($arrayKeys, $arrayValues);
     }
+
+    // -------------------------------------------------------------------------
+
 }

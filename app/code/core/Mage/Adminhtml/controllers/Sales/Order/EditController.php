@@ -74,4 +74,14 @@ class Mage_Adminhtml_Sales_Order_EditController extends Mage_Adminhtml_Sales_Ord
             ->_setActiveMenu('sales/order')
             ->renderLayout();
     }
+    
+    /**
+     * Acl check for admin
+     *
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/edit');
+    }    
 }

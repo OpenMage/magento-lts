@@ -17,7 +17,7 @@
  * @subpackage Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Firebug.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Firebug.php 23066 2010-10-09 23:29:20Z cadorn $
  */
 
 /** Zend_Log */
@@ -195,6 +195,7 @@ class Zend_Log_Writer_Firebug extends Zend_Log_Writer_Abstract
         Zend_Wildfire_Plugin_FirePhp::getInstance()->send($message,
                                                           $label,
                                                           $type,
-                                                          array('traceOffset'=>6));
+                                                          array('traceOffset'=>4,
+                                                                'fixZendLogOffsetIfApplicable'=>true));
     }
 }

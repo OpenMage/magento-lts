@@ -98,5 +98,21 @@ Layout handle for budle products
             <action method="addItemRender"><type>bundle</type><block>bundle/adminhtml_sales_order_items_renderer</block><template>bundle/sales/creditmemo/view/items/renderer.phtml</template></action>
         </reference>
     </adminhtml_sales_order_creditmemo_view>
+    
+    <adminhtml_customer_wishlist>
+        <reference name="customer.wishlist.edit.tab">
+            <action method="addProductConfigurationHelper"><type>bundle</type><name>bundle/catalog_product_configuration</name></action>
+        </reference>
+    </adminhtml_customer_wishlist>
 
+    <PRODUCT_TYPE_bundle>
+        <reference name="product.composite.fieldset">
+            <block type="bundle/adminhtml_catalog_product_composite_fieldset_bundle" before="product.composite.fieldset.options" name="product.composite.fieldset.bundle" template="bundle/product/composite/fieldset/options/bundle.phtml">
+                <action method="addRenderer"><type>select</type><block>bundle/adminhtml_catalog_product_composite_fieldset_options_type_select</block></action>
+                <action method="addRenderer"><type>multi</type><block>bundle/adminhtml_catalog_product_composite_fieldset_options_type_multi</block></action>
+                <action method="addRenderer"><type>radio</type><block>bundle/adminhtml_catalog_product_composite_fieldset_options_type_radio</block></action>
+                <action method="addRenderer"><type>checkbox</type><block>bundle/adminhtml_catalog_product_composite_fieldset_options_type_checkbox</block></action>
+            </block>
+        </reference>
+    </PRODUCT_TYPE_bundle>
 </layout>

@@ -264,6 +264,9 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             if (isset($data['account']['default_shipping'])) {
                 $customer->setData('default_shipping', $data['account']['default_shipping']);
             }
+            if (isset($data['account']['confirmation'])) {
+                $customer->setData('confirmation', $data['account']['confirmation']);
+            }
 
             // not modified customer addresses mark for delete
             foreach ($customer->getAddressesCollection() as $customerAddress) {
@@ -439,7 +442,12 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 }
             }
         }
-        $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/customer_edit_tab_wishlist')->toHtml());
+
+        $this->getLayout()->getUpdate()
+            ->addHandle(strtolower($this->getFullActionName()));
+        $this->loadLayoutUpdates()->generateLayoutXml()->generateLayoutBlocks();
+
+        $this->renderLayout();
     }
 
     /**
@@ -747,7 +755,9 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $fileName   = $ioFile->getCleanPath($path . $file);
         $path       = $ioFile->getCleanPath($path);
 
-        if (!$ioFile->fileExists($fileName) || strpos($fileName, $path) !== 0) {
+        if ((!$ioFile->fileExists($fileName) || strpos($fileName, $path) !== 0)
+            && !Mage::helper('core/file_storage')->processStorageFile(str_replace('/', DS, $fileName))
+        ) {
             return $this->norouteAction();
         }
 

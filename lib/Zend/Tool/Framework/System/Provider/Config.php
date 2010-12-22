@@ -48,7 +48,7 @@
  * @uses       Zend_Tool_Framework_Provider_Abstract
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Config.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Config.php 23206 2010-10-21 15:49:31Z ralph $
  */
 class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Provider_Abstract
 {
@@ -87,7 +87,7 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
 
         $config = array(
             'php' => array(
-                'includepath' => get_include_path(),
+                'include_path' => get_include_path(),
             ),
         );
         $writer->write($filename, new Zend_Config($config));
@@ -178,6 +178,18 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
         }
 
         return $tree;
+    }
+
+    public function enable()
+    {
+        $resp = $this->_registry->getResponse();
+        $resp->appendContent('Use either "zf enable config.provider" or "zf enable config.manifest".');
+    }
+
+    public function disable()
+    {
+        $resp = $this->_registry->getResponse();
+        $resp->appendContent('Use either "zf disable config.provider" or "zf disable config.manifest".');
     }
 
     /**

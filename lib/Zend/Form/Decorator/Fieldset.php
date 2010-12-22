@@ -32,7 +32,7 @@
  * @subpackage Decorator
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Fieldset.php 21967 2010-04-21 23:22:00Z alab $
+ * @version    $Id: Fieldset.php 21966 2010-04-21 23:14:30Z alab $
  */
 class Zend_Form_Decorator_Fieldset extends Zend_Form_Decorator_Abstract
 {

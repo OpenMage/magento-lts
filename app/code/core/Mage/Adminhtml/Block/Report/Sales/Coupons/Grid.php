@@ -137,7 +137,7 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
         ));
 
         $this->addExportType('*/*/exportCouponsCsv', Mage::helper('adminhtml')->__('CSV'));
-        $this->addExportType('*/*/exportCouponsExcel', Mage::helper('adminhtml')->__('Excel'));
+        $this->addExportType('*/*/exportCouponsExcel', Mage::helper('adminhtml')->__('Excel XML'));
 
         return parent::_prepareColumns();
     }

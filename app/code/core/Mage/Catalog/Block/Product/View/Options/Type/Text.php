@@ -36,4 +36,13 @@ class Mage_Catalog_Block_Product_View_Options_Type_Text
     extends Mage_Catalog_Block_Product_View_Options_Abstract
 {
 
+    /**
+     * Returns default value to show in text input
+     *
+     * @return string
+     */
+    public function getDefaultValue()
+    {
+        return $this->getProduct()->getPreconfiguredValues()->getData('options/' . $this->getOption()->getId());
+    }
 }

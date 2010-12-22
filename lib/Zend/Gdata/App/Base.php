@@ -18,7 +18,7 @@
  * @subpackage App
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Base.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Base.php 22662 2010-07-24 17:37:36Z mabe $
  */
 
 /**
@@ -375,8 +375,8 @@ abstract class Zend_Gdata_App_Base
     {
         // Check for a memoized result
         $key = $prefix . ' ' .
-               (is_null($majorVersion) ? 'NULL' : $majorVersion) .
-               ' '. (is_null($minorVersion) ? 'NULL' : $minorVersion);
+               ($majorVersion === null ? 'NULL' : $majorVersion) .
+               ' '. ($minorVersion === null ? 'NULL' : $minorVersion);
         if (array_key_exists($key, self::$_namespaceLookupCache))
           return self::$_namespaceLookupCache[$key];
         // If no match, return the prefix by default

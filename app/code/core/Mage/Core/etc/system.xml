@@ -291,7 +291,7 @@
                         <ua_regexp translate="comment">
                             <label></label>
                             <frontend_model>adminhtml/system_config_form_field_regexceptions</frontend_model>
-                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <backend_model>adminhtml/system_config_backend_design_exception</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -512,6 +512,7 @@
                             <label>Enabled for Frontend</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <backend_model>adminhtml/system_config_backend_translate</backend_model>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -521,11 +522,12 @@
                             <label>Enabled for Admin</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <backend_model>adminhtml/system_config_backend_translate</backend_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Translate cache should be disabled for both frontend and admin inline translations.</comment>
+                            <comment>Translate, blocks and other output caches should be disabled for both frontend and admin inline translations.</comment>
                         </active_admin>
                     </fields>
                 </translate_inline>
@@ -603,14 +605,13 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <merge_css_files translate="label">
-                            <label>Merge CSS Files (beta)</label>
+                            <label>Merge CSS Files</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Experimental. Turn this feature off if there are troubles with relative urls inside css-files.</comment>
                         </merge_css_files>
                     </fields>
                 </css>
@@ -831,6 +832,48 @@
                         </return_path_email>
                     </fields>
                 </smtp>
+                <media_storage_configuration translate="label" module="core">
+                    <label>Storage Configuration for Media</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>900</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <media_storage translate="label">
+                            <label>Media Storage</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_storage_media_storage</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </media_storage>
+                        <media_database translate="label">
+                            <label>Select Media Database</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_storage_media_database</source_model>
+                            <backend_model>adminhtml/system_config_backend_storage_media_database</backend_model>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><media_storage>1</media_storage></depends>
+                        </media_database>
+                        <synchronize translate="label comment">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>adminhtml/system_config_system_storage_media_synchronize</frontend_model>
+                            <sort_order>300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>When changing media storage or selecting another media database,
+                                use the Synchronize function to transfer media to the selected
+                                storage. After synchronization is completed, all new media will be
+                                automatically placed to the selected media storage.</comment>
+                        </synchronize>
+                    </fields>
+                </media_storage_configuration>
             </groups>
         </system>
         <admin translate="label" module="core">
@@ -1078,7 +1121,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </base_media_url>
-                        <base_js_url translate="label">
+                        <base_js_url translate="label comment">
                             <label>Base JavaScript URL</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_baseurl</backend_model>
@@ -1086,6 +1129,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <comment>&lt;strong style="color:red"&gt;Warning!&lt;/strong&gt; When using CDN, in some cases JavaScript may not run properly if CDN is not in your subdomain</comment>
                         </base_js_url>
                     </fields>
                 </unsecure>
@@ -1135,7 +1179,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </base_media_url>
-                        <base_js_url translate="label">
+                        <base_js_url translate="label comment">
                             <label>Base JavaScript URL</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_baseurl</backend_model>
@@ -1143,6 +1187,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <comment>&lt;strong style="color:red"&gt;Warning!&lt;/strong&gt; When using CDN, in some cases JavaScript may not run properly if CDN is not in your subdomain</comment>
                         </base_js_url>
                         <use_in_frontend translate="label">
                             <label>Use Secure URLs in Frontend</label>
@@ -1248,7 +1293,7 @@
                     <frontend_type>text</frontend_type>
                     <sort_order>60</sort_order>
                     <show_in_default>1</show_in_default>
-                    <show_in_website>0</show_in_website>
+                    <show_in_website>1</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
                         <use_remote_addr translate="label">

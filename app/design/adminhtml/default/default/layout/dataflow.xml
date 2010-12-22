@@ -29,7 +29,7 @@
 <layout>
 
     <adminhtml_system_convert_gui_run>
-        <remove name = "root"/>
+        <remove name="root"/>
         <block type="adminhtml/page" name="convert_root" output="toHtml" template="page.phtml">
             <block type="adminhtml/page_head" name="convert_root_head" as="head" template="page/head.phtml">
                 <action method="addJs"><script>prototype/prototype.js</script></action>
@@ -41,6 +41,19 @@
             <block type="adminhtml/system_convert_profile_run" name="system_convert_profile_run" template="system/convert/profile/process.phtml" output="toHtml"/>
         </block>
     </adminhtml_system_convert_gui_run>
+    
+    <adminhtml_system_convert_profile_run>
+        <remove name="root"/>
+        <block type="adminhtml/page" name="convert_root" output="toHtml" template="page.phtml">
+            <block type="adminhtml/page_head" name="convert_root_head" as="head" template="page/head.phtml">
+                <action method="addJs"><script>prototype/prototype.js</script></action>
+                <action method="addJs"><script>prototype/validation.js</script></action>
+                <action method="addJs"><script>varien/js.js</script></action>
+                <action method="addJs"><script>mage/translate.js</script></action>
+                <action method="addJs"><script>mage/adminhtml/tools.js</script></action>
+            </block>
+            <block type="adminhtml/system_convert_profile_run" name="system_convert_profile_run" template="system/convert/profile/process.phtml" output="toHtml"/>
+        </block>
+    </adminhtml_system_convert_profile_run>
 
 </layout>
-

@@ -35,6 +35,10 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
 {
     public function uploadAction()
     {
+        //We are unable to change Varien_File_Uploader, so in case when DB storage allowed we will do next:
+        //We upload image to local Magento FS, then we check whether this file exists in DB
+        //If it exists, we are getting unique name from DB, and change them on FS
+        //After this we upload file to DB storage
         $result = array();
         try {
             $uploader = new Varien_File_Uploader('image');
@@ -46,6 +50,8 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
                 Mage::getSingleton('catalog/product_media_config')->getBaseTmpMediaPath()
             );
 
+            $result['file'] = Mage::helper('core/file_storage_database')->saveUploadedFile($result);
+
             $result['url'] = Mage::getSingleton('catalog/product_media_config')->getTmpMediaUrl($result['file']);
             $result['file'] = $result['file'] . '.tmp';
             $result['cookie'] = array(
@@ -55,6 +61,7 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
                 'path'     => $this->_getSession()->getCookiePath(),
                 'domain'   => $this->_getSession()->getCookieDomain()
             );
+
         } catch (Exception $e) {
             $result = array('error'=>$e->getMessage(), 'errorcode'=>$e->getCode());
         }

@@ -56,7 +56,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
     public function getProduct()
     {
         if (!$this->_product) {
-            if (Mage::registry('product')) {
+            if (Mage::registry('current_product')) {
                 $this->_product = Mage::registry('current_product');
             } else {
                 $this->_product = Mage::getSingleton('catalog/product');

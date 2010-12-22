@@ -178,6 +178,23 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     }
 
     /**
+     * Retrieve rendered item extra info html content
+     *
+     * @param Varien_Object $item
+     * @return string
+     */
+    public function getItemExtraInfoHtml(Varien_Object $item)
+    {
+        $extraInfoBlock = $this->getChild('order_item_extra_info');
+        if ($extraInfoBlock) {
+            return $extraInfoBlock
+                ->setItem($item)
+                ->toHtml();
+        }
+        return '';
+    }
+
+    /**
      * Retrieve rendered column html content
      *
      * @param Varien_Object $item

@@ -40,5 +40,22 @@
     <?php echo $this->getBlockHtml('formkey')?>
 </form>
 <script type="text/javascript">
-var attributesForm = new varienForm('attributes_edit_form');
+var attributesForm = new varienForm('attributes_edit_form', '<?php echo $this->getValidationUrl() ?>');
+attributesForm._processValidationResult = function(transport) {
+    var response = transport.responseText.evalJSON();
+
+    if (response.error){
+        if (response.attribute && $(response.attribute)) {
+            $(response.attribute).setHasError(true, attributesForm);
+            Validation.ajaxError($(response.attribute), response.message);
+            if (!Prototype.Browser.IE){
+                $(response.attribute).focus();
+            }
+        } else if ($('messages')) {
+            $('messages').innerHTML = '<ul class="messages"><li class="error-msg"><ul><li>' + response.message + '</li></ul></li></ul>';
+        }
+    } else {
+        attributesForm._submit();
+    }
+}; 
 </script>

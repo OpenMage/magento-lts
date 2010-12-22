@@ -17,7 +17,7 @@
  * @subpackage Storage
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Batch.php 23167 2010-10-19 17:53:31Z mabe $
  */
 
 /**
@@ -149,7 +149,7 @@ class Zend_Service_WindowsAzure_Storage_Batch
 		}
 			
 		// Clean headers
-		if (is_null($headers)) {
+		if ($headers === null) {
 		    $headers = array();
 		}
 		    
@@ -161,7 +161,7 @@ class Zend_Service_WindowsAzure_Storage_Batch
 		$requestUrl     = $this->getBaseUrl() . $path . $queryString;
 		
 		// Generate $rawData
-		if (is_null($rawData)) {
+		if ($rawData === null) {
 		    $rawData = '';
 		}
 		    

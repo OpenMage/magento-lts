@@ -35,10 +35,15 @@
 class Mage_Catalog_Block_Product_View_Options_Type_Select
     extends Mage_Catalog_Block_Product_View_Options_Abstract
 {
-
+    /**
+     * Return html for control element
+     *
+     * @return string
+     */
     public function getValuesHtml()
     {
         $_option = $this->getOption();
+        $configValue = $this->getProduct()->getPreconfiguredValues()->getData('options/' . $_option->getId());
 
         if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN
             || $_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
@@ -69,7 +74,14 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select
             if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
                 $extraParams = ' multiple="multiple"';
             }
-            $select->setExtraParams('onchange="opConfig.reloadPrice()"'.$extraParams);
+            if (!$this->getSkipJsReloadPrice()) {
+                $extraParams .= ' onchange="opConfig.reloadPrice()"';
+            }
+            $select->setExtraParams($extraParams);
+
+            if ($configValue) {
+                $select->setValue($configValue);
+            }
 
             return $select->getHtml();
         }
@@ -85,7 +97,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select
                     $type = 'radio';
                     $class = 'radio';
                     if (!$_option->getIsRequire()) {
-                        $selectHtml .= '<li><input type="radio" id="options_'.$_option->getId().'" class="'.$class.' product-custom-option" name="options['.$_option->getId().']" onclick="opConfig.reloadPrice()" value="" checked="checked" /><span class="label"><label for="options_'.$_option->getId().'">' . $this->__('None') . '</label></span></li>';
+                        $selectHtml .= '<li><input type="radio" id="options_'.$_option->getId().'" class="'.$class.' product-custom-option" name="options['.$_option->getId().']"' . ($this->getSkipJsReloadPrice() ? '' : ' onclick="opConfig.reloadPrice()"') . ' value="" checked="checked" /><span class="label"><label for="options_'.$_option->getId().'">' . $this->__('None') . '</label></span></li>';
                     }
                     break;
                 case Mage_Catalog_Model_Product_Option::OPTION_TYPE_CHECKBOX:
@@ -97,12 +109,21 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select
             $count = 1;
             foreach ($_option->getValues() as $_value) {
                 $count++;
+
                 $priceStr = $this->_formatPrice(array(
                     'is_percent' => ($_value->getPriceType() == 'percent') ? true : false,
                     'pricing_value' => $_value->getPrice(true)
                 ));
+
+                $htmlValue = $_value->getOptionTypeId();
+                if ($arraySign) {
+                    $checked = (is_array($configValue) && in_array($htmlValue, $configValue)) ? 'checked' : '';
+                } else {
+                    $checked = $configValue == $htmlValue ? 'checked' : '';
+                }
+
                 $selectHtml .= '<li>' .
-                               '<input type="'.$type.'" class="'.$class.' '.$require.' product-custom-option" onclick="opConfig.reloadPrice()" name="options['.$_option->getId().']'.$arraySign.'" id="options_'.$_option->getId().'_'.$count.'" value="'.$_value->getOptionTypeId().'" />' .
+                               '<input type="'.$type.'" class="'.$class.' '.$require.' product-custom-option"' . ($this->getSkipJsReloadPrice() ? '' : ' onclick="opConfig.reloadPrice()"') . ' name="options['.$_option->getId().']'.$arraySign.'" id="options_'.$_option->getId().'_'.$count.'" value="' . $htmlValue . '" ' . $checked . ' />' .
                                '<span class="label"><label for="options_'.$_option->getId().'_'.$count.'">'.$_value->getTitle().' '.$priceStr.'</label></span>';
                 if ($_option->getIsRequire()) {
                     $selectHtml .= '<script type="text/javascript">' .
@@ -113,6 +134,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select
                 $selectHtml .= '</li>';
             }
             $selectHtml .= '</ul>';
+
             return $selectHtml;
         }
     }

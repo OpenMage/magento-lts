@@ -176,7 +176,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Configurable
             ->from(
                 array($coaTable),
                 array('parent_id', 'customer_group_id', 'website_id', 'MIN(price)', 'MAX(price)', 'MIN(tier_price)'))
-            ->group('parent_id', 'customer_group_id', 'website_id');
+            ->group(array('parent_id', 'customer_group_id', 'website_id'));
 
         $query = $select->insertFromSelect($copTable);
         $write->query($query);

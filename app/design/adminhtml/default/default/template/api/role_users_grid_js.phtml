@@ -36,9 +36,9 @@
 
     function registerUserRole(grid, element, checked){
         if(checked){
-            inRoleUsers[element.value] = 0;
+            inRoleUsers.set(element.value, 0);
         } else {
-            inRoleUsers.remove(element.value);
+            inRoleUsers.unset(element.value);
         }
         $('in_role_user').value = inRoleUsers.toQueryString();
         grid.reloadParams = {'in_role_user[]':inRoleUsers.keys()};
@@ -54,11 +54,11 @@
                 if (warning && checkBoxes.size() > 0) {
                     if ( !confirm("<?php echo $this->__('Warning!\r\nThis action will remove this user from already assigned role\r\nAre you sure?') ?>") ) {
                         checkbox[0].checked = false;
-                        for(i in checkBoxes) {
-                            if( checkBoxes[i].status == 1) {
-                                checkBoxes[i].object.checked = true;
+                        checkBoxes.each(function(elem) {
+                            if (elem.value.status == 1) {
+                            	elem.value.object.checked = true;
                             }
-                        }
+                        });
                         return false;
                     }
                     warning = false;
@@ -71,25 +71,27 @@
     function roleUsersRowInit(grid, row){
         var checkbox = $(row).getElementsByClassName('checkbox')[0];
         if (checkbox) {
-            checkBoxes[checkbox.value] = {'status' : ((checkbox.checked) ? 1 : 0), 'object' : checkbox};
+            checkBoxes.set(checkbox.value, {'status' : ((checkbox.checked) ? 1 : 0), 'object' : checkbox});
         }
     }
 
-    function myhandler(o)
+    function myhandler(obj)
     {
         if (checkBoxes.size() > 0) {
             if ( !confirm("<?php echo $this->__('Warning!\r\nThis action will remove those users from already assigned roles\r\nAre you sure?') ?>") ) {
-                o.checked = false;
-                for(i in checkBoxes) {
-                    if( checkBoxes[i].status == 1) {
-                        checkBoxes[i].object.checked = true;
+                obj.checked = false;
+                checkBoxes.each(function(elem) {
+                    if (elem.value.status == 1) {
+                        elem.value.object.checked = true;
                     }
-                }
+                });
                 return false;
             }
             warning = false;
         }
-        for(i in checkBoxes) <?php echo $myBlock->getJsObjectName() ?>.setCheckboxChecked(checkBoxes[i].object, o.checked);
+        checkBoxes.each(function(elem) {
+        	<?php echo $myBlock->getJsObjectName() ?>.setCheckboxChecked(elem.value.object, obj.checked);
+        });
     }
 
 <?php echo $myBlock->getJsObjectName() ?>.rowClickCallback = roleUsersRowClick;

@@ -17,7 +17,7 @@
  * @subpackage Storage
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Table.php 23170 2010-10-19 18:29:24Z mabe $
  */
 
 /**
@@ -187,7 +187,7 @@ class Zend_Service_WindowsAzure_Storage_Table
 		    }
 		    
 			// More tables?
-		    if (!is_null($response->getHeader('x-ms-continuation-NextTableName'))) {
+		    if ($response->getHeader('x-ms-continuation-NextTableName') !== null) {
 		        $returnValue = array_merge($returnValue, $this->listTables($response->getHeader('x-ms-continuation-NextTableName')));
 		    }
 
@@ -298,7 +298,7 @@ class Zend_Service_WindowsAzure_Storage_Table
 		if ($tableName === '') {
 			throw new Zend_Service_WindowsAzure_Exception('Table name is not specified.');
 		}
-		if (is_null($entity)) {
+		if ($entity === null) {
 			throw new Zend_Service_WindowsAzure_Exception('Entity is not specified.');
 		}
 		                     
@@ -368,7 +368,7 @@ class Zend_Service_WindowsAzure_Storage_Table
 		if ($tableName === '') {
 			throw new Zend_Service_WindowsAzure_Exception('Table name is not specified.');
 		}
-		if (is_null($entity)) {
+		if ($entity === null) {
 			throw new Zend_Service_WindowsAzure_Exception('Entity is not specified.');
 		}
 		                     
@@ -524,7 +524,7 @@ class Zend_Service_WindowsAzure_Storage_Table
 		}
 		
 		// Add continuation querystring parameters?
-		if (!is_null($nextPartitionKey) && !is_null($nextRowKey)) {
+		if ($nextPartitionKey !== null && $nextRowKey !== null) {
 		    if ($queryString !== '') {
 		        $queryString .= '&';
 		    }
@@ -603,7 +603,7 @@ class Zend_Service_WindowsAzure_Storage_Table
 		    }
 
 			// More entities?
-		    if (!is_null($response->getHeader('x-ms-continuation-NextPartitionKey')) && !is_null($response->getHeader('x-ms-continuation-NextRowKey'))) {
+		    if ($response->getHeader('x-ms-continuation-NextPartitionKey') !== null && $response->getHeader('x-ms-continuation-NextRowKey') !== null) {
 		        if (strpos($queryString, '$top') === false) {
 		            $returnValue = array_merge($returnValue, $this->retrieveEntities($tableName, $filter, $entityClass, $response->getHeader('x-ms-continuation-NextPartitionKey'), $response->getHeader('x-ms-continuation-NextRowKey')));
 		        }
@@ -655,6 +655,9 @@ class Zend_Service_WindowsAzure_Storage_Table
 		} else {
 			$mergeEntity = $entity;
 		}
+
+        // Ensure entity timestamp matches updated timestamp 
+        $entity->setTimestamp($this->isoDate());
 		
 	    return $this->_changeEntity(Zend_Http_Client::MERGE, $tableName, $mergeEntity, $verifyEtag);
 	}
@@ -690,7 +693,7 @@ class Zend_Service_WindowsAzure_Storage_Table
 		if ($tableName === '') {
 			throw new Zend_Service_WindowsAzure_Exception('Table name is not specified.');
 		}
-		if (is_null($entity)) {
+		if ($entity === null) {
 			throw new Zend_Service_WindowsAzure_Exception('Entity is not specified.');
 		}
 		                     
@@ -720,8 +723,14 @@ class Zend_Service_WindowsAzure_Storage_Table
                           </content>
                         </entry>';
 		
+        // Attempt to get timestamp from entity
+        $timestamp = $entity->getTimestamp();
+        if ($timestamp == Zend_Service_WindowsAzure_Storage_TableEntity::DEFAULT_TIMESTAMP) {
+            $timestamp = $this->isoDate();
+        }
+
         $requestBody = $this->_fillTemplate($requestBody, array(
-        	'Updated'    => $this->isoDate(),
+        	'Updated'    => $timestamp,
             'Properties' => $this->_generateAzureRepresentation($entity)
         ));
 
@@ -737,10 +746,10 @@ class Zend_Service_WindowsAzure_Storage_Table
 		// Perform request
 		$response = null;
 	    if ($this->isInBatch()) {
-		    $this->getCurrentBatch()->enlistOperation($tableName . '(PartitionKey=\'' . $entity->getPartitionKey() . '\', RowKey=\'' . $entity->getRowKey() . '\')', '', $httpVerb, $headers, true, $requestBody);
+		    $this->getCurrentBatch()->enlistOperation($tableName . '(PartitionKey=\'' . $entity->getPartitionKey() . '\',RowKey=\'' . $entity->getRowKey() . '\')', '', $httpVerb, $headers, true, $requestBody);
 		    return null;
 		} else {
-		    $response = $this->_performRequest($tableName . '(PartitionKey=\'' . $entity->getPartitionKey() . '\', RowKey=\'' . $entity->getRowKey() . '\')', '', $httpVerb, $headers, true, $requestBody);
+		    $response = $this->_performRequest($tableName . '(PartitionKey=\'' . $entity->getPartitionKey() . '\',RowKey=\'' . $entity->getRowKey() . '\')', '', $httpVerb, $headers, true, $requestBody);
 		}
 		if ($response->isSuccessful()) {
 		    // Update properties
@@ -795,12 +804,12 @@ class Zend_Service_WindowsAzure_Storage_Table
 		    if ($azureValue->Type != '') {
 		        $value[] = ' m:type="' . $azureValue->Type . '"';
 		    }
-		    if (is_null($azureValue->Value)) {
+		    if ($azureValue->Value === null) {
 		        $value[] = ' m:null="true"'; 
 		    }
 		    $value[] = '>';
 		    
-		    if (!is_null($azureValue->Value)) {
+		    if ($azureValue->Value !== null) {
 		        if (strtolower($azureValue->Type) == 'edm.boolean') {
 		            $value[] = ($azureValue->Value == true ? '1' : '0');
 		        } else {

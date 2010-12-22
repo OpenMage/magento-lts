@@ -77,6 +77,11 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
                 $this->setBackendModel('catalog/product_attribute_backend_price');
             }
         }
+        if ($this->getFrontendInput() == 'textarea') {
+            if ($this->getIsWysiwygEnabled()) {
+                $this->setIsHtmlAllowedOnFront(1);
+            }
+        }
         return parent::_beforeSave();
     }
 

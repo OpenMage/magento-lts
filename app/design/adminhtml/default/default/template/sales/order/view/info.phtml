@@ -108,6 +108,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
     <div class="entry-edit">
         <div class="entry-edit-head">
             <h4 class="icon-head head-account"><?php echo Mage::helper('sales')->__('Account Information') ?></h4>
+            <div class="tools"><?php echo $this->getAccountEditLink()?></div>
         </div>
         <div class="fieldset">
             <div class="hor-scroll">
@@ -150,6 +151,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
     <div class="entry-edit">
         <div class="entry-edit-head">
             <h4 class="icon-head head-billing-address"><?php echo Mage::helper('sales')->__('Billing Address') ?></h4>
+            <div class="tools"><?php echo $this->getAddressEditLink($_order->getBillingAddress())?></div>
         </div>
         <fieldset>
             <address><?php echo $_order->getBillingAddress()->getFormated(true) ?></address>
@@ -162,6 +164,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
     <div class="entry-edit">
         <div class="entry-edit-head">
             <h4 class="icon-head head-shipping-address"><?php echo Mage::helper('sales')->__('Shipping Address') ?></h4>
+            <div class="tools"><?php echo $this->getAddressEditLink($_order->getShippingAddress())?></div>
         </div>
         <fieldset>
             <address><?php echo $_order->getShippingAddress()->getFormated(true) ?></address>

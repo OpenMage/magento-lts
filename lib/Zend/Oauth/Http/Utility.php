@@ -16,7 +16,7 @@
  * @package    Zend_Oauth
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Utility.php 21233 2010-02-28 13:48:58Z padraic $
+ * @version    $Id: Utility.php 22662 2010-07-24 17:37:36Z mabe $
  */
 
 /** Zend_Oauth */
@@ -60,7 +60,7 @@ class Zend_Oauth_Http_Utility
         }
 
 
-        if (!is_null($serviceProviderParams)) {
+        if ($serviceProviderParams !== null) {
             $params = array_merge($params, $serviceProviderParams);
         }
 

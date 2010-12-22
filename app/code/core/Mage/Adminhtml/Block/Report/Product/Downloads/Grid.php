@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Grid extends Mage_Adminhtml_
         ));
 
         $this->addExportType('*/*/exportDownloadsCsv', Mage::helper('reports')->__('CSV'));
-        $this->addExportType('*/*/exportDownloadsExcel', Mage::helper('reports')->__('Excel'));
+        $this->addExportType('*/*/exportDownloadsExcel', Mage::helper('reports')->__('Excel XML'));
 
         return parent::_prepareColumns();
     }

@@ -58,7 +58,8 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
             if (!isset(self::$_regionCollections[$countryId])) {
                 self::$_regionCollections[$countryId] = Mage::getModel('directory/country')
                     ->setId($countryId)
-                    ->getLoadedRegionCollection();
+                    ->getLoadedRegionCollection()
+                    ->toOptionArray();
             }
             $regionCollection = self::$_regionCollections[$countryId];
         }
@@ -82,7 +83,7 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
         $regionHtmlId = $element->getHtmlId();
         $regionIdHtmlId = str_replace('region', 'region_id', $regionHtmlId);
 
-        if ($regionCollection && $regionCollection->getSize()) {
+        if ($regionCollection && count($regionCollection) > 0) {
             $elementClass = $element->getClass();
             $html.= '<td class="label">'.$element->getLabelHtml().'</td>';
             $html.= '<td class="value">';
@@ -90,8 +91,8 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
             $html .= '<select id="' . $regionIdHtmlId . '" name="' . $regionIdHtmlName . '" '
                  . $element->serialize($htmlAttributes) .'>' . "\n";
             foreach ($regionCollection as $region) {
-                $selected = ($regionId == $region->getId()) ? ' selected="selected"' : '';
-                $html .= '<option value="' . $region->getId() . '"' . $selected . '>' . $region->getName() . '</option>';
+                $selected = ($regionId==$region['value']) ? ' selected="selected"' : '';
+                $html.= '<option value="'.$region['value'].'"'.$selected.'>'.$region['label'].'</option>';
             }
             $html.= '</select>' . "\n";
 

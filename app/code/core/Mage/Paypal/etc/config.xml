@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Paypal>
-            <version>1.4.0.1</version>
+            <version>1.4.0.2</version>
         </Mage_Paypal>
     </modules>
     <global>
@@ -43,6 +43,7 @@
                     <api_debug><table>paypal_api_debug</table></api_debug>
                     <settlement_report><table>paypal_settlement_report</table></settlement_report>
                     <settlement_report_row><table>paypal_settlement_report_row</table></settlement_report_row>
+                    <cert><table>paypal_cert</table></cert>
                 </entities>
             </paypal_mysql4>
         </models>
@@ -86,6 +87,46 @@
                 <paypal>PayPal</paypal>
             </groups>
         </payment>
+        <payment>
+            <payflow>
+                <cc>
+                    <types>
+                        <VI>
+                            <code>0</code>
+                            <name>Visa</name>
+                        </VI>
+                        <MC>
+                            <code>1</code>
+                            <name>MasterCard</name>
+                        </MC>
+                        <DI>
+                            <code>2</code>
+                            <name>Discover</name>
+                        </DI>
+                        <AE>
+                            <code>3</code>
+                            <name>American Express</name>
+                        </AE>
+                        <DC>
+                            <code>4</code>
+                            <name>Diners Club</name>
+                        </DC>
+                        <JCB>
+                            <code>5</code>
+                            <name>JCB</name>
+                        </JCB>
+                        <OT>
+                            <code>8</code>
+                            <name>Other</name>
+                        </OT>
+                        <SO>
+                            <code>S</code>
+                            <name>Solo</name>
+                        </SO>
+                    </types>
+                </cc>
+            </payflow>
+        </payment>
     </global>
     <frontend>
         <secure_url>
@@ -120,6 +161,24 @@
         <secure_url>
             <paypal_express_callbackshippingoptions>paypal/express/callbackshippingoptions</paypal_express_callbackshippingoptions>
         </secure_url>
+        <events>
+            <checkout_submit_all_after>
+                <observers>
+                    <payflowlink_save_order_after_submit>
+                        <class>paypal/observer</class>
+                        <method>saveOrderAfterSubmit</method>
+                    </payflowlink_save_order_after_submit>
+                </observers>
+            </checkout_submit_all_after>
+            <controller_action_postdispatch_checkout_onepage_saveOrder>
+                <observers>
+                    <payflowlink_save_order_onepage>
+                        <class>paypal/observer</class>
+                        <method>setResponseAfterSaveOrder</method>
+                    </payflowlink_save_order_onepage>
+                </observers>
+            </controller_action_postdispatch_checkout_onepage_saveOrder>
+        </events>
     </frontend>
     <adminhtml>
         <translate>
@@ -141,6 +200,7 @@
                 <api_password backend_model="adminhtml/system_config_backend_encrypted"/>
                 <api_signature backend_model="adminhtml/system_config_backend_encrypted"/>
                 <api_username backend_model="adminhtml/system_config_backend_encrypted"/>
+                <api_authentication>0</api_authentication>
                 <button_flavor>dynamic</button_flavor>
             </wpp>
             <wpuk>
@@ -215,6 +275,14 @@
                 <title>PayPal Billing Agreement</title>
                 <group>paypal</group>
             </paypal_billing_agreement>
+            <payflow_link>
+                <model>paypal/payflowlink</model>
+                <title>Payflow Link</title>
+                <payment_action>Authorization</payment_action>
+                <verbosity>HIGH</verbosity>
+                <pwd backend_model="adminhtml/system_config_backend_encrypted"/>
+                <group>paypal</group>
+            </payflow_link>
         </payment>
     </default>
     <crontab>

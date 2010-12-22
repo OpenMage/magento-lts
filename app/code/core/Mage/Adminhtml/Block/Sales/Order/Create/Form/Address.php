@@ -74,6 +74,13 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
     {
         $addressForm = $this->_getAddressForm();
         $data = array();
+
+        $emptyAddress = $this->getCustomer()
+            ->getAddressById(null)
+            ->setCountryId(Mage::helper('core')->getDefaultCountry($this->getStore()));
+        $data[0] = $addressForm->setEntity($emptyAddress)
+            ->outputData(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_JSON);
+
         foreach ($this->getAddressCollection() as $address) {
             $addressForm->setEntity($address);
             $data[$address->getId()] = $addressForm->outputData(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_JSON);
@@ -106,6 +113,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
         }
 
         $this->_form->setValues($this->getFormValues());
+
+        if (!$this->_form->getElement('country_id')->getValue()) {
+            $this->_form->getElement('country_id')->setValue(Mage::helper('core')->getDefaultCountry($this->getStore()));
+        }
 
         return $this;
     }

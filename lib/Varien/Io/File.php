@@ -510,7 +510,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     {
         preg_match('/^(.*[!\/])/', $filepath, $mathces);
         if (isset($mathces[0])) {
-        	return $mathces[0];
+            return $mathces[0];
         }
         return false;
     }
@@ -560,7 +560,6 @@ class Varien_Io_File extends Varien_Io_Abstract
         if (!(@is_dir($destinationFolder) || $this->mkdir($destinationFolder, 0777, true))) {
             throw new Exception("Unable to create directory '{$destinationFolder}'.");
         }
-//        return $this;
 
         $destinationFolder = str_replace('/', DIRECTORY_SEPARATOR, $destinationFolder);
         $path = explode(DIRECTORY_SEPARATOR, $destinationFolder);

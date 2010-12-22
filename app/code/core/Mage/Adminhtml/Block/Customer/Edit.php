@@ -82,6 +82,18 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         }
     }
 
+    /**
+     * Prepare form html. Add block for configurable product modification interface
+     *
+     * @return string
+     */
+    public function getFormHtml()
+    {
+        $html = parent::getFormHtml();
+        $html .= $this->getLayout()->createBlock('adminhtml/catalog_product_composite_configure')->toHtml();
+        return $html;
+    }
+
     public function getValidationUrl()
     {
         return $this->getUrl('*/*/validate', array('_current'=>true));
@@ -93,7 +105,7 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
             $this->_addButton('save_and_continue', array(
                 'label'     => Mage::helper('customer')->__('Save and Continue Edit'),
                 'onclick'   => 'saveAndContinueEdit(\''.$this->_getSaveAndContinueUrl().'\')',
-                'class' => 'save'
+                'class'     => 'save'
             ), 10);
         }
 

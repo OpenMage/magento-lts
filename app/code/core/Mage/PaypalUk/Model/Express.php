@@ -62,10 +62,10 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
         if (!$this->_ecInstance) {
             $this->_ecInstance = Mage::helper('payment')->getMethodInstance(Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS);
         }
-        if ($quote) {
+        if ($quote && $this->_ecInstance) {
             $this->_ecInstance->setStore($quote->getStoreId());
         }
-        return !$this->_ecInstance->isAvailable();
+        return $this->_ecInstance ? !$this->_ecInstance->isAvailable() : false;
     }
 
     /**

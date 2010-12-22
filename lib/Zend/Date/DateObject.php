@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Date
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: DateObject.php 22071 2010-05-01 17:25:23Z thomas $
+ * @version    $Id: DateObject.php 22712 2010-07-29 08:24:28Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,6 +33,7 @@ abstract class Zend_Date_DateObject {
      */
     private   $_unixTimestamp;
     protected static $_cache         = null;
+    protected static $_cacheTags     = false;
     protected static $_defaultOffset = 0;
 
     /**
@@ -254,7 +255,11 @@ abstract class Zend_Date_DateObject {
         }
 
         if (isset(self::$_cache)) {
-            self::$_cache->save( serialize($date), $id);
+            if (self::$_cacheTags) {
+                self::$_cache->save( serialize($date), $id, array('Zend_Date'));
+            } else {
+                self::$_cache->save( serialize($date), $id);
+            }
         }
 
         return $date;
@@ -340,7 +345,11 @@ abstract class Zend_Date_DateObject {
             }
 
             if (isset(self::$_cache)) {
-                self::$_cache->save( serialize($timestamp), $idstamp);
+                if (self::$_cacheTags) {
+                    self::$_cache->save( serialize($timestamp), $idstamp, array('Zend_Date'));
+                } else {
+                    self::$_cache->save( serialize($timestamp), $idstamp);
+                }
             }
         }
 
@@ -828,7 +837,11 @@ abstract class Zend_Date_DateObject {
         }
 
         if (isset(self::$_cache)) {
-            self::$_cache->save( serialize($array), $id);
+            if (self::$_cacheTags) {
+                self::$_cache->save( serialize($array), $id, array('Zend_Date'));
+            } else {
+                self::$_cache->save( serialize($array), $id);
+            }
         }
 
         return $array;
@@ -1054,5 +1067,23 @@ abstract class Zend_Date_DateObject {
         date_default_timezone_set($zone);
 
         return $offset;
+    }
+
+    /**
+     * Internal method to check if the given cache supports tags
+     *
+     * @param Zend_Cache $cache
+     */
+    protected static function _getTagSupportForCache()
+    {
+        $backend = self::$_cache->getBackend();
+        if ($backend instanceof Zend_Cache_Backend_ExtendedInterface) {
+            $cacheOptions = $backend->getCapabilities();
+            self::$_cacheTags = $cacheOptions['tags'];
+        } else {
+            self::$_cacheTags = false;
+        }
+
+        return self::$_cacheTags;
     }
 }

@@ -1,0 +1,357 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php
+/**
+ * @var Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Themes
+ */
+
+/**
+ * @var Mage_XmlConnect_Helper_Theme
+ */
+$_themesHelper  = Mage::helper('xmlconnect/theme');
+/**
+ * @var Mage_XmlConnect_Helper_Data
+ */
+$_imageHelper    = Mage::helper('xmlconnect/image');
+?>
+
+<script type="text/javascript">
+// <![CDATA[
+if (!window.Magento) {
+    var Magento = new Object();
+}
+Magento.Dropdowns = Class.create();
+Magento.Dropdowns.prototype = {
+    initialize: function(selector) {
+        var self=this;
+        var global = document;
+        this.selector = selector;
+        $$('.'+this.selector).each(this.init.bind(this));
+        Event.observe(global, 'click', this.hide_all.bind(this,0));
+    },
+
+    init: function(el) {
+        this.head = el.down('li.ddtitle');
+        this.content = el.down('li.ddlist');
+        this.list = el.down('ul').childElements();
+        this.input = $(el.id+'_value');
+
+        this.init_items(this.list);
+        Event.observe(this.head.down('a'), 'click', this.show.bind(this, this.content));
+    },
+
+    init_items: function(list) {
+        var that = this;
+        list.each(function(i){
+            Event.observe(i.down('a'), 'click', function(e){
+                e.stop();
+                visibleTheme = that.input.value = i.down('a').rel;
+                that.hide_all();
+                that.head.down('a').innerHTML = i.down('a').innerHTML;
+            });
+        });
+    },
+
+    hide_all: function() {
+        $$('.ddlist').each(function(item){
+            item.style.display = 'none';
+        });
+    },
+
+    hide: function(cid) {
+        $$('.ddlist').each(function(item){
+            if (item.hasClassName('on') && item.id != cid) {
+                item.style.display = 'none';
+                item.removeClassName('on');
+            }
+        });
+    },
+
+    show: function(c,e) {
+        e.stop();
+        if (c.hasClassName('on')) {
+            Effect.toggle(c, 'blind', { delay: 0.1, duration: .1 });
+            c.removeClassName('on');
+        } else {
+            c.style.display = 'none';
+            Effect.toggle(c, 'blind', { delay: 0.1, duration: .1 });
+            c.addClassName('on');
+        }
+        //this.hide(c);
+    }
+};
+<?php
+        $themes = $this->getThemes();
+        $themeLabel = '';
+        $themeId = $this->getApplication()->getData('conf/extra/theme');
+        if (empty($themeId)) {
+            $themeId = $_themesHelper->getDefaultThemeName();
+        }
+        if (!empty($themeId)) {
+            foreach ($themes as $theme) {
+                if ($theme->getName() == $themeId) {
+                    $themeLabel = Mage::helper('xmlconnect')->__($theme->getLabel());
+                }
+            }
+        }
+?>
+currentTheme = '<?php echo $themeId; ?>';
+visibleTheme = currentTheme;
+
+/**
+ * Color field onChange listener
+ * handle currentTheme variable
+ */
+function changeColorListener(id) {
+    /**
+     * Setting color field correct format for color value
+     */
+    if ($(id).value == '' || $(id).value == ' ') {
+        $(id).value = '_';
+    }
+    $(id).color.exportColor();
+
+    $('box_' + id).style.background = $(id).value;
+    setThemeSelector('<?php echo $_themesHelper->getCustomThemeName(); ?>');
+}
+
+isNewApplication = <?php echo ($this->isNewApplication() ? "true" : "false"); ?>;
+isDefaultThemeLoaded = <?php echo ($this->getDefaultThemeLoaded() ? "true" : "false");?>;
+tabDesignWasClicked = false;
+
+Event.observe(document, 'dom:loaded', function() {
+    new Magento.Dropdowns('dropdown');
+<?php
+/*
+    $('submit_theme').observe('click', function() {
+        if (currentTheme) {
+            setThemeSelector(currentTheme);
+        }
+        saveThemeChanges();
+    });
+    $('reset_theme').observe('click', function() {
+        resetThemeChanges();
+    });
+*/
+?>
+    $('apply_theme').observe('click', function() {
+        currentTheme = visibleTheme;
+        mmSetTheme(currentTheme);
+    });
+
+    $("mobile_app_tabs_design_section").observe('click', function() {
+        if (isNewApplication && !isDefaultThemeLoaded && !tabDesignWasClicked) {
+            mmSetTheme(currentTheme);
+            createInputHiddenElementThemeLoaded();
+            tabDesignWasClicked = true;
+        }
+    });
+
+});
+
+function createInputHiddenElementThemeLoaded() {
+    inputElement = document.createElement('input');
+    inputElement.type = "hidden";
+    inputElement.name = "default_theme_loaded";
+    inputElement.value = "1";
+    $('theme_selector_id_value').parentNode.appendChild(inputElement);
+
+}
+mmColorUpdate = false;
+
+mmColorThemes = <?php echo Mage::helper('core')->jsonEncode($this->getAllThemes()); ?>;
+
+function setThemeSelector(theme) {
+    $('theme_selector_id_value').setValue(theme);
+    $('theme_selector_id_value_flat').setValue(theme);
+}
+
+function mmSetTheme(theme) {
+    if (mmColorThemes[theme]) {
+        currentTheme = theme;
+        setThemeSelector(theme);
+        mmColorUpdate = true;
+        for (var key in mmColorThemes[theme]) {
+            color2set = mmColorThemes[theme][key];
+            $(key).color.fromString(color2set);
+            $('box_'+key).style.background = color2set;
+        }
+        mmColorUpdate = false;
+    }
+}
+
+function toggleBlock(block,link){
+    $$('.'+block+'_cl').each(function(b) {
+        if(b.style.display=='none') {
+            b.style.display='table-row';
+            link.style.backgroundPosition = '0 4px';
+        } else {
+            b.style.display='none';
+            link.style.backgroundPosition = '0 -86px';
+        }
+    });
+}
+<?php
+/*
+function resetThemeChanges() {
+    var actionUrl = '<?php echo $this->getResetThemeActionUrl() ?>';
+    new Ajax.Request(actionUrl, {
+        parameters: {reset : 1},
+        onSuccess: function(transport) {
+            try {
+                response = transport.responseText;
+                responseJSON = eval('(' + response + ')');
+                message = '';
+                if (response) {
+                    if ((typeof responseJSON.error != 'undefined') && (responseJSON.error == true)) {
+                         message = responseJSON.message;
+                     } else {
+                         mmColorThemes = responseJSON;
+                         mmSetTheme(currentTheme);
+                         message = '<?php echo Mage::helper('xmlconnect')->__('Reset Successful');?>';
+                     }
+                } else {
+                    message = '<?php echo Mage::helper('xmlconnect')->__('Unknown Error'); ?>';
+                }
+                alert(message);
+            } catch(e) {
+                alert(e.message);
+            }
+        }.bind(this)
+    });
+}
+
+function saveThemeChanges() {
+    var actionUrl = "<?php echo $this->getSaveThemeActionUrl() ?>" + 'saveTheme/' + $('theme_selector_id_value').value;
+    var params = {
+        <?php $firstRow = true; ?>
+        <?php foreach ($_themesHelper->getThemeAjaxParameters() as $name => $id) : ?>
+            <?php echo ($firstRow === true ? $firstRow = '' : ',') . $name; ?> : $('<?php echo $id; ?>').value
+        <?php endforeach; ?>
+        };
+    new Ajax.Request(actionUrl, {
+        parameters: params,
+        onSuccess: function(transport) {
+            try {
+                response = transport.responseText;
+                responseJSON = eval('(' + response + ')');
+                message = '';
+                if (response) {
+                    if ((typeof responseJSON.error != 'undefined') && (responseJSON.error == true)) {
+                        message = responseJSON.message;
+                     } else {
+                         mmColorThemes = responseJSON;
+                         message = '<?php echo Mage::helper('xmlconnect')->__('Theme has been saved.');?>';
+                     }
+                } else {
+                    message = '<?php echo Mage::helper('xmlconnect')->__('Unknown Error.'); ?>';
+                }
+                alert(message);
+            } catch(e) {
+                alert(e.message);
+            }
+        }.bind(this)
+    });
+}
+*/
+?>
+// ]]>
+</script>
+<tr><td colspan="2"  style="width:540px">
+<br />
+
+<label for="theme_selector_id" class="f-left theme-selector-title"><?php echo Mage::helper('xmlconnect')->__('Preset Theme'); ?></label>
+<div class="theme-select-cont">
+    <input type="hidden" name="conf[extra][theme]" id="theme_selector_id_value" value="<?php echo $themeId; ?>"/>
+    <input type="hidden" name="current_theme" id="theme_selector_id_value_flat" value="<?php echo $themeId; ?>"/>
+    <ul class="dropdown theme_selector" id="theme_selector_id">
+        <li class="ddtitle theme_selector "><a href="#"><?php echo $themeLabel ? Mage::helper('xmlconnect')->__($themeLabel) : Mage::helper('xmlconnect')->__('Custom Colors');?><span>
+            <img src="<?php echo $_imageHelper->getSkinImagesUrl('swatch_'.$themeId.'.gif'); ?>"/></span></a></li>
+        <li style="display:none;" class="ddlist">
+            <ul>
+            <?php foreach ($this->getThemes() as $theme): ?>
+                <li><a href="#" rel="<?php echo $theme->getName(); ?>"><?php echo Mage::helper('xmlconnect')->__($theme->getLabel()); ?> <span><img src="<?php echo $_imageHelper->getSkinImagesUrl('swatch_'.$theme->getName().'.gif'); ?>"/></span></a></li>
+            <?php endforeach; ?>
+            </ul>
+        </li>
+    </ul>
+    <div class="form-buttons" style="float:right">
+        <button type="button" class="scalable" style="margin: 0 2em 0 0" id="apply_theme"><span><?php echo Mage::helper('xmlconnect')->__('Apply Theme'); ?></span></button>
+    </div>
+    <br/><br/>
+</div>
+
+</td></tr>
+
+<?php
+
+$colorFieldset = $this->getColorFieldset();
+$id2observe = array();
+?>
+<?php foreach ($colorFieldset as $set) : ?>
+<tr><td colspan="2">
+<a href="javascript:void(0);" onclick="toggleBlock('<?php echo $set['id']; ?>', this);" class="a_color_block" style="display:block;"><strong><?php echo $set['label']; ?></strong></a>
+</td></tr>
+<?php foreach ($set['fields'] as $field) : ?>
+
+<tr class="<?php echo $set['id']; ?>_cl">
+    <td class="label"><label for="<?php echo $field['id']; ?>"><?php echo $field['label'] ?></label></td>
+    <td class="value" style="clear:both;">
+        <label class="field_label" for="<?php echo $field['id']; ?>">
+            <span id="box_<?php echo $field['id']; ?>" class="color" style="background:<?php echo $field['value'] ?>;display:block;width:20px;height:20px;">&nbsp;</span>
+        </label>
+        <input style="background:#fff !important;color:#000 !important;margin:2px 0 0 6px;width:75px;float:left;" autocomplete="off" id="<?php echo $field['id']; ?>" name="<?php echo $field['name'] ?>" value="<?php echo $field['value'] ?>" class=" color {required:false,hash:true} input-text" type="text">
+    </td>
+</tr>
+<?php $id2observe[] = $field['id']; ?>
+
+<?php endforeach; ?>
+<?php endforeach; ?>
+
+<script type="text/javascript">
+//<![CDATA[
+Event.observe(document, 'dom:loaded', function() {
+
+<?php foreach ($id2observe as $id) : ?>
+$('<?php echo $id; ?>').observe('change', function() { changeColorListener('<?php echo $id; ?>');});
+<?php endforeach; ?>
+});
+//]]>
+</script>
+<?php
+/*<tr><td colspan="2">
+<div class="form-buttons">
+
+<!-- submitAndReloadArea($('order_history_block').parentNode, 'http://mage.local/index.php/admin/sales_order/addComment/order_id/2/') -->
+<button type="button" class="scalable back" style="margin: 0 2em 0 0" id="reset_theme"><span><?php echo Mage::helper('xmlconnect')->__('Reset'); ?></span></button>
+<button type="button" class="scalable" style="margin: 0 2em 0 0" id="submit_theme"><span><?php echo Mage::helper('xmlconnect')->__('Save Theme'); ?></span></button>
+<button type="button" class="scalable" style="margin: 0 2em 0 0" id="apply_theme"><span><?php echo Mage::helper('xmlconnect')->__('Apply Theme'); ?></span></button>
+</div>
+<br />
+*/?>
+</td></tr>

@@ -16,7 +16,7 @@
  * @package    Zend_Feed_Writer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Atom.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: AtomAbstract.php 23090 2010-10-12 17:28:16Z padraic $
  */
 
 /** @see Zend_Feed_Writer_Feed */
@@ -336,6 +336,25 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
             return;
         }
         $img = $dom->createElement('logo');
+        $root->appendChild($img);
+        $text = $dom->createTextNode($image['uri']);
+        $img->appendChild($text);
+    }
+    
+    /**
+     * Set feed level icon (image)
+     * 
+     * @param DOMDocument $dom 
+     * @param DOMElement $root 
+     * @return void
+     */
+    protected function _setIcon(DOMDocument $dom, DOMElement $root)
+    {
+        $image = $this->getDataContainer()->getIcon();
+        if (!$image) {
+            return;
+        }
+        $img = $dom->createElement('icon');
         $root->appendChild($img);
         $text = $dom->createTextNode($image['uri']);
         $img->appendChild($text);

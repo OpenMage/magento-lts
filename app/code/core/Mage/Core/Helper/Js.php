@@ -126,8 +126,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                 'Please select an option.' => $this->__('Please select an option.'),
                 'This is a required field.' => $this->__('This is a required field.'),
                 'Please enter a valid number in this field.' => $this->__('Please enter a valid number in this field.'),
-                'Please use numbers only in this field. please avoid spaces or other characters such as dots or commas.' =>
-                    $this->__('Please use numbers only in this field. please avoid spaces or other characters such as dots or commas.'),
+                'Please use numbers only in this field. Please avoid spaces or other characters such as dots or commas.' =>
+                    $this->__('Please use numbers only in this field. Please avoid spaces or other characters such as dots or commas.'),
                 'Please use letters only (a-z) in this field.' => $this->__('Please use letters only (a-z) in this field.'),
                 'Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter.' =>
                     $this->__('Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter.'),
@@ -205,6 +205,10 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                 'Please enter a number lower than 100.' => $this->__('Please enter a number lower than 100.'),
                 'Please enter issue number or start date for switch/solo card type.' =>
                     $this->__('Please enter issue number or start date for switch/solo card type.'),
+                'Please enter a valid day (1-%d).' => $this->__('Please enter a valid day (1-%d).'),
+                'Please enter a valid month (1-12).' => $this->__('Please enter a valid month (1-12).'),
+                'Please enter a valid year (1900-%d).' => $this->__('Please enter a valid year (1900-%d).'),
+                'Please enter a valid full date' => $this->__('Please enter a valid full date')
             );
             foreach ($this->_translateData as $key=>$value) {
                 if ($key == $value) {

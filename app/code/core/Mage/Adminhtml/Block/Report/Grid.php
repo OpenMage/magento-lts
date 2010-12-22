@@ -154,14 +154,13 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         /**
          * Getting and saving store ids for website & group
          */
+        $storeIds = array();
         if ($this->getRequest()->getParam('store')) {
             $storeIds = array($this->getParam('store'));
-        } else if ($this->getRequest()->getParam('website')){
+        } elseif ($this->getRequest()->getParam('website')){
             $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
-        } else if ($this->getRequest()->getParam('group')){
+        } elseif ($this->getRequest()->getParam('group')){
             $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
-        } else {
-            $storeIds = array('');
         }
         $collection->setStoreIds($storeIds);
 

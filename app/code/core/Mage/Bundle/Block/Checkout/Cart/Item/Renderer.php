@@ -43,50 +43,7 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
      */
     protected function _getBundleOptions($useCache = true)
     {
-        $options = array();
-
-        /**
-         * @var Mage_Bundle_Model_Product_Type
-         */
-        $typeInstance = $this->getProduct()->getTypeInstance(true);
-
-        // get bundle options
-        $optionsQuoteItemOption =  $this->getItem()->getOptionByCode('bundle_option_ids');
-        $bundleOptionsIds = unserialize($optionsQuoteItemOption->getValue());
-        if ($bundleOptionsIds) {
-            /**
-            * @var Mage_Bundle_Model_Mysql4_Option_Collection
-            */
-            $optionsCollection = $typeInstance->getOptionsByIds($bundleOptionsIds, $this->getProduct());
-
-            // get and add bundle selections collection
-            $selectionsQuoteItemOption = $this->getItem()->getOptionByCode('bundle_selection_ids');
-
-            $selectionsCollection = $typeInstance->getSelectionsByIds(
-                unserialize($selectionsQuoteItemOption->getValue()),
-                $this->getProduct()
-            );
-
-            $bundleOptions = $optionsCollection->appendSelections($selectionsCollection, true);
-            foreach ($bundleOptions as $bundleOption) {
-                if ($bundleOption->getSelections()) {
-                    $option = array(
-                        'label' => $bundleOption->getTitle(),
-                        'value' => array()
-                    );
-
-                    $bundleSelections = $bundleOption->getSelections();
-
-                    foreach ($bundleSelections as $bundleSelection) {
-                        $option['value'][] = $this->_getSelectionQty($bundleSelection->getSelectionId()).' x '. $this->htmlEscape($bundleSelection->getName()). ' ' .Mage::helper('core')->currency($this->_getSelectionFinalPrice($bundleSelection));
-                    }
-
-                    $options[] = $option;
-                }
-            }
-        }
-
-        return $options;
+        return Mage::helper('bundle/catalog_product_configuration')->getBundleOptions($this->getItem());
     }
 
     /**
@@ -97,12 +54,7 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
      */
     protected function _getSelectionFinalPrice($selectionProduct)
     {
-        $bundleProduct = $this->getProduct();
-        return $bundleProduct->getPriceModel()->getSelectionFinalPrice(
-            $bundleProduct, $selectionProduct,
-            $this->getQty(),
-            $this->_getSelectionQty($selectionProduct->getSelectionId())
-        );
+        return Mage::helper('bundle/catalog_product_configuration')->getSelectionFinalPrice($this->getItem(), $selectionProduct);
     }
 
     /**
@@ -113,10 +65,7 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
      */
     protected function _getSelectionQty($selectionId)
     {
-        if ($selectionQty = $this->getProduct()->getCustomOption('selection_qty_' . $selectionId)) {
-            return $selectionQty->getValue();
-        }
-        return 0;
+        return Mage::helper('bundle/catalog_product_configuration')->getSelectionQty($this->getProduct(), $selectionId);
     }
 
     /**
@@ -127,14 +76,7 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
      */
     public function getOptionList()
     {
-        $item = $this->getItem();
-        $optionList = $item->getBlockOptionList();
-        if ($optionList === null) {
-            $optionList = array_merge($this->_getBundleOptions(), parent::getOptionList());
-            $item->setBlockOptionList($optionList);
-        }
-
-        return $optionList;
+        return Mage::helper('bundle/catalog_product_configuration')->getOptions($this->getItem());
     }
 
     /**

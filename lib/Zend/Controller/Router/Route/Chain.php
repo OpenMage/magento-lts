@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @subpackage Router
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Chain.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Chain.php 23187 2010-10-20 18:42:37Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -77,7 +77,11 @@ class Zend_Controller_Router_Route_Chain extends Zend_Controller_Router_Route_Ab
         $values  = array();
 
         foreach ($this->_routes as $key => $route) {
-            if ($key > 0 && $matchedPath !== null) {
+            if ($key > 0 
+                && $matchedPath !== null 
+                && $subPath !== '' 
+                && $subPath !== false
+            ) {
                 $separator = substr($subPath, 0, strlen($this->_separators[$key]));
 
                 if ($separator !== $this->_separators[$key]) {

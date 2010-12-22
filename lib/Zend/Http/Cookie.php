@@ -17,7 +17,7 @@
  * @package    Zend_Http
  * @subpackage Cookie
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Cookie.php 21020 2010-02-11 17:27:23Z shahar $
+ * @version    $Id: Cookie.php 23231 2010-10-25 14:19:59Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -395,7 +395,7 @@ class Zend_Http_Cookie
 
         // Check for either exact match or suffix match
         return ($cookieDomain == $host ||
-                preg_match("/\.$cookieDomain$/", $host));
+                preg_match('/\.' . preg_quote($cookieDomain) . '$/', $host));
     }
 
     /**

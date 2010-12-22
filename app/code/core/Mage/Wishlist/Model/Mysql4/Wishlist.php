@@ -58,12 +58,9 @@ class Mage_Wishlist_Model_Mysql4_Wishlist extends Mage_Core_Model_Mysql4_Abstrac
     public function fetchItemsCount(Mage_Wishlist_Model_Wishlist $wishlist)
     {
         if (is_null($this->_itemsCount)) {
-            $collection = $wishlist->getProductCollection()
-                //->addAttributeToFilter('store_id', array('in'=>$wishlist->getSharedStoreIds()))
-                ->addStoreFilter();
-
-            Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection($collection);
+            $collection = $wishlist->getItemCollection()
+                ->addStoreFilter()
+                ->setVisibilityFilter();
 
             $this->_itemsCount = $collection->getSize();
         }

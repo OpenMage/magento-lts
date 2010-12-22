@@ -72,6 +72,17 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
             return $result;
         }
 
+        if ($isInCatalog) {
+            // Show PayPal shortcut on a product view page only if product has nonzero price
+            $currentProduct = Mage::registry('current_product');
+            if (!is_null($currentProduct)) {
+                $productPrice = (float)$currentProduct->getFinalPrice();
+                if (empty($productPrice)) {
+                    $this->_shouldRender = false;
+                    return $result;
+                }
+            }
+        }
         // validate minimum quote amount and validate quote for zero grandtotal
         if (null !== $quote && (!$quote->validateMinimumAmount()
             || (!$quote->getGrandTotal() && !$quote->hasNominalItems()))) {
@@ -81,7 +92,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
 
         // check payment method availability
         $methodInstance = Mage::helper('payment')->getMethodInstance($this->_paymentMethodCode);
-        if (!$methodInstance->isAvailable($quote)) {
+        if (!$methodInstance || !$methodInstance->isAvailable($quote)) {
             $this->_shouldRender = false;
             return $result;
         }

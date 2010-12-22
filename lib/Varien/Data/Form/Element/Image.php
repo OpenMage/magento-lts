@@ -80,9 +80,10 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
     {
         $html = '';
         if ($this->getValue()) {
+            $label = Mage::helper('core')->__('Delete Image');
             $html .= '<span class="delete-image">';
             $html .= '<input type="checkbox" name="'.parent::getName().'[delete]" value="1" class="checkbox" id="'.$this->getHtmlId().'_delete"'.($this->getDisabled() ? ' disabled="disabled"': '').'/>';
-            $html .= '<label for="'.$this->getHtmlId().'_delete"'.($this->getDisabled() ? ' class="disabled"' : '').'> Delete Image</label>';
+            $html .= '<label for="'.$this->getHtmlId().'_delete"'.($this->getDisabled() ? ' class="disabled"' : '').'> '.$label.'</label>';
             $html .= $this->_getHiddenInput();
             $html .= '</span>';
         }

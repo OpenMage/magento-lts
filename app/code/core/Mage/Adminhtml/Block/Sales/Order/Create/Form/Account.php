@@ -139,7 +139,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
                 $data[substr($key, 9)] = $value;
             }
         }
-        $data['group_id']   = $this->getCreateOrderModel()->getCustomerGroupId();
+
         if ($this->getQuote()->getCustomerEmail()) {
             $data['email']  = $this->getQuote()->getCustomerEmail();
         }

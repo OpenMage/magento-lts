@@ -619,7 +619,8 @@ class Mage_Paypal_Model_Express_Checkout
      */
     protected function _prepareShippingOptions(Mage_Sales_Model_Quote_Address $address, $mayReturnEmpty = false)
     {
-        $options = array(); $i = 0; $iMin = false; $min = false; $iDefault = false;
+        $options = array(); $i = 0; $iMin = false; $min = false;
+        $userSelectedOption = null;
 
         foreach ($address->getGroupedAllShippingRates() as $group) {
             foreach ($group as $rate) {
@@ -628,15 +629,16 @@ class Mage_Paypal_Model_Express_Checkout
                     continue;
                 }
                 $isDefault = $address->getShippingMethod() === $rate->getCode();
-                if ($isDefault) {
-                    $iDefault = $i;
-                }
+
                 $options[$i] = new Varien_Object(array(
                     'is_default' => $isDefault,
-                    'name'       => "{$rate->getCarrierTitle()} - {$rate->getMethodTitle()}",
+                    'name'       => trim("{$rate->getCarrierTitle()} - {$rate->getMethodTitle()}", ' -'),
                     'code'       => $rate->getCode(),
                     'amount'     => $amount,
                 ));
+                if ($isDefault) {
+                    $userSelectedOption = $options[$i];
+                }
                 if (false === $min || $amount < $min) {
                     $min = $amount; $iMin = $i;
                 }
@@ -644,18 +646,46 @@ class Mage_Paypal_Model_Express_Checkout
             }
         }
 
-        if ($mayReturnEmpty) {
+        if ($mayReturnEmpty && is_null($userSelectedOption)) {
             $options[] = new Varien_Object(array(
-                'is_default' => (false === $iDefault ? true : false),
-                'name'       => 'N/A',
+                'is_default' => true,
+                'name'       => Mage::helper('paypal')->__('N/A'),
                 'code'       => 'no_rate',
                 'amount'     => 0.00,
             ));
-        } elseif (false === $iDefault && isset($options[$iMin])) {
+        } elseif (is_null($userSelectedOption) && isset($options[$iMin])) {
             $options[$iMin]->setIsDefault(true);
         }
 
+        // Magento will transfer only first 10 cheapest shipping options if there are more than 10 available.
+        if (count($options) > 10) {
+            usort($options, array(get_class($this),'cmpShippingOptions'));
+            array_splice($options, 10);
+            // User selected option will be always included in options list
+            if (!is_null($userSelectedOption) && !in_array($userSelectedOption, $options)) {
+                $options[9] = $userSelectedOption;
+            }
+        }
+
         return $options;
+    }
+
+    /**
+     * Compare two shipping options based on their amounts
+     *
+     * This function is used as a callback comparison function in shipping options sorting process
+     * @see self::_prepareShippingOptions()
+     *
+     * @param Varien_Object $option1
+     * @param Varien_Object $option2
+     * @return integer
+     */
+    protected static function cmpShippingOptions(Varien_Object $option1, Varien_Object $option2)
+    {
+        if ($option1->getAmount() == $option2->getAmount()) {
+            return 0;
+        }
+        return ($option1->getAmount() < $option2->getAmount()) ? -1 : 1;
     }
 
     /**

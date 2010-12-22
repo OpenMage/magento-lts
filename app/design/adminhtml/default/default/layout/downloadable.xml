@@ -82,5 +82,16 @@
             <action method="addColumnRender"><column>downloadable</column><block>downloadable/adminhtml_sales_items_column_downloadable_name</block><template>downloadable/sales/items/column/downloadable/creditmemo/name.phtml</template></action>
         </reference>
     </adminhtml_sales_order_creditmemo_view>
-
+    
+    <adminhtml_customer_wishlist>
+        <reference name="customer.wishlist.edit.tab">
+            <action method="addProductConfigurationHelper"><type>downloadable</type><name>downloadable/catalog_product_configuration</name></action>
+        </reference>
+    </adminhtml_customer_wishlist>
+    
+    <PRODUCT_TYPE_downloadable>
+        <reference name="product.composite.fieldset">
+            <block type="downloadable/adminhtml_catalog_product_composite_fieldset_downloadable" name="product.composite.fieldset.downloadable" before="product.composite.fieldset.options" template="downloadable/product/composite/fieldset/downloadable.phtml" />
+        </reference>
+    </PRODUCT_TYPE_downloadable>
 </layout>

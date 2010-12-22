@@ -61,9 +61,8 @@
         </div>
         <?php endif; ?>
 
-        <div id="order-giftmessage">
-        <?php echo $this->getChildHtml('giftmessage') ?>
-        </div>
+        <?php echo $this->getChildHtml('gift_options') ?>
+
         <div class="clear"></div>
         <div class="box-left entry-edit">
             <div class="entry-edit-head"><h4><?php echo Mage::helper('sales')->__('Order History') ?></h4></div>

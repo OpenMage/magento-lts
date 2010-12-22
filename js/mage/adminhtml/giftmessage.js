@@ -50,6 +50,12 @@ var giftMessagesController = {
                         Element.remove(span);
                     }
                 }
+                // Hide validation advices if exist
+                if ($(item) && $(item).advices) {
+                    $(item).advices.each(function (pair) {
+                        if (pair.value != null) pair.value.hide();
+                    });
+                }
             });
         }
     },
@@ -139,4 +145,3 @@ function findFieldLabel(field) {
 
     return false;
 }
-

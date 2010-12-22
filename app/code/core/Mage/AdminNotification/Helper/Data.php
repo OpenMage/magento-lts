@@ -111,6 +111,7 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Check is readable Popup Notification Object
+     * @deprecated after 1.4.2.0
      *
      * @return bool
      */

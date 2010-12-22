@@ -85,17 +85,14 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
      */
     protected function _getPageTrackingCode($accountId)
     {
-        $optPageURL = trim($this->getPageName());
-        if ($optPageURL && preg_match('/^\/.*/i', $optPageURL)) {
-            $optPageURL = "'{$this->jsQuoteEscape($optPageURL)}'";
+        $pageName   = trim($this->getPageName());
+        $optPageURL = '';
+        if ($pageName && preg_match('/^\/.*/i', $pageName)) {
+            $optPageURL = ", '{$this->jsQuoteEscape($pageName)}'";
         }
-        // the code compatible with google checkout shortcut (it requires a global pageTracker variable)
         return "
-_gaq.push(function() {
-    // the global variable is created intentionally
-    pageTracker = _gat._getTracker('{$this->jsQuoteEscape($accountId)}');
-    pageTracker._trackPageview({$optPageURL});
-});
+_gaq.push(['_setAccount', '{$this->jsQuoteEscape($accountId)}']);
+_gaq.push(['_trackPageview'{$optPageURL}]);
 ";
     }
 

@@ -332,9 +332,9 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
 
         $res = array();
         foreach ($this as $item) {
-        	if ($item->getData($column)==$value) {
-        	    $res[] = $item;
-        	}
+            if ($item->getData($column)==$value) {
+                $res[] = $item;
+            }
         }
         return $res;
     }
@@ -351,9 +351,9 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         $this->load();
 
         foreach ($this as $item) {
-        	if ($item->getData($column)==$value) {
-        	    return $item;
-        	}
+            if ($item->getData($column)==$value) {
+                return $item;
+            }
         }
         return null;
     }
@@ -672,7 +672,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
             foreach ($additional as $code => $field) {
                 $data[$code] = $item->getData($field);
             }
-        	$res[] = $data;
+            $res[] = $data;
         }
         return $res;
     }

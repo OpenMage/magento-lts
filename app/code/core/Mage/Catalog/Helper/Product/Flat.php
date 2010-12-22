@@ -39,6 +39,27 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Core_Helper_Abstract
     const XML_NODE_ADD_CHILD_DATA            = 'global/catalog/product/flat/add_child_data';
 
     /**
+     * Catalog Flat Product index process code
+     * 
+     * @var string
+     */
+    const CATALOG_FLAT_PROCESS_CODE = 'catalog_product_flat';
+    
+    /**
+     * Catalog Product Flat index process
+     * 
+     * @var Mage_Index_Model_Process
+     */
+    protected $_process;
+
+    /**
+     * Catalog Product Flat status by store
+     * 
+     * @var array
+     */
+    protected $_isEnabled = array();    
+    
+    /**
      * Catalog Product Flat Flag object
      *
      * @var Mage_Catalog_Model_Product_Flat_Flag
@@ -77,10 +98,19 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Core_Helper_Abstract
      */
     public function isEnabled($store = null)
     {
-        if (Mage::app()->getStore($store)->isAdmin()) {
+        $store = Mage::app()->getStore($store);
+        if ($store->isAdmin()) {
             return false;
         }
-        return Mage::getStoreConfigFlag(self::XML_PATH_USE_PRODUCT_FLAT, $store);
+        
+        if (!isset($this->_isEnabled[$store->getId()])) {
+            if (Mage::getStoreConfigFlag(self::XML_PATH_USE_PRODUCT_FLAT, $store)) {
+                $this->_isEnabled[$store->getId()] = $this->getProcess()->getStatus() == Mage_Index_Model_Process::STATUS_PENDING;
+            } else {
+                $this->_isEnabled[$store->getId()] = false;
+            }
+        }
+        return $this->_isEnabled[$store->getId()];        
     }
 
     /**
@@ -101,5 +131,19 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Core_Helper_Abstract
     public function isAddChildData()
     {
         return intval(Mage::getConfig()->getNode(self::XML_NODE_ADD_CHILD_DATA));
+    }
+
+    /**
+     * Retrive Catalog Product Flat index process
+     * 
+     * @return Mage_Index_Model_Process
+     */
+    public function getProcess()
+    {
+        if (is_null($this->_process)) {
+            $this->_process = Mage::getModel('index/process')
+                ->load(self::CATALOG_FLAT_PROCESS_CODE, 'indexer_code');
+        }
+        return $this->_process;
     }
 }

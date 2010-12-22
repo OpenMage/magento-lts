@@ -435,6 +435,10 @@ tr.summary-details-excluded { font-style:italic; }
 .link-rss { background:url(../images/i_rss.gif) 0 1px no-repeat; padding-left:18px; line-height:14px; white-space:nowrap; }
 .btn-remove { display:block; width:12px; height:12px; font-size:0; line-height:0; background:url(../images/btn_remove.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
 .btn-remove2 { display:block; width:16px; height:16px; font-size:0; line-height:0; background:url(../images/btn_trash.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
+.btn-edit    { display:block; width:12px; height:12px; font-size:0; line-height:0; background:url(../images/btn_edit.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
+
+.cards-list dt { margin:5px 0 0; }
+.cards-list .offset { padding:2px 0 2px 20px; }
 
 .separator { margin:0 3px; }
 
@@ -554,7 +558,8 @@ tr.summary-details-excluded { font-style:italic; }
 .block .block-content li.item { border-bottom:1px solid #ddd; padding-bottom:5px; margin-bottom:5px; }
 .block .block-content li.item.last { border-bottom:0; padding-bottom:0; margin-bottom:0; }
 .block .block-content .product-name { color:#4f8100; }
-.block .btn-remove { float:right; margin:1px 0 2px 5px; }
+.block .btn-remove,
+.block .btn-edit { float:right; margin:1px 0 2px 5px; }
 .block .actions { border-top:1px solid #ddd; padding:5px 0 0; margin:5px 0 0; text-align:right; }
 .block .actions a { float:left; }
 .block .actions button.button { float:right; }
@@ -929,13 +934,13 @@ f/********** Product Prices > */
 .product-view .product-shop .product-options-bottom .paypal-logo { float:left; }
 
 /* Product Options */
-.product-options { margin:20px 0 0; padding:0 15px 10px; background-color:#f4f9ea; border:1px solid #ddd; }
+.product-options { margin:20px 0 0; padding:0 15px 10px; background-color:#f4f9ea; border:1px solid #ddd; position:relative; }
 .product-options dt { padding:10px 0 0; font-weight:normal; }
 .product-options dt label { font-weight:bold; }
-.product-options dt label.required em { color:#eb340a; margin-right:5px; }
-.product-options dt .qty-holder { float:right; margin-right:15px; }
-.product-options dt .qty-holder label { vertical-align:middle; }
-.product-options dt .qty-disabled { background:none; border:0; padding:3px; color:#444; }
+.product-options dt label.required em { color:#eb340a; margin-left:5px; }
+.product-options dd .qty-holder { display:block; padding:10px 0 0; }
+.product-options dd .qty-holder label { vertical-align:middle; }
+.product-options dd .qty-disabled { background:none; border:0; padding:3px; color:#444; }
 .product-options dd { padding:5px 10px 15px; margin:0 0 5px; border-bottom:1px solid #ddd; }
 .product-options dl.last dd.last { border-bottom:0; padding-bottom:5px; margin-bottom:0; }
 .product-options dd input.input-text { width:98%; }
@@ -951,14 +956,16 @@ f/********** Product Prices > */
 .product-options ul.options-list .label { display:block; margin-left:18px; }
 .product-options ul.options-list label { font-weight:normal; }
 .product-options ul.validation-failed { padding:0 7px; }
-.product-options p.required { margin-bottom:0; padding:15px 0 0; }
+.product-options p.required { position:absolute; right:15px; top:10px; }
 
 .product-options-bottom { background-color:#f6f6f6; padding:15px 20px; border:1px solid #e4e4e4; border-top:0; }
 .product-options-bottom .tier-prices { margin:0; padding:0 0 10px; border:0; background:0; }
 .product-options-bottom .price-box { float:left; margin:0; }
-.product-options-bottom .price-label { float:left; padding-right:5px; }
+.product-options-bottom .add-to-links { clear:both; padding:5px 0 0; text-align:right; }
+.product-options-bottom .price-label { padding-right:5px; }
 .product-options-bottom .price-tax { float:left; }
 .product-options-bottom .add-to-cart { float:right; margin:0; padding:0; border:0; background:0; }
+.product-options-bottom .add-to-links { float:right; display:inline; }
 
 .product-shop .product-options-bottom .price-box { float:none; margin:0; }
 .product-shop .product-options-bottom .price-label { float:none; padding-right:0; }
@@ -1189,6 +1196,9 @@ f/********** Product Prices > */
 .sp-methods .centinel-logos a { margin-right:3px; }
 .sp-methods .centinel-logos img { vertical-align:middle; }
 
+.sp-methods .release-amounts { margin:1.5em 0 2em; }
+.sp-methods .release-amounts button { float:left; margin:5px 10px 0 0; }
+
 .please-wait { float:right; }
 .please-wait img { vertical-align:middle; }
 .cvv-what-is-this { font-size:11px; cursor:help; margin-left:10px; }
@@ -1272,6 +1282,9 @@ f/********** Product Prices > */
 .block-progress dt.complete a { text-transform:none; }
 .block-progress dd.complete {}
 .block-progress p { margin:0; }
+.block-progress .cards-list dt { background:none; border:0 none; color:inherit; font-size:11px; font-weight:bold; margin:5px 0; padding:0; text-transform:none; }
+.block-progress .cards-list dd { border:0 none; margin:0; padding:0; }
+.block-progress .cards-list .info-table th { font-weight:normal; }
 
 .opc .buttons-set { margin-top:0; padding-top:2em; }
 .opc .buttons-set p.required { margin:0; padding:0 0 10px; }

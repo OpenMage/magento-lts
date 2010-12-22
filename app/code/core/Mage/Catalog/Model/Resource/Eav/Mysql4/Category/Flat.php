@@ -561,7 +561,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
                     $_is_unsigned = null;
                     break;
                 case 'decimal':
-                    $_type = $columns['DATA_TYPE'] . '(' . $column['PRECISION'] . ',' . $column['SCALE'] . ')';
+                    $_type = $column['DATA_TYPE'] . '(' . $column['PRECISION'] . ',' . $column['SCALE'] . ')';
                     $_is_unsigned = null;
                     if ($column['DEFAULT'] === '') {
                         $column['DEFAULT'] = null;

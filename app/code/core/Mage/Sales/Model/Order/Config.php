@@ -33,6 +33,13 @@
  */
 class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
 {
+    /**
+     * Statuses per state array
+     *
+     * @var array
+     */
+    protected $_stateStatuses;
+
     private $_states;
 
     public function __construct()
@@ -60,18 +67,9 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     {
         $status = false;
         if ($stateNode = $this->_getState($state)) {
-            if ($stateNode->statuses) {
-                foreach ($stateNode->statuses->children() as $statusNode) {
-                    if (!$status) {
-                        $status = $statusNode->getName();
-                    }
-                    $attributes = $statusNode->attributes();
-                    // empty($attributes['default']) is for backwards compatibility
-                    if (isset($attributes['default']) && (empty($attributes['default']) || $attributes['default'] == '1')) {
-                        $status = $statusNode->getName();
-                    }
-                }
-            }
+            $status = Mage::getModel('sales/order_status')
+                ->loadDefaultByState($state);
+            $status = $status->getStatus();
         }
         return $status;
     }
@@ -79,17 +77,31 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     /**
      * Retrieve status label
      *
-     * @param   string $status
+     * @param   string $code
      * @return  string
      */
-    public function getStatusLabel($status)
+    public function getStatusLabel($code)
     {
-        if ($statusNode = $this->_getStatus($status)) {
-            $status = (string) $statusNode->label;
-            return Mage::helper('sales')->__($status);
-        }
-        return $status;
+        $status = Mage::getModel('sales/order_status')
+            ->load($code);
+        return $status->getStoreLabel();
     }
+
+    /**
+     * State label getter
+     *
+     * @param   string $state
+     * @return  string
+     */
+    public function getStateLabel($state)
+    {
+        if ($stateNode = $this->_getState($state)) {
+            $state = (string) $stateNode->label;
+            return Mage::helper('sales')->__($state);
+        }
+        return $state;
+    }
+
 
     /**
      * Retrieve all statuses
@@ -98,13 +110,26 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     public function getStatuses()
     {
-        $statuses = array();
-        foreach ($this->getNode('statuses')->children() as $status) {
-            $label = (string) $status->label;
-            $statuses[$status->getName()] = Mage::helper('sales')->__($label);
-        }
+        $statuses = Mage::getResourceModel('sales/order_status_collection')
+            ->toOptionHash();
         return $statuses;
     }
+
+    /**
+     * Order states getter
+     *
+     * @return array
+     */
+    public function getStates()
+    {
+        $states = array();
+        foreach ($this->getNode('states')->children() as $state) {
+            $label = (string) $state->label;
+            $states[$state->getName()] = Mage::helper('sales')->__($label);
+        }
+        return $states;
+    }
+
 
     /**
      * Retrieve statuses available for state
@@ -117,23 +142,30 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     public function getStateStatuses($state, $addLabels = true)
     {
+        $key = $state . $addLabels;
+        if (isset($this->_stateStatuses[$key])) {
+            return $this->_stateStatuses[$key];
+        }
         $statuses = array();
         if (empty($state) || !is_array($state)) {
             $state = array($state);
         }
         foreach ($state as $_state) {
             if ($stateNode = $this->_getState($_state)) {
-                foreach ($stateNode->statuses->children() as $statusNode) {
-                    $status = $statusNode->getName();
+                $collection = Mage::getResourceModel('sales/order_status_collection')
+                    ->addStateFilter($_state)
+                    ->orderByLabel();
+                foreach ($collection as $status) {
+                    $code = $status->getStatus();
                     if ($addLabels) {
-                        $statuses[$status] = $this->getStatusLabel($status);
-                    }
-                    else {
-                        $statuses[] = $status;
+                        $statuses[$code] = $status->getStoreLabel();
+                    } else {
+                        $statuses[] = $code;
                     }
                 }
             }
         }
+        $this->_stateStatuses[$key] = $statuses;
         return $statuses;
     }
 

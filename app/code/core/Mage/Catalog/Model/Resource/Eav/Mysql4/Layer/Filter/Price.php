@@ -156,7 +156,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Layer_Filter_Price extends Mage_Cor
             'range' => $rangeExpr,
             'count' => $countExpr
         ));
-        $select->where("{$table}.min_price > 0");
         $select->group('range');
 
         return $connection->fetchPairs($select);

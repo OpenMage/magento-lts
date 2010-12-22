@@ -17,7 +17,7 @@
  * @subpackage Renderer
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: RendererAbstract.php 22198 2010-05-19 13:33:52Z kokx $
+ * @version    $Id: RendererAbstract.php 22197 2010-05-19 13:32:25Z kokx $
  */
 
 /**

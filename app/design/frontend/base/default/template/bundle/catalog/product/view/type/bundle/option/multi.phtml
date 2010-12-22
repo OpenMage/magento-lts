@@ -26,22 +26,23 @@
 
 ?>
 
+<?php /* @var $this Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Multi */ ?>
 <?php $_option = $this->getOption() ?>
 <?php $_selections = $_option->getSelections() ?>
-<dt><label<?php if ($_option->getRequired()) echo ' class="required"' ?>><?php if ($_option->getRequired()) echo '<em>*</em>' ?><?php echo $this->htmlEscape($_option->getTitle()) ?></label></dt>
+<dt><label<?php if ($_option->getRequired()) echo ' class="required"' ?>><?php echo $this->htmlEscape($_option->getTitle()) ?><?php if ($_option->getRequired()) echo '<em>*</em>' ?></label></dt>
 <dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
     <div class="input-box">
     <?php if (count($_selections) == 1 && $_option->getRequired()): ?>
         <?php echo $this->getSelectionQtyTitlePrice($_selections[0]) ?>
-        <input type="hidden" name="bundle_option[<?php echo $_option->getId() ?>]" value="<?php echo $_selections[0]->getSelectionId() ?>" />
-    <?php else:?>
+        <input type="hidden" name="bundle_option[<?php echo $_option->getId() ?>]" value="<?php echo $_selections[0]->getSelectionId() ?>"/>
+    <?php else: ?>
         <select onchange="bundle.changeSelection(this)" multiple="multiple" size="5" id="bundle-option-<?php echo $_option->getId() ?>" name="bundle_option[<?php echo $_option->getId() ?>][]" class="bundle-option-<?php echo $_option->getId() ?><?php if ($_option->getRequired()) echo ' required-entry' ?> bundle-option-select multiselect change-container-classname">
         <?php if(!$_option->getRequired()): ?>
             <option value=""><?php echo $this->__('None') ?></option>
         <?php endif; ?>
-        <?php foreach($_selections as $_selection): ?>
-            <option value="<?php echo $_selection->getSelectionId() ?>"<?php echo ($_selection->getIsDefault() && $_selection->isSaleable())?' selected="selected" ':'' ?><?php echo !$_selection->isSaleable()?' disabled="disabled" ':'' ?>><?php echo $this->getSelectionQtyTitlePrice($_selection, false) ?></option>
-        <?php endforeach;?>
+        <?php foreach ($_selections as $_selection): ?>
+            <option value="<?php echo $_selection->getSelectionId() ?>"<?php if ($this->_isSelected($_selection)) echo ' selected="selected"' ?><?php if (!$_selection->isSaleable()) echo ' disabled="disabled"' ?>><?php echo $this->getSelectionQtyTitlePrice($_selection, false) ?></option>
+        <?php endforeach; ?>
         </select>
     <?php endif; ?>
     </div>

@@ -17,7 +17,7 @@
  * @subpackage Object
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Code39.php 21658 2010-03-27 14:29:57Z mikaelkael $
+ * @version    $Id: Code39.php 21657 2010-03-27 14:26:58Z mikaelkael $
  */
 
 /**

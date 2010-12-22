@@ -34,7 +34,9 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         foreach ($data as $index=>$value) {
             $block->assign($index, $value);
         }
-        $this->getResponse()->setBody($block->toHtml());
+        $html = $block->toHtml();
+        Mage::getSingleton('core/translate_inline')->processResponseBody($html);
+        $this->getResponse()->setBody($html);
     }
 
     /**

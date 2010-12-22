@@ -16,7 +16,7 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Element.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Element.php 22797 2010-08-06 15:02:12Z alexander $
  */
 
 
@@ -64,6 +64,24 @@ abstract class Zend_Pdf_Element
      */
     abstract public function toString($factory = null);
 
+    const CLONE_MODE_SKIP_PAGES    = 1; // Do not follow pages during deep copy process
+    const CLONE_MODE_FORCE_CLONING = 2; // Force top level object cloning even it's already processed
+
+    /**
+     * Detach PDF object from the factory (if applicable), clone it and attach to new factory.
+     *
+     * @todo It's nevessry to check if SplObjectStorage class works faster
+     * (Needs PHP 5.3.x to attach object _with_ additional data to storage)
+     *
+     * @param Zend_Pdf_ElementFactory $factory  The factory to attach
+     * @param array &$processed List of already processed indirect objects, used to avoid objects duplication
+     * @param integer $mode  Cloning mode (defines filter for objects cloning)
+     * @returns Zend_Pdf_Element
+     */
+    public function makeClone(Zend_Pdf_ElementFactory $factory, array &$processed, $mode)
+    {
+        return clone $this;
+    }
 
     /**
      * Set top level parent indirect object.

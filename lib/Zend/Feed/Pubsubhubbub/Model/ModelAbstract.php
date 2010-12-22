@@ -16,6 +16,7 @@
  * @package    Zend_Feed_Pubsubhubbub
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: ModelAbstract.php 22662 2010-07-24 17:37:36Z mabe $
  */
 
 
@@ -52,7 +53,7 @@ class Zend_Feed_Pubsubhubbub_Model_ModelAbstract
      */
     public function __construct(Zend_Db_Table_Abstract $tableGateway = null)
     {
-        if (is_null($tableGateway)) {
+        if ($tableGateway === null) {
             $parts = explode('_', get_class($this));
             $table = strtolower(array_pop($parts));
             $this->_db = new Zend_Db_Table($table);

@@ -31,6 +31,8 @@
  */
 class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    const XML_PATH_DEFAULT_COUNTRY  = 'general/country/default';
+
     /**
      * @var Mage_Core_Model_Encryption
      */
@@ -62,14 +64,33 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param   bool $includeContainer
      * @return  mixed
      */
-    public static function currency($value, $format=true, $includeContainer = true)
+    public static function currency($value, $format = true, $includeContainer = true)
+    {
+        return self::currencyByStore($value, null, $format, $includeContainer);
+    }
+
+    /**
+     * Convert and format price value for specified store
+     *
+     * @param   float $value
+     * @param   int|Mage_Core_Model_Store $store
+     * @param   bool $format
+     * @param   bool $includeContainer
+     * @return  mixed
+     */
+    public static function currencyByStore($value, $store = null, $format = true, $includeContainer = true)
     {
         try {
-            $value = Mage::app()->getStore()->convertPrice($value, $format, $includeContainer);
+            if (!($store instanceof Mage_Core_Model_Store)) {
+                $store = Mage::app()->getStore($store);
+            }
+
+            $value = $store->convertPrice($value, $format, $includeContainer);
         }
         catch (Exception $e){
             $value = $e->getMessage();
         }
+
         return $value;
     }
 
@@ -696,5 +717,16 @@ XML;
             Mage::logException($e);
         }
         return false;
+    }
+
+    /**
+     * Return default country code
+     *
+     * @param Mage_Core_Model_Store|string|int $store
+     * @return string
+     */
+    public function getDefaultCountry($store = null)
+    {
+        return Mage::getStoreConfig(self::XML_PATH_DEFAULT_COUNTRY, $store);
     }
 }

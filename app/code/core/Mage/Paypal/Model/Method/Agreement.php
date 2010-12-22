@@ -50,6 +50,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     protected $_canRefundInvoicePartial = true;
     protected $_canVoid                 = true;
     protected $_canUseCheckout          = false;
+    protected $_canUseInternal          = false;
     protected $_canFetchTransactionInfo = true;
     protected $_canReviewPayment        = true;
 

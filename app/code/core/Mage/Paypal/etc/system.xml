@@ -153,9 +153,23 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                         </express_pe>
+                        <payflow_link translate="label comment">
+                            <label>Payflow Link</label>
+                            <comment>Quick set-up service lets your customers securely complete transactions.</comment>
+                            <more_url><![CDATA[https://www.paypal.com/cgi-bin/webscr?cmd=_payflow-link-overview-outside]]></more_url>
+                            <config_path>payment/payflow_link/active</config_path>
+                            <frontend_type>checkbox</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </payflow_link>
                     </fields>
                 </global>
-
+                <store>
+                    <frontend_model>paypal/adminhtml_system_config_fieldset_store</frontend_model>
+                    <sort_order>5</sort_order>
+                    <show_in_store>1</show_in_store>
+                </store>
                 <api translate="label comment">
                     <label>API/Integration Settings</label>
                     <fieldset_css>paypal-config</fieldset_css>
@@ -164,6 +178,15 @@
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <fields>
+                        <api_authentication translate="label">
+                            <label>API Authentication Methods</label>
+                            <config_path>paypal/wpp/api_authentication</config_path>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paypal/config::getApiAuthenticationMethods</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </api_authentication>
                         <api_username translate="label">
                             <label>API Username</label>
                             <config_path>paypal/wpp/api_username</config_path>
@@ -190,7 +213,18 @@
                             <sort_order>15</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
+                            <depends><api_authentication>0</api_authentication></depends>
                         </api_signature>
+                        <api_cert translate="label">
+                            <label>API Certificate</label>
+                            <config_path>paypal/wpp/api_cert</config_path>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>paypal/system_config_backend_cert</backend_model>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><api_authentication>1</api_authentication></depends>
+                        </api_cert>
                         <api_wizard translate="button_label sandbox_button_label">
                             <label></label>
                             <button_label>Get Credentials from PayPal</button_label>
@@ -319,7 +353,7 @@
                             <label>Transfer Shipping Options</label>
                             <config_path>payment/paypal_express/transfer_shipping_options</config_path>
                             <tooltip>If this option is enabled, customer can change shipping address and shipping method on PayPal website. In live mode works via HTTPS protocol only.</tooltip>
-                            <comment>Does not work if there are more than 10 shipping options available.</comment>
+                            <comment>Notice that PayPal can handle up to 10 shipping options. That is why Magento will transfer only first 10 cheapest shipping options if there are more than 10 available.</comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>40</sort_order>
@@ -931,7 +965,7 @@
                             <depends><centinel>1</centinel></depends>
                         </centinel_api_url>
                     </fields>
-                </wpp_pe>
+                </wpp_pe>                
 
                 <verisign translate="label">
                     <label>Payflow Pro Settings</label>
@@ -1407,6 +1441,156 @@
                         </paypal_payflowcolor>
                     </fields>
                 </style>
+                
+                <payflow_link translate="label">
+                    <label>Payflow Link Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>80</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <payflowlink_info>
+                            <frontend_model>paypal/adminhtml_system_config_payflowlink_info</frontend_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>22</sort_order>
+                        </payflowlink_info>
+                        <title translate="label comment">
+                            <label>Title</label>
+                            <comment>It is recommended to set this value to "Debit or Credit Card" per store views.</comment>
+                            <config_path>payment/payflow_link/title</config_path>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title>
+                        <sort_order translate="label">
+                            <label>Sort Order</label>
+                            <config_path>payment/payflow_link/sort_order</config_path>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sort_order>
+                        <payment_action translate="label">
+                            <label>Payment Action</label>
+                            <config_path>payment/payflow_link/payment_action</config_path>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paypal/config::getPaymentActions</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </payment_action>
+                        <allowspecific translate="label">
+                            <label>Payment Applicable From</label>
+                            <config_path>payment/payflow_link/allowspecific</config_path>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </allowspecific>
+                        <specificcountry translate="label">
+                            <label>Countries Payment Applicable From</label>
+                            <config_path>payment/payflow_link/specificcountry</config_path>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>paypal/system_config_source_buyerCountry</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><allowspecific>1</allowspecific></depends>
+                        </specificcountry>
+                        <debug translate="label">
+                            <label>Debug Mode</label>
+                            <config_path>payment/payflow_link/debug</config_path>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </debug>
+                        <heading_payflowlink translate="label">
+                            <label>API/Integration</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_payflowlink>
+                        <partner translate="label">
+                            <label>Partner</label>
+                            <config_path>payment/payflow_link/partner</config_path>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </partner>
+                        <user translate="label">
+                            <label>User</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/payflow_link/user</config_path>                            
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </user>
+                        <vendor translate="label">
+                            <label>Vendor</label>
+                            <config_path>payment/payflow_link/vendor</config_path>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </vendor>
+                        <pwd translate="label">
+                            <label>Password</label>
+                            <config_path>payment/payflow_link/pwd</config_path>
+                            <frontend_type>obscure</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </pwd>
+                        <sandbox_flag translate="label">
+                            <label>Test Mode</label>
+                            <config_path>payment/payflow_link/sandbox_flag</config_path>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </sandbox_flag>
+                        <use_proxy translate="label">
+                            <label>Use Proxy</label>
+                            <config_path>payment/payflow_link/use_proxy</config_path>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </use_proxy>
+                        <proxy_host translate="label">
+                            <label>Proxy Host</label>
+                            <config_path>payment/payflow_link/proxy_host</config_path>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><use_proxy>1</use_proxy></depends>
+                        </proxy_host>
+                        <proxy_port translate="label">
+                            <label>Proxy Port</label>
+                            <config_path>payment/payflow_link/proxy_port</config_path>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>75</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><use_proxy>1</use_proxy></depends>
+                        </proxy_port>
+                    </fields>
+                </payflow_link>
             </groups>
         </paypal>
     </sections>

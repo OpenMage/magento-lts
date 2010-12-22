@@ -16,7 +16,7 @@
  * @package    Zend_Ldap
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Dn.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Dn.php 22662 2010-07-24 17:37:36Z mabe $
  */
 
 /**
@@ -610,8 +610,8 @@ class Zend_Ldap_Dn implements ArrayAccess
                 $ret[] = array($k[$i] => $v[$i]);
             }
         }
-        if (!is_null($keys)) $keys = $k;
-        if (!is_null($vals)) $vals = $v;
+        if ($keys !== null) $keys = $k;
+        if ($vals !== null) $vals = $v;
         return $ret;
     }
 

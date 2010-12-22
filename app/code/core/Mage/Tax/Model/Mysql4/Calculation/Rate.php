@@ -56,4 +56,20 @@ class Mage_Tax_Model_Mysql4_Calculation_Rate extends Mage_Core_Model_Mysql4_Abst
     {
         $this->_getWriteAdapter()->delete($this->getMainTable());
     }
+
+
+    /**
+     * Check if this rate exists in rule
+     *
+     * @param  int $rateId
+     * @return array
+     */
+    public function isInRule($rateId)
+    {
+        $adapter    = $this->_getReadAdapter();
+        $select     = $adapter->select()
+            ->from($this->getTable('tax/tax_calculation'), array('tax_calculation_rate_id'))
+            ->where('tax_calculation_rate_id = ?', $rateId);
+        return $adapter->fetchCol($select);
+    }
 }

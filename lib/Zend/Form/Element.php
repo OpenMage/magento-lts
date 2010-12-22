@@ -38,7 +38,7 @@
  * @subpackage Element
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Element.php 22465 2010-06-19 17:41:03Z alab $
+ * @version    $Id: Element.php 22464 2010-06-19 17:31:21Z alab $
  */
 class Zend_Form_Element implements Zend_Validate_Interface
 {
@@ -315,12 +315,15 @@ class Zend_Form_Element implements Zend_Validate_Interface
 
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
+            $getId = create_function('$decorator',
+                                     'return $decorator->getElement()->getId()
+                                             . "-element";');
             $this->addDecorator('ViewHelper')
-                ->addDecorator('Errors')
-                ->addDecorator('Description', array('tag' => 'p', 'class' => 'description'))
-                ->addDecorator('HtmlTag', array('tag' => 'dd',
-                                                'id'  => $this->getName() . '-element'))
-                ->addDecorator('Label', array('tag' => 'dt'));
+                 ->addDecorator('Errors')
+                 ->addDecorator('Description', array('tag' => 'p', 'class' => 'description'))
+                 ->addDecorator('HtmlTag', array('tag' => 'dd',
+                                                 'id'  => array('callback' => $getId)))
+                 ->addDecorator('Label', array('tag' => 'dt'));
         }
         return $this;
     }

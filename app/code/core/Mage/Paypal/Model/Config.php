@@ -66,6 +66,8 @@ class Mage_Paypal_Model_Config
      */
     const METHOD_PAYFLOWPRO   = 'verisign';
 
+    const METHOD_PAYFLOWLINK  = 'payflow_link';
+
     const METHOD_BILLING_AGREEMENT = 'paypal_billing_agreement';
 
     /**
@@ -415,7 +417,7 @@ class Mage_Paypal_Model_Config
     {
         $countryCode = Mage::getStoreConfig($this->_mapGeneralFieldset('merchant_country'), $this->_storeId);
         if (!$countryCode) {
-            $countryCode = Mage::getStoreConfig('general/country/default', $this->_storeId);
+            $countryCode = Mage::helper('core')->getDefaultCountry($this->_storeId);
         }
         return $countryCode;
     }
@@ -457,12 +459,14 @@ class Mage_Paypal_Model_Config
                 self::METHOD_WPP_PE_DIRECT,
                 self::METHOD_WPP_PE_EXPRESS,
                 self::METHOD_PAYFLOWPRO,
+                self::METHOD_PAYFLOWLINK,
             ),
             'CA' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_DIRECT,
                 self::METHOD_WPP_EXPRESS,
                 self::METHOD_PAYFLOWPRO,
+                self::METHOD_PAYFLOWLINK,
             ),
             'GB' => array(
                 self::METHOD_WPS,
@@ -475,11 +479,13 @@ class Mage_Paypal_Model_Config
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
                 self::METHOD_PAYFLOWPRO,
+                self::METHOD_PAYFLOWLINK,
             ),
             'NZ' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
                 self::METHOD_PAYFLOWPRO,
+                self::METHOD_PAYFLOWLINK,
             ),
             'DE' => array(
                 self::METHOD_WPS,
@@ -940,6 +946,7 @@ class Mage_Paypal_Model_Config
             case self::METHOD_WPP_DIRECT:
             case self::METHOD_WPP_PE_DIRECT:
             case self::METHOD_PAYFLOWPRO:
+            case self::METHOD_PAYFLOWLINK:
                 return true;
         }
         return false;
@@ -1146,6 +1153,7 @@ class Mage_Paypal_Model_Config
     {
         switch ($fieldName)
         {
+            case 'api_authentication':
             case 'api_username':
             case 'api_password':
             case 'api_signature':
@@ -1253,6 +1261,30 @@ class Mage_Paypal_Model_Config
             default:
                 return null;
         }
+    }
+
+    /**
+     * Payment API authentication methods source getter
+     *
+     * @return array
+     */
+    public function getApiAuthenticationMethods()
+    {
+        return array(
+            '0' => Mage::helper('paypal')->__('API Signature'),
+            '1' => Mage::helper('paypal')->__('API Certificate')
+        );
+    }
+
+    /**
+     * Api certificate getter
+     *
+     * @return string
+     */
+    public function getApiCertificate()
+    {
+        $websiteId = Mage::app()->getStore($this->_storeId)->getWebsiteId();
+        return Mage::getModel('paypal/cert')->loadByWebsite($websiteId, false)->getCertPath();
     }
 }
 

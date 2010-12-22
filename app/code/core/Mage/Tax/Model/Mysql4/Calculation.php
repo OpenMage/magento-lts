@@ -173,7 +173,7 @@ class Mage_Tax_Model_Mysql4_Calculation extends Mage_Core_Model_Mysql4_Abstract
             $strlen = $len;
         }
 
-        $strArr = array($postcode);
+        $strArr = array($postcode, $postcode . '*');
         if ($strlen > 1) {
             for ($i = 1; $i < $strlen; $i++) {
                 $strArr[] = sprintf('%s*', substr($postcode, 0, - $i));
@@ -247,12 +247,16 @@ class Mage_Tax_Model_Mysql4_Calculation extends Mage_Core_Model_Mysql4_Abstract
             $selectClone = clone $select;
 
             $select
-                ->where("rate.zip_is_range IS NULL")
-                ->where("rate.tax_postcode in ('*', '', ?)", $this->_createSearchPostCodeTemplates($postcode));
-
+                ->where("rate.zip_is_range IS NULL");
             $selectClone
-                ->where("rate.zip_is_range IS NOT NULL")
-                ->where("? BETWEEN rate.zip_from AND rate.zip_to", $postcode);
+                ->where("rate.zip_is_range IS NOT NULL");
+
+            if ($request->getPostcode() != '*') {
+                $select
+                    ->where("rate.tax_postcode in ('*', '', ?)", $this->_createSearchPostCodeTemplates($postcode));
+                $selectClone
+                    ->where("? BETWEEN rate.zip_from AND rate.zip_to", $postcode);
+            }
 
             /**
              * @see ZF-7592 issue http://framework.zend.com/issues/browse/ZF-7592

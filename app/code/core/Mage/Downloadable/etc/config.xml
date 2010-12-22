@@ -332,13 +332,13 @@
             </catalog_product_dataflow>
         </fieldsets>
         <routers>
-            <downloadableadmin>
-                <use>admin</use>
+            <adminhtml>
                 <args>
-                    <module>Mage_Downloadable</module>
-                    <frontName>downloadableadmin</frontName>
+                    <modules>
+                        <Mage_Downloadable before="Mage_Adminhtml">Mage_Downloadable_Adminhtml</Mage_Downloadable>
+                    </modules>
                 </args>
-            </downloadableadmin>
+            </adminhtml>
         </routers>
     </admin>
     <default>

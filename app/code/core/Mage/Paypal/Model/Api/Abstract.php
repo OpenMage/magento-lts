@@ -123,6 +123,16 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     }
 
     /**
+     * Return Paypal Api certificate based on config data
+     *
+     * @return string
+     */
+    public function getApiCertificate()
+    {
+        return $this->_config->getApiCertificate();
+    }
+
+    /**
      * BN code getter
      *
      * @return string
@@ -526,9 +536,22 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
         if (!$keys || !$street || !is_array($street)) {
             return;
         }
-        foreach ($keys as $key) {
-            if ($value = array_pop($street)) {
-                $to[$key] = $value;
+
+        if (count($keys) >= count($street)) {
+            foreach ($keys as $key) {
+                if ($value = array_shift($street)) {
+                    $to[$key] = $value;
+                }
+            }
+        } else {
+            $countArgs = ceil(count($street)/count($keys));
+            $offset = 0;
+            foreach ($keys as $key) {
+                $values = array_slice($street, $offset, $countArgs);
+                if (is_array($values)) {
+                    $to[$key] = implode(' ', $values);
+                    $offset += $countArgs;
+                }
             }
         }
     }
@@ -578,5 +601,15 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     public function getDebugFlag()
     {
         return $this->_config->debug;
+    }
+
+    /**
+     * Check whether API certificate authentication should be used
+     *
+     * @return bool
+     */
+    public function getUseCertAuthentication()
+    {
+        return (bool)$this->_config->apiAuthentication;
     }
 }

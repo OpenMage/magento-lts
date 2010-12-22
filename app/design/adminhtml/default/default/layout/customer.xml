@@ -33,6 +33,11 @@
         </reference>
         <reference name="head">
             <block type="adminhtml/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />
+            <action method="addJs"><file>mage/adminhtml/product/composite/configure.js</file></action>
+            <action method="addJs"><file>varien/configurable.js</file></action>
+        </reference>
+        <reference name="js">
+            <block type="adminhtml/template" template="customer/edit/addlisttype.phtml" name="customer.edit.add.listtypes"/>
         </reference>
         <reference name="left">
             <block type="adminhtml/customer_edit_tabs" name="customer_edit_tabs">
@@ -52,4 +57,7 @@
             <block type="adminhtml/customer_group" name="customer_group"></block>
         </reference>
     </adminhtml_customer_group_index>
+    <adminhtml_customer_wishlist>
+        <block type="adminhtml/customer_edit_tab_wishlist" name="customer.wishlist.edit.tab" output="toHtml" />
+    </adminhtml_customer_wishlist>
 </layout>

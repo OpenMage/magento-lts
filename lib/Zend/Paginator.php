@@ -16,7 +16,7 @@
  * @package    Zend_Paginator
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Paginator.php 22829 2010-08-11 19:56:28Z bate $
+ * @version    $Id: Paginator.php 22865 2010-08-21 12:28:09Z ramon $
  */
 
 /**
@@ -77,6 +77,15 @@ class Zend_Paginator implements Countable, IteratorAggregate
      * @var int
      */
     protected static $_defaultItemCountPerPage = 10;
+
+    /**
+     * Default number of local pages (i.e., the number of discretes
+     * page numbers that will be displayed, including the current
+     * page number)
+     *
+     * @var int
+     */
+    protected static $_defaultPageRange = 10;
 
     /**
      * Scrolling style plugin loader
@@ -154,7 +163,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
      *
      * @var integer
      */
-    protected $_pageRange = 10;
+    protected $_pageRange = null;
 
     /**
      * Pages
@@ -373,6 +382,26 @@ class Zend_Paginator implements Countable, IteratorAggregate
     public static function setDefaultItemCountPerPage($count)
     {
         self::$_defaultItemCountPerPage = (int) $count;
+    }
+
+    /**
+     * Get the default page range
+     *
+     * @return int
+     */
+    public static function getDefaultPageRange()
+    {
+        return self::$_defaultPageRange;
+    }
+
+    /**
+     * Set the default page range
+     *
+     * @param int $count
+     */
+    public static function setDefaultPageRange($count)
+    {
+        self::$_defaultPageRange = (int) $count;
     }
 
     /**
@@ -702,11 +731,11 @@ class Zend_Paginator implements Countable, IteratorAggregate
      * @param  integer $itemCountPerPage
      * @return Zend_Paginator $this
      */
-    public function setItemCountPerPage($itemCountPerPage)
+    public function setItemCountPerPage($itemCountPerPage = -1)
     {
         $this->_itemCountPerPage = (integer) $itemCountPerPage;
         if ($this->_itemCountPerPage < 1) {
-            $this->_itemCountPerPage = $this->getItemCountPerPage();
+            $this->_itemCountPerPage = $this->getTotalItemCount();
         }
         $this->_pageCount        = $this->_calculatePageCount();
         $this->_currentItems     = null;
@@ -788,6 +817,10 @@ class Zend_Paginator implements Countable, IteratorAggregate
      */
     public function getPageRange()
     {
+        if (null === $this->_pageRange) {
+            $this->_pageRange = self::getDefaultPageRange();
+        }
+
         return $this->_pageRange;
     }
 

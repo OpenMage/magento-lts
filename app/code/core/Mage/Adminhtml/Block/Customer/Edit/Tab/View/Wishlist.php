@@ -49,8 +49,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
         $wishlist = Mage::getModel('wishlist/wishlist');
         $collection = $wishlist->loadByCustomer(Mage::registry('current_customer'))
             ->setSharedStoreIds($wishlist->getSharedStoreIds(false))
-            ->getProductCollection()
-            ->addAttributeToSelect('name')
+            ->getItemCollection()
+            ->addDaysInWishlist(true)
             ->addStoreData();
 
         $this->setCollection($collection);
@@ -69,7 +69,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
 
         $this->addColumn('product_name', array(
             'header'    => Mage::helper('customer')->__('Product Name'),
-            'index'     => 'name'
+            'index'     => 'product_name'
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {

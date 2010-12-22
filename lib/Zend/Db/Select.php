@@ -17,7 +17,7 @@
  * @subpackage Select
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Select.php 22853 2010-08-19 19:01:09Z padraic $
+ * @version    $Id: Select.php 23254 2010-10-26 12:49:23Z matthew $
  */
 
 
@@ -467,7 +467,7 @@ class Zend_Db_Select
      *
      * @param string   $cond  The WHERE condition.
      * @param mixed    $value OPTIONAL The value to quote into the condition.
-     * @param constant $type  OPTIONAL The type of the given value
+     * @param int      $type  OPTIONAL The type of the given value
      * @return Zend_Db_Select This Zend_Db_Select object.
      */
     public function where($cond, $value = null, $type = null)
@@ -484,7 +484,7 @@ class Zend_Db_Select
      *
      * @param string   $cond  The WHERE condition.
      * @param mixed    $value OPTIONAL The value to quote into the condition.
-     * @param constant $type  OPTIONAL The type of the given value
+     * @param int      $type  OPTIONAL The type of the given value
      * @return Zend_Db_Select This Zend_Db_Select object.
      *
      * @see where()
@@ -526,14 +526,14 @@ class Zend_Db_Select
      * appears. See {@link where()} for an example
      *
      * @param string $cond The HAVING condition.
-     * @param string|Zend_Db_Expr $val The value to quote into the condition.
+     * @param mixed    $value OPTIONAL The value to quote into the condition.
+     * @param int      $type  OPTIONAL The type of the given value
      * @return Zend_Db_Select This Zend_Db_Select object.
      */
-    public function having($cond)
+    public function having($cond, $value = null, $type = null)
     {
-        if (func_num_args() > 1) {
-            $val = func_get_arg(1);
-            $cond = $this->_adapter->quoteInto($cond, $val);
+        if ($value !== null) {
+            $cond = $this->_adapter->quoteInto($cond, $value, $type);
         }
 
         if ($this->_parts[self::HAVING]) {
@@ -551,16 +551,16 @@ class Zend_Db_Select
      * Otherwise identical to orHaving().
      *
      * @param string $cond The HAVING condition.
-     * @param mixed  $val  The value to quote into the condition.
+     * @param mixed    $value OPTIONAL The value to quote into the condition.
+     * @param int      $type  OPTIONAL The type of the given value
      * @return Zend_Db_Select This Zend_Db_Select object.
      *
      * @see having()
      */
-    public function orHaving($cond)
+    public function orHaving($cond, $value = null, $type = null)
     {
-        if (func_num_args() > 1) {
-            $val = func_get_arg(1);
-            $cond = $this->_adapter->quoteInto($cond, $val);
+        if ($value !== null) {
+            $cond = $this->_adapter->quoteInto($cond, $value, $type);
         }
 
         if ($this->_parts[self::HAVING]) {

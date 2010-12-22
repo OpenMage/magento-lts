@@ -273,7 +273,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
             $file = null;
         }
         if ($file) {
-            if ((!file_exists($baseDir . $file)) || !$this->_checkMemory($baseDir . $file)) {
+            if ((!$this->_fileExists($baseDir . $file)) || !$this->_checkMemory($baseDir . $file)) {
                 $file = null;
             }
         }
@@ -281,7 +281,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
             // check if placeholder defined in config
             $isConfigPlaceholder = Mage::getStoreConfig("catalog/placeholder/{$this->getDestinationSubdir()}_placeholder");
             $configPlaceholder   = '/placeholder/' . $isConfigPlaceholder;
-            if ($isConfigPlaceholder && file_exists($baseDir . $configPlaceholder)) {
+            if ($isConfigPlaceholder && $this->_fileExists($baseDir . $configPlaceholder)) {
                 $file = $configPlaceholder;
             }
             else {
@@ -429,7 +429,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * Add watermark to image
      * size param in format 100x200
      *
-     * @param string $fileName
+     * @param string $file
      * @param string $position
      * @param string $size
      * @param int $width
@@ -480,7 +480,9 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     public function saveFile()
     {
-        $this->getImageProcessor()->save($this->getNewFile());
+        $filename = $this->getNewFile();
+        $this->getImageProcessor()->save($filename);
+        Mage::helper('core/file_storage_database')->saveFile($filename);
         return $this;
     }
 
@@ -518,7 +520,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
     public function isCached()
     {
-        return file_exists($this->_newFile);
+        return $this->_fileExists($this->_newFile);
     }
 
     /**
@@ -560,17 +562,17 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
         $baseDir = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
 
-        if( file_exists($baseDir . '/watermark/stores/' . Mage::app()->getStore()->getId() . $file) ) {
+        if( $this->_fileExists($baseDir . '/watermark/stores/' . Mage::app()->getStore()->getId() . $file) ) {
             $filePath = $baseDir . '/watermark/stores/' . Mage::app()->getStore()->getId() . $file;
-        } elseif ( file_exists($baseDir . '/watermark/websites/' . Mage::app()->getWebsite()->getId() . $file) ) {
+        } elseif ( $this->_fileExists($baseDir . '/watermark/websites/' . Mage::app()->getWebsite()->getId() . $file) ) {
             $filePath = $baseDir . '/watermark/websites/' . Mage::app()->getWebsite()->getId() . $file;
-        } elseif ( file_exists($baseDir . '/watermark/default/' . $file) ) {
+        } elseif ( $this->_fileExists($baseDir . '/watermark/default/' . $file) ) {
             $filePath = $baseDir . '/watermark/default/' . $file;
-        } elseif ( file_exists($baseDir . '/watermark/' . $file) ) {
+        } elseif ( $this->_fileExists($baseDir . '/watermark/' . $file) ) {
             $filePath = $baseDir . '/watermark/' . $file;
         } else {
             $baseDir = Mage::getDesign()->getSkinBaseDir();
-            if( file_exists($baseDir . $file) ) {
+            if( $this->_fileExists($baseDir . $file) ) {
                 $filePath = $baseDir . $file;
             }
         }
@@ -686,5 +688,22 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         $directory = Mage::getBaseDir('media') . DS.'catalog'.DS.'product'.DS.'cache'.DS;
         $io = new Varien_Io_File();
         $io->rmdir($directory, true);
+
+        Mage::helper('core/file_storage_database')->deleteFolder($directory);
+    }
+
+    /**
+     * First check this file on FS
+     * If it doesn't exist - try to download it from DB
+     *
+     * @param string $filename
+     * @return bool
+     */
+    protected function _fileExists($filename) {
+        if (file_exists($filename)) {
+            return true;
+        } else {
+            return Mage::helper('core/file_storage_database')->saveFileToFilesystem($filename);
+        }
     }
 }

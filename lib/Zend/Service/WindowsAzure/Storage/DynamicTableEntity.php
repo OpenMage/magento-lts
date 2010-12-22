@@ -17,7 +17,7 @@
  * @subpackage Storage
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: DynamicTableEntity.php 23167 2010-10-19 17:53:31Z mabe $
  */
 
 
@@ -86,7 +86,7 @@ class Zend_Service_WindowsAzure_Storage_DynamicTableEntity extends Zend_Service_
         } else {
             if (!array_key_exists(strtolower($name), $this->_dynamicProperties)) {
                 // Determine type?
-                if (is_null($type)) {
+                if ($type === null) {
                     $type = 'Edm.String';
                     if (is_int($value)) {
                         $type = 'Edm.Int32';

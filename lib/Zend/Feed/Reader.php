@@ -16,7 +16,7 @@
  * @package    Zend_Feed_Reader
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Reader.php 22093 2010-05-04 12:55:06Z padraic $
+ * @version    $Id: Reader.php 22662 2010-07-24 17:37:36Z mabe $
  */
 
 /**
@@ -236,10 +236,10 @@ class Zend_Feed_Reader
         if (self::$_httpConditionalGet && $cache) {
             $data = $cache->load($cacheId);
             if ($data) {
-                if (is_null($etag)) {
+                if ($etag === null) {
                     $etag = $cache->load($cacheId.'_etag');
                 }
-                if (is_null($lastModified)) {
+                if ($lastModified === null) {
                     $lastModified = $cache->load($cacheId.'_lastmodified');;
                 }
                 if ($etag) {

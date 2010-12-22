@@ -16,7 +16,7 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Resource.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Resource.php 22909 2010-08-27 19:57:48Z alexander $
  */
 
 
@@ -66,14 +66,78 @@ abstract class Zend_Pdf_Resource
      */
     public function __construct($resource)
     {
+        if ($resource instanceof Zend_Pdf_Element_Object) {
+            $this->_objectFactory = $resource->getFactory();
+            $this->_resource      = $resource;
+
+            return;
+        }
+
         #require_once 'Zend/Pdf/ElementFactory.php';
 
-        $this->_objectFactory     = Zend_Pdf_ElementFactory::createFactory(1);
+        $this->_objectFactory = Zend_Pdf_ElementFactory::createFactory(1);
         if ($resource instanceof Zend_Pdf_Element) {
-            $this->_resource      = $this->_objectFactory->newObject($resource);
+            $this->_resource  = $this->_objectFactory->newObject($resource);
         } else {
-            $this->_resource      = $this->_objectFactory->newStreamObject($resource);
+            $this->_resource  = $this->_objectFactory->newStreamObject($resource);
         }
+    }
+
+    /**
+     * Clone page, extract it and dependent objects from the current document,
+     * so it can be used within other docs.
+     */
+    public function __clone()
+    {
+        /** @todo implementation*/
+
+//        $factory = Zend_Pdf_ElementFactory::createFactory(1);
+//        $processed = array();
+//
+//        // Clone dictionary object.
+//        // Do it explicitly to prevent sharing resource attributes between different
+//        // results of clone operation (other resources are still shared)
+//        $dictionary = new Zend_Pdf_Element_Dictionary();
+//        foreach ($this->_pageDictionary->getKeys() as $key) {
+//         $dictionary->$key = $this->_pageDictionary->$key->makeClone($factory->getFactory(),
+//                                                                     $processed,
+//                                                                     Zend_Pdf_Element::CLONE_MODE_SKIP_PAGES);
+//        }
+//
+//        $this->_pageDictionary = $factory->newObject($dictionary);
+//        $this->_objectFactory  = $factory;
+//        $this->_attached       = false;
+//        $this->_style          = null;
+//        $this->_font           = null;
+    }
+
+    /**
+     * Clone resource, extract it and dependent objects from the current document,
+     * so it can be used within other docs.
+     *
+     * @internal
+     * @param Zend_Pdf_ElementFactory_Interface $factory
+     * @param array $processed
+     * @return Zend_Pdf_Page
+     */
+    public function cloneResource($factory, &$processed)
+    {
+        /** @todo implementation*/
+
+//        // Clone dictionary object.
+//        // Do it explicitly to prevent sharing page attributes between different
+//        // results of clonePage() operation (other resources are still shared)
+//        $dictionary = new Zend_Pdf_Element_Dictionary();
+//        foreach ($this->_pageDictionary->getKeys() as $key) {
+//            $dictionary->$key = $this->_pageDictionary->$key->makeClone($factory->getFactory(),
+//                                                                        $processed,
+//                                                                        Zend_Pdf_Element::CLONE_MODE_SKIP_PAGES);
+//        }
+//
+//        $clonedPage = new Zend_Pdf_Page($factory->newObject($dictionary), $factory);
+//        $clonedPage->_attached = false;
+//
+//        return $clonedPage;
     }
 
     /**

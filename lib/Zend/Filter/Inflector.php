@@ -16,7 +16,7 @@
  * @package    Zend_Filter
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Inflector.php 21372 2010-03-07 19:58:08Z thomas $
+ * @version    $Id: Inflector.php 21371 2010-03-07 19:56:01Z thomas $
  */
 
 /**
