@@ -579,7 +579,8 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
 
         foreach ($indexData as $attributeData) {
             foreach ($attributeData as $attributeId => $attributeValue) {
-                if ($value = $this->_getAttributeValue($attributeId, $attributeValue, $storeId)) {
+                $value = $this->_getAttributeValue($attributeId, $attributeValue, $storeId);
+                if (!is_null($value) && $value !== false) {
                     $code = $this->_getSearchableAttribute($attributeId)->getAttributeCode();
                     //For grouped products
                     if (isset($index[$code])) {

@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Http.php 23229 2010-10-25 14:16:21Z matthew $
+ * @version    $Id: Http.php 23414 2010-11-20 10:56:11Z bittarman $
  */
 
 /** @see Zend_Controller_Request_Abstract */
@@ -551,7 +551,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
             $this->setBaseUrl();
         }
 
-        return $this->_baseUrl;
+        return urldecode($this->_baseUrl);
     }
 
     /**
@@ -622,6 +622,8 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
             if ($pos = strpos($requestUri, '?')) {
                 $requestUri = substr($requestUri, 0, $pos);
             }
+            
+            $requestUri = urldecode($requestUri);
 
             if (null !== $baseUrl
                 && ((!empty($baseUrl) && 0 === strpos($requestUri, $baseUrl)) 
@@ -1031,7 +1033,10 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
         $name   = $this->getServer('SERVER_NAME');
         $port   = $this->getServer('SERVER_PORT');
 
-        if (($scheme == self::SCHEME_HTTP && $port == 80) || ($scheme == self::SCHEME_HTTPS && $port == 443)) {
+        if(null === $name) {
+            return '';
+        }
+        elseif (($scheme == self::SCHEME_HTTP && $port == 80) || ($scheme == self::SCHEME_HTTPS && $port == 443)) {
             return $name;
         } else {
             return $name . ':' . $port;

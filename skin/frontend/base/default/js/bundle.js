@@ -83,18 +83,22 @@ Product.Bundle.prototype = {
     reloadPrice: function() {
         var calculatedPrice = 0;
         var dispositionPrice = 0;
+        var includeTaxPrice = 0;
         for (var option in this.config.selected) {
             if (this.config.options[option]) {
                 for (var i=0; i < this.config.selected[option].length; i++) {
                     var prices = this.selectionPrice(option, this.config.selected[option][i]);
                     calculatedPrice += Number(prices[0]);
                     dispositionPrice += Number(prices[1]);
+                    includeTaxPrice += Number(prices[2]);
                 }
             }
         }
 
+        optionsPrice.specialTaxPrice = 'true';
         optionsPrice.changePrice('bundle', calculatedPrice);
         optionsPrice.changePrice('nontaxable', dispositionPrice);
+        optionsPrice.changePrice('priceInclTax', includeTaxPrice);
         optionsPrice.reload();
 
         return calculatedPrice;
@@ -143,7 +147,17 @@ Product.Bundle.prototype = {
             newPrice = (Math.round(newPrice*100)/100).toString();
             price = Math.min(newPrice, price);
         }
-        var result = new Array(price*qty, disposition*qty);
+
+        taxPercent = this.config.options[optionId].selections[selectionId].taxPercent;
+        if (this.config.includeTax == 'true') {
+            priceInclTax = price;
+            price = price / ((100 + taxPercent) / 100);
+        }
+        else {
+            priceInclTax = price * ((100 + taxPercent) / 100);
+        }
+
+        var result = new Array(price*qty, disposition*qty, priceInclTax*qty);
         return result;
     },
 

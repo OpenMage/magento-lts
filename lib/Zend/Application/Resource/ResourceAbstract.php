@@ -17,7 +17,7 @@
  * @subpackage Resource
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ResourceAbstract.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: ResourceAbstract.php 23384 2010-11-19 00:00:29Z ramon $
  */
 
 /**
@@ -83,6 +83,11 @@ abstract class Zend_Application_Resource_ResourceAbstract implements Zend_Applic
      */
     public function setOptions(array $options)
     {
+        if (array_key_exists('bootstrap', $options)) {
+            $this->setBootstrap($options['bootstrap']);
+            unset($options['bootstrap']);
+        }
+
         foreach ($options as $key => $value) {
             if (in_array(strtolower($key), $this->_skipOptions)) {
                 continue;
@@ -91,9 +96,6 @@ abstract class Zend_Application_Resource_ResourceAbstract implements Zend_Applic
             $method = 'set' . strtolower($key);
             if (method_exists($this, $method)) {
                 $this->$method($value);
-            }
-            if ('bootstrap' === $key) {
-                unset($options[$key]);
             }
         }
 

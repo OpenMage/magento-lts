@@ -225,6 +225,14 @@
                 <allowspecific>1</allowspecific>
                 <specificcountry>IE</specificcountry>
             </moneybookers_lsr>
+            <moneybookers_mae>
+                <group>mbookers</group>
+                <active>0</active>
+                <model>moneybookers/mae</model>
+                <title>Maestro</title>
+                <allowspecific>1</allowspecific>
+                <specificcountry>GB,AT,ES</specificcountry>
+            </moneybookers_mae>
             <moneybookers_npy>
                 <group>mbookers</group>
                 <active>0</active>
@@ -280,6 +288,13 @@
                 <title>Moneybookers eWallet</title>
                 <allowspecific>0</allowspecific>
             </moneybookers_wlt>
+            <moneybookers_obt>
+                <group>mbookers</group>
+                <active>0</active>
+                <model>moneybookers/obt</model>
+                <title>Onlineüberweisung (empfohlen)</title>
+                <allowspecific>0</allowspecific>
+            </moneybookers_obt>
         </payment>
         <moneybookers>
             <settings>

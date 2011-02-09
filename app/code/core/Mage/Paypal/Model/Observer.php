@@ -82,7 +82,7 @@ class Mage_Paypal_Model_Observer
 
         if ($order && $order->getId()) {
             $payment = $order->getPayment();
-            if ($payment && $payment->getMethod() == Mage::getModel('paypal/payflowlink')->getCode()) {
+            if ($payment && in_array($payment->getMethod(), Mage::helper('paypal/hss')->getHssMethods())) {
                 /* @var $controller Mage_Core_Controller_Varien_Action */
                 $controller = $observer->getEvent()->getData('controller_action');
                 $result = Mage::helper('core')->jsonDecode(
@@ -92,12 +92,9 @@ class Mage_Paypal_Model_Observer
 
                 if (empty($result['error'])) {
                     $controller->loadLayout('checkout_onepage_review');
-                    $html = $controller->getLayout()->getBlock('root')->toHtml();
-                    /*$formBlock = $controller->getLayout()
-                        ->createBlock('paypal/payflow_link_iframe');
-                    $html .= $formBlock->toHtml();*/
+                    $html = $controller->getLayout()->getBlock('paypal.iframe')->toHtml();
                     $result['update_section'] = array(
-                        'name' => 'review',
+                        'name' => 'paypaliframe',
                         'html' => $html
                     );
                     $result['redirect'] = false;

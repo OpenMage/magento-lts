@@ -537,22 +537,13 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
             return;
         }
 
-        if (count($keys) >= count($street)) {
-            foreach ($keys as $key) {
-                if ($value = array_shift($street)) {
-                    $to[$key] = $value;
-                }
-            }
-        } else {
-            $countArgs = ceil(count($street)/count($keys));
-            $offset = 0;
-            foreach ($keys as $key) {
-                $values = array_slice($street, $offset, $countArgs);
-                if (is_array($values)) {
-                    $to[$key] = implode(' ', $values);
-                    $offset += $countArgs;
-                }
-            }
+        $street = Mage::helper('customer/address')
+            ->convertStreetLines($address->getStreet(), count($keys));
+
+        $i = 0;
+        foreach ($keys as $key) {
+            $to[$key] = isset($street[$i]) ? $street[$i]: '';
+            $i++;
         }
     }
 

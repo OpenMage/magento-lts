@@ -423,6 +423,7 @@
 
 <?php if ($this->isGiftMessagesAvailable()) : ?>
 <script type="text/javascript">
+//<![CDATA[
     /**
      * Loader function for gift message data
      *
@@ -506,6 +507,7 @@
     giftOptionsTooltip.addTargetLink('gift_options_link_<?php echo $_item->getId() ?>', <?php echo $_item->getId() ?>);
         <?php endif; ?>
     <?php endforeach; ?>
+//]]>
 </script>
 <?php endif; ?>
 <?php endif; ?>

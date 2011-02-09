@@ -360,7 +360,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Template
         }
 
         if ($returnPathEmail !== null) {
-            $mailTransport = new Zend_Mail_Transport_Sendmail($returnPathEmail);
+            $mailTransport = new Zend_Mail_Transport_Sendmail("-f".$returnPathEmail);
             Zend_Mail::setDefaultTransport($mailTransport);
         }
 

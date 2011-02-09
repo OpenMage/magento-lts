@@ -204,6 +204,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             }
             if ($buyRequest->getQty() && !$item->getQty()) {
                 $item->setQty($buyRequest->getQty());
+                Mage::helper('wishlist')->calculate();
             }
             $params->setBuyRequest($buyRequest);
 
@@ -249,11 +250,11 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $id = (int) $this->getRequest()->getParam('id');
             $buyRequest = new Varien_Object($this->getRequest()->getParams());
 
-            /* @var $item Mage_Wishlist_Model_Item */
-            $item = $wishlist->updateItem($id, $buyRequest)
+            $wishlist->updateItem($id, $buyRequest)
                 ->save();
 
-            Mage::dispatchEvent('wishlist_update_item', array('wishlist' => $wishlist, 'product' => $product, 'item' => $item));
+            Mage::helper('wishlist')->calculate();
+            Mage::dispatchEvent('wishlist_update_item', array('wishlist' => $wishlist, 'product' => $product, 'item' => $wishlist->getItem($id)));
 
             Mage::helper('wishlist')->calculate();
 
@@ -322,8 +323,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                         ->setQty($qty)
                         ->save();
                     $updatedItems++;
-                }
-                catch (Exception $e) {
+                } catch (Exception $e) {
                     Mage::getSingleton('customer/session')->addError(
                         $this->__('Can\'t save description %s', Mage::helper('core')->htmlEscape($description))
                     );
@@ -334,6 +334,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             if ($updatedItems) {
                 try {
                     $wishlist->save();
+                    Mage::helper('wishlist')->calculate();
                 }
                 catch (Exception $e) {
                     Mage::getSingleton('customer/session')->addError($this->__('Can\'t update wishlist'));
@@ -433,6 +434,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             } else if ($this->_getRefererUrl()) {
                 $redirectUrl = $this->_getRefererUrl();
             }
+            Mage::helper('wishlist')->calculate();
         } catch (Mage_Core_Exception $e) {
             if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SALABLE) {
                 $session->addError(Mage::helper('wishlist')->__('This product(s) is currently out of stock'));

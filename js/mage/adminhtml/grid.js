@@ -356,13 +356,34 @@ varienGridMassaction.prototype = {
     },
     initMassactionElements: function() {
         this.container      = $(this.containerId);
-        this.form           = $(this.containerId + '-form');
         this.count          = $(this.containerId + '-count');
-        this.validator      = new Validation(this.form);
         this.formHiddens    = $(this.containerId + '-form-hiddens');
         this.formAdditional = $(this.containerId + '-form-additional');
         this.select         = $(this.containerId + '-select');
+        this.form           = this.prepareForm();
+        this.validator      = new Validation(this.form);
         this.select.observe('change', this.onSelectChange.bindAsEventListener(this));
+    },
+    prepareForm: function() {
+        var form = $(this.containerId + '-form'), formPlace = null,
+            formElement = this.formHiddens || this.formAdditional;
+
+        if (!formElement) {
+            formElement = this.container.getElementsByTagName('button')[0];
+            formElement && formElement.parentNode;
+        }
+        if (!form && formElement) {
+            /* fix problem with rendering form in FF through innerHTML property */
+            form = document.createElement('form');
+            form.setAttribute('method', 'post');
+            form.setAttribute('action', '');
+            form.id = this.containerId + '-form';
+            formPlace = formElement.parentNode.parentNode;
+            formPlace.parentNode.appendChild(form);
+            form.appendChild(formPlace);
+        }
+
+        return form;
     },
     setGridIds: function(gridIds) {
         this.gridIds = gridIds;

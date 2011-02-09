@@ -16,7 +16,7 @@
  * @package    Zend_Dojo
  * @subpackage View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Container.php 23060 2010-10-08 13:42:26Z matthew $
+ * @version    $Id: Container.php 23368 2010-11-18 19:56:30Z bittarman $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -845,7 +845,7 @@ class Zend_Dojo_View_Helper_Dojo_Container
     public function dijitsToJson()
     {
         #require_once 'Zend/Json.php';
-        return Zend_Json::encode($this->getDijits());
+        return Zend_Json::encode($this->getDijits(), false, array('enableJsonExprFinder' => true));
     }
 
     /**

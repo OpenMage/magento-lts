@@ -40,7 +40,7 @@
                 <?php foreach ($_links as $_link): ?>
                     <li>
                     <?php if ($_linksPurchasedSeparately): ?>
-                        <input type="checkbox" class="checkbox<?php if ($_isRequired):?> validate-one-required-by-name<?php endif; ?> product-downloadable-link" name="links[]" id="links_<?php echo $_link->getId() ?>" value="<?php echo $_link->getId(); ?>" <?php echo $this->getLinkCheckedValue($_link); ?> />
+                        <input type="checkbox" class="checkbox<?php if ($_isRequired):?> validate-one-required-by-name<?php endif; ?> product-downloadable-link" name="links[]" id="links_<?php echo $_link->getId() ?>" value="<?php echo $_link->getId(); ?>" <?php echo $this->getLinkCheckedValue($_link); ?> price="<?php echo $_link->getPrice(); ?>"/>
                         <?php endif; ?>
                         <span class="label">
                         <label for="links_<?php echo $_link->getId() ?>">

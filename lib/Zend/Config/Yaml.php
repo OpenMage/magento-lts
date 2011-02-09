@@ -16,6 +16,7 @@
  * @package   Zend_Config
  * @copyright Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ * @version   $Id: Yaml.php 23294 2010-11-05 00:27:34Z ramon $
  */
 
 /**
@@ -24,7 +25,7 @@
 #require_once 'Zend/Config.php';
 
 /**
- * XML Adapter for Zend_Config
+ * YAML Adapter for Zend_Config
  *
  * @category  Zend
  * @package   Zend_Config

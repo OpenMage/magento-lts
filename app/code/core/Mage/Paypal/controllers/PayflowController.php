@@ -41,7 +41,7 @@ class Mage_Paypal_PayflowController extends Mage_Core_Controller_Front_Action
         $gotoSection = $this->_cancelPayment();
         $redirectBlock = $this->_getIframeBlock()
             ->setGotoSection($gotoSection)
-            ->setTemplate('paypal/payflow/link/redirect.phtml');
+            ->setTemplate('paypal/hss/redirect.phtml');
         $this->getResponse()->setBody($redirectBlock->toHtml());
     }
 
@@ -51,7 +51,7 @@ class Mage_Paypal_PayflowController extends Mage_Core_Controller_Front_Action
     public function returnUrlAction()
     {
         $redirectBlock = $this->_getIframeBlock()
-            ->setTemplate('paypal/payflow/link/redirect.phtml');
+            ->setTemplate('paypal/hss/redirect.phtml');
 
         $session = $this->_getCheckout();
         if ($session->getLastRealOrderId()) {

@@ -56,6 +56,7 @@ class Mage_Adminhtml_Block_Widget_Button extends Mage_Adminhtml_Block_Widget
         $html = $this->getBeforeHtml().'<button '
             . ($this->getId()?' id="'.$this->getId() . '"':'')
             . ($this->getElementName()?' name="'.$this->getElementName() . '"':'')
+            . ($this->getTitle()?' title="'.$this->getTitle() . '"':'')
             . ' type="'.$this->getType() . '"'
             . ' class="scalable '.$this->getClass().'"'
             . ' onclick="'.$this->getOnClick().'"'

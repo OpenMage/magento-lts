@@ -28,7 +28,6 @@
 <?php /* @var $this Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Bundle */ ?>
 <?php $options = Mage::helper('core')->decorateArray($this->getOptions()); ?>
 <?php if (count($options)): ?>
-
 <div id="catalog_product_composite_configure_fields_bundle" class="<?php echo $this->getIsLastFieldset() ? 'last-fieldset' : '' ?>">
     <h4><?php echo Mage::helper('catalog')->__('Bundle Items') ?></h4>
     <div class="product-options">
@@ -47,39 +46,37 @@ var BundleControl = Class.create();
 BundleControl.prototype = {
     initialize: function (config) {
         this.config = config;
-        this.updateForDefaults();
     },
 
     changeSelection: function (selection) {
         if (selection.multiple) {
             return;
         }
-        var parts = selection.id.split('-');
-        var optionId = parts[2];
-        var showQtyInput = true;
-        if (selection.type == 'radio') {
-            showQtyInput = $(selection.id).checked;
-        } else {
-            showQtyInput = (selection.value != '') && (selection.value != 'none');
-        }
-        this.updateQtyInput(optionId, showQtyInput);
+        var parts = selection.id.split('-'), optionId = parts[2],
+            showQtyInput = selection.value && selection.value != 'none',
+            options = this.config.options[optionId],
+            selectionOptions = options && options.selections && options.selections[selection.value] || {};
+
+        selectionOptions.can_change_qty = Number(selectionOptions.can_change_qty) && showQtyInput;
+        this.updateQtyInput(optionId, selectionOptions);
     },
 
-    updateQtyInput: function(optionId, active) {
-        var elem = $('bundle-option-' + optionId + '-qty-input');
+    updateQtyInput: function(optionId, selectionOptions) {
+        var elem = $('bundle-option-' + optionId + '-qty-input'),
+            default_qty = Number(selectionOptions.default_qty);
         if (!elem) {
             return;
         }
-        if (active) {
+        if (selectionOptions.can_change_qty) {
             elem.removeClassName('qty-disabled');
             elem.disabled = false;
             if (elem.value == '0') {
-                elem.value = 1;
+                elem.value = default_qty || 1;
             }
         } else {
             elem.addClassName('qty-disabled');
             elem.disabled = true;
-            elem.value = 0;
+            elem.value = default_qty || 0;
         }
     },
 
@@ -92,7 +89,6 @@ BundleControl.prototype = {
         }
     },
 }
-
 ProductConfigure.bundleControl = new BundleControl(<?php echo $this->getJsonConfig() ?>);
 </script>
 

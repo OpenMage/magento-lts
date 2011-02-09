@@ -16,7 +16,7 @@
  * @package    Zend_Version
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Version.php 23196 2010-10-21 10:23:30Z alexander $
+ * @version    $Id: Version.php 23455 2010-11-29 16:24:55Z matthew $
  */
 
 /**
@@ -32,7 +32,7 @@ final class Zend_Version
     /**
      * Zend Framework version identification - see compareVersion()
      */
-    const VERSION = '1.11.0';
+    const VERSION = '1.11.1';
 
     /**
      * The latest stable version Zend Framework available

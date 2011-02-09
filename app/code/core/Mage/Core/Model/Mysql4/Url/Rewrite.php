@@ -123,14 +123,18 @@ class Mage_Core_Model_Mysql4_Url_Rewrite extends Mage_Core_Model_Mysql4_Abstract
             $path = array($path);
         }
 
+        $pathBind = array();
+        foreach ($path as $key => $url) {
+            $pathBind['path'.$key] = $url;
+        }
         // Form select
         $read = $this->_getReadAdapter();
         $select = $read->select()
             ->from($this->getMainTable())
-            ->where($this->getMainTable() . '.request_path IN (?)', $path)
-            ->where('store_id IN(?)', array(0, $object->getStoreId()));
+            ->where($this->getMainTable() . '.request_path IN (:' . implode(', :', array_flip($pathBind)) . ')')
+            ->where('store_id IN(?)', array(0, (int)$object->getStoreId()));
 
-        $items = $read->fetchAll($select);
+        $items = $read->fetchAll($select, $pathBind);
 
         // Go through all found records and choose one with lowest penalty - earlier path in array, concrete store
         $mapPenalty = array_flip(array_values($path)); // we got mapping array(path => index), lower index - better

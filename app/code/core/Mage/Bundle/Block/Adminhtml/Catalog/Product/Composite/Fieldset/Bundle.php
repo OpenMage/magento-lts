@@ -44,7 +44,13 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Bundle
         $optionsArray = $this->getOptions();
         foreach ($optionsArray as $option) {
             $optionId = $option->getId();
-            $options[$optionId] = array('id' => $optionId);
+            $options[$optionId] = array('id' => $optionId, 'selections' => array());
+            foreach ($option->getSelections() as $selection) {
+                $options[$optionId]['selections'][$selection->getSelectionId()] = array(
+                    'can_change_qty' => $selection->getSelectionCanChangeQty(),
+                    'default_qty'    => $selection->getSelectionQty()
+                );
+            }
         }
         $config = array('options' => $options);
         return Mage::helper('core')->jsonEncode($config);

@@ -154,6 +154,7 @@
             });
             try {
                 optionsPrice.changePrice('options', price);
+                optionsPrice.changePrice('optionsPriceInclTax', price);
                 optionsPrice.reload();
             } catch (e) {
 

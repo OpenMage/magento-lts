@@ -1,3 +1,89 @@
+=== 1.5.0.0-alpha2 ====
+
+=== Major Highlights ===
+Added Payflow Link using HSS (Hosted Sole Solution)
+
+=== Improvements ===
+Upgraded Zend Framework to 1.11.1
+Phoenix_Moneybookers improvements:
+- updated payment logo images
+- added "Maestro" and "Online Bank Transfer" payment methods into Moneybookers group
+- wrapped Moneybookers payment logo title and alt text on payment selection text into translation calls
+
+=== Fixes ===
+Fixed Price for composite products in a products grid on Order creation page
+Fixed No ability to delete item from Wishlist by specifying Qty = 0 and click on Update Wishlist
+Fixed Do not hide ajax loader on 'Place order' step on onepage checkout when customer selected PayflowLink payment method until PayPal iframe will be loaded
+Fixed Admin reorder with bundle item cause wrong qty of simple products
+Fixed Incorrect bundle product price and bundle items Qty count during the process of Admin Order creation
+Fixed When bundle item is configured in that way, when it cannot have User defined quantity, Qty field remains editable in AJAX-popup
+Fixed "UPS XML" allowed methods bug
+Fixed Mage_Page_Block_Template_Links_Block::$_afterText is never used
+Fixed No configuration popup for Grouped products in admin backend new order creation
+- the problem was in sales.js during parsing currency from price cell. In case when no price was present in cell the JS exeption occurs. So it was needed to determine currency symbol in other way. And it way was in sets this.currencySymbol in AdminOrder class when order obj initialization or when current currency  is switched.
+- small fix in grouped.phtml and giftcatd.phtml: set additioal attributes for price calculation
+- small fix in configure.js: using parameter listType instead of this.current.listType in _requestItemConfiguration method
+- small fix in sales.js: do overall popup cleaning by productConfigure.clean() for each loadArea calling
+Fixed When bundle item is configured in that way, when it cannot have User defined quantity, Qty field remains editable in AJAX-popup
+Fixed Customer data not saved when returning to cart and back to checkout
+Fixed Bad sku value for non-configured bundle in Create New Order at admin backend
+Fixed Integrity Constraint Violation in Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price::_prepareWebsiteDateTable
+Fixed URL Rewrite Exeption
+Fixed Menu "Catalog-Manage Products-Gift Options" have incorrect design and wrong position in menu list:
+Fixed Displaying Out of Stock Products on the front-end.
+Fixed Incorrect shipping tax calculation on invoice creditmemos with included tax
+Fixed Cannot login to backend while notify "This is a required field." is present
+- There was JS error, invisible due to try-catch construction. Fixed
+Fixed Authorize.net invoice capture.
+- Do not capture/refund/void transaction if transaction has been captured/voided in authorize.net panel
+Fixed Inadequate URL in Moneybookers eWallet "More Info" Link
+Fixed It is impossible to export products using the new Export module
+Fixed Tax Rate = 0% displayed in Cart
+Fixed Unable to specify quantites for bundle items in AJAX-popup, when selection of bundle items is provided using radiobuttons
+Fixed Incorrect style tables in customer confirmation email. For orders with Authorize.net payment method
+- fixed incorrect styling in customer confirmation email;
+- simplified styling on admin order page
+Fixed Cron job dispatcher incorrectly releases locks
+Fixed Incorrect items number in "MY WISHLIST" after updated quantity in the Wishlist
+- Added new configuration option "Display Wishlist Summary" in System -> Configuration -> Customers -> Wishlist section
+- Removed quantity information from wishlist frontend page
+Fixed Update compare list after delete one item
+Fixed No hint for disabled "Configure" button  
+Fixed In Bundle product's page "Availability" string is not placed well
+Fixed Non-correct headers uses for email return-path.
+Fixed Numerous issued with displaying tax on front-end for bundled items
+Fixed Impossible save empty values for store view scope
+Fixed Non-correct headers uses for email return-path.  
+- Added "-f" parameter to transport instance at Mage_Core_Model_Email_Template::send() like PHP mail() needs
+Fixed Do not hide ajax loader on 'Place order' step on onepage checkout when customer selected PayflowLink payment method until PayPal iframe will be loaded
+Fixed Order can be placed with non-configured composite product in Ordered Items
+Fixed Using "Update Wishlist" adds quantity to existing value even nothing wasn't changed
+
+
+==== 1.5.x-devel-89318 ====
+
+=== Fixes ===
+Fixed Tax Rate = 0% displayed in Cart
+Fixed Unable to specify quantites for bundle items in AJAX-popup, when selection of bundle items is provided using radiobuttons
+Fixed Incorrect style tables in customer confirmation email. For orders with Authorize.net payment method
+- fixed incorrect styling in customer confirmation email;
+- simplified styling on admin order page
+Fixed Cron job dispatcher incorrectly releases locks
+Fixed Incorrect items number in "MY WISHLIST" after updated quantity in the Wishlist
+- Added new configuration option "Display Wishlist Summary" in System -> Configuration -> Customers -> Wishlist section
+- Removed quantity information from wishlist frontend page
+Fixed Update compare list after delete one item
+Fixed No hint for disabled "Configure" button  
+Fixed In Bundle product's page "Availability" string is not placed well
+Fixed Non-correct headers uses for email return-path.
+Fixed Numerous issued with displaying tax on front-end for bundled items
+Fixed Impossible save empty values for store view scope
+Fixed Non-correct headers uses for email return-path.  
+- Added "-f" parameter to transport instance at Mage_Core_Model_Email_Template::send() like PHP mail() needs
+Fixed Do not hide ajax loader on 'Place order' step on onepage checkout when customer selected PayflowLink payment method until PayPal iframe will be loaded
+Fixed Order can be placed with non-configured composite product in Ordered Items
+Fixed Using "Update Wishlist" adds quantity to existing value even nothing wasn't changed
+
 ==== 1.5.0.0-alpha1 ====
 
 === Major Highlights ===

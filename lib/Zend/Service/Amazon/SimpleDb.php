@@ -64,7 +64,7 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
     /**
      * The HTTP query server
      */
-    protected $_sdbEndpoint = 'sdb.amazonaws.com';
+    protected $_sdbEndpoint = 'sdb.amazonaws.com/';
 
     /**
      * Period after which HTTP request will timeout in seconds
@@ -231,17 +231,19 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
             $params['Item.' . $itemIndex . '.ItemName'] = $name;
             $attributeIndex = 0;
             foreach ($attributes as $attribute) {
-                $params['Item.' . $itemIndex . '.Attribute.' . $attributeIndex . '.Name'] = $attribute->getName();
-                if (isset($replace[$itemIndex]) 
-                    && isset($replace[$itemIndex][$attributeIndex]) 
-                    && $replace[$itemIndex][$attributeIndex]
-                ) {
-                    $params['Item.' . $itemIndex . '.Attribute.' . $attributeIndex . '.Replace'] = 'true';
-                }
+                // attribute value cannot be array, so when several items are passed
+                // they are treated as separate values with the same attribute name
                 foreach($attribute->getValues() as $value) {
+                    $params['Item.' . $itemIndex . '.Attribute.' . $attributeIndex . '.Name'] = $attribute->getName();
                     $params['Item.' . $itemIndex . '.Attribute.' . $attributeIndex . '.Value'] = $value;
+                    if (isset($replace[$name]) 
+                        && isset($replace[$name][$attribute->getName()]) 
+                        && $replace[$name][$attribute->getName()]
+                    ) {
+                        $params['Item.' . $itemIndex . '.Attribute.' . $attributeIndex . '.Replace'] = 'true';
+                    }
+                    $attributeIndex++;
                 }
-                $attributeIndex++;
             }
             $itemIndex++;
         }
@@ -305,7 +307,7 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
 
         $nextTokenNode = $response->getSimpleXMLDocument()->ListDomainsResult->NextToken;
         $nextToken     = (string)$nextTokenNode;
-        $nextToken     = ''?null:$nextToken;
+        $nextToken     = (trim($nextToken) === '') ? null : $nextToken;
 
         return new Zend_Service_Amazon_SimpleDb_Page($data, $nextToken);
     }

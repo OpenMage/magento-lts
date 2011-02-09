@@ -61,6 +61,7 @@
         <?php if ($_item->getOrderItem()->getParentItem()) continue; else $_i++; ?>
         <tbody class="<?php echo $_i%2?'even':'odd' ?>">
             <?php echo $this->getItemHtml($_item) ?>
+            <?php echo $this->getItemExtraInfoHtml($_item->getOrderItem()) ?>
         </tbody>
         <?php endforeach; ?>
     </table>

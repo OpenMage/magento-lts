@@ -68,6 +68,8 @@ class Mage_Paypal_Model_Config
 
     const METHOD_PAYFLOWLINK  = 'payflow_link';
 
+    const METHOD_HOSTEDPRO  = 'hosted_pro';
+
     const METHOD_BILLING_AGREEMENT = 'paypal_billing_agreement';
 
     /**
@@ -474,26 +476,29 @@ class Mage_Paypal_Model_Config
                 self::METHOD_WPP_EXPRESS,
                 self::METHOD_WPP_PE_DIRECT,
                 self::METHOD_WPP_PE_EXPRESS,
+                self::METHOD_HOSTEDPRO,
             ),
             'AU' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
                 self::METHOD_PAYFLOWPRO,
-                self::METHOD_PAYFLOWLINK,
+                self::METHOD_HOSTEDPRO,
             ),
             'NZ' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
                 self::METHOD_PAYFLOWPRO,
-                self::METHOD_PAYFLOWLINK,
+                self::METHOD_HOSTEDPRO,
             ),
             'DE' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_HOSTEDPRO,
             ),
             'other' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_HOSTEDPRO,
             )
         );
         if ($countryCode === null) {
@@ -947,6 +952,7 @@ class Mage_Paypal_Model_Config
             case self::METHOD_WPP_PE_DIRECT:
             case self::METHOD_PAYFLOWPRO:
             case self::METHOD_PAYFLOWLINK:
+            case self::METHOD_HOSTEDPRO:
                 return true;
         }
         return false;
@@ -1037,6 +1043,7 @@ class Mage_Paypal_Model_Config
                 $path = $this->_mapDirectFieldset($fieldName);
                 break;
             case self::METHOD_BILLING_AGREEMENT:
+            case self::METHOD_HOSTEDPRO:
                 $path = $this->_mapMethodFieldset($fieldName);
                 break;
         }
@@ -1046,6 +1053,7 @@ class Mage_Paypal_Model_Config
                 case self::METHOD_WPP_EXPRESS:
                 case self::METHOD_WPP_DIRECT:
                 case self::METHOD_BILLING_AGREEMENT:
+                case self::METHOD_HOSTEDPRO:
                     $path = $this->_mapWppFieldset($fieldName);
                     break;
                 case self::METHOD_WPP_PE_EXPRESS:

@@ -26,6 +26,14 @@
 
 class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+    /**
+     * Formating date value before save to DB
+     *
+     * should set (bool, string) correct type for empty value from html form,
+     * neccessary for farther proccess, else date string
+     *
+     * @param mixed $object
+     */
     public function beforeSave($object)
     {
         $attributeName = $this->getAttribute()->getName();
@@ -36,6 +44,11 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
             } catch (Exception $e) {
                 throw new Exception("Invalid date.");
             }
+
+            if (is_null($value)) {
+                $value = $object->getData($attributeName);
+            }
+
             $object->setData($attributeName, $value);
             $object->setData($attributeName . '_is_formated', true);
         }

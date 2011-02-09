@@ -25,7 +25,7 @@
  */
 
 /**
- * @see Mage_Paypal_Block_Payflow_Link_Iframe
+ * @see Mage_Paypal_Block_Iframe
  */
 ?>
 <html>
@@ -42,8 +42,8 @@
         }
     }
     window.top.checkout.gotoSection("<?php echo $this->getGotoSection() ?>");
-    window.top.document.getElementById('review-please-wait').setStyle({top: '50%'});
     window.top.document.getElementById('checkout-review-submit').show();
+    window.top.document.getElementById('iframe-warning').hide();
     <?php if ($this->getErrorMsg()): ?>
         alert('<?php echo $this->getErrorMsg() ?>');
     <?php endif; ?>

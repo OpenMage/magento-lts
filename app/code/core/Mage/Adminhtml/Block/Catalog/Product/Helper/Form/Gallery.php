@@ -87,7 +87,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
      */
     public function usedDefault($attribute)
     {
-        $defaultValue = $this->getDataObject()->getAttributeDefaultValue($attribute->getAttributeCode());
+        $attributeCode = $attribute->getAttributeCode();
+        $defaultValue = $this->getDataObject()->getAttributeDefaultValue($attributeCode);
+
+        if (!$this->getDataObject()->getExistsStoreValueFlag($attributeCode)) {
+            return true;
+        } else if ($this->getValue() == $defaultValue && 
+                   $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()) {
+            return false;
+        }
+        if ($defaultValue === false && !$attribute->getIsRequired() && $this->getValue()) {
+            return false;
+        }
         return $defaultValue === false;
     }
 
@@ -168,4 +179,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
         return '<tr><td class="value" colspan="3">' . $this->getElementHtml() . '</td></tr>';
     }
 
+    /**
+     * Default sore ID getter
+     *
+     * @return integer
+     */
+    protected function _getDefaultStoreId()
+    {
+        return Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
+    }
 }

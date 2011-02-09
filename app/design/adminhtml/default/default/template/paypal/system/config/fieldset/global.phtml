@@ -78,6 +78,7 @@ Event.observe(window, 'load', function() {
     Element.observe('paypal_global_wpp', 'click', pConfig.trackWpp.bind(pConfig));
     Element.observe('paypal_global_wpp_pe', 'click', pConfig.trackWppPe.bind(pConfig));
     Element.observe('paypal_global_payflow_link', 'click', pConfig.trackWppPl.bind(pConfig));
+    Element.observe('paypal_global_hosted_pro', 'click', pConfig.trackHss.bind(pConfig));
     Element.observe('paypal_global_verisign', 'click', pConfig.trackPayflowpro.bind(pConfig));
     ['ec','wps','ecpe'].each(function(m) {
         Element.observe(pConfig.getMethodSwitcher(m).id, 'click', pConfig.trackMethod.bind(pConfig, m));
@@ -89,6 +90,7 @@ Event.observe(window, 'load', function() {
     pConfig.trackWppPl();
     pConfig.trackWppPe();
     pConfig.trackWps();
+    pConfig.trackHss();
     ['ec','wps','ecpe'].each(function(m) {
         pConfig.trackMethod(m);
     });
@@ -107,7 +109,8 @@ PaypalConfig.prototype = {
             wpppe: $H({switcher: 'wpp_pe', fieldset: 'wpp_pe'}),
             wpppl: $H({switcher: 'payflow_link', fieldset: 'payflow_link'}),
             ecpe: $H({switcher: 'express_pe', fieldset: 'express_pe'}),
-            payflowpro: $H({switcher: 'verisign', fieldset: 'verisign'})
+            payflowpro: $H({switcher: 'verisign', fieldset: 'verisign'}),
+            hosted_pro: $H({switcher: 'hosted_pro', fieldset: 'hosted_pro'})
         });
         this.disabledMethods = [];
     },
@@ -252,25 +255,25 @@ PaypalConfig.prototype = {
     {
         var countryConfig = $H({
             'US':{
-                'exclude_methods': []
+                'exclude_methods': ['hosted_pro']
             },
             'CA':{
-                'exclude_methods': ['wpppe','ecpe']
+                'exclude_methods': ['wpppe','ecpe','hosted_pro']
             },
             'GB':{
-                'exclude_methods': ['payflowpro']
+                'exclude_methods': ['payflowpro','wpppl']
             },
             'AU':{
-                'exclude_methods': ['wpp','wpppe','ecpe']
+                'exclude_methods': ['wpp','wpppe','ecpe','wpppl']
             },
             'NZ':{
-                'exclude_methods': ['wpp','wpppe','ecpe']
+                'exclude_methods': ['wpp','wpppe','ecpe','wpppl']
             },
             'DE':{
-                'exclude_methods': ['wpp','wpppe','ecpe','payflowpro']
+                'exclude_methods': ['wpp','wpppe','ecpe','payflowpro','wpppl']
             },
             'other':{
-                'exclude_methods': ['wpp','wpppe','ecpe','payflowpro']
+                'exclude_methods': ['wpp','wpppe','ecpe','payflowpro','wpppl']
             }
         });
         var country = $('paypal_account_merchant_country').value;
@@ -340,6 +343,11 @@ PaypalConfig.prototype = {
     trackWppPl: function()
     {
         this.trackMethod('wpppl');
+    },
+
+    trackHss: function()
+    {
+        this.trackMethod('hosted_pro');
     },
 
     trackPayflowpro: function()

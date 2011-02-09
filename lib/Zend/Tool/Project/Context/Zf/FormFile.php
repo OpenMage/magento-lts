@@ -17,8 +17,13 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormFile.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: FormFile.php 23343 2010-11-15 15:33:22Z ramon $
  */
+
+/**
+ * @see Zend_Tool_Project_Context_Zf_AbstractClassFile
+ */
+#require_once 'Zend/Tool/Project/Context/Zf/AbstractClassFile.php';
 
 /**
  * This class is the front most class for utilizing Zend_Tool_Project
@@ -38,12 +43,12 @@ class Zend_Tool_Project_Context_Zf_FormFile extends Zend_Tool_Project_Context_Zf
      * @var string
      */
     protected $_formName = 'Base';
-    
+
     /**
      * @var string
      */
     protected $_filesystemName = 'formName';
-    
+
     /**
      * init()
      *
@@ -66,7 +71,7 @@ class Zend_Tool_Project_Context_Zf_FormFile extends Zend_Tool_Project_Context_Zf
             'formName' => $this->getFormName()
             );
     }
-    
+
     /**
      * getName()
      *
@@ -81,12 +86,12 @@ class Zend_Tool_Project_Context_Zf_FormFile extends Zend_Tool_Project_Context_Zf
     {
         return $this->_formName;
     }
-    
+
     public function getContents()
     {
-        
+
         $className = $this->getFullClassName($this->_formName, 'Form');
-        
+
         $codeGenFile = new Zend_CodeGenerator_Php_File(array(
             'fileName' => $this->getPath(),
             'classes' => array(
@@ -99,7 +104,7 @@ class Zend_Tool_Project_Context_Zf_FormFile extends Zend_Tool_Project_Context_Zf
                             'body' => '/* Form Elements & Other Definitions Here ... */',
                             ))
                         )
-                
+
                     ))
                 )
             ));

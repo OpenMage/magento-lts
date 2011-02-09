@@ -24,34 +24,40 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-    <div id="gift_options_giftmessage">
-        <fieldset>
-            <span><?php echo Mage::helper('sales')->__('Gift Message'); ?></span>
-            <table cellspacing="0" class="form-list">
-                <tbody>
-                    <tr>
-                        <td class="hidden" colspan="2"><input type="hidden" name="current_item_giftmessage_type" id="current_item_giftmessage_type"></td>
-                    </tr>
-                    <tr>
-                        <td class="label"><label for="current_item_giftmessage_sender"><?php echo Mage::helper('sales')->__('From'); ?></label></td>
-                        <td class="value">
-                            <input type="text" class="input-text" name="current_item_giftmessage_sender" id="current_item_giftmessage_sender">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label"><label for="current_item_giftmessage_recipient"><?php echo Mage::helper('sales')->__('To'); ?></label></td>
-                        <td class="value">
-                            <input type="text" class="input-text" name="current_item_giftmessage_recipient" id="current_item_giftmessage_recipient">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label"><label for="current_item_giftmessage_message"><?php echo Mage::helper('sales')->__('Message'); ?></label></td>
-                        <td class="value">
-                            <textarea class="textarea" onchange="giftMessagesController.toogleRequired('current_item_giftmessage_message', ['current_item_giftmessage_sender', 'current_item_giftmessage_recipient']);" cols="15" rows="2" name="current_item_giftmessage_message" id="current_item_giftmessage_message"></textarea>
-                        </td>
-                    </tr>
-                </tbody>
 
-            </table>
-        </fieldset>
+<div id="gift_options_giftmessage">
+    <div class="giftcard-form">
+        <div class="giftcard-send-form">
+            <h4><?php echo Mage::helper('sales')->__('Gift Message'); ?></h4>
+            <ul class="form-list">
+                <li class="fields no-display">
+                    <input type="hidden" name="current_item_giftmessage_type" id="current_item_giftmessage_type" />
+                </li>
+                <li class="fields">
+                    <div class="field">
+                        <label for="current_item_giftmessage_sender"><?php echo Mage::helper('sales')->__('From'); ?></label>
+                        <div class="input-box">
+                            <input type="text" class="input-text" name="current_item_giftmessage_sender" id="current_item_giftmessage_sender" />
+                        </div>
+                    </div>
+                </li>
+                <li class="fields">
+                    <div class="field">
+                        <label for="current_item_giftmessage_recipient"><?php echo Mage::helper('sales')->__('To'); ?></label>
+                        <div class="input-box">
+                            <input type="text" class="input-text" name="current_item_giftmessage_recipient" id="current_item_giftmessage_recipient" />
+                        </div>
+                    </div>
+                </li>
+                <li class="fields">
+                    <div class="field">
+                        <label for="current_item_giftmessage_message"><?php echo Mage::helper('sales')->__('Message'); ?></label>
+                        <div class="input-box">
+                            <textarea class="textarea" onchange="giftMessagesController.toogleRequired('current_item_giftmessage_message', ['current_item_giftmessage_sender', 'current_item_giftmessage_recipient']);" cols="15" rows="2" name="current_item_giftmessage_message" id="current_item_giftmessage_message"></textarea>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
+</div>

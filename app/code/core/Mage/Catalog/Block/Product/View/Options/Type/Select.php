@@ -68,7 +68,8 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select
                 ), false);
                 $select->addOption(
                     $_value->getOptionTypeId(),
-                    $_value->getTitle() . ' ' . $priceStr . ''
+                    $_value->getTitle() . ' ' . $priceStr . '',
+                    array('price' => $_value->getPrice(true))
                 );
             }
             if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
@@ -123,7 +124,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select
                 }
 
                 $selectHtml .= '<li>' .
-                               '<input type="'.$type.'" class="'.$class.' '.$require.' product-custom-option"' . ($this->getSkipJsReloadPrice() ? '' : ' onclick="opConfig.reloadPrice()"') . ' name="options['.$_option->getId().']'.$arraySign.'" id="options_'.$_option->getId().'_'.$count.'" value="' . $htmlValue . '" ' . $checked . ' />' .
+                               '<input type="'.$type.'" class="'.$class.' '.$require.' product-custom-option"' . ($this->getSkipJsReloadPrice() ? '' : ' onclick="opConfig.reloadPrice()"') . ' name="options['.$_option->getId().']'.$arraySign.'" id="options_'.$_option->getId().'_'.$count.'" value="' . $htmlValue . '" ' . $checked . ' price="' . $_value->getPrice(true) . '" />' .
                                '<span class="label"><label for="options_'.$_option->getId().'_'.$count.'">'.$_value->getTitle().' '.$priceStr.'</label></span>';
                 if ($_option->getIsRequire()) {
                     $selectHtml .= '<script type="text/javascript">' .

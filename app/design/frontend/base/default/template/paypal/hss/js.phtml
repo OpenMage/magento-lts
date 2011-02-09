@@ -25,15 +25,15 @@
  */
 
 /**
- * @see Mage_Paypal_Block_Payflow_Link_Iframe
+ * @see Mage_Paypal_Block_Iframe
  */
 ?>
+<div class="authentication" id="checkout-paypaliframe-load"></div>
 <script type="text/javascript">
 //<![CDATA[
 Review.prototype.save = function() {
     if (checkout.loadWaiting!=false) return;
     checkout.setLoadWaiting('review');
-    $('review-please-wait').setStyle({top: $('review-please-wait').offsetTop+'px'});
     var params = Form.serialize(payment.form);
     if (this.agreementsForm) {
         params += '&'+Form.serialize(this.agreementsForm);
@@ -44,7 +44,19 @@ Review.prototype.save = function() {
         {
             method:'post',
             parameters:params,
-            onComplete: function(){},
+            onComplete: function(transport) {
+                if (transport && transport.responseText) {
+                    try{
+                        response = eval('(' + transport.responseText + ')');
+                    }
+                    catch (e) {
+                        response = {};
+                    }
+                    if (response.error_messages) {
+                        checkout.setLoadWaiting(false);
+                    }
+                }
+            },
             onSuccess: this.onSave,
             onFailure: checkout.ajaxFailure.bind(checkout)
         }

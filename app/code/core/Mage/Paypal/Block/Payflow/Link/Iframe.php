@@ -31,38 +31,17 @@
  * @package    Mage_Paypal
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Paypal_Block_Payflow_Link_Iframe extends Mage_Payment_Block_Form
+class Mage_Paypal_Block_Payflow_Link_Iframe extends Mage_Paypal_Block_Iframe
 {
     /**
-     * Payment method code
-     *
-     * @var string
-     */
-    protected $_paymentMethodCode = Mage_Paypal_Model_Config::METHOD_PAYFLOWLINK;
-
-    /**
-     * Whether the block should be eventually rendered
-     *
-     * @var bool
-     */
-    protected $_shouldRender = false;
-
-    /**
-     * Order object
-     *
-     * @var Mage_Sales_Model_Order
-     */
-    protected $_order;
-
-    /**
      * Internal constructor
-     * Set info template for payment step
+     * Set payment method code
      *
      */
     protected function _construct()
     {
         parent::_construct();
-        $this->setTemplate('paypal/payflow/link/iframe.phtml');
+        $this->_paymentMethodCode = Mage_Paypal_Model_Config::METHOD_PAYFLOWLINK;
     }
 
     /**
@@ -120,85 +99,5 @@ class Mage_Paypal_Block_Payflow_Link_Iframe extends Mage_Payment_Block_Form
             ->getMethodInstance($this->_paymentMethodCode)
             ->getConfigData('sandbox_flag');
         return (bool) $mode;
-    }
-
-    /**
-     * Get order object
-     *
-     * @return Mage_Sales_Model_Order
-     */
-    protected function _getOrder()
-    {
-        if (!$this->_order) {
-            $incrementId = $this->_getCheckout()->getLastRealOrderId();
-            $this->_order = Mage::getModel('sales/order')
-                ->loadByIncrementId($incrementId);
-        }
-        return $this->_order;
-    }
-
-	/**
-     * Get frontend checkout session object
-     *
-     * @return Mage_Checkout_Model_Session
-     */
-    protected function _getCheckout()
-    {
-        return Mage::getSingleton('checkout/session');
-    }
-
-    /**
-     * Before rendering html, check if is block rendering needed
-     *
-     * @return Mage_Core_Block_Abstract
-     */
-    protected function _beforeToHtml()
-    {
-        if ($this->_getOrder()->getId() &&
-            $this->_getOrder()->getQuoteId() == $this->_getCheckout()->getQuoteId() &&
-            $this->_getOrder()->getPayment()->getMethodInstance()->getCode() == $this->_paymentMethodCode) {
-            $this->_shouldRender = true;
-        }
-
-        if ($this->getGotoSection() || $this->getGotoSuccessPage()) {
-            $this->_shouldRender = true;
-        }
-
-        return parent::_beforeToHtml();
-    }
-
-    /**
-     * Render the block if needed
-     *
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        if ($this->_isAfterPaymentSave()) {
-            $this->setTemplate('paypal/payflow/link/js.phtml');
-            return parent::_toHtml();
-        }
-        if (!$this->_shouldRender) {
-            return '';
-        }
-        return parent::_toHtml();
-    }
-
-    /**
-     * Check whether block is rendering after save payment
-     *
-     * @return bool
-     */
-    protected function _isAfterPaymentSave()
-    {
-        $quote = $this->_getCheckout()->getQuote();
-        if ($quote->getPayment()->getMethod() == $this->_paymentMethodCode &&
-            $quote->getIsActive() &&
-            $this->getTemplate() &&
-            $this->getRequest()->getActionName() == 'savePayment') {
-            return true;
-        }
-
-        return false;
     }
 }

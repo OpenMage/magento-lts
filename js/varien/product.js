@@ -559,6 +559,7 @@ Product.OptionsPrice.prototype = {
         this.productOldPrice    = config.productOldPrice;
         this.skipCalculate      = config.skipCalculate;
         this.duplicateIdSuffix  = config.idSuffix;
+        this.specialTaxPrice    = config.specialTaxPrice;
 
         this.oldPlusDisposition = config.oldPlusDisposition;
         this.plusDisposition    = config.plusDisposition;
@@ -594,18 +595,24 @@ Product.OptionsPrice.prototype = {
         var price = 0;
         var nonTaxable = 0;
         var oldPrice = 0;
+        var priceInclTax = 0;
+        var currentTax = this.currentTax; 
         $H(this.optionPrices).each(function(pair) {
             if ('undefined' != typeof(pair.value.price) && 'undefined' != typeof(pair.value.oldPrice)) {
                 price += parseFloat(pair.value.price);
                 oldPrice += parseFloat(pair.value.oldPrice);
             } else if (pair.key == 'nontaxable') {
                 nonTaxable = pair.value;
+            } else if (pair.key == 'priceInclTax') {
+                priceInclTax += pair.value;
+            } else if (pair.key == 'optionsPriceInclTax') {
+                priceInclTax += pair.value * (100 + currentTax) / 100; 
             } else {
                 price += parseFloat(pair.value);
                 oldPrice += parseFloat(pair.value);
             }
         });
-        var result = [price, nonTaxable, oldPrice];
+        var result = [price, nonTaxable, oldPrice, priceInclTax];
         return result;
     },
 
@@ -615,7 +622,9 @@ Product.OptionsPrice.prototype = {
         var optionPrices = this.getOptionPrices();
         var nonTaxable = optionPrices[1];
         var optionOldPrice = optionPrices[2];
+        var priceInclTax = optionPrices[3];
         optionPrices = optionPrices[0];
+        
         $H(this.containers).each(function(pair) {
             var _productPrice;
             var _plusDisposition;
@@ -636,8 +645,13 @@ Product.OptionsPrice.prototype = {
                     price = optionOldPrice+parseFloat(_productPrice);
                 } else {
                     price = optionPrices+parseFloat(_productPrice);
+                    priceInclTax += parseFloat(_productPrice) * (100 + this.currentTax) / 100;
                 }
-                if (this.includeTax == 'true') {
+
+                if (this.specialTaxPrice == 'true') {
+                    var excl = price;
+                    var incl = priceInclTax;
+                } else if (this.includeTax == 'true') {
                     // tax = tax included into product price by admin
                     var tax = price / (100 + this.defaultTax) * this.defaultTax;
                     var excl = price - tax;

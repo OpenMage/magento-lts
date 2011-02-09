@@ -176,6 +176,9 @@ Product.Config.prototype = {
                 if(allowedProducts.size()>0){
                     options[i].allowedProducts = allowedProducts;
                     element.options[index] = new Option(this.getOptionLabel(options[i], options[i].price), options[i].id);
+                    if (typeof options[i].price != 'undefined') {
+                        element.options[index].setAttribute('price', options[i].price);
+                    }
                     element.options[index].config = options[i];
                     index++;
                 }

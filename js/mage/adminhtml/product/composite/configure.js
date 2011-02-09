@@ -142,7 +142,7 @@ ProductConfigure.prototype = {
      * @param itemId
      */
     _requestItemConfiguration: function(listType, itemId) {
-        if (!this.listTypes[this.current.listType].urlFetch) {
+        if (!this.listTypes[listType].urlFetch) {
             return false;
         }
         var url = this.listTypes[listType].urlFetch;
@@ -157,7 +157,7 @@ ProductConfigure.prototype = {
                             this.blockMsg.show();
                             this.blockMsgError.innerHTML = response.message;
                             this.blockCancelBtn.hide();
-                            this.setConfirmCallback(this.current.listType, null);
+                            this.setConfirmCallback(listType, null);
                             this._showWindow();
                         }
                     } else if (response) {

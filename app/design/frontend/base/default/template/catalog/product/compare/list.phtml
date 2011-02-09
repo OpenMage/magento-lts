@@ -47,7 +47,7 @@
                 <?php if($_i++%10==0): ?>
                     <th>&nbsp;</th>
                 <?php endif; ?>
-                <td class="a-right"><a href="#" class="btn-remove" onclick="setLocation('<?php echo $this->getRemoveUrl($_item) ?>'); window.opener.location.reload();" title="<?php echo $this->__('Remove This Item') ?>"><?php echo $this->__('Remove This Item') ?></a></td>
+                <td class="a-right"><a href="#" class="btn-remove" onclick="removeItem('<?php echo $this->helper('catalog/product_compare')->getRemoveUrl($_item) ?>');" title="<?php echo $this->__('Remove This Item') ?>"><?php echo $this->__('Remove This Item') ?></a></td>
             <?php endforeach; ?>
             </tr>
         </thead>
@@ -132,8 +132,29 @@
     </table>
     <div class="buttons-set">
         <button type="button" title="<?php echo $this->__('Close Window') ?>" class="button" onclick="window.close();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
+        <span class="please-wait" id="compare-list-please-wait" style="display:none;">
+            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Please wait...') ?>" title="<?php echo $this->__('Please wait...') ?>" class="v-middle" /> <?php echo $this->__('Please wait...') ?>
+        </span>
     </div>
-    <script type="text/javascript">decorateTable('product_comparison');</script>
+    <script type="text/javascript">
+        decorateTable('product_comparison');
+
+        /**
+         * Send remove item request, after that reload windows
+         */
+        function removeItem(url)
+        {
+            new Ajax.Request(url, {
+                parameters: {isAjax: 1, method: 'POST'},
+                onLoading: function(){$('compare-list-please-wait').show();},
+                onSuccess: function(transport) {
+                    $('compare-list-please-wait').hide();
+                    window.location.reload();
+                    window.opener.location.reload();
+                }
+            });
+        }
+    </script>
 <?php else: ?>
     <script type="text/javascript">window.close();</script>
 <?php endif; ?>

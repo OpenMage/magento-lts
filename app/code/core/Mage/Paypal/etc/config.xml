@@ -283,6 +283,12 @@
                 <pwd backend_model="adminhtml/system_config_backend_encrypted"/>
                 <group>paypal</group>
             </payflow_link>
+            <hosted_pro>
+                <model>paypal/hostedpro</model>
+                <title>Website Payments Pro Hosted Solution</title>
+                <payment_action>Authorization</payment_action>                
+                <group>paypal</group>
+            </hosted_pro>
         </payment>
     </default>
     <crontab>

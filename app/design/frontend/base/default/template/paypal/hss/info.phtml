@@ -25,25 +25,11 @@
  */
 
 /**
- * @see Mage_Paypal_Block_Payflow_Link_Iframe
+ * @see Mage_Paypal_Block_Payflow_Link_Info
  */
 ?>
-<div class="authentication">
-    <div style="text-align:center;"><?php echo $this->__('Please do not refresh the page while the form loads.') ?></div>
-    <iframe id="payflow-link-iframe" style="background:none repeat scroll 0 0 transparent;height:610px;width:99%;" frameborder="0" border="0" src="<?php echo $this->getFrameActionUrl() ?>"></iframe>
-</div>
-<script type="text/javascript">
-//<![CDATA[
-var headers = $$('#' + checkout.accordion.container.readAttribute('id') + ' .section');
-headers.each(function(header) {
-    header.removeClassName('allow');
-});
-$('payflow-link-iframe').observe('load', function(){
-    checkout.loadWaiting = 'review';
-    checkout.setLoadWaiting(false);
-    if (checkout.accordion.currentSection == 'opc-review') {
-        $('checkout-review-submit').hide();
-    }
-});
-//]]>
-</script>
+<ul id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none" class="form-list">
+    <li>
+    <?php echo $this->__('You will be required to enter your payment details after you place an order.') ?>
+    </li>
+</ul>

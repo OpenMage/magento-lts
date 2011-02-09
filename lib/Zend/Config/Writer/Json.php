@@ -16,7 +16,7 @@
  * @package    Zend_Config
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Xml.php 18862 2009-11-05 18:25:20Z beberlei $
+ * @version    $Id: Json.php 23294 2010-11-05 00:27:34Z ramon $
  */
 
 /**
@@ -39,28 +39,28 @@ class Zend_Config_Writer_Json extends Zend_Config_Writer_FileAbstract
 {
     /**
      * If we need to pretty-print JSON data
-     * 
+     *
      * @var boolean
      */
     protected $_prettyPrint = false;
-    
+
     /**
      * Get prettyPrint flag
-     * 
+     *
      * @return the prettyPrint flag
      */
-    public function prettyPrint() 
+    public function prettyPrint()
     {
         return $this->_prettyPrint;
     }
 
     /**
      * Set prettyPrint flag
-     * 
+     *
      * @param  bool $prettyPrint PrettyPrint flag
      * @return Zend_Config_Writer_Json
      */
-    public function setPrettyPrint($flag) 
+    public function setPrettyPrint($flag)
     {
         $this->_prettyPrint = (bool) $flag;
         return $this;
@@ -81,7 +81,7 @@ class Zend_Config_Writer_Json extends Zend_Config_Writer_FileAbstract
         if (is_string($sectionName)) {
             $data = array($sectionName => $data);
         }
-        
+
         foreach ($extends as $section => $parentSection) {
             $data[$section][Zend_Config_Json::EXTENDS_NAME] = $parentSection;
         }
@@ -99,7 +99,7 @@ class Zend_Config_Writer_Json extends Zend_Config_Writer_FileAbstract
 
         $out = Zend_Json::encode($data);
         if ($this->prettyPrint()) {
-             $out = Zend_Json::prettyPrint($out);   
+             $out = Zend_Json::prettyPrint($out);
         }
         return $out;
     }

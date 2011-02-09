@@ -50,7 +50,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
 
     public function addOption($value, $label, $params=array())
     {
-        $this->_options[] = array('value'=>$value, 'label'=>$label);
+        $this->_options[] = array('value' => $value, 'label' => $label, 'params' => $params);
         return $this;
     }
 
@@ -107,9 +107,11 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
 
         $isArrayOption = true;
         foreach ($this->getOptions() as $key => $option) {
+            $option['params'] = !empty($option['params']) ? $option['params'] : array();
             if ($isArrayOption && is_array($option)) {
-                $value = $option['value'];
-                $label = $option['label'];
+                $value  = $option['value'];
+                $label  = $option['label'];
+                $params = $option['params'];
             }
             else {
                 $value = $key;
@@ -135,7 +137,8 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
             } else {
                 $html.= $this->_optionToHtml(array(
                     'value' => $value,
-                    'label' => $label
+                    'label' => $label,
+                    'params' => $params
                 ),
                     in_array($value, $values)
                 );
@@ -159,9 +162,23 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
             $selectedHtml .= ' #{option_extra_attr_' . self::calcOptionHash($option['value']) . '}';
         }
 
-        return sprintf('<option value="%s"%s>%s</option>',
+        $params = '';
+        if (!empty($option['params']) && is_array($option['params'])) {
+            foreach ($option['params'] as $key => $value) {
+                if (is_array($value)) {
+                    foreach ($value as $keyMulti => $valueMulti) {
+                        $params .= sprintf(' %s="%s" ', $keyMulti, $valueMulti);
+                    }
+                } else {
+                    $params .= sprintf(' %s="%s" ', $key, $value);
+                }
+            }
+        }
+
+        return sprintf('<option value="%s"%s %s>%s</option>',
             $this->htmlEscape($option['value']),
             $selectedHtml,
+            $params,
             $this->htmlEscape($option['label']));
     }
 

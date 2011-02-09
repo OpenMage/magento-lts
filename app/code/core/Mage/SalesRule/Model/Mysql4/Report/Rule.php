@@ -95,7 +95,7 @@ class Mage_SalesRule_Model_Mysql4_Report_Rule extends Mage_Reports_Model_Mysql4_
 
             $select = $this->_getWriteAdapter()->select();
             $select->from($sourceTable, $columns)
-                 ->where('coupon_code <> ?', '');
+                ->where('coupon_code <> ?', '');
 
             if ($subSelect !== null) {
                 $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'created_at'));

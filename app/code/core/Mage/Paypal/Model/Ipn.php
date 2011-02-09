@@ -384,7 +384,7 @@ class Mage_Paypal_Model_Ipn
         $this->_order->save();
 
         // notify customer
-        if ($invoice = $payment->getCreatedInvoice()) {
+        if ($invoice = $payment->getCreatedInvoice() && !$this->_order->getEmailSent()) {
             $comment = $this->_order->sendNewOrderEmail()->addStatusHistoryComment(
                     Mage::helper('paypal')->__('Notified customer about invoice #%s.', $invoice->getIncrementId())
                 )
@@ -514,6 +514,9 @@ class Mage_Paypal_Model_Ipn
             ->setParentTransactionId($this->getRequestData('parent_txn_id'))
             ->setIsTransactionClosed(0)
             ->registerAuthorizationNotification($this->getRequestData('mc_gross'));
+        if (!$this->_order->getEmailSent()) {
+            $this->_order->sendNewOrderEmail();
+        }
         $this->_order->save();
     }
 

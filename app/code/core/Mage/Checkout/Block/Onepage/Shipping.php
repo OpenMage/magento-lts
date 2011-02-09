@@ -31,6 +31,16 @@
  */
 class Mage_Checkout_Block_Onepage_Shipping extends Mage_Checkout_Block_Onepage_Abstract
 {
+    /**
+     * Sales Qoute Shipping Address instance
+     *
+     * @var Mage_Sales_Model_Quote_Address
+     */
+    protected $_address = null;
+
+    /**
+     * Initialize shipping address step
+     */
     protected function _construct()
     {
         $this->getCheckout()->setStepData('shipping', array(
@@ -41,18 +51,32 @@ class Mage_Checkout_Block_Onepage_Shipping extends Mage_Checkout_Block_Onepage_A
         parent::_construct();
     }
 
+    /**
+     * Return checkout method
+     *
+     * @return string
+     */
     public function getMethod()
     {
         return $this->getQuote()->getCheckoutMethod();
     }
 
+    /**
+     * Return Sales Quote Address model (shipping address)
+     *
+     * @return Mage_Sales_Model_Quote_Address
+     */
     public function getAddress()
     {
-        if (!$this->isCustomerLoggedIn()) {
-            return $this->getQuote()->getShippingAddress();
-        } else {
-            return Mage::getModel('sales/quote_address');
+        if (is_null($this->_address)) {
+            if ($this->isCustomerLoggedIn()) {
+                $this->_address = $this->getQuote()->getShippingAddress();
+            } else {
+                $this->_address = Mage::getModel('sales/quote_address');
+            }
         }
+
+        return $this->_address;
     }
 
     /**

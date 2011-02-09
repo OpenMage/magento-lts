@@ -24,21 +24,23 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 ?>
-<?php
-$_code = $this->getMethodCode();
-$_img  = $this->getPaymentImageSrc($_code);
-?>
+<?php $_code = $this->getMethodCode(); ?>
 <ul class="form-list" id="payment_form_<?php echo $_code ?>" style="display:none">
     <li>
         <?php echo Mage::helper('moneybookers')->__('You will be redirected to our secure payment page when you place an order.') ?>
     </li>
-    <?php if ($_img): ?>
+    <?php if ($_img = $this->getPaymentImageSrc($_code)): ?>
     <li>
         <div style="padding:10px 15px 15px;">
             <img src="<?php echo $_img ?>" alt="" /><br />
-                <?php if ($_code == 'moneybookers_wlt'): ?>
-            <a href="<?php echo Mage::helper('moneybookers')->__('Moneybookers Info URL') ?>" target="_blank"><?php echo Mage::helper('moneybookers')->__('More information about Moneybookers') ?></a>
-                <?php endif; ?>
+            <?php if ($_code == 'moneybookers_wlt'): ?>
+                <a href="<?php echo $this->getWltInfoUrl() ?>" target="_blank"><?php echo Mage::helper('moneybookers')->__('More information about Moneybookers') ?></a>
+            <?php elseif ($_code == 'moneybookers_obt'): ?>
+                <?php $_locale = $this->getInfoLocale(); ?>
+                <a onclick="window.open(this.href, 'http://www.nextgenerationpayments.com/<?php echo $_locale ?>/customerinfo/', 'width=1000,height=760,scrollbars=auto'); return false;" href="http://www.nextgenerationpayments.com/<?php echo $_locale ?>/customerinfo/" target="_blank">
+                    <?php echo Mage::helper('moneybookers')->__('Find out more about Online Bank Transfer') ?>
+                </a>
+            <?php endif; ?>
         </div>
     </li>
     <?php endif; ?>

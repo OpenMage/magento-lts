@@ -851,13 +851,8 @@ ul.item-options li { padding-left:.7em; }
 .payment-methods .validation-advice     { margin-left:2px; }
 
 /* Cards List */
-.cards-list dt             { font-weight:bold; margin:5px 0 0; }
-.cards-list dd             { margin-left:0; }
-.cards-list .offset        { padding:2px 0 2px 20px; }
-.cards-list .info-table th,
-.cards-list .info-table td { text-align:left; vertical-align:top; }
-.cards-list .info-table th { font-weight:bold; padding:2px 7px 2px 0; }
-.cards-list .info-table td { padding:2px 0; }
+.cards-list .offset { margin-left:10px; }
+.cards-list .info-table td { padding:2px 7px 2px 0; text-align:left; vertical-align:top; }
 
 .release-amounts { margin:0.5em 0; }
 

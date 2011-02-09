@@ -16,7 +16,7 @@
  * @package    Zend_Validate
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 22958 2010-09-17 20:40:25Z bittarman $
+ * @version    $Id: Abstract.php 23356 2010-11-18 15:59:10Z ralph $
  */
 
 /**
@@ -306,10 +306,12 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
              * Build select object
              */
             $select = new Zend_Db_Select($db);
-            $select->from($this->_table, array($this->_field), $this->_schema)
-                   ->where(
-                       $db->quoteIdentifier($this->_field, true).' = :value'
-                   );
+            $select->from($this->_table, array($this->_field), $this->_schema);
+            if ($db->supportsParameters('named')) {
+                $select->where($db->quoteIdentifier($this->_field, true).' = :value'); // named
+            } else {
+                $select->where($db->quoteIdentifier($this->_field, true).' = ?'); // positional
+            }
             if ($this->_exclude !== null) {
                 if (is_array($this->_exclude)) {
                     $select->where(
@@ -338,9 +340,11 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
         /**
          * Run query
          */
-        $result = $select->getAdapter()->fetchRow($select,
-                                                array('value' => $value),
-                                                Zend_Db::FETCH_ASSOC);
+        $result = $select->getAdapter()->fetchRow(
+            $select,
+            array('value' => $value), // this should work whether db supports positional or named params
+            Zend_Db::FETCH_ASSOC
+            );
 
         return $result;
     }

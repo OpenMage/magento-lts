@@ -41,6 +41,6 @@ class Mage_Paypal_Block_Payflow_Link_Form extends Mage_Payment_Block_Form
     protected function _construct()
     {
         parent::_construct();
-        $this->setTemplate('paypal/payflow/link/info.phtml');
+        $this->setTemplate('paypal/hss/info.phtml');
     }
 }

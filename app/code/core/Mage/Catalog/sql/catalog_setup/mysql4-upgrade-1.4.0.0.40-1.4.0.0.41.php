@@ -30,7 +30,7 @@ $installer = $this;
 $installer->startSetup();
 
 $installer->run("
-    ALTER TABLE {$this->getTable('catalog_product_super_attribute_pricing')}
+    ALTER TABLE {$installer->getTable('catalog/product_super_attribute_pricing')}
     CHANGE `pricing_value` `pricing_value` DECIMAL(20,4) NULL"
 );
 

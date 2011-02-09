@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Module.php 20992 2010-02-08 18:39:36Z matthew $
+ * @version    $Id: Module.php 23419 2010-11-20 21:37:46Z ramon $
  */
 
 /**
@@ -154,13 +154,18 @@ class Zend_Tool_Project_Provider_Module
                 $response->appendContent($resource->getContext()->getPath());
                 $resource->create();
             }
-            
+
+            $response->appendContent('Added a key for path module directory to the application.ini file');
+            $appConfigFile = $this->_loadedProfile->search('ApplicationConfigFile');
+            $appConfigFile->removeStringItem('resources.frontController.moduleDirectory', 'production');
+            $appConfigFile->addStringItem('resources.frontController.moduleDirectory', 'APPLICATION_PATH "/modules"', 'production', false);
+
             if (strtolower($name) == 'default') {
                 $response->appendContent('Added a key for the default module to the application.ini file');
-                $appConfigFile = $this->_loadedProfile->search('ApplicationConfigFile');
                 $appConfigFile->addStringItem('resources.frontController.params.prefixDefaultModule', '1', 'production');
-                $appConfigFile->create();
             }
+
+            $appConfigFile->create();
 
             // store changes to the profile
             $this->_storeProfile();

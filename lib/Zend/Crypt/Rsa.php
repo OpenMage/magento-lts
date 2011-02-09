@@ -17,7 +17,7 @@
  * @subpackage Rsa
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Rsa.php 22662 2010-07-24 17:37:36Z mabe $
+ * @version    $Id: Rsa.php 23439 2010-11-23 21:10:14Z alexander $
  */
 
 /**
@@ -42,27 +42,42 @@ class Zend_Crypt_Rsa
     const BINARY = 'binary';
     const BASE64 = 'base64';
 
-    protected $_privateKey = null;
+    protected $_privateKey;
 
-    protected $_publicKey = null;
+    protected $_publicKey;
 
     /**
      * @var string
      */
-    protected $_pemString = null;
+    protected $_pemString;
 
-    protected $_pemPath = null;
+    protected $_pemPath;
 
-    protected $_certificateString = null;
+    protected $_certificateString;
 
-    protected $_certificatePath = null;
+    protected $_certificatePath;
 
-    protected $_hashAlgorithm = OPENSSL_ALGO_SHA1;
+    protected $_hashAlgorithm;
 
-    protected $_passPhrase = null;
+    protected $_passPhrase;
 
+    /**
+     * Class constructor
+     *
+     * @param array $options
+     * @throws Zend_Crypt_Rsa_Exception
+     */
     public function __construct(array $options = null)
     {
+        if (!extension_loaded('openssl')) {
+            #require_once 'Zend/Crypt/Rsa/Exception.php';
+            throw new Zend_Crypt_Rsa_Exception('Zend_Crypt_Rsa requires openssl extention to be loaded.');
+        }
+
+        // Set _hashAlgorithm property when we are sure, that openssl extension is loaded
+        // and OPENSSL_ALGO_SHA1 constant is available
+        $this->_hashAlgorithm = OPENSSL_ALGO_SHA1;
+
         if (isset($options)) {
             $this->setOptions($options);
         }

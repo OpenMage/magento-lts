@@ -225,6 +225,198 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     }
 
     /**
+     * Prepare products tier prices
+     *
+     * @param  array $productIds
+     * @return array
+     */
+    protected function _prepareTierPrices(array $productIds)
+    {
+        $resource = Mage::getSingleton('core/resource');
+        $select = $this->_connection->select()
+            ->from($resource->getTableName('catalog/product_attribute_tier_price'))
+            ->where('entity_id IN(?)', $productIds);
+
+        $rowTierPrices   = array();
+        $stmt = $this->_connection->query($select);
+        while ($tierRow = $stmt->fetch()) {
+            $rowTierPrices[$tierRow['entity_id']][] = array(
+                '_tier_price_customer_group' => $tierRow['all_groups']
+                                                ? self::VALUE_ALL : $tierRow['customer_group_id'],
+                '_tier_price_website'        => 0 == $tierRow['website_id']
+                                                ? self::VALUE_ALL
+                                                : $this->_websiteIdToCode[$tierRow['website_id']],
+                '_tier_price_qty'            => $tierRow['qty'],
+                '_tier_price_price'          => $tierRow['value']
+            );
+        }
+
+        return $rowTierPrices;
+    }
+
+    /**
+     * Prepare catalog inventory
+     *
+     * @param  array $productIds
+     * @return array
+     */
+    protected function _prepareCatalogInventory(array $productIds)
+    {
+        $select = $this->_connection->select()
+            ->from(Mage::getResourceModel('cataloginventory/stock_item')->getMainTable())
+            ->where('product_id IN (?)', $productIds);
+
+        $stmt = $this->_connection->query($select);
+        $stockItemRows = array();
+        while ($stockItemRow = $stmt->fetch()) {
+            $productId = $stockItemRow['product_id'];
+            unset(
+                $stockItemRow['item_id'], $stockItemRow['product_id'], $stockItemRow['low_stock_date'],
+                $stockItemRow['stock_id'], $stockItemRow['stock_status_changed_automatically']
+            );
+            $stockItemRows[$productId] = $stockItemRow;
+        }
+        return $stockItemRows;
+    }
+
+    /**
+     * Prepare product links
+     *
+     * @param  array $productIds
+     * @return array
+     */
+    protected function _prepareLinks(array $productIds)
+    {
+        $resource = Mage::getSingleton('core/resource');
+        $select = $this->_connection->select()
+            ->from(
+                array('cpl' => $resource->getTableName('catalog/product_link')),
+                array(
+                    'cpl.product_id', 'cpe.sku', 'cpl.link_type_id',
+                    'position' => 'cplai.value', 'default_qty' => 'cplad.value'
+                )
+            )
+            ->joinLeft(
+                array('cpe' => $resource->getTableName('catalog/product')),
+                '(cpe.entity_id = cpl.linked_product_id)',
+                array()
+            )
+            ->joinLeft(
+                array('cpla' => $resource->getTableName('catalog/product_link_attribute')),
+                '(cpla.link_type_id = cpl.link_type_id AND cpla.product_link_attribute_code = "position")',
+                array()
+            )
+            ->joinLeft(
+                array('cplaq' => $resource->getTableName('catalog/product_link_attribute')),
+                '(cplaq.link_type_id = cpl.link_type_id AND cplaq.product_link_attribute_code = "qty")',
+                array()
+            )
+            ->joinLeft(
+                array('cplai' => $resource->getTableName('catalog/product_link_attribute_int')),
+                '(cplai.link_id = cpl.link_id AND cplai.product_link_attribute_id = cpla.product_link_attribute_id)',
+                array()
+            )
+            ->joinLeft(
+                array('cplad' => $resource->getTableName('catalog/product_link_attribute_decimal')),
+                '(cplad.link_id = cpl.link_id AND cplad.product_link_attribute_id = cplaq.product_link_attribute_id)',
+                array()
+            )
+            ->where('cpl.link_type_id IN (?)', array(
+                Mage_Catalog_Model_Product_Link::LINK_TYPE_RELATED,
+                Mage_Catalog_Model_Product_Link::LINK_TYPE_UPSELL,
+                Mage_Catalog_Model_Product_Link::LINK_TYPE_CROSSSELL,
+                Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED
+            ))
+            ->where('cpl.product_id IN (?)', $productIds);
+
+        $stmt = $this->_connection->query($select);
+        $linksRows = array();
+        while ($linksRow = $stmt->fetch()) {
+            $linksRows[$linksRow['product_id']][$linksRow['link_type_id']][] = array(
+                'sku'         => $linksRow['sku'],
+                'position'    => $linksRow['position'],
+                'default_qty' => $linksRow['default_qty']
+            );
+        }
+
+        return $linksRows;
+    }
+
+    /**
+     * Prepare configurable product data
+     *
+     * @param  array $productIds
+     * @return array
+     */
+    protected function _prepareConfigurableProductData(array $productIds)
+    {
+        $resource = Mage::getSingleton('core/resource');
+        $select = $this->_connection->select()
+            ->from(
+                array('cpsl' => $resource->getTableName('catalog/product_super_link')),
+                array('cpsl.parent_id', 'cpe.sku')
+            )
+            ->joinLeft(
+                array('cpe' => $resource->getTableName('catalog/product')),
+                '(cpe.entity_id = cpsl.product_id)',
+                array()
+            )
+            ->where('parent_id IN (?)', $productIds);
+        $stmt = $this->_connection->query($select);
+        $configurableData = array();
+        while ($cfgLinkRow = $stmt->fetch()) {
+            $configurableData[$cfgLinkRow['parent_id']][] = array('_super_products_sku' => $cfgLinkRow['sku']);
+        }
+
+        return $configurableData;
+    }
+
+    /**
+     * Prepare configurable product price
+     *
+     * @param  array $productIds
+     * @return array
+     */
+    protected function _prepareConfigurableProductPrice(array $productIds)
+    {
+        $resource = Mage::getSingleton('core/resource');
+        $select = $this->_connection->select()
+            ->from(
+                array('cpsa' => $resource->getTableName('catalog/product_super_attribute')),
+                array(
+                    'cpsa.product_id', 'ea.attribute_code', 'eaov.value', 'cpsap.pricing_value', 'cpsap.is_percent'
+                )
+            )
+            ->joinLeft(
+                array('cpsap' => $resource->getTableName('catalog/product_super_attribute_pricing')),
+                '(cpsap.product_super_attribute_id = cpsa.product_super_attribute_id)',
+                array()
+            )
+            ->joinLeft(
+                array('ea' => $resource->getTableName('eav/attribute')),
+                '(ea.attribute_id = cpsa.attribute_id)',
+                array()
+            )
+            ->joinLeft(
+                array('eaov' => $resource->getTableName('eav/attribute_option_value')),
+                '(eaov.option_id = cpsap.value_index AND store_id = 0)',
+                array()
+            )
+            ->where('cpsa.product_id IN (?)', $productIds);
+        $configurablePrice = array();
+        $stmt = $this->_connection->query($select);
+        while ($priceRow = $stmt->fetch()) {
+            $configurablePrice[$priceRow['product_id']][] = array(
+                '_super_attribute_code'       => $priceRow['attribute_code'],
+                '_super_attribute_option'     => $priceRow['value'],
+                '_super_attribute_price_corr' => $priceRow['pricing_value']
+                                              . ($priceRow['is_percent'] ? '%' : '')
+            );
+        }
+        return $configurablePrice;
+    }
+
+    /**
      * Export process.
      *
      * @return string
@@ -232,7 +424,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     public function export()
     {
         /** @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
-        $collection      = $this->_prepareEntityCollection(Mage::getResourceModel('catalog/product_collection'));
         $validAttrCodes  = $this->_getExportAttrCodes();
         $writer          = $this->getWriter();
         $resource        = Mage::getSingleton('core/resource');
@@ -244,35 +435,23 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         $linksRows       = array();
         $gfAmountFields  = array();
         $defaultStoreId  = Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
+        $collection = $this->_prepareEntityCollection(Mage::getResourceModel('catalog/product_collection'));
 
         // prepare multi-store values and system columns values
-        foreach ($this->_storeIdToCode as $storeId => $storeCode) { // go through all stores
-            $collection->clear()->setStoreId($storeId)->load();
+        foreach ($this->_storeIdToCode as $storeId => &$storeCode) { // go through all stores
+            $collection->setStoreId($storeId)
+                ->load();
 
             if ($defaultStoreId == $storeId) {
                 $collection->addCategoryIds()->addWebsiteNamesToResult();
 
                 // tier price data getting only once
-                $tierPrices = $this->_connection->fetchAll($this->_connection->select()
-                    ->from($resource->getTableName('catalog/product_attribute_tier_price'))
-                    ->where('entity_id IN(?)', $collection->getAllIds())
-                );
-                foreach ($tierPrices as $tierRow) {
-                    $rowTierPrices[$tierRow['entity_id']][] = array(
-                        '_tier_price_customer_group' => $tierRow['all_groups']
-                                                        ? self::VALUE_ALL : $tierRow['customer_group_id'],
-                        '_tier_price_website'        => 0 == $tierRow['website_id']
-                                                        ? self::VALUE_ALL
-                                                        : $this->_websiteIdToCode[$tierRow['website_id']],
-                        '_tier_price_qty'            => $tierRow['qty'],
-                        '_tier_price_price'          => $tierRow['value']
-                    );
-                }
+                $rowTierPrices = $this->_prepareTierPrices($collection->getAllIds());
             }
             foreach ($collection as $itemId => $item) { // go through all products
                 $rowIsEmpty = true; // row is empty by default
 
-                foreach ($validAttrCodes as $attrCode) { // go through all valid attribute codes
+                foreach ($validAttrCodes as &$attrCode) { // go through all valid attribute codes
                     $attrValue = $item->getData($attrCode);
 
                     if (!empty($this->_attributeValues[$attrCode])) {
@@ -284,6 +463,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     }
                     if (null === $attrValue // do not save value same as default or not existent
                         || ($storeId != $defaultStoreId
+                        && isset($dataRows[$itemId][$defaultStoreId][$attrCode])
                         && $dataRows[$itemId][$defaultStoreId][$attrCode] == $attrValue)) {
                         $attrValue = null;
                     }
@@ -305,7 +485,9 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         $rowCategories[$itemId] = $item->getCategoryIds();
                     }
                 }
+                $item = null;
             }
+            $collection->clear();
         }
 
         // remove root categories
@@ -314,69 +496,11 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         }
 
         // prepare catalog inventory information
-        $stockInfo = $this->_connection->fetchAll($this->_connection->select()
-            ->from(Mage::getResourceModel('cataloginventory/stock_item')->getMainTable())
-            ->where('product_id IN (?)', array_keys($dataRows))
-        );
-
-        foreach ($stockInfo as $stockItemRow) {
-            $productId = $stockItemRow['product_id'];
-            unset(
-                $stockItemRow['item_id'], $stockItemRow['product_id'], $stockItemRow['low_stock_date'],
-                $stockItemRow['stock_id'], $stockItemRow['stock_status_changed_automatically']
-            );
-            $stockItemRows[$productId] = $stockItemRow;
-        }
+        $productIds = array_keys($dataRows);
+        $stockItemRows = $this->_prepareCatalogInventory($productIds);
 
         // prepare links information
-        $select = $this->_connection->select()
-                ->from(
-                    array('cpl' => $resource->getTableName('catalog/product_link')),
-                    array(
-                        'cpl.product_id', 'cpe.sku', 'cpl.link_type_id',
-                        'position' => 'cplai.value', 'default_qty' => 'cplad.value'
-                    )
-                )
-                ->joinLeft(
-                    array('cpe' => $resource->getTableName('catalog_product_entity')),
-                    '(cpe.entity_id = cpl.linked_product_id)',
-                    array()
-                )
-                ->joinLeft(
-                    array('cpla' => $resource->getTableName('catalog/product_link_attribute')),
-                    '(cpla.link_type_id = cpl.link_type_id AND cpla.product_link_attribute_code = "position")',
-                    array()
-                )
-                ->joinLeft(
-                    array('cplaq' => $resource->getTableName('catalog/product_link_attribute')),
-                    '(cplaq.link_type_id = cpl.link_type_id AND cplaq.product_link_attribute_code = "qty")',
-                    array()
-                )
-                ->joinLeft(
-                    array('cplai' => $resource->getTableName('catalog/product_link_attribute_int')),
-                    '(cplai.link_id = cpl.link_id AND cplai.product_link_attribute_id = cpla.product_link_attribute_id)',
-                    array()
-                )
-                ->joinLeft(
-                    array('cplad' => $resource->getTableName('catalog/product_link_attribute_decimal')),
-                    '(cplad.link_id = cpl.link_id AND cplad.product_link_attribute_id = cplaq.product_link_attribute_id)',
-                    array()
-                )
-                ->where('cpl.product_id IN (?)', array_keys($dataRows))
-                ->where('cpl.link_type_id IN (?)', array(
-                    Mage_Catalog_Model_Product_Link::LINK_TYPE_RELATED,
-                    Mage_Catalog_Model_Product_Link::LINK_TYPE_UPSELL,
-                    Mage_Catalog_Model_Product_Link::LINK_TYPE_CROSSSELL,
-                    Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED
-                ));
-
-        foreach ($this->_connection->fetchAll($select) as $linksRow) {
-            $linksRows[$linksRow['product_id']][$linksRow['link_type_id']][] = array(
-                'sku'         => $linksRow['sku'],
-                'position'    => $linksRow['position'],
-                'default_qty' => $linksRow['default_qty']
-            );
-        }
+        $this->_prepareLinks($productIds);
         $linkIdColPrefix = array(
             Mage_Catalog_Model_Product_Link::LINK_TYPE_RELATED   => '_links_related_',
             Mage_Catalog_Model_Product_Link::LINK_TYPE_UPSELL    => '_links_upsell_',
@@ -385,58 +509,11 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         );
 
         // prepare configurable products data
-        $configurableData  = array();
+        $configurableData  = $this->_prepareConfigurableProductData($productIds);
         $configurablePrice = array();
-
-        $select = $this->_connection->select()
-                ->from(
-                    array('cpsl' => $resource->getTableName('catalog/product_super_link')),
-                    array('cpsl.parent_id', 'cpe.sku')
-                )
-                ->joinLeft(
-                    array('cpe' => $resource->getTableName('catalog_product_entity')),
-                    '(cpe.entity_id = cpsl.product_id)',
-                    array()
-                )
-                ->where('parent_id IN (?)', array_keys($dataRows));
-
-        foreach ($this->_connection->fetchAll($select) as $cfgLinkRow) {
-            $configurableData[$cfgLinkRow['parent_id']][] = array('_super_products_sku' => $cfgLinkRow['sku']);
-        }
         if ($configurableData) {
-            $select = $this->_connection->select()
-                ->from(
-                    array('cpsa' => $resource->getTableName('catalog/product_super_attribute')),
-                    array(
-                        'cpsa.product_id', 'ea.attribute_code', 'eaov.value', 'cpsap.pricing_value', 'cpsap.is_percent'
-                    )
-                )
-                ->joinLeft(
-                    array('cpsap' => $resource->getTableName('catalog/product_super_attribute_pricing')),
-                    '(cpsap.product_super_attribute_id = cpsa.product_super_attribute_id)',
-                    array()
-                )
-                ->joinLeft(
-                    array('ea' => $resource->getTableName('eav/attribute')),
-                    '(ea.attribute_id = cpsa.attribute_id)',
-                    array()
-                )
-                ->joinLeft(
-                    array('eaov' => $resource->getTableName('eav/attribute_option_value')),
-                    '(eaov.option_id = cpsap.value_index AND store_id = 0)',
-                    array()
-                )
-                ->where('cpsa.product_id IN (?)', array_keys($configurableData));
-
-            foreach ($this->_connection->fetchAll($select) as $priceRow) {
-                $configurablePrice[$priceRow['product_id']][] = array(
-                    '_super_attribute_code'       => $priceRow['attribute_code'],
-                    '_super_attribute_option'     => $priceRow['value'],
-                    '_super_attribute_price_corr' => $priceRow['pricing_value']
-                                                  . ($priceRow['is_percent'] ? '%' : '')
-                );
-            }
-            foreach ($configurableData as $productId => $rows) {
+            $configurablePrice = $this->_prepareConfigurableProductPrice($productIds);
+            foreach ($configurableData as $productId => &$rows) {
                 if (isset($configurablePrice[$productId])) {
                     $largest = max(count($rows), count($configurablePrice[$productId]));
 
@@ -453,6 +530,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     }
                 }
             }
+            unset($configurablePrice);
         }
 
         // prepare custom options information
@@ -465,13 +543,12 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
             '_custom_option_row_sku', '_custom_option_row_sort'
         );
 
-        foreach ($this->_storeIdToCode as $storeId => $storeCode) {
-            $options = Mage::getModel('catalog/product_option')
-                ->getCollection()
+        foreach ($this->_storeIdToCode as $storeId => &$storeCode) {
+            $options = Mage::getResourceModel('catalog/product_option_collection')
                 ->reset()
                 ->addTitleToResult($storeId)
                 ->addPriceToResult($storeId)
-                ->addProductToFilter(array_keys($dataRows))
+                ->addProductToFilter($productIds)
                 ->addValuesToResult($storeId);
 
             foreach ($options as $option) {
@@ -482,7 +559,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                                ? $customOptionsDataPre[$productId][$optionId]
                                : array();
 
-                if (Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID == $storeId) {
+                if ($defaultStoreId == $storeId) {
                     $row['_custom_option_type']           = $option['type'];
                     $row['_custom_option_title']          = $option['title'];
                     $row['_custom_option_is_required']    = $option['is_require'];
@@ -496,11 +573,11 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 } elseif ($option['title'] != $customOptions[0]['_custom_option_title']) {
                     $row['_custom_option_title'] = $option['title'];
                 }
-                if (($values = $option->getValues())) {
+                if ($values = $option->getValues()) {
                     $firstValue = array_shift($values);
                     $priceType  = $firstValue['price_type'] == 'percent' ? '%' : '';
 
-                    if (Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID == $storeId) {
+                    if ($defaultStoreId == $storeId) {
                         $row['_custom_option_row_title'] = $firstValue['title'];
                         $row['_custom_option_row_price'] = $firstValue['price'] . $priceType;
                         $row['_custom_option_row_sku']   = $firstValue['sku'];
@@ -512,7 +589,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     }
                 }
                 if ($row) {
-                    if (Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID != $storeId) {
+                    if ($defaultStoreId != $storeId) {
                         $row['_custom_option_store'] = $this->_storeIdToCode[$storeId];
                     }
                     $customOptionsDataPre[$productId][$optionId][] = $row;
@@ -521,7 +598,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     $row = array();
                     $valuePriceType = $value['price_type'] == 'percent' ? '%' : '';
 
-                    if (Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID == $storeId) {
+                    if ($defaultStoreId == $storeId) {
                         $row['_custom_option_row_title'] = $value['title'];
                         $row['_custom_option_row_price'] = $value['price'] . $valuePriceType;
                         $row['_custom_option_row_sku']   = $value['sku'];
@@ -530,20 +607,23 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         $row['_custom_option_row_title'] = $value['title'];
                     }
                     if ($row) {
-                        if (Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID != $storeId) {
+                        if ($defaultStoreId != $storeId) {
                             $row['_custom_option_store'] = $this->_storeIdToCode[$storeId];
                         }
                         $customOptionsDataPre[$option['product_id']][$option['option_id']][] = $row;
                     }
                 }
+                $option = null;
             }
+            $options = null;
         }
-        foreach ($customOptionsDataPre as $productId => $optionsData) {
+        foreach ($customOptionsDataPre as $productId => &$optionsData) {
             $customOptionsData[$productId] = array();
 
-            foreach ($optionsData as $optionId => $optionRows) {
+            foreach ($optionsData as $optionId => &$optionRows) {
                 $customOptionsData[$productId] = array_merge($customOptionsData[$productId], $optionRows);
             }
+            unset($optionRows, $optionsData);
         }
         unset($customOptionsDataPre);
 
@@ -554,7 +634,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 self::COL_TYPE, self::COL_CATEGORY, '_product_websites'
             ),
             $validAttrCodes,
-            $stockInfo ? array_keys($stockItemRow) : array(),
+            reset($stockItemRows) ? array_keys(end($stockItemRows)) : array(),
             $gfAmountFields,
             array(
                 '_links_related_sku', '_links_related_position', '_links_crosssell_sku',
@@ -579,9 +659,9 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
 
         $writer->setHeaderCols($headerCols);
 
-        foreach ($dataRows as $productId => $productData) {
-            foreach ($productData as $storeId => $dataRow) {
-                if (Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID != $storeId) {
+        foreach ($dataRows as $productId => &$productData) {
+            foreach ($productData as $storeId => &$dataRow) {
+                if ($defaultStoreId != $storeId) {
                     $dataRow[self::COL_SKU]      = null;
                     $dataRow[self::COL_ATTR_SET] = null;
                     $dataRow[self::COL_TYPE]     = null;
@@ -598,7 +678,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 if (!empty($rowTierPrices[$productId])) {
                     $dataRow = array_merge($dataRow, array_shift($rowTierPrices[$productId]));
                 }
-                foreach ($linkIdColPrefix as $linkId => $colPrefix) {
+                foreach ($linkIdColPrefix as $linkId => &$colPrefix) {
                     if (!empty($linksRows[$productId][$linkId])) {
                         $linkData = array_shift($linksRows[$productId][$linkId]);
                         $dataRow[$colPrefix . 'position'] = $linkData['position'];
@@ -622,7 +702,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
             $largestLinks = 0;
 
             if (isset($linksRows[$productId])) {
-                foreach ($linksRows[$productId] as $linkData) {
+                foreach ($linksRows[$productId] as &$linkData) {
                     $largestLinks = max($largestLinks, count($linkData));
                 }
             }
@@ -654,7 +734,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     if (!empty($rowTierPrices[$productId])) {
                         $dataRow = array_merge($dataRow, array_shift($rowTierPrices[$productId]));
                     }
-                    foreach ($linkIdColPrefix as $linkId => $colPrefix) {
+                    foreach ($linkIdColPrefix as $linkId => &$colPrefix) {
                         if (!empty($linksRows[$productId][$linkId])) {
                             $linkData = array_shift($linksRows[$productId][$linkId]);
                             $dataRow[$colPrefix . 'position'] = $linkData['position'];

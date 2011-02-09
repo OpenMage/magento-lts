@@ -142,9 +142,11 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             if ($this->getProduct($product)->hasCustomOptions()) {
                 $customOption = $this->getProduct($product)->getCustomOption('bundle_selection_ids');
                 $selectionIds = unserialize($customOption->getValue());
-                $selections = $this->getSelectionsByIds($selectionIds, $product);
-                foreach ($selections->getItems() as $selection) {
-                    $skuParts[] = $selection->getSku();
+                if (!empty($selectionIds)) {
+                    $selections = $this->getSelectionsByIds($selectionIds, $product);
+                    foreach ($selections->getItems() as $selection) {
+                        $skuParts[] = $selection->getSku();
+                    }
                 }
             }
 
@@ -618,13 +620,14 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 } else {
                     $qty = (float)$selection->getSelectionQty() ? $selection->getSelectionQty() : 1;
                 }
+                $qty = (float)$qty;
 
                 $product->addCustomOption('selection_qty_' . $selection->getSelectionId(), $qty, $selection);
                 $selection->addCustomOption('selection_id', $selection->getSelectionId());
 
                 $beforeQty = 0;
                 if ($customOption = $product->getCustomOption('product_qty_' . $selection->getId())) {
-                    $beforeQty = $customOption->getValue();
+                    $beforeQty = (float)$customOption->getValue();
                 }
                 $product->addCustomOption('product_qty_' . $selection->getId(), $qty + $beforeQty, $selection);
 

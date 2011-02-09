@@ -16,7 +16,7 @@
  * @package   Zend_Config
  * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Xml.php 19059 2009-11-19 20:05:27Z jan $
+ * @version   $Id: Json.php 23294 2010-11-05 00:27:34Z ramon $
  */
 
 /**
@@ -30,7 +30,7 @@
 #require_once 'Zend/Json.php';
 
 /**
- * XML Adapter for Zend_Config
+ * JSON Adapter for Zend_Config
  *
  * @category  Zend
  * @package   Zend_Config
@@ -47,9 +47,9 @@ class Zend_Config_Json extends Zend_Config
     /**
      * Whether or not to ignore constants in the JSON string
      *
-     * Note: if you do not have constant names in quotations in your JSON 
+     * Note: if you do not have constant names in quotations in your JSON
      * string, they may lead to syntax errors when parsing.
-     * 
+     *
      * @var bool
      */
     protected $_ignoreConstants = false;
@@ -129,7 +129,7 @@ class Zend_Config_Json extends Zend_Config
 
         // Parse/decode
         $config = Zend_Json::decode($json);
-        
+
         if (null === $config) {
             // decode failed
             #require_once 'Zend/Config/Exception.php';
@@ -212,8 +212,8 @@ class Zend_Config_Json extends Zend_Config
 
     /**
      * Replace any constants referenced in a string with their values
-     * 
-     * @param  string $value 
+     *
+     * @param  string $value
      * @return string
      */
     protected function _replaceConstants($value)
@@ -228,7 +228,7 @@ class Zend_Config_Json extends Zend_Config
 
     /**
      * Get (reverse) sorted list of defined constant names
-     * 
+     *
      * @return array
      */
     protected function _getConstants()

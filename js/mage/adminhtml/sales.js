@@ -30,6 +30,7 @@ AdminOrder.prototype = {
         this.customerId     = data.customer_id ? data.customer_id : false;
         this.storeId        = data.store_id ? data.store_id : false;
         this.currencyId     = false;
+        this.currencySymbol = data.currency_symbol ? data.currency_symbol : false;
         this.addresses      = data.addresses ? data.addresses : $H({});
         this.shippingAsBilling = data.shippingAsBilling ? data.shippingAsBilling : false;
         this.gridProducts   = $H({});
@@ -40,6 +41,7 @@ AdminOrder.prototype = {
         this.overlayData = $H({});
         this.giftMessageDataChanged = false;
         this.productConfigureAddFields = {};
+        this.productPriceBase = {};
     },
 
     setLoadBaseUrl : function(url){
@@ -82,6 +84,10 @@ AdminOrder.prototype = {
         this.currencyId = id;
         //this.loadArea(['sidebar', 'data'], true);
         this.loadArea(['data'], true);
+    },
+
+    setCurrencySymbol : function(symbol){
+        this.currencySymbol = symbol;
     },
 
     selectAddress : function(el, container){
@@ -402,6 +408,7 @@ AdminOrder.prototype = {
         if (trElement && !isInputQty) {
             var checkbox = Element.select(trElement, 'input[type="checkbox"]')[0];
             var confLink = Element.select(trElement, 'a')[0];
+            var priceColl = Element.select(trElement, '.price')[0];
             if (checkbox) {
                 // processing non composite product
                 if (confLink.readAttribute('disabled')) {
@@ -414,12 +421,23 @@ AdminOrder.prototype = {
                 } else if (!isInputCheckbox || (isInputCheckbox && checkbox.checked)) {
                     var listType = confLink.readAttribute('list_type');
                     var productId = confLink.readAttribute('product_id');
+                    if (typeof this.productPriceBase[productId] == 'undefined') {
+                        var priceBase = priceColl.innerHTML.match(/.*?([0-9\.,]+)/);
+                        if (!priceBase) {
+                            this.productPriceBase[productId] = 0;
+                        } else {
+                            this.productPriceBase[productId] = parseFloat(priceBase[1].replace(/,/g,''));
+                        }
+                    }
                     productConfigure.setConfirmCallback(listType, function() {
                         // sync qty of popup and qty of grid
                         var confirmedCurrentQty = productConfigure.getCurrentConfirmedQtyElement();
                         if (qtyElement && confirmedCurrentQty && !isNaN(confirmedCurrentQty.value)) {
                             qtyElement.value = confirmedCurrentQty.value;
                         }
+                        // calc and set product price
+                        var productPrice = this._calcProductPrice();
+                        priceColl.innerHTML = this.currencySymbol + (productPrice + this.productPriceBase[productId]);
                         // and set checkbox checked
                         grid.setCheckboxChecked(checkbox, true);
                     }.bind(this));
@@ -439,6 +457,46 @@ AdminOrder.prototype = {
                 }
             }
         }
+    },
+
+    /**
+     * Calc product price through its options
+     */
+    _calcProductPrice: function () {
+        var productPrice = 0;
+        var optQty = 1;
+        var getPriceFields = function (elms) {
+            var productPrice = 0;
+            var getPrice = function (elm) {
+                if (elm.hasAttribute('price')) {
+                    if (elm.hasAttribute('qtyId') && $(elm.getAttribute('qtyId')).value) {
+                        optQty = parseFloat($(elm.getAttribute('qtyId')).value);
+                    }
+                    return parseFloat(elm.readAttribute('price')) * optQty;
+                }
+                return 0;
+            };
+            for(var i = 0; i < elms.length; i++) {
+                if (elms[i].type == 'select-one' || elms[i].type == 'select-multiple') {
+                    for(var ii = 0; ii < elms[i].options.length; ii++) {
+                        if (elms[i].options[ii].selected) {
+                            productPrice += getPrice(elms[i].options[ii]);
+                        }
+                    }
+                }
+                else if (((elms[i].type == 'checkbox' || elms[i].type == 'radio') && elms[i].checked)
+                        || ((elms[i].type == 'file' || elms[i].type == 'text' || elms[i].type == 'textarea' || elms[i].type == 'hidden')
+                            && Form.Element.getValue(elms[i]))
+                ) {
+                    productPrice += getPrice(elms[i]);
+                }
+            }
+            return productPrice;
+        }.bind(this);
+        productPrice += getPriceFields($(productConfigure.сonfirmedCurrentId).getElementsByTagName('input'));
+        productPrice += getPriceFields($(productConfigure.сonfirmedCurrentId).getElementsByTagName('select'));
+        productPrice += getPriceFields($(productConfigure.сonfirmedCurrentId).getElementsByTagName('textarea'));
+        return Math.round(productPrice*100)/100;
     },
 
     productGridCheckboxCheck : function(grid, element, checked){
@@ -787,6 +845,7 @@ AdminOrder.prototype = {
         else {
             new Ajax.Request(url, {parameters:params,loaderArea: indicator});
         }
+        productConfigure.clean();
     },
 
     loadAreaResponseHandler : function (response){

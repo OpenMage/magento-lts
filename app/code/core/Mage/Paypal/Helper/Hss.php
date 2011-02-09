@@ -25,12 +25,22 @@
  */
 
 /**
- * Paypal Payflow helper
+ * Hosted Sole Solution helper
  */
-class Mage_Paypal_Helper_Payflow extends Mage_Core_Helper_Abstract
+class Mage_Paypal_Helper_Hss extends Mage_Core_Helper_Abstract
 {
     /**
-     * Get template for button in order review page if PayflowLink method was selected
+     * Hosted Sole Solution methods
+     *
+     * @var array
+     */
+    protected $_hssMethods = array(
+        Mage_Paypal_Model_Config::METHOD_PAYFLOWLINK,
+        Mage_Paypal_Model_Config::METHOD_HOSTEDPRO
+    );
+
+    /**
+     * Get template for button in order review page if HSS method was selected
      *
      * @param string $name template name
      * @param string $block buttons block name
@@ -41,7 +51,7 @@ class Mage_Paypal_Helper_Payflow extends Mage_Core_Helper_Abstract
         $quote = Mage::getSingleton('checkout/session')->getQuote();
         if ($quote) {
             $payment = $quote->getPayment();
-            if ($payment && $payment->getMethod() == Mage_Paypal_Model_Config::METHOD_PAYFLOWLINK) {
+            if ($payment && in_array($payment->getMethod(), $this->_hssMethods)) {
                 return $name;
             }
         }
@@ -51,5 +61,15 @@ class Mage_Paypal_Helper_Payflow extends Mage_Core_Helper_Abstract
         }
 
         return '';
+    }
+
+    /**
+     * Get methods
+     *
+     * @return array
+     */
+    public function getHssMethods()
+    {
+        return $this->_hssMethods;
     }
 }

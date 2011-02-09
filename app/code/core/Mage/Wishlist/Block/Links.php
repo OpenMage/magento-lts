@@ -35,13 +35,6 @@
 class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
 {
     /**
-     * Message after link text
-     *
-     * @var string
-     */
-    protected $_afterText = 'class="top-link-wishlist"';
-
-    /**
      * Position in link list
      * @var int
      */

@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: AbstractClassFile.php 20785 2010-01-31 09:43:03Z mikaelkael $
+ * @version    $Id: AbstractClassFile.php 23417 2010-11-20 16:24:35Z ramon $
  */
 
 /**
@@ -33,10 +33,10 @@
  */
 abstract class Zend_Tool_Project_Context_Zf_AbstractClassFile extends Zend_Tool_Project_Context_Filesystem_File
 {
-    
+
     /**
      * getFullClassName()
-     * 
+     *
      * @param $localClassName
      * @param $classContextName
      */
@@ -53,7 +53,7 @@ abstract class Zend_Tool_Project_Context_Zf_AbstractClassFile extends Zend_Tool_
             }
         } while ($currentResource instanceof Zend_Tool_Project_Profile_Resource
             && $currentResource = $currentResource->getParentResource());
-        
+
         $fullClassName = '';
 
         // go find the proper prefix
@@ -62,8 +62,8 @@ abstract class Zend_Tool_Project_Context_Zf_AbstractClassFile extends Zend_Tool_
                 $prefix = $containingResource->getAttribute('classNamePrefix');
                 $fullClassName = $prefix;
             } elseif ($containingResource->getName() == 'ModuleDirectory') {
-                $prefix = $containingResource->getAttribute('moduleName') . '_';
-                $fullClassName = $prefix;    
+                $prefix = ucfirst($containingResource->getAttribute('moduleName')) . '_';
+                $fullClassName = $prefix;
             }
         }
 

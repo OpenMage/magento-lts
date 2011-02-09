@@ -17,7 +17,7 @@
  * @subpackage Resource
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Frontcontroller.php 20885 2010-02-03 19:33:59Z matthew $
+ * @version    $Id: Frontcontroller.php 23378 2010-11-18 21:48:27Z bittarman $
  */
 
 /**
@@ -68,7 +68,13 @@ class Zend_Application_Resource_Frontcontroller extends Zend_Application_Resourc
                     break;
 
                 case 'moduledirectory':
-                    $front->addModuleDirectory($value);
+                    if (is_string($value)) {
+                        $front->addModuleDirectory($value);
+                    } elseif (is_array($value)) {
+                        foreach($value as $moduleDir) {
+                            $front->addModuleDirectory($moduleDir);
+                        }
+                    }
                     break;
 
                 case 'defaultcontrollername':

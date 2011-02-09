@@ -1121,6 +1121,8 @@ abstract class Mage_Eav_Model_Entity_Abstract
                         'value_id' => $attribute->getBackend()->getValueId(),
                         'value'    => $v,
                     );
+                } else if ($v == $origData[$k] && $origData['store_id'] != $this->getDefaultStoreId()) {
+                    $insert[$attrId] = $v;
                 }
             } else if (!$this->_isAttributeValueEmpty($attribute, $v)) {
                 $insert[$attrId] = $v;
@@ -1588,5 +1590,15 @@ abstract class Mage_Eav_Model_Entity_Abstract
     protected function _isAttributeValueEmpty(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $value)
     {
         return $attribute->isValueEmpty($value);
+    }
+
+    /**
+     * Default sore ID getter
+     *
+     * @return integer
+     */
+    public function getDefaultStoreId()
+    {
+        return Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
     }
 }

@@ -17,7 +17,7 @@
  * @subpackage Transport
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Smtp.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Smtp.php 23424 2010-11-22 22:42:55Z bittarman $
  */
 
 
@@ -204,7 +204,7 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
         }
 
         // Set sender email address
-        $this->_connection->mail($this->_mail->getFrom());
+        $this->_connection->mail($this->_mail->getReturnPath());
 
         // Set recipient forward paths
         foreach ($this->_mail->getRecipients() as $recipient) {

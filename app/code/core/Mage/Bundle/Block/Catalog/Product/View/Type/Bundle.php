@@ -104,10 +104,18 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                 }
                 unset($tierPriceInfo); // break the reference with the last element
 
+                $taxPercent = 0;
+                $taxClassId = $_selection->getTaxClassId();
+                if ($taxClassId) {
+                    $request = Mage::getSingleton('tax/calculation')->getRateRequest();
+                    $taxPercent = Mage::getSingleton('tax/calculation')->getRate($request->setProductClassId($taxClassId));
+                }
+                
                 $selection = array (
                     'qty'       => $_qty,
                     'customQty' => $_selection->getSelectionCanChangeQty(),
                     'price'     => $coreHelper->currency($_selection->getFinalPrice(), false, false),
+                    'taxPercent'=> $taxPercent,
                     'priceValue' => $coreHelper->currency($_selection->getSelectionPriceValue(), false, false),
                     'priceType' => $_selection->getSelectionPriceType(),
                     'tierPrice' => $tierPrices,
@@ -150,7 +158,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             'priceFormat'   => Mage::app()->getLocale()->getJsPriceFormat(),
             'basePrice'     => $coreHelper->currency($currentProduct->getPrice(), false, false),
             'priceType'     => $currentProduct->getPriceType(),
-            'specialPrice'  => $currentProduct->getSpecialPrice()
+            'specialPrice'  => $currentProduct->getSpecialPrice(),
+            'includeTax'    => Mage::helper('tax')->priceIncludesTax() ? 'true' : 'false'
         );
 
         if ($preconfiguredFlag && !empty($defaultValues)) {

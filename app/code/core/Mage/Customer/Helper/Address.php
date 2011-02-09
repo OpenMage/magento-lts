@@ -157,4 +157,44 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
         }
         return $this->_attributes;
     }
+
+    /**
+     * Convert streets array to new street lines count
+     * Examples of use:
+     *  $origStreets = array('street1', 'street2', 'street3', 'street4')
+     *  $toCount = 3
+     *  Result:
+     *   array('street1 street2', 'street3', 'street4')
+     *  $toCount = 2
+     *  Result:
+     *   array('street1 street2', 'street3 street4')
+     *
+     * @param array $origStreets
+     * @param int   $toCount
+     * @return array
+     */
+    public function convertStreetLines($origStreets, $toCount)
+    {
+        $lines = array();
+        if (!empty($origStreets) && $toCount > 0) {
+            $countArgs = (int)floor(count($origStreets)/$toCount);
+            $modulo = count($origStreets) % $toCount;
+            $offset = 0;
+            $neededLinesCount = 0;
+            for ($i = 0; $i < $toCount; $i++) {
+                $offset += $neededLinesCount;
+                $neededLinesCount = $countArgs;
+                if ($modulo > 0) {
+                    ++$neededLinesCount;
+                    --$modulo;
+                }
+                $values = array_slice($origStreets, $offset, $neededLinesCount);
+                if (is_array($values)) {
+                    $lines[] = implode(' ', $values);
+                }
+            }
+        }
+
+        return $lines;
+    }
 }

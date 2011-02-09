@@ -182,6 +182,22 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
     }
 
     /**
+     * Recollect totals for customer cart.
+     * Set recollect totals flag for quote
+     *
+     * @return  Mage_Adminhtml_Model_Sales_Order_Create
+     */
+    public function recollectCart(){
+        if ($this->_needCollectCart === true) {
+            $this->getCustomerCart()
+                ->collectTotals()
+                ->save();
+        }
+        $this->setRecollect(true);
+        return $this;
+    }
+
+    /**
      * Quote saving
      *
      * @return Mage_Adminhtml_Model_Sales_Order_Create
@@ -250,7 +266,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
          * Initialize catalog rule data with new session values
          */
         $this->initRuleData();
-
         foreach ($order->getItemsCollection(
             array_keys(Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()),
             true
@@ -378,8 +393,13 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                 return $item;
             }
             if (is_numeric($qty)) {
-                $item->setQty($qty);
+                if ($parentItem = $item->getParentItem()) {
+                    $parentItem->setQty($qty);
+                } else {
+                    $item->setQty($qty);
+                }
             }
+
             if ($additionalOptions = $orderItem->getProductOptionByCode('additional_options')) {
                 $item->addOption(new Varien_Object(
                     array(
@@ -393,7 +413,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                 'order_item' => $orderItem,
                 'quote_item' => $item
             ));
-
             return $item;
         }
 
@@ -513,7 +532,11 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                     }
                     $product->unsSkipCheckRequiredOption();
                     $newItem->checkData();
-                    $newItem->setQty($qty);
+                    if ($parentItem = $newItem->getParentItem()) {
+                        $parentItem->setQty($qty);
+                    } else {
+                        $newItem->setQty($qty);
+                    }
                     $this->_needCollectCart = true;
                     break;
                 case 'cart':
@@ -523,7 +546,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                         $product = Mage::getModel('catalog/product')
                             ->setStoreId($this->getQuote()->getStoreId())
                             ->load($item->getProduct()->getId());
-                        $product->setSkipCheckRequiredOption(true);
 
                         $info = $item->getOptionByCode('info_buyRequest');
                         if ($info) {
@@ -544,7 +566,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                         if (is_string($cartItem)) {
                             Mage::throwException($cartItem);
                         }
-                        $product->unsSkipCheckRequiredOption();
                         $cartItem->setPrice($item->getProduct()->getPrice());
                         $this->_needCollectCart = true;
                     }
@@ -721,14 +742,21 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
         if ($item) {
             $item->setQty($item->getQty()+$qty);
         } else {
-            $isGrouped = $product->getTypeId() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE;
-            $processMode = $isGrouped ?
-                Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL :
-                Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE;
             $product->setCartQty($config->getQty());
-            $item = $this->getQuote()->addProductAdvanced($product, $config, $processMode);
+            $item = $this->getQuote()->addProductAdvanced(
+                $product,
+                $config,
+                Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL
+            );
             if (is_string($item)) {
-                Mage::throwException($item);
+                 $item = $this->getQuote()->addProductAdvanced(
+                    $product,
+                    $config,
+                    Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE
+                );
+                if (is_string($item)) {
+                    Mage::throwException($item);
+                }
             }
             $item->checkData();
         }
@@ -769,49 +797,51 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
     public function updateQuoteItems($data)
     {
         if (is_array($data)) {
-            foreach ($data as $itemId => $info) {
-                if (!empty($info['configured'])) {
-                    $item = $this->getQuote()->updateItem($itemId, new Varien_Object($info));
-                    $itemQty = (float)$item->getQty();
-                } else {
-                    $item       = $this->getQuote()->getItemById($itemId);
-                    $itemQty    = (float)$info['qty'];
-                }
-
-                if ($item && $item->getProduct()->getStockItem()) {
-                    if (!$item->getProduct()->getStockItem()->getIsQtyDecimal()) {
-                        $itemQty = (int)$itemQty;
+            try {
+                foreach ($data as $itemId => $info) {
+                    if (!empty($info['configured'])) {
+                        $item = $this->getQuote()->updateItem($itemId, new Varien_Object($info));
+                        $itemQty = (float)$item->getQty();
                     } else {
-                        $item->setIsQtyDecimal(1);
+                        $item       = $this->getQuote()->getItemById($itemId);
+                        $itemQty    = (float)$info['qty'];
                     }
-                }
-                $itemQty    = $itemQty > 0 ? $itemQty : 1;
-                if (isset($info['custom_price'])) {
-                    $itemPrice  = $this->_parseCustomPrice($info['custom_price']);
-                } else {
-                    $itemPrice = null;
-                }
-                $noDiscount = !isset($info['use_discount']);
 
-                if (empty($info['action']) || !empty($info['configured'])) {
-                    if ($item) {
-                        $item->setQty($itemQty);
-                        $item->setCustomPrice($itemPrice);
-                        $item->setOriginalCustomPrice($itemPrice);
-                        $item->setNoDiscount($noDiscount);
-                        $item->getProduct()->setIsSuperMode(true);
-                        $item->checkData();
+                    if ($item && $item->getProduct()->getStockItem()) {
+                        if (!$item->getProduct()->getStockItem()->getIsQtyDecimal()) {
+                            $itemQty = (int)$itemQty;
+                        } else {
+                            $item->setIsQtyDecimal(1);
+                        }
                     }
-                } else {
-                    $this->moveQuoteItem($item->getId(), $info['action'], $itemQty);
+                    $itemQty    = $itemQty > 0 ? $itemQty : 1;
+                    if (isset($info['custom_price'])) {
+                        $itemPrice  = $this->_parseCustomPrice($info['custom_price']);
+                    } else {
+                        $itemPrice = null;
+                    }
+                    $noDiscount = !isset($info['use_discount']);
+
+                    if (empty($info['action']) || !empty($info['configured'])) {
+                        if ($item) {
+                            $item->setQty($itemQty);
+                            $item->setCustomPrice($itemPrice);
+                            $item->setOriginalCustomPrice($itemPrice);
+                            $item->setNoDiscount($noDiscount);
+                            $item->getProduct()->setIsSuperMode(true);
+                            $item->checkData();
+                        }
+                    } else {
+                        $this->moveQuoteItem($item->getId(), $info['action'], $itemQty);
+                    }
                 }
+            } catch (Mage_Core_Exception $e) {
+                $this->recollectCart();
+                throw $e;
+            } catch (Exception $e) {
+                Mage::logException($e);
             }
-            if ($this->_needCollectCart === true) {
-                $this->getCustomerCart()
-                    ->collectTotals()
-                    ->save();
-            }
-            $this->setRecollect(true);
+            $this->recollectCart();
         }
         return $this;
     }

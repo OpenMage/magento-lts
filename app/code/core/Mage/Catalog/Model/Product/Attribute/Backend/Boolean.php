@@ -34,51 +34,17 @@
 class Mage_Catalog_Model_Product_Attribute_Backend_Boolean extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
-     * Attribute allow values on product level
-     */
-    const ATTRIBUTE_NOT_ALLOWED  = '0';
-    const ATTRIBUTE_ALLOWED      = '1';
-    const ATTRIBUTE_CONFIG_ALLOW = '2';
-
-    /**
      * Set attribute default value if value empty
      *
      * @param Varien_Object $object
-     */
-    public function afterLoad($object)
-    {
-        if(!$object->hasData($this->getAttribute()->getAttributeCode())) {
-            $object->setData($this->getAttribute()->getAttributeCode(), $this->getDefaultValue());
-        }
-    }
-
-    /**
-     * Set attribute default value if value empty
-     *
-     * @param Varien_Object $object
+     * @return Mage_Catalog_Model_Product_Attribute_Backend_Boolean
      */
     public function beforeSave($object)
     {
-        if($object->hasData($this->getAttribute()->getAttributeCode())
-            && $object->getData($this->getAttribute()->getAttributeCode()) == $this->getDefaultValue()) {
-            $object->unsData($this->getAttribute()->getAttributeCode());
+        $attributeCode = $this->getAttribute()->getName();
+        if ($object->getData('use_config_' . $attributeCode)) {
+            $object->setData($attributeCode, '');
         }
-    }
-
-    /**
-     * Validate attribute data
-     *
-     * @param Varien_Object $object
-     * @return boolean
-     */
-    public function validate($object)
-    {
-        $optionsAllowed = array(
-            self::ATTRIBUTE_NOT_ALLOWED,
-            self::ATTRIBUTE_ALLOWED,
-            self::ATTRIBUTE_CONFIG_ALLOW
-        );
-        $value = $object->getData($this->getAttribute()->getAttributeCode());
-        return in_array($value, $optionsAllowed)? true : false;
+        return $this;
     }
 }

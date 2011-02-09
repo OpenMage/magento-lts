@@ -17,7 +17,7 @@
  * @subpackage Storage
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Filesystem.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Filesystem.php 23395 2010-11-19 15:30:47Z alexander $
  */
 
 /** Zend_Search_Lucene_Storage_File */
@@ -159,10 +159,21 @@ class Zend_Search_Lucene_Storage_File_Filesystem extends Zend_Search_Lucene_Stor
         }
 
         $data = '';
-        while ( $length > 0 && ($nextBlock = fread($this->_fileHandle, $length)) != false ) {
+        while ($length > 0 && !feof($this->_fileHandle)) {
+            $nextBlock = fread($this->_fileHandle, $length);
+            if ($nextBlock === false) {
+                #require_once 'Zend/Search/Lucene/Exception.php';
+                throw new Zend_Search_Lucene_Exception( "Error occured while file reading." );
+            }
+
             $data .= $nextBlock;
             $length -= strlen($nextBlock);
         }
+        if ($length != 0) {
+            #require_once 'Zend/Search/Lucene/Exception.php';
+            throw new Zend_Search_Lucene_Exception( "Error occured while file reading." );
+        }
+
         return $data;
     }
 

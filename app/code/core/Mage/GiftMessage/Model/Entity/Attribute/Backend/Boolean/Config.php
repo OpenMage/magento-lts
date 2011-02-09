@@ -28,9 +28,11 @@
 /**
  * Product attribute for allowing of gift messages per item
  *
+ * @deprecated after 1.4.2.0
+ *
  * @category   Mage
  * @package    Mage_GiftMessage
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {

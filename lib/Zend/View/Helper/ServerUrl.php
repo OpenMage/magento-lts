@@ -17,7 +17,7 @@
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ServerUrl.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: ServerUrl.php 23371 2010-11-18 20:49:55Z bittarman $
  */
 
 /**
@@ -52,10 +52,14 @@ class Zend_View_Helper_ServerUrl
      */
     public function __construct()
     {
-        if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] === true)) {
-            $scheme = 'https';
-        } else {
-            $scheme = 'http';
+        switch (true) {
+            case (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] === true)):
+            case (isset($_SERVER['HTTP_SCHEME']) && ($_SERVER['HTTP_SCHEME'] == 'https')):
+            case (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == 443)):
+                $scheme = 'https';
+                break;
+            default:
+            $scheme = 'http';   
         }
         $this->setScheme($scheme);
 

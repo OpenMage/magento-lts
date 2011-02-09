@@ -41,7 +41,7 @@ class Mage_CatalogInventory_Model_Observer
      * @var array
      */
     protected $_checkedProductsQty = array();
-    
+
     /**
      * Product qty's checked
      * data is valid if you check quote item qty and use singleton instance
@@ -53,6 +53,14 @@ class Mage_CatalogInventory_Model_Observer
     protected $_itemsForReindex = array();
 
     /**
+     * Array, indexed by product's id to contain stockItems of already loaded products
+     * Some kind of singleton for product's stock item
+     *
+     * @var array
+     */
+    protected $_stockItemsArray = array();
+
+    /**
      * Add stock information to product
      *
      * @param   Varien_Event_Observer $observer
@@ -62,7 +70,12 @@ class Mage_CatalogInventory_Model_Observer
     {
         $product = $observer->getEvent()->getProduct();
         if ($product instanceof Mage_Catalog_Model_Product) {
-            Mage::getModel('cataloginventory/stock_item')->assignProduct($product);
+            $productId = intval($product->getId());
+            if (!isset($this->_stockItemsArray[$productId])) {
+                $this->_stockItemsArray[$productId] = Mage::getModel('cataloginventory/stock_item');
+            }
+            $productStockItem = $this->_stockItemsArray[$productId];
+            $productStockItem->assignProduct($product);
         }
         return $this;
     }
@@ -407,22 +420,22 @@ class Mage_CatalogInventory_Model_Observer
      * @param int   $productId
      * @param int   $quoteItemId
      * @param float $itemQty
-     * @return int  
+     * @return int
      */
     protected function _getQuoteItemQtyForCheck($productId, $quoteItemId, $itemQty)
     {
         $qty = $itemQty;
-        if (isset($this->_checkedQuoteItems[$productId]['qty']) && 
+        if (isset($this->_checkedQuoteItems[$productId]['qty']) &&
             !in_array($quoteItemId, $this->_checkedQuoteItems[$productId]['items'])) {
                 $qty += $this->_checkedQuoteItems[$productId]['qty'];
-        } 
-        
+        }
+
         $this->_checkedQuoteItems[$productId]['qty'] = $qty;
         $this->_checkedQuoteItems[$productId]['items'][] = $quoteItemId;
 
         return $qty;
-    }     
-    
+    }
+
     /**
      * Subtract qtys of quote item products after multishipping checkout
      *

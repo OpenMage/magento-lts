@@ -83,6 +83,24 @@
                         </active>
                     </fields>
                 </general>
+                <wishlist_link translate="label">
+                    <label>My Wishlist Link</label>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <use_qty translate="label">
+                            <label>Display Wishlist Summary</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>wishlist/config_source_summary</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </use_qty>
+                    </fields>
+                </wishlist_link>
             </groups>
         </wishlist>
     </sections>

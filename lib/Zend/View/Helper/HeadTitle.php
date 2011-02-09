@@ -16,7 +16,7 @@
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: HeadTitle.php 23170 2010-10-19 18:29:24Z mabe $
+ * @version    $Id: HeadTitle.php 23388 2010-11-19 00:37:55Z ramon $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -65,7 +65,6 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
      *
      * @param  string $title
      * @param  string $setType
-     * @param  string $separator
      * @return Zend_View_Helper_HeadTitle
      */
     public function headTitle($title = null, $setType = null)
@@ -140,7 +139,7 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
         return $this;
     }
 
-    /*
+    /**
      * Retrieve translation object
      *
      * If none is currently registered, attempts to pull it from the registry

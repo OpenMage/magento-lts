@@ -77,10 +77,10 @@ class Mage_Customer_Model_Attribute_Data_Text extends Mage_Customer_Model_Attrib
 
         $validateRules = $attribute->getValidateRules();
         if (!empty($validateRules['min_text_length']) && $length < $validateRules['min_text_length']) {
-            $errors[] = Mage::helper('customer')->__('"%s" length must be equal or greater than %s characters.', $label, $validateRules['min_text_length']);
+            $errors[] = Mage::helper('customer')->__('"%s" length must be equal to or greater than %s characters.', $label, $validateRules['min_text_length']);
         }
         if (!empty($validateRules['max_text_length']) && $length > $validateRules['max_text_length']) {
-            $errors[] = Mage::helper('customer')->__('"%s" length must be equal or greater than %s characters.', $label, $validateRules['max_text_length']);
+            $errors[] = Mage::helper('customer')->__('"%s" length must be less than or equal to %s characters.', $label, $validateRules['max_text_length']);
         }
 
         $result = $this->_validateInputRule($value);

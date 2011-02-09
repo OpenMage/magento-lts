@@ -301,19 +301,26 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     public function getConfigureButtonHtml($item)
     {
         $product = $item->getProduct();
-        $isConfigurable = ($product->isComposite() || $product->getOptions()
-            || in_array($product->getTypeId(), array('downloadable', 'giftcard'))) ? true : false;
-        $class          = ($isConfigurable) ? '' : 'disabled';
-        $addAttributes  = ($isConfigurable)
-            ? sprintf('onClick="order.showQuoteItemConfiguration(%s)"', $item->getId())
-            : 'disabled="disabled"';
+        $isConfigurable = $product->isComposite() || $product->getOptions()
+            || in_array($product->getTypeId(), array('downloadable', 'giftcard'));
 
-        return sprintf('<button type="button" class="scalable %s" %s><span>%s</span></button>',
-            $class, $addAttributes, Mage::helper('sales')->__('Configure'));
+        $options = array(
+            'label' => Mage::helper('sales')->__('Configure'),
+            'title' => Mage::helper('sales')->__('This product does not have any configurable options.')
+        );
+        if ($isConfigurable) {
+            $options['onclick'] = sprintf('order.showQuoteItemConfiguration(%s)', $item->getId());
+        } else {
+            $options['class'] = ' disabled';
+        }
+
+        return $this->getLayout()->createBlock('adminhtml/widget_button')
+            ->setData($options)
+            ->toHtml();
     }
 
     /**
-     * Get Order Item ExtraInfo block
+     * Get order item extra info block
      *
      * @param Mage_Sales_Model_Quote_Item $item
      * @return Mage_Core_Block_Abstract

@@ -150,4 +150,20 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
         return $this->_getResource()
             ->getSearchableData($productId, $storeId);
     }
+
+    /**
+     * Return selection by it's id
+     *
+     * @param int $selectionId
+     * @return Mage_Bundle_Model_Selection
+     */
+    public function getSelectionById($selectionId)
+    {
+        $selections = $this->getSelections();
+        $i = count($selections);
+
+        while ($i-- && $selections[$i]->getSelectionId() != $selectionId);
+
+        return $i == -1 ? false : $selections[$i];
+    }
 }

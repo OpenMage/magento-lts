@@ -35,6 +35,16 @@
 class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
+     * Config key 'Display Wishlist Summary'
+     */
+    const XML_PATH_WISHLIST_LINK_USE_QTY = 'wishlist/wishlist_link/use_qty';
+
+    /**
+     * Config key 'Display Out of Stock Products'
+     */
+    const XML_PATH_CATALOGINVENTORY_SHOW_OUT_OF_STOCK = 'cataloginventory/options/show_out_of_stock';
+
+    /**
      * Customer Wishlist instance
      *
      * @var Mage_Wishlist_Model_Wishlist
@@ -100,13 +110,21 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Retrieve wishlist item count
+     * Retrieve wishlist item count (inchlude config settings)
      *
      * @return int
      */
     public function getItemCount()
     {
-        if (!Mage::getSingleton('customer/session')->hasWishlistItemCount()) {
+        $storedDisplayType = Mage::getSingleton('customer/session')->getWishlistDisplayType();
+        $currentDisplayType = Mage::getStoreConfig(self::XML_PATH_WISHLIST_LINK_USE_QTY);
+
+        $storedDisplayOutOfStockProducts = Mage::getSingleton('customer/session')->getDisplayOutOfStockProducts();
+        $currentDisplayOutOfStockProducts = Mage::getStoreConfig(self::XML_PATH_CATALOGINVENTORY_SHOW_OUT_OF_STOCK);
+        if (!Mage::getSingleton('customer/session')->hasWishlistItemCount()
+                || ($currentDisplayType != $storedDisplayType)
+                || !Mage::getSingleton('customer/session')->hasDisplayOutOfStockProducts()
+                || ($currentDisplayOutOfStockProducts != $storedDisplayOutOfStockProducts)) {
             $this->calculate();
         }
 
@@ -391,21 +409,26 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Calculate count of wishlist items and put value to customer session.
      * Method called after wishlist modifications and trigger 'wishlist_items_renewed' event.
+     * Depends from configuration.
      *
      * @return Mage_Wishlist_Helper_Data
      */
     public function calculate()
     {
+        $session = Mage::getSingleton('customer/session');
         if (!$this->_isCustomerLogIn()) {
             $count = 0;
+        } else {
+            if (Mage::getStoreConfig(self::XML_PATH_WISHLIST_LINK_USE_QTY)) {
+                $count = $this->getWishlistItemCollection()
+                    ->getItemsQty();
+            } else {
+                $count = count($this->getWishlistItemCollection()->setInStockFilter(true));
+            }
+            $session->setWishlistDisplayType(Mage::getStoreConfig(self::XML_PATH_WISHLIST_LINK_USE_QTY));
+            $session->setDisplayOutOfStockProducts(Mage::getStoreConfig(self::XML_PATH_CATALOGINVENTORY_SHOW_OUT_OF_STOCK));
         }
-        else {
-            $count = $this->getWishlistItemCollection()
-                /* Price data is added to consider item stock status using price index */
-//                ->addPriceData()
-                ->getSize();
-        }
-        Mage::getSingleton('customer/session')->setWishlistItemCount($count);
+        $session->setWishlistItemCount($count);
         Mage::dispatchEvent('wishlist_items_renewed');
         return $this;
     }

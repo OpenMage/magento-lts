@@ -16,7 +16,7 @@
  * @package    Zend_Rest
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Route.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Route.php 23421 2010-11-21 10:03:53Z wilmoore $
  */
 
 /**
@@ -274,15 +274,27 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
         $controller = $params[$this->_controllerKey];
         unset($params[$this->_controllerKey]);
 
+        // set $action if value given is 'new' or 'edit'
+        if (in_array($params[$this->_actionKey], array('new', 'edit'))) {
+            $action = $params[$this->_actionKey];
+        }
         unset($params[$this->_actionKey]);
 
         if (isset($params['index']) && $params['index']) {
             unset($params['index']);
             $url .= '/index';
+            if (isset($params['id'])) {
+                $url .= '/'.$params['id'];
+                unset($params['id']);
+            }
             foreach ($params as $key => $value) {
                 if ($encode) $value = urlencode($value);
                 $url .= '/' . $key . '/' . $value;
             }
+        } elseif (! empty($action) && isset($params['id'])) {
+            $url .= sprintf('/%s/%s', $params['id'], $action);
+        } elseif (! empty($action)) {
+            $url .= sprintf('/%s', $action);
         } elseif (isset($params['id'])) {
             $url .= '/' . $params['id'];
         }

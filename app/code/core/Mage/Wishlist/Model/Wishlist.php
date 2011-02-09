@@ -145,9 +145,11 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Adding catalog product object data to wishlist
      *
      * @param   Mage_Catalog_Model_Product $product
+     * @param   int $qty
+     * @param   bool $forciblySetQty
      * @return  Mage_Wishlist_Model_Item
      */
-    protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1)
+    protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1, $forciblySetQty = false)
     {
         $item = null;
         foreach ($this->getItemCollection() as $_item) {
@@ -169,7 +171,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
                 ->setQty($qty)
                 ->save();
         } else {
-            $item->setQty($item->getQty() + $qty)
+            $qty = $forciblySetQty ? $qty : $item->getQty() + $qty;
+            $item->setQty($qty)
                 ->save();
         }
 
@@ -246,9 +249,10 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      *
      * @param int|Mage_Catalog_Model_Product $product
      * @param mixed $buyRequest
+     * @param bool $forciblySetQty
      * @return Mage_Wishlist_Model_Item
      */
-    public function addNewItem($product, $buyRequest = null)
+    public function addNewItem($product, $buyRequest = null, $forciblySetQty = false)
     {
         /*
          * Always load product, to ensure:
@@ -308,7 +312,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
                 continue;
             }
             $candidate->setWishlistStoreId($storeId);
-            $item = $this->_addCatalogProduct($candidate, $candidate->getQty());
+            $item = $this->_addCatalogProduct($candidate, $candidate->getQty(), $forciblySetQty);
             $items[] = $item;
 
             // Collect errors instead of throwing first one
@@ -470,7 +474,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         $productId = $product->getId();
         if ($productId) {
             $product->setWishlistStoreId($item->getStoreId());
-            $resultItem = $this->addNewItem($product, $buyRequest);
+            $resultItem = $this->addNewItem($product, $buyRequest, true);
             /**
              * Error message
              */

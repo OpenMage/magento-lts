@@ -55,6 +55,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     const RESPONSE_CODE_ERROR    = 3;
     const RESPONSE_CODE_HELD     = 4;
 
+    const RESPONSE_REASON_CODE_APPROVED = 1;
     const RESPONSE_REASON_CODE_PARTIAL_APPROVE = 295;
 
     const PARTIAL_AUTH_CARDS_LIMIT = 5;
@@ -646,21 +647,25 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         switch ($result->getResponseCode()) {
             case self::RESPONSE_CODE_APPROVED:
-                 $captureTransactionId = $result->getTransactionId() . '-capture';
-                 $card->setLastTransId($captureTransactionId);
-                 return $this->_addTransaction(
-                     $payment,
-                     $captureTransactionId,
-                     Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE,
-                     array(
-                         'is_transaction_closed' => 0,
-                         'parent_transaction_id' => $authTransactionId
-                     ),
-                     array($this->_realTransactionIdKey => $result->getTransactionId()),
-                     Mage::helper('paygate')->getTransactionMessage(
-                         $payment, self::REQUEST_TYPE_PRIOR_AUTH_CAPTURE, $result->getTransactionId(), $card, $amount
-                     )
-                 );
+                if ($result->getResponseReasonCode() == self::RESPONSE_REASON_CODE_APPROVED) {
+                    $captureTransactionId = $result->getTransactionId() . '-capture';
+                    $card->setLastTransId($captureTransactionId);
+                    return $this->_addTransaction(
+                        $payment,
+                        $captureTransactionId,
+                        Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE,
+                        array(
+                            'is_transaction_closed' => 0,
+                            'parent_transaction_id' => $authTransactionId
+                        ),
+                        array($this->_realTransactionIdKey => $result->getTransactionId()),
+                        Mage::helper('paygate')->getTransactionMessage(
+                            $payment, self::REQUEST_TYPE_PRIOR_AUTH_CAPTURE, $result->getTransactionId(), $card, $amount
+                        )
+                    );
+                }
+                $exceptionMessage = $this->_wrapGatewayError($result->getResponseReasonText());
+                break;
             case self::RESPONSE_CODE_HELD:
             case self::RESPONSE_CODE_DECLINED:
             case self::RESPONSE_CODE_ERROR:
@@ -698,22 +703,26 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         switch ($result->getResponseCode()) {
             case self::RESPONSE_CODE_APPROVED:
-                $voidTransactionId = $result->getTransactionId() . '-void';
-                $card->setLastTransId($voidTransactionId);
-                return $this->_addTransaction(
-                    $payment,
-                    $voidTransactionId,
-                    Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID,
-                    array(
-                        'is_transaction_closed' => 1,
-                        'should_close_parent_transaction' => 1,
-                        'parent_transaction_id' => $authTransactionId
-                    ),
-                    array($this->_realTransactionIdKey => $result->getTransactionId()),
-                    Mage::helper('paygate')->getTransactionMessage(
-                        $payment, self::REQUEST_TYPE_VOID, $result->getTransactionId(), $card
-                    )
-                );
+                if ($result->getResponseReasonCode() == self::RESPONSE_REASON_CODE_APPROVED) {
+                    $voidTransactionId = $result->getTransactionId() . '-void';
+                    $card->setLastTransId($voidTransactionId);
+                    return $this->_addTransaction(
+                        $payment,
+                        $voidTransactionId,
+                        Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID,
+                        array(
+                            'is_transaction_closed' => 1,
+                            'should_close_parent_transaction' => 1,
+                            'parent_transaction_id' => $authTransactionId
+                        ),
+                        array($this->_realTransactionIdKey => $result->getTransactionId()),
+                        Mage::helper('paygate')->getTransactionMessage(
+                            $payment, self::REQUEST_TYPE_VOID, $result->getTransactionId(), $card
+                        )
+                    );
+                }
+                $exceptionMessage = $this->_wrapGatewayError($result->getResponseReasonText());
+                break;
             case self::RESPONSE_CODE_DECLINED:
             case self::RESPONSE_CODE_ERROR:
                 $exceptionMessage = $this->_wrapGatewayError($result->getResponseReasonText());
@@ -756,30 +765,34 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         switch ($result->getResponseCode()) {
             case self::RESPONSE_CODE_APPROVED:
-                $refundTransactionId = $result->getTransactionId() . '-refund';
-                $shouldCloseCaptureTransaction = 0;
-                /**
-                 * If it is last amount for refund, transaction with type "capture" will be closed
-                 * and card will has last transaction with type "refund"
-                 */
-                if ($this->_formatAmount($card->getCapturedAmount() - $card->getRefundedAmount()) == $amount) {
-                    $card->setLastTransId($refundTransactionId);
-                    $shouldCloseCaptureTransaction = 1;
+                if ($result->getResponseReasonCode() == self::RESPONSE_REASON_CODE_APPROVED) {
+                    $refundTransactionId = $result->getTransactionId() . '-refund';
+                    $shouldCloseCaptureTransaction = 0;
+                    /**
+                     * If it is last amount for refund, transaction with type "capture" will be closed
+                     * and card will has last transaction with type "refund"
+                     */
+                    if ($this->_formatAmount($card->getCapturedAmount() - $card->getRefundedAmount()) == $amount) {
+                        $card->setLastTransId($refundTransactionId);
+                        $shouldCloseCaptureTransaction = 1;
+                    }
+                    return $this->_addTransaction(
+                        $payment,
+                        $refundTransactionId,
+                        Mage_Sales_Model_Order_Payment_Transaction::TYPE_REFUND,
+                        array(
+                            'is_transaction_closed' => 1,
+                            'should_close_parent_transaction' => $shouldCloseCaptureTransaction,
+                            'parent_transaction_id' => $captureTransactionId
+                        ),
+                        array($this->_realTransactionIdKey => $result->getTransactionId()),
+                        Mage::helper('paygate')->getTransactionMessage(
+                            $payment, self::REQUEST_TYPE_CREDIT, $result->getTransactionId(), $card, $amount
+                        )
+                    );
                 }
-                return $this->_addTransaction(
-                    $payment,
-                    $refundTransactionId,
-                    Mage_Sales_Model_Order_Payment_Transaction::TYPE_REFUND,
-                    array(
-                        'is_transaction_closed' => 1,
-                        'should_close_parent_transaction' => $shouldCloseCaptureTransaction,
-                        'parent_transaction_id' => $captureTransactionId
-                    ),
-                    array($this->_realTransactionIdKey => $result->getTransactionId()),
-                    Mage::helper('paygate')->getTransactionMessage(
-                        $payment, self::REQUEST_TYPE_CREDIT, $result->getTransactionId(), $card, $amount
-                    )
-                );
+                $exceptionMessage = $this->_wrapGatewayError($result->getResponseReasonText());
+                break;
             case self::RESPONSE_CODE_DECLINED:
             case self::RESPONSE_CODE_ERROR:
                 $exceptionMessage = $this->_wrapGatewayError($result->getResponseReasonText());

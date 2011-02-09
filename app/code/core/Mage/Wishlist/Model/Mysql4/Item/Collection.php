@@ -77,6 +77,13 @@ class Mage_Wishlist_Model_Mysql4_Item_Collection extends Mage_Core_Model_Mysql4_
     protected $_addDaysInWishlist = false;
 
     /**
+     * Sum of items collection qty
+     *
+     * @var int
+     */
+    protected $_itemsQty;
+
+    /**
      * Initialize resource model for collection
      *
      */
@@ -304,5 +311,21 @@ class Mage_Wishlist_Model_Mysql4_Item_Collection extends Mage_Core_Model_Mysql4_
             "(TO_DAYS('" . (substr(Mage::getSingleton('core/date')->date(), 0, -2) . '00') . "') ".
             "- TO_DAYS(DATE_ADD(added_at, INTERVAL " .(int) Mage::getSingleton('core/date')->getGmtOffset() . " SECOND)))"));
         return $this;
+    }
+
+    /**
+     * Get sum of items collection qty
+     *
+     * @return int
+     */
+    public function getItemsQty(){
+        if (is_null($this->_itemsQty)) {
+            $sizeQuery = $this->getSelectCountSql();
+            $sizeQuery->reset(Zend_Db_Select::COLUMNS);
+            $sizeQuery->columns('SUM(IF(qty = 0, 1, qty))');
+            $this->_itemsQty = $this->getConnection()->fetchOne($sizeQuery, $this->_bindParams);
+        }
+
+        return (int)$this->_itemsQty;
     }
 }

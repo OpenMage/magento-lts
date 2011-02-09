@@ -24,13 +24,13 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<div id="order-giftmessage">
+<?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('main', $this->getQuote(), $this->getStoreId())): ?>
 <?php $_items = $this->getItems(); ?>
-<?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('main', $this->getQuote(), $this->getStoreId()) || $_items): ?>
+<div id="order-giftmessage">
 <div class="clear"></div>
 <div class="giftmessage-order-create box-left">
     <div class="entry-edit">
-        <div><?php echo Mage::helper('sales')->__('Gift Message for the Entire Order') ?></div><br>
+        <div><?php echo Mage::helper('sales')->__('Gift Message for the Entire Order') ?></div><br />
         <div class="fieldset">
             <div>
                 <?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('main', $this->getQuote(), $this->getStoreId())): ?>
@@ -55,5 +55,5 @@
 <script type="text/javascript">
     order.giftmessageFieldsBind('order-giftmessage');
 </script>
-<?php endif; ?>
 </div>
+<?php endif; ?>

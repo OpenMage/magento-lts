@@ -145,6 +145,7 @@
                 <active>0</active>
                 <sallowspecific>0</sallowspecific>
                 <allowed_methods>1DM,1DML,1DA,1DAL,1DAPI,1DP,1DPL,2DM,2DML,2DA,2DAL,3DS,GND,GNDCOM,GNDRES,STD,XPR,WXS,XPRL,XDM,XDML,XPD</allowed_methods>
+                <origin_shipment>Shipments Originating in United States</origin_shipment>
                 <container>CP</container>
                 <cutoff_cost></cutoff_cost>
                 <dest_type>RES</dest_type>

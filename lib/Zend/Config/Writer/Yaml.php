@@ -16,7 +16,7 @@
  * @package    Zend_Config
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Xml.php 18862 2009-11-05 18:25:20Z beberlei $
+ * @version    $Id: Yaml.php 23294 2010-11-05 00:27:34Z ramon $
  */
 
 /**
@@ -25,7 +25,7 @@
 #require_once 'Zend/Config/Writer/FileAbstract.php';
 
 /**
- * @see Zend_Config_Json
+ * @see Zend_Config_Yaml
  */
 #require_once 'Zend/Config/Yaml.php';
 
@@ -39,45 +39,45 @@ class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
 {
     /**
      * What to call when we need to decode some YAML?
-     * 
+     *
      * @var callable
      */
-    protected $_yamlEncoder = array('Zend_Config_Writer_Yaml', 'encode'); 
-    
+    protected $_yamlEncoder = array('Zend_Config_Writer_Yaml', 'encode');
+
     /**
      * Get callback for decoding YAML
-     * 
-	 * @return callable
-	 */
-	public function getYamlEncoder() 
-	{
-		return $this->_yamlEncoder;
-	}
+     *
+     * @return callable
+     */
+    public function getYamlEncoder()
+    {
+        return $this->_yamlEncoder;
+    }
 
-	/**
-	 * Set callback for decoding YAML
-	 * 
-	 * @param  $yamlEncoder the decoder to set
-	 * @return Zend_Config_Yaml
-	 */
-	public function setYamlEncoder($yamlEncoder) 
-	{
-	    if (!is_callable($yamlEncoder)) {
+    /**
+     * Set callback for decoding YAML
+     *
+     * @param  $yamlEncoder the decoder to set
+     * @return Zend_Config_Yaml
+     */
+    public function setYamlEncoder($yamlEncoder)
+    {
+        if (!is_callable($yamlEncoder)) {
             #require_once 'Zend/Config/Exception.php';
             throw new Zend_Config_Exception('Invalid parameter to setYamlEncoder - must be callable');
-	    }
-	    
-		$this->_yamlEncoder = $yamlEncoder;
-		return $this;
-	}
-    
+        }
+
+        $this->_yamlEncoder = $yamlEncoder;
+        return $this;
+    }
+
     /**
      * Render a Zend_Config into a YAML config string.
      *
      * @since 1.10
      * @return string
      */
-	public function render()
+    public function render()
     {
         $data        = $this->_config->toArray();
         $sectionName = $this->_config->getSectionName();
@@ -101,15 +101,15 @@ class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
                 }
             }
         }
-        
+
         return call_user_func($this->getYamlEncoder(), $data);
     }
 
     /**
      * Very dumb YAML encoder
-     * 
+     *
      * Until we have Zend_Yaml...
-     * 
+     *
      * @param array $data YAML data
      * @return string
      */
@@ -117,15 +117,15 @@ class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
     {
         return self::_encodeYaml(0, $data);
     }
-    
+
     /**
      * Service function for encoding YAML
-     * 
+     *
      * @param int $indent Current indent level
      * @param array $data Data to encode
      * @return string
      */
-    protected static function _encodeYaml($indent, $data) 
+    protected static function _encodeYaml($indent, $data)
     {
         reset($data);
         $result = "";

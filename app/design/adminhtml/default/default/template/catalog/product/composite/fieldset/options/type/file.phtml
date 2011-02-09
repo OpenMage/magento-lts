@@ -80,11 +80,11 @@
         <a href="javascript:void(0)" class="label" onclick="opFile<?php echo $_rand; ?>.toggleFileChange(this.next('.input-box'))">
             <?php echo Mage::helper('catalog')->__('Change') ?>
         </a>&nbsp;
-        <input type="checkbox" onclick="opFile<?php echo $_rand; ?>.toggleFileDelete(this, this.next('.input-box'))" />
+        <input type="checkbox" onclick="opFile<?php echo $_rand; ?>.toggleFileDelete(this, this.next('.input-box'))" price="<?php echo $_option->getPrice(true) ?>"/>
         <span class="label"><?php echo Mage::helper('catalog')->__('Delete') ?></span>
     <?php endif; ?>
     <div class="input-box" <?php echo $_fileExists ? 'style="display:none"' : '' ?>>
-        <input type="file" name="<?php echo $_fileName; ?>" class="product-custom-option<?php echo $_option->getIsRequire() ? ' required-entry' : '' ?>" />
+        <input type="file" name="<?php echo $_fileName; ?>" class="product-custom-option<?php echo $_option->getIsRequire() ? ' required-entry' : '' ?>" price="<?php echo $_option->getPrice(true) ?>"/>
         <input type="hidden" name="<?php echo $_fieldNameAction; ?>" value="<?php echo $_fieldValueAction; ?>" />
         <?php if ($_option->getFileExtension()): ?>
         <p class="no-margin"><?php echo Mage::helper('catalog')->__('Allowed file extensions to upload')?>: <strong><?php echo $_option->getFileExtension() ?></strong></p>

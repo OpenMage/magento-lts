@@ -17,7 +17,7 @@
  * @subpackage Object
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ObjectAbstract.php 21667 2010-03-28 17:45:14Z mikaelkael $
+ * @version    $Id: ObjectAbstract.php 23400 2010-11-19 17:18:31Z mikaelkael $
  */
 
 /**
@@ -384,7 +384,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
     /**
      * Set factor applying to
      * thinBarWidth - thickBarWidth - barHeight - fontSize
-     * @param integer $value
+     * @param float $value
      * @return Zend_Barcode_Object
      * @throw Zend_Barcode_Object_Exception
      */

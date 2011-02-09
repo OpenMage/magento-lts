@@ -17,7 +17,7 @@
  * @subpackage Math
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Gmp.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Gmp.php 23439 2010-11-23 21:10:14Z alexander $
  */
 
 /**
@@ -28,7 +28,7 @@
 /**
  * Support for arbitrary precision mathematics in PHP.
  *
- * Zend_Crypt_Math_BigInteger_Bcmath is a wrapper across the PHP BCMath
+ * Zend_Crypt_Math_BigInteger_Gmp is a wrapper across the PHP BCMath
  * extension.
  *
  * @category   Zend
