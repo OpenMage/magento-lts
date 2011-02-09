@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Mage_Compiler</name>
+    <version>1.5.0.0</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>This module compiles all files of a Magento installation and creates a single include path to increase performance</summary>
+    <description>This module compiles all files of a Magento installation and creates a single include path to increase performance</description>
+    <notes>1.5.0.0</notes>
+    <authors><author><name>Magento Core Team</name><user>core</user><email>core@magentocommerce.com</email></author></authors>
+    <date>2011-02-08</date>
+    <time>18:01:23</time>
+    <contents><target name="magecore"><dir name="Mage"><dir name="Compiler"><dir name="Block"><file name="Process.php" hash="d8f745d9cc007343aeba8d311af91b8b"/></dir><dir name="Helper"><file name="Data.php" hash="766f6a07e05460a6f410b5214df99f20"/></dir><dir name="Model"><file name="Process.php" hash="b6d725942cd71b15fbbd5a450eaae260"/></dir><dir name="controllers"><dir name="Adminhtml"><dir name="Compiler"><file name="ProcessController.php" hash="eac2e591ec661e48906a7ac946761a5f"/></dir></dir><file name="ProcessController.php" hash="44c0d89f2a35c7c2c969a6c8e6ce9a29"/></dir><dir name="etc"><file name="adminhtml.xml" hash="caa4e0f738889fd172c8231a7164b221"/><file name="compilation.xml" hash="ac882fb6cffaae5b94e9fc10e26263dd"/><file name="config.xml" hash="8143bf14661b3ea0a6d1899f09a7ad46"/></dir></dir></dir></target><target name="mage"><dir name="includes"><file name="config.php" hash="8400dea44d09cc57209d8a64cdd207d7"/><file name=".htaccess" hash="72617d60821288133a367f70bf39ad93"/><file name=".htaccess" hash="72617d60821288133a367f70bf39ad93"/></dir></target><target name="mageetc"><dir name="modules"><file name="Mage_Compiler.xml" hash="04e28df1b9208c97ddadc8c365b75d95"/></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="compiler.xml" hash="a334a155bb1d38e57769e0f34571c461"/></dir><dir name="template"><dir name="compiler"><file name="process.phtml" hash="feca53a49af569e0a40547240ba18a4d"/></dir></dir></dir></dir></dir></target><target name="magelocale"><dir name="en_US"><file name="Mage_Compiler.csv" hash="caa1d67e6c508421a8c8c234ae204c5d"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php><package><name>Mage_Core_Modules</name><channel>community</channel><min>1.5.0.0</min><max>1.6.0.0</max></package><package><name>Mage_Core_Adminhtml</name><channel>community</channel><min>1.5.0.0</min><max>1.6.0.0</max></package></required></dependencies>
+</package>

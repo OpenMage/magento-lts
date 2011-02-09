@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Find_Feed</name>
+    <version>1.0.8</version>
+    <stability>alpha</stability>
+    <license uri="http://opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Integration with TheFind shopping engine</summary>
+    <description>Current integration includes managing product feeds from Magento store to TheFind, mapping of Magento Attributes to TheFind structure.</description>
+    <notes>1.0.8</notes>
+    <authors><author><name>Magento Core Team</name><user>core</user><email>core@magentocommerce.com</email></author></authors>
+    <date>2010-12-17</date>
+    <time>2010-12-17</time>
+    <contents><target name="magecommunity"><dir name="Find"><dir name="Feed"><dir name="Block"><dir name="Adminhtml"><dir name="Edit"><dir name="Codes"><dir name="Edit"><file name="Form.php" hash="1514d7db604c60dc1723b176ff74ec1b"/></dir></dir><file name="Codes.php" hash="cfabd7a2fa565cc4e201eb6d7e2eadbf"/></dir><dir name="List"><dir name="Codes"><file name="Grid.php" hash="fc7e555780486b7843b3b8ee10d4cdbe"/></dir><file name="Codes.php" hash="d321b1a42a5c7af0788e65a28eed5f5d"/><dir name="Items"><file name="Grid.php" hash="046e29343ccfc1b0d7b02ca7645963e6"/></dir><file name="Items.php" hash="409f1c07816f7e203d5ec6129e2709c9"/></dir></dir></dir><dir name="Helper"><file name="Data.php" hash="7e0fbe25f560992e1f6639a3d5c28289"/></dir><dir name="Model"><dir name="Adminhtml"><dir name="System"><dir name="Source"><dir name="Cron"><file name="Frequency.php" hash="2aafece84d3b2a1a386252a3e4c4f023"/><file name="Hours.php" hash="05a361c29436cde4bb1e9d9ea6ef6984"/></dir></dir></dir></dir><file name="Codes.php" hash="a270fbfd8afb815241104612e70159be"/><file name="Import.php" hash="83771be137bc024d62def97ae90a3a24"/><dir name="Mysql4"><dir name="Codes"><file name="Collection.php" hash="6d6974edc597384c9a591d13f77e1673"/></dir><file name="Codes.php" hash="13f52b9a047437e4e989bbd9a2c1c136"/><file name="Setup.php" hash="f53b40fbbaef248fd52be33af906a3f9"/></dir><file name="Observer.php" hash="2cae38701e71a99466d83c030d7567ba"/></dir><dir name="controllers"><dir name="Adminhtml"><dir name="Codes"><file name="GridController.php" hash="8b5c0c1a3e89d4b3be6ae865099a0e5f"/></dir><dir name="Items"><file name="GridController.php" hash="7dabff14fd9199e1fb01e6e4ae86bd5d"/></dir></dir></dir><dir name="etc"><file name="adminhtml.xml" hash="2b4c259a37a42be60627f81a78a21c39"/><file name="config.xml" hash="2fa2da472f883afa8f8ea1254ee9e645"/><file name="system.xml" hash="fa85aa2b7087e4801528883b50b96d71"/></dir><dir name="sql"><dir name="find_feed_setup"><file name="mysql4-install-0.0.1.php" hash="4fd8b15789abf8b3cc122e70e4cff2c2"/><file name="mysql4-upgrade-0.0.1-0.0.2.php" hash="b7f304fa1765f07bbfb9be85a463642f"/></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Find_Feed.xml" hash="a75332e3ae92f4b253aca19e60f8c15c"/></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="find"><dir name="template"><dir><dir name="head"><file name="window.phtml" hash="9d13baa5f42c4415110af2e0461d53d5"/></dir></dir></dir><dir name="layout"><file name="feed.xml" hash="74469083c4d9485dcbafd7409d828542"/></dir></dir></dir></dir></target><target name="magelocale"><dir name="en_US"><file name="Find_Feed.csv" hash=""/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php><package><name>Mage_Core_Modules</name><channel>community</channel><min>1.5.0.0-alpha1</min><max>1.6.0.0</max></package></required></dependencies>
+</package>

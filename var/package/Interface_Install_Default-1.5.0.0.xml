@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Interface_Install_Default</name>
+    <version>1.5.0.0</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/afl-3.0.php">AFL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Default interface for Install</summary>
+    <description>Default interface for Install</description>
+    <notes>1.5.0.0</notes>
+    <authors><author><name>Magento Core Team</name><user>core</user><email>core@magentocommerce.com</email></author></authors>
+    <date>2011-02-08</date>
+    <time>18:00:58</time>
+    <contents><target name="magedesign"><dir name="install"><dir name="default"><dir name="default"><dir name="layout"><file name="main.xml" hash="53cc5031c592e2c4f6083710eb4a774e"/></dir><dir name="template"><dir name="install"><file name="begin.phtml" hash="09a3002ae6b1c0ca1da93c15858b1ddb"/><file name="config.phtml" hash="0be5a19fa0f0d55ee3274c269e36807f"/><file name="create_admin.phtml" hash="ce87d731454e540daa613492ae8f9626"/><file name="download.phtml" hash="b0ae018ab7ce212fe19ed0f0c5349520"/><file name="end.phtml" hash="f97b6c65cafc36cfbbe8e02e77687d02"/><file name="locale.phtml" hash="fd39dcd4e715201d0cfef357280083fa"/><file name="state.phtml" hash="1c7024fa9eaa396951a5c874c9bdcad3"/></dir><file name="page.phtml" hash="2ae91162a221367dc70fce9f2e8c7a27"/></dir></dir></dir></dir></target><target name="mageskin"><dir name="install"><dir name="default"><dir name="default"><dir name="css"><file name="boxes.css" hash="31da7dcdca502c3fca21cbddc160f581"/><file name="clears.css" hash="4018383aa0ccf4a455b30714905d53a5"/><file name="ie7minus.css" hash="b973a69ca4e691f21ee58b258f5bf12c"/><file name="iestyles.css" hash="7fd4d1acd42b155b7b7ae10272b235d6"/><file name="reset.css" hash="e9397eec4802597f92bf50ccd982f840"/></dir><file name="favicon.ico" hash="88733ee53676a47fc354a61c32516e82"/><dir name="images"><file name="error_msg_icon.gif" hash="e4f28607f075a105e53fa3113d84bd26"/><file name="footer_bg.gif" hash="d59784af16fd95ea82226e5708a89232"/><file name="footer_container_bg.gif" hash="d468e3943943cbbf711586e69d40ca42"/><file name="footer_info_separator.gif" hash="7da64eefaf4da3855ab6ee76dbced0c2"/><file name="footer_informational_bg.gif" hash="72d37f4b2ea747bf8969c2654ad1d1e0"/><file name="footer_left.gif" hash="2b15a54bea9409a75c142d14a62f0149"/><file name="footer_legality_bg.gif" hash="4eb1602e3369dccd901ffe98ea0fd4b3"/><file name="footer_right.gif" hash="a45eaf35c8797d299bd4d9b936528e8f"/><file name="header_bg.gif" hash="795c6de754d0d49717ed08d5cd8168c8"/><file name="header_nav_bg.gif" hash="80c6a18686eb0243e06d6176506a2502"/><file name="header_top_bg.jpg" hash="143f524392ee62fcc8183f5930d7258b"/><file name="header_top_container_bg.jpg" hash="294c18f3f6b838bba06ae41dd3c3d638"/><file name="i_notice.gif" hash="ebd56dc80b8346e10e93628bc0e6c372"/><file name="logo.gif" hash="48b7eb03807fdf80bdfb19b872cf84b8"/><file name="main_bg.gif" hash="cf18ba9f7c7e6b058b439cde1a897e9c"/><file name="main_container_bg.gif" hash="a8f5717873dc6cf8f6bd22924b5838fe"/><file name="note_msg_icon.gif" hash="e774ee481a2820789c1a77112377c4e0"/><file name="success_msg_icon.gif" hash="834dfafd5f8b44c4b24a4c00add56fcf"/><file name="validation_advice_bg.gif" hash="b85432906de8985a8b14eeb2dc652d3c"/></dir></dir></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php><package><name>Mage_Core_Modules</name><channel>community</channel><min>1.5.0.0</min><max>1.6.0.0</max></package></required></dependencies>
+</package>
