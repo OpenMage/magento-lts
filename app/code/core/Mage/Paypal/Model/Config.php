@@ -892,7 +892,7 @@ class Mage_Paypal_Model_Config
      */
     public function isWppApiAvailabe()
     {
-        return $this->api_username && $this->api_password && $this->api_signature;
+        return $this->api_username && $this->api_password && ($this->api_signature || $this->api_cert);
     }
 
     /**
@@ -1168,6 +1168,7 @@ class Mage_Paypal_Model_Config
             case 'api_username':
             case 'api_password':
             case 'api_signature':
+            case 'api_cert':
             case 'sandbox_flag':
             case 'use_proxy':
             case 'proxy_host':

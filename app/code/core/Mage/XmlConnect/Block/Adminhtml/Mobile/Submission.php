@@ -42,7 +42,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission extends Mage_Adminhtml_B
         $this->removeButton('save');
         $this->removeButton('reset');
 
-        $app = Mage::registry('current_app');
+        $app = Mage::helper('xmlconnect')->getApplication();
         if ($app && $app->getIsResubmitAction()) {
             $label = $this->__('Resubmit App');
         } else {
@@ -57,7 +57,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission extends Mage_Adminhtml_B
 
         $this->_updateButton('back', 'label', $this->__('Back to App Edit'));
         $this->_updateButton('back', 'onclick', 'setLocation(\''. $this->getUrl('*/*/edit',
-            array('application_id' => Mage::registry('current_app')->getId())) . '\')');
+            array('application_id' => $app->getId())) . '\')');
     }
 
     /**
@@ -67,7 +67,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission extends Mage_Adminhtml_B
      */
     public function getHeaderText()
     {
-        $app = Mage::registry('current_app');
+        $app = Mage::helper('xmlconnect')->getApplication();
         if ($app && $app->getId()) {
             return $this->__('Submit App "%s"', $this->htmlEscape($app->getName()));
         }

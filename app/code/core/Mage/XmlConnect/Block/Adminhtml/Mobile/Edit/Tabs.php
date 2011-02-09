@@ -46,8 +46,6 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tabs extends Mage_Adminhtml_Bl
      */
     protected function _prepareLayout()
     {
-        $model = Mage::registry('current_app');
-
         if (Mage::getSingleton('adminhtml/session')->getNewApplication()) {
             $this->addTab('set', array(
                 'label'     => $this->__('Settings'),

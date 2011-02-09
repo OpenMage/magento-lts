@@ -64,7 +64,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Content
      */
     protected function _prepareForm()
     {
-        $model = Mage::registry('current_app');
+        $model = Mage::helper('xmlconnect')->getApplication();
         $conf = $model->getConf();
         $form = new Varien_Data_Form();
         $this->setForm($form);

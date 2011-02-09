@@ -42,11 +42,11 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Preview extends Mage_Adminhtml_Bl
     {
         if ((int)$this->getRequest()->getParam('queue_preview')) {
             $id = $this->getRequest()->getParam('queue_preview');
-            /* @var $template Mage_XmlConnect_Model_Queue */
+            /** @var $template Mage_XmlConnect_Model_Queue */
             $template = Mage::getModel('xmlconnect/queue');
         } else {
             $id = (int)$this->getRequest()->getParam('id');
-            /* @var $template Mage_XmlConnect_Model_Template */
+            /** @var $template Mage_XmlConnect_Model_Template */
             $template = Mage::getModel('xmlconnect/template');
         }
 

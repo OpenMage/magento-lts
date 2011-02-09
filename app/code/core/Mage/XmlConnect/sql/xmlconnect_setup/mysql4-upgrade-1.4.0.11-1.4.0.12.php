@@ -33,8 +33,4 @@ $templateTable = $installer->getTable('xmlconnect/template');
 $installer->getConnection()->addColumn($templateTable, 'app_code', 'VARCHAR( 32 ) NOT NULL AFTER `id`');
 $installer->getConnection()->dropColumn($templateTable, 'app_type');
 
-$installer->run("SET foreign_key_checks = 0;");
-$installer->getConnection()->addConstraint('FK_APP_CODE', $templateTable, 'app_code', $installer->getTable('xmlconnect/application'), 'code');
-$installer->run("SET foreign_key_checks = 1;");
-
 $installer->endSetup();

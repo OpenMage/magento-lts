@@ -109,11 +109,6 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form extends Mage_Adminhtml_
      */
     public function getApplication()
     {
-        $model = Mage::registry('current_app');
-        if (!($model instanceof Mage_XmlConnect_Model_Application)) {
-            Mage::throwException($this->__('App model not loaded.'));
-        }
-
-        return $model;
+        return Mage::helper('xmlconnect')->getApplication();
     }
 }

@@ -80,11 +80,15 @@ class __cli_Mage_Connect
 
     public function getConfig($fileName = 'connect.cfg')
     {
+        if (isset($this->config)) {
+            return $this->config;
+        }
         $config = new Mage_Connect_Config($fileName);
-        if(empty($config->magento_root)) {
+        if (empty($config->magento_root)) {
            $config->magento_root = dirname(dirname(__FILE__));
         }
         Mage_Connect_Command::setConfigObject($config);
+        $this->config = $config;
         return $config;
     }
 
@@ -119,7 +123,11 @@ class __cli_Mage_Connect
     public function getSingleConfig()
     {
         if(!$this->_sconfig) {
-            $this->_sconfig = new Mage_Connect_Singleconfig("cache.cfg");
+            $this->_sconfig = new Mage_Connect_Singleconfig(
+                    $this->getConfig()->magento_root . DS .
+                    $this->getConfig()->downloader_path . DS .
+                    Mage_Connect_Singleconfig::DEFAULT_SCONFIG_FILENAME
+            );
         }
         Mage_Connect_Command::setSconfig($this->_sconfig);
         return $this->_sconfig;

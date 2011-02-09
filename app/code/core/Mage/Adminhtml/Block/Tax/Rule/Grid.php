@@ -117,7 +117,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'filter_index' => 'rate.tax_calculation_rate_id',
                 'type'    => 'options',
                 'show_missing_option_values' => true,
-                'options' => Mage::getModel('tax/calculation_rate')->getCollection()->toOptionHash(),
+                'options' => Mage::getModel('tax/calculation_rate')->getCollection()->toOptionHashOptimized(),
             )
         );
 

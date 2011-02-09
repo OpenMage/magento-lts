@@ -43,7 +43,7 @@ class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Template
      */
     protected function _beforeToHtml()
     {
-        $app = Mage::registry('current_app');
+        $app = Mage::helper('xmlconnect')->getApplication();
         if ($app) {
             $this->_app = $app;
         } else {

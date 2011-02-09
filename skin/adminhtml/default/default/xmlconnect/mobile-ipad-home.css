@@ -56,9 +56,11 @@ body {
     .ipad .header-wrap {
         background:url(../images/xmlconnect/mobile_preview/ipad/bg_home_header.png) no-repeat 0 0 #000;
         height:20px;
+        position:relative;
         }
     .ipad-horizontal .header-wrap {
         background-image:url(../images/xmlconnect/mobile_preview/ipad/bg_home_header_hor.png);
+        height:20px;
         }
         .ipad .header .logo {
             margin-left:5px;
@@ -71,10 +73,41 @@ body {
             color:#fff;
             font-size:9px;
             line-height:20px;
+            margin-right:85px;
             vertical-align:middle;
             }
+        .ipad-horizontal .header .store-name {
+            margin-right:210px;
+            }
+        .ipad .header img,
+        .ipad .header span span {
+            vertical-align:top;
+            }
+        .ipad .header .search {
+            font-size:6px;
+            position:absolute;
+            top:3px;
+            right:105px;
+            }
+        .ipad .header .info,
+        .ipad .header .login,
+        .ipad .header .cart {
+            float:right;
+            position:relative;
+            padding:0 5px;
+            top:5px;
+            }
+        .ipad .header .info {
+            top:6px;
+            }
+        .ipad .header .login {
+            margin-left:20px;
+            }
+        .ipad .header .cart {
+            margin-left:20px;
+            }
     .ipad .shadow {
-        background:url(../images/xmlconnect/mobile_preview/ipad/bg_home_shadow.png) no-repeat;
+        background:url(../images/xmlconnect/mobile_preview/ipad/bg_home_shadow.png) no-repeat 0 0;
         height:3px;
         font-size:0;
         line-height:0;
@@ -87,12 +120,12 @@ body {
         margin-bottom:-8px;
         }
     .ipad .content {
-        background:url(../images/xmlconnect/mobile_preview/ipad/background_portrait.jpg) no-repeat 0 0;
+        background:url(../images/xmlconnect/mobile_preview/ipad/background_portrait.jpg) no-repeat top center;
         height:438px;
         overflow:hidden;
         }
     .ipad-horizontal .content {
-        background-image:url(../images/xmlconnect/mobile_preview/ipad/background_landscape_home.jpg);
+        background-image:url(../images/xmlconnect/mobile_preview/ipad/background_landscape_home.jpg) top center;
         height:321px;
         }
         .ipad .content .logo {
@@ -102,29 +135,37 @@ body {
         .ipad-horizontal .content .logo {
             height:170px;
             }
-        .ipad .products-list {
+        .ipad .products-list-wrap {
             background:url(../images/xmlconnect/mobile_preview/ipad/bg_home_products.png) no-repeat 0 0;
-            font-size:7px;
-            padding:10px 0 0 25px;
             overflow:hidden;
-            width:325px;
+            width:350px;
             }
-        .ipad-horizontal .products-list {
-            padding-left:5px;
-            width:462px;
-            }
-            .ipad .products-list li {
-                background:#fff;
-                float:left;
-                margin:0 20px 20px 20px;
-                padding:2px 2px 4px;
-                text-align:center;
-                -moz-box-shadow:1px 3px 3px #444;
-                -webkit-box-shadow:1px 3px 3px #444;
-                box-shadow:1px 3px 3px #444;
+            .ipad .products-list {
+                margin:10px 0 0 25px;
+                width:325px;
                 }
-            .ipad-horizontal .products-list li {
-                }
-                .ipad .products-list .product-image {
-                    margin:0 0 4px;
+                .ipad .products-list h4 {
+                    font-size:7px;
                     }
+        .ipad-horizontal .products-list-wrap {
+            width:467px;
+            }
+            .ipad-horizontal .products-list {
+                margin-left:5px;
+                width:462px;
+                }
+                .ipad .products-list li {
+                    background:#fff;
+                    float:left;
+                    margin:0 20px 20px 20px;
+                    padding:2px 2px 4px;
+                    text-align:center;
+                    -moz-box-shadow:1px 3px 3px #444;
+                    -webkit-box-shadow:1px 3px 3px #444;
+                    box-shadow:1px 3px 3px #444;
+                    }
+                .ipad-horizontal .products-list li {
+                    }
+                    .ipad .products-list .product-image {
+                        margin:0 0 4px;
+                        }

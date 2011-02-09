@@ -198,7 +198,11 @@ GiftOptionsPopup.prototype = {
     },
 
     setTitle : function (itemId) {
-        var productTitle = $('order_item_' + itemId + '_title').innerHTML;
+        var productTitleElement = $('order_item_' + itemId + '_title');
+        var productTitle = '';
+        if (productTitleElement) {
+            productTitle = productTitleElement.innerHTML;
+        }
         $('gift_options_configure_title').update(productTitle);
     },
 

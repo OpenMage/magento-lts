@@ -739,25 +739,29 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
                 }
                 break;
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPAD:
-                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('bannerImageIpad', $native)) {
+                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('bannerIpadImage', $native)) {
                     $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "Banner on Home Screen" field from Design Tab.');
                 }
 
-                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('backgroundImageIpadLandscape', $native)) {
+                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('backgroundIpadLandscapeImage', $native)) {
                     $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "App Background (landscape mode)" field from Design Tab.');
                 }
 
-                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('backgroundImageIpadPortret', $native)) {
+                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('backgroundIpadPortraitImage', $native)) {
                     $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "App Background (portrait mode)" field from Design Tab.');
                 }
                 break;
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_ANDROID:
-                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('bannerImageAndroid', $native)) {
+                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('bannerAndroidImage', $native)) {
                     $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "Banner on Home Screen" field from Design Tab.');
                 }
 
-                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('backgroundImageAndroid', $native)) {
-                    $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "App Background" field from Design Tab.');
+                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('backgroundAndroidLandscapeImage', $native)) {
+                    $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "App Background (landscape mode)" field from Design Tab.');
+                }
+
+                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('backgroundAndroidPortraitImage', $native)) {
+                    $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "App Background (portrait mode)" field from Design Tab.');
                 }
                 break;
             default:

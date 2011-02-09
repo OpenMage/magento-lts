@@ -88,3 +88,8 @@ $categoryItemTintColor = $this->getCategoryItemTintColor();
     <?php echo $this->getChildHtml('tab_items'); ?>
 </div>
 </div>
+<?php if ($this->getJsErrorMessage()) : ?>
+<script type="text/javascript">
+    alert('<?php echo $this->getJsErrorMessage(); ?>');
+</script>
+<?php endif; ?>

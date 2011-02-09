@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Price extends
     public function render(Varien_Object $row)
     {
         if ($row->getTypeId() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE) {
-            $row->setPrice($row->getMaxPrice());
+            $row->setPrice($row->getPrice());
         }
         return parent::render($row);
     }

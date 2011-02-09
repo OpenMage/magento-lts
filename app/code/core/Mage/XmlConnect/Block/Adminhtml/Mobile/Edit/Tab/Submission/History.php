@@ -145,7 +145,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Submission_History extends
      */
     protected function _getApplication()
     {
-        return Mage::registry('current_app');
+        return Mage::helper('xmlconnect')->getApplication();
     }
 
     /**

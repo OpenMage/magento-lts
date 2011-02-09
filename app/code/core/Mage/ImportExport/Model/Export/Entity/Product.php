@@ -456,7 +456,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     }
                     if (is_scalar($attrValue)) {
                         $dataRows[$itemId][$storeId][$attrCode] = $attrValue;
-                        $rowIsEmptyz = false; // mark row as not empty
+                        $rowIsEmpty = false; // mark row as not empty
                     }
                 }
                 if ($rowIsEmpty) { // remove empty rows

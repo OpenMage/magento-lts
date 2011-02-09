@@ -20,6 +20,14 @@
  * @copyright  Copyright (c) 2010 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+ 
+@font-face {
+    font-family: 'stars';
+    src: url('fonts/stars-webfont.eot');
+    src: local('O'), url('fonts/stars-webfont.woff') format('woff'), url('fonts/stars-webfont.ttf') format('truetype'), url('fonts/stars-webfont.svg#webfontyMStiDRV') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 * {
     background:transparent;
     margin:0;
@@ -41,9 +49,12 @@ body {
 .status-bar {
     background:url(../images/xmlconnect/mobile_preview/android/bg_status_bar.png) no-repeat 0 0;
     height:25px;
+    width:320px;
     }
 .header-wrap {
     background:url(../images/xmlconnect/mobile_preview/android/bg_header.png) repeat-x center #333;
+    height:48px;
+    width:320px;
     }
     .header-wrap .header {
         height:48px;
@@ -51,7 +62,7 @@ body {
         .header-wrap .icon {
             float:right;
             height:48px;
-            width:49px;
+            width:48px;
             }
             .header-wrap .icon-home {
                 background:url(../images/xmlconnect/mobile_preview/android/ico_home.png) no-repeat 0 0;
@@ -78,13 +89,16 @@ body {
 .home-page .content {
     background:url(../images/xmlconnect/mobile_preview/android/bg_logo.png) no-repeat center;
     height:267px;
+    width:320px;
+    }
+.items-list-wrap {
+    background:#ededed;
+    padding:14px 0 14px 10px;
+    width:310px;
     }
 .items-list {
-    background:#ededed;
-    padding:14px 10px;
-    height:112px;
     overflow:hidden;
-    width:300px;
+    width:310px;
     }
     .items-list ul {
         width:360px;
@@ -136,20 +150,21 @@ body {
     position:absolute;
     }
     .catalog-page .filters-wrap .filters {
-        padding:9px 5px;
-        height:32px;
+        height:50px;
+        width:320px;
         }
         .catalog-page .filters-wrap .buttons {
-            display:inline-table;
-            white-space:nowrap;
-            word-spacing:-1em;
-            width:100%;
+            padding:9px 5px;
+            overflow:hidden;
+            width:310px;
             }
             .catalog-page .filters-wrap .filters .button {
                 background:#ec7912;
+                border-color:transparent;
                 border:1px solid rgba(255, 255, 255, 0.1);
                 color:#fff;
                 display:inline-block;
+                float:left;
                 height:30px;
                 text-align:center;
                 line-height:32px;
@@ -161,7 +176,6 @@ body {
                 -moz-border-radius:5px;
                 -webkit-border-radius:5px;
                 border-radius:5px;
-                word-spacing:0;
                 }
                 .catalog-page .filters-wrap .filters .button-filter {
                     margin-right:5px;
@@ -170,19 +184,20 @@ body {
                 .catalog-page .filters-wrap .filters .button-qty {
                     background:#dedede;
                     color:#222;
-                    margin-right:35px;
+                    margin-right:32px;
                     width:30px;
                     text-shadow:0 1px 1px #fdfdfd;
                     }
                 .catalog-page .filters-wrap .filters .label {
                     color:#fff;
                     font-size:14px;
+                    float:left;
                     font-weight:bold;
                     margin-right:10px;
+                    padding:8px 0 0;
                     position:relative;
                     top:2px;
                     text-shadow:0 0 10px rgba(0,0,0,0.3);
-                    word-spacing:0;
                     }
                 .catalog-page .filters-wrap .filters .button-sort-name {
                     margin-right:5px;
@@ -195,37 +210,43 @@ body {
                     width:30px;
                     }
 .catalog-page .cat-list {
-    padding-top:16px;
-    height:391px;
     overflow:hidden;
+    height:407px;
+    width:320px;
     }
     .catalog-page .cat-list li {
         background:url(../images/xmlconnect/mobile_preview/android/bg_cat_item.png) no-repeat 0 0 #ededed;
-        padding:10px 0 1px 12px;
         overflow:hidden;
-        height:92px;
-        width:308px;
+        height:103px;
+        width:320px;
         }
+        .catalog-page .cat-list .wrap {
+            padding:10px 0 1px 12px;
+            }
         .catalog-page .cat-list .col-1 {
             float:left;
             display:inline;
             width:79px;
             }
             .catalog-page .cat-list .col-1 .product-image {
-                margin-bottom:4px;
+                margin-bottom:2px;
                 }
                 .catalog-page .cat-list .product-image img {
                     border:1px solid #a5a5a5;
                     -moz-border-radius:1px;
                     -webkit-border-radius:1px;
                     border-radius:1px;
+                    vertical-align:top;
                     }
             .catalog-page .cat-list .col-1 .rating {
                 white-space:nowrap;
                 }
+                .catalog-page .cat-list .col-1 .rating .star {
+                    font-family:'stars';
+                    font-size:14px;
+                    }
                 .catalog-page .cat-list .col-1 .rating img,
                 .catalog-page .cat-list .col-1 .rating span {
-                    color:#d55000;
                     font-size:10px;
                     vertical-align:middle;
                     }

@@ -20,6 +20,13 @@
  * @copyright  Copyright (c) 2010 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+ @font-face {
+    font-family: 'stars';
+    src: url('fonts/stars-webfont.eot');
+    src: local('O'), url('fonts/stars-webfont.woff') format('woff'), url('fonts/stars-webfont.ttf') format('truetype'), url('fonts/stars-webfont.svg#webfontyMStiDRV') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 * {
     margin:0; padding:0;
     }
@@ -56,9 +63,11 @@ body {
     .ipad .header-wrap {
         background:url(../images/xmlconnect/mobile_preview/ipad/bg_header.png) no-repeat 0 0 #000;
         height:20px;
+        position:relative;
         }
     .ipad-horizontal .header-wrap {
         background-image:url(../images/xmlconnect/mobile_preview/ipad/bg_catalog_header_hor.png);
+        height:20px;
         }
         .ipad .header .logo {
             margin-left:80px;
@@ -74,6 +83,38 @@ body {
             color:#fff;
             font-size:9px;
             line-height:20px;
+            margin-right:10px;
+            vertical-align:middle;
+            }
+        .ipad-horizontal .header .store-name {
+            margin-right:80px;
+            }
+        .ipad .header img,
+        .ipad .header span span {
+            vertical-align:top;
+            }
+        .ipad .header .search {
+            font-size:6px;
+            position:absolute;
+            top:3px;
+            right:105px;
+            }
+        .ipad .header .info,
+        .ipad .header .login,
+        .ipad .header .cart {
+            float:right;
+            position:relative;
+            padding:0 5px;
+            top:5px;
+            }
+        .ipad .header .info {
+            top:6px;
+            }
+        .ipad .header .login {
+            margin-left:20px;
+            }
+        .ipad .header .cart {
+            margin-left:20px;
             }
     .ipad .filters-wrap {
         background:url(../images/xmlconnect/mobile_preview/ipad/bg_filters_wrap.png) no-repeat 0 0 #c7c7c7;
@@ -200,9 +241,9 @@ body {
             width:100%;
             }
             .ipad .products-list li {
+                display:inline;
                 float:left;
-                width:99px;
-                padding:0 8px 4px 0;
+                margin:0 4px 4px 0;
                 }
                 .ipad .product-image img {
                     margin:0 0 5px;
@@ -216,6 +257,10 @@ body {
                     .ipad .price-box span {
                         display:block;
                         }
+                .ipad .rating .star {
+                    font-family:'stars';
+                    font-size:8px;
+                    }
                 .ipad .rating img {
                     margin-right:4px;
                     }
@@ -230,6 +275,7 @@ body {
         float:left;
         height:321px;
         width:125px;
+        list-style:outside;
         }
         .ipad-horizontal .sections li {
             background:#fff;

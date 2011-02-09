@@ -25,7 +25,7 @@
  */
 ?>
 <?php echo $this->template('header.phtml') ?>
-
+<?php if ($this->get('writable_warning')) echo $this->template('writable.phtml');?>
 <div class="bar-head">
     <h4>Settings</h4>
 </div>
@@ -106,7 +106,7 @@
         <li>
             <span class="step-count">2</span> &nbsp; Upload package file:
             <label for="file"></label>
-            <input type="file" id="file" name="file"></input>
+            <input type="file" id="file" name="file"/>
             <button type="submit">Upload</button>
         </li>
     </ul>

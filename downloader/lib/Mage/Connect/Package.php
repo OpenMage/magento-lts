@@ -994,6 +994,9 @@ END;
     {
         if (is_array($this->_dependencyPhpExtensions)) return $this->_dependencyPhpExtensions;
         $this->_dependencyPhpExtensions = array();
+        if (!isset($this->_packageXml->dependencies->required->extension)) {
+            return $this->_dependencyPhpExtensions;
+        }
         foreach($this->_packageXml->dependencies->required->extension as $_package) {
             $this->_dependencyPhpExtensions[] = array(
                 'name'    => (string)$_package->name,
@@ -1012,6 +1015,9 @@ END;
     public function getDependencyPackages()
     {
         $this->_dependencyPackages = array();
+        if (!isset($this->_packageXml->dependencies->required->package)) {
+            return $this->_dependencyPackages;
+        }
         foreach($this->_packageXml->dependencies->required->package as $_package) {
             $add = array(
                 'name'    => (string)$_package->name,

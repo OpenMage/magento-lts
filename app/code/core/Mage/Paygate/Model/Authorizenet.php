@@ -48,7 +48,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     const ECHECK_TRANS_TYPE_TEL = 'TEL';
     const ECHECK_TRANS_TYPE_WEB = 'WEB';
 
-    const RESPONSE_DELIM_CHAR = ',';
+    const RESPONSE_DELIM_CHAR = '(~)';
 
     const RESPONSE_CODE_APPROVED = 1;
     const RESPONSE_CODE_DECLINED = 2;
@@ -60,10 +60,11 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
     const PARTIAL_AUTH_CARDS_LIMIT = 5;
 
-    const PARTIAL_AUTH_LAST_SUCCESS = 'success';
-    const PARTIAL_AUTH_LAST_DECLINED = 'declined';
-    const PARTIAL_AUTH_ALL_CANCELED = 'canceled';
-    const PARTIAL_AUTH_CARDS_LIMIT_EXCEEDED = 'exceeded';
+    const PARTIAL_AUTH_LAST_SUCCESS         = 'last_success';
+    const PARTIAL_AUTH_LAST_DECLINED        = 'last_declined';
+    const PARTIAL_AUTH_ALL_CANCELED         = 'all_canceled';
+    const PARTIAL_AUTH_CARDS_LIMIT_EXCEEDED = 'card_limit_exceeded';
+    const PARTIAL_AUTH_DATA_CHANGED         = 'data_changed';
 
     const METHOD_CODE = 'authorizenet';
 
@@ -131,6 +132,26 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * @var string
      */
     protected $_partialAuthorizationLastActionStateSessionKey = 'paygate_authorizenet_last_action_state';
+
+    /**
+     * Key for storing partial authorization checksum in session
+     * @var string
+     */
+    protected $_partialAuthorizationChecksumSessionKey = 'paygate_authorizenet_checksum';
+
+    /**
+     * Fields for creating place request checksum
+     *
+     * @var array
+     */
+    protected $_partialAuthorizationChecksumDataKeys = array(
+        'x_version', 'x_test_request', 'x_login', 'x_test_request', 'x_allow_partial_auth', 'x_amount',
+        'x_currency_code', 'x_type', 'x_first_name', 'x_last_name', 'x_company', 'x_address', 'x_city', 'x_state',
+        'x_zip', 'x_country', 'x_phone', 'x_fax', 'x_cust_id', 'x_customer_ip', 'x_customer_tax_id', 'x_email',
+        'x_email_customer', 'x_merchant_email', 'x_ship_to_first_name', 'x_ship_to_last_name', 'x_ship_to_company',
+        'x_ship_to_address', 'x_ship_to_city', 'x_ship_to_state', 'x_ship_to_zip', 'x_ship_to_country', 'x_po_num',
+        'x_tax', 'x_freight'
+    );
 
     /**
      * Centinel cardinal fields map
@@ -436,6 +457,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         switch ($result->getResponseCode()) {
             case self::RESPONSE_CODE_APPROVED:
                 $payment->setAdditionalInformation($this->_splitTenderIdKey, null);
+                $this->_getSession()->setData($this->_partialAuthorizationChecksumSessionKey, null);
                 $this->getCardsStorage($payment)->flushCards();
                 $this->setPartialAuthorizationLastActionState(self::PARTIAL_AUTH_ALL_CANCELED);
                 return;
@@ -491,6 +513,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 }
                 return $this;
             case self::RESPONSE_CODE_HELD:
+                $checksum = $this->_generateChecksum($request, $this->_partialAuthorizationChecksumDataKeys);
+                $this->_getSession()->setData($this->_partialAuthorizationChecksumSessionKey, $checksum);
                 if ($this->_processPartialAuthorizationResponse($result, $payment)) {
                     return $this;
                 }
@@ -514,16 +538,35 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      */
     protected function _partialAuthorization($payment, $amount, $requestType)
     {
+        $payment->setAnetTransType($requestType);
+
+        /*
+         * Try to build checksum of first request and compare with current checksum 
+         */
+        if ($this->getConfigData('partial_authorization_checksum_checking')) {
+            $payment->setAmount($amount);
+            $firstPlacingRequest= $this->_buildRequest($payment);
+            $newChecksum = $this->_generateChecksum($firstPlacingRequest, $this->_partialAuthorizationChecksumDataKeys);
+            $previosChecksum = $this->_getSession()->getData($this->_partialAuthorizationChecksumSessionKey);
+            if ($newChecksum != $previosChecksum) {
+                $quotePayment = $payment->getOrder()->getQuote()->getPayment();
+                $this->cancelPartialAuthorization($payment);
+                $this->_clearAssignedData($quotePayment);
+                $this->setPartialAuthorizationLastActionState(self::PARTIAL_AUTH_DATA_CHANGED);
+                $quotePayment->setAdditionalInformation($payment->getAdditionalInformation());
+                throw new Mage_Payment_Model_Info_Exception(
+                    Mage::helper('paygate')->__('Shopping cart contents and/or address has been changed.')
+                );
+            }
+        }
+
         $amount = $amount - $this->getCardsStorage()->getProcessedAmount();
         if ($amount <= 0) {
             Mage::throwException(Mage::helper('paygate')->__('Invalid amount for partial authorization.'));
         }
-
-        $payment->setAnetTransType($requestType);
         $payment->setAmount($amount);
-        $request= $this->_buildRequest($payment);
+        $request = $this->_buildRequest($payment);
         $result = $this->_postRequest($request);
-
         $this->_processPartialAuthorizationResponse($result, $payment);
 
         switch ($requestType) {
@@ -551,6 +594,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 $this->getCardsStorage()->updateCard($card);
             }
         }
+        $this->_getSession()->setData($this->_partialAuthorizationChecksumSessionKey, null);
         return $this;
     }
 
@@ -886,35 +930,45 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             return false;
         }
 
+        $quotePayment = $orderPayment->getOrder()->getQuote()->getPayment();
+        $this->setPartialAuthorizationLastActionState(self::PARTIAL_AUTH_LAST_DECLINED);
         $exceptionMessage = null;
-        $isPartialAuthorizationProcessCompleted = false;
-        $isLastPartialAuthorizationSuccessful = false;
-        $isCreditCardsLimitExceed = false;
 
         try {
-            $orderPayment->setAdditionalInformation($this->_splitTenderIdKey, $response->getSplitTenderId());
             switch ($response->getResponseCode()) {
+                case self::RESPONSE_CODE_APPROVED:
+                    $this->_registerCard($response, $orderPayment);
+                    $this->_clearAssignedData($quotePayment);
+                    $this->setPartialAuthorizationLastActionState(self::PARTIAL_AUTH_LAST_SUCCESS);
+                    return true;
                 case self::RESPONSE_CODE_HELD:
                     if ($response->getResponseReasonCode() != self::RESPONSE_REASON_CODE_PARTIAL_APPROVE) {
                         return false;
                     }
-                    $this->_registerCard($response, $orderPayment);
-                    if ($this->getCardsStorage($orderPayment)->getCardsCount()
-                        >= self::PARTIAL_AUTH_CARDS_LIMIT) {
-                        $isCreditCardsLimitExceed = true;
+                    if ($this->getCardsStorage($orderPayment)->getCardsCount() + 1 >= self::PARTIAL_AUTH_CARDS_LIMIT) {
+                        $this->cancelPartialAuthorization($orderPayment);
+                        $this->_clearAssignedData($quotePayment);
+                        $this->setPartialAuthorizationLastActionState(self::PARTIAL_AUTH_CARDS_LIMIT_EXCEEDED);
+                        $quotePayment->setAdditionalInformation($orderPayment->getAdditionalInformation());
+                        $exceptionMessage = Mage::helper('paygate')->__('You have reached the maximum number of credit card allowed to be used for the payment.');
+                        break;
                     }
-                    $isLastPartialAuthorizationSuccessful = true;
-                    break;
-                case self::RESPONSE_CODE_APPROVED:
+                    $orderPayment->setAdditionalInformation($this->_splitTenderIdKey, $response->getSplitTenderId());
                     $this->_registerCard($response, $orderPayment);
-                    $isLastPartialAuthorizationSuccessful = true;
-                    $isPartialAuthorizationProcessCompleted = true;
+                    $this->_clearAssignedData($quotePayment);
+                    $this->setPartialAuthorizationLastActionState(self::PARTIAL_AUTH_LAST_SUCCESS);
+                    $quotePayment->setAdditionalInformation($orderPayment->getAdditionalInformation());
+                    $exceptionMessage = null;
                     break;
                 case self::RESPONSE_CODE_DECLINED:
                 case self::RESPONSE_CODE_ERROR:
+                    $this->setPartialAuthorizationLastActionState(self::PARTIAL_AUTH_LAST_DECLINED);
+                    $quotePayment->setAdditionalInformation($orderPayment->getAdditionalInformation());
                     $exceptionMessage = $this->_wrapGatewayError($response->getResponseReasonText());
                     break;
                 default:
+                    $this->setPartialAuthorizationLastActionState(self::PARTIAL_AUTH_LAST_DECLINED);
+                    $quotePayment->setAdditionalInformation($orderPayment->getAdditionalInformation());
                     $exceptionMessage = $this->_wrapGatewayError(
                             Mage::helper('paygate')->__('Payment partial authorization error.')
                         );
@@ -923,26 +977,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             $exceptionMessage = $e->getMessage();
         }
 
-        if (!$isPartialAuthorizationProcessCompleted) {
-            $quotePayment = $orderPayment->getOrder()->getQuote()->getPayment();
-            if ($isCreditCardsLimitExceed) {
-                $this->cancelPartialAuthorization($orderPayment);
-                $this->_clearAssignedData($quotePayment);
-                $this->setPartialAuthorizationLastActionState(self::PARTIAL_AUTH_CARDS_LIMIT_EXCEEDED);
-                $exceptionMessage = Mage::helper('paygate')->__('You have reached the maximum number of credit card allowed to be used for the payment.');
-            } else {
-                if ($isLastPartialAuthorizationSuccessful) {
-                    $this->_clearAssignedData($quotePayment);
-                    $this->setPartialAuthorizationLastActionState(self::PARTIAL_AUTH_LAST_SUCCESS);
-                } else {
-                    $this->setPartialAuthorizationLastActionState(self::PARTIAL_AUTH_LAST_DECLINED);
-                }
-            }
-            $quotePayment->setAdditionalInformation($orderPayment->getAdditionalInformation());
-            throw new Mage_Payment_Model_Info_Exception($exceptionMessage);
-        }
-
-        return true;
+        throw new Mage_Payment_Model_Info_Exception($exceptionMessage);
     }
 
     /**
@@ -955,7 +990,6 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         $request = Mage::getModel('paygate/authorizenet_request')
             ->setXVersion(3.1)
             ->setXDelimData('True')
-            ->setXDelimChar(self::RESPONSE_DELIM_CHAR)
             ->setXRelayResponse('False')
             ->setXTestRequest($this->getConfigData('test') ? 'TRUE' : 'FALSE')
             ->setXLogin($this->getConfigData('login'))
@@ -977,13 +1011,9 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         $this->setStore($order->getStoreId());
 
-        if (!$payment->getAnetTransMethod()) {
-            $payment->setAnetTransMethod(self::REQUEST_METHOD_CC);
-        }
-
         $request = $this->_getRequest()
             ->setXType($payment->getAnetTransType())
-            ->setXMethod($payment->getAnetTransMethod());
+            ->setXMethod(self::REQUEST_METHOD_CC);
 
         if ($order && $order->getIncrementId()) {
             $request->setXInvoiceNum($order->getIncrementId());
@@ -1069,30 +1099,10 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 ->setXFreight($order->getBaseShippingAmount());
         }
 
-        switch ($payment->getAnetTransMethod()) {
-            case self::REQUEST_METHOD_CC:
-                if($payment->getCcNumber()){
-                    $request->setXCardNum($payment->getCcNumber())
-                        ->setXExpDate(sprintf('%02d-%04d', $payment->getCcExpMonth(), $payment->getCcExpYear()))
-                        ->setXCardCode($payment->getCcCid());
-                }
-                if ($this->getConfigData('allow_partial_authorization') && $order) {
-                    $request->setXAllowPartialAuth('true');
-                    $splitTenderId = $order->getPayment()->getAdditionalInformation('split_tender_id');
-                    if ($splitTenderId) {
-                        $request->setSplitTenderId($splitTenderId);
-                    }
-                }
-                break;
-
-            case self::REQUEST_METHOD_ECHECK:
-                $request->setXBankAbaCode($payment->getEcheckRoutingNumber())
-                    ->setXBankName($payment->getEcheckBankName())
-                    ->setXBankAcctNum($payment->getEcheckAccountNumber())
-                    ->setXBankAcctType($payment->getEcheckAccountType())
-                    ->setXBankAcctName($payment->getEcheckAccountName())
-                    ->setXEcheckType($payment->getEcheckType());
-                break;
+        if($payment->getCcNumber()){
+            $request->setXCardNum($payment->getCcNumber())
+                ->setXExpDate(sprintf('%02d-%04d', $payment->getCcExpMonth(), $payment->getCcExpYear()))
+                ->setXCardCode($payment->getCcCid());
         }
 
         return $request;
@@ -1119,6 +1129,11 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             'timeout'=>30,
             //'ssltransport' => 'tcp',
         ));
+        foreach ($request->getData() as $key => $value) {
+            $request->setData($key, str_replace(self::RESPONSE_DELIM_CHAR, '', $value));
+        }
+        $request->setXDelimChar(self::RESPONSE_DELIM_CHAR);
+
         $client->setParameterPost($request->getData());
         $client->setMethod(Zend_Http_Client::POST);
 
@@ -1336,5 +1351,22 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             $copyOrder->save();
         }
         Mage::throwException(Mage::helper('paygate')->convertMessagesToMessage($messages));
+    }
+
+    /**
+     * Generate checksum for object
+     *
+     * @param Varien_Object $object
+     * @param array $checkSumDataKeys
+     * @return string
+     */
+    protected function _generateChecksum(Varien_Object $object, $checkSumDataKeys = array())
+    {
+        $data = array();
+        foreach($checkSumDataKeys as $dataKey) {
+            $data[] = $dataKey;
+            $data[] = $object->getData($dataKey);
+        }
+        return md5(implode($data, '_'));
     }
 }

@@ -55,6 +55,7 @@ class Mage_XmlConnect_ConfigurationController extends Mage_Core_Controller_Front
         $screenSizeCookieName = Mage_XmlConnect_Model_Application::APP_SCREEN_SIZE_NAME;
         $code = $this->getRequest()->getParam($cookieName);
         $screenSize = (string) $this->getRequest()->getParam($screenSizeCookieName);
+        /** @var $app Mage_XmlConnect_Model_Application */
         $app = Mage::getModel('xmlconnect/application');
         if ($app) {
             $app->loadByCode($code);

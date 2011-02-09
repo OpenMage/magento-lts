@@ -316,12 +316,12 @@ extends Mage_Connect_Command
                         @file_put_contents($localXml, $package->getPackageXml());
                         
                         if (is_file($localXml)) {
-                            $ftpDir = $ftp->getcwd();
+                            $ftpDir = $ftpObj->getcwd();
                             $remoteXmlPath = $ftpDir . '/' . Mage_Connect_Package::PACKAGE_XML_DIR;
                             $remoteXml = $package->getReleaseFilename() . '.xml';
-                            $ftp->mkdirRecursive($remoteXmlPath);
-                            $ftp->upload($remoteXml, $localXml, 0777, 0666);
-                            $ftp->chdir($ftpDir);
+                            $ftpObj->mkdirRecursive($remoteXmlPath);
+                            $ftpObj->upload($remoteXml, $localXml, 0777, 0666);
+                            $ftpObj->chdir($ftpDir);
                         }
                     } else {
                         $destDir = rtrim($config->magento_root, "\\/") . DS . Mage_Connect_Package::PACKAGE_XML_DIR;

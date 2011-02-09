@@ -124,6 +124,9 @@ class Maged_Model_Config_Abstract extends Maged_Model
             case 'community':
                 $channelLabel = 'Magento Community Edition';
                 break;
+            default:
+                $channelLabel = $channel;
+                break;
         }
         return $channelLabel;
     }

@@ -25,6 +25,7 @@
  */
 ?>
 <?php
+$title1color = $this->getConfigFontInfo('Title1/color');
 $categoryItemTintColor = $this->getCategoryItemTintColor();
 $categoryItemBackgroundColor = $this->getData('conf/categoryItem/backgroundColor');
 $categoryItemTintColor = $this->getData('conf/categoryItem/tintColor');
@@ -48,25 +49,32 @@ $bannerImageAndroid = $this->getBannerImage();
             </div>
         </div>
         <div class="content" style="background-image:url(<?php echo $bannerImageAndroid; ?>)"></div>
-        <div class="items-list" style="background-color:<?php echo $this->getData('conf/body/scrollBackgroundColor'); ?>">
-            <ul>
-                <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
-                    <div class="product-image"><img src="<?php echo $productImage; ?>" alt="Chair" /></div>
-                    <span class="link"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $this->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>">Chairs</a></span>
-                </li>
-                <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
-                    <div class="product-image"><img src="<?php echo $productImage; ?>" alt="Table" /></div>
-                    <span class="link"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $this->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>">Tables</a></span>
-                </li>
-                <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
-                    <div class="product-image"><img src="<?php echo $productImage; ?>" alt="Sofa" /></div>
-                    <span class="link"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $this->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>">Sofas</a></span>
-                </li>
-                <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
-                    <div class="product-image"><img src="<?php echo $productImage; ?>" alt="Shelve" /></div>
-                    <span class="link"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $this->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>">Shelve</a></span>
-                </li>
-            </ul>
+        <div class="items-list-wrap" style="background-color:<?php echo $this->getData('conf/body/scrollBackgroundColor'); ?>">
+            <div class="items-list">
+                <ul>
+                    <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
+                        <div class="product-image"><img src="<?php echo $productImage; ?>" alt="Chair" /></div>
+                        <span class="link" style="border-color:<?php echo $categoryItemTintColor; ?>"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $this->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>">Chairs</a></span>
+                    </li>
+                    <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
+                        <div class="product-image"><img src="<?php echo $productImage; ?>" alt="Table" /></div>
+                        <span class="link" style="border-color:<?php echo $categoryItemTintColor; ?>"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $this->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>">Tables</a></span>
+                    </li>
+                    <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
+                        <div class="product-image"><img src="<?php echo $productImage; ?>" alt="Sofa" /></div>
+                        <span class="link" style="border-color:<?php echo $categoryItemTintColor; ?>"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $this->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>">Sofas</a></span>
+                    </li>
+                    <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
+                        <div class="product-image"><img src="<?php echo $productImage; ?>" alt="Shelve" /></div>
+                        <span class="link" style="border-color:<?php echo $categoryItemTintColor; ?>"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $this->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>">Shelve</a></span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
+<?php if ($this->getJsErrorMessage()) : ?>
+<script type="text/javascript">
+    alert('<?php echo $this->getJsErrorMessage(); ?>');
+</script>
+<?php endif; ?>

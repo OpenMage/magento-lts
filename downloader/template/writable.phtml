@@ -24,15 +24,12 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php echo $this->template('header.phtml') ?>
-<h2 class="page-head" style="color:red">Error: Please check for sufficient write file permissions</h2>
-<p>Your Magento folder does not have sufficient write permissions, which this web based downloader requires.</p>
+<div class="error-msg">
+    <h4>Warning: Your Magento folder does not have sufficient write permissions.</h4>
+</div>
 
-<p>If you wish to proceed downloading Magento packages online, please set all Magento folders to have writable permission for the web server user (example: apache) and press the "Refresh" button to try again.</p>
-
-<button onclick="location.reload()">Refresh</button>
-<br/><br/>
-<p>To learn more about setting write permissions, please visit <a href="http://www.magentocommerce.com/knowledge-base/entry/magento-installation-guide" target="Install_Help">the Magento community site</a> for further details.</p>
-
-<?php echo $this->template('footer.phtml') ?>
-
+<p>
+    If you wish to proceed downloading Magento packages online, please set all Magento folders to
+have writable permission for the web server user (example: apache) or set up FTP Connection on the 
+Magento Connect Manager <a href="<?php echo $this->url('settings')?>">Settings</a> tab.
+</p>

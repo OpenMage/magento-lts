@@ -33,19 +33,16 @@ $primaryColor = $this->getData('conf/body/primaryColor');
 $secondaryColor = $this->getData('conf/body/secondaryColor');
 
 $productImage = $this->getPreviewImagesUrl('ipad/bg_product_image.png');
-
-if ($this->getData('conf/body/backgroundImageIpadPortret')) {
-    $backgroundImageIpadPortret = Mage::helper('xmlconnect/image')->getCustomSizeImageUrl('conf/native/body/backgroundImageIpadPortret', 350, 438);
-} else {
-    $backgroundImageIpadPortret = $this->getPreviewImagesUrl('ipad/background_portrait.jpg');
-}
+$backgroundIpadPortraitImage = $this->getBackgroundImage(Mage_XmlConnect_Helper_Ipad::ORIENTATION_PORTRAIT);
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo $this->getPreviewCssUrl('mobile-ipad-catalog.css'); ?>" media="all" />
 
 <div class="ipad" style="background: <?php echo $this->getData('conf/body/backgroundColor'); ?>;">
     <div class="status-bar"></div>
     <div class="header-wrap" style="background-color:<?php echo $this->getData('conf/navigationBar/tintColor'); ?>;">
-        <div class="header"><span class="logo"><img src="<?php echo $this->getLogoUrl(); ?>" height="14" width="12" alt="" /></span><span class="store-name" style="color:<?php echo $title1color; ?>;">Magento</span></div>
+        <div class="header">
+            <?php echo $this->getChildHtml('tab_items'); ?>
+        </div>
     </div>
     <div class="filters-wrap" style="background-color:<?php echo $primaryColor; ?>;">
         <div class="filters">
@@ -71,7 +68,7 @@ if ($this->getData('conf/body/backgroundImageIpadPortret')) {
             </ul>
         </div>
     </div>
-    <div class="content" style="background-image:url(<?php echo $backgroundImageIpadPortret; ?>)">
+    <div class="content" style="background-image:url(<?php echo $backgroundIpadPortraitImage; ?>)">
         <ol class="products-list">
             <li>
                 <div class="product-image"><img src="<?php echo $productImage ?>" alt="Product Title" height="101" width="101" /></div>
@@ -80,7 +77,12 @@ if ($this->getData('conf/body/backgroundImageIpadPortret')) {
                     <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
                     <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
                 </div>
-                <div class="rating"><img src="<?php echo $this->getPreviewImagesUrl('ipad/stars.png') ?>" alt="5 stars" />(1)</div>
+                <div class="rating">
+                    <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                        <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                    </span>
+                    <span  style="color:<?php echo $title2color; ?>;">(1)</span>
+                </div>
                 <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
             </li>
             <li>
@@ -90,7 +92,12 @@ if ($this->getData('conf/body/backgroundImageIpadPortret')) {
                     <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
                     <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
                 </div>
-                <div class="rating"><img src="<?php echo $this->getPreviewImagesUrl('ipad/stars.png') ?>" alt="5 stars" />(1)</div>
+                <div class="rating">
+                    <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                        <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                    </span>
+                    <span  style="color:<?php echo $title2color; ?>;">(1)</span>
+                </div>
                 <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
             </li>
             <li>
@@ -100,7 +107,12 @@ if ($this->getData('conf/body/backgroundImageIpadPortret')) {
                     <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
                     <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
                 </div>
-                <div class="rating"><img src="<?php echo $this->getPreviewImagesUrl('ipad/stars.png') ?>" alt="5 stars" />(1)</div>
+                <div class="rating">
+                    <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                        <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                    </span>
+                    <span  style="color:<?php echo $title2color; ?>;">(1)</span>
+                </div>
                 <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
             </li>
             <li>
@@ -110,7 +122,12 @@ if ($this->getData('conf/body/backgroundImageIpadPortret')) {
                     <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
                     <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
                 </div>
-                <div class="rating"><img src="<?php echo $this->getPreviewImagesUrl('ipad/stars.png') ?>" alt="5 stars" />(1)</div>
+                <div class="rating">
+                    <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                        <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                    </span>
+                    <span  style="color:<?php echo $title2color; ?>;">(1)</span>
+                </div>
                 <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
             </li>
             <li>
@@ -120,7 +137,12 @@ if ($this->getData('conf/body/backgroundImageIpadPortret')) {
                     <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
                     <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
                 </div>
-                <div class="rating"><img src="<?php echo $this->getPreviewImagesUrl('ipad/stars.png') ?>" alt="5 stars" />(1)</div>
+                <div class="rating">
+                    <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                        <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                    </span>
+                    <span  style="color:<?php echo $title2color; ?>;">(1)</span>
+                </div>
                 <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
             </li>
             <li>
@@ -130,7 +152,12 @@ if ($this->getData('conf/body/backgroundImageIpadPortret')) {
                     <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
                     <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
                 </div>
-                <div class="rating"><img src="<?php echo $this->getPreviewImagesUrl('ipad/stars.png') ?>" alt="5 stars" />(1)</div>
+                <div class="rating">
+                    <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                        <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                    </span>
+                    <span  style="color:<?php echo $title2color; ?>;">(1)</span>
+                </div>
                 <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
             </li>
             <li>
@@ -140,7 +167,12 @@ if ($this->getData('conf/body/backgroundImageIpadPortret')) {
                     <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
                     <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
                 </div>
-                <div class="rating"><img src="<?php echo $this->getPreviewImagesUrl('ipad/stars.png') ?>" alt="5 stars" />(1)</div>
+                <div class="rating">
+                    <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                        <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                    </span>
+                    <span  style="color:<?php echo $title2color; ?>;">(1)</span>
+                </div>
                 <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
             </li>
             <li>
@@ -150,7 +182,12 @@ if ($this->getData('conf/body/backgroundImageIpadPortret')) {
                     <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
                     <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
                 </div>
-                <div class="rating"><img src="<?php echo $this->getPreviewImagesUrl('ipad/stars.png') ?>" alt="5 stars" />(1)</div>
+                <div class="rating">
+                    <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                        <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                    </span>
+                    <span  style="color:<?php echo $title2color; ?>;">(1)</span>
+                </div>
                 <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
             </li>
             <li>
@@ -160,9 +197,19 @@ if ($this->getData('conf/body/backgroundImageIpadPortret')) {
                     <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
                     <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
                 </div>
-                <div class="rating"><img src="<?php echo $this->getPreviewImagesUrl('ipad/stars.png') ?>" alt="5 stars" />(1)</div>
+                <div class="rating">
+                    <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                        <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                    </span>
+                    <span  style="color:<?php echo $title2color; ?>;">(1)</span>
+                </div>
                 <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
             </li>
         </ol>
     </div>
 </div>
+<?php if ($this->getJsErrorMessage()) : ?>
+<script type="text/javascript">
+    alert('<?php echo $this->getJsErrorMessage(); ?>');
+</script>
+<?php endif; ?>

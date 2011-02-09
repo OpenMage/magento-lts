@@ -245,12 +245,13 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Add new product to wishlist
+     * Adds new product to wishlist.
+     * Returns new item or string on error.
      *
      * @param int|Mage_Catalog_Model_Product $product
      * @param mixed $buyRequest
      * @param bool $forciblySetQty
-     * @return Mage_Wishlist_Model_Item
+     * @return Mage_Wishlist_Model_Item|string
      */
     public function addNewItem($product, $buyRequest = null, $forciblySetQty = false)
     {

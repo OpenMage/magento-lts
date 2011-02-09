@@ -148,28 +148,50 @@ final class Maged_Controller
      * @return string FTP Url
      */
     private function getFtpPost($post){
-        if(!empty($post['ftp_path'])&&strpos($post['ftp_path'], '/')!==0){
-            $post['ftp_path']='/'.$post['ftp_path'];
+        if (empty($post['ftp_host'])) {
+            $_POST['ftp'] = '';
+            return '';
         }
-        if(!empty($post['ftp_path'])&&substr($post['ftp_path'], -1)!='/'){
-            $post['ftp_path'].='/';
+        $ftp = 'ftp://';
+        $post['ftp_proto'] = 'ftp://';
+
+        if (!empty($post['ftp_path']) && strlen(trim($post['ftp_path'], '\\/'))>0) {
+            $post['ftp_path'] = '/' . trim($post['ftp_path'], '\\/') . '/';
+        } else {
+            $post['ftp_path'] = '/';
         }
-        $post['ftp_proto']='ftp://';
-        if($start=stripos($post['ftp_host'],'ftp://')!==false){
-            $post['ftp_proto']='ftp://';
-            $post['ftp_host']=substr($post['ftp_host'], $start+6-1);
+
+        $start = stripos($post['ftp_host'],'ftp://');
+        if ($start !== false){
+            $post['ftp_proto'] = 'ftp://';
+            $post['ftp_host'] = substr($post['ftp_host'], $start+6-1);
         }
-        if($start=stripos($post['ftp_host'],'ftps://')!==false){
-            $post['ftp_proto']='ftps://';
-            $post['ftp_host']=substr($post['ftp_host'], $start+7-1);
+        $start = stripos($post['ftp_host'],'ftps://');
+        if ($start !== false){
+            $post['ftp_proto'] = 'ftps://';
+            $post['ftp_host'] = substr($post['ftp_host'], $start+7-1);
         }
-        if(!empty($post['ftp_login'])&&!empty($post['ftp_password'])){
-            $ftp=sprintf("%s%s:%s@%s%s", $post['ftp_proto'], $post['ftp_login'],$post['ftp_password'],$post['ftp_host'],$post['ftp_path']);
-        }elseif(!empty($post['ftp_login'])){
-            $ftp=sprintf("%s%s@%s%s", $post['ftp_proto'], $post['ftp_login'],$post['ftp_host'],$post['ftp_path']);
-        }else{
-            $ftp=$post['ftp_proto'].$post['ftp_host'].$post['ftp_path'];
+
+        $post['ftp_host'] = trim($post['ftp_host'], '\\/');
+        
+        if (!empty($post['ftp_login']) && !empty($post['ftp_password'])){
+
+            $ftp = sprintf("%s%s:%s@%s%s", 
+                    $post['ftp_proto'],
+                    $post['ftp_login'],
+                    $post['ftp_password'],
+                    $post['ftp_host'],
+                    $post['ftp_path']
+            );
+
+        } elseif (!empty($post['ftp_login'])) {
+
+            $ftp = sprintf("%s%s@%s%s", $post['ftp_proto'], $post['ftp_login'],$post['ftp_host'],$post['ftp_path']);
+
+        } else {
+            $ftp = $post['ftp_proto'] . $post['ftp_host'] . $post['ftp_path'];
         }
+
         $_POST['ftp'] = $ftp;
         return $ftp;
     }
@@ -225,11 +247,7 @@ final class Maged_Controller
                 echo $this->view()->template('install/download.phtml');
             }
         } else {
-            if (false&&!$this->isWritable()) {
-                echo $this->view()->template('writable.phtml');
-            } else {
-                $this->forward('connectPackages');
-            }
+            $this->forward('connectPackages');
         }
     }
 
@@ -289,6 +307,11 @@ final class Maged_Controller
 
         $this->view()->set('connect', $connect);
         $this->view()->set('channel_config', $this->channelConfig());
+        $remoteConfig = $this->config()->remote_config;
+        if (!$this->isWritable() && empty($remoteConfig)) {
+            $this->view()->set('writable_warning', true);
+        }
+        
         echo $this->view()->template('connect/packages.phtml');
     }
 
@@ -887,4 +910,35 @@ final class Maged_Controller
             }
         }
     }
+
+    /**
+     * Gets the current Magento Connect Manager (Downloader) version string
+     * @link http://www.magentocommerce.com/blog/new-community-edition-release-process/
+     *
+     * @return string
+     */
+    public static function getVersion()
+    {
+        $i = self::getVersionInfo();
+        return trim("{$i['major']}.{$i['minor']}.{$i['revision']}" . ($i['patch'] != '' ? ".{$i['patch']}" : "") . "-{$i['stability']}{$i['number']}", '.-');
+    }
+
+    /**
+     * Gets the detailed Magento Connect Manager (Downloader) version information
+     * @link http://www.magentocommerce.com/blog/new-community-edition-release-process/
+     *
+     * @return array
+     */
+    public static function getVersionInfo()
+    {
+        return array(
+            'major'     => '1',
+            'minor'     => '5',
+            'revision'  => '0',
+            'patch'     => '0',
+            'stability' => 'rc',
+            'number'    => '1',
+        );
+    }
+
 }

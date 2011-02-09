@@ -80,7 +80,8 @@ class Mage_XmlConnect_Block_Catalog_Product_Review_List extends Mage_XmlConnect_
             $collection = Mage::getResourceModel('review/review_collection')
                 ->addEntityFilter('product', $product->getId())
                 ->addStoreFilter(Mage::app()->getStore()->getId())
-                ->addStatusFilter('approved');
+                ->addStatusFilter('approved')
+                ->setDateOrder();
 
             /**
              * Apply offset and count

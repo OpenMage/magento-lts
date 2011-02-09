@@ -302,7 +302,7 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
     protected function _processPostRequest()
     {
         try {
-            $app = Mage::registry('current_app');
+            $app = Mage::helper('xmlconnect')->getApplication();
             $params = $app->getSubmitParams();
 
             $appConnectorUrl = Mage::getStoreConfig('xmlconnect/mobile_application/magentocommerce_url');
@@ -398,10 +398,10 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
         }
         if (!$isError && is_object($app) && $app->getId() && $redirectSubmit) {
             $this->_redirect('*/*/submission', array('application_id' => $app->getId()));
-        } else if ($isError && $app->getId()) {
+        } else if ($isError && is_object($app) && $app->getId()) {
             Mage::getSingleton('adminhtml/session')->setLoadSessionFlag(true);
             $this->_redirect('*/*/edit', array('application_id' => $app->getId()));
-        } else if ($isError && !$app->getId() && $app->getType()) {
+        } else if ($isError && is_object($app) && !$app->getId() && $app->getType()) {
             $this->_redirect('*/*/edit', array('type' => $app->getType()));
         } else if ($this->getRequest()->getParam('back')) {
             $this->_redirect('*/*/edit', array('application_id' => $app->getId()));
@@ -601,11 +601,27 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
             if (!$this->getRequest()->getParam('submission_action')) {
                 $app->addData($this->_preparePostData($this->getRequest()->getPost()));
             }
-            $app->addData($this->_processUploadedFiles($app->getData()));
+
+            // render base configuration of application
+            $appConf = $app->getRenderConf();
+
+            try {
+                // try to upload files
+                $dataUploaded = $this->_processUploadedFiles($app->getData());
+                $app->addData($dataUploaded);
+                // render configuration with just uploaded images
+                $appConf = $app->getRenderConf();
+            } catch (Exception $e) {
+                // when cannot upload - just tell user what is happen
+                $jsErrorMessage = addslashes($e->getMessage());
+            }
 
             $this->loadLayout(false);
             $preview = $this->getLayout()->getBlock($block);
-            $preview->setConf($app->getRenderConf());
+            if (isset($jsErrorMessage)) {
+                $preview->setJsErrorMessage($jsErrorMessage);
+            }
+            $preview->setConf($appConf);
             $this->renderLayout();
             return;
         } catch (Mage_Core_Exception $e) {

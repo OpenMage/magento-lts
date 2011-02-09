@@ -25,11 +25,12 @@
  */
 ?>
 <?php
+$title1color = $this->getConfigFontInfo('Title1/color');
 $categoryItemTintColor = $this->getCategoryItemTintColor();
 $categoryItemBackgroundColor = $this->getData('conf/categoryItem/backgroundColor');
 
 $productImage = $this->getPreviewImagesUrl('ipad/product_image.jpg');
-$backgroundImageIpadLandscape = $this->getIpadBackgroundImage(Mage_XmlConnect_Helper_Ipad::ORIENTATION_LANDSCAPE);
+$backgroundIpadLandscapeImage = $this->getBackgroundImage(Mage_XmlConnect_Helper_Ipad::ORIENTATION_LANDSCAPE);
 $bannerImageIpad = $this->getBannerImage();
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo $this->getPreviewCssUrl('mobile-ipad-home.css'); ?>" media="all" />
@@ -38,25 +39,32 @@ $bannerImageIpad = $this->getBannerImage();
     <div class="status-bar"></div>
     <div class="header-wrap" style="background-color:<?php echo $this->getData('conf/navigationBar/tintColor'); ?>;">
         <div class="header">
-            <span class="logo"><img src="<?php echo $this->getLogoUrl(); ?>" height="14" width="12" alt="" /></span><span class="store-name" style="color:<?php echo $this->getData('conf/fonts/Title1/color'); ?>;">Magento</span>
+            <?php echo $this->getChildHtml('tab_items'); ?>
         </div>
     </div>
     <div class="shadow"></div>
-    <div class="content" style="background:url(<?php echo $backgroundImageIpadLandscape; ?>) no-repeat center center;">
-        <div class="logo" style="background:url(<?php echo $bannerImageIpad; ?>) no-repeat center center"></div>
-        <ul class="products-list">
-            <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
-                <div class="product-image"><img src="<?php echo $productImage; ?>" alt="" /></div>
-                <h4>CLOTHING</h4>
-            </li>
-            <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
-                <div class="product-image"><img src="<?php echo $productImage; ?>" alt="" /></div>
-                <h4>CLOTHING</h4>
-            </li>
-            <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
-                <div class="product-image"><img src="<?php echo $productImage; ?>" alt="" /></div>
-                <h4>CLOTHING</h4>
-            </li>
-        </ul>
+    <div class="content" style="background-image:url(<?php echo $backgroundIpadLandscapeImage; ?>)">
+        <div class="logo" style="background-image:url(<?php echo $bannerImageIpad; ?>)"></div>
+        <div class="products-list-wrap">
+            <ul class="products-list">
+                <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
+                    <div class="product-image"><img src="<?php echo $productImage; ?>" alt="" /></div>
+                    <h4>CLOTHING</h4>
+                </li>
+                <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
+                    <div class="product-image"><img src="<?php echo $productImage; ?>" alt="" /></div>
+                    <h4>CLOTHING</h4>
+                </li>
+                <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
+                    <div class="product-image"><img src="<?php echo $productImage; ?>" alt="" /></div>
+                    <h4>CLOTHING</h4>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
+<?php if ($this->getJsErrorMessage()) : ?>
+<script type="text/javascript">
+    alert('<?php echo $this->getJsErrorMessage(); ?>');
+</script>
+<?php endif; ?>

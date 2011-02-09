@@ -612,6 +612,18 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                 $payment->setTransactionId(null)
                     ->setParentTransactionId($this->getResponse()->getXTransId())
                     ->capture(null);
+
+                // set status from config for AUTH_AND_CAPTURE orders.
+                if ($order->getState() == Mage_Sales_Model_Order::STATE_PROCESSING) {
+                    $orderStatus = $this->getConfigData('order_status');
+                    if (!$orderStatus || $order->getIsVirtual()) {
+                        $orderStatus = $order->getConfig()->getStateDefaultStatus(Mage_Sales_Model_Order::STATE_PROCESSING);
+                    }
+                    if ($orderStatus) {
+                        $order->setStatus($orderStatus);
+                    }
+                }
+
                 $order->save();
             } catch (Exception $e) {
                 Mage::logException($e);

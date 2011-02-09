@@ -156,6 +156,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
      */
     protected function _round($price, $rate, $direction, $type = 'regular')
     {
+        if (!$price) {
+            return $this->_calculator->round($price);
+        }
+
         $deltas = $this->_address->getRoundingDeltas();
         $key = $type.$direction;
         $rate = (string) $rate;

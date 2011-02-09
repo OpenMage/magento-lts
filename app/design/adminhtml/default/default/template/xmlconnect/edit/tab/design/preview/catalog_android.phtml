@@ -43,8 +43,7 @@ $emptyStarImage = $this->getPreviewImagesUrl('android/bg_star_empty.png');
         <div class="header-wrap" style="background-color:<?php echo $this->getData('conf/navigationBar/tintColor'); ?>;">
             <div class="header">
                 <div class="icon icon-home"></div>
-                <div class="icon icon-account"></div>
-                <div class="icon icon-search"></div>
+                <?php echo $this->getChildHtml('tab_items'); ?>
                 <div class="logo">
                     <img src="<?php echo $this->getLogoUrl(); ?>" alt="logo" /><span style="color:<?php echo $title1color; ?>;"><?php echo $this->__("Chairs"); ?></span>
                 </div>
@@ -64,80 +63,101 @@ $emptyStarImage = $this->getPreviewImagesUrl('android/bg_star_empty.png');
         <div class="cat-list">
             <ul>
                 <li style="background-color:<?php echo $primaryColor; ?>;">
-                    <div class="col-1">
-                        <div class="product-image">
-                            <img src="<?php echo $this->getPreviewImagesUrl('android/product_image_1.jpg') ?>" alt="Bertoia Wire Chair" />
+                    <div class="wrap">
+                        <div class="col-1">
+                            <div class="product-image">
+                                <img src="<?php echo $this->getPreviewImagesUrl('android/product_image_1.jpg') ?>" alt="Bertoia Wire Chair" />
+                            </div>
+                            <div class="rating">
+                                <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                                    <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                                </span>
+                                <span style="color:<?php echo $title2color; ?>;">(2)</span>
+                            </div>
                         </div>
-                        <div class="rating">
-                            <img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $emptyStarImage ?>" alt="" />
-                            <span>(2)</span>
+                        <div class="col-2">
+                            <h3 style="color:<?php echo $title2color; ?>;">Bertoia Wire Chair</h3>
+                            <div class="price-box">
+                                <span class="price" style="color:<?php echo $title5color; ?>;">$399.00</span>
+                            </div>
+                            <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
                         </div>
-                    </div>
-                    <div class="col-2">
-                        <h3 style="color:<?php echo $title2color; ?>;">Bertoia Wire Chair</h3>
-                        <div class="price-box">
-                            <span class="price" style="color:<?php echo $title5color; ?>;">$399.00</span>
-                        </div>
-                        <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
                     </div>
                 </li>
                 <li style="background-color:<?php echo $primaryColor; ?>;">
-                    <div class="col-1">
-                        <div class="product-image">
-                            <img src="<?php echo $this->getPreviewImagesUrl('android/product_image_2.jpg') ?>" alt="Bertoia Wire Chair" />
+                    <div class="wrap">
+                        <div class="col-1">
+                            <div class="product-image">
+                                <img src="<?php echo $this->getPreviewImagesUrl('android/product_image_2.jpg') ?>" alt="Bertoia Wire Chair" />
+                            </div>
+                            <div class="rating">
+                                <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                                    <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span>
+                                </span>
+                                <span style="color:<?php echo $title2color; ?>;">(5)</span>
+                            </div>
                         </div>
-                        <div class="rating">
-                            <img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" />
-                            <span>(5)</span>
+                        <div class="col-2">
+                            <h3 style="color:<?php echo $title2color; ?>;">Eames LCW Chair</h3>
+                            <div class="price-box">
+                                <span class="old-price" style="color:<?php echo $title2color; ?>;">$749.00</span>
+                                <span class="price" style="color:<?php echo $title5color; ?>;">$499.00</span>
+                            </div>
+                            <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
                         </div>
-                    </div>
-                    <div class="col-2">
-                        <h3 style="color:<?php echo $title2color; ?>;">Eames LCW Chair</h3>
-                        <div class="price-box">
-                            <span class="old-price" style="color:<?php echo $title2color; ?>;">$749.00</span>
-                            <span class="price" style="color:<?php echo $title5color; ?>;">$499.00</span>
-                        </div>
-                        <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
                     </div>
                 </li>
                 <li style="background-color:<?php echo $primaryColor; ?>;">
-                    <div class="col-1">
-                        <div class="product-image">
-                            <img src="<?php echo $this->getPreviewImagesUrl('android/product_image_3.jpg') ?>" alt="Bertoia Wire Chair" />
+                    <div class="wrap">
+                        <div class="col-1">
+                            <div class="product-image">
+                                <img src="<?php echo $this->getPreviewImagesUrl('android/product_image_3.jpg') ?>" alt="Bertoia Wire Chair" />
+                            </div>
+                            <div class="rating">
+                                <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                                    <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span><span class="star">c</span>
+                                </span>
+                                <span style="color:<?php echo $title2color; ?>;">(18)</span>
+                            </div>
                         </div>
-                        <div class="rating">
-                            <img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $emptyStarImage ?>" alt="" /><img src="<?php echo $emptyStarImage ?>" alt="" />
-                            <span>(18)</span>
+                        <div class="col-2">
+                            <h3 style="color:<?php echo $title2color; ?>;">Panton Chair</h3>
+                            <div class="price-box">
+                                <span class="price" style="color:<?php echo $title5color; ?>;">$299.00</span>
+                            </div>
+                            <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
                         </div>
-                    </div>
-                    <div class="col-2">
-                        <h3 style="color:<?php echo $title2color; ?>;">Panton Chair</h3>
-                        <div class="price-box">
-                            <span class="price" style="color:<?php echo $title5color; ?>;">$299.00</span>
-                        </div>
-                        <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
                     </div>
                 </li>
                 <li style="background-color:<?php echo $primaryColor; ?>;">
-                    <div class="col-1">
-                        <div class="product-image">
-                            <img src="<?php echo $this->getPreviewImagesUrl('android/product_image_4.jpg') ?>" alt="Bertoia Wire Chair" />
+                    <div class="wrap">
+                        <div class="col-1">
+                            <div class="product-image">
+                                <img src="<?php echo $this->getPreviewImagesUrl('android/product_image_4.jpg') ?>" alt="Bertoia Wire Chair" />
+                            </div>
+                            <div class="rating">
+                                <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                                    <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span>
+                                </span>
+                                <span style="color:<?php echo $title2color; ?>;">(5)</span>
+                            </div>
                         </div>
-                        <div class="rating">
-                            <img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" />
-                            <span>(5)</span>
+                        <div class="col-2">
+                            <h3 style="color:<?php echo $title2color; ?>;">Bertoia Side Chair</h3>
+                            <div class="price-box">
+                                <span class="old-price" style="color:<?php echo $title2color; ?>;">$1299.00</span>
+                                <span class="price" style="color:<?php echo $title5color; ?>;">$869.00</span>
+                            </div>
+                            <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
                         </div>
-                    </div>
-                    <div class="col-2">
-                        <h3 style="color:<?php echo $title2color; ?>;">Bertoia Side Chair</h3>
-                        <div class="price-box">
-                            <span class="old-price" style="color:<?php echo $title2color; ?>;">$1299.00</span>
-                            <span class="price" style="color:<?php echo $title5color; ?>;">$869.00</span>
-                        </div>
-                        <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
                     </div>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+<?php if ($this->getJsErrorMessage()) : ?>
+<script type="text/javascript">
+    alert('<?php echo $this->getJsErrorMessage(); ?>');
+</script>
+<?php endif; ?>

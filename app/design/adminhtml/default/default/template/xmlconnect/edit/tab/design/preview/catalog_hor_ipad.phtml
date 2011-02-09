@@ -33,16 +33,18 @@ $primaryColor = $this->getData('conf/body/primaryColor');
 $secondaryColor = $this->getData('conf/body/secondaryColor');
 
 $productImage = $this->getPreviewImagesUrl('ipad/bg_product_image.png');
-$backgroundImageIpadLandscape = $this->getIpadBackgroundImage(Mage_XmlConnect_Helper_Ipad::ORIENTATION_LANDSCAPE);
+$backgroundIpadLandscapeImage = $this->getBackgroundImage(Mage_XmlConnect_Helper_Ipad::ORIENTATION_LANDSCAPE);
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo $this->getPreviewCssUrl('mobile-ipad-catalog.css'); ?>" media="all" />
 
 <div class="ipad ipad-horizontal" style="background: <?php echo $this->getData('conf/body/backgroundColor'); ?>;">
     <div class="status-bar"></div>
     <div class="header-wrap" style="background-color:<?php echo $this->getData('conf/navigationBar/tintColor'); ?>;">
-        <div class="header"><span class="logo"><img src="<?php echo $this->getLogoUrl(); ?>" height="14" width="12" alt="" /></span><span class="store-name" style="color:<?php echo $title1color; ?>;">Magento</span></div>
+        <div class="header">
+            <?php echo $this->getChildHtml('tab_items'); ?>
+        </div>
     </div>
-    <div class="bg" style="background-image:url(<?php echo $backgroundImageIpadLandscape; ?>)">
+    <div class="bg" style="background-image:url(<?php echo $backgroundIpadLandscapeImage; ?>)">
         <ul class="sections">
             <li class="arrow"><a href="#">Shirts</a></li>
             <li class="arrow"><a href="#">Sweatshirts</a></li>
@@ -77,68 +79,105 @@ $backgroundImageIpadLandscape = $this->getIpadBackgroundImage(Mage_XmlConnect_He
             </div>
         </div>
         <div class="content">
-            <ol class="products-list">
-                <li>
-                    <div class="product-image"><img src="<?php echo $productImage ?>" alt="Product Title" height="101" width="101" /></div>
-                    <h4 style="color:<?php echo $title2color; ?>;">Product Title</h4>
-                    <div class="price-box">
-                        <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
-                        <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
-                    </div>
-                    <div class="rating"><img src="<?php echo $this->getPreviewImagesUrl('ipad/stars.png') ?>" alt="4 stars" />(1)</div>
-                    <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
-                </li>
-                <li>
-                    <div class="product-image"><img src="<?php echo $productImage ?>" alt="Product Title" height="101" width="101" /></div>
-                    <h4 style="color:<?php echo $title2color; ?>;">Product Title</h4>
-                    <div class="price-box">
-                        <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
-                        <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
-                    </div>
-                    <div class="rating"><img src="<?php echo $this->getPreviewImagesUrl('ipad/stars.png') ?>" alt="4 stars" />(1)</div>
-                    <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
-                </li>
-                <li>
-                    <div class="product-image"><img src="<?php echo $productImage ?>" alt="Product Title" height="101" width="101" /></div>
-                    <h4 style="color:<?php echo $title2color; ?>;">Product Title</h4>
-                    <div class="price-box">
-                        <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
-                        <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
-                    </div>
-                    <div class="rating"><img src="<?php echo $this->getPreviewImagesUrl('ipad/stars.png') ?>" alt="4 stars" />(1)</div>
-                    <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
-                </li>
-                <li>
-                    <div class="product-image"><img src="<?php echo $productImage ?>" alt="Product Title" height="101" width="101" /></div>
-                    <h4 style="color:<?php echo $title2color; ?>;">Product Title</h4>
-                    <div class="price-box">
-                        <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
-                        <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
-                    </div>
-                    <div class="rating"><img src="<?php echo $this->getPreviewImagesUrl('ipad/stars.png') ?>" alt="4 stars" />(1)</div>
-                    <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
-                </li>
-                <li>
-                    <div class="product-image"><img src="<?php echo $productImage ?>" alt="Product Title" height="101" width="101" /></div>
-                    <h4 style="color:<?php echo $title2color; ?>;">Product Title</h4>
-                    <div class="price-box">
-                        <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
-                        <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
-                    </div>
-                    <div class="rating"><img src="<?php echo $this->getPreviewImagesUrl('ipad/stars.png') ?>" alt="4 stars" />(1)</div>
-                    <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
-                </li>
-                <li>
-                    <div class="product-image"><img src="<?php echo $productImage ?>" alt="Product Title" height="101" width="101" /></div>
-                    <h4 style="color:<?php echo $title2color; ?>;">Product Title</h4>
-                    <div class="price-box">
-                        <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
-                        <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
-                    </div>
-                    <div class="rating"><img src="<?php echo $this->getPreviewImagesUrl('ipad/stars.png') ?>" alt="4 stars" />(1)</div>
-                    <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
-                </li>
-            </ol>
+            <div class="producst-list-wrap">
+                <ol class="products-list">
+                    <li>
+                        <div class="product-image"><img src="<?php echo $productImage ?>" alt="Product Title" height="101" width="101" /></div>
+                        <h4 style="color:<?php echo $title2color; ?>;">Product Title</h4>
+                        <div class="price-box">
+                            <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
+                            <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                                <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                            </span>
+                            <span  style="color:<?php echo $title2color; ?>;">(1)</span>
+                        </div>
+                        <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
+                    </li>
+                    <li>
+                        <div class="product-image"><img src="<?php echo $productImage ?>" alt="Product Title" height="101" width="101" /></div>
+                        <h4 style="color:<?php echo $title2color; ?>;">Product Title</h4>
+                        <div class="price-box">
+                            <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
+                            <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                                <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                            </span>
+                            <span  style="color:<?php echo $title2color; ?>;">(1)</span>
+                        </div>
+                        <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
+                    </li>
+                    <li>
+                        <div class="product-image"><img src="<?php echo $productImage ?>" alt="Product Title" height="101" width="101" /></div>
+                        <h4 style="color:<?php echo $title2color; ?>;">Product Title</h4>
+                        <div class="price-box">
+                            <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
+                            <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                                <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                            </span>
+                            <span  style="color:<?php echo $title2color; ?>;">(1)</span>
+                        </div>
+                        <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
+                    </li>
+                    <li>
+                        <div class="product-image"><img src="<?php echo $productImage ?>" alt="Product Title" height="101" width="101" /></div>
+                        <h4 style="color:<?php echo $title2color; ?>;">Product Title</h4>
+                        <div class="price-box">
+                            <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
+                            <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                                <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                            </span>
+                            <span  style="color:<?php echo $title2color; ?>;">(1)</span>
+                        </div>
+                        <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
+                    </li>
+                    <li>
+                        <div class="product-image"><img src="<?php echo $productImage ?>" alt="Product Title" height="101" width="101" /></div>
+                        <h4 style="color:<?php echo $title2color; ?>;">Product Title</h4>
+                        <div class="price-box">
+                            <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
+                            <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                                <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                            </span>
+                            <span  style="color:<?php echo $title2color; ?>;">(1)</span>
+                        </div>
+                        <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
+                    </li>
+                    <li>
+                        <div class="product-image"><img src="<?php echo $productImage ?>" alt="Product Title" height="101" width="101" /></div>
+                        <h4 style="color:<?php echo $title2color; ?>;">Product Title</h4>
+                        <div class="price-box">
+                            <span class="regular-price" style="color:<?php echo $title2color; ?>;">Regular $x.xx</span>
+                            <span class="special-price" style="color:<?php echo $title5color; ?>;">Special $x.xx</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                                <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                            </span>
+                            <span  style="color:<?php echo $title2color; ?>;">(1)</span>
+                        </div>
+                        <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
+                    </li>
+                </ol>
+            </div>
         </div>
     </div>
 </div>
+<?php if ($this->getJsErrorMessage()) : ?>
+<script type="text/javascript">
+    alert('<?php echo $this->getJsErrorMessage(); ?>');
+</script>
+<?php endif; ?>

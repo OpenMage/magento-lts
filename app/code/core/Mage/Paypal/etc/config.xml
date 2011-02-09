@@ -245,7 +245,7 @@
             </payflow_link>
             <hosted_pro>
                 <model>paypal/hostedpro</model>
-                <title>Website Payments Pro Hosted Solution</title>
+                <title>Payment by cards or by PayPal account</title>
                 <payment_action>Authorization</payment_action>                
                 <group>paypal</group>
             </hosted_pro>

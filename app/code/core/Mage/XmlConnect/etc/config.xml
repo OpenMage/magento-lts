@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_XmlConnect>
-            <version>1.4.0.12</version>
+            <version>1.4.0.13</version>
         </Mage_XmlConnect>
     </modules>
     <global>
@@ -193,13 +193,14 @@
                         </tabBar>
                         <body>
                             <bannerImage> <width>320</width> <height>230</height> </bannerImage>
-                            <bannerImageIpad> <width>768</width> <height>294</height> </bannerImageIpad>
-                            <bannerImageAndroid> <width>320</width> <height>258</height> </bannerImageAndroid>
+                            <bannerIpadImage> <width>768</width> <height>294</height> </bannerIpadImage>
+                            <bannerAndroidImage> <width>320</width> <height>258</height> </bannerAndroidImage>
                             <itemBackgroundIcon> <width>90</width> <height>120</height> </itemBackgroundIcon>
                             <backgroundImage> <width>320</width> <height>367</height> </backgroundImage>
-                            <backgroundImageIpadLandscape> <width>1024</width> <height>704</height> </backgroundImageIpadLandscape>
-                            <backgroundImageIpadPortret> <width>768</width> <height>960</height> </backgroundImageIpadPortret>
-                            <backgroundImageAndroid> <width>320</width> <height>455</height> </backgroundImageAndroid>
+                            <backgroundIpadLandscapeImage> <width>1024</width> <height>704</height> </backgroundIpadLandscapeImage>
+                            <backgroundIpadPortraitImage> <width>768</width> <height>960</height> </backgroundIpadPortraitImage>
+                            <backgroundAndroidPortraitImage> <width>320</width> <height>410</height> </backgroundAndroidPortraitImage>
+                            <backgroundAndroidLandscapeImage> <width>480</width> <height>250</height> </backgroundAndroidLandscapeImage>
                             <rowBackgroundIcon> <width>320</width> <height>90</height> </rowBackgroundIcon>
                             <rowAttributeIcon> <widthMax>30</widthMax> <heightMax>90</heightMax> </rowAttributeIcon>
                             <addToCartBackgroundIcon> <width>136</width> <height>28</height> </addToCartBackgroundIcon>
@@ -331,6 +332,33 @@
                     </updates>
                 </default>
             </_640x960>
+            <_1024x768>
+                <default>
+                    <source>default</source>
+                    <updates>
+                        <u1>
+                            <path>content/product_small</path>
+                            <function>update</function>
+                            <data>210</data>
+                        </u1>
+                        <u2>
+                            <path>content/product_big</path>
+                            <function>update</function>
+                            <data>400</data>
+                        </u2>
+                        <u3>
+                            <path>content/category</path>
+                            <function>update</function>
+                            <data>243</data>
+                        </u3>
+                        <u4>
+                            <path>content/product_gallery_big</path>
+                            <function>update</function>
+                            <data>644</data>
+                        </u4>
+                    </updates>
+                </default>
+            </_1024x768>
         </screen_size>
         <xmlconnect>
             <mobile_application>

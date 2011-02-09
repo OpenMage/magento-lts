@@ -27,6 +27,62 @@
 class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
 {
     /**
+     * Android landscape orientation identificator
+     *
+     * @var string
+     */
+    const ORIENTATION_LANDSCAPE = 'landscape';
+
+    /**
+     * Android portrait orientation identificator
+     *
+     * @var string
+     */
+    const ORIENTATION_PORTRAIT = 'portrait';
+
+    /**
+     * Android preview banner widht
+     *
+     * @var int
+     */
+    const PREVIEW_BANNER_WIDTH = 320;
+
+    /**
+     * Android preview banner image height
+     *
+     * @var int
+     */
+    const PREVIEW_BANNER_HEIGHT = 258;
+
+    /**
+     * Android landscape orientation preview image widht
+     *
+     * @var int
+     */
+    const PREVIEW_LANDSCAPE_BACKGROUND_WIDTH = 480;
+
+    /**
+     * Android landscape orientation preview image height
+     *
+     * @var int
+     */
+    const PREVIEW_LANDSCAPE_BACKGROUND_HEIGHT = 250;
+
+    /**
+     * Android portrait orientation preview image widht
+     *
+     * @var int
+     */
+    const PREVIEW_PORTRAIT_BACKGROUND_WIDTH = 320;
+
+    /**
+     * Android portrait orientation preview image height
+     *
+     * @var int
+     */
+    const PREVIEW_PORTRAIT_BACKGROUND_HEIGHT = 410;
+
+    /**
      * Tags identifier for title bar
      *
      * @var int

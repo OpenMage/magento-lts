@@ -1,3 +1,70 @@
+==== 1.5.0.0-rc1 =====
+
+=== Fixes ===
+Fixed Missed index on sales.order table
+Fixed Price for composite products in a products grid on Order creation page
+Fixed Status of Order is now doesn't ignore the setting in Config for AUTH_AND_CAPTURE orders.
+Fixed Unable to install extension using MCM for CE
+Fixed Rounding error
+Fixed Preview iFrame of iPhone recieve error message
+- wrap images manipulations with try-catch (in controller)
+- alert the catched error message when preview is loaded
+Fixed Most product attibutes not exporting
+Fixed Removed error message on new orders payd by PayflowLink with "complete" status (like on virtual products)
+Fixed Behavior when customer changes billing/shipping address and/or changes items in cart, etc having started Partial Authorization
+- added chopping cart`s and address checksum checking for partial authorization process
+Fixed Moving composite products from shopping cart to wishlist does not work
+- fixed error handling - added catching and processing, so in case of errors only item with error will not be moved
+- fixed wishlist items to get right storeId (by passing product, and not productId)
+Fixed Rounding issue (1 cent) appears on Tax Calculation Method Based On = Row
+Fixed category/product image resizing
+- Image sizes for Ipad has been changed
+- Re-Factored: Application model call has been changed to helper method for all old calls
+Fixed Only check money payment at standard chechout process receive success
+Fixed Edit fonts configuration for iPad
+Added iPad preview should illustrate tabs' state.
+- Made separate icons
+- Active/inactive logic added
+- Added custom fonts for rating color customization
+- Fixed positions for the icons
+- Removed icons labels
+- "i"-icon should always be on screen (currently it becomes hidden after making "information"-tab inactive)
+Fixed Review collection need to sort with the latest added review
+Fixed XML Connect - Incorrect help link in Push Notification page
+Fixed API Certificate Based Authentication Used default signature value insted of the Certificate value
+Fixed XML Connect - Design page - Ipad backgrounds issue
+Fixed "Ship to different address" is not applied with IE8 with any payment method
+Fixed Added skipping delta in shipping calculation on free shipping
+Fixed Incorrect behavior of Gift Options popup for bundle product on backend Order View page. No ability to close popup
+Fixed Rounding issue (1 cent) appears on discount applied and Tax Calculation Method Based On = Row
+Fixed Add landscape mode background for Android and update information for portrait mode background
+- changed <backgroundImageAndroid> to <backgroundAndroidPortraitImage>,
+- changed all <someimagetagImageDeviceOrientatin> to <someimagetagDeviceOrientatinImage> for correctly image resizings,
+- same for Icon,
+- added orientation divisions for Android devices,
+- fixed wrong spelled word "Portret" onto "Portrait" for iPad's config tags
+- Image resize method has been changed
+- backround getter method fixed
+Fixed Tax rates export doesn't work
+Fixed Incorrect downloader version in footer
+Changed default title for HSS payment method
+Fixed Rounding issue on credit memos/invoices cousing different totals in magento and 1 cent error on paypal
+- added adjustment for invoice`s subtotal_incl_tax and base_subtotal_incl_tax if invoice is last invoice of order
+Fixed Added setting of store id in payment method instance on Authorize.net partial authorization cancel from admin place.
+Fixed Fix Android preview area
+- Added custom fonts
+- Fixed header icons borders
+- Fixed button border on homepage
+- Added custom color declaration
+Fixed Tabs dont affect second preview screen for Android mobile application
+Fixed Incorrect design for Android mobile application in IE8
+Added update Preview Area for iPad
+- Fixed incorrect design for Ipad mobile application in IE8
+- added stars custom fonts for landscape mode
+- Fixed wrong positioning of the icons in landscape mode
+Fixed Double use Authorize.net Partial Authorization Multicard with 46225 zip in one order causes wrong checkout behavior
+Fixed Using MCM 2.0 shell script produces warnings and doesn't work correctly
+
 ==== 1.5.0.0-beta2 =====
 
 === Improvements ===

@@ -90,7 +90,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Notification extends Mage_
             'name'      => 'conf[native][notifications][mailboxTitle]',
             'value'     => (isset($data['conf[native][notifications][mailboxTitle]']) ? $data['conf[native][notifications][mailboxTitle]'] : ''),
             'required'  => true,
-            'note'      => $this->__('The Mailbox title will be shown in the More Info tab. To understand more about the title, please <a href="some link">click here</a>')
+            'note'      => $this->__('The Mailbox title will be shown in the More Info tab. To understand more about the title, please <a target="_blank" href="http://www.magentocommerce.com/img/product/mobile/helpers/mail_box_title.png">click here</a>')
         ));
 
         // field dependencies

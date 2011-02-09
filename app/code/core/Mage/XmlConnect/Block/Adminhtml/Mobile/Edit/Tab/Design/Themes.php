@@ -33,7 +33,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Themes extends Mage
     {
         parent::__construct();
 
-        $model = Mage::registry('current_app');
+        $model = Mage::helper('xmlconnect')->getApplication();
         $this->setTemplate('xmlconnect/form/element/themes.phtml');
 
         $data = $model->getFormData();
@@ -138,11 +138,6 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Themes extends Mage
      */
     public function getApplication()
     {
-        $model = Mage::registry('current_app');
-        if (!($model instanceof Mage_XmlConnect_Model_Application)) {
-            Mage::throwException($this->__('App model not loaded.'));
-        }
-
-        return $model;
+        return Mage::helper('xmlconnect')->getApplication();
     }
 }

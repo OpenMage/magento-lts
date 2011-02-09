@@ -85,40 +85,47 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Images ex
                 break;
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPAD:
                 $this->addImage($fieldset,
-                    'conf[native][body][bannerImageIpad]',
+                    'conf[native][body][bannerIpadImage]',
                     $this->__('Banner on Home Screen'),
                     $this->__('Recommended size 768px x 294px. Note: Image size affects the performance of your app.'),
-                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/bannerImageIpad')),
+                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/bannerIpadImage')),
                     true
                 );
                 $this->addImage($fieldset,
-                    'conf[native][body][backgroundImageIpadLandscape]',
+                    'conf[native][body][backgroundIpadLandscapeImage]',
                     $this->__('App Background (landscape mode)'),
                     $this->__('Recommended size 1024px x 704px. Note: Image size affects the performance of your app.'),
-                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/backgroundImageIpadLandscape')),
+                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/backgroundIpadLandscapeImage')),
                     true
                 );
                 $this->addImage($fieldset,
-                    'conf[native][body][backgroundImageIpadPortret]',
+                    'conf[native][body][backgroundIpadPortraitImage]',
                     $this->__('App Background (portrait mode)'),
                     $this->__('Recommended size 768px x 960px. Note: Image size affects the performance of your app.'),
-                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/backgroundImageIpadPortret')),
+                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/backgroundIpadPortraitImage')),
                     true
                 );
                 break;
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_ANDROID:
                 $this->addImage($fieldset,
-                    'conf[native][body][bannerImageAndroid]',
+                    'conf[native][body][bannerAndroidImage]',
                     $this->__('Banner on Home Screen'),
                     $this->__('Recommended size 320px x 258px. Note: Image size affects the performance of your app. Keep your image size below 50 KB for optimal performance.'),
-                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/bannerImageAndroid')),
+                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/bannerAndroidImage')),
                     true
                 );
                 $this->addImage($fieldset,
-                    'conf[native][body][backgroundImageAndroid]',
-                    $this->__('App Background'),
-                    $this->__('Recommended size 320px x 455px. Note: Image size affects the performance of your app. Keep your image size below 75 KB for optimal performance.'),
-                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/backgroundImageAndroid')),
+                    'conf[native][body][backgroundAndroidLandscapeImage]',
+                    $this->__('App Background (landscape mode)'),
+                    $this->__('Recommended size 480px x 250px. Note: Image size affects the performance of your app. Keep your image size below 75 KB for optimal performance.'),
+                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/backgroundAndroidLandscapeImage')),
+                    true
+                );
+                $this->addImage($fieldset,
+                    'conf[native][body][backgroundAndroidPortraitImage]',
+                    $this->__('App Background (portrait mode)'),
+                    $this->__('Recommended size 320px x 410px. Note: Image size affects the performance of your app. Keep your image size below 75 KB for optimal performance.'),
+                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/backgroundAndroidPortraitImage')),
                     true
                 );
                 break;

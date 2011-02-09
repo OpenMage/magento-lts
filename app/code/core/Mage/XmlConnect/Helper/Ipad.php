@@ -146,18 +146,18 @@ class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
                 'fonts' => array(
                     'Title1' => array(
                         'name' => 'HelveticaNeue-Bold',
-                        'size' => '14',
+                        'size' => '20',
                         'color' => '#FEFEFE',
                     ),
                     'Title2' => array(
                         'name' => 'HelveticaNeue-Bold',
-                        'size' => '12',
+                        'size' => '15',
                         'color' => '#222222',
                     ),
                     'Title3' => array(
                         'name' => 'HelveticaNeue',
-                        'size' => '23',
-                        'color' => '#000000',
+                        'size' => '14',
+                        'color' => '#222222',
                     ),
                     'Title4' => array(
                         'name' => 'HelveticaNeue',
@@ -166,38 +166,38 @@ class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
                     ),
                     'Title5' => array(
                         'name' => 'HelveticaNeue-Bold',
-                        'size' => '13',
-                        'color' => '#dc5f02',
+                        'size' => '18',
+                        'color' => '#d55000',
                     ),
                     'Title6' => array(
                         'name' => 'HelveticaNeue-Bold',
                         'size' => '16',
-                        'color' => '#222222',
+                        'color' => '#FFFFFF',
                     ),
                     'Title7' => array(
                         'name' => 'HelveticaNeue-Bold',
                         'size' => '13',
-                        'color' => '#000000',
+                        'color' => '#222222',
                     ),
                     'Title8' => array(
                         'name' => 'HelveticaNeue-Bold',
-                        'size' => '11',
+                        'size' => '13',
                         'color' => '#FFFFFF',
                     ),
                     'Title9' => array(
                         'name' => 'HelveticaNeue-Bold',
-                        'size' => '12',
+                        'size' => '18',
                         'color' => '#FFFFFF',
                     ),
                     'Text1' => array(
                         'name' => 'HelveticaNeue-Bold',
-                        'size' => '12',
-                        'color' => '#777777',
+                        'size' => '14',
+                        'color' => '#222222',
                     ),
                     'Text2' => array(
                         'name' => 'HelveticaNeue',
-                        'size' => '10',
-                        'color' => '#555555',
+                        'size' => '12',
+                        'color' => '#222222',
                     ),
                 ),
             ),

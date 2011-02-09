@@ -96,7 +96,7 @@ implements Iterator
             ),
             'root_channel_uri' => array(
                 'type' => 'string',
-                'value' => 'connect20.magentocommerce.com/',
+                'value' => 'connect20.magentocommerce.com/community',
                 'prompt' => '',
                 'doc' => "",
                 'possible' => '',

@@ -122,12 +122,15 @@ class Mage_Connect_Ftp
      */
     public function validateConnectionString($string)
     {
+        if (empty($string)) {
+            throw new Exception("Connection string is empty");
+        }
         $data = @parse_url($string);
         if(false === $data) {
             throw new Exception("Connection string invalid: '{$string}'");
         }
         if($data['scheme'] != 'ftp') {
-            throw new Exception("Support for scheme unsupported: '{$data['scheme']}'");
+            throw new Exception("Support for scheme '{$data['scheme']}' unsupported");
         }
         return $data;
     }

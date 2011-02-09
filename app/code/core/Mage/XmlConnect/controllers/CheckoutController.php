@@ -294,7 +294,7 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
             $result['error'] = $e->getMessage();
         } catch (Exception $e) {
             Mage::logException($e);
-            $result['error'] = $this->__('Unable to set payment method.');
+            $result['error'] = $e->getMessage();
         }
         $this->_message($result['error'], self::MESSAGE_STATUS_ERROR);
     }

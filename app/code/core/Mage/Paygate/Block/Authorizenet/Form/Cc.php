@@ -130,14 +130,22 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
     public function getPartialAuthorizationFormMessage()
     {
         $lastActionState = $this->getMethod()->getPartialAuthorizationLastActionState();
-        if ($lastActionState == Mage_Paygate_Model_Authorizenet::PARTIAL_AUTH_ALL_CANCELED) {
-            $this->getMethod()->unsetPartialAuthorizationLastActionState();
-            return Mage::helper('paygate')->__('Your payment has been cancelled. All authorized amounts have been released.');
-        } elseif ($lastActionState == Mage_Paygate_Model_Authorizenet::PARTIAL_AUTH_CARDS_LIMIT_EXCEEDED) {
-            $this->getMethod()->unsetPartialAuthorizationLastActionState();
-            return Mage::helper('paygate')->__('You have reached the maximum number of credit cards that can be used for one payment. The available amounts on all used cards were insufficient to complete payment. The payment has been cancelled and amounts on hold have been released.');
+        $message = false;
+        switch ($lastActionState) {
+            case Mage_Paygate_Model_Authorizenet::PARTIAL_AUTH_ALL_CANCELED:
+                $message = Mage::helper('paygate')->__('Your payment has been cancelled. All authorized amounts have been released.');
+                break;
+            case Mage_Paygate_Model_Authorizenet::PARTIAL_AUTH_CARDS_LIMIT_EXCEEDED:
+                $message = Mage::helper('paygate')->__('You have reached the maximum number of credit cards that can be used for one payment. The available amounts on all used cards were insufficient to complete payment. The payment has been cancelled and amounts on hold have been released.');
+                break;
+            case Mage_Paygate_Model_Authorizenet::PARTIAL_AUTH_DATA_CHANGED:
+                $message = Mage::helper('paygate')->__('Your order has not been placed, because contents of the shopping cart and/or address has been changed. Authorized amounts from your previous payment that were left pending are now released. Please go through the checkout process for your recent cart contents.');
+                break;
         }
-        return false;;
+        if ($message) {
+            $this->getMethod()->unsetPartialAuthorizationLastActionState();
+        }
+        return $message;
     }
 
     /**

@@ -169,8 +169,13 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                 $inclTax        = $taxInfoItem['incl_tax'];
                 $qty            = $taxInfoItem['qty'];
 
-                $hiddenTax      = $this->_deltaRound($hiddenTax, $rateKey, $inclTax);
-                $baseHiddenTax  = $this->_deltaRound($baseHiddenTax, $rateKey, $inclTax, 'base');
+                if ($this->_config->getAlgorithm($this->_store) == Mage_Tax_Model_Calculation::CALC_TOTAL_BASE) {
+                    $hiddenTax      = $this->_deltaRound($hiddenTax, $rateKey, $inclTax);
+                    $baseHiddenTax  = $this->_deltaRound($baseHiddenTax, $rateKey, $inclTax, 'base');
+                } else {
+                    $hiddenTax      = $this->_calculator->round($hiddenTax);
+                    $baseHiddenTax  = $this->_calculator->round($baseHiddenTax);
+                }
 
                 $item->setHiddenTaxAmount(max(0, $qty * $hiddenTax));
                 $item->setBaseHiddenTaxAmount(max(0, $qty * $baseHiddenTax));
@@ -511,10 +516,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
 
         foreach ($taxGroups as $rateKey => $data) {
             $rate = (float) $rateKey;
-            $totalTax = $this->_calculator->calcTaxAmount(array_sum($data['totals']), $rate, $inclTax, false);
-            $baseTotalTax = $this->_calculator->calcTaxAmount(array_sum($data['base_totals']), $rate, $inclTax, false);
-            $this->_addAmount($this->_deltaRound($totalTax, $rate, $inclTax));
-            $this->_addBaseAmount($this->_deltaRound($baseTotalTax, $rate, $inclTax));
+            $totalTax = $this->_calculator->calcTaxAmount(array_sum($data['totals']), $rate, $inclTax);
+            $baseTotalTax = $this->_calculator->calcTaxAmount(array_sum($data['base_totals']), $rate, $inclTax);
+            $this->_addAmount($totalTax);
+            $this->_addBaseAmount($baseTotalTax);
             $this->_saveAppliedTaxes($address, $data['applied_rates'], $totalTax, $baseTotalTax, $rate);
         }
         return $this;

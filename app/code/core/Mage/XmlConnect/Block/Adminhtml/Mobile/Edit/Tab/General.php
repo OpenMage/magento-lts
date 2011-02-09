@@ -34,7 +34,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_General extends Mage_Admin
      */
     protected function _prepareForm()
     {
-        $model = Mage::registry('current_app');
+        $model = Mage::helper('xmlconnect')->getApplication();
 
         $form = new Varien_Data_Form();
         $form->setHtmlIdPrefix('app_');
