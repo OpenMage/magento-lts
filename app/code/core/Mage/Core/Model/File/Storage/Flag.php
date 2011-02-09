@@ -34,13 +34,27 @@
  */
 class Mage_Core_Model_File_Storage_Flag extends Mage_Core_Model_Flag
 {
+    /**
+     * There was no synchronization
+     */
     const STATE_INACTIVE    = 0;
+    /**
+     * Synchronize process is active
+     */
     const STATE_RUNNING     = 1;
+    /**
+     * Synchronization finished
+     */
+    const STATE_FINISHED    = 2;
+    /**
+     * Synchronization finished and notify message was formed
+     */
+    const STATE_NOTIFIED    = 3;
 
     /**
      * Flag time to life in seconds
      */
-    const FLAG_TTL  = 300;
+    const FLAG_TTL          = 300;
 
     /**
      * Synchronize flag code

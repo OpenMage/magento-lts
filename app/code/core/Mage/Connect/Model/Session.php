@@ -53,18 +53,34 @@ class Mage_Connect_Model_Session extends Mage_Core_Model_Session_Abstract
     {
         $data = $this->getData('custom_extension_package_form_data');
         /* convert Maintainers to Authors */
-        if (!isset($data['authors']) || count($data['authors'])==0) {
+        if (!isset($data['authors']) || count($data['authors']) == 0) {
             if (isset($data['maintainers'])) {
-                foreach ($data['maintainers']['name'] as $i=>$name) {
-                    /*if (0===$i) {
+                $data['authors']['name'] = array();
+                $data['authors']['user'] = array();
+                $data['authors']['email'] = array();
+                foreach ($data['maintainers']['name'] as $i => $name) {
+                    if (!$data['maintainers']['name'][$i] && !$data['maintainers']['handle'][$i] && !$data['maintainers']['email'][$i]) {
                         continue;
-                    }*/
-                    $data['authors']['name'][$i] = $data['maintainers']['name'][$i];
-                    $data['authors']['user'][$i] = $data['maintainers']['handle'][$i];
-                    $data['authors']['email'][$i] = $data['maintainers']['email'][$i];
+                    }
+                    array_push($data['authors']['name'], $data['maintainers']['name'][$i]);
+                    array_push($data['authors']['user'], $data['maintainers']['handle'][$i]);
+                    array_push($data['authors']['email'], $data['maintainers']['email'][$i]);
+                }
+                // Convert channel from previous version for entire package
+                if (isset($data['channel'])) {
+                    $data['channel'] = Mage::helper('connect')->convertChannelFromV1x($data['channel']);
+                }
+                // Convert channel from previous version for each required package
+                $nRequiredPackages = count($data['depends']['package']['channel']);
+                for ($i = 0; $i < $nRequiredPackages; $i++) {
+                    $channel = $data['depends']['package']['channel'][$i];
+                    if ($channel) {
+                        $data['depends']['package']['channel'][$i] = Mage::helper('connect')->convertChannelFromV1x($channel);
+                    }
                 }
             }
         }
+
         /* convert Release version to Version */
         if (!isset($data['version'])) {
             if (isset($data['release_version'])) {

@@ -41,11 +41,20 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
     protected $_currentStorage = null;
 
     /**
+     * List of internal storages
+     *
+     * @var array
+     */
+    protected $_internalStorageList = array(
+        Mage_Core_Model_File_Storage::STORAGE_MEDIA_FILE_SYSTEM
+    );
+
+    /**
      * Return saved storage code
      *
      * @return int
      */
-    public function getCurrentStorage()
+    public function getCurrentStorageCode()
     {
         if (is_null($this->_currentStorage)) {
             $this->_currentStorage = (int) Mage::app()
@@ -73,9 +82,9 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
      */
     public function isInternalStorage($storage = null)
     {
-        $storage = ($storage) ? (int) $storage : $this->getCurrentStorage();
+        $storage = (!is_null($storage)) ? (int) $storage : $this->getCurrentStorageCode();
 
-        return $storage == Mage_Core_Model_File_Storage::STORAGE_MEDIA_FILE_SYSTEM;
+        return in_array($storage, $this->_internalStorageList);
     }
 
     /**

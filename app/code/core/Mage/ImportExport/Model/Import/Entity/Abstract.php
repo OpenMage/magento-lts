@@ -23,7 +23,7 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Import entity abstract model
  *
@@ -34,9 +34,18 @@
 abstract class Mage_ImportExport_Model_Import_Entity_Abstract
 {
     /**
+     * Database constants
+     *
+     */
+    const DB_MAX_PACKET_COEFFICIENT = 900000;
+    const DB_MAX_PACKET_DATA        = 1048576;
+    const DB_MAX_VARCHAR_LENGTH     = 256;
+    const DB_MAX_TEXT_LENGTH        = 65536;
+
+    /**
      * DB connection.
      *
-     * @var Varien_Db_Adapter_Pdo_Mysql
+     * @var Varien_Adapter_Pdo_Mysql
      */
     protected $_connection;
 
@@ -240,14 +249,16 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      */
     protected function _saveValidatedBunches()
     {
-        $coefficient     = 900000 / 1048576; // real-size to DB packet size coefficient
-        $maxPacketData   = $this->_connection->fetchRow('SHOW VARIABLES LIKE "max_allowed_packet"');
-        $maxPacket       = (empty($maxPacketData['Value']) ? 1048576 : $maxPacketData['Value']) * $coefficient;
         $source          = $this->_getSource();
         $productDataSize = 0;
         $bunchRows       = array();
         $startNewBunch   = false;
         $nextRowBackup   = array();
+        $maxPacketData   = $this->_connection->fetchRow('SHOW VARIABLES LIKE "max_allowed_packet"');
+        $maxPacket       = empty($maxPacketData['Value']) ? self::DB_MAX_PACKET_DATA : $maxPacketData['Value'];
+        // real-size to DB packet size coefficient
+        $coefficient     = self::DB_MAX_PACKET_COEFFICIENT / self::DB_MAX_PACKET_DATA;
+        $maxPacket       = $coefficient * $maxPacket;
 
         $source->rewind();
         $this->_dataSourceModel->cleanBunches();
@@ -341,7 +352,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
 
             try {
                 foreach ($attribute->getSource()->getAllOptions(false) as $option) {
-                    foreach (is_array($option['value']) ? $option['value'] : array($option) as $innerOption) {
+                    $value = is_array($option['value']) ? $option['value'] : array($option);
+                    foreach ($value as $innerOption) {
                         if (strlen($innerOption['value'])) { // skip ' -- Please Select -- ' option
                             $options[strtolower($innerOption[$index])] = $innerOption['value'];
                         }
@@ -403,7 +415,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 $errorCode = $translator->__($this->_messageTemplates[$errorCode]);
             }
             foreach ($errorRows as $errorRowData) {
-                $messages[$errorRowData[1] ? sprintf($errorCode, $errorRowData[1]) : $errorCode][] = $errorRowData[0];
+                $key = $errorRowData[1] ? sprintf($errorCode, $errorRowData[1]) : $errorCode;
+                $messages[$key][] = $errorRowData[0];
             }
         }
         return $messages;
@@ -535,7 +548,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
         switch ($attrParams['type']) {
             case 'varchar':
                 $val   = Mage::helper('core/string')->cleanString($rowData[$attrCode]);
-                $valid = Mage::helper('core/string')->strlen($val) < 256;
+                $valid = Mage::helper('core/string')->strlen($val) < self::DB_MAX_VARCHAR_LENGTH;
                 break;
             case 'decimal':
                 $val   = trim($rowData[$attrCode]);
@@ -550,12 +563,12 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 break;
             case 'datetime':
                 $val   = trim($rowData[$attrCode]);
-                $valid = strtotime($val)  
+                $valid = strtotime($val)
                          || preg_match('/^\d{2}.\d{2}.\d{2,4}(?:\s+\d{1,2}.\d{1,2}(?:.\d{1,2})?)?$/', $val);
                 break;
             case 'text':
                 $val   = Mage::helper('core/string')->cleanString($rowData[$attrCode]);
-                $valid = Mage::helper('core/string')->strlen($val) < 65536;
+                $valid = Mage::helper('core/string')->strlen($val) < self::DB_MAX_TEXT_LENGTH;
                 break;
             default:
                 $valid = true;
@@ -647,7 +660,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
             // does all permanent columns exists?
             if (($colsAbsent = array_diff($this->_permanentAttributes, $this->_getSource()->getColNames()))) {
                 Mage::throwException(
-                    Mage::helper('importexport')->__('Can not find required columns: ') . implode(', ', $colsAbsent)
+                    Mage::helper('importexport')->__('Can not find required columns: %s', implode(', ', $colsAbsent))
                 );
             }
 

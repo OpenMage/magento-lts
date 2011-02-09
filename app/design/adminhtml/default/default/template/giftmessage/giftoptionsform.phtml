@@ -25,17 +25,15 @@
  */
 ?>
 
+<?php if ($this->canDisplayGiftmessageForm()): ?>
 <div id="gift_options_giftmessage">
     <div class="giftcard-form">
         <div class="giftcard-send-form">
-            <h4><?php echo Mage::helper('sales')->__('Gift Message'); ?></h4>
+            <h4><?php echo Mage::helper('giftmessage')->__('Gift Message'); ?></h4>
             <ul class="form-list">
-                <li class="fields no-display">
-                    <input type="hidden" name="current_item_giftmessage_type" id="current_item_giftmessage_type" />
-                </li>
                 <li class="fields">
                     <div class="field">
-                        <label for="current_item_giftmessage_sender"><?php echo Mage::helper('sales')->__('From'); ?></label>
+                        <label for="current_item_giftmessage_sender"><?php echo Mage::helper('giftmessage')->__('From'); ?></label>
                         <div class="input-box">
                             <input type="text" class="input-text" name="current_item_giftmessage_sender" id="current_item_giftmessage_sender" />
                         </div>
@@ -43,7 +41,7 @@
                 </li>
                 <li class="fields">
                     <div class="field">
-                        <label for="current_item_giftmessage_recipient"><?php echo Mage::helper('sales')->__('To'); ?></label>
+                        <label for="current_item_giftmessage_recipient"><?php echo Mage::helper('giftmessage')->__('To'); ?></label>
                         <div class="input-box">
                             <input type="text" class="input-text" name="current_item_giftmessage_recipient" id="current_item_giftmessage_recipient" />
                         </div>
@@ -51,7 +49,7 @@
                 </li>
                 <li class="fields">
                     <div class="field">
-                        <label for="current_item_giftmessage_message"><?php echo Mage::helper('sales')->__('Message'); ?></label>
+                        <label for="current_item_giftmessage_message"><?php echo Mage::helper('giftmessage')->__('Message'); ?></label>
                         <div class="input-box">
                             <textarea class="textarea" onchange="giftMessagesController.toogleRequired('current_item_giftmessage_message', ['current_item_giftmessage_sender', 'current_item_giftmessage_recipient']);" cols="15" rows="2" name="current_item_giftmessage_message" id="current_item_giftmessage_message"></textarea>
                         </div>
@@ -61,3 +59,44 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+//<![CDATA[
+var giftMessageSet = {
+    destPrefix : 'current_item_giftmessage_',
+    sourcePrefix : 'giftmessage_',
+    fields : ['sender', 'recipient', 'message'],
+    init : function() {
+        $$('.action-link').each(function (el) {
+            Event.observe(el, 'click', this.setData.bind(this));
+        }, this);
+    },
+    setData : function(event){
+        var element = Event.element(event).id;
+        this.id = element.sub('gift_options_link_','');
+        this.fields.each(function(el) {
+            if ($(this.sourcePrefix + this.id + '_' + el) && $(this.destPrefix + el)) {
+                $(this.destPrefix + el).value = $(this.sourcePrefix + this.id + '_' + el).value
+            }
+        }, this);
+        Event.observe('gift_options_ok_button', 'click', this.saveData.bind(this));
+        Event.stop(event);
+    },
+    saveData : function(event){
+        this.fields.each(function(el) {
+            if ($(this.sourcePrefix + this.id + '_' + el) && $(this.destPrefix + el)) {
+                $(this.sourcePrefix + this.id + '_' + el).value = $(this.destPrefix + el).value;
+            }
+        }, this);
+        if ($(this.sourcePrefix + this.id + '_form')) {
+            $(this.sourcePrefix + this.id + '_form').request();
+        } else {
+            var data = order.serializeData('gift_options_data_' + this.id);
+            order.loadArea(['items'], true, data.toObject());
+        }
+    }
+};
+giftMessageSet.init();
+//]]>
+</script>
+<?php endif; ?>

@@ -243,6 +243,19 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Loading quote by identifier
+     *
+     * @param int $quoteId
+     * @return Mage_Sales_Model_Quote
+     */
+    public function loadByIdWithoutStore($quoteId)
+    {
+        $this->_getResource()->loadByIdWithoutStore($this, $quoteId);
+        $this->_afterLoad();
+        return $this;
+    }
+    
+    /**
      * Assign customer model object data to quote
      *
      * @param   Mage_Customer_Model_Customer $customer
@@ -833,11 +846,25 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Updates quote item with new configuration
      *
-     * @param   int $itemId
-     * @param   Varien_Object $buyRequest
-     * @return  Mage_Sales_Model_Quote_Item
+     * $params sets how current item configuration must be taken into account and additional options.
+     * It's passed to Mage_Catalog_Helper_Product->addParamsToBuyRequest() to compose resulting buyRequest.
+     *
+     * Basically it can hold
+     * - 'current_config', Varien_Object or array - current buyRequest that configures product in this item,
+     *   used to restore currently attached files
+     * - 'files_prefix': string[a-z0-9_] - prefix that was added at frontend to names of file options (file inputs), so they won't
+     *   intersect with other submitted options
+     *
+     * For more options see Mage_Catalog_Helper_Product->addParamsToBuyRequest()
+     *
+     * @param int $itemId
+     * @param Varien_Object $buyRequest
+     * @param null|array|Varien_Object $params
+     * @return Mage_Sales_Model_Quote_Item
+     *
+     * @see Mage_Catalog_Helper_Product::addParamsToBuyRequest()
      */
-    public function updateItem($itemId, $buyRequest)
+    public function updateItem($itemId, $buyRequest, $params = null)
     {
         $item = $this->getItemById($itemId);
         if (!$item) {
@@ -850,6 +877,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $product = Mage::getModel('catalog/product')
             ->setStoreId($this->getStore()->getId())
             ->load($productId);
+
+        if (!$params) {
+            $params = new Varien_Object();
+        } else if (is_array($params)) {
+            $params = new Varien_Object($params);
+        }
+        $params->setCurrentConfig($item->getBuyRequest());
+        $buyRequest = Mage::helper('catalog/product')->addParamsToBuyRequest($buyRequest, $params);
 
         $resultItem = $this->addProduct($product, $buyRequest);
 

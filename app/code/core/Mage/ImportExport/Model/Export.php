@@ -23,7 +23,7 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Export model
  *
@@ -79,11 +79,14 @@ class Mage_ImportExport_Model_Export extends Varien_Object
                 try {
                     $this->_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
                 } catch (Exception $e) {
-                    Mage::throwException(Mage::getIsDeveloperMode() ? $e : 'Invalid entity model');
+                    Mage::logException($e);
+                    Mage::throwException(
+                        Mage::helper('importexport')->__('Invalid entity model')
+                    );
                 }
                 if (! $this->_entityAdapter instanceof Mage_ImportExport_Model_Export_Entity_Abstract) {
                     Mage::throwException(
-                        'Entity adapter obejct must be an instance of Mage_ImportExport_Model_Export_Entity_Abstract'
+                        Mage::helper('importexport')->__('Entity adapter obejct must be an instance of Mage_ImportExport_Model_Export_Entity_Abstract')
                     );
                 }
             } else {
@@ -103,7 +106,7 @@ class Mage_ImportExport_Model_Export extends Varien_Object
     /**
      * Get writer object.
      *
-     * @throws Exception
+     * @throws Mage_Core_Exception
      * @return Mage_ImportExport_Model_Export_Adapter_Abstract
      */
     protected function _getWriter()
@@ -115,12 +118,15 @@ class Mage_ImportExport_Model_Export extends Varien_Object
                 try {
                     $this->_writer = Mage::getModel($validWriters[$this->getFileFormat()]['model']);
                 } catch (Exception $e) {
-                    Mage::throwException(Mage::getIsDeveloperMode() ? $e : 'Invalid entity model');
+                    Mage::logException($e);
+                    Mage::throwException(
+                        Mage::helper('importexport')->__('Invalid entity model')
+                    );
                 }
                 if (! $this->_writer instanceof Mage_ImportExport_Model_Export_Adapter_Abstract) {
-                    Mage::throwException(Mage::helper('importexport')->__(
-                        'Adapter object must be an instance of Mage_ImportExport_Model_Export_Adapter_Abstract'
-                    ));
+                    Mage::throwException(
+                        Mage::helper('importexport')->__('Adapter object must be an instance of %s', 'Mage_ImportExport_Model_Export_Adapter_Abstract')
+                    );
                 }
             } else {
                 Mage::throwException(Mage::helper('importexport')->__('Invalid file format'));
@@ -142,7 +148,9 @@ class Mage_ImportExport_Model_Export extends Varien_Object
                 ->setWriter($this->_getWriter())
                 ->export();
         } else {
-            Mage::throwException(Mage::helper('importexport')->__('No filter data provided'));
+            Mage::throwException(
+                Mage::helper('importexport')->__('No filter data provided')
+            );
         }
     }
 
@@ -169,8 +177,8 @@ class Mage_ImportExport_Model_Export extends Varien_Object
     {
         if ($attribute->usesSource() || $attribute->getFilterOptions()) {
             return self::FILTER_TYPE_SELECT;
-        } elseif ($attribute->isStatic() 
-                  || 'varchar' == $attribute->getBackendType() 
+        } elseif ($attribute->isStatic()
+                  || 'varchar' == $attribute->getBackendType()
                   || 'text' == $attribute->getBackendType()
         ) {
             return self::FILTER_TYPE_INPUT;
@@ -179,7 +187,9 @@ class Mage_ImportExport_Model_Export extends Varien_Object
         } elseif ('decimal' == $attribute->getBackendType() || 'int' == $attribute->getBackendType()) {
             return self::FILTER_TYPE_NUMBER;
         } else {
-            Mage::throwException(Mage::helper('importexport')->__('Can not determine attribute filter type'));
+            Mage::throwException(
+                Mage::helper('importexport')->__('Can not determine attribute filter type')
+            );
         }
     }
 

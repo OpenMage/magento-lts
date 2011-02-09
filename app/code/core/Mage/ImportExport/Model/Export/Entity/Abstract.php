@@ -23,7 +23,7 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Export entity abstract model
  *
@@ -39,6 +39,14 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      * @var array
      */
     protected $_attributeValues = array();
+
+
+    /**
+     * Attribute code to its values. Only attributes with options and only default store values used.
+     *
+     * @var array
+     */
+    protected $attrCodes = null;
 
     /**
      * DB connection.
@@ -158,15 +166,28 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     }
 
     /**
-     * Get attributes' codes which are appropriate for export.
+     * Initialize stores hash.
+     *
+     * @return Mage_ImportExport_Model_Export_Entity_Abstract
+     */
+    protected function _initStores()
+    {
+        foreach (Mage::app()->getStores(true) as $store) {
+            $this->_storeIdToCode[$store->getId()] = $store->getCode();
+        }
+        ksort($this->_storeIdToCode); // to ensure that 'admin' store (ID is zero) goes first
+
+        return $this;
+    }
+
+    /**
+     * Get attributes codes which are appropriate for export.
      *
      * @return array
      */
     protected function _getExportAttrCodes()
     {
-        static $attrCodes = null;
-
-        if (null === $attrCodes) {
+        if (null === self::$attrCodes) {
             if (!empty($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP])
                     && is_array($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP])) {
                 $skipAttr = array_flip($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP]);
@@ -181,8 +202,9 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                     $attrCodes[] = $attribute->getAttributeCode();
                 }
             }
+            self::$attrCodes = $attrCodes;
         }
-        return $attrCodes;
+        return self::$attrCodes;
     }
 
     /**
@@ -246,10 +268,10 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                         $from = array_shift($exportFilter[$attrCode]);
                         $to   = array_shift($exportFilter[$attrCode]);
 
-                        if (is_scalar($from) && is_numeric($from)) {
+                        if (is_numeric($from)) {
                             $collection->addAttributeToFilter($attrCode, array('from' => $from));
                         }
-                        if (is_scalar($to) && is_numeric($to)) {
+                        if (is_numeric($to)) {
                             $collection->addAttributeToFilter($attrCode, array('to' => $to));
                         }
                     }
@@ -300,7 +322,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     abstract public function export();
 
     /**
-     * Clean up already loaded attribute collection.
+     * Clean up attribute collection.
      *
      * @param Mage_Eav_Model_Mysql4_Entity_Attribute_Collection $collection
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection

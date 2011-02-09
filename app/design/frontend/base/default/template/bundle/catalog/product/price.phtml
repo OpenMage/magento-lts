@@ -52,7 +52,7 @@ if ($_product->getPriceType() == 1) {
         <?php if ($_product->getPriceView()): ?>
             <p class="minimal-price">
                 <span class="price-label"><?php echo $this->__('As low as') ?>:</span>
-                <?php if ($this->helper('tax')->displayBothPrices()): ?>
+                <?php if ($this->displayBothPrices()): ?>
                     <span class="price-excluding-tax">
                         <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
                         <?php echo Mage::helper('core')->currency($_minimalPriceTax) ?>
@@ -102,7 +102,7 @@ if ($_product->getPriceType() == 1) {
             <?php if ($_minimalPriceTax <> $_maximalPriceTax): ?>
             <p class="price-from">
                 <span class="price-label"><?php echo $this->__('From') ?>:</span>
-                <?php if ($this->helper('tax')->displayBothPrices()): ?>
+                <?php if ($this->displayBothPrices()): ?>
                     <span class="price-excluding-tax">
                         <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
                         <?php echo Mage::helper('core')->currency($_minimalPriceTax) ?>
@@ -161,7 +161,7 @@ if ($_product->getPriceType() == 1) {
                 ?>
                 <p class="price-to">
                     <span class="price-label"><?php echo $this->__('To') ?>:</span>
-                    <?php if ($this->helper('tax')->displayBothPrices()): ?>
+                    <?php if ($this->displayBothPrices()): ?>
                         <span class="price-excluding-tax">
                             <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
                             <?php echo Mage::helper('core')->currency($_maximalPriceTax) ?>
@@ -208,7 +208,7 @@ if ($_product->getPriceType() == 1) {
                     <?php endif; ?>
                 </p>
             <?php else: ?>
-                <?php if ($this->helper('tax')->displayBothPrices()): ?>
+                <?php if ($this->displayBothPrices()): ?>
                     <span class="price-excluding-tax">
                         <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
                         <?php echo Mage::helper('core')->currency($_minimalPriceTax) ?>

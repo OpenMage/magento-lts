@@ -66,13 +66,23 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_wishlistItemCollection = null;
 
     /**
+     * Retreive customer session
+     *
+     * @return Mage_Customer_Model_Session
+     */
+    protected function _getCustomerSession()
+    {
+        return Mage::getSingleton('customer/session');
+    }
+
+    /**
      * Retrieve customer login status
      *
      * @return bool
      */
     protected function _isCustomerLogIn()
     {
-        return Mage::getSingleton('customer/session')->isLoggedIn();
+        return $this->_getCustomerSession()->isLoggedIn();
     }
 
     /**
@@ -82,7 +92,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     protected function _getCurrentCustomer()
     {
-        return Mage::getSingleton('customer/session')->getCustomer();
+        return $this->_getCustomerSession()->getCustomer();
     }
 
     /**
@@ -116,19 +126,19 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getItemCount()
     {
-        $storedDisplayType = Mage::getSingleton('customer/session')->getWishlistDisplayType();
+        $storedDisplayType = $this->_getCustomerSession()->getWishlistDisplayType();
         $currentDisplayType = Mage::getStoreConfig(self::XML_PATH_WISHLIST_LINK_USE_QTY);
 
-        $storedDisplayOutOfStockProducts = Mage::getSingleton('customer/session')->getDisplayOutOfStockProducts();
+        $storedDisplayOutOfStockProducts = $this->_getCustomerSession()->getDisplayOutOfStockProducts();
         $currentDisplayOutOfStockProducts = Mage::getStoreConfig(self::XML_PATH_CATALOGINVENTORY_SHOW_OUT_OF_STOCK);
-        if (!Mage::getSingleton('customer/session')->hasWishlistItemCount()
+        if (!$this->_getCustomerSession()->hasWishlistItemCount()
                 || ($currentDisplayType != $storedDisplayType)
-                || !Mage::getSingleton('customer/session')->hasDisplayOutOfStockProducts()
+                || $this->_getCustomerSession()->hasDisplayOutOfStockProducts()
                 || ($currentDisplayOutOfStockProducts != $storedDisplayOutOfStockProducts)) {
             $this->calculate();
         }
 
-        return Mage::getSingleton('customer/session')->getWishlistItemCount();
+        return $this->_getCustomerSession()->getWishlistItemCount();
     }
 
     /**
@@ -415,12 +425,13 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function calculate()
     {
-        $session = Mage::getSingleton('customer/session');
+        $session = $this->_getCustomerSession();
         if (!$this->_isCustomerLogIn()) {
             $count = 0;
         } else {
             if (Mage::getStoreConfig(self::XML_PATH_WISHLIST_LINK_USE_QTY)) {
                 $count = $this->getWishlistItemCollection()
+                    ->setInStockFilter(true)
                     ->getItemsQty();
             } else {
                 $count = count($this->getWishlistItemCollection()->setInStockFilter(true));

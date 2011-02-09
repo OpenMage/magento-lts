@@ -85,6 +85,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     public function getFormattedLinkPrice($link)
     {
         $price = $link->getPrice();
+        $store = $this->getProduct()->getStore();
 
         if (0 == $price) {
             return '';
@@ -102,19 +103,31 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
 
         $priceStr = '<span class="price-notice">+';
         if ($taxHelper->displayPriceIncludingTax()) {
-            $priceStr .= $coreHelper->currencyByStore($_priceInclTax, 3);
+            $priceStr .= $coreHelper->currencyByStore($_priceInclTax, $store);
         } elseif ($taxHelper->displayPriceExcludingTax()) {
-            $priceStr .= $coreHelper->currencyByStore($_priceExclTax, 3);
+            $priceStr .= $coreHelper->currencyByStore($_priceExclTax, $store);
         } elseif ($taxHelper->displayBothPrices()) {
-            $priceStr .= $coreHelper->currencyByStore($_priceExclTax, 3);
+            $priceStr .= $coreHelper->currencyByStore($_priceExclTax, $store);
             if ($_priceInclTax != $_priceExclTax) {
                 $priceStr .= ' (+'.$coreHelper
-                    ->currencyByStore($_priceInclTax, 3).' '.$this->__('Incl. Tax').')';
+                    ->currencyByStore($_priceInclTax, $store).' '.$this->__('Incl. Tax').')';
             }
         }
         $priceStr .= '</span>';
 
         return $priceStr;
+    }
+
+    /**
+     * Returns price converted to current currency rate
+     *
+     * @param float $price
+     * @return float
+     */
+    public function getCurrencyPrice($price)
+    {
+        $store = $this->getProduct()->getStore();
+        return $this->helper('core')->currencyByStore($price, $store, false);
     }
 
     /**

@@ -98,6 +98,12 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
                 $baseTotalHiddenTax         += $invoice->getBaseShippingHiddenTaxAmount()*$taxFactor;
                 $shippingHiddenTaxAmount     = $invoice->getShippingHiddenTaxAmount()*$taxFactor;
                 $baseShippingHiddenTaxAmount = $invoice->getBaseShippingHiddenTaxAmount()*$taxFactor;
+                $shippingTaxAmount           = $creditmemo->getStore()->roundPrice($shippingTaxAmount);
+                $baseShippingTaxAmount       = $creditmemo->getStore()->roundPrice($baseShippingTaxAmount);
+                $totalHiddenTax              = $creditmemo->getStore()->roundPrice($totalHiddenTax);
+                $baseTotalHiddenTax          = $creditmemo->getStore()->roundPrice($baseTotalHiddenTax);
+                $shippingHiddenTaxAmount     = $creditmemo->getStore()->roundPrice($shippingHiddenTaxAmount);
+                $baseShippingHiddenTaxAmount = $creditmemo->getStore()->roundPrice($baseShippingHiddenTaxAmount);
                 $totalTax                   += $shippingTaxAmount;
                 $baseTotalTax               += $baseShippingTaxAmount;
             }

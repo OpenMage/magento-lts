@@ -110,7 +110,7 @@ class Mage_Connect_Model_Extension extends Varien_Object
     {
         $this->getPackage()
             ->setDate(date('Y-m-d'))
-            ->setTime(date('Y-m-d'))
+            ->setTime(date('H:i:s'))
             ->setVersion($this->getData('version')?$this->getData('version'):$this->getData('release_version'))
             ->setStability($this->getData('stability'))
             ->setNotes($this->getData('notes'));
@@ -287,6 +287,24 @@ class Mage_Connect_Model_Extension extends Varien_Object
             $this->generatePackageXml();
         }
         $this->getPackage()->save($path);
+        return true;
+    }
+
+    /**
+    * Create package file compatible with previous version of Magento Connect Manager
+    *
+    * @return boolean
+    */
+    public function createPackageV1x()
+    {
+        $path = Mage::helper('connect')->getLocalPackagesPathV1x();
+        if (!Mage::getConfig()->createDirIfNotExists($path)) {
+            return false;
+        }
+        if (!$this->getPackageXml()) {
+            $this->generatePackageXml();
+        }
+        $this->getPackage()->saveV1x($path);
         return true;
     }
 

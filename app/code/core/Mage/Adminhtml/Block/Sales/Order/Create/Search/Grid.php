@@ -89,11 +89,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
 
     protected function _prepareCollection()
     {
+        $attributes = Mage::getSingleton('catalog/config')->getProductAttributes();
         $collection = Mage::getModel('catalog/product')->getCollection()
             ->setStore($this->getStore())
-            ->addAttributeToSelect('name')
+            ->addAttributeToSelect($attributes)
             ->addAttributeToSelect('sku')
-            ->addAttributeToSelect('price')
             ->addMinimalPrice()
             ->addStoreFilter()
             ->addAttributeToFilter('type_id', array_keys(
@@ -147,20 +147,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
             'sortable'  => false,
         ));
 
-        $this->addColumn('giftmessage', array(
-            'filter'    => false,
-            'sortable'  => false,
-            'header'    => Mage::helper('sales')->__('Gift'),
-            'renderer'  => 'adminhtml/sales_order_create_search_grid_renderer_giftmessage',
-            'field_name'=> 'giftmessage',
-            'inline_css'=> 'checkbox input-text',
-            'align'     => 'center',
-            'index'     => 'entity_id',
-            'values'    => $this->_getGiftmessageSaveModel()->getAllowQuoteItemsProducts(),
-            'width'     => '1',
-        ));
-
-
         $this->addColumn('qty', array(
             'filter'    => false,
             'sortable'  => false,
@@ -193,6 +179,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     /**
      * Retrieve gift message save model
      *
+     * @deprecated after 1.4.2.0
      * @return Mage_Adminhtml_Model_Giftmessage_Save
      */
     protected function _getGiftmessageSaveModel()
@@ -209,6 +196,4 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
         $this->getCollection()->addOptionsToResult();
         return parent::_afterLoadCollection();
     }
-
 }
-

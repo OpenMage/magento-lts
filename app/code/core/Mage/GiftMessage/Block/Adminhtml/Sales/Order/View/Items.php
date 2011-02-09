@@ -31,8 +31,15 @@
  * @package    Mage_GiftMessage
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Adminhtml_Block_Sales_Items_Abstract
+class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Adminhtml_Block_Template
 {
+    /**
+     * Gift message array
+     *
+     * @var array
+     */
+    protected $_giftMessage = array();
+
     /**
      * Get Order Item
      *
@@ -40,45 +47,8 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
      */
     public function getItem()
     {
-        return $this->getParentBlock()->getData('item');
+        return $this->getParentBlock()->getItem();
     }
-
-
-    /**
-     * Prepare html output
-     *
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        $_item = $this->getItem();
-        if ($_item && $this->isMessagesAvailable()) {
-            return parent::_toHtml();
-        } else {
-            return false;
-        }
-    }
-
-
-    /**
-     * Indicates that block can display giftmessages form
-     *
-     * @return boolean
-     */
-    public function isMessagesAvailable()
-    {
-        return $this->helper('giftmessage/message')->getIsMessagesAvailable(
-            'order_item', $this->getItem(), $this->getItem()->getOrder()->getStoreId()
-        );
-    }
-
-
-    /**
-     * Giftmessage object
-     *
-     * @var Mage_GiftMessage_Model_Message
-     */
-    protected $_giftMessage = array();
 
     /**
      * Retrive default value for giftmessage sender
@@ -155,7 +125,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
      */
     public function getFieldIdPrefix()
     {
-        return 'giftmessage_item_' . $this->getItem()->getId() . '_';
+        return 'giftmessage_' . $this->getItem()->getId() . '_';
     }
 
     /**
@@ -224,8 +194,36 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
      */
     public function canDisplayGiftmessage()
     {
-        return $this->helper('giftmessage/message')->getIsMessagesAvailable(
-            'order_item', $this->getItem(), $this->getItem()->getOrder()->getStoreId()
-        );
+        return $this->getItem()->getGiftMessageId();
+    }
+
+    /**
+     * Retrieve gift message sender
+     *
+     * @return string
+     */
+    public function getSender()
+    {
+        return $this->htmlEscape($this->getMessage()->getSender());
+    }
+
+    /**
+     * Retrieve gift message recipient
+     *
+     * @return string
+     */
+    public function getRecipient()
+    {
+        return $this->htmlEscape($this->getMessage()->getRecipient());
+    }
+
+    /**
+     * Retrieve gift message text
+     *
+     * @return string
+     */
+    public function getMessageText()
+    {
+        return $this->htmlEscape($this->getMessage()->getMessage());
     }
 }

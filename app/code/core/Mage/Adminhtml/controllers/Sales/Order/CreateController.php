@@ -179,11 +179,11 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         }
 
         /**
-         * Adding products to quote from special grid and
+         * Adding products to quote from special grid
          */
         if ($this->getRequest()->has('item') && !$this->getRequest()->getPost('update_items') && !($action == 'save')) {
             $items = $this->getRequest()->getPost('item');
-            $items = $this->_processFiles('create_items', $items);
+            $items = $this->_processFiles($items);
             $this->_getOrderCreateModel()->addProducts($items);
         }
 
@@ -192,24 +192,26 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
          */
         if ($this->getRequest()->getPost('update_items')) {
             $items = $this->getRequest()->getPost('item', array());
-            $items = $this->_processFiles('update_items', $items);
+            $items = $this->_processFiles($items);
             $this->_getOrderCreateModel()->updateQuoteItems($items);
         }
 
         /**
          * Remove quote item
          */
-        if ( ($itemId = (int) $this->getRequest()->getPost('remove_item'))
-             && ($from = (string) $this->getRequest()->getPost('from'))) {
-            $this->_getOrderCreateModel($itemId)->removeItem($itemId, $from);
+        $removeItemId = (int) $this->getRequest()->getPost('remove_item');
+        $removeFrom = (string) $this->getRequest()->getPost('from');
+        if ($removeItemId && $removeFrom) {
+            $this->_getOrderCreateModel()->removeItem($removeItemId, $removeFrom);
         }
 
         /**
          * Move quote item
          */
-        if ( ($itemId = (int) $this->getRequest()->getPost('move_item'))
-            && ($moveTo = (string) $this->getRequest()->getPost('to')) ) {
-            $this->_getOrderCreateModel()->moveQuoteItem($itemId, $moveTo);
+        $moveItemId = (int) $this->getRequest()->getPost('move_item');
+        $moveTo = (string) $this->getRequest()->getPost('to');
+        if ($moveItemId && $moveTo) {
+            $this->_getOrderCreateModel()->moveQuoteItem($moveItemId, $moveTo);
         }
 
         /*if ($paymentData = $this->getRequest()->getPost('payment')) {
@@ -271,28 +273,18 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * Process buyRequest file options of items
      *
-     * @param string $method
      * @param array $items
      * @return array
      */
-    protected function _processFiles ($method, $items)
+    protected function _processFiles($items)
     {
+        /* @var $productHelper Mage_Catalog_Helper_Product */
         $productHelper = Mage::helper('catalog/product');
         foreach ($items as $id => $item) {
             $buyRequest = new Varien_Object($item);
-            switch ($method) {
-                case 'create_items':
-                    $buyRequest = $productHelper->processBuyRequestFiles($buyRequest, null, $id);
-                    break;
-                case 'update_items':
-                    $quoteItem = $this->_getQuote()->getItemById($id);
-                    if ($quoteItem instanceof Mage_Sales_Model_Quote_Item) {
-                        $itemBuyRequest = $quoteItem->getBuyRequest();
-                        $buyRequest = $productHelper->processBuyRequestFiles($buyRequest, $itemBuyRequest, $id);
-                    }
-                    break;
-            }
-            if ($buyRequest instanceof Varien_Object && $buyRequest->hasData()) {
+            $params = array('files_prefix' => 'item_' . $id . '_');
+            $buyRequest = $productHelper->addParamsToBuyRequest($buyRequest, $params);
+            if ($buyRequest->hasData()) {
                 $items[$id] = $buyRequest->toArray();
             }
         }
@@ -344,6 +336,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
      */
     public function loadBlockAction()
     {
+        $request = $this->getRequest();
         try {
             $this->_initSession()
                 ->_processData();
@@ -358,8 +351,8 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         }
 
 
-        $asJson= $this->getRequest()->getParam('json');
-        $block = $this->getRequest()->getParam('block');
+        $asJson= $request->getParam('json');
+        $block = $request->getParam('block');
 
         $update = $this->getLayout()->getUpdate();
         if ($asJson) {
@@ -379,7 +372,13 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             }
         }
         $this->loadLayoutUpdates()->generateLayoutXml()->generateLayoutBlocks();
-        $this->getResponse()->setBody($this->getLayout()->getBlock('content')->toHtml());
+        $result = $this->getLayout()->getBlock('content')->toHtml();
+        if ($request->getParam('as_js_varname')) {
+            Mage::getSingleton('adminhtml/session')->setUpdateResult($result);
+            $this->_redirect('*/*/showUpdateResult');
+        } else {
+            $this->getResponse()->setBody($result);
+        }
     }
 
     /**
@@ -406,9 +405,9 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             $updateResult->setOk(true);
         }
 
-        /* @var $helper Mage_Adminhtml_Helper_Catalog_Product_Composite */
-        $helper = Mage::helper('adminhtml/catalog_product_composite');
-        $helper->renderUpdateResult($this, $updateResult);
+        $updateResult->setJsVarName($this->getRequest()->getParam('as_js_varname'));
+        Mage::getSingleton('adminhtml/session')->setCompositeProductResult($updateResult);
+        $this->_redirect('*/catalog_product/showUpdateResult');
     }
 
     /**
@@ -484,7 +483,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
      */
     protected function _isAllowed()
     {
-        $action = strtolower($this->getRequest()->getActionName()); 
+        $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
             case 'index':
                 $aclResource = 'sales/order/actions/create';
@@ -572,5 +571,23 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         $helper->renderConfigureResult($this, $configureResult);
 
         return $this;
+    }
+
+
+    /**
+     * Show item update result from loadBlockAction
+     * to prevent popup alert with resend data question
+     *
+     */
+    public function showUpdateResultAction()
+    {
+        $session = Mage::getSingleton('adminhtml/session');
+        if ($session->hasUpdateResult() && is_scalar($session->getUpdateResult())){
+            $this->getResponse()->setBody($session->getUpdateResult());
+            $session->unsUpdateResult();
+        } else {
+            $session->unsUpdateResult();
+            return false;
+        }
     }
 }

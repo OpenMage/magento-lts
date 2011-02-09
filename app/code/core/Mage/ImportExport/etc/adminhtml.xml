@@ -41,11 +41,6 @@
                             <action>adminhtml/export</action>
                             <sort_order>20</sort_order>
                         </export>
-                        <!--<faq translate="title" module="importexport">
-                            <title>Import / Export FAQ</title>
-                            <action>adminhtml/faq</action>
-                            <sort_order>30</sort_order>
-                        </faq>-->
                     </children>
                 </convert>
             </children>

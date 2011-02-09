@@ -145,6 +145,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
             $productType = null;
             Mage::register('composite_configure_result_error_message', $e->getMessage());
         }
+
         $this->_initConfigureResultLayout($controller, $isOk, $productType);
         $controller->renderLayout();
     }

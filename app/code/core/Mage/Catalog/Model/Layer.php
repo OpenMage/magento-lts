@@ -280,7 +280,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     }
 
     /**
-     * Get attribute sets idendifiers of current product set
+     * Get attribute sets identifiers of current product set
      *
      * @return array
      */

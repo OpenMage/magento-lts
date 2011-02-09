@@ -162,4 +162,16 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
         }
         return $price;
     }
+
+    /**
+     * Returns price converted to current currency rate
+     *
+     * @param float $price
+     * @return float
+     */
+    public function getCurrencyPrice($price)
+    {
+        $store = $this->getProduct()->getStore();
+        return $this->helper('core')->currencyByStore($price, $store, false);
+    }
 }

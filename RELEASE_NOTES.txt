@@ -1,3 +1,96 @@
+==== 1.5.0.0-beta1 =====
+
+=== Improvements ===
+Fixed several memory leaks in product model. Added tool method clear() to clean object data and references to this object
+Implemented Order payment action for PayPal
+Implemented SOAP Api calls for shopping cart
+
+=== Fixes ===
+Fixed Only "Library Mail" works for USPS
+Fixed The "MY WISHLIST" link always shows quantity of line items in the Wishlist and never the real quantity of items
+- fix for case when out of stock products are not shown on frontend
+Fixed Wrong behavior of Varien_Data_Collection_Db::_getConditionSql
+Fixed Incorrect shipping tax calculation on invoice creditmemos with included tax
+- Rounding of shipment taxes was added
+Fixed Impossible save empty values for store view scope
+- Remove store_id from EAV module and move all store functionality into catalog module.
+Fixed Wrong tax calculation for bundle products
+Fixed File configuration dialog is not closed when pressing 'Ok' button
+- additional fix of backend Customer functionality for IE8 to eliminate JS errors
+Fixed Product creation -> Necessary validation for SKU field
+Fixed Link "Gift Options" is not shown in Items Ordered grid of create Order page, when "Allow Gift Messages for Order Items" is set to "No"
+- considering design html at right place
+- removed useless variable from observer
+Fixed Price for composite products in a products grid on Order creation page
+Fixed Tax from orders in status pending presents in Tax Report
+Fixed Catalog Price Rule is not applied
+Fixed Incorrect tax summary for partial credit memos/invoices
+Fixed Order success page is not displayed after placing Order using Website Payments Pro Hosted Solution method
+- now, return and cancel urls can be secure (https)
+Fixed Problems with newsletter template preview on newsletter queue edit page
+Fixed Link "configure" is inactive for downloadable products in product grid on Order creation page in backend
+Fixed A system error message is missing for cases when media storage synchronization is complete or an error occurred
+- output messages for notifications edited
+Fixed Incorrect price calculation for bundle product during backend order creation(Tax is doubles in Total)
+Fixed Gift Options tab is present on product page for virtual product types
+Fixed Magento Backend performance optimization
+Fixed Gift Message for Individual Item prompt is shown in AJAX-popup, although "Allow Gift Messages for Order Items" is disabled
+Fixed Unable to change customer password when email confirmation is enabled
+Fixed Incorrect tax calculation for Tax Calculation Method Based On = Unit Price and Catalog Prices = Including Tax
+Fixed "Preferred State" for extensions is not working
+Fixed Total amount is not recounted, when customer cancels the Gift Options during OnePageCheckout
+Fixed In "Gift options" AJAX popup "OK" button written incorrectly
+Fixed No address autocomplete while admin order create with single store
+- fixes due to unnecessary AJAX calls
+Fixed Information about Gift Options is not stored, when admin user performs Edit Order action in backend
+Fixed Gift column should be removed from product grid
+Fixed SKU validation error on creating products
+Fixed Shipped order has status "Processing" if invoice has been posted with "Not Capture" and amount was later captured on paypal side.
+- considering online and offline capture amout when checking if capture is final
+- trailing white spaces removed
+Fixed Link to file from downloadable product is not available after authorize and capture payment action via Authorize.net
+- Link management observer call methods are moved to save_commit_after events (for order and its item respectively) instead of save_after events
+Fixed Price for product with file custom options in Wishlist is calculated incorrect
+- Added ability to use special price templates for displaying wishlist items (as they can be partially/fully configured and catalog price template doesn't support it)
+- Added default template, that shows configured price in addition to default clean product price
+Fixed Cross-sells products disappears after adding another products to shopping cart
+
+
+==== 1.5.x-devel-90295 ====
+
+=== Fixes ===
+Fixed Configurable Product:Associated Product tab - Rounding issue
+Fixed Wrong usage of @see tag in phpdocs
+- replaced @see into @link phpdocs in cases where the value is a link
+Fixed A system error message is missing for cases when media storage synchronization is complete or an error occurred
+Fixed Order success page is not displayed after placing Order using Website Payments Pro Hosted Solution method
+Fixed Order contains information about used card type with Payflow Link (for USA and Canada) payment using
+Fixed Product export have no Entity Attributes
+Fixed Authorize.net Directpost payment method doesn't work when secure urls in frontend are being used
+Fixed The options in the action dropdown for export are incorrectly labeled in the Sales section
+- Rename XML and MSXML to Excel XML
+Fixed Round up to 0.01 of amount with tax in cart
+Fixed Shipped order has status "Processing" if invoice has been posted with "Not Capture" and amount was later captured on paypal side.
+- Return invoice model for transaction, if it didn't return by transaction_id
+Fixed File configuration dialog is not closed when pressing 'Ok' button
+- also made better logic to disable/enable file controls, so that file is not uploaded (and just thrown away by server) when there's no need in it
+Fixed Deleting attached files do not work
+Fixed Price for composite products in a products grid on Order creation page
+- it was also fixed converting to current currency rates
+Fixed Firefox iframe issue
+Fixed Can not add product to order from backend (IE8)
+Fixed Moving product with file custom options to Wishlist works incorrect
+Fixed Displaying Out of Stock Products on the front-end
+Fixed Price for composite products in a products grid on Order creation page
+- forgot to add parent::_afterLoad(); in Mage_Bundle_Model_Mysql4_Selection_Collection::_afterLoad() method witch leads to exception
+Fixed Fix for HSS amount is sent to PayPal. But need to test includeTax/excludeTax settings.
+Fixed A system error message is missing for cases when media storage synchronization is complete or an error occurred
+- fixed ability to save storage witch last sync was made on
+- removed link "read details" for local messages at notice bar
+- messages correction
+Fixed Authorize.net Directpost payment method. Can't create capture and refund transaction
+
+
 === 1.5.0.0-alpha2 ====
 
 === Major Highlights ===

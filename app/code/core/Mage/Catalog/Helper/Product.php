@@ -345,57 +345,50 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     }
 
     /**
-     * Process buyRequest file options
-     * Set $buyRequest file options from $itemBuyRequest and $configurationItemId in some cases
+     * Process $buyRequest and sets its options before saving configuration to some product item.
+     * This method is used to attach additional parameters to processed buyRequest.
      *
-     * @param Varien_Object $buyRequest
-     * @param Varien_Object $itemBuyRequest
-     * @param int $configurationItemId
+     * $params holds parameters of what operation must be performed:
+     * - 'current_config', Varien_Object or array - current buyRequest that configures product in this item,
+     *   used to restore currently attached files
+     * - 'files_prefix': string[a-z0-9_] - prefix that was added at frontend to names of file inputs,
+     *   so they won't intersect with other submitted options
+     *
+     * @param Varien_Object|array $buyRequest
+     * @param Varien_Object|array $params
      * @return Varien_Object
      */
-    public function processBuyRequestFiles (Varien_Object $buyRequest, Varien_Object $itemBuyRequest = null,
-        $configurationItemId = null)
+    public function addParamsToBuyRequest($buyRequest, $params)
     {
-        if ($buyRequest->hasData()) {
-            $optionsFileAction = array();
-            foreach ($buyRequest->getData() as $key => $action) {
-                if ($action) {
-                    if (preg_match('/options_(\d+)_file_action/', $key, $match)) {
-                        $optionsFileAction[$action][] = $match[1];
-                    }
-                }
-            }
-            if (!empty($optionsFileAction['save_old']) && $itemBuyRequest->hasOptions()) {
-                $itemOptions = $itemBuyRequest->getOptions();
-                if (is_array($itemOptions)) {
-                    foreach ($optionsFileAction['save_old'] as $optionFileId) {
-                        if (array_key_exists($optionFileId, $itemOptions)) {
-                            $buyRequestOptions = $buyRequest->hasOptions() ? $buyRequest->getOptions() : array();
-                            $buyRequestOptions[$optionFileId] = $itemOptions[$optionFileId];
-                            if ($configurationItemId) {
-                                $buyRequestOptions[$optionFileId]['configuration_itemid'] = $configurationItemId;
-                            }
-                            $buyRequest->setOptions($buyRequestOptions);
-                            foreach ($_FILES as $key => $action) {
-                                if (sprintf('options_%s_file', $optionFileId) == $key
-                                    || sprintf('item_%s_options_%s_file', $configurationItemId, $optionFileId) == $key
-                                ) {
-                                    unset($_FILES[$key]);
-                                }
-                            }
-                        }
-                    }
-                }
-            } else if (!empty($optionsFileAction['save_new']) && $configurationItemId) {
-                foreach ($optionsFileAction['save_new'] as $optionFileId){
-                    $buyRequestOptions = $buyRequest->hasOptions() ? $buyRequest->getOptions() : array();
-                    $buyRequestOptions[$optionFileId]['configuration_itemid'] = $configurationItemId;
-                    $buyRequest->setOptions($buyRequestOptions);
-                }
+        if (is_array($buyRequest)) {
+            $buyRequest = new Varien_Object($buyRequest);
+        }
+        if (is_array($params)) {
+            $params = new Varien_Object($params);
+        }
+
+
+        // Ensure that currentConfig goes as Varien_Object - for easier work with it later
+        $currentConfig = $params->getCurrentConfig();
+        if ($currentConfig) {
+            if (is_array($currentConfig)) {
+                $params->setCurrentConfig(new Varien_Object($currentConfig));
+            } else if (!($currentConfig instanceof Varien_Object)) {
+                $params->unsCurrentConfig();
             }
         }
 
+        /*
+         * Notice that '_processing_params' must always be object to protect processing forged requests
+         * where '_processing_params' comes in $buyRequest as array from user input
+         */
+        $processingParams = $buyRequest->getData('_processing_params');
+        if (!$processingParams || !($processingParams instanceof Varien_Object)) {
+            $processingParams = new Varien_Object();
+            $buyRequest->setData('_processing_params', $processingParams);
+        }
+        $processingParams->addData($params->getData());
+
         return $buyRequest;
     }
-
 }

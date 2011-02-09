@@ -27,7 +27,7 @@
 <?php $_item = $this->getItem() ?>
 <?php $this->setPriceDataObject($_item) ?>
 <tr<?php if (!$this->canDisplayGiftmessage()): ?> class="border"<?php endif; ?>>
-    <td class="giftmessage-single-item">
+    <td>
         <?php if ($this->canDisplayContainer()): ?>
         <div id="<?php echo $this->getHtmlId() ?>" class="item-container">
         <?php endif; ?>

@@ -30,7 +30,7 @@
         <resources>
             <cart translate="title" module="checkout">
                 <model>checkout/cart_api</model>
-                <title>Cart Api</title>
+                <title>Shopping Cart</title>
                 <acl>cart</acl>
                 <methods>
                     <create translate="title" module="checkout">
@@ -38,19 +38,276 @@
                         <method>create</method>
                         <acl>cart/create</acl>
                     </create>
+                    <order translate="title" module="checkout">
+                        <title>Create an order from shopping cart</title>
+                        <method>createOrder</method>
+                        <acl>cart/order</acl>
+                    </order>
+                    <info translate="title" module="checkout">
+                        <title>Retrieve information about shopping cart</title>
+                        <method>info</method>
+                        <acl>cart/info</acl>
+                    </info>
+                    <totals translate="title" module="checkout">
+                        <title>Get total prices for shopping cart</title>
+                        <method>totals</method>
+                        <acl>cart/totals</acl>
+                    </totals>
+                    <license translate="title" module="checkout">
+                        <title>Get terms and conditions</title>
+                        <method>licenseAgreement</method>
+                        <acl>cart/license</acl>
+                    </license>
                 </methods>
                 <faults module="checkout">
+                    <store_not_exists>
+                        <code>1001</code>
+                        <message>Can not make operation because store is not exists</message>
+                    </store_not_exists>
+                    <quote_not_exists>
+                        <code>1002</code>
+                        <message>Can not make operation because quote is not exists</message>
+                    </quote_not_exists>
                     <quote_create_fault>
-                        <code>100</code>
-                        <message>Can not create new quote for</message>
+                        <code>1003</code>
+                        <message>Can not create a quote</message>
                     </quote_create_fault>
+                    <quote_already_exists>
+                        <code>1004</code>
+                        <message>Can not create a quote because quote with such identifier is already exists</message>
+                    </quote_already_exists>
                 </faults>
             </cart>
+            <cart_product translate="title" module="checkout">
+                <model>checkout/cart_product_api</model>
+                <title>Cart Product Api</title>
+                <acl>cart/product</acl>
+                <methods>
+                    <add translate="title" module="checkout">
+                        <title>Add product to shopping cart</title>
+                        <method>add</method>
+                        <acl>cart/product/add</acl>
+                    </add>
+                    <update translate="title" module="checkout">
+                        <title>Update product quantities in shopping cart</title>
+                        <method>update</method>
+                        <acl>cart/product/update</acl>
+                    </update>
+                    <remove translate="title" module="checkout">
+                        <title>Remove product from shopping cart</title>
+                        <method>remove</method>
+                        <acl>cart/product/remove</acl>
+                    </remove>
+                    <list translate="title" module="checkout">
+                        <title>Get list of products in shopping cart</title>
+                        <method>items</method>
+                        <acl>cart/product/list</acl>
+                    </list>
+                    <moveToCustomerQuote>
+                        <title>Move product(s) to customer quote</title>
+                        <method>moveToCustomerQuote</method>
+                        <acl>cart/product/moveToCustomerQuote</acl>
+                    </moveToCustomerQuote>
+                </methods>
+                <faults module="checkout">
+                    <add_product_fault>
+                        <code>1011</code>
+                        <message>Error occurred during adding product in cart:</message>
+                    </add_product_fault>
+                    <add_product_fault>
+                        <code>1011</code>
+                        <message>Error occurred during adding product in cart:</message>
+                    </add_product_fault>
+                </faults>
+            </cart_product>
+            <cart_customer translate="title" module="checkout">
+                <model>checkout/cart_customer_api</model>
+                <title>Customer Information</title>
+                <acl>cart/customer</acl>
+                <methods>
+                    <set translate="title" module="checkout">
+                        <title>Set customer for shopping cart</title>
+                        <method>set</method>
+                        <acl>cart/customer/set</acl>
+                    </set>
+                    <addresses translate="title" module="checkout">
+                        <title>Set customer's addresses in shopping cart</title>
+                        <method>setAddresses</method>
+                        <acl>cart/customer/addresses</acl>
+                    </addresses>
+                </methods>
+                <faults module="checkout">
+                    <customer_not_set>
+                        <code>1101</code>
+                        <message>Customer not set</message>
+                    </customer_not_set>
+                    <customer_not_exists>
+                        <code>1102</code>
+                        <message>customer_not_exists</message>
+                    </customer_not_exists>
+                    <customer_not_created>
+                        <code>1103</code>
+                        <message>customer_not_created</message>
+                    </customer_not_created>
+                    <customer_data_invalid>
+                        <code>1104</code>
+                        <message>customer_data_invalid</message>
+                    </customer_data_invalid>
+                    <customer_address_data_invalid>
+                        <code>1151</code>
+                        <message>customer_address_data_invalid</message>
+                    </customer_address_data_invalid>
+                    <customer_address_invalid>
+                        <code>1152</code>
+                        <message>customer_address_invalid</message>
+                    </customer_address_invalid>
+                    <invalid_address_data>
+                        <code>1153</code>
+                        <message>invalid_address_data</message>
+                    </invalid_address_data>
+                    <address_is_not_set>
+                        <code>1154</code>
+                        <message>address_is_not_set</message>
+                    </address_is_not_set>
+                </faults>
+            </cart_customer>
+            <cart_shipping translate="title" module="checkout">
+                <model>checkout/cart_shipping_api</model>
+                <title>Shipping information</title>
+                <acl>cart/shipping</acl>
+                <methods>
+                    <method translate="title" module="checkout">
+                        <title>Set shipping method</title>
+                        <method>setShippingMethod</method>
+                        <acl>cart/shipping/method</acl>
+                    </method>
+                    <list translate="title" module="checkout">
+                        <title>Get list of available shipping methods</title>
+                        <method>getShippingMethodsList</method>
+                        <acl>cart/shipping/list</acl>
+                    </list>
+                </methods>
+            </cart_shipping>
+            <cart_payment translate="title" module="checkout">
+                <model>checkout/cart_payment_api</model>
+                <title>Payment method information</title>
+                <acl>cart/payment</acl>
+                <methods>
+                    <method translate="title" module="checkout">
+                        <title>Set payment method</title>
+                        <method>setPaymentMethod</method>
+                        <acl>cart/payment/method</acl>
+                    </method>
+                    <list translate="title" module="checkout">
+                        <title>Get list of available payment methods</title>
+                        <method>getPaymentMethodsList</method>
+                        <acl>cart/payment/list</acl>
+                    </list>
+                </methods>
+            </cart_payment>
+            <cart_coupon translate="title" module="checkout">
+                <model>checkout/cart_coupon_api</model>
+                <title>Shopping cart ability to set coupon code</title>
+                <acl>cart/coupon</acl>
+                <methods>
+                    <add translate="title" module="checkout">
+                        <title>Add coupon code for shopping cart</title>
+                        <method>add</method>
+                        <acl>cart/coupon/add</acl>
+                    </add>
+                    <remove translate="title" module="checkout">
+                        <title>Remove coupon code from shopping cart</title>
+                        <method>remove</method>
+                        <acl>cart/coupon/remove</acl>
+                    </remove>
+                </methods>
+            </cart_coupon>
         </resources>
+        <acl>
+            <resources>
+                <cart translate="title" module="checkout">
+                    <title>Shopping Cart</title>
+                    <create translate="title" module="checkout">
+                        <title>Create shopping cart</title>
+                    </create>
+                    <order translate="title" module="checkout">
+                        <title>Create an order from shopping cart</title>
+                    </order>
+                    <info translate="title" module="checkout">
+                        <title>Retrieve information about shopping cart</title>
+                    </info>
+                    <totals translate="title" module="checkout">
+                        <title>Get total prices for shopping cart</title>
+                    </totals>
+                    <license translate="title" module="checkout">
+                        <title>Get terms and conditions</title>
+                    </license>
+                    <product translate="title" module="checkout">
+                        <title>Products</title>
+                        <add translate="title" module="checkout">
+                            <title>Add product(s) to shopping cart</title>
+                        </add>
+                        <update translate="title" module="checkout">
+                            <title>Update product(s) quantities in shopping cart</title>
+                        </update>
+                        <remove translate="title" module="checkout">
+                            <title>Remove product(s) from shopping cart</title>
+                        </remove>
+                        <list translate="title" module="checkout">
+                            <title>Get list of products in shopping cart</title>
+                        </list>
+                        <moveToCustomerQuote>
+                            <title>Move product(s) to customer quote</title>
+                        </moveToCustomerQuote>
+                    </product>
+                    <customer translate="title" module="checkout">
+                        <title>Customer's information</title>
+                        <set translate="title" module="checkout">
+                           <title>Set customer for shopping cart</title>
+                        </set>
+                        <addresses translate="title" module="checkout">
+                            <title>Set customer's addresses in shopping cart</title>
+                        </addresses>
+                    </customer>
+                    <shipping translate="title" module="checkout">
+                        <title>Shipping methods in shopping cart</title>
+                        <method translate="title" module="checkout">
+                            <title>Set shipping method</title>
+                        </method>
+                        <list translate="title" module="checkout">
+                            <title>Get list of available shipping methods</title>
+                        </list>
+                    </shipping>
+                    <payment translate="title" module="checkout">
+                        <title>Payment methods in shopping cart</title>
+                        <method translate="title" module="checkout">
+                            <title>Set payment method</title>
+                        </method>
+                        <list translate="title" module="checkout">
+                            <title>Get list of available payment methods</title>
+                        </list>
+                    </payment>
+                    <coupon>
+                        <title>Shopping cart ability to set coupon code</title>
+                        <add>
+                            <title>Add coupon code for shopping cart</title>
+                        </add>
+                        <remove>
+                             <title>Remove coupon code from shopping cart</title>
+                        </remove>
+                    </coupon>
+                </cart>
+            </resources>
+        </acl>
         <v2>
             <resources_function_prefix>
                 <cart>shoppingCart</cart>
+                <cart_product>shoppingCartProduct</cart_product>
+                <cart_customer>shoppingCartCustomer</cart_customer>
+                <cart_shipping>shoppingCartShipping</cart_shipping>
+                <cart_payment>shoppingCartPayment</cart_payment>
+                <cart_coupon>shoppingCartCoupon</cart_coupon>
             </resources_function_prefix>
-        </v2>            
+        </v2>
     </api>
 </config>

@@ -72,5 +72,13 @@ installed package.'
             'options'  => array(),
             'doc'      => '<package>
 Synchronize manually installed package info with local cache.'
+            ),
+        'sync-pear' => array(
+            'summary'  => 'Synchronize already Installed Packages by pear',
+            'function' => 'doSyncPear',
+            'shortcut' => 'sncp',
+            'options'  => array(),
+            'doc'      => '<package>
+Synchronize already Installed Packages by pear.'
             )
         );

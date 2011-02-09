@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Downloadable>
-            <version>1.4.0.1</version>
+            <version>1.4.0.2</version>
         </Mage_Downloadable>
     </modules>
     <global>
@@ -191,22 +191,22 @@
                     </downloadable_observer>
                 </observers>
             </catalog_product_prepare_save>
-            <sales_order_item_save_after>
+            <sales_order_item_save_commit_after>
                 <observers>
                     <downloadable_observer>
                         <class>downloadable/observer</class>
                         <method>saveDownloadableOrderItem</method>
                     </downloadable_observer>
                 </observers>
-            </sales_order_item_save_after>
-            <sales_order_save_after>
+            </sales_order_item_save_commit_after>
+            <sales_order_save_commit_after>
                 <observers>
                     <downloadable_observer>
                         <class>downloadable/observer</class>
                         <method>setLinkStatus</method>
                     </downloadable_observer>
                 </observers>
-            </sales_order_save_after>
+            </sales_order_save_commit_after>
         </events>
     </adminhtml>
     <frontend>
@@ -239,22 +239,22 @@
             </updates>
         </layout>
         <events>
-            <sales_order_item_save_after>
+            <sales_order_item_save_commit_after>
                 <observers>
                     <downloadable_observer>
                         <class>downloadable/observer</class>
                         <method>saveDownloadableOrderItem</method>
                     </downloadable_observer>
                 </observers>
-            </sales_order_item_save_after>
-            <sales_order_save_after>
+            </sales_order_item_save_commit_after>
+            <sales_order_save_commit_after>
                 <observers>
                     <downloadable_observer>
                         <class>downloadable/observer</class>
                         <method>setLinkStatus</method>
                     </downloadable_observer>
                 </observers>
-            </sales_order_save_after>
+            </sales_order_save_commit_after>
             <checkout_type_onepage_save_order_after>
                 <observers>
                     <checkout_type_onepage_save_order_after>

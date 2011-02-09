@@ -131,4 +131,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
         }
         return $isLast;
     }
+
+    /**
+     * Returns price converted to current currency rate
+     *
+     * @param float $price
+     * @return float
+     */
+    public function getCurrencyPrice($price)
+    {
+        $store = $this->getProduct()->getStore();
+        return $this->helper('core')->currencyByStore($price, $store, false);
+    }
 }

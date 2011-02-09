@@ -79,6 +79,22 @@ class Mage_CatalogInventory_Model_Observer
         }
         return $this;
     }
+    /**
+     * Remove stock information from static variable
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_CatalogInventory_Model_Observer
+     */
+    public function removeInventoryData($observer)
+    {
+        $product = $observer->getEvent()->getProduct();
+        if (($product instanceof Mage_Catalog_Model_Product)
+            && $product->getId()
+            && isset($this->_stockItemsArray[$product->getId()])) {
+            unset($this->_stockItemsArray[$product->getId()]);
+        }
+        return $this;
+    }
 
     /**
      * Add information about producs stock status to collection

@@ -63,11 +63,18 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     protected $_editableAttributes;
 
     /**
-     * Is a compotite product type
+     * Is a composite product type
      *
      * @var bool
      */
     protected $_isComposite = false;
+
+    /**
+     * Is a configurable product type
+     *
+     * @var bool
+     */
+    protected $_canConfigure = false;
 
     /**
      * Whether product quantity is fractional number or not
@@ -334,6 +341,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         }
 
         $product->prepareCustomOptions();
+        $buyRequest->unsetData('_processing_params'); // One-time params only
         $product->addCustomOption('info_buyRequest', serialize($buyRequest->getData()));
 
         if ($options) {
@@ -663,6 +671,17 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
+     * Check if product is configurable
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return bool
+     */
+    public function canConfigure($product = null)
+    {
+        return $this->_canConfigure;
+    }
+
+    /**
      * Check if product qty is fractional number
      *
      * @param Mage_Catalog_Model_Product $product
@@ -934,7 +953,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
              * cloning product because prepareForCart() method will modify it
              */
             $productForCheck = clone $product;
-            $result = $this->prepareForCart($buyRequest, $productForCheck);
+            $buyRequestForCheck = clone $buyRequest;
+            $result = $this->prepareForCart($buyRequestForCheck, $productForCheck);
 
             if (is_string($result)) {
                $errors[] = $result;

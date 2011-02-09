@@ -320,10 +320,11 @@ class Mage_Wishlist_Model_Mysql4_Item_Collection extends Mage_Core_Model_Mysql4_
      */
     public function getItemsQty(){
         if (is_null($this->_itemsQty)) {
-            $sizeQuery = $this->getSelectCountSql();
-            $sizeQuery->reset(Zend_Db_Select::COLUMNS);
-            $sizeQuery->columns('SUM(IF(qty = 0, 1, qty))');
-            $this->_itemsQty = $this->getConnection()->fetchOne($sizeQuery, $this->_bindParams);
+            $this->_itemsQty = 0;
+            foreach ($this as $wishlistItem) {
+                $qty = $wishlistItem->getQty();
+                $this->_itemsQty += ($qty === 0) ? 1 : $qty;
+            }
         }
 
         return (int)$this->_itemsQty;

@@ -23,7 +23,7 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Import entity customer model
  *
@@ -66,6 +66,13 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     const ERROR_INVALID_STORE        = 'invalidStore';
     const ERROR_EMAIL_SITE_NOT_FOUND = 'emailSiteNotFound';
     const ERROR_PASSWORD_LENGTH      = 'passwordLength';
+
+    /**
+     * Customer constants
+     *
+     */
+    const DEFAULT_GROUP_ID = 1;
+    const MAX_PASSWD_LENGTH = 6;
 
     /**
      * Customer address import entity model.
@@ -367,7 +374,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 if (self::SCOPE_DEFAULT == $this->getRowScope($rowData)) {
                     // entity table data
                     $entityRow = array(
-                        'group_id'   => empty($rowData['group_id']) ? 1 : $rowData['group_id'],
+                        'group_id'   => empty($rowData['group_id']) ? self::DEFAULT_GROUP_ID : $rowData['group_id'],
                         'store_id'   => empty($rowData[self::COL_STORE])
                                         ? 0 : $this->_storeCodeToId[$rowData[self::COL_STORE]],
                         'created_at' => empty($rowData['created_at'])
@@ -569,7 +576,8 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 }
                 // check password
                 if (isset($rowData['password']) && strlen($rowData['password'])
-                        && Mage::helper('core/string')->strlen($rowData['password']) < 6) {
+                    && Mage::helper('core/string')->strlen($rowData['password']) < self::MAX_PASSWD_LENGTH
+                ) {
                     $this->addRowError(self::ERROR_PASSWORD_LENGTH, $rowNum);
                 }
                 // check simple attributes
@@ -596,7 +604,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         }
         // validate row data by address entity
         $this->_addressEntity->validateRow($rowData, $rowNum);
-        
+
         return !isset($this->_invalidRows[$rowNum]);
     }
 }

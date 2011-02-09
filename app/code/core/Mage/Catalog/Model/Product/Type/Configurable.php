@@ -84,7 +84,14 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      *
      * @var bool
      */
-    protected $_isComposite = true;
+    protected $_isComposite             = true;
+
+    /**
+     * Product is configurable
+     *
+     * @var bool
+     */
+    protected $_canConfigure            = true;
 
     /**
      * Return relation info about used products

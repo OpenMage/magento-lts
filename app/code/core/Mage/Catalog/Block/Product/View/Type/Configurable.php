@@ -106,7 +106,8 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
         $taxHelper  = Mage::helper('tax');
         $currentProduct = $this->getProduct();
 
-        if ($preconfiguredFlag = $currentProduct->hasPreconfiguredValues()) {
+        $preconfiguredFlag = $currentProduct->hasPreconfiguredValues();
+        if ($preconfiguredFlag) {
             $preconfiguredValues = $currentProduct->getPreconfiguredValues();
             $defaultValues       = array();
         }

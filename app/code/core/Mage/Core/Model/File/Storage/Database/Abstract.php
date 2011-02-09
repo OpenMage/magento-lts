@@ -43,14 +43,26 @@ abstract class Mage_Core_Model_File_Storage_Database_Abstract extends Mage_Core_
     {
         $connectionName = (isset($params['connection'])) ? $params['connection'] : null;
         if (empty($connectionName)) {
-            $connectionName = (string) Mage::app()->getConfig()
-                ->getNode(Mage_Core_Model_File_Storage::XML_PATH_STORAGE_MEDIA_DATABASE);
-            if (empty($connectionName)) {
-                $connectionName = 'default_setup';
-            }
+            $connectionName = $this->getConfigConnectionName();
         }
 
         $this->setConnectionName($connectionName);
+    }
+
+    /**
+     * Retrieve connection name saved at config
+     *
+     * @return string
+     */
+    public function getConfigConnectionName()
+    {
+        $connectionName = (string) Mage::app()->getConfig()
+            ->getNode(Mage_Core_Model_File_Storage::XML_PATH_STORAGE_MEDIA_DATABASE);
+        if (empty($connectionName)) {
+            $connectionName = 'default_setup';
+        }
+
+        return $connectionName;
     }
 
     /**

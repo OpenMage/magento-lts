@@ -23,7 +23,7 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Import controller
  *
@@ -82,7 +82,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
         $this->_initAction()
             ->_title($this->__('Import'))
             ->_addBreadcrumb($this->__('Import'), $this->__('Import'));
-            
+
         $this->renderLayout();
     }
 
@@ -93,12 +93,13 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
      */
     public function startAction()
     {
-        if (($data = $this->getRequest()->getPost())) {
+        $data = $this->getRequest()->getPost();
+        if ($data) {
             $this->loadLayout(false);
 
             /** @var $resultBlock Mage_ImportExport_Block_Adminhtml_Import_Frame_Result */
             $resultBlock = $this->getLayout()->getBlock('import.frame.result');
-            
+
             $importModel = Mage::getModel('importexport/import');
 
             try {
@@ -115,7 +116,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                 ->addSuccess($this->__('Import successfully done.'));
             $this->renderLayout();
         } else {
-            return $this->_redirect('*/*/index');
+            $this->_redirect('*/*/index');
         }
     }
 
@@ -126,7 +127,8 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
      */
     public function validateAction()
     {
-        if (($data = $this->getRequest()->getPost())) {
+        $data = $this->getRequest()->getPost();
+        if ($data) {
             $this->loadLayout(false);
             /** @var $resultBlock Mage_ImportExport_Block_Adminhtml_Import_Frame_Result */
             $resultBlock = $this->getLayout()->getBlock('import.frame.result');
@@ -171,7 +173,8 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                         }
                         // errors info
                         foreach ($import->getErrors() as $errorCode => $rows) {
-                            $resultBlock->addError($errorCode . $this->__(' in rows: ') . implode(', ', $rows));
+                            $error = $errorCode . ' ' . $this->__('in rows:') . ' ' . implode(', ', $rows);
+                            $resultBlock->addError($error);
                         }
                     } else {
                         if ($import->isImportAllowed()) {
@@ -195,12 +198,12 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                 }
             } catch (Exception $e) {
                 $resultBlock->addNotice($this->__('Please fix errors and re-upload file'))
-                        ->addError($e->getMessage());
+                    ->addError($e->getMessage());
             }
             $this->renderLayout();
         } else {
             $this->_getSession()->addError($this->__('Data is invalid or file is not uploaded'));
-            return $this->_redirect('*/*/index');
+            $this->_redirect('*/*/index');
         }
     }
 }

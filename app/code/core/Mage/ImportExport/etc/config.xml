@@ -64,44 +64,32 @@
                 </setup>
             </importexport_setup>
         </resources>
-        <importexport>
+        <importexport module="importexport">
             <import_entities>
-                <catalog_product translate="entity_label" module="importexport">
+                <catalog_product translate="label">
                     <model_token>importexport/import_entity_product</model_token>
                     <label>Products</label>
                 </catalog_product>
-                <customer translate="entity_label" module="importexport">
+                <customer translate="label">
                     <model_token>importexport/import_entity_customer</model_token>
                     <label>Customers</label>
                 </customer>
-                <!--<order translate="entity_label" module="importexport">
-                    <model_token>importexport/import_entity_order</model_token>
-                    <label>Orders</label>
-                </order>-->
             </import_entities>
             <export_entities>
-                <catalog_product translate="entity_label" module="importexport">
+                <catalog_product translate="label">
                     <model_token>importexport/export_entity_product</model_token>
                     <label>Products</label>
                 </catalog_product>
-                <customer translate="entity_label" module="importexport">
+                <customer translate="label">
                     <model_token>importexport/export_entity_customer</model_token>
                     <label>Customers</label>
                 </customer>
-                <!--<order translate="entity_label" module="importexport">
-                    <model_token>importexport/export_entity_order</model_token>
-                    <label>Orders</label>
-                </order>-->
             </export_entities>
             <export_file_formats>
-                <csv translate="entity_label" module="importexport">
+                <csv translate="label">
                     <model_token>importexport/export_adapter_csv</model_token>
                     <label>CSV</label>
                 </csv>
-                <!--<msxml translate="entity_label" module="importexport">
-                    <model_token>importexport/export_adapter_msxml</model_token>
-                    <label>MS XML</label>
-                </msxml>-->
             </export_file_formats>
             <import_product_types>
                 <simple>importexport/import_entity_product_type_simple</simple>

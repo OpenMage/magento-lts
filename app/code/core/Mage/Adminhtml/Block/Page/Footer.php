@@ -34,11 +34,19 @@
  */
 class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
 {
+    const CACHE_LIFETIME = 7200;
+    const CACHE_KEY      = 'footer';
+    const CACHE_TAG      = 'adminhtml';
 
     protected function _construct()
     {
         $this->setTemplate('page/footer.phtml');
         $this->setShowProfiler(true);
+        $this->addData(array(
+            'cache_lifetime' => self::CACHE_LIFETIME,
+            'cache_tags'     => array(self::CACHE_TAG),
+            'cache_key'      => self::CACHE_KEY
+        ));
     }
 
     public function getChangeLocaleUrl()
@@ -66,7 +74,7 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
             ->setValue(Mage::app()->getLocale()->getLocaleCode())
             ->setOptions(Mage::app()->getLocale()->getTranslatedOptionLocales())
             ->getHtml();
+
         return $html;
     }
-
 }

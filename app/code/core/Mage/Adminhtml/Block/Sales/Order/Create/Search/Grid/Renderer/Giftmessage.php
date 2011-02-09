@@ -27,9 +27,11 @@
 /**
  * Adminhtml sales create order product search grid giftmessage column renderer
  *
+ * @deprecated after 1.4.2.0 - gift column has been removed from search grid
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox
 {

@@ -89,6 +89,30 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
         return $this;
     }
 
+    /**
+     * Loading quote by identifier
+     *
+     * @param Mage_Sales_Model_Quote $quote
+     * @param int $quoteId
+     */
+    public function loadByIdWithoutStore($quote, $quoteId)
+    {
+        $collection = Mage::getResourceModel('sales/quote_collection')
+            ->addAttributeToSelect('entity_id')
+            ->addAttributeToFilter('entity_id', $quoteId);
+
+        $collection->setPageSize(1)
+            ->load();
+
+        if ($collection->getSize()) {
+            foreach ($collection as $item) {
+                $this->load($quote, $item->getId());
+                return $this;
+            }
+        }
+        return $this;
+    }
+
     public function getReservedOrderId($quote)
     {
         return Mage::getSingleton('eav/config')->getEntityType('order')->fetchNewIncrementId($quote->getStoreId());

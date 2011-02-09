@@ -26,7 +26,7 @@
 ?>
 <?php
 /**
- * @see Mage_Adminhtml_Block_Notification_Toolbar
+ * @var $this Mage_Adminhtml_Block_Notification_Toolbar
  */
 ?>
 <?php if ($this->isShow()): ?>
@@ -56,6 +56,7 @@
             $msgStats .= $sParts[$i] . ($i == $c-1 ? '' : ($i == $c-2 ? $this->__(' and ') : ', '));
         }
 
+        $latestNoticeUrl = $this->getLatestNoticeUrl();
     ?>
     <?php /*
     <span class="f-right"><?php echo $this->__('You have %s unread message(s). <a href="%s">Go to messages inbox</a>.',
@@ -63,9 +64,11 @@
         $this->getNoticesInboxUrl()
     );?></span>
     */?>
-    <span class="f-right"><?php echo $this->__('You have') . ' ' . $msgStats. ' ' .$this->__('unread message(s). <a href="%s">Go to messages inbox</a>.',
-        $this->getNoticesInboxUrl()
-    );?></span>
+
+    <span class="f-right">
+        <?php $goToBoxMessage = (!empty($latestNoticeUrl)) ? $this->__('Go to messages inbox') : $this->__('Go to notifications') ?>
+        <?php echo $this->__('You have %s unread message(s).', $msgStats) ?> <a href="<?php $this->getNoticesInboxUrl() ?>"><?php echo $goToBoxMessage ?></a>
+    </span>
 <?php /* ********** temporary commented
     <span class="f-right"><?php echo $this->__('You have %s, %s and %s unread messages. <a href="%s">Go to messages inbox</a>.',
         '<span class="critical"><strong>'.$this->getCriticalCount().'</strong> '.$this->__('critical').'</span>',
@@ -80,6 +83,9 @@
         <strong class="label">
     <?php endif; ?>
 
-    <?php echo $this->__('Latest Message:') ?></strong> <?php echo $this->getLatestNotice() ?> <a href="<?php echo $this->getLatestNoticeUrl() ?>" onclick="this.target='_blank';"><?php echo $this->__('Read details') ?></a>
+    <?php echo $this->__('Latest Message:') ?></strong> <?php echo $this->getLatestNotice() ?>
+    <?php if (!empty($latestNoticeUrl)): ?>
+        <a href="<?php echo $latestNoticeUrl ?>" onclick="this.target='_blank';"><?php echo $this->__('Read details') ?></a>
+    <?php endif; ?>
 </div>
 <?php endif; ?>

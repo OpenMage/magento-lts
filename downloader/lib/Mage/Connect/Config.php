@@ -44,77 +44,85 @@ implements Iterator
                 'prompt' => 'location of php.ini',
                 'doc' => "It's a location of PHP.ini to use blah",
                 'possible' => '/path/php.ini',
-        ),
+            ),
            'protocol' => array(
                 'type' => 'set',
                 'value' => 'http',
                 'prompt' => 'preffered protocol',
                 'doc' => 'preffered protocol',
                 'rules' => array('http', 'ftp')
-        ),
+            ),
            'preferred_state' => array(
                 'type' => 'set',
                 'value' => 'stable',
                 'prompt' => 'preferred package state',
                 'doc' => 'preferred package state',
                 'rules' => array('beta','alpha','stable','devel')
-        ),
+            ),
            'use_custom_permissions_mode'  => array (
                 'type' => 'bool',
                 'value' => false,
                 'prompt' => 'Use custom permissions for directory and file creation',
                 'doc' => 'Use custom permissions for directory and file creation',
                 'possible' => 'true, false',
-        ),
+            ),
            'global_dir_mode' => array (
                 'type' => 'octal',
                 'value' => 0777,
                 'prompt' => 'directory creation mode',
                 'doc' => 'directory creation mode',
                 'possible' => '0777, 0666 etc.',
-        ),
+            ),
            'global_file_mode' => array (
                 'type' => 'octal',
                 'value' => 0666,
                 'prompt' => 'file creation mode',
                 'doc' => 'file creation mode',
                 'possible' => '0777, 0666 etc.',
-        ),
+            ),
             'downloader_path' => array(
                 'type' => 'dir',
                 'value' => 'downloader',
                 'prompt' => 'relative path, location of magento downloader',
                 'doc' => "relative path, location of magento downloader",
                 'possible' => 'path',
-        ),
+            ),
             'magento_root' => array(
                 'type' => 'dir',
                 'value' => '',
                 'prompt' => 'location of magento root dir',
                 'doc' => "Location of magento",
                 'possible' => '/path',
-        ),
+            ),
             'root_channel_uri' => array(
                 'type' => 'string',
                 'value' => 'connect20.magentocommerce.com/',
                 'prompt' => '',
                 'doc' => "",
                 'possible' => '',
-        ),
+            ),
             'root_channel' => array(
                 'type' => 'string',
                 'value' => 'community',
                 'prompt' => '',
                 'doc' => "",
                 'possible' => '',
-        ),
+            ),
             'remote_config' => array(
                 'type' => 'string',
                 'value' => '',
                 'prompt' => '',
                 'doc' => "",
                 'possible' => 'ftp://name:password@host.com:port/path/to/folder/',
-        ));
+            ),
+            'sync_pear' => array(
+                'type' => 'boolean',
+                'value' => true,
+                'prompt' => '',
+                'doc' => "",
+                'possible' => '',
+            )
+        );
         $this->properties = $this->defaultProperties;
     }
 

@@ -138,7 +138,8 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
                     $this->_forward('noRoute');
                 }
             } else {
-                throw $e;
+                Mage::logException($e);
+                $this->_forward('noRoute');
             }
         }
     }

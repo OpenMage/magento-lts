@@ -19,43 +19,52 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category    Mage
- * @package     Mage_ImportExport
+ * @package     Mage_Checkout
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
- * FAQ controller
+ * Shoping cart api for customer data 
  *
  * @category    Mage
- * @package     Mage_ImportExport
+ * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ImportExport_Adminhtml_FaqController extends Mage_Adminhtml_Controller_Action
+class Mage_Checkout_Model_Cart_Customer_Api_V2 extends Mage_Checkout_Model_Cart_Customer_Api
 {
     /**
-     * Index action.
+     * Prepare customer entered data for implementing
      *
-     * @return void
+     * @param  object $data
+     * @return array
      */
-    public function indexAction()
+    protected function _prepareCustomerData($data)
     {
-        $this->_title($this->__('In/Out'))
-            ->_title($this->__('FAQ'))
-            ->loadLayout()
-            ->_setActiveMenu('system/importexport')
-            ->_addBreadcrumb($this->__('FAQ'), $this->__('FAQ'));
-
-        $this->renderLayout();
+        if (null !== ($_data = get_object_vars($data))) {
+            return parent::_prepareCustomerData($_data);
+        }
+        return array();
     }
-    
+
     /**
-     * Check access (in the ACL) for current user
-     * 
-     * @return bool
+     * Prepare customer entered data for implementing
+     *
+     * @param  object $data
+     * @return array
      */
-    protected function _isAllowed()
+    protected function _prepareCustomerAddressData($data)
     {
-        return Mage::getSingleton('admin/session')->isAllowed('system/convert/importexport_faq');
+        if (is_array($data)) {
+            $dataAddresses = array();
+            foreach($data as $addressItem) {
+                if (null !== ($_addressItem = get_object_vars($addressItem))) {
+                    $dataAddresses[] = $_addressItem;
+                }
+            }
+            return parent::_prepareCustomerAddressData($dataAddresses);
+        }
+        
+        return null;
     }
 }

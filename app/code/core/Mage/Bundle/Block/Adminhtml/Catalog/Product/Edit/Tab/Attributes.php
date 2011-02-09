@@ -58,6 +58,31 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
             );
         }
 
+        if ($tax = $this->getForm()->getElement('tax_class_id')) {
+            $tax->setAfterElementHtml(
+                '<script type="text/javascript">'
+                . "
+                function changeTaxClassId() {
+                    if ($('price_type').value == '" . Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC . "') {
+                        $('tax_class_id').disabled = true;
+                        $('tax_class_id').value = '0';
+                        $('tax_class_id').removeClassName('required-entry');
+                        if ($('advice-required-entry-tax_class_id')) {
+                            $('advice-required-entry-tax_class_id').remove();
+                        }
+                    } else {
+                        $('tax_class_id').disabled = false;
+                        " . ($tax->getRequired() ? "$('tax_class_id').addClassName('required-entry');" : '') . "
+                    }
+                }
+
+                $('price_type').observe('change', changeTaxClassId);
+                changeTaxClassId();
+                "
+                . '</script>'
+            );
+        }
+
         if ($weight = $this->getForm()->getElement('weight')) {
             $weight->setRenderer(
                 $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_attributes_extend')

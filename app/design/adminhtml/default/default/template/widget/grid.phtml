@@ -221,6 +221,7 @@ $numColumns = sizeof($this->getColumns());
     <?php if($this->getMassactionBlock()->isAvailable()): ?>
     <?php echo $this->getMassactionBlock()->getJavaScript() ?>
     <?php endif ?>
+    <?php echo $this->getAdditionalJavaScript(); ?>
 //]]>
 </script>
 <?php endif; ?>

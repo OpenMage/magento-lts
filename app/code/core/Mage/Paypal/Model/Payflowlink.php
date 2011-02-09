@@ -277,9 +277,6 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
         if (!isset($fetchData['custref']) || $fetchData['custref'] != $order->getIncrementId()) {
             Mage::throwException($this->_formatStr(self::RESPONSE_ERROR_MSG, 'Transaction'));
         }
-        if (isset($fetchData['cardtype'])) {
-            $order->getPayment()->setCcType($fetchData['cardtype']);
-        }
 
         return $order;
     }

@@ -214,7 +214,7 @@ class Mage_Paypal_Model_Ipn
      * Validate incoming request data, as PayPal recommends
      *
      * @throws Exception
-     * @see https://cms.paypal.com/cgi-bin/marketingweb?cmd=_render-content&content_ID=developer/e_howto_admin_IPNIntro
+     * @link https://cms.paypal.com/cgi-bin/marketingweb?cmd=_render-content&content_ID=developer/e_howto_admin_IPNIntro
      */
     protected function _verifyOrder()
     {

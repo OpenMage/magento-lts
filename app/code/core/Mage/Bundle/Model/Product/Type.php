@@ -83,6 +83,13 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     protected $_keyUsedOptionsIds           = '_cache_instance_used_options_ids';
 
     /**
+     * Product is configurable
+     *
+     * @var bool
+     */
+    protected $_canConfigure                = true;
+
+    /**
      * Return relation info about used products
      *
      * @return Varien_Object Object with information data

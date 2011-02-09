@@ -84,6 +84,14 @@
                     </inventory>
                 </observers>
             </catalog_product_load_after>
+            <catalog_product_clear>
+                <observers>
+                    <inventory>
+                        <class>cataloginventory/observer</class>
+                        <method>removeInventoryData</method>
+                    </inventory>
+                </observers>
+            </catalog_product_clear>
             <catalog_product_collection_load_after>
                 <observers>
                     <inventory>

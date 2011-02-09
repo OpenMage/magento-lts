@@ -409,6 +409,14 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                     )
                 ));
             }
+
+            Mage::helper('core')->copyFieldset(
+                'sales_copy_order_item',
+                'to_edit_item',
+                $orderItem,
+                $item
+            );
+
             Mage::dispatchEvent('sales_convert_order_item_to_quote_item', array(
                 'order_item' => $orderItem,
                 'quote_item' => $item
@@ -634,13 +642,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
         }
         if (isset($data['add_wishlist_item'])) {
             foreach ($data['add_wishlist_item'] as $itemId => $qty) {
-                $item = Mage::getModel('wishlist/item')->load($itemId);
-                if ($item) {
-                    $options = Mage::getResourceModel('wishlist/item_option_collection')
-                        ->addFieldToFilter('code', 'info_buyRequest')
-                        ->addItemFilter(array($itemId));
-
-                    $item->setOptions($options->getOptionsByItem($itemId));
+                $item = Mage::getModel('wishlist/item')
+                    ->loadWithOptions($itemId, 'info_buyRequest');
+                if ($item->getId()) {
                     $this->addProduct($item->getProduct(), $item->getBuyRequest()->toArray());
                 }
             }
@@ -708,15 +712,20 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
 
     /**
      * Add product to current order quote
+     * $product can be either product id or product model
+     * $config can be either buyRequest config, or just qty
      *
-     * @param   mixed $product
-     * @param   Varien_Object $config
+     * @param   int|Mage_Catalog_Model_Product $product
+     * @param   float|array|Varien_Object $config
      * @return  Mage_Adminhtml_Model_Sales_Order_Create
      */
-    public function addProduct($product, array $config)
+    public function addProduct($product, $config = 1)
     {
+        if (!is_array($config) && !($config instanceof Varien_Object)) {
+            $config = array('qty' => $config);
+        }
         $config = new Varien_Object($config);
-        $qty = (float)$config->getQty();
+
         if (!($product instanceof Mage_Catalog_Model_Product)) {
             $productId = $product;
             $product = Mage::getModel('catalog/product')
@@ -730,36 +739,28 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
             }
         }
 
-        if ($product->getStockItem()) {
-            if (!$product->getStockItem()->getIsQtyDecimal()) {
-                $qty = (int)$qty;
-            } else {
-                $product->setIsQtyDecimal(1);
-            }
+        $stockItem = $product->getStockItem();
+        if ($stockItem && $stockItem->getIsQtyDecimal()) {
+            $product->setIsQtyDecimal(1);
         }
-        $qty = $qty > 0 ? $qty : 1;
-        $item = $this->getQuote()->getItemByProduct($product);
-        if ($item) {
-            $item->setQty($item->getQty()+$qty);
-        } else {
-            $product->setCartQty($config->getQty());
-            $item = $this->getQuote()->addProductAdvanced(
+
+        $product->setCartQty($config->getQty());
+        $item = $this->getQuote()->addProductAdvanced(
+            $product,
+            $config,
+            Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL
+        );
+        if (is_string($item)) {
+             $item = $this->getQuote()->addProductAdvanced(
                 $product,
                 $config,
-                Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL
+                Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE
             );
             if (is_string($item)) {
-                 $item = $this->getQuote()->addProductAdvanced(
-                    $product,
-                    $config,
-                    Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE
-                );
-                if (is_string($item)) {
-                    Mage::throwException($item);
-                }
+                Mage::throwException($item);
             }
-            $item->checkData();
         }
+        $item->checkData();
 
         $this->setRecollect(true);
         return $this;
@@ -769,7 +770,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
      * Add multiple products to current order quote
      *
      * @param   array $products
-     * @return  Mage_Adminhtml_Model_Sales_Order_Create
+     * @return  Mage_Adminhtml_Model_Sales_Order_Create|Exception
      */
     public function addProducts(array $products)
     {

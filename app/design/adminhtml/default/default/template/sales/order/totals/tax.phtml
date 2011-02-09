@@ -50,7 +50,7 @@
                 <td class="label"><?php echo $rate['title']; ?><br /></td>
             <?php endif; ?>
             <?php if ($isFirst): ?>
-                <td rowspan="<?php echo count($rates); ?>"><?php echo $this->displayAmount($amount, $baseAmount); ?></td>
+                <td rowspan="<?php echo count($rates); ?>"><?php echo $this->displayAmount($_source->getTaxAmount(), $_source->getBaseTaxAmount()); ?></td>
             <?php endif; ?>
         </tr>
         <?php

@@ -296,6 +296,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         $cart   = $this->_getCart();
         $id = (int) $this->getRequest()->getParam('id');
         $params = $this->getRequest()->getParams();
+
         if (!isset($params['options'])) {
             $params['options'] = array();
         }
@@ -307,28 +308,17 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 $params['qty'] = $filter->filter($params['qty']);
             }
 
-            $product = $this->_initProduct();
-            $related = $this->getRequest()->getParam('related_product');
-
-            /**
-             * Check product availability
-             */
-            if (!$product) {
-                $this->_goBack();
-                return;
-            }
-
-            /**
-             * Process buyRequest file options of quote item
-             */
             $quoteItem = $cart->getQuote()->getItemById($id);
-            $buyRequest = new Varien_Object($params);
-            if ($quoteItem instanceof Mage_Sales_Model_Quote_Item) {
-                $itemBuyRequest = $quoteItem->getBuyRequest();
-                $buyRequest = Mage::helper('catalog/product')->processBuyRequestFiles($buyRequest, $itemBuyRequest);
+            if (!$quoteItem) {
+                Mage::throwException($this->__('Quote item is not found.'));
             }
 
-            $cart->updateProduct($product, $buyRequest);
+            $item = $cart->updateItem($id, new Varien_Object($params));
+            if (is_string($item)) {
+                Mage::throwException($item);
+            }
+
+            $related = $this->getRequest()->getParam('related_product');
             if (!empty($related)) {
                 $cart->addProductsByIds(explode(',', $related));
             }
@@ -337,12 +327,12 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
             $this->_getSession()->setCartWasUpdated(true);
 
-            Mage::dispatchEvent('checkout_cart_update_product_complete',
-                array('product' => $product, 'request' => $this->getRequest(), 'response' => $this->getResponse())
+            Mage::dispatchEvent('checkout_cart_update_item_complete',
+                array('item' => $item, 'request' => $this->getRequest(), 'response' => $this->getResponse())
             );
             if (!$this->_getSession()->getNoCartRedirect(true)) {
                 if (!$cart->getQuote()->getHasError()){
-                    $message = $this->__('%s was updated in your shopping cart.', Mage::helper('core')->htmlEscape($product->getName()));
+                    $message = $this->__('%s was updated in your shopping cart.', Mage::helper('core')->htmlEscape($item->getProduct()->getName()));
                     $this->_getSession()->addSuccess($message);
                 }
                 $this->_goBack();

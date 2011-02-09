@@ -37,6 +37,23 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
     const PRICE_TYPE_DYNAMIC    = 0;
 
     /**
+     * Flag wich indicates - is min/max prices have been calculated by index
+     *  
+     * @var bool
+     */
+    protected $_isPricesCalculatedByIndex;
+
+    /**
+     * Is min/max prices have been calculated by index
+     * 
+     * @return bool
+     */
+    public function getIsPricesCalculatedByIndex()
+    {
+        return $this->_isPricesCalculatedByIndex;
+    }    
+    
+    /**
      * Return product base price
      *
      * @return string
@@ -152,6 +169,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             $product->getData('max_price')) {               
                 $minimalPrice = Mage::helper('tax')->getPrice($product, $product->getData('min_price'), $includeTax);
                 $maximalPrice = Mage::helper('tax')->getPrice($product, $product->getData('max_price'), $includeTax);
+                $this->_isPricesCalculatedByIndex = true;
         } else {
             /**
              * Check if product price is fixed
@@ -257,6 +275,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                     }
                 }
             }
+            $this->_isPricesCalculatedByIndex = false;
         }
 
         if ($which == 'max') {

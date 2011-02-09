@@ -56,7 +56,7 @@ class Mage_Core_Model_Mysql4_File_Storage_Database  extends Mage_Core_Model_Mysq
           `filename` varchar(255) NOT NULL DEFAULT '',
           `directory_id` int(10) unsigned DEFAULT NULL,
           `directory` varchar(255) DEFAULT NULL,
-          PRIMARY KEY  (`file_id`),
+          PRIMARY KEY (`file_id`),
           UNIQUE KEY `IDX_FILENAME` (`filename`, `directory`),
           KEY (`directory_id`),
           CONSTRAINT `FK_FILE_DIRECTORY` FOREIGN KEY (`directory_id`)

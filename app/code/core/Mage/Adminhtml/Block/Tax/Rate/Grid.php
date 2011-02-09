@@ -90,7 +90,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         ));
 
         $this->addExportType('*/*/exportCsv', Mage::helper('tax')->__('CSV'));
-        $this->addExportType('*/*/exportXml', Mage::helper('tax')->__('XML'));
+        $this->addExportType('*/*/exportXml', Mage::helper('tax')->__('Excel XML'));
 
         return parent::_prepareColumns();
     }

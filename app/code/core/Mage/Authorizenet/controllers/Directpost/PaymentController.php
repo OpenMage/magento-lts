@@ -96,6 +96,7 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
                 $result['key'] = $data['key'];
             }
             $result['controller_action_name'] = $data['controller_action_name'];
+            $result['is_secure'] = isset($data['is_secure']) ? $data['is_secure'] : false;
             $params['redirect'] = Mage::helper('authorizenet')->getRedirectIframeUrl($result);
         }
         $block = $this->_getIframeBlock()->setParams($params);

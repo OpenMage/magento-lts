@@ -172,20 +172,34 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         return $this->_priceBlockDefaultTemplate;
     }
 
+
+    /**
+     * Prepares and returns block to render some product type
+     *
+     * @param string $productType
+     * @return Mage_Core_Block_Template
+     */
+    public function _preparePriceRenderer($productType)
+    {
+        return $this->_getPriceBlock($productType)
+            ->setTemplate($this->_getPriceBlockTemplate($productType))
+            ->setUseLinkForAsLowAs($this->_useLinkForAsLowAs);
+    }
+
     /**
      * Returns product price block html
      *
      * @param Mage_Catalog_Model_Product $product
      * @param boolean $displayMinimalPrice
+     * @param string $idSuffix
+     * @return string
      */
-    public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix='')
+    public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix = '')
     {
-        return $this->_getPriceBlock($product->getTypeId())
-            ->setTemplate($this->_getPriceBlockTemplate($product->getTypeId()))
+        return $this->_preparePriceRenderer($product->getTypeId())
             ->setProduct($product)
             ->setDisplayMinimalPrice($displayMinimalPrice)
             ->setIdSuffix($idSuffix)
-            ->setUseLinkForAsLowAs($this->_useLinkForAsLowAs)
             ->toHtml();
     }
 

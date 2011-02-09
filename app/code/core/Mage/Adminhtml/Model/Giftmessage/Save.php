@@ -45,13 +45,6 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     {
         $giftmessages = $this->getGiftmessages();
 
-        // remove disabled giftmessages
-        foreach ($this->_getQuote()->getAllItems() as $item) {
-            if($item->getGiftMessageId() && !in_array($item->getId(), $this->getAllowQuoteItems())) {
-                $this->_deleteOne($item);
-            }
-        }
-
         if (!is_array($giftmessages)) {
             return $this;
         }
@@ -108,7 +101,6 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
                     ->load($entityId);
                 break;
         }
-
 
         if ($entityModel->getGiftMessageId()) {
             $giftmessageModel->load($entityModel->getGiftMessageId());

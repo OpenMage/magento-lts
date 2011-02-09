@@ -62,15 +62,11 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
 
         /* @var $wishlistItem Mage_Wishlist_Model_Item */
         $wishlistItem = Mage::getModel('wishlist/item')
-            ->load($wishlistItemId);
+            ->loadWithOptions($wishlistItemId);
 
         if (!$wishlistItem->getWishlistId()) {
             Mage::throwException($this->__('Wishlist item is not loaded.'));
         }
-
-        $optionCollection = Mage::getModel('wishlist/item_option')->getCollection()
-            ->addItemFilter(array($wishlistItemId));
-        $wishlistItem->setOptions($optionCollection->getOptionsByItem($wishlistItem));
 
         $this->_wishlist = Mage::getModel('wishlist/wishlist')
             ->load($wishlistItem->getWishlistId());
@@ -135,29 +131,9 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
             $updateResult->setMessage($e->getMessage());
         }
         $updateResult->setJsVarName($this->getRequest()->getParam('as_js_varname'));
-        /* @var $helper Mage_Adminhtml_Helper_Catalog_Product_Composite */
-        $helper = Mage::helper('adminhtml/catalog_product_composite');
         Mage::getSingleton('adminhtml/session')->setCompositeProductResult($updateResult);
-        $this->_redirect('*/*/showUpdateResult');
+        $this->_redirect('*/catalog_product/showUpdateResult');
 
         return false;
-    }
-
-    /*
-     * Show item update result from updateAction
-     *
-     */
-    public function showUpdateResultAction()
-    {
-        $session = Mage::getSingleton('adminhtml/session');
-        if ($session->hasCompositeProductResult() && $session->getCompositeProductResult() instanceof Varien_Object){
-            /* @var $helper Mage_Adminhtml_Helper_Catalog_Product_Composite */
-            $helper = Mage::helper('adminhtml/catalog_product_composite');
-            $helper->renderUpdateResult($this, $session->getCompositeProductResult());
-            $session->unsCompositeProductResult(null);
-        } else {
-            $session->unsCompositeProductResult();
-            return false;
-        }
     }
 }

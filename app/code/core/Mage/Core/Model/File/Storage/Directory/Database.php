@@ -42,6 +42,13 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
     protected $_eventPrefix = 'core_file_storage_directory_database';
 
     /**
+     * Collect errors during sync process
+     *
+     * @var array
+     */
+    protected $_errors = array();
+
+    /**
      * Class construct
      *
      * @param string $databaseConnection
@@ -77,6 +84,16 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
 
         $this->_getResource()->loadByPath($this, $path);
         return $this;
+    }
+
+    /**
+     * Check if there was errors during sync process
+     *
+     * @return bool
+     */
+    public function hasErrors()
+    {
+        return !empty($this->_errors);
     }
 
     /**
@@ -169,7 +186,10 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
             }
 
             try {
-                $directory = Mage::getModel('core/file_storage_directory_database', array('connection' => $this->getConnectionName()));
+                $directory = Mage::getModel(
+                    'core/file_storage_directory_database',
+                    array('connection' => $this->getConnectionName())
+                );
                 $directory->setPath($dir['path']);
 
                 $parentId = $directory->getParentId();

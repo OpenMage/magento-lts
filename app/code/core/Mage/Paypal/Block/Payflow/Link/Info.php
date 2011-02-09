@@ -34,27 +34,12 @@
 class Mage_Paypal_Block_Payflow_Link_Info extends Mage_Paypal_Block_Payment_Info
 {
     /**
-     * Don't show CC type for non-CC methods
-     * Do not show credit card type on fronend
+     * Don't show CC type
      *
-     * @return string|null
+     * @return false
      */
     public function getCcTypeName()
     {
-        if (Mage_Paypal_Model_Config::getIsCreditCardMethod($this->getInfo()->getMethod()) &&
-            !$this->getIsSecureMode()) {
-            $_types = Mage::getConfig()->getNode('global/payment/payflow/cc/types')->asArray();
-            $types = array();
-            foreach ($_types as $data) {
-                if (isset($data['code']) && isset($data['name'])) {
-                    $types[$data['code']] = $data['name'];
-                }
-            }
-            $ccType = $this->getInfo()->getCcType();
-            if (isset($types[$ccType])) {
-                return $types[$ccType];
-            }
-            return (empty($ccType)) ? Mage::helper('payment')->__('N/A') : $ccType;
-        }
+        return false;
     }
 }

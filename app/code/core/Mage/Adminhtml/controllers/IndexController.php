@@ -67,15 +67,16 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         } else {
             $data['username'] = null;
         }
-        #print_r($data);
+
         $this->_outTemplate('login', $data);
     }
 
     public function logoutAction()
     {
-        $auth = Mage::getSingleton('admin/session')->unsetAll();
-        Mage::getSingleton('adminhtml/session')->unsetAll();
-        Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('You have logged out.'));
+        $adminSession = Mage::getSingleton('admin/session');
+        $adminSession->unsetAll();
+        $adminSession->addSuccess(Mage::helper('adminhtml')->__('You have logged out.'));
+
         $this->_redirect('*');
     }
 
@@ -86,15 +87,20 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
         if ( !Mage::getSingleton('admin/session')->isAllowed('admin/global_search') ) {
             $items[] = array(
-                'id'=>'error',
-                'type'=>'Error',
-                'name'=>Mage::helper('adminhtml')->__('Access Denied'),
-                'description'=>Mage::helper('adminhtml')->__('You have not enough permissions to use this functionality.')
+                'id'            => 'error',
+                'type'          => 'Error',
+                'name'          => Mage::helper('adminhtml')->__('Access Denied'),
+                'description'   => Mage::helper('adminhtml')->__('You have not enough permissions to use this functionality.')
             );
             $totalCount = 1;
         } else {
             if (empty($searchModules)) {
-                $items[] = array('id'=>'error', 'type'=>'Error', 'name'=>Mage::helper('adminhtml')->__('No search modules were registered'), 'description'=>Mage::helper('adminhtml')->__('Please make sure that all global admin search modules are installed and activated.'));
+                $items[] = array(
+                    'id'            => 'error',
+                    'type'          => 'Error',
+                    'name'          => Mage::helper('adminhtml')->__('No search modules were registered'),
+                    'description'   => Mage::helper('adminhtml')->__('Please make sure that all global admin search modules are installed and activated.')
+                );
                 $totalCount = 1;
             } else {
                 $start = $this->getRequest()->getParam('start', 1);
@@ -170,7 +176,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         return '<script type="text/javascript">parent.window.location = \''.$this->getUrl('*/index/login').'\';</script>';
     }
 
-    public function forgotpasswordAction ()
+    public function forgotpasswordAction()
     {
         $email = $this->getRequest()->getParam('email');
         $params = $this->getRequest()->getParams();

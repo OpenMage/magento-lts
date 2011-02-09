@@ -37,6 +37,7 @@
 "Package","Package"
 "Package Extensions","Package Extensions"
 "Package File Name","Package File Name"
+"Package Format","Package Format"
 "Package Info","Package Info"
 "Packages","Packages"
 "Path","Path"
@@ -53,3 +54,5 @@
 "There was a problem saving package data","There was a problem saving package data"
 "Type","Type"
 "User","User"
+"Version 1.x","Version 1.x"
+"Version 2.x","Version 2.x"

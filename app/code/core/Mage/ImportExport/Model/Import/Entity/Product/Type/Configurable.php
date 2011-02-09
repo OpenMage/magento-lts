@@ -23,7 +23,7 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Import entity configurable product type model
  *
@@ -204,7 +204,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
                     return false;
                 }
                 // check price value
-                if (!empty($rowData['_super_attribute_price_corr']) 
+                if (!empty($rowData['_super_attribute_price_corr'])
                     && !$this->_isPriceCorr($rowData['_super_attribute_price_corr'])
                 ) {
                     $this->_entityModel->addRowError(self::ERROR_INVALID_PRICE_CORRECTION, $rowNum);
@@ -236,7 +236,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
                 $attrSetName = $attrSetIdToName[$product->getAttributeSetId()];
 
                 $data = array_intersect_key(
-                    $product->getData(), 
+                    $product->getData(),
                     $this->_superAttributes
                 );
                 foreach ($data as $attrCode => $value) {
@@ -308,7 +308,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
                         $superData['used_attributes'][$usedAttrId][$skuSuperValues[$usedAttrId]] = true;
                     }
                     $comb = implode('|', $usedCombParts);
-    
+
                     if (isset($usedCombs[$comb])) {
                         continue; // super attributes values combination was already used
                     }
@@ -324,7 +324,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
             // clean up unused values pricing
             foreach ($superData['used_attributes'] as $usedAttrId => $usedValues) {
                 foreach ($usedValues as $optionId => $isUsed) {
-                    if (!$isUsed 
+                    if (!$isUsed
                         && isset($superAttributes['pricing'][$superData['product_id']][$usedAttrId])
                     ) {
                         foreach ($superAttributes['pricing'][$superData['product_id']][$usedAttrId] as $k => $params) {

@@ -272,8 +272,8 @@ class Mage_Paypal_Model_Info
      *
      * @param string $code
      * @return string
-     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_html_IPNandPDTVariables
-     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_GetTransactionDetails
+     * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_html_IPNandPDTVariables
+     * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_GetTransactionDetails
      */
     public static function explainPendingReason($code)
     {
@@ -311,8 +311,8 @@ class Mage_Paypal_Model_Info
      *
      * @param $code
      * @return string
-     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_html_IPNandPDTVariables
-     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_GetTransactionDetails
+     * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_html_IPNandPDTVariables
+     * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_GetTransactionDetails
      */
     public static function explainReasonCode($code)
     {
@@ -465,7 +465,7 @@ class Mage_Paypal_Model_Info
     /**
      * Attempt to convert AVS check result code into label
      *
-     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_AVSResponseCodes
+     * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_AVSResponseCodes
      * @param string $value
      * @return string
      */
@@ -529,7 +529,7 @@ class Mage_Paypal_Model_Info
     /**
      * Attempt to convert CVV2 check result code into label
      *
-     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_AVSResponseCodes
+     * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_AVSResponseCodes
      * @param string $value
      * @return string
      */
@@ -568,7 +568,7 @@ class Mage_Paypal_Model_Info
     /**
      * Attempt to convert centinel VPAS result into label
      *
-     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_DoDirectPayment
+     * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_DoDirectPayment
      * @param string $value
      * @return string
      */
@@ -602,7 +602,7 @@ class Mage_Paypal_Model_Info
     /**
      * Attempt to convert centinel ECI result into label
      *
-     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_DoDirectPayment
+     * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_DoDirectPayment
      * @param string $value
      * @return string
      */

@@ -82,7 +82,13 @@ class Mage_AdminNotification_Model_Mysql4_Inbox extends Mage_Core_Model_Mysql4_A
             $select = $write->select()
                 ->from($this->getMainTable())
                 ->where('url=?', $item['url']);
-            $row = $write->fetchRow($select);
+
+            if (isset($item['internal'])) {
+                $row = false;
+                unset($item['internal']);
+            } else {
+                $row = $write->fetchRow($select);
+            }
 
             if (!$row) {
                 $write->insert($this->getMainTable(), $item);

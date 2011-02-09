@@ -556,4 +556,38 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     {
         return $this->_getData('entity_id');
     }
+
+    /**
+     * Clearing object for correct deleting by garbage collector
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    final public function clearInstance()
+    {
+        $this->_clearReferences();
+        Mage::dispatchEvent($this->_eventPrefix.'_clear', $this->_getEventData());
+        $this->_clearData();
+        return $this;
+    }
+
+    /**
+     * Clearing cyclic references
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _clearReferences()
+    {
+        return $this;
+    }
+
+    /**
+     * Clearing object's data
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _clearData()
+    {
+        return $this;
+    }
+
 }

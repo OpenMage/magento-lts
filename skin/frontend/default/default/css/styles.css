@@ -882,6 +882,11 @@ tr.summary-details-excluded { font-style:italic; }
 .price-including-tax .label { white-space:nowrap; color:#999; }
 .price-including-tax .price { font-size:13px; font-weight:bold; color:#c76200; }
 
+/* Configured price */
+.configured-price { margin:0; }
+.configured-price .price-label { font-weight:bold; white-space:nowrap; }
+.configured-price .price { font-weight:bold; }
+
 /* FPT */
 .weee { display:block; font-size:11px; color:#444; }
 .weee .price { font-size:11px; font-weight:normal; }

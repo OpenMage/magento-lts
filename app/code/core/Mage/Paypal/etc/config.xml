@@ -87,46 +87,6 @@
                 <paypal>PayPal</paypal>
             </groups>
         </payment>
-        <payment>
-            <payflow>
-                <cc>
-                    <types>
-                        <VI>
-                            <code>0</code>
-                            <name>Visa</name>
-                        </VI>
-                        <MC>
-                            <code>1</code>
-                            <name>MasterCard</name>
-                        </MC>
-                        <DI>
-                            <code>2</code>
-                            <name>Discover</name>
-                        </DI>
-                        <AE>
-                            <code>3</code>
-                            <name>American Express</name>
-                        </AE>
-                        <DC>
-                            <code>4</code>
-                            <name>Diners Club</name>
-                        </DC>
-                        <JCB>
-                            <code>5</code>
-                            <name>JCB</name>
-                        </JCB>
-                        <OT>
-                            <code>8</code>
-                            <name>Other</name>
-                        </OT>
-                        <SO>
-                            <code>S</code>
-                            <name>Solo</name>
-                        </SO>
-                    </types>
-                </cc>
-            </payflow>
-        </payment>
     </global>
     <frontend>
         <secure_url>

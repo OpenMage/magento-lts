@@ -61,11 +61,13 @@ class Mage_Catalog_Model_Product_Type
     public static function factory($product, $singleton = false)
     {
         $types = self::getTypes();
+        $typeId = $product->getTypeId();
 
-        if (!empty($types[$product->getTypeId()]['model'])) {
-            $typeModelName = $types[$product->getTypeId()]['model'];
+        if (!empty($types[$typeId]['model'])) {
+            $typeModelName = $types[$typeId]['model'];
         } else {
             $typeModelName = self::DEFAULT_TYPE_MODEL;
+            $typeId = self::DEFAULT_TYPE;
         }
 
         if ($singleton === true) {
@@ -75,7 +77,7 @@ class Mage_Catalog_Model_Product_Type
             $typeModel = Mage::getModel($typeModelName);
             $typeModel->setProduct($product);
         }
-        $typeModel->setConfig($types[$product->getTypeId()]);
+        $typeModel->setConfig($types[$typeId]);
         return $typeModel;
     }
 

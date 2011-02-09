@@ -45,6 +45,24 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
         return Mage::getModel('adminhtml/url')->getUrl($route, $params);
     }
 
+	/**
+     * Set secure url checkout is secure for current store.
+     *
+     * @param   string $route
+     * @param   array $params
+     * @return  string
+     */
+    protected function _getUrl($route, $params = array())
+    {
+        $params['_type'] = Mage_Core_Model_Store::URL_TYPE_LINK;
+        if (isset($params['is_secure'])) {
+            $params['_secure'] = (bool)$params['is_secure'];
+        } elseif (Mage::app()->getStore()->isCurrentlySecure()) {
+            $params['_secure'] = true;
+        }
+        return parent::_getUrl($route, $params);
+    }
+
     /**
      * Retrieve save order url params
      *
@@ -118,7 +136,7 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getPlaceOrderAdminUrl()
     {
-        return $this->_getUrl('*/authorizenet_directpost_payment/place');
+        return $this->getAdminUrl('*/authorizenet_directpost_payment/place', array());
     }
 
     /**

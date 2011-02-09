@@ -136,6 +136,38 @@ class Mage_Connect_Package_Writer
     }
 
     /**
+    * Create dir in PATH_TO_TEMPORARY_DIRECTORY and move all files
+    * to this dir.
+    * This dir has a structure compatible with previous version of Magento Connact Manager
+    *
+    * @param arra $destinationFiles
+    * @return Mage_Connect_Package_Writer
+    */
+    public function composePackageV1x(array $destinationFiles)
+    {
+        @mkdir(self::PATH_TO_TEMPORARY_DIRECTORY, 0777, true);
+        $root = self::PATH_TO_TEMPORARY_DIRECTORY . basename($this->_namePackage);
+        @mkdir($root, 0777, true);
+        $packageFilesDir = $root . DS . basename($this->_namePackage);
+        @mkdir($packageFilesDir, 0777, true);
+        foreach ($this->_files as $index => $file) {
+            $destinationFile = $destinationFiles[$index];
+            if (is_dir($file) || is_file($file)) {
+                $fileName = basename($destinationFile);
+                $filePath = dirname($destinationFile);
+                @mkdir($packageFilesDir . DS . $filePath, 0777, true);
+                if (is_file($file)) {
+                    copy($file, $packageFilesDir . DS . $filePath . DS . $fileName);
+                } else {
+                    @mkdir($packageFilesDir . DS . $filePath . $fileName, 0777);
+                }
+            }
+        }
+        $this->_temporaryPackageDir = $root;
+        return $this;
+    }
+
+    /**
     * Add package.xml to temporary package directory.
     *
     * @param $content

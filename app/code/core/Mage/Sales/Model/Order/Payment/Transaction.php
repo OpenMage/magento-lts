@@ -36,6 +36,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * @var string
      */
     const TYPE_PAYMENT = 'payment';
+    const TYPE_ORDER   = 'order';
     const TYPE_AUTH    = 'authorization';
     const TYPE_CAPTURE = 'capture';
     const TYPE_VOID    = 'void';
@@ -712,6 +713,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     public function getTransactionTypes()
     {
         return array(
+            Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER    => Mage::helper('sales')->__('Order'),
             Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH    => Mage::helper('sales')->__('Authorization'),
             Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE => Mage::helper('sales')->__('Capture'),
             Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID    => Mage::helper('sales')->__('Void'),
@@ -744,6 +746,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         }
         switch ($txnType) {
             case self::TYPE_PAYMENT:
+            case self::TYPE_ORDER:
             case self::TYPE_AUTH:
             case self::TYPE_CAPTURE:
             case self::TYPE_VOID:

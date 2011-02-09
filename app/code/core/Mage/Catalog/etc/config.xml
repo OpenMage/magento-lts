@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Catalog>
-            <version>1.4.0.0.41</version>
+            <version>1.4.0.0.43</version>
         </Mage_Catalog>
     </modules>
 

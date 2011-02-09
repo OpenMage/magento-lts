@@ -213,7 +213,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
      * ReDefine Product Type Instance to Product
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Convert_Adapter_Product
+     * @return Mage_Catalog_Model_Convert_Parser_Product
      */
     public function setProductTypeInstance(Mage_Catalog_Model_Product $product)
     {

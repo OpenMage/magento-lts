@@ -414,19 +414,22 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * If non matched - sequential array is expected and OR conditions
      * will be built using above mentioned structure
      *
-     * @param string $fieldName
+     * @param string|array $fieldName
      * @param integer|string|array $condition
      * @return string
      */
     protected function _getConditionSql($fieldName, $condition) {
         if (is_array($fieldName)) {
-            foreach ($fieldName as $f) {
-                $orSql = array();
-                foreach ($condition as $orCondition) {
-                    $orSql[] = '('.$this->_getConditionSql($f[0], $f[1]).')';
+            $orSql = array();
+            foreach ($fieldName as $key=>$name) {
+                if (isset($condition[$key])) {
+                    $orSql[] = '('.$this->_getConditionSql($name, $condition[$key]).')';
+                } else {
+                    //if nothing passed as condition adding empty condition to avoid sql error
+                    $orSql[] = $this->getConnection()->quoteInto("$name = ?", '');
                 }
-                $sql = '('. join(' or ', $orSql) .')';
             }
+            $sql = '('. join(' or ', $orSql) .')';
             return $sql;
         }
 

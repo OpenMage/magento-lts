@@ -23,27 +23,16 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
-/**
- * Sales order view items extra info template for gift message
- *
- * @see Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items
- */
 ?>
 
-<?php $_item = $this->getItem() ?>
-<tr class="border">
-    <td class="first">
-        <div>
-            <strong><a class="action-link" href="#" id="gift_options_link_<?php echo $_item->getId() ?>" onclick="giftOptions.showItemGiftOptions(<?php echo $_item->getId() ?>); return false;"><?php echo Mage::helper('sales')->__('Gift Options') ?></a></strong><br/>
+<?php if ($this->canDisplayGiftMessage()): ?>
+    <div class="no-display">
+        <?php echo $this->getFormHtml();?>
+
+        <?php if ($this->getMessageText()): ?>
+        <div class="gift-options-tooltip-content">
+            <strong><?php echo $this->helper('giftmessage')->__('Gift Message')?></strong>: <?php echo $this->getMessageText(); ?>
         </div>
-        <input style="display: none;" type="checkbox" id="item_<?php echo $_item->getId() ?>_giftmessage" name="item[<?php echo $_item->getId() ?>][giftmessage]"<?php if($this->isAllowedForGiftMessage($_item)): ?> checked="checked"<?php endif; ?>/>
-    </td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td class="last"></td>
-</tr>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

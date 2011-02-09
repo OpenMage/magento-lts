@@ -822,6 +822,11 @@ tr.summary-details-excluded { font-style:italic; }
 .price-excluding-tax .label { font-size:10px; text-transform:uppercase; white-space:nowrap; color:#888; }
 .price-excluding-tax .price { font-size:12px; font-weight:normal; color:#396f00; }
 
+/* Configured price */
+.configured-price { margin:0; }
+.configured-price .price-label { font-weight:bold; white-space:nowrap; }
+.configured-price .price { font-size:13px; font-weight:bold; }
+
 /* Incl tax (for order tables) */
 .price-incl-tax { display:block; }
 .price-incl-tax .label { display:block; white-space:nowrap; }

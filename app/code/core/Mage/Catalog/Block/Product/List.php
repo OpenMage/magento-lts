@@ -158,7 +158,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
             $toolbar->setModes($modes);
         }
 
-        // set collection to tollbar and apply sort
+        // set collection to toolbar and apply sort
         $toolbar->setCollection($collection);
 
         $this->setChild('toolbar', $toolbar);

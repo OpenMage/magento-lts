@@ -49,9 +49,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Data extends Mage_Adminhtml_Block_
             );
             foreach ($dirtyCodes as $code) {
                 if (isset($rates[$code]) || $code == Mage::app()->getStore()->getBaseCurrencyCode()) {
-                    $currency = Mage::app()->getLocale()->currency($code);
-                    $symbol = $currency->getSymbol() ? $currency->getSymbol() : $currency->getShortName();
-                    $codes[$symbol] = $code;
+                    $codes[] = $code;
                 }
             }
         }
@@ -67,6 +65,18 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Data extends Mage_Adminhtml_Block_
     public function getCurrencyName($code)
     {
         return Mage::app()->getLocale()->currency($code)->getName();
+    }
+
+    /**
+     * Retrieve curency name by code
+     *
+     * @param   string $code
+     * @return  string
+     */
+    public function getCurrencySymbol($code)
+    {
+        $currency = Mage::app()->getLocale()->currency($code);
+        return $currency->getSymbol() ? $currency->getSymbol() : $currency->getShortName();
     }
 
     /**

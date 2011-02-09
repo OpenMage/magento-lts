@@ -64,6 +64,13 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     protected $_isComposite             = true;
 
     /**
+     * Product is configurable
+     *
+     * @var bool
+     */
+    protected $_canConfigure            = true;
+
+    /**
      * Return relation info about used products
      *
      * @return Varien_Object Object with information data

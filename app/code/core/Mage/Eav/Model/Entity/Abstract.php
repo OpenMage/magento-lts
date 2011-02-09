@@ -1110,7 +1110,7 @@ abstract class Mage_Eav_Model_Entity_Abstract
             /**
              * Check comparability for attribute value
              */
-            if (array_key_exists($k, $origData)) {
+            if ($this->_canUpdateAttribute($attribute, $v, $origData)) {
                 if ($this->_isAttributeValueEmpty($attribute, $v)) {
                     $delete[$attribute->getBackend()->getTable()][] = array(
                         'attribute_id'  => $attrId,
@@ -1121,8 +1121,6 @@ abstract class Mage_Eav_Model_Entity_Abstract
                         'value_id' => $attribute->getBackend()->getValueId(),
                         'value'    => $v,
                     );
-                } else if ($v == $origData[$k] && $origData['store_id'] != $this->getDefaultStoreId()) {
-                    $insert[$attrId] = $v;
                 }
             } else if (!$this->_isAttributeValueEmpty($attribute, $v)) {
                 $insert[$attrId] = $v;
@@ -1131,6 +1129,19 @@ abstract class Mage_Eav_Model_Entity_Abstract
 
         $result = compact('newObject', 'entityRow', 'insert', 'update', 'delete');
         return $result;
+    }
+
+    /**
+     * Return if attribute exists in original data array.
+     *
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param mixed $value New value of the attribute. Can be used in subclasses.
+     * @param array $origData
+     * @return bool
+     */
+    protected function _canUpdateAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $value, array &$origData)
+    {
+        return array_key_exists($attribute->getAttributeCode(), $origData);
     }
 
     /**
@@ -1590,15 +1601,5 @@ abstract class Mage_Eav_Model_Entity_Abstract
     protected function _isAttributeValueEmpty(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $value)
     {
         return $attribute->isValueEmpty($value);
-    }
-
-    /**
-     * Default sore ID getter
-     *
-     * @return integer
-     */
-    public function getDefaultStoreId()
-    {
-        return Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
     }
 }

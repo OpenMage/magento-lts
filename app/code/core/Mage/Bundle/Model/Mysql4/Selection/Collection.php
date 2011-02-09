@@ -114,4 +114,20 @@ class Mage_Bundle_Model_Mysql4_Selection_Collection
             ->order('selection.selection_id asc');
         return $this;
     }
+
+    /**
+     * Set store id for each collection item when collection was loaded 
+     *
+     * @return void
+     */
+    public function _afterLoad()
+    {
+        parent::_afterLoad();
+        if ($this->getStoreId() && $this->_items) {
+            foreach ($this->_items as $item) {
+                $item->setStoreId($this->getStoreId());
+            }
+        }
+        return $this;
+    }
 }

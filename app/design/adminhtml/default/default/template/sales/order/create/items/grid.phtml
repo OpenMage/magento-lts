@@ -104,7 +104,7 @@
                 <tbody class="<?php echo ($i%2)?'even':'odd' ?>">
                     <tr>
                         <td class="first">
-                            <h5 class="title"><?php echo $this->htmlEscape($_item->getName()) ?></h5>
+                            <h5 class="title"><span id="order_item_<?php echo $_item->getId() ?>_title"><?php echo $this->htmlEscape($_item->getName()) ?></span></h5>
                             <div>
                                 <strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong>
                                 <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->htmlEscape($_item->getSku()))); ?>
@@ -425,88 +425,23 @@
 <script type="text/javascript">
 //<![CDATA[
     /**
-     * Loader function for gift message data
-     *
-     * @param Function callback
-     * @param int itemId
-     */
-    function loadGiftMessageFields(callback, itemId)
-    {
-        $('item_' + itemId + '_giftmessage').checked = true;
-        var area = 'giftmessage';
-        var url = '<?php echo $this->getUrl('*/*/loadBlock');?>' + 'block/' + area + '?isAjax=true';
-
-        var info = $('order-items_grid').select('input', 'select', 'textarea');
-        var params = {};
-        for (var i = 0; i < info.length; i++){
-            if (!info[i].disabled && (info[i].type != 'checkbox' || info[i].checked)) {
-                params[info[i].name] = info[i].getValue();
-            }
-        }
-        params.reset_shipping = true;
-        params.update_items = true;
-        params.json = true;
-        new Ajax.Request(url, {
-            parameters: params,
-            onSuccess: function(transport) {
-                var response = transport.responseText.evalJSON();
-                if (response) {
-                    $('order-giftmessage').update(response['giftmessage']);
-                    if (Object.isFunction(callback)) {
-                        callback();
-                    }
-                }
-            }
-        });
-    }
-
-    /**
      * Retrieve gift options tooltip content
-     *
-     * @param int itemId
      */
-    function getGiftOptionsTooltipContent(itemId)
-    {
+    function getGiftOptionsTooltipContent(itemId) {
         var contentLines = [];
         var contentLine = null;
-        if ($('giftmessage_' + itemId + '_message')) {
-            contentLine = '<span style="font-weight: bold;"><?php echo $this->__('Gift Message')?></span>: ' + $('giftmessage_' + itemId + '_message').getValue();
+
+        $$('#gift_options_data_' + itemId + ' .gift-options-tooltip-content').each(function (element) {
+            contentLine = element.innerHTML;
             if (contentLine.length > 70) {
                 contentLine = contentLine.slice(0,67) + '...';
             }
             contentLines.push(contentLine);
-        }
-        //Add another gift options below
+        });
         return contentLines.join('<br/>');
     }
-
-    /**
-     * Retrieve gift options window title
-     *
-     * @param int itemId
-     */
-    function getGiftOptionsWindowTitle(itemId)
-    {
-        var title = '<?php echo Mage::helper('sales')->__('Gift Options for'); ?>';
-        if ($('giftmessage_' + itemId + '_product_name')) {
-            title += ' ' + $('giftmessage_' + itemId + '_product_name').getValue();
-        }
-        return title;
-    }
-
-    giftOptions.addGiftOptionsGroup('giftmessage', ['sender', 'message', 'recipient']);
-    giftOptions.setExternalFieldsloaderFunction(loadGiftMessageFields);
-    giftOptions.setContentLoaderFunction(giftOptions.loadGiftOptionsValues, true);
-    giftOptions.setOkCallback(giftOptions.saveGiftOptionsValues, true);
-    giftOptions.setGiftOptionsWindowTitleLoaderFunction(getGiftOptionsWindowTitle);
-
     giftOptionsTooltip.setTooltipContentLoaderFunction(getGiftOptionsTooltipContent);
 
-    <?php foreach ($_items as $_item): ?>
-        <?php if ($this->isGiftMessagesAvailable($_item)): ?>
-    giftOptionsTooltip.addTargetLink('gift_options_link_<?php echo $_item->getId() ?>', <?php echo $_item->getId() ?>);
-        <?php endif; ?>
-    <?php endforeach; ?>
 //]]>
 </script>
 <?php endif; ?>

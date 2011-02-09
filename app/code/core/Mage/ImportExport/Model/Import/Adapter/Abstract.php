@@ -72,7 +72,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      * Adapter object constructor.
      *
      * @param string $source Source file path.
-     * @throws Exception
+     * @throws Mage_Core_Exception
      * @return void
      */
     final public function __construct($source)
@@ -81,7 +81,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
             Mage::throwException(Mage::helper('importexport')->__('Source file path must be a string'));
         }
         if (!is_readable($source)) {
-            Mage::throwException("{$source} file does not exists or is not readable");
+            Mage::throwException($this->__("%s file does not exists or is not readable", $source));
         }
         $this->_source = $source;
 
@@ -168,8 +168,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Check source file for validity.
      *
-     * @throws Exception
-     * @return Mage_ImportExport_Model_Import_Adapter_Csv
+     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
      */
     public function validateSource()
     {

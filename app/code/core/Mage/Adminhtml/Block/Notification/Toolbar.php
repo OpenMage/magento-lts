@@ -64,9 +64,12 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
         if ($this->getRequest()->getControllerName() == 'notification') {
             return false;
         }
-        if ($this->getCriticalCount() == 0 && $this->getMajorCount() == 0 && $this->getMinorCount() == 0 && $this->getNoticeCount() == 0) {
+        if ($this->getCriticalCount() == 0 && $this->getMajorCount() == 0 && $this->getMinorCount() == 0
+            && $this->getNoticeCount() == 0
+        ) {
             return false;
         }
+
         return true;
     }
 

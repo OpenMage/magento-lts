@@ -31,64 +31,54 @@
  * @package    Mage_GiftMessage
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items extends Mage_Adminhtml_Block_Sales_Items_Abstract
+class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items extends Mage_Adminhtml_Block_Template
 {
     /**
-     * Get Order Item
+     * Get order item
      *
      * @return Mage_Sales_Model_Quote_Item
      */
     public function getItem()
     {
-        $item = $this->getParentBlock()->getData('item');
-        return $item;
-    }
-
-
-    /**
-     * Prepare html output
-     *
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        $_item = $this->getItem();
-        if ($_item && $this->isGiftMessagesAvailable($_item)) {
-            return parent::_toHtml();
-        } else {
-            return false;
-        }
+        return $this->getParentBlock()->getItem();
     }
 
     /**
-     * Check available Gift Messages
+     * Indicates that block can display gift messages form
      *
-     * @param Mage_Sales_Model_Quote_Item $item
      * @return boolean
      */
-    public function isGiftMessagesAvailable($item=null)
+    public function canDisplayGiftMessage()
     {
-        if(is_null($item)) {
-            return $this->helper('giftmessage/message')->getIsMessagesAvailable(
-                'items', $this->getQuote(), $this->getStore()
-            );
-        }
-
         return $this->helper('giftmessage/message')->getIsMessagesAvailable(
-            'item', $item, $this->getStore()
+            'item', $this->getItem(), $this->getItem()->getStoreId()
         );
     }
 
-    /**
-     * Checks allowed quote item for gift messages
+   /**
+     * Return form html
      *
-     * @param Mage_Sales_Model_Quote_Item $item
-     * @return boolean
+     * @return string
      */
-    public function isAllowedForGiftMessage($item)
+    public function getFormHtml()
     {
-
-        return Mage::getSingleton('adminhtml/giftmessage_save')->getIsAllowedQuoteItem($item);
+        return $this->getLayout()->createBlock('adminhtml/sales_order_create_giftmessage_form')
+            ->setEntity($this->getItem())
+            ->setEntityType('item')
+            ->toHtml();
     }
 
+    /**
+     * Retrieve gift message for item
+     *
+     * @return string
+     */
+    public function getMessageText()
+    {
+        if ($this->getItem()->getGiftMessageId()) {
+            $model = $this->helper('giftmessage/message')->getGiftMessage($this->getItem()->getGiftMessageId());
+            return $this->htmlEscape($model->getMessage());
+        }
+        return '';
+    }
 }

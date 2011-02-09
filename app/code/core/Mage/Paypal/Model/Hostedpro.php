@@ -214,7 +214,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
      */
     public function getNotifyUrl($storeId = null)
     {
-        return $this->_getUrl('paypal/ipn/', $storeId);
+        return $this->_getUrl('paypal/ipn', $storeId, false);
     }
 
     /**
@@ -229,15 +229,19 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     }
 
     /**
-     * Build Url for store
+     * Build URL for store
      *
      * @param string $path
      * @param int $storeId
+     * @param bool $secure
      * @return string
      */
-    protected function _getUrl($path, $storeId)
+    protected function _getUrl($path, $storeId, $secure = null)
     {
-        return Mage::app()->getStore($storeId)
-            ->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . $path;
+        $store = Mage::app()->getStore($storeId);
+        return Mage::getUrl($path, array(
+            "_store"   => $store, 
+            "_secure"  => is_null($secure) ? $store->isCurrentlySecure() : $secure
+        ));
     }
 }

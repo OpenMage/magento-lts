@@ -45,12 +45,14 @@
         toggleFileChange: function(inputBox) {
             this.initializeFile(inputBox);
             inputBox.toggle();
+            this.fileChangeFlag = this.fileChangeFlag ? false : true;
             if (!this.fileDeleteFlag) {
-                this.fileChangeFlag = this.fileChangeFlag ? false : true;
                 if (this.fileChangeFlag) {
                      this.inputFileAction.value = 'save_new';
+                     this.inputFile.disabled = false;
                  } else {
                      this.inputFileAction.value = 'save_old';
+                     this.inputFile.disabled = true;
                  }
             }
         },
@@ -60,11 +62,11 @@
             this.fileDeleteFlag = fileDeleteFlag.checked ? true : false;
             if (this.fileDeleteFlag) {
                 this.inputFileAction.value = '';
-                this.inputFile.writeAttribute({disabled: 'disabled'});
+                this.inputFile.disabled = true;
                 this.fileNameBox.setStyle({'text-decoration': 'line-through'});
             } else {
                 this.inputFileAction.value = this.fileChangeFlag ? 'save_new' : 'save_old';
-                this.inputFile.writeAttribute({disabled: false});
+                this.inputFile.disabled = (this.fileChangeFlag == 'save_old');
                 this.fileNameBox.setStyle({'text-decoration': 'none'});
             }
         }
@@ -77,14 +79,16 @@
 <dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
     <?php if ($_fileExists): ?>
         <span class="<?php echo $_fileNamed ?>"><?php echo $_fileInfo->getTitle(); ?></span>
-        <a href="javascript:void(0)" class="label" onclick="opFile<?php echo $_rand; ?>.toggleFileChange(this.next('.input-box'))">
+        <a href="javascript:void(0)" class="label" onclick="opFile<?php echo $_rand; ?>.toggleFileChange($(this).next('.input-box'))">
             <?php echo Mage::helper('catalog')->__('Change') ?>
         </a>&nbsp;
-        <input type="checkbox" onclick="opFile<?php echo $_rand; ?>.toggleFileDelete(this, this.next('.input-box'))" price="<?php echo $_option->getPrice(true) ?>"/>
-        <span class="label"><?php echo Mage::helper('catalog')->__('Delete') ?></span>
+        <?php if (!$_option->getIsRequire()): ?>
+            <input type="checkbox" onclick="opFile<?php echo $_rand; ?>.toggleFileDelete($(this), $(this).next('.input-box'))" price="<?php echo $this->getCurrencyPrice($_option->getPrice(true)) ?>"/>
+            <span class="label"><?php echo Mage::helper('catalog')->__('Delete') ?></span>
+        <?php endif; ?>
     <?php endif; ?>
     <div class="input-box" <?php echo $_fileExists ? 'style="display:none"' : '' ?>>
-        <input type="file" name="<?php echo $_fileName; ?>" class="product-custom-option<?php echo $_option->getIsRequire() ? ' required-entry' : '' ?>" price="<?php echo $_option->getPrice(true) ?>"/>
+        <input type="file" name="<?php echo $_fileName; ?>" class="product-custom-option<?php echo $_option->getIsRequire() ? ' required-entry' : '' ?>" price="<?php echo $this->getCurrencyPrice($_option->getPrice(true)) ?>" <?php echo $_fileExists ? 'disabled="disabled"' : '' ?>/>
         <input type="hidden" name="<?php echo $_fieldNameAction; ?>" value="<?php echo $_fieldValueAction; ?>" />
         <?php if ($_option->getFileExtension()): ?>
         <p class="no-margin"><?php echo Mage::helper('catalog')->__('Allowed file extensions to upload')?>: <strong><?php echo $_option->getFileExtension() ?></strong></p>

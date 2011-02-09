@@ -33,6 +33,15 @@
  */
 class Mage_Connect_Package
 {
+    /*
+     * Current version of magento connect package format
+     */
+    const PACKAGE_VERSION_2X = '2';
+
+    /*
+     * Previous version of magento connect package format
+     */
+    const PACKAGE_VERSION_1X = '1';
 
     /**
      * Contain SimpleXMLElement for composing document.
@@ -215,6 +224,20 @@ END;
     }
 
     /**
+     * Creates a package that is compatible with the previous version of Magento Connect Manager and saves it
+     *
+     * @param string $path
+     * @return Mage_Connect_Package
+     */
+    public function saveV1x($path)
+    {
+        $this->validate();
+        $path = rtrim($path, "\\/") . DS;
+        $this->_savePackageV1x($path);
+        return $this;
+    }
+
+    /**
      * Creates a package archive and saves it to specified path
      *
      * @param string $path
@@ -230,6 +253,151 @@ END;
             ->composePackage()
             ->addPackageXml($this->getPackageXml())
             ->archivePackage();
+        return $this;
+    }
+
+    /**
+     * Creates a package archive and saves it to specified path
+     * Package is compatible with the previous version of magento Connect Manager 
+     *
+     * @param string $path
+     * @return Mage_Connect_Package
+     */
+    protected function _savePackageV1x($path)
+    {
+        $fileName = $this->getReleaseFilename();
+        $writer = new Mage_Connect_Package_Writer($this->getContents(), $path.$fileName);
+        $writer->composePackageV1x($this->getContentsV1x())
+            ->addPackageXml($this->_getPackageXmlV1x())
+            ->archivePackage();
+        return $this;
+    }
+
+    /**
+     * Generate package xml that is compatible with first version of Magento Connect Manager
+     * Function uses already generated package xml to import data
+     *
+     * @return string
+     */
+    protected function _getPackageXmlV1x()
+    {
+        $newPackageXml = $this->_packageXml;
+        $packageXmlV1xStub = <<<END
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1"
+version="2.0"
+xmlns="http://pear.php.net/dtd/package-2.0"
+xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd" />
+END;
+        $packageXmlV1x = simplexml_load_string($packageXmlV1xStub);
+        // Note: The previous version of MCM requires precise node order in package.xml file
+        $packageXmlV1x->addChild('name', (string)$newPackageXml->name);
+        $packageXmlV1x->addChild('channel', Mage::helper('connect')->convertChannelToV1x((string)$newPackageXml->channel));
+        $packageXmlV1x->addChild('summary', (string)$newPackageXml->summary);
+        $packageXmlV1x->addChild('description', (string)$newPackageXml->description);
+        // Import authors
+        foreach ($newPackageXml->authors->author as $author) {
+            $leadNode = $packageXmlV1x->addChild('lead');
+            $leadNode->addChild('name', (string)$author->name);
+            $leadNode->addChild('user', (string)$author->user);
+            $leadNode->addChild('email', (string)$author->email);
+            $leadNode->addChild('active', 'yes');
+        }
+        // Import date and time
+        $packageXmlV1x->addChild('date', (string)$newPackageXml->date);
+        $packageXmlV1x->addChild('time', (string)$newPackageXml->time);
+        // Import version
+        $versionNode = $packageXmlV1x->addChild('version');
+        $versionNode->addChild('release', (string)$newPackageXml->version);
+        $versionNode->addChild('api', (string)$newPackageXml->version);
+        // Import stability
+        $stabilityNode = $packageXmlV1x->addChild('stability');
+        $stabilityNode->addChild('release', (string)$newPackageXml->stability);
+        $stabilityNode->addChild('api', (string)$newPackageXml->stability);
+        // Import license
+        $licenseNode = $packageXmlV1x->addChild('license', (string)$newPackageXml->license);
+        if ($newPackageXml->license['uri']) {
+            $licenseNode->addAttribute('uri', (string)$newPackageXml->license['uri']);
+        }
+        $packageXmlV1x->addChild('notes', (string)$newPackageXml->notes);
+        // Import content
+        $conentsRootDirNode = $packageXmlV1x->addChild('contents')->addChild('dir');
+        $conentsRootDirNode->addAttribute('name', '/');
+        foreach ($newPackageXml->contents->target as $target) {
+            $role = (string)$target['name'];
+            $this->_mergeContentsToV1x($conentsRootDirNode, $target, $role);
+        }
+        // Import dependencies
+        $requiredDependenciesNode = $packageXmlV1x->addChild('dependencies')->addChild('required');
+        $requiredDependenciesPhpNode = $requiredDependenciesNode->addChild('php');
+        $requiredDependenciesPhpNode->addChild('min', (string)$newPackageXml->dependencies->required->php->min);
+        $requiredDependenciesPhpNode->addChild('max', (string)$newPackageXml->dependencies->required->php->max);
+        $requiredDependenciesNode->addChild('pearinstaller')->addChild('min','1.6.2');
+        // Handle packages
+        foreach ($newPackageXml->dependencies->required->package as $package) {
+            $packageNode = $requiredDependenciesNode->addChild('package');
+            $packageNode->addChild('name', (string)$package->name);
+            // Convert channel to previous version format
+            $channel = (string)$package->channel;
+            $channel = Mage::helper('connect')->convertChannelToV1x($channel);
+            $packageNode->addChild('channel', $channel);
+            $minVersion = (string)$package->min;
+            if ($minVersion) {
+                $packageNode->addChild('min', $minVersion);
+            }
+            $maxVersion = (string)$package->max;
+            if ($maxVersion) {
+                $packageNode->addChild('max', $maxVersion);
+            }
+        }
+        // Handle extensions
+        foreach ($newPackageXml->dependencies->required->extension as $extension) {
+            $extensionNode = $requiredDependenciesNode->addChild('extension');
+            $extensionNode->addChild('name', (string)$extension->name);
+            $minVersion = (string)$extension->min;
+            if ($minVersion) {
+                $extensionNode->addChild('min', $minVersion);
+            }
+            $maxVersion = (string)$extension->max;
+            if ($maxVersion) {
+                $extensionNode->addChild('max', $maxVersion);
+            }
+        }
+        $packageXmlV1x->addChild('phprelease');
+
+        return $packageXmlV1x->asXML();
+    }
+
+    /**
+     * Merge contents of source element into destination element
+     * Function converts <file/> and <dir/> nodes into format that is compatible
+     * with previous version of Magento Connect Manager
+     *
+     * @param SimpleXMLElement $destination
+     * @param SimpleXMLElement $source
+     * @param string $role
+     * @return Mage_Connect_Package
+     */
+    protected function _mergeContentsToV1x($destination, $source, $role)
+    {
+        foreach ($source->children() as $child) {
+            if ($child->getName() == 'dir') {
+                $newDestination = $destination;
+                if ($child['name'] != '.') {
+                    $directoryElement = $destination->addChild('dir');
+                    $directoryElement->addAttribute('name', $child['name']);
+                    $newDestination = $directoryElement;
+                }
+                $this->_mergeContentsToV1x($newDestination, $child, $role);
+            } elseif ($child->getName() == 'file') {
+                $fileElement = $destination->addChild('file');
+                $fileElement->addAttribute('name', $child['name']);
+                $fileElement->addAttribute('md5sum', $child['hash']);
+                $fileElement->addAttribute('role', $role);
+            }
+        }
         return $this;
     }
 
@@ -868,6 +1036,28 @@ END;
             $this->_getList($target, $targetUri);
         }
         return $this->_contents;
+    }
+
+    /**
+     * Create list of all files from package.xml compatible with previous version of Magento Connect Manager
+     *
+     * @return array
+     */
+    public function getContentsV1x()
+    {
+        $currentContents = $this->_contents;
+        $this->_contents = array();
+
+        if(!isset($this->_packageXml->contents->target)) {
+            return $this->_contents;
+        }
+        foreach($this->_packageXml->contents->target as $target) {
+            $this->_getList($target, '');
+        }
+        $contents = $this->_contents;
+
+        $this->_contents = $currentContents;
+        return $contents;
     }
 
     /**

@@ -76,13 +76,11 @@ class Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction
         $product = $row->getProduct();
 
         if (isset($action['process']) && $action['process'] == 'configurable') {
-            $hasConfigurableOptions = (bool)($product->isComposite() || $product->getOptions()
-                || in_array($product->getTypeId(), array('giftcard', 'downloadable')));
-            if ($hasConfigurableOptions) {
+            if ($product->canConfigure()) {
                 $style = '';
                 $onClick = sprintf('onclick="return %s.configureItem(%s)"', $action['control_object'], $row->getId());
             } else {
-                $style = 'style="color: #CCC"';
+                $style = 'style="color: #CCC;"';
                 $onClick = '';
             }
 

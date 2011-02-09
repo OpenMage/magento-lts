@@ -149,7 +149,7 @@ directPostModel = new directPost(
         '<?php echo $_controller ?>',
         '<?php echo $_orderUrl ?>',
         '<?php echo $_method->getCgiUrl() ?>',
-        '<?php echo $this->getUrl('*/*/save') ?>');
+        '<?php echo $this->getUrl('*/*/save', array('_secure' => $this->getRequest()->isSecure())) ?>');
 <?php if (!$this->isAjaxRequest()): ?>
 });
 <?php endif; ?>

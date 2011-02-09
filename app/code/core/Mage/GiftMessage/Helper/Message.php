@@ -122,7 +122,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
                 if ($item->getParentItem()) {
                     continue;
                 }
-                if ($this->isMessagesAvailable($_type, $item)) {
+                if ($this->isMessagesAvailable($_type, $item, $store)) {
                     return true;
                 }
             }

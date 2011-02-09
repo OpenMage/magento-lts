@@ -23,7 +23,7 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Import entity product model
  *
@@ -425,13 +425,15 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 Mage::throwException("Entity type model '{$typeModel}' is not found");
             }
             if (! $model instanceof Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract) {
-                Mage::throwException(Mage::helper('importexport')->__('Entity type model must be an instance of Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract'));
+                Mage::throwException(
+                    Mage::helper('importexport')->__('Entity type model must be an instance of Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract')
+                );
             }
             if ($model->isSuitable()) {
                 $this->_productTypeModels[$type] = $model;
             }
             $this->_particularAttributes = array_merge(
-                $this->_particularAttributes, 
+                $this->_particularAttributes,
                 $model->getParticularAttributes()
             );
         }
@@ -489,7 +491,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     }
 
     /**
-     * Set valid attribute set and product type to rows with all scopes 
+     * Set valid attribute set and product type to rows with all scopes
      * to ensure that existing products doesn't changed.
      *
      * @param array $rowData
@@ -786,8 +788,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             }
             if ($optionTypePriceRows) {
                 $this->_connection->insertOnDuplicate(
-                    $typePriceTable, 
-                    $optionTypePriceRows, 
+                    $typePriceTable,
+                    $optionTypePriceRows,
                     array('price', 'price_type')
                 );
             }
@@ -822,7 +824,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         foreach ($this->_linkNameToId as $linkName => $linkId) {
             $select = $this->_connection->select()
                 ->from(
-                    $resource->getTable('catalog/product_link_attribute'), 
+                    $resource->getTable('catalog/product_link_attribute'),
                     array('id' => 'product_link_attribute_id')
                 )
                 ->where('link_type_id = ? AND product_link_attribute_code = "position"', $linkId);
@@ -890,8 +892,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             }
             if ($positionRows) { // process linked product positions
                 $this->_connection->insertOnDuplicate(
-                    $resource->getAttributeTypeTable('int'), 
-                    $positionRows, 
+                    $resource->getAttributeTypeTable('int'),
+                    $positionRows,
                     array('value')
                 );
             }
@@ -957,7 +959,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             }
             if (Mage_ImportExport_Model_Import::BEHAVIOR_APPEND != $this->getBehavior()) {
                 $this->_connection->delete(
-                    $tableName, 
+                    $tableName,
                     $this->_connection->quoteInto('product_id IN (?)', $delProductId)
                 );
             }
@@ -984,8 +986,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         }
         if ($entityRowsUp) {
             $this->_connection->insertOnDuplicate(
-                $entityTable, 
-                $entityRowsUp, 
+                $entityTable,
+                $entityRowsUp,
                 array('updated_at')
             );
         }
@@ -1157,7 +1159,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             }
             if (Mage_ImportExport_Model_Import::BEHAVIOR_APPEND != $this->getBehavior()) {
                 $this->_connection->delete(
-                    $tableName, 
+                    $tableName,
                     $this->_connection->quoteInto('entity_id IN (?)', $delProductId)
                 );
             }
@@ -1191,14 +1193,14 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
 
                 foreach (array_keys($websites) as $websiteId) {
                     $websitesData[] = array(
-                        'product_id' => $productId, 
+                        'product_id' => $productId,
                         'website_id' => $websiteId
                     );
                 }
             }
             if (Mage_ImportExport_Model_Import::BEHAVIOR_APPEND != $this->getBehavior()) {
                 $this->_connection->delete(
-                    $tableName, 
+                    $tableName,
                     $this->_connection->quoteInto('product_id IN (?)', $delProductId)
                 );
             }

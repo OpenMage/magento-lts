@@ -229,7 +229,15 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
                 $attribute = Mage::getSingleton('eav/config')
                     ->getAttribute($this->getEntityType(), $attributeCode)
                     ->setEntity($entity);
-                $this->_attributes[$attributeCode] = $attribute;
+                try {
+                    // check if exists source and backend model.
+                    // To prevent exception when some module was disabled
+                    $attribute->usesSource() && $attribute->getSource();
+                    $attribute->getBackend();
+                    $this->_attributes[$attributeCode] = $attribute;
+                } catch (Exception $e) {
+                    Mage::logException($e);
+                }
             }
         }
         return $this->_attributes;

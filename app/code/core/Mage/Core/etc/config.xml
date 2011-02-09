@@ -166,6 +166,22 @@
                     </variable_observer>
                 </observers>
             </cms_wysiwyg_config_prepare>
+            <controller_action_predispatch_adminhtml>
+                <observers>
+                    <synchronize_notification>
+                        <class>core/observer</class>
+                        <method>addSynchronizeNotification</method>
+                    </synchronize_notification>
+                </observers>
+            </controller_action_predispatch_adminhtml>
+            <show_synchronize_message>
+                <observers>
+                    <synchronize_notification>
+                        <class>core/observer</class>
+                        <method>addSynchronizeNotification</method>
+                    </synchronize_notification>
+                </observers>
+            </show_synchronize_message>
         </events>
     </adminhtml>
     <install>

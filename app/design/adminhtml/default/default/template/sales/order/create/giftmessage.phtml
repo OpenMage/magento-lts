@@ -24,7 +24,7 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('main', $this->getQuote(), $this->getStoreId())): ?>
+<?php if ($this->helper('giftmessage/message')->getIsMessagesAvailable('main', $this->getQuote(), $this->getStoreId())): ?>
 <?php $_items = $this->getItems(); ?>
 <div id="order-giftmessage">
 <div class="clear"></div>
@@ -40,14 +40,6 @@
                     </div>
                 <?php endif; ?>
             </div>
-            <?php if ($_items) : ?>
-            <div style="display:none;">
-                <?php foreach ($_items as $_item): ?>
-                <input type="hidden" id="giftmessage_<?php echo $_item->getId(); ?>_product_name" value="<?php echo $_item->getName(); ?>"/>
-                <?php echo $this->getFormHtml($_item, 'item'); ?>
-                <?php endforeach; ?>
-            </div>
-            <?php endif; ?>
             <div class="clear"></div>
         </div>
     </div>

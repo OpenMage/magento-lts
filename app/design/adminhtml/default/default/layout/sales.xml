@@ -75,7 +75,6 @@
     <adminhtml_sales_order_view>
         <reference name="head">
             <action method="addJs"><file>mage/adminhtml/giftmessage.js</file></action>
-            <action method="addJs"><file>mage/adminhtml/giftoptions.js</file></action>
             <action method="addJs"><file>mage/adminhtml/giftoptions/tooltip.js</file></action>
         </reference>
         <reference name="content">
@@ -91,10 +90,7 @@
                         <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>sales/items/column/qty.phtml</template></action>
                         <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>sales/items/column/name.phtml</template></action>
                         <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name_grouped</block><template>sales/items/column/name.phtml</template><type>grouped</type></action>
-                        <block type="core/text_list" name="order_item_extra_info"></block>
-                    </block>
-                    <block type="adminhtml/template" name="popup_window" template="giftmessage/popup.phtml">
-                        <block type="adminhtml/template" name="gift_options_form" template="giftmessage/giftoptionsform.phtml" />
+                        <block type="core/text_list" name="order_item_extra_info" />
                     </block>
                     <block type="adminhtml/sales_order_payment" name="order_payment"/>
                     <block type="adminhtml/sales_order_view_history" name="order_history" template="sales/order/view/history.phtml"></block>
@@ -505,7 +501,6 @@
             <action method="addJs"><file>mage/adminhtml/giftmessage.js</file></action>
             <action method="addJs"><file>mage/adminhtml/product/composite/configure.js</file></action>
             <action method="addJs"><file>varien/configurable.js</file></action>
-            <action method="addJs"><file>mage/adminhtml/giftoptions.js</file></action>
             <action method="addJs"><file>mage/adminhtml/giftoptions/tooltip.js</file></action>
             <block type="adminhtml/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />
         </reference>
@@ -551,9 +546,6 @@
                             <block type="adminhtml/sales_order_create_items_grid" template="sales/order/create/items/grid.phtml" name="items_grid">
                                 <block type="adminhtml/sales_order_create_coupons" template="sales/order/create/coupons/form.phtml" name="coupons">
                                     <block type="adminhtml/sales_order_create_coupons_form" template="sales/order/create/coupons/form.phtml" name="form" />
-                                </block>
-                                <block type="adminhtml/template" name="popup_window" template="giftmessage/popup.phtml">
-                                    <block type="adminhtml/template" name="gift_options_form" template="giftmessage/giftoptionsform.phtml" />
                                 </block>
                             </block>
                         </block>
@@ -616,9 +608,6 @@
                     <block type="adminhtml/sales_order_create_items_grid" template="sales/order/create/items/grid.phtml" name="items_grid">
                         <block type="adminhtml/sales_order_create_coupons" template="sales/order/create/coupons/form.phtml" name="coupons">
                             <block type="adminhtml/sales_order_create_coupons_form" template="sales/order/create/coupons/form.phtml" name="form" />
-                        </block>
-                        <block type="adminhtml/template" name="popup_window" template="giftmessage/popup.phtml">
-                            <block type="adminhtml/template" name="gift_options_form" template="giftmessage/giftoptionsform.phtml" />
                         </block>
                     </block>
                 </block>
@@ -715,9 +704,6 @@
                 <block type="adminhtml/sales_order_create_items_grid" template="sales/order/create/items/grid.phtml" name="items_grid">
                     <block type="adminhtml/sales_order_create_coupons" template="sales/order/create/coupons/form.phtml" name="coupons">
                         <block type="adminhtml/sales_order_create_coupons_form" template="sales/order/create/coupons/form.phtml" name="form" />
-                    </block>
-                    <block type="adminhtml/template" name="popup_window" template="giftmessage/popup.phtml">
-                        <block type="adminhtml/template" name="gift_options_form" template="giftmessage/giftoptionsform.phtml" />
                     </block>
                 </block>
             </block>

@@ -170,7 +170,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object
     {
         if ($productInfo instanceof Mage_Catalog_Model_Product) {
             $product = $productInfo;
-        } elseif (is_int($productInfo)) {
+        } elseif (is_int($productInfo) || is_string($productInfo)) {
             $product = Mage::getModel('catalog/product')
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->load($productInfo);
@@ -496,35 +496,40 @@ class Mage_Checkout_Model_Cart extends Varien_Object
     }
 
     /**
-     * Update product in shopping cart (quote)
+     * Update item in shopping cart (quote)
+     * $requestInfo - either qty (int) or buyRequest in form of array or Varien_Object
+     * $updatingParams - information on how to perform update, passed to Quote->updateItem() method
      *
-     * @param   int|Mage_Catalog_Model_Product $productInfo
-     * @param   mixed $requestInfo
-     * @return  Mage_Checkout_Model_Cart
+     * @param int $id
+     * @param int|array|Varien_Object $requestInfo
+     * @param null|array|Varien_Object $updatingParams
+     * @return Mage_Sales_Model_Quote_Item|string
+     *
+     * @see Mage_Sales_Model_Quote::updateItem()
      */
-    public function updateProduct($productInfo, $requestInfo = null)
+    public function updateItem($itemId, $requestInfo = null, $updatingParams = null)
     {
-        $product   = $this->_getProduct($productInfo);
-        $request   = $this->_getProductRequest($requestInfo);
-        $itemId    = $request->getId();
-        $productId = $product->getId();
-        if (!$productId) {
-            Mage::throwException(Mage::helper('checkout')->__('The product does not exist.'));
-        }
-
-        if ($product->getStockItem()) {
-            $minimumQty = $product->getStockItem()->getMinSaleQty();
-            //If product was not found in cart and there is set minimal qty for it
-            if ($minimumQty && ($minimumQty > 0)
-                && ($request->getQty() < $minimumQty)
-                && !$this->getQuote()->hasProductId($productId)
-            ) {
-                $request->setQty($minimumQty);
-            }
-        }
-
         try {
-            $result = $this->getQuote()->updateItem($itemId, $request);
+            $item = $this->getQuote()->getItemById($itemId);
+            if (!$item) {
+                Mage::throwException(Mage::helper('checkout')->__('Quote item does not exist.'));
+            }
+            $productId = $item->getProduct()->getId();
+            $product = $this->_getProduct($productId);
+            $request = $this->_getProductRequest($requestInfo);
+
+            if ($product->getStockItem()) {
+                $minimumQty = $product->getStockItem()->getMinSaleQty();
+                // If product was not found in cart and there is set minimal qty for it
+                if ($minimumQty && ($minimumQty > 0)
+                    && ($request->getQty() < $minimumQty)
+                    && !$this->getQuote()->hasProductId($productId)
+                ) {
+                    $request->setQty($minimumQty);
+                }
+            }
+
+            $result = $this->getQuote()->updateItem($itemId, $request, $updatingParams);
         } catch (Mage_Core_Exception $e) {
             $this->getCheckoutSession()->setUseNotice(false);
             $result = $e->getMessage();
@@ -542,6 +547,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object
 
         Mage::dispatchEvent('checkout_cart_product_update_after', array('quote_item' => $result, 'product' => $product));
         $this->getCheckoutSession()->setLastAddedProductId($productId);
-        return $this;
+        return $result;
     }
 }

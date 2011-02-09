@@ -72,7 +72,12 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
         $product->setData('_edit_mode', true);
         if ($productId) {
-            $product->load($productId);
+            try {
+                $product->load($productId);
+            } catch (Exception $e) {
+                $product->setTypeId(Mage_Catalog_Model_Product_Type::DEFAULT_TYPE);
+                Mage::logException($e);
+            }
         }
 
         $attributes = $this->getRequest()->getParam('attributes');
@@ -682,6 +687,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                             ->save();
                     }
                 }
+
+                Mage::getModel('catalogrule/rule')->applyToProduct($productId);
+
                 $this->_getSession()->addSuccess($this->__('The product has been saved.'));
             }
             catch (Mage_Core_Exception $e) {
@@ -1052,4 +1060,22 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         return Mage::getSingleton('admin/session')->isAllowed('catalog/products');
     }
 
+    /**
+     * Show item update result from updateAction
+     * in Wishlist and Cart controllers.
+     *
+     */
+    public function showUpdateResultAction()
+    {
+        $session = Mage::getSingleton('adminhtml/session');
+        if ($session->hasCompositeProductResult() && $session->getCompositeProductResult() instanceof Varien_Object){
+            /* @var $helper Mage_Adminhtml_Helper_Catalog_Product_Composite */
+            $helper = Mage::helper('adminhtml/catalog_product_composite');
+            $helper->renderUpdateResult($this, $session->getCompositeProductResult());
+            $session->unsCompositeProductResult();
+        } else {
+            $session->unsCompositeProductResult();
+            return false;
+        }
+    }
 }

@@ -61,11 +61,56 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     }
 
     /**
+     * Returns additional params for processing options
+     *
+     * @return Varien_Object
+     */
+    protected function _getProcessingParams()
+    {
+        $buyRequest = $this->getRequest();
+        $params = $buyRequest->getData('_processing_params');
+        /*
+         * Notice check for params to be Varien_Object - by using object we protect from
+         * params being forged and contain data from user frontend input
+         */
+        if ($params instanceof Varien_Object) {
+            return $params;
+        }
+        return new Varien_Object();
+    }
+
+    /**
+     * Returns file info array if we need to get file from already existing file.
+     * Or returns null, if we need to get file from uploaded array.
+     *
+     * @return null|array
+     */
+    protected function _getCurrentConfigFileInfo()
+    {
+        $option = $this->getOption();
+        $optionId = $option->getId();
+        $processingParams = $this->_getProcessingParams();
+        $buyRequest = $this->getRequest();
+
+        // Check maybe restore file from config requested
+        $optionActionKey = 'options_' . $optionId . '_file_action';
+        if ($buyRequest->getData($optionActionKey) == 'save_old') {
+            $fileInfo = array();
+            $currentConfig = $processingParams->getCurrentConfig();
+            if ($currentConfig) {
+                $fileInfo = $currentConfig->getData('options/' . $optionId);
+            }
+            return $fileInfo;
+        }
+        return null;
+    }
+
+    /**
      * Validate user input for option
      *
      * @throws Mage_Core_Exception
      * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
-     * @return Mage_Catalog_Model_Product_Option_Type_Default
+     * @return Mage_Catalog_Model_Product_Option_Type_File
      */
     public function validateUserValue($values)
     {
@@ -73,17 +118,35 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
         $this->setIsValid(true);
         $option = $this->getOption();
-        // Set option value from request (Admin/Front reorders)
-        if (isset($values[$option->getId()])
-            && is_array($values[$option->getId()])
-            && !array_key_exists('configuration_itemid', $values[$option->getId()])
-        ) {
-            $this->setUserValue($this->_validateFile($values) ? $values[$option->getId()] : null);
+
+        /*
+         * Check whether we receive uploaded file or restore file by: reorder/edit configuration or
+         * previous configuration with no newly uploaded file
+         */
+        $fileInfo = null;
+        if (isset($values[$option->getId()]) && is_array($values[$option->getId()])) {
+            // Legacy style, file info comes in array with option id index
+            $fileInfo = $values[$option->getId()];
+        } else {
+            /*
+             * New recommended style - file info comes in request processing parameters and we
+             * sure that this file info originates from Magento, not from manually formed POST request
+             */
+            $fileInfo = $this->_getCurrentConfigFileInfo();
+        }
+        if ($fileInfo !== null) {
+            if (is_array($fileInfo) && $this->_validateFile($fileInfo)) {
+                $value = $fileInfo;
+            } else {
+                $value = null;
+            }
+            $this->setUserValue($value);
             return $this;
         }
 
+        // Process new uploaded file
         try {
-            $this->_validateUploadedFile($values);
+            $this->_validateUploadedFile();
         } catch (Exception $e) {
             if ($this->getSkipCheckRequiredOption()) {
                 $this->setUserValue(null);
@@ -99,24 +162,18 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Validate uploaded file
      *
      * @throws Mage_Core_Exception
-     * @param array $values Option values
-     * @return Mage_Catalog_Model_Product_Option_Type_Default
+     * @return Mage_Catalog_Model_Product_Option_Type_File
      */
-    protected function _validateUploadedFile($values = null)
+    protected function _validateUploadedFile()
     {
         $option = $this->getOption();
+        $processingParams = $this->_getProcessingParams();
+
         /**
          * Upload init
          */
         $upload   = new Zend_File_Transfer_Adapter_Http();
-        $file     = 'options_' . $option->getId() . '_file';
-        if (isset($values[$option->getId()]['configuration_itemid'])) {
-            $fileItem = sprintf('item_%s_%s', $values[$option->getId()]['configuration_itemid'], $file);
-            if ($fileItem && $upload->isUploaded($fileItem)) {
-                $file = $fileItem;
-            }
-        }
-
+        $file = $processingParams->getFilesPrefix() . 'options_' . $option->getId() . '_file';
         try {
             $runValidation = $option->getIsRequire() || $upload->isUploaded($file);
             if (!$runValidation) {
@@ -248,39 +305,41 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         return $this;
     }
 
-
     /**
      * Validate file
      *
      * @throws Mage_Core_Exception
-     * @param array $values Option values
+     * @param array $optionValue
      * @return Mage_Catalog_Model_Product_Option_Type_Default
      */
-    protected function _validateFile($values)
+    protected function _validateFile($optionValue)
     {
         $option = $this->getOption();
-        $optionValue = $values[$option->getId()];
-
         /**
-         * @var $fileFullPath string
-         * @see Mage_Catalog_Model_Product_Option_Type_File::_validateUploadFile()  setUserValue set correct \n
-         * fileFullPath only for quote_path
+         * @see Mage_Catalog_Model_Product_Option_Type_File::_validateUploadFile() - there setUserValue() sets correct \n
+         * fileFullPath only for quote_path. So we must form both full paths manually and check them.
          */
-        $fileFullPath = '';
+        $checkPaths = array();
+        if (isset($optionValue['quote_path'])) {
+            $checkPaths[] = Mage::getBaseDir() . $optionValue['quote_path'];
+        }
         if (isset($optionValue['order_path']) && !$this->getUseQuotePath()) {
-            $fileFullPath = Mage::getBaseDir() . $optionValue['order_path'];
-        } else if (isset($optionValue['quote_path'])) {
-            $fileFullPath = Mage::getBaseDir() . $optionValue['quote_path'];
+            $checkPaths[] = Mage::getBaseDir() . $optionValue['order_path'];
         }
 
-        if (empty($fileFullPath)) {
-            return false;
-        }
-
-        if (!is_file($fileFullPath)) {
-            if (!Mage::helper('core/file_storage_database')->saveFileToFilesystem($fileFullPath)) {
-                return false;
+        $fileFullPath = null;
+        foreach ($checkPaths as $path) {
+            if (!is_file($path)) {
+                if (!Mage::helper('core/file_storage_database')->saveFileToFilesystem($fileFullPath)) {
+                    continue;
+                }
             }
+            $fileFullPath = $path;
+            break;
+        }
+
+        if ($fileFullPath === null) {
+            return false;
         }
 
         $validatorChain = new Zend_Validate();
@@ -371,16 +430,36 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      */
     public function prepareForCart()
     {
+        $option = $this->getOption();
+        $optionId = $option->getId();
+        $buyRequest = $this->getRequest();
+
+        // Prepare value and fill buyRequest with option
+        $requestOptions = $buyRequest->getOptions();
         if ($this->getIsValid() && $this->getUserValue() !== null) {
             $value = $this->getUserValue();
+
             // Save option in request, because we have no $_FILES['options']
-            $requestOptions = $this->getRequest()->getOptions();
             $requestOptions[$this->getOption()->getId()] = $value;
-            $this->getRequest()->setOptions($requestOptions);
-            return serialize($value);
+            $result = serialize($value);
         } else {
-            return null;
+            /*
+             * Clear option info from request, so it won't be stored in our db upon
+             * unsuccessful validation. Otherwise some bad file data can happen in buyRequest
+             * and be used later in reorders and reconfigurations.
+             */
+            if (is_array($requestOptions)) {
+                unset($requestOptions[$this->getOption()->getId()]);
+            }
+            $result = null;
         }
+        $buyRequest->setOptions($requestOptions);
+
+        // Clear action key from buy request - we won't need it anymore
+        $optionActionKey = 'options_' . $optionId . '_file_action';
+        $buyRequest->unsetData($optionActionKey);
+
+        return $result;
     }
 
     /**

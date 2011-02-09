@@ -668,7 +668,7 @@ class Mage_Connect_Packager
             if (!$releases || !count($releases)) {
                 throw new Exception("No releases for '{$package}', skipping");
             }
-            $state = $config->preffered_state ? $confg->preffered_state : 'devel';
+            $state = $config->preferred_state ? $config->preferred_state : 'devel';
             $version = $cache->detectVersionFromRestArray($releases, $versionMin, $versionMax, $state);
             if(!$version) {
                 throw new Exception("Version for '{$package}' was not detected");

@@ -29,25 +29,53 @@
 <layout>
     <adminhtml_sales_order_view>
         <reference name="order_item_extra_info">
-            <block type="giftmessage/adminhtml_sales_order_view_items" name="gift_options_items" template="giftmessage/sales/order/view/items.phtml"></block>
+            <block type="giftmessage/adminhtml_sales_order_view_giftoptions" name="gift_options_link" template="giftmessage/sales/order/view/giftoptions.phtml">
+                <block type="giftmessage/adminhtml_sales_order_view_items" name="gift_options_item_data" template="giftmessage/sales/order/view/items.phtml" />
+            </block>
+        </reference>
+        <reference name="order_tab_info">
+            <block type="adminhtml/template" name="popup_window" template="giftmessage/popup.phtml">
+                <block type="giftmessage/adminhtml_sales_order_view_form" name="gift_options_form" template="giftmessage/giftoptionsform.phtml" />
+             </block>
         </reference>
     </adminhtml_sales_order_view>
 
     <adminhtml_sales_order_create_index>
         <reference name="order_item_extra_info">
-            <block type="giftmessage/adminhtml_sales_order_create_items" name="gift_options_items" template="giftmessage/sales/order/create/items.phtml"></block>
+            <block type="giftmessage/adminhtml_sales_order_create_giftoptions" name="gift_options_link" template="giftmessage/sales/order/create/giftoptions.phtml">
+                <block type="giftmessage/adminhtml_sales_order_create_items" name="gift_options_item_data" template="giftmessage/sales/order/create/items.phtml" />
+            </block>
+        </reference>
+        <reference name="items_grid">
+            <block type="adminhtml/template" name="popup_window" template="giftmessage/popup.phtml">
+                <block type="giftmessage/adminhtml_sales_order_create_form" name="gift_options_form" template="giftmessage/giftoptionsform.phtml" />
+             </block>
         </reference>
     </adminhtml_sales_order_create_index>
 
     <adminhtml_sales_order_create_load_block_data>
         <reference name="order_item_extra_info">
-            <block type="giftmessage/adminhtml_sales_order_create_items" name="gift_options_items" template="giftmessage/sales/order/create/items.phtml"></block>
+            <block type="giftmessage/adminhtml_sales_order_create_giftoptions" name="gift_options_link" template="giftmessage/sales/order/create/giftoptions.phtml">
+                <block type="giftmessage/adminhtml_sales_order_create_items" name="gift_options_item_data" template="giftmessage/sales/order/create/items.phtml" />
+            </block>
+        </reference>
+        <reference name="items_grid">
+            <block type="adminhtml/template" name="popup_window" template="giftmessage/popup.phtml">
+                <block type="giftmessage/adminhtml_sales_order_create_form" name="gift_options_form" template="giftmessage/giftoptionsform.phtml" />
+             </block>
         </reference>
     </adminhtml_sales_order_create_load_block_data>
 
     <adminhtml_sales_order_create_load_block_items>
         <reference name="order_item_extra_info">
-            <block type="giftmessage/adminhtml_sales_order_create_items" name="gift_options_items" template="giftmessage/sales/order/create/items.phtml"></block>
+            <block type="giftmessage/adminhtml_sales_order_create_giftoptions" name="gift_options_link" template="giftmessage/sales/order/create/giftoptions.phtml">
+                <block type="giftmessage/adminhtml_sales_order_create_items" name="gift_options_item_data" template="giftmessage/sales/order/create/items.phtml" />
+            </block>
+        </reference>
+        <reference name="items_grid">
+            <block type="adminhtml/template" name="popup_window" template="giftmessage/popup.phtml">
+                <block type="giftmessage/adminhtml_sales_order_create_form" name="gift_options_form" template="giftmessage/giftoptionsform.phtml" />
+             </block>
         </reference>
     </adminhtml_sales_order_create_load_block_items>
 </layout>

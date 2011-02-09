@@ -536,4 +536,20 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         }
         return false;
     }
+
+    /**
+     * Returns formatted buy request - object, holding request received from
+     * product view page with keys and options for configured product
+     *
+     * @return Varien_Object
+     */
+    public function getBuyRequest()
+    {
+        $option = $this->getProductOptionByCode('info_buyRequest');
+        if (!$option) {
+            $option = array();
+        }
+        $buyRequest = new Varien_Object($option);
+        return $buyRequest;
+    }
 }

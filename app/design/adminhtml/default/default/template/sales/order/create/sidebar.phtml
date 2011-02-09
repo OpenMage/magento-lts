@@ -56,7 +56,9 @@ if (typeof(sidebarListTypeWorkedOn) == 'undefined') {
 }
 if (!sidebarListTypeWorkedOn) {
     if (typeof(productConfigure) == 'undefined') {
-        Event.observe(window, 'load',  addSidebarCompositeListType);
+        Event.observe(window, 'load',  function(){
+            setTimeout(addSidebarCompositeListType, 10);
+        })
     } else {
         addSidebarCompositeListType();
     }

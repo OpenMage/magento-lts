@@ -49,6 +49,13 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     protected $_directoryModel = null;
 
     /**
+     * Collect errors during sync process
+     *
+     * @var array
+     */
+    protected $_errors = array();
+
+    /**
      * Class construct
      *
      * @param string $connectionName
@@ -111,6 +118,16 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
         $path = dirname($filePath);
         $this->_getResource()->loadByFilename($this, $filename, $path);
         return $this;
+    }
+
+    /**
+     * Check if there was errors during sync process
+     *
+     * @return bool
+     */
+    public function hasErrors()
+    {
+        return (!empty($this->_errors) || $this->getDirectoryModel()->hasErrors());
     }
 
     /**
@@ -195,6 +212,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
 
                 $this->_getResource()->saveFile($file);
             } catch (Exception $e) {
+                $this->_errors[] = $e->getMessage();
                 Mage::logException($e);
             }
         }

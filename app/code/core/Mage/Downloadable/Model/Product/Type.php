@@ -466,4 +466,15 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
 
         return $options;
     }
+
+    /**
+     * Check if downloadable product has links and they can be purchased separately
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return bool
+     */
+    public function canConfigure($product = null)
+    {
+        return $this->hasLinks($product) && $this->getProduct($product)->getLinksPurchasedSeparately();
+    }
 }

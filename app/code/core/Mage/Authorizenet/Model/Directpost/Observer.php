@@ -77,6 +77,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
                     $session->setLastOrderIncrementId($order->getIncrementId());
                     $requestToPaygate = $payment->getMethodInstance()->generateRequestFromOrder($order);
                     $requestToPaygate->setControllerActionName($controller->getRequest()->getControllerName());
+                    $requestToPaygate->setIsSecure((string)Mage::app()->getStore()->isCurrentlySecure());
 
                     $result['directpost'] = array('fields' => $requestToPaygate->getData());
 

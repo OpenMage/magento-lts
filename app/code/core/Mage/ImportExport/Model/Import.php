@@ -23,7 +23,7 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Import model
  *
@@ -52,12 +52,19 @@ class Mage_ImportExport_Model_Import extends Varien_Object
     const FIELD_NAME_IMG_ARCHIVE_FILE = 'import_image_archive';
 
     /**
+     * Import constants
+     *
+     */
+    const DEFAULT_SIZE      = 50;
+    const MAX_IMPORT_CHUNKS = 4;
+
+    /**
      * Entity adapter.
      *
      * @var Mage_ImportExport_Model_Import_Entity_Abstract
      */
     protected $_entityAdapter;
-    
+
     /**
      * Entity invalidated indexes.
      *
@@ -65,8 +72,8 @@ class Mage_ImportExport_Model_Import extends Varien_Object
      */
      protected static $_entityInvalidatedIndexes = array (
         'catalog_product' => array (
-            'catalog_product_price', 
-            'catalog_category_product', 
+            'catalog_product_price',
+            'catalog_category_product',
             'catalogsearch_fulltext'
         )
     );
@@ -74,7 +81,7 @@ class Mage_ImportExport_Model_Import extends Varien_Object
     /**
      * Create instance of entity adapter and returns it.
      *
-     * @throws Exception
+     * @throws Mage_Core_Exception
      * @return Mage_ImportExport_Model_Import_Entity_Abstract
      */
     protected function _getEntityAdapter()
@@ -86,17 +93,24 @@ class Mage_ImportExport_Model_Import extends Varien_Object
                 try {
                     $this->_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
                 } catch (Exception $e) {
-                    Mage::throwException(Mage::getIsDeveloperMode() ? $e : 'Invalid entity model');
+                    Mage::logException($e);
+                    Mage::throwException(
+                        Mage::helper('importexport')->__('Invalid entity model')
+                    );
                 }
-                if (! $this->_entityAdapter instanceof Mage_ImportExport_Model_Import_Entity_Abstract) {
-                    Mage::throwException(Mage::helper('importexport')->__('Entity adapter object must be an instance of Mage_ImportExport_Model_Import_Entity_Abstract'));
+                if (!($this->_entityAdapter instanceof Mage_ImportExport_Model_Import_Entity_Abstract)) {
+                    Mage::throwException(
+                        Mage::helper('importexport')->__('Entity adapter object must be an instance of Mage_ImportExport_Model_Import_Entity_Abstract')
+                    );
                 }
             } else {
                 Mage::throwException(Mage::helper('importexport')->__('Invalid entity'));
             }
             // check for entity codes integrity
             if ($this->getEntity() != $this->_entityAdapter->getEntityTypeCode()) {
-                Mage::throwException(Mage::helper('importexport')->__('Input entity code is not equal to entity adapter code'));
+                Mage::throwException(
+                    Mage::helper('importexport')->__('Input entity code is not equal to entity adapter code')
+                );
             }
             $this->_entityAdapter->setParameters($this->getData());
         }
@@ -156,7 +170,7 @@ class Mage_ImportExport_Model_Import extends Varien_Object
     /**
      * Override standard entity getter.
      *
-     * @throw Exception
+     * @throw Mage_Core_Exception
      * @return string
      */
     public function getEntity()
@@ -238,17 +252,6 @@ class Mage_ImportExport_Model_Import extends Varien_Object
     }
 
     /**
-     * Get valid import entities from configuration.
-     *
-     * @static
-     * @return array
-     */
-    public static function getValidEntities()
-    {
-        return array_keys(Mage_ImportExport_Model_Config::getModels(self::CONFIG_KEY_ENTITIES));
-    }
-
-    /**
      * Import/Export working directory (source files, result files, lock files etc.).
      *
      * @return string
@@ -285,7 +288,7 @@ class Mage_ImportExport_Model_Import extends Varien_Object
     /**
      * Import source file structure to DB.
      *
-     * @return bool
+     * @return void
      */
     public function expandSource()
     {
@@ -298,18 +301,26 @@ class Mage_ImportExport_Model_Import extends Varien_Object
             '_custom_option_sku' => 'middle', '_custom_option_row_sku' => 'middle', '_super_products_sku' => 'last',
             '_associated_sku' => 'last'
         );
-        $size = 50;
+        $size = self::DEFAULT_SIZE;
 
-        foreach ($this->_getSourceAdapter(self::getWorkingDir() . 'catalog_product.csv') as $row) {
+        $filename = 'catalog_product.csv';
+        $filenameFormat = 'big%s.csv';
+        foreach ($this->_getSourceAdapter(self::getWorkingDir() . $filename) as $row) {
             $writer->writeRow($row);
         }
-        for ($i = 1; $i < 4; $i++) {
-            $writer = Mage::getModel('importexport/export_adapter_csv', self::getWorkingDir() . "big{$i}.csv");
+        $count = self::MAX_IMPORT_CHUNKS;
+        for ($i = 1; $i < $count; $i++) {
+            $writer = Mage::getModel(
+                'importexport/export_adapter_csv',
+                self::getWorkingDir() . sprintf($filenameFormat, $i)
+            );
 
-            foreach ($this->_getSourceAdapter(self::getWorkingDir() . 'big' . ($i - 1) . '.csv') as $row) {
+            $adapter = $this->_getSourceAdapter(self::getWorkingDir() . sprintf($filenameFormat, $i - 1));
+            foreach ($adapter as $row) {
                 $writer->writeRow($row);
             }
-            foreach ($this->_getSourceAdapter(self::getWorkingDir() . 'big' . ($i - 1) . '.csv') as $row) {
+            $adapter = $this->_getSourceAdapter(self::getWorkingDir() . sprintf($filenameFormat, $i - 1));
+            foreach ($adapter as $row) {
                 foreach ($colReg as $colName => $regExpType) {
                     if (!empty($row[$colName])) {
                         preg_match($regExps[$regExpType], $row[$colName], $m);
@@ -326,7 +337,7 @@ class Mage_ImportExport_Model_Import extends Varien_Object
     /**
      * Move uploaded file and create source adapter instance.
      *
-     * @throws Exception
+     * @throws Mage_Core_Exception
      * @return string Source file path
      */
     public function uploadSource()
@@ -376,11 +387,10 @@ class Mage_ImportExport_Model_Import extends Varien_Object
 
         return $result;
     }
-    
+
     /**
      * Invalidate indexes by process codes.
      *
-     * @param array $indexers indexer process codes
      * @return Mage_ImportExport_Model_Import
      */
     public function invalidateIndex()
@@ -388,14 +398,14 @@ class Mage_ImportExport_Model_Import extends Varien_Object
         if (!isset(self::$_entityInvalidatedIndexes[$this->getEntity()])) {
             return $this;
         }
-        
+
         $indexers = self::$_entityInvalidatedIndexes[$this->getEntity()];
         foreach ($indexers as $indexer) {
             if ($indexProcess = Mage::getSingleton('index/indexer')->getProcessByCode($indexer)) {
                 $indexProcess->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
             }
         }
-        
+
         return $this;
     }
 }

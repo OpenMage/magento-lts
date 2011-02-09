@@ -31,7 +31,7 @@
 ?>
 
 <?php if ($_item = $this->getItem()): ?>
-    <h5 class="title"><?php echo $this->htmlEscape($_item->getName()) ?></h5>
+    <h5 class="title"><span id="order_item_<?php echo $_item->getId() ?>_title"><?php echo $this->htmlEscape($_item->getName()) ?></span></h5>
     <div><strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong> <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->htmlEscape($this->getSku()))); ?></div>
     <?php if ($this->getOrderOptions()): ?>
         <dl class="item-options">

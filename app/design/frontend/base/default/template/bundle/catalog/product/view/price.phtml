@@ -40,7 +40,7 @@ if ($_product->getPriceType() == 1) {
 <div class="price-box">
     <p class="price-as-configured">
         <span class="price-label"><?php echo $this->helper('bundle')->__('Price as configured') ?>:</span>
-        <?php if ($this->helper('tax')->displayBothPrices()): ?>
+        <?php if ($this->displayBothPrices()): ?>
         <span class="price-tax">
             <span class="price-excluding-tax">
                 <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>

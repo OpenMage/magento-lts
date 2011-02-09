@@ -1315,6 +1315,9 @@ ul.super-product-attributes { padding-left:15px; }
 
 /*table.mceLayout { width:100% !important; }*/
 
+.cms-revision-preview { height:100%; }
+.cms-revision-preview iframe { width:100%; height:91%; border:0; }
+
 /* CMS Widgets Instance */
 .options-box .option-box { border:1px solid #cddddd; padding:1em; background:#e7efef; margin:1.5em 0; }
 .options-box .option-title { padding:0 0 10px; border-bottom:1px solid #cddddd; }

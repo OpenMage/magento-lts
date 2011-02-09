@@ -766,7 +766,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         } else {
             $value = $price;
         }
-        $value = $this->roundPrice($value);
 
         if ($this->getCurrentCurrency() && $format) {
             $value = $this->formatPrice($value, $includeContainer);

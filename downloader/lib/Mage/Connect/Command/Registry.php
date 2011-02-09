@@ -27,6 +27,7 @@
 final class Mage_Connect_Command_Registry
 extends Mage_Connect_Command
 {
+    const PACKAGE_PEAR_DIR = 'pearlib/php/.registry';
 
     /**
      * List-installed callback
@@ -186,12 +187,18 @@ extends Mage_Connect_Command
         $this->cleanupParams($params);
         try {
             $packager = $this->getPackager();
+            $cache = null;
+            $config = null;
+            $ftpObj = null;
             $ftp = empty($options['ftp']) ? false : $options['ftp'];
             if($ftp) {
                 list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
             } else {
                 $config = $this->config();
                 $cache = $this->getSconfig();
+            }
+            if ($this->_checkPearData($config)) {
+                $this->doSyncPear($command, $options, $params);
             }
 
             $packageDir = $config->magento_root . DS . Mage_Connect_Package::PACKAGE_XML_DIR;
@@ -231,4 +238,129 @@ extends Mage_Connect_Command
             $this->doError($command, $e->getMessage());
         }
     }
+
+    /**
+     * Synchronize packages installed earlier (by pear installer) with local cache
+     *
+     * @param string $command
+     * @param array $options
+     * @param array $params
+     */
+    public function doSyncPear($command, $options, $params)
+    {
+        $this->cleanupParams($params);
+        try {
+            $packager = $this->getPackager();
+            $cache = null;
+            $config = null;
+            $ftpObj = null;
+            $ftp = empty($options['ftp']) ? false : $options['ftp'];
+            if($ftp) {
+                list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
+            } else {
+                $config = $this->config();
+                $cache = $this->getSconfig();
+            }
+
+            $pkglist = array();
+            if (!$this->_checkPearData($config)) {
+                return $pkglist;
+            }
+
+            $pearStorage = $config->magento_root . DS . $config->downloader_path . DS . self::PACKAGE_PEAR_DIR;
+            $channels = array(
+                '.channel.connect.magentocommerce.com_community',
+                '.channel.connect.magentocommerce.com_core'
+            );
+            foreach ($channels as $channel) {
+                $channelDirectory = $pearStorage . DS . $channel;
+                if (!file_exists($channelDirectory) || !is_dir($channelDirectory)) {
+                    continue;
+                }
+
+                $dp = opendir($channelDirectory);
+                if (!$dp) {
+                    continue;
+                }
+
+                while ($ent = readdir($dp)) {
+                    if ($ent{0} == '.' || substr($ent, -4) != '.reg') {
+                        continue;
+                    }
+                    $pkglist[] = array('file'=>$ent, 'channel'=>$channel);
+                }
+                closedir($dp);
+            }
+
+            $package = new Mage_Connect_Package();
+            foreach ($pkglist as $pkg) {
+                $pkgFilename = $pearStorage . DS . $pkg['channel'] . DS . $pkg['file'];
+                if (!file_exists($pkgFilename)) {
+                    continue;
+                }
+                $data = file_get_contents($pkgFilename);
+                $data = unserialize($data);
+
+                $package->importDataV1x($data);
+                $name = $package->getName();
+                $channel = $package->getChannel();
+                $version = $package->getVersion();
+                if (!$cache->isChannel($channel) && $channel == $config->root_channel) {
+                    $cache->addChannel($channel, $config->root_channel_uri);
+                }
+                if (!$cache->hasPackage($channel, $name, $version, $version)) {
+                    $cache->addPackage($package);
+
+                    if($ftp) {
+                        $localXml = tempnam(sys_get_temp_dir(),'package');
+                        @file_put_contents($localXml, $package->getPackageXml());
+                        
+                        if (is_file($localXml)) {
+                            $ftpDir = $ftp->getcwd();
+                            $remoteXmlPath = $ftpDir . '/' . Mage_Connect_Package::PACKAGE_XML_DIR;
+                            $remoteXml = $package->getReleaseFilename() . '.xml';
+                            $ftp->mkdirRecursive($remoteXmlPath);
+                            $ftp->upload($remoteXml, $localXml, 0777, 0666);
+                            $ftp->chdir($ftpDir);
+                        }
+                    } else {
+                        $destDir = rtrim($config->magento_root, "\\/") . DS . Mage_Connect_Package::PACKAGE_XML_DIR;
+                        $destFile = $package->getReleaseFilename() . '.xml';
+                        $dest = $destDir . DS . $destFile;
+
+                        @mkdir($destDir, 0777, true);
+                        @file_put_contents($dest, $package->getPackageXml());
+                        @chmod($dest, 0666);
+                    }
+
+                    $this->ui()->output("Successfully added: {$channel}/{$name}-{$version}");
+                }
+
+            }
+
+            $config->sync_pear = false;
+            if($ftp) {
+                $packager->writeToRemoteCache($cache, $ftpObj);
+                @unlink($config->getFilename());
+            }
+
+
+            return true;
+
+        } catch (Exception $e) {
+            $this->doError($command, $e->getMessage());
+        }
+    }
+
+    /**
+     * Check is need to sync old pear data
+     * 
+     * @param Mage_Connect_Config $config
+     * @return boolean
+     */
+    protected function _checkPearData($config) {
+        $pearStorage = $config->magento_root . DS . $config->downloader_path  . DS . self::PACKAGE_PEAR_DIR;
+        return $config->sync_pear && file_exists($pearStorage) && is_dir($pearStorage);
+    }
+
 }

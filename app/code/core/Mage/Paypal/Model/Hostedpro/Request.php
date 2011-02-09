@@ -156,7 +156,11 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     protected function _getOrderData(Mage_Sales_Model_Order $order)
     {
         $request = array(
-            'subtotal'      => $this->_formatPrice($order->getBaseSubtotal()),
+            'subtotal'      => $this->_formatPrice(
+                $this->_formatPrice($order->getPayment()->getBaseAmountAuthorized()) -
+                $this->_formatPrice($order->getBaseTaxAmount()) -
+                $this->_formatPrice($order->getBaseShippingAmount())
+            ),
             'tax'           => $this->_formatPrice($order->getBaseTaxAmount()),
             'shipping'      => $this->_formatPrice($order->getBaseShippingAmount()),
             'invoice'       => $order->getIncrementId(),

@@ -460,11 +460,25 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Update wishlist Item and set data from request
      *
+     * $params sets how current item configuration must be taken into account and additional options.
+     * It's passed to Mage_Catalog_Helper_Product->addParamsToBuyRequest() to compose resulting buyRequest.
+     *
+     * Basically it can hold
+     * - 'current_config', Varien_Object or array - current buyRequest that configures product in this item,
+     *   used to restore currently attached files
+     * - 'files_prefix': string[a-z0-9_] - prefix that was added at frontend to names of file options (file inputs), so they won't
+     *   intersect with other submitted options
+     *
+     * For more options see Mage_Catalog_Helper_Product->addParamsToBuyRequest()
+     *
      * @param int $itemId
      * @param Varien_Object $buyRequest
+     * @param null|array|Varien_Object $params
      * @return Mage_Wishlist_Model_Wishlist
+     *
+     * @see Mage_Catalog_Helper_Product::addParamsToBuyRequest()
      */
-    public function updateItem($itemId, $buyRequest) {
+    public function updateItem($itemId, $buyRequest, $params = null) {
         $item = $this->getItem((int)$itemId);
         if (!$item) {
             Mage::throwException(Mage::helper('wishlist')->__('Cannot specify wishlist item.'));
@@ -473,6 +487,14 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         $product = $item->getProduct();
         $productId = $product->getId();
         if ($productId) {
+            if (!$params) {
+                $params = new Varien_Object();
+            } else if (is_array($params)) {
+                $params = new Varien_Object($params);
+            }
+            $params->setCurrentConfig($item->getBuyRequest());
+            $buyRequest = Mage::helper('catalog/product')->addParamsToBuyRequest($buyRequest, $params);
+
             $product->setWishlistStoreId($item->getStoreId());
             $resultItem = $this->addNewItem($product, $buyRequest, true);
             /**
@@ -487,7 +509,6 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
                 $this->setDataChanges(true);
 
                 $items = $this->getItemCollection();
-                $eqItems = array();
                 foreach ($items as $_item) {
                     if ($_item->getProductId() == $productId && $_item->getId() != $resultItem->getId()) {
                         if ($resultItem->compareOptions($resultItem->getOptions(), $_item->getOptions())) {

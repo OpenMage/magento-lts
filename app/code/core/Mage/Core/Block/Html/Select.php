@@ -117,6 +117,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
                 $value = $key;
                 $label = $option;
                 $isArrayOption = false;
+                $params = array();
             }
 
             if (is_array($value)) {

@@ -69,6 +69,11 @@ class Mage_Catalog_Model_Convert_Adapter_Product
 
     protected $_ignoreFields = array();
 
+    /**
+     * @deprecated after 1.5.0.0-alpha2
+     *
+     * @var array
+     */
     protected $_imageFields = array();
 
     /**
@@ -340,9 +345,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product
             }
             if ($node->is('ignore')) {
                 $this->_ignoreFields[] = $code;
-            }
-            if ($node->is('img')) {
-                $this->_imageFields[] = $code;
             }
             if ($node->is('to_number')) {
                 $this->_toNumber[] = $code;

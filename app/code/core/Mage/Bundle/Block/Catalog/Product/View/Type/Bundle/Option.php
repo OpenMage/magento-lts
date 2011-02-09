@@ -189,8 +189,12 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     public function getSelectionPrice($_selection)
     {
         $price = 0;
+        $store = $this->getProduct()->getStore();
         if ($_selection) {
             $price = $this->getProduct()->getPriceModel()->getSelectionPreFinalPrice($this->getProduct(), $_selection);
+            if (is_numeric($price)) {
+                $price = $this->helper('core')->currencyByStore($price, $store, false);
+            }
         }
         return is_numeric($price) ? $price : 0;
     }

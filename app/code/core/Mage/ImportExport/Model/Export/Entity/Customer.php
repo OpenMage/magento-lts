@@ -23,7 +23,7 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Export entity customer model
  *
@@ -101,19 +101,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
         $this->_initAttrValues()
                 ->_initStores()
                 ->_initWebsites();
-    }
-
-    /**
-     * Initialize stores hash.
-     *
-     * @return Mage_ImportExport_Model_Export_Entity_Customer
-     */
-    protected function _initStores()
-    {
-        foreach (Mage::app()->getStores(true) as $store) {
-            $this->_storeIdToCode[$store->getId()] = $store->getCode();
-        }
-        return $this;
     }
 
     /**
@@ -197,18 +184,18 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
 
         // create export file
         $writer->setHeaderCols(array_merge(
-            $this->_permanentAttributes, $validAttrCodes, 
-            array('password'), $addrColNames, 
+            $this->_permanentAttributes, $validAttrCodes,
+            array('password'), $addrColNames,
             array_keys($defaultAddrMap)
         ));
         foreach ($collection as $itemId => $item) { // go through all customers
             $row = array();
 
-            // go through all valid attribute codes 
+            // go through all valid attribute codes
             foreach ($validAttrCodes as $attrCode) {
                 $attrValue = $item->getData($attrCode);
 
-                if (isset($this->_attributeValues[$attrCode]) 
+                if (isset($this->_attributeValues[$attrCode])
                     && isset($this->_attributeValues[$attrCode][$attrValue])
                 ) {
                     $attrValue = $this->_attributeValues[$attrCode][$attrValue];

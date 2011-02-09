@@ -103,4 +103,38 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize
 
         return $button->toHtml();
     }
+
+    /**
+     * Retrieve last sync params settings
+     *
+     * Return array format:
+     * array (
+     *  => storage_type     int,
+     *  => connection_name  string
+     * )
+     *
+     * @return array
+     */
+    public function getSyncStorageParams()
+    {
+        $flag = Mage::getSingleton('core/file_storage')->getSyncFlag();
+        $flagData = $flag->getFlagData();
+
+        if ($flag->getState() == Mage_Core_Model_File_Storage_Flag::STATE_NOTIFIED
+                && is_array($flagData)
+            && isset($flagData['destination_storage_type']) && $flagData['destination_storage_type'] != ''
+            && isset($flagData['destination_connection_name'])
+        ) {
+            $storageType    = $flagData['destination_storage_type'];
+            $connectionName = $flagData['destination_connection_name'];
+        } else {
+            $storageType    = Mage_Core_Model_File_Storage::STORAGE_MEDIA_FILE_SYSTEM;
+            $connectionName = '';
+        }
+
+        return array(
+            'storage_type'      => $storageType,
+            'connection_name'   => $connectionName
+        );
+    }
 }

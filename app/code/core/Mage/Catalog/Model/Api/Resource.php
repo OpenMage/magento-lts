@@ -105,7 +105,7 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     protected function _getProduct($productId, $store = null, $identifierType = null)
     {
         $loadByIdOnFalse = false;
-        if ($identifierType === null) {
+        if ($identifierType == null) {
             $identifierType = 'sku';
             $loadByIdOnFalse = true;
         }

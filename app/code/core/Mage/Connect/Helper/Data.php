@@ -45,6 +45,74 @@ class Mage_Connect_Helper_Data extends Mage_Core_Helper_Data
     }
 
     /**
+     * Retrieve file system path for local extension packages (for version 1 packages only)
+     * Return path with last directory separator
+     *
+     * @return string
+     */
+    public function getLocalPackagesPathV1x()
+    {
+        return Mage::getBaseDir('var') . DS . 'pear' . DS;
+    }
+
+    /**
+     * Retrieve a map to convert a channel from previous version of Magento Connect Manager
+     *
+     * @return array
+     */
+    public function getChannelMapFromV1x()
+    {
+        return array(
+            'connect.magentocommerce.com/community' => 'community',
+            'connect.magentocommerce.com/core' => 'community'
+        );
+    }
+
+    /**
+     * Retrieve a map to convert a channel to previous version of Magento Connect Manager
+     *
+     * @return array
+     */
+    public function getChannelMapToV1x()
+    {
+        return array(
+            'community' => 'connect.magentocommerce.com/community'
+        );
+    }
+
+    /**
+     * Convert package channel in order for it to be compatible with current version of Magento Connect Manager
+     *
+     * @param string $channel
+     *
+     * @return string
+     */
+    public function convertChannelFromV1x($channel)
+    {
+        $channelMap = $this->getChannelMapFromV1x();
+        if (isset($channelMap[$channel])) {
+            $channel = $channelMap[$channel];
+        }
+        return $channel;
+    }
+
+    /**
+     * Convert package channel in order for it to be compatible with previous version of Magento Connect Manager
+     *
+     * @param string $channel
+     *
+     * @return string
+     */
+    public function convertChannelToV1x($channel)
+    {
+        $channelMap = $this->getChannelMapToV1x();
+        if (isset($channelMap[$channel])) {
+            $channel = $channelMap[$channel];
+        }
+        return $channel;
+    }
+
+    /**
      * Load local package data array
      *
      * @param string $packageName without extension

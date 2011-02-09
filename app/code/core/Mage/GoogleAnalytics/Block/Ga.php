@@ -78,8 +78,8 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
      * Render regular page tracking javascript code
      * The custom "page name" may be set from layout or somewhere else. It must start from slash.
      *
-     * @see http://code.google.com/apis/analytics/docs/gaJS/gaJSApiBasicConfiguration.html#_gat.GA_Tracker_._trackPageview
-     * @see http://code.google.com/apis/analytics/docs/gaJS/gaJSApi_gaq.html
+     * @link http://code.google.com/apis/analytics/docs/gaJS/gaJSApiBasicConfiguration.html#_gat.GA_Tracker_._trackPageview
+     * @link http://code.google.com/apis/analytics/docs/gaJS/gaJSApi_gaq.html
      * @param string $accountId
      * @return string
      */
@@ -99,7 +99,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
     /**
      * Render information about specified orders and their items
      *
-     * @see http://code.google.com/apis/analytics/docs/gaJS/gaJSApiEcommerce.html#_gat.GA_Tracker_._addTrans
+     * @link http://code.google.com/apis/analytics/docs/gaJS/gaJSApiEcommerce.html#_gat.GA_Tracker_._addTrans
      * @return string
      */
     protected function _getOrdersTrackingCode()

@@ -130,6 +130,6 @@ directPostModel = new directPost(
     '<?php echo $_controller ?>',
     '<?php echo $_orderUrl ?>',
     '<?php echo $_method->getCgiUrl() ?>',
-    '<?php echo $this->getUrl('checkout/onepage/saveOrder') ?>');
+    '<?php echo $this->getUrl('checkout/onepage/saveOrder', array('_secure' => $this->getRequest()->isSecure())) ?>');
 //]]>
 </script>

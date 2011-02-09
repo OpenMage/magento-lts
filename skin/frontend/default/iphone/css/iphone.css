@@ -271,6 +271,8 @@ p { padding:0; margin:5px 0; }
 .product-bundle-price { margin:5px 0; font:bold 12px/14px Arial; }
 .price-box .price { font-weight:bold; white-space:nowrap; }
 .old-price { text-decoration:line-through; }
+.configured-price .price-label { font-weight:bold; white-space:nowrap; }
+.configured-price .price { font-weight:bold; }
 
 /* Product review */
 .review-product-list .product-view { font-size:12px; }

@@ -141,9 +141,22 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     }
 
     /**
+     * Order payment
+     *
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param float $amount
+     * @return Mage_Paypal_Model_Express
+     */
+    public function order(Varien_Object $payment, $amount)
+    {
+        return $this->_placeOrder($payment, $amount);
+    }
+
+    /**
      * Authorize payment
      *
      * @param Mage_Sales_Model_Order_Payment $payment
+     * @param float $amount
      * @return Mage_Paypal_Model_Express
      */
     public function authorize(Varien_Object $payment, $amount)
@@ -167,6 +180,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      * Capture payment
      *
      * @param Mage_Sales_Model_Order_Payment $payment
+     * @param float $amount
      * @return Mage_Paypal_Model_Express
      */
     public function capture(Varien_Object $payment, $amount)
@@ -181,6 +195,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      * Refund capture
      *
      * @param Mage_Sales_Model_Order_Payment $payment
+     * @param float $amount
      * @return Mage_Paypal_Model_Express
      */
     public function refund(Varien_Object $payment, $amount)

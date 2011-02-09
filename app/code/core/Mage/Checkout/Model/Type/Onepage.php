@@ -579,14 +579,14 @@ class Mage_Checkout_Model_Type_Onepage
             $quote->getShippingAddress()->setPaymentMethod(isset($data['method']) ? $data['method'] : null);
         }
 
-        $payment = $quote->getPayment();
-        $payment->importData($data);
-
         // shipping totals may be affected by payment method
         if (!$quote->isVirtual() && $quote->getShippingAddress()) {
             $quote->getShippingAddress()->setCollectShippingRates(true);
-            $quote->setTotalsCollectedFlag(false)->collectTotals();
         }
+
+        $payment = $quote->getPayment();
+        $payment->importData($data);
+
         $quote->save();
 
         $this->getCheckout()

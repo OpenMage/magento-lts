@@ -59,7 +59,7 @@ class Mage_Core_Model_Mysql4_File_Storage_Directory_Database  extends Mage_Core_
           UNIQUE KEY `IDX_DIRECTORY_PATH` (`name`, `path`),
           KEY `parent_id` (`parent_id`),
           CONSTRAINT `FK_DIRECTORY_PARENT_ID` FOREIGN KEY (`parent_id`)
-          REFERENCES `core_directory_storage` (`directory_id`) ON DELETE CASCADE ON UPDATE CASCADE
+          REFERENCES {$this->getMainTable()} (`directory_id`) ON DELETE CASCADE ON UPDATE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Directory storage'");
 
         return $this;

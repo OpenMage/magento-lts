@@ -176,6 +176,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             } else {
                 $orderState = Mage_Sales_Model_Order::STATE_PROCESSING;
                 switch ($action) {
+                    case Mage_Payment_Model_Method_Abstract::ACTION_ORDER:
+                        $this->_order($order->getBaseTotalDue());
+                        break;
                     case Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE:
                         $this->_authorize(true, $order->getBaseTotalDue()); // base amount will be set inside
                         $this->setAmountAuthorized($order->getTotalDue());
@@ -254,6 +257,13 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $paidWorkaround = (float)$amountToCapture;
         }
         $this->_isCaptureFinal($paidWorkaround);
+
+        if (!$this->getParentTransactionId) {
+            $orderingTransaction = $this->_lookupTransaction(false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER);
+            if ($orderingTransaction) {
+                $this->setParentTransactionId($orderingTransaction->getTxnId());
+            }
+        }
 
         $this->_generateTransactionId(Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE, $this->getAuthorizationTransaction());
 
@@ -790,6 +800,45 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     }
 
     /**
+     * Order payment either online
+     * Updates transactions hierarchy, if required
+     * Prevents transaction double processing
+     * Updates payment totals, updates order status and adds proper comments
+     *
+     * @param float $amount
+     * @return Mage_Sales_Model_Order_Payment
+     */
+    protected function _order($amount)
+    {
+        // update totals
+        $amount = $this->_formatAmount($amount, true);
+
+        // do ordering
+        $order  = $this->getOrder();
+        $state  = Mage_Sales_Model_Order::STATE_PROCESSING;
+        $status = true;
+        $this->getMethodInstance()->setStore($order->getStoreId())->order($this, $amount);
+
+        // similar logic of "payment review" order as in capturing
+        if ($this->getIsTransactionPending()) {
+            $message = Mage::helper('sales')->__('Ordering amount of %s is pending approval on gateway.', $this->_formatPrice($amount));
+            $state = Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW;
+            if ($this->getIsFraudDetected()) {
+                $status = Mage_Sales_Model_Order::STATUS_FRAUD;
+            }
+        } else {
+            $message = Mage::helper('sales')->__('Ordered amount of %s.', $this->_formatPrice($amount));
+        }
+
+        // update transactions, order state and add comments
+        $transaction = $this->_addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER);
+        $message = $this->_prependMessage($message);
+        $message = $this->_appendTransactionToMessage($transaction, $message);
+        $order->setState($state, $status, $message);
+        return $this;
+    }
+
+    /**
      * Authorize payment either online or offline (process auth notification)
      * Updates transactions hierarchy, if required
      * Prevents transaction double processing
@@ -1238,7 +1287,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     protected function _isCaptureFinal($amountToCapture)
     {
         $orderGrandTotal = sprintf('%.4F', $this->getOrder()->getBaseGrandTotal());
-        if ($orderGrandTotal == sprintf('%.4F', ($this->getBaseAmountPaidOnline() + $amountToCapture))) {
+        if ($orderGrandTotal == sprintf('%.4F', ($this->getBaseAmountPaid() + $amountToCapture))) {
             if (false !== $this->getShouldCloseParentTransaction()) {
                 $this->setShouldCloseParentTransaction(true);
             }
@@ -1317,6 +1366,12 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         foreach ($this->getOrder()->getInvoiceCollection() as $invoice) {
             if ($invoice->getTransactionId() == $transactionId) {
                 $invoice->load($invoice->getId()); // to make sure all data will properly load (maybe not required)
+                return $invoice;
+            }
+        }
+        foreach ($this->getOrder()->getInvoiceCollection() as $invoice) {
+            if ($invoice->getState() == Mage_Sales_Model_Order_Invoice::STATE_OPEN && $invoice->load($invoice->getId())) {
+                $invoice->setTransactionId($transactionId);
                 return $invoice;
             }
         }

@@ -66,6 +66,14 @@ wishlistControl = {
         return false;
     }
 }
+
+productConfigure.addListType(
+    'wishlist',
+    {
+        urlFetch: '<?php echo $this->getUrl('*/customer_wishlist_product_composite_wishlist/configure') ?>',
+        urlConfirm: '<?php echo $this->getUrl('*/customer_wishlist_product_composite_wishlist/update') ?>'
+    }
+);
 //-->
 </script>
 <?php endif ?>

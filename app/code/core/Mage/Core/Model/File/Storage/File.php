@@ -49,6 +49,13 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
     protected $_data = null;
 
     /**
+     * Collect errors during sync process
+     *
+     * @var array
+     */
+    protected $_errors = array();
+
+    /**
      * Class construct
      */
     public function __construct()
@@ -84,6 +91,16 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
     public function getStorageData()
     {
         return $this->_getResource()->getStorageData();
+    }
+
+    /**
+     * Check if there was errors during sync process
+     *
+     * @return bool
+     */
+    public function hasErrors()
+    {
+        return !empty($this->_errors);
     }
 
     /**
@@ -185,6 +202,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
             try {
                 $this->$callback($part);
             } catch (Exception $e) {
+                $this->_errors[] = $e->getMessage();
                 Mage::logException($e);
             }
         }
@@ -246,7 +264,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
                     ->saveFile($filename, $file['content'], $overwrite);
             } catch (Exception $e) {
                 Mage::logException($e);
-                Mage::throwException(Mage::helper('core')->__('Unable to save file: %s', $file['filename']));
+                Mage::throwException(Mage::helper('core')->__('Unable to save file "%s" at "%s"', $file['filename'], $file['directory']));
             }
         } else {
             Mage::throwException(Mage::helper('core')->__('Wrong file info format'));
