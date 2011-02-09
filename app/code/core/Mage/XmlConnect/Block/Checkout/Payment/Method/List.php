@@ -59,6 +59,7 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
      * Render payment methods xml
      *
      * @return string
+     * @throw Mage_Core_Exception
      */
     protected function _toHtml()
     {
@@ -151,7 +152,9 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
             }
             $renderer->addPaymentFormToXmlObj($methodItemXmlObj);
         }
-
+        if (!count($usedMethods)) {
+            Mage::throwException($this->__('Sorry, no payment options are available for this order at this time.'));
+        }
 
         return $methodsXmlObj->asNiceXml();
     }

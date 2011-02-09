@@ -51,7 +51,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Attributes extends Mage_Catalog_Bloc
                 $attributesXmlObj = $productXmlObject->addChild('additional_attributes');
                 foreach ($additionalData as $data) {
                     $_attrXmlObject = $attributesXmlObj->addChild('item');
-                    $_attrXmlObject->addChild('label', $this->htmlEscape(Mage::helper('xmlconnect')->__($data['label'])));
+                    $_attrXmlObject->addChild('label', $this->htmlEscape($data['label']));
                     $_attrXmlObject->addChild('value', Mage::helper('catalog/output')->productAttribute($product, $data['value'], $data['code']));
                 }
             }

@@ -23,6 +23,7 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 /**
  * @method Mage_XmlConnect_Model_Mysql4_History _getResource()
  * @method Mage_XmlConnect_Model_Mysql4_History getResource()
@@ -45,6 +46,8 @@ class Mage_XmlConnect_Model_History extends Mage_Core_Model_Abstract
 {
     /**
      * Initialize application
+     *
+     * @return void
      */
     protected function _construct()
     {

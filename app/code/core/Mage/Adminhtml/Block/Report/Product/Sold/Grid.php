@@ -73,7 +73,7 @@ class Mage_Adminhtml_Block_Report_Product_Sold_Grid extends Mage_Adminhtml_Block
     {
         $this->addColumn('name', array(
             'header'    =>Mage::helper('reports')->__('Product Name'),
-            'index'     =>'name'
+            'index'     =>'order_items_name'
         ));
 
         $this->addColumn('ordered_qty', array(

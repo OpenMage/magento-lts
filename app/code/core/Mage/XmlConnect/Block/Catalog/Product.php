@@ -61,16 +61,12 @@ class Mage_XmlConnect_Block_Catalog_Product extends Mage_XmlConnect_Block_Catalo
                 $propertyToResizeName = 'image';
             }
 
-            
             $icon = clone Mage::helper('catalog/image')->init($product, $propertyToResizeName)
                 ->resize($imageToResize);
 
             $iconXml = $item->addChild('icon', $icon);
 
-            $baseUrl = Mage::getBaseUrl('media');
-            $path = str_replace($baseUrl, '', $icon);
-            $file = Mage::getBaseDir('media') . DS . str_replace('/', DS, $path);
-
+            $file = Mage::helper('xmlconnect')->urlToPath($icon);
             $iconXml->addAttribute('modification_time', filemtime($file));
 
             $item->addChild('in_stock', (int)$product->isSalable());
@@ -119,9 +115,9 @@ class Mage_XmlConnect_Block_Catalog_Product extends Mage_XmlConnect_Block_Catalo
 
     /**
      * Get MinSaleQty for product
-     * 
+     *
      * @param Mage_Catalog_Model_Product $product
-     * @return int|null 
+     * @return int|null
      */
     protected function _getMinimalQty($product)
     {
@@ -142,7 +138,7 @@ class Mage_XmlConnect_Block_Catalog_Product extends Mage_XmlConnect_Block_Catalo
             ->load($this->getRequest()->getParam('id', 0));
 
         if (!$product) {
-            throw new Mage_Core_Exception(Mage::helper('xmlconnect')->__('Selected product is unavailable.'));
+            throw new Mage_Core_Exception($this->__('Selected product is unavailable.'));
         } else {
             $this->setProduct($product);
             $productXmlObj = $this->productToXmlObject($product, 'product');
@@ -153,7 +149,11 @@ class Mage_XmlConnect_Block_Catalog_Product extends Mage_XmlConnect_Block_Catalo
                 $productXmlObj->appendChild($relatedXmlObj);
             }
         }
+
+        $productXmlObj->appendChild($this->getChild('xmlconnect.catalog.product.options')
+            ->getProductOptionsXmlObject($product)
+        );
+
         return $productXmlObj->asNiceXml();
     }
-
 }

@@ -45,20 +45,20 @@ class Mage_XmlConnect_Block_Catalog_Category_Info extends Mage_XmlConnect_Block_
         $infoXmlObj = new Mage_XmlConnect_Model_Simplexml_Element('<category_info></category_info>');
         $category   = $this->getCategory();
         if ($category && is_object($category) && $category->getId()) {
-            $title = $infoXmlObj->xmlentities(strip_tags($category->getParentCategory()->getName()));
-            if ($category->getParentCategory()->getLevel() == 1) {
-                /**
-                 * @var string $title
-                 *
-                 * Copied data from "getDefaultApplicationDesignTabs()" method in "Mage_XmlConnect_Helper_Data"  
-                 */
-                $title = Mage::helper('xmlconnect')->__('Shop');
+            /**
+             * @var string $title
+             *
+             * Copied data from "getDefaultApplicationDesignTabs()" method in "Mage_XmlConnect_Helper_Data"
+             */
+            $title = $this->__('Shop');
+            if ($category->getParentCategory()->getLevel() > 1) {
+                $title = $infoXmlObj->xmlentities(strip_tags($category->getParentCategory()->getName()));
             }
 
             $infoXmlObj->addChild('parent_title', $title);
-            $pId = $category->getParentId();
-            if ($category->getLevel() == 1) {
-                $pId = 0;
+            $pId = 0;
+            if ($category->getLevel() > 1) {
+                $pId = $category->getParentId();
             }
             $infoXmlObj->addChild('parent_id', $pId);
         }

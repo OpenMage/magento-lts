@@ -27,6 +27,120 @@
 class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
+     * Push title length
+     *
+     * @var int
+     */
+    const PUSH_TITLE_LENGTH = 140;
+
+    /**
+     * Message title length
+     *
+     * @var int
+     */
+    const MESSAGE_TITLE_LENGTH = 255;
+
+    protected $_excludedXmlConfigKeys = array(
+        'notifications/applicationMasterSecret',
+    );
+
+    /**
+     * Application names array
+     *
+     * @var array
+     */
+    protected $_appNames = array();
+
+    /**
+     * Template names array
+     *
+     * @var array
+     */
+    protected $_tplNames = array();
+
+    /**
+     * XML path to nodes to be excluded
+     *
+     * @var string
+     */
+    const XML_NODE_CONFIG_EXCLUDE_FROM_XML = 'xmlconnect/mobile_application/nodes_excluded_from_config_xml';
+
+    /**
+     * Default device type
+     *
+     * @var string
+     */
+    const DEVICE_TYPE_DEFAULT = 'unknown';
+
+    /**
+     * iPhone device identifier
+     *
+     * @var string
+     */
+    const DEVICE_TYPE_IPHONE = 'iphone';
+
+    /**
+     * iPad device identifier
+     *
+     * @var string
+     */
+    const DEVICE_TYPE_IPAD = 'ipad';
+
+    /**
+     * Android device identifier
+     *
+     * @var string
+     */
+    const DEVICE_TYPE_ANDROID = 'android';
+
+    /**
+     * Get device helper
+     *
+     * @throws Mage_Core_Exception
+     * @param Mage_XmlConnect_Model_Application $application
+     * @return Mage_Core_Helper_Abstract
+     */
+    public function getDeviceHelper($application = null)
+    {
+        $deviceType = null;
+        if (empty($application)) {
+            $deviceType = (string) $this->getApplication()->getType();
+        } elseif ($application instanceof Mage_XmlConnect_Model_Application) {
+            $deviceType = (string) $application->getType();
+        }
+        if (empty($deviceType)) {
+            $deviceType = self::DEVICE_TYPE_DEFAULT;
+        }
+        switch ($deviceType) {
+            case self::DEVICE_TYPE_IPHONE:
+            case self::DEVICE_TYPE_IPAD:
+            case self::DEVICE_TYPE_ANDROID:
+                $helper =  Mage::helper('xmlconnect/' . $deviceType);
+                break;
+            default:
+                Mage::throwException(Mage::helper('xmlconnect')->__('Device doesn\'t recognized: "%s". Unable to load a helper.', $deviceType));
+                break;
+        }
+        return $helper;
+    }
+
+    /**
+     * Getter for current loaded application model
+     *
+     * @throws Mage_Core_Exception
+     * @return Mage_XmlConnect_Model_Application
+     */
+    public function getApplication()
+    {
+        $model = Mage::registry('current_app');
+        if (!($model instanceof Mage_XmlConnect_Model_Application)) {
+            Mage::throwException(Mage::helper('xmlconnect')->__('App model not loaded.'));
+        }
+
+        return $model;
+    }
+
+    /**
      * Create filter object by key
      *
      * @param string $key
@@ -97,7 +211,9 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
     static public function getSupportedDevices()
     {
         $devices = array (
-            'iphone' => Mage::helper('xmlconnect')->__('iPhone')
+            self::DEVICE_TYPE_IPAD      => Mage::helper('xmlconnect')->__('iPad'),
+            self::DEVICE_TYPE_IPHONE    => Mage::helper('xmlconnect')->__('iPhone'),
+            self::DEVICE_TYPE_ANDROID   => Mage::helper('xmlconnect')->__('Android')
         );
 
         return $devices;
@@ -138,55 +254,17 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get default application tabs
      *
+     * @param string
      * @return array
      */
     public function getDefaultApplicationDesignTabs()
     {
-        if (!isset($this->_tabs)) {
-            $this->_tabs = array(
-                array(
-                    'label' => Mage::helper('xmlconnect')->__('Home'),
-                    'image' => 'tab_home.png',
-                    'action' => 'Home',
-                ),
-                array(
-                    'label' => Mage::helper('xmlconnect')->__('Shop'),
-                    'image' => 'tab_shop.png',
-                    'action' => 'Shop',
-                ),
-                array(
-                    'label' => Mage::helper('xmlconnect')->__('Search'),
-                    'image' => 'tab_search.png',
-                    'action' => 'Search',
-                ),
-                array(
-                    'label' => Mage::helper('xmlconnect')->__('Cart'),
-                    'image' => 'tab_cart.png',
-                    'action' => 'Cart',
-                ),
-                array(
-                    'label' => Mage::helper('xmlconnect')->__('More'),
-                    'image' => 'tab_more.png',
-                    'action' => 'More',
-                ),
-                array(
-                    'label' => Mage::helper('xmlconnect')->__('Account'),
-                    'image' => 'tab_account.png',
-                    'action' => 'Account',
-                ),
-                array(
-                    'label' => Mage::helper('xmlconnect')->__('More Info'),
-                    'image' => 'tab_page.png',
-                    'action' => 'AboutUs',
-                ),
-            );
-        }
-        return $this->_tabs;
+        return $this->getDeviceHelper()->getDefaultDesignTabs();
     }
 
     /**
      * Return array for tabs like  label -> action array
-     *   
+     *
      * @return array
      */
     protected function _getTabLabelActionArray()
@@ -202,7 +280,7 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Return Translated tab label for given $action
-     * 
+     *
      * @param string $action
      * @return string|bool
      */
@@ -215,7 +293,7 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Merges $changes array to $target array recursive, overwriting existing key,  and adding new one
-     * 
+     *
      * @param mixed $target
      * @param mixed $changes
      * @return array
@@ -256,6 +334,7 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
     public function htmlize($body)
     {
         return <<<EOT
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
 &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot; lang=&quot;en&quot;&gt;
 &lt;head&gt;
@@ -291,7 +370,7 @@ EOT;
 
     /**
      * Return Solo Xml optional fieldset
-     * 
+     *
      * @param string $ssCcMonths
      * @param string $ssCcYears
      * @return string
@@ -338,5 +417,327 @@ EOT;
     public function formatPriceForXml($price)
     {
         return sprintf('%01.2F', $price);
+    }
+
+    /**
+     * Get list of predefined and supported message types
+     *
+     * @return array
+     */
+    static public function getSupportedMessageTypes()
+    {
+        $messages = array (
+            Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_PUSH      => Mage::helper('xmlconnect')->__('Push message'),
+            Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL   => Mage::helper('xmlconnect')->__('AirMail message'),
+        );
+
+        return $messages;
+    }
+
+    /**
+     * Retrieve supported message types as "html select options"
+     *
+     * @return array
+     */
+    public function getMessageTypeOptions()
+    {
+        $options = array();
+        $messages = self::getSupportedMessageTypes();
+        foreach ($messages as $type => $label) {
+            $options[] = array('value' => $type, 'label' => $label);
+        }
+        return $options;
+    }
+
+    /**
+     * Get push title length
+     *
+     * @return int
+     */
+    public function getPushTitleLength()
+    {
+        return self::PUSH_TITLE_LENGTH;
+    }
+
+    /**
+     * Get message title length
+     *
+     * @return int
+     */
+    public function getMessageTitleLength()
+    {
+        return self::MESSAGE_TITLE_LENGTH;
+    }
+
+    /**
+     * Retrieve applications as "html select options"
+     *
+     * @return array
+     */
+    public function getApplicationOptions()
+    {
+        $options = array();
+        foreach (Mage::getModel('xmlconnect/application')->getCollection() as $app) {
+            if (self::isTemplateAllowedForApplication($app)) {
+                $options[] = array('value' => $app->getCode(), 'label' => $app->getName());
+            }
+        }
+        if (count($options) > 1) {
+            $options[] = array('value' => '', 'label' => Mage::helper('xmlconnect')->__('Please Select Application'));
+        }
+        return $options;
+    }
+
+    /**
+     * Get applications array like `code` as `name`
+     *
+     * @param
+     * @staticvar array $apps
+     * @return array
+     */
+    public function getApplications()
+    {
+        static $apps = array();
+
+        if (empty($apps)) {
+            foreach (Mage::getModel('xmlconnect/application')->getCollection() as $app) {
+                $apps[$app->getCode()] = $app->getName();
+            }
+        }
+        return $apps;
+    }
+
+    /**
+     * Check if creating AirMail template for the application is allowed
+     *
+     * @param Mage_XmlConnect_Model_Application $application
+     * @return boolean
+     */
+    public static function isTemplateAllowedForApplication($application = null)
+    {
+        return $application instanceof Mage_XmlConnect_Model_Application ?
+            in_array($application->getType(), array(self::DEVICE_TYPE_IPHONE)) :
+            false;
+    }
+
+    /**
+     * Send broadcast message
+     *
+     * @param Mage_XmlConnect_Model_Queue $queue
+     */
+    public function sendBroadcastMessage(Mage_XmlConnect_Model_Queue $queue)
+    {
+        if ($queue->getStatus() != Mage_XmlConnect_Model_Queue::STATUS_IN_QUEUE) {
+            return;
+        }
+
+        try {
+            $appCode = $queue->getAppCode();
+            $app = Mage::getModel('xmlconnect/application')->load($appCode, 'code');
+
+            if (!$app->getId()) {
+                Mage::throwException(Mage::helper('xmlconnect')->__('Can\'t load application with code "%s"', $appCode));
+            }
+
+            $userpwd = $app->getUserpwd();
+
+            $sendType = $queue->getData('type');
+            switch ($sendType) {
+                case Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL:
+                    $broadcastUrl = Mage::getStoreConfig('xmlconnect/' . Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL . '/broadcast_url');
+                    $params = $queue->getAirmailBroadcastParams();
+                    break;
+
+                case Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_PUSH:
+                default:
+                    $broadcastUrl = Mage::getStoreConfig('xmlconnect/' . Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_PUSH . '/broadcast_url');
+                    $params = $queue->getPushBroadcastParams();
+                    break;
+            }
+
+            $ch = curl_init($broadcastUrl);
+
+            $httpHeaders = $this->getHttpHeaders();
+
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $httpHeaders);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_USERPWD, $userpwd);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+
+            // Execute the request.
+            $result = curl_exec($ch);
+            $succeeded  = curl_errno($ch) == 0 ? true : false;
+
+            // close cURL resource, and free up system resources
+            curl_close($ch);
+
+            if ($succeeded && (is_null($result) || strtolower($result) == 'null')) {
+                $queue->setStatus(Mage_XmlConnect_Model_Queue::STATUS_COMPLETED);
+            }
+            $queue->setIsSent(true);
+
+            return;
+        } catch (Exception $e) {
+            Mage::logException($e);
+            throw $e;
+        }
+    }
+
+    /**
+     * Get headers for broadcast message
+     *
+     * @return string
+     */
+    public function getHttpHeaders()
+    {
+        $httpHeaders = array('Content-Type: application/json');
+        return $httpHeaders;
+    }
+
+    /**
+     * Remove from array the unnecessary parameters by given keys
+     *
+     * @param array $data Source array
+     * @param array $excludedKeys Keys to be excluded from array. Keys must be in xPath notation
+     * @return array
+     */
+    public function excludeXmlConfigKeys($data, $excludedKeys = array())
+    {
+        $excludedKeys = $this->getExcludedXmlConfigKeys();
+        if (!empty($excludedKeys)) {
+            foreach ($excludedKeys as $keyToExclude) {
+                if (strpos($keyToExclude, '/')) {
+                    $keys = array();
+                    foreach (explode('/', $keyToExclude) as $key) {
+                        $key = trim($key);
+                        if (!empty($key)) {
+                            $keys[] = $key;
+                        }
+                    }
+                    if (!empty($keys)) {
+                        $keys = '$data["' . implode('"]["', $keys) . '"]';
+                        eval('if (isset(' . $keys . ')) unset(' . $keys . ');');
+                    }
+                } elseif (!empty($keyToExclude) && isset($data[$keyToExclude])) {
+                    unset($data[$keyToExclude]);
+                }
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * Get excluded keys as array
+     *
+     * @return array
+     */
+    public function getExcludedXmlConfigKeys()
+    {
+        $toExclude = Mage::getStoreConfig(self::XML_NODE_CONFIG_EXCLUDE_FROM_XML);
+        $nodes = array();
+        foreach ($toExclude as $value) {
+            $nodes[] = trim($value, '/');
+        }
+
+        return $nodes;
+    }
+
+    /**
+     * Returns Application name by it's code
+     * @param  string $appCode
+     * @return string
+     */
+    public function getApplicationName($appCode = null)
+    {
+        if (empty($appCode)) {
+            return '';
+        }
+        if (!isset($this->_appNames[$appCode])) {
+            $app = Mage::getModel('xmlconnect/application')->loadByCode($appCode);
+            if ($app->getId()) {
+                $this->_appNames[$appCode] = $app->getName();
+            } else {
+                return '';
+            }
+        }
+        return $this->_appNames[$appCode];
+    }
+
+    /**
+     * Returns Application name by it's code
+     * @param  string $appCode
+     * @return string
+     */
+    public function getTemplateName($templateId = null)
+    {
+        if (empty($templateId)) {
+            return '';
+        }
+        if (!isset($this->_tplNames[$templateId])) {
+            $template = Mage::getModel('xmlconnect/template')->load($templateId);
+            if ($template->getId()) {
+                $this->_tplNames[$templateId] = $template->getName();
+            } else {
+                return '';
+            }
+        }
+        return $this->_tplNames[$templateId];
+    }
+
+    /**
+     * Set value into multidimensional array 'conf/native/navigationBar/icon'
+     *
+     * @param &array $target // pointer to target array
+     * @param string $fieldPath // 'conf/native/navigationBar/icon'
+     * @param mixed $fieldValue // 'Some Value' || 12345 || array(1=>3, 'aa'=>43)
+     * @param string $delimiter // path delimiter
+     * @return null
+     */
+    public function _injectFieldToArray(&$target, $fieldPath, $fieldValue, $delimiter = '/')
+    {
+        $nameParts = explode($delimiter, $fieldPath);
+        foreach ($nameParts as $next) {
+            if (!isset($target[$next])) {
+                $target[$next] = array();
+            }
+            $target =& $target[$next];
+        }
+        $target = $fieldValue;
+        return null;
+    }
+
+    /**
+     * Convert Url link to file path for images
+     *
+     * @param string $icon
+     * @return string
+     */
+    public function urlToPath($icon)
+    {
+        $baseUrl = Mage::getBaseUrl('media');
+        $path = str_replace($baseUrl, '', $icon);
+        $filePath = Mage::getBaseDir('media') . DS . str_replace('/', DS, $path);
+        return $filePath;
+
+    }
+
+    /**
+     * Validate config body field is not empty
+     *
+     * @param string $field
+     * @param array $native
+     * @return bool
+     */
+    public function validateConfFieldNotEmpty($field, $native)
+    {
+        if ( ($native === false)
+            || (!isset($native['body']) || !is_array($native['body'])
+            || !isset($native['body'][$field])
+            || !Zend_Validate::is($native['body'][$field], 'NotEmpty'))) {
+            return false;
+        }
+        return true;
     }
 }

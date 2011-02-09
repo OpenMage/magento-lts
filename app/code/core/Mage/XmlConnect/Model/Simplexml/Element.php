@@ -28,7 +28,7 @@
  *
  * XmlConnect fixed Varien SimpleXML Element class
  *
- * @author    Magento Core Team <core@magentocommerce.com>
+ * @author  Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Model_Simplexml_Element extends Varien_Simplexml_Element
 {
@@ -78,9 +78,7 @@ class Mage_XmlConnect_Model_Simplexml_Element extends Varien_Simplexml_Element
             $value = $this;
         }
         $value = (string)$value;
-
         $value = str_replace(array('&', '"', '<', '>'), array('&amp;', '&quot;', '&lt;', '&gt;'), $value);
-
         return $value;
     }
 }

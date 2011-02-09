@@ -46,7 +46,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      *
      * @var array
      */
-    protected $attrCodes = null;
+    protected static $attrCodes = null;
 
     /**
      * DB connection.

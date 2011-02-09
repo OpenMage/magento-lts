@@ -127,15 +127,15 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
                 }
             }
         } elseif ($type == 'item') {
-            return !$entity->getProduct()->isVirtual() && $this->_getDependenceFromStoreConfig(
-                        $entity->getProduct()->getGiftMessageAvailable(),
-                        $store
-                   );
+            return $this->_getDependenceFromStoreConfig(
+                $entity->getProduct()->getGiftMessageAvailable(),
+                $store
+            );
         } elseif ($type == 'order_item') {
-            return !$entity->getIsVirtual() && $this->_getDependenceFromStoreConfig(
-                        $entity->getGiftMessageAvailable(),
-                        $store
-                    );
+            return $this->_getDependenceFromStoreConfig(
+                $entity->getGiftMessageAvailable(),
+                $store
+            );
         } elseif ($type == 'address_item') {
             $storeId = is_numeric($store) ? $store : Mage::app()->getStore($store)->getId();
 
@@ -148,10 +148,10 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
                         ->getGiftMessageAvailable()
                 );
             }
-            return !$entity->getProduct()->isVirtual() && $this->_getDependenceFromStoreConfig(
-                        $this->getCached('address_item_' . $entity->getProductId()),
-                        $store
-                   );
+            return $this->_getDependenceFromStoreConfig(
+                $this->getCached('address_item_' . $entity->getProductId()),
+                $store
+            );
         } else {
             return Mage::getStoreConfig(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ORDER, $store);
         }

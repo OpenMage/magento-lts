@@ -34,6 +34,8 @@ class Mage_XmlConnect_Model_Theme
      * Load Theme xml from $file
      *
      * @param string $file
+     * @throws Mage_Core_Exception
+     * @return void
      */
     public function __construct($file)
     {

@@ -299,6 +299,7 @@
                         <action method="addItemRender"><type>default</type><block>adminhtml/sales_items_renderer_default</block><template>sales/order/shipment/create/items/renderer/default.phtml</template></action>
                         <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>sales/items/column/qty.phtml</template></action>
                         <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>sales/items/column/name.phtml</template></action>
+                        <block type="core/text_list" name="order_item_extra_info"></block>
                     </block>
                 </block>
             </block>
@@ -330,6 +331,7 @@
                         <action method="addItemRender"><type>default</type><block>adminhtml/sales_items_renderer_default</block><template>sales/order/shipment/view/items/renderer/default.phtml</template></action>
                         <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>sales/items/column/qty.phtml</template></action>
                         <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>sales/items/column/name.phtml</template></action>
+                        <block type="core/text_list" name="order_item_extra_info"></block>
                     </block>
                     <block type="adminhtml/sales_order_invoice_create_tracking" name="invoice_tracking" template="sales/order/shipment/create/tracking.phtml"></block>
                     <block type="adminhtml/sales_order_comments_view"  name="order_comments" template="sales/order/comments/view.phtml">

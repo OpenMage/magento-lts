@@ -33,18 +33,24 @@
  */
 class Mage_XmlConnect_Block_Cart_Paypal_Mep_Totals extends Mage_Checkout_Block_Cart_Totals
 {
-   /**
+    /**
      * Render cart totals xml
      *
      * @return string
      */
     protected function _toHtml()
     {
-        $paypalCart = Mage::getModel('paypal/cart', array($this->getQuote()));
+        $quote = $this->getQuote();
         $totalsXmlObj  = new Mage_XmlConnect_Model_Simplexml_Element('<cart_totals></cart_totals>');
-        foreach ($paypalCart->getTotals(true) as $code => $amount) {
-            $currencyAmount = $this->helper('core')->currency($amount, false, false);
-            $totalsXmlObj->addChild($code, Mage::helper('xmlconnect')->formatPriceForXml($currencyAmount));
+        list($items, $totals) = Mage::helper('paypal')->prepareLineItems($quote);
+
+        if (Mage::helper('paypal')->areCartLineItemsValid($items, $totals, $quote->getBaseGrandTotal())) {
+            foreach ($totals as $code => $amount) {
+                $currencyAmount = $this->helper('core')->currency($amount, false, false);
+                $totalsXmlObj->addChild($code, Mage::helper('xmlconnect')->formatPriceForXml($currencyAmount));
+            }
+        } else {
+           Mage::throwException($this->__('Cart line items are not eligible for exporting to PayPal API'));
         }
         return $totalsXmlObj->asNiceXml();
     }

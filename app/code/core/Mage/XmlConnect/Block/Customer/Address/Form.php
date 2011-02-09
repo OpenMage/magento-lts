@@ -107,25 +107,25 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Core_Block_Templa
 
         $xml = <<<EOT
 <form name="address_form" method="post">
-    <fieldset legend="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Contact Information'))}">
-        <field name="firstname" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('First Name'))}" required="true" value="$firstname" />
-        <field name="lastname" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Last Name'))}" required="true" value="$lastname" />
-        <field name="company" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Company'))}" value="$company" />
-        <field name="telephone" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Telephone'))}" required="true" value="$telephone" />
-        <field name="fax" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Fax'))}" value="$fax" />
+    <fieldset legend="{$xmlModel->xmlentities($this->__('Contact Information'))}">
+        <field name="firstname" type="text" label="{$xmlModel->xmlentities($this->__('First Name'))}" required="true" value="$firstname" />
+        <field name="lastname" type="text" label="{$xmlModel->xmlentities($this->__('Last Name'))}" required="true" value="$lastname" />
+        <field name="company" type="text" label="{$xmlModel->xmlentities($this->__('Company'))}" value="$company" />
+        <field name="telephone" type="text" label="{$xmlModel->xmlentities($this->__('Telephone'))}" required="true" value="$telephone" />
+        <field name="fax" type="text" label="{$xmlModel->xmlentities($this->__('Fax'))}" value="$fax" />
     </fieldset>
     <fieldset legend="Address">
-        <field name="street[]" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Street Address'))}" required="true" value="$street1" />
-        <field name="street[]" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Street Address 2'))}" value="$street2" />
-        <field name="city" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('City'))}" required="true" value="$city" />
-        <field name="country_id" type="select" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Country'))}" required="true">
+        <field name="street[]" type="text" label="{$xmlModel->xmlentities($this->__('Street Address'))}" required="true" value="$street1" />
+        <field name="street[]" type="text" label="{$xmlModel->xmlentities($this->__('Street Address 2'))}" value="$street2" />
+        <field name="city" type="text" label="{$xmlModel->xmlentities($this->__('City'))}" required="true" value="$city" />
+        <field name="country_id" type="select" label="{$xmlModel->xmlentities($this->__('Country'))}" required="true">
             $countryOptionsXml
         </field>
-        <field name="region" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('State/Province'))}" value="$region" />
-        <field name="region_id" type="select" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('State/Province'))}" required="true" />
-        <field name="postcode" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Zip/Postal Code'))}" required="true" value="$postcode" />
-        <field name="default_billing" type="checkbox" $billingChecked label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Use as my default billing address'))}"/>
-        <field name="default_shipping" type="checkbox" $shippingChecked label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Use as my default shipping address'))}"/>
+        <field name="region" type="text" label="{$xmlModel->xmlentities($this->__('State/Province'))}" value="$region" />
+        <field name="region_id" type="select" label="{$xmlModel->xmlentities($this->__('State/Province'))}" required="true" />
+        <field name="postcode" type="text" label="{$xmlModel->xmlentities($this->__('Zip/Postal Code'))}" required="true" value="$postcode" />
+        <field name="default_billing" type="checkbox" $billingChecked label="{$xmlModel->xmlentities($this->__('Use as my default billing address'))}"/>
+        <field name="default_shipping" type="checkbox" $shippingChecked label="{$xmlModel->xmlentities($this->__('Use as my default shipping address'))}"/>
     </fieldset>
 </form>
 EOT;

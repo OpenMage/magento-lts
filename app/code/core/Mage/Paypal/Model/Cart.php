@@ -212,6 +212,23 @@ class Mage_Paypal_Model_Cart
     }
 
     /**
+     * Remove item from cart by identifier
+     * 
+     * @param string $identifier
+     * @return bool
+     */
+    public function removeItem($identifier)
+    {
+        foreach ($this->_items as $key => $item) {
+            if ($item->getId() == $identifier) {
+                unset($this->_items[$key]);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Compound the specified amount with the specified total
      *
      * @param string $code
@@ -311,10 +328,17 @@ class Mage_Paypal_Model_Cart
                 $this->_renderTotalLineItemDescriptions(self::TOTAL_DISCOUNT)
             );
         }
+        $shippingItemId = $this->_renderTotalLineItemDescriptions(self::TOTAL_SHIPPING, $shippingDescription);
         if ($this->_isShippingAsItem && (float)$this->_totals[self::TOTAL_SHIPPING]) {
             $this->addItem(Mage::helper('paypal')->__('Shipping'), 1, (float)$this->_totals[self::TOTAL_SHIPPING],
-                $this->_renderTotalLineItemDescriptions(self::TOTAL_SHIPPING, $shippingDescription)
+                $shippingItemId
             );
+        }
+
+        $this->_validate();
+        // if cart items are invalid, prepare cart for transfer without line items
+        if (!$this->_areItemsValid) {
+            $this->removeItem($shippingItemId);
         }
 
         // compound non-regular items into subtotal
@@ -324,7 +348,6 @@ class Mage_Paypal_Model_Cart
             }
         }
 
-        $this->_validate();
         $this->_shouldRender = false;
     }
 
@@ -401,21 +424,29 @@ class Mage_Paypal_Model_Cart
     protected function _addRegularItem(Varien_Object $salesItem)
     {
         if ($this->_salesEntity instanceof Mage_Sales_Model_Order) {
-            $qty = $salesItem->getQtyOrdered();
-            $amount = $salesItem->getBasePrice();
+            $qty = (int) $salesItem->getQtyOrdered();
+            $amount = (float) $salesItem->getBasePrice();
             // TODO: nominal item for order
         } else {
-            $qty = $salesItem->getTotalQty();
-            $amount = $salesItem->isNominal() ? 0 : $salesItem->getBaseCalculationPrice();
+            $qty = (int) $salesItem->getTotalQty();
+            $amount = $salesItem->isNominal() ? 0 : (float) $salesItem->getBaseCalculationPrice();
         }
         // workaround in case if item subtotal precision is not compatible with PayPal (.2)
         $subAggregatedLabel = '';
-        if ((float)$amount - round((float)$amount, 2)) {
+        if ($amount - round($amount, 2)) {
             $amount = $amount * $qty;
             $subAggregatedLabel = ' x' . $qty;
             $qty = 1;
         }
-        return $this->addItem($salesItem->getName() . $subAggregatedLabel, $qty, (float)$amount, $salesItem->getSku());
+
+        // aggregate item price if item qty * price does not match row total
+        if (($amount * $qty) != $salesItem->getBaseRowTotal()) {
+            $amount = (float) $salesItem->getBaseRowTotal();
+            $subAggregatedLabel = ' x' . $qty;
+            $qty = 1;
+        }
+
+        return $this->addItem($salesItem->getName() . $subAggregatedLabel, $qty, $amount, $salesItem->getSku());
     }
 
     /**

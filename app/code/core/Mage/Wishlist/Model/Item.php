@@ -400,7 +400,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
     {
         $option = $this->getOptionByCode('info_buyRequest');
         $buyRequest = new Varien_Object($option ? unserialize($option->getValue()) : null);
-        $buyRequest->setQty($this->getQty() * 1);
+        $buyRequest->setOriginalQty($buyRequest->getQty())
+            ->setQty($this->getQty() * 1);
         return $buyRequest;
     }
 

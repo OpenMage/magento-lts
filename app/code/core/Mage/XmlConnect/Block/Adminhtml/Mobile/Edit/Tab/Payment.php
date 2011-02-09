@@ -47,7 +47,6 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
      */
     protected function _prepareForm()
     {
-
         $form = new Varien_Data_Form();
 
         $this->setForm($form);
@@ -55,13 +54,13 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
         $data = $this->getApplication()->getFormData();
         $yesNoValues = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
 
-        $fieldset = $form->addFieldset('onepage_checkout', array('legend' => Mage::helper('xmlconnect')->__('Standard Checkout')));
+        $fieldset = $form->addFieldset('onepage_checkout', array('legend' => $this->__('Standard Checkout')));
 
         $fieldset->addField('conf/native/defaultCheckout/isActive', 'select', array(
-            'label'     => Mage::helper('xmlconnect')->__('Enable Standard Checkout'),
+            'label'     => $this->__('Enable Standard Checkout'),
             'name'      => 'conf[native][defaultCheckout][isActive]',
             'values'   => $yesNoValues,
-            'note'      => Mage::helper('xmlconnect')->__('Standard Checkout uses the checkout methods provided by Magento. Only inline payment methods are supported. (e.g PayPal Direct,  Authorize.Net, etc.)'),
+            'note'      => $this->__('Standard Checkout uses the checkout methods provided by Magento. Only inline payment methods are supported. (e.g PayPal Direct,  Authorize.Net, etc.)'),
             'value'     => (isset($data['conf[native][defaultCheckout][isActive]']) ? $data['conf[native][defaultCheckout][isActive]'] : '1')
         ));
 
@@ -69,20 +68,20 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
         /**
          * PayPal MEP management
          */
-        $isExpressCheckoutAvaliable = Mage::getModel('xmlconnect/payment_method_paypal_mep')->isAvailable();
+        $isExpressCheckoutAvaliable = Mage::getModel('xmlconnect/payment_method_paypal_mep')->isAvailable(null);
 
         $paypalActive = 0;
         if (isset($data['conf[native][paypal][isActive]'])) {
             $paypalActive = (int)($data['conf[native][paypal][isActive]'] && $isExpressCheckoutAvaliable);
         }
-        $fieldsetPaypal = $form->addFieldset('paypal_mep_checkout', array('legend' => Mage::helper('xmlconnect')->__('PayPal Mobile Embedded Payment (MEP)')));
+        $fieldsetPaypal = $form->addFieldset('paypal_mep_checkout', array('legend' => $this->__('PayPal Mobile Embedded Payment (MEP)')));
 
-        $activateMepMethodNote = Mage::helper('xmlconnect')->__('To activate PayPal MEP payment method activate Express checkout first. ');
+        $activateMepMethodNote = $this->__('To activate PayPal MEP payment method activate Express checkout first. ');
         $paypalConfigurationUrl = $this->escapeHtml($this->getUrl('adminhtml/system_config/edit', array('section' => 'paypal')));
-        $businessAccountNote = Mage::helper('xmlconnect')->__('MEP is PayPal`s native checkout experience for the iPhone. You can choose to use MEP alongside standard checkout, or use it as your only checkout method for Magento mobile. PayPal MEP requires a <a href="%s">PayPal business account</a>', $paypalConfigurationUrl);
+        $businessAccountNote = $this->__('MEP is PayPal`s native checkout experience for the iPhone. You can choose to use MEP alongside standard checkout, or use it as your only checkout method for Magento mobile. PayPal MEP requires a <a href="%s">PayPal business account</a>', $paypalConfigurationUrl);
 
         $paypalActiveField = $fieldsetPaypal->addField('conf/native/paypal/isActive', 'select', array(
-            'label'     => Mage::helper('xmlconnect')->__('Activate PayPal Checkout'),
+            'label'     => $this->__('Activate PayPal Checkout'),
             'name'      => 'conf[native][paypal][isActive]',
             'note'      => (!$isExpressCheckoutAvaliable ? $activateMepMethodNote : $businessAccountNote),
             'values'    => $yesNoValues,
@@ -92,8 +91,8 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
 
         $merchantlabelField = $fieldsetPaypal->addField('conf/special/merchantLabel', 'text', array(
             'name'      => 'conf[special][merchantLabel]',
-            'label'     => Mage::helper('xmlconnect')->__('Merchant Label'),
-            'title'     => Mage::helper('xmlconnect')->__('Merchant Label'),
+            'label'     => $this->__('Merchant Label'),
+            'title'     => $this->__('Merchant Label'),
             'required'  => true,
             'value'     => (isset($data['conf[special][merchantLabel]']) ? $data['conf[special][merchantLabel]'] : '')
         ));
@@ -118,7 +117,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
      */
     public function getTabLabel()
     {
-        return Mage::helper('xmlconnect')->__('Payment Methods');
+        return $this->__('Payment Methods');
     }
 
     /**
@@ -128,7 +127,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
      */
     public function getTabTitle()
     {
-        return Mage::helper('xmlconnect')->__('Payment Methods');
+        return $this->__('Payment Methods');
     }
 
     /**
@@ -138,7 +137,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
      */
     public function canShowTab()
     {
-        return true;
+        return (bool) !Mage::getSingleton('adminhtml/session')->getNewApplication();
     }
 
     /**

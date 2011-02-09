@@ -69,7 +69,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
         if (empty($quoteId)) {
             return false;
         }
-        
+
         try {
             $quote = $this->_getQuote($quoteId);
         } catch (Mage_Api_Exception $e) {
@@ -96,7 +96,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
             $store = ($this->_getSession()->hasData($this->_storeIdSessionField)
                         ? $this->_getSession()->getData($this->_storeIdSessionField) : 0);
         }
-        
+
         try {
             $storeId = Mage::app()->getStore($store)->getId();
 
@@ -145,7 +145,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
         /** @var $quote Mage_Sales_Model_Quote */
         $quote = Mage::getModel('sales/quote')
                 ->loadByIdWithoutStore($quoteId);
-        
+
         return $quote->getStoreId();
     }
 

@@ -64,6 +64,14 @@
             </block>
 
             <block type="xmlconnect/catalog_product_attributes" name="xmlconnect.catalog.product.attributes" as="additional_info" output="" />
+
+            <block type="xmlconnect/catalog_product_options" name="xmlconnect.catalog.product.options" output="">
+                <action method="addRenderer"><type>simple</type><renderer>xmlconnect/catalog_product_options_simple</renderer></action>
+                <action method="addRenderer"><type>virtual</type><renderer>xmlconnect/catalog_product_options_virtual</renderer></action>
+                <action method="addRenderer"><type>configurable</type><renderer>xmlconnect/catalog_product_options_configurable</renderer></action>
+                <action method="addRenderer"><type>bundle</type><renderer>xmlconnect/catalog_product_options_bundle</renderer></action>
+                <action method="addRenderer"><type>grouped</type><renderer>xmlconnect/catalog_product_options_grouped</renderer></action>
+            </block>
         </block>
     </xmlconnect_catalog_product>
 

@@ -288,6 +288,7 @@ final class Maged_Controller
         }
 
         $this->view()->set('connect', $connect);
+        $this->view()->set('channel_config', $this->channelConfig());
         echo $this->view()->template('connect/packages.phtml');
     }
 

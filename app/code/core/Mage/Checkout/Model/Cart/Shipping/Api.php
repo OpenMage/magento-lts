@@ -41,7 +41,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
 
     /**
      * Set an Shipping Method for Shopping Cart
-     * 
+     *
      * @param  $quoteId
      * @param  $shippingMethod
      * @param  $store

@@ -50,13 +50,13 @@ class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Templa
 
         if ($billingAddress && $billingAddress->getId()) {
             $item = $addressXmlObj->addChild('item');
-            $item->addAttribute('label', Mage::helper('xmlconnect')->__('Default Billing Address'));
+            $item->addAttribute('label', $this->__('Default Billing Address'));
             $item->addAttribute('default_billing', 1);
             $this->prepareAddressData($billingAddress, $item);
         }
         if ($shippingAddress && $shippingAddress->getId()) {
             $item = $addressXmlObj->addChild('item');
-            $item->addAttribute('label', Mage::helper('xmlconnect')->__('Default Shipping Address'));
+            $item->addAttribute('label', $this->__('Default Shipping Address'));
             $item->addAttribute('default_shipping', 1);
             $this->prepareAddressData($shippingAddress, $item);
         }
@@ -64,7 +64,7 @@ class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Templa
         if ($_additionalAddresses) {
             foreach ($_additionalAddresses as $_address) {
                 $item = $addressXmlObj->addChild('item');
-                $item->addAttribute('label', Mage::helper('xmlconnect')->__('Additional Address'));
+                $item->addAttribute('label', $this->__('Additional Address'));
                 $item->addAttribute('additional', 1);
                 $this->prepareAddressData($_address, $item);
             }

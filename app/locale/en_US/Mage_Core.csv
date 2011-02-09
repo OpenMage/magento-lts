@@ -37,7 +37,7 @@
 "Browser Capabilities Detection","Browser Capabilities Detection"
 "CSS Settings","CSS Settings"
 "Cache Storage Management","Cache Storage Management"
-"Cache storage may contain another data. Are you sure that you want flush it?","Cache storage may contain another data. Are you sure that you want flush it?"
+"Cache storage may contain additional data. Are you sure that you want flush it?","Cache storage may contain additional data. Are you sure that you want flush it?"
 "Can't retrieve request object","Can't retrieve request object"
 "Cancel","Cancel"
 "Cannot complete this operation from non-admin area.","Cannot complete this operation from non-admin area."

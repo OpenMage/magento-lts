@@ -53,10 +53,7 @@ class Mage_XmlConnect_Block_Cart_Crosssell extends Mage_Checkout_Block_Cart_Cros
 
             $iconXml = $itemXmlObj->addChild('icon', $icon);
 
-            $baseUrl = Mage::getBaseUrl('media');
-            $path = str_replace($baseUrl, '', $icon);
-            $file = Mage::getBaseDir('media') . DS . str_replace('/', DS, $path);
-
+            $file = Mage::helper('xmlconnect')->urlToPath($icon);
             $iconXml->addAttribute('modification_time', filemtime($file));
 
             $itemXmlObj->addChild('entity_id', $_item->getId());

@@ -50,8 +50,12 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items extends Mage_Adm
      */
     public function canDisplayGiftMessage()
     {
+        $item = $this->getItem();
+        if (!$item) {
+            return false;
+        }
         return $this->helper('giftmessage/message')->getIsMessagesAvailable(
-            'item', $this->getItem(), $this->getItem()->getStoreId()
+            'item', $item, $item->getStoreId()
         );
     }
 

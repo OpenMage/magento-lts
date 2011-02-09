@@ -44,7 +44,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
     public function items($filters = null, $store = null)
     {
         $collection = Mage::getModel('catalog/product')->getCollection()
-            ->setStoreId($this->_getStoreId($store))
+            ->addStoreFilter($this->_getStoreId($store))
             ->addAttributeToSelect('name');
 
         $preparedFilters = array();

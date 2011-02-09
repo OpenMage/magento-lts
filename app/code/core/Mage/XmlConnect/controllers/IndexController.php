@@ -27,20 +27,18 @@
 /**
  * XmlConnect index controller
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author  Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_XmlConnect_IndexController extends Mage_XmlConnect_Controller_Action
 {
-
     /**
      * Default action
      *
+     * @return void
      */
     public function indexAction()
     {
         $this->loadLayout(false);
         $this->renderLayout();
     }
-
 }

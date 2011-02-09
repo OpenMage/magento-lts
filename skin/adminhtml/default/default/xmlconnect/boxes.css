@@ -24,6 +24,7 @@
 .mm_ctrl .m-arrows { width:42px; height:17px; text-indent:-2000em; background:url(../images/xmlconnect/r-arrow.gif) no-repeat 0 0; border:0; float:left; cursor:pointer; }
 .mm_ctrl .l-arrow { background:url(../images/xmlconnect/l-arrow.gif) no-repeat 0 0; margin:0 0 0 5px; }
 .mm_ctrl .full-arrow { width:84px; background:url(../images/xmlconnect/full-arrow.gif) no-repeat 0 0; margin:0 0 0 5px; }
+.mm_ctrl .full-arrow-left { background:url(../images/xmlconnect/full-arrow-left.gif) no-repeat 0 0; width:84px; }
 .mm_name span { border:1px solid #bdbdbd; display:block; padding:2px 0; text-align:center; margin:0 7px 5px 7px; }
 .mm_img { background: url(../images/xmlconnect/xmlconnect_tab.png) 50% 50% no-repeat; width: 84px; height: 60px; text-align: center; vertical-align: middle }
 .mm-edit-form { border:1px solid red; }
@@ -35,3 +36,7 @@
 #field_tabs { padding:0 !important; }
 #field_tabs .mm-tabs-title { background:#ececec; padding:4px 10px; margin:0 -10px 15px; font-weight:bold; }
 #field_tabs table { width:500px !important; margin:0 10px 20px 10px; }
+.ipad-horizontal { height:350px; width:467px; }
+.ipad-portrait { height:467px; width:350px; }
+.ipad-tab-portrait { width:308px; }
+.ipad-tab-horizontal { width:425px; }

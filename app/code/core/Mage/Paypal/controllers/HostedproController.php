@@ -45,7 +45,7 @@ class Mage_Paypal_HostedproController extends Mage_Core_Controller_Front_Action
         }
     }
 
-	/**
+    /**
      * When a customer cancel payment from gateway.
      */
     public function cancelAction()
@@ -58,7 +58,7 @@ class Mage_Paypal_HostedproController extends Mage_Core_Controller_Front_Action
         $this->getResponse()->setBody($redirectBlock->toHtml());
     }
 
-	/**
+    /**
      * Cancel order, return quote to customer
      *
      * @param string $errorMsg
@@ -94,7 +94,7 @@ class Mage_Paypal_HostedproController extends Mage_Core_Controller_Front_Action
         return $gotoSection;
     }
 
-	/**
+    /**
      * Get frontend checkout session object
      *
      * @return Mage_Checkout_Model_Session

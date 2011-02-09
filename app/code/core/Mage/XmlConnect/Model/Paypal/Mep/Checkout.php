@@ -41,7 +41,7 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
     /**
      * Payment method type
      *
-     * @var unknown_type
+     * @var string
      */
     protected $_methodType = Mage_XmlConnect_Model_Payment_Method_Paypal_Mep::MEP_METHOD_CODE;
 
@@ -62,8 +62,10 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
 
     /**
      * Set quote instances
-     * 
+     *
+     * @throws Mage_Core_Exception
      * @param array $params
+     * @return void
      */
     public function __construct($params = array())
     {
@@ -270,6 +272,8 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
 
     /**
      * Make sure addresses will be saved without validation errors
+     *
+     * @return void
      */
     protected function _ignoreAddressValidation()
     {

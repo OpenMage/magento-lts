@@ -127,16 +127,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store', array(
                 'header'    => Mage::helper('wishlist')->__('Added From'),
-                'index'     => 'store_name',
-                'type'      => 'store'
+                'index'     => 'store_id',
+                'type'      => 'store',
+                'width'     => '160px'
             ));
         }
-
-        $this->addColumn('visible_in', array(
-            'header'    => Mage::helper('wishlist')->__('Visible In'),
-            'index'     => 'item_store_id',
-            'type'      => 'store'
-        ));
 
         $this->addColumn('added_at', array(
             'header'    => Mage::helper('wishlist')->__('Date Added'),
@@ -193,15 +188,47 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      */
     protected function _addColumnFilterToCollection($column)
     {
-        if($column->getId()=='store') {
-            $this->getCollection()->addFieldToFilter('item_store_id', $column->getFilter()->getCondition());
-            return $this;
+        /* @var $collection Mage_Wishlist_Model_Mysql4_Item_Collection */
+        $collection = $this->getCollection();
+        $value = $column->getFilter()->getValue();
+        if ($collection && $value) {
+            switch ($column->getId()) {
+                case 'product_name':
+                    $collection->addProductNameFilter($value);
+                    break;
+                case 'store':
+                    $collection->addStoreFilter($value);
+                    break;
+                case 'days':
+                    $collection->addDaysFilter($value);
+                    break;
+                default:
+                    $collection()->addFieldToFilter($column->getIndex(), $column->getFilter()->getCondition());
+                    break;
+            }
         }
+        return $this;
+    }
 
-        if ($this->getCollection() && $column->getFilter()->getValue()) {
-            $this->getCollection()->addFieldToFilter($column->getIndex(), $column->getFilter()->getCondition());
+    /**
+     * Sets sorting order by some column
+     *
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist
+     */
+    protected function _setCollectionOrder($column)
+    {
+        $collection = $this->getCollection();
+        if ($collection) {
+            switch ($column->getId()) {
+                case 'product_name':
+                    $collection->setOrderByProductName($column->getDir());
+                    break;
+                default:
+                    parent::_setCollectionOrder($column);
+                    break;
+            }
         }
-
         return $this;
     }
 

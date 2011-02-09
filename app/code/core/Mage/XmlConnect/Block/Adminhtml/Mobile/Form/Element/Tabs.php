@@ -33,9 +33,20 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Tabs extends Varien_Da
      */
     public function getHtml()
     {
+        if ((bool)Mage::getSingleton('adminhtml/session')->getNewApplication()) {
+            return '';
+        }
+
         $blockClassName = Mage::getConfig()->getBlockClassName('adminhtml/template');
         $block = new $blockClassName;
-        $block->setTemplate('xmlconnect/form/element/app_tabs.phtml');
+        $device = Mage::helper('xmlconnect')->getApplication()->getType();
+        if (array_key_exists($device, Mage::helper('xmlconnect')->getSupportedDevices())) {
+            $template = 'xmlconnect/form/element/app_tabs_' . strtolower($device) . '.phtml';
+        } else {
+            Mage::throwException($this->__('Device doesn\'t recognized. Unable to load a template.'));
+        }
+
+        $block->setTemplate($template);
         $tabs = Mage::getModel('xmlconnect/tabs', $this->getValue());
         $block->setTabs($tabs);
         $block->setName($this->getName());

@@ -473,16 +473,18 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function getProductByAttributes($attributesInfo, $product = null)
     {
-        foreach ($this->getUsedProducts(null, $product) as $productObject) {
-            $checkRes = true;
-            foreach ($attributesInfo as $attributeId => $attributeValue) {
-                $code = $this->getAttributeById($attributeId, $product)->getAttributeCode();
-                if ($productObject->getData($code) != $attributeValue) {
-                    $checkRes = false;
+        if (is_array($attributesInfo) && !empty($attributesInfo)) {
+            foreach ($this->getUsedProducts(null, $product) as $productObject) {
+                $checkRes = true;
+                foreach ($attributesInfo as $attributeId => $attributeValue) {
+                    $code = $this->getAttributeById($attributeId, $product)->getAttributeCode();
+                    if ($productObject->getData($code) != $attributeValue) {
+                        $checkRes = false;
+                    }
                 }
-            }
-            if ($checkRes) {
-                return $productObject;
+                if ($checkRes) {
+                    return $productObject;
+                }
             }
         }
         return null;
@@ -555,7 +557,8 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 /**
                  * $attributes = array($attributeId=>$attributeValue)
                  */
-                if ($subProduct = $this->getProductByAttributes($attributes, $product)) {
+                $subProduct = $this->getProductByAttributes($attributes, $product);
+                if ($subProduct) {
                     $product->addCustomOption('attributes', serialize($attributes));
                     $product->addCustomOption('product_qty_'.$subProduct->getId(), 1, $subProduct);
                     $product->addCustomOption('simple_product', $subProduct->getId(), $subProduct);
@@ -589,6 +592,8 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                         $_result[0]->setCartQty(1);
                     }
                     $result[] = $_result[0];
+                    return $result;
+                } else if (!$this->_isStrictProcessMode($processMode)) {
                     return $result;
                 }
             }

@@ -92,11 +92,6 @@
                         <name>JCB</name>
                         <order>50</order>
                     </JCB>
-                    <MCI>
-                        <code>MCI</code>
-                        <name>Maestro (International)</name>
-                        <order>53</order>
-                    </MCI>
                     <OT>
                         <code>OT</code>
                         <name>Other</name>

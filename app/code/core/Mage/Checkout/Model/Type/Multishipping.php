@@ -496,35 +496,40 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
             $shippingAddresses[] = $this->getQuote()->getBillingAddress();
         }
 
-        foreach ($shippingAddresses as $address) {
-            $order = $this->_prepareOrder($address);
+        try {
+            foreach ($shippingAddresses as $address) {
+                $order = $this->_prepareOrder($address);
 
-            $orders[] = $order;
-            Mage::dispatchEvent(
-                'checkout_type_multishipping_create_orders_single',
-                array('order'=>$order, 'address'=>$address)
-            );
-        }
-
-        foreach ($orders as $order) {
-            $order->place();
-            $order->save();
-            if ($order->getCanSendNewEmailFlag()){
-                $order->sendNewOrderEmail();
+                $orders[] = $order;
+                Mage::dispatchEvent(
+                    'checkout_type_multishipping_create_orders_single',
+                    array('order'=>$order, 'address'=>$address)
+                );
             }
-            $orderIds[$order->getId()] = $order->getIncrementId();
+
+            foreach ($orders as $order) {
+                $order->place();
+                $order->save();
+                if ($order->getCanSendNewEmailFlag()){
+                    $order->sendNewOrderEmail();
+                }
+                $orderIds[$order->getId()] = $order->getIncrementId();
+            }
+
+            Mage::getSingleton('core/session')->setOrderIds($orderIds);
+            Mage::getSingleton('checkout/session')->setLastQuoteId($this->getQuote()->getId());
+
+            $this->getQuote()
+                ->setIsActive(false)
+                ->save();
+
+            Mage::dispatchEvent('checkout_submit_all_after', array('orders' => $orders, 'quote' => $this->getQuote()));
+
+            return $this;
+        } catch (Exception $e) {
+            Mage::dispatchEvent('checkout_multishipping_refund_all', array('orders' => $orders));
+            throw $e;
         }
-
-        Mage::getSingleton('core/session')->setOrderIds($orderIds);
-        Mage::getSingleton('checkout/session')->setLastQuoteId($this->getQuote()->getId());
-
-        $this->getQuote()
-            ->setIsActive(false)
-            ->save();
-
-        Mage::dispatchEvent('checkout_submit_all_after', array('orders' => $orders, 'quote' => $this->getQuote()));
-
-        return $this;
     }
 
     /**

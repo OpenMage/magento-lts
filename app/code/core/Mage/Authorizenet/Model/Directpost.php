@@ -132,7 +132,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         return $this->_canRefund;
     }
 
-	/**
+    /**
      * Check void availability
      *
      * @param   Varien_Object $invoicePayment
@@ -143,7 +143,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         return $this->_canVoid;
     }
 
-	/**
+    /**
      * Void the payment through gateway
      *
      * @param Varien_Object $payment
@@ -168,9 +168,10 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                     if ($result->getTransactionId() != $payment->getParentTransactionId()) {
                         $payment->setTransactionId($result->getTransactionId());
                     }
+                    $shouldCloseCaptureTransaction = !(bool)$payment->getOrder()->canCreditmemo();
                     $payment
                         ->setIsTransactionClosed(1)
-                        ->setShouldCloseParentTransaction(1)
+                        ->setShouldCloseParentTransaction($shouldCloseCaptureTransaction)
                         ->setTransactionAdditionalInfo($this->_realTransactionIdKey, $result->getTransactionId());
                     return $this;
                 }
@@ -258,9 +259,10 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                     if ($result->getTransactionId() != $payment->getParentTransactionId()) {
                         $payment->setTransactionId($result->getTransactionId());
                     }
+                    $shouldCloseCaptureTransaction = $payment->getOrder()->canCreditmemo() ? 0 : 1;
                     $payment
                          ->setIsTransactionClosed(1)
-                         ->setShouldCloseParentTransaction(1)
+                         ->setShouldCloseParentTransaction($shouldCloseCaptureTransaction)
                          ->setTransactionAdditionalInfo($this->_realTransactionIdKey, $result->getTransactionId());
                     return $this;
                 }
@@ -537,7 +539,13 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             $response->getXTransId()
         );
 
-        $order->setState(Mage_Sales_Model_Order::STATE_NEW, true, $message, false)
+        $orderState = Mage_Sales_Model_Order::STATE_PROCESSING;
+        $orderStatus = $this->getConfigData('order_status');
+        if (!$orderStatus || $order->getIsVirtual()) {
+            $orderStatus = $order->getConfig()->getStateDefaultStatus($orderState);
+        }
+
+        $order->setState($orderState, $orderStatus ? $orderStatus : true, $message, false)
             ->save();
 
         //match amounts. should be equals for authorization.

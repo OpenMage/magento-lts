@@ -35,6 +35,6 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tabs extends Mage_Adminh
 
         $this->setId('mobile_app_tabs');
         $this->setDestElementId('edit_form');
-        $this->setTitle(Mage::helper('xmlconnect')->__('Manage Mobile App'));
+        $this->setTitle($this->__('Manage Mobile App'));
     }
 }

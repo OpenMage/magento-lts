@@ -550,6 +550,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             $option = array();
         }
         $buyRequest = new Varien_Object($option);
+        $buyRequest->setQty($this->getQtyOrdered() * 1);
         return $buyRequest;
     }
 }

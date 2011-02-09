@@ -117,10 +117,13 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
             $address->getQuote()->getCustomerTaxClassId(),
             $this->_store
         );
-        $this->_areTaxRequestsSimilar = $this->_calculator->compareRequests(
-            $this->_calculator->getRateOriginRequest($address->getQuote()->getStore()),
-            $request
-        );
+
+        if ($this->_config->priceIncludesTax($this->_store)) {
+            $this->_areTaxRequestsSimilar = $this->_calculator->compareRequests(
+                $this->_calculator->getRateOriginRequest($this->_store),
+                $request
+            );
+        }
 
         switch ($this->_config->getAlgorithm($this->_store)) {
             case Mage_Tax_Model_Calculation::CALC_UNIT_BASE:

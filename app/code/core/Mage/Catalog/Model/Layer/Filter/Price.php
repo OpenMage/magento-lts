@@ -125,6 +125,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             $maxPrice = floor($maxPrice);
             $this->setData('max_price_int', $maxPrice);
         }
+
         return $maxPrice;
     }
 
@@ -142,6 +143,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             $items = $this->_getResource()->getCount($this, $range);
             $this->setData($rangeKey, $items);
         }
+
         return $items;
     }
 
@@ -157,6 +159,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         $store      = Mage::app()->getStore();
         $fromPrice  = $store->formatPrice(($value-1)*$range);
         $toPrice    = $store->formatPrice($value*$range);
+
         return Mage::helper('catalog')->__('%s - %s', $fromPrice, $toPrice);
     }
 
@@ -175,6 +178,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             ;
         $taxReq = Mage::getSingleton('tax/calculation')->getRateRequest(false, false, false);
         $key.= implode('_', $taxReq->getData());
+
         return $key;
     }
 

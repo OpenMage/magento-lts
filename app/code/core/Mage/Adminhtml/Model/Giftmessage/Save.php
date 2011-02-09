@@ -84,6 +84,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * @return Mage_Adminhtml_Model_Giftmessage_Save
      */
     protected function _saveOne($entityId, $giftmessage) {
+        /* @var $giftmessageModel Mage_Giftmessage_Model_Message */
         $giftmessageModel = Mage::getModel('giftmessage/message');
         $entityType = $this->_getMappedType($giftmessage['type']);
 
@@ -100,6 +101,10 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
                 $entityModel = $giftmessageModel->getEntityModelByType($entityType)
                     ->load($entityId);
                 break;
+        }
+
+        if (!$entityModel) {
+            return $this;
         }
 
         if ($entityModel->getGiftMessageId()) {

@@ -33,7 +33,6 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_History_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     /**
      * Constructor
      *
@@ -67,27 +66,33 @@ class Mage_XmlConnect_Block_Adminhtml_History_Grid extends Mage_Adminhtml_Block_
     protected function _prepareColumns()
     {
         $this->addColumn('title', array(
-            'header'    => Mage::helper('xmlconnect')->__('App Title'),
+            'header'    => $this->__('App Title'),
             'align'     => 'left',
             'index'     => 'title',
             'type'      => 'text',
         ));
 
+        $this->addColumn('name', array(
+            'header'    => $this->__('App Name'),
+            'align'     => 'left',
+            'index'     => 'name',
+        ));
+
         $this->addColumn('code', array(
-            'header'    => Mage::helper('xmlconnect')->__('App Code'),
+            'header'    => $this->__('App Code'),
             'align'     => 'left',
             'index'     => 'code',
         ));
 
         $this->addColumn('created_at', array(
-            'header'    => Mage::helper('xmlconnect')->__('Date Submitted'),
+            'header'    => $this->__('Date Submitted'),
             'align'     => 'left',
             'index'     => 'created_at',
             'type'      => 'datetime'
         ));
 
         $this->addColumn('activation_key', array(
-            'header'    => Mage::helper('xmlconnect')->__('Activation Key'),
+            'header'    => $this->__('Activation Key'),
             'align'     => 'left',
             'index'     => 'activation_key',
         ));

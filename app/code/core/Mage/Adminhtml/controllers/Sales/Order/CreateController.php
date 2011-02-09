@@ -238,7 +238,8 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         /**
          * Saving of giftmessages
          */
-        if ($giftmessages = $this->getRequest()->getPost('giftmessage')) {
+        $giftmessages = $this->getRequest()->getPost('giftmessage');
+        if ($giftmessages) {
             $this->_getGiftmessageSaveModel()->setGiftmessages($giftmessages)
                 ->saveAllInQuote();
         }

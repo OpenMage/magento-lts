@@ -26,6 +26,57 @@
 
 class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
 {
+
+    /**
+     * Get default application tabs
+     *
+     * @param string
+     * @return array
+     */
+    public function getDefaultDesignTabs()
+    {
+        if (!isset($this->_tabs)) {
+            $this->_tabs = array(
+                array(
+                    'label' => Mage::helper('xmlconnect')->__('Home'),
+                    'image' => 'tab_home.png',
+                    'action' => 'Home',
+                ),
+                array(
+                    'label' => Mage::helper('xmlconnect')->__('Shop'),
+                    'image' => 'tab_shop.png',
+                    'action' => 'Shop',
+                ),
+                array(
+                    'label' => Mage::helper('xmlconnect')->__('Search'),
+                    'image' => 'tab_search.png',
+                    'action' => 'Search',
+                ),
+                array(
+                    'label' => Mage::helper('xmlconnect')->__('Cart'),
+                    'image' => 'tab_cart.png',
+                    'action' => 'Cart',
+                ),
+                array(
+                    'label' => Mage::helper('xmlconnect')->__('More'),
+                    'image' => 'tab_more.png',
+                    'action' => 'More',
+                ),
+                array(
+                    'label' => Mage::helper('xmlconnect')->__('Account'),
+                    'image' => 'tab_account.png',
+                    'action' => 'Account',
+                ),
+                array(
+                    'label' => Mage::helper('xmlconnect')->__('More Info'),
+                    'image' => 'tab_page.png',
+                    'action' => 'AboutUs',
+                ),
+            );
+        }
+        return $this->_tabs;
+    }
+
     /**
      * Default application configuration
      *

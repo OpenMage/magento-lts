@@ -24,7 +24,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog category media config
  *
@@ -35,7 +34,7 @@
 class Mage_XmlConnect_Model_Catalog_Category_Media_Config extends Mage_Catalog_Model_Product_Media_Config
 {
     /**
-     * Getter , return Catalog baseMediaPath
+     * Getter, return Catalog baseMediaPath
      *
      * @return string
      */
@@ -73,5 +72,4 @@ class Mage_XmlConnect_Model_Catalog_Category_Media_Config extends Mage_Catalog_M
     {
         return Mage::getBaseUrl('media') . 'tmp/catalog/category';
     }
-
 }

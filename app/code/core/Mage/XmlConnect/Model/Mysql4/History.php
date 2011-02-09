@@ -27,11 +27,12 @@ class Mage_XmlConnect_Model_Mysql4_History extends Mage_Core_Model_Mysql4_Abstra
 {
     /**
      * Constructor, setting table and index field
+     *
+     * @return void
      */
     protected function _construct()
     {
         $this->_init('xmlconnect/history', 'history_id');
-
     }
 
     /**
@@ -62,7 +63,6 @@ class Mage_XmlConnect_Model_Mysql4_History extends Mage_Core_Model_Mysql4_Abstra
      * Returns array of existing images
      *
      * @param int $id -  application instance Id
-     *
      * @return array
      */
     public function getLastParams($id)
@@ -81,5 +81,4 @@ class Mage_XmlConnect_Model_Mysql4_History extends Mage_Core_Model_Mysql4_Abstra
         }
         return $paramArray;
     }
-
 }

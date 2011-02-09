@@ -647,13 +647,14 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Sets final price of product
      *
      * This func is equal to magic 'setFinalPrice()', but added as a separate func, because in cart with bundle products it's called
-     * very often in Item->getProduct(). So removing chaing of magic with more cpu consuming algorithms gives nice optimization boost.
+     * very often in Item->getProduct(). So removing chain of magic with more cpu consuming algorithms gives nice optimization boost.
      *
-     * @return array
+     * @return Mage_Catalog_Model_Product
      */
     public function setFinalPrice($price)
     {
         $this->_data['final_price'] = $price;
+        return $this;
     }
 
     /**
@@ -1394,7 +1395,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function canConfigure()
     {
         $options = $this->getOptions();
-        return $this->isComposite() || !empty($options) || $this->getTypeInstance(true)->canConfigure($this);
+        return !empty($options) || $this->getTypeInstance(true)->canConfigure($this);
     }
 
     /**

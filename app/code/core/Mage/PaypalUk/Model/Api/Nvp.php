@@ -251,7 +251,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         'SALUTATION' => 'prefix',
         'SUFFIX' => 'suffix',
 
-        'COUNTRY' => 'country_id', // iso-3166 two-character code
+        'COUNTRYCODE' => 'country_id', // iso-3166 two-character code
         'STATE'    => 'region',
         'CITY'     => 'city',
         'STREET'   => 'street',

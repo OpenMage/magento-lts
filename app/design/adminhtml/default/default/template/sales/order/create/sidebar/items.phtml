@@ -64,7 +64,11 @@
             <tr>
                 <td><?php echo $this->htmlEscape($_item->getName()) ?></td>
                 <?php if ($this->canDisplayItemQty()): ?>
-                <td class="a-center"><?php echo $_item->getQty()*1 ?></td>
+                <td class="a-center">
+                    <?php if ($_item->getProduct()->getTypeId() != Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE): ?>
+                        <?php echo $_item->getQty()*1 ? $_item->getQty()*1 : 1 ?>
+                    <?php endif; ?>
+                </td>
                 <?php endif; ?>
                 <?php if($this->canDisplayPrice()): ?>
                 <td><?php echo $this->convertPrice($_item->getPrice()) ?></td>

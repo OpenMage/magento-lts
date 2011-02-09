@@ -30,7 +30,7 @@
  *
  * @category   Mage
  * @package    Mage_XmlConnect
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Model_Mysql4_History_Collection
     extends Mage_Core_Model_Mysql4_Collection_Abstract

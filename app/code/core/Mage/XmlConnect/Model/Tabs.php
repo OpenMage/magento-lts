@@ -68,9 +68,18 @@ class Mage_XmlConnect_Model_Tabs
     {
         if (is_array($tabItems)) {
             foreach ($tabItems as $id => $tab) {
-                if (isset($tab->label)) {
-                    $temp = $tabItems[$id];
-                    $temp->label = Mage::helper('xmlconnect')->getTabLabel($tab->action);
+                $tempTab = $tabItems[$id];
+
+                if (is_array($tab)) {
+                    if (isset($tab['label'])) {
+                        $tempTab['label'] = Mage::helper('xmlconnect')->getTabLabel($tab['action']);
+                    } else {
+                        $tempTab['label'] = '';
+                    }
+                } else {
+                    if (isset($tab->label)) {
+                       $tempTab->label = Mage::helper('xmlconnect')->getTabLabel($tab->action);
+                    }
                 }
             }
         }
@@ -109,6 +118,7 @@ class Mage_XmlConnect_Model_Tabs
             $tab->image = Mage::getDesign()->getSkinUrl('images/xmlconnect/' . $tab->image);
             $result[] = $tab;
         }
+
         return $result;
     }
 }

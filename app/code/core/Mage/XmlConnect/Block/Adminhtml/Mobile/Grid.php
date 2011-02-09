@@ -56,13 +56,13 @@ class Mage_Xmlconnect_Block_Adminhtml_Mobile_Grid extends Mage_Adminhtml_Block_W
     protected function _prepareColumns()
     {
         $this->addColumn('name', array(
-            'header'    => Mage::helper('xmlconnect')->__('App Name'),
+            'header'    => $this->__('App Name'),
             'align'     => 'left',
             'index'     => 'name',
         ));
 
         $this->addColumn('code', array(
-            'header'    => Mage::helper('xmlconnect')->__('Code'),
+            'header'    => $this->__('App Code'),
             'align'     => 'left',
             'index'     => 'code',
             'width'     => '200',
@@ -70,7 +70,7 @@ class Mage_Xmlconnect_Block_Adminhtml_Mobile_Grid extends Mage_Adminhtml_Block_W
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', array(
-                'header'        => Mage::helper('xmlconnect')->__('Store View'),
+                'header'        => $this->__('Store View'),
                 'index'         => 'store_id',
                 'type'          => 'store',
                 'store_view'    => true,
@@ -80,7 +80,7 @@ class Mage_Xmlconnect_Block_Adminhtml_Mobile_Grid extends Mage_Adminhtml_Block_W
         }
 
         $this->addColumn('type', array(
-            'header'    => Mage::helper('xmlconnect')->__('Device'),
+            'header'    => $this->__('Device'),
             'type'      => 'text',
             'index'     => 'type',
             'align'     => 'center',
@@ -90,7 +90,7 @@ class Mage_Xmlconnect_Block_Adminhtml_Mobile_Grid extends Mage_Adminhtml_Block_W
         ));
 
         $this->addColumn('status', array(
-            'header'    => Mage::helper('xmlconnect')->__('Status'),
+            'header'    => $this->__('Status'),
             'index'     => 'status',
             'renderer'  => 'xmlconnect/adminhtml_mobile_grid_renderer_bool',
             'align'     => 'center',

@@ -75,7 +75,7 @@ ProductConfigure.prototype = {
         this.windowHeight               = $('html-body').getHeight();
         this.iFrameJSVarname            = this.blockForm.select('input[name="as_js_varname"]')[0].value;
     },
-    
+
     /**
     * Returns next unique list type id
     */
@@ -84,7 +84,7 @@ ProductConfigure.prototype = {
     },
 
     /**
-     * Add product list types as scope and their urls 
+     * Add product list types as scope and their urls
      * expamle: addListType('product_to_add', {urlFetch: 'http://magento...'})
      * expamle: addListType('wishlist', {urlSubmit: 'http://magento...'})
      *
@@ -101,10 +101,10 @@ ProductConfigure.prototype = {
         Object.extend(this.listTypes[type], urls);
         return this;
     },
-    
+
     /**
     * Adds complex list type - that is used to submit several list types at once
-    * Only urlSubmit is possible for this list type 
+    * Only urlSubmit is possible for this list type
     * expamle: addComplexListType(['wishlist', 'product_list'], 'http://magento...')
     *
     * @param type types as scope
@@ -136,7 +136,7 @@ ProductConfigure.prototype = {
         this.itemsFilter[listType] = this.itemsFilter[listType].concat(itemsFilter);
         return this;
     },
-    
+
     /**
     * Returns id of block where configuration for an item is stored
     *
@@ -147,13 +147,13 @@ ProductConfigure.prototype = {
     _getConfirmedBlockId: function (listType, itemId) {
         return this.blockConfirmed.id + '[' + listType + '][' + itemId + ']';
     },
-    
+
     /**
     * Checks whether item has some configuration fields
     *
     * @param listType scope name
     * @param itemId
-    * @return bool 
+    * @return bool
     */
     itemConfigured: function (listType, itemId) {
         var confirmedBlockId = this._getConfirmedBlockId(listType, itemId);
@@ -165,7 +165,7 @@ ProductConfigure.prototype = {
      * Show configuration fields of item, if it not found then get it through ajax
      *
      * @param listType scope name
-     * @param itemId 
+     * @param itemId
      */
     showItemConfiguration: function(listType, itemId) {
         if (!listType || !itemId) {
@@ -211,7 +211,19 @@ ProductConfigure.prototype = {
                             this._showWindow();
                         }
                     } else if (response) {
+                        response = response + '';
                         this.blockFormFields.update(response);
+                        
+                        // Add special div to hold mage data, e.g. scripts to execute on every popup show
+                        var mageData = {};
+                        var scripts = response.extractScripts();
+                        mageData.scripts = scripts;
+                        
+                        var scriptHolder = new Element('div', {'style': 'display:none'});
+                        scriptHolder.mageData = mageData;
+                        this.blockFormFields.insert(scriptHolder);
+                        
+                        // Show window
                         this._showWindow();
                     }
                 }.bind(this)
@@ -270,12 +282,12 @@ ProductConfigure.prototype = {
             this.addFields([new Element('input', {type: 'hidden', name: 'id', value: this.current.itemId})]);
         } else {
             this.blockForm.action = urlSubmit;
-            
+
             var complexTypes = this.listTypes[this.current.listType].complexTypes;
             if (complexTypes) {
                 this.addFields([new Element('input', {type: 'hidden', name: 'configure_complex_list_types', value: complexTypes.join(',')})]);
             }
-            
+
             this._processFieldsData('current_confirmed_to_form');
 
             // Disable item controls that duplicate added fields (e.g. sometimes qty controls can intersect)
@@ -307,7 +319,6 @@ ProductConfigure.prototype = {
             }
         }
         // do submit
-        this.blockIFrame.setAttribute('onload', 'productConfigure.onLoadIFrame()');
         if (Object.isFunction(this.beforeSubmitCallback[this.current.listType])) {
             this.beforeSubmitCallback[this.current.listType]();
         }
@@ -333,13 +344,13 @@ ProductConfigure.prototype = {
      */
     onLoadIFrame: function() {
         varienLoaderHandler.handler.onComplete();
-        
+
         this.blockFormConfirmed.select('[configure_disabled=1]').each(function (element) {
             element.disabled = element.getAttribute('configure_prev_disabled') == '1';
         });
-        
+
         this._processFieldsData('form_confirmed_to_confirmed');
-        
+
         var response = this.blockIFrame.contentWindow[this.iFrameJSVarname];
         if (response && "object" == typeof response) {
             if (this.listTypes[this.current.listType].urlConfirm) {
@@ -400,11 +411,32 @@ ProductConfigure.prototype = {
      * Show configuration window
      */
     _showWindow: function() {
-        toggleSelectsUnderBlock(this.blockMask, false);
+        this._toggleSelectsExceptBlock(false);
         this.blockMask.setStyle({'height':this.windowHeight+'px'}).show();
         this.blockWindow.setStyle({'marginTop':-this.blockWindow.getHeight()/2 + "px", 'display':'block'});
         if (Object.isFunction(this.showWindowCallback[this.current.listType])) {
             this.showWindowCallback[this.current.listType]();
+        }
+    },
+
+    /**
+     * toggles Selects states (for IE) except those to be shown in popup
+     */
+    _toggleSelectsExceptBlock: function(flag) {
+        if(Prototype.Browser.IE){
+            if (this.blockForm) {
+                var states = new Array;
+                var selects = this.blockForm.getElementsByTagName("select");
+                for(var i=0; i<selects.length; i++){
+                    states[i] = selects[i].style.visibility
+                }
+            }
+            toggleSelectsUnderBlock(this.blockMask, flag);
+            if (this.blockForm) {
+                for(i=0; i<selects.length; i++){
+                    selects[i].style.visibility = states[i]
+                }
+            }
         }
     },
 
@@ -419,7 +451,7 @@ ProductConfigure.prototype = {
     },
 
     /**
-     * Attach callback function triggered when confirm button was clicked 
+     * Attach callback function triggered when confirm button was clicked
      *
      * @param confirmCallback
      */
@@ -481,7 +513,7 @@ ProductConfigure.prototype = {
                 if (listInfo.complexTypes) {
                     listTypes = listTypes.concat(listInfo.complexTypes);
                 }
-                
+
                 this.blockConfirmed.childElements().each(function(elm) {
                     for (var i = 0, len = listTypes.length; i < len; i++) {
                        var pattern = this.blockConfirmed.id + '[' + listTypes[i] + ']';
@@ -509,7 +541,6 @@ ProductConfigure.prototype = {
         }
         this._getIFrameContent().body.innerHTML = '';
         this.blockIFrame.contentWindow[this.iFrameJSVarname] = {};
-        this.blockIFrame.removeAttribute('onload');
         this.blockFormAdd.update();
         this.blockFormConfirmed.update();
         this.blockForm.action = '';
@@ -552,7 +583,7 @@ ProductConfigure.prototype = {
                 var stPatternFlat = 'item_' + itemId + '_(\\w+)';
                 if (listType) {
                     stPattern = 'list\\[' + listType + '\\]\\[item\\]\\[' + itemId + '\\]\\[(\\w+)\\](.*)';
-                    stPatternFlat = 'list_' + listType + '_' + stPatternFlat; 
+                    stPatternFlat = 'list_' + listType + '_' + stPatternFlat;
                 }
                 pattern         = new RegExp(stPattern);
                 patternFlat     = new RegExp(stPatternFlat);
@@ -574,7 +605,7 @@ ProductConfigure.prototype = {
             rename(blockItem.getElementsByTagName('select'));
             rename(blockItem.getElementsByTagName('textarea'));
         }.bind(this);
-        
+
         switch (method) {
             case 'item_confirm':
                     if (!$(this.confirmedCurrentId)) {
@@ -590,8 +621,13 @@ ProductConfigure.prototype = {
                     this.blockFormFields.update();
 
                     // clone confirmed to form
+                    var mageData = null;
                     $(this.confirmedCurrentId).childElements().each(function(elm) {
                         var cloned = elm.cloneNode(true);
+                        if (elm.mageData) {
+                            cloned.mageData = elm.mageData;
+                            mageData = elm.mageData;
+                        }
                         this.blockFormFields.insert(cloned);
                     }.bind(this));
 
@@ -640,6 +676,17 @@ ProductConfigure.prototype = {
                     restoreConfirmedValues(this.blockFormFields.getElementsByTagName('input'));
                     restoreConfirmedValues(this.blockFormFields.getElementsByTagName('select'));
                     restoreConfirmedValues(this.blockFormFields.getElementsByTagName('textarea'));
+                    
+                    // Execute scripts
+                    if (mageData && mageData.scripts) {
+                        this.restorePhase = true;
+                        try {
+                            mageData.scripts.map(function(script) {
+                                return eval(script);
+                            });
+                        } catch (e) {}
+                        this.restorePhase = false;
+                    }
             break;
             case 'current_confirmed_to_form':
                     var allowedListTypes = {};
@@ -650,7 +697,7 @@ ProductConfigure.prototype = {
                            allowedListTypes[listInfo.complexTypes[i]] = true;
                         }
                     }
-                    
+
                     this.blockFormConfirmed.update();
                     this.blockConfirmed.childElements().each(function(blockItem) {
                         var scopeArr    = blockItem.id.match(/.*\[(\w+)\]\[(\w+)\]$/);

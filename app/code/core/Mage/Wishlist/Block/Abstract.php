@@ -354,4 +354,26 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
             ->setIdSuffix($idSuffix)
             ->toHtml();
     }
+
+    /**
+     * Retrieve URL to item Product
+     *
+     * @param  Mage_Wishlist_Model_Item $item
+     * @param  array $additional
+     * @return string
+     */
+    public function getProductUrl($item, $additional = array())
+    {
+        $buyRequest = $item->getBuyRequest();
+        $product    = $item->getProduct();
+        if (is_object($buyRequest)) {
+            $config = $buyRequest->getSuperProductConfig();
+            if ($config && isset($config['product_id'])) {
+                $product = Mage::getModel('catalog/product')
+                    ->setStoreId(Mage::app()->getStore()->getStoreId())
+                    ->load($config['product_id']);
+            }
+        }
+        return parent::getProductUrl($product, $additional);
+    }
 }

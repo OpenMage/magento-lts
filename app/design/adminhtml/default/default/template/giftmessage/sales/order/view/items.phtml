@@ -26,7 +26,7 @@
 ?>
 
 <?php if ($this->canDisplayGiftmessage()): ?>
-<div class="no-display">
+<div id="gift-message-form-data-<?php echo $this->getItem()->getId(); ?>" class="no-display">
     <form id="<?php echo $this->getFieldId('form') ?>" action="<?php echo $this->getSaveUrl() ?>">
         <input type="hidden" id="<?php echo $this->getFieldId('type') ?>" name="<?php echo $this->getFieldName('type') ?>" value="order_item" />
         <input type="hidden" id="<?php echo $this->getFieldId('sender') ?>" name="<?php echo $this->getFieldName('sender') ?>" value="<?php echo $this->getSender() ?>" />

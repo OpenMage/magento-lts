@@ -62,10 +62,7 @@ class Mage_XmlConnect_Block_Checkout_Order_Review_Info extends Mage_Checkout_Blo
 
             $iconXml = $itemXml->addChild('icon', $icon);
 
-            $baseUrl = Mage::getBaseUrl('media');
-            $path = str_replace($baseUrl, '', $icon);
-            $file = Mage::getBaseDir('media') . DS . str_replace('/', DS, $path);
-
+            $file = Mage::helper('xmlconnect')->urlToPath($icon);
             $iconXml->addAttribute('modification_time', filemtime($file));
 
             /**

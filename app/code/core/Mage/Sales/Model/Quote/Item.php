@@ -662,8 +662,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         $buyRequest = new Varien_Object($option ? unserialize($option->getValue()) : null);
 
         // Overwrite standard buy request qty, because item qty could have changed since adding to quote
-        $buyRequest->setOriginalQty($buyRequest);
-        $buyRequest->setQty($this->getQty());
+        $buyRequest->setOriginalQty($buyRequest->getQty())
+            ->setQty($this->getQty() * 1);
 
         return $buyRequest;
     }

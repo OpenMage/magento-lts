@@ -31,7 +31,7 @@ body { margin: 0; padding: 0 }
 .main-block 
 {
     width:320px;
-    height:490px;
+    height:478px;
     position:relative;
     overflow:hidden;
 }
@@ -272,6 +272,7 @@ body { margin: 0; padding: 0 }
 
 .item 
 {
+    font-family:Helvetica, "Helvetica Neue", Arial, sans-serif;
 	height: 91px;
     position:relative;
 }
@@ -308,7 +309,7 @@ body { margin: 0; padding: 0 }
 .slider-item-text
 {
 	position: relative;
-	top: 30px;
+	top: 25px;
 }
 
 .lines-v 
@@ -330,6 +331,12 @@ body { margin: 0; padding: 0 }
 	padding: 10px 0 0 10px;
 	float: left;	
 }
+.item-image img
+{
+    -moz-box-shadow:0 2px 3px #999;
+    -webkit-box-shadow:0 2px 3px #999;
+    box-shadow:0 2px 3px #999;
+}
 .item-info
 {
 	float: left;	
@@ -338,7 +345,35 @@ body { margin: 0; padding: 0 }
 }
 .item-title 
 {
+    font:bold 12px/15px "Helvetica Neue", Helvetica, Verdana, sans-serif !important;
 	padding:0;	
+}
+
+.item-price-block span,
+.availability span,
+.slider-item-text
+{
+    font-family:"Helvetica Neue", Helvetica, Verdana, sans-serif !important;
+}
+
+.slider-item-text
+{
+    font-size:10px !important;
+    padding:0 5px;
+}
+
+.item-price-block span {
+    font:bold 12px/14px Tahoma, Verdana, Geneva !important;
+}
+
+.item-price-block
+{
+    padding:2px 0 0;
+}
+
+.availability
+{
+    padding:5px 0;
 }
 
 .item-rate img 
@@ -357,13 +392,11 @@ body { margin: 0; padding: 0 }
 
 .item-rate
 {
-	float: left;
-	display: block;
 }	
 
 .bottom-buttons 
 {
-    height:50px;    
+    height:48px;
     position:absolute;
     bottom:0;
     background:#060606;
@@ -378,12 +411,36 @@ body { margin: 0; padding: 0 }
 
 .bottom-button 
 {
-    height:26px;
+	height:26px;
+    vertical-align:top;
 }
-.bottom-button p 
+.bottom-button p
 {
-    text-align:center;
-    font:normal 10px/11px arial;
-    color:#9f9f9f;
-    margin-top:32px;
+	text-align:center;
+	font:normal 10px/11px arial;
+	color:#9f9f9f;
+    margin:0;
+    padding-top:33px;
+    position:relative;
+    z-index:100;
+}
+
+.bottom-button-active p
+{
+    color:#fff;
+    margin-top:-46px;
+    font-weight:bold;
+}
+
+.bottom-button-active .background
+{
+    background:#fff;
+    height:44px;
+    position:relative;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=14)";
+    filter:alpha(opacity=14);
+    opacity:0.14;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
 }

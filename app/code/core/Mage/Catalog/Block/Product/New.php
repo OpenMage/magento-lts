@@ -88,11 +88,20 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
 
         $collection = $this->_addProductAttributesAndPrices($collection)
             ->addStoreFilter()
-            ->addAttributeToFilter('news_from_date', array('date' => true, 'to' => $todayDate))
+            ->addAttributeToFilter('news_from_date', array('or'=> array(
+                0 => array('date' => true, 'to' => $todayDate),
+                1 => array('is' => new Zend_Db_Expr('null')))
+            ), 'left')
             ->addAttributeToFilter('news_to_date', array('or'=> array(
                 0 => array('date' => true, 'from' => $todayDate),
                 1 => array('is' => new Zend_Db_Expr('null')))
             ), 'left')
+            ->addAttributeToFilter(
+                array(
+                    array('attribute' => 'news_from_date', 'is'=>new Zend_Db_Expr('not null')),
+                    array('attribute' => 'news_to_date', 'is'=>new Zend_Db_Expr('not null'))
+                    )
+              )
             ->addAttributeToSort('news_from_date', 'desc')
             ->setPageSize($this->getProductsCount())
             ->setCurPage(1)

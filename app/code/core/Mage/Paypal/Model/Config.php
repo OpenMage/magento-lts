@@ -809,11 +809,14 @@ class Mage_Paypal_Model_Config
      */
     public function getPaymentActions()
     {
-        return array(
-            self::PAYMENT_ACTION_AUTH  => Mage::helper('paypal')->__('Authorization'),
-            self::PAYMENT_ACTION_ORDER => Mage::helper('paypal')->__('Order'),
-            self::PAYMENT_ACTION_SALE  => Mage::helper('paypal')->__('Sale'),
+        $paymentActions = array(
+            self::PAYMENT_ACTION_AUTH => Mage::helper('paypal')->__('Authorization'),
+            self::PAYMENT_ACTION_SALE => Mage::helper('paypal')->__('Sale')
         );
+        if (!is_null($this->_methodCode) && $this->_methodCode == self::METHOD_WPP_EXPRESS) {
+            $paymentActions[self::PAYMENT_ACTION_ORDER] = Mage::helper('paypal')->__('Order');
+        }
+        return $paymentActions;
     }
 
     /**

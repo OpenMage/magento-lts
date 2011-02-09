@@ -186,13 +186,13 @@ class Mage_Core_Model_Design_Package
             $oldValues['store'] = $this->getStore();
             $this->setStore($storePackageArea['store']);
         }
-        if (array_key_exists('package', $storePackageArea)) {
-            $oldValues['package'] = $this->getPackageName();
-            $this->setPackageName($storePackageArea['package']);
-        }
         if (array_key_exists('area', $storePackageArea)) {
             $oldValues['area'] = $this->getArea();
             $this->setArea($storePackageArea['area']);
+        }
+        if (array_key_exists('package', $storePackageArea)) {
+            $oldValues['package'] = $this->getPackageName();
+            $this->setPackageName($storePackageArea['package']);
         }
         return $oldValues;
     }

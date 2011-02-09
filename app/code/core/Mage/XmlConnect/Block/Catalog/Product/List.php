@@ -59,7 +59,7 @@ class Mage_XmlConnect_Block_Catalog_Product_List extends Mage_XmlConnect_Block_C
         $collection     = $this->_getProductCollection();
 
         if (!$collection) {
-            return $productsXmlObj;
+            return false;
         }
         foreach ($collection->getItems() as $product) {
             $productXmlObj = $this->productToXmlObject($product);
@@ -160,7 +160,7 @@ class Mage_XmlConnect_Block_Catalog_Product_List extends Mage_XmlConnect_Block_C
             $collection->getSelect()->limit($count, $offset);
 
             $collection->setFlag('require_stock_items', true);
-            
+
             $this->_productCollection = $collection;
         }
         return $this->_productCollection;

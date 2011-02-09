@@ -44,7 +44,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design extends Mage_Adminh
      */
     public function getTabLabel()
     {
-        return Mage::helper('xmlconnect')->__('Design');
+        return $this->__('Design');
     }
 
     /**
@@ -54,7 +54,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design extends Mage_Adminh
      */
     public function getTabTitle()
     {
-        return Mage::helper('xmlconnect')->__('Design');
+        return $this->__('Design');
     }
 
     /**
@@ -64,7 +64,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design extends Mage_Adminh
      */
     public function canShowTab()
     {
-        return true;
+        return (bool) !Mage::getSingleton('adminhtml/session')->getNewApplication();
     }
 
     /**
@@ -75,5 +75,15 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design extends Mage_Adminh
     public function isHidden()
     {
         return false;
+    }
+
+    /**
+     * Check if we have to show Preview Block
+     *
+     * @return bool
+     */
+    public function canShowPreview()
+    {
+        return true;
     }
 }

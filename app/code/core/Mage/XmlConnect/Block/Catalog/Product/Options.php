@@ -80,7 +80,6 @@ class Mage_XmlConnect_Block_Catalog_Product_Options extends Mage_XmlConnect_Bloc
             return $xmlModel;
         }
 
-
         foreach ($product->getOptions() as $option) {
             $optionNode = $optionsNode->addChild('option');
             $type = $this->_getOptionTypeForXmlByRealType($option->getType());
@@ -169,6 +168,26 @@ class Mage_XmlConnect_Block_Catalog_Product_Options extends Mage_XmlConnect_Bloc
                 break;
         }
         return $type;
+    }
+
+    /**
+     * Create product custom options Mage_XmlConnect_Model_Simplexml_Element object
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_XmlConnect_Model_Simplexml_Element | false
+     */
+    public function getProductOptionsXmlObject(Mage_Catalog_Model_Product $product)
+    {
+        if ($product->getId()) {
+            $type = $product->getTypeId();
+            if (isset($this->_renderers[$type])) {
+                $renderer = $this->getLayout()->createBlock($this->_renderers[$type]);
+                if ($renderer) {
+                    return $renderer->getProductOptionsXml($product, true);
+                }
+            }
+        }
+        return false;
     }
 
     /**

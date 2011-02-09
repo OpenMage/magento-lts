@@ -62,4 +62,21 @@ class Mage_Core_Model_File_Storage_Flag extends Mage_Core_Model_Flag
      * @var string
      */
     protected $_flagCode    = 'synchronize';
+
+    /**
+     * Pass error to flag
+     *
+     * @param Exception $e
+     * @return Mage_Core_Model_File_Storage_Flag
+     */
+    public function passError(Exception $e)
+    {
+        $data = $this->getFlagData();
+        if (!is_array($data)) {
+            $data = array();
+        }
+        $data['has_errors'] = true;
+        $this->setFlagData($data);
+        return $this;
+    }
 }

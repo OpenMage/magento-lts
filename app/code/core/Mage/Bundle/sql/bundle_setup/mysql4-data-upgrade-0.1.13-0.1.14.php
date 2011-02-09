@@ -47,7 +47,7 @@ try {
 
     $isDataChanged = false;
     $stmt = $db->query($select);
-    // set "None" tax class attribute for bundles with dynamic price 
+    // set "None" tax class attribute for bundles with dynamic price
     while ($row = $stmt->fetch()) {
         $data  = array('value' => 0);
         $where = array(
@@ -56,15 +56,15 @@ try {
         );
         $count = $db->update($taxClassTable, $data, $where);
         if ($count > 0) {
-            $isDataChanged = true;    
+            $isDataChanged = true;
         }
     }
 
-    // set "Requere Reindex" status for some indexes if attributes data has been modified
+    // set "Require Reindex" status for some indexes if attributes data has been modified
     if ($isDataChanged) {
         $indexerCodes = array(
-            'catalog_product_attribute', 
-            'catalog_product_price', 
+            'catalog_product_attribute',
+            'catalog_product_price',
             'catalog_product_flat'
         );
 
@@ -80,3 +80,4 @@ try {
     $db->rollback();
     throw $e;
 }
+

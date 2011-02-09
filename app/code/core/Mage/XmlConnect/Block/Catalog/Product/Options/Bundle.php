@@ -38,17 +38,17 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConne
      * Generate bundle product options xml
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return string
+     * @param bool $isObject
+     * @return string | Mage_XmlConnect_Model_Simplexml_Element
      */
-    public function getProductOptionsXml(Mage_Catalog_Model_Product $product)
+    public function getProductOptionsXml(Mage_Catalog_Model_Product $product, $isObject = false)
     {
 
         $xmlModel = $this->getProductCustomOptionsXmlObject($product);
         $optionsXmlObj = $xmlModel->options;
-        $options = array();
 
         if (!$product->isSaleable()) {
-            return $xmlModel->asNiceXml();
+            return $isObject ? $xmlModel : $xmlModel->asNiceXml();
         }
 
         /**
@@ -62,7 +62,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConne
         );
         $bundleOptions = $optionCollection->appendSelections($selectionCollection, false, false);
         if (!sizeof($bundleOptions)) {
-            return $xmlModel->asNiceXml();
+            return $isObject ? $xmlModel : $xmlModel->asNiceXml();
         }
 
         foreach ($bundleOptions as $_option) {
@@ -117,6 +117,6 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConne
             }
         }
 
-        return $xmlModel->asNiceXml();
+        return $isObject ? $xmlModel : $xmlModel->asNiceXml();
     }
 }

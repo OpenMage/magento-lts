@@ -26,6 +26,31 @@
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Content extends Mage_Adminhtml_Block_Template
 {
     /**
+     * Category item tint color styles
+     *
+     * @var string
+     */
+    protected $categoryItemTintColor = '';
+
+    /**
+     * Set path to template used for generating block's output.
+     *
+     * @param string $templateType
+     * @return Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Content
+     */
+    public function setTemplate($templateType)
+    {
+        $deviceType = Mage::helper('xmlconnect')->getApplication()->getType();
+
+        if ($deviceType == Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE) {
+            parent::setTemplate('xmlconnect/edit/tab/design/preview/' . $templateType . '.phtml');
+        } else {
+            parent::setTemplate('xmlconnect/edit/tab/design/preview/' . $templateType . '_' . $deviceType . '.phtml');
+        }
+        return $this;
+    }
+
+    /**
      * Prepare config data
      * Implement set "conf" data as magic method
      *
@@ -39,9 +64,10 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Content extends Mage_Adminh
         $tabs = isset($conf['tabBar']) && isset($conf['tabBar']['tabs']) ? $conf['tabBar']['tabs'] : false;
         if ($tabs !== false) {
             foreach ($tabs->getEnabledTabs() as $tab) {
-                $conf['tabBar'][$tab->action]['label'] = $tab->label;
-                $conf['tabBar'][$tab->action]['image'] =
-                    Mage::helper('xmlconnect/image')->getSkinImagesUrl('mobile_preview/' . $tab->image);
+                $tab = (array) $tab;
+                $conf['tabBar'][$tab['action']]['label'] = $tab['label'];
+                $conf['tabBar'][$tab['action']]['image'] =
+                    Mage::helper('xmlconnect/image')->getSkinImagesUrl('mobile_preview/' . $tab['image']);
             }
         }
         $this->setData('conf', $conf);
@@ -71,6 +97,137 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Content extends Mage_Adminh
     }
 
     /**
+     * Get application banner image url
+     *
+     * @throws Mage_Core_Exception
+     * @return string
+     */
+    public function getBannerImage()
+    {
+        $deviceType = Mage::helper('xmlconnect')->getApplication()->getType();
+        switch ($deviceType) {
+            case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE:
+
+                if ($this->getData('conf/body/bannerImage')) {
+                    $bannerImage = $this->getData('conf/body/bannerImage');
+                } else {
+                    $bannerImage = $this->getDesignPreviewImageUrl(
+                        $this->getInterfaceImagesPaths('conf/body/bannerImage')
+                    );
+                }
+                break;
+
+            case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPAD:
+
+                $configPath = 'conf/body/bannerImageIpad';
+                if ($this->getData($configPath)) {
+                    $width = Mage_XmlConnect_Helper_Ipad::PREVIEW_BANNER_WIDTH;
+                    $height = Mage_XmlConnect_Helper_Ipad::PREVIEW_BANNER_HEIGHT;
+                    $bannerImage = Mage::helper('xmlconnect/image')
+                        ->getCustomSizeImageUrl($this->_replaceConfig($configPath), $width, $height);
+                } else {
+                    $bannerImage = $this->getPreviewImagesUrl('ipad/banner_image.png');
+                }
+                break;
+
+            case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_ANDROID:
+
+                $configPath = 'conf/body/bannerImageAndroid';
+                if ($this->getData($configPath)) {
+                    $bannerImage = Mage::getBaseUrl('media') . 'xmlconnect/'
+                        . $this->getData($configPath);
+                } else {
+                    $bannerImage = $this->getDesignPreviewImageUrl(
+                        $this->getInterfaceImagesPaths($configPath)
+                    );
+                }
+                break;
+
+            default:
+                Mage::throwException($this->__('Device doesn\'t recognized: "%s". Unable to load a helper.', $deviceType));
+                break;
+        }
+        return $bannerImage;
+    }
+
+    /**
+     * Get Ipad background image url
+     *
+     * @param string $param type of orientation
+     * @throws Mage_Core_Exception
+     * @return string
+     */
+    public function getIpadBackgroundImage($param)
+    {
+        $backgroundImage = '';
+        switch ($param) {
+            case Mage_XmlConnect_Helper_Ipad::ORIENTATION_LANDSCAPE:
+                $configPath = 'conf/native/body/backgroundImageIpadLandscape';
+                if ($this->getData($configPath)) {
+                    $width = Mage_XmlConnect_Helper_Ipad::PREVIEW_LANDSCAPE_BACKGROUND_WIDTH;
+                    $height = Mage_XmlConnect_Helper_Ipad::PREVIEW_LANDSCAPE_BACKGROUND_HEIGHT;
+                    $backgroundImage = Mage::helper('xmlconnect/image')
+                        ->getCustomSizeImageUrl($this->_replaceConfig($configPath), $width, $height);
+                } else {
+                    $backgroundImage =
+                        $this->getPreviewImagesUrl('ipad/background_home_landscape.jpg');
+                }
+            break;
+            case Mage_XmlConnect_Helper_Ipad::ORIENTATION_PORTRAIT:
+                $configPath = 'conf/native/body/backgroundImageIpadPortret';
+                $width = Mage_XmlConnect_Helper_Ipad::PREVIEW_PORTRAIT_BACKGROUND_WIDTH;
+                $height = Mage_XmlConnect_Helper_Ipad::PREVIEW_PORTRAIT_BACKGROUND_HEIGHT;
+                if ($this->getData($configPath)) {
+                    $backgroundImage = Mage::helper('xmlconnect/image')
+                        ->getCustomSizeImageUrl($this->_replaceConfig($configPath), $width, $height);
+                } else {
+                    $backgroundImage = $this->getPreviewImagesUrl('ipad/background_portrait.jpg');
+                }
+            break;
+            default:
+                Mage::throwException($this->__('Wrong Ipad background image orientation has been specified: "%s".', $param));
+        }
+        return $backgroundImage;
+    }
+
+    /**
+     * Get font info from config
+     *
+     * @param string $path
+     * @return string
+     */
+    public function getConfigFontInfo($path)
+    {
+        return $this->getData('conf/fonts/' . $path);
+    }
+
+    /**
+     * Get icon logo url
+     *
+     * @return string
+     */
+    public function getLogoUrl()
+    {
+        $configPath = 'conf/navigationBar/icon';
+        if ($this->getData($configPath)) {
+            return $this->getData($configPath);
+        } else {
+            return $this->getDesignPreviewImageUrl($this->getInterfaceImagesPaths($configPath));
+        }
+    }
+
+    /**
+     * Converts Data path(conf/submision/zzzz) to config path (conf/native/submission/zzzzz)
+     *
+     * @param string $configPath
+     * @return string
+     */
+    protected function _replaceConfig($configPath)
+    {
+        return $configPath = preg_replace('/^conf\/(.*)$/', 'conf/native/${1}', $configPath);
+    }
+
+    /**
      * Expose function getInterfaceImagesPaths from xmlconnect/images
      * Converts Data path(conf/submision/zzzz) to config path (conf/native/submission/zzzzz)
      *
@@ -79,7 +236,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Content extends Mage_Adminh
      */
     public function getInterfaceImagesPaths($path)
     {
-        $path = preg_replace('/^conf\/(.*)$/', 'conf/native/${1}', $path);
+        $path = $this->_replaceConfig($path);
         return Mage::helper('xmlconnect/image')->getInterfaceImagesPaths($path);
     }
 
@@ -92,5 +249,55 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Content extends Mage_Adminh
     public function getPreviewCssUrl($name = '')
     {
         return  Mage::getDesign()->getSkinUrl('xmlconnect/' . $name);
+    }
+
+    /**
+     * Get category item tint color styles
+     *
+     * @return string
+     */
+    public function getCategoryItemTintColor()
+    {
+        if (!strlen($this->categoryItemTintColor)) {
+            $percent = .4;
+            $mask = 255;
+
+            $hex = str_replace('#','',$this->getData('conf/categoryItem/tintColor'));
+            $hex2 = '';
+            $_rgb = array();
+
+            $d = '[a-fA-F0-9]';
+
+            if (preg_match("/^($d$d)($d$d)($d$d)\$/", $hex, $rgb)) {
+                $_rgb = array(hexdec($rgb[1]), hexdec($rgb[2]), hexdec($rgb[3]));
+            }
+            if (preg_match("/^($d)($d)($d)$/", $hex, $rgb)) {
+                $_rgb = array(hexdec($rgb[1] . $rgb[1]), hexdec($rgb[2] . $rgb[2]), hexdec($rgb[3] . $rgb[3]));
+            }
+
+            for ($i=0; $i<3; $i++) {
+                $_rgb[$i] = round($_rgb[$i] * $percent) + round($mask * (1-$percent));
+                if ($_rgb[$i] > 255) {
+                    $_rgb[$i] = 255;
+                }
+            }
+
+            for($i=0; $i < 3; $i++) {
+                $hex_digit = dechex($_rgb[$i]);
+                if(strlen($hex_digit) == 1) {
+                    $hex_digit = "0" . $hex_digit;
+                }
+                $hex2 .= $hex_digit;
+            }
+            if($hex && $hex2){
+                // for IE
+                $this->categoryItemTintColor .= "filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#".$hex2."', endColorstr='#".$hex."');";
+                // for webkit browsers
+                $this->categoryItemTintColor .= "background:-webkit-gradient(linear, left top, left bottom, from(#".$hex2."), to(#".$hex."));";
+                // for firefox
+                $this->categoryItemTintColor .= "background:-moz-linear-gradient(top,  #".$hex2.",  #".$hex.");";
+            }
+        }
+        return $this->categoryItemTintColor;
     }
 }

@@ -1,0 +1,72 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+$categoryItemTintColor = $this->getCategoryItemTintColor();
+$categoryItemBackgroundColor = $this->getData('conf/categoryItem/backgroundColor');
+$categoryItemTintColor = $this->getData('conf/categoryItem/tintColor');
+$title1color = $this->getConfigFontInfo('Title1/color');
+$title9size = $this->getConfigFontInfo('Title9/size');
+$productImage = $this->getPreviewImagesUrl('android/product_image.png');
+$bannerImageAndroid = $this->getBannerImage();
+?>
+<link rel="stylesheet" type="text/css" href="<?php echo $this->getPreviewCssUrl('mobile-android.css'); ?>" media="all" />
+
+<div class="main-frame main-frame-home" style="background-color:<?php echo $this->getData('conf/body/backgroundColor'); ?>;">
+    <div class="phone home-page" style="">
+        <div class="status-bar"></div>
+        <div class="header-wrap" style="background-color:<?php echo $this->getData('conf/navigationBar/tintColor'); ?>">
+            <div class="header">
+                <div class="icon icon-home"></div>
+                <?php echo $this->getChildHtml('tab_items'); ?>
+                <div class="logo">
+                    <img src="<?php echo $this->getLogoUrl(); ?>" alt="logo" /><span style="color:<?php echo $title1color; ?>;"><?php echo $this->__("Home"); ?></span>
+                </div>
+            </div>
+        </div>
+        <div class="content" style="background-image:url(<?php echo $bannerImageAndroid; ?>)"></div>
+        <div class="items-list" style="background-color:<?php echo $this->getData('conf/body/scrollBackgroundColor'); ?>">
+            <ul>
+                <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
+                    <div class="product-image"><img src="<?php echo $productImage; ?>" alt="Chair" /></div>
+                    <span class="link"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $this->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>">Chairs</a></span>
+                </li>
+                <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
+                    <div class="product-image"><img src="<?php echo $productImage; ?>" alt="Table" /></div>
+                    <span class="link"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $this->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>">Tables</a></span>
+                </li>
+                <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
+                    <div class="product-image"><img src="<?php echo $productImage; ?>" alt="Sofa" /></div>
+                    <span class="link"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $this->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>">Sofas</a></span>
+                </li>
+                <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
+                    <div class="product-image"><img src="<?php echo $productImage; ?>" alt="Shelve" /></div>
+                    <span class="link"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $this->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>">Shelve</a></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

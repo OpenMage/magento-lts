@@ -112,28 +112,32 @@ class Mage_XmlConnect_Block_Checkout_Address_Form extends Mage_Core_Block_Templa
 
         $xml = <<<EOT
 <form name="address_form" method="post">
-        <field name="{$addressType}[firstname]" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('First Name'))}" required="true" value="$firstname" />
-        <field name="{$addressType}[lastname]" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Last Name'))}" required="true" value="$lastname" />
-        <field name="{$addressType}[company]" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Company'))}" value="$company" />
+        <field name="{$addressType}[firstname]" type="text" label="{$xmlModel->xmlentities($this->__('First Name'))}" required="true" value="$firstname" />
+        <field name="{$addressType}[lastname]" type="text" label="{$xmlModel->xmlentities($this->__('Last Name'))}" required="true" value="$lastname" />
+        <field name="{$addressType}[company]" type="text" label="{$xmlModel->xmlentities($this->__('Company'))}" value="$company" />
 EOT;
-        if ($isAllowedGuestCheckout) {
+        if ($isAllowedGuestCheckout && !Mage::getSingleton('customer/session')->isLoggedIn() && $addressType == 'billing') {
             $xml .= <<<EOT
-        <field name="{$addressType}[email]" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Email Address'))}" value="$email" />
+        <field name="{$addressType}[email]" type="text" label="{$xmlModel->xmlentities($this->__('Email Address'))}" value="$email" required="true" >
+            <validators>
+                <validator type="email" message="{$xmlModel->xmlentities($this->__('Wrong email format'))}"/>
+            </validators>
+        </field>
 EOT;
         }
         $xml .= <<<EOT
-        <field name="{$addressType}[street][]" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Address'))}" required="true" value="$street1" />
-        <field name="{$addressType}[street][]" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Address 2'))}" value="$street2" />
-        <field name="{$addressType}[city]" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('City'))}" required="true" value="$city" />
-        <field name="{$addressType}[country_id]" type="select" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Country'))}" required="true">
+        <field name="{$addressType}[street][]" type="text" label="{$xmlModel->xmlentities($this->__('Address'))}" required="true" value="$street1" />
+        <field name="{$addressType}[street][]" type="text" label="{$xmlModel->xmlentities($this->__('Address 2'))}" value="$street2" />
+        <field name="{$addressType}[city]" type="text" label="{$xmlModel->xmlentities($this->__('City'))}" required="true" value="$city" />
+        <field name="{$addressType}[country_id]" type="select" label="{$xmlModel->xmlentities($this->__('Country'))}" required="true">
             $countryOptionsXml
         </field>
-        <field name="{$addressType}[region]" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('State/Province'))}" value="$region" />
-        <field name="{$addressType}[region_id]" type="select" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('State/Province'))}" required="true" />
-        <field name="{$addressType}[postcode]" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Zip/Postal Code'))}" required="true" value="$postcode" />
-        <field name="{$addressType}[telephone]" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Telephone'))}" required="true" value="$telephone" />
-        <field name="{$addressType}[fax]" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Fax'))}" value="$fax" />
-        <field name="{$addressType}[save_in_address_book]" type="checkbox" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Save in address book'))}"/>
+        <field name="{$addressType}[region]" type="text" label="{$xmlModel->xmlentities($this->__('State/Province'))}" value="$region" />
+        <field name="{$addressType}[region_id]" type="select" label="{$xmlModel->xmlentities($this->__('State/Province'))}" required="true" />
+        <field name="{$addressType}[postcode]" type="text" label="{$xmlModel->xmlentities($this->__('Zip/Postal Code'))}" required="true" value="$postcode" />
+        <field name="{$addressType}[telephone]" type="text" label="{$xmlModel->xmlentities($this->__('Telephone'))}" required="true" value="$telephone" />
+        <field name="{$addressType}[fax]" type="text" label="{$xmlModel->xmlentities($this->__('Fax'))}" value="$fax" />
+        <field name="{$addressType}[save_in_address_book]" type="checkbox" label="{$xmlModel->xmlentities($this->__('Save in address book'))}"/>
 </form>
 EOT;
         return $xml;

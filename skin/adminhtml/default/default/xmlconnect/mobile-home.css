@@ -31,7 +31,7 @@ body { margin:0; padding:0; }
 .main-block 
 {
 	width:320px;
-	height:490px;
+	height:478px;
     position:relative;
     overflow:hidden;
 }
@@ -93,7 +93,7 @@ body { margin:0; padding:0; }
     height:44px; 
     width:100%;
     position:absolute;
-    background:url(../images/xmlconnect/mobile_preview/gradients/header.png) 0 0 no-repeat;
+    background:url(../images/xmlconnect/mobile_preview/gradients/header2.png) 0 0 no-repeat;
     left:0;
 }
 
@@ -108,11 +108,16 @@ body { margin:0; padding:0; }
 
 .info 
 {
-	text-align:center;
+	text-align:left;
     vertical-align:middle;
     width:51px;
     height:42px;
 }
+
+.info img {
+    margin-left:5px;
+}
+
 .logo-small 
 {
 	width:200px;
@@ -193,7 +198,7 @@ body { margin:0; padding:0; }
 }
 .catalog 
 {
-	height:144px;
+	height:137px;
     width:500px;
     position:absolute;
     padding-left:5px;
@@ -204,23 +209,31 @@ body { margin:0; padding:0; }
     width:80px;
     padding:5px 5px 3px 5px;
 	text-align:center;
-	margin:12px 5px 0 5px;
-	height:108px;
+	margin:10px 5px 0 5px;
+	height:112px;
     position:relative;
+}
+
+.item img {
+    display:block;
+    margin:0 0 10px 0;
 }
 
 .item-text 
 {
-	height:18px;
+	height:21px;
 	text-align:center;
-    margin-top:10px;
+    margin-top:0px;
     width:80px;
-    font:bold 12px/18px arial !important;
+    font:bold 12px/21px arial !important;
+    border-radius:6px;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
 }
 
 .bottom-buttons 
 {
-	height:50px;	
+	height:48px;
     position:absolute;
     bottom:0;
     background:#060606;
@@ -236,11 +249,35 @@ body { margin:0; padding:0; }
 .bottom-button 
 {
 	height:26px;
+    vertical-align:top;
 }
-.bottom-button p 
+.bottom-button p
 {
 	text-align:center;
 	font:normal 10px/11px arial;
 	color:#9f9f9f;
-    margin-top:32px;
+    margin:0;
+    padding-top:33px;
+    position:relative;
+    z-index:100;
+}
+
+.bottom-button-active p
+{
+    color:#fff;
+    margin-top:-46px;
+    font-weight:bold;
+}
+
+.bottom-button-active .background
+{
+    background:#fff;
+    height:44px;
+    position:relative;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=14)";
+    filter:alpha(opacity=14);
+    opacity:0.14;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
 }

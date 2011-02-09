@@ -120,6 +120,7 @@
     <?php endif; ?>
 </div>
 <?php $packages = $this->get('connect')->getAllInstalledPackages(); $i = 0; $cnt = count($packages); ?>
+<?php $channelConfig=$this->get('channel_config');?>
 <script type="text/javascript">
     function formSubmit(id)
     {
@@ -137,7 +138,7 @@
         <input type="hidden" name="form_id" value="connect_packages_<?php echo $i ?>"/>
     </div>
     <p class="nm"><button type="button" onclick="formSubmit('connect_packages_<?php echo $i ?>')" class="f-right">Commit Changes</button></p>
-    <h2 class="page-head">Channel: <?php echo $channel ?></h2>
+    <h2 class="page-head">Channel: <?php echo $channelConfig->getChannelLabel($channel); ?></h2>
     <p class="f-right"><label for="clean_sessions">Clear all sessions after successfull install or upgrade: <input type="checkbox" id="clean_sessions"/></label></p>
     <div class="clear"></div>
 

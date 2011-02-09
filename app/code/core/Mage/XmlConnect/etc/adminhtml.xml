@@ -41,6 +41,16 @@
                     <sort_order>20</sort_order>
                     <action>adminhtml/mobile/history</action>
                 </history>
+                <templates translate="title" module="xmlconnect">
+                    <title>Message Templates</title>
+                    <sort_order>30</sort_order>
+                    <action>adminhtml/mobile/template</action>
+                </templates>
+                <queue translate="title" module="xmlconnect">
+                    <title>Message Queue</title>
+                    <sort_order>40</sort_order>
+                    <action>adminhtml/mobile/queue</action>
+                </queue>
             </children>
         </xmlconnect>
     </menu>
@@ -60,6 +70,14 @@
                                 <title>Submission History</title>
                                 <sort_order>20</sort_order>
                             </history>
+                            <templates translate="title" module="xmlconnect">
+                                <title>Message Templates</title>
+                                <sort_order>30</sort_order>
+                            </templates>
+                            <queue translate="title" module="xmlconnect">
+                                <title>Message Queue</title>
+                                <sort_order>40</sort_order>
+                            </queue>
                         </children>
                     </xmlconnect>
                 </children>

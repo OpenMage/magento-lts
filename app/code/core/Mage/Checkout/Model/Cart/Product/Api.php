@@ -205,11 +205,11 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
         if (empty($store)) {
             $store = $quote->getStoreId();
         }
-        
+
         if (!$quote->getItemsCount()) {
             return array();
         }
-        
+
         $productsResult = array();
         foreach ($quote->getAllItems() as $item) {
             /** @var $item Mage_Sales_Model_Quote_Item */
@@ -272,7 +272,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
 
             $quoteItem = $quote->getItemByProduct($productByItem);
             if($quoteItem->getId()){
-                $customerQuote->addItem($quoteItem);                                
+                $customerQuote->addItem($quoteItem);
                 $quote->removeItem($quoteItem->getId());
                 unset($productsData[$key]);
             }
@@ -281,12 +281,12 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
         if (count($productsData)) {
             $this->_fault('unable_to_move_all_products');
         }
-        
+
         try {
             $customerQuote
                 ->collectTotals()
                 ->save();
-            
+
             $quote
                 ->collectTotals()
                 ->save();

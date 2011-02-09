@@ -27,11 +27,10 @@
 /**
  * Catalog image helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author  Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Helper_Catalog_Category_Image extends Mage_Catalog_Helper_Image
 {
-
     /**
      * Init
      * 
@@ -90,6 +89,4 @@ class Mage_XmlConnect_Helper_Catalog_Category_Image extends Mage_Catalog_Helper_
         }
         return $this->_placeholder;
     }
-
-
 }

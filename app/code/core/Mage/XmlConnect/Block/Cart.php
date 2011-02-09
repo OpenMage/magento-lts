@@ -69,9 +69,7 @@ class Mage_XmlConnect_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 
              $iconXml = $itemXml->addChild('icon', $icon);
 
-             $baseUrl = Mage::getBaseUrl('media');
-             $path = str_replace($baseUrl, '', $icon);
-             $file = Mage::getBaseDir('media') . DS . str_replace('/', DS, $path);
+             $file = Mage::helper('xmlconnect')->urlToPath($icon);
 
              $iconXml->addAttribute('modification_time', filemtime($file));
 

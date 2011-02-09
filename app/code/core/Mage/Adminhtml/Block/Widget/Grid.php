@@ -450,6 +450,23 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
+     * Sets sorting order by some column
+     *
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return Mage_Adminhtml_Block_Widget_Grid
+     */
+    protected function _setCollectionOrder($column)
+    {
+        $collection = $this->getCollection();
+        if ($collection) {
+            $columnIndex = $column->getFilterIndex() ?
+                $column->getFilterIndex() : $column->getIndex();
+            $collection->setOrder($columnIndex, $column->getDir());
+        }
+        return $this;
+    }
+
+    /**
      * Prepare grid collection object
      *
      * @return this
@@ -482,9 +499,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             if (isset($this->_columns[$columnId]) && $this->_columns[$columnId]->getIndex()) {
                 $dir = (strtolower($dir)=='desc') ? 'desc' : 'asc';
                 $this->_columns[$columnId]->setDir($dir);
-                $column = $this->_columns[$columnId]->getFilterIndex() ?
-                    $this->_columns[$columnId]->getFilterIndex() : $this->_columns[$columnId]->getIndex();
-                $this->getCollection()->setOrder($column , $dir);
+                $this->_setCollectionOrder($this->_columns[$columnId]);
             }
 
             if (!$this->_isExport) {

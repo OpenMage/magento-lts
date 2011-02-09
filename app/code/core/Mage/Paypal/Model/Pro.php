@@ -242,7 +242,7 @@ class Mage_Paypal_Model_Pro
                 ->setAmount($amount)
                 ->setCurrencyCode($order->getBaseCurrencyCode())
             ;
-            $canRefundMore = $order->canCreditmemo(); // TODO: fix this to be able to create multiple refunds
+            $canRefundMore = $payment->getCreditmemo()->getInvoice()->canRefund();
             $isFullRefund = !$canRefundMore
                 && (0 == ((float)$order->getBaseTotalOnlineRefunded() + (float)$order->getBaseTotalOfflineRefunded()));
             $api->setRefundType($isFullRefund ? Mage_Paypal_Model_Config::REFUND_TYPE_FULL

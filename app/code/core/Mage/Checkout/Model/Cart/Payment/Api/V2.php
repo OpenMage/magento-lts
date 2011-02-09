@@ -39,7 +39,7 @@
         if (null !== ($_data = get_object_vars($data))) {
             return parent::_preparePaymentData($_data);
         }
-        
+
         return array();
      }
 }

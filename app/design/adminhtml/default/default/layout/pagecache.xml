@@ -29,7 +29,7 @@
 <layout>
     <adminhtml_cache_index>
         <reference name="cache.additional">
-            <block type="pagecache/cache_additional" name="page.cache.additional" template = "pagecache/cache/additional.phtml" />
+            <block type="pagecache/adminhtml_cache_additional" name="page.cache.additional" template = "pagecache/cache/additional.phtml" />
         </reference>
     </adminhtml_cache_index>
 </layout>

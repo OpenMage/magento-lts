@@ -64,9 +64,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Gallery extends Mage_XmlConnect_Bloc
             $fileNode->addAttribute('type', 'big');
             $fileNode->addAttribute('url', $bigImage);
 
-            $baseUrl = Mage::getBaseUrl('media');
-            $path = str_replace($baseUrl, '', $bigImage);
-            $file = Mage::getBaseDir('media') . DS . str_replace('/', DS, $path);
+            $file = Mage::helper('xmlconnect')->urlToPath($bigImage);
 
             $fileNode->addAttribute('id', ($id = $item->getId()) ? (int) $id : 0);
             $fileNode->addAttribute('modification_time', filemtime($file));
@@ -81,9 +79,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Gallery extends Mage_XmlConnect_Bloc
             $fileNode->addAttribute('type', 'small');
             $fileNode->addAttribute('url', $smallImage);
 
-            $path = str_replace($baseUrl, '', $smallImage);
-            $file = Mage::getBaseDir('media') . DS . str_replace('/', DS, $path);
-
+            $file = Mage::helper('xmlconnect')->urlToPath($smallImage);
             $fileNode->addAttribute('modification_time', filemtime($file));
         }
         return $imagesNode->asNiceXml();

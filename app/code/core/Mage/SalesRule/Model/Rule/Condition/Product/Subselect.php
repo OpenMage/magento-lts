@@ -72,6 +72,11 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect
         return $this;
     }
 
+    public function loadValueOptions()
+    {
+        return $this;
+    }
+
     public function loadOperatorOptions()
     {
         $this->setOperatorOption(array(

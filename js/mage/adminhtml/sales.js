@@ -464,14 +464,18 @@ AdminOrder.prototype = {
      */
     _calcProductPrice: function () {
         var productPrice = 0;
-        var optQty = 1;
         var getPriceFields = function (elms) {
             var productPrice = 0;
             var getPrice = function (elm) {
-                if (elm.hasAttribute('price') && !elm.disabled) {
-                    if (elm.hasAttribute('qtyId') && $(elm.getAttribute('qtyId')).value) {
+                var optQty = 1;
+                if (elm.hasAttribute('qtyId')) {
+                    if (!$(elm.getAttribute('qtyId')).value) {
+                        return 0;
+                    } else {
                         optQty = parseFloat($(elm.getAttribute('qtyId')).value);
                     }
+                }
+                if (elm.hasAttribute('price') && !elm.disabled) {
                     return parseFloat(elm.readAttribute('price')) * optQty;
                 }
                 return 0;

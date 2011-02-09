@@ -32,7 +32,12 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Tabs exte
      */
     public function getTitle()
     {
-        return Mage::helper('xmlconnect')->__('Tabs');
+        if (Mage::helper('xmlconnect')->getApplication()->getType() == Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPAD) {
+            $title = $this->__('Extensions');
+        } else {
+            $title = $this->__('Tabs');
+        }
+        return $title;
     }
 
     /**

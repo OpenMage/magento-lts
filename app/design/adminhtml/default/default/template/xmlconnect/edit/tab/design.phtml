@@ -27,11 +27,11 @@
 <?php
 /*
 <div style="padding: 1.5em; margin: 0 0 1em 0; background-color:#E7EFEF; border:1px solid #BEBEBE">
-    <?php echo Mage::helper('xmlconnect')->__('Select Template'); ?>:
+    <?php echo $this->__('Select Template'); ?>:
     <select style="width: 15em; margin: 0 2em">
-        <option><?php echo Mage::helper('xmlconnect')->__('Template Name'); ?></option>
+        <option><?php echo $this->__('Template Name'); ?></option>
     </select>
-    <a href="#"><?php echo Mage::helper('xmlconnect')->__('Add More Templates'); ?></a>
+    <a href="#"><?php echo $this->__('Add More Templates'); ?></a>
 </div>
 */
 ?>
@@ -39,7 +39,11 @@
     <tr>
         <td valign="top" width="540px"><?php echo $this->getChildHtml('design_accordion'); ?></td>
         <td width="20px"> </td>
-        <td valign="top" width="360px"><?php echo $this->getChildHtml('app_preview'); ?></td>
+        <td valign="top" width="360px">
+            <?php if ($this->canShowPreview()) : ?>
+                <?php echo $this->getChildHtml('app_preview') ?>
+            <?php endif; ?>
+        </td>
     </tr>
 </table>
 <script type="text/javascript">

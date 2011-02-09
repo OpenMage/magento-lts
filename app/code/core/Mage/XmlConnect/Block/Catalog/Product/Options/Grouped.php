@@ -38,26 +38,27 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Grouped extends Mage_XmlConn
      * Generate bundle product options xml
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return string
+     * @param bool $isObject
+     * @return string | Mage_XmlConnect_Model_Simplexml_Element
      */
-    public function getProductOptionsXml(Mage_Catalog_Model_Product $product)
+    public function getProductOptionsXml(Mage_Catalog_Model_Product $product, $isObject = false)
     {
         $xmlModel = new Mage_XmlConnect_Model_Simplexml_Element('<product></product>');
         $optionsNode = $xmlModel->addChild('options');
 
         if (!$product->getId()) {
-            return $xmlModel->asNiceXml();
+            return $isObject ? $xmlModel : $xmlModel->asNiceXml();
         }
         $xmlModel->addAttribute('id', $product->getId());
         if (!$product->isSaleable()) {
-            return $xmlModel->asNiceXml();
+            return $isObject ? $xmlModel : $xmlModel->asNiceXml();
         }
         /**
          * Grouped (associated) products
          */
         $_associatedProducts = $product->getTypeInstance(true)->getAssociatedProducts($product);
         if (!sizeof($_associatedProducts)) {
-            return $xmlModel->asNiceXml();
+            return $isObject ? $xmlModel : $xmlModel->asNiceXml();
         }
         foreach ($_associatedProducts as $_item) {
             if (!$_item->isSaleable()) {
@@ -87,6 +88,6 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Grouped extends Mage_XmlConn
             }
         }
 
-        return $xmlModel->asNiceXml();
+        return $isObject ? $xmlModel : $xmlModel->asNiceXml();
     }
 }

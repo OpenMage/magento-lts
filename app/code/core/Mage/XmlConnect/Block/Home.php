@@ -69,9 +69,8 @@ class Mage_XmlConnect_Block_Home extends Mage_XmlConnect_Block_Catalog
 
             $iconXml = $itemXmlObj->addChild('icon', $icon);
 
-            $baseUrl = Mage::getBaseUrl('media');
-            $path = str_replace($baseUrl, '', $icon);
-            $file = Mage::getBaseDir('media') . DS . str_replace('/', DS, $path);
+            $file = Mage::helper('xmlconnect')->urlToPath($icon);
+
 
             $iconXml->addAttribute('modification_time', filemtime($file));
         }

@@ -77,6 +77,9 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
         }
 
         try {
+            if (!empty($data['store_id'])) {
+                $paymentMethod->setStore($data['store_id']);
+            }
             $paymentMethod->process($data);
             $result['success'] = 1;
         }

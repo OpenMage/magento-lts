@@ -46,6 +46,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      * Availability options
      */
     protected $_isGateway                   = false;
+    protected $_canOrder                    = true;
     protected $_canAuthorize                = true;
     protected $_canCapture                  = true;
     protected $_canCapturePartial           = true;
@@ -212,7 +213,8 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      */
     public function cancel(Varien_Object $payment)
     {
-        $this->_pro->cancel($payment);
+        $this->void($payment);
+
         return $this;
     }
 
@@ -408,5 +410,22 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         }
 
         $this->_pro->importPaymentInfo($api, $payment);
+    }
+
+    /**
+     * Check void availability
+     *
+     * @param   Varien_Object $payment
+     * @return  bool
+     */
+    public function canVoid(Varien_Object $payment)
+    {
+        if ($payment instanceof Mage_Sales_Model_Order_Invoice
+            || $payment instanceof Mage_Sales_Model_Order_Creditmemo
+        ) {
+            return false;
+        }
+
+        return $this->_canVoid;
     }
 }

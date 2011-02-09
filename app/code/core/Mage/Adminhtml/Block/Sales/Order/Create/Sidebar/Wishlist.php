@@ -108,4 +108,14 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
     {
         return $item->getId();
     }
+
+    /**
+     * Retrieve possibility to display quantity column in grid of wishlist block
+     *
+     * @return bool
+     */
+    public function canDisplayItemQty()
+    {
+        return true;
+    }
 }

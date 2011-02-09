@@ -199,6 +199,7 @@ class Mage_Core_Model_Locale
     public function setLocaleCode($code)
     {
         $this->_localeCode = $code;
+        $this->_locale = null;
         return $this;
     }
 

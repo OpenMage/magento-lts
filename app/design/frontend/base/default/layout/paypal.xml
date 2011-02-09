@@ -141,6 +141,6 @@ Available logo types can be assigned with action="setLogoType":
     </paypal_payflow_link_iframe>
 
     <paypal_hosted_pro_iframe>
-    	<block type="paypal/hosted_pro_iframe" name="hosted.pro.iframe" />
+        <block type="paypal/hosted_pro_iframe" name="hosted.pro.iframe" />
     </paypal_hosted_pro_iframe>
 </layout>

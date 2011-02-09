@@ -247,18 +247,12 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
             return false;
         }
 
-        // set design parameters, required for email (remember current)
-        $currentDesign = Mage::getDesign()->setAllGetOld(array(
-            'store'   => $storeId,
-            'area'    => 'frontend',
-            'package' => Mage::getStoreConfig('design/package/name', $storeId),
-        ));
+        if ($this->_type != 'price' && $this->_type != 'stock') {
+            return false;
+        }
 
-        Mage::app()->getLocale()->emulate($storeId);
-
-        $translate = Mage::getSingleton('core/translate');
-        /* @var $translate Mage_Core_Model_Translate */
-        $translate->setTranslateInline(false);
+        $appEmulation = Mage::getSingleton('core/app_emulation');
+        $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
 
         if ($this->_type == 'price') {
             $this->_getPriceBlock()
@@ -270,8 +264,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
             }
             $block = $this->_getPriceBlock()->toHtml();
             $templateId = Mage::getStoreConfig(self::XML_PATH_EMAIL_PRICE_TEMPLATE, $storeId);
-        }
-        elseif ($this->_type == 'stock') {
+        } else {
             $this->_getStockBlock()
                 ->setStore($store)
                 ->reset();
@@ -282,10 +275,8 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
             $block = $this->_getStockBlock()->toHtml();
             $templateId = Mage::getStoreConfig(self::XML_PATH_EMAIL_STOCK_TEMPLATE, $storeId);
         }
-        else {
-            Mage::app()->getLocale()->revert();
-            return false;
-        }
+
+        $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
 
         Mage::getModel('core/email_template')
             ->setDesignConfig(array(
@@ -301,12 +292,6 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
                     'alertGrid'     => $block
                 )
             );
-
-        $translate->setTranslateInline(true);
-
-        // revert current design
-        Mage::getDesign()->setAllGetOld($currentDesign);
-        Mage::app()->getLocale()->revert();
 
         return true;
     }

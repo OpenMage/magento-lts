@@ -73,15 +73,15 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Content
         $dummy = array(array( 'value' => '', 'label' => '' ));
         $this->_pages = array_merge($dummy, $pages);
 
-        $fieldset = $form->addFieldset('cms_pages', array('legend' => Mage::helper('xmlconnect')->__('Pages')));
+        $fieldset = $form->addFieldset('cms_pages', array('legend' => $this->__('Pages')));
         $this->_addElementTypes($fieldset);
 
         $fieldset->addField('page_row_add', 'addrow', array(
             'onclick' => 'insertNewTableRow(this)',
             'options' => $this->_pages,
             'class' => ' scalable save ',
-            'label' => Mage::helper('xmlconnect')->__('Label'),
-            'before_element_html' => Mage::helper('xmlconnect')->__('Get Content from CMS Page').'</td><td class="label">',
+            'label' => $this->__('Label'),
+            'before_element_html' => $this->__('Get Content from CMS Page').'</td><td class="label">',
         ));
 
         if (isset($conf['native']['pages'])) {
@@ -91,7 +91,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Content
         }
 
         $data = $model->getFormData();
-        $data['page_row_add'] = Mage::helper('xmlconnect')->__('Add Page');
+        $data['page_row_add'] = $this->__('Add Page');
         $form->setValues($data);
         return parent::_prepareForm();
     }
@@ -103,7 +103,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Content
      */
     public function getTabLabel()
     {
-        return Mage::helper('xmlconnect')->__('Content');
+        return $this->__('Content');
     }
 
     /**
@@ -113,7 +113,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Content
      */
     public function getTabTitle()
     {
-        return Mage::helper('xmlconnect')->__('Content');
+        return $this->__('Content');
     }
 
     /**
@@ -123,7 +123,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Content
      */
     public function canShowTab()
     {
-        return true;
+        return (bool) !Mage::getSingleton('adminhtml/session')->getNewApplication();
     }
 
     /**

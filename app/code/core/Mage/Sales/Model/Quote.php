@@ -254,7 +254,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $this->_afterLoad();
         return $this;
     }
-    
+
     /**
      * Assign customer model object data to quote
      *
@@ -815,6 +815,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1)
     {
+        $newItem = false;
         $item = $this->getItemByProduct($product);
         if (!$item) {
             $item = Mage::getModel('sales/quote_item');
@@ -825,6 +826,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             else {
                 $item->setStoreId(Mage::app()->getStore()->getId());
             }
+            $newItem = true;
         }
 
         /**
@@ -837,8 +839,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $item->setOptions($product->getCustomOptions())
             ->setProduct($product);
 
-
-        $this->addItem($item);
+        // Add only item that is not in quote already (there can be other new or already saved item
+        if ($newItem) {
+            $this->addItem($item);
+        }
 
         return $item;
     }

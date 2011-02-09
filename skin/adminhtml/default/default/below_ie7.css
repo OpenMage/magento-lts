@@ -47,6 +47,11 @@
 #nav ul a span { zoom:1; }
 
 #message-popup-window-mask .flash-window { position:absolute; top:350px; }
+#popup-window-mask,
+.popup-window-mask { padding:0 27px; }
+.product-configure-popup { position:absolute; }
+
+.product-options .options-list li { zoom:1; }
 
 /* Hover Fix */
 iframe.hover-fix { position:absolute; left:-1px; top:-1px; z-index:-1; background:transparent; filter:progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0); }

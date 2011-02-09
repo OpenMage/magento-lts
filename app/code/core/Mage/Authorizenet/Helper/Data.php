@@ -45,7 +45,7 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
         return Mage::getModel('adminhtml/url')->getUrl($route, $params);
     }
 
-	/**
+    /**
      * Set secure url checkout is secure for current store.
      *
      * @param   string $route

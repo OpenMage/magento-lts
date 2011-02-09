@@ -29,11 +29,10 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Product_Image
 {
-
     /**
      * Set filenames for base file and new file
      *
@@ -162,6 +161,8 @@ class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Pr
 
     /**
      * Clear catalog cache
+     *
+     * @return void
      */
     public function clearCache()
     {

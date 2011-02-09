@@ -725,7 +725,7 @@ var Base64 = {
  * @param val1
  * @param val2
  */
-function sortNumeric(val1, val2) 
+function sortNumeric(val1, val2)
 {
-	return val1 - val2;
+    return val1 - val2;
 }

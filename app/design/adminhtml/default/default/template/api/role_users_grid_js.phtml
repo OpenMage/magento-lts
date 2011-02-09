@@ -56,7 +56,7 @@
                         checkbox[0].checked = false;
                         checkBoxes.each(function(elem) {
                             if (elem.value.status == 1) {
-                            	elem.value.object.checked = true;
+                                elem.value.object.checked = true;
                             }
                         });
                         return false;
@@ -90,7 +90,7 @@
             warning = false;
         }
         checkBoxes.each(function(elem) {
-        	<?php echo $myBlock->getJsObjectName() ?>.setCheckboxChecked(elem.value.object, obj.checked);
+            <?php echo $myBlock->getJsObjectName() ?>.setCheckboxChecked(elem.value.object, obj.checked);
         });
     }
 

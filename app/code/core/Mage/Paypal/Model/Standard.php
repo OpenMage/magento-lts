@@ -141,9 +141,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         $api->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
             ->setIsLineItemsEnabled($this->_config->lineItemsEnabled)
         ;
-        if (!$this->_config->lineItemsEnabled) {
-            $api->setCartSummary($this->_getAggregatedCartSummary());
-        }
+        $api->setCartSummary($this->_getAggregatedCartSummary());
 
         $result = $api->getStandardCheckoutRequest();
         return $result;

@@ -92,6 +92,15 @@
                 </observers>
             </checkout_cart_add_product_complete>
         </events>
+        <wishlist>
+            <item>
+                <product_attributes>
+                    <visibility/>
+                    <url_path/>
+                    <url_key/>
+                </product_attributes>
+            </item>
+        </wishlist>
     </global>
     <frontend>
         <routers>

@@ -38,10 +38,12 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Virtual extends Mage_XmlConn
      * Generate virtual product options xml
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return string
+     * @param bool $isObject
+     * @return string | Mage_XmlConnect_Model_Simplexml_Element
      */
-    public function getProductOptionsXml(Mage_Catalog_Model_Product $product)
+    public function getProductOptionsXml(Mage_Catalog_Model_Product $product, $isObject = false)
     {
-        return $this->getProductCustomOptionsXmlObject($product)->asNiceXml();
+        $xmlModel = $this->getProductCustomOptionsXmlObject($product);
+        return $isObject ? $xmlModel : $xmlModel->asNiceXml();
     }
 }

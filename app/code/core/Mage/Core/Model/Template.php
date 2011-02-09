@@ -52,7 +52,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      */
     protected $_designConfig;
 
-
+            
     /**
      * Configuration of emulated desing package.
      *
@@ -61,34 +61,28 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     protected $_emulatedDesignConfig = false;
 
     /**
+     * Initial environment information
+     * @see self::_applyDesignConfig()
+     *
+     * @var Varien_Object|null
+     */
+    protected $_initialEnvironmentInfo = null;
+
+    /**
      * Applying of design config
      *
      * @return Mage_Core_Model_Template
      */
     protected function _applyDesignConfig()
     {
-        $design = Mage::getDesign();
-        $designConfig = $this->getDesignConfig()
-            ->setOldArea($design->getArea())
-            ->setOldStore(is_object($design->getStore()) ? $design->getStore()->getId() : $design->getStore());
-
-        if ($designConfig->hasArea()) {
-            $design->setArea($designConfig->getArea());
+        $designConfig = $this->getDesignConfig();
+        $store = $designConfig->getStore();
+        $storeId = is_object($store) ? $store->getId() : $store;
+        $area = $designConfig->getArea();
+        if (!is_null($storeId)) {
+            $appEmulation = Mage::getSingleton('core/app_emulation');
+            $this->_initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId, $area);
         }
-
-        if ($designConfig->hasStore()) {
-            $store = $designConfig->getStore();
-            Mage::app()->setCurrentStore($store);
-            $locale = new Zend_Locale(Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $store));
-            Mage::app()->getLocale()->setLocale($locale)->setLocaleCode($locale->toString());
-            if ($designConfig->hasArea()) {
-                Mage::getSingleton('core/translate')->setLocale($locale)->init($designConfig->getArea(), true);
-            }
-            $design->setStore($store);
-            $design->setTheme('');
-            $design->setPackageName('');
-        }
-
         return $this;
     }
 
@@ -99,20 +93,11 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      */
     protected function _cancelDesignConfig()
     {
-        if ($this->getDesignConfig()) {
-            if ($this->getDesignConfig()->getOldArea()) {
-                Mage::getDesign()->setArea($this->getDesignConfig()->getOldArea());
-            }
-
-            if ($this->getDesignConfig()->hasOldStore()) {
-                $oldStore = $this->getDesignConfig()->getOldStore();
-                Mage::getDesign()->setStore($oldStore);
-                Mage::app()->setCurrentStore($oldStore);
-                Mage::getDesign()->setTheme('');
-                Mage::getDesign()->setPackageName('');
-            }
+        if (!empty($this->_initialEnvironmentInfo)) {
+            $appEmulation = Mage::getSingleton('core/app_emulation');
+            $appEmulation->stopEnvironmentEmulation($this->_initialEnvironmentInfo);
+            $this->_initialEnvironmentInfo = null;
         }
-        Mage::app()->getLocale()->revert();
         return $this;
     }
 
@@ -172,10 +157,10 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      */
     public function revertDesign()
     {
-        if ($this->_emulatedDesignConfig)
-        {
+        if ($this->_emulatedDesignConfig) {
             $this->setDesignConfig($this->_emulatedDesignConfig->getData());
-            $this->_applyDesignConfig();
+            $this->_cancelDesignConfig();
+            $this->_emulatedDesignConfig = false;
         }
     }
 

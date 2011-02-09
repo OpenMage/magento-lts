@@ -543,7 +543,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 array('is_transaction_closed' => 0),
                 array($this->_realTransactionIdKey => $card->getLastTransId()),
                 Mage::helper('paygate')->getTransactionMessage(
-                    $payment, $requestType, $card->getLastTransId(), $card, $amount
+                    $payment, $requestType, $card->getLastTransId(), $card, $card->getProcessedAmount()
                 )
             );
             if ($requestType == self::REQUEST_TYPE_AUTH_CAPTURE) {

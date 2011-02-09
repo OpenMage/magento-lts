@@ -74,10 +74,11 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form extends Mage_Adminhtml_
             'name'      => $fieldPrefix,
             'label'     => $title,
         ));
+
         $el->initFields(array(
             'name'      => $fieldPrefix,
-            'fontNames' => Mage::helper('xmlconnect/iphone')->getFontList(),
-            'fontSizes' => Mage::helper('xmlconnect/iphone')->getFontSizes(),
+            'fontNames' => Mage::helper('xmlconnect')->getDeviceHelper()->getFontList(),
+            'fontSizes' => Mage::helper('xmlconnect')->getDeviceHelper()->getFontSizes(),
         ));
     }
 
@@ -97,6 +98,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form extends Mage_Adminhtml_
             'theme' => $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_theme'),
             'page'  => $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_page'),
             'addrow'=> $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_addrow'),
+            'datetime' => $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_datetime'),
         );
     }
 
@@ -109,7 +111,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form extends Mage_Adminhtml_
     {
         $model = Mage::registry('current_app');
         if (!($model instanceof Mage_XmlConnect_Model_Application)) {
-            Mage::throwException(Mage::helper('xmlconnect')->__('App model not loaded.'));
+            Mage::throwException($this->__('App model not loaded.'));
         }
 
         return $model;

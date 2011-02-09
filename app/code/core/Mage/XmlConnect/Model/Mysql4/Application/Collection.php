@@ -27,6 +27,8 @@ class Mage_XmlConnect_Model_Mysql4_Application_Collection extends Mage_Core_Mode
 {
     /**
      * Constructor, setting table
+     *
+     * @return void
      */
     protected function _construct()
     {

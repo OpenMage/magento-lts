@@ -114,8 +114,8 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
 
                     $requestToPaygate = $payment->getMethodInstance()->generateRequestFromOrder($order);
                     $requestToPaygate->setControllerActionName($controller);
-
                     $requestToPaygate->setOrderSendConfirmation($sendConfirmationFlag);
+                    $requestToPaygate->setStoreId($this->_getOrderCreateModel()->getQuote()->getStoreId());
 
                     $adminUrl = Mage::getSingleton('adminhtml/url');
                     if ($adminUrl->useSecretKey()) {

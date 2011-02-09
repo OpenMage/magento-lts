@@ -45,6 +45,57 @@
         </reference>
     </adminhtml_mobile_history>
 
+    <adminhtml_mobile_queue>
+        <reference name="content">
+            <block type="xmlconnect/adminhtml_queue" name="queue"/>
+        </reference>
+    </adminhtml_mobile_queue>
+
+    <adminhtml_mobile_template>
+        <reference name="content">
+            <block type="xmlconnect/adminhtml_template" name="template"/>
+        </reference>
+    </adminhtml_mobile_template>
+
+    <adminhtml_mobile_editqueue>
+        <reference name="content">
+            <block type="xmlconnect/adminhtml_queue_edit" name="queue_edit"/>
+        </reference>
+    </adminhtml_mobile_editqueue>
+
+    <adminhtml_mobile_queuemessage>
+        <reference name="content">
+            <block type="xmlconnect/adminhtml_queue_edit" name="queue_edit"/>
+        </reference>
+    </adminhtml_mobile_queuemessage>
+
+    <adminhtml_mobile_edittemplate>
+         <reference name="head">
+            <action method="setCanLoadExtJs"><flag>1</flag></action>
+            <action method="addJs"><script>mage/adminhtml/variables.js</script></action>
+            <action method="addJs"><script>mage/adminhtml/wysiwyg/widget.js</script></action>
+            <action method="addJs"><script>lib/flex.js</script></action>
+            <action method="addJs"><script>lib/FABridge.js</script></action>
+            <action method="addJs"><script>mage/adminhtml/flexuploader.js</script></action>
+            <action method="addJs"><script>mage/adminhtml/browser.js</script></action>
+            <action method="addJs"><script>prototype/window.js</script></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="xmlconnect/adminhtml_template_edit" name="template_edit"/>
+        </reference>
+    </adminhtml_mobile_edittemplate>
+
+    <adminhtml_mobile_new>
+        <reference name="left">
+            <block type="xmlconnect/adminhtml_mobile_edit_tabs" name="mobile_edit_tabs" />
+        </reference>
+        <reference name="content">
+            <block type="xmlconnect/adminhtml_mobile_edit" name="mobile_edit_content"/>
+        </reference>
+    </adminhtml_mobile_new>
+
     <adminhtml_mobile_edit>
         <reference name="left">
             <block type="xmlconnect/adminhtml_mobile_edit_tabs" name="mobile_edit_tabs">
@@ -64,13 +115,19 @@
                 </block>
                 <block type="xmlconnect/adminhtml_mobile_edit_tab_content" name="mobile_edit_tab_content"/>
                 <block type="xmlconnect/adminhtml_mobile_edit_tab_payment" name="mobile_edit_tab_payment"/>
+                <block type="xmlconnect/adminhtml_mobile_edit_tab_flurryanalytics" name="mobile_edit_tab_flurryanalytics"/>
                 <block type="xmlconnect/adminhtml_mobile_edit_tab_submission_history" name="mobile_edit_tab_submission_history_grid"/>
+                <block type="xmlconnect/adminhtml_mobile_edit_tab_notification" name="mobile_edit_tab_notification">
+                    <block type="core/template" name="mobile_edit_tab_notification_helper" as="app_notification_helper" template="xmlconnect/mobile/notification_helper.phtml" />
+                </block>
 
                 <action method="addTab"><id>general_section</id><block>mobile_edit_tab_general</block></action>
                 <action method="addTab"><id>design_section</id><block>mobile_edit_tab_design</block></action>
                 <action method="addTab"><id>content_section</id><block>mobile_edit_tab_content</block></action>
                 <action method="addTab"><id>payment_methods</id><block>mobile_edit_tab_payment</block></action>
+                <action method="addTab"><id>flurryanalytics_section</id><block>mobile_edit_tab_flurryanalytics</block></action>
                 <action method="addTab"><id>history_grid</id><block>mobile_edit_tab_submission_history_grid</block></action>
+                <action method="addTab"><id>notification_section</id><block>mobile_edit_tab_notification</block></action>
             </block>
         </reference>
         <reference name="content">
@@ -114,16 +171,54 @@
         <block type="xmlconnect/adminhtml_history_grid" name="history_grid" output="toHtml"/>
     </adminhtml_mobile_history_grid>
 
+    <adminhtml_mobile_template_preview>
+        <block type="core/template" name="root" output="toHtml" template="xmlconnect/template/preview.phtml">
+            <block type="xmlconnect/adminhtml_template_preview" name="content" as="content"></block>
+        </block>
+    </adminhtml_mobile_template_preview>
 
     <adminhtml_mobile_previewhome>
-        <block type="xmlconnect/adminhtml_mobile_preview_content" template="xmlconnect/edit/tab/design/preview/home.phtml" name="preview_home_content" output="toHtml">
-            <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items"/>
+        <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_home_content" output="toHtml">
+            <action method="setTemplate"><templateType>home</templateType></action>
+            <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
+                <action method="setActiveTab"><tab>home</tab></action>
+            </block>
         </block>
     </adminhtml_mobile_previewhome>
 
+    <adminhtml_mobile_previewhomehor>
+        <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_home_hor_content" output="toHtml">
+            <action method="setTemplate"><templateType>home_hor</templateType></action>
+            <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
+                <action method="setActiveTab"><tab>home</tab></action>
+            </block>
+        </block>
+    </adminhtml_mobile_previewhomehor>
+
+    <adminhtml_mobile_previewcataloghor>
+        <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_catalog_hor_content" output="toHtml">
+            <action method="setTemplate"><templateType>catalog_hor</templateType></action>
+            <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
+                <action method="setActiveTab"><tab>shop</tab></action>
+            </block>
+        </block>
+    </adminhtml_mobile_previewcataloghor>
+
     <adminhtml_mobile_previewcatalog>
-        <block type="xmlconnect/adminhtml_mobile_preview_content" template="xmlconnect/edit/tab/design/preview/catalog.phtml" name="preview_catalog_content" output="toHtml">
-            <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items"/>
+        <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_catalog_content" output="toHtml">
+            <action method="setTemplate"><templateType>catalog</templateType></action>
+            <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
+                <action method="setActiveTab"><tab>shop</tab></action>
+            </block>
         </block>
     </adminhtml_mobile_previewcatalog>
+
+    <adminhtml_mobile_previewproductinfo>
+        <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_productinfo_content" output="toHtml">
+            <action method="setTemplate"><templateType>productinfo</templateType></action>
+            <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
+                <action method="setActiveTab"><tab>shop</tab></action>
+            </block>
+        </block>
+    </adminhtml_mobile_previewproductinfo>
 </layout>

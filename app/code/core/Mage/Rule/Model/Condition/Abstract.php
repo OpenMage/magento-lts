@@ -515,7 +515,7 @@ abstract class Mage_Rule_Model_Condition_Abstract
             ($op == '()' || $op == '!()' || $op == '{}' || $op == '!{}')
             && !is_array($value)
             ) || (
-                !($op == '()' || $op == '!()' || $op == '{}' || $op == '!{}')
+                !($op == '()' || $op == '!()' || $op == '{}' || $op == '!{}' || $op == '==' || $op == '!=')
                 && is_array($value)
             )) {
             return false;
@@ -525,10 +525,19 @@ abstract class Mage_Rule_Model_Condition_Abstract
 
         switch ($op) {
             case '==': case '!=':
-                if (is_array($validatedValue)) {
-                    $result = in_array($value, $validatedValue);
+                if (is_array($value)) {
+                    if (is_array($validatedValue)) {
+                        $result = array_intersect($value, $validatedValue);
+                        $result = !empty($result);
+                    } else {
+                        return false;
+                    }
                 } else {
-                    $result = $validatedValue == $value;
+                    if (is_array($validatedValue)) {
+                        $result = in_array($value, $validatedValue);
+                    } else {
+                        $result = $validatedValue == $value;
+                    }
                 }
                 break;
 

@@ -40,10 +40,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Config extends Varien_Dat
      */
     public function getElementHtml()
     {
+        $value = $this->getValue();
+        if ($value == '') {
+            $this->setValue($this->_getValueFromConfig());
+        }
         $html = parent::getElementHtml();
 
         $htmlId   = 'use_config_' . $this->getHtmlId();
-        $checked  = ($this->getValue() == '') ? ' checked="checked"' : '';
+        $checked  = ($value == '') ? ' checked="checked"' : '';
         $disabled = ($this->getReadonly()) ? ' disabled="disabled"' : '';
 
         $html .= '<input id="'.$htmlId.'" name="product['.$htmlId.']" '.$disabled.' value="1" ' . $checked;
@@ -52,5 +56,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Config extends Varien_Dat
         $html .= '<script type="text/javascript">toggleValueElements($(\''.$htmlId.'\'), $(\''.$htmlId.'\').parentNode);</script>';
 
         return $html;
+    }
+
+    /**
+     * Get config value data
+     *
+     * @return mixed
+     */
+    protected function _getValueFromConfig()
+    {
+        return '';
     }
 }

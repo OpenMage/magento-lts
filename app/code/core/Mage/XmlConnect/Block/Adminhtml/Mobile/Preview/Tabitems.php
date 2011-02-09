@@ -26,12 +26,26 @@
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Tabitems extends Mage_Adminhtml_Block_Template
 {
     /**
+     * Current active tab according preview action
+     *
+     * @var bool|string
+     */
+    private $activeTab = false;
+
+    /**
      * Set preview tab items template
      */
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('xmlconnect/edit/tab/design/preview/tab_items.phtml');
+
+        $deviceType = Mage::helper('xmlconnect')->getApplication()->getType();
+
+        if ($deviceType == Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE) {
+            $this->setTemplate('xmlconnect/edit/tab/design/preview/tab_items.phtml');
+        } else {
+            $this->setTemplate('xmlconnect/edit/tab/design/preview/tab_items_' . $deviceType . '.phtml');
+        }
     }
 
     /**
@@ -44,7 +58,6 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Tabitems extends Mage_Admin
         $items = array();
         $model = Mage::registry('current_app');
         $tabs = $model->getEnabledTabsArray();
-
         $tabLimit = (int) Mage::getStoreConfig('xmlconnect/devices/'.strtolower($model->getType()).'/tab_limit');
         $showedTabs = 0;
         foreach ($tabs as $tab) {
@@ -53,8 +66,23 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Tabitems extends Mage_Admin
             }
             $items[] = array(
                 'label' => Mage::helper('xmlconnect')->getTabLabel($tab->action),
-                'image' => $tab->image);
+                'image' => $tab->image,
+                'action' => $tab->action,
+                'active' => strtolower($tab->action) == strtolower($this->activeTab),
+            );
         }
         return $items;
+    }
+
+    /**
+     * Set active tab
+     *
+     * @param string $tab
+     * @return Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Tabitems
+     */
+    public function setActiveTab($tab)
+    {
+        $this->activeTab = $tab;
+        return $this;
     }
 }

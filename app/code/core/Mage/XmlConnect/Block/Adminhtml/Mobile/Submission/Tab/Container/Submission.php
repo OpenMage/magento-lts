@@ -88,11 +88,11 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
         $formData = $this->getApplication()->getFormData();
 
         $url = Mage::getStoreConfig('xmlconnect/mobile_application/activation_key_url');
-        $afterElementHtml = Mage::helper('xmlconnect')->__('In order to submit your app, you need to first purchase a <a href="%s" target="_blank">%s</a> from MagentoCommerce', $url, Mage::helper('xmlconnect')->__('Activation Key'));
-        $fieldset = $form->addFieldset('submit_keys', array('legend' => Mage::helper('xmlconnect')->__('Key')));
+        $afterElementHtml = $this->__('In order to submit your app, you need to first purchase a <a href="%s" target="_blank">%s</a> from MagentoCommerce', $url, $this->__('Activation Key'));
+        $fieldset = $form->addFieldset('submit_keys', array('legend' => $this->__('Key')));
         $field = $fieldset->addField('conf[submit_text][key]', 'text', array(
             'name'      => 'conf[submit_text][key]',
-            'label'     => Mage::helper('xmlconnect')->__('Activation Key'),
+            'label'     => $this->__('Activation Key'),
             'value'     => isset($formData['conf[submit_text][key]']) ? $formData['conf[submit_text][key]'] : null,
             'after_element_html' => $afterElementHtml,
         ));
@@ -108,59 +108,60 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
 
         if ($isResubmit) {
             $url = Mage::getStoreConfig('xmlconnect/mobile_application/resubmission_key_url');
-            $afterElementHtml = Mage::helper('xmlconnect')->__('In order to resubmit your app, you need to first purchase a <a href="%s" target="_blank">%s</a> from MagentoCommerce', $url, Mage::helper('xmlconnect')->__('Resubmission Key'));
+            $afterElementHtml = $this->__('In order to resubmit your app, you need to first purchase a <a href="%s" target="_blank">%s</a> from MagentoCommerce', $url, $this->__('Resubmission Key'));
 
             $fieldset->addField('conf[submit_text][resubmission_activation_key]', 'text', array(
                 'name'     => 'conf[submit_text][resubmission_activation_key]',
-                'label'    => Mage::helper('xmlconnect')->__('Resubmission Key'),
+                'label'    => $this->__('Resubmission Key'),
                 'value'    => isset($formData['conf[submit_text][resubmission_activation_key]']) ? $formData['conf[submit_text][resubmission_activation_key]'] : null,
                 'required' => true,
                 'after_element_html' => $afterElementHtml,
             ));
         }
 
-        $fieldset = $form->addFieldset('submit_general', array('legend' => Mage::helper('xmlconnect')->__('Submission Fields')));
+        $fieldset = $form->addFieldset('submit_general', array('legend' => $this->__('Submission Fields')));
 
         $fieldset->addField('submission_action', 'hidden', array(
             'name'      => 'submission_action',
             'value'     => '1',
         ));
+
         $fieldset->addField('conf/submit_text/title', 'text', array(
             'name'      => 'conf[submit_text][title]',
-            'label'     => Mage::helper('xmlconnect')->__('Title'),
-            'maxlength' => '200',
+            'label'     => $this->__('Title'),
+            'maxlength' => $formData['type'] == Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE ? '12' : '200',
             'value'     => isset($formData['conf[submit_text][title]']) ? $formData['conf[submit_text][title]'] : null,
-            'note'      => Mage::helper('xmlconnect')->__('Name that appears beneath your app when users install it to their device. We recommend choosing a name that is 10-12 characters and that your customers will recognize.'),
+            'note'      => $this->__('Name that appears beneath your app when users install it to their device. We recommend choosing a name that is 10-12 characters and that your customers will recognize.'),
             'required'  => true,
         ));
 
         $field = $fieldset->addField('conf/submit_text/description', 'textarea', array(
             'name'      => 'conf[submit_text][description]',
-            'label'     => Mage::helper('xmlconnect')->__('Description'),
+            'label'     => $this->__('Description'),
             'maxlength' => '500',
             'value'     => isset($formData['conf[submit_text][description]']) ? $formData['conf[submit_text][description]'] : null,
-            'note'      => Mage::helper('xmlconnect')->__('Description that appears in the iTunes App Store. 4000 chars maximum. '),
+            'note'      => $this->__('Description that appears in the iTunes App Store. 4000 chars maximum. '),
             'required'  => true,
         ));
         $field->setRows(15);
 
         $fieldset->addField('conf/submit_text/contact_email', 'text', array(
             'name'      => 'conf[submit_text][email]',
-            'label'     => Mage::helper('xmlconnect')->__('Contact Email'),
+            'label'     => $this->__('Contact Email'),
             'class'     => 'email',
             'maxlength' => '40',
             'value'     => isset($formData['conf[submit_text][email]']) ? $formData['conf[submit_text][email]'] : null,
-            'note'      => Mage::helper('xmlconnect')->__('Administrative contact for this app and for app submission issues.'),
+            'note'      => $this->__('Administrative contact for this app and for app submission issues.'),
             'required'  => true,
         ));
 
         $fieldset->addField('conf/submit_text/price_free_label', 'label', array(
             'name'      => 'conf[submit_text][price_free_label]',
-            'label'     => Mage::helper('xmlconnect')->__('Price'),
-            'value'     => Mage::helper('xmlconnect')->__('Free'),
+            'label'     => $this->__('Price'),
+            'value'     => $this->__('Free'),
             'maxlength' => '40',
             'checked'   => 'checked',
-            'note'      => Mage::helper('xmlconnect')->__('Only free apps are allowed in this version.'),
+            'note'      => $this->__('Only free apps are allowed in this version.'),
         ));
 
         $fieldset->addField('conf/submit_text/price_free', 'hidden', array(
@@ -171,40 +172,40 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
         $selected = isset($formData['conf[submit_text][country]']) ? explode(',', $formData['conf[submit_text][country]']) : null;
         $fieldset->addField('conf/submit_text/country', 'multiselect', array(
             'name'      => 'conf[submit_text][country][]',
-            'label'     => Mage::helper('xmlconnect')->__('Country'),
+            'label'     => $this->__('Country'),
             'values'    => Mage::helper('xmlconnect')->getCountryOptionsArray(),
             'value'     => $selected,
-            'note'      => Mage::helper('xmlconnect')->__('Make this app available in the following territories'),
+            'note'      => $this->__('Make this app available in the following territories'),
             'required'  => true,
         ));
 
         $fieldset->addField('conf/submit_text/copyright', 'text', array(
             'name'      => 'conf[submit_text][copyright]',
-            'label'     => Mage::helper('xmlconnect')->__('Copyright'),
+            'label'     => $this->__('Copyright'),
             'maxlength' => '200',
             'value'     => isset($formData['conf[submit_text][copyright]']) ? $formData['conf[submit_text][copyright]'] : null,
-            'note'      => Mage::helper('xmlconnect')->__('Appears in the info section of your app (example:  Copyright 2010 – Your Company, Inc.)'),
+            'note'      => $this->__('Appears in the info section of your app (example:  Copyright 2010 – Your Company, Inc.)'),
             'required'  => true,
         ));
 
         $fieldset->addField('conf/submit_text/keywords', 'text', array(
             'name'      => 'conf[submit_text][keywords]',
-            'label'     => Mage::helper('xmlconnect')->__('Keywords'),
+            'label'     => $this->__('Keywords'),
             'maxlength' => '100',
             'value'     => isset($formData['conf[submit_text][keywords]']) ? $formData['conf[submit_text][keywords]'] : null,
-            'note'      => Mage::helper('xmlconnect')->__('One or more keywords that describe your app. Keywords are matched to users` searches in the App Store and help return accurate search results. Separate multiple keywords with commas. 100 chars is maximum.'),
+            'note'      => $this->__('One or more keywords that describe your app. Keywords are matched to users` searches in the App Store and help return accurate search results. Separate multiple keywords with commas. 100 chars is maximum.'),
         ));
 
-        $fieldset = $form->addFieldset('submit_icons', array('legend' => Mage::helper('xmlconnect')->__('Icons')));
-        $this->addImage($fieldset, 'conf/submit/icon', Mage::helper('xmlconnect')->__('Large iTunes Icon'),
-            Mage::helper('xmlconnect')->__('Large icon that appears in the iTunes App Store. You do not need to apply a gradient or soft edges (this is done automatically by Apple). Required size: 512px x 512px.'), '', true);
-        $this->addImage($fieldset, 'conf/submit/loader_image', Mage::helper('xmlconnect')->__('Loader Splash Screen'),
-            Mage::helper('xmlconnect')->__('Image that appears on first screen while your app is loading. Required size: 320px x 460px.'), '', true);
+        $fieldset = $form->addFieldset('submit_icons', array('legend' => $this->__('Icons')));
+        $this->addImage($fieldset, 'conf/submit/icon', $this->__('Large iTunes Icon'),
+            $this->__('Large icon that appears in the iTunes App Store. You do not need to apply a gradient or soft edges (this is done automatically by Apple). Required size: 512px x 512px.'), '', true);
+        $this->addImage($fieldset, 'conf/submit/loader_image', $this->__('Loader Splash Screen'),
+            $this->__('Image that appears on first screen while your app is loading. Required size: 320px x 460px.'), '', true);
 
-        $this->addImage($fieldset, 'conf/submit/logo', Mage::helper('xmlconnect')->__('Custom App Icon'),
-            Mage::helper('xmlconnect')->__('Icon that will appear on the user’s phone after they download your app.  You do not need to apply a gradient or soft edges (this is done automatically by Apple).  Recommended size: 57px x 57px at 72 dpi.'), '', true);
-        $this->addImage($fieldset, 'conf/submit/big_logo', Mage::helper('xmlconnect')->__('Copyright Page Logo'),
-            Mage::helper('xmlconnect')->__('Store logo that is displayed on copyright page of app. Preferred size: 100px x 100px.'), '', true);
+        $this->addImage($fieldset, 'conf/submit/logo', $this->__('Custom App Icon'),
+            $this->__('Icon that will appear on the user’s phone after they download your app.  You do not need to apply a gradient or soft edges (this is done automatically by Apple).  Recommended size: 57px x 57px at 72 dpi.'), '', true);
+        $this->addImage($fieldset, 'conf/submit/big_logo', $this->__('Copyright Page Logo'),
+            $this->__('Store logo that is displayed on copyright page of app. Preferred size: 100px x 100px.'), '', true);
 
         return parent::_prepareForm();
     }
@@ -216,7 +217,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
      */
     public function getTabLabel()
     {
-        return Mage::helper('xmlconnect')->__('Submission');
+        return $this->__('Submission');
     }
 
     /**
@@ -226,7 +227,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
      */
     public function getTabTitle()
     {
-        return Mage::helper('xmlconnect')->__('Submission');
+        return $this->__('Submission');
     }
 
     /**

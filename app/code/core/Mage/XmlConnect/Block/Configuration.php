@@ -93,7 +93,7 @@ class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Template
             } else {
                 $value = (string)$value;
                 if ($value != '') {
-                    $section->addChild($key, $value);
+                    $section->addChild($key, Mage::helper('core')->htmlEscape($value));
                 }
             }
         }
@@ -107,7 +107,7 @@ class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         $xml = new Mage_XmlConnect_Model_Simplexml_Element('<configuration></configuration>');
-        $this->_buildRecursive($xml, $this->_app->getRenderConf());
+        $this->_buildRecursive($xml, Mage::helper('xmlconnect')->excludeXmlConfigKeys($this->_app->getRenderConf()));
         return $xml->asNiceXml();
     }
 }

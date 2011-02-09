@@ -76,7 +76,7 @@ class Mage_XmlConnect_Block_Catalog_Search extends Mage_XmlConnect_Block_Catalog
         /**
          * Filters
          */
-        $showFiltersAndOrders = true;
+        $showFiltersAndOrders = (bool) count($productsXmlObj);
         $reguest = $this->getRequest();
         foreach ($reguest->getParams() as $key => $value) {
             if (0 === strpos($key, parent::REQUEST_SORT_ORDER_PARAM_REFIX) ||

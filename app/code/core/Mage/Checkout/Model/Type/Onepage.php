@@ -250,7 +250,7 @@ class Mage_Checkout_Model_Type_Onepage
                     );
                 }
 
-                $address->importCustomerAddress($customerAddress);
+                $address->importCustomerAddress($customerAddress)->setSaveInAddressBook(0);
                 $addressForm->setEntity($address);
                 $addressErrors  = $addressForm->validateData($address->getData());
                 if ($addressErrors !== true) {
@@ -496,7 +496,7 @@ class Mage_Checkout_Model_Type_Onepage
                     );
                 }
 
-                $address->importCustomerAddress($customerAddress);
+                $address->importCustomerAddress($customerAddress)->setSaveInAddressBook(0);
                 $addressForm->setEntity($address);
                 $addressErrors  = $addressForm->validateData($address->getData());
                 if ($addressErrors !== true) {

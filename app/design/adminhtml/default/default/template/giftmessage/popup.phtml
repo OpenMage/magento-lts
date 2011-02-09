@@ -27,8 +27,8 @@
 
 <?php if ($this->getChildHtml()) :?>
 <div id="gift_options_window_mask" class="popup-window-mask" style="display: none;"></div>
-<div id="gift_options_configure" class="gift_options-popup product-configure-popup" style="display: none;">
-    <form action="#" method="post" id="gift_options_configuration_form">
+<div id="gift_options_configure_new" class="gift_options-popup product-configure-popup" style="display: none;">
+    <div id="gift_options_form_contents">
         <div class="entry-edit">
             <div class="entry-edit-head">
                 <h4 class="icon-head fieldset-legend"><?php echo Mage::helper('giftmessage')->__('Gift Options for'); ?> <span id="gift_options_configure_title"></span></h4>
@@ -41,7 +41,7 @@
                 <button type="button" class="scalable" id="gift_options_ok_button"><span><?php echo Mage::helper('giftmessage')->__('OK'); ?></span></button>
             </div>
         </div>
-    </form>
+    </div>
 </div>
 <div id="giftoptions_tooltip_window" class="gift-options-tooltip" style="display:none;">
     <div id="giftoptions_tooltip_window_content">&nbsp;</div>
@@ -49,54 +49,7 @@
 
 <script type="text/javascript">
 //<![CDATA[
-var _giftOptions = {
-    giftOptionsWindowMask : null,
-    giftOptionsWindow : null,
-    init : function() {
-        $$('.action-link').each(function (el) {
-            Event.observe(el, 'click', this.showItemGiftOptions.bind(this));
-        }, this);
-    },
-    showItemGiftOptions : function(event) {
-        var element = Event.element(event).id;
-        var itemId = element.sub('gift_options_link_','');
-
-        toggleSelectsUnderBlock(this.giftOptionsWindowMask, false);
-        this.giftOptionsWindowMask = $('gift_options_window_mask');
-        this.giftOptionsWindow = $('gift_options_configure');
-
-        this.giftOptionsWindowMask.setStyle({'height': $('html-body').getHeight() + 'px'}).show();
-        this.giftOptionsWindow.setStyle({'marginTop': -this.giftOptionsWindow.getHeight()/2 + 'px', 'display': 'block'});
-        this.setTitle(itemId);
-
-        Event.observe($('gift_options_cancel_button'), 'click', this.onCloseButton.bind(this));
-        Event.observe($('gift_options_ok_button'), 'click', this.onOkButton.bind(this));
-        Event.stop(event);
-    },
-    setTitle : function (itemId) {
-        var productTitle = $('order_item_' + itemId + '_title').innerHTML;
-        $('gift_options_configure_title').update(productTitle);
-    },
-    onOkButton : function() {
-        var giftOptionsForm = new varienForm('gift_options_configuration_form');
-        giftOptionsForm.canShowError = true;
-        if (!giftOptionsForm.validate()) {
-            return false;
-        }
-        giftOptionsForm.validator.reset();
-        this.closeWindow();
-        return true;
-    },
-    onCloseButton : function() {
-        this.closeWindow();
-    },
-    closeWindow : function() {
-        toggleSelectsUnderBlock(this.giftOptionsWindowMask, true);
-        this.giftOptionsWindowMask.style.display = 'none';
-        this.giftOptionsWindow.style.display = 'none';
-    }
-};
-_giftOptions.init();
+_giftOptions = new GiftOptionsPopup();
 giftOptionsTooltip.setTooltipWindow('giftoptions_tooltip_window','giftoptions_tooltip_window_content');
 //]]>
 </script>

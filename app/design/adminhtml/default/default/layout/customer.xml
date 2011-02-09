@@ -36,9 +36,6 @@
             <action method="addJs"><file>mage/adminhtml/product/composite/configure.js</file></action>
             <action method="addJs"><file>varien/configurable.js</file></action>
         </reference>
-        <reference name="js">
-            <block type="adminhtml/template" template="customer/edit/addlisttype.phtml" name="customer.edit.add.listtypes"/>
-        </reference>
         <reference name="left">
             <block type="adminhtml/customer_edit_tabs" name="customer_edit_tabs">
                 <block type="adminhtml/customer_edit_tab_view" name="customer_edit_tab_view" template="customer/tab/view.phtml">

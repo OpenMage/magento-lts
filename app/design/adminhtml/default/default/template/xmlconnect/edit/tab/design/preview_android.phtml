@@ -24,25 +24,21 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-
+<?php
+    $deviceType = Mage::helper('xmlconnect')->getApplication()->getType();
+?>
 <div id="XmlconnectThemePreview">
-<iframe src="about:blank" id="XmlconnectThemePreviewIframe"
-    name="XmlconnectThemePreviewIframe" frameborder="0" scrolling="no"
-    style="width: 328px; height: 529px; border: 0; "></iframe>
+    <iframe src="about:blank" id="XmlconnectThemePreviewIframe" name="XmlconnectThemePreviewIframe" frameborder="0" scrolling="no" style="width: 328px; height: 490px; border: 0; "></iframe>
 </div>
 
-<div class="mm-box-blue a-center" style="width:280px;">
-    <button type="button" class="scalable" onclick="updatePreview()"><span><?php echo Mage::helper('xmlconnect')->__('Update Preview');?></span></button>
+<div class="mm-box-blue a-center" style="width:285px;">
+    <button type="button" class="scalable" onclick="updatePreview()"><span><?php echo $this->__('Update Preview');?></span></button>
 </div>
 <div class="mm-pager">
-    <strong><?php echo Mage::helper('xmlconnect')->__('Screens:'); ?></strong>
+    <strong><?php echo $this->__('Screens:'); ?></strong>
     <ul id="mmPager">
         <li><a class="active" href="<?php echo $this->getPreviewActionUrl('home'); ?>" onclick="mmPreviewPage = this.href; updatePreview();return false;">1</a></li>
         <li><a href="<?php echo $this->getPreviewActionUrl('catalog'); ?>" onclick="mmPreviewPage = this.href; updatePreview();return false;">2</a></li>
-        <!--
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        -->
     </ul>
 </div>
 <script type="text/javascript">

@@ -54,23 +54,23 @@ class Mage_XmlConnect_Block_Customer_Form extends Mage_Core_Block_Template
 
         if ($editFlag) {
             $passwordManageXml = '
-                   <field name="change_password" type="checkbox" label="' . $xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Change Password')) . '"/>
+                   <field name="change_password" type="checkbox" label="' . $xmlModel->xmlentities($this->__('Change Password')) . '"/>
                 </fieldset>
                 <fieldset>
-                    <field name="current_password" type="password" label="' . $xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Current Password')) . '"/>
-                    <field name="password" type="password" label="' . $xmlModel->xmlentities(Mage::helper('xmlconnect')->__('New Password')) . '"/>
-                    <field name="confirmation" type="password" label="' . $xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Confirm New Password')) . '">
+                    <field name="current_password" type="password" label="' . $xmlModel->xmlentities($this->__('Current Password')) . '"/>
+                    <field name="password" type="password" label="' . $xmlModel->xmlentities($this->__('New Password')) . '"/>
+                    <field name="confirmation" type="password" label="' . $xmlModel->xmlentities($this->__('Confirm New Password')) . '">
                         <validators>
-                            <validator type="confirmation" message="' . $xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Regular and confirmation passwords must be equal')) . '">password</validator>
+                            <validator type="confirmation" message="' . $xmlModel->xmlentities($this->__('Regular and confirmation passwords must be equal')) . '">password</validator>
                         </validators>
                     </field>
                 </fieldset>';
         } else {
             $passwordManageXml = '
-                    <field name="password" type="password" label="' . $xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Password')) . '" required="true"/>
-                    <field name="confirmation" type="password" label="' . $xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Confirm Password')) . '" required="true">
+                    <field name="password" type="password" label="' . $xmlModel->xmlentities($this->__('Password')) . '" required="true"/>
+                    <field name="confirmation" type="password" label="' . $xmlModel->xmlentities($this->__('Confirm Password')) . '" required="true">
                         <validators>
-                            <validator type="confirmation" message="' . $xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Regular and confirmation passwords must be equal')) . '">password</validator>
+                            <validator type="confirmation" message="' . $xmlModel->xmlentities($this->__('Regular and confirmation passwords must be equal')) . '">password</validator>
                         </validators>
                     </field>
                 </fieldset>';
@@ -79,11 +79,11 @@ class Mage_XmlConnect_Block_Customer_Form extends Mage_Core_Block_Template
         $xml = <<<EOT
 <form name="account_form" method="post">
     <fieldset>
-        <field name="firstname" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('First Name'))}" required="true" value="$firstname" />
-        <field name="lastname" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Last Name'))}" required="true" value="$lastname" />
-        <field name="email" type="text" label="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Email'))}" required="true" value="$email">
+        <field name="firstname" type="text" label="{$xmlModel->xmlentities($this->__('First Name'))}" required="true" value="$firstname" />
+        <field name="lastname" type="text" label="{$xmlModel->xmlentities($this->__('Last Name'))}" required="true" value="$lastname" />
+        <field name="email" type="text" label="{$xmlModel->xmlentities($this->__('Email'))}" required="true" value="$email">
             <validators>
-                <validator type="email" message="{$xmlModel->xmlentities(Mage::helper('xmlconnect')->__('Wrong email format'))}"/>
+                <validator type="email" message="{$xmlModel->xmlentities($this->__('Wrong email format'))}"/>
             </validators>
         </field>
         $passwordManageXml

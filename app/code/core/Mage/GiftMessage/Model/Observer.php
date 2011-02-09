@@ -180,6 +180,11 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     public function salesEventOrderToQuote($observer)
     {
         $order = $observer->getEvent()->getOrder();
+        // Do not import giftmessage data if order is reordered
+        if ($order->getReordered()) {
+            return $this;
+        }
+
         if (!Mage::helper('giftmessage/message')->isMessagesAvailable('order', $order, $order->getStore())){
             return $this;
         }
@@ -204,6 +209,11 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     {
         /** @var $orderItem Mage_Sales_Model_Order_Item */
         $orderItem = $observer->getEvent()->getOrderItem();
+        // Do not import giftmessage data if order is reordered
+        $order = $orderItem->getOrder();
+        if ($order && $order->getReordered()) {
+            return $this;
+        }
 
         if (!Mage::helper('giftmessage/message')->isMessagesAvailable('order_item', $orderItem, $orderItem->getStoreId())){
             return $this;

@@ -70,7 +70,7 @@ class Mage_Core_Model_Observer
                     $description    = Mage::helper('adminhtml')->__('One or more media files failed to be synchronized during the media storages syncronization process. Refer to the log file for details.');
                 } else {
                     $severity       = Mage_AdminNotification_Model_Inbox::SEVERITY_NOTICE;
-                    $title          = Mage::helper('adminhtml')->__('Media storage synchronization has completed!');
+                    $title          = Mage::helper('adminhtml')->__('Media storages synchronization has completed!');
                     $description    = Mage::helper('adminhtml')->__('Synchronization of media storages has been successfully completed.');
                 }
 

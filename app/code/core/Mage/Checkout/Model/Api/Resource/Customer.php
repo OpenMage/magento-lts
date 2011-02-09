@@ -207,7 +207,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
         } else {
             $customer->sendNewAccountEmail();
         }
-        
+
         return $this;
     }
 }

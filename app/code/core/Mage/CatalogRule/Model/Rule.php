@@ -258,6 +258,22 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
     }
 
     /**
+     * Apply all price rules to product
+     *
+     * @param int|Mage_Catalog_Model_Product $product
+     * @return Mage_CatalogRule_Model_Rule
+     */
+    public function applyAllRulesToProduct($product)
+    {
+        $this->_getResource()->applyAllRulesForDateRange(NULL, NULL, $product);
+        $this->_invalidateCache();
+        $indexProcess = Mage::getSingleton('index/indexer')->getProcessByCode('catalog_product_price');
+        if ($indexProcess) {
+            $indexProcess->reindexAll();
+        }
+    }
+
+    /**
      * Calculate price using catalog price rule of product
      *
      * @param Mage_Catalog_Model_Product $product

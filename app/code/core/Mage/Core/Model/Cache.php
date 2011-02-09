@@ -236,6 +236,11 @@ class Mage_Core_Model_Cache
         $options['slow_backend_custom_naming']  = true;
         $options['slow_backend_autoload']       = true;
 
+        if (isset($cacheOptions['auto_refresh_fast_cache'])) {
+            $options['auto_refresh_fast_cache'] = (bool)$cacheOptions['auto_refresh_fast_cache'];
+        } else {
+            $options['auto_refresh_fast_cache'] = false;
+        }
         if (isset($cacheOptions['slow_backend'])) {
             $options['slow_backend'] = $cacheOptions['slow_backend'];
         } else {
@@ -249,6 +254,11 @@ class Mage_Core_Model_Cache
         if ($options['slow_backend'] == 'database') {
             $options['slow_backend'] = 'Varien_Cache_Backend_Database';
             $options['slow_backend_options'] = $this->getDbAdapterOptions();
+            if (isset($cacheOptions['slow_backend_store_data'])) {
+                $options['slow_backend_options']['store_data'] = (bool)$cacheOptions['slow_backend_store_data'];
+            } else {
+                $options['slow_backend_options']['store_data'] = false;
+            }
         }
 
         $backend = array(

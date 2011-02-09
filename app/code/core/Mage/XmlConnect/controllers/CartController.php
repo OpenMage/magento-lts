@@ -27,13 +27,14 @@
 /**
  * XmlConnect shopping cart controller
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author  Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
 {
     /**
      * Shopping cart display action
+     *
+     * @return void
      */
     public function indexAction()
     {
@@ -56,7 +57,7 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
         }
 
         /**
-         * if customer enteres shopping cart we should mark quote
+         * if customer enters shopping cart we should mark quote
          * as modified bc he can has checkout page in another window.
          */
         $this->_getSession()->setCartWasUpdated(true);
@@ -67,6 +68,8 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
 
     /**
      * Update shoping cart data action
+     *
+     * @return void
      */
     public function updateAction()
     {
@@ -89,11 +92,11 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
                     ->save();
             }
             $this->_getSession()->setCartWasUpdated(true);
-            $this->_message(Mage::helper('xmlconnect')->__('Cart has been updated.'), parent::MESSAGE_STATUS_SUCCESS);
+            $this->_message($this->__('Cart has been updated.'), parent::MESSAGE_STATUS_SUCCESS);
         } catch (Mage_Core_Exception $e) {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
         } catch (Exception $e) {
-            $this->_message(Mage::helper('xmlconnect')->__('Can\'t update cart.'), self::MESSAGE_STATUS_ERROR);
+            $this->_message($this->__('Can\'t update cart.'), self::MESSAGE_STATUS_ERROR);
         }
     }
 
@@ -153,29 +156,27 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
              * Check product availability
              */
             if (!$product) {
-                $this->_message(Mage::helper('xmlconnect')->__('Product is unavailable.'), parent::MESSAGE_STATUS_ERROR);
+                $this->_message($this->__('Product is unavailable.'), parent::MESSAGE_STATUS_ERROR);
                 return;
             }
 
             if ($product->isConfigurable()) {
 
                 $request = $this->_getProductRequest($params);
-                $cartCandidates = $product->getTypeInstance(true)->prepareForCart($request, $product);
+
                 /**
                  * Hardcoded Configurable product default
+                 * Set min required qty for a product if it's need
                  */
-                $minSaleQty = ((isset($params['qty']) ? $params['qty'] : 0) > 1) ? $params['qty'] : 1;
-                if (is_array($cartCandidates)) {
-                    foreach ($cartCandidates as $candidate) {
-                        $current = $candidate->getStockItem()->getMinSaleQty();
-                        if ($minSaleQty < $current) {
-                            $minSaleQty = $current;
-                        }
-                    }
+                $qty = isset($params['qty']) ? $params['qty'] : 0;
+                $requestedQty = ($qty > 1) ? $qty : 1;
+                $subProduct = $product->getTypeInstance(true)->getProductByAttributes($request->getSuperAttribute(), $product);
+
+                if ($requestedQty < ($requiredQty = $subProduct->getStockItem()->getMinSaleQty())) {
+                    $requestedQty = $requiredQty;
                 }
-                if ($minSaleQty) {
-                    $params['qty'] = $minSaleQty;
-                }
+
+                $params['qty'] = $requestedQty;
             }
 
             $cart->addProduct($product, $params);
@@ -195,9 +196,9 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
             );
 
             if (!$this->_getSession()->getNoCartRedirect(true)) {
-                $message = Mage::helper('xmlconnect')->__('%s has been added to your cart.', Mage::helper('core')->htmlEscape($product->getName()));
+                $message = $this->__('%s has been added to your cart.', Mage::helper('core')->htmlEscape($product->getName()));
                 if ($cart->getQuote()->getHasError()) {
-                    $message .= Mage::helper('xmlconnect')->__(' But cart has some errors.');
+                    $message .= $this->__(' But cart has some errors.');
                 }
                 $this->_message($message, parent::MESSAGE_STATUS_SUCCESS);
             }
@@ -208,12 +209,14 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
                 $this->_message(implode("\n", array_unique(explode("\n", $e->getMessage()))), parent::MESSAGE_STATUS_ERROR);
             }
         } catch (Exception $e) {
-            $this->_message(Mage::helper('xmlconnect')->__('Can\'t add item to shopping cart.'), self::MESSAGE_STATUS_ERROR);
+            $this->_message($this->__('Can\'t add item to shopping cart.'), self::MESSAGE_STATUS_ERROR);
         }
     }
 
     /**
      * Delete shoping cart item action
+     *
+     * @return void
      */
     public function deleteAction()
     {
@@ -221,17 +224,19 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
         if ($id) {
             try {
                 $this->_getCart()->removeItem($id)->save();
-                $this->_message(Mage::helper('xmlconnect')->__('Item has been deleted from cart.'), parent::MESSAGE_STATUS_SUCCESS);
+                $this->_message($this->__('Item has been deleted from cart.'), parent::MESSAGE_STATUS_SUCCESS);
             } catch (Mage_Core_Exception $e) {
                 $this->_message($e->getMessage(), parent::MESSAGE_STATUS_ERROR);
             } catch (Exception $e) {
-                $this->_message(Mage::helper('xmlconnect')->__('Can\'t remove the item.'), self::MESSAGE_STATUS_ERROR);
+                $this->_message($this->__('Can\'t remove the item.'), self::MESSAGE_STATUS_ERROR);
             }
         }
     }
 
     /**
      * Initialize coupon
+     *
+     * @return void
      */
     public function couponAction()
     {
@@ -239,7 +244,7 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
          * No reason continue with empty shopping cart
          */
         if (!$this->_getQuote()->getItemsCount()) {
-            $this->_message(Mage::helper('xmlconnect')->__('Shopping cart is empty.'), self::MESSAGE_STATUS_ERROR);
+            $this->_message($this->__('Shopping cart is empty.'), self::MESSAGE_STATUS_ERROR);
             return;
         }
 
@@ -250,7 +255,7 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
         $oldCouponCode = $this->_getQuote()->getCouponCode();
 
         if (!strlen($couponCode) && !strlen($oldCouponCode)) {
-            $this->_message(Mage::helper('xmlconnect')->__('Coupon code is empty.'), self::MESSAGE_STATUS_ERROR);
+            $this->_message($this->__('Coupon code is empty.'), self::MESSAGE_STATUS_ERROR);
             return;
         }
 
@@ -262,23 +267,25 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
 
             if ($couponCode) {
                 if ($couponCode == $this->_getQuote()->getCouponCode()) {
-                    $this->_message(Mage::helper('xmlconnect')->__('Coupon code %s was applied.', strip_tags($couponCode)), parent::MESSAGE_STATUS_SUCCESS);
+                    $this->_message($this->__('Coupon code %s was applied.', strip_tags($couponCode)), parent::MESSAGE_STATUS_SUCCESS);
                 } else {
-                    $this->_message(Mage::helper('xmlconnect')->__('Coupon code %s is not valid.', strip_tags($couponCode)), self::MESSAGE_STATUS_ERROR);
+                    $this->_message($this->__('Coupon code %s is not valid.', strip_tags($couponCode)), self::MESSAGE_STATUS_ERROR);
                 }
             } else {
-                $this->_message(Mage::helper('xmlconnect')->__('Coupon code was canceled.'), parent::MESSAGE_STATUS_SUCCESS);
+                $this->_message($this->__('Coupon code was canceled.'), parent::MESSAGE_STATUS_SUCCESS);
             }
 
         } catch (Mage_Core_Exception $e) {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
         } catch (Exception $e) {
-            $this->_message(Mage::helper('xmlconnect')->__('Can\'t apply the coupon code.'), self::MESSAGE_STATUS_ERROR);
+            $this->_message($this->__('Can\'t apply the coupon code.'), self::MESSAGE_STATUS_ERROR);
         }
     }
 
     /**
      * Get shopping cart summary and flag is_virtual
+     *
+     * @return void
      */
     public function infoAction()
     {

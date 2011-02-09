@@ -317,7 +317,7 @@
                             <label>Payment Action</label>
                             <config_path>payment/paypal_express/payment_action</config_path>
                             <frontend_type>select</frontend_type>
-                            <source_model>paypal/config::getPaymentActions</source_model>
+                            <source_model>paypal/system_config_source_paymentActions_express</source_model>
                             <sort_order>15</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -458,7 +458,7 @@
                             <label>Payment Action</label>
                             <config_path>payment/paypal_standard/payment_action</config_path>
                             <frontend_type>select</frontend_type>
-                            <source_model>paypal/config::getPaymentActions</source_model>
+                            <source_model>paypal/system_config_source_paymentActions</source_model>
                             <sort_order>15</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -555,7 +555,7 @@
                             <label>Payment Action</label>
                             <config_path>payment/paypal_direct/payment_action</config_path>
                             <frontend_type>select</frontend_type>
-                            <source_model>paypal/config::getPaymentActions</source_model>
+                            <source_model>paypal/system_config_source_paymentActions</source_model>
                             <sort_order>15</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -704,7 +704,7 @@
                             <label>Payment Action</label>
                             <config_path>payment/paypal_billing_agreement/payment_action</config_path>
                             <frontend_type>select</frontend_type>
-                            <source_model>paypal/config::getPaymentActions</source_model>
+                            <source_model>paypal/system_config_source_paymentActions</source_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -791,7 +791,7 @@
                             <label>Payment Action</label>
                             <config_path>payment/paypaluk_direct/payment_action</config_path>
                             <frontend_type>select</frontend_type>
-                            <source_model>paypal/config::getPaymentActions</source_model>
+                            <source_model>paypal/system_config_source_paymentActions</source_model>
                             <sort_order>15</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -975,7 +975,7 @@
                             <depends><centinel>1</centinel></depends>
                         </centinel_api_url>
                     </fields>
-                </wpp_pe>                
+                </wpp_pe>
 
                 <verisign translate="label">
                     <label>Payflow Pro Settings</label>
@@ -1008,7 +1008,7 @@
                             <label>Payment Action</label>
                             <config_path>payment/verisign/payment_action</config_path>
                             <frontend_type>select</frontend_type>
-                            <source_model>paypal/config::getPaymentActions</source_model>
+                            <source_model>paypal/system_config_source_paymentActions</source_model>
                             <sort_order>15</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1214,7 +1214,7 @@
                             <label>Payment Action</label>
                             <config_path>payment/paypaluk_express/payment_action</config_path>
                             <frontend_type>select</frontend_type>
-                            <source_model>paypal/config::getPaymentActions</source_model>
+                            <source_model>paypal/system_config_source_paymentActions</source_model>
                             <sort_order>15</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1451,7 +1451,7 @@
                         </paypal_payflowcolor>
                     </fields>
                 </style>
-                
+
                 <payflow_link translate="label">
                     <label>Payflow Link Settings</label>
                     <frontend_type>text</frontend_type>
@@ -1490,7 +1490,7 @@
                             <label>Payment Action</label>
                             <config_path>payment/payflow_link/payment_action</config_path>
                             <frontend_type>select</frontend_type>
-                            <source_model>paypal/config::getPaymentActions</source_model>
+                            <source_model>paypal/system_config_source_paymentActions</source_model>
                             <sort_order>15</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1541,7 +1541,7 @@
                         <user translate="label">
                             <label>User</label>
                             <frontend_type>text</frontend_type>
-                            <config_path>payment/payflow_link/user</config_path>                            
+                            <config_path>payment/payflow_link/user</config_path>
                             <sort_order>45</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1633,7 +1633,7 @@
                             <label>Payment Action</label>
                             <config_path>payment/hosted_pro/payment_action</config_path>
                             <frontend_type>select</frontend_type>
-                            <source_model>paypal/config::getPaymentActions</source_model>
+                            <source_model>paypal/system_config_source_paymentActions</source_model>
                             <sort_order>15</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1656,7 +1656,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <depends><allowspecific>1</allowspecific></depends>
-                        </specificcountry>                        
+                        </specificcountry>
                         <debug translate="label">
                             <label>Debug Mode</label>
                             <config_path>payment/hosted_pro/debug</config_path>

@@ -141,7 +141,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
     /**
      * Retrieve quote item
      *
-     * @param   mixed $item
+     * @param   int|Mage_Sales_Model_Quote_Item $item
      * @return  Mage_Sales_Model_Quote_Item
      */
     protected function _getQuoteItem($item)
@@ -385,19 +385,14 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
             ->load($orderItem->getProductId());
 
         if ($product->getId()) {
-            $info = $orderItem->getProductOptionByCode('info_buyRequest');
-            $info = new Varien_Object($info);
             $product->setSkipCheckRequiredOption(true);
-            $item = $this->getQuote()->addProduct($product, $info);
+            $buyRequest = $orderItem->getBuyRequest();
+            if (is_numeric($qty)) {
+                $buyRequest->setQty($qty);
+            }
+            $item = $this->getQuote()->addProduct($product, $buyRequest);
             if (is_string($item)) {
                 return $item;
-            }
-            if (is_numeric($qty)) {
-                if ($parentItem = $item->getParentItem()) {
-                    $parentItem->setQty($qty);
-                } else {
-                    $item->setQty($qty);
-                }
             }
 
             if ($additionalOptions = $orderItem->getProductOptionByCode('additional_options')) {
@@ -409,13 +404,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                     )
                 ));
             }
-
-            Mage::helper('core')->copyFieldset(
-                'sales_copy_order_item',
-                'to_edit_item',
-                $orderItem,
-                $item
-            );
 
             Mage::dispatchEvent('sales_convert_order_item_to_quote_item', array(
                 'order_item' => $orderItem,
@@ -506,45 +494,35 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
     }
 
     /**
-     * Move quote item to another items store
+     * Move quote item to another items list
      *
-     * @param   mixed $item
-     * @param   string $mogeTo
+     * @param   int|Mage_Sales_Model_Quote_Item $item
+     * @param   string $moveTo
+     * @param   int $qty
      * @return  Mage_Adminhtml_Model_Sales_Order_Create
      */
     public function moveQuoteItem($item, $moveTo, $qty)
     {
-        if ($item = $this->_getQuoteItem($item)) {
+        $item = $this->_getQuoteItem($item);
+        if ($item) {
             switch ($moveTo) {
                 case 'order':
-                    $info = $item->getOptionByCode('info_buyRequest');
-                    if ($info) {
-                        $info = new Varien_Object(
-                            unserialize($info->getValue())
-                        );
-                        $info->setOptions($this->_prepareOptionsForRequest($item));
-                    }
+                    $info = $item->getBuyRequest();
+                    $info->setOptions($this->_prepareOptionsForRequest($item))
+                        ->setQty($qty);
 
                     $product = Mage::getModel('catalog/product')
                         ->setStoreId($this->getQuote()->getStoreId())
                         ->load($item->getProduct()->getId());
 
                     $product->setSkipCheckRequiredOption(true);
-
                     $newItem = $this->getQuote()->addProduct($product, $info);
-
-                    $this->removeItem($item->getId(), 'cart');
 
                     if (is_string($newItem)) {
                         Mage::throwException($newItem);
                     }
                     $product->unsSkipCheckRequiredOption();
                     $newItem->checkData();
-                    if ($parentItem = $newItem->getParentItem()) {
-                        $parentItem->setQty($qty);
-                    } else {
-                        $newItem->setQty($qty);
-                    }
                     $this->_needCollectCart = true;
                     break;
                 case 'cart':
@@ -592,13 +570,12 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                         $wishlist->addNewItem($item->getProduct(), $info);
                     }
                     break;
-                case 'comparelist':
-
-                    break;
                 default:
                     break;
             }
-            $this->getQuote()->removeItem($item->getId());
+            if ($moveTo != 'order') {
+                $this->getQuote()->removeItem($item->getId());
+            }
             $this->setRecollect(true);
         }
         return $this;
@@ -612,19 +589,13 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
      */
     public function applySidebarData($data)
     {
-        // skip item duplicates based on info_buyRequest option
-        $infoBuyRequests = array();
-
         if (isset($data['add_order_item'])) {
             foreach ($data['add_order_item'] as $orderItemId => $value) {
+                /* @var $orderItem Mage_Sales_Model_Order_Item */
                 $orderItem = Mage::getModel('sales/order_item')->load($orderItemId);
                 $item = $this->initFromOrderItem($orderItem);
                 if (is_string($item)) {
                     Mage::throwException($item);
-                }
-                $infobuyRequest = $item->getOptionByCode('info_buyRequest');
-                if ($infobuyRequest !== null) {
-                    $infoBuyRequests[] = $infobuyRequest->getValue();
                 }
             }
         }
@@ -632,10 +603,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
             foreach ($data['add_cart_item'] as $itemId => $qty) {
                 $item = $this->getCustomerCart()->getItemById($itemId);
                 if ($item) {
-                    $infobuyRequest = $item->getOptionByCode('info_buyRequest');
-                    if ($infobuyRequest === null || !in_array($infobuyRequest->getValue(), $infoBuyRequests)) {
-                        $this->moveQuoteItem($item, 'order', $qty);
-                    }
+                    $this->moveQuoteItem($item, 'order', $qty);
                     $this->removeItem($itemId, 'cart');
                 }
             }
@@ -808,32 +776,33 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                         $itemQty    = (float)$info['qty'];
                     }
 
-                    if ($item && $item->getProduct()->getStockItem()) {
-                        if (!$item->getProduct()->getStockItem()->getIsQtyDecimal()) {
-                            $itemQty = (int)$itemQty;
-                        } else {
-                            $item->setIsQtyDecimal(1);
+                    if ($item) {
+                        if ($item->getProduct()->getStockItem()) {
+                            if (!$item->getProduct()->getStockItem()->getIsQtyDecimal()) {
+                                $itemQty = (int)$itemQty;
+                            } else {
+                                $item->setIsQtyDecimal(1);
+                            }
                         }
-                    }
-                    $itemQty    = $itemQty > 0 ? $itemQty : 1;
-                    if (isset($info['custom_price'])) {
-                        $itemPrice  = $this->_parseCustomPrice($info['custom_price']);
-                    } else {
-                        $itemPrice = null;
-                    }
-                    $noDiscount = !isset($info['use_discount']);
+                        $itemQty    = $itemQty > 0 ? $itemQty : 1;
+                        if (isset($info['custom_price'])) {
+                            $itemPrice  = $this->_parseCustomPrice($info['custom_price']);
+                        } else {
+                            $itemPrice = null;
+                        }
+                        $noDiscount = !isset($info['use_discount']);
 
-                    if (empty($info['action']) || !empty($info['configured'])) {
-                        if ($item) {
+                        if (empty($info['action']) || !empty($info['configured'])) {
                             $item->setQty($itemQty);
                             $item->setCustomPrice($itemPrice);
                             $item->setOriginalCustomPrice($itemPrice);
                             $item->setNoDiscount($noDiscount);
                             $item->getProduct()->setIsSuperMode(true);
+                            $item->getProduct()->unsSkipCheckRequiredOption();
                             $item->checkData();
+                        } else {
+                            $this->moveQuoteItem($item->getId(), $info['action'], $itemQty);
                         }
-                    } else {
-                        $this->moveQuoteItem($item->getId(), $info['action'], $itemQty);
                     }
                 }
             } catch (Mage_Core_Exception $e) {

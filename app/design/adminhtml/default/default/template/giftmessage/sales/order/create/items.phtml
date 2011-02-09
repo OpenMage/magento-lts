@@ -27,7 +27,9 @@
 
 <?php if ($this->canDisplayGiftMessage()): ?>
     <div class="no-display">
-        <?php echo $this->getFormHtml();?>
+        <div id="gift-message-form-data-<?php echo $this->getItem()->getId(); ?>">
+            <?php echo $this->getFormHtml();?>
+        </div>
 
         <?php if ($this->getMessageText()): ?>
         <div class="gift-options-tooltip-content">

@@ -19,37 +19,28 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category    Mage
- * @package     Mage_PageCache
+ * @package     Mage_XmlConnect
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * System cache management additional block
+ * Adminhtml airmail queue grid block action item renderer
  *
- * @category    Mage
- * @package     Mage_PageCache
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_XmlConnect
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_PageCache_Block_Cache_Additional extends Mage_Adminhtml_Block_Template
+class Mage_XmlConnect_Block_Adminhtml_Queue_Grid_Renderer_Id extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
-     * Get clean cache url
+     * Render grid row
      *
+     * @param Varien_Object $row
      * @return string
      */
-    public function getCleanExternalCacheUrl()
+    public function render(Varien_Object $row)
     {
-        return $this->getUrl('*/pagecache/clean');
-    }
-
-    /**
-     * Check if block can be displayed
-     *
-     * @return bool
-     */
-    public function canShowButton()
-    {
-        return Mage::helper('pagecache')->isEnabled();
+        return $row->getId();
     }
 }

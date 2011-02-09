@@ -62,41 +62,7 @@
 
 <script type="text/javascript">
 //<![CDATA[
-var giftMessageSet = {
-    destPrefix : 'current_item_giftmessage_',
-    sourcePrefix : 'giftmessage_',
-    fields : ['sender', 'recipient', 'message'],
-    init : function() {
-        $$('.action-link').each(function (el) {
-            Event.observe(el, 'click', this.setData.bind(this));
-        }, this);
-    },
-    setData : function(event){
-        var element = Event.element(event).id;
-        this.id = element.sub('gift_options_link_','');
-        this.fields.each(function(el) {
-            if ($(this.sourcePrefix + this.id + '_' + el) && $(this.destPrefix + el)) {
-                $(this.destPrefix + el).value = $(this.sourcePrefix + this.id + '_' + el).value
-            }
-        }, this);
-        Event.observe('gift_options_ok_button', 'click', this.saveData.bind(this));
-        Event.stop(event);
-    },
-    saveData : function(event){
-        this.fields.each(function(el) {
-            if ($(this.sourcePrefix + this.id + '_' + el) && $(this.destPrefix + el)) {
-                $(this.sourcePrefix + this.id + '_' + el).value = $(this.destPrefix + el).value;
-            }
-        }, this);
-        if ($(this.sourcePrefix + this.id + '_form')) {
-            $(this.sourcePrefix + this.id + '_form').request();
-        } else {
-            var data = order.serializeData('gift_options_data_' + this.id);
-            order.loadArea(['items'], true, data.toObject());
-        }
-    }
-};
-giftMessageSet.init();
+var giftMessageSet = new GiftMessageSet();
 //]]>
 </script>
 <?php endif; ?>

@@ -218,6 +218,11 @@
             <Mage_Eav_Model_Entity_Type/>
             <Mage_Eav_Model_Mysql4_Entity_Attribute/>
             <Mage_Eav_Model_Mysql4_Entity_Type/>
+            <Mage_Eav_Model_Mysql4_Entity_Attribute_Collection/>
+            <Mage_Eav_Model_Entity_Attribute_Backend_Default/>
+            <Mage_Eav_Model_Entity_Attribute_Backend_Datetime/>
+            <Mage_Eav_Model_Entity_Attribute_Backend_Time_Created/>
+            <Mage_Eav_Model_Entity_Attribute_Backend_Time_Updated/>
         </default>
 
         <cms>
@@ -319,17 +324,12 @@
             <Mage_Eav_Model_Entity_Attribute/>
             <Mage_Eav_Model_Entity_Attribute_Backend_Abstract/>
             <Mage_Eav_Model_Entity_Attribute_Backend_Array/>
-            <Mage_Eav_Model_Entity_Attribute_Backend_Datetime/>
-            <Mage_Eav_Model_Entity_Attribute_Backend_Default/>
             <Mage_Eav_Model_Entity_Attribute_Backend_Interface/>
-            <Mage_Eav_Model_Entity_Attribute_Backend_Time_Created/>
-            <Mage_Eav_Model_Entity_Attribute_Backend_Time_Updated/>
             <Mage_Eav_Model_Entity_Attribute_Interface/>
             <Mage_Eav_Model_Entity_Collection_Abstract/>
             <Mage_Eav_Model_Entity_Interface/>
             <Mage_Eav_Model_Entity_Type/>
             <Mage_Eav_Model_Mysql4_Entity_Attribute/>
-            <Mage_Eav_Model_Mysql4_Entity_Attribute_Collection/>
             <Mage_Eav_Model_Mysql4_Entity_Type/>
             <Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config/>
             <Mage_GiftMessage_Model_Observer/>

@@ -24,7 +24,6 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * @method Mage_XmlConnect_Model_Mysql4_Application _getResource()
  * @method Mage_XmlConnect_Model_Mysql4_Application getResource()
@@ -54,25 +53,31 @@
  */
 class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
 {
-
     /**
      * Application code cookie name
+     *
+     * @var string
      */
     const APP_CODE_COOKIE_NAME = 'app_code';
 
     /**
      * Device screen size name
+     *
+     * @var string
      */
     const APP_SCREEN_SIZE_NAME = 'screen_size';
 
-
     /**
      * Device screen size name
+     *
+     * @var string
      */
     const APP_SCREEN_SIZE_DEFAULT = '320x480';
 
     /**
      * Device screen size source name
+     *
+     * @var string
      */
     const APP_SCREEN_SOURCE_DEFAULT = 'default';
 
@@ -104,9 +109,92 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      */
     protected $_imageIds = array('icon', 'loader_image', 'logo', 'big_logo');
 
+    /**
+     * Last submitted data from history table
+     *
+     * @var null|array
+     */
+    protected $_lastParams;
+
+    /**
+     * Application submit info
+     *
+     * @var array
+     */
+    protected $submit_params = array();
+
+    /**
+     * Application submit action type
+     *
+     * @var bool
+     */
+    protected $is_resubmit_action = false;
+
+    /**
+     * Full application code
+     *
+     * @var null|string
+     */
+    protected $code;
+
+    /**
+     * Main configuration of current application
+     *
+     * @var null|array
+     */
+    protected $conf;
+
+    /**
+     * Submission/Resubmission key max length
+     *
+     * @var int
+     */
+    const APP_MAX_KEY_LENGTH = 40;
+
+    /**
+     * XML path to config with an email address
+     * for contact to receive credentials
+     * of Urban Airship notifications
+     *
+     * @var string
+     */
+    const XML_PATH_CONTACT_CREDENTIALS_EMAIL = 'xmlconnect/mobile_application/urbanairship_credentials_email';
+
+    /**
+     * XML path to config with Urban Airship Terms of Service URL
+     *
+     * @var string
+     */
+    const XML_PATH_URBAN_AIRSHIP_TOS_URL = 'xmlconnect/mobile_application/urbanairship_terms_of_service_url';
+
+    /**
+     * XML path to config copyright data
+     *
+     * @var string
+     */
+    const XML_PATH_DESIGN_FOOTER_COPYRIGHT = 'design/footer/copyright';
+
+    /**
+     * XML path to config restriction status
+     * (EE module)
+     *
+     * @var string
+     */
+    const XML_PATH_GENERAL_RESTRICTION_IS_ACTIVE = 'general/restriction/is_active';
+
+    /**
+     * XML path to config restriction mode
+     * (EE module)
+     *
+     * @var string
+     */
+    const XML_PATH_GENERAL_RESTRICTION_MODE = 'general/restriction/mode';
+
 
     /**
      * Initialize application
+     *
+     * @return void
      */
     protected function _construct()
     {
@@ -168,7 +256,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      * @param array $b
      * @return array
      */
-    protected function _configMerge (array $a, array $b)
+    protected function _configMerge(array $a, array $b)
     {
         $result = array();
         $keys = array_unique(array_merge(array_keys($a), array_keys($b)));
@@ -188,12 +276,13 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
 
     /**
      * Set default configuration data
+     *
+     * @return void
      */
     public function loadDefaultConfiguration()
     {
-        $this->setType('iphone');
         $this->setCode($this->getCodePrefix());
-        $this->setConf(Mage::helper('xmlconnect/iphone')->getDefaultConfiguration());
+        $this->setConf(Mage::helper('xmlconnect')->getDeviceHelper()->getDefaultConfiguration());
     }
 
     /**
@@ -235,7 +324,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      */
     public function getRenderConf()
     {
-        $result = Mage::helper('xmlconnect/iphone')->getDefaultConfiguration();
+        $result = Mage::helper('xmlconnect')->getDeviceHelper()->getDefaultConfiguration();
         $result = $result['native'];
         $extra = array();
         if (isset($this->_data['conf'])) {
@@ -290,22 +379,28 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
         $result['general']['updateTimeUTC'] = strtotime($this->getUpdatedAt());
         $result['general']['browsingMode'] = $this->getBrowsingMode();
         $result['general']['currencyCode'] = Mage::app()->getStore($this->getStoreId())->getDefaultCurrencyCode();
-        $result['general']['secureBaseUrl'] = Mage::getStoreConfig('web/secure/base_url', $this->getStoreId());
+        $result['general']['secureBaseUrl'] = Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL, $this->getStoreId());
         $maxRecipients = 0;
         $allowGuest = 0;
-        if (Mage::getStoreConfig('sendfriend/email/enabled')) {
-            $maxRecipients = Mage::getStoreConfig('sendfriend/email/max_recipients');
-            $allowGuest = Mage::getStoreConfig('sendfriend/email/allow_guest');
+        if (Mage::getStoreConfig(Mage_Sendfriend_Helper_Data::XML_PATH_ENABLED)) {
+            $maxRecipients = Mage::getStoreConfig(Mage_Sendfriend_Helper_Data::XML_PATH_MAX_RECIPIENTS);
+            $allowGuest = Mage::getStoreConfig(Mage_Sendfriend_Helper_Data::XML_PATH_ALLOW_FOR_GUEST);
         }
         $result['general']['emailToFriendMaxRecepients'] = $maxRecipients;
         $result['general']['emailAllowGuest'] = $allowGuest;
         $result['general']['primaryStoreLang'] = Mage::app()
             ->getStore($this->getStoreId())->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE);
         $result['general']['magentoVersion'] = Mage::getVersion();
-        $result['general']['copyright'] = Mage::getStoreConfig('design/footer/copyright', $this->getStoreId());
+        $result['general']['copyright'] = Mage::getStoreConfig(self::XML_PATH_DESIGN_FOOTER_COPYRIGHT, $this->getStoreId());
 
         $result['general']['isAllowedGuestCheckout'] = Mage::getSingleton('checkout/session')
             ->getQuote()->isAllowedGuestCheckout();
+
+        if (!Mage::getStoreConfigFlag('wishlist/general/active')) {
+            $result['general']['wishlistEnable'] = '0';
+        } else {
+            $result['general']['wishlistEnable'] = '1';
+        }
 
         /**
          * PayPal configuration
@@ -315,9 +410,13 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
 
         $isActive = 0;
         if (isset($result['paypal']) && isset($result['paypal']['isActive'])) {
-            $isActive = (int)($result['paypal']['isActive'] && Mage::getModel('xmlconnect/payment_method_paypal_mep')->isAvailable(null, $this->getStoreId()));
+            $isActive = (int)($result['paypal']['isActive'] && Mage::getModel('xmlconnect/payment_method_paypal_mep')->isAvailable(null));
         }
         $result['paypal']['isActive'] = $isActive;
+
+        if ((int)Mage::getStoreConfig(self::XML_PATH_GENERAL_RESTRICTION_IS_ACTIVE)) {
+            $result['website_restrictions']['mode'] = (int) Mage::getStoreConfig(self::XML_PATH_GENERAL_RESTRICTION_MODE);
+        }
 
         return $result;
     }
@@ -416,10 +515,15 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      */
     public function loadConfiguration()
     {
-        $configuration = $this->getConfiguration();
-        if (!empty($configuration)) {
-            $configuration = unserialize($configuration);
-            $this->setData('conf', $configuration);
+        static $isConfigurationLoaded = null;
+
+        if (is_null($isConfigurationLoaded)) {
+            $configuration = $this->getConfiguration();
+            if (!empty($configuration)) {
+                $configuration = unserialize($configuration);
+                $this->setData('conf', $configuration);
+                $isConfigurationLoaded = true;
+            }
         }
         return $this;
     }
@@ -557,6 +661,17 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
             $errors[] = Mage::helper('xmlconnect')->__('Please enter the Title.');
         }
 
+        if (isset($params['title'])) {
+            if ($this->getType() == Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE) {
+                $strRules = array('max' => '12');
+            } else {
+                $strRules = array('max' => '200');
+            }
+            if (!Zend_Validate::is($params['title'], 'StringLength', $strRules)) {
+                $errors[] = Mage::helper('xmlconnect')->__('"Title" is more than %d characters long', $strRules['max']);
+            }
+        }
+
         if (!Zend_Validate::is(isset($params['copyright']) ? $params['copyright'] : null, 'NotEmpty')) {
             $errors[] = Mage::helper('xmlconnect')->__('Please enter the Copyright.');
         }
@@ -572,14 +687,18 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
         }
 
         if ($this->getIsResubmitAction()) {
-            if (!Zend_Validate::is(
-                    isset($params['resubmission_activation_key']) ? $params['resubmission_activation_key'] : null,
-                    'NotEmpty')) {
+            $resubmissionKey = isset($params['resubmission_activation_key']) ? $params['resubmission_activation_key'] : null;
+            if (!Zend_Validate::is($resubmissionKey, 'NotEmpty')) {
                 $errors[] = Mage::helper('xmlconnect')->__('Please enter the Resubmission Key.');
+            } else if (!Zend_Validate::is($resubmissionKey, 'StringLength', array(1, self::APP_MAX_KEY_LENGTH))) {
+                $errors[] = Mage::helper('xmlconnect')->__('Submit App failure. Invalid activation key provided');
             }
         } else {
-            if (!Zend_Validate::is(isset($params['key']) ? $params['key'] : null, 'NotEmpty')) {
-                    $errors[] = Mage::helper('xmlconnect')->__('Please enter the Activation Key.');
+            $key = isset($params['key']) ? $params['key'] : null;
+            if (!Zend_Validate::is($key, 'NotEmpty')) {
+                $errors[] = Mage::helper('xmlconnect')->__('Please enter the Activation Key.');
+            } else if (!Zend_Validate::is($key, 'StringLength', array(1, self::APP_MAX_KEY_LENGTH))) {
+                $errors[] = Mage::helper('xmlconnect')->__('Submit App failure. Invalid activation key provided');
             }
         }
 
@@ -592,6 +711,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     /**
      * Check config for valid values
      *
+     * @throws Mage_Core_Exception
      * @return bool|array
      */
     protected function _validateConf()
@@ -607,18 +727,42 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
             $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "Logo in Header" field from Design Tab.');
         }
 
-        if ( ($native === false)
-            || (!isset($native['body']) || !is_array($native['body'])
-            || !isset($native['body']['bannerImage'])
-            || !Zend_Validate::is($native['body']['bannerImage'], 'NotEmpty'))) {
-            $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "Banner on Home Screen" field from Design Tab.');
-        }
+        $deviceType = Mage::helper('xmlconnect')->getApplication()->getType();
+        switch ($deviceType) {
+            case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE:
+                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('bannerImage', $native)) {
+                    $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "Banner on Home Screen" field from Design Tab.');
+                }
 
-        if (($native === false)
-            || (!isset($native['body']) || !is_array($native['body'])
-            || !isset($native['body']['backgroundImage'])
-            || !Zend_Validate::is($native['body']['backgroundImage'], 'NotEmpty'))) {
-            $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "App Background" field from Design Tab.');
+                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('backgroundImage', $native)) {
+                    $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "App Background" field from Design Tab.');
+                }
+                break;
+            case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPAD:
+                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('bannerImageIpad', $native)) {
+                    $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "Banner on Home Screen" field from Design Tab.');
+                }
+
+                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('backgroundImageIpadLandscape', $native)) {
+                    $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "App Background (landscape mode)" field from Design Tab.');
+                }
+
+                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('backgroundImageIpadPortret', $native)) {
+                    $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "App Background (portrait mode)" field from Design Tab.');
+                }
+                break;
+            case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_ANDROID:
+                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('bannerImageAndroid', $native)) {
+                    $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "Banner on Home Screen" field from Design Tab.');
+                }
+
+                if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('backgroundImageAndroid', $native)) {
+                    $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "App Background" field from Design Tab.');
+                }
+                break;
+            default:
+                Mage::throwException(Mage::helper('xmlconnect')->__('Device doesn\'t recognized: "%s". Unable to load a helper.', $deviceType));
+                break;
         }
 
         if (empty($errors)) {
@@ -635,7 +779,6 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      */
     public function prepareSubmitParams($data)
     {
-
         $params = array();
         if (isset($data['conf']) && is_array($data['conf'])) {
 
@@ -646,7 +789,12 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
             $params['name'] = $this->getName();
             $params['code'] = $this->getCode();
             $params['type'] = $this->getType();
-            $params['url'] = Mage::getBaseUrl() . 'xmlconnect/configuration/index/app_code/' . $this->getCode();
+            $params['url'] = Mage::getUrl('xmlconnect/configuration/index', array(
+                '_store' => $this->getStoreId(),
+                '_nosid' => true,
+                'app_code' => $this->getCode()
+            ));
+
             $params['magentoversion'] = Mage::getVersion();
 
             if (isset($params['country']) && is_array($params['country'])) {
@@ -709,7 +857,6 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
         if (isset($this->_data['conf']) && is_array($this->_data['conf']) &&
             isset($this->_data['conf']['submit_text']) && is_array($this->_data['conf']['submit_text']) &&
             isset($this->_data['conf']['submit_text']['key'])) {
-
             $key = $this->_data['conf']['submit_text']['key'];
         }
         return $key;
@@ -724,5 +871,45 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->updateAllAppsUpdatedAtParameter();
         return $this;
+    }
+
+    /**
+     * Getter return concatenated user and password
+     *
+     * @return string
+     */
+    public function getUserpwd()
+    {
+        return $this->loadConfiguration()->getAppKey() . ':' . $this->getAppMasterSecret();
+    }
+
+    /**
+     * Getter for Application Key
+     *
+     * @return string
+     */
+    public function getAppKey()
+    {
+        return $this->getData('conf/native/notifications/applicationKey');
+    }
+
+    /**
+     * Getter for Application Secret
+     *
+     * @return string
+     */
+    public function getAppSecret()
+    {
+        return $this->getData('conf/native/notifications/applicationSecret');
+    }
+
+    /**
+     * Getter for Application Master Secret
+     *
+     * @return string
+     */
+    public function getAppMasterSecret()
+    {
+        return $this->getData('conf/native/notifications/applicationMasterSecret');
     }
 }

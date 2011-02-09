@@ -1,0 +1,143 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+$title1color = $this->getConfigFontInfo('Title1/color');
+$title2color = $this->getConfigFontInfo('Title2/color');
+$title5color = $this->getConfigFontInfo('Title5/color');
+
+$primaryColor = $this->getData('conf/body/primaryColor');
+$secondaryColor = $this->getData('conf/body/secondaryColor');
+
+$starImage = $this->getPreviewImagesUrl('android/bg_star.png');
+$emptyStarImage = $this->getPreviewImagesUrl('android/bg_star_empty.png');
+?>
+<link rel="stylesheet" type="text/css" href="<?php echo $this->getPreviewCssUrl('mobile-android.css'); ?>" media="all" />
+
+<div class="main-frame main-frame-catalog" style="background-color:<?php echo $this->getData('conf/body/backgroundColor'); ?>;">
+    <div class="phone catalog-page">            
+        <div class="status-bar"></div>
+        <div class="header-wrap" style="background-color:<?php echo $this->getData('conf/navigationBar/tintColor'); ?>;">
+            <div class="header">
+                <div class="icon icon-home"></div>
+                <div class="icon icon-account"></div>
+                <div class="icon icon-search"></div>
+                <div class="logo">
+                    <img src="<?php echo $this->getLogoUrl(); ?>" alt="logo" /><span style="color:<?php echo $title1color; ?>;"><?php echo $this->__("Chairs"); ?></span>
+                </div>
+            </div>
+        </div>
+        <div class="filters-wrap">
+            <div class="filters" style="background-color:<?php echo $primaryColor; ?>;">
+                <div class="buttons">
+                    <span class="button button-filter" style="background-color:<?php echo $secondaryColor; ?>;">Filter</span>
+                    <span class="button button-qty">2</span>
+                    <span class="label">Sort By:</span>
+                    <span class="button button-sort-name" style="background-color:<?php echo $secondaryColor; ?>;">Name</span>
+                    <span class="button button-up" style="background-color:<?php echo $secondaryColor; ?>;">&nbsp;</span>
+                </div>
+            </div>
+        </div>
+        <div class="cat-list">
+            <ul>
+                <li style="background-color:<?php echo $primaryColor; ?>;">
+                    <div class="col-1">
+                        <div class="product-image">
+                            <img src="<?php echo $this->getPreviewImagesUrl('android/product_image_1.jpg') ?>" alt="Bertoia Wire Chair" />
+                        </div>
+                        <div class="rating">
+                            <img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $emptyStarImage ?>" alt="" />
+                            <span>(2)</span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <h3 style="color:<?php echo $title2color; ?>;">Bertoia Wire Chair</h3>
+                        <div class="price-box">
+                            <span class="price" style="color:<?php echo $title5color; ?>;">$399.00</span>
+                        </div>
+                        <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
+                    </div>
+                </li>
+                <li style="background-color:<?php echo $primaryColor; ?>;">
+                    <div class="col-1">
+                        <div class="product-image">
+                            <img src="<?php echo $this->getPreviewImagesUrl('android/product_image_2.jpg') ?>" alt="Bertoia Wire Chair" />
+                        </div>
+                        <div class="rating">
+                            <img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" />
+                            <span>(5)</span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <h3 style="color:<?php echo $title2color; ?>;">Eames LCW Chair</h3>
+                        <div class="price-box">
+                            <span class="old-price" style="color:<?php echo $title2color; ?>;">$749.00</span>
+                            <span class="price" style="color:<?php echo $title5color; ?>;">$499.00</span>
+                        </div>
+                        <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
+                    </div>
+                </li>
+                <li style="background-color:<?php echo $primaryColor; ?>;">
+                    <div class="col-1">
+                        <div class="product-image">
+                            <img src="<?php echo $this->getPreviewImagesUrl('android/product_image_3.jpg') ?>" alt="Bertoia Wire Chair" />
+                        </div>
+                        <div class="rating">
+                            <img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $emptyStarImage ?>" alt="" /><img src="<?php echo $emptyStarImage ?>" alt="" />
+                            <span>(18)</span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <h3 style="color:<?php echo $title2color; ?>;">Panton Chair</h3>
+                        <div class="price-box">
+                            <span class="price" style="color:<?php echo $title5color; ?>;">$299.00</span>
+                        </div>
+                        <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
+                    </div>
+                </li>
+                <li style="background-color:<?php echo $primaryColor; ?>;">
+                    <div class="col-1">
+                        <div class="product-image">
+                            <img src="<?php echo $this->getPreviewImagesUrl('android/product_image_4.jpg') ?>" alt="Bertoia Wire Chair" />
+                        </div>
+                        <div class="rating">
+                            <img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" /><img src="<?php echo $starImage ?>" alt="" />
+                            <span>(5)</span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <h3 style="color:<?php echo $title2color; ?>;">Bertoia Side Chair</h3>
+                        <div class="price-box">
+                            <span class="old-price" style="color:<?php echo $title2color; ?>;">$1299.00</span>
+                            <span class="price" style="color:<?php echo $title5color; ?>;">$869.00</span>
+                        </div>
+                        <div class="availability" style="color:<?php echo $title2color; ?>;">In Stock</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

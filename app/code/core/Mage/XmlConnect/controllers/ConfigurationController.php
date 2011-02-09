@@ -27,13 +27,14 @@
 /**
  * XmlConnect index controller
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author  Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_XmlConnect_ConfigurationController extends Mage_Core_Controller_Front_Action
 {
     /**
      * Declare content type header
+     *
+     * @return void
      */
     public function preDispatch()
     {
@@ -44,6 +45,7 @@ class Mage_XmlConnect_ConfigurationController extends Mage_Core_Controller_Front
     /**
      * Initialize application
      *
+     * @throws Mage_Core_Exception
      * @return Mage_XmlConnect_Model_Application
      */
     protected function _initApp()
@@ -60,11 +62,11 @@ class Mage_XmlConnect_ConfigurationController extends Mage_Core_Controller_Front
             Mage::getSingleton('core/locale')->emulate($app->getStoreId());
             $app->setScreenSize($screenSize);
             if (!$app->getId()) {
-                Mage::throwException(Mage::helper('xmlconnect')->__('App with specified code does not exist.'));
+                Mage::throwException($this->__('App with specified code does not exist.'));
             }
             $app->loadConfiguration();
         } else {
-            Mage::throwException(Mage::helper('xmlconnect')->__('App code required.'));
+            Mage::throwException($this->__('App code required.'));
         }
         Mage::register('current_app', $app);
         return $app;
@@ -72,6 +74,8 @@ class Mage_XmlConnect_ConfigurationController extends Mage_Core_Controller_Front
 
     /**
      * Default action
+     *
+     * @return void
      */
     public function indexAction()
     {
@@ -92,8 +96,8 @@ class Mage_XmlConnect_ConfigurationController extends Mage_Core_Controller_Front
             foreach ($cookieToSetArray as $item) {
                 if (!isset($_COOKIE[$item['cookieName']]) ||
                     (isset($_COOKIE[$item['cookieName']]) &&
-                            ($_COOKIE[$item['cookieName']] != $this->getRequest()->getParam($item['paramName'])))
-                    ) {
+                        ($_COOKIE[$item['cookieName']] != $this->getRequest()->getParam($item['paramName']))
+                    )) {
                     /**
                      * @todo add management of cookie expire to application admin panel
                      */
@@ -123,7 +127,7 @@ class Mage_XmlConnect_ConfigurationController extends Mage_Core_Controller_Front
         } catch (Exception $e) {
             $message = new Mage_XmlConnect_Model_Simplexml_Element('<message></message>');
             $message->addChild('status', Mage_XmlConnect_Controller_Action::MESSAGE_STATUS_ERROR);
-            $message->addChild('text', Mage::helper('xmlconnect')->__('Can\'t show configuration.'));
+            $message->addChild('text', $this->__('Can\'t show configuration.'));
             Mage::logException($e);
             $this->getResponse()->setBody($message->asNiceXml());
         }

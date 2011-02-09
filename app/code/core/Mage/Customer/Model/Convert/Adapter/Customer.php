@@ -270,7 +270,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
 
     public function load()
     {
-        $addressType = $this->getVar('filter/addressType');
+        $addressType = $this->getVar('filter/adressType'); //error in key filter addressType
         if ($addressType=='both') {
            $addressType = array('default_billing','default_shipping');
         }

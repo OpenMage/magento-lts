@@ -32,7 +32,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Themes ex
      */
     public function getTitle()
     {
-        return Mage::helper('xmlconnect')->__('Color Themes');
+        return $this->__('Color Themes');
     }
 
     /**

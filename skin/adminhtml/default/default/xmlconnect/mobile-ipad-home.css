@@ -1,0 +1,130 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @copyright  Copyright (c) 2010 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+* {
+    margin:0; padding:0;
+    }
+ol,
+ul {
+    list-style:none;
+    }
+a  {
+    color:#000;
+    text-decoration:none;
+    }
+body {
+    font-family:"Helvetica Neue", Helvetica, Verdana, sans-serif;
+    line-height:1;
+    }
+
+.ipad {
+    height:467px;
+    width:350px;
+    }
+.ipad-horizontal {
+    height:350px;
+    width:467px;
+    }
+    .ipad .status-bar {
+        background:url(../images/xmlconnect/mobile_preview/ipad/bg_status_bar.png) no-repeat 0 0;
+        height:9px;
+        font-size:0;
+        line-height:0;
+        }
+    .ipad-horizontal .status-bar {
+        background-image:url(../images/xmlconnect/mobile_preview/ipad/bg_status_bar_hor.png);
+        }
+    .ipad .header-wrap {
+        background:url(../images/xmlconnect/mobile_preview/ipad/bg_home_header.png) no-repeat 0 0 #000;
+        height:20px;
+        }
+    .ipad-horizontal .header-wrap {
+        background-image:url(../images/xmlconnect/mobile_preview/ipad/bg_home_header_hor.png);
+        }
+        .ipad .header .logo {
+            margin-left:5px;
+            margin-right:1px;
+            }
+            .ipad .header .logo img {
+                vertical-align:middle;
+                }
+        .ipad .header .store-name {
+            color:#fff;
+            font-size:9px;
+            line-height:20px;
+            vertical-align:middle;
+            }
+    .ipad .shadow {
+        background:url(../images/xmlconnect/mobile_preview/ipad/bg_home_shadow.png) no-repeat;
+        height:3px;
+        font-size:0;
+        line-height:0;
+        position:relative;
+        margin:0 0 -3px;
+        }
+    .ipad-horizontal .shadow {
+        background-image:url(../images/xmlconnect/mobile_preview/ipad/bg_home_shadow_hor.png);
+        height:8px;
+        margin-bottom:-8px;
+        }
+    .ipad .content {
+        background:url(../images/xmlconnect/mobile_preview/ipad/background_portrait.jpg) no-repeat 0 0;
+        height:438px;
+        overflow:hidden;
+        }
+    .ipad-horizontal .content {
+        background-image:url(../images/xmlconnect/mobile_preview/ipad/background_landscape_home.jpg);
+        height:321px;
+        }
+        .ipad .content .logo {
+            background:url(../images/xmlconnect/mobile_preview/ipad/logo_big.png) no-repeat center center;
+            height:135px;
+            }
+        .ipad-horizontal .content .logo {
+            height:170px;
+            }
+        .ipad .products-list {
+            background:url(../images/xmlconnect/mobile_preview/ipad/bg_home_products.png) no-repeat 0 0;
+            font-size:7px;
+            padding:10px 0 0 25px;
+            overflow:hidden;
+            width:325px;
+            }
+        .ipad-horizontal .products-list {
+            padding-left:5px;
+            width:462px;
+            }
+            .ipad .products-list li {
+                background:#fff;
+                float:left;
+                margin:0 20px 20px 20px;
+                padding:2px 2px 4px;
+                text-align:center;
+                -moz-box-shadow:1px 3px 3px #444;
+                -webkit-box-shadow:1px 3px 3px #444;
+                box-shadow:1px 3px 3px #444;
+                }
+            .ipad-horizontal .products-list li {
+                }
+                .ipad .products-list .product-image {
+                    margin:0 0 4px;
+                    }
