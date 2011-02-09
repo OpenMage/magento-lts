@@ -439,4 +439,15 @@ class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
         }
         return $result;
     }
+
+    /**
+     * Get list of coutries that allowed in Ituens by Apple Store for Ipad
+     * (get info from Iphone helper)
+     *
+     * @return array
+     */
+    public function getItunesCountriesArray()
+    {
+        return Mage::helper('xmlconnect/iphone')->getItunesCountriesArray();
+    }
 }

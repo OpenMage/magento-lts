@@ -102,15 +102,8 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getDeviceHelper($application = null)
     {
-        $deviceType = null;
-        if (empty($application)) {
-            $deviceType = (string) $this->getApplication()->getType();
-        } elseif ($application instanceof Mage_XmlConnect_Model_Application) {
-            $deviceType = (string) $application->getType();
-        }
-        if (empty($deviceType)) {
-            $deviceType = self::DEVICE_TYPE_DEFAULT;
-        }
+        $deviceType = $this->getDeviceType($application);
+
         switch ($deviceType) {
             case self::DEVICE_TYPE_IPHONE:
             case self::DEVICE_TYPE_IPAD:
@@ -122,6 +115,26 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
                 break;
         }
         return $helper;
+    }
+
+    /**
+     * Get device tipe from application
+     *
+     * @param Mage_XmlConnect_Model_Application $application
+     * @return string
+     */
+    public function getDeviceType($application = null)
+    {
+        $deviceType = null;
+        if (empty($application) && Mage::registry('current_app') !== null) {
+            $deviceType = (string) $this->getApplication()->getType();
+        } elseif ($application instanceof Mage_XmlConnect_Model_Application) {
+            $deviceType = (string) $application->getType();
+        }
+        if (empty($deviceType)) {
+            $deviceType = self::DEVICE_TYPE_DEFAULT;
+        }
+        return $deviceType;
     }
 
     /**
@@ -177,24 +190,42 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_getUrl($route, $params);
     }
 
-
     /**
      * Retrieve country options array
      *
+     * @param bool $isItunes
      * @return array
      */
-    public function getCountryOptionsArray()
+    public function getCountryOptionsArray($isItunes = false)
     {
         Varien_Profiler::start('TEST: '.__METHOD__);
+        switch ($this->getDeviceType()) {
+            case self::DEVICE_TYPE_IPHONE:
+            case self::DEVICE_TYPE_IPAD:
+                $cacheKey = 'XMLCONNECT_COUNTRY_ITUNES_SELECT_STORE_'.Mage::app()->getStore()->getCode();
+                $itunesCountries = $this->getDeviceHelper()->getItunesCountriesArray();
+                break;
+            case self::DEVICE_TYPE_ANDROID:
+            default:
+                $cacheKey = 'XMLCONNECT_COUNTRY_SELECT_STORE_'.Mage::app()->getStore()->getCode();
+                break;
+        }
 
-        $cacheKey = 'XMLCONNECT_COUNTRY_SELECT_STORE_'.Mage::app()->getStore()->getCode();
-        if (Mage::app()->useCache('config') && $cache = Mage::app()->loadCache($cacheKey)) {
+        if (false && Mage::app()->useCache('config') && $cache = Mage::app()->loadCache($cacheKey)) {
             $options = unserialize($cache);
         } else {
-            $options = Mage::getModel('directory/country')
-                ->getResourceCollection()
-                ->loadByStore()
-                ->toOptionArray();
+            if (isset($itunesCountries)) {
+                $options = Mage::getModel('directory/country')
+                    ->getResourceCollection()
+                    ->addFieldToFilter('country_id', array('in' => $itunesCountries))
+                    ->loadByStore()
+                    ->toOptionArray();
+            } else {
+                $options = Mage::getModel('directory/country')
+                    ->getResourceCollection()
+                    ->loadByStore()
+                    ->toOptionArray();
+            }
             if (Mage::app()->useCache('config')) {
                 Mage::app()->saveCache(serialize($options), $cacheKey, array('config'));
             }

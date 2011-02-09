@@ -51,8 +51,8 @@ $paths[] = $bp . $ds . 'lib';
 $appPath = implode($ps, $paths);
 set_include_path($appPath . $ps . get_include_path());
 
-include_once "Mage/Core/functions.php";
-include_once "Varien/Autoload.php";
+include_once 'Mage/Core/functions.php';
+include_once 'Varien/Autoload.php';
 
 Varien_Autoload::register();
 
@@ -74,7 +74,7 @@ if (file_exists($filePath) && is_readable($filePath)) {
 $mageFilename = 'app/Mage.php';
 
 if (!file_exists($mageFilename)) {
-    echo $mageFilename." was not found";
+    echo $mageFilename . ' was not found';
 }
 
 require_once $mageFilename;
@@ -98,7 +98,7 @@ if ($databaseFileSotrage->getId()) {
         mkdir($directory, 0777, true);
     }
 
-    $fp = fopen($filePath, "w");
+    $fp = fopen($filePath, 'w');
     if (flock($fp, LOCK_EX | LOCK_NB)) {
         ftruncate($fp, 0);
         fwrite($fp, $databaseFileSotrage->getContent());

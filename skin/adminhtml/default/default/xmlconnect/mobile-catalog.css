@@ -22,6 +22,14 @@
  */
 body { margin: 0; padding: 0 }
 
+@font-face {
+    font-family: 'stars';
+    src: url('fonts/stars-webfont.eot');
+    src: local('O'), url('fonts/stars-webfont.woff') format('woff'), url('fonts/stars-webfont.ttf') format('truetype'), url('fonts/stars-webfont.svg#webfontyMStiDRV') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .main-frame
 { 
     background:url(../images/xmlconnect/mobile_preview/mm-frame.gif) 0 0 no-repeat;
@@ -253,11 +261,70 @@ body { margin: 0; padding: 0 }
 .sort-buttons
 {
 	text-align:center;
-	font:bold 11px/11px arial;
+	font:bold 11px/11px Helvetica, "Helvetica Neue", Verdana, sans-serif;
 	padding:0 5px 0 0;
     width:234px; 
     height:26px; 
     margin-top:8px
+}
+
+.buttons-holder
+{
+    float:left;
+    margin:5px 0 0 5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    -moz-box-shadow:0 1px 1px #bbb;
+    -webkit-box-shadow:0 1px 1px #bbb;
+    box-shadow:0 1px 1px #bbb;
+}
+
+.sort-block .button
+{
+    background:url(../images/xmlconnect/mobile_preview/sort_buttons/bg_button.png) no-repeat 0 0 #8c8c8c;
+    border:1px solid #606060;
+    display:inline;
+    float:left;
+    color:#fefefe;
+    font:bold 14px/16px Helvetica, "Helvetica Neue", Verdana, sans-serif;
+    padding:6px 9px 5px;
+    text-shadow:0 -1px 1px #222;
+    -moz-box-shadow:inset 0 1px 1px #777;
+    -webkit-box-shadow:inset 0 1px 1px #777;
+    box-shadow:inset 0 1px 1px #777;
+}
+
+.sort-block .button-pos
+{
+    padding-right:2px;
+    text-shadow:0 -1px 1px #666;
+    -moz-border-radius:5px 0 0 5px;
+    -webkit-border-radius:5px 0 0 5px;
+    border-radius:5px 0 0 5px;
+}
+
+.sort-block .button-name,
+.sort-block .button-price
+{
+    padding:6px 19px 5px;
+}
+
+.sort-block .button-name
+{
+    border-width:1px 0;
+}
+
+.sort-block .button-price
+{
+    -moz-border-radius:0 5px 5px 0;
+    -webkit-border-radius:0 5px 5px 0;
+    border-radius:0 5px 5px 0;
+}
+
+.sort-block .button img
+{
+    vertical-align:middle;
 }
 
 .active 
@@ -376,18 +443,25 @@ body { margin: 0; padding: 0 }
     padding:5px 0;
 }
 
-.item-rate img 
-{
-    margin:0 !important; padding:0 !important;
+.item-rate {
+    padding:4px 0 0;
 }
 
-.item-rate span
+.item-rate .stars
 {
-	position: relative;
-	top: -2px;
-	left: 0px;
-	font: bold 12px arial;
-	color: #333;	
+    font-family:stars;
+    vertical-align:middle;
+}
+
+.item-rate .star
+{
+    vertical-align:top;
+}
+
+.item-rate strong
+{
+    font-size:10px;
+    vertical-align:text-top;
 }
 
 .item-rate

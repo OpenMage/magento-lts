@@ -150,9 +150,11 @@ class Mage_XmlConnect_Block_Catalog_Product extends Mage_XmlConnect_Block_Catalo
             }
         }
 
-        $productXmlObj->appendChild($this->getChild('xmlconnect.catalog.product.options')
-            ->getProductOptionsXmlObject($product)
-        );
+        $productOptions = $this->getChild('xmlconnect.catalog.product.options')
+            ->getProductOptionsXmlObject($product);
+        if ($productOptions instanceof Mage_XmlConnect_Model_Simplexml_Element) {
+            $productXmlObj->appendChild($productOptions);
+        }
 
         return $productXmlObj->asNiceXml();
     }

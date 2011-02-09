@@ -26,6 +26,107 @@
 
 class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
 {
+    /**
+     * List of coutries that allowed in Ituens by Apple Store
+     *
+     * array(
+     *      'country name' => 'country id at directory model'
+     * )
+     *
+     * @var array
+     */
+    protected $_allowedCounrties = array(
+                'Argentina' => 'AR',
+                'Armenia' => 'AM',
+                'Australia' => 'AU',
+                'Austria' => 'AT',
+                'Belgium' => 'BE',
+                'Botswana' => 'BW',
+                'Brazil' =>'BR',
+                'Bulgaria' => 'BG',
+                'Canada' => 'CA',
+                'Chile' => 'CL',
+                'China' => 'CN',
+                'Colombia' => 'CO',
+                'Costa Rica' => 'CR',
+                'Croatia' => 'HR',
+                'Czech Republic' => 'CZ',
+                'Denmark' => 'DK',
+                'Dominican Republic' => 'DO',
+                'Ecuador' => 'EC',
+                'Egypt' => 'EG',
+                'El Salvador' => 'SV',
+                'Estonia' => 'EE',
+                'Finland' => 'FI',
+                'France' => 'FR',
+                'Germany' => 'DE',
+                'Greece' => 'GR',
+                'Guatemala' => 'GT',
+                'Honduras' => 'HN',
+                'Hong Kong SAR China' => 'HK',
+                'Hungary' => 'HU',
+                'India' => 'IN',
+                'Indonesia' => 'ID',
+                'Ireland' => 'IE',
+                'Israel' => 'IL',
+                'Italy' => 'IT',
+                'Jamaica' => 'JM',
+                'Japan' => 'JP',
+                'Jordan' => 'JO',
+                'Kazakstan' => 'KZ',
+                'Kenya' => 'KE',
+                'South Korea' => 'KR',
+                'Kuwait' => 'KW',
+                'Latvia' => 'LW',
+                'Lebanon' => 'LB',
+                'Lithuania' => 'LT',
+                'Luxembourg' => 'LU',
+                'Macau SAR China' => 'MO',
+                'Macedonia' => 'MK',
+                'Madagascar' => 'MG',
+                'Malaysia' => 'MY',
+                'Mali' => 'ML',
+                'Malta' => 'MT',
+                'Mauritius' => 'MU',
+                'Mexico' => 'MX',
+                'Moldova' => 'MD',
+                'Netherlands' => 'NL',
+                'New Zealand' => 'NZ',
+                'Nicaragua' => 'NI',
+                'Niger' => 'NE',
+                'Norway' => 'NO',
+                'Pakistan' => 'PK',
+                'Panama' => 'PA',
+                'Paraguay' => 'PY',
+                'Peru'=> 'PE',
+                'Philippines' => 'PH',
+                'Poland' => 'PL',
+                'Portugal' => 'PT',
+                'Qatar' => 'QA',
+                'Romania' => 'RO',
+                'Russia' => 'RU',
+                'Saudi Arabia' => 'SA',
+                'Senegal' => 'SN',
+                'Singapore' => 'SG',
+                'Slovakia' => 'SK',
+                'Slovenia' => 'SI',
+                'South Africa' => 'ZA',
+                'Spain' => 'ES',
+                'Sri Lanka' => 'LK',
+                'Sweden' => 'SE',
+                'Switzerland' => 'CH',
+                'Taiwan' => 'TW',
+                'Thailand' => 'TH',
+                'Tunisia' => 'TN',
+                'Turkey' => 'TR',
+                'Uganda' => 'UG',
+                'United Arab Emirates' => 'AE',
+                'United Kingdom' => 'GB',
+                'United States' => 'US',
+                'Uruguay' => 'UY',
+                'Venezuela' => 'VE',
+                'Vietnam' => 'VN',
+        );
 
     /**
      * Get default application tabs
@@ -388,5 +489,15 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
             );
         }
         return $result;
+    }
+
+    /**
+     * Get list of coutries that allowed in Ituens by Apple Store for Iphone
+     *
+     * @return array
+     */
+    public function getItunesCountriesArray()
+    {
+        return $this->_allowedCounrties;
     }
 }

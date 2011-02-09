@@ -505,6 +505,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
     {
         $item = $this->_getQuoteItem($item);
         if ($item) {
+            $removeItem = false;
             switch ($moveTo) {
                 case 'order':
                     $info = $item->getBuyRequest();
@@ -554,26 +555,27 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                         }
                         $cartItem->setPrice($item->getProduct()->getPrice());
                         $this->_needCollectCart = true;
+                        $removeItem = true;
                     }
                     break;
                 case 'wishlist':
                     $wishlist = $this->getCustomerWishlist();
-                    if ($wishlist) {
-                        $info = $item->getOptionByCode('info_buyRequest');
-                        if ($info) {
-                            $info = new Varien_Object(
-                                unserialize($info->getValue())
-                            );
-                            $info->setOptions($this->_prepareOptionsForRequest($item));
-                            $info->setStoreId($this->getSession()->getStoreId());
-                        }
+                    if ($wishlist && $item->getProduct()->isVisibleInSiteVisibility()) {
+                        $info = $item->getBuyRequest();
+                        $info->setOptions($this->_prepareOptionsForRequest($item))
+                            ->setQty($qty)
+                            ->setStoreId($this->getSession()->getStoreId());
                         $wishlist->addNewItem($item->getProduct(), $info);
+                        $removeItem = true;
                     }
+                    break;
+                case 'remove':
+                    $removeItem = true;
                     break;
                 default:
                     break;
             }
-            if ($moveTo != 'order') {
+            if ($removeItem) {
                 $this->getQuote()->removeItem($item->getId());
             }
             $this->setRecollect(true);
@@ -719,11 +721,13 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
             Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL
         );
         if (is_string($item)) {
-             $item = $this->getQuote()->addProductAdvanced(
-                $product,
-                $config,
-                Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE
-            );
+            if ($product->getTypeId() != Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE) {
+                $item = $this->getQuote()->addProductAdvanced(
+                    $product,
+                    $config,
+                    Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE
+                );
+            }
             if (is_string($item)) {
                 Mage::throwException($item);
             }

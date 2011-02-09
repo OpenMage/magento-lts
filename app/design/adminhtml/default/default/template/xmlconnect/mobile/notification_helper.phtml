@@ -24,10 +24,6 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php $_app = Mage::registry('current_app'); ?>
-<?php if ($_app instanceof Mage_XmlConnect_Model_Application && $_app->getId()):?>
-<?php $_app->loadConfiguration(); ?>
-<?php if (!$_app->getAppKey()):?>
 <div class="notification-global notification-global-notice">
 <strong>
 <?php
@@ -36,5 +32,3 @@
 </strong>
 </div>
 <br />
-<?php endif;?>
-<?php endif;?>

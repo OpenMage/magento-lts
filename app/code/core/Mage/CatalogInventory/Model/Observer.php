@@ -247,7 +247,8 @@ class Mage_CatalogInventory_Model_Observer
     {
         $quoteItem = $observer->getEvent()->getItem();
         /* @var $quoteItem Mage_Sales_Model_Quote_Item */
-        if (!$quoteItem || !$quoteItem->getProductId() || $quoteItem->getQuote()->getIsSuperMode()) {
+        if (!$quoteItem || !$quoteItem->getProductId() || !$quoteItem->getQuote()
+            || $quoteItem->getQuote()->getIsSuperMode()) {
             return $this;
         }
 

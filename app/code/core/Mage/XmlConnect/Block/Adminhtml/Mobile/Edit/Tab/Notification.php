@@ -168,6 +168,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Notification extends Mage_
 
     /**
      * Append helper above form
+     *
      * @return string
      */
     protected function _toHtml()

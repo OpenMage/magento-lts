@@ -121,7 +121,7 @@ class Varien_File_Transfer_Adapter_Http
      * Internal method to detect the mime type of a file
      *
      * @param  array $value File infos
-     * @return string Mimetype of given file
+     * @return string Mime type of given file
      */
     protected function _detectMimeType($value)
     {
@@ -133,17 +133,14 @@ class Varien_File_Transfer_Adapter_Http
             return null;
         }
 
-        if (empty($result) && (function_exists('mime_content_type')
-            && ini_get('mime_magic.magicfile'))) {
-            $result = mime_content_type($file);
+        $parts = explode('.', $file);
+        $extention = strtolower(array_pop($parts));
+        if (isset($this->_mimeTypes[$extention])) {
+            $result = $this->_mimeTypes[$extention];
         }
 
-        if (empty($result)) {
-            $parts = explode('.', $file);
-            $extention = strtolower(array_pop($parts));
-            if (isset($this->_mimeTypes[$extention])) {
-                $result = $this->_mimeTypes[$extention];
-            }
+        if (empty($result) && (function_exists('mime_content_type') && ini_get('mime_magic.magicfile'))) {
+            $result = mime_content_type($file);
         }
 
         if (empty($result)) {

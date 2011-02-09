@@ -1,3 +1,37 @@
+==== 1.5.0.0-rc2 =====
+
+== Changes ==
+Paypal HSS payment method label, comment and default title
+
+== Fixes ==
+Fixed User cannot place order using Paypal payment methods with 3d secure
+Fixed iPhone product list preview
+Fixed App locations (countries) do not match iTunes App Stores countries available
+Fixed Added parent quote items to discount calculation to prevent skipping of configurable products.
+Fixed Rounding issue on front end if discount with fixed amount is applied and no tax rules applies to the order.
+- added rounding item discount before take away from total discount
+Fixed Fatal error after deleting one of the shipping addresses during checkout with multiple addresses
+Fixed Merged CSS files with selected native Database as media storage are not applied with Chrome and FF
+- first trying to detect MIME type manually, and only after by native php function
+Fixed The buttons "Accept Payment" and "Deny Payment" do not appear in orders with status 'Payment Review'
+Fixed issue when Simple products not visible individually (part of grouped) are moved to Wishlist
+Fixed Impossible to delete product from Items Ordered (backend Order creation) using "remove" in Action dropdown
+Fixed Fatal error after deleting one of the shipping addresses during checkout with multiple addresses
+Fixed Qty for simple products (part of grouped) is incorrect when moved from order to Wishlist
+- additional fixture for other testcase
+Fixed Grouped product is added to Items Ordered as grouped, when any of buttons in sideblocks is pressed after product configuration in a product grid (backend Order creation)
+- prevent to add unconfigured grouped product on server side
+- in sales.js, do productConfigure.clean('quote_items') only if "Items Ordered" block is going to update
+- in sales.js, hide "Search" block only when product added to qoute from "Search" block
+- in configure.js, added ability to cleaning by list type scope
+Fixed Incorrect behavior of Partial Authorization process, when admin user cancels authorizations (Authorize.net)
+- added reloading block 'totals' after canceling partial authorization
+Fixed Google Checkout Issue - Transactions not appearing
+- adding transaction (transaction id = google order id) for googlecheckout payment
+- fixed usage of Mage_GoogleCheckout_Model_Api_Xml_Callback::_getTaxClassForShipping() method according to it's interface
+- fixed usage of Mage_GoogleCheckout_Model_Api_Xml_Abstract::_getTaxClassForShipping() method according to it's interface
+- creating transactions for refund and chargeback
+
 ==== 1.5.0.0-rc1 =====
 
 === Fixes ===

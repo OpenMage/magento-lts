@@ -331,4 +331,15 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
             ->getBlock('order_item_extra_info')
             ->setItem($item);
     }
+
+    /**
+     * Returns whether moving to wishlist is allowed for this item
+     *
+     * @param Mage_Sales_Model_Quote_Item $item
+     * @return bool
+     */
+    public function isMoveToWishlistAllowed($item)
+    {
+        return $item->getProduct()->isVisibleInSiteVisibility();
+    }
 }

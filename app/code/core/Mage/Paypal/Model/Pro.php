@@ -274,7 +274,7 @@ class Mage_Paypal_Model_Pro
      */
     public function canReviewPayment(Mage_Payment_Model_Info $payment)
     {
-        return Mage_Paypal_Model_Info::isFraudReviewAllowed($payment);
+        return Mage_Paypal_Model_Info::isPaymentReviewRequired($payment);
     }
 
     /**

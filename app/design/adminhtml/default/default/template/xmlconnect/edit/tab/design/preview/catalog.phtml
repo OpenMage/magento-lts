@@ -51,6 +51,7 @@ $text2color = $this->getConfigFontInfo('Text2/color');
 
 $naviBarTintColor = $this->getData('conf/navigationBar/tintColor');
 $primaryColor = $this->getData('conf/body/primaryColor');
+$secondaryColor = $this->getData('conf/body/secondaryColor');
 
 $activeStartImage = $this->getPreviewImagesUrl('star-active.png');
 $inactiveStartImage = $this->getPreviewImagesUrl('star-inactive.png');
@@ -115,8 +116,10 @@ $productImage = $this->getPreviewImagesUrl('t-shirt.png');
     <div class="sort-block" style="background:<?php echo $primaryColor; ?>;">
         <div class="sort-block-inner">
             <div class="sort-block-inner-txt" style="font:bold <?php echo $title3size; ?>px <?php echo $title3name; ?>; color: <?php echo $title3color; ?>;"><?php echo $this->__('SORT BY:'); ?></div>
-            <div style="float:left; padding:5px 0 0 5px;">
-                <img src="<?php echo $this->getPreviewImagesUrl('sort_buttons/filters.png');?>" alt="Filter Settings" />
+            <div class="buttons-holder">
+                <span class="button button-pos" style="background-color:<?php echo $secondaryColor; ?>">Position<img src="<?php echo $this->getPreviewImagesUrl('sort_buttons/button_up.gif');?>" alt="" /></span>
+                <span class="button button-name">Name</span>
+                <span class="button button-price">Price</span>
             </div>
         </div>
     </div>
@@ -130,8 +133,10 @@ $productImage = $this->getPreviewImagesUrl('t-shirt.png');
                     <span class="item-price" style="font: bold <?php echo $title5size; ?>px <?php echo $title5name; ?>; color: <?php echo $title5color; ?>;">$39.99</span>
                 </div>
                 <div class="item-rate">
-                    <img src="<?php echo $activeStartImage; ?>" width="14" height="13"/><img src="<?php echo $activeStartImage; ?>" width="14" height="13"/><img src="<?php echo $activeStartImage; ?>" width="14" height="13"/><img src="<?php echo $activeStartImage; ?>" width="14" height="13"/><img src="<?php echo $inactiveStartImage; ?>" width="13" height="13"/>
-                    <span style="font: bold <?php echo  $text2size; ?>px <?php echo $text2name; ?>; color: <?php echo $text2color; ?>;">(4)</span>
+                    <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                        <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                    </span>
+                    <strong style="color:<?php echo $text2color; ?>;">(2)</strong>
                 </div>
                 <div class="availability">
                     <span class="item-status" style="font: bold <?php echo  $text2size; ?>px <?php echo $text2name; ?>; color: <?php echo $text2color; ?>;">In Stock</span>
@@ -148,8 +153,10 @@ $productImage = $this->getPreviewImagesUrl('t-shirt.png');
                     <span class="item-price" style="font: bold <?php echo $title5size; ?>px <?php echo $title5name; ?>; color: <?php echo $title5color; ?>;">$39.99</span>
                 </div>
                 <div class="item-rate">
-                    <img src="<?php echo $activeStartImage; ?>" width="14" height="13"/><img src="<?php echo $activeStartImage; ?>" width="14" height="13"/><img src="<?php echo $activeStartImage; ?>" width="14" height="13"/><img src="<?php echo $activeStartImage; ?>" width="14" height="13"/><img src="<?php echo $inactiveStartImage; ?>" width="13" height="13"/>
-                    <span style="font: bold <?php echo  $text2size; ?>px <?php echo $text2name; ?>; color: <?php echo $text2color; ?>;">(4)</span>
+                    <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                        <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                    </span>
+                    <strong style="color:<?php echo $text2color; ?>;">(2)</strong>
                 </div>
                 <div class="availability">
                     <span class="item-status" style="font: bold <?php echo  $text2size; ?>px <?php echo $text2name; ?>; color: <?php echo $text2color; ?>;"><?php echo $this->__('In Stock'); ?></span>
@@ -157,7 +164,7 @@ $productImage = $this->getPreviewImagesUrl('t-shirt.png');
             </div>
             <div class="arrow">&nbsp;</div>
         </div>
-        <div class="slider-item" style="border-top:1px solid #ffaa00; border-bottom:1px solid #a16c00; display: table; width: 320px; height: 91px; background: <?php echo $this->getData('conf/body/secondaryColor'); ?>;">
+        <div class="slider-item" style="border-top:1px solid #666; border-bottom:1px solid #777; display: table; width: 320px; height: 91px; background:<?php echo $this->getData('conf/body/secondaryColor'); ?>;">
             <div class="slider-item">
                 <img src="<?php echo $this->getPreviewImagesUrl('slider/viewGallery.png'); ?>" class="slider-image"/>
                 <div class="slider-item-text" style="font: bold <?php echo $title8size; ?>px <?php echo $title8name; ?>; color: <?php echo $title8color; ?>;" class="slider-item-text" >
@@ -199,8 +206,10 @@ $productImage = $this->getPreviewImagesUrl('t-shirt.png');
                     <span class="item-price" style="font: bold <?php echo $title5size; ?>px <?php echo $title5name; ?>; color: <?php echo $title5color; ?>;">$39.99</span>
                 </div>
                 <div class="item-rate">
-                    <img src="<?php echo $activeStartImage; ?>" width="14" height="13"/><img src="<?php echo $activeStartImage; ?>" width="14" height="13"/><img src="<?php echo $activeStartImage; ?>" width="14" height="13"/><img src="<?php echo $activeStartImage; ?>" width="14" height="13"/><img src="<?php echo $inactiveStartImage; ?>" width="13" height="13"/>
-                    <span style="font: bold <?php echo  $text2size; ?>px <?php echo $text2name; ?>; color: <?php echo $text2color; ?>;">(4)</span>
+                    <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
+                        <span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">f</span><span class="star">c</span>
+                    </span>
+                    <strong style="color:<?php echo $text2color; ?>;">(4)</strong>
                 </div>
                 <div class="availability">
                     <span class="item-status" style="font: bold <?php echo  $text2size; ?>px <?php echo $text2name; ?>; color: <?php echo $text2color; ?>;"><?php echo $this->__('In Stock'); ?></span>

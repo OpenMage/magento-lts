@@ -61,12 +61,14 @@
             </tfoot>
             <tbody>
             <?php foreach ($this->getItems() as $_index => $_item): ?>
+                <?php if ($_item->getQuoteItem()) :?>
                 <tr>
                     <td><?php echo $this->getItemHtml($_item->getQuoteItem())?></td>
                     <td><input type="text" name="ship[<?php echo $_index ?>][<?php echo $_item->getQuoteItemId() ?>][qty]" value="<?php echo $this->htmlEscape($_item->getQty()) ?>" size="2" class="input-text qty" /></td>
                     <td><?php if ($_item->getProduct()->getIsVirtual()): echo $this->__('Shipping selection is not applicable.'); else: echo $this->getAddressesHtmlSelect($_item, $_index); endif; ?></td>
                     <td class="a-center"><a href="<?php echo $this->getItemDeleteUrl($_item) ?>" title="<?php echo $this->__('Remove Item') ?>" class="btn-remove2"><?php echo $this->__('Remove Item') ?></a></td>
                 </tr>
+                <?php endif; ?>
             <?php endforeach; ?>
             </tbody>
         </table>

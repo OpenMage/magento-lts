@@ -506,23 +506,28 @@ ProductConfigure.prototype = {
      * @param method can be 'all' or 'current'
      */
     clean: function(method) {
+        var listInfo = null;
+        var listTypes = null;
+        var removeConfirmed = function (listTypes) {
+            this.blockConfirmed.childElements().each(function(elm) {
+                for (var i = 0, len = listTypes.length; i < len; i++) {
+                   var pattern = this.blockConfirmed.id + '[' + listTypes[i] + ']';
+                   if (elm.id.indexOf(pattern) == 0) {
+                       elm.remove();
+                       break;
+                   }
+                }
+            }.bind(this));
+        }.bind(this);
+
         switch (method) {
             case 'current':
-                var listInfo = this.listTypes[this.current.listType];
-                var listTypes = [this.current.listType];
+                listInfo = this.listTypes[this.current.listType];
+                listTypes = [this.current.listType];
                 if (listInfo.complexTypes) {
                     listTypes = listTypes.concat(listInfo.complexTypes);
                 }
-
-                this.blockConfirmed.childElements().each(function(elm) {
-                    for (var i = 0, len = listTypes.length; i < len; i++) {
-                       var pattern = this.blockConfirmed.id + '[' + listTypes[i] + ']';
-                       if (elm.id.indexOf(pattern) == 0) {
-                           elm.remove();
-                           break;
-                       }
-                    }
-                }.bind(this));
+                removeConfirmed(listTypes);
             break;
             case 'window':
                     this.blockFormFields.update();
@@ -531,12 +536,23 @@ ProductConfigure.prototype = {
                     this.blockCancelBtn.show();
             break;
             default:
-                this.current = $H({});
-                this.blockConfirmed.update();
-                this.blockFormFields.update();
-                this.blockMsg.hide();
-                this.blockMsgError.update();
-                this.blockCancelBtn.show();
+                // search in list types for its cleaning
+                if (this.listTypes[method]) {
+                    listInfo = this.listTypes[method];
+                    listTypes = [method];
+                    if (listInfo.complexTypes) {
+                        listTypes = listTypes.concat(listInfo.complexTypes);
+                    }
+                    removeConfirmed(listTypes);
+                // clean all
+                } else if (!method) {
+                    this.current = $H({});
+                    this.blockConfirmed.update();
+                    this.blockFormFields.update();
+                    this.blockMsg.hide();
+                    this.blockMsgError.update();
+                    this.blockCancelBtn.show();
+                }
             break;
         }
         this._getIFrameContent().body.innerHTML = '';

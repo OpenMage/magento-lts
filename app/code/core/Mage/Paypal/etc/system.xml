@@ -164,8 +164,8 @@
                             <show_in_website>1</show_in_website>
                         </payflow_link>
                         <hosted_pro translate="label comment">
-                            <label>Website Payments Pro Hosted Solution for EU &amp; APAC</label>
-                            <comment>Hosted Solution, which is available to merchants in the United Kingdom as part of Website Payments Pro, is a fast and easy way to add transaction processing to your website.</comment>
+                            <label>Website Payments Pro Hosted Solution (Website Payments Plus (JP) - Integral Evolution (FR) - PayPal Pro (IT) - Pasarela integral (ES))</label>
+                            <comment><![CDATA[Payments by cards + seller protection - <strong style="color:red">Contact PayPal before activating</strong>]]></comment>
                             <more_url><![CDATA[https://cms.paypal.com/cms_content/GB/en_GB/files/developer/HostedSolution.pdf]]></more_url>
                             <config_path>payment/hosted_pro/active</config_path>
                             <frontend_type>checkbox</frontend_type>

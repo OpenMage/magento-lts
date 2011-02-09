@@ -554,6 +554,8 @@ AdminOrder.prototype = {
             }
         }
         this.productConfigureSubmit('product_to_add', area, fieldsPrepare, itemsFilter);
+        productConfigure.clean('quote_items');
+        this.hideArea('search');
         this.gridProducts = $H({});
     },
 
@@ -704,7 +706,6 @@ AdminOrder.prototype = {
      */
     productConfigureSubmit : function(listType, area, fieldsPrepare, itemsFilter) {
         // prepare loading areas and build url
-        this.hideArea('search');
         area = this.prepareArea(area);
         this.loadingAreas = area;
         var url = this.loadBaseUrl + 'block/' + area + '?isAjax=true';
@@ -849,8 +850,8 @@ AdminOrder.prototype = {
         else {
             new Ajax.Request(url, {parameters:params,loaderArea: indicator});
         }
-        if (typeof productConfigure != 'undefined') {
-            productConfigure.clean();
+        if (typeof productConfigure != 'undefined' && area instanceof Array && area.indexOf('items' != -1)) {
+            productConfigure.clean('quote_items');
         }
     },
 

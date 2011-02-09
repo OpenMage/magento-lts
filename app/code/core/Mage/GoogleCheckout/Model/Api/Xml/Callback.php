@@ -161,7 +161,6 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         $merchantCalculations = new GoogleMerchantCalculations($this->getCurrency());
 
         $quote = $this->_loadQuote();
-        $storeId = $quote->getStoreId();
 
         $billingAddress = $quote->getBillingAddress();
         $address = $quote->getShippingAddress();
@@ -207,6 +206,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
                 ->setLimitCarrier($limitCarrier);
 
             $billingAddress->collectTotals();
+            $shippingTaxClass = $this->_getTaxClassForShipping($quote);
 
             $gRequestMethods = $this->getData('root/calculate/shipping/method');
             if ($gRequestMethods) {
@@ -239,7 +239,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
                             ->setCollectShippingRates(true)
                             ->collectTotals();
                         $shippingRate = $address->getBaseShippingAmount() - $address->getBaseShippingDiscountAmount();
-                        $result->SetShippingDetails($methodName, $shippingRate, "true");
+                        $result->SetShippingDetails($methodName, $shippingRate, 'true');
 
                         if ($this->getData('root/calculate/tax/VALUE') == 'true') {
                             $taxAmount = $address->getBaseTaxAmount();
@@ -247,7 +247,6 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
                             $result->setTaxDetails($taxAmount);
                         }
                     } else {
-                        $shippingTaxClass = $this->_getTaxClassForShipping($quote->getStoreId());
                         if ($shippingTaxClass &&
                             $this->getData('root/calculate/tax/VALUE') == 'true') {
                             $i = 1;
@@ -261,24 +260,24 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
                             $address->setShippingAmount(
                                 $this->_reCalculateToStoreCurrency($price, $quote)
                             );
-                            $this->_applyShippingTaxClass($address);
+                            $this->_applyShippingTaxClass($address, $shippingTaxClass);
                             $taxAmount = $address->getBaseTaxAmount();
                             $taxAmount += $billingAddress->getBaseTaxAmount();
-                            $result->SetShippingDetails($methodName, $price - $address->getBaseShippingDiscountAmount(), "true");
+                            $result->SetShippingDetails($methodName, $price - $address->getBaseShippingDiscountAmount(), 'true');
                             $result->setTaxDetails($taxAmount);
                             $i++;
                         } else {
-                            $result->SetShippingDetails($methodName, 0, "false");
+                            $result->SetShippingDetails($methodName, 0, 'false');
                         }
                     }
                     $merchantCalculations->AddResult($result);
                 }
 
-            } else if ($this->getData('root/calculate/tax/VALUE')=='true') {
+            } else if ($this->getData('root/calculate/tax/VALUE') == 'true') {
                 $address->setShippingMethod(null);
                 $address->setCollectShippingRates(true)->collectTotals();
                 $billingAddress->setCollectShippingRates(true)->collectTotals();
-                $this->_applyShippingTaxClass($address);
+                $this->_applyShippingTaxClass($address, $shippingTaxClass);
 
                 $taxAmount = $address->getBaseTaxAmount();
                 $taxAmount += $billingAddress->getBaseTaxAmount();
@@ -399,8 +398,16 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
             $order->addItem($orderItem);
         }
 
-        $payment = Mage::getModel('sales/order_payment')->setMethod('googlecheckout');
+        /*
+         * Adding transaction for correct transaction information displaying on order view at back end.
+         * It has no influence on api interaction logic.
+         */
+        $payment = Mage::getModel('sales/order_payment')
+            ->setMethod('googlecheckout')
+            ->setTransactionId($this->getGoogleOrderNumber())
+            ->setIsTransactionClosed(false);
         $order->setPayment($payment);
+        $payment->addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH);
         $order->setCanShipPartiallyItem(false);
 
         $emailAllowed = ($this->getData('root/buyer-marketing-preferences/email-allowed/VALUE')==='true');
@@ -485,7 +492,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
     }
 
     /**
-     * Import address data from goole request to address object
+     * Import address data from google request to address object
      *
      * @param array | Varien_Object $gAddress
      * @param Varien_Object $qAddress
@@ -782,11 +789,12 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
             $msg .= '<br />'.$this->__('Invoice Auto-Created: %s', '<strong>'.$invoice->getIncrementId().'</strong>');
         }
 
+        $this->_addChildTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE);
+
+        $open = Mage_Sales_Model_Order_Invoice::STATE_OPEN;
         foreach ($order->getInvoiceCollection() as $orderInvoice) {
-            $open = Mage_Sales_Model_Order_Invoice::STATE_OPEN;
-            $paid = Mage_Sales_Model_Order_Invoice::STATE_PAID;
             if ($orderInvoice->getState() == $open && $orderInvoice->getBaseGrandTotal() == $latestCharged) {
-                $orderInvoice->setState($paid)
+                $orderInvoice->setState(Mage_Sales_Model_Order_Invoice::STATE_PAID)
                     ->setTransactionId($this->getGoogleOrderNumber())
                     ->save();
                 break;
@@ -795,17 +803,17 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
 
         $order->addStatusToHistory($order->getStatus(), $msg);
         $order->save();
-
     }
 
     protected function _createInvoice()
     {
         $order = $this->getOrder();
 
-        $invoice = $order->prepareInvoice();
-        $invoice->addComment(Mage::helper('googlecheckout')->__('Auto-generated from GoogleCheckout Charge'));
-        $invoice->register();
-        $invoice->pay();
+        $invoice = $order->prepareInvoice()
+            ->setTransactionId($this->getGoogleOrderNumber())
+            ->addComment(Mage::helper('googlecheckout')->__('Auto-generated from GoogleCheckout Charge'))
+            ->register()
+            ->pay();
 
         $transactionSave = Mage::getModel('core/resource_transaction')
             ->addObject($invoice)
@@ -859,6 +867,9 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         $msg .= '<br />'.$this->__('Latest Chargeback: %s', '<strong>' . $this->_formatAmount($latestChargeback) . '</strong>');
         $msg .= '<br />'.$this->__('Total Chargeback: %s', '<strong>' . $this->_formatAmount($totalChargeback) . '</strong>');
 
+        $this->_addChildTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_REFUND,
+            Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE);
+
         $order->addStatusToHistory($order->getStatus(), $msg);
         $order->save();
     }
@@ -898,6 +909,9 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         $msg .= '<br />'.$this->__('Latest Refund: %s', '<strong>' . $this->_formatAmount($latestRefunded) . '</strong>');
         $msg .= '<br />'.$this->__('Total Refunded: %s', '<strong>' . $this->_formatAmount($totalRefunded) . '</strong>');
 
+        $this->_addChildTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_REFUND,
+            Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE);
+
         $order->addStatusToHistory($order->getStatus(), $msg);
         $order->save();
     }
@@ -931,6 +945,39 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         if (method_exists($this, $method)) {
             $this->$method();
         }
+    }
+
+    /**
+     * Add transaction to payment with defined type
+     *
+     * @param   string $typeTarget
+     * @param   string $typeParent
+     * @return  Mage_GoogleCheckout_Model_Api_Xml_Callback
+     */
+    protected function _addChildTransaction($typeTarget, $typeParent = Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH)
+    {
+        $payment                = $this->getOrder()->getPayment();
+        $googleOrderId          = $this->getGoogleOrderNumber();
+        $parentTransactionId    = $googleOrderId;
+
+        if ($typeParent != Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH) {
+            $parentTransactionId .= '-' . $typeParent;
+        } else {
+            $payment->setIsTransactionClosed(false);
+        }
+
+        $parentTransaction = $payment->getTransaction($parentTransactionId);
+
+        if ($parentTransaction) {
+            $payment->setParentTransactionId($parentTransactionId)
+                ->setTransactionId($googleOrderId . '-' . $typeTarget)
+                ->addTransaction($typeTarget);
+
+            $parentTransaction->setIsClosed(true)
+                ->save();
+        }
+
+        return $this;
     }
 
     protected function _orderStateChangeFinancialReviewing()

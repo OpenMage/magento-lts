@@ -258,7 +258,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         }
         $this->_isCaptureFinal($paidWorkaround);
 
-        if (!$this->getParentTransactionId) {
+        if (!$this->getParentTransactionId()) {
             $orderingTransaction = $this->_lookupTransaction(false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER);
             if ($orderingTransaction) {
                 $this->setParentTransactionId($orderingTransaction->getTxnId());

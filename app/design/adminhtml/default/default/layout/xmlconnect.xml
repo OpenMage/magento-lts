@@ -150,7 +150,6 @@
                 <block type="xmlconnect/adminhtml_mobile_submission_tab_container" name="mobile_submission_tab_container">
                     <block type="xmlconnect/adminhtml_mobile_submission_tab_container_submission" name="mobile_submission_tab_container_submission" as="edit_form"/>
                     <block type="xmlconnect/adminhtml_mobile_edit_tab_design_preview" name="mobile_edit_tab_design_preview" as="app_preview" />
-
                 </block>
                 <action method="addTab"><id>submission_section</id><block>mobile_submission_tab_container</block></action>
             </block>

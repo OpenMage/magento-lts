@@ -1789,8 +1789,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     protected function _clearReferences()
     {
-        $this->_clearStockItem();
         $this->_clearOptionReferences();
+        return $this;
     }
 
     /**
@@ -1830,23 +1830,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if (!empty($this->_options)) {
             foreach ($this->_options as $key => $option) {
                 $option->setProduct();
-                $option->clear();
+                $option->clearInstance();
             }
         }
 
-        return $this;
-    }
-
-    /**
-     * Clearing references to product from product's stock item
-     *
-     * @return Mage_Catalog_Model_Product
-     */
-    protected function _clearStockItem()
-    {
-        if ($this->hasStockItem()){
-            $this->getStockItem()->reset();
-        }
         return $this;
     }
 }

@@ -51,7 +51,7 @@
                                 }
 
                                 if (response.success) {
-                                    order.loadArea(['billing_method'], true, []);
+                                    order.loadArea(['billing_method','totals'], true, []);
                                 } else {
                                     var msg = response.error_message;
                                     if (msg) {
