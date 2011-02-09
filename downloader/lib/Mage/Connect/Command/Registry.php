@@ -338,18 +338,16 @@ extends Mage_Connect_Command
 
             }
 
-            $config->sync_pear = false;
+            $config->sync_pear = true;
             if($ftp) {
                 $packager->writeToRemoteCache($cache, $ftpObj);
                 @unlink($config->getFilename());
             }
-
-
-            return true;
-
         } catch (Exception $e) {
             $this->doError($command, $e->getMessage());
         }
+        
+        return true;
     }
 
     /**
@@ -360,7 +358,7 @@ extends Mage_Connect_Command
      */
     protected function _checkPearData($config) {
         $pearStorage = $config->magento_root . DS . $config->downloader_path  . DS . self::PACKAGE_PEAR_DIR;
-        return $config->sync_pear && file_exists($pearStorage) && is_dir($pearStorage);
+        return (!$config->sync_pear) && file_exists($pearStorage) && is_dir($pearStorage);
     }
 
 }

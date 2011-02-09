@@ -73,7 +73,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
             Mage::getSingleton('customer/session')->getCustomerGroupId(),
             'template' => $this->getTemplate(),
             'name' => $this->getNameInLayout(),
-            $this->getCurrenCategoryPath()
+            $this->getCurrenCategoryKey()
         );
         $cacheId = $shortCacheId;
 
@@ -81,7 +81,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         $shortCacheId = implode('|', $shortCacheId);
         $shortCacheId = md5($shortCacheId);
 
-        $cacheId['category_path'] = $this->getCurrenCategoryPath();
+        $cacheId['category_path'] = $this->getCurrenCategoryKey();
         $cacheId['short_cache_id'] = $shortCacheId;
 
         return $cacheId;
@@ -92,14 +92,14 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      *
      * @return mixed
      */
-    public function getCurrenCategoryPath()
+    public function getCurrenCategoryKey()
     {
         if (!$this->_currentCategoryKey) {
-            if ($category = Mage::registry('current_category')) {
+            $category = Mage::registry('current_category');
+            if ($category) {
                 $this->_currentCategoryKey = $category->getPath();
             } else {
-                $storeId = Mage::app()->getStore()->getId();
-                $this->_currentCategoryKey = Mage::app()->getStore($storeId)->getRootCategoryId();
+                $this->_currentCategoryKey = Mage::app()->getStore()->getRootCategoryId();
             }
         }
 

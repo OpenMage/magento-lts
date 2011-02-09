@@ -117,7 +117,7 @@ implements Iterator
             ),
             'sync_pear' => array(
                 'type' => 'boolean',
-                'value' => true,
+                'value' => false,
                 'prompt' => '',
                 'doc' => "",
                 'possible' => '',

@@ -760,6 +760,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $errors = array();
         $items = array();
         foreach ($cartCandidates as $candidate) {
+            // Child items can be sticked together only within their parent
+            $stickWithinParent = $candidate->getParentProductId() ? $parentItem : null;
+            $candidate->setStickWithinParent($stickWithinParent);
             $item = $this->_addCatalogProduct($candidate, $candidate->getCartQty());
             $items[] = $item;
 

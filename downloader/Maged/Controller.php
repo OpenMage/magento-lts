@@ -232,20 +232,19 @@ final class Maged_Controller
      */
     public function indexAction()
     {
+        $config = $this->config();
         if (!$this->isInstalled()) {
-            if (false&&!$this->isWritable()) {
-                echo $this->view()->template('install/writable.phtml');
-            } else {
-                $config=$this->config();
-                $this->view()->set('mage_url', dirname(dirname($_SERVER['SCRIPT_NAME'])));
-                $this->view()->set('use_custom_permissions_mode', $config->__get('use_custom_permissions_mode')?$config->__get('use_custom_permissions_mode'):'0');
-                $this->view()->set('mkdir_mode', decoct($config->__get('global_dir_mode')));
-                $this->view()->set('chmod_file_mode', decoct($config->__get('global_file_mode')));
-                $this->view()->set('protocol', $config->__get('protocol'));
-                $this->channelConfig()->setInstallView($config,$this->view());
+            $this->view()->set('mage_url', dirname(dirname($_SERVER['SCRIPT_NAME'])));
+            $this->view()->set('use_custom_permissions_mode', $config->__get('use_custom_permissions_mode')?$config->__get('use_custom_permissions_mode'):'0');
+            $this->view()->set('mkdir_mode', decoct($config->__get('global_dir_mode')));
+            $this->view()->set('chmod_file_mode', decoct($config->__get('global_file_mode')));
+            $this->view()->set('protocol', $config->__get('protocol'));
+            $this->channelConfig()->setInstallView($config,$this->view());
 
-                echo $this->view()->template('install/download.phtml');
-            }
+            echo $this->view()->template('install/download.phtml');
+        } elseif (!$config->sync_pear) {
+            $this->model('connect', true)->connect()->run('sync');
+            $this->forward('connectPackages');
         } else {
             $this->forward('connectPackages');
         }
@@ -658,7 +657,8 @@ final class Maged_Controller
             $action = !empty($_GET[self::ACTION_KEY]) ? $_GET[self::ACTION_KEY] : 'index';
         }
         if (empty($action) || !is_string($action) || !method_exists($this, $this->getActionMethod($action))) {
-            $action = 'noroute';
+            //$action = 'noroute';
+            $action = 'index';
         }
         $this->_action = $action;
         return $this;
@@ -936,8 +936,8 @@ final class Maged_Controller
             'minor'     => '5',
             'revision'  => '0',
             'patch'     => '0',
-            'stability' => 'rc',
-            'number'    => '2',
+            'stability' => '',
+            'number'    => '',
         );
     }
 

@@ -36,6 +36,7 @@
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
+                    <comment><![CDATA[<a href="http://celinks.magento.com/authorize_netRegistration" target="_blank">Click here to sign up for an Authorize.net account</a>]]></comment>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>

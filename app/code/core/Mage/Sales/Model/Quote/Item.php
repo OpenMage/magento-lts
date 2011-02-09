@@ -307,6 +307,18 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             return false;
         }
 
+        /**
+         * Check maybe product is planned to be a child of some quote item - in this case we limit search
+         * only within same parent item
+         */
+        $stickWithinParent = $product->getStickWithinParent();
+        if ($stickWithinParent) {
+            if ($this->getParentItem() !== $stickWithinParent) {
+                return false;
+            }
+        }
+
+        // Check options
         $itemOptions    = $this->getOptionsByCode();
         $productOptions = $product->getCustomOptions();
 
