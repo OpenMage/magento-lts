@@ -832,6 +832,7 @@
                         </return_path_email>
                     </fields>
                 </smtp>
+                <!-- DISABLED AS NOT COMPLETED FEATURE. DO NOT ENABLE IT
                 <media_storage_configuration translate="label" module="core">
                     <label>Storage Configuration for Media</label>
                     <frontend_type>text</frontend_type>
@@ -873,7 +874,7 @@
                                 automatically placed to the selected media storage.</comment>
                         </synchronize>
                     </fields>
-                </media_storage_configuration>
+                </media_storage_configuration> -->
             </groups>
         </system>
         <admin translate="label" module="core">

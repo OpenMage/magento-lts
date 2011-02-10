@@ -1,3 +1,8 @@
+==== 1.5.0.1 =====
+
+=== Major Highlights ===
+Due to a design flaw we are removing alternative image storage feature from this release. It will be redesigned and released in our upcoming releases
+
 ==== 1.5.0.0 =====
 
 === Major Highlights ===

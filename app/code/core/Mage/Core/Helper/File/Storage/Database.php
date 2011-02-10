@@ -54,11 +54,13 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
 
     /**
      * Check if we use DB storage
+     * Note: Disabled as not completed feature
      *
      * @return bool
      */
     public function checkDbUsage()
     {
+        return false;
         if (is_null($this->_useDb)) {
             $currentStorage = (int) Mage::app()
                 ->getConfig()->getNode(Mage_Core_Model_File_Storage::XML_PATH_STORAGE_MEDIA);

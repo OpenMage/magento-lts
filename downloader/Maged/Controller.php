@@ -935,7 +935,7 @@ final class Maged_Controller
             'major'     => '1',
             'minor'     => '5',
             'revision'  => '0',
-            'patch'     => '0',
+            'patch'     => '1',
             'stability' => '',
             'number'    => '',
         );
