@@ -27,6 +27,10 @@
 $installer = $this;
 $installer->startSetup();
 
-$installer->getConnection()->addColumn($installer->getTable('xmlconnect/history'), 'name', 'VARCHAR( 255 ) NOT NULL AFTER `activation_key`');
+$installer->getConnection()->addColumn(
+    $installer->getTable('xmlconnect/history'),
+    'name',
+    'VARCHAR( 255 ) NOT NULL AFTER `activation_key`'
+);
 
 $installer->endSetup();

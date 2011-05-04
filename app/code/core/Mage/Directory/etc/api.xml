@@ -30,7 +30,7 @@
         <resources>
             <directory_country translate="title" module="directory">
                 <model>directory/country_api</model>
-                <title>Country Api</title>
+                <title>Country API</title>
                 <acl>directory/country</acl>
                 <methods>
                     <list translate="title" module="directory">
@@ -41,7 +41,7 @@
             </directory_country>
             <directory_region translate="title" module="directory">
                 <model>directory/region_api</model>
-                <title>Region Api</title>
+                <title>Region API</title>
                 <acl>directory/region</acl>
                 <methods>
                     <list translate="title" module="directory">

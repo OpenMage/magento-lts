@@ -286,7 +286,12 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
         $productId       = $product->getId();
         $storeId         = $product->getStoreId();
         $websiteId       = Mage::app()->getStore($storeId)->getWebsiteId();
-        $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+        $customerGroupId = null;
+        if ($product->hasCustomerGroupId()) {
+            $customerGroupId = $product->getCustomerGroupId();
+        } else {
+            $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+        }
         $dateTs          = Mage::app()->getLocale()->storeTimeStamp($storeId);
         $cacheKey        = date('Y-m-d', $dateTs)."|$websiteId|$customerGroupId|$productId|$price";
 

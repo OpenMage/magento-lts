@@ -24,22 +24,11 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php
-/*
-<div style="padding: 1.5em; margin: 0 0 1em 0; background-color:#E7EFEF; border:1px solid #BEBEBE">
-    <?php echo $this->__('Select Template'); ?>:
-    <select style="width: 15em; margin: 0 2em">
-        <option><?php echo $this->__('Template Name'); ?></option>
-    </select>
-    <a href="#"><?php echo $this->__('Add More Templates'); ?></a>
-</div>
-*/
-?>
 <table border="0" cellspacing="0" cellpadding="0">
     <tr>
-        <td valign="top" width="540px"><?php echo $this->getChildHtml('design_accordion'); ?></td>
-        <td width="20px"> </td>
-        <td valign="top" width="360px">
+        <td style="width:540px"><?php echo $this->getChildHtml('design_accordion'); ?></td>
+        <td style="width:20px">&nbsp;</td>
+        <td style="width:350px">
             <?php if ($this->canShowPreview()) : ?>
                 <?php echo $this->getChildHtml('app_preview') ?>
             <?php endif; ?>
@@ -48,6 +37,6 @@
 </table>
 <script type="text/javascript">
 // <![CDATA[
-jscolor.dir = '<?php echo $this->getJsUrl(); ?>/jscolor/';
+jscolor.dir = '<?php echo $this->getJsUrl(); ?>jscolor/';
 // ]]>
 </script>

@@ -208,7 +208,13 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                 'Please enter a valid day (1-%d).' => $this->__('Please enter a valid day (1-%d).'),
                 'Please enter a valid month (1-12).' => $this->__('Please enter a valid month (1-12).'),
                 'Please enter a valid year (1900-%d).' => $this->__('Please enter a valid year (1900-%d).'),
-                'Please enter a valid full date' => $this->__('Please enter a valid full date')
+                'Please enter a valid full date' => $this->__('Please enter a valid full date'),
+                'Please enter a valid date between %s and %s' =>
+                    $this->__('Please enter a valid date between %s and %s'),
+                'Please enter a valid date equal to or greater than %s' =>
+                    $this->__('Please enter a valid date equal to or greater than %s'),
+                'Please enter a valid date less than or equal to %s' =>
+                    $this->__('Please enter a valid date less than or equal to %s')
             );
             foreach ($this->_translateData as $key=>$value) {
                 if ($key == $value) {

@@ -50,6 +50,10 @@
         <?php endforeach; ?>
         </dl>
         <?php endif; ?>
+        <?php $addInfoBlock = $this->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addInfoBlock) :?>
+            <?php echo $addInfoBlock->setItem($_item->getOrderItem())->toHtml(); ?>
+        <?php endif; ?>
         <?php echo $this->htmlEscape($_item->getDescription()) ?>
         <?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $_item->getOrderItem()) && $_item->getGiftMessageId()): ?>
             <a href="#" id="order-item-gift-message-link-<?php echo $_item->getId() ?>" class="gift-message-link" onclick="return giftMessageToogle('<?php echo $_item->getId() ?>')"><?php echo $this->__('Gift Message') ?></a>

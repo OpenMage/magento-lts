@@ -51,7 +51,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
 
 
     /**
-     * Set a specified store ID value 
+     * Set a specified store ID value
      *
      * @param <type> $store
      */
@@ -68,7 +68,8 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      */
     public function getStorageRoot()
     {
-        return Mage::getConfig()->getOptions()->getMediaDir() . DS;
+        return Mage::getConfig()->getOptions()->getMediaDir() . DS . Mage_Cms_Model_Wysiwyg_Config::IMAGE_DIRECTORY
+            . DS;
     }
 
     /**

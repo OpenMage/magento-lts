@@ -37,11 +37,15 @@ class Mage_XmlConnect_Model_Observer
      * @var array
      */
     protected $_appDependOnConfigFieldPathes = array(
-        'paypal/general/business_account',
+        Mage_XmlConnect_Model_Application::XML_PATH_PAYPAL_BUSINESS_ACCOUNT,
         'sendfriend/email/max_recipients',
         'sendfriend/email/allow_guest',
         'general/locale/code',
-        'currency/options/default'
+        'currency/options/default',
+        Mage_XmlConnect_Model_Application::XML_PATH_SECURE_BASE_LINK_URL,
+        Mage_XmlConnect_Model_Application::XML_PATH_GENERAL_RESTRICTION_IS_ACTIVE,
+        Mage_XmlConnect_Model_Application::XML_PATH_GENERAL_RESTRICTION_MODE,
+        Mage_XmlConnect_Model_Application::XML_PATH_DEFAULT_CACHE_LIFETIME
     );
 
     /**

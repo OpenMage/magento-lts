@@ -132,5 +132,12 @@
                 <copyright>&amp;copy; 2008 Magento Demo Store. All Rights Reserved.</copyright>
             </footer>
         </design>
+        <system>
+            <media_storage_configuration>
+                <allowed_resources>
+                    <site_favicons>favicon</site_favicons>
+                </allowed_resources>
+            </media_storage_configuration>
+        </system>
     </default>
 </config>

@@ -1331,6 +1331,8 @@ f/********** Product Prices > */
 #opc-review .buttons-set { border:0; padding:15px 30px; }
 #opc-review .buttons-set p { margin:0; line-height:28px; }
 #opc-review .buttons-set .please-wait { height:28px; line-height:28px; }
+#opc-review .authentication { margin:0 auto; width:570px; }
+#opc-review .warning-message { color:#222; font-weight:bold; text-align:center; padding:10px 10px 0; }
 
 /* Multiple Addresses Checkout */
 .checkout-progress { padding:0 90px; margin:0 0 20px; }

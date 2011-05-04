@@ -469,7 +469,10 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 }
             }
             if ($flag) {
-                return $this->_prepareDownloadResponse('invoice'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(), 'application/pdf');
+                return $this->_prepareDownloadResponse(
+                    'invoice'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(),
+                    'application/pdf'
+                );
             } else {
                 $this->_getSession()->addError($this->__('There are no printable documents related to selected orders.'));
                 $this->_redirect('*/*/');
@@ -500,7 +503,10 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 }
             }
             if ($flag) {
-                return $this->_prepareDownloadResponse('packingslip'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(), 'application/pdf');
+                return $this->_prepareDownloadResponse(
+                    'packingslip'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(),
+                    'application/pdf'
+                );
             } else {
                 $this->_getSession()->addError($this->__('There are no printable documents related to selected orders.'));
                 $this->_redirect('*/*/');
@@ -531,7 +537,10 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 }
             }
             if ($flag) {
-                return $this->_prepareDownloadResponse('creditmemo'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(), 'application/pdf');
+                return $this->_prepareDownloadResponse(
+                    'creditmemo'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(),
+                    'application/pdf'
+                );
             } else {
                 $this->_getSession()->addError($this->__('There are no printable documents related to selected orders.'));
                 $this->_redirect('*/*/');
@@ -588,7 +597,10 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 }
             }
             if ($flag) {
-                return $this->_prepareDownloadResponse('docs'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(), 'application/pdf');
+                return $this->_prepareDownloadResponse(
+                    'docs'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf',
+                    $pdf->render(), 'application/pdf'
+                );
             } else {
                 $this->_getSession()->addError($this->__('There are no printable documents related to selected orders.'));
                 $this->_redirect('*/*/');
@@ -693,13 +705,15 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     }
 
     /**
-     * Edit order adress form
+     * Edit order address form
      */
     public function addressAction()
     {
         $addressId = $this->getRequest()->getParam('address_id');
-        $address = Mage::getModel('sales/order_address')->load($addressId);
-        if ($address->getId()) {
+        $address = Mage::getModel('sales/order_address')
+            ->getCollection()
+            ->getItemById($addressId);
+        if ($address) {
             Mage::register('order_address', $address);
             $this->loadLayout();
             $this->renderLayout();

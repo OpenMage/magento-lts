@@ -70,18 +70,21 @@ class Mage_XmlConnect_Block_Adminhtml_History_Grid extends Mage_Adminhtml_Block_
             'align'     => 'left',
             'index'     => 'title',
             'type'      => 'text',
+            'escape'    => true
         ));
 
         $this->addColumn('name', array(
             'header'    => $this->__('App Name'),
             'align'     => 'left',
             'index'     => 'name',
+            'escape'    => true
         ));
 
         $this->addColumn('code', array(
             'header'    => $this->__('App Code'),
             'align'     => 'left',
             'index'     => 'code',
+            'escape'    => true
         ));
 
         $this->addColumn('created_at', array(
@@ -95,6 +98,7 @@ class Mage_XmlConnect_Block_Adminhtml_History_Grid extends Mage_Adminhtml_Block_
             'header'    => $this->__('Activation Key'),
             'align'     => 'left',
             'index'     => 'activation_key',
+            'escape'    => true
         ));
         return parent::_prepareColumns();
     }

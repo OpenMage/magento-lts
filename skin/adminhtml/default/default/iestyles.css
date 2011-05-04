@@ -58,7 +58,8 @@ ul.tabs li a,
 .uploader .file-row,
 .grid tr.filter .range .range-line,
 .centinel .authentication,
-.paypal-payment-notice { zoom:1; }
+.paypal-payment-notice,
+.product-options .options-list li { zoom:1; }
 
 .clear { display:block; clear:both; height:0; font-size:0; line-height:0; overflow:hidden; }
 
@@ -75,6 +76,9 @@ button.disabled:active { filter:alpha(opacity=80); }
 .content-header-floating { filter:alpha(opacity=85); }
 
 .message-popup .message-popup-content .message { _height:4.5em; }
+
+#popup-window-mask,
+.popup-window-mask { background:#efefef; filter:alpha(opacity=50); }
 
 /* Scalable Button Override */
 button, .form-button            { width:auto; margin-left:5px; overflow:visible; }

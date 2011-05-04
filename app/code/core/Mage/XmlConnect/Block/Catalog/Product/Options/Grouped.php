@@ -82,8 +82,10 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Grouped extends Mage_XmlConn
                 $productPrice = $_item->getPrice();
             }
             $productPrice = Mage::helper('xmlconnect')->formatPriceForXml($productPrice);
-            if ($productPrice > 0.00) {
-                $optionNode->addAttribute('price', $productPrice);
+            if ($productPrice != 0.00) {
+                $optionNode->addAttribute('price', Mage::helper('xmlconnect')->formatPriceForXml(
+                    Mage::helper('core')->currency($productPrice, false, false)
+                ));
                 $optionNode->addAttribute('formated_price', $this->_formatPriceString($productPrice, $product));
             }
         }

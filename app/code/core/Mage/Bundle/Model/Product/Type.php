@@ -259,12 +259,13 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     public function save($product = null)
     {
         parent::save($product);
+        $product = $this->getProduct($product);
         /* @var $resource Mage_Bundle_Model_Mysql4_Bundle */
         $resource = Mage::getResourceModel('bundle/bundle');
 
-        $options = $this->getProduct($product)->getBundleOptionsData();
+        $options = $product->getBundleOptionsData();
         if ($options) {
-            $this->getProduct($product)->setIsRelationsChanged(true);
+            $product->setIsRelationsChanged(true);
 
             foreach ($options as $key => $option) {
                 if (isset($option['option_id']) && $option['option_id'] == '') {
@@ -273,8 +274,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
                 $optionModel = Mage::getModel('bundle/option')
                     ->setData($option)
-                    ->setParentId($this->getProduct($product)->getId())
-                    ->setStoreId($this->getProduct($product)->getStoreId());
+                    ->setParentId($product->getId())
+                    ->setStoreId($product->getStoreId());
 
                 $optionModel->isDeleted((bool)$option['delete']);
                 $optionModel->save();
@@ -285,7 +286,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $usedProductIds      = array();
             $excludeSelectionIds = array();
 
-            $selections = $this->getProduct($product)->getBundleSelectionsData();
+            $selections = $product->getBundleSelectionsData();
             if ($selections) {
                 foreach ($selections as $index => $group) {
                     foreach ($group as $key => $selection) {
@@ -300,7 +301,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                         $selectionModel = Mage::getModel('bundle/selection')
                             ->setData($selection)
                             ->setOptionId($options[$index]['option_id'])
-                            ->setParentProductId($this->getProduct($product)->getId());
+                            ->setParentProductId($product->getId());
 
                         $selectionModel->isDeleted((bool)$selection['delete']);
                         $selectionModel->save();
@@ -314,12 +315,12 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     }
                 }
 
-                $resource->dropAllUnneededSelections($this->getProduct($product)->getId(), $excludeSelectionIds);
-                $resource->saveProductRelations($this->getProduct($product)->getId(), array_unique($usedProductIds));
+                $resource->dropAllUnneededSelections($product->getId(), $excludeSelectionIds);
+                $resource->saveProductRelations($product->getId(), array_unique($usedProductIds));
             }
 
-            if ($this->getProduct($product)->getData('price_type') != $this->getProduct($product)->getOrigData('price_type')) {
-                $resource->dropAllQuoteChildItems($this->getProduct($product)->getId());
+            if ($product->getData('price_type') != $product->getOrigData('price_type')) {
+                $resource->dropAllQuoteChildItems($product->getId());
             }
         }
 
@@ -787,7 +788,11 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 if ($selection->isSalable()) {
                     $selectionQty = $product->getCustomOption('selection_qty_' . $selection->getSelectionId());
                     if ($selectionQty) {
-                        $price = $product->getPriceModel()->getSelectionPrice($product, $selection, $selectionQty->getValue());
+                        $price = $product->getPriceModel()->getSelectionPrice(
+                            $product,
+                            $selection,
+                            $selectionQty->getValue()
+                        );
 
                         $option = $options->getItemById($selection->getOptionId());
                         if (!isset($bundleOptions[$option->getId()])) {
@@ -988,4 +993,18 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         return $options;
     }
+
+    /**
+     * Check if product can be configured
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return bool
+     */
+    public function canConfigure($product = null)
+    {
+        return $product instanceof Mage_Catalog_Model_Product
+            && $product->isAvailable()
+            && parent::canConfigure();
+    }
+
 }

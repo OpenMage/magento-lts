@@ -50,12 +50,34 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
             }
         }
 
+        if (!$this->_address->getId()) {
+            $this->_address->setPrefix($this->getCustomer()->getPrefix())
+                ->setFirstname($this->getCustomer()->getFirstname())
+                ->setMiddlename($this->getCustomer()->getMiddlename())
+                ->setLastname($this->getCustomer()->getLastname())
+                ->setSuffix($this->getCustomer()->getSuffix());
+        }
+
         if ($headBlock = $this->getLayout()->getBlock('head')) {
             $headBlock->setTitle($this->getTitle());
         }
         if ($postedData = Mage::getSingleton('customer/session')->getAddressFormData(true)) {
             $this->_address->setData($postedData);
         }
+    }
+
+    /**
+     * Generate name block html
+     *
+     * @return string
+     */
+    public function getNameBlockHtml()
+    {
+        $nameBlock = $this->getLayout()
+            ->createBlock('customer/widget_name')
+            ->setObject($this->getAddress());
+
+        return $nameBlock->toHtml();
     }
 
     public function getTitle()
@@ -131,12 +153,14 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
 
     public function isDefaultBilling()
     {
-        return $this->getAddress()->getId() && $this->getAddress()->getId()==Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling();
+        $defaultBilling = Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling();
+        return $this->getAddress()->getId() && $this->getAddress()->getId() == $defaultBilling;
     }
 
     public function isDefaultShipping()
     {
-        return $this->getAddress()->getId() && $this->getAddress()->getId()==Mage::getSingleton('customer/session')->getCustomer()->getDefaultShipping();
+        $defaultShipping = Mage::getSingleton('customer/session')->getCustomer()->getDefaultShipping();
+        return $this->getAddress()->getId() && $this->getAddress()->getId() == $defaultShipping;
     }
 
     public function getCustomer()
@@ -145,7 +169,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
     }
 
     public function getBackButtonUrl()
-    {//echo '=>'.$this->getCustomerAddressCount();die();
+    {
         if ($this->getCustomerAddressCount()) {
             return $this->getUrl('customer/address');
         } else {

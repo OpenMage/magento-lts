@@ -77,7 +77,8 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Grid extends Mage_Adminhtml_Block
         $this->addColumn('name', array(
             'header'    => $this->__('Template Name'),
             'align'     => 'left',
-            'index'     => 'name'
+            'index'     => 'name',
+            'escape'    => true
         ));
 
         $this->addColumn('created_at', array(
@@ -101,20 +102,23 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Grid extends Mage_Adminhtml_Block
             'align'     => 'left',
             'options'   => Mage::helper('xmlconnect')->getApplications(),
             'renderer'  => 'xmlconnect/adminhtml_template_grid_renderer_application',
+            'escape'    => true
         ));
 
         $this->addColumn('push_title', array(
             'header'    => $this->__('Push Title'),
             'type'      => 'text',
             'align'     => 'left',
-            'index'     => 'push_title'
+            'index'     => 'push_title',
+            'escape'    => true
         ));
 
         $this->addColumn('message_title', array(
             'header'    => $this->__('Message Title'),
             'type'      => 'text',
             'align'     => 'left',
-            'index'     => 'message_title'
+            'index'     => 'message_title',
+            'escape'    => true
         ));
 
         $this->addColumn('action', array(

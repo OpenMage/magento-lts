@@ -44,19 +44,23 @@ class Mage_Catalog_Model_Attribute_Backend_Customlayoutupdate extends Mage_Eav_M
     */
     public function validate($object)
     {
-       $attributeName = $this->getAttribute()->getName();
-       $updates = trim($object->getData($attributeName));
+        $attributeName = $this->getAttribute()->getName();
+        $xml = trim($object->getData($attributeName));
 
-       if (!$this->getAttribute()->getIsRequired() && empty($updates)) {
-           return true;
-       }
+        if (!$this->getAttribute()->getIsRequired() && empty($xml)) {
+            return true;
+        }
 
-       try {
-           new Varien_Simplexml_Element($updates);
-       } catch(Exception $e) {
-           $eavExc = new Mage_Eav_Model_Entity_Attribute_Exception(Mage::helper('catalog/product')->__('Please enter valid XML data.'));
-           $eavExc->setAttributeCode($attributeName);
-           throw $eavExc;
-       }
+        /** @var $validator Mage_Adminhtml_Model_LayoutUpdate_Validator */
+        $validator = Mage::getModel('adminhtml/layoutUpdate_validator');
+        if (!$validator->isValid($xml)) {
+            $messages = $validator->getMessages();
+            //Add first message to exception
+            $massage = array_shift($messages);
+            $eavExc = new Mage_Eav_Model_Entity_Attribute_Exception($massage);
+            $eavExc->setAttributeCode($attributeName);
+            throw $eavExc;
+        }
+        return true;
     }
 }

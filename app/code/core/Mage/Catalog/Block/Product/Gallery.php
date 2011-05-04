@@ -74,15 +74,25 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
         return $this->getCurrentImage()->getFile();
     }
 
+    /**
+     * Retrieve image width
+     *
+     * @return bool|int
+     */
     public function getImageWidth()
     {
         $file = $this->getCurrentImage()->getPath();
         if (file_exists($file)) {
             $size = getimagesize($file);
-            if (isset($size[0]) && $size[0]>600) {
-                return 600;
+            if (isset($size[0])) {
+                if ($size[0] > 600) {
+                    return 600;
+                } else {
+                    return $size[0];
+                }
             }
         }
+
         return false;
     }
 

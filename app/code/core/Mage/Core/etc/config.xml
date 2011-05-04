@@ -246,6 +246,11 @@
             <media_storage_configuration>
                 <media_storage>0</media_storage>
                 <media_database>default_setup</media_database>
+                <configuration_update_time>3600</configuration_update_time>
+                <allowed_resources>
+                    <compiled_css_folder>css</compiled_css_folder>
+                    <compiled_js_folder>js</compiled_js_folder>
+                </allowed_resources>
             </media_storage_configuration>
         </system>
 
@@ -346,6 +351,39 @@
                 <firstday>0</firstday>
                 <weekend>0,6</weekend>
             </locale>
+            <file>
+                <protected_extensions>
+                    <!-- PHP script file extension -->
+                    <php>php</php>
+                    <!-- File extension of configuration of an Apache Web server -->
+                    <htaccess>htaccess</htaccess>
+                    <!-- Java script file extension -->
+                    <jsp>jsp</jsp>
+                    <!-- Perl script file extension -->
+                    <pl>pl</pl>
+                    <!-- Python script file extension -->
+                    <py>py</py>
+                    <!-- Active Server Page script file extension -->
+                    <asp>asp</asp>
+                    <!-- UNIX command prompt file extension -->
+                    <sh>sh</sh>
+                    <!-- Common Gateway Interface script extension type -->
+                    <cgi>cgi</cgi>
+                    <!-- BOF HTML file extensions -->
+                    <htm>htm</htm>
+                    <html>html</html>
+                    <phtml>phtml</phtml>
+                    <shtml>shtml</shtml>
+                    <!-- EOF HTML file extensions -->
+                </protected_extensions>
+
+                <!-- Valid Paths to make public files -->
+                <public_files_valid_paths>
+                    <protected>
+                        <app>/app/*/*</app>
+                    </protected>
+                </public_files_valid_paths>
+            </file>
         </general>
     </default>
     <stores> <!-- declare routers for installation process -->

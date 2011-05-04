@@ -81,4 +81,43 @@ class Mage_XmlConnect_Model_Simplexml_Element extends Varien_Simplexml_Element
         $value = str_replace(array('&', '"', '<', '>'), array('&amp;', '&quot;', '&lt;', '&gt;'), $value);
         return $value;
     }
+
+    /**
+     * Add field to fieldset
+     *
+     * @param string $elementName
+     * @param string $elementType
+     * @param array $config
+     * @return Mage_XmlConnect_Model_Simplexml_Element
+     */
+    public function addField($elementName, $elementType, array $config)
+    {
+        $newField = $this->addChild('field');
+        $newField->addAttribute('name', $this->xmlAttribute($elementName));
+        $newField->addAttribute('type', $this->xmlAttribute($elementType));
+        foreach ($config as $key => $val) {
+            $newField->addAttribute($key, $this->xmlAttribute($val));
+        }
+        return $newField;
+    }
+
+    /**
+     * Add custom field to SimpleXML element
+     *
+     * @param string $childName
+     * @param string $value
+     * @param array $config
+     * @return Mage_XmlConnect_Model_Simplexml_Element
+     */
+    public function addCustomChild($childName, $value = null, $config = null)
+    {
+        $customFiled = $this->addChild($childName, $this->xmlentities($value));
+
+        if (is_array($config)) {
+            foreach ($config as $key => $val) {
+                $customFiled->addAttribute($key, $this->xmlAttribute($val));
+            }
+        }
+        return $customFiled;
+    }
 }

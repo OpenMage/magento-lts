@@ -141,5 +141,14 @@
                 </index>
             </updates>
         </layout>
+        <translate>
+            <modules>
+                <Mage_Index>
+                    <files>
+                        <default>Mage_Index.csv</default>
+                    </files>
+                </Mage_Index>
+            </modules>
+        </translate>
     </adminhtml>
 </config>

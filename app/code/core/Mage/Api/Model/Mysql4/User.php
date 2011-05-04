@@ -248,7 +248,9 @@ class Mage_Api_Model_Mysql4_User extends Mage_Core_Model_Mysql4_Abstract
         $table  = $this->getTable('api/role');
         $read   = $this->_getReadAdapter();
         $select = $read->select()->from($table, array())
-                    ->joinLeft(array('ar' => $table), "(ar.role_id = `{$table}`.parent_id and ar.role_type = 'G')", array('role_id'))
+                    ->joinLeft(array('ar' => $table),
+                        "(ar.role_id = `{$table}`.parent_id and ar.role_type = 'G')",
+                        array('role_id'))
                     ->where("`{$table}`.user_id = {$user->getId()}");
 
         return (($roles = $read->fetchCol($select)) ? $roles : array());
@@ -290,7 +292,8 @@ class Mage_Api_Model_Mysql4_User extends Mage_Core_Model_Mysql4_Abstract
             return $this;
         }
         $dbh = $this->_getWriteAdapter();
-        $condition = "`{$this->getTable('api/role')}`.user_id = ".$dbh->quote($user->getUserId())." AND `{$this->getTable('api/role')}`.parent_id = ".$dbh->quote($user->getRoleId());
+        $condition = "`{$this->getTable('api/role')}`.user_id = " . $dbh->quote($user->getUserId()) .
+            " AND `{$this->getTable('api/role')}`.parent_id = " . $dbh->quote($user->getRoleId());
         $dbh->delete($this->getTable('api/role'), $condition);
         return $this;
     }
@@ -311,9 +314,17 @@ class Mage_Api_Model_Mysql4_User extends Mage_Core_Model_Mysql4_Abstract
     public function userExists(Mage_Core_Model_Abstract $user)
     {
         $usersTable = $this->getTable('api/user');
-        $select = $this->_getReadAdapter()->select();
-        $select->from($usersTable);
-        $select->where("({$usersTable}.username = '{$user->getUsername()}' OR {$usersTable}.email = '{$user->getEmail()}') AND {$usersTable}.user_id != '{$user->getId()}'");
-        return $this->_getReadAdapter()->fetchRow($select);
+        $db = $this->_getReadAdapter();
+
+        $select = $db->select()
+            ->from(array('u' => $usersTable))
+            ->where('u.user_id != ?', (int) $user->getId())
+            ->where('u.username = :username OR u.email = :email')
+        ;
+        $row = $db->fetchRow($select, array(
+            ':username' => $user->getUsername(),
+            ':email'    => $user->getUsername(),
+        ));
+        return $row;
     }
 }

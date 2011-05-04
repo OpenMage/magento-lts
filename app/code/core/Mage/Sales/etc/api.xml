@@ -177,7 +177,7 @@
                 <faults module="sales">
                     <not_exists>
                         <code>100</code>
-                        <message>Requested shipment not exists.</message>
+                        <message>Requested invoice does not exist.</message>
                     </not_exists>
                     <filters_invalid>
                         <code>101</code>

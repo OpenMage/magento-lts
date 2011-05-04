@@ -164,7 +164,10 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
                     $object->setAttributeDefaultValue($attributeCode, $valueRow['value']);
                 }
                 else {
-                    $object->setAttributeDefaultValue($attributeCode, $this->_attributes[$valueRow['attribute_id']]['value']);
+                    $object->setAttributeDefaultValue(
+                        $attributeCode,
+                        $this->_attributes[$valueRow['attribute_id']]['value']
+                    );
                 }
             }
             else {
@@ -266,7 +269,7 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
                 'entity_id'         => $object->getEntityId(),
                 'value'             => $this->_prepareValueForSave($value, $attribute)
             );
-            $this->_getWriteAdapter()->insertOnDuplicate($attribute->getBackend()->getTable(), $bind, array('value'));
+            $this->_getWriteAdapter()->select()->insertIgnoreFromSelect($attribute->getBackend()->getTable(), $bind);
         }
         return $this->_saveAttributeValue($object, $attribute, $value);
 
@@ -330,7 +333,10 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
 //                $attribute->getBackend()->getTable(),
 //                $this->_getWriteAdapter()->quoteInto('attribute_id=?', $attribute->getId()) .
 //                $this->_getWriteAdapter()->quoteInto(' AND entity_id=?', $object->getId()) .
-//                $this->_getWriteAdapter()->quoteInto(' AND store_id!=?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
+//                $this->_getWriteAdapter()->quoteInto(
+//                    ' AND store_id!=?',
+//                    Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID
+//                )
 //            );
 //        }
 //
@@ -558,7 +564,10 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
      * @param array $origData
      * @return bool
      */
-    protected function _canUpdateAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $value, array &$origData)
+    protected function _canUpdateAttribute(
+        Mage_Eav_Model_Entity_Attribute_Abstract $attribute,
+        $value,
+        array &$origData)
     {
         $result = parent::_canUpdateAttribute($attribute, $value, $origData);
         if ($result &&
@@ -658,14 +667,23 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
                     ->where('default_value.entity_id = ? ', $entityId)
                     ->where('default_value.store_id = 0');
 
-                $joinCondition = $this->_getReadAdapter()->quoteInto('store_value.attribute_id IN (?)', array_keys($_attributes));
-                $joinCondition .= ' AND ' . $this->_getReadAdapter()->quoteInto('store_value.entity_type_id = ?', $this->getTypeId());
+                $joinCondition = $this->_getReadAdapter()->quoteInto(
+                    'store_value.attribute_id IN (?)',
+                    array_keys($_attributes)
+                );
+                $joinCondition .= ' AND ' . $this->_getReadAdapter()->quoteInto(
+                    'store_value.entity_type_id = ?',
+                    $this->getTypeId()
+                );
                 $joinCondition .= ' AND ' . $this->_getReadAdapter()->quoteInto('store_value.entity_id = ?', $entityId);
                 $joinCondition .= ' AND ' . $this->_getReadAdapter()->quoteInto('store_value.store_id = ?', $store);
 
                 $select->joinLeft(array('store_value' => $table),
                     $joinCondition,
-                    array('attr_value' => 'IFNULL(store_value.value, default_value.value)', 'default_value.attribute_id')
+                    array(
+                        'attr_value' => 'IFNULL(store_value.value, default_value.value)',
+                        'default_value.attribute_id'
+                    )
                 );
                 $result = $this->_getReadAdapter()->fetchAll($select);
                 foreach ($result as $key => $_attribute) {

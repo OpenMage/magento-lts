@@ -49,7 +49,7 @@
                             <config>
                                 <children>
                                     <api translate="title" module="api">
-                                        <title>Magento Core Api Section</title>
+                                        <title>Magento Core API Section</title>
                                     </api>
                                 </children>
                             </config>

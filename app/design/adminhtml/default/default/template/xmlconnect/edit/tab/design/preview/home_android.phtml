@@ -25,48 +25,49 @@
  */
 ?>
 <?php
-$title1color = $this->getConfigFontInfo('Title1/color');
-$categoryItemTintColor = $this->getCategoryItemTintColor();
-$categoryItemBackgroundColor = $this->getData('conf/categoryItem/backgroundColor');
-$categoryItemTintColor = $this->getData('conf/categoryItem/tintColor');
-$title1color = $this->getConfigFontInfo('Title1/color');
-$title9size = $this->getConfigFontInfo('Title9/size');
-$productImage = $this->getPreviewImagesUrl('android/product_image.png');
-$bannerImageAndroid = $this->getBannerImage();
-?>
-<link rel="stylesheet" type="text/css" href="<?php echo $this->getPreviewCssUrl('mobile-android.css'); ?>" media="all" />
+/** @var $previewModel Mage_XmlConnect_Model_Preview_Android */
+$previewModel = Mage::helper('xmlconnect')->getPreviewModel();
 
-<div class="main-frame main-frame-home" style="background-color:<?php echo $this->getData('conf/body/backgroundColor'); ?>;">
+$title1color = $previewModel->getConfigFontInfo('Title1/color');
+$categoryItemTintColor = $previewModel->getCategoryItemTintColor();
+$categoryItemBackgroundColor = $previewModel->getData('conf/categoryItem/backgroundColor');
+$categoryItemTintColor = $previewModel->getData('conf/categoryItem/tintColor');
+$title1color = $previewModel->getConfigFontInfo('Title1/color');
+$title9size = $previewModel->getConfigFontInfo('Title9/size');
+$productImage = $previewModel->getPreviewImagesUrl('android/product_image.png');
+$bannerImageAndroid = $previewModel->getBannerImage();
+?>
+<div class="main-frame main-frame-home" style="background-color:<?php echo $previewModel->getData('conf/body/backgroundColor'); ?>;">
     <div class="phone home-page" style="">
         <div class="status-bar"></div>
-        <div class="header-wrap" style="background-color:<?php echo $this->getData('conf/navigationBar/tintColor'); ?>">
-            <div class="header">
-                <div class="icon icon-home"></div>
+        <div class="header-wrap" style="background-color:<?php echo $previewModel->getData('conf/navigationBar/tintColor'); ?>">
+            <div class="app-header" style="color:<?php echo $title1color; ?>;">
+                <div class="icon icon-home">A</div>
                 <?php echo $this->getChildHtml('tab_items'); ?>
-                <div class="logo">
-                    <img src="<?php echo $this->getLogoUrl(); ?>" alt="logo" /><span style="color:<?php echo $title1color; ?>;"><?php echo $this->__("Home"); ?></span>
+                <div class="app-logo">
+                    <img src="<?php echo $previewModel->getLogoUrl(); ?>" alt="logo" /><span style="color:<?php echo $title1color; ?>;"><?php echo $this->__("Home"); ?></span>
                 </div>
             </div>
         </div>
         <div class="content" style="background-image:url(<?php echo $bannerImageAndroid; ?>)"></div>
-        <div class="items-list-wrap" style="background-color:<?php echo $this->getData('conf/body/scrollBackgroundColor'); ?>">
+        <div class="items-list-wrap" style="background-color:<?php echo $previewModel->getData('conf/body/scrollBackgroundColor'); ?>">
             <div class="items-list">
                 <ul>
                     <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
                         <div class="product-image"><img src="<?php echo $productImage; ?>" alt="Chair" /></div>
-                        <span class="link" style="border-color:<?php echo $categoryItemTintColor; ?>"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $this->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>">Chairs</a></span>
+                        <span class="link" style="border-color:<?php echo $categoryItemTintColor; ?>"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $previewModel->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>; text-shadow:0 -1px 1px <?php echo $categoryItemTintColor; ?>;">Chairs</a></span>
                     </li>
                     <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
                         <div class="product-image"><img src="<?php echo $productImage; ?>" alt="Table" /></div>
-                        <span class="link" style="border-color:<?php echo $categoryItemTintColor; ?>"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $this->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>">Tables</a></span>
+                        <span class="link" style="border-color:<?php echo $categoryItemTintColor; ?>"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $previewModel->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>; text-shadow:0 -1px 1px <?php echo $categoryItemTintColor; ?>;">Tables</a></span>
                     </li>
                     <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
                         <div class="product-image"><img src="<?php echo $productImage; ?>" alt="Sofa" /></div>
-                        <span class="link" style="border-color:<?php echo $categoryItemTintColor; ?>"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $this->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>">Sofas</a></span>
+                        <span class="link" style="border-color:<?php echo $categoryItemTintColor; ?>"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $previewModel->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>; text-shadow:0 -1px 1px <?php echo $categoryItemTintColor; ?>;">Sofas</a></span>
                     </li>
                     <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">
                         <div class="product-image"><img src="<?php echo $productImage; ?>" alt="Shelve" /></div>
-                        <span class="link" style="border-color:<?php echo $categoryItemTintColor; ?>"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $this->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>">Shelve</a></span>
+                        <span class="link" style="border-color:<?php echo $categoryItemTintColor; ?>"><a href="#" style="font-size:<?php echo $title9size; ?>px; color:<?php echo $previewModel->getData('conf/fonts/Title9/color'); ?>; background-color:<?php echo $categoryItemTintColor; ?>; text-shadow:0 -1px 1px <?php echo $categoryItemTintColor; ?>;">Shelve</a></span>
                     </li>
                 </ul>
             </div>

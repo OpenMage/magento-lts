@@ -27,38 +27,38 @@
 -->
 
 <theme>
-<manifest translate="label" module="xmlconnect">
+    <manifest translate="label" module="xmlconnect">
         <name>sky_blue</name>
         <label>Sky Blue</label>
         <version>1.0</version>
         <requires>1.4.0.2</requires>
     </manifest>
-<configuration>
-<native>
-<navigationBar>
-<tintColor>#4B7282</tintColor>
-</navigationBar>
-<body>
-<primaryColor>#ABABAB</primaryColor>
-<secondaryColor>#B7D0DA</secondaryColor>
-<backgroundColor>#FFFFFF</backgroundColor>
-<scrollBackgroundColor>#FFFFFF</scrollBackgroundColor>
-</body>
-<categoryItem>
-<tintColor>#2C434D</tintColor>
-<backgroundColor>#FFFFFF</backgroundColor>
-</categoryItem>
-<itemActions>
-<relatedProductBackgroundColor>#FFFFFF</relatedProductBackgroundColor>
-</itemActions>
-</native>
-<extra>
-<fontColors>
-<header>#FFFFFF</header>
-<primary>#222222</primary>
-<secondary>#FFFFFF</secondary>
-<price>#406474</price>
-</fontColors>
-</extra>
-</configuration>
+    <configuration>
+        <native>
+            <navigationBar>
+                <tintColor>#4B7282</tintColor>
+            </navigationBar>
+            <body>
+                <primaryColor>#ABABAB</primaryColor>
+                <secondaryColor>#B7D0DA</secondaryColor>
+                <backgroundColor>#FFFFFF</backgroundColor>
+                <scrollBackgroundColor>#FFFFFF</scrollBackgroundColor>
+            </body>
+            <categoryItem>
+                <tintColor>#2C434D</tintColor>
+                <backgroundColor>#FFFFFF</backgroundColor>
+            </categoryItem>
+            <itemActions>
+                <relatedProductBackgroundColor>#FFFFFF</relatedProductBackgroundColor>
+            </itemActions>
+        </native>
+        <extra>
+            <fontColors>
+                <header>#FFFFFF</header>
+                <primary>#222222</primary>
+                <secondary>#FFFFFF</secondary>
+                <price>#406474</price>
+            </fontColors>
+        </extra>
+    </configuration>
 </theme>

@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Eav>
-            <version>0.7.15</version>
+            <version>0.7.16</version>
         </Mage_Eav>
     </modules>
     <global>
@@ -81,7 +81,7 @@
         <eav_frontendclasses>
         </eav_frontendclasses>
         <eav_attributes>
-            <!-- 
+            <!--
                 <entity_type>
                     <unique_node_name>
                         <code>attribute_code</code>
@@ -118,4 +118,18 @@
             </modules>
         </translate>
     </frontend>
+    <default>
+        <general>
+            <validator_data>
+                <input_types>
+                    <text>text</text>
+                    <textarea>textarea</textarea>
+                    <date>date</date>
+                    <boolean>boolean</boolean>
+                    <multiselect>multiselect</multiselect>
+                    <select>select</select>
+                </input_types>
+            </validator_data>
+        </general>
+    </default>
 </config>

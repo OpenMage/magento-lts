@@ -29,32 +29,39 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Adminhtml_Block_Dashboard_Tab_Orders extends Mage_Adminhtml_Block_Dashboard_Graph
 {
+    /**
+     * Initialize object
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->setHtmlId('orders');
         parent::__construct();
     }
 
+    /**
+     * Prepare chart data
+     *
+     * @return void
+     */
     protected function _prepareData()
     {
         $this->setDataHelperName('adminhtml/dashboard_order');
         $this->getDataHelper()->setParam('store', $this->getRequest()->getParam('store'));
         $this->getDataHelper()->setParam('website', $this->getRequest()->getParam('website'));
         $this->getDataHelper()->setParam('group', $this->getRequest()->getParam('group'));
-        $this->getDataHelper()->setParam(
-            'period',
-            $this->getRequest()->getParam('period')?$this->getRequest()->getParam('period'):'24h'
-            );
 
         $this->setDataRows('quantity');
         $this->_axisMaps = array(
             'x' => 'range',
-            'y' => 'quantity');
+            'y' => 'quantity'
+        );
 
         parent::_prepareData();
     }

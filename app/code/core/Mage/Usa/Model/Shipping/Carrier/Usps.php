@@ -138,7 +138,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         if ($request->getOrigPostcode()) {
             $r->setOrigPostal($request->getOrigPostcode());
         } else {
-            $r->setOrigPostal(Mage::getStoreConfig('shipping/origin/postcode'));
+            $r->setOrigPostal(Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_POSTCODE, $this->getStore()));
         }
 
         if ($request->getDestCountryId()) {

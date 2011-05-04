@@ -318,7 +318,11 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
 
         try {
             Mage::dispatchEvent('catalog_controller_product_init', array('product' => $product));
-            Mage::dispatchEvent('catalog_controller_product_init_after', array('product' => $product, 'controller_action' => $controller));
+            Mage::dispatchEvent('catalog_controller_product_init_after',
+                            array('product' => $product,
+                                'controller_action' => $controller
+                            )
+            );
         } catch (Mage_Core_Exception $e) {
             Mage::logException($e);
             return false;
@@ -391,4 +395,47 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
 
         return $buyRequest;
     }
+
+    /**
+     * Return loaded product instance
+     *
+     * @param  int|string $productId (SKU or ID)
+     * @param  int $store
+     * @param  string $identifierType
+     * @return Mage_Catalog_Model_Product
+     */
+    public function getProduct($productId, $store, $identifierType = null) {
+        $loadByIdOnFalse = false;
+        if ($identifierType == null) {
+            if (is_string($productId) && !preg_match("/^[+-]?[1-9][0-9]*$|^0$/", $productId)) {
+                $identifierType = 'sku';
+                $loadByIdOnFalse = true;
+            } else {
+                $identifierType = 'id';
+            }
+        }
+
+        /** @var $product Mage_Catalog_Model_Product */
+        $product = Mage::getModel('catalog/product');
+        if ($store !== null) {
+            $product->setStoreId($store);
+        }
+        if ($identifierType == 'sku') {
+            $idBySku = $product->getIdBySku($productId);
+            if ($idBySku) {
+                $productId = $idBySku;
+            }
+            if ($loadByIdOnFalse) {
+                $identifierType = 'id';
+            }
+        }
+
+        if ($identifierType == 'id' && is_numeric($productId)) {
+            $productId = !is_float($productId) ? (int) $productId : 0;
+            $product->load($productId);
+        }
+
+        return $product;
+    }
+
 }

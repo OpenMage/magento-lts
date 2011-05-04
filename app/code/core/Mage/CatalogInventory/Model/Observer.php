@@ -296,7 +296,11 @@ class Mage_CatalogInventory_Model_Observer
                  */
                 $stockItem->setSuppressCheckQtyIncrements(true);
 
-                $qtyForCheck = $this->_getQuoteItemQtyForCheck($option->getProduct()->getId(), $quoteItem->getId(), $increaseOptionQty);
+                $qtyForCheck = $this->_getQuoteItemQtyForCheck(
+                    $option->getProduct()->getId(),
+                    $quoteItem->getId(),
+                    $increaseOptionQty
+                );
 
                 $result = $stockItem->checkQuoteItemQty($optionQty, $qtyForCheck, $option->getValue());
 
@@ -346,12 +350,20 @@ class Mage_CatalogInventory_Model_Observer
                 /**
                  * we are using 0 because original qty was processed
                  */
-                $qtyForCheck = $this->_getQuoteItemQtyForCheck($quoteItem->getProduct()->getId(), $quoteItem->getId(), 0);
+                $qtyForCheck = $this->_getQuoteItemQtyForCheck(
+                    $quoteItem->getProduct()->getId(),
+                    $quoteItem->getId(),
+                    0
+                );
             }
             else {
                 $increaseQty = $quoteItem->getQtyToAdd() ? $quoteItem->getQtyToAdd() : $qty;
                 $rowQty = $qty;
-                $qtyForCheck = $this->_getQuoteItemQtyForCheck($quoteItem->getProduct()->getId(), $quoteItem->getId(), $increaseQty);
+                $qtyForCheck = $this->_getQuoteItemQtyForCheck(
+                    $quoteItem->getProduct()->getId(),
+                    $quoteItem->getId(),
+                    $increaseQty
+                );
             }
 
             $productTypeCustomOption = $quoteItem->getProduct()->getCustomOption('product_type');
@@ -544,7 +556,7 @@ class Mage_CatalogInventory_Model_Observer
     }
 
     /**
-     * Prepare array with iformation about used product qty and product stock item
+     * Prepare array with information about used product qty and product stock item
      * result is:
      * array(
      *  $productId  => array(
@@ -812,7 +824,9 @@ class Mage_CatalogInventory_Model_Observer
     public function refundOrderItem($observer)
     {
         $item = $observer->getEvent()->getCreditmemoItem();
-        if ($item->getId() && $item->getBackToStock() && ($productId = $item->getProductId()) && ($qty = $item->getQty())) {
+        if ($item->getId() && $item->getBackToStock() && ($productId = $item->getProductId())
+            && ($qty = $item->getQty())
+        ) {
             Mage::getSingleton('cataloginventory/stock')->backItemQty($productId, $qty);
         }
         return $this;

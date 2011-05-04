@@ -162,4 +162,15 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
         }
         return $this;
     }
+
+    /**
+     * Regenerate session Id
+     *
+     * @return Mage_Core_Model_Session_Abstract_Zend
+     */
+    public function regenerateSessionId()
+    {
+        Zend_Session::regenerateId();
+        return $this;
+    }
 }

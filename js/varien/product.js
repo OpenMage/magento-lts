@@ -128,7 +128,7 @@ Product.Zoom.prototype = {
     scale: function (v) {
         var centerX  = (this.containerDim.width*(1-this.imageZoom)/2-this.imageX)/this.imageZoom;
         var centerY  = (this.containerDim.height*(1-this.imageZoom)/2-this.imageY)/this.imageZoom;
-        var overSize = (this.imageDim.width > this.containerDim.width && this.imageDim.height > this.containerDim.height);
+        var overSize = (this.imageDim.width > this.containerDim.width || this.imageDim.height > this.containerDim.height);
 
         this.imageZoom = this.floorZoom+(v*(this.ceilingZoom-this.floorZoom));
 
@@ -557,7 +557,7 @@ Product.OptionsPrice.prototype = {
         this.showBothPrices     = config.showBothPrices;
         this.productPrice       = config.productPrice;
         this.productOldPrice    = config.productOldPrice;
-        this.skipCalculate      = config.skipCalculate;
+        this.skipCalculate      = config.skipCalculate;//@deprecated after 1.5.1.0
         this.duplicateIdSuffix  = config.idSuffix;
         this.specialTaxPrice    = config.specialTaxPrice;
 
@@ -624,7 +624,7 @@ Product.OptionsPrice.prototype = {
         var optionOldPrice = optionPrices[2];
         var priceInclTax = optionPrices[3];
         optionPrices = optionPrices[0];
-        
+
         $H(this.containers).each(function(pair) {
             var _productPrice;
             var _plusDisposition;
@@ -673,6 +673,8 @@ Product.OptionsPrice.prototype = {
 
                 if (pair.value == 'price-including-tax-'+this.productId) {
                     price = incl;
+                } else if (pair.value == 'price-excluding-tax-'+this.productId) {
+                    price = excl;
                 } else if (pair.value == 'old-price-'+this.productId) {
                     if (this.showIncludeTax || this.showBothPrices) {
                         price = incl;
@@ -683,11 +685,7 @@ Product.OptionsPrice.prototype = {
                     if (this.showIncludeTax) {
                         price = incl;
                     } else {
-                        if (!this.skipCalculate || _productPrice == 0) {
-                            price = excl;
-                        } else {
-                            price = optionPrices+parseFloat(_productPrice);
-                        }
+                        price = excl;
                     }
                 }
 

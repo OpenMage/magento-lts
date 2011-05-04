@@ -34,6 +34,9 @@
  */
 class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 {
+    const XML_PATH_DEBUG_TEMPLATE_HINTS         = 'dev/debug/template_hints';
+    const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS  = 'dev/debug/template_hints_blocks';
+    const XML_PATH_TEMPLATE_ALLOW_SYMLINK       = 'dev/template/allow_symlink';
 
     /**
      * View scripts directory
@@ -52,6 +55,13 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     protected $_baseUrl;
 
     protected $_jsUrl;
+
+    /**
+     * Is allowed symlinks flag
+     *
+     * @var bool
+     */
+    protected $_allowSymlinks = null;
 
     protected static $_showTemplateHints;
     protected static $_showTemplateHintsBlocks;
@@ -176,9 +186,9 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     public function getShowTemplateHints()
     {
         if (is_null(self::$_showTemplateHints)) {
-            self::$_showTemplateHints = Mage::getStoreConfig('dev/debug/template_hints')
+            self::$_showTemplateHints = Mage::getStoreConfig(self::XML_PATH_DEBUG_TEMPLATE_HINTS)
                 && Mage::helper('core')->isDevAllowed();
-            self::$_showTemplateHintsBlocks = Mage::getStoreConfig('dev/debug/template_hints_blocks')
+            self::$_showTemplateHintsBlocks = Mage::getStoreConfig(self::XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS)
                 && Mage::helper('core')->isDevAllowed();
         }
         return self::$_showTemplateHints;
@@ -203,16 +213,25 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
             ob_start();
         }
         if ($this->getShowTemplateHints()) {
-            echo '<div style="position:relative; border:1px dotted red; margin:6px 2px; padding:18px 2px 2px 2px; zoom:1;"><div style="position:absolute; left:0; top:0; padding:2px 5px; background:red; color:white; font:normal 11px Arial; text-align:left !important; z-index:998;" onmouseover="this.style.zIndex=\'999\'" onmouseout="this.style.zIndex=\'998\'" title="'.$fileName.'">'.$fileName.'</div>';
+            echo <<<HTML
+<div style="position:relative; border:1px dotted red; margin:6px 2px; padding:18px 2px 2px 2px; zoom:1;">
+<div style="position:absolute; left:0; top:0; padding:2px 5px; background:red; color:white; font:normal 11px Arial;
+text-align:left !important; z-index:998;" onmouseover="this.style.zIndex='999'"
+onmouseout="this.style.zIndex='998'" title="{$fileName}">{$fileName}</div>
+HTML;
             if (self::$_showTemplateHintsBlocks) {
                 $thisClass = get_class($this);
-                echo '<div style="position:absolute; right:0; top:0; padding:2px 5px; background:red; color:blue; font:normal 11px Arial; text-align:left !important; z-index:998;" onmouseover="this.style.zIndex=\'999\'" onmouseout="this.style.zIndex=\'998\'" title="'.$thisClass.'">'.$thisClass.'</div>';
+                echo <<<HTML
+<div style="position:absolute; right:0; top:0; padding:2px 5px; background:red; color:blue; font:normal 11px Arial;
+text-align:left !important; z-index:998;" onmouseover="this.style.zIndex='999'" onmouseout="this.style.zIndex='998'"
+title="{$thisClass}">{$thisClass}</div>
+HTML;
             }
         }
 
         try {
             $includeFilePath = realpath($this->_viewDir . DS . $fileName);
-            if (strpos($includeFilePath, realpath($this->_viewDir)) === 0) {
+            if (strpos($includeFilePath, realpath($this->_viewDir)) === 0 || $this->_getAllowSymlinks()) {
                 include $includeFilePath;
             } else {
                 Mage::log('Not valid template file:'.$fileName, Zend_Log::CRIT, null, null, true);
@@ -316,5 +335,18 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
             $this->getTemplateFile(),
             'template' => $this->getTemplate()
         );
+    }
+
+    /**
+     * Get is allowed symliks flag
+     *
+     * @return bool
+     */
+    protected function _getAllowSymlinks()
+    {
+        if (is_null($this->_allowSymlinks)) {
+            $this->_allowSymlinks = Mage::getStoreConfigFlag(self::XML_PATH_TEMPLATE_ALLOW_SYMLINK);
+        }
+        return $this->_allowSymlinks;
     }
 }

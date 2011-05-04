@@ -338,9 +338,18 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
         if ($option instanceof Mage_Sales_Model_Quote_Item_Option) {
             $buyRequest = new Varien_Object(unserialize($option->getValue()));
             if (!$buyRequest->hasLinks()) {
-                Mage::throwException(
-                    Mage::helper('downloadable')->__('Please specify product link(s).')
-                );
+                if (!$product->getLinksPurchasedSeparately()) {
+                    $allLinksIds = Mage::getModel('downloadable/link')
+                        ->getCollection()
+                        ->addProductToFilter($product->getId())
+                        ->getAllIds();
+                    $buyRequest->setLinks($allLinksIds);
+                    $product->addCustomOption('info_buyRequest', serialize($buyRequest->getData()));
+                } else {
+                    Mage::throwException(
+                        Mage::helper('downloadable')->__('Please specify product link(s).')
+                    );
+                }
             }
         }
         return $this;

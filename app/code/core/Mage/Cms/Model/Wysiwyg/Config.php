@@ -39,6 +39,7 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
     const WYSIWYG_ENABLED = 'enabled';
     const WYSIWYG_HIDDEN = 'hidden';
     const WYSIWYG_DISABLED = 'disabled';
+    const IMAGE_DIRECTORY = 'wysiwyg';
 
     /**
      * Return Wysiwyg config as Varien_Object
@@ -68,18 +69,26 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             'add_widgets'                   => true,
             'no_display'                    => false,
             'translator'                    => Mage::helper('cms'),
-            'files_browser_window_url'      => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg_images/index'),
-            'files_browser_window_width'    => (int) Mage::getConfig()->getNode('adminhtml/cms/browser/window_width'),
-            'files_browser_window_height'   => (int) Mage::getConfig()->getNode('adminhtml/cms/browser/window_height'),
             'encode_directives'             => true,
             'directives_url'                => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg/directive'),
-            'popup_css'                     => Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/dialog.css',
-            'content_css'                   => Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/content.css',
+            'popup_css'                     =>
+                Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/dialog.css',
+            'content_css'                   =>
+                Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/content.css',
             'width'                         => '100%',
             'plugins'                       => array()
         ));
 
         $config->setData('directives_url_quoted', preg_quote($config->getData('directives_url')));
+
+        if (Mage::getSingleton('admin/session')->isAllowed('cms/media_gallery')) {
+            $config->addData(array(
+                'add_images'               => true,
+                'files_browser_window_url' => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg_images/index'),
+                'files_browser_window_width' => (int) Mage::getConfig()->getNode('adminhtml/cms/browser/window_width'),
+                'files_browser_window_height'=> (int) Mage::getConfig()->getNode('adminhtml/cms/browser/window_height'),
+            ));
+        }
 
         if (is_array($data)) {
             $config->addData($data);
@@ -95,11 +104,11 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
      *
      * @return string
      */
-    public function getSkinImagePlaceholderUrl() 
+    public function getSkinImagePlaceholderUrl()
     {
         return Mage::getDesign()->getSkinUrl('images/wysiwyg/skin_image.png');
     }
-    
+
     /**
      * Check whether Wysiwyg is enabled or not
      *

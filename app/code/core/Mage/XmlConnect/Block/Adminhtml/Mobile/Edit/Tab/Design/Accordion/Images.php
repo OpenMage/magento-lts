@@ -23,7 +23,8 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Images extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Images
+    extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
 {
     /**
      * Getter for accordion item title
@@ -61,25 +62,25 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Images ex
             'conf[native][navigationBar][icon]',
             $this->__('Logo in Header'),
             $this->__('Recommended size 35px x 35px.'),
-            $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/navigationBar/icon')),
+            $this->_getDesignPreviewImageUrl('conf/native/navigationBar/icon'),
             true
         );
 
-        $deviceType = Mage::helper('xmlconnect')->getApplication()->getType();
+        $deviceType = Mage::helper('xmlconnect')->getDeviceType();
         switch ($deviceType) {
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE:
                 $this->addImage($fieldset,
                     'conf[native][body][bannerImage]',
                     $this->__('Banner on Home Screen'),
                     $this->__('Recommended size 320px x 230px. Note: Image size affects the performance of your app. Keep your image size below 50 KB for optimal performance.'),
-                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/bannerImage')),
+                    $this->_getDesignPreviewImageUrl('conf/native/body/bannerImage'),
                     true
                 );
                 $this->addImage($fieldset,
                     'conf[native][body][backgroundImage]',
                     $this->__('App Background'),
                     $this->__('Recommended size 320px x 367px. Note: Image size affects the performance of your app. Keep your image size below 75 KB for optimal performance.'),
-                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/backgroundImage')),
+                    $this->_getDesignPreviewImageUrl('conf/native/body/backgroundImage'),
                     true
                 );
                 break;
@@ -88,21 +89,21 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Images ex
                     'conf[native][body][bannerIpadImage]',
                     $this->__('Banner on Home Screen'),
                     $this->__('Recommended size 768px x 294px. Note: Image size affects the performance of your app.'),
-                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/bannerIpadImage')),
+                    $this->_getDesignPreviewImageUrl('conf/native/body/bannerIpadImage'),
                     true
                 );
                 $this->addImage($fieldset,
                     'conf[native][body][backgroundIpadLandscapeImage]',
-                    $this->__('App Background (landscape mode)'),
+                    $this->__('App Background <br />(landscape mode)'),
                     $this->__('Recommended size 1024px x 704px. Note: Image size affects the performance of your app.'),
-                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/backgroundIpadLandscapeImage')),
+                    $this->_getDesignPreviewImageUrl('conf/native/body/backgroundIpadLandscapeImage'),
                     true
                 );
                 $this->addImage($fieldset,
                     'conf[native][body][backgroundIpadPortraitImage]',
-                    $this->__('App Background (portrait mode)'),
+                    $this->__('App Background <br />(portrait mode)'),
                     $this->__('Recommended size 768px x 960px. Note: Image size affects the performance of your app.'),
-                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/backgroundIpadPortraitImage')),
+                    $this->_getDesignPreviewImageUrl('conf/native/body/backgroundIpadPortraitImage'),
                     true
                 );
                 break;
@@ -111,30 +112,18 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Images ex
                     'conf[native][body][bannerAndroidImage]',
                     $this->__('Banner on Home Screen'),
                     $this->__('Recommended size 320px x 258px. Note: Image size affects the performance of your app. Keep your image size below 50 KB for optimal performance.'),
-                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/bannerAndroidImage')),
-                    true
-                );
-                $this->addImage($fieldset,
-                    'conf[native][body][backgroundAndroidLandscapeImage]',
-                    $this->__('App Background (landscape mode)'),
-                    $this->__('Recommended size 480px x 250px. Note: Image size affects the performance of your app. Keep your image size below 75 KB for optimal performance.'),
-                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/backgroundAndroidLandscapeImage')),
-                    true
-                );
-                $this->addImage($fieldset,
-                    'conf[native][body][backgroundAndroidPortraitImage]',
-                    $this->__('App Background (portrait mode)'),
-                    $this->__('Recommended size 320px x 410px. Note: Image size affects the performance of your app. Keep your image size below 75 KB for optimal performance.'),
-                    $this->_getDesignPreviewImageUrl(Mage::helper('xmlconnect/image')->getInterfaceImagesPaths('conf/native/body/backgroundAndroidPortraitImage')),
+                    $this->_getDesignPreviewImageUrl('conf/native/body/bannerAndroidImage'),
                     true
                 );
                 break;
             default:
-                Mage::throwException($this->__('Device doesn\'t recognized: "%s". Unable to load a helper.', $deviceType));
+                Mage::throwException(
+                    $this->__('Device doesn\'t recognized: "%s". Unable to load a helper.', $deviceType)
+                );
                 break;
         }
 
-        $form->setValues($this->getApplication()->getFormData());
+        $form->setValues(Mage::helper('xmlconnect')->getApplication()->getFormData());
         $this->setForm($form);
         return parent::_prepareForm();
     }
@@ -147,6 +136,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Images ex
     */
     protected function _getDesignPreviewImageUrl($name)
     {
-        return Mage::helper('xmlconnect/image')->getSkinImagesUrl('design_default/' . $name);
+        $name = Mage::helper('xmlconnect/image')->getInterfaceImagesPaths($name);
+        return Mage::helper('xmlconnect/image')->getDefaultDesignUrl($name);
     }
 }

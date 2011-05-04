@@ -765,7 +765,7 @@ ul.item-options li { padding-left:.7em; }
 
 /* Product Configuration Popup */
 #popup-window-mask,
-.popup-window-mask { position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; z-index:399; background-color:#efefef; opacity:.5; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";/*IE8*/ }
+.popup-window-mask { background:url(images/bg_window_mask.png) repeat 0 0; background:rgba(239, 239, 239, 0.5); position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; z-index:399; }
 .product-configure-popup { background:#fafafa; border:1px solid #d6d6d6; left:50%; margin:0 0 0 -271px; position:fixed; top:50%; width:540px; z-index:400; }
 .product-configure-popup .validation-advice { margin-left:0; }
 #product_composite_configure_messages { margin-left:0 !important; padding:10px 15px; }

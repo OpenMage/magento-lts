@@ -34,6 +34,11 @@
 
 class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Template
 {
+    /**
+     * Current application model
+     *
+     * @var Mage_XmlConnect_Model_Application
+     */
     protected $_app;
 
     /**
@@ -62,6 +67,8 @@ class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Template
      */
     protected function _buildRecursive($section, $subtree)
     {
+        Mage::helper('xmlconnect')->getDeviceHelper()->checkRequiredConfigFields($subtree);
+
         foreach ($subtree as $key => $value) {
             if (is_array($value)) {
                 if ($key == 'fonts') {

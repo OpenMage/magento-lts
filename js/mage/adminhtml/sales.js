@@ -159,7 +159,7 @@ AdminOrder.prototype = {
         else {
             this.saveData(data);
             if (name == 'country_id' || name == 'customer_address_id') {
-                this.loadArea(['shipping_method', 'billing_method', 'totals'], true, data);
+                this.loadArea(['shipping_method', 'billing_method', 'totals', 'items'], true, data);
             }
             // added for reloading of default sender and default recipient for giftmessages
             //this.loadArea(['giftmessage'], true, data);
@@ -242,7 +242,7 @@ AdminOrder.prototype = {
     resetShippingMethod : function(data){
         data['reset_shipping'] = 1;
         this.isShippingMethodReseted = true;
-        this.loadArea(['shipping_method', 'billing_method', 'shipping_address', 'totals', 'giftmessage'], true, data);
+        this.loadArea(['shipping_method', 'billing_method', 'shipping_address', 'totals', 'giftmessage', 'items'], true, data);
     },
 
     loadShippingRates : function(){

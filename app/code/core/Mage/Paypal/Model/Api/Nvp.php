@@ -241,7 +241,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'RETURNFMFDETAILS', 'SUBJECT', 'ITEMAMT', 'SHIPPINGAMT', 'TAXAMT',
     );
     protected $_doExpressCheckoutPaymentResponse = array(
-        'TRANSACTIONID', 'AMT', 'PAYMENTSTATUS', 'PENDINGREASON', 'REDIRECTREQUIRED', 'SUCCESSPAGEREDIRECTREQUESTED',
+        'TRANSACTIONID', 'AMT', 'PAYMENTSTATUS', 'PENDINGREASON', 'REDIRECTREQUIRED'
     );
 
     /**
@@ -438,7 +438,9 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * @var array
      */
     protected $_billingAgreementCustomerDetailsRequest = array('TOKEN');
-    protected $_billingAgreementCustomerDetailsResponse = array('EMAIL', 'PAYERID', 'PAYERSTATUS', 'SHIPTOCOUNTRYCODE', 'PAYERBUSINESS');
+    protected $_billingAgreementCustomerDetailsResponse = array('EMAIL', 'PAYERID', 'PAYERSTATUS', 'SHIPTOCOUNTRYCODE',
+        'PAYERBUSINESS'
+    );
 
     /**
      * Create Billing Agreement request/response map
@@ -463,7 +465,10 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      *
      * @var array
      */
-    protected $_doReferenceTransactionRequest = array('REFERENCEID', 'PAYMENTACTION', 'AMT', 'ITEMAMT', 'SHIPPINGAMT', 'TAXAMT',);
+    protected $_doReferenceTransactionRequest = array('REFERENCEID', 'PAYMENTACTION', 'AMT', 'ITEMAMT', 'SHIPPINGAMT',
+        'TAXAMT'
+    );
+
     protected $_doReferenceTransactionResponse = array('BILLINGAGREEMENTID', 'TRANSACTIONID');
 
     /**
@@ -472,7 +477,9 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * @var array
      */
     protected $_debugReplacePrivateDataKeys = array(
+
         'ACCT', 'EXPDATE', 'CVV2', 'CARDISSUE', 'CARDSTART', 'CREDITCARDTYPE', 'USER', 'PWD', 'SIGNATURE'
+
     );
 
     /**
@@ -490,7 +497,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     protected $_requiredResponseParams = array(
         self::DO_DIRECT_PAYMENT => array('ACK', 'CORRELATIONID', 'AMT')
     );
-    
+
     /**
      * Warning codes recollected after each API call
      *
@@ -921,14 +928,14 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             Mage::throwException(Mage::helper('paypal')->__('Unable to communicate with the PayPal gateway.'));
         }
 
-        
+
         if (!$this->_validateResponse($methodName, $response)) {
             Mage::logException(new Exception(
                 Mage::helper('paypal')->__("PayPal response hasn't required fields.")
             ));
             Mage::throwException(Mage::helper('paypal')->__('There was an error processing your order. Please contact us or try again later.'));
         }
-        
+
         $this->_callErrors = array();
         if ($this->_isCallSuccessful($response)) {
             if ($this->_rawResponseNeeded) {
@@ -971,7 +978,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         }
         if ($errors) {
             $errors = implode(' ', $errors);
-            $e = Mage::exception('Mage_Core', sprintf('PayPal NVP gateway errors: %s Correlation ID: %s. Version: %s.', $errors,
+            $e = Mage::exception('Mage_Core', sprintf('PayPal NVP gateway errors: %s Correlation ID: %s. Version: %s.',
+                $errors,
                 isset($response['CORRELATIONID']) ? $response['CORRELATIONID'] : '',
                 isset($response['VERSION']) ? $response['VERSION'] : ''
             ));
@@ -1002,25 +1010,25 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         }
         return false;
     }
-    
+
     /**
      * Validate response array.
-     * 
+     *
      * @param string $method
      * @param array $response
      * @return bool
      */
-    protected function _validateResponse($method, $response) 
+    protected function _validateResponse($method, $response)
     {
         if (isset($this->_requiredResponseParams[$method])) {
             foreach ($this->_requiredResponseParams[$method] as $param) {
                 if (!isset($response[$param])) {
                     return false;
-                }    
+                }
             }
         }
         return true;
-    } 
+    }
 
     /**
      * Parse an NVP response string into an associative array

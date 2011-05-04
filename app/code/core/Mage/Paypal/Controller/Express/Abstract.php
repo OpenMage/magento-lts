@@ -61,9 +61,16 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
         try {
             $this->_initCheckout();
 
+            if ($this->_getQuote()->getIsMultiShipping()) {
+                $this->_getQuote()->setIsMultiShipping(false);
+                $this->_getQuote()->removeAllAddresses();
+            }
+
             $customer = Mage::getSingleton('customer/session')->getCustomer();
             if ($customer && $customer->getId()) {
-                $this->_checkout->setCustomerWithAddressChange($customer, null, $this->_getQuote()->getShippingAddress());
+                $this->_checkout->setCustomerWithAddressChange(
+                    $customer, null, $this->_getQuote()->getShippingAddress()
+                );
             }
 
             // billing agreement
@@ -187,7 +194,9 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             Mage::getSingleton('checkout/session')->addError($e->getMessage());
         }
         catch (Exception $e) {
-            Mage::getSingleton('checkout/session')->addError($this->__('Unable to initialize Express Checkout review.'));
+            Mage::getSingleton('checkout/session')->addError(
+                $this->__('Unable to initialize Express Checkout review.')
+            );
             Mage::logException($e);
         }
         $this->_redirect('checkout/cart');
@@ -326,7 +335,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     {
         if (null !== $setToken) {
             if (false === $setToken) {
-                if (!$this->_getSession()->getExpressCheckoutToken()) { // security measure for avoid unsetting token twice
+                // security measure for avoid unsetting token twice
+                if (!$this->_getSession()->getExpressCheckoutToken()) {
                     Mage::throwException($this->__('PayPal Express Checkout Token does not exist.'));
                 }
                 $this->_getSession()->unsExpressCheckoutToken();

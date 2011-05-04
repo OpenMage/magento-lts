@@ -24,42 +24,44 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-
 <?php
-/**
- * @var Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Themes
- */
+/** @var $this Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Themes */
 
-/**
- * @var Mage_XmlConnect_Helper_Theme
- */
-$_themesHelper  = Mage::helper('xmlconnect/theme');
-/**
- * @var Mage_XmlConnect_Helper_Data
- */
+/** @var $_themesHelper Mage_XmlConnect_Helper_Theme */
+$_themesHelper = Mage::helper('xmlconnect/theme');
+
+/** @var $_imageHelper Mage_XmlConnect_Helper_Data */
 $_imageHelper    = Mage::helper('xmlconnect/image');
 ?>
-
 <script type="text/javascript">
 // <![CDATA[
+<?php
+    $themes     = $this->getThemes();
+    $themeId    = $_themesHelper->getThemeId();
+    $themeLabel = $_themesHelper->getThemeLabel($themes);
+?>
+var currentTheme = '<?php echo $themeId; ?>';
+var visibleTheme = currentTheme;
+
 if (!window.Magento) {
     var Magento = new Object();
 }
 Magento.Dropdowns = Class.create();
 Magento.Dropdowns.prototype = {
     initialize: function(selector) {
-        var self=this;
-        var global = document;
-        this.selector = selector;
+        var global      = document;
+        this.selector   = selector;
+
         $$('.'+this.selector).each(this.init.bind(this));
+
         Event.observe(global, 'click', this.hide_all.bind(this,0));
     },
 
     init: function(el) {
-        this.head = el.down('li.ddtitle');
-        this.content = el.down('li.ddlist');
-        this.list = el.down('ul').childElements();
-        this.input = $(el.id+'_value');
+        this.head       = el.down('li.ddtitle');
+        this.content    = el.down('li.ddlist');
+        this.list       = el.down('ul').childElements();
+        this.input      = $(el.id+'_value');
 
         this.init_items(this.list);
         Event.observe(this.head.down('a'), 'click', this.show.bind(this, this.content));
@@ -79,6 +81,11 @@ Magento.Dropdowns.prototype = {
 
     hide_all: function() {
         $$('.ddlist').each(function(item){
+            i = 0;
+            if (i == 0 && item.style.display !== 'none') {
+                selectActiveTheme();
+                i++;
+            }
             item.style.display = 'none';
         });
     },
@@ -102,26 +109,8 @@ Magento.Dropdowns.prototype = {
             Effect.toggle(c, 'blind', { delay: 0.1, duration: .1 });
             c.addClassName('on');
         }
-        //this.hide(c);
     }
 };
-<?php
-        $themes = $this->getThemes();
-        $themeLabel = '';
-        $themeId = $this->getApplication()->getData('conf/extra/theme');
-        if (empty($themeId)) {
-            $themeId = $_themesHelper->getDefaultThemeName();
-        }
-        if (!empty($themeId)) {
-            foreach ($themes as $theme) {
-                if ($theme->getName() == $themeId) {
-                    $themeLabel = $this->__($theme->getLabel());
-                }
-            }
-        }
-?>
-currentTheme = '<?php echo $themeId; ?>';
-visibleTheme = currentTheme;
 
 /**
  * Color field onChange listener
@@ -135,9 +124,12 @@ function changeColorListener(id) {
         $(id).value = '_';
     }
     $(id).color.exportColor();
-
     $('box_' + id).style.background = $(id).value;
-    setThemeSelector('<?php echo $_themesHelper->getCustomThemeName(); ?>');
+}
+
+function selectActiveTheme() {
+    currentTheme = visibleTheme;
+    mmSetTheme(currentTheme);
 }
 
 isNewApplication = <?php echo ($this->isNewApplication() ? "true" : "false"); ?>;
@@ -146,23 +138,6 @@ tabDesignWasClicked = false;
 
 Event.observe(document, 'dom:loaded', function() {
     new Magento.Dropdowns('dropdown');
-<?php
-/*
-    $('submit_theme').observe('click', function() {
-        if (currentTheme) {
-            setThemeSelector(currentTheme);
-        }
-        saveThemeChanges();
-    });
-    $('reset_theme').observe('click', function() {
-        resetThemeChanges();
-    });
-*/
-?>
-    $('apply_theme').observe('click', function() {
-        currentTheme = visibleTheme;
-        mmSetTheme(currentTheme);
-    });
 
     $("mobile_app_tabs_design_section").observe('click', function() {
         if (isNewApplication && !isDefaultThemeLoaded && !tabDesignWasClicked) {
@@ -171,8 +146,14 @@ Event.observe(document, 'dom:loaded', function() {
             tabDesignWasClicked = true;
         }
     });
-
 });
+
+function saveTheme() {
+    if (currentTheme) {
+        setThemeSelector(currentTheme);
+    }
+    saveThemeChanges();
+}
 
 function createInputHiddenElementThemeLoaded() {
     inputElement = document.createElement('input');
@@ -180,10 +161,8 @@ function createInputHiddenElementThemeLoaded() {
     inputElement.name = "default_theme_loaded";
     inputElement.value = "1";
     $('theme_selector_id_value').parentNode.appendChild(inputElement);
-
 }
 mmColorUpdate = false;
-
 mmColorThemes = <?php echo Mage::helper('core')->jsonEncode($this->getAllThemes()); ?>;
 
 function setThemeSelector(theme) {
@@ -199,29 +178,29 @@ function mmSetTheme(theme) {
         for (var key in mmColorThemes[theme]) {
             color2set = mmColorThemes[theme][key];
             $(key).color.fromString(color2set);
-            $('box_'+key).style.background = color2set;
+            $('box_' + key).style.background = color2set;
         }
         mmColorUpdate = false;
     }
 }
 
 function toggleBlock(block,link){
-    $$('.'+block+'_cl').each(function(b) {
-        if(b.style.display=='none') {
-            b.style.display='table-row';
+    $$('.' + block + '_cl').each(function(b) {
+        if(b.style.display == 'none') {
+            b.style.display = 'table-row';
             link.style.backgroundPosition = '0 4px';
         } else {
-            b.style.display='none';
+            b.style.display = 'none';
             link.style.backgroundPosition = '0 -86px';
         }
     });
 }
-<?php
-/*
+
 function resetThemeChanges() {
     var actionUrl = '<?php echo $this->getResetThemeActionUrl() ?>';
+    currentTheme = visibleTheme;
     new Ajax.Request(actionUrl, {
-        parameters: {reset : 1},
+        parameters: {reset : 1, theme: visibleTheme},
         onSuccess: function(transport) {
             try {
                 response = transport.responseText;
@@ -233,7 +212,7 @@ function resetThemeChanges() {
                      } else {
                          mmColorThemes = responseJSON;
                          mmSetTheme(currentTheme);
-                         message = '<?php echo $this->__('Reset Successful');?>';
+                         message = '<?php echo $this->__('Theme configurations are successfully reset.');?>';
                      }
                 } else {
                     message = '<?php echo $this->__('Unknown Error'); ?>';
@@ -247,12 +226,14 @@ function resetThemeChanges() {
 }
 
 function saveThemeChanges() {
-    var actionUrl = "<?php echo $this->getSaveThemeActionUrl() ?>" + 'saveTheme/' + $('theme_selector_id_value').value;
+    var actionUrl = "<?php echo $this->getSaveThemeActionUrl() ?>" + 'saveTheme/' + visibleTheme;
+    <?php
+        $count = count($_themesHelper->getThemeAjaxParameters());
+    ?>
     var params = {
-        <?php $firstRow = true; ?>
-        <?php foreach ($_themesHelper->getThemeAjaxParameters() as $name => $id) : ?>
-            <?php echo ($firstRow === true ? $firstRow = '' : ',') . $name; ?> : $('<?php echo $id; ?>').value
-        <?php endforeach; ?>
+<?php foreach ($_themesHelper->getThemeAjaxParameters() as $name => $id) : ?>
+    <?php $count = --$count; echo $name ?> : $('<?php echo $id; ?>').value<?php echo $count ? ',' : ''; ?>
+<?php endforeach; ?>
         };
     new Ajax.Request(actionUrl, {
         parameters: params,
@@ -266,7 +247,7 @@ function saveThemeChanges() {
                         message = responseJSON.message;
                      } else {
                          mmColorThemes = responseJSON;
-                         message = '<?php echo $this->__('Theme has been saved.');?>';
+                         message = '<?php echo $this->__('Changes have been saved to theme.');?>';
                      }
                 } else {
                     message = '<?php echo $this->__('Unknown Error.'); ?>';
@@ -278,30 +259,33 @@ function saveThemeChanges() {
         }.bind(this)
     });
 }
-*/
-?>
 // ]]>
 </script>
 <tr><td colspan="2"  style="width:540px">
 <br />
-
 <label for="theme_selector_id" class="f-left theme-selector-title"><?php echo $this->__('Preset Theme'); ?></label>
 <div class="theme-select-cont">
     <input type="hidden" name="conf[extra][theme]" id="theme_selector_id_value" value="<?php echo $themeId; ?>"/>
     <input type="hidden" name="current_theme" id="theme_selector_id_value_flat" value="<?php echo $themeId; ?>"/>
     <ul class="dropdown theme_selector" id="theme_selector_id">
-        <li class="ddtitle theme_selector "><a href="#"><?php echo $themeLabel ? $this->__($themeLabel) : $this->__('Custom Colors');?><span>
-            <img src="<?php echo $_imageHelper->getSkinImagesUrl('swatch_'.$themeId.'.gif'); ?>"/></span></a></li>
+        <li class="ddtitle theme_selector"><a href="#"><?php echo $themeLabel ? $themeLabel : $this->__('Custom Colors');?><span>
+            <img src="<?php echo $_imageHelper->getSkinImagesUrl('swatch_' . $themeId . '.gif'); ?>"/></span></a></li>
         <li style="display:none;" class="ddlist">
             <ul>
             <?php foreach ($this->getThemes() as $theme): ?>
-                <li><a href="#" rel="<?php echo $theme->getName(); ?>"><?php echo $this->__($theme->getLabel()); ?> <span><img src="<?php echo $_imageHelper->getSkinImagesUrl('swatch_'.$theme->getName().'.gif'); ?>"/></span></a></li>
+                <li>
+                    <a href="#" rel="<?php echo $theme->getName(); ?>"><?php echo $theme->getLabel(); ?>
+                        <span><img src="<?php echo $_imageHelper->getSkinImagesUrl('swatch_' . $theme->getName() . '.gif'); ?>"/></span>
+                    </a>
+                </li>
             <?php endforeach; ?>
             </ul>
         </li>
     </ul>
     <div class="form-buttons" style="float:right">
-        <button type="button" class="scalable" style="margin: 0 2em 0 0" id="apply_theme"><span><?php echo $this->__('Apply Theme'); ?></span></button>
+        <button type="button" class="scalable" style="margin: 0 2em 0 0" id="save_theme" onclick="saveTheme();">
+            <span><?php echo $this->__('Save Theme'); ?></span>
+        </button>
     </div>
     <br/><br/>
 </div>
@@ -309,13 +293,14 @@ function saveThemeChanges() {
 </td></tr>
 
 <?php
-
 $colorFieldset = $this->getColorFieldset();
 $id2observe = array();
 ?>
 <?php foreach ($colorFieldset as $set) : ?>
 <tr><td colspan="2">
-<a href="javascript:void(0);" onclick="toggleBlock('<?php echo $set['id']; ?>', this);" class="a_color_block" style="display:block;"><strong><?php echo $set['label']; ?></strong></a>
+<a href="javascript:void(0);" onclick="toggleBlock('<?php echo $set['id']; ?>', this);" class="a_color_block" style="display:block;">
+    <strong><?php echo $set['label']; ?></strong>
+</a>
 </td></tr>
 <?php foreach ($set['fields'] as $field) : ?>
 
@@ -338,20 +323,23 @@ $id2observe = array();
 Event.observe(document, 'dom:loaded', function() {
 
 <?php foreach ($id2observe as $id) : ?>
-$('<?php echo $id; ?>').observe('change', function() { changeColorListener('<?php echo $id; ?>');});
+    $('<?php echo $id; ?>').observe('change', function() {
+        changeColorListener('<?php echo $id; ?>');
+    });
 <?php endforeach; ?>
 });
 //]]>
 </script>
-<?php
-/*<tr><td colspan="2">
-<div class="form-buttons">
 
-<!-- submitAndReloadArea($('order_history_block').parentNode, 'http://mage.local/index.php/admin/sales_order/addComment/order_id/2/') -->
-<button type="button" class="scalable back" style="margin: 0 2em 0 0" id="reset_theme"><span><?php echo $this->__('Reset'); ?></span></button>
-<button type="button" class="scalable" style="margin: 0 2em 0 0" id="submit_theme"><span><?php echo $this->__('Save Theme'); ?></span></button>
-<button type="button" class="scalable" style="margin: 0 2em 0 0" id="apply_theme"><span><?php echo $this->__('Apply Theme'); ?></span></button>
-</div>
-<br />
-*/?>
-</td></tr>
+<tr>
+    <td colspan="2">
+    <div class="form-buttons">
+        <button type="button" class="scalable back" style="margin: 0 2em 0 0" id="reset_theme" onclick="resetThemeChanges();">
+            <span><?php echo $this->__('Reset theme to default'); ?></span>
+        </button>
+    </div>
+    <br />
+    </td>
+<tr>
+</td>
+</tr>

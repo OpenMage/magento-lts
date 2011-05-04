@@ -25,8 +25,10 @@
  */
 
 ?>
-<div style="text-align:center;display:none;" id="iframe-warning"><?php echo $this->__('Please do not refresh the page until you complete payment.') ?></div>
-<iframe id="payflow-link-iframe" style="display:none;background-color:transparent;height:610px;width:99%;" scrolling="no" frameborder="0" border="0" src="<?php echo $this->getFrameActionUrl() ?>"></iframe>
+<div id="iframe-warning" class="warning-message">
+    <?php echo $this->__('Please do not refresh the page until you complete payment.') ?>
+</div>
+<iframe id="payflow-link-iframe" style="display:none;" scrolling="no" frameborder="0" border="0" src="<?php echo $this->getFrameActionUrl() ?>" height="610" width="570"></iframe>
 <script type="text/javascript">
 //<![CDATA[
 var headers = $$('#' + checkout.accordion.container.readAttribute('id') + ' .section');

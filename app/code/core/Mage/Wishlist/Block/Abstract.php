@@ -179,6 +179,17 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     }
 
     /**
+     * Retrieve Add Item to shopping cart URL from shared wishlist
+     *
+     * @param string|Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
+     * @return string
+     */
+    public function getSharedItemAddToCartUrl($item)
+    {
+        return $this->_getHelper()->getSharedAddToCartUrl($item);
+    }
+
+    /**
      * Retrieve URL for adding Product to wishlist
      *
      * @param Mage_Catalog_Model_Product $product

@@ -25,27 +25,28 @@
  */
 ?>
 <?php
-$title1color = $this->getConfigFontInfo('Title1/color');
-$title2color = $this->getConfigFontInfo('Title2/color');
-$title5color = $this->getConfigFontInfo('Title5/color');
+/** @var $previewModel Mage_XmlConnect_Model_Preview_Android */
+$previewModel = Mage::helper('xmlconnect')->getPreviewModel();
 
-$primaryColor = $this->getData('conf/body/primaryColor');
-$secondaryColor = $this->getData('conf/body/secondaryColor');
+$title1color = $previewModel->getConfigFontInfo('Title1/color');
+$title2color = $previewModel->getConfigFontInfo('Title2/color');
+$title5color = $previewModel->getConfigFontInfo('Title5/color');
 
-$starImage = $this->getPreviewImagesUrl('android/bg_star.png');
-$emptyStarImage = $this->getPreviewImagesUrl('android/bg_star_empty.png');
+$primaryColor = $previewModel->getData('conf/body/primaryColor');
+$secondaryColor = $previewModel->getData('conf/body/secondaryColor');
+
+$starImage = $previewModel->getPreviewImagesUrl('android/bg_star.png');
+$emptyStarImage = $previewModel->getPreviewImagesUrl('android/bg_star_empty.png');
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $this->getPreviewCssUrl('mobile-android.css'); ?>" media="all" />
-
-<div class="main-frame main-frame-catalog" style="background-color:<?php echo $this->getData('conf/body/backgroundColor'); ?>;">
-    <div class="phone catalog-page">            
+<div class="main-frame main-frame-catalog" style="background-color:<?php echo $previewModel->getData('conf/body/backgroundColor'); ?>;">
+    <div class="phone catalog-page">
         <div class="status-bar"></div>
-        <div class="header-wrap" style="background-color:<?php echo $this->getData('conf/navigationBar/tintColor'); ?>;">
-            <div class="header">
+        <div class="header-wrap" style="background-color:<?php echo $previewModel->getData('conf/navigationBar/tintColor'); ?>;">
+            <div class="app-header">
                 <div class="icon icon-home"></div>
                 <?php echo $this->getChildHtml('tab_items'); ?>
-                <div class="logo">
-                    <img src="<?php echo $this->getLogoUrl(); ?>" alt="logo" /><span style="color:<?php echo $title1color; ?>;"><?php echo $this->__("Chairs"); ?></span>
+                <div class="app-logo">
+                    <img src="<?php echo $previewModel->getLogoUrl(); ?>" alt="logo" /><span style="color:<?php echo $title1color; ?>;"><?php echo $this->__("Chairs"); ?></span>
                 </div>
             </div>
         </div>
@@ -66,7 +67,7 @@ $emptyStarImage = $this->getPreviewImagesUrl('android/bg_star_empty.png');
                     <div class="wrap">
                         <div class="col-1">
                             <div class="product-image">
-                                <img src="<?php echo $this->getPreviewImagesUrl('android/product_image_1.jpg') ?>" alt="Bertoia Wire Chair" />
+                                <img src="<?php echo $previewModel->getPreviewImagesUrl('android/product_image_1.jpg') ?>" alt="Bertoia Wire Chair" />
                             </div>
                             <div class="rating">
                                 <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
@@ -88,7 +89,7 @@ $emptyStarImage = $this->getPreviewImagesUrl('android/bg_star_empty.png');
                     <div class="wrap">
                         <div class="col-1">
                             <div class="product-image">
-                                <img src="<?php echo $this->getPreviewImagesUrl('android/product_image_2.jpg') ?>" alt="Bertoia Wire Chair" />
+                                <img src="<?php echo $previewModel->getPreviewImagesUrl('android/product_image_2.jpg') ?>" alt="Bertoia Wire Chair" />
                             </div>
                             <div class="rating">
                                 <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
@@ -111,7 +112,7 @@ $emptyStarImage = $this->getPreviewImagesUrl('android/bg_star_empty.png');
                     <div class="wrap">
                         <div class="col-1">
                             <div class="product-image">
-                                <img src="<?php echo $this->getPreviewImagesUrl('android/product_image_3.jpg') ?>" alt="Bertoia Wire Chair" />
+                                <img src="<?php echo $previewModel->getPreviewImagesUrl('android/product_image_3.jpg') ?>" alt="Bertoia Wire Chair" />
                             </div>
                             <div class="rating">
                                 <span class="stars" style="color:<?php echo $secondaryColor; ?>;">
@@ -133,7 +134,7 @@ $emptyStarImage = $this->getPreviewImagesUrl('android/bg_star_empty.png');
                     <div class="wrap">
                         <div class="col-1">
                             <div class="product-image">
-                                <img src="<?php echo $this->getPreviewImagesUrl('android/product_image_4.jpg') ?>" alt="Bertoia Wire Chair" />
+                                <img src="<?php echo $previewModel->getPreviewImagesUrl('android/product_image_4.jpg') ?>" alt="Bertoia Wire Chair" />
                             </div>
                             <div class="rating">
                                 <span class="stars" style="color:<?php echo $secondaryColor; ?>;">

@@ -45,8 +45,15 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     {
         $orderItem = $observer->getEvent()->getOrderItem();
         $quoteItem = $observer->getEvent()->getItem();
+
+        $isAvailable = Mage::helper('giftmessage/message')->getIsMessagesAvailable(
+            'item',
+            $quoteItem,
+            $quoteItem->getStoreId()
+        );
+
         $orderItem->setGiftMessageId($quoteItem->getGiftMessageId())
-            ->setGiftMessageAvailable($this->_getAvailable($quoteItem->getProduct()));
+            ->setGiftMessageAvailable($isAvailable);
         return $this;
     }
 
@@ -81,6 +88,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     /**
      * Geter for available gift messages value from product
      *
+     * @deprecated after 1.5.0.0
      * @param Mage_Catalog_Model_Product|integer $product
      * @return integer|null
      */
@@ -215,7 +223,12 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
             return $this;
         }
 
-        if (!Mage::helper('giftmessage/message')->isMessagesAvailable('order_item', $orderItem, $orderItem->getStoreId())){
+        $isAvailable = Mage::helper('giftmessage/message')->isMessagesAvailable(
+            'order_item',
+            $orderItem,
+            $orderItem->getStoreId()
+        );
+        if (!$isAvailable) {
             return $this;
         }
 

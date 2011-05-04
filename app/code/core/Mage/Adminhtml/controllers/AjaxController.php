@@ -37,10 +37,18 @@ class Mage_Adminhtml_AjaxController extends Mage_Adminhtml_Controller_Action
      * Ajax action for inline translation
      *
      */
-    public function translateAction ()
+    public function translateAction()
     {
         $translation = $this->getRequest()->getPost('translate');
         $area = $this->getRequest()->getPost('area');
+
+        //filtering
+        /** @var $filter Mage_Core_Model_Input_Filter_MaliciousCode */
+        $filter = Mage::getModel('core/input_filter_maliciousCode');
+        foreach ($translation as &$item) {
+            $item['custom'] = $filter->filter($item['custom']);
+        }
+
         echo Mage::helper('core/translate')->apply($translation, $area);
         exit();
     }

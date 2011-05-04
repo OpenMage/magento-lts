@@ -32,11 +32,13 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Review_Model_Mysql4_Review_Product_Collection extends Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+class Mage_Review_Model_Mysql4_Review_Product_Collection
+    extends Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
 {
-    protected $_entitiesAlias = array();
+    protected $_entitiesAlias       = array();
     protected $_reviewStoreTable;
-    protected $_addStoreDataFlag = false;
+    protected $_addStoreDataFlag    = false;
+    protected $_storesIds           = array();
 
     protected function _construct()
     {
@@ -53,31 +55,82 @@ class Mage_Review_Model_Mysql4_Review_Product_Collection extends Mage_Catalog_Mo
         return $this;
     }
 
-    public function addStoreFilter($storeId=null)
+    /**
+     * Adds store filter into array
+     *
+     * @param mixed $storeId
+     * @return Mage_Review_Model_Mysql4_Review_Product_Collection
+     */
+    public function addStoreFilter($storeId = null)
     {
+        if (is_null($storeId)) {
+            $storeId = $this->getStoreId();
+        }
+
         parent::addStoreFilter($storeId);
-        $this->getSelect()
-            ->join(array('store'=>$this->_reviewStoreTable),
-                'rt.review_id=store.review_id AND store.store_id=' . (int)$storeId, array());
+
+        if (!is_array($storeId)) {
+            $storeId = array($storeId);
+        }
+
+        if (!empty($this->_storesIds)) {
+            $this->_storesIds = array_intersect($this->_storesIds, $storeId);
+        } else {
+            $this->_storesIds = $storeId;
+        }
+
         return $this;
     }
 
+    /**
+     * Adds specific store id into array
+     *
+     * @param array $storeId
+     * @return Mage_Review_Model_Mysql4_Review_Product_Collection
+     */
     public function setStoreFilter($storeId)
     {
-        if( is_array($storeId) && isset($storeId['eq']) ) {
+        if (is_array($storeId) && isset($storeId['eq'])) {
             $storeId = array_shift($storeId);
         }
 
-        if( is_array($storeId) ) {
-            $this->getSelect()
-                ->join(array('store'=>$this->_reviewStoreTable),
-                    $this->getConnection()->quoteInto('rt.review_id=store.review_id AND store.store_id IN(?)', $storeId), array())
-                ->distinct(true)
+        if (!is_array($storeId)){
+            $storeId = array($storeId);
+        }
+
+        if (!empty($this->_storesIds)){
+            $this->_storesIds = array_intersect($this->_storesIds, $storeId);
+        } else {
+            $this->_storesIds = $storeId;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Applies all store filters in one place to prevent multiple joins in select
+     *
+     * @param null|Zend_Db_Select $select
+     * @return Mage_Review_Model_Mysql4_Review_Product_Collection
+     */
+    protected function _applyStoresFilterToSelect(Zend_Db_Select $select = null)
+    {
+        $storesIds = $this->_storesIds;
+
+        if (is_null($select)){
+            $select = $this->getSelect();
+        }
+
+        if (is_array($storesIds) && !empty($storesIds)) {
+            $select->join(
+                array('store'=>$this->_reviewStoreTable),
+                $this->getConnection()->quoteInto('rt.review_id=store.review_id AND store.store_id IN(?)', $storesIds),
+                array())
+            ->distinct(true)
                 ;
         } else {
-            $this->getSelect()
-                ->join(array('store'=>$this->_reviewStoreTable),
-                    'rt.review_id=store.review_id AND store.store_id=' . (int)$storeId, array());
+            $select->join(array('store'=>$this->_reviewStoreTable),
+                    'rt.review_id=store.review_id AND store.store_id=' . (int)$storesIds, array());
         }
 
         return $this;
@@ -231,7 +284,7 @@ class Mage_Review_Model_Mysql4_Review_Product_Collection extends Mage_Catalog_Mo
                 $this->getSelect()->where($conditionSql);
                 return $this;
                 break;
-           case 'stores':
+            case 'stores':
                 $this->setStoreFilter($condition);
                 return $this;
                 break;
@@ -300,5 +353,18 @@ class Mage_Review_Model_Mysql4_Review_Product_Collection extends Mage_Catalog_Mo
             }
 
         }
+    }
+
+    /**
+     * Redeclare parent method for store filters applying
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     */
+    protected function _beforeLoad()
+    {
+        parent::_beforeLoad();
+        $this->_applyStoresFilterToSelect();
+
+        return $this;
     }
  }

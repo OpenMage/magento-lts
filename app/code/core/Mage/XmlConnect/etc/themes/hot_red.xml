@@ -27,38 +27,38 @@
 -->
 
 <theme>
-<manifest translate="label" module="xmlconnect">
+    <manifest translate="label" module="xmlconnect">
         <name>hot_red</name>
         <label>Hot Red</label>
         <version>1.0</version>
         <requires>1.4.0.2</requires>
     </manifest>
-<configuration>
-<native>
-<navigationBar>
-<tintColor>#C91E00</tintColor>
-</navigationBar>
-<body>
-<primaryColor>#A8A8A8</primaryColor>
-<secondaryColor>#C92B01</secondaryColor>
-<backgroundColor>#FFFFFF</backgroundColor>
-<scrollBackgroundColor>#FFFFFF</scrollBackgroundColor>
-</body>
-<categoryItem>
-<tintColor>#A32301</tintColor>
-<backgroundColor>#FFFFFF</backgroundColor>
-</categoryItem>
-<itemActions>
-<relatedProductBackgroundColor>#E00000</relatedProductBackgroundColor>
-</itemActions>
-</native>
-<extra>
-<fontColors>
-<header>#FFFFFF</header>
-<primary>#222222</primary>
-<secondary>#FFFFFF</secondary>
-<price>#CA1800</price>
-</fontColors>
-</extra>
-</configuration>
+    <configuration>
+        <native>
+            <navigationBar>
+                <tintColor>#C91E00</tintColor>
+            </navigationBar>
+            <body>
+                <primaryColor>#A8A8A8</primaryColor>
+                <secondaryColor>#C92B01</secondaryColor>
+                <backgroundColor>#FFFFFF</backgroundColor>
+                <scrollBackgroundColor>#FFFFFF</scrollBackgroundColor>
+            </body>
+            <categoryItem>
+                <tintColor>#A32301</tintColor>
+                <backgroundColor>#FFFFFF</backgroundColor>
+            </categoryItem>
+            <itemActions>
+                <relatedProductBackgroundColor>#E00000</relatedProductBackgroundColor>
+            </itemActions>
+        </native>
+    <extra>
+        <fontColors>
+            <header>#FFFFFF</header>
+            <primary>#222222</primary>
+            <secondary>#FFFFFF</secondary>
+            <price>#CA1800</price>
+        </fontColors>
+    </extra>
+    </configuration>
 </theme>

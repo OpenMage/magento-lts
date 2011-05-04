@@ -126,13 +126,15 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Collection
     {
         if ($this->getLinkModel()) {
             $attributes = $this->getLinkModel()->getAttributes();
-            $attributesByType = array();
+            $adapter = $this->getConnection();
             foreach ($attributes as $attribute) {
                 $table = $this->getLinkModel()->getAttributeTypeTable($attribute['type']);
-                $alias = 'link_attribute_'.$attribute['code'].'_'.$attribute['type'];
+                $alias = 'link_attribute_' . $attribute['code'] . '_' . $attribute['type'];
+                $aliasInCondition = $adapter->quoteColumnAs($alias, null);
                 $this->getSelect()->joinLeft(
                     array($alias => $table),
-                    $alias.'.link_id=main_table.link_id AND '.$alias.'.product_link_attribute_id='.$attribute['id'],
+                    $aliasInCondition . '.link_id = main_table.link_id AND '
+                        . $aliasInCondition . '.product_link_attribute_id = ' . (int) $attribute['id'],
                     array($attribute['code'] => 'value')
                 );
             }

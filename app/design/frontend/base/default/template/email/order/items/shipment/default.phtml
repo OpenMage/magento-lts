@@ -36,6 +36,10 @@
             <?php endforeach; ?>
         </dl>
         <?php endif; ?>
+        <?php $addInfoBlock = $this->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addInfoBlock) :?>
+            <?php echo $addInfoBlock->setItem($_item->getOrderItem())->toHtml(); ?>
+        <?php endif; ?>
         <?php echo $this->htmlEscape($_item->getDescription()) ?>
     </td>
     <td align="left" valign="top" style="font-size:11px; padding:3px 9px;"><?php echo $this->htmlEscape($this->getSku($_item)) ?></td>

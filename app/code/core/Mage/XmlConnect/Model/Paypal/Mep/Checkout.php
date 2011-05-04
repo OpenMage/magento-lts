@@ -27,16 +27,21 @@
 /**
  * Wrapper that performs Paypal MEP and Checkout communication
  *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Model_Paypal_Mep_Checkout
 {
-    /**
+    /**#@+
      * Keys for passthrough variables in sales/quote_payment and sales/order_payment
      * Uses additional_information as storage
+     *
      * @var string
      */
     const PAYMENT_INFO_PAYER_EMAIL = 'paypal_payer_email';
     const PAYMENT_INFO_TRANSACTION_ID = 'paypal_mep_checkout_transaction_id';
+    /**#@-*/
 
     /**
      * Payment method type
@@ -46,16 +51,22 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
     protected $_methodType = Mage_XmlConnect_Model_Payment_Method_Paypal_Mep::MEP_METHOD_CODE;
 
     /**
+     * Quote model
+     *
      * @var Mage_Sales_Model_Quote
      */
     protected $_quote = null;
 
     /**
+     * Checkout session model
+     *
      * @var Mage_Checkout_Model_Session
      */
     protected $_checkoutSession;
 
     /**
+     * XmlConnect default helper
+     *
      * @var Mage_XmlConnect_Helper_Data
      */
     protected $_helper;
@@ -79,7 +90,7 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
 
     /**
      * Prepare quote, reserve order ID for specified quote
-     * 
+     *
      * @return string
      */
     public function initCheckout()
@@ -123,24 +134,25 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
         }
 
         $address = $this->_quote->getBillingAddress();
-        /**
-         * Start hard code data
-         *
-         * @todo remove this hard code
-         */
-        $data['country_id'] = 'US';
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-            $customer = Mage::getSingleton('customer/session')->getCustomer();
-            $data['firstname'] = $customer->getFirstname();
-            $data['lastname'] = $customer->getLastname();
 
-        } else {
-            $data['firstname'] = Mage::helper('xmlconnect')->__('Guest');
-            $data['lastname'] = Mage::helper('xmlconnect')->__('Guest');
+        $this->_applyCountryWorkarounds($data);
+        if (!in_array($data['country_id'], Mage::getModel('paypal/config')->getSupportedBuyerCountryCodes())) {
+            return array(
+                'error' => 1,
+                'message' => Mage::helper('xmlconnect')->__('Buyer country is not allowed by store.')
+            );
         }
-        /**
-         * End hard code
-         */
+
+        if (empty($data['firstname']) && empty($data['lastname'])) {
+            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+                $customer = Mage::getSingleton('customer/session')->getCustomer();
+                $data['firstname'] = $customer->getFirstname();
+                $data['lastname'] = $customer->getLastname();
+            } else {
+                $data['firstname'] = Mage::helper('xmlconnect')->__('Guest');
+                $data['lastname'] = Mage::helper('xmlconnect')->__('Guest');
+            }
+        }
 
         $address->addData($data);
 
@@ -211,7 +223,10 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
 
         $email = isset($data['payer']) ? $data['payer'] : null;
         $payment->setAdditionalInformation(self::PAYMENT_INFO_PAYER_EMAIL, $email);
-        $payment->setAdditionalInformation(self::PAYMENT_INFO_TRANSACTION_ID, isset($data['transaction_id']) ? $data['transaction_id'] : null);
+        $payment->setAdditionalInformation(
+            self::PAYMENT_INFO_TRANSACTION_ID,
+            isset($data['transaction_id']) ? $data['transaction_id'] : null
+        );
         $this->_quote->setCustomerEmail($email);
 
         $this->_quote->collectTotals()->save();
@@ -305,5 +320,21 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
             ->setCustomerIsGuest(true)
             ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
         return $this;
+    }
+
+    /**
+     * Adopt specified request array from PayPal
+     *
+     * @param array $request
+     * @return void
+     */
+    protected function _applyCountryWorkarounds(&$request)
+    {
+        $request['country_id'] = isset($request['country_id']) ? trim($request['country_id']) : null;
+        if (empty($request['country_id'])) {
+            $request['country_id'] = strtoupper(Mage::getStoreConfig('general/country/default'));
+        } else {
+            $request['country_id'] = strtoupper($request['country_id']);
+        }
     }
 }

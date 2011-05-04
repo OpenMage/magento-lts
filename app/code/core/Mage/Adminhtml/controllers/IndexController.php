@@ -47,7 +47,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     {
         $session = Mage::getSingleton('admin/session');
         $url = $session->getUser()->getStartupPageUrl();
-        if ($session->isFirstPageAfterLogin()) { // retain the "first page after login" value in session (before redirect)
+        if ($session->isFirstPageAfterLogin()) {
+            // retain the "first page after login" value in session (before redirect)
             $session->setIsFirstPageAfterLogin(true);
         }
         $this->_redirect($url);
@@ -73,13 +74,19 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     public function logoutAction()
     {
+        /** @var $adminSession Mage_Admin_Model_Session */
         $adminSession = Mage::getSingleton('admin/session');
         $adminSession->unsetAll();
+        $adminSession->getCookie()->delete($adminSession->getSessionName());
         $adminSession->addSuccess(Mage::helper('adminhtml')->__('You have logged out.'));
 
         $this->_redirect('*');
     }
 
+    /**
+     * Global Search Action
+     *
+     */
     public function globalSearchAction()
     {
         $searchModules = Mage::getConfig()->getNode("adminhtml/global_search");
@@ -88,7 +95,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         if ( !Mage::getSingleton('admin/session')->isAllowed('admin/global_search') ) {
             $items[] = array(
                 'id'            => 'error',
-                'type'          => 'Error',
+                'type'          => Mage::helper('adminhtml')->__('Error'),
                 'name'          => Mage::helper('adminhtml')->__('Access Denied'),
                 'description'   => Mage::helper('adminhtml')->__('You have not enough permissions to use this functionality.')
             );
@@ -97,7 +104,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             if (empty($searchModules)) {
                 $items[] = array(
                     'id'            => 'error',
-                    'type'          => 'Error',
+                    'type'          => Mage::helper('adminhtml')->__('Error'),
                     'name'          => Mage::helper('adminhtml')->__('No search modules were registered'),
                     'description'   => Mage::helper('adminhtml')->__('Please make sure that all global admin search modules are installed and activated.')
                 );
@@ -118,7 +125,11 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                         continue;
                     }
                     $searchInstance = new $className();
-                    $results = $searchInstance->setStart($start)->setLimit($limit)->setQuery($query)->load()->getResults();
+                    $results = $searchInstance->setStart($start)
+                                    ->setLimit($limit)
+                                    ->setQuery($query)
+                                    ->load()
+                                    ->getResults();
                     $items = array_merge_recursive($items, $results);
                 }
                 $totalCount = sizeof($items);
@@ -190,7 +201,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 foreach ($collection as $item) {
                     $user = Mage::getModel('admin/user')->load($item->getId());
                     if ($user->getId()) {
-                        $pass = substr(md5(uniqid(rand(), true)), 0, 7);
+                        $pass = Mage::helper('core')->getRandomString(7);
                         $user->setPassword($pass);
                         $user->save();
                         $user->setPlainPassword($pass);

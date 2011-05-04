@@ -27,38 +27,38 @@
 -->
 
 <theme>
-<manifest translate="label" module="xmlconnect">
+    <manifest translate="label" module="xmlconnect">
         <name>funk_leaf</name>
         <label>Funk Leaf</label>
         <version>1.0</version>
         <requires>1.4.0.2</requires>
     </manifest>
-<configuration>
-<native>
-<navigationBar>
-<tintColor>#024800</tintColor>
-</navigationBar>
-<body>
-<primaryColor>#ABABAB</primaryColor>
-<secondaryColor>#7CD500</secondaryColor>
-<backgroundColor>#8CDE9C</backgroundColor>
-<scrollBackgroundColor>#FFFFFF</scrollBackgroundColor>
-</body>
-<categoryItem>
-<tintColor>#566101</tintColor>
-<backgroundColor>#FFFFFF</backgroundColor>
-</categoryItem>
-<itemActions>
-<relatedProductBackgroundColor>#FFFFFF</relatedProductBackgroundColor>
-</itemActions>
-</native>
-<extra>
-<fontColors>
-<header>#FFFFFF</header>
-<primary>#222222</primary>
-<secondary>#3E3F3F</secondary>
-<price>#025600</price>
-</fontColors>
-</extra>
-</configuration>
+    <configuration>
+        <native>
+            <navigationBar>
+                <tintColor>#024800</tintColor>
+            </navigationBar>
+            <body>
+                <primaryColor>#ABABAB</primaryColor>
+                <secondaryColor>#7CD500</secondaryColor>
+                <backgroundColor>#8CDE9C</backgroundColor>
+                <scrollBackgroundColor>#FFFFFF</scrollBackgroundColor>
+            </body>
+            <categoryItem>
+                <tintColor>#566101</tintColor>
+                <backgroundColor>#FFFFFF</backgroundColor>
+            </categoryItem>
+            <itemActions>
+                <relatedProductBackgroundColor>#FFFFFF</relatedProductBackgroundColor>
+            </itemActions>
+        </native>
+        <extra>
+            <fontColors>
+                <header>#FFFFFF</header>
+                <primary>#222222</primary>
+                <secondary>#3E3F3F</secondary>
+                <price>#025600</price>
+            </fontColors>
+        </extra>
+    </configuration>
 </theme>

@@ -62,15 +62,37 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
     /**
      * Retrieve product website identifiers
      *
-     * @param   $product
+     * @param   Mage_Catalog_Model_Product|int $product
      * @return  Mage_Catalog_Model_Resource_Eav_Mysql4_Product
      */
     public function getWebsiteIds($product)
     {
+        if ($product instanceof Mage_Catalog_Model_Product) {
+            $productId = $product->getId();
+        } else {
+            $productId = $product;
+        }
+
         $select = $this->_getWriteAdapter()->select()
             ->from($this->_productWebsiteTable, 'website_id')
-            ->where('product_id=?', $product->getId());
+            ->where('product_id = ?', $productId);
         return $this->_getWriteAdapter()->fetchCol($select);
+    }
+
+    /**
+     * Retrieve product website identifiers by product identifiers
+     *
+     * @param   array $productIds
+     * @return  array
+     */
+    public function getWebsiteIdsByProductIds($productIds)
+    {
+        $select = $this->_getWriteAdapter()->select()
+            ->from($this->_productWebsiteTable, array('product_id', 'website_ids' =>'GROUP_CONCAT(website_id)'))
+            ->where('product_id IN (?)', $productIds)
+            ->group('product_id');
+
+        return $this->_getWriteAdapter()->fetchAll($select);
     }
 
     /**
@@ -95,7 +117,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
      */
     public function getIdBySku($sku)
     {
-         return $this->_getReadAdapter()->fetchOne('select entity_id from '.$this->getEntityTable().' where sku=?', $sku);
+        return $this->_getReadAdapter()->fetchOne('select entity_id from '.$this->getEntityTable().' where sku=?',$sku);
     }
 
     /**
@@ -367,7 +389,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
             WHERE
                 t_v_default.attribute_id='{$visibilityAttributeId}'
                 AND t_v_default.store_id=0{$productsCondition}
-                AND (IF(t_s.value_id>0, t_s.value, t_s_default.value)=".Mage_Catalog_Model_Product_Status::STATUS_ENABLED.")";
+                AND (IF(t_s.value_id>0, t_s.value, t_s_default.value) =
+                ".Mage_Catalog_Model_Product_Status::STATUS_ENABLED.")";
             $this->_getWriteAdapter()->query($query);
         }
         elseif (is_null($store)) {
@@ -400,7 +423,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
             WHERE
                 t_v_default.entity_id={$productId}
                 AND t_v_default.attribute_id='{$visibilityAttributeId}' AND t_v_default.store_id=0
-                AND (IF(t_s.value_id>0, t_s.value, t_s_default.value)=".Mage_Catalog_Model_Product_Status::STATUS_ENABLED.")";
+                AND (IF(t_s.value_id>0, t_s.value, t_s_default.value) =
+                ".Mage_Catalog_Model_Product_Status::STATUS_ENABLED.")";
             $this->_getWriteAdapter()->query($query);
         }
 

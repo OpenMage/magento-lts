@@ -47,6 +47,7 @@ class Mage_Adminhtml_Block_Review_Main extends Mage_Adminhtml_Block_Widget_Grid_
         if ($customerId) {
             $customer = Mage::getModel('customer/customer')->load($customerId);
             $customerName = $customer->getFirstname() . ' ' . $customer->getLastname();
+            $customerName = $this->escapeHtml($customerName);
         }
 
         if( Mage::registry('usePendingFilter') === true ) {

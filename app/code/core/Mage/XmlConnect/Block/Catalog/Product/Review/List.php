@@ -77,6 +77,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Review_List extends Mage_XmlConnect_
             if (!$product) {
                 return null;
             }
+            /** @var $collection Mage_Review_Model_Mysql4_Review_Collection */
             $collection = Mage::getResourceModel('review/review_collection')
                 ->addEntityFilter('product', $product->getId())
                 ->addStoreFilter(Mage::app()->getStore()->getId())

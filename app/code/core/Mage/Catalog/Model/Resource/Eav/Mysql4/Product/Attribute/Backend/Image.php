@@ -32,7 +32,8 @@
  * @author      Magento Core Team <core@magentocommerce.com>
 
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Image extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Image
+    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     public function afterSave($object)
     {
@@ -46,7 +47,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Image ext
         }
 
         try {
-            $uploader = new Varien_File_Uploader($this->getAttribute()->getName());
+            $uploader = new Mage_Core_Model_File_Uploader($this->getAttribute()->getName());
             $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
             $uploader->setAllowRenameFiles(true);
             $uploader->setFilesDispersion(true);
@@ -54,7 +55,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Image ext
         catch (Exception $e){
             return $this;
         }
-        $uploader->save(Mage::getStoreConfig('system/filesystem/media').'/catalog/product');
+        $uploader->save(Mage::getStoreConfig('system/filesystem/media') . '/catalog/product');
 
         if ($fileName = $uploader->getUploadedFileName()) {
             $object->setData($this->getAttribute()->getName(), $fileName);

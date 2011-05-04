@@ -36,7 +36,8 @@
 
     <?php if ($this->getMessageText()): ?>
     <div class="gift-options-tooltip-content">
-        <strong><?php echo $this->helper('giftmessage')->__('Gift Message')?></strong>: <?php echo $this->getMessageText() ?>
+        <div><strong><?php echo $this->helper('giftmessage')->__('Gift Message')?></strong>: </div>
+        <div><?php echo $this->getMessageText() ?></div>
     </div>
     <?php endif; ?>
 </div>

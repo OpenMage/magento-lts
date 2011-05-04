@@ -28,7 +28,6 @@
  * Credit Card (Payflow Pro) Payment method xml renderer
  *
  * @category   Mage
- * @category   Mage
  * @package    Mage_XmlConnect
  * @author     Magento Core Team <core@magentocommerce.com>
  */

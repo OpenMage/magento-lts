@@ -461,6 +461,9 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
         }
         if ($websiteId === null) {
             $websiteId = Mage::app()->getStore()->getWebsiteId();
+            if ((int)$websiteId == 0 && $productCollection->getStoreId()) {
+                $websiteId = Mage::app()->getStore($productCollection->getStoreId())->getWebsiteId();
+            }
         }
         $productIds = array();
         foreach ($productCollection as $product) {

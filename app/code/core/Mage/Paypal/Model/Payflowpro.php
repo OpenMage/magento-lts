@@ -248,6 +248,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
         $request = $this->_buildBasicRequest($payment);
         $request->setTrxtype(self::TRXTYPE_CREDIT);
         $request->setOrigid($payment->getParentTransactionId());
+        $request->setAmt(round($amount,2));
         $response = $this->_postRequest($request);
         $this->_processErrors($response);
 
@@ -334,7 +335,9 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
 
         $_isProxy = $this->getConfigData('use_proxy', false);
         if($_isProxy){
-            $_config['proxy'] = $this->getConfigData('proxy_host') . ':' . $this->getConfigData('proxy_port');//http://proxy.shr.secureserver.net:3128',
+            $_config['proxy'] = $this->getConfigData('proxy_host')
+                . ':'
+                . $this->getConfigData('proxy_port');//http://proxy.shr.secureserver.net:3128',
             $_config['httpproxytunnel'] = true;
             $_config['proxytype'] = CURLPROXY_HTTP;
         }

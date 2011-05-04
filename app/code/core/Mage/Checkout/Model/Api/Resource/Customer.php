@@ -72,7 +72,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     {
         $address = Mage::getModel('customer/address')->load((int)$addressId);
         if (is_null($address->getId())) {
-            $this->_fault('invalid_address_data');
+            $this->_fault('invalid_address_id');
         }
 
         $address->explodeStreetAddress();

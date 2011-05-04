@@ -86,6 +86,12 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
     public function saveAction()
     {
         if ($postData = $this->getRequest()->getPost()) {
+
+            //filtering
+            /** @var $helper Mage_Adminhtml_Helper_Data */
+            $helper = Mage::helper('adminhtml');
+            $postData['code'] = $helper->stripTags($postData['code']);
+
             $ruleModel = Mage::getSingleton('tax/calculation_rule');
             $ruleModel->setData($postData);
 

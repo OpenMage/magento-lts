@@ -29,7 +29,7 @@
  *
  * @category   Mage
  * @package    Mage_Directory
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Directory_Model_Mysql4_Region_Collection extends Varien_Data_Collection_Db
 {
@@ -45,13 +45,20 @@ class Mage_Directory_Model_Mysql4_Region_Collection extends Varien_Data_Collecti
         $this->_regionTable     = Mage::getSingleton('core/resource')->getTableName('directory/country_region');
         $this->_regionNameTable = Mage::getSingleton('core/resource')->getTableName('directory/country_region_name');
 
-        $locale = Mage::app()->getLocale()->getLocaleCode();
+        $locale =  $this->_select->getAdapter()->quote(
+            Mage::app()->getLocale()->getLocaleCode());
+
 
         $this->_select->from(array('region'=>$this->_regionTable),
-            array('region_id'=>'region_id', 'country_id'=>'country_id', 'code'=>'code', 'default_name'=>'default_name')
-        );
+            array(
+                 'region_id'    => 'region_id',
+                 'country_id'   => 'country_id',
+                 'code'         => 'code',
+                 'default_name' => 'default_name'
+            ));
         $this->_select->joinLeft(array('rname'=>$this->_regionNameTable),
-            "region.region_id=rname.region_id AND rname.locale='$locale'", array('name'));
+            'region.region_id = rname.region_id AND rname.locale = ' . $locale,
+            array('name'));
 
         $this->setItemObjectClass(Mage::getConfig()->getModelClassName('directory/region'));
     }
@@ -60,7 +67,7 @@ class Mage_Directory_Model_Mysql4_Region_Collection extends Varien_Data_Collecti
     {
         if (!empty($countryId)) {
             if (is_array($countryId)) {
-                $this->addFieldToFilter('region.country_id', array('in'=>$countryId));
+                $this->addFieldToFilter('region.country_id', array('in' => $countryId));
             } else {
                 $this->addFieldToFilter('region.country_id', $countryId);
             }
@@ -71,7 +78,7 @@ class Mage_Directory_Model_Mysql4_Region_Collection extends Varien_Data_Collecti
     public function addCountryCodeFilter($countryCode)
     {
         $this->_select->joinLeft(array('country'=>$this->_countryTable), 'region.country_id=country.country_id');
-        $this->_select->where("country.iso3_code = '{$countryCode}'");
+        $this->_select->where('country.iso3_code = ?', $countryCode);
         return $this;
     }
 
@@ -79,9 +86,9 @@ class Mage_Directory_Model_Mysql4_Region_Collection extends Varien_Data_Collecti
     {
         if (!empty($regionCode)) {
             if (is_array($regionCode)) {
-                $this->_select->where("region.code IN ('".implode("','", $regionCode)."')");
+                $this->_select->where('region.code IN(?)', $regionCode);
             } else {
-                $this->_select->where("region.code = '{$regionCode}'");
+                $this->_select->where('region.code = ?', $regionCode);
             }
         }
         return $this;
@@ -91,9 +98,9 @@ class Mage_Directory_Model_Mysql4_Region_Collection extends Varien_Data_Collecti
     {
         if (!empty($regionName)) {
             if (is_array($regionName)) {
-                $this->_select->where("region.default_name in ('".implode("','", $regionName)."')");
+                $this->_select->where('region.default_name IN(?)', $regionName);
             } else {
-                $this->_select->where("region.default_name = '{$regionName}'");
+                $this->_select->where('region.default_name = ?', $regionName);
             }
         }
         return $this;
@@ -109,7 +116,10 @@ class Mage_Directory_Model_Mysql4_Region_Collection extends Varien_Data_Collecti
             );
         }
         if (count($options)>0) {
-            array_unshift($options, array('title'=>null, 'value'=>'0', 'label'=>Mage::helper('directory')->__('-- Please select --')));
+            array_unshift($options,
+                array('title' => null,
+                     'value' => '0',
+                     'label' => Mage::helper('directory')->__('-- Please select --')));
         }
         return $options;
     }

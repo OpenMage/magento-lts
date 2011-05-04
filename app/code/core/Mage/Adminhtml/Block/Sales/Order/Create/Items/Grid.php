@@ -304,14 +304,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     {
         $product = $item->getProduct();
 
-        $options = array(
-            'label' => Mage::helper('sales')->__('Configure'),
-            'title' => Mage::helper('sales')->__('This product does not have any configurable options.')
-        );
+        $options = array('label' => Mage::helper('sales')->__('Configure'));
         if ($product->canConfigure()) {
             $options['onclick'] = sprintf('order.showQuoteItemConfiguration(%s)', $item->getId());
         } else {
             $options['class'] = ' disabled';
+            $options['title'] = Mage::helper('sales')->__('This product does not have any configurable options');
         }
 
         return $this->getLayout()->createBlock('adminhtml/widget_button')

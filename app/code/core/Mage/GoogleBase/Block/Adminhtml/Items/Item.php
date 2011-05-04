@@ -107,14 +107,6 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Item extends Mage_Adminhtml_Block_Wi
                 'filter'    => false,
         ));
 
-        $this->addColumn('views',
-            array(
-                'header'    => $this->__('Page views'),
-                'width'     => '150px',
-                'index'     => 'views',
-                'filter'    => false,
-        ));
-
         $this->addColumn('active',
             array(
                 'header'    => $this->__('Active'),

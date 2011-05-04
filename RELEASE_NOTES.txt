@@ -1,3 +1,713 @@
+==== 1.5.1.0 ====                                                                     
+                                             
+=== Improvements ===
+Alternative image storage feature enabled with fixed get.php file.
+Magento Mobile updated to release v20
+Implemented SOAP Faults for GiftMessage API
+- added faults in functions
+- added description in api.xml
+Implemented The names of WPPHS depend on a merchant`s country in the backend. Create a functionality for dynamic changing.
+- Added functionality for dynamic changing the names of WPPHS
+- Added backend config into system.xml
+Implemented WS-I for API
+- added wsi.xml for all WebAPI modules
+- added new wsi-soap handler
+- added new wsi-soap adapter
+- changed admin configuration, added parameter into "Magento Core API"->WSI Compliance
+- changed api.xml
+Implemented GiftMessage for Cart
+
+=== Changes ===
+Replaced usage of Varien_File_Uploader with Mage_Core_Model_File_Uploader
+
+=== Fixes ===
+Fixed PayPal Standard: order has two invoice and two refund
+Fixed Adjustment Fee, Adjustment Refund and Refund Shipping fields must be disabled on credit memo for Payflow Pro and PayFlowLink payment methods
+- Actualized API params mapping 
+- Added parameter Amount into refund request
+Fixed Broken mysql4-data-upgrade-1.4.0.0.13-1.4.0.0.14.php file
+Fixed XMLConnect - edited parameter cannot be saved
+Fixed Media storage - problem with image in the CMS pages
+- Added functional to get files with disabled db media storage feature through the get.php script
+Fixed Unable to place order using PayPal Billing agreement through Checkout with multiple addresses
+- Added additional multi shipping checkout exceptions logging.
+Fixed No AmericanExpress support in Website Payments Pro Payflow Edition
+- Added to Direct payment 
+Fixed Incorrect Subtotal(Incl. Tax) in Shopping Cart, when catalog prices entered by admin include tax
+Fixed Function "Apply Tax On - Original price only" does not correct calculate product tax
+Fixed No ability to save Product Attribute with type Media Image
+Fixed Mage_CatalogSearch_Model_Query::getMaxQueryLenght() is not properly deprecated.
+Fixed Two links in forgotpassword.phtml template lead to not existent files
+Fixed Added compiled js and css to whitelist. Added removing of relative URL parts to get.php.
+Fixed several probable vulnerabilities on front and backend
+Fixed Incorrect error message when extension state is lower than preferred state
+Fixed No rule applied when coupon code is no longer valid
+- verify if rule uses coupon at all before coupon check
+Fixed Argument passed to Mage_Catalog_Helper_Image::init() must be an instance of Mage_Catalog_Model_Product, instance of Mage_Wishlist_Model_Item given
+Fixed Varien_Db_Adapter_Mysqli::raw_query() should throw an Exception after 10 tries
+Fixed Import file downloaded from FTP in BINARY mode
+- added option(ASCII || BINARY) for mode of file transferring;
+- default mode of file transferring is BINARY;
+- was changed property "type" of input field for password.
+Fixed User interface: real mistake in the label name, Api instead API
+Fixed issue with URL Rewrite Rule for new products with no category information
+Fixed Invoice do not created when using "Automatically Invoice All Items" option of Zero Subtotal Checkout
+Fixed Additional dot when checking out as Guest
+Fixed Prefix and suffix aren't visible in Add New Address Form
+Fixed Calculation order for Catalog Price Rule and Configurable Product option price
+Fixed When put values in Customer Name and Address Options they do not reflect on the backend customer and customer address forms
+Fixed Custom URL Rewrite creation broken
+- skip filtering for store select if no product or category specified in case of custom rewrite
+Fixed Shopping Cart Price Rule->Conditions->Shipping Country is not correctly controlled on multiple checkout.
+- Added checking: if address object is a new object rules validation cache will not working because we can not save validation results for address without id
+Fixed Resources names are not translated on Role Resources page at backend 
+Fixed Multiselect and Dropdown Attribute values set to "0" are not exported correctly
+Fixed WYSIWYG Editor - Unable to Create a Folder when Inserting a File
+Fixed Wrong cache key for websites
+- {{base_url}} not replaced with url on the saving in the cache. {{base_url}} replaced with  base url on the getting.
+Fixed After second refund made from paypal user get wrong refund amounts
+Fixed Multiselect and Dropdown Attribute values set to "0" are not exported correctly
+- modified condition for option emptiness check to pass string and int zero values
+Fixed Infinite loop is started, when backend user selects non-existing time period for a chart on Dashboard
+Fixed Missing isset() in Mage_Sales_Model_Recurring_Profile::createOrder()
+- Added the filtering "value" key on the setting in the conditions: Order Number, Purchased Quantity, Sales Amount
+Fixed Discount is not applied to product in case when in conditions of Catalog Price Rule "contains" is chosen
+Fixed Unable to open "View all wishlist items" link from email
+Fixed Specifying incorrect timezone in configuration causes halt of backend work flow and inability to add products to a Cart on frontend
+- Added timezone validation
+Fixed Checkout with Configurable Product includes disabled simple
+- removing parent from shopping cart if child becomes disabled or out of stock
+Fixed Validate Each Address Separately in Multi-address Checkout do not working
+Fixed Google Checkout - catalog price discount for Configurable product is calculated incorrectly
+Fixed FPT with prices included tax problem
+Fixed Incorrect Excl. Tax in product page, when catalog prices entered by admin include tax
+- Fixed JS excluding tax price recalculation
+Fixed Unable to configure Grouped product from the backend
+Fixed Order, that related with Recurring Profile does not displayed
+Fixed Discount is not applied to product in case when in conditions of Catalog Price Rule "contains" is chosen
+Fixed After second refund made from paypal user get wrong refund amounts
+Fixed WPPHS payment method has tags in the name
+Fixed Symlinks do not work for back-end blocks
+Fixed The names of WPPHS depend on a merchant`s country in the backend. Create a functionality for dynamic changing.
+Fixed Disabled success redirect functionality in paypal express checkout
+Fixed Added whitelist support to get.php script
+Fixed Mage_Customer_Model_Address class name is hardcoded in certain models
+Fixed Typo in Mage_ImportExport_Model_Import_Adapter_Abstract::_construct()
+Fixed 'FOUND' and 'NOT FOUND' labels are not translated in Mage_SalesRule_Model_Rule_Condition_Product_Found::loadValueOptions()
+Fixed 'Select' label is not translated in Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid::_prepareColumns()
+Fixed Invalid HTML from form multiline element renderer
+Fixed Collection calling private _setOrder() method in CatalogEvent module
+Fixed Tags on search results for Global Record Search (Adminhtml) are not translatable
+Fixed JavaScript bug in IE8 with date advice set during js validation.
+Fixed Missing translation for ZF error messages
+- provided translation of ZF native validation error messages
+Fixed Shopping Cart Price Rule->Conditions->Shipping Country is not correctly controlled on multiple checkout.
+Fixed Moneybookers Multistore System Configuration
+Fixed Moneybookers OBT Defaults
+Fixed Product info API request
+- a behavior of the function, was optimized;
+- refactoring classes with calling function from helper without changing the inside logic;
+- duplicated code were moved to catalog/product helper with creating the new one function for that.
+Fixed typos in adminhtml widget form block
+- Changed reserved word 'const' to lower case in tax config model
+Fixed Google Base Synchronize
+- Fixed fatal error on very first Publish and then Synchronizing if in GB products already were
+- Fixed potential fatal when on mass Publish action we will not retrieve any item id: expected array, but null or empty string given
+Fixed Rounding issues in shipping methods and in sales payment
+Fixed Usage of non-mb-supported strlen() in custom option validation
+- fixed length calculation routine to work with multi-byte characters
+- changed order of evaluation, so that length is calculated only if length constraint is set for custom option
+Fixed Unused class Mage_Reports_Model_Mysql4_Shopcart_Product_Collection did not marked like deprecated
+- mark class as deprecated after 1.5.0.1
+Fixed Products prepare function
+- Change prepare products function
+- Update resource with phpDoc
+- Update wsdl
+Improved SOAP Faults in Shopping Cart
+- all faults for ShoppingCart are unique for each issue and have wide description
+Fixed Shopping Cart create order should return order increment id
+- updated wsdl, wsi
+- changed return type for Mage_Checkout_Model_Cart_Api::createOrder
+Fixed Grouped product has no configured price in Wishlist
+Fixed Unable to continue checkout when "Street Address" use non english characters
+Fixed Misprint in comment in Mage_Checkout_Model_Cart::init()
+Fixed Controllers used protected properties
+- removed protected property _hasDataChanges equals true in controllers
+- added property _hasDataChanges equals true in method "addComment" for all objects
+Fixed Page "404 Not Found" is showed by clicked Edit link in the Invoice page of placed order
+Fixed Google Base Synchronize
+Fixed Error on Authorize.net Direct Post payment method in Backend
+Fixed API default/SOAP functionality switched
+- removed unused variable loading
+- changed loading default api handler in IndexController
+- added loading default "soap" api handler in SoapController
+Fixed Missed unique index on eav table
+Fixed Order status visible_on_front flag in configuration file can't be overridden
+Fixed Unexpected error message appears when quantity to refund more than quantity invoiced
+Fixed PayPal payment methods are not shown on the checkout Payment Information step if Brazilian Real is set as base currency
+- Added new supported currency codes into config
+Fixed Trim value after explode
+Fixed Unable to save customer date attribute with date more then 2010
+Fixed No customer's information
+Fixed PayPal Business Email address update
+Fixed Hovering mouse cursor on "Configure" button for a composite product shows incorrect hint
+Fixed Error in fulltext search indexation for values that contain 'à' character
+- modified regular expression to correct process of unicode characters
+Fixed Zooming don't work for an image larger or taller than the container
+Fixed Variable  is used before its definition in Mage_CatalogRule_Helper_Data::calcPriceRule()
+Fixed Typo in app\design\frontend\base\default\template\checkout\success.phtml
+Fixed Fatal error during newsletters sending via cron
+- Also added missed PHP-docs to Mage_Newsletter_Model_Problem class.
+Fixed Quantity of bundle item is not stored correctly, in case when it is decimal
+Fixed Unable to change configurable product name for store view
+- the bug was in two HTML input tags with same names located on "General" and "Associated Products" tabs. One of them was been renamed to solve the problem.
+Fixed Microsoft Excel 2007 fails to open Magento generated XML file
+Fixed Admin page - incorrect displaying of pop-up message for gift options in Items Ordered block
+Fixed One extra unnecessary product appears in Items Ordered list of placed Order, when payment is provided using Authorize.net Direct Post
+Fixed If 3D Secure Card Validation is enabled then Gift Options section has wrong position during backend order creation
+Fixed Reindex of Category Products for large catalogs is extremely slow
+Fixed Product minimum quantity, add to cart
+Fixed Created in Backend customer doubled after creation order for him and not save any addres information
+Fixed Changes to helper text for the images for the application submission page
+Fixed Redirect patch
+Fixed product list images for iPad device to use base image
+Fixed Sending invoice email don`t change the status
+Fixed remove paypal country id hard coded
+Fixed Mobile Controller issue
+Fixed App locations (countries) do not match iTunes App Stores countries available
+Fixed Disabled cookie message issue
+Fixed Information about Gift Options is not stored, when admin user performs Edit Order action in backend
+Fixed Web form with empty fields can be saved - also is_object() calls are replaced with instanceof checking inside of Adminhtml/MobileController
+Fixed Bundle product with required option must have "Configure" button inactive if one of the option is out of stock.
+Fixed Unable to retrieve product attributes, "Unsupported operand types"
+Fixed Add to Wishlist is not work
+Fixed A bug inside catalog/model/product/Api.php::create prevents this function from working
+- Added $store parameter.
+Fixed CSS Merger Cache Ignores Hostname and HTTPS
+- on frontend when "Use Secure URLs in Frontend" is set to "yes", https is used only for some selected pages. This fix takes into account what's the protocol in use
+Fixed Improvement to block caching
+Fixed Typo in Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute::savePrices()
+Fixed Shipping creation for bundle product shows wrong q-ty
+Fixed Check for controller instance in rating option resource model
+Fixed Export Filters are not working correctly during export of customers
+Fixed Function "Apply Tax On - Original price only" does not correct calculate product tax
+Fixed Mage_Index.csv is not used at all
+Fixed Incorrect tax count, when making new order through back-end and using discount coupon (price cart rule)
+Fixed Error "Source file moving failed" on Import process, when PHP version is 5.2
+Fixed "Store credit amount can not exceed order amount" error in Credit Memo applying to Store Credit for decimal quantities and decimal subtotals
+Fixed Disabled cookie message issue
+Fixed Edit Order without creating new one functionality doesn't save changes in non-default customer address attributes
+Fixed Unable to buy Downloadable product with specified option "Links can be purchased separately" set to "No"
+Fixed Incorrect message of soap fault
+Fixed Information about Gift Options is not stored, when admin user performs Edit Order action in backend
+Fixed Unable to open "View all wishlist items" link from email
+- Added action to add shared wishlist item to shopping cart
+Fixed iFrame must be centered for Website Payments Pro Hosted Solution payment method.
+Fixed Free shipping does not transfer to Google Checkout when it is enabled in a shipping method
+- Added support of UPS carrier methods with UPS XML type of rates calculation
+Fixed Incorrect tax summary for partial credit memos/invoices
+Fixed PayPal Standart: order has two invoice and two refund
+Fixed A product hasn't been added to whishlist from category with closed, upcoming events
+Fixed Customer password is not imported from CSV file
+Fixed CDN - necessary to replace information message
+Fixed When put values in Customer Name and Address Options they do not reflect on the backend customer and customer address forms
+Fixed Reports-> Products-> Products ordered - Trace appeared
+Fixed Mage_Core_Helper_Url::getCurrentUrl() method ignores server PORT
+Fixed No ability to change payment from Store Credits, when customer backs to a Cart from Order Review step, and then goes to checkout again (OnePageCheckout)
+Fixed Customer attribute labels not translated in validation error messages
+- added translation for attribute labels at classes Mage_Customer_Model_Attribute_Data_*
+Fixed Typos in: Varien_Db_Adapter_Pdo_Mysql, Varien_File_Uploader
+Fixed Mage_Core_Model_Design_Package::_prepareUrl() uses incorrect regular expression to check whether the url is relative
+- modified preg_match for detecting absolute urls
+Fixed Mage_Catalog_Block_Product_Gallery::getImageWidth() returns false for images with width smaller than 600px
+- modified method Mage_Catalog_Block_Product_Gallery::getImageWidth(), if width <= 600 return width value, not false
+Fixed Incorrect view of the shipping tax at the back end, unnecessary $0.01
+Fixed Wrong visualisation of "Original Price" in placed order
+- collecting totals for quote at multishipping checkout
+Fixed Incorrect view of popup windows for composite product on backend (only IE)
+Added Adding Composite Products in Admin Order Creation
+- Fixed styles in ie7
+Fixed "Items Ordered" tab is not refreshing while Admin order creation
+Fixed Free shipping does not transfer to Google Checkout when it is enabled in a shipping method
+- Re factored and optimized code
+- Improved performance
+- Added dependency for GoogleCheckout module from Usa module
+- Added fedex and usps free methods supporting
+
+
+
+==== 1.5.x-devel-104676 ====
+
+=== Improvements ===
+Magento Mobile updated to release v20
+
+=== Fixes ===
+Fixed PayPal Standard: order has two invoice and two refund
+Fixed Adjustmen Fee, Adjustment Refund and Refund Shipping fields must be disabled on credit memo for Payflow Pro and PayFlowLink payment methods
+- Actualized API params mapping 
+- Added parameter Amount into refund request
+Fixed Broken mysql4-data-upgrade-1.4.0.0.13-1.4.0.0.14.php file
+Fixed XMLConnect - edited parameter cannot be saved
+Fixed Media storage - problem with image in the CMS pages
+- Added functional to get files with disabled db media storage feature through the get.php script
+Fixed Unable to place order using PayPal Billing agreement through Checkout with multiple addresses
+- Added additional multi shipping checkout exceptions logging.
+Fixed No AmericanExpress support in Website Payments Pro Payflow Edition
+- Added to Direct payment 
+Fixed Incorrect Subtotal(Incl. Tax) in Shopping Cart, when catalog prices entered by admin include tax
+Fixed Function "Apply Tax On - Original price only" does not correct calculate product tax
+Fixed No ability to save Product Attribute with type Media Image
+
+
+==== 1.5.1.0-rc1 ====
+
+=== Improvements ===
+Magento Mobile updated to release v19
+
+=== Changes ===
+Replaced usage of Varien_File_Uploader with Mage_Core_Model_File_Uploader
+
+=== Fixes ===
+Fixed Mage_CatalogSearch_Model_Query::getMaxQueryLenght() is not properly deprecated.
+Fixed Two links in forgotpassword.phtml template lead to not existent files
+Fixed Added compiled js and css to whitelist. Added removing of relative URL parts to get.php.
+Fixed several probable vulnerabilities on front and backend
+Fixed Incorrect error message when extension state is lower than preferred state
+Fixed No rule applied when coupon code is no longer valid
+- verify if rule uses coupon at all before coupon check
+Fixed Argument passed to Mage_Catalog_Helper_Image::init() must be an instance of Mage_Catalog_Model_Product, instance of Mage_Wishlist_Model_Item given
+Fixed Varien_Db_Adapter_Mysqli::raw_query() should throw an Exception after 10 tries
+Fixed Import file downloaded from FTP in BINARY mode
+- added option(ASCII || BINARY) for mode of file transferring;
+- default mode of file transferring is BINARY;
+- was changed property "type" of input field for password.
+Fixed User interface: real mistake in the label name, Api instead API
+Fixed issue with URL Rewrite Rule for new products with no category information
+Fixed Invoice do not created when using "Automatically Invoice All Items" option of Zero Subtotal Checkout
+Fixed Additional dot when checking out as Guest
+Fixed Prefix and suffix aren't visible in Add New Address Form
+Fixed Calculation order for Catalog Price Rule and Configurable Product option price
+Fixed When put values in Customer Name and Address Options they do not reflect on the backend customer and customer address forms
+Fixed Custom URL Rewrite creation broken
+- skip filtering for store select if no product or category specified in case of custom rewrite
+Fixed Shopping Cart Price Rule->Conditions->Shipping Country is not correctly controlled on multiple checkout.
+- Added checking: if address object is a new object rules validation cache will not working because we can not save validation results for address without id
+Fixed Resources names are not translated on Role Resources page at backend 
+Fixed Multiselect and Dropdown Attribute values set to "0" are not exported correctly
+Fixed WYSIWYG Editor - Unable to Create a Folder when Inserting a File
+Fixed Wrong cache key for websites
+- {{base_url}} not replaced with url on the saving in the cache. {{base_url}} replaced with  base url on the getting.
+Fixed After second refund made from paypal user get wrong refund amounts
+Fixed Multiselect and Dropdown Attribute values set to "0" are not exported correctly
+- modified condition for option emptiness check to pass string and int zero values
+Fixed Infinite loop is started, when backend user selects non-existing time period for a chart on Dashboard
+Fixed Missing isset() in Mage_Sales_Model_Recurring_Profile::createOrder()
+- Added the filtering "value" key on the setting in the conditions: Order Number, Purchased Quantity, Sales Amount
+Fixed Discount is not applied to product in case when in conditions of Catalog Price Rule "contains" is chosen
+Fixed Unable to open "View all wishlist items" link from email
+Fixed Specifying incorrect timezone in configuration causes halt of backend work flow and inability to add products to a Cart on frontend
+- Added timezone validation
+Fixed Checkout with Configurable Product includes disabled simple
+- removing parent from shopping cart if child becomes disabled or out of stock
+Fixed Validate Each Address Separately in Multi-address Checkout do not working
+Fixed Google Checkout - catalog price discount for Configurable product is calculated incorrectly
+Fixed FPT with prices included tax problem
+Fixed Incorrect Excl. Tax in product page, when catalog prices entered by admin include tax
+- Fixed JS excluding tax price recalculation
+Fixed Unable to configure Grouped product from the backend
+Fixed Order, that related with Recurring Profile does not displayed
+Fixed Discount is not applied to product in case when in conditions of Catalog Price Rule "contains" is chosen
+Fixed After second refund made from paypal user get wrong refund amounts
+Fixed WPPHS payment method has tags in the name
+
+==== 1.5.x-devel-102426 ====
+
+=== Improvements ===
+Magento Mobile updated to release v19
+
+=== Changes ===
+Replaced usage of Varien_File_Uploader with Mage_Core_Model_File_Uploader
+
+=== Fixes ===
+Fixed Mage_CatalogSearch_Model_Query::getMaxQueryLenght() is not properly deprecated.
+Fixed Two links in forgotpassword.phtml template lead to not existent files
+Fixed Added compiled js and css to whitelist. Added removing of relative URL parts to get.php.
+Fixed several probable vulnerabilities on front and backend
+Fixed Incorrect error message when extension state is lower than preferred state
+Fixed No rule applied when coupon code is no longer valid
+- verify if rule uses coupon at all before coupon check
+Fixed Argument passed to Mage_Catalog_Helper_Image::init() must be an instance of Mage_Catalog_Model_Product, instance of Mage_Wishlist_Model_Item given
+Fixed Varien_Db_Adapter_Mysqli::raw_query() should throw an Exception after 10 tries
+Fixed Import file downloaded from FTP in BINARY mode
+- added option(ASCII || BINARY) for mode of file transferring;
+- default mode of file transferring is BINARY;
+- was changed property "type" of input field for password.
+Fixed User interface: real mistake in the label name, Api instead API
+Fixed issue with URL Rewrite Rule for new products with no category information
+Fixed Invoice do not created when using "Automatically Invoice All Items" option of Zero Subtotal Checkout
+Fixed Additional dot when checking out as Guest
+Fixed Prefix and suffix aren't visible in Add New Address Form
+
+
+
+==== 1.5.1.0-beta1 ====
+
+=== Improvements ===
+Implemented SOAP Faults for GiftMessage API
+- added faults in functions
+- added description in api.xml
+Implemented The names of WPPHS depend on a merchant`s country in the backend. Create a functionality for dynamic changing.
+- Added functionality for dynamic changing the names of WPPHS
+- Added backend config into system.xml
+Implemented WS-I for API
+- added wsi.xml for all WebAPI modules
+- added new wsi-soap handler
+- added new wsi-soap adapter
+- changed admin configuration, added parameter into "Magento Core API"->WSI Compliance
+- changed api.xml
+Implemented GiftMessage for Cart
+
+=== Changes ===
+Updated Magento Mobile package to ver. 18
+
+=== Fixes ===
+Fixed Symlinks do not work for back-end blocks
+Fixed The names of WPPHS depend on a merchant`s country in the backend. Create a functionality for dynamic changing.
+Fixed Disabled success redirect functionality in paypal express checkout
+Fixed Added whitelist support to get.php script
+Fixed Mage_Customer_Model_Address class name is hardcoded in certain models
+Fixed Typo in Mage_ImportExport_Model_Import_Adapter_Abstract::_construct()
+Fixed 'FOUND' and 'NOT FOUND' labels are not translated in Mage_SalesRule_Model_Rule_Condition_Product_Found::loadValueOptions()
+Fixed 'Select' label is not translated in Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid::_prepareColumns()
+Fixed Invalid HTML from form multiline element renderer
+Fixed Collection calling private _setOrder() method in CatalogEvent module
+Fixed Tags on search results for Global Record Search (Adminhtml) are not translatable
+Fixed JavaScript bug in IE8 with date advice set during js validation.
+Fixed Missing translation for ZF error messages
+- provided translation of ZF native validation error messages
+Fixed Shopping Cart Price Rule->Conditions->Shipping Country is not correctly controlled on multiple checkout.
+Fixed Moneybookers Multistore System Configuration
+Fixed Moneybookers OBT Defaults
+Fixed Product info API request
+- a behavior of the function, was optimized;
+- refactoring classes with calling function from helper without changing the inside logic;
+- duplicated code were moved to catalog/product helper with creating the new one function for that.
+Fixed Poor randomness of auto-generated passwords in Customer Model
+- was used function from core helper;
+- code style has been formatted.
+Fixed several probable vulnerabilities on front and backend
+Fixed typos in adminhtml widget form block
+- Changed reserved word 'const' to lower case in tax config model
+Fixed Google Base Synchronize
+- Fixed fatal error on very first Publish and then Synchronizing if in GB products already were
+- Fixed potential fatal when on mass Publish action we will not retrieve any item id: expected array, but null or empty string given
+Fixed Rounding issues in shipping methods and in sales payment
+Fixed Usage of non-mb-supported strlen() in custom option validation
+- fixed length calculation routine to work with multi-byte characters
+- changed order of evaluation, so that length is calculated only if length constraint is set for custom option
+Fixed Unused class Mage_Reports_Model_Mysql4_Shopcart_Product_Collection did not marked like deprecated
+- mark class as deprecated after 1.5.0.1
+Fixed Products prepare function
+- Change prepare products function
+- Update resource with phpDoc
+- Update wsdl
+Improved SOAP Faults in Shopping Cart
+- all faults for ShoppingCart are unique for each issue and have wide description
+Fixed Shopping Cart create order should return order increment id
+- updated wsdl, wsi
+- changed return type for Mage_Checkout_Model_Cart_Api::createOrder
+Fixed Grouped product has no configured price in Wishlist
+Fixed Unable to continue checkout when "Street Address" use non english characters
+Fixed Misprint in comment in Mage_Checkout_Model_Cart::init()
+Fixed Controllers used protected properties
+- removed protected property _hasDataChanges equals true in controllers
+- added property _hasDataChanges equals true in method "addComment" for all objects
+Fixed Page "404 Not Found" is showed by clicked Edit link in the Invoice page of placed order
+Fixed Google Base Synchronize
+Fixed probably SQL-injection in backend
+Fixed Error on Authorize.net Direct Post payment method in Backend
+Fixed API default/SOAP functionality switched
+- removed unused variable loading
+- changed loading default api handler in IndexController
+- added loading default "soap" api handler in SoapController
+Fixed Missed unique index on eav table
+Fixed Its possible to add&proceed to checkout with any product from the catalog no matter website its assign to.
+Fixed Order status visible_on_front flag in configuration file can't be overridden
+Fixed Unexpected error message appears when quantity to refund more than quantity invoiced
+Fixed PayPal payment methods are not shown on the checkout Payment Information step if Brazilian Real is set as base currency
+- Added new supported currency codes into config
+Fixed Trim value after explode
+Fixed Unable to save customer date attribute with date more then 2010
+Fixed No customer's information
+Fixed PayPal Business Email address update
+Fixed probable abuse with image re-size functionality on frontend
+Fixed Hovering mouse cursor on "Configure" button for a composite product shows incorrect hint
+Fixed Error in fulltext search indexation for values that contain 'à' character
+- modified regular expression to correct process of unicode characters
+Fixed Zooming don't work for an image larger or taller than the container
+Fixed Variable  is used before its definition in Mage_CatalogRule_Helper_Data::calcPriceRule()
+Fixed Typo in app\design\frontend\base\default\template\checkout\success.phtml
+Fixed Fatal error during newsletters sending via cron
+- Also added missed PHP-docs to Mage_Newsletter_Model_Problem class.
+Fixed Quantity of bundle item is not stored correctly, in case when it is decimal
+Fixed Unable to change configurable product name for store view
+- the bug was in two HTML input tags with same names located on "General" and "Associated Products" tabs. One of them was been renamed to solve the problem.
+Fixed Microsoft Excel 2007 fails to open Magento generated XML file
+Fixed several probable XSS issues on front end and backend
+Fixed Admin page - incorrect displaying of pop-up message for gift options in Items Ordered block
+Fixed One extra unnecessary product appears in Items Ordered list of placed Order, when payment is provided using Authorize.net Direct Post
+Fixed If 3D Secure Card Validation is enabled then Gift Options section has wrong position during backend order creation
+Fixed Reindex of Category Products for large catalogs is extremely slow
+Fixed Product minimum quantity, add to cart
+Fixed Created in Backend customer doubled after creation order for him and not save any addres information
+Fixed Changes to helper text for the images for the application submission page
+Fixed Redirect patch
+Fixed product list images for iPad device to use base image
+Fixed Sending invoice email don`t change the status
+Fixed remove paypal country id hard coded
+Fixed Mobile Controller issue
+Fixed App locations (countries) do not match iTunes App Stores countries available
+Fixed Disabled cookie message issue
+Fixed Information about Gift Options is not stored, when admin user performs Edit Order action in backend
+Fixed Web form with empty fields can be saved - also is_object() calls are replaced with instanceof checking inside of Adminhtml/MobileController
+Fixed Bundle product with required option must have "Configure" button inactive if one of the option is out of stock.
+Fixed Unable to retrieve product attributes, "Unsupported operand types"
+Fixed Add to Wishlist is not work
+Fixed A bug inside catalog/model/product/Api.php::create prevents this function from working
+- Added $store parameter.
+Fixed CSS Merger Cache Ignores Hostname and HTTPS
+- on frontend when "Use Secure URLs in Frontend" is set to "yes", https is used only for some selected pages. This fix takes into account what's the protocol in use
+Fixed Improvement to block caching
+Fixed Typo in Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute::savePrices()
+Fixed Shipping creation for bundle product shows wrong q-ty
+Fixed Check for controller instance in rating option resource model
+Fixed Export Filters are not working correctly during export of customers
+Fixed Function "Apply Tax On - Original price only" does not correct calculate product tax
+Fixed Mage_Index.csv is not used at all
+Fixed Incorrect tax count, when making new order through back-end and using discount coupon (price cart rule)
+Fixed Error "Source file moving failed" on Import process, when PHP version is 5.2
+Fixed "Store credit amount can not exceed order amount" error in Credit Memo applying to Store Credit for decimal quantities and decimal subtotals
+Fixed Disabled cookie message issue
+Fixed Edit Order without creating new one functionality doesn't save changes in non-default customer address attributes
+Fixed Unable to buy Downloadable product with specified option "Links can be purchased separately" set to "No"
+Fixed Incorrect message of soap fault
+Fixed Information about Gift Options is not stored, when admin user performs Edit Order action in backend
+Fixed Unable to open "View all wishlist items" link from email
+- Added action to add shared wishlist item to shopping cart
+Fixed iFrame must be centered for Website Payments Pro Hosted Solution payment method.
+Fixed Free shipping does not transfer to Google Checkout when it is enabled in a shipping method
+- Added support of UPS carrier methods with UPS XML type of rates calculation
+Fixed Incorrect tax summary for partial credit memos/invoices
+Fixed PayPal Standart: order has two invoice and two refund
+Fixed A product hasn't been added to whishlist from category with closed, upcoming events
+Fixed Customer password is not imported from CSV file
+Fixed CDN - necessary to replace information message
+Fixed When put values in Customer Name and Address Options they do not reflect on the backend customer and customer address forms
+Fixed Reports-> Products-> Products ordered - Trace appeared
+Fixed Mage_Core_Helper_Url::getCurrentUrl() method ignores server PORT
+Fixed No ability to change payment from Store Credits, when customer backs to a Cart from Order Review step, and then goes to checkout again (OnePageCheckout)
+Fixed Customer attribute labels not translated in validation error messages
+- added translation for attribute labels at classes Mage_Customer_Model_Attribute_Data_*
+Fixed Typos in: Varien_Db_Adapter_Pdo_Mysql, Varien_File_Uploader
+Fixed Mage_Core_Model_Design_Package::_prepareUrl() uses incorrect regular expression to check whether the url is relative
+- modified preg_match for detecting absolute urls
+Fixed Mage_Catalog_Block_Product_Gallery::getImageWidth() returns false for images with width smaller than 600px
+- modified method Mage_Catalog_Block_Product_Gallery::getImageWidth(), if width <= 600 return width value, not false
+Fixed Incorrect view of the shipping tax at the back end, unnecessary $0.01
+Fixed Wrong visualisation of "Original Price" in placed order
+- collecting totals for quote at multishipping checkout
+Fixed Incorrect view of popup windows for composite product on backend (only IE)
+Added Adding Composite Products in Admin Order Creation
+- Fixed styles in ie7
+Fixed "Items Ordered" tab is not refreshing while Admin order creation
+Fixed Free shipping does not transfer to Google Checkout when it is enabled in a shipping method
+- Re factored and optimized code
+- Improved performance
+- Added dependency for GoogleCheckout module from Usa module
+- Added fedex and usps free methods supporting
+
+
+==== 1.5.x-devel-100810 ====
+
+=== Fixes ===
+
+Fixed Shopping Cart Price Rule->Conditions->Shipping Country is not correctly controlled on multiple checkout.
+Fixed Moneybookers Multistore System Configuration
+Fixed Moneybookers OBT Defaults
+Fixed Product info API request
+- a behavior of the function, was optimized;
+- refactoring classes with calling function from helper without changing the inside logic;
+- duplicated code were moved to catalog/product helper with creating the new one function for that.
+Fixed Poor randomness of auto-generated passwords in Customer Model
+- was used function from core helper;
+- code style has been formatted.
+Fixed several probable vulnerabilities on front and backend
+Fixed typos in adminhtml widget form block
+- Changed reserved word 'const' to lower case in tax config model
+Fixed Google Base Synchronize
+- Fixed fatal error on very first Publish and then Synchronizing if in GB products already were
+- Fixed potential fatal when on mass Publish action we will not retrieve any item id: expected array, but null or empty string given
+Fixed Rounding issues in shipping methods and in sales payment
+Fixed Usage of non-mb-supported strlen() in custom option validation 
+- fixed length calculation routine to work with multi-byte characters
+- changed order of evaluation, so that length is calculated only if length constraint is set for custom option
+Fixed Unused class Mage_Reports_Model_Mysql4_Shopcart_Product_Collection did not marked like deprecated 
+- mark class as deprecated after 1.5.0.1
+
+
+==== 1.5.x-devel-100247 ====
+
+=== Improvements ===
+Implemented GiftMessage API Faults
+- added faults in functions
+- added description in api.xml
+Implemented The names of WPPHS depend on a merchant`s country in the backend. Create a functionality for dynamic changing.
+- Added functionality for dynamic changing the names of WPPHS
+- Added backend config into system.xml
+
+=== Fixes ===
+Fixed Products prepare function
+- Change prepare products function
+- Update resource with phpDoc
+- Update wsdl
+Improved Faults in Shopping Cart
+- all faults for ShoppingCart are unique for each issue and have wide description
+Fixed Shopping Cart create order should return order increment id
+- updated wsdl, wsi
+- changed return type for Mage_Checkout_Model_Cart_Api::createOrder
+Fixed Grouped product has no configured price in Wishlist
+Fixed Unable to continue checkout when "Street Address" use non english characters
+Fixed Misprint in comment in Mage_Checkout_Model_Cart::init()
+Fixed Controllers used protected properties
+- removed protected property _hasDataChanges equals true in controllers
+- added property _hasDataChanges equals true in method "addComment" for all objects
+Fixed Page "404 Not Found" is showed by clicked Edit link in the Invoice page of placed order
+Fixed probably XSS vulnerabilities in backend
+Fixed Google Base Synchronize
+Fixed probably SQL-injection in backend
+Fixed Error on Authorize.net Direct Post payment method in Backend
+Fixed API default/SOAP functionality switched
+- removed unused variable loading
+- changed loading default api handler in IndexController
+- added loading default "soap" api handler in SoapController
+Fixed Missed unique index on eav table
+Fixed Its possible to add&proceed to checkout with any product from the catalog no matter website its assign to.
+Fixed Order status visible_on_front flag in configuration file can't be overridden
+Fixed Unexpected error message appears when quantity to refund more than quantity invoiced
+Fixed PayPal payment methods are not shown on the checkout Payment Information step if Brazilian Real is set as base currency
+- Added new supported currency codes into config
+Fixed Trim value after explode
+Fixed Unable to save customer date attribute with date more then 2010
+Fixed No customer's information
+Fixed PayPal Business Email address update
+
+
+==== 1.5.x-devel-97859 ====
+
+=== Improvements ===
+Implemented WS-I for API
+- added wsi.xml for all WebAPI modules
+- added new wsi-soap handler
+- added new wsi-soap adapter
+- changed admin configuration, added parameter into "Magento Core API"->WSI Compliance
+- changed api.xml
+Implemented GiftMessage for Cart
+
+== Fixes ===
+Fixed probable abuse with image re-size functionality on frontend
+Fixed Hovering mouse cursor on "Configure" button for a composite product shows incorrect hint
+Fixed Error in fulltext search indexation for values that contain 'à' character
+- modified regular expression to correct process of unicode characters
+Fixed Zooming don't work for an image larger or taller than the container
+Fixed Variable  is used before its definition in Mage_CatalogRule_Helper_Data::calcPriceRule()
+Fixed Typo in app\design\frontend\base\default\template\checkout\success.phtml
+Fixed Fatal error during newsletters sending via cron
+- Also added missed PHP-docs to Mage_Newsletter_Model_Problem class.
+Fixed Quantity of bundle item is not stored correctly, in case when it is decimal
+Fixed Unable to change configurable product name for store view
+- the bug was in two HTML input tags with same names located on "General" and "Associated Products" tabs. One of them was been renamed to solve the problem.
+Fixed Microsoft Excel 2007 fails to open Magento generated XML file
+Fixed several probable XSS issues on front end and backend
+Fixed probable SQL injection on frontend
+Fixed Admin page - incorrect displaying of pop-up message for gift options in Items Ordered block
+Fixed One extra unnecessary product appears in Items Ordered list of placed Order, when payment is provided using Authorize.net Direct Post
+Fixed If 3D Secure Card Validation is enabled then Gift Options section has wrong position during backend order creation
+Fixed Reindex of Category Products for large catalogs is extremely slow
+Fixed Product minimum quantity, add to cart
+Fixed Created in Backend customer doubled after creation order for him and not save any addres information
+Fixed Changes to helper text for the images for the application submission page
+Fixed Redirect patch
+Fixed product list images for iPad device to use base image
+Fixed Sending invoice email don`t change the status
+Fixed remove paypal country id hard coded
+Fixed Mobile Controller issue
+Fixed App locations (countries) do not match iTunes App Stores countries available
+Fixed Disabled cookie message issue
+Fixed Information about Gift Options is not stored, when admin user performs Edit Order action in backend
+Fixed Web form with empty fields can be saved - also is_object() calls are replaced with instanceof checking inside of Adminhtml/MobileController
+Fixed Bundle product with required option must have "Configure" button inactive if one of the option is out of stock.
+Fixed Unable to retrieve product attributes, "Unsupported operand types"
+Fixed Add to Wishlist is not work
+Fixed A bug inside catalog/model/product/Api.php::create prevents this function from working
+- Added $store parameter.
+Fixed CSS Merger Cache Ignores Hostname and HTTPS
+- on frontend when "Use Secure URLs in Frontend" is set to "yes", https is used only for some selected pages. This fix takes into account what's the protocol in use
+Fixed Improvement to block caching
+Fixed Typo in Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute::savePrices()
+Fixed Shipping creation for bundle product shows wrong q-ty
+Fixed Check for controller instance in rating option resource model
+Fixed Export Filters are not working correctly during export of customers
+Fixed Function "Apply Tax On - Original price only" does not correct calculate product tax
+Fixed Mage_Index.csv is not used at all
+Fixed Incorrect tax count, when making new order through back-end and using discount coupon (price cart rule)
+Fixed Error "Source file moving failed" on Import process, when PHP version is 5.2
+Fixed "Store credit amount can not exceed order amount" error in Credit Memo applying to Store Credit for decimal quantities and decimal subtotals
+Fixed Disabled cookie message issue
+Fixed Edit Order without creating new one functionality doesn't save changes in non-default customer address attributes
+Fixed Unable to buy Downloadable product with specified option "Links can be purchased separately" set to "No"
+Fixed Incorrect message of soap fault
+Fixed Information about Gift Options is not stored, when admin user performs Edit Order action in backend
+Fixed Unable to open "View all wishlist items" link from email
+- Added action to add shared wishlist item to shopping cart
+Fixed iFrame must be centered for Website Payments Pro Hosted Solution payment method.
+Fixed Free shipping does not transfer to Google Checkout when it is enabled in a shipping method
+- Added support of UPS carrier methods with UPS XML type of rates calculation
+Fixed Incorrect tax summary for partial credit memos/invoices
+Fixed PayPal Standart: order has two invoice and two refund
+Fixed A product hasn't been added to whishlist from category with closed, upcoming events
+Fixed Customer password is not imported from CSV file
+Fixed CDN - necessary to replace information message
+Fixed When put values in Customer Name and Address Options they do not reflect on the backend customer and customer address forms
+Fixed Reports-> Products-> Products ordered - Trace appeared
+
+
+==== 1.5.x-devel-96719 ====
+
+=== Fixes ===
+Fixed Mage_Core_Helper_Url::getCurrentUrl() method ignores server PORT
+Fixed No ability to change payment from Store Credits, when customer backs to a Cart from Order Review step, and then goes to checkout again (OnePageCheckout)
+Fixed Customer attribute labels not translated in validation error messages
+- added translation for attribute labels at classes Mage_Customer_Model_Attribute_Data_*
+Fixed Typos in: Varien_Db_Adapter_Pdo_Mysql, Varien_File_Uploader
+Fixed Mage_Core_Model_Design_Package::_prepareUrl() uses incorrect regular expression to check whether the url is relative
+- modified preg_match for detecting absolute urls
+Fixed Mage_Catalog_Block_Product_Gallery::getImageWidth() returns false for images with width smaller than 600px
+- modified method Mage_Catalog_Block_Product_Gallery::getImageWidth(), if width <= 600 return width value, not false
+Fixed Incorrect view of the shipping tax at the back end, unnecessary $0.01
+Fixed Wrong visualisation of "Original Price" in placed order
+- collecting totals for quote at multishipping checkout
+Fixed Incorrect view of popup windows for composite product on backend (only IE)
+Added Adding Composite Products in Admin Order Creation
+- Fixed styles in ie7
+Fixed "Items Ordered" tab is not refreshing while Admin order creation
+Fixed Free shipping does not transfer to Google Checkout when it is enabled in a shipping method
+- Re factored and optimized code
+- Improved performance
+- Fixed typos
+- Added dependency for GoogleCheckout module from Usa module 
+- Added fedex and usps free methods supporting
+
+
 ==== 1.5.0.1 =====
 
 === Major Highlights ===

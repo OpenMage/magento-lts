@@ -24,9 +24,20 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Search Customer Model
+ *
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Adminhtml_Model_Search_Customer extends Varien_Object
 {
+    /**
+     * Load search results
+     *
+     * @return Mage_Adminhtml_Model_Search_Customer
+     */
     public function load()
     {
         $arr = array();
@@ -49,10 +60,10 @@ class Mage_Adminhtml_Model_Search_Customer extends Varien_Object
         foreach ($collection->getItems() as $customer) {
             $arr[] = array(
                 'id'            => 'customer/1/'.$customer->getId(),
-                'type'          => 'Customer',
+                'type'          => Mage::helper('adminhtml')->__('Customer'),
                 'name'          => $customer->getName(),
                 'description'   => $customer->getCompany(),
-                'url'           => Mage::helper('adminhtml')->getUrl('*/customer/edit', array('id'=>$customer->getId())),
+                'url' => Mage::helper('adminhtml')->getUrl('*/customer/edit', array('id'=>$customer->getId())),
             );
         }
 

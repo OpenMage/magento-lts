@@ -28,7 +28,6 @@
  * Check / Money order Payment method xml renderer
  *
  * @category   Mage
- * @category   Mage
  * @package    Mage_XmlConnect
  * @author     Magento Core Team <core@magentocommerce.com>
  */
@@ -77,14 +76,15 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Purchaseorder extends Mage_P
         $formXmlObj->addAttribute('method', 'post');
 
         $poNumber = $this->getInfoData('po_number');
+        $poNumberText = $this->__('Purchase Order Number');
         $xml = <<<EOT
-    <fieldset>
-        <field name="payment[po_number]" type="text" label="{$this->helper('xmlconnect')->__('Purchase Order Number')}" value="$poNumber" required="true" />
-    </fieldset>
+<fieldset>
+    <field name="payment[po_number]" type="text" label="{$poNumberText}" value="$poNumber" required="true" />
+</fieldset>
 EOT;
         $fieldsetXmlObj = new Mage_XmlConnect_Model_Simplexml_Element($xml);
         $formXmlObj->appendChild($fieldsetXmlObj);
-     
+
         return $paymentItemXmlObj;
     }
 }

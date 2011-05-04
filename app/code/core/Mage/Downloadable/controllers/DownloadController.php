@@ -173,7 +173,9 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
                 }
                 $this->_getCustomerSession()->addNotice($notice);
                 $this->_getCustomerSession()->authenticate($this);
-                $this->_getCustomerSession()->setBeforeAuthUrl(Mage::getUrl('downloadable/customer/products/'), array('_secure' => true));
+                $this->_getCustomerSession()->setBeforeAuthUrl(Mage::getUrl('downloadable/customer/products/'),
+                    array('_secure' => true)
+                );
                 return ;
             }
             $linkPurchased = Mage::getModel('downloadable/link_purchased')->load($linkPurchasedItem->getPurchasedId());
@@ -182,9 +184,13 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
                 return $this->_redirect('*/customer/products');
             }
         }
-        $downloadsLeft = $linkPurchasedItem->getNumberOfDownloadsBought() - $linkPurchasedItem->getNumberOfDownloadsUsed();
-        if ($linkPurchasedItem->getStatus() == Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_AVAILABLE
-            && ($downloadsLeft || $linkPurchasedItem->getNumberOfDownloadsBought() == 0)) {
+        $downloadsLeft = $linkPurchasedItem->getNumberOfDownloadsBought()
+            - $linkPurchasedItem->getNumberOfDownloadsUsed();
+
+        $status = $linkPurchasedItem->getStatus();
+        if ($status == Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_AVAILABLE
+            && ($downloadsLeft || $linkPurchasedItem->getNumberOfDownloadsBought() == 0)
+        ) {
             $resource = '';
             $resourceType = '';
             if ($linkPurchasedItem->getLinkType() == Mage_Downloadable_Helper_Download::LINK_TYPE_URL) {
@@ -198,11 +204,9 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
             }
             try {
                 $this->_processDownload($resource, $resourceType);
-                $linkPurchasedItem->setNumberOfDownloadsUsed(
-                    $linkPurchasedItem->getNumberOfDownloadsUsed()+1
-                );
-                if ($linkPurchasedItem->getNumberOfDownloadsBought() != 0
-                    && !($linkPurchasedItem->getNumberOfDownloadsBought() - $linkPurchasedItem->getNumberOfDownloadsUsed())) {
+                $linkPurchasedItem->setNumberOfDownloadsUsed($linkPurchasedItem->getNumberOfDownloadsUsed() + 1);
+
+                if ($linkPurchasedItem->getNumberOfDownloadsBought() != 0 && !($downloadsLeft - 1)) {
                     $linkPurchasedItem->setStatus(Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_EXPIRED);
                 }
                 $linkPurchasedItem->save();
@@ -213,9 +217,11 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
                     Mage::helper('downloadable')->__('An error occurred while getting the requested content. Please contact the store owner.')
                 );
             }
-        } elseif ($linkPurchasedItem->getStatus() == Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_EXPIRED) {
+        } elseif ($status == Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_EXPIRED) {
             $this->_getCustomerSession()->addNotice(Mage::helper('downloadable')->__('The link has expired.'));
-        } elseif ($linkPurchasedItem->getStatus() == Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PENDING) {
+        } elseif ($status == Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PENDING
+            || $status == Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PAYMENT_REVIEW
+        ) {
             $this->_getCustomerSession()->addNotice(Mage::helper('downloadable')->__('The link is not available.'));
         } else {
             $this->_getCustomerSession()->addError(

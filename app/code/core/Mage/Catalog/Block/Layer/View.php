@@ -49,7 +49,7 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
 
     /**
      * Attribute Filter Block Name
-     * 
+     *
      * @var string
      */
     protected $_attributeFilterBlockName;
@@ -83,11 +83,11 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
      */
     protected function _initBlocks()
     {
-        $this->_stateBlockName = 'catalog/layer_state';
-        $this->_categoryBlockName = 'catalog/layer_filter_category';
-        $this->_attributeFilterBlockName = 'catalog/layer_filter_attribute';
-        $this->_priceFilterBlockName = 'catalog/layer_filter_price';
-        $this->_decimalFilterBlockName = 'catalog/layer_filter_decimal';
+        $this->_stateBlockName              = 'catalog/layer_state';
+        $this->_categoryBlockName           = 'catalog/layer_filter_category';
+        $this->_attributeFilterBlockName    = 'catalog/layer_filter_attribute';
+        $this->_priceFilterBlockName        = 'catalog/layer_filter_price';
+        $this->_decimalFilterBlockName      = 'catalog/layer_filter_decimal';
     }
 
     /**
@@ -123,11 +123,9 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
         foreach ($filterableAttributes as $attribute) {
             if ($attribute->getAttributeCode() == 'price') {
                 $filterBlockName = $this->_priceFilterBlockName;
-            }
-            elseif ($attribute->getBackendType() == 'decimal') {
+            } elseif ($attribute->getBackendType() == 'decimal') {
                 $filterBlockName = $this->_decimalFilterBlockName;
-            }
-            else {
+            } else {
                 $filterBlockName = $this->_attributeFilterBlockName;
             }
 

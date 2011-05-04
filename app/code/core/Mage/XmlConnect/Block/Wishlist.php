@@ -50,10 +50,10 @@ class Mage_XmlConnect_Block_Wishlist extends Mage_Wishlist_Block_Customer_Wishli
         $offset = (int)$request->getParam('offset', 0);
         $count  = (int)$request->getParam('count', 0);
         $count  = $count <= 0 ? 1 : $count;
-        if ($offset + $count < $this->getWishlist()->getSize()) {
+        if ($offset + $count < $this->getWishlistItems()->getSize()) {
             $hasMoreItems = 1;
         }
-        $this->getWishlist()->getSelect()->limit($count, $offset);
+        $this->getWishlistItems()->getSelect()->limit($count, $offset);
 
         $wishlistXmlObj->addAttribute('items_count', $this->getWishlistItemsCount());
         $wishlistXmlObj->addAttribute('has_more_items', $hasMoreItems);
@@ -62,22 +62,29 @@ class Mage_XmlConnect_Block_Wishlist extends Mage_Wishlist_Block_Customer_Wishli
             /**
              * @var Mage_Wishlist_Model_Mysql4_Product_Collection
              */
-            foreach ($this->getWishlist() as $item) {
+            foreach ($this->getWishlistItems() as $item) {
                 $itemXmlObj = $wishlistXmlObj->addChild('item');
-                $itemXmlObj->addChild('item_id', $item->getWishlistItemId());
+
+                $itemXmlObj->addChild(
+                    'item_id',
+                    /** @var $item Mage_Wishlist_Model_Item */
+                    $item->getWishlistItemId()
+                );
+
                 $itemXmlObj->addChild('entity_id', $item->getProductId());
-                $itemXmlObj->addChild('entity_type_id', $item->getTypeId());
+                $itemXmlObj->addChild('entity_type_id', $item->getProduct()->getTypeId());
                 $itemXmlObj->addChild('name', $wishlistXmlObj->xmlentities(strip_tags($item->getName())));
-                $itemXmlObj->addChild('in_stock', (int)$item->isSalable());
+                $itemXmlObj->addChild('in_stock', (int)$item->getProduct()->isInStock());
+                $itemXmlObj->addChild('is_salable', (int)$item->getProduct()->getIsSalable());
                 /**
                  * If product type is grouped than it has options as its grouped items
                  */
-                if ($item->getTypeId() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE) {
+                if ($item->getProduct()->getTypeId() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE) {
                     $item->setHasOptions(true);
                 }
                 $itemXmlObj->addChild('has_options', (int)$item->getHasOptions());
 
-                $icon = $this->helper('catalog/image')->init($item, 'small_image')
+                $icon = $this->helper('catalog/image')->init($item->getProduct(), 'small_image')
                     ->resize(Mage::helper('xmlconnect/image')->getImageSizeForContent('product_small'));
 
                 $iconXml = $itemXmlObj->addChild('icon', $icon);
@@ -85,23 +92,25 @@ class Mage_XmlConnect_Block_Wishlist extends Mage_Wishlist_Block_Customer_Wishli
                 $file = Mage::helper('xmlconnect')->urlToPath($icon);
                 $iconXml->addAttribute('modification_time', filemtime($file));
 
+                $description = $wishlistXmlObj->xmlentities(strip_tags($item->getDescription()));
+                $itemXmlObj->addChild('description', $description);
 
-                $itemXmlObj->addChild('description', $wishlistXmlObj->xmlentities(strip_tags($item->getWishlistItemDescription())));
-                $itemXmlObj->addChild('added_date', $wishlistXmlObj->xmlentities($this->getFormatedDate($item->getAddedAt())));
+                $addedDate = $wishlistXmlObj->xmlentities($this->getFormatedDate($item->getAddedAt()));
+                $itemXmlObj->addChild('added_date', $addedDate);
 
                 if ($this->getChild('product_price')) {
-                    $this->getChild('product_price')->setProduct($item)
+                    $this->getChild('product_price')->setProduct($item->getProduct())
                        ->setProductXmlObj($itemXmlObj)
                        ->collectProductPrices();
                 }
 
-                if (!$item->getRatingSummary()) {
+                if (!$item->getProduct()->getRatingSummary()) {
                     Mage::getModel('review/review')
-                       ->getEntitySummary($item, Mage::app()->getStore()->getId());
+                       ->getEntitySummary($item->getProduct(), Mage::app()->getStore()->getId());
                 }
-
-                $itemXmlObj->addChild('rating_summary', round((int)$item->getRatingSummary()->getRatingSummary() / 10));
-                $itemXmlObj->addChild('reviews_count', $item->getRatingSummary()->getReviewsCount());
+                $ratingSummary = (int)$item->getProduct()->getRatingSummary()->getRatingSummary();
+                $itemXmlObj->addChild('rating_summary', round($ratingSummary / 10));
+                $itemXmlObj->addChild('reviews_count', $item->getProduct()->getRatingSummary()->getReviewsCount());
             }
         }
 

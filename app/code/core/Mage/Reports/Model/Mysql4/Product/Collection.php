@@ -118,7 +118,10 @@ class Mage_Reports_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Re
         if ($this->_selectCountSqlType == self::SELECT_COUNT_SQL_TYPE_CART) {
             $countSelect = clone $this->getSelect();
             $countSelect->reset()
-                ->from(array('quote_item_table' => $this->getTable('sales/quote_item')), 'COUNT(DISTINCT quote_item_table.product_id)')
+                ->from(
+                    array('quote_item_table' => $this->getTable('sales/quote_item')),
+                    'COUNT(DISTINCT quote_item_table.product_id)'
+                )
                 ->join(
                     array('quote_table' => $this->getTable('sales/quote')),
                     'quote_table.entity_id = quote_item_table.quote_id AND quote_table.is_active = 1',
@@ -216,7 +219,20 @@ class Mage_Reports_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Re
 
         $this->getSelect()
             ->joinLeft(array('e' => $this->getProductEntityTableName()),
-                "e.entity_id = order_items.{$productIdFieldName} AND e.entity_type_id = {$this->getProductEntityTypeId()}{$productTypes}")
+                "e.entity_id = order_items.{$productIdFieldName}
+                AND e.entity_type_id = {$this->getProductEntityTypeId()}{$productTypes}",
+                array(
+                    'entity_id' => 'order_items.product_id',
+                    'entity_type_id' => 'e.entity_type_id',
+                    'attribute_set_id' => 'e.attribute_set_id',
+                    'type_id' => 'e.type_id',
+                    'sku' => 'e.sku',
+                    'has_options' => 'e.has_options',
+                    'required_options' => 'e.required_options',
+                    'created_at' => 'e.created_at',
+                    'updated_at' => 'e.updated_at'
+                )
+            )
             ->group('order_items.product_id')
             ->having('ordered_qty > 0');
 
@@ -266,6 +282,36 @@ class Mage_Reports_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Re
             $this->getSelect()
                 ->where('logged_at >= ?', $from)
                 ->where('logged_at <= ?', $to);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Add store restrictions to product collection
+     *
+     * @param  array $storeIds
+     * @param  array $websiteIds
+     * @return Mage_Reports_Model_Mysql4_Product_Collection
+     */
+    public function addStoreRestrictions($storeIds, $websiteIds)
+    {
+        if (!is_array($storeIds)) {
+            $storeIds = array($storeIds);
+        }
+        if (!is_array($websiteIds)) {
+            $websiteIds = array($websiteIds);
+        }
+
+        $filters = $this->_productLimitationFilters;
+        if ($filters['store_id']) {
+            if (!in_array($filters['store_id'], $storeIds)) {
+                $this->addStoreFilter($filters['store_id']);
+            } else {
+                $this->addStoreFilter($this->getStoreId());
+            }
+        } else {
+            $this->addWebsiteFilter($websiteIds);
         }
 
         return $this;

@@ -107,6 +107,41 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
 
         $this->_addAttributesToForm($addressForm->getAttributes(), $fieldset);
 
+        $prefixElement = $this->_form->getElement('prefix');
+        if ($prefixElement) {
+            $prefixOptions = $this->helper('customer')->getNamePrefixOptions($this->getStore());
+            if (!empty($prefixOptions)) {
+                $fieldset->removeField($prefixElement->getId());
+                $prefixField = $fieldset->addField($prefixElement->getId(),
+                    'select',
+                    $prefixElement->getData(),
+                    '^'
+                );
+                $prefixField->setValues($prefixOptions);
+                if ($this->getAddressId()) {
+                    $prefixField->addElementValues($this->getAddress()->getPrefix());
+                }
+            }
+        }
+
+        $suffixElement = $this->_form->getElement('suffix');
+        if ($suffixElement) {
+            $suffixOptions = $this->helper('customer')->getNameSuffixOptions($this->getStore());
+            if (!empty($suffixOptions)) {
+                $fieldset->removeField($suffixElement->getId());
+                $suffixField = $fieldset->addField($suffixElement->getId(),
+                    'select',
+                    $suffixElement->getData(),
+                    $this->_form->getElement('lastname')->getId()
+                );
+                $suffixField->setValues($suffixOptions);
+                if ($this->getAddressId()) {
+                    $suffixField->addElementValues($this->getAddress()->getSuffix());
+                }
+            }
+        }
+
+
         $regionElement = $this->_form->getElement('region_id');
         if ($regionElement) {
             $regionElement->setNoDisplay(true);
@@ -115,7 +150,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
         $this->_form->setValues($this->getFormValues());
 
         if (!$this->_form->getElement('country_id')->getValue()) {
-            $this->_form->getElement('country_id')->setValue(Mage::helper('core')->getDefaultCountry($this->getStore()));
+            $this->_form->getElement('country_id')->setValue(
+                Mage::helper('core')->getDefaultCountry($this->getStore())
+            );
         }
 
         return $this;

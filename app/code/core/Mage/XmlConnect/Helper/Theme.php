@@ -41,20 +41,32 @@ class Mage_XmlConnect_Helper_Theme extends Mage_Adminhtml_Helper_Data
     public function getThemeAjaxParameters()
     {
         $themesArray = array (
-            'conf_native_navigationBar_tintColor' => 'conf[native][navigationBar][tintColor]',
-            'conf_native_body_primaryColor' => 'conf[native][body][primaryColor]',
-            'conf_native_body_secondaryColor' => 'conf[native][body][secondaryColor]',
-            'conf_native_categoryItem_backgroundColor' => 'conf[native][categoryItem][backgroundColor]',
-            'conf_native_categoryItem_tintColor' => 'conf[native][categoryItem][tintColor]',
+            'conf_native_navigationBar_tintColor'
+                => 'conf[native][navigationBar][tintColor]',
+            'conf_native_body_primaryColor'
+                => 'conf[native][body][primaryColor]',
+            'conf_native_body_secondaryColor'
+                => 'conf[native][body][secondaryColor]',
+            'conf_native_categoryItem_backgroundColor'
+                => 'conf[native][categoryItem][backgroundColor]',
+            'conf_native_categoryItem_tintColor'
+                => 'conf[native][categoryItem][tintColor]',
 
-            'conf_extra_fontColors_header' => 'conf[extra][fontColors][header]',
-            'conf_extra_fontColors_primary' => 'conf[extra][fontColors][primary]',
-            'conf_extra_fontColors_secondary' => 'conf[extra][fontColors][secondary]',
-            'conf_extra_fontColors_price' => 'conf[extra][fontColors][price]',
+            'conf_extra_fontColors_header'
+                => 'conf[extra][fontColors][header]',
+            'conf_extra_fontColors_primary'
+                => 'conf[extra][fontColors][primary]',
+            'conf_extra_fontColors_secondary'
+                => 'conf[extra][fontColors][secondary]',
+            'conf_extra_fontColors_price'
+                => 'conf[extra][fontColors][price]',
 
-            'conf_native_body_backgroundColor' => 'conf[native][body][backgroundColor]',
-            'conf_native_body_scrollBackgroundColor' => 'conf[native][body][scrollBackgroundColor]',
-            'conf_native_itemActions_relatedProductBackgroundColor' => 'conf[native][itemActions][relatedProductBackgroundColor]'
+            'conf_native_body_backgroundColor'
+                => 'conf[native][body][backgroundColor]',
+            'conf_native_body_scrollBackgroundColor'
+                => 'conf[native][body][scrollBackgroundColor]',
+            'conf_native_itemActions_relatedProductBackgroundColor'
+                => 'conf[native][itemActions][relatedProductBackgroundColor]'
         );
         return $themesArray;
     }
@@ -76,9 +88,9 @@ class Mage_XmlConnect_Helper_Theme extends Mage_Adminhtml_Helper_Data
     }
 
     /**
-     *  Reads directory media/xmlconnect/themes/*
+     * Reads directory media/xmlconnect/themes/*
      *
-     * @param bool $flushCache  - Reads default color Themes
+     * @param bool $flushCache Reads default color Themes
      * @return array - (of Mage_XmlConnect_Model_Theme)
      */
     public function getAllThemes($flushCache = false)
@@ -90,33 +102,38 @@ class Mage_XmlConnect_Helper_Theme extends Mage_Adminhtml_Helper_Data
             $io = new Varien_Io_File();
             $io->open(array('path' => $themeDir));
 
-            $fileList = $io->ls(Varien_Io_File::GREP_FILES);
-            foreach ($fileList as $file) {
-                $src = $themeDir . DS . $file['text'];
-                if (is_readable($src)) {
-                    try {
+            try {
+                $fileList = $io->ls(Varien_Io_File::GREP_FILES);
+                if (!count($fileList)) {
+                    $this->resetTheme();
+                    $this->getAllThemes(true);
+                }
+                foreach ($fileList as $file) {
+                    $src = $themeDir . DS . $file['text'];
+                    if (is_readable($src)) {
                         $theme = Mage::getModel('xmlconnect/theme', $src);
                         $this->_themeArray[$theme->getName()] = $theme;
-                    } catch (Exception $e) {
-                        Mage::logException($e);
                     }
                 }
+                libxml_use_internal_errors($saveLibxmlErrors);
+            } catch (Exception $e) {
+                Mage::logException($e);
             }
-            libxml_use_internal_errors($saveLibxmlErrors);
         }
         return $this->_themeArray;
     }
 
     /**
-     * Reset all theme color changes
-     * Copy media/xmlconnect/themes/default/* to media/xmlconnect/themes/*
+     * Reset themes color changes
+     * Copy /xmlconnect/etc/themes/* to media/xmlconnect/themes/*
      *
+     * @throws Mage_Core_Exception
      * @return void
      */
-    public function resetAllThemes()
+    public function resetTheme($theme = null)
     {
         $themeDir = Mage::getBaseDir('media') . DS . 'xmlconnect' . DS . 'themes';
-        $defaultThemeDir = Mage::getBaseDir('media') . DS . 'xmlconnect' . DS . 'themes' . DS . 'default';
+        $defaultThemeDir = Mage::getModuleDir('etc', 'Mage_XmlConnect') . DS . 'themes';
 
         $io = new Varien_Io_File();
         $io->open(array('path'=>$defaultThemeDir));
@@ -125,16 +142,17 @@ class Mage_XmlConnect_Helper_Theme extends Mage_Adminhtml_Helper_Data
             $f = $file['text'];
             $src = $defaultThemeDir . DS . $f;
             $dst = $themeDir . DS .$f;
-            if ($io->isWriteable($dst)) {
-                try {
-                    if (!$io->cp($src, $dst)) {
-                        Mage::throwException(Mage::helper('xmlconnect')->__('Can\t copy file "%s" to "%s".', $src, $dst));
-                    } else {
-                        $io->chmod($dst, 0755);
-                    }
-                } catch (Exception $e) {
-                    Mage::logException($e);
-                }
+
+            if ($theme && ($theme . '.xml') != $f) {
+                continue;
+            }
+
+            if (!$io->cp($src, $dst)) {
+                Mage::throwException(
+                    Mage::helper('xmlconnect')->__('Can\'t copy file "%s" to "%s".', $src, $dst)
+                );
+            } else {
+                $io->chmod($dst, 0755);
             }
         }
     }
@@ -170,5 +188,40 @@ class Mage_XmlConnect_Helper_Theme extends Mage_Adminhtml_Helper_Data
     public function getDefaultThemeName()
     {
         return 'default';
+    }
+
+    /**
+     * Get current theme name
+     *
+     * @return string
+     */
+    public function getThemeId()
+    {
+        $themeId = Mage::helper('xmlconnect')->getApplication()->getData('conf/extra/theme');
+        if (empty($themeId)) {
+            $themeId = $this->getDefaultThemeName();
+        }
+        return $themeId;
+    }
+
+    /**
+     * Get theme label by theme name
+     *
+     * @param array $themes
+     * @param bool $themeId
+     * @return string
+     */
+    public function getThemeLabel(array $themes, $themeId = false)
+    {
+        $themeLabel = '';
+        $themeId    = $themeId ? $themeId : $this->getThemeId();
+
+        foreach ($themes as $theme) {
+            if ($theme->getName() == $themeId) {
+                $themeLabel = $theme->getLabel();
+                break;
+            }
+        }
+        return $themeLabel;
     }
 }

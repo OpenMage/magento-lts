@@ -34,6 +34,12 @@
 class Mage_Core_Model_Config_Options extends Varien_Object
 {
     /**
+     * Var directory
+     *
+     * @var string
+     */
+    const VAR_DIRECTORY = 'var';
+    /**
      * Flag cache for existing or already created directories
      *
      * @var array
@@ -138,7 +144,8 @@ class Mage_Core_Model_Config_Options extends Varien_Object
     public function getVarDir()
     {
         //$dir = $this->getDataSetDefault('var_dir', $this->getBaseDir().DS.'var');
-        $dir = isset($this->_data['var_dir']) ? $this->_data['var_dir'] : $this->_data['base_dir'].DS.'var';
+        $dir = isset($this->_data['var_dir']) ? $this->_data['var_dir']
+            : $this->_data['base_dir'] . DS . self::VAR_DIRECTORY;
         if (!$this->createDirIfNotExists($dir)) {
             $dir = $this->getSysTmpDir().DS.'magento'.DS.'var';
             if (!$this->createDirIfNotExists($dir)) {

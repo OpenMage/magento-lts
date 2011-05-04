@@ -118,6 +118,11 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 $this->setCustomerAddressId($this->getCustomerAddress()->getId());
             }
         }
+        if ($this->getAddressType() == Mage_Sales_Model_Quote_Address::TYPE_SHIPPING
+            && $this->getSameAsBilling() === null
+        ) {
+            $this->setSameAsBilling(1);
+        }
         return $this;
     }
 
@@ -258,9 +263,11 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     public function getAllItems()
     {
         // We calculate item list once and cache it in three arrays - all items, nominal, non-nominal
-        $key = 'cached_items_' . ($this->_nominalOnly ? 'nominal' : ($this->_nominalOnly === false ? 'nonnominal' : 'all'));
+        $cachedItems = $this->_nominalOnly ? 'nominal' : ($this->_nominalOnly === false ? 'nonnominal' : 'all');
+        $key = 'cached_items_' . $cachedItems;
         if (!$this->hasData($key)) {
-            // For compatibility  we will use $this->_filterNominal to divide nominal items from non-nominal (because it can be overloaded)
+            // For compatibility  we will use $this->_filterNominal to divide nominal items from non-nominal
+            // (because it can be overloaded)
             // So keep current flag $this->_nominalOnly and restore it after cycle
             $wasNominal = $this->_nominalOnly;
             $this->_nominalOnly = true; // Now $this->_filterNominal() will return positive values for nominal items
@@ -295,7 +302,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 * For virtual quote we assign items only to billing address, otherwise - only to shipping address
                 */
                 $addressType = $this->getAddressType();
-                $canAddItems = $this->getQuote()->isVirtual() ? ($addressType == self::TYPE_BILLING) : ($addressType == self::TYPE_SHIPPING);
+                $canAddItems = $this->getQuote()->isVirtual()
+                    ? ($addressType == self::TYPE_BILLING)
+                    : ($addressType == self::TYPE_SHIPPING);
 
                 if ($canAddItems) {
                     foreach ($quoteItems as $qItem) {
@@ -716,14 +725,20 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         $request->setDestCity($this->getCity());
         $request->setDestPostcode($this->getPostcode());
         $request->setPackageValue($item ? $item->getBaseRowTotal() : $this->getBaseSubtotal());
-        $request->setPackageValueWithDiscount($item ? $item->getBaseRowTotal() - $item->getBaseDiscountAmount() : $this->getBaseSubtotalWithDiscount());
+        $packageValueWithDiscount = $item
+            ? $item->getBaseRowTotal() - $item->getBaseDiscountAmount()
+            : $this->getBaseSubtotalWithDiscount();
+        $request->setPackageValueWithDiscount($packageValueWithDiscount);
         $request->setPackageWeight($item ? $item->getRowWeight() : $this->getWeight());
         $request->setPackageQty($item ? $item->getQty() : $this->getItemQty());
 
         /**
          * Need for shipping methods that use insurance based on price of physical products
          */
-        $request->setPackagePhysicalValue($item ? $item->getBaseRowTotal() : $this->getBaseSubtotal() - $this->getBaseVirtualAmount());
+        $packagePhysicalValue = $item
+            ? $item->getBaseRowTotal()
+            : $this->getBaseSubtotal() - $this->getBaseVirtualAmount();
+        $request->setPackagePhysicalValue($packagePhysicalValue);
 
         $request->setFreeMethodWeight($item ? 0 : $this->getFreeMethodWeight());
 

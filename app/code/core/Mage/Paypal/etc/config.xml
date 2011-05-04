@@ -212,7 +212,7 @@
             <paypaluk_direct>
                 <title>PayPal Direct Payment Payflow Edition</title>
                 <payment_action>Authorization</payment_action>
-                <cctypes>VI,MC</cctypes>
+                <cctypes>VI,MC,AE</cctypes>
                 <useccv>1</useccv>
                 <group>paypal</group>
             </paypaluk_direct>

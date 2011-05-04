@@ -56,7 +56,13 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
         Mage::getSingleton('catalog/session')->setLastVisitedCategoryId($category->getId());
         Mage::register('current_category', $category);
         try {
-            Mage::dispatchEvent('catalog_controller_category_init_after', array('category' => $category, 'controller_action' => $this));
+            Mage::dispatchEvent(
+                'catalog_controller_category_init_after',
+                array(
+                    'category' => $category,
+                    'controller_action' => $this
+                )
+            );
         } catch (Mage_Core_Exception $e) {
             Mage::logException($e);
             return false;
@@ -88,7 +94,8 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
 
         if (array_key_exists('from', $validityDate) &&
             array_key_exists('to', $validityDate) &&
-            Mage::app()->getLocale()->isStoreDateInInterval(null, $validityDate['from'], $validityDate['to'])) {
+            Mage::app()->getLocale()->isStoreDateInInterval(null, $validityDate['from'], $validityDate['to'])
+        ) {
             if ($category->getPageLayout()) {
                 $this->getLayout()->helper('page/layout')
                     ->applyHandle($category->getPageLayout());

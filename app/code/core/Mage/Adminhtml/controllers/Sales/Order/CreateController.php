@@ -116,11 +116,20 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * Processing request data
      *
-     * @param string $action
-     *
      * @return Mage_Adminhtml_Sales_Order_CreateController
      */
-    protected function _processData($action = null)
+    protected function _processData()
+    {
+        return $this->_processActionData();
+    }
+
+    /**
+     * Process request data with additional logic for saving quote and creating order
+     *
+     * @param string $action
+     * @return Mage_Adminhtml_Sales_Order_CreateController
+     */
+    protected function _processActionData($action = null)
     {
         /**
          * Saving order data
@@ -443,7 +452,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     public function saveAction()
     {
         try {
-            $this->_processData('save');
+            $this->_processActionData('save');
             if ($paymentData = $this->getRequest()->getPost('payment')) {
                 $this->_getOrderCreateModel()->setPaymentData($paymentData);
                 $this->_getOrderCreateModel()->getQuote()->getPayment()->addData($paymentData);

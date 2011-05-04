@@ -238,7 +238,7 @@
                             <depends><centinel>1</centinel></depends>
                         </centinel_is_mode_strict>
                         <centinel_api_url translate="label comment">
-                            <label>Centinel Api URL</label>
+                            <label>Centinel API URL</label>
                             <comment>If empty, a default value will be used. Custom URL may be provided by CardinalCommerce agreement.</comment>
                             <frontend_type>text</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>

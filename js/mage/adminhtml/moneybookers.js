@@ -46,6 +46,24 @@ Moneybookers.prototype = {
         $("moneybookers_settings_customer_id_hidden").name = document.getElementById("moneybookers_settings_customer_id").name;
         $("moneybookers_settings_customer_id_hidden").value = document.getElementById("moneybookers_settings_customer_id").value;
         $("moneybookers_settings_secret_key").setAttribute("onchange", "moneybookers.setStatus(2); moneybookers.changeUi();");
+
+        if (this.isStoreView()) {
+            this.infoOrig = {
+                email: $("moneybookers_settings_moneybookers_email").value,
+                customerId: $("moneybookers_settings_customer_id").value,
+                key: $("moneybookers_settings_secret_key").value,
+                status: this.getStatus(),
+                useDefult: $("moneybookers_settings_moneybookers_email_inherit").checked
+            };
+            var defaults = $$("#row_moneybookers_settings_customer_id .use-default, #row_moneybookers_settings_secret_key .use-default, #row_moneybookers_settings_activationstatus .use-default");
+            if (Object.isArray(defaults)) {
+                for (var i=0; i<defaults.length; i++) {
+                    defaults[i].hide();
+                }
+            }
+            $("moneybookers_settings_moneybookers_email_inherit").setAttribute("onchange", "moneybookers.changeStore();");
+        }
+
         this.changeUi();
     },
 
@@ -152,11 +170,43 @@ Moneybookers.prototype = {
         }
         if (status == 2) {
             $("moneybookers_multifuncbutton_label").update(this.txtBtnStatus2);
+            if (this.isStoreView()) {
+                $("moneybookers_settings_secret_key").enable();
+                $("moneybookers_settings_secret_key_inherit").removeAttribute('checked');
+            }
         }
         if (status > 2) {
             $("moneybookers_multifuncbutton").style.display = "none";
         } else {
             $("moneybookers_multifuncbutton").style.display = "block";
         }
+    },
+
+    changeStore: function () {
+        if (!$("moneybookers_settings_moneybookers_email_inherit").checked) {
+            if (this.infoOrig.useDefult) {
+                $("moneybookers_settings_customer_id_inherit").click();
+                $("moneybookers_settings_customer_id").clear();
+                $("moneybookers_settings_secret_key_inherit").click();
+                $("moneybookers_settings_secret_key").clear();
+                $("moneybookers_settings_activationstatus_inherit").click();
+                this.setStatus(0);
+            }
+        }
+        else {
+            if (this.infoOrig.useDefult) {
+                $("moneybookers_settings_customer_id").setValue(this.infoOrig.customerId);
+                $("moneybookers_settings_customer_id_inherit").click();
+                $("moneybookers_settings_secret_key").setValue(this.infoOrig.key);
+                $("moneybookers_settings_secret_key_inherit").click();
+                $("moneybookers_settings_activationstatus_inherit").click();
+                this.setStatus(this.infoOrig.status);
+            }
+        }
+        this.changeUi();
+    },
+
+    isStoreView: function() {
+        return $("moneybookers_settings_moneybookers_email_inherit") != undefined;
     }
 }

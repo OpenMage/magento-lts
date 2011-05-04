@@ -747,7 +747,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             return '';
         }
         $html = $this->_loadCache();
-        if (!$html) {
+        if ($html === false) {
             $translate = Mage::getSingleton('core/translate');
             /* @var $translate Mage_Core_Model_Translate */
             if ($this->hasData('translate_inline')) {

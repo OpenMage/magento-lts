@@ -70,11 +70,13 @@
             <?php foreach ($addressCollection as $_address): ?>
             <div id="form_address_item_<?php echo $_address->getId() ?>" style="display:none">
             <?php
-                    $this->getFormObject()->setValues($_address->getData())
+                    $this->getForm()->setValues($_address->getData())
                             ->setHtmlIdPrefix("_item{$_address->getId()}")
-                            ->setFieldNameSuffix('address['.$_address->getId().']')
+                            ->setFieldNameSuffix('address['.$_address->getId().']');
+                    $this->addValuesToNamePrefixElement($_address->getPrefix())
+                        ->addValuesToNameSuffixElement($_address->getSuffix());
             ?>
-            <?php echo $this->getFormObject()->getHtml() ?>
+            <?php echo $this->getForm()->getHtml() ?>
             <input type="hidden" name="address[<?php echo $_address->getId() ?>][_deleted]" id="deleted_address_item_<?php echo $_address->getId() ?>" />
             </div>
             <?php endforeach; ?>

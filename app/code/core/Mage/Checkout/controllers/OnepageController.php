@@ -371,7 +371,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $result will have erro data if shipping method is empty
             */
             if(!$result) {
-                Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method', array('request'=>$this->getRequest(), 'quote'=>$this->getOnepage()->getQuote()));
+                Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method',
+                        array('request'=>$this->getRequest(),
+                            'quote'=>$this->getOnepage()->getQuote()));
                 $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
 
                 $result['goto_section'] = 'payment';
@@ -432,6 +434,44 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
+    /* @var $_order Mage_Sales_Model_Order */
+    protected $_order;
+
+    /**
+     * Get Order by quoteId
+     *
+     * @return Mage_Sales_Model_Order
+     */
+    protected function _getOrder()
+    {
+        if (is_null($this->_order)) {
+            $this->_order = Mage::getModel('sales/order')->load($this->getOnepage()->getQuote()->getId(), 'quote_id');
+            if (!$this->_order->getId()) {
+                throw new Mage_Payment_Model_Info_Exception(Mage::helper('core')->__("Can not create invoice. Order was not found."));
+            }
+        }
+        return $this->_order;
+    }
+
+    /**
+     * Create invoice
+     *
+     * @return Mage_Sales_Model_Order_Invoice
+     */
+    protected function _initInvoice()
+    {
+        $items = array();
+        foreach ($this->getOnepage()->getQuote()->getAllItems() as $item) {
+            $items[$item->getId()] = $item->getQty();
+        }
+        /* @var $invoice Mage_Sales_Model_Service_Order */
+        $invoice = Mage::getModel('sales/service_order', $this->_getOrder())->prepareInvoice($items);
+        $invoice->setEmailSent(true);
+
+        Mage::register('current_invoice', $invoice);
+        return $invoice;
+    }
+
     /**
      * Create order action
      */
@@ -457,6 +497,19 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 $this->getOnepage()->getQuote()->getPayment()->importData($data);
             }
             $this->getOnepage()->saveOrder();
+
+            $storeId = Mage::app()->getStore()->getId();
+            $paymentHelper = Mage::helper("payment");
+            $zeroSubTotalPaymentAction = $paymentHelper->getZeroSubTotalPaymentAutomaticInvoice($storeId);
+            if ($paymentHelper->isZeroSubTotal($storeId)
+                    && $this->_getOrder()->getGrandTotal() == 0
+                    && $zeroSubTotalPaymentAction == Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE_CAPTURE
+                    && $paymentHelper->getZeroSubTotalOrderStatus($storeId) == 'pending') {
+                $invoice = $this->_initInvoice();
+                $invoice->getOrder()->setIsInProcess(true);
+                $invoice->save();
+            }
+
             $redirectUrl = $this->getOnepage()->getCheckout()->getRedirectUrl();
             $result['success'] = true;
             $result['error']   = false;

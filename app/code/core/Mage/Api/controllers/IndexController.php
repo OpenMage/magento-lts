@@ -35,10 +35,8 @@ class Mage_Api_IndexController extends Mage_Api_Controller_Action
 {
     public function indexAction()
     {
-        $server = Mage::getSingleton('api/server');
-
         /* @var $server Mage_Api_Model_Server */
-        $this->_getServer()->init($this, 'soap')
+        $this->_getServer()->init($this)
             ->run();
     }
 } // Class Mage_Api_IndexController End

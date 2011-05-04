@@ -55,7 +55,13 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
         $product  = Mage::registry('current_product');
         $category = Mage::registry('current_category');
 
-        $form = new Varien_Data_Form(array('id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post'));
+        $form = new Varien_Data_Form(
+            array(
+                'id'        => 'edit_form',
+                'action'    => $this->getData('action'),
+                'method'    => 'post'
+            )
+        );
 
         // set form data either from model values or from session
         $formValues = array(
@@ -119,19 +125,25 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
                 }
             }
 
-            if ($stores) {
-                foreach ($stores as $i => $store) {
-                    if (isset($store['value']) && $store['value']) {
-                        $found = false;
-                        foreach ($store['value'] as $_k => $_v) {
-                            if (isset($_v['value']) && in_array($_v['value'], $entityStores)) {
-                               $found = true;
-                            } else {
-                                unset($stores[$i]['value'][$_k]);
+            /*
+             * Stores should be filtered only if product and/or category is specified.
+             * If we use custom rewrite, all stores are accepted.
+             */
+            if (($product && $product->getId()) || ($category && $category->getId())) {
+                if ($stores) {
+                    foreach ($stores as $i => $store) {
+                        if (isset($store['value']) && $store['value']) {
+                            $found = false;
+                            foreach ($store['value'] as $_k => $_v) {
+                                if (isset($_v['value']) && in_array($_v['value'], $entityStores)) {
+                                   $found = true;
+                                } else {
+                                    unset($stores[$i]['value'][$_k]);
+                                }
                             }
-                        }
-                        if (!$found) {
-                            unset($stores[$i]);
+                            if (!$found) {
+                                unset($stores[$i]);
+                            }
                         }
                     }
                 }
@@ -185,7 +197,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
             'value'     => $formValues['target_path'],
         ));
 
-        // auto-generate paths for new urlrewrites
+        // auto-generate paths for new url rewrites
         if (!$model->getId()) {
             $_product  = null;
             $_category = null;

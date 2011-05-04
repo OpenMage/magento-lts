@@ -269,20 +269,21 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
      */
     public function raw_query($sql)
     {
+        $lostConnectionMessage = 'SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query';
         $tries = 0;
         do {
             $retry = false;
             try {
                 $result = $this->getConnection()->query($sql);
             } catch (PDOException $e) {
-                if ($e->getMessage()=='SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query') {
+                if ($tries < 10 && $e->getMessage() == $lostConnectionMessage) {
                     $retry = true;
+                    $tries++;
                 } else {
                     throw $e;
                 }
-                $tries++;
             }
-        } while ($retry && $tries<10);
+        } while ($retry);
 
         return $result;
     }
@@ -325,7 +326,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
             $sql = (string)$sql;
             if (strpos($sql, ':') !== false || strpos($sql, '?') !== false) {
                 $this->_bindParams = $bind;
-                $sql = preg_replace_callback('#(([\'"])((\\2)|((.*?[^\\\\])\\2)))#', array($this, 'proccessBindCallback'), $sql);
+                $sql = preg_replace_callback('#(([\'"])((\\2)|((.*?[^\\\\])\\2)))#',
+                    array($this, 'proccessBindCallback'),
+                    $sql
+                );
                 Varien_Exception::processPcreError();
                 $bind = $this->_bindParams;
             }
@@ -415,7 +419,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
      */
     protected function _splitMultiQuery($sql)
     {
-        $parts = preg_split('#(;|\'|"|\\\\|//|--|\n|/\*|\*/)#', $sql, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+        $parts = preg_split('#(;|\'|"|\\\\|//|--|\n|/\*|\*/)#',
+            $sql,
+            null,
+            PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE
+        );
 
         $q = false;
         $c = false;
@@ -1366,15 +1374,14 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
      *
      * @param mixed $table The table to insert data into.
      * @param array $data Column-value pairs or array of column-value pairs.
-     * @param arrat $fields update fields pairs or values
+     * @param array $fields update fields pairs or values
      * @return int The number of affected rows.
      */
     public function insertOnDuplicate($table, array $data, array $fields = array())
     {
         // extract and quote col names from the array keys
-        $row    = reset($data); // get first elemnt from data array
+        $row    = reset($data); // get first element from data array
         $bind   = array(); // SQL bind array
-        $cols   = array();
         $values = array();
 
         if (is_array($row)) { // Array of column-value pairs

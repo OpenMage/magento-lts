@@ -28,7 +28,6 @@
  * Credit Card (Authorize.net) Payment method xml renderer
  *
  * @category   Mage
- * @category   Mage
  * @package    Mage_XmlConnect
  * @author     Magento Core Team <core@magentocommerce.com>
  */
@@ -85,32 +84,34 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Authorizenet extends Mage_Pa
 
         $verification = '';
         if ($this->hasVerification()) {
+            $cvnText = $this->__('Card Verification Number');
+            $cvnValidationText = $this->__('Card verification number is wrong');
             $verification =
-            '<field name="payment[cc_cid]" type="text" label="' . $this->helper('xmlconnect')->__('Card Verification Number') . '" required="true">
-                <validators>
-                    <validator relation="payment[cc_type]" type="credit_card_svn" message="' . $this->helper('xmlconnect')->__('Card verification number is wrong') . '"/>
-                </validators>
+            '<field name="payment[cc_cid]" type="text" label="' . $cvnText . '" required="true">
+            <validators>
+                <validator relation="payment[cc_type]" type="credit_card_svn" message="' . $cvnValidationText . '"/>
+            </validators>
             </field>';
         }
 
         $xml = <<<EOT
     <fieldset>
-        <field name="payment[cc_type]" type="select" label="{$this->helper('xmlconnect')->__('Credit Card Type')}" required="true">
+        <field name="payment[cc_type]" type="select" label="{$this->__('Credit Card Type')}" required="true">
             <values>
                 $ccTypes
             </values>
         </field>
-        <field name="payment[cc_number]" type="text" label="{$this->helper('xmlconnect')->__('Credit Card Number')}" required="true">
+        <field name="payment[cc_number]" type="text" label="{$this->__('Credit Card Number')}" required="true">
             <validators>
-                <validator relation="payment[cc_type]" type="credit_card" message="{$this->helper('xmlconnect')->__('Credit card number does not match credit card type.')}"/>
+                <validator relation="payment[cc_type]" type="credit_card" message="{$this->__('Credit card number does not match credit card type.')}"/>
             </validators>
         </field>
-        <field name="payment[cc_exp_month]" type="select" label="{$this->helper('xmlconnect')->__('Expiration Date - Month')}" required="true">
+        <field name="payment[cc_exp_month]" type="select" label="{$this->__('Expiration Date - Month')}" required="true">
             <values>
                 $ccMonths
             </values>
         </field>
-        <field name="payment[cc_exp_year]" type="select" label="{$this->helper('xmlconnect')->__('Expiration Date - Year')}" required="true">
+        <field name="payment[cc_exp_year]" type="select" label="{$this->__('Expiration Date - Year')}" required="true">
             <values>
                 $ccYears
             </values>

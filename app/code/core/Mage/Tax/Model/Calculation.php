@@ -70,7 +70,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     public function getDefaultCustomerTaxClass($store=null)
     {
         if ($this->_defaultCustomerTaxClass === null) {
-            $defaultCustomerGroup = Mage::getStoreConfig('customer/create_account/default_group', $store);
+            $defaultCustomerGroup = Mage::getStoreConfig(Mage_Customer_Model_Group::XML_PATH_DEFAULT_ID, $store);
             $this->_defaultCustomerTaxClass = Mage::getModel('customer/group')->getTaxClassId($defaultCustomerGroup);
         }
         return $this->_defaultCustomerTaxClass;
@@ -235,12 +235,12 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * @param   null|store $store
      * @return  Varien_Object
      */
-    public function getRateOriginRequest($store=null)
+    public function getRateOriginRequest($store = null)
     {
         $request = new Varien_Object();
-        $request->setCountryId(Mage::getStoreConfig('shipping/origin/country_id', $store))
-            ->setRegionId(Mage::getStoreConfig('shipping/origin/region_id', $store))
-            ->setPostcode(Mage::getStoreConfig('shipping/origin/postcode', $store))
+        $request->setCountryId(Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_COUNTRY_ID, $store))
+            ->setRegionId(Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_REGION_ID, $store))
+            ->setPostcode(Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_POSTCODE, $store))
             ->setCustomerClassId($this->getDefaultCustomerTaxClass($store))
             ->setStore($store);
         return $request;

@@ -36,5 +36,15 @@
  */
 class Mage_Shipping_Model_Rate_Result_Method extends Mage_Shipping_Model_Rate_Result_Abstract
 {
-
+    /**
+     * Round shipping carrier's method price
+     *
+     * @param string|float|int $price
+     * @return Mage_Shipping_Model_Rate_Result_Method
+     */
+    public function setPrice($price)
+    {
+        $this->setData('price', Mage::app()->getStore()->roundPrice($price));
+        return $this;
+    }
 }

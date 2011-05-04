@@ -32,3 +32,15 @@ border:1px}
 #field_colors .hor-scroll { overflow:hidden; }
 .theme-select-cont { border-bottom:1px solid #dcdcdc; background:#f0f0f0; margin:-100px -100px 10px -100px; padding:100px 100px 0 100px; }
 .theme-selector-title { margin:0 30px 0 0px; }
+
+.istore-buttons-set { float:right; margin:0 0 10px; }
+
+.istore { border:1px solid #eeeeee; border-collapse:separate; border-spacing:0; }
+.istore td { background:#f2f2f2; color:#000; line-height:18px; padding:5px 7px; }
+.istore td label { cursor:pointer; }
+.istore .odd td { background:#fafafa; }
+.istore .border { border-right:1px solid #dbdbdb; }
+.istore .border + td { border-left:1px solid #fff; }
+
+.androidmarket { border-collapse:collapse; border-spacing:0; }
+.androidmarket td { padding:2px; }

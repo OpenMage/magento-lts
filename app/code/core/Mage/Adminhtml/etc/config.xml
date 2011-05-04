@@ -177,6 +177,23 @@
                 <enable_charts>1</enable_charts>
             </dashboard>
         </system>
+        <general>
+            <file>
+                <sitemap_generate_valid_paths>
+                    <!-- This data should be merged with public_files_valid_paths -->
+                    <available>
+                        <any_path>/*/sitemap.xml</any_path>
+                    </available>
+                </sitemap_generate_valid_paths>
+            </file>
+            <validator_data>
+                <input_types>
+                    <price>price</price>
+                    <media_image>media_image</media_image>
+                    <gallery>gallery</gallery>
+                </input_types>
+            </validator_data>
+        </general>
     </default>
     <stores>
         <admin>

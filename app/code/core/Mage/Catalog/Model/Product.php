@@ -646,8 +646,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Sets final price of product
      *
-     * This func is equal to magic 'setFinalPrice()', but added as a separate func, because in cart with bundle products it's called
-     * very often in Item->getProduct(). So removing chain of magic with more cpu consuming algorithms gives nice optimization boost.
+     * This func is equal to magic 'setFinalPrice()', but added as a separate func, because in cart with bundle
+     * products it's called very often in Item->getProduct(). So removing chain of magic with more cpu consuming
+     * algorithms gives nice optimization boost.
      *
      * @return Mage_Catalog_Model_Product
      */
@@ -679,7 +680,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 
     public function getMinimalPrice()
     {
-        return $this->_getData('minimal_price');
+        return max($this->_getData('minimal_price'), 0);
     }
 
     public function getSpecialPrice()
@@ -995,7 +996,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             ->setId(null)
             ->setStoreId(Mage::app()->getStore()->getId());
 
-        Mage::dispatchEvent('catalog_model_product_duplicate', array('current_product'=>$this, 'new_product'=>$newProduct));
+        Mage::dispatchEvent(
+            'catalog_model_product_duplicate',
+            array('current_product'=>$this, 'new_product'=>$newProduct)
+        );
 
         /* @var $newProduct Mage_Catalog_Model_Product */
 

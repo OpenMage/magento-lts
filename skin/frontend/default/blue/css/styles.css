@@ -1340,6 +1340,8 @@ tr.summary-details-excluded { font-style:italic; }
 #opc-review .buttons-set { padding:20px 30px; border:1px solid #d9dde3; border-width:0 1px 1px; }
 #opc-review .buttons-set p { margin:0; line-height:40px; }
 #opc-review .buttons-set .please-wait { height:40px; line-height:40px; }
+#opc-review .authentication { margin:0 auto; width:570px; }
+#opc-review .warning-message { color:#222; font-weight:bold; text-align:center; padding:10px 10px 0; }
 
 /* Multiple Addresses Checkout */
 .checkout-progress { padding:0 90px; margin:0 0 20px; }

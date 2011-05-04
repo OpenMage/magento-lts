@@ -67,11 +67,7 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
         if (!$this->_getConfig()->isValidBaseCurrencyCode($this->_getStore()->getId())) {
             $_countryInfo = $this->_getConfig()->getTargetCountryInfo($this->_getStore()->getId());
             $this->_getSession()->addNotice(
-                $this->__(
-                    "Base Currency should be set to %s for %s in system configuration. Otherwise item prices won't be correct in Google Base.",
-                    $_countryInfo['currency_name'],
-                    $_countryInfo['name']
-                )
+                $this->__("Base Currency should be set to %s for %s in system configuration. Otherwise item prices won't be correct in Google Base.",$_countryInfo['currency_name'],$_countryInfo['name'])
             );
         }
 
@@ -183,11 +179,13 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
         $totalPublished = 0;
 
         try {
-            foreach ($itemIds as $itemId) {
-                $item = Mage::getModel('googlebase/item')->load($itemId);
-                if ($item->getId()) {
-                    $item->activateItem();
-                    $totalPublished++;
+            if (!empty($itemIds) && is_array($itemIds)) {
+                foreach ($itemIds as $itemId) {
+                    $item = Mage::getModel('googlebase/item')->load($itemId);
+                    if ($item->getId()) {
+                        $item->activateItem();
+                        $totalPublished++;
+                    }
                 }
             }
             if ($totalPublished > 0) {
@@ -268,6 +266,14 @@ class Mage_GoogleBase_Adminhtml_Googlebase_ItemsController extends Mage_Adminhtm
 
                 if ($stats['draft'] != $item->getIsHidden()) {
                     $item->setIsHidden($stats['draft']);
+                }
+
+                if (isset($stats['clicks'])) {
+                    $item->setClicks($stats['clicks']);
+                }
+
+                if (isset($stats['impressions'])) {
+                    $item->setImpr($stats['impressions']);
                 }
 
                 if (isset($stats['expires'])) {

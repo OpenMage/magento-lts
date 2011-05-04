@@ -213,7 +213,7 @@ class Mage_Index_Model_Indexer
         }
         $event = $this->logEvent($entity, $entityType, $eventType, false);
         /**
-         * Index and save event just in case if some process mutched it
+         * Index and save event just in case if some process matched it
          */
         if ($event->getProcessIds()) {
             $this->indexEvent($event);

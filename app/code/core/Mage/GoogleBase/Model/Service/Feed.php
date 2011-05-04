@@ -63,6 +63,11 @@ class Mage_GoogleBase_Model_Service_Feed extends Mage_GoogleBase_Model_Service
         if (!stristr($id, 'http://')) {
             $id = self::ITEMS_LOCATION . '/' . $id;
         }
+        if (!strstr($id, '?')) {
+            $id = $id . '?content=attributes,meta';
+        } elseif (!stristr($id, 'content=')) {
+            $id = $id . '&content=attributes,meta';
+        }
         try {
             $entry = $this->getService($storeId)->getGbaseItemEntry($id);
             return $this->_getEntryStats($entry);
@@ -79,7 +84,7 @@ class Mage_GoogleBase_Model_Service_Feed extends Mage_GoogleBase_Model_Service
      */
     protected function _getEntryStats($entry)
     {
-        $result = array();
+        $result = $_stats = array();
 
         $draft = 'no';
         if (is_object($entry->getControl()) && is_object($entry->getControl()->getDraft())) {
@@ -89,9 +94,39 @@ class Mage_GoogleBase_Model_Service_Feed extends Mage_GoogleBase_Model_Service
 
         $expirationDate = $entry->getGbaseAttribute('expiration_date');
         if (isset($expirationDate[0]) && is_object($expirationDate[0])) {
-            $result['expires'] = Mage::getSingleton('googlebase/service_item')->gBaseDate2DateTime($expirationDate[0]->getText());
+            $result['expires'] = Mage::getSingleton('googlebase/service_item')
+                                    ->gBaseDate2DateTime($expirationDate[0]->getText());
         }
 
+        $allAttributes = $entry->getExtensionElements();
+        $elementsCount = count($allAttributes);
+        if($elementsCount) {
+            $statsElement = null;
+            for ($i = 0; $i < $elementsCount; $i++) {
+                /**
+                 * @var $extAttribute Zend_Gdata_App_Extension_Element
+                 */
+                $extAttribute = $allAttributes[$i];
+                if ((string)$extAttribute->rootElement == 'stats') {
+                    $statsElement = $extAttribute;
+                    break;
+                }
+            }
+            if ($statsElement) {
+                $_stats = $statsElement->getExtensionElements();
+            }
+            $statsCount = count($_stats);
+            for ($i = 0; $i < $statsCount; $i++) {
+                /**
+                 * @var $_currentElement Zend_Gdata_App_Extension_Element
+                 */
+                $_currentElement = $_stats[$i];
+                $_currentAttributes = $_currentElement->getExtensionAttributes();
+                if (isset($_currentAttributes['total']) && isset($_currentAttributes['total']['value'])) {
+                    $result[(string)$_currentElement->rootElement] = $_currentAttributes['total']['value'];
+                }
+            }
+        }
         return $result;
     }
 

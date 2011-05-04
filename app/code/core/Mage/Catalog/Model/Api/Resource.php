@@ -100,31 +100,12 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @param  int|string $productId (SKU or ID)
      * @param  int|string $store
+     * @param  string $identifierType
      * @return Mage_Catalog_Model_Product
      */
     protected function _getProduct($productId, $store = null, $identifierType = null)
     {
-        $loadByIdOnFalse = false;
-        if ($identifierType == null) {
-            $identifierType = 'sku';
-            $loadByIdOnFalse = true;
-        }
-        $product = Mage::getModel('catalog/product');
-        if ($store !== null) {
-            $product->setStoreId($this->_getStoreId($store));
-        }
-        /* @var $product Mage_Catalog_Model_Product */
-        if ($identifierType == 'sku') {
-            $idBySku = $product->getIdBySku($productId);
-            if ($idBySku) {
-                $productId = $idBySku;
-            }
-            if ($idBySku || $loadByIdOnFalse) {
-                $product->load($productId);
-            }
-        } elseif ($identifierType == 'id') {
-            $product->load($productId);
-        }
+        $product = Mage::helper('catalog/product')->getProduct($productId, $this->_getStoreId($store), $identifierType);
         return $product;
     }
 

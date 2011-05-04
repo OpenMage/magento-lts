@@ -116,7 +116,7 @@ class Mage_XmlConnect_WishlistController extends Mage_XmlConnect_Controller_Acti
         }
 
         try {
-            $item = $wishlist->addNewItem($product->getId());
+            $item = $wishlist->addNewItem($product);
             if (strlen(trim((string)$request->getParam('description')))) {
                 $item->setDescription($request->getParam('description'))
                    ->save();
@@ -206,14 +206,14 @@ class Mage_XmlConnect_WishlistController extends Mage_XmlConnect_Controller_Acti
             $problemsFlag = false;
 
             foreach ($post['description'] as $itemId => $description) {
+                /** @var $item Mage_Wishlist_Model_Item */
                 $item = Mage::getModel('wishlist/item')->load($itemId);
                 $description = (string) $description;
                 if ($item->getWishlistId() != $wishlist->getId()) {
                     continue;
                 }
                 try {
-                    $item->setDescription($description)
-                        ->save();
+                    $item->setDescription($description)->save();
                     $updatedItems++;
                 } catch (Exception $e) {
                     $problemsFlag = true;

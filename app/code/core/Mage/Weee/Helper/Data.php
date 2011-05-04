@@ -124,7 +124,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     public function getAmount($product, $shipping = null, $billing = null, $website = null, $calculateTaxes = false)
     {
         if ($this->isEnabled()) {
-            return Mage::getSingleton('weee/tax')->getWeeeAmount($product, $shipping, $billing, $website, $calculateTaxes);
+            return Mage::getSingleton('weee/tax')->
+                    getWeeeAmount($product, $shipping, $billing, $website, $calculateTaxes);
         }
         return 0;
     }
@@ -168,9 +169,11 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         }
     }
 
-    public function getProductWeeeAttributes($product, $shipping = null, $billing = null, $website = null, $calculateTaxes = false)
+    public function getProductWeeeAttributes($product, $shipping = null, $billing = null,
+        $website = null, $calculateTaxes = false)
     {
-        return Mage::getSingleton('weee/tax')->getProductWeeeAttributes($product, $shipping, $billing, $website, $calculateTaxes);
+        return Mage::getSingleton('weee/tax')
+                ->getProductWeeeAttributes($product, $shipping, $billing, $website, $calculateTaxes);
     }
 
     public function getApplied($item)
@@ -213,11 +216,36 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         return array();
     }
 
+    /**
+     * Get Product Weee attributes for price renderer
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param null|false|Varien_Object $shipping Shipping Address
+     * @param null|false|Varien_Object $billing Billing Address
+     * @param null|Mage_Core_Model_Website $website
+     * @param mixed $calculateTaxes
+     * @return array
+     */
+    public function getProductWeeeAttributesForRenderer($product, $shipping = null, $billing = null,
+        $website = null, $calculateTaxes = false)
+    {
+        if ($this->isEnabled()) {
+            return $this->getProductWeeeAttributes(
+                $product,
+                $shipping,
+                $billing,
+                $website,
+                $calculateTaxes ? $calculateTaxes : $this->typeOfDisplay($product, 1)
+            );
+        }
+        return array();
+    }
 
     public function getAmountForDisplay($product)
     {
         if ($this->isEnabled()) {
-            return Mage::getModel('weee/tax')->getWeeeAmount($product, null, null, null, $this->typeOfDisplay($product, 1));
+            return Mage::getModel('weee/tax')
+                    ->getWeeeAmount($product, null, null, null, $this->typeOfDisplay($product, 1));
         }
         return 0;
     }
@@ -233,10 +261,13 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     public function processTierPrices($product, &$tierPrices)
     {
         $weeeAmount = $this->getAmountForDisplay($product);
+        $store = Mage::app()->getStore();
         foreach ($tierPrices as &$tier) {
-            $tier['formated_price_incl_weee'] = Mage::app()->getStore()->formatPrice(Mage::app()->getStore()->convertPrice(Mage::helper('tax')->getPrice($product, $tier['website_price'], true)+$weeeAmount));
-            $tier['formated_price_incl_weee_only'] = Mage::app()->getStore()->formatPrice(Mage::app()->getStore()->convertPrice(Mage::helper('tax')->getPrice($product, $tier['website_price'])+$weeeAmount));
-            $tier['formated_weee'] = Mage::app()->getStore()->formatPrice(Mage::app()->getStore()->convertPrice($weeeAmount));
+            $tier['formated_price_incl_weee'] = $store->formatPrice($store
+                ->convertPrice(Mage::helper('tax')->getPrice($product, $tier['website_price'], true)+$weeeAmount));
+            $tier['formated_price_incl_weee_only'] = $store->formatPrice($store
+                ->convertPrice(Mage::helper('tax')->getPrice($product, $tier['website_price'])+$weeeAmount));
+            $tier['formated_weee'] = $store->formatPrice($store->convertPrice($weeeAmount));
         }
         return $this;
     }

@@ -51,61 +51,98 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
 
         $this->setForm($form);
 
-        $data = $this->getApplication()->getFormData();
+        $data = Mage::helper('xmlconnect')->getApplication()->getFormData();
         $yesNoValues = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
 
         $fieldset = $form->addFieldset('onepage_checkout', array('legend' => $this->__('Standard Checkout')));
 
+        if (isset($data['conf[native][defaultCheckout][isActive]'])) {
+            $checkoutStatus = $data['conf[native][defaultCheckout][isActive]'];
+        } else {
+            $checkoutStatus = '1';
+        }
+
         $fieldset->addField('conf/native/defaultCheckout/isActive', 'select', array(
             'label'     => $this->__('Enable Standard Checkout'),
             'name'      => 'conf[native][defaultCheckout][isActive]',
-            'values'   => $yesNoValues,
-            'note'      => $this->__('Standard Checkout uses the checkout methods provided by Magento. Only inline payment methods are supported. (e.g PayPal Direct,  Authorize.Net, etc.)'),
-            'value'     => (isset($data['conf[native][defaultCheckout][isActive]']) ? $data['conf[native][defaultCheckout][isActive]'] : '1')
-        ));
-
-
-        /**
-         * PayPal MEP management
-         */
-        $isExpressCheckoutAvaliable = Mage::getModel('xmlconnect/payment_method_paypal_mep')->isAvailable(null);
-
-        $paypalActive = 0;
-        if (isset($data['conf[native][paypal][isActive]'])) {
-            $paypalActive = (int)($data['conf[native][paypal][isActive]'] && $isExpressCheckoutAvaliable);
-        }
-        $fieldsetPaypal = $form->addFieldset('paypal_mep_checkout', array('legend' => $this->__('PayPal Mobile Embedded Payment (MEP)')));
-
-        $activateMepMethodNote = $this->__('To activate PayPal MEP payment method activate Express checkout first. ');
-        $paypalConfigurationUrl = $this->escapeHtml($this->getUrl('adminhtml/system_config/edit', array('section' => 'paypal')));
-        $businessAccountNote = $this->__('MEP is PayPal`s native checkout experience for the iPhone. You can choose to use MEP alongside standard checkout, or use it as your only checkout method for Magento mobile. PayPal MEP requires a <a href="%s">PayPal business account</a>', $paypalConfigurationUrl);
-
-        $paypalActiveField = $fieldsetPaypal->addField('conf/native/paypal/isActive', 'select', array(
-            'label'     => $this->__('Activate PayPal Checkout'),
-            'name'      => 'conf[native][paypal][isActive]',
-            'note'      => (!$isExpressCheckoutAvaliable ? $activateMepMethodNote : $businessAccountNote),
             'values'    => $yesNoValues,
-            'value'     => $paypalActive,
-            'disabled'  => !$isExpressCheckoutAvaliable
+            'note'      => $this->__('Standard Checkout uses the checkout methods provided by Magento. Only inline payment methods are supported. (e.g PayPal Direct,  Authorize.Net, etc.)'),
+            'value'     => $checkoutStatus
         ));
 
-        $merchantlabelField = $fieldsetPaypal->addField('conf/special/merchantLabel', 'text', array(
-            'name'      => 'conf[special][merchantLabel]',
-            'label'     => $this->__('Merchant Label'),
-            'title'     => $this->__('Merchant Label'),
-            'required'  => true,
-            'value'     => (isset($data['conf[special][merchantLabel]']) ? $data['conf[special][merchantLabel]'] : '')
-        ));
+        $deviceType = Mage::helper('xmlconnect')->getDeviceType();
+        switch ($deviceType) {
+            case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE:
+            case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPAD:
+                /**
+                 * PayPal MEP management
+                 */
+                $isExpressCheckoutAvaliable = Mage::getModel('xmlconnect/payment_method_paypal_mep')->isAvailable(null);
 
-        // field dependencies
-        $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
-            ->addFieldMap($merchantlabelField->getHtmlId(), $merchantlabelField->getName())
-            ->addFieldMap($paypalActiveField->getHtmlId(), $paypalActiveField->getName())
-            ->addFieldDependence(
-                $merchantlabelField->getName(),
-                $paypalActiveField->getName(),
-                1)
-        );
+                $paypalActive = 0;
+                if (isset($data['conf[native][paypal][isActive]'])) {
+                    $paypalActive = (int)($data['conf[native][paypal][isActive]'] && $isExpressCheckoutAvaliable);
+                }
+                $fieldsetPaypal = $form->addFieldset('paypal_mep_checkout', array(
+                    'legend' => $this->__('PayPal Mobile Embedded Payment (MEP)')
+                ));
+
+                $activateMepMethodNote = $this->__('To activate PayPal MEP payment method activate Express checkout first. ');
+
+                $paypalConfigurationUrl = $this->escapeHtml(
+                    $this->getUrl('adminhtml/system_config/edit', array('section' => 'paypal'))
+                );
+
+                $businessAccountNote = $this->__('MEP is PayPal`s native checkout experience for the iPhone. You can choose to use MEP alongside standard checkout, or use it as your only checkout method for Magento mobile. PayPal MEP requires a <a href="%s">PayPal business account</a>', $paypalConfigurationUrl);
+
+                $paypalActiveField = $fieldsetPaypal->addField('conf/native/paypal/isActive', 'select', array(
+                    'label'     => $this->__('Activate PayPal Checkout'),
+                    'name'      => 'conf[native][paypal][isActive]',
+                    'note'      => (!$isExpressCheckoutAvaliable ? $activateMepMethodNote : $businessAccountNote),
+                    'values'    => $yesNoValues,
+                    'value'     => $paypalActive,
+                    'disabled'  => !$isExpressCheckoutAvaliable
+                ));
+
+                if (isset($data['conf[special][merchantLabel]'])) {
+                    $merchantLabelValue = $data['conf[special][merchantLabel]'];
+                } else {
+                    $merchantLabelValue = '';
+                }
+                $merchantlabelField = $fieldsetPaypal->addField('conf/special/merchantLabel', 'text', array(
+                    'name'      => 'conf[special][merchantLabel]',
+                    'label'     => $this->__('Merchant Label'),
+                    'title'     => $this->__('Merchant Label'),
+                    'required'  => true,
+                    'value'     => $merchantLabelValue
+                ));
+
+                // field dependencies
+                $this->setChild('form_after', $this->getLayout()
+                    ->createBlock('adminhtml/widget_form_element_dependence')
+                    ->addFieldMap($merchantlabelField->getHtmlId(), $merchantlabelField->getName())
+                    ->addFieldMap($paypalActiveField->getHtmlId(), $paypalActiveField->getName())
+                    ->addFieldDependence(
+                        $merchantlabelField->getName(),
+                        $paypalActiveField->getName(),
+                        1)
+                );
+                break;
+            case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_ANDROID:
+                $fieldsetPaypal = $form->addFieldset('paypal_mep_checkout', array(
+                    'legend' => $this->__('PayPal Mobile Embedded Payment (MEP)')
+                ));
+                $fieldsetPaypal->addField('paypal_note', 'note', array(
+                    'label' => $this->__('Notice'),
+                    'text'  => $this->__('Currently, PayPal MEP is not available for the Android application')
+                ));
+                break;
+            default:
+                Mage::throwException(
+                    $this->__('Device doesn\'t recognized: "%s". Unable to load preview model.', $deviceType)
+                );
+                break;
+        }
 
         return parent::_prepareForm();
     }

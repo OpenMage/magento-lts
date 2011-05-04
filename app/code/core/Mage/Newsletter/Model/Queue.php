@@ -182,18 +182,18 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             $name = $item->getSubscriberFullName();
 
             $sender->emulateDesign($item->getStoreId());
-            $successSend = $sender->send($email, $name, array('subscriber'=>$item));
+            $successSend = $sender->send($email, $name, array('subscriber' => $item));
             $sender->revertDesign();
-            
+
             if($successSend) {
                 $item->received($this);
             } else {
                 $problem = Mage::getModel('newsletter/problem');
+                $notification = Mage::helper('newsletter')->__('Please refer to exeption.log');
                 $problem->addSubscriberData($item)
-                    ->addQueueData($queue)
-                    ->addErrorData('Please refer to exeption.log')
+                    ->addQueueData($this)
+                    ->addErrorData(new Exception($notification))
                     ->save();
-
                 $item->received($this);
             }
         }

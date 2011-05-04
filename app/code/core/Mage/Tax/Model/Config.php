@@ -40,7 +40,7 @@ class Mage_Tax_Model_Config
     const CONFIG_XML_PATH_PRICE_INCLUDES_TAX = 'tax/calculation/price_includes_tax';
     const CONFIG_XML_PATH_SHIPPING_INCLUDES_TAX = 'tax/calculation/shipping_includes_tax';
     const CONFIG_XML_PATH_BASED_ON = 'tax/calculation/based_on';
-    CONST CONFIG_XML_PATH_APPLY_ON = 'tax/calculation/apply_tax_on';
+    const CONFIG_XML_PATH_APPLY_ON = 'tax/calculation/apply_tax_on';
     const CONFIG_XML_PATH_APPLY_AFTER_DISCOUNT = 'tax/calculation/apply_after_discount';
     const CONFIG_XML_PATH_DISCOUNT_TAX = 'tax/calculation/discount_tax';
     const XML_PATH_ALGORITHM = 'tax/calculation/algorithm';
@@ -274,7 +274,10 @@ class Mage_Tax_Model_Config
     public function shippingPriceIncludesTax($store = null)
     {
         if ($this->_shippingPriceIncludeTax === null) {
-            $this->_shippingPriceIncludeTax = (bool) Mage::getStoreConfig(self::CONFIG_XML_PATH_SHIPPING_INCLUDES_TAX, $store);
+            $this->_shippingPriceIncludeTax = (bool)Mage::getStoreConfig(
+                self::CONFIG_XML_PATH_SHIPPING_INCLUDES_TAX,
+                $store
+            );
         }
         return $this->_shippingPriceIncludeTax;
     }

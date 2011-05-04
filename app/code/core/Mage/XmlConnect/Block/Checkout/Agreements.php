@@ -28,7 +28,6 @@
  * One page checkout agreements xml renderer
  *
  * @category   Mage
- * @category   Mage
  * @package    Mage_XmlConnect
  * @author     Magento Core Team <core@magentocommerce.com>
  */
@@ -49,7 +48,8 @@ class Mage_XmlConnect_Block_Checkout_Agreements extends Mage_Checkout_Block_Agre
                 if (!$agreement->getIsHtml()) {
                     $content = nl2br(strip_tags($content));
                 }
-                $itemXmlObj->addChild('label', $agreementsXmlObj->xmlentities(strip_tags($agreement->getCheckboxText())));
+                $agreementText = $agreementsXmlObj->xmlentities(strip_tags($agreement->getCheckboxText()));
+                $itemXmlObj->addChild('label', $agreementText);
                 $itemXmlObj->addChild('content', $content);
                 $itemXmlObj->addChild('code', 'agreement[' . $agreement->getId() . ']');
                 $itemXmlObj->addChild('agreement_id', $agreement->getId());

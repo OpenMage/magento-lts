@@ -298,6 +298,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         if (!$comment->getId()) {
             $this->getCommentsCollection()->addItem($comment);
         }
+        $this->_hasDataChanges = true;
         return $this;
     }
 
@@ -309,7 +310,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 ->setCreatedAtOrder();
 
             /**
-             * When shipment created with adding comment, comments collection must be loaded before we added this comment.
+             * When shipment created with adding comment,
+             * comments collection must be loaded before we added this comment.
              */
             $this->_comments->load();
 

@@ -23,6 +23,14 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+/**
+ * Device design themes block
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Themes extends Mage_Adminhtml_Block_Template
 {
     /**
@@ -37,24 +45,72 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Themes extends Mage
         $this->setTemplate('xmlconnect/form/element/themes.phtml');
 
         $data = $model->getFormData();
-        $this->setColorFieldset (array (
-            array ( 'id' => 'field_colors', 'label' =>   $this->__('Colors'), 'fields' => array (
-                $this->_addColorBox('conf[native][navigationBar][tintColor]', $this->__('Header Background Color'), $data),
-                $this->_addColorBox('conf[native][body][primaryColor]', $this->__('Primary Color'), $data),
-                $this->_addColorBox('conf[native][body][secondaryColor]', $this->__('Secondary Color'), $data),
-                $this->_addColorBox('conf[native][categoryItem][backgroundColor]', $this->__('Category Item Background Color'), $data),
-                $this->_addColorBox('conf[native][categoryItem][tintColor]', $this->__('Category Button Color'), $data),
+        $this->setColorFieldset(array(
+            array('id' => 'field_colors', 'label' => $this->__('Colors'), 'fields' => array(
+                $this->_addColorBox(
+                    'conf[native][navigationBar][tintColor]',
+                    $this->__('Header Background Color'),
+                    $data
+                ),
+                $this->_addColorBox(
+                    'conf[native][body][primaryColor]',
+                    $this->__('Primary Color'),
+                    $data
+                ),
+                $this->_addColorBox(
+                    'conf[native][body][secondaryColor]',
+                    $this->__('Secondary Color'),
+                    $data
+                ),
+                $this->_addColorBox(
+                    'conf[native][categoryItem][backgroundColor]',
+                    $this->__('Category Item Background Color'),
+                    $data
+                ),
+                $this->_addColorBox(
+                    'conf[native][categoryItem][tintColor]',
+                    $this->__('Category Button Color'),
+                    $data
+                ),
             )),
-            array ( 'id' => 'field_fonts', 'label' =>   $this->__('Fonts'), 'fields' => array (
-                $this->_addColorBox('conf[extra][fontColors][header]', $this->__('Header Font Color'), $data),
-                $this->_addColorBox('conf[extra][fontColors][primary]', $this->__('Primary Font Color'), $data),
-                $this->_addColorBox('conf[extra][fontColors][secondary]', $this->__('Secondary Font Color'), $data),
-                $this->_addColorBox('conf[extra][fontColors][price]', $this->__('Price Font Color'), $data),
+            array('id' => 'field_fonts', 'label' => $this->__('Fonts'), 'fields' => array(
+                $this->_addColorBox(
+                    'conf[extra][fontColors][header]',
+                    $this->__('Header Font Color'),
+                    $data
+                ),
+                $this->_addColorBox(
+                    'conf[extra][fontColors][primary]',
+                    $this->__('Primary Font Color'),
+                    $data
+                ),
+                $this->_addColorBox(
+                    'conf[extra][fontColors][secondary]',
+                    $this->__('Secondary Font Color'),
+                    $data
+                ),
+                $this->_addColorBox(
+                    'conf[extra][fontColors][price]',
+                    $this->__('Price Font Color'),
+                    $data
+                ),
             )),
-            array ( 'id' => 'field_advanced', 'label' =>  $this->__('Advanced Settings'), 'fields' => array (
-                $this->_addColorBox('conf[native][body][backgroundColor]', $this->__('Background Color'), $data),
-                $this->_addColorBox('conf[native][body][scrollBackgroundColor]', $this->__('Scroll Background Color'), $data),
-                $this->_addColorBox('conf[native][itemActions][relatedProductBackgroundColor]', $this->__('Related Product Background Color'), $data),
+            array('id' => 'field_advanced', 'label' => $this->__('Advanced Settings'), 'fields' => array(
+                $this->_addColorBox(
+                    'conf[native][body][backgroundColor]',
+                    $this->__('Background Color'),
+                    $data
+                ),
+                $this->_addColorBox(
+                    'conf[native][body][scrollBackgroundColor]',
+                    $this->__('Scroll Background Color'),
+                    $data
+                ),
+                $this->_addColorBox(
+                    'conf[native][itemActions][relatedProductBackgroundColor]',
+                    $this->__('Related Product Background Color'),
+                    $data
+                ),
             )),
         ));
     }
@@ -67,6 +123,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Themes extends Mage
     public function getAllThemes()
     {
         $result = array();
+
         foreach ($this->getThemes() as $theme) {
             $result[$theme->getName()] = $theme->getFormData();
         }
@@ -98,7 +155,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Themes extends Mage
      */
     public function getDefaultThemeLoaded()
     {
-        return $this->getApplication()->getDefaultThemeLoaded();
+        return Mage::helper('xmlconnect')->getApplication()->getDefaultThemeLoaded();
     }
 
     /**
@@ -108,7 +165,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Themes extends Mage
      */
     public function isNewApplication()
     {
-        return $this->getApplication()->getId() ? false : true;
+        return Mage::helper('xmlconnect')->getApplication()->getId() ? false : true;
     }
 
     /**
@@ -129,15 +186,5 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Themes extends Mage
     public function getResetThemeActionUrl()
     {
         return $this->getUrl('*/*/resetTheme');
-    }
-
-    /**
-     * Getter for current loaded application model
-     *
-     * @return Mage_XmlConnect_Model_Application
-     */
-    public function getApplication()
-    {
-        return Mage::helper('xmlconnect')->getApplication();
     }
 }

@@ -36,7 +36,15 @@
 #field_tabs { padding:0 !important; }
 #field_tabs .mm-tabs-title { background:#ececec; padding:4px 10px; margin:0 -10px 15px; font-weight:bold; }
 #field_tabs table { width:500px !important; margin:0 10px 20px 10px; }
-.ipad-horizontal { height:350px; width:467px; }
-.ipad-portrait { height:467px; width:350px; }
-.ipad-tab-portrait { width:308px; }
-.ipad-tab-horizontal { width:425px; }
+
+.preview-loading,
+.ipad-portrait-loading,
+.ipad-landscape-loading { background:url(../images/xmlconnect/loading.gif) no-repeat 50% 40%; color:#d4d4d4; font-size:18px; line-height:467px; text-align:center; }
+
+.preview-loading { line-height:488px; text-align:center; margin:0 0 10px; height:488px; width:328px; }
+.ipad-portrait-loading { line-height:467px; }
+.ipad-landscape-loading { line-height:350px; }
+
+.ipad-portrait { margin:0 0 5px; overflow:hidden; }
+.ipad-landscape { margin:0 0 5px; }
+.ipad-tab-landscape { width:425px; }

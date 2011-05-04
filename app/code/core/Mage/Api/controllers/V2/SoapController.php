@@ -35,10 +35,14 @@ class Mage_Api_V2_SoapController extends Mage_Api_Controller_Action
 {
     public function indexAction()
     {
-        $server = Mage::getSingleton('api/server');
+        if(Mage::helper('api/data')->isComplianceWSI()){
+            $handler_name = 'soap_wsi';
+        } else {
+            $handler_name = 'soap_v2';
+        }
 
         /* @var $server Mage_Api_Model_Server */
-        $this->_getServer()->init($this, 'soap_v2', 'soap_v2')
+        $this->_getServer()->init($this, $handler_name, $handler_name)
             ->run();
     }
 } // Class Mage_Api_IndexController End

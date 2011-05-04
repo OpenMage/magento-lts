@@ -500,6 +500,26 @@
                         </template_hints_blocks>
                     </fields>
                 </debug>
+                <template translate="label">
+                    <label>Template Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>25</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <allow_symlink translate="label comment">
+                            <label>Allow Symlinks</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Warning! Enabling this feature is not recommended on production environments because it represents a potential security risk.</comment>
+                        </allow_symlink>
+                    </fields>
+                </template>
                 <translate_inline translate="label">
                     <label>Translate Inline</label>
                     <frontend_type>text</frontend_type>
@@ -667,6 +687,7 @@
                             <label>Timezone</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_locale_timezone</source_model>
+                            <backend_model>adminhtml/system_config_backend_locale_timezone</backend_model>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -832,7 +853,6 @@
                         </return_path_email>
                     </fields>
                 </smtp>
-                <!-- DISABLED AS NOT COMPLETED FEATURE. DO NOT ENABLE IT
                 <media_storage_configuration translate="label" module="core">
                     <label>Storage Configuration for Media</label>
                     <frontend_type>text</frontend_type>
@@ -868,13 +888,20 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>When changing media storage or selecting another media database,
-                                use the Synchronize function to transfer media to the selected
-                                storage. After synchronization is completed, all new media will be
-                                automatically placed to the selected media storage.</comment>
+                            <comment>After selecting a new media storage location, press the Synchronize button
+                                to transfer all media to that location. Media will not be available in the new
+                                location until the synchronization process is complete.</comment>
                         </synchronize>
+                        <configuration_update_time translate="label">
+                            <label>Environment Update Time</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>400</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </configuration_update_time>
                     </fields>
-                </media_storage_configuration> -->
+                </media_storage_configuration>
             </groups>
         </system>
         <admin translate="label" module="core">

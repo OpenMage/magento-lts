@@ -79,7 +79,7 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
         $quote = $this->_getQuote($quoteId, $store);
 
         if (!$quote->getItemsCount()) {
-            return false;
+            $this->_fault('quote_is_empty');
         }
 
         $oldCouponCode = $quote->getCouponCode();
@@ -100,8 +100,6 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
             if (!$couponCode == $quote->getCouponCode()) {
                 $this->_fault('coupon_code_is_not_valid');
             }
-        } else {
-            $this->_fault('coupon_code_was_canceled');
         }
 
         return true;

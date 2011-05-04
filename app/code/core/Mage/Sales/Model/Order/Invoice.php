@@ -385,6 +385,11 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         return $this;
     }
 
+    /**
+     * Get invoice items collection
+     *
+     * @return Mage_Sales_Model_Mysql4_Order_Invoice_Item_Collection
+     */
     public function getItemsCollection()
     {
         if (empty($this->_items)) {
@@ -582,6 +587,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         if (!$comment->getId()) {
             $this->getCommentsCollection()->addItem($comment);
         }
+        $this->_hasDataChanges = true;
         return $this;
     }
 
@@ -592,7 +598,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
                 ->setInvoiceFilter($this->getId())
                 ->setCreatedAtOrder();
             /**
-             * When invoice created with adding comment, comments collection must be loaded before we added this comment.
+             * When invoice created with adding comment, comments collection
+             * must be loaded before we added this comment.
              */
             $this->_comments->load();
 
@@ -691,6 +698,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             )
         );
         $mailer->send();
+        $this->setEmailSent(true);
+        $this->_getResource()->saveAttribute($this, 'email_sent');
 
         return $this;
     }

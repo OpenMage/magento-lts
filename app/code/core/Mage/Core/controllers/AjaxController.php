@@ -41,6 +41,14 @@ class Mage_Core_AjaxController extends Mage_Core_Controller_Front_Action
     {
         $translation = $this->getRequest()->getPost('translate');
         $area = $this->getRequest()->getPost('area');
+
+        //filtering
+        /** @var $filter Mage_Core_Model_Input_Filter_MaliciousCode */
+        $filter = Mage::getModel('core/input_filter_maliciousCode');
+        foreach ($translation as &$item) {
+            $item['custom'] = $filter->filter($item['custom']);
+        }
+
         echo Mage::helper('core/translate')->apply($translation, $area);
         exit();
     }

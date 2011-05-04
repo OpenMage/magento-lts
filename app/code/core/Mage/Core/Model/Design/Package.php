@@ -793,12 +793,16 @@ class Mage_Core_Model_Design_Package
     protected function _prepareUrl($uri)
     {
         // check absolute or relative url
-        if (!preg_match('/^[http|https]/i', $uri) && !preg_match('/^\//i', $uri)) {
+        if (!preg_match('/^https?:/i', $uri) && !preg_match('/^\//i', $uri)) {
             $fileDir = '';
             $pathParts = explode(DS, $uri);
             $fileDirParts = explode(DS, $this->_callbackFileDir);
             $store = $this->getStore();
-            $secure = $store->isAdmin() ? $store->isAdminUrlSecure() : $store->isFrontUrlSecure();
+            if ($store->isAdmin()) {
+                $secure = $store->isAdminUrlSecure();
+            } else {
+                $secure = $store->isFrontUrlSecure() && Mage::app()->getRequest()->isSecure();
+            }
 
             if ('skin' == $fileDirParts[0]) {
                 $baseUrl = Mage::getBaseUrl('skin', $secure);

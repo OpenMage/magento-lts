@@ -34,6 +34,12 @@
  */
 class Mage_Payment_Model_Method_Free extends Mage_Payment_Model_Method_Abstract
 {
+    /**
+     * XML Pathes for configuration constants
+     */
+    const XML_PATH_PAYMENT_FREE_ACTIVE = 'payment/free/active';
+    const XML_PATH_PAYMENT_FREE_ORDER_STATUS = 'payment/free/order_status';
+    const XML_PATH_PAYMENT_FREE_PAYMENT_ACTION = 'payment/free/payment_action';
 
     /**
      * Payment Method features

@@ -25,22 +25,23 @@
  */
 ?>
 <?php
-$title1color = $this->getConfigFontInfo('Title1/color');
-$title2color = $this->getConfigFontInfo('Title2/color');
-$title5color = $this->getConfigFontInfo('Title5/color');
+/** @var $previewModel Mage_XmlConnect_Model_Preview_Ipad */
+$previewModel = Mage::helper('xmlconnect')->getPreviewModel();
 
-$primaryColor = $this->getData('conf/body/primaryColor');
-$secondaryColor = $this->getData('conf/body/secondaryColor');
+$title1color = $previewModel->getConfigFontInfo('Title1/color');
+$title2color = $previewModel->getConfigFontInfo('Title2/color');
+$title5color = $previewModel->getConfigFontInfo('Title5/color');
 
-$productImage = $this->getPreviewImagesUrl('ipad/bg_product_image.png');
-$backgroundIpadLandscapeImage = $this->getBackgroundImage(Mage_XmlConnect_Helper_Ipad::ORIENTATION_LANDSCAPE);
+$primaryColor = $previewModel->getData('conf/body/primaryColor');
+$secondaryColor = $previewModel->getData('conf/body/secondaryColor');
+
+$productImage = $previewModel->getPreviewImagesUrl('ipad/bg_product_image.png');
+$backgroundIpadLandscapeImage = $previewModel->setOrientation(Mage_XmlConnect_Helper_Ipad::ORIENTATION_LANDSCAPE)->getBackgroundImage();
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $this->getPreviewCssUrl('mobile-ipad-catalog.css'); ?>" media="all" />
-
-<div class="ipad ipad-horizontal" style="background: <?php echo $this->getData('conf/body/backgroundColor'); ?>;">
+<div class="ipad-catalog ipad-catalog-landscape" style="background: <?php echo $previewModel->getData('conf/body/backgroundColor'); ?>;">
     <div class="status-bar"></div>
-    <div class="header-wrap" style="background-color:<?php echo $this->getData('conf/navigationBar/tintColor'); ?>;">
-        <div class="header">
+    <div class="header-wrap" style="background-color:<?php echo $previewModel->getData('conf/navigationBar/tintColor'); ?>;">
+        <div class="app-header">
             <?php echo $this->getChildHtml('tab_items'); ?>
         </div>
     </div>

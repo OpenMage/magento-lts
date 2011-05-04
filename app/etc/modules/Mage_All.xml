@@ -221,6 +221,7 @@
             <depends>
                 <Mage_Sales/>
                 <Mage_Payment/>
+                <Mage_Usa/>
             </depends>
         </Mage_GoogleCheckout>
         <Mage_Log>

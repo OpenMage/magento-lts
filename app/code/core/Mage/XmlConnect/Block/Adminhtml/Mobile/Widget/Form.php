@@ -101,14 +101,4 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form extends Mage_Adminhtml_
             'datetime' => $config->getBlockClassName('xmlconnect/adminhtml_mobile_form_element_datetime'),
         );
     }
-
-    /**
-     * Getter for current loaded application model
-     *
-     * @return Mage_XmlConnect_Model_Application
-     */
-    public function getApplication()
-    {
-        return Mage::helper('xmlconnect')->getApplication();
-    }
 }

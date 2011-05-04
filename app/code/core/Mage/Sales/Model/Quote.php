@@ -360,13 +360,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function getCustomerTaxClassId()
     {
         /*
-        * tax class can vary at any time. so instead of using the value from session, we need to retrieve from db everytime
-        * to get the correct tax class
+        * tax class can vary at any time. so instead of using the value from session,
+        * we need to retrieve from db everytime to get the correct tax class
         */
         //if (!$this->getData('customer_group_id') && !$this->getData('customer_tax_class_id')) {
-            $classId = Mage::getModel('customer/group')->getTaxClassId($this->getCustomerGroupId());
-            $this->setCustomerTaxClassId($classId);
+        $classId = Mage::getModel('customer/group')->getTaxClassId($this->getCustomerGroupId());
+        $this->setCustomerTaxClassId($classId);
         //}
+
         return $this->getData('customer_tax_class_id');
     }
 
@@ -673,6 +674,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function removeItem($itemId)
     {
         $item = $this->getItemById($itemId);
+
         if ($item) {
             $item->setQuote($this);
             /**
@@ -685,8 +687,15 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                     $child->isDeleted(true);
                 }
             }
+
+            $parent = $item->getParentItem();
+            if ($parent) {
+                $parent->isDeleted(true);
+            }
+
             Mage::dispatchEvent('sales_quote_remove_item', array('quote_item' => $item));
         }
+
         return $this;
     }
 
@@ -707,7 +716,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
          * Proper solution is to submit items one by one with customer confirmation each time.
          */
         if ($item->isNominal() && $this->hasItems() || $this->hasNominalItems()) {
-            Mage::throwException(Mage::helper('sales')->__('Nominal item can be purchased standalone only. To proceed please remove other items from the quote.'));
+            Mage::throwException(
+                Mage::helper('sales')->__('Nominal item can be purchased standalone only. To proceed please remove other items from the quote.')
+            );
         }
 
         $item->setQuote($this);
@@ -807,7 +818,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function addProduct(Mage_Catalog_Model_Product $product, $request = null)
     {
-        return $this->addProductAdvanced($product, $request, Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL);
+        return $this->addProductAdvanced(
+            $product,
+            $request,
+            Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL
+        );
     }
 
     /**
@@ -1098,14 +1113,18 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
             $address->collectTotals();
 
-            $this->setSubtotal((float) $this->getSubtotal()+$address->getSubtotal());
-            $this->setBaseSubtotal((float) $this->getBaseSubtotal()+$address->getBaseSubtotal());
+            $this->setSubtotal((float) $this->getSubtotal() + $address->getSubtotal());
+            $this->setBaseSubtotal((float) $this->getBaseSubtotal() + $address->getBaseSubtotal());
 
-            $this->setSubtotalWithDiscount((float) $this->getSubtotalWithDiscount()+$address->getSubtotalWithDiscount());
-            $this->setBaseSubtotalWithDiscount((float) $this->getBaseSubtotalWithDiscount()+$address->getBaseSubtotalWithDiscount());
+            $this->setSubtotalWithDiscount(
+                (float) $this->getSubtotalWithDiscount() + $address->getSubtotalWithDiscount()
+            );
+            $this->setBaseSubtotalWithDiscount(
+                (float) $this->getBaseSubtotalWithDiscount() + $address->getBaseSubtotalWithDiscount()
+            );
 
-            $this->setGrandTotal((float) $this->getGrandTotal()+$address->getGrandTotal());
-            $this->setBaseGrandTotal((float) $this->getBaseGrandTotal()+$address->getBaseGrandTotal());
+            $this->setGrandTotal((float) $this->getGrandTotal() + $address->getGrandTotal());
+            $this->setBaseGrandTotal((float) $this->getBaseGrandTotal() + $address->getBaseGrandTotal());
         }
 
         Mage::helper('sales')->checkQuoteAmount($this, $this->getGrandTotal());
@@ -1120,7 +1139,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 continue;
             }
 
-            if (($children = $item->getChildren()) && $item->isShipSeparately()) {
+            $children = $item->getChildren();
+            if ($children && $item->isShipSeparately()) {
                 foreach ($children as $child) {
                     if ($child->getProduct()->getIsVirtual()) {
                         $this->setVirtualItemsQty($this->getVirtualItemsQty() + $child->getQty()*$item->getQty());
@@ -1140,9 +1160,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
         Mage::dispatchEvent(
             $this->_eventPrefix . '_collect_totals_after',
-            array(
-                $this->_eventObject=>$this
-            )
+            array($this->_eventObject => $this)
         );
 
         $this->setTotalsCollectedFlag(true);
@@ -1250,18 +1268,19 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             return true;
         }
 
-        if ($multishipping && !$minOrderMulti) {
-            $baseTotal = 0;
-            foreach ($this->getAllAddresses() as $address) {
-                /* @var $address Mage_Sales_Model_Quote_Address */
-                $baseTotal += $address->getBaseSubtotalWithDiscount();
-            }
+        if ($multishipping) {
+            if ($minOrderMulti) {
+                $baseTotal = 0;
+                foreach ($this->getAllAddresses() as $address) {
+                    /* @var $address Mage_Sales_Model_Quote_Address */
+                    $baseTotal += $address->getBaseSubtotalWithDiscount();
+                }
 
-            if ($baseTotal < Mage::getStoreConfig('sales/minimum_order/amount', $storeId)) {
-                return false;
+                if ($baseTotal < Mage::getStoreConfig('sales/minimum_order/amount', $storeId)) {
+                    return false;
+                }
             }
-        }
-        else {
+        } else {
             foreach ($this->getAllAddresses() as $address) {
                 /* @var $address Mage_Sales_Model_Quote_Address */
                 if (!$address->validateMinimumAmount()) {
@@ -1452,7 +1471,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         foreach ($this->getAllVisibleItems() as $item) {
             $product = $item->getProduct();
             if (is_object($product) && ($product->isRecurring())
-                && $profile = Mage::getModel('sales/recurring_profile')->importProduct($product)) {
+                && $profile = Mage::getModel('sales/recurring_profile')->importProduct($product)
+            ) {
                 $profile->importQuote($this);
                 $profile->importQuoteItem($item);
                 $result[] = $profile;

@@ -55,4 +55,25 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return self::$_shouldAskToCreateBillingAgreement;
     }
+
+    /**
+     * Return backend config for element like JSON
+     *
+     * @param Varien_Data_Form_Element_Abstract $element
+     * @return string
+     */
+    public function getElementBackendConfig(Varien_Data_Form_Element_Abstract $element) {
+        $config = $element->getFieldConfig()->backend_congif;
+        if (!$config) {
+            return false;
+        }
+        $config = $config->asCanonicalArray();
+        if (isset($config['enable_for_countries'])) {
+            $config['enable_for_countries'] = explode(',', str_replace(' ', '', $config['enable_for_countries']));
+        }
+        if (isset($config['disable_for_countries'])) {
+            $config['disable_for_countries'] = explode(',', str_replace(' ', '', $config['disable_for_countries']));
+        }
+        return Mage::helper('core')->jsonEncode($config);
+    }
 }

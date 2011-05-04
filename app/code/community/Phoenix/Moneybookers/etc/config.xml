@@ -293,7 +293,8 @@
                 <active>0</active>
                 <model>moneybookers/obt</model>
                 <title>Onlineüberweisung (empfohlen)</title>
-                <allowspecific>0</allowspecific>
+                <allowspecific>1</allowspecific>
+                <specificcountry>GB,DE</specificcountry>
             </moneybookers_obt>
         </payment>
         <moneybookers>

@@ -127,7 +127,7 @@ class Mage_Paypal_PayflowController extends Mage_Core_Controller_Front_Action
     public function silentPostAction()
     {
         $data = $this->getRequest()->getPost();
-        if (isset($data['INVOICE'])) {
+        if (isset($data['INVNUM'])) {
             $paymentModel = Mage::getModel('paypal/payflowlink');
             try {
                 $paymentModel->process($data);

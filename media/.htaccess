@@ -5,3 +5,21 @@ php_flag engine 0
 
 AddHandler cgi-script .php .pl .py .jsp .asp .htm .shtml .sh .cgi
 Options -ExecCGI
+
+<IfModule mod_rewrite.c>
+
+############################################
+## enable rewrites
+
+    Options +FollowSymLinks
+    RewriteEngine on
+
+############################################
+## never rewrite for existing files
+    RewriteCond %{REQUEST_FILENAME} !-f
+
+############################################
+## rewrite everything else to index.php
+
+    RewriteRule .* ../get.php [L]
+</IfModule>

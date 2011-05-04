@@ -242,7 +242,11 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 }
 
                 if (!empty($data['comment_text'])) {
-                    $invoice->addComment($data['comment_text'], isset($data['comment_customer_notify']), isset($data['is_visible_on_front']));
+                    $invoice->addComment(
+                        $data['comment_text'],
+                        isset($data['comment_customer_notify']),
+                        isset($data['is_visible_on_front'])
+                    );
                 }
 
                 $invoice->register();
@@ -380,9 +384,12 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 Mage::throwException($this->__('The Comment Text field cannot be empty.'));
             }
             $invoice = $this->_initInvoice();
-            $invoice->addComment($data['comment'], isset($data['is_customer_notified']), isset($data['is_visible_on_front']));
+            $invoice->addComment(
+                $data['comment'],
+                isset($data['is_customer_notified']),
+                isset($data['is_visible_on_front'])
+            );
             $invoice->sendUpdateEmail(!empty($data['is_customer_notified']), $data['comment']);
-            $invoice->_hasDataChanges = true;
             $invoice->save();
 
             $this->loadLayout();

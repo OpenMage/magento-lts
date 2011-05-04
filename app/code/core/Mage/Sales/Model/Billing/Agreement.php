@@ -248,7 +248,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     /**
      * Add order relation to current billing agreement
      *
-     * @param int $orderId
+     * @param int|Mage_Sales_Model_Order $orderId
      * @return Mage_Sales_Model_Billing_Agreement
      */
     public function addOrderRelation($orderId)
@@ -262,7 +262,8 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      */
     protected function _saveOrderRelations()
     {
-        foreach ($this->_relatedOrders as $orderId) {
+        foreach ($this->_relatedOrders as $order) {
+            $orderId = $order instanceof Mage_Sales_Model_Order ? $order->getId() : (int) $order;
             $this->getResource()->addOrderRelation($this->getId(), $orderId);
         }
     }

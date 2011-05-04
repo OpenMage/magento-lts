@@ -96,6 +96,9 @@
                             <comment>Add an Express Checkout button to your existing shopping cart for quick and easy credit card payments. PayPal handles all payment processing.</comment>
                             <demo_url><![CDATA[https://merchant.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=merchant/demo_express_checkout]]></demo_url>
                             <more_url><![CDATA[https://www.paypal.com/cgi-bin/webscr?cmd=_simple-referral-flow&partner_id=NB9WWHYEMVUMS&product_id=ECA]]></more_url>
+                            <backend_congif>
+                                <enable_for_countries>all</enable_for_countries>
+                            </backend_congif>
                             <config_path>payment/paypal_express/active</config_path>
                             <frontend_type>checkbox</frontend_type>
                             <sort_order>10</sort_order>
@@ -107,6 +110,9 @@
                             <comment>PayPal processes all of your orders, and you get paid.</comment>
                             <demo_url><![CDATA[https://merchant.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=merchant/demo_WPS]]></demo_url>
                             <more_url><![CDATA[https://www.paypal.com/cgi-bin/webscr?cmd=_simple-referral-flow&partner_id=NB9WWHYEMVUMS&product_id=WPSA]]></more_url>
+                            <backend_congif>
+                                <enable_for_countries>all</enable_for_countries>
+                            </backend_congif>
                             <config_path>payment/paypal_standard/active</config_path>
                             <frontend_type>checkbox</frontend_type>
                             <sort_order>20</sort_order>
@@ -118,6 +124,9 @@
                             <comment>Process credit cards directly on your website with PayPal’s all-in-one online payment processing solution.</comment>
                             <demo_url><![CDATA[https://merchant.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=merchant/demo_wpp]]></demo_url>
                             <more_url><![CDATA[https://www.paypal.com/cgi-bin/webscr?cmd=_simple-referral-flow&partner_id=NB9WWHYEMVUMS&product_id=WPPROA]]></more_url>
+                            <backend_congif>
+                                <enable_for_countries>US, CA, GB</enable_for_countries>
+                            </backend_congif>
                             <config_path>payment/paypal_direct/active</config_path>
                             <frontend_type>checkbox</frontend_type>
                             <sort_order>25</sort_order>
@@ -127,6 +136,9 @@
                         <wpp_pe translate="label comment">
                             <label>Website Payments Pro Payflow Edition (includes Express Checkout)</label>
                             <comment>Accept PayPal payments in your shopping cart. PayPal will process your credit card payments through the Payflow Pro Gateway.</comment>
+                            <backend_congif>
+                                <enable_for_countries>US, GB</enable_for_countries>
+                            </backend_congif>
                             <config_path>payment/paypaluk_direct/active</config_path>
                             <frontend_type>checkbox</frontend_type>
                             <sort_order>30</sort_order>
@@ -137,6 +149,9 @@
                             <label>Payflow Pro Gateway</label>
                             <comment>Don’t have a PayPal merchant account? You can still accept credit card payments through the Payflow Pro Gateway.</comment>
                             <more_url><![CDATA[https://www.paypal.com/cgi-bin/webscr?cmd=_simple-referral-flow&partner_id=NB9WWHYEMVUMS&product_id=payflow_pro]]></more_url>
+                            <backend_congif>
+                                <enable_for_countries>US, CA, AU, NZ</enable_for_countries>
+                            </backend_congif>
                             <config_path>payment/verisign/active</config_path>
                             <frontend_type>checkbox</frontend_type>
                             <sort_order>35</sort_order>
@@ -146,6 +161,9 @@
                         <express_pe translate="label comment">
                             <label>Express Checkout</label>
                             <comment>Accept payments without customers leaving your website. Many popular web-hosting services and shopping carts come with the Payflow payment gateways built in, so they are easy to set up.</comment>
+                            <backend_congif>
+                                <enable_for_countries>US, GB</enable_for_countries>
+                            </backend_congif>
                             <config_path>payment/paypaluk_express/active</config_path>
                             <is_simplified>1</is_simplified>
                             <frontend_type>checkbox</frontend_type>
@@ -157,6 +175,9 @@
                             <label>Payflow Link (for USA and Canada)</label>
                             <comment>Quick set-up service lets your customers securely complete transactions.</comment>
                             <more_url><![CDATA[https://www.paypal.com/cgi-bin/webscr?cmd=_payflow-link-overview-outside]]></more_url>
+                            <backend_congif>
+                                <enable_for_countries>US, CA</enable_for_countries>
+                            </backend_congif>
                             <config_path>payment/payflow_link/active</config_path>
                             <frontend_type>checkbox</frontend_type>
                             <sort_order>50</sort_order>
@@ -164,9 +185,31 @@
                             <show_in_website>1</show_in_website>
                         </payflow_link>
                         <hosted_pro translate="label comment">
-                            <label>Website Payments Pro Hosted Solution (Website Payments Plus (JP) - Integral Evolution (FR) - PayPal Pro (IT) - Pasarela integral (ES))</label>
+                            <label>Website Payments Pro Hosted Solution</label>
                             <comment><![CDATA[Payments by cards + seller protection - <strong style="color:red">Contact PayPal before activating</strong>]]></comment>
                             <more_url><![CDATA[https://cms.paypal.com/cms_content/GB/en_GB/files/developer/HostedSolution.pdf]]></more_url>
+                            <backend_congif>
+                                <enable_for_countries>all</enable_for_countries>
+                                <disable_for_countries>US,CA</disable_for_countries>
+                                <labels>
+                                    <JP translate="switcher fieldset">
+                                        <switcher>Website Payments Plus</switcher>
+                                        <fieldset>Website Payments Plus Settings</fieldset>
+                                    </JP>
+                                    <FR translate="switcher fieldset">
+                                        <switcher>Integral Evolution</switcher>
+                                        <fieldset>Integral Evolution Settings</fieldset>
+                                    </FR>
+                                    <IT translate="switcher fieldset">
+                                        <switcher>PayPal Pro</switcher>
+                                        <fieldset>PayPal Pro Settings</fieldset>
+                                    </IT>
+                                    <ES translate="switcher fieldset">
+                                        <switcher>Pasarela integral</switcher>
+                                        <fieldset>Pasarela integral Settings</fieldset>
+                                    </ES>
+                                </labels>
+                            </backend_congif>
                             <config_path>payment/hosted_pro/active</config_path>
                             <frontend_type>checkbox</frontend_type>
                             <sort_order>60</sort_order>
@@ -651,7 +694,7 @@
                             <depends><centinel>1</centinel></depends>
                         </centinel_is_mode_strict>
                         <centinel_api_url translate="label comment">
-                            <label>Centinel Custom Api URL</label>
+                            <label>Centinel Custom API URL</label>
                             <config_path>payment/paypal_direct/centinel_api_url</config_path>
                             <comment>If empty, a default value will be used. Custom URL may be provided by CardinalCommerce agreement.</comment>
                             <frontend_type>text</frontend_type>
@@ -834,7 +877,7 @@
                             <show_in_website>1</show_in_website>
                         </line_items_enabled>
                         <heading_api translate="label">
-                            <label>Api/Integration</label>
+                            <label>API/Integration</label>
                             <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
@@ -964,7 +1007,7 @@
                             <depends><centinel>1</centinel></depends>
                         </centinel_is_mode_strict>
                         <centinel_api_url translate="label comment">
-                            <label>Centinel Api URL</label>
+                            <label>Centinel API URL</label>
                             <config_path>payment/paypaluk_direct/centinel_api_url</config_path>
                             <comment>If empty, a default value will be used. Custom URL may be provided by CardinalCommerce agreement.</comment>
                             <frontend_type>text</frontend_type>

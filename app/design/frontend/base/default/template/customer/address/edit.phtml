@@ -45,7 +45,7 @@
         <h2 class="legend"><?php echo $this->__('Contact Information') ?></h2>
         <ul class="form-list">
             <li class="fields">
-                <?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getAddress()->getFirstname() ? $this->getAddress() : $this->getCustomer())->toHtml() ?>
+                <?php echo $this->getNameBlockHtml() ?>
             </li>
             <li class="wide">
                 <label for="company"><?php echo $this->__('Company') ?></label>

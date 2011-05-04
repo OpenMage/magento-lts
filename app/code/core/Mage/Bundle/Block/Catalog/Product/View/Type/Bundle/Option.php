@@ -151,7 +151,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     protected function _getSelectedQty()
     {
         if ($this->getProduct()->hasPreconfiguredValues()) {
-            $selectedQty = (int)$this->getProduct()->getPreconfiguredValues()
+            $selectedQty = (float)$this->getProduct()->getPreconfiguredValues()
                 ->getData('bundle_option_qty/' . $this->getOption()->getId());
             if ($selectedQty < 0) {
                 $selectedQty = 0;

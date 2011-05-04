@@ -192,15 +192,20 @@
                             <more> <icon> <heightMax>35</heightMax> </icon> </more>
                         </tabBar>
                         <body>
+                            <!-- iphone images -->
                             <bannerImage> <width>320</width> <height>230</height> </bannerImage>
-                            <bannerIpadImage> <width>768</width> <height>294</height> </bannerIpadImage>
-                            <bannerAndroidImage> <width>320</width> <height>258</height> </bannerAndroidImage>
-                            <itemBackgroundIcon> <width>90</width> <height>120</height> </itemBackgroundIcon>
                             <backgroundImage> <width>320</width> <height>367</height> </backgroundImage>
+
+                            <!-- ipad images -->
+                            <bannerIpadImage> <width>768</width> <height>294</height> </bannerIpadImage>
                             <backgroundIpadLandscapeImage> <width>1024</width> <height>704</height> </backgroundIpadLandscapeImage>
                             <backgroundIpadPortraitImage> <width>768</width> <height>960</height> </backgroundIpadPortraitImage>
-                            <backgroundAndroidPortraitImage> <width>320</width> <height>410</height> </backgroundAndroidPortraitImage>
-                            <backgroundAndroidLandscapeImage> <width>480</width> <height>250</height> </backgroundAndroidLandscapeImage>
+
+                            <!-- andriod images -->
+                            <bannerAndroidImage> <width>320</width> <height>258</height> </bannerAndroidImage>
+
+                            <!-- images that are the same for all type of devices -->
+                            <itemBackgroundIcon> <width>90</width> <height>120</height> </itemBackgroundIcon>
                             <rowBackgroundIcon> <width>320</width> <height>90</height> </rowBackgroundIcon>
                             <rowAttributeIcon> <widthMax>30</widthMax> <heightMax>90</heightMax> </rowAttributeIcon>
                             <addToCartBackgroundIcon> <width>136</width> <height>28</height> </addToCartBackgroundIcon>
@@ -224,16 +229,38 @@
                         </itemActions>
                     </native>
                     <submit>
-                        <icon> <width>512</width> <height>512</height> </icon>
-                        <loader_image> <width>320</width> <height>460</height> </loader_image>
-                        <logo> <width>57</width> <height>57</height> </logo>
-                        <big_logo> <width>100</width> <height>100</height> </big_logo>
+                        <!-- images that are the same for all type of devices -->
+                        <icon></icon>
+                        <big_logo></big_logo>
+
+                        <!-- iphone images -->
+                        <loader_image></loader_image>
+                        <loader_image_i4></loader_image_i4>
+                        <logo></logo>
+                        <logo_i4></logo_i4>
+                        <big_logo_i4></big_logo_i4>
+
+                        <!-- ipad images -->
+                        <ipad_loader_portrait_image></ipad_loader_portrait_image>
+                        <ipad_loader_landscape_image></ipad_loader_landscape_image>
+                        <ipad_logo></ipad_logo>
+
+                        <!-- andriod images -->
+                        <android_loader_image></android_loader_image>
+                        <android_logo></android_logo>
                     </submit>
                 </interface>
             </default>
             <_320x480>
                 <default>
                     <source>default</source>
+                    <updates>
+                        <u1>
+                            <path>content/product_gallery_big</path>
+                            <function>update</function>
+                            <data>560</data>
+                        </u1>
+                    </updates>
                 </default>
                 <a>
                     <source>default</source>
@@ -265,34 +292,6 @@
                             <function>zoom</function>
                             <data>2.05714</data>
                         </u1>
-<!-- example rules
-                        <u2>
-                            <path>interface/native/body</path>
-                            <function>delete</function>
-                            <data>rowBackgroundIcon</data>
-                        </u2>
-                        <u3>
-                            <path>interface/native/body</path>
-                            <function>delete</function>
-                            <data>rowAttributeIcon</data>
-                        </u3>
-                        <u4>
-                            <path>interface/native/navigationBar</path>
-                            <function>insert</function>
-                            <data>
-                                <big_icon><widthMax>20</widthMax> <heightMax>20</heightMax></big_icon>
-                                <big_icon2><widthMax>20</widthMax> <heightMax>20</heightMax></big_icon2>
-                                <big_icon3><widthMax>20</widthMax> <heightMax>20</heightMax></big_icon3>
-                            </data>
-                        </u4>
-                        <u5>
-                            <path>interface/native/itemActions/viewDetailsIcon</path>
-                            <function>update</function>
-                            <data>
-                                <widthMax>333</widthMax> <heightMax>333</heightMax>
-                            </data>
-                        </u5>
--->
                     </updates>
                 </c>
             </_320x480>
@@ -305,6 +304,11 @@
                             <function>zoom</function>
                             <data>1.5</data>
                         </u1>
+                        <u2>
+                            <path>content/product_gallery_big</path>
+                            <function>update</function>
+                            <data>840</data>
+                        </u2>
                     </updates>
                 </default>
             </_480x800>
@@ -317,6 +321,11 @@
                             <function>zoom</function>
                             <data>1.5</data>
                         </u1>
+                         <u2>
+                            <path>content/product_gallery_big</path>
+                            <function>update</function>
+                            <data>840</data>
+                        </u2>
                     </updates>
                 </default>
             </_480x854>
@@ -329,10 +338,15 @@
                             <function>zoom</function>
                             <data>2.0</data>
                         </u1>
+                        <u2>
+                            <path>content/product_gallery_big</path>
+                            <function>update</function>
+                            <data>1120</data>
+                        </u2>
                     </updates>
                 </default>
             </_640x960>
-            <_1024x768>
+            <_768x1024>
                 <default>
                     <source>default</source>
                     <updates>
@@ -354,15 +368,15 @@
                         <u4>
                             <path>content/product_gallery_big</path>
                             <function>update</function>
-                            <data>644</data>
+                            <data>1288</data>
                         </u4>
                     </updates>
                 </default>
-            </_1024x768>
+            </_768x1024>
         </screen_size>
         <xmlconnect>
             <mobile_application>
-                <magentocommerce_url>www.magentocommerce.com/mobile/activate/</magentocommerce_url>
+                <magentocommerce_url>www.magentocommerce.com/products/index.php/mobile/activate/index/key/</magentocommerce_url>
                 <activation_key_url>http://www.magentocommerce.com/product/mobile</activation_key_url>
                 <resubmission_key_url>http://www.magentocommerce.com/product/mobile#resubmission</resubmission_key_url>
                 <urbanairship_terms_of_service_url>https://go.urbanairship.com/partners/magento/</urbanairship_terms_of_service_url>
@@ -371,6 +385,7 @@
                 <nodes_excluded_from_config_xml>
                     <master_secret>notifications/applicationMasterSecret</master_secret>
                 </nodes_excluded_from_config_xml>
+                <cache_lifetime>86400</cache_lifetime>
             </mobile_application>
             <devices>
                 <iphone>
@@ -383,7 +398,7 @@
                 </ipad>
                 <android>
                     <tab_limit>10</tab_limit>
-                    <notification_type>aps</notification_type>
+                    <notification_type>android</notification_type>
                 </android>
             </devices>
             <flurry_analytics>
@@ -396,6 +411,13 @@
                 <broadcast_url>https://go.urbanairship.com/api/airmail/send/broadcast/</broadcast_url>
             </airmail>
         </xmlconnect>
+        <system>
+            <media_storage_configuration>
+                <allowed_resources>
+                    <xmlconnect_images_folder>xmlconnect</xmlconnect_images_folder>
+                </allowed_resources>
+            </media_storage_configuration>
+        </system>
     </default>
     <crontab>
         <jobs>

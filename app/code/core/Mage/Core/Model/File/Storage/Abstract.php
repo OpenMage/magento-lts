@@ -48,8 +48,10 @@ abstract class Mage_Core_Model_File_Storage_Abstract extends Mage_Core_Model_Abs
      */
     public function getMediaBaseDirectory()
     {
-        if (is_null($this->_mediaBaseDirectory)) {
-            $this->_mediaBaseDirectory = Mage::helper('core/file_storage_database')->getMediaBaseDir();
+        if (null === $this->_mediaBaseDirectory) {
+            /** @var $helper Mage_Core_Helper_File_Storage_Database */
+            $helper = Mage::helper('core/file_storage_database');
+            $this->_mediaBaseDirectory = $helper->getMediaBaseDir();
         }
 
         return $this->_mediaBaseDirectory;
@@ -57,6 +59,7 @@ abstract class Mage_Core_Model_File_Storage_Abstract extends Mage_Core_Model_Abs
 
     /**
      * Collect file info
+     *
      * Return array(
      *  filename    => string
      *  content     => string|bool
@@ -69,7 +72,7 @@ abstract class Mage_Core_Model_File_Storage_Abstract extends Mage_Core_Model_Abs
      */
     public function collectFileInfo($path)
     {
-        $path = ltrim($path, DS);
+        $path = ltrim($path, '\\/');
         $fullPath = $this->getMediaBaseDirectory() . DS . $path;
 
         if (!file_exists($fullPath) || !is_file($fullPath)) {
@@ -79,7 +82,7 @@ abstract class Mage_Core_Model_File_Storage_Abstract extends Mage_Core_Model_Abs
             Mage::throwException(Mage::helper('core')->__('File %s is not readable', $fullPath));
         }
 
-        $path = str_replace(DS, '/', $path);
+        $path = str_replace(array('/', '\\'), '/', $path);
         $directory = dirname($path);
         if ($directory == '.') {
             $directory = null;

@@ -24,13 +24,17 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if (($buttons = $this->getTabItems()) && is_array($buttons) && ($buttonsCount = count($buttons))) :?>
+<?php
+    /** @var $previewModel Mage_XmlConnect_Model_Preview_Android */
+    $previewModel = Mage::helper('xmlconnect')->getPreviewModel();
+?>
+<?php if (($buttons = $previewModel->getTabItems()) && is_array($buttons) && ($buttonsCount = count($buttons))) :?>
             <?php foreach ($buttons as $button) : ?>
                 <?php if ($button['action'] == 'Account') :?>
-                <div class="icon icon-account"></div>
+                <div class="icon icon-account">B</div>
                 <?php endif; ?>
                 <?php if ($button['action'] == 'Search') :?>
-                <div class="icon icon-search"></div>
+                <div class="icon icon-search">C</div>
                 <?php endif; ?>
             <?php endforeach; ?>
 <?php endif; ?>

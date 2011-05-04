@@ -31,7 +31,6 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController extends Mage_Adminhtml_Controller_Action
 {
      /**
@@ -48,7 +47,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
      */
     protected $_wishlistItem = null;
 
-    /*
+    /**
      * Loads wishlist and wishlist item
      *
      * @return Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
@@ -76,7 +75,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
         return $this;
     }
 
-    /*
+    /**
      * Ajax handler to response configuration fieldset of composite product in customer's wishlist
      *
      * @return Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
@@ -105,7 +104,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
         return $this;
     }
 
-    /*
+    /**
      * IFrame handler for submitted configuration for wishlist item
      *
      * @return false
@@ -135,5 +134,15 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
         $this->_redirect('*/catalog_product/showUpdateResult');
 
         return false;
+    }
+
+    /**
+     * Check the permission to Manage Customers
+     *
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('customer/manage');
     }
 }

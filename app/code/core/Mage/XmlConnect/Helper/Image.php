@@ -75,10 +75,11 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
         $uploadedFilename = '';
         $uploadDir = $this->getOriginalSizeUploadDir();
 
-        $this->_forcedConvertPng($field);
-
         try {
-            $uploader = new Varien_File_Uploader($field);
+            $this->_forcedConvertPng($field);
+
+            /** @var $uploader Mage_Core_Model_File_Uploader */
+            $uploader = Mage::getModel('core/file_uploader', $field);
             $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
             $uploader->setAllowRenameFiles(true);
             $uploader->save($uploadDir);
@@ -88,7 +89,9 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
             /**
              * Hard coded exception catch
              */
-            if ($e->getMessage() == 'Disallowed file type.') {
+            if (!strlen($_FILES[$field]['tmp_name'])) {
+                Mage::throwException(Mage::helper('xmlconnect')->__('File can\'t be uploaded.'));
+            } elseif ($e->getMessage() == 'Disallowed file type.') {
                 $filename = $_FILES[$field]['name'];
                 Mage::throwException(Mage::helper('xmlconnect')->__('Error while uploading file "%s". Disallowed file type. Only "jpg", "jpeg", "gif", "png" are allowed.', $filename));
             } else {
@@ -111,6 +114,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Return correct system filename for current screenSize
      *
+     * @throws Mage_Core_Exception
      * @param string $fieldPath
      * @param string $fileName
      * @param string $default
@@ -338,6 +342,68 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
         }
         $size = isset($this->_interfacePath[$imagePath]) ? (int) $this->_interfacePath[$imagePath] : 0;
         return $size;
+    }
+
+    /**
+     * Return the filesystem path to XmlConnect media files
+     *
+     * @param string $path Right part of the path
+     * @return string
+     */
+    public function getMediaPath($path = '')
+    {
+        $path = trim($path);
+        $result = Mage::getBaseDir('media') . DS . 'xmlconnect';
+
+        if (!empty($path)) {
+            if (strpos($path, DS) === 0) {
+                $path = substr($path, 1);
+            }
+            $result .= DS . $path;
+        }
+        return $result;
+    }
+
+    /**
+     * Return Url for media image
+     *
+     * @param string $image
+     * @return string
+     */
+    public function getMediaUrl($image = '')
+    {
+        $image = trim($image);
+        $result = Mage::getBaseUrl('media') . 'xmlconnect';
+
+        if (!empty($image)) {
+            if (strpos($image, '/') === 0) {
+                $image = substr($image, 1);
+            }
+            $result .= '/' . $image;
+        }
+        return $result;
+    }
+
+    /**
+     * Return URL for default design image
+     *
+     * @param string $image
+     * @return string
+     */
+    public function getDefaultDesignUrl($image = '')
+    {
+        return $this->getSkinImagesUrl($this->getDefaultDesignSuffixAsUrl($image));
+    }
+
+    /**
+     * Return suffix as URL for default design image
+     *
+     * @param string $image
+     * @return string
+     */
+    public function getDefaultDesignSuffixAsUrl($image = '')
+    {
+        return 'design_default/' . trim(ltrim($image, '/'));
     }
 
     /**

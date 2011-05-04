@@ -117,6 +117,8 @@
                 <block type="xmlconnect/adminhtml_mobile_edit_tab_payment" name="mobile_edit_tab_payment"/>
                 <block type="xmlconnect/adminhtml_mobile_edit_tab_flurryanalytics" name="mobile_edit_tab_flurryanalytics"/>
                 <block type="xmlconnect/adminhtml_mobile_edit_tab_submission_history" name="mobile_edit_tab_submission_history_grid"/>
+                <block type="xmlconnect/adminhtml_mobile_edit_tab_cache" name="mobile_edit_tab_cache"/>
+                <block type="xmlconnect/adminhtml_mobile_edit_tab_social" name="mobile_edit_tab_social" />
                 <block type="xmlconnect/adminhtml_mobile_edit_tab_notification" name="mobile_edit_tab_notification">
                     <block type="core/template" name="mobile_edit_tab_notification_helper" as="app_notification_helper" template="xmlconnect/mobile/notification_helper.phtml" />
                 </block>
@@ -127,6 +129,8 @@
                 <action method="addTab"><id>payment_methods</id><block>mobile_edit_tab_payment</block></action>
                 <action method="addTab"><id>flurryanalytics_section</id><block>mobile_edit_tab_flurryanalytics</block></action>
                 <action method="addTab"><id>history_grid</id><block>mobile_edit_tab_submission_history_grid</block></action>
+                <action method="addTab"><id>cache_section</id><block>mobile_edit_tab_cache</block></action>
+                <action method="addTab"><id>social_section</id><block>mobile_edit_tab_social</block></action>
                 <action method="addTab"><id>notification_section</id><block>mobile_edit_tab_notification</block></action>
             </block>
         </reference>
@@ -177,46 +181,56 @@
     </adminhtml_mobile_template_preview>
 
     <adminhtml_mobile_previewhome>
-        <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_home_content" output="toHtml">
-            <action method="setTemplate"><templateType>home</templateType></action>
-            <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
-                <action method="setActiveTab"><tab>home</tab></action>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_home_content">
+                <action method="setTemplate"><templateType>home</templateType></action>
+                <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
+                    <action method="setActiveTab"><tab>home</tab></action>
+                </block>
             </block>
         </block>
     </adminhtml_mobile_previewhome>
 
     <adminhtml_mobile_previewhomehor>
-        <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_home_hor_content" output="toHtml">
-            <action method="setTemplate"><templateType>home_hor</templateType></action>
-            <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
-                <action method="setActiveTab"><tab>home</tab></action>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_home_hor_content">
+                <action method="setTemplate"><templateType>home_hor</templateType></action>
+                <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
+                    <action method="setActiveTab"><tab>home</tab></action>
+                </block>
             </block>
         </block>
     </adminhtml_mobile_previewhomehor>
 
     <adminhtml_mobile_previewcataloghor>
-        <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_catalog_hor_content" output="toHtml">
-            <action method="setTemplate"><templateType>catalog_hor</templateType></action>
-            <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
-                <action method="setActiveTab"><tab>shop</tab></action>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_catalog_hor_content">
+                <action method="setTemplate"><templateType>catalog_hor</templateType></action>
+                <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
+                    <action method="setActiveTab"><tab>shop</tab></action>
+                </block>
             </block>
         </block>
     </adminhtml_mobile_previewcataloghor>
 
     <adminhtml_mobile_previewcatalog>
-        <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_catalog_content" output="toHtml">
-            <action method="setTemplate"><templateType>catalog</templateType></action>
-            <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
-                <action method="setActiveTab"><tab>shop</tab></action>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_catalog_content">
+                <action method="setTemplate"><templateType>catalog</templateType></action>
+                <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
+                    <action method="setActiveTab"><tab>shop</tab></action>
+                </block>
             </block>
         </block>
     </adminhtml_mobile_previewcatalog>
 
     <adminhtml_mobile_previewproductinfo>
-        <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_productinfo_content" output="toHtml">
-            <action method="setTemplate"><templateType>productinfo</templateType></action>
-            <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
-                <action method="setActiveTab"><tab>shop</tab></action>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="xmlconnect/adminhtml_mobile_preview_content" name="preview_productinfo_content">
+                <action method="setTemplate"><templateType>productinfo</templateType></action>
+                <block type="xmlconnect/adminhtml_mobile_preview_tabitems" name="preview_tab_items" as="tab_items">
+                    <action method="setActiveTab"><tab>shop</tab></action>
+                </block>
             </block>
         </block>
     </adminhtml_mobile_previewproductinfo>

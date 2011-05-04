@@ -69,4 +69,14 @@ class Mage_PageCache_Adminhtml_PageCacheController extends Mage_Adminhtml_Contro
         }
         $this->_redirect('*/cache/index');
     }
+
+    /**
+     * Check current user permission on resource and privilege
+     *
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('page_cache');
+    }
 }

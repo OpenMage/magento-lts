@@ -136,7 +136,8 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     protected function _checkHostsInfo($data)
     {
         $url = $data['protocol'] . '://' . $data['host'] . ':' . $data['port'] . $data['base_path'];
-        $surl= $data['secure_protocol'] . '://' . $data['secure_host'] . ':' . $data['secure_port'] . $data['secure_base_path'];
+        $surl= $data['secure_protocol'] . '://' . $data['secure_host'] . ':'
+                . $data['secure_port'] . $data['secure_base_path'];
 
         $this->_checkUrl($url);
         $this->_checkUrl($surl, true);
@@ -178,7 +179,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     public function replaceTmpEncryptKey($key = null)
     {
         if (!$key) {
-            $key = md5(time());
+            $key = md5(Mage::helper('core')->getRandomString(10));
         }
         $localXml = file_get_contents($this->_localConfigFile);
         $localXml = str_replace(self::TMP_ENCRYPT_KEY_VALUE, $key, $localXml);

@@ -23,7 +23,16 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Tabs extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
+
+/**
+ * Device tabs accourdion block
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Tabs
+    extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
 {
     /**
      * Getter for accordion item title
@@ -32,7 +41,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Tabs exte
      */
     public function getTitle()
     {
-        if (Mage::helper('xmlconnect')->getApplication()->getType() == Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPAD) {
+        if (Mage::helper('xmlconnect')->getDeviceType() == Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPAD) {
             $title = $this->__('Extensions');
         } else {
             $title = $this->__('Tabs');
@@ -63,7 +72,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Tabs exte
         $this->_addElementTypes($fieldset);
         $fieldset->addField('conf[extra][tabs]', 'tabs', array('name' => 'conf[extra][tabs]'));
 
-        $form->setValues($this->getApplication()->getFormData());
+        $form->setValues(Mage::helper('xmlconnect')->getApplication()->getFormData());
         $this->setForm($form);
         return parent::_prepareForm();
     }

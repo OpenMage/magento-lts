@@ -278,7 +278,7 @@ Event.observe(window, 'load', function(){
                 <span class="with-tip">
                     <input class="input-text" id="file_path" name="gui_data[file][path]" value="<?php echo $this->getValue('gui_data/file/path') ?>"/>
                     <small class="file_type_file">
-                        <?php echo $this->__('(Absolute path or Relative to Magento install root, ex. var/export)') ?>
+                        <?php echo $this->__('(For Type "Local Server" need to use relative path to Magento install var/export or var/import, e.g. var/export, var/import, var/export/some/dir, var/import/some/dir)') ?>
                     </small>
                 </span>
             </span>
@@ -293,7 +293,14 @@ Event.observe(window, 'load', function(){
                 </span>
                 <span class="field-row">
                     <label for="file_password"><?php echo $this->__("Password") ?></label>
-                    <input class="input-text" id="io_password" name="gui_data[file][password]" value="<?php echo $this->getValue('gui_data/file/password') ?>"/>
+                    <input class="input-text" type="password" id="io_password" name="gui_data[file][password]" value="<?php echo $this->getValue('gui_data/file/password') ?>"/>
+                </span>
+                <span class="field-row">
+                    <label for="file_mode"><?php echo $this->__("File mode") ?></label>
+                    <select id="file_mode" name="gui_data[file][file_mode]" onchange="showOption(this)" class="option-control">
+                        <option value="<?php echo FTP_BINARY ?>" <?php echo $this->getSelected('gui_data/file/file_mode', FTP_BINARY) ?>><?php echo $this->__('BINARY') ?></option>
+                        <option value="<?php echo FTP_ASCII ?>" <?php echo $this->getSelected('gui_data/file/file_mode', FTP_ASCII) ?>><?php echo $this->__('ASCII') ?></option>
+                    </select>
                 </span>
                 <span class="field-row">
                     <label for="file_passive"><?php echo $this->__("Passive mode") ?></label>

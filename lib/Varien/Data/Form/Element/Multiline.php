@@ -48,24 +48,29 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
         return parent::getLabelHtml($suffix);
     }
 
+    /**
+     * Get element HTML
+     *
+     * @return string
+     */
     public function getElementHtml()
     {
         $html = '';
         $lineCount = $this->getLineCount();
 
-        for ($i=0; $i<$lineCount; $i++){
-            if ($i==0 && $this->getRequired()){
+        for ($i = 0; $i < $lineCount; $i++) {
+            if ($i == 0 && $this->getRequired()) {
                 $this->setClass('input-text required-entry');
-            }
-            else {
+            } else {
                 $this->setClass('input-text');
             }
-            $html.= '<div class="multi-input"><input id="'.$this->getHtmlId().$i.'" name="'.$this->getName().'['.$i.']'
-                .'" value="'.$this->getEscapedValue($i).'"'.$this->serialize($this->getHtmlAttributes()).' />'."\n";
+            $html .= '<div class="multi-input"><input id="' . $this->getHtmlId() . $i . '" name="' . $this->getName()
+                . '[' . $i . ']' . '" value="' . $this->getEscapedValue($i) . '" '
+                . $this->serialize($this->getHtmlAttributes()) . ' />' . "\n";
             if ($i==0) {
-                $html.= $this->getAfterElementHtml();
+                $html .= $this->getAfterElementHtml();
             }
-            $html.= '</div>';
+            $html .= '</div>';
         }
         return $html;
     }

@@ -35,82 +35,42 @@
 class Mage_Checkout_Model_Cart_Product_Api_V2 extends Mage_Checkout_Model_Cart_Product_Api
 {
 
-    protected function _prepareProductsData($data)
-    {
-        if (!is_array($data) && !is_object($data)) {
-            return null;
-        }
-
-        $_data = array();
+    /**
+     * Return an Array of Object attributes.
+     *
+     * @param Mixed $data
+     * @return Array
+     */
+    protected function _prepareProductsData($data){
         if (is_object($data)) {
-            $dataItem = $data;
-            $dataItem = $this->_checkBundleOptions($dataItem);
-            $dataItem = $this->_checkOptions($dataItem);
-            $_data[] = get_object_vars($data);
-        } else {
-            foreach ($data as $_dataItem) {
-                $dataItem = $_dataItem;
-                $dataItem = $this->_checkBundleOptions($dataItem);
-                $dataItem = $this->_checkOptions($dataItem);
-                $_data[] = get_object_vars($dataItem);
-            }
-        }
-
-        return parent::_prepareProductsData($_data);
-    }
-
-    protected function _checkBundleOptions($dataItem)
-    {
-        if (!isset($dataItem->bundle_options) || !isset($dataItem->bundle_options_qty)) {
-            return $dataItem;
-        }
-
-        if (isset($dataItem->bundle_options)) {
-            $options = array();
-            foreach($dataItem->bundle_options as $option) {
-                if (is_object($option)) {
-                    $options[$option->key] = $option->value;
-                } else {
-                    foreach($option as $key=>$value) {
-                        $options[$key] = $value;
+            $arr = get_object_vars($data);
+            foreach ($arr as $key => $value) {
+                $assocArr = array();
+                if (is_array($value)) {
+                    foreach ($value as $v) {
+                        if (is_object($v) && count(get_object_vars($v))==2
+                            && isset($v->key) && isset($v->value)) {
+                            $assocArr[$v->key] = $v->value;
+                        }
                     }
                 }
-            }
-            $dataItem->bundle_options = $options;
-        }
-
-        if (isset($dataItem->bundle_options_qty)) {
-            $options_qty = array();
-            foreach($dataItem->bundle_options_qty as $option) {
-                if (is_object($option)) {
-                    $options[$option->key] = $option->value;
-                } else {
-                    foreach($option as $key=>$value) {
-                        $options[$key] = $value;
-                    }
+                if (!empty($assocArr)) {
+                    $arr[$key] = $assocArr;
                 }
             }
-            $dataItem->bundle_options_qty = $options_qty;
+            $arr = $this->_prepareData($arr);
+            return parent::_prepareData($arr);
         }
-        return $dataItem;
-    }
-
-    protected function _checkOptions($dataItem)
-    {
-        if (isset($dataItem->options)) {
-            $options = array();
-            foreach($dataItem->options as $option) {
-                if (is_object($option)) {
-                    $options[$option->key] = $option->value;
+        if (is_array($data)) {
+            foreach ($data as $key => $value) {
+                if (is_object($value) || is_array($value)) {
+                    $data[$key] = $this->_prepareData($value);
                 } else {
-                    foreach($option as $key=>$value) {
-                        $options[$key] = $value;
-                    }
+                    $data[$key] = $value;
                 }
-
             }
-            $dataItem->options = $options;
+            return parent::_prepareData($data);
         }
-        return $dataItem;
+        return $data;
     }
 }

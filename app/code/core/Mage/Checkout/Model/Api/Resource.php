@@ -154,7 +154,8 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @param array $data
      * @param Mage_Core_Model_Abstract $object
-     * @param array $attributes
+     * @param string $type
+     * @param array|null $attributes
      * @return Mage_Checkout_Model_Api_Resource
      */
     protected function _updateAttributes($data, $object, $type,  array $attributes = null)
@@ -172,6 +173,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * Retrieve entity attributes values
      *
      * @param Mage_Core_Model_Abstract $object
+     * @param string $type
      * @param array $attributes
      * @return Mage_Checkout_Model_Api_Resource
      */
@@ -210,7 +212,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * Check is attribute allowed to usage
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @param string $entityType
+     * @param string $type
      * @param array $attributes
      * @return bool
      */

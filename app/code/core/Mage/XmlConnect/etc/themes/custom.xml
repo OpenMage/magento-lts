@@ -26,9 +26,39 @@
  */
 -->
 
-<theme><manifest translate="label" module="xmlconnect">
+<theme>
+    <manifest translate="label" module="xmlconnect">
         <name>custom</name>
         <label>Custom Colors</label>
         <version>1.0</version>
         <requires>1.4.0.2</requires>
-    </manifest><configuration><native><navigationBar><tintColor>#0FDE00</tintColor></navigationBar><body><primaryColor>#0FDE00</primaryColor><secondaryColor>#0FDE00</secondaryColor><backgroundColor>#0FDE00</backgroundColor><scrollBackgroundColor>#0FDE00</scrollBackgroundColor></body><categoryItem><tintColor>#0FDE00</tintColor><backgroundColor>#0FDE00</backgroundColor></categoryItem><itemActions><relatedProductBackgroundColor>#0FDE00</relatedProductBackgroundColor></itemActions></native><extra><fontColors><header>#0FDE00</header><primary>#0FDE00</primary><secondary>#0FDE00</secondary><price>#0FDE00</price></fontColors></extra></configuration></theme>
+    </manifest>
+    <configuration>
+        <native>
+            <navigationBar>
+                <tintColor>#0FDE00</tintColor>
+            </navigationBar>
+            <body>
+                <primaryColor>#0FDE00</primaryColor>
+                <secondaryColor>#0FDE00</secondaryColor>
+                <backgroundColor>#0FDE00</backgroundColor>
+                <scrollBackgroundColor>#0FDE00</scrollBackgroundColor>
+            </body>
+            <categoryItem>
+                <tintColor>#0FDE00</tintColor>
+                <backgroundColor>#0FDE00</backgroundColor>
+            </categoryItem>
+            <itemActions>
+                <relatedProductBackgroundColor>#0FDE00</relatedProductBackgroundColor>
+            </itemActions>
+        </native>
+        <extra>
+            <fontColors>
+                <header>#0FDE00</header>
+                <primary>#0FDE00</primary>
+                <secondary>#0FDE00</secondary>
+                <price>#0FDE00</price>
+            </fontColors>
+        </extra>
+    </configuration>
+</theme>

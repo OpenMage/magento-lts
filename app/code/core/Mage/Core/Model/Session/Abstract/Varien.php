@@ -355,13 +355,19 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         $sessionData = $this->_data[self::VALIDATOR_KEY];
         $validatorData = $this->getValidatorData();
 
-        if ($this->useValidateRemoteAddr() && $sessionData[self::VALIDATOR_REMOTE_ADDR_KEY] != $validatorData[self::VALIDATOR_REMOTE_ADDR_KEY]) {
+        if ($this->useValidateRemoteAddr()
+                && $sessionData[self::VALIDATOR_REMOTE_ADDR_KEY] != $validatorData[self::VALIDATOR_REMOTE_ADDR_KEY]) {
             return false;
         }
-        if ($this->useValidateHttpVia() && $sessionData[self::VALIDATOR_HTTP_VIA_KEY] != $validatorData[self::VALIDATOR_HTTP_VIA_KEY]) {
+        if ($this->useValidateHttpVia()
+                && $sessionData[self::VALIDATOR_HTTP_VIA_KEY] != $validatorData[self::VALIDATOR_HTTP_VIA_KEY]) {
             return false;
         }
-        if ($this->useValidateHttpXForwardedFor() && $sessionData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY] != $validatorData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY]) {
+
+        $sessionValidateHttpXForwardedForKey = $sessionData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY];
+        $validatorValidateHttpXForwardedForKey = $validatorData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY];
+        if ($this->useValidateHttpXForwardedFor()
+            && $sessionValidateHttpXForwardedForKey != $validatorValidateHttpXForwardedForKey ) {
             return false;
         }
         if ($this->useValidateHttpUserAgent()
@@ -404,5 +410,16 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         }
 
         return $parts;
+    }
+
+    /**
+     * Regenerate session Id
+     *
+     * @return Mage_Core_Model_Session_Abstract_Varien
+     */
+    public function regenerateSessionId()
+    {
+        session_regenerate_id(true);
+        return $this;
     }
 }

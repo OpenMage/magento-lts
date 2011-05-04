@@ -1032,6 +1032,8 @@ tr.summary-details-excluded { font-style:italic; }
 .opc .step .tool-tip { right:10px; }
 
 .opc .order-review {}
+.opc .order-review .authentication {}
+.opc .order-review .warning-message {}
 
 /* Multiple Addresses Checkout */
 .checkout-progress { padding:0 50px; margin:10px 0; }

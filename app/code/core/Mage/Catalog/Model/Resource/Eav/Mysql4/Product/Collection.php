@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
      *
      * @var array
      */
-    protected $_productLimitationFilters    = array();
+    protected $_productLimitationFilters = array();
 
     /**
      * Category product count select
@@ -548,20 +548,23 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
     /**
      * Specify category filter for product collection
      *
-     * @param Mage_Catalog_Model_Category $category
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     * @param   Mage_Catalog_Model_Category $category
+     * @return  Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
      */
     public function addCategoryFilter(Mage_Catalog_Model_Category $category)
     {
         $this->_productLimitationFilters['category_id'] = $category->getId();
         if ($category->getIsAnchor()) {
             unset($this->_productLimitationFilters['category_is_anchor']);
-        }
-        else {
+        } else {
             $this->_productLimitationFilters['category_is_anchor'] = 1;
         }
 
-        ($this->getStoreId() == 0)? $this->_applyZeroStoreProductLimitations() : $this->_applyProductLimitations();
+        if ($this->getStoreId() == Mage_Core_Model_App::ADMIN_STORE_ID) {
+            $this->_applyZeroStoreProductLimitations();
+        } else {
+            $this->_applyProductLimitations();
+        }
 
         return $this;
     }
@@ -777,7 +780,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
                 ->distinct(false)
                 ->join(array('count_table' => $this->getTable('catalog/category_product_index')),
                     'count_table.product_id = e.entity_id',
-                    array('count_table.category_id', 'product_count' => new Zend_Db_Expr('COUNT(DISTINCT count_table.product_id)'))
+                    array(
+                        'count_table.category_id',
+                        'product_count' => new Zend_Db_Expr('COUNT(DISTINCT count_table.product_id)')
+                    )
                 )
                 ->where('count_table.store_id = ?', $this->getStoreId())
                 ->group('count_table.category_id');
@@ -818,7 +824,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
         if ($isAnchor || $isNotAnchor) {
             $select = $this->getProductCountSelect();
 
-            Mage::dispatchEvent('catalog_product_collection_before_add_count_to_categories', array('collection'=>$this));
+            Mage::dispatchEvent(
+                'catalog_product_collection_before_add_count_to_categories',
+                array('collection' => $this)
+            );
 
             if ($isAnchor) {
                 $anchorStmt = clone $select;
@@ -1536,12 +1545,14 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
         $fromPart = $this->getSelect()->getPart(Zend_Db_Select::FROM);
         if (!isset($fromPart['price_index'])) {
             $minimalExpr = new Zend_Db_Expr(
-                'IF(`price_index`.`tier_price`, LEAST(`price_index`.`min_price`, `price_index`.`tier_price`), `price_index`.`min_price`)'
+                'IF(`price_index`.`tier_price`, LEAST(`price_index`.`min_price`, `price_index`.`tier_price`), ' .
+                '`price_index`.`min_price`)'
             );
             $this->getSelect()->join(
                 array('price_index' => $this->getTable('catalog/product_index_price')),
                 $joinCond,
-                array('price', 'tax_class_id', 'final_price', 'minimal_price'=>$minimalExpr , 'min_price', 'max_price', 'tier_price')
+                array('price', 'tax_class_id', 'final_price', 'minimal_price' => $minimalExpr ,'min_price', 'max_price',
+                    'tier_price')
             );
 
             // Set additional field filters
@@ -1566,10 +1577,12 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
     {
         $this->_productLimitationFilters['use_price_index'] = true;
         if (!isset($this->_productLimitationFilters['customer_group_id'])) {
-            $this->_productLimitationFilters['customer_group_id'] = Mage::getSingleton('customer/session')->getCustomerGroupId();
+            $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+            $this->_productLimitationFilters['customer_group_id'] = $customerGroupId;
         }
         if (!isset($this->_productLimitationFilters['website_id'])) {
-            $this->_productLimitationFilters['website_id'] = Mage::app()->getStore($this->getStoreId())->getWebsiteId();
+            $websiteId = Mage::app()->getStore($this->getStoreId())->getWebsiteId();
+            $this->_productLimitationFilters['website_id'] = $websiteId;
         }
         $this->_applyProductLimitations();
         return $this;

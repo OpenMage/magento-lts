@@ -500,4 +500,18 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         }
         return parent::getSessionSavePath();
     }
+
+    /**
+     * Renew session id and update session cookie
+     *
+     * @return Mage_Core_Model_Session_Abstract
+     */
+    public function renewSession()
+    {
+        $this->getCookie()->delete($this->getSessionName());
+        $this->regenerateSessionId();
+
+        return $this;
+    }
+
 }

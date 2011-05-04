@@ -451,7 +451,8 @@ class Mage_Core_Model_App
             $this->_checkCookieStore($scopeType);
             $this->_checkGetStore($scopeType);
         }
-        $this->_useSessionInUrl = $this->getStore()->getConfig(Mage_Core_Model_Session_Abstract::XML_PATH_USE_FRONTEND_SID);
+        $this->_useSessionInUrl = $this->getStore()->getConfig(
+            Mage_Core_Model_Session_Abstract::XML_PATH_USE_FRONTEND_SID);
         return $this;
     }
 
@@ -566,12 +567,17 @@ class Mage_Core_Model_App
         $this->_website  = null;
         $this->_websites = array();
 
+        /** @var $websiteCollection Mage_Core_Model_Website */
         $websiteCollection = Mage::getModel('core/website')->getCollection()
-            ->initCache($this->getCache(), 'app', array(Mage_Core_Model_Website::CACHE_TAG))
-            ->setLoadDefault(true);
+                ->initCache($this->getCache(), 'app', array(Mage_Core_Model_Website::CACHE_TAG))
+                ->setLoadDefault(true);
+
+        /** @var $websiteCollection Mage_Core_Model_Store_Group */
         $groupCollection = Mage::getModel('core/store_group')->getCollection()
-            ->initCache($this->getCache(), 'app', array(Mage_Core_Model_Store_Group::CACHE_TAG))
-            ->setLoadDefault(true);
+                ->initCache($this->getCache(), 'app', array(Mage_Core_Model_Store_Group::CACHE_TAG))
+                ->setLoadDefault(true);
+
+        /** @var $websiteCollection Mage_Core_Model_Store */
         $storeCollection = Mage::getModel('core/store')->getCollection()
             ->initCache($this->getCache(), 'app', array(Mage_Core_Model_Store::CACHE_TAG))
             ->setLoadDefault(true);
@@ -586,7 +592,7 @@ class Mage_Core_Model_App
         $groupStores   = array();
 
         foreach ($storeCollection as $store) {
-            /* @var $store Mage_Core_Model_Store */
+            /** @var $store Mage_Core_Model_Store */
             $store->initConfigCache();
             $store->setWebsite($websiteCollection->getItemById($store->getWebsiteId()));
             $store->setGroup($groupCollection->getItemById($store->getGroupId()));
@@ -648,7 +654,7 @@ class Mage_Core_Model_App
     }
 
     /**
-     * Retrive store code or null by store group
+     * Retrieve store code or null by store group
      *
      * @param int $group
      * @return string|null
@@ -665,7 +671,7 @@ class Mage_Core_Model_App
     }
 
     /**
-     * Retrive store code or null by website
+     * Retrieve store code or null by website
      *
      * @param int|string $website
      * @return string|null
@@ -1024,7 +1030,8 @@ class Mage_Core_Model_App
     public function getBaseCurrencyCode()
     {
         //return Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE, 0);
-        return (string) Mage::app()->getConfig()->getNode('default/'.Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
+        return (string) Mage::app()->getConfig()
+            ->getNode('default/' . Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
     }
 
     /**

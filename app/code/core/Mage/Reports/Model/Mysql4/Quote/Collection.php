@@ -83,10 +83,10 @@ class Mage_Reports_Model_Mysql4_Quote_Collection extends Mage_Sales_Model_Mysql4
     {
         $productEntity          = Mage::getResourceSingleton('catalog/product_collection');
         $productAttrName        = $productEntity->getAttribute('name');
-        $productAttrNameId      = $productAttrName->getAttributeId();
+        $productAttrNameId      = (int) $productAttrName->getAttributeId();
         $productAttrNameTable   = $productAttrName->getBackend()->getTable();
         $productAttrPrice       = $productEntity->getAttribute('price');
-        $productAttrPriceId     = $productAttrPrice->getAttributeId();
+        $productAttrPriceId     = (int) $productAttrPrice->getAttributeId();
         $productAttrPriceTable  = $productAttrPrice->getBackend()->getTable();
 
         $ordersSubSelect = clone $this->getSelect();
@@ -128,14 +128,14 @@ class Mage_Reports_Model_Mysql4_Quote_Collection extends Mage_Sales_Model_Mysql4
 
     public function addCustomerData($filter = null)
     {
-        $customerEntity = Mage::getResourceSingleton('customer/customer');
-        $attrFirstname = $customerEntity->getAttribute('firstname');
-        $attrFirstnameId = $attrFirstname->getAttributeId();
+        $customerEntity         = Mage::getResourceSingleton('customer/customer');
+        $attrFirstname          = $customerEntity->getAttribute('firstname');
+        $attrFirstnameId        = (int) $attrFirstname->getAttributeId();
         $attrFirstnameTableName = $attrFirstname->getBackend()->getTable();
 
-        $attrLastname = $customerEntity->getAttribute('lastname');
-        $attrLastnameId = $attrLastname->getAttributeId();
-        $attrLastnameTableName = $attrLastname->getBackend()->getTable();
+        $attrLastname           = $customerEntity->getAttribute('lastname');
+        $attrLastnameId         = (int) $attrLastname->getAttributeId();
+        $attrLastnameTableName  = $attrLastname->getBackend()->getTable();
 
         $attrEmail = $customerEntity->getAttribute('email');
         $attrEmailTableName = $attrEmail->getBackend()->getTable();
@@ -148,12 +148,12 @@ class Mage_Reports_Model_Mysql4_Quote_Collection extends Mage_Sales_Model_Mysql4
             )
             ->joinInner(
                 array('cust_fname'=>$attrFirstnameTableName),
-                'cust_fname.entity_id=main_table.customer_id and cust_fname.attribute_id='.$attrFirstnameId,
+                'cust_fname.entity_id=main_table.customer_id and cust_fname.attribute_id=' . $attrFirstnameId,
                 array('firstname'=>'cust_fname.value')
             )
             ->joinInner(
                 array('cust_lname'=>$attrLastnameTableName),
-                'cust_lname.entity_id=main_table.customer_id and cust_lname.attribute_id='.$attrLastnameId,
+                'cust_lname.entity_id=main_table.customer_id and cust_lname.attribute_id=' . $attrLastnameId,
                 array(
                     'lastname'=>'cust_lname.value',
                     'customer_name' => new Zend_Db_Expr('CONCAT(cust_fname.value, " ", cust_lname.value)')
@@ -165,10 +165,16 @@ class Mage_Reports_Model_Mysql4_Quote_Collection extends Mage_Sales_Model_Mysql4
 
         if ($filter) {
             if (isset($filter['customer_name'])) {
-                $this->getSelect()->where($this->_joinedFields['customer_name'] . ' LIKE "%' . $filter['customer_name'] . '%"');
+                $this->getSelect()->where(
+                    $this->_joinedFields['customer_name'] . ' LIKE ?',
+                    "%{$filter['customer_name']}%"
+                );
             }
             if (isset($filter['email'])) {
-                $this->getSelect()->where($this->_joinedFields['email'] . ' LIKE "%' . $filter['email'] . '%"');
+                $this->getSelect()->where(
+                    $this->_joinedFields['email'] . ' LIKE ?',
+                    "%{$filter['email']}%"
+                );
             }
         }
 
@@ -187,10 +193,16 @@ class Mage_Reports_Model_Mysql4_Quote_Collection extends Mage_Sales_Model_Mysql4
 
         if ($filter && is_array($filter) && isset($filter['subtotal'])) {
             if (isset($filter['subtotal']['from'])) {
-                $this->getSelect()->where($this->_joinedFields['subtotal'] . ' >= ' . $filter['subtotal']['from']);
+                $this->getSelect()->where(
+                    $this->_joinedFields['subtotal'] . ' >= ?',
+                    $filter['subtotal']['from'], Zend_Db::FLOAT_TYPE
+                );
             }
             if (isset($filter['subtotal']['to'])) {
-                $this->getSelect()->where($this->_joinedFields['subtotal'] . ' <= ' . $filter['subtotal']['to']);
+                $this->getSelect()->where(
+                    $this->_joinedFields['subtotal'] . ' <= ?',
+                    $filter['subtotal']['to'], Zend_Db::FLOAT_TYPE
+                );
             }
         }
 

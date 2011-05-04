@@ -180,7 +180,7 @@ class Mage_Wishlist_Model_Mysql4_Item_Collection extends Mage_Core_Model_Mysql4_
         foreach ($this as $item) {
             $product = $productCollection->getItemById($item->getProductId());
             if ($product) {
-                if ($this->_productInStock &&
+                if (!$this->_productInStock &&
                     !$product->isSalable() &&
                     !Mage::helper('cataloginventory')->isShowOutOfStock()) {
                         $this->removeItemByKey($item->getId());
@@ -327,7 +327,8 @@ class Mage_Wishlist_Model_Mysql4_Item_Collection extends Mage_Core_Model_Mysql4_
         $this->_addDaysInWishlist = true;
         $this->getSelect()->columns(array('days_in_wishlist' =>
             "(TO_DAYS('" . (substr(Mage::getSingleton('core/date')->date(), 0, -2) . '00') . "') ".
-            "- TO_DAYS(DATE_ADD(added_at, INTERVAL " .(int) Mage::getSingleton('core/date')->getGmtOffset() . " SECOND)))"));
+            "- TO_DAYS(DATE_ADD(added_at, INTERVAL ".(int) Mage::getSingleton('core/date')->getGmtOffset()." SECOND)))"
+        ));
         return $this;
     }
 

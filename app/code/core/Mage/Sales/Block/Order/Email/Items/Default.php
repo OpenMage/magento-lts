@@ -78,4 +78,14 @@ class Mage_Sales_Block_Order_Email_Items_Default extends Mage_Core_Block_Templat
         else
             return $item->getSku();
     }
+
+    /**
+     * Return product additional information block
+     *
+     * @return Mage_Core_Block_Abstract
+     */
+    public function getProductAdditionalInformationBlock()
+    {
+        return $this->getLayout()->getBlock('additional.product.info');
+    }
 }

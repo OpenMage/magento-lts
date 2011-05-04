@@ -307,7 +307,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      */
     public function getDefaultGroup()
     {
-        if (!$this->getDefaultGroupId()) {
+        if (!$this->hasDefaultGroupId()) {
             return false;
         }
         if (is_null($this->_groups)) {
@@ -481,7 +481,9 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      */
     public function getBaseCurrencyCode()
     {
-        if ($this->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE) == Mage_Core_Model_Store::PRICE_SCOPE_GLOBAL) {
+        if ($this->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE)
+            == Mage_Core_Model_Store::PRICE_SCOPE_GLOBAL
+        ) {
             return Mage::app()->getBaseCurrencyCode();
         } else {
             return $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);

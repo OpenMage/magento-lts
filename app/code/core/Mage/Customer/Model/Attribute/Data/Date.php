@@ -57,7 +57,7 @@ class Mage_Customer_Model_Attribute_Data_Date extends Mage_Customer_Model_Attrib
     {
         $errors     = array();
         $attribute  = $this->getAttribute();
-        $label      = $attribute->getStoreLabel();
+        $label      = Mage::helper('customer')->__($attribute->getStoreLabel());
 
         if ($value === false) {
             // try to load original value and validate it
@@ -76,6 +76,31 @@ class Mage_Customer_Model_Attribute_Data_Date extends Mage_Customer_Model_Attrib
         if ($result !== true) {
             $errors = array_merge($errors, $result);
         }
+
+        //range validation
+        $validateRules = $attribute->getValidateRules();
+        if ((!empty($validateRules['date_range_min']) && (strtotime($value) < $validateRules['date_range_min']))
+            || (!empty($validateRules['date_range_max']) && (strtotime($value) > $validateRules['date_range_max']))) {
+
+            if (!empty($validateRules['date_range_min']) && !empty($validateRules['date_range_max'])) {
+                $errors[] = Mage::helper('customer')->__('Please enter a valid date between %s and %s at %s.',
+                    date('d/m/Y', $validateRules['date_range_min']),
+                    date('d/m/Y', $validateRules['date_range_max']),
+                    $label
+                );
+            } elseif (!empty($validateRules['date_range_min'])) {
+                $errors[] = Mage::helper('customer')->__('Please enter a valid date equal to or greater than %s at %s.',
+                    date('d/m/Y', $validateRules['date_range_min']),
+                    $label
+                );
+            } elseif (!empty($validateRules['date_range_max'])) {
+                $errors[] = Mage::helper('customer')->__('Please enter a valid date less than or equal to %s at %s.',
+                    date('d/m/Y', $validateRules['date_range_max']),
+                    $label
+                );
+            }
+        }
+
         if (count($errors) == 0) {
             return true;
         }

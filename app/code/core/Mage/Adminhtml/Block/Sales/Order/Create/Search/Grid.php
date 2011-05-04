@@ -107,6 +107,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
         return parent::_prepareCollection();
     }
 
+    /**
+     * Prepare columns
+     *
+     * @return Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', array(
@@ -137,7 +142,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
         ));
 
         $this->addColumn('in_products', array(
-            'header'    => 'Select',
+            'header'    => Mage::helper('sales')->__('Select'),
             'header_css_class' => 'a-center',
             'type'      => 'checkbox',
             'name'      => 'in_products',

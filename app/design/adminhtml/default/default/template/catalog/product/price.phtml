@@ -33,8 +33,11 @@
  */
 ?>
 <?php
+    /** @var $_coreHelper Mage_Core_Helper_Data */
     $_coreHelper        = $this->helper('core');
+    /** @var $_weeeHelper Mage_Weee_Helper_Data */
     $_weeeHelper        = $this->helper('weee');
+    /** @var $_taxHelper Mage_Tax_Helper_Data */
     $_taxHelper         = $this->helper('tax');
 
     $_product           = $this->getProduct();
@@ -56,7 +59,7 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
 <?php $_weeeTaxAmount = $_weeeHelper->getAmount($_product, null, null, $_website); ?>
 <?php if ($_weeeHelper->typeOfDisplay($_product, array(1,2,4))): ?>
     <?php $_weeeTaxAmount = $_weeeHelper->getAmount($_product, null, null, $_website); ?>
-    <?php $_weeeTaxAttributes = $_weeeHelper->getProductWeeeAttributesForDisplay($_product); ?>
+    <?php $_weeeTaxAttributes = $_weeeHelper->getProductWeeeAttributesForRenderer($_product, null, null, $_website); ?>
 <?php endif; ?>
 
 <div class="price-box">

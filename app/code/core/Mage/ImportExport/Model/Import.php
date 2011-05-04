@@ -343,7 +343,7 @@ class Mage_ImportExport_Model_Import extends Varien_Object
     public function uploadSource()
     {
         $entity    = $this->getEntity();
-        $uploader  = new Varien_File_Uploader(self::FIELD_NAME_SOURCE_FILE);
+        $uploader  = new Mage_Core_Model_File_Uploader(self::FIELD_NAME_SOURCE_FILE);
         $result    = $uploader->save(self::getWorkingDir());
         $extension = pathinfo($result['file'], PATHINFO_EXTENSION);
 
@@ -357,6 +357,10 @@ class Mage_ImportExport_Model_Import extends Varien_Object
             $sourceFile .= '_' . $tenantId;
         }
         $sourceFile .= '.' . $extension;
+
+        if (file_exists($sourceFile)) {
+            unlink($sourceFile);
+        }
 
         if (!@rename($result['path'] . $result['file'], $sourceFile)) {
             Mage::throwException(Mage::helper('importexport')->__('Source file moving failed'));

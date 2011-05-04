@@ -54,7 +54,12 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form extends Mage_XmlConnect
 
         $action = $this->getUrl('*/*/saveTemplate');
 
-        $form = new Varien_Data_Form(array('id' => 'edit_form', 'action' => $action, 'method' => 'post', 'enctype' => 'multipart/form-data'));
+        $form = new Varien_Data_Form(array(
+            'id' => 'edit_form',
+            'action' => $action,
+            'method' => 'post',
+            'enctype' => 'multipart/form-data'
+        ));
         $form->setHtmlIdPrefix('template_');
 
         $fieldset = $form->addFieldset('edit_template', array('legend' => $this->__('Template')));
@@ -123,7 +128,6 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form extends Mage_XmlConnect
             'style'     => 'height:30em;',
             'state'     => 'html',
             'required'  => true,
-//            'disabled'  => false,
             'disabled'  => !$this->_fieldsEnabled ? true : false,
             'config'    => $wysiwygConfig
         ));

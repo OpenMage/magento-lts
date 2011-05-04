@@ -25,14 +25,13 @@
  */
 ?>
 <?php
-    $deviceType = Mage::helper('xmlconnect')->getApplication()->getType();
+    $deviceType = Mage::helper('xmlconnect')->getDeviceType();
 ?>
-<div id="XmlconnectThemePreview">
-    <iframe src="about:blank" id="XmlconnectThemePreviewIframe" name="XmlconnectThemePreviewIframe" frameborder="0" scrolling="no" style="width: 328px; height: 490px; border: 0; "></iframe>
-</div>
+<div id="XmlconnectThemePreview"></div>
 
 <div class="mm-box-blue a-center" style="width:285px;">
     <button type="button" class="scalable" onclick="updatePreview()"><span><?php echo $this->__('Update Preview');?></span></button>
+    <p><br />To preview the newly uploaded images, please save your application first.</p>
 </div>
 <div class="mm-pager">
     <strong><?php echo $this->__('Screens:'); ?></strong>
@@ -42,16 +41,39 @@
     </ul>
 </div>
 <script type="text/javascript">
-
+previewIframe = $('XmlconnectThemePreview');
+// submit application flag
+mmPreviewPagePrefix = '';
 mmPreviewPage = '<?php echo $this->getPreviewActionUrl('home'); ?>';
 function updatePreview(someAction) {
-    saveAction = $('edit_form').action;
-    $('edit_form').action = mmPreviewPage + (someAction ? someAction : '');
-    $('edit_form').target = 'XmlconnectThemePreviewIframe';
-    $('edit_form').submit();
-    // FIXME
-    $('edit_form').action = saveAction;
-    $('edit_form').target = '';
+    previewIframe.update('<?php echo $this->__('Loading Preview...'); ?>').addClassName('preview-loading');
+    new Ajax.Request(mmPreviewPage + (someAction ? someAction : '') + mmPreviewPagePrefix, {
+        parameters: $('edit_form').serialize(true),
+        onSuccess : function(transport) {
+            try{
+                if (transport.responseText.isJSON()) {
+                    var response = transport.responseText.evalJSON()
+                    if (response.error) {
+                        alert(response.message);
+                    }
+                    if(response.ajaxExpired && response.ajaxRedirect) {
+                        setLocation(response.ajaxRedirect);
+                    }
+                } else {
+                    previewIframe.removeClassName('preview-loading').update(transport.responseText);
+                }
+            } catch (e) {
+                alert(transport.responseText);
+            }
+
+            if (!response.success) {
+                var msg = response.error_message;
+                if (msg) {
+                    alert(msg);
+                }
+            }
+        }
+    });
 }
 function resetPager() {
     $('mmPager').childElements().each(function(t){
@@ -81,7 +103,8 @@ Event.observe(document, 'dom:loaded', function() {
         });
     } else {
         // 1 is correct value - tells that you don't need to load app data
-        $('XmlconnectThemePreviewIframe').src = mmPreviewPage + 'submission_action/1/';
+        mmPreviewPagePrefix = 'submission_action/1/';
+        updatePreview();
     }
 });
 

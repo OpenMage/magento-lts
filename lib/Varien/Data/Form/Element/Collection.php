@@ -139,7 +139,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
                 if ($currElement->getId() == $after) {
                     $newOrderElements[] = $currElement;
                     $newOrderElements[] = $element;
-                    $this->_elements = array_merge($newOrderElements, array_slice($this->_elements, $index+1));
+                    $this->_elements = array_merge($newOrderElements, array_slice($this->_elements, $index + 1));
                     return $element;
                 }
                 $newOrderElements[] = $currElement;
@@ -175,6 +175,8 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
                 unset($this->_elements[$index]);
             }
         }
+        // Renumber elements for further correct adding and removing other elements
+        $this->_elements = array_merge($this->_elements, array());
         return $this;
     }
 

@@ -189,8 +189,9 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             // when file exceeds the upload_max_filesize, $_FILES is empty
             if (isset($_SERVER['CONTENT_LENGTH']) && $_SERVER['CONTENT_LENGTH'] > $this->_getUploadMaxFilesize()) {
                 $this->setIsValid(false);
+                $value = $this->_bytesToMbytes($this->_getUploadMaxFilesize());
                 Mage::throwException(
-                    Mage::helper('catalog')->__("The file you uploaded is larger than %s Megabytes allowed by server", $this->_bytesToMbytes($this->_getUploadMaxFilesize()))
+                    Mage::helper('catalog')->__("The file you uploaded is larger than %s Megabytes allowed by server", $value)
                 );
             } else {
                 switch($this->getProcessMode())
@@ -248,8 +249,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
             $extension = pathinfo(strtolower($fileInfo['name']), PATHINFO_EXTENSION);
 
-            $fileName = Varien_File_Uploader::getCorrectFileName($fileInfo['name']);
-            $dispersion = Varien_File_Uploader::getDispretionPath($fileName);
+            $fileName = Mage_Core_Model_File_Uploader::getCorrectFileName($fileInfo['name']);
+            $dispersion = Mage_Core_Model_File_Uploader::getDispretionPath($fileName);
 
             $filePath = $dispersion;
             $fileHash = md5(file_get_contents($fileInfo['tmp_name']));
@@ -316,8 +317,10 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     {
         $option = $this->getOption();
         /**
-         * @see Mage_Catalog_Model_Product_Option_Type_File::_validateUploadFile() - there setUserValue() sets correct \n
-         * fileFullPath only for quote_path. So we must form both full paths manually and check them.
+         * @see Mage_Catalog_Model_Product_Option_Type_File::_validateUploadFile()
+         *              There setUserValue() sets correct fileFullPath only for
+         *              quote_path. So we must form both full paths manually and
+         *              check them.
          */
         $checkPaths = array();
         if (isset($optionValue['quote_path'])) {
@@ -409,15 +412,19 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         $result = array();
         foreach ($errors as $errorCode) {
             if ($errorCode == Zend_Validate_File_ExcludeExtension::FALSE_EXTENSION) {
-                $result[] = Mage::helper('catalog')->__("The file '%s' for '%s' has an invalid extension", $fileInfo['title'], $option->getTitle());
+                $result[] = Mage::helper('catalog')->__("The file '%s' for '%s' has an invalid extension",
+                    $fileInfo['title'], $option->getTitle());
             } elseif ($errorCode == Zend_Validate_File_Extension::FALSE_EXTENSION) {
-                $result[] = Mage::helper('catalog')->__("The file '%s' for '%s' has an invalid extension", $fileInfo['title'], $option->getTitle());
+                $result[] = Mage::helper('catalog')->__("The file '%s' for '%s' has an invalid extension",
+                    $fileInfo['title'], $option->getTitle());
             } elseif ($errorCode == Zend_Validate_File_ImageSize::WIDTH_TOO_BIG
                 || $errorCode == Zend_Validate_File_ImageSize::HEIGHT_TOO_BIG)
             {
-                $result[] = Mage::helper('catalog')->__("Maximum allowed image size for '%s' is %sx%s px.", $option->getTitle(), $option->getImageSizeX(), $option->getImageSizeY());
+                $result[] = Mage::helper('catalog')->__("Maximum allowed image size for '%s' is %sx%s px.",
+                    $option->getTitle(), $option->getImageSizeX(), $option->getImageSizeY());
             } elseif ($errorCode == Zend_Validate_File_FilesSize::TOO_BIG) {
-                $result[] = Mage::helper('catalog')->__("The file '%s' you uploaded is larger than %s Megabytes allowed by server", $fileInfo['title'], $this->_bytesToMbytes($this->_getUploadMaxFilesize()));
+                $result[] = Mage::helper('catalog')->__("The file '%s' you uploaded is larger than %s Megabytes allowed by server",
+                    $fileInfo['title'], $this->_bytesToMbytes($this->_getUploadMaxFilesize()));
             }
         }
         return $result;

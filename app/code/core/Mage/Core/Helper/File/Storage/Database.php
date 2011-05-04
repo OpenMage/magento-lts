@@ -53,6 +53,13 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
     protected $_useDb = null;
 
     /**
+     * Media dir
+     *
+     * @var string
+     */
+    protected $_mediaBaseDirectory;
+
+    /**
      * Check if we use DB storage
      * Note: Disabled as not completed feature
      *
@@ -60,10 +67,9 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      */
     public function checkDbUsage()
     {
-        return false;
-        if (is_null($this->_useDb)) {
-            $currentStorage = (int) Mage::app()
-                ->getConfig()->getNode(Mage_Core_Model_File_Storage::XML_PATH_STORAGE_MEDIA);
+        if (null === $this->_useDb) {
+            $currentStorage = (int) Mage::app()->getConfig()
+                ->getNode(Mage_Core_Model_File_Storage::XML_PATH_STORAGE_MEDIA);
             $this->_useDb = ($currentStorage == Mage_Core_Model_File_Storage::STORAGE_MEDIA_DATABASE);
         }
 
@@ -125,7 +131,8 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      * @param string $oldName
      * @param string $newName
      */
-    public function renameFile($oldName, $newName) {
+    public function renameFile($oldName, $newName)
+    {
         if ($this->checkDbUsage()) {
             $this->getStorageDatabaseModel()
                 ->renameFile($this->_removeAbsPathFromFileName($oldName), $this->_removeAbsPathFromFileName($newName));
@@ -175,7 +182,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
                 $index = 1;
                 $extension = strrchr($filename, '.');
                 $filenameWoExtension = substr($filename, 0, -1 * strlen($extension));
-                while($this->fileExists($directory . $filenameWoExtension . '_' . $index . $extension)) {
+                while ($this->fileExists($directory . $filenameWoExtension . '_' . $index . $extension)) {
                     $index ++;
                 }
                 $filename = $filenameWoExtension . '_' . $index . $extension;
@@ -192,7 +199,9 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      */
     public function saveFileToFilesystem($filename) {
         if ($this->checkDbUsage()) {
-            $file = Mage::getModel('core/file_storage_database')->loadByFilename($this->_removeAbsPathFromFileName($filename));
+            /** @var $file Mage_Core_Model_File_Storage_Database */
+            $file = Mage::getModel('core/file_storage_database')
+                ->loadByFilename($this->_removeAbsPathFromFileName($filename));
             if (!$file->getId()) {
                 return false;
             }
@@ -209,7 +218,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      */
     public function getMediaRelativePath($fullPath)
     {
-        $relativePath = ltrim(str_replace(Mage::getBaseDir('media'), '', $fullPath), DS);
+        $relativePath = ltrim(str_replace($this->getMediaBaseDir(), '', $fullPath), '\\/');
         return str_replace(DS, '/', $relativePath);
     }
 
@@ -238,9 +247,9 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Saves uploaded by Varien_File_Uploader file to DB with existence tests
+     * Saves uploaded by Mage_Core_Model_File_Uploader file to DB with existence tests
      *
-     * param $result should be result from Varien_File_Uploader::save() method
+     * param $result should be result from Mage_Core_Model_File_Uploader::save() method
      * Checks in DB, whether uploaded file exists ($result['file'])
      * If yes, renames file on FS (!!!!!)
      * Saves file with unique name into DB
@@ -253,16 +262,15 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
     public function saveUploadedFile($result = array())
     {
         if ($this->checkDbUsage()) {
-            $path = str_replace('/', DS, $result['path']);
-            if (!in_array(substr($result['file'], 0, 1), array('/', DS))
-                && !in_array(substr($result['path'], -1), array('/', DS))) {
-                $path = $path . '/';
-            }
-            $uniqueResultFile = $this->getUniqueFilename($path, $result['file']);
-            if ($uniqueResultFile !== $result['file']) {
-                $ioObject = new Varien_Io_File();
-                $ioObject->open(array('path' => $path));
-                $ioObject->mv($path . $result['file'], $path . $uniqueResultFile);
+            $path = rtrim(str_replace(array('\\', '/'), DS, $result['path']), DS);
+            $file = '/' . ltrim($result['file'], '\\/');
+
+            $uniqueResultFile = $this->getUniqueFilename($path, $file);
+
+            if ($uniqueResultFile !== $file) {
+                $ioFile = new Varien_Io_File();
+                $ioFile->open(array('path' => $path));
+                $ioFile->mv($path . $file, $path . $uniqueResultFile);
             }
             $this->saveFile($path . $uniqueResultFile);
 
@@ -273,7 +281,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Convert full filepath to local (as used by model)
+     * Convert full file path to local (as used by model)
      * If not - returns just a filename
      *
      * @param string $filename
@@ -291,6 +299,9 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      */
     public function getMediaBaseDir()
     {
-        return rtrim(Mage::getBaseDir('media'), DS);
+        if (null === $this->_mediaBaseDirectory) {
+            $this->_mediaBaseDirectory = rtrim(Mage::getBaseDir('media'), '\\/');
+        }
+        return $this->_mediaBaseDirectory;
     }
 }

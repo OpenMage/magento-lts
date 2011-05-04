@@ -163,14 +163,18 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Display product image action
+     *
+     * @deprecated
      */
     public function imageAction()
     {
         $size = (string) $this->getRequest()->getParam('size');
         if ($size) {
-            $imageFile = preg_replace("#.*/catalog/product/image/size/[0-9]*x[0-9]*#", '', $this->getRequest()->getRequestUri());
+            $imageFile = preg_replace("#.*/catalog/product/image/size/[0-9]*x[0-9]*#", '',
+                $this->getRequest()->getRequestUri());
         } else {
-            $imageFile = preg_replace("#.*/catalog/product/image#", '', $this->getRequest()->getRequestUri());
+            $imageFile = preg_replace("#.*/catalog/product/image#", '',
+                $this->getRequest()->getRequestUri());
         }
 
         if (!strstr($imageFile, '.')) {
@@ -182,7 +186,10 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
             $imageModel = Mage::getModel('catalog/product_image');
             $imageModel->setSize($size)
                 ->setBaseFile($imageFile)
-                ->resize()
+                /**
+                 * Resizing has been commented because this one method are deprecated
+                 */
+                //->resize()
                 ->setWatermark( Mage::getStoreConfig('catalog/watermark/image') )
                 ->saveFile()
                 ->push();

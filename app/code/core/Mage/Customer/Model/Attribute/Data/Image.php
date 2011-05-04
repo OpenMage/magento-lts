@@ -43,7 +43,7 @@ class Mage_Customer_Model_Attribute_Data_Image extends Mage_Customer_Model_Attri
      */
     protected function _validateByRules($value)
     {
-        $label  = $this->getAttribute()->getStoreLabel();
+        $label  = Mage::helper('customer')->__($this->getAttribute()->getStoreLabel());
         $rules  = $this->getAttribute()->getValidateRules();
 
         $imageProp = @getimagesize($value['tmp_name']);

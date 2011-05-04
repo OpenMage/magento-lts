@@ -46,14 +46,14 @@
                 <?php if ($this->hasInheritElement($element)): ?>
                     <div><?php echo $this->getInheritElementHtml($element) ?><?php echo $this->getInheritElementLabelHtml($element) ?></div>
                 <?php endif;?>
-                <label for="<?php echo $htmlId?>"><?php echo $this->getElementHtml($element) ?><strong><?php echo $this->escapeHtml($this->getElementLabel($element))?></strong>&nbsp;&ndash; <?php echo $this->escapeHtml($this->getElementComment($element))?></label>
+                <label for="<?php echo $htmlId?>"><?php echo $this->getElementHtml($element) ?><strong><?php echo $this->getElementLabelTextHtml($element)?></strong>&nbsp;&ndash; <?php echo $this->escapeHtml($this->getElementComment($element))?></label>
             </td>
         <?php else:?>
             <td>
                 <?php if ($this->hasInheritElement($element)): ?>
                     <div><?php echo $this->getInheritElementHtml($element) ?><?php echo $this->getInheritElementLabelHtml($element) ?></div>
                 <?php endif;?>
-                <label for="<?php echo $htmlId?>"><?php echo $this->getElementHtml($element) ?><strong><?php echo $this->escapeHtml($this->getElementLabel($element))?></strong>&nbsp;&ndash; <?php echo $this->escapeHtml($this->getElementComment($element))?></label>
+                <label for="<?php echo $htmlId?>"><?php echo $this->getElementHtml($element) ?><strong><?php echo $this->getElementLabelTextHtml($element)?></strong>&nbsp;&ndash; <?php echo $this->getElementComment($element)?></label>
             </td>
             <td class="paypal-selection-info">
                 <?php if ($url = $this->getElementOriginalData($element, 'demo_url')):?>
@@ -103,14 +103,62 @@ PaypalConfig = Class.create();
 PaypalConfig.prototype = {
     initialize: function(){
         this.methods = $H({
-            ec: $H({switcher: 'express', fieldset: 'express'}),
-            wps: $H({switcher: 'wps', fieldset: 'wps'}),
-            wpp: $H({switcher: 'wpp', fieldset: 'wpp'}),
-            wpppe: $H({switcher: 'wpp_pe', fieldset: 'wpp_pe'}),
-            wpppl: $H({switcher: 'payflow_link', fieldset: 'payflow_link'}),
-            ecpe: $H({switcher: 'express_pe', fieldset: 'express_pe'}),
-            payflowpro: $H({switcher: 'verisign', fieldset: 'verisign'}),
-            hosted_pro: $H({switcher: 'hosted_pro', fieldset: 'hosted_pro'})
+                ec: $H({
+                    switcher: 'express',
+                    fieldset: 'express',
+                    backendConfig : $H(<?php echo $this->getElementBackendConfig(
+                        $this->getElement('paypal_global_express'));
+                    ?>)
+                }),
+                wps: $H({
+                    switcher: 'wps',
+                    fieldset: 'wps',
+                    backendConfig : $H(<?php echo $this->getElementBackendConfig(
+                        $this->getElement('paypal_global_wps'));
+                    ?>)
+                }),
+                wpp: $H({
+                    switcher: 'wpp',
+                    fieldset: 'wpp',
+                    backendConfig : $H(<?php echo $this->getElementBackendConfig(
+                        $this->getElement('paypal_global_wpp'));
+                    ?>)
+                }),
+                wpppe: $H({
+                    switcher: 'wpp_pe',
+                    fieldset: 'wpp_pe',
+                    backendConfig : $H(<?php echo $this->getElementBackendConfig(
+                        $this->getElement('paypal_global_wpp_pe'));
+                    ?>)
+                }),
+                wpppl: $H({
+                    switcher: 'payflow_link',
+                    fieldset: 'payflow_link',
+                    backendConfig : $H(<?php echo $this->getElementBackendConfig(
+                        $this->getElement('paypal_global_payflow_link'));
+                    ?>)
+                }),
+                ecpe: $H({
+                    switcher: 'express_pe',
+                    fieldset: 'express_pe',
+                    backendConfig : $H(<?php echo $this->getElementBackendConfig(
+                        $this->getElement('paypal_global_express_pe'));
+                    ?>)
+                }),
+                payflowpro: $H({
+                    switcher: 'verisign',
+                    fieldset: 'verisign',
+                    backendConfig : $H(<?php echo $this->getElementBackendConfig(
+                        $this->getElement('paypal_global_verisign'));
+                    ?>)
+                }),
+                hosted_pro: $H({
+                    switcher: 'hosted_pro',
+                    fieldset: 'hosted_pro',
+                    backendConfig : $H(<?php echo $this->getElementBackendConfig(
+                        $this->getElement('paypal_global_hosted_pro'));
+                    ?>)
+                })
         });
         this.disabledMethods = [];
     },
@@ -144,6 +192,12 @@ PaypalConfig.prototype = {
         return $(fieldsetId);
     },
 
+    getMethodFieldsetHeadingLink: function(fieldset)
+    {
+        var heading = fieldset.previous('div');
+        return heading.down('a');
+    },
+
     getMethodSwitcher: function(method)
     {
         var switcherId = 'paypal_global_' + this.getMethod(method).get('switcher');
@@ -153,6 +207,12 @@ PaypalConfig.prototype = {
     getMethodSwitcherValue: function(method)
     {
         var switcherValueId = 'paypal_global_' + this.getMethod(method).get('switcher') + '_value';
+        return $(switcherValueId);
+    },
+
+    getMethodSwitcherLabelText: function(method)
+    {
+        var switcherValueId = 'paypal_global_' + this.getMethod(method).get('switcher') + '_label_text';
         return $(switcherValueId);
     },
 
@@ -253,51 +313,64 @@ PaypalConfig.prototype = {
 
     trackMerchantCountry: function()
     {
-        var countryConfig = $H({
-            'US':{
-                'exclude_methods': ['hosted_pro']
-            },
-            'CA':{
-                'exclude_methods': ['wpppe','ecpe','hosted_pro']
-            },
-            'GB':{
-                'exclude_methods': ['payflowpro','wpppl']
-            },
-            'AU':{
-                'exclude_methods': ['wpp','wpppe','ecpe','wpppl']
-            },
-            'NZ':{
-                'exclude_methods': ['wpp','wpppe','ecpe','wpppl']
-            },
-            'DE':{
-                'exclude_methods': ['wpp','wpppe','ecpe','payflowpro','wpppl']
-            },
-            'other':{
-                'exclude_methods': ['wpp','wpppe','ecpe','payflowpro','wpppl']
-            }
-        });
-        var country = $('paypal_account_merchant_country').value;
-        var config = countryConfig.get(country);
-        if (!config) {
-            config = countryConfig.get('other');
-        }
-
-        var excludeMethods = config.exclude_methods;
-        this.disabledMethods = excludeMethods;
-        this.getMethods().keys().each(function(m) {
-            if (excludeMethods.indexOf(m) != -1) {
-                this.disableMethod(m);
-                this.hideMethod(m);
-            } else {
-                this.showMethod(m);
-                this.markMethodAsReadonly(m, false);
-            }
+        this.disabledMethods = [];
+        this.getMethods().keys().each(function(methodKey) {
+            this.applyMethodConfig(methodKey);
         }.bind(this));
 
         this.trackBusinessAccount();
         this.trackWpp();
         this.trackWppPe();
         this.trackWps();
+    },
+
+    applyMethodConfig: function(methodKey)
+    {
+        var country = $('paypal_account_merchant_country').value;
+        var config = this.getMethod(methodKey).get('backendConfig');
+        if (!config) {
+            return false;
+        }
+
+        var isMethodEnable = false;
+        var enableForCountries = config.get('enable_for_countries');
+        var disableForCountries = config.get('disable_for_countries');
+        var labels = config.get('labels');
+
+        if (enableForCountries
+            && (enableForCountries.indexOf(country) > -1 || enableForCountries.indexOf('all') > -1)) {
+            isMethodEnable = true;
+        }
+        if (disableForCountries
+            && (disableForCountries.indexOf(country) > -1 || disableForCountries.indexOf('all') > -1)) {
+            isMethodEnable = false;
+        }
+
+        if (isMethodEnable) {
+            this.showMethod(methodKey);
+            this.markMethodAsReadonly(methodKey, false);
+        } else {
+            this.disableMethod(methodKey);
+            this.disabledMethods.push(methodKey);
+            this.hideMethod(methodKey);
+        }
+
+        if (labels) {
+            var switcherLabelElement = this.getMethodSwitcherLabelText(methodKey);
+            var fieldsetLabelElement = this.getMethodFieldsetHeadingLink(this.getMethodFieldset(methodKey));
+            if (!labels['default']) {
+                labels['default'] = {
+                    switcher: switcherLabelElement.innerHTML,
+                    fieldset: fieldsetLabelElement.innerHTML
+                };
+            }
+            var labelConfig = labels[country];
+            if (!labelConfig) {
+                labelConfig = labels['default'];
+            }
+            switcherLabelElement.update(labelConfig['switcher']);
+            fieldsetLabelElement.update(labelConfig['fieldset']);
+        }
     },
 
     trackBusinessAccount: function()
@@ -415,7 +488,7 @@ PaypalConfig.prototype = {
         this.toggleValueElements(checkbox, fieldset, isHidden);
         isHidden ? fieldset.hide() : fieldset.show();
         var heading = fieldset.previous('div');
-        var headingLink = heading.down('a');
+        var headingLink = this.getMethodFieldsetHeadingLink(fieldset);
         isHidden ? heading.addClassName('disabled').addClassName('no-display') : heading.removeClassName('disabled').removeClassName('no-display');
         if (isHidden) {
             headingLink.oldHref = headingLink.href;

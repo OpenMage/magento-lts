@@ -39,6 +39,7 @@ class Mage_CatalogRule_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function calcPriceRule ($actionOperator, $ruleAmount, $price)
     {
+        $priceRule = 0;
         switch ($actionOperator) {
             case 'to_fixed':
                 $priceRule = $ruleAmount;
@@ -53,6 +54,6 @@ class Mage_CatalogRule_Helper_Data extends Mage_Core_Helper_Abstract
                 $priceRule = $price * (1 - $ruleAmount / 100);
                 break;
         }
-        return max($priceRule, 0);
+        return $priceRule;
     }
 }

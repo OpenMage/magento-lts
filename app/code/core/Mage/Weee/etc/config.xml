@@ -264,6 +264,13 @@
                 <include_in_subtotal>0</include_in_subtotal>
             </weee>
         </tax>
+        <general>
+            <validator_data>
+                <input_types>
+                    <weee>weee</weee>
+                </input_types>
+            </validator_data>
+        </general>
     </default>
 
     <frontend>

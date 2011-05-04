@@ -266,7 +266,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         foreach ($transferDataKays as $key) {
             if (isset($orderInfo[$key])) {
                 $order->setData($key, $orderInfo[$key]);
-            } elseif ($shippingInfo[$key]) {
+            } elseif (isset($shippingInfo[$key])) {
                 $order->setData($key, $shippingInfo[$key]);
             }
         }

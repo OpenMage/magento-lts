@@ -70,6 +70,10 @@
                                     </delete>
                                 </children>
                             </page>
+                            <media_gallery translate="title">
+                                <title>Media Gallery</title>
+                                <sort_order>20</sort_order>
+                            </media_gallery>
                         </children>
                     </cms>
                     <system>

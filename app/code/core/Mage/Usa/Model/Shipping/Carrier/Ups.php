@@ -106,7 +106,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
         if ($request->getOrigCountry()) {
             $origCountry = $request->getOrigCountry();
         } else {
-            $origCountry = Mage::getStoreConfig('shipping/origin/country_id', $this->getStore());
+            $origCountry = Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_COUNTRY_ID, $this->getStore());
         }
 
         $r->setOrigCountry(Mage::getModel('directory/country')->load($origCountry)->getIso2Code());
@@ -114,7 +114,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
         if ($request->getOrigRegionCode()) {
             $origRegionCode = $request->getOrigRegionCode();
         } else {
-            $origRegionCode = Mage::getStoreConfig('shipping/origin/region_id', $this->getStore());
+            $origRegionCode = Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_REGION_ID, $this->getStore());
             if (is_numeric($origRegionCode)) {
                 $origRegionCode = Mage::getModel('directory/region')->load($origRegionCode)->getCode();
             }
@@ -124,13 +124,13 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
         if ($request->getOrigPostcode()) {
             $r->setOrigPostal($request->getOrigPostcode());
         } else {
-            $r->setOrigPostal(Mage::getStoreConfig('shipping/origin/postcode', $this->getStore()));
+            $r->setOrigPostal(Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_POSTCODE, $this->getStore()));
         }
 
         if ($request->getOrigCity()) {
             $r->setOrigCity($request->getOrigCity());
         } else {
-            $r->setOrigCity(Mage::getStoreConfig('shipping/origin/city', $this->getStore()));
+            $r->setOrigCity(Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_CITY, $this->getStore()));
         }
 
 

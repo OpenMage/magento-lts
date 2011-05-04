@@ -73,7 +73,9 @@
 
     function unblockSubmit(id) {
         $(id).observe('focus', function(event) {
-            enableElements('submit-button');
+            if ($$('button[class="scalable update-button disabled"]').size() > 0) {
+                enableElements('submit-button');
+            }
         });
     }
     //]]>

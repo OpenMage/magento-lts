@@ -91,19 +91,20 @@ class Mage_Shipping_Model_Shipping
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
+        $storeId = $request->getStoreId();
         if (!$request->getOrig()) {
             $request
-                ->setCountryId(Mage::getStoreConfig('shipping/origin/country_id', $request->getStore()))
-                ->setRegionId(Mage::getStoreConfig('shipping/origin/region_id', $request->getStore()))
-                ->setCity(Mage::getStoreConfig('shipping/origin/city', $request->getStore()))
-                ->setPostcode(Mage::getStoreConfig('shipping/origin/postcode', $request->getStore()));
+                ->setCountryId(Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_COUNTRY_ID, $storeId))
+                ->setRegionId(Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_REGION_ID, $storeId))
+                ->setCity(Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_CITY, $storeId))
+                ->setPostcode(Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_POSTCODE, $storeId));
         }
 
         $limitCarrier = $request->getLimitCarrier();
         if (!$limitCarrier) {
-            $carriers = Mage::getStoreConfig('carriers', $request->getStoreId());
+            $carriers = Mage::getStoreConfig('carriers', $storeId);
 
-            foreach ($carriers as $carrierCode=>$carrierConfig) {
+            foreach ($carriers as $carrierCode => $carrierConfig) {
                 $this->collectCarrierRates($carrierCode, $request);
             }
         } else {
@@ -111,7 +112,7 @@ class Mage_Shipping_Model_Shipping
                 $limitCarrier = array($limitCarrier);
             }
             foreach ($limitCarrier as $carrierCode) {
-                $carrierConfig = Mage::getStoreConfig('carriers/'.$carrierCode, $request->getStoreId());
+                $carrierConfig = Mage::getStoreConfig('carriers/' . $carrierCode, $storeId);
                 if (!$carrierConfig) {
                     continue;
                 }

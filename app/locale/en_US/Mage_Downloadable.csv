@@ -41,6 +41,8 @@
 "Open Links in New Window","Open Links in New Window"
 "Order #","Order #"
 "Order Item Status to Enable Downloads","Order Item Status to Enable Downloads"
+"Order id cannot be null","Order id cannot be null"
+"Order item id cannot be null","Order item id cannot be null"
 "Ordered","Ordered"
 "Out of stock","Out of stock"
 "Pending","Pending"

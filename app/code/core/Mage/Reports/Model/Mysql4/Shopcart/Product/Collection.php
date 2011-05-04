@@ -30,6 +30,8 @@
  * @category   Mage
  * @package    Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @deprecated after 1.5.0.1
  */
 
 class Mage_Reports_Model_Mysql4_Shopcart_Product_Collection extends Mage_Reports_Model_Mysql4_Product_Collection

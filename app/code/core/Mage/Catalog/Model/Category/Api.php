@@ -386,34 +386,16 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * Get prduct Id from sku or from product id
      *
      * @param int|string $productId
+     * @param  string $identifierType
      * @return int
      */
     protected function _getProductId($productId, $identifierType = null)
     {
-        $loadByIdOnFalse = false;
-        if ($identifierType === null) {
-            $identifierType = 'sku';
-            $loadByIdOnFalse = true;
-        }
-        $product = Mage::getModel('catalog/product');
-
-        if ($identifierType == 'sku') {
-            $idBySku = $product->getIdBySku($productId);
-            if ($idBySku) {
-                $productId = $idBySku;
-            }
-            if ($idBySku || $loadByIdOnFalse) {
-                $product->load($productId);
-            }
-        } elseif ($identifierType == 'id') {
-            $product->load($productId);
-        }
-
+        $product = Mage::helper('catalog/product')->getProduct($productId, null, $identifierType);
         if (!$product->getId()) {
             $this->_fault('not_exists','Product not exists.');
         }
-
-        return $productId;
+        return $product->getId();
     }
 
 

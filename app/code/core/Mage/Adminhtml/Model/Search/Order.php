@@ -23,8 +23,21 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+/**
+ * Search Order Model
+ *
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Adminhtml_Model_Search_Order extends Varien_Object
 {
+    /**
+     * Load search results
+     *
+     * @return Mage_Adminhtml_Model_Search_Order
+     */
     public function load()
     {
         $arr = array();
@@ -57,11 +70,11 @@ class Mage_Adminhtml_Model_Search_Order extends Varien_Object
         foreach ($collection as $order) {
             $arr[] = array(
                 'id'                => 'order/1/'.$order->getId(),
-                'type'              => 'Order',
+                'type'              => Mage::helper('adminhtml')->__('Order'),
                 'name'              => Mage::helper('adminhtml')->__('Order #%s', $order->getIncrementId()),
                 'description'       => $order->getBillingFirstname().' '.$order->getBillingLastname(),
                 'form_panel_title'  => Mage::helper('adminhtml')->__('Order #%s (%s)', $order->getIncrementId(), $order->getBillingFirstname().' '.$order->getBillingLastname()),
-                'url'               => Mage::helper('adminhtml')->getUrl('*/sales_order/view', array('order_id'=>$order->getId())),
+                'url' => Mage::helper('adminhtml')->getUrl('*/sales_order/view', array('order_id'=>$order->getId())),
             );
         }
 

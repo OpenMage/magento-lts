@@ -31,7 +31,9 @@
  */
 class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_DEFAULT_COUNTRY  = 'general/country/default';
+    const XML_PATH_DEFAULT_COUNTRY              = 'general/country/default';
+    const XML_PATH_PROTECTED_FILE_EXTENSIONS    = 'general/file/protected_extensions';
+    const XML_PATH_PUBLIC_FILES_VALID_PATHS     = 'general/file/public_files_valid_paths';
 
     /**
      * @var Mage_Core_Model_Encryption
@@ -270,16 +272,33 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if (empty($replacements[$german])) {
             $subst = array(
                 // single ISO-8859-1 letters
-                192=>'A', 193=>'A', 194=>'A', 195=>'A', 196=>'A', 197=>'A', 199=>'C', 208=>'D', 200=>'E', 201=>'E', 202=>'E', 203=>'E', 204=>'I', 205=>'I', 206=>'I', 207=>'I', 209=>'N', 210=>'O', 211=>'O', 212=>'O', 213=>'O', 214=>'O', 216=>'O', 138=>'S', 217=>'U', 218=>'U', 219=>'U', 220=>'U', 221=>'Y', 142=>'Z', 224=>'a', 225=>'a', 226=>'a', 227=>'a', 228=>'a', 229=>'a', 231=>'c', 232=>'e', 233=>'e', 234=>'e', 235=>'e', 236=>'i', 237=>'i', 238=>'i', 239=>'i', 241=>'n', 240=>'o', 242=>'o', 243=>'o', 244=>'o', 245=>'o', 246=>'o', 248=>'o', 154=>'s', 249=>'u', 250=>'u', 251=>'u', 252=>'u', 253=>'y', 255=>'y', 158=>'z',
+                192=>'A', 193=>'A', 194=>'A', 195=>'A', 196=>'A', 197=>'A', 199=>'C',
+                208=>'D', 200=>'E', 201=>'E', 202=>'E', 203=>'E', 204=>'I', 205=>'I',
+                206=>'I', 207=>'I', 209=>'N', 210=>'O', 211=>'O', 212=>'O', 213=>'O',
+                214=>'O', 216=>'O', 138=>'S', 217=>'U', 218=>'U', 219=>'U', 220=>'U',
+                221=>'Y', 142=>'Z', 224=>'a', 225=>'a', 226=>'a', 227=>'a', 228=>'a',
+                229=>'a', 231=>'c', 232=>'e', 233=>'e', 234=>'e', 235=>'e', 236=>'i',
+                237=>'i', 238=>'i', 239=>'i', 241=>'n', 240=>'o', 242=>'o', 243=>'o',
+                244=>'o', 245=>'o', 246=>'o', 248=>'o', 154=>'s', 249=>'u', 250=>'u',
+                251=>'u', 252=>'u', 253=>'y', 255=>'y', 158=>'z',
                 // HTML entities
-                258=>'A', 260=>'A', 262=>'C', 268=>'C', 270=>'D', 272=>'D', 280=>'E', 282=>'E', 286=>'G', 304=>'I', 313=>'L', 317=>'L', 321=>'L', 323=>'N', 327=>'N', 336=>'O', 340=>'R', 344=>'R', 346=>'S', 350=>'S', 354=>'T', 356=>'T', 366=>'U', 368=>'U', 377=>'Z', 379=>'Z', 259=>'a', 261=>'a', 263=>'c', 269=>'c', 271=>'d', 273=>'d', 281=>'e', 283=>'e', 287=>'g', 305=>'i', 322=>'l', 314=>'l', 318=>'l', 324=>'n', 328=>'n', 337=>'o', 341=>'r', 345=>'r', 347=>'s', 351=>'s', 357=>'t', 355=>'t', 367=>'u', 369=>'u', 378=>'z', 380=>'z',
+                258=>'A', 260=>'A', 262=>'C', 268=>'C', 270=>'D', 272=>'D', 280=>'E',
+                282=>'E', 286=>'G', 304=>'I', 313=>'L', 317=>'L', 321=>'L', 323=>'N',
+                327=>'N', 336=>'O', 340=>'R', 344=>'R', 346=>'S', 350=>'S', 354=>'T',
+                356=>'T', 366=>'U', 368=>'U', 377=>'Z', 379=>'Z', 259=>'a', 261=>'a',
+                263=>'c', 269=>'c', 271=>'d', 273=>'d', 281=>'e', 283=>'e', 287=>'g',
+                305=>'i', 322=>'l', 314=>'l', 318=>'l', 324=>'n', 328=>'n', 337=>'o',
+                341=>'r', 345=>'r', 347=>'s', 351=>'s', 357=>'t', 355=>'t', 367=>'u',
+                369=>'u', 378=>'z', 380=>'z',
                 // ligatures
                 198=>'Ae', 230=>'ae', 140=>'Oe', 156=>'oe', 223=>'ss',
             );
 
             if ($german) {
                 // umlauts
-                $subst = array_merge($subst, array(196=>'Ae', 228=>'ae', 214=>'Oe', 246=>'oe', 220=>'Ue', 252=>'ue'));
+                $subst = array_merge($subst, array(
+                    196=>'Ae', 228=>'ae', 214=>'Oe', 246=>'oe', 220=>'Ue', 252=>'ue'
+                ));
             }
 
             $replacements[$german] = array();
@@ -632,9 +651,12 @@ XML;
     /**
      * Merge specified files into one
      *
-     * By default will not merge, if there is already merged file exists and it was modified after its components
-     * If target file is specified, will attempt to write merged contents into it, otherwise will return merged content
-     * May apply callback to each file contents. Callback gets parameters: (<existing system filename>, <file contents>)
+     * By default will not merge, if there is already merged file exists and it
+     * was modified after its components
+     * If target file is specified, will attempt to write merged contents into it,
+     * otherwise will return merged content
+     * May apply callback to each file contents. Callback gets parameters:
+     * (<existing system filename>, <file contents>)
      * May filter files by specified extension(s)
      * Returns false on error
      *
@@ -645,7 +667,8 @@ XML;
      * @param array|string $extensionsFilter
      * @return bool|string
      */
-    public function mergeFiles(array $srcFiles, $targetFile = false, $mustMerge = false, $beforeMergeCallback = null, $extensionsFilter = array())
+    public function mergeFiles(array $srcFiles, $targetFile = false, $mustMerge = false,
+        $beforeMergeCallback = null, $extensionsFilter = array())
     {
         try {
             // check whether merger is required
@@ -728,5 +751,41 @@ XML;
     public function getDefaultCountry($store = null)
     {
         return Mage::getStoreConfig(self::XML_PATH_DEFAULT_COUNTRY, $store);
+    }
+
+    /**
+     * Return list with protected file extensions
+     *
+     * @param Mage_Core_Model_Store|string|int $store
+     * @return array
+     */
+    public function getProtectedFileExtensions($store = null)
+    {
+        return Mage::getStoreConfig(self::XML_PATH_PROTECTED_FILE_EXTENSIONS, $store);
+    }
+
+    /**
+     * Return list with public files valid paths
+     *
+     * @return array
+     */
+    public function getPublicFilesValidPath()
+    {
+        return Mage::getStoreConfig(self::XML_PATH_PUBLIC_FILES_VALID_PATHS);
+    }
+
+    /**
+     * Check LFI protection
+     *
+     * @throws Mage_Core_Exception
+     * @param string $name
+     * @return bool
+     */
+    public function checkLfiProtection($name)
+    {
+        if (preg_match('#\.\.[\\\/]#', $name)) {
+            throw new Mage_Core_Exception($this->__('Requested file may not include parent directory traversal ("../", "..\\" notation)'));
+        }
+        return true;
     }
 }

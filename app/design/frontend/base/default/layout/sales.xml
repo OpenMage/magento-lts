@@ -134,6 +134,7 @@ Customer account home dashboard layout
             <action method="addLink" translate="label" module="sales"><name>shipment</name><path>*/*/shipment</path><label>Shipments</label></action>
             <action method="addLink" translate="label" module="sales"><name>creditmemo</name><path>*/*/creditmemo</path><label>Refunds</label></action>
         </reference>
+        <block type="core/text_list" name="additional.product.info" />
     </sales_order_invoice>
 
     <sales_order_shipment translate="label">
@@ -154,6 +155,7 @@ Customer account home dashboard layout
             <action method="addLink" translate="label" module="sales"><name>shipment</name><path></path><label>Shipments</label></action>
             <action method="addLink" translate="label" module="sales"><name>creditmemo</name><path>*/*/creditmemo</path><label>Refunds</label></action>
         </reference>
+        <block type="core/text_list" name="additional.product.info" />
     </sales_order_shipment>
 
     <sales_order_creditmemo translate="label">
@@ -180,6 +182,7 @@ Customer account home dashboard layout
             <action method="addLink" translate="label" module="sales"><name>shipment</name><path>*/*/shipment</path><label>Shipments</label></action>
             <action method="addLink" translate="label" module="sales"><name>creditmemo</name><path></path><label>Refunds</label></action>
         </reference>
+        <block type="core/text_list" name="additional.product.info" />
     </sales_order_creditmemo>
 
     <sales_order_reorder>
@@ -204,6 +207,7 @@ Customer account home dashboard layout
                 </block>
             </block>
         </reference>
+        <block type="core/text_list" name="additional.product.info" />
     </sales_order_print>
 
     <sales_order_printinvoice translate="label">
@@ -219,6 +223,7 @@ Customer account home dashboard layout
                 </block>
             </block>
         </reference>
+        <block type="core/text_list" name="additional.product.info" />
     </sales_order_printinvoice>
 
     <sales_order_printshipment translate="label">
@@ -228,6 +233,7 @@ Customer account home dashboard layout
                 <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/shipment/items/renderer/default.phtml</template></action>
             </block>
         </reference>
+        <block type="core/text_list" name="additional.product.info" />
     </sales_order_printshipment>
 
     <sales_order_printcreditmemo>
@@ -242,6 +248,7 @@ Customer account home dashboard layout
                 </block>
             </block>
         </reference>
+        <block type="core/text_list" name="additional.product.info" />
     </sales_order_printcreditmemo>
 
 <!--
@@ -259,6 +266,7 @@ Email layouts section
                 </block>
             </block>
         </block>
+        <block type="core/text_list" name="additional.product.info" />
     </sales_email_order_items>
 
     <sales_email_order_invoice_items>
@@ -271,12 +279,14 @@ Email layouts section
                 <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml"/>
             </block>
         </block>
+        <block type="core/text_list" name="additional.product.info" />
     </sales_email_order_invoice_items>
 
     <sales_email_order_shipment_items>
         <block type="sales/order_email_shipment_items" name="items" template="email/order/shipment/items.phtml">
             <action method="addItemRender"><type>default</type><block>sales/order_email_items_default</block><template>email/order/items/shipment/default.phtml</template></action>
         </block>
+        <block type="core/text_list" name="additional.product.info" />
     </sales_email_order_shipment_items>
 
     <sales_email_order_creditmemo_items>
@@ -289,5 +299,6 @@ Email layouts section
                 <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml"/>
             </block>
         </block>
+        <block type="core/text_list" name="additional.product.info" />
     </sales_email_order_creditmemo_items>
 </layout>

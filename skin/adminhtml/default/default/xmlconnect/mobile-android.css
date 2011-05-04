@@ -28,20 +28,20 @@
     font-weight: normal;
     font-style: normal;
 }
-* {
-    background:transparent;
-    margin:0;
-    padding:0;
-    }
-ul {
-    list-style:none;
-    }
-body {
-    font:12px/15px Verdana;
-    line-height:1;
-    }
+
+@font-face {
+    font-family: 'icons';
+    src: url('fonts/android_icons-webfont.eot');
+    src: local('O'), url('fonts/android_icons-webfont.woff') format('woff'), url('fonts/android_icons-webfont.ttf') format('truetype'), url('fonts/android_icons-webfont.svg#webfontyMStiDRV') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .main-frame {
     background:url(../images/xmlconnect/mobile_preview/android/bg_frame.gif) no-repeat 0 0;
+    font:12px/15px Verdana;
+    line-height:1;
+    margin:0 0 10px;
     padding:4px;
     height:480px;
     width:320px;
@@ -56,25 +56,34 @@ body {
     height:48px;
     width:320px;
     }
-    .header-wrap .header {
+    .header-wrap .app-header {
         height:48px;
         }
         .header-wrap .icon {
+            font-family:'icons';
+            font-size:35px;
+            line-height:48px;
+            text-align:center;
+            text-shadow:0 1px 0 #333;
             float:right;
             height:48px;
-            width:48px;
+            width:47px;
             }
             .header-wrap .icon-home {
-                background:url(../images/xmlconnect/mobile_preview/android/ico_home.png) no-repeat 0 0;
+                border-right:1px solid #333;
                 float:left;
                 }
             .header-wrap .icon-search {
-                background:url(../images/xmlconnect/mobile_preview/android/ico_search.png) no-repeat 0 0;
+                border-left:1px solid #333;
+                padding-left:5px;
+                width:42px;
                 }
             .header-wrap .icon-account {
-                background:url(../images/xmlconnect/mobile_preview/android/ico_account.png) no-repeat 0 0;
+                border-left:1px solid #333;
+                padding-left:5px;
+                width:42px;
                 }
-        .header-wrap .logo {
+        .header-wrap .app-logo {
             color:#fff;
             float:left;
             font-size:13px;
@@ -82,12 +91,13 @@ body {
             padding:12px 0 0 45px;
             text-shadow:0 0 5px #333;
             }
-            .header-wrap .logo img {
+            .header-wrap .app-logo img {
                 margin-right:10px;
                 vertical-align:middle;
                 }
 .home-page .content {
     background:url(../images/xmlconnect/mobile_preview/android/bg_logo.png) no-repeat center;
+    padding:0;
     height:267px;
     width:320px;
     }
@@ -248,13 +258,14 @@ body {
                 .catalog-page .cat-list .col-1 .rating img,
                 .catalog-page .cat-list .col-1 .rating span {
                     font-size:10px;
-                    vertical-align:middle;
                     }
         .catalog-page .cat-list .col-2 {
             }
             .catalog-page .cat-list .col-2 h3 {
                 color:#222222;
                 font-size:14px;
+                line-height:1;
+                margin:0;
                 font-weight:normal;
                 }
             .catalog-page .cat-list .col-2 .price-box {

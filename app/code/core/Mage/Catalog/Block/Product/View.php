@@ -146,6 +146,10 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             'showBothPrices'      => Mage::helper('tax')->displayBothPrices(),
             'productPrice'        => Mage::helper('core')->currency($_finalPrice, false, false),
             'productOldPrice'     => Mage::helper('core')->currency($_regularPrice, false, false),
+            /**
+             * @var skipCalculate
+             * @deprecated after 1.5.1.0
+             */
             'skipCalculate'       => ($_priceExclTax != $_priceInclTax ? 0 : 1),
             'defaultTax'          => $defaultTax,
             'currentTax'          => $currentTax,

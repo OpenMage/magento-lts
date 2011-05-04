@@ -70,6 +70,7 @@ class Mage_XmlConnect_Block_Catalog_Category extends Mage_XmlConnect_Block_Catal
             }
         }
 
+        /** @var $categoryCollection Mage_XmlConnect_Model_Mysql4_Category_Collection */
         $categoryCollection = Mage::getResourceModel('xmlconnect/category_collection');
         $categoryCollection->setStoreId(Mage::app()->getStore()->getId())
             ->setOrder('position', 'ASC')

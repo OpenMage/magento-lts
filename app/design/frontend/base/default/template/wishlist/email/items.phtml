@@ -31,7 +31,7 @@
     <tr>
     <?php $i = 0; foreach ($this->getWishlistItems() as $item): $i++ ?>
         <td width="32%">
-            <p align="center" style="font-size:12px;"><a href="<?php echo $this->getProductUrl($item) ?>"><img src="<?php echo $this->helper('catalog/image')->init($item, 'small_image')->resize(135); ?>" style="border:1px solid #ccc;" width="135" height="135" alt="" /></a></p>
+            <p align="center" style="font-size:12px;"><a href="<?php echo $this->getProductUrl($item) ?>"><img src="<?php echo $this->helper('catalog/image')->init($item->getProduct(), 'small_image')->resize(135); ?>" style="border:1px solid #ccc;" width="135" height="135" alt="" /></a></p>
             <p align="center" style="font-size:12px;"><a href="<?php echo $this->getProductUrl($item) ?>" style="color:#203548;"><strong><?php echo $this->htmlEscape($item->getName()) ?></strong></a></p>
             <?php if($this->hasDescription($item)): ?><p align="center" style="font-size:12px;"><?php echo $this->__('Comment') ?>:<br /><?php echo $this->getEscapedDescription($item) ?></p><?php endif; ?>
             <p align="center" style="font-size:12px;"><a href="<?php echo $this->getProductUrl($item) ?>" style="color:#1E7EC8;"><?php echo $this->__('View Product') ?></a> <small>

@@ -51,7 +51,14 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
         }
         $purchasedItems = Mage::getResourceModel('downloadable/link_purchased_item_collection')
             ->addFieldToFilter('purchased_id', array('in' => $purchasedIds))
-            ->addFieldToFilter('status', array('nin' => Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PENDING_PAYMENT))
+            ->addFieldToFilter('status',
+                array(
+                    'nin' => array(
+                        Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PENDING_PAYMENT,
+                        Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PAYMENT_REVIEW
+                    )
+                )
+            )
             ->setOrder('item_id', 'desc');
         $this->setItems($purchasedItems);
     }

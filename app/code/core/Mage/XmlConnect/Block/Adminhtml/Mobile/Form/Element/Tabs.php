@@ -39,7 +39,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Tabs extends Varien_Da
 
         $blockClassName = Mage::getConfig()->getBlockClassName('adminhtml/template');
         $block = new $blockClassName;
-        $device = Mage::helper('xmlconnect')->getApplication()->getType();
+        $device = Mage::helper('xmlconnect')->getDeviceType();
         if (array_key_exists($device, Mage::helper('xmlconnect')->getSupportedDevices())) {
             $template = 'xmlconnect/form/element/app_tabs_' . strtolower($device) . '.phtml';
         } else {

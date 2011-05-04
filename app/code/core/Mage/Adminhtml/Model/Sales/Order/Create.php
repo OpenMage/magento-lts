@@ -1307,13 +1307,14 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
             return $this;
         }
 
-        $customer        = $this->getSession()->getCustomer();
-        $store           = $this->getSession()->getStore();
-        $billingAddress  = null;
-        $shippingAddress = null;
+        $customer           = $this->getSession()->getCustomer();
+        $store              = $this->getSession()->getStore();
+        $customerIsInStore  = $this->_customerIsInStore($store);
+        $billingAddress     = null;
+        $shippingAddress    = null;
 
         if ($customer->getId()) {
-            if (!$this->_customerIsInStore($store)) {
+            if (!$customerIsInStore) {
                 $customer->setId(null)
                     ->setStore($store)
                     ->setDefaultBilling(null)
@@ -1321,7 +1322,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                     ->setPassword($customer->generatePassword());
                 $this->_setCustomerData($customer);
             }
-            if ($this->getBillingAddress()->getSaveInAddressBook()) {
+            if ($this->getBillingAddress()->getSaveInAddressBook() || !$customerIsInStore) {
                 $billingAddress = $this->getBillingAddress()->exportCustomerAddress();
                 $customerAddressId = $this->getBillingAddress()->getCustomerAddressId();
                 if ($customerAddressId && $customer->getId()) {
@@ -1330,7 +1331,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                     $customer->addAddress($billingAddress);
                 }
             }
-            if (!$this->getQuote()->isVirtual() && $this->getShippingAddress()->getSaveInAddressBook()) {
+            if (!$this->getQuote()->isVirtual() && ($this->getShippingAddress()->getSaveInAddressBook()
+                || !$customerIsInStore)
+            ) {
                 $shippingAddress = $this->getShippingAddress()->exportCustomerAddress();
                 $customerAddressId = $this->getShippingAddress()->getCustomerAddressId();
                 if ($customerAddressId && $customer->getId()) {

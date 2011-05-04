@@ -246,6 +246,13 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
      */
     public function setResource($resourceFile, $linkType = self::LINK_TYPE_FILE)
     {
+        if (self::LINK_TYPE_FILE == $linkType) {
+            //check LFI protection
+            /** @var $helper Mage_Core_Helper_Data */
+            $helper = Mage::helper('core');
+            $helper->checkLfiProtection($resourceFile);
+        }
+
         $this->_resourceFile    = $resourceFile;
         $this->_linkType        = $linkType;
 

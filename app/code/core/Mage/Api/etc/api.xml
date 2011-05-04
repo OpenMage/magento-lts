@@ -48,6 +48,16 @@
                     </extensions>
                 </required>
             </soap_v2>
+            <soap_wsi>
+                <model>api/server_wsi_adapter_soap</model>
+                <handler>soap_wsi</handler>
+                <active>1</active>
+                <required>
+                    <extensions>
+                        <soap />
+                    </extensions>
+                </required>
+            </soap_wsi>
             <xmlrpc>
                 <model>api/server_adapter_xmlrpc</model>
                 <handler>default</handler>
@@ -64,6 +74,9 @@
             <soap_v2>
                 <model>api/server_v2_handler</model>
             </soap_v2>
+            <soap_wsi>
+                <model>api/server_wsi_handler</model>
+            </soap_wsi>
         </handlers>
         <resources>
         </resources>
@@ -101,6 +114,10 @@
                 <code>5</code>
                 <message>Session expired. Try to relogin.</message>
             </session_expired>
+            <invalid_request_param>
+                <code>6</code>
+                <message>Required parameter is missing, for more details see "exception.log".</message>
+            </invalid_request_param>
         </faults>
         <acl>
             <asserts>

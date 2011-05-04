@@ -51,20 +51,28 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Flurryanalytics
 
         $this->setForm($form);
 
-        $data = $this->getApplication()->getFormData();
+        $data = Mage::helper('xmlconnect')->getApplication()->getFormData();
         $yesNoValues = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
 
         $fieldset = $form->addFieldset('flurryAnalytics', array('legend' => $this->__('Flurry Analytics')));
+
+        if (isset($data['conf[native][merchantFlurryTracking][isActive]'])) {
+            $isActiveValue = $data['conf[native][merchantFlurryTracking][isActive]'];
+        } else {
+            $isActiveValue = '0';
+        }
 
         $enabled = $fieldset->addField('conf/native/merchantFlurryTracking/isActive', 'select', array(
             'label'     => $this->__('Enable Flurry Analytics'),
             'name'      => 'conf[native][merchantFlurryTracking][isActive]',
             'values'    => $yesNoValues,
             'note'      => $this->__('Enable Flurry Analytics for the merchant.'),
-            'value'     => (isset($data['conf[native][merchantFlurryTracking][isActive]']) ? $data['conf[native][merchantFlurryTracking][isActive]'] : '0')
+            'value'     => $isActiveValue
         ));
 
-        $flurryAnalyticsUrl = $this->escapeHtml(Mage::getStoreConfig('xmlconnect/flurry_analytics/statistics_url'));
+        $flurryAnalyticsUrl = $this->escapeHtml(
+            Mage::getStoreConfig('xmlconnect/flurry_analytics/statistics_url')
+        );
 
         $flurryLink = $fieldset->addField('flurry_analytics_link', 'link', array(
             'title'     => $this->__('Flurry Analytics Site'),
@@ -75,24 +83,30 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Flurryanalytics
             'note'      => $this->__('You can watch statistics here.'),
         ));
 
+        if (isset($data['conf[native][merchantFlurryTracking][accountId]'])) {
+            $accountIdValue = $data['conf[native][merchantFlurryTracking][accountId]'];
+        } else {
+            $accountIdValue = '';
+        }
+
         $flurryApiCode = $fieldset->addField('conf/native/merchantFlurryTracking/accountId', 'text', array(
-            'label'     => $this->__('Flurry Api Code'),
+            'label'     => $this->__('Flurry API Code'),
             'name'      => 'conf[native][merchantFlurryTracking][accountId]',
             'enabled'   => true,
             'required'  => true,
-            'value'     => (isset($data['conf[native][merchantFlurryTracking][accountId]']) ? $data['conf[native][merchantFlurryTracking][accountId]'] : '')
+            'value'     => $accountIdValue
         ));
 
         // field dependencies
-        $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
+        $this->setChild('form_after', $this->getLayout()
+            ->createBlock('adminhtml/widget_form_element_dependence')
             ->addFieldMap($flurryApiCode->getHtmlId(), $flurryApiCode->getName())
             ->addFieldMap($enabled->getHtmlId(), $enabled->getName())
             ->addFieldDependence(
                 $flurryApiCode->getName(),
                 $enabled->getName(),
-                1)
-        );
-
+                1
+        ));
         return parent::_prepareForm();
     }
 
@@ -124,7 +138,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Flurryanalytics
     public function canShowTab()
     {
         return (bool) !Mage::getSingleton('adminhtml/session')->getNewApplication()
-            && $this->getApplication()->getType() == Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE;
+            && Mage::helper('xmlconnect')->getDeviceType() == Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE;
     }
 
     /**
@@ -137,4 +151,3 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Flurryanalytics
         return false;
     }
 }
-

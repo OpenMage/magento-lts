@@ -46,7 +46,9 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->_setActiveMenu('catalog/sets');
 
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));
-        $this->_addBreadcrumb(Mage::helper('catalog')->__('Manage Attribute Sets'), Mage::helper('catalog')->__('Manage Attribute Sets'));
+        $this->_addBreadcrumb(
+            Mage::helper('catalog')->__('Manage Attribute Sets'),
+            Mage::helper('catalog')->__('Manage Attribute Sets'));
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_toolbar_main'));
         $this->_addContent($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_grid'));
@@ -78,7 +80,9 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
 
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));
-        $this->_addBreadcrumb(Mage::helper('catalog')->__('Manage Product Sets'), Mage::helper('catalog')->__('Manage Product Sets'));
+        $this->_addBreadcrumb(
+            Mage::helper('catalog')->__('Manage Product Sets'),
+            Mage::helper('catalog')->__('Manage Product Sets'));
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main'));
 
@@ -88,7 +92,10 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
     public function setGridAction()
     {
         $this->_setTypeId();
-        $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_grid')->toHtml());
+        $this->getResponse()->setBody(
+            $this->getLayout()
+                ->createBlock('adminhtml/catalog_product_attribute_set_grid')
+                ->toHtml());
     }
 
     /**
@@ -109,9 +116,14 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $model  = Mage::getModel('eav/entity_attribute_set')
             ->setEntityTypeId($entityTypeId);
 
+        /** @var $helper Mage_Adminhtml_Helper_Data */
+        $helper = Mage::helper('adminhtml');
+
         try {
             if ($isNewSet) {
-                $model->setAttributeSetName($this->getRequest()->getParam('attribute_set_name'));
+                //filter html tags
+                $name = $helper->stripTags($this->getRequest()->getParam('attribute_set_name'));
+                $model->setAttributeSetName($name);
             } else {
                 if ($attributeSetId) {
                     $model->load($attributeSetId);
@@ -120,6 +132,10 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
                     Mage::throwException(Mage::helper('catalog')->__('This attribute set no longer exists.'));
                 }
                 $data = Mage::helper('core')->jsonDecode($this->getRequest()->getPost('data'));
+
+                //filter html tags
+                $data['attribute_set_name'] = $helper->stripTags($data['attribute_set_name']);
+
                 $model->organizeData($data);
             }
 
@@ -134,7 +150,8 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
             $this->_getSession()->addError($e->getMessage());
             $hasError = true;
         } catch (Exception $e) {
-            $this->_getSession()->addException($e, Mage::helper('catalog')->__('An error occurred while saving the attribute set.'));
+            $this->_getSession()->addException($e,
+                Mage::helper('catalog')->__('An error occurred while saving the attribute set.'));
             $hasError = true;
         }
 

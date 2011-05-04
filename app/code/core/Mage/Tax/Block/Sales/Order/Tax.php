@@ -73,6 +73,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
      */
     public function initTotals()
     {
+        /** @var $parent Mage_Adminhtml_Block_Sales_Order_Invoice_Totals */
         $parent = $this->getParentBlock();
         $this->_order   = $parent->getOrder();
         $this->_source  = $parent->getSource();

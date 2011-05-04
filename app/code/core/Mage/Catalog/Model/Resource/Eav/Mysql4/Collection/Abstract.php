@@ -142,10 +142,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract extends Mage_Ea
     {
         if (isset($this->_joinAttributes[$fieldCode]['store_id'])) {
             $store_id = $this->_joinAttributes[$fieldCode]['store_id'];
-        }
-        else {
+        } else {
             $store_id = $this->getStoreId();
         }
+
+        $adapter = $this->getConnection();
 
         if ($store_id != $this->getDefaultStoreId() && !$attribute->isScopeGlobal()) {
             /**
@@ -158,7 +159,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract extends Mage_Ea
             $defFieldAlias= str_replace($tableAlias, $defAlias, $fieldAlias);
 
             $defCondition = str_replace($tableAlias, $defAlias, $defCondition);
-            $defCondition.= $this->getConnection()->quoteInto(" AND $defAlias.store_id=?", $this->getDefaultStoreId());
+            $defCondition.= $adapter->quoteInto(
+                " AND " . $adapter->quoteColumnAs("$defAlias.store_id", null) . " = ?",
+                $this->getDefaultStoreId());
 
             $this->getSelect()->$method(
                 array($defAlias => $attribute->getBackend()->getTable()),
@@ -167,14 +170,15 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract extends Mage_Ea
             );
 
             $method = 'joinLeft';
-            $fieldAlias = new Zend_Db_Expr("IF($tableAlias.value_id>0, $fieldAlias, $defFieldAlias)");
+            $fieldAlias = new Zend_Db_Expr("IF($tableAlias.value_id > 0, $fieldAlias, $defFieldAlias)");
             $this->_joinAttributes[$fieldCode]['condition_alias'] = $fieldAlias;
             $this->_joinAttributes[$fieldCode]['attribute']       = $attribute;
-        }
-        else {
+        } else {
             $store_id = $this->getDefaultStoreId();
         }
-        $condition[] = $this->getConnection()->quoteInto("$tableAlias.store_id=?", $store_id);
+
+        $condition[] = $adapter->quoteInto(
+            $adapter->quoteColumnAs("$tableAlias.store_id", null) . ' = ?', $store_id);
         return parent::_joinAttributeToSelect($method, $attribute, $tableAlias, $condition, $fieldCode, $fieldAlias);
     }
 }

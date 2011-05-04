@@ -68,6 +68,13 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     const RESPONSE_ERROR_MSG = 'Payment error. %s was not found.';
 
     /**
+     * Key for storing secure hash in additional information of payment model
+     *
+     * @var string
+     */
+    protected $_secureSilentPostHashKey = 'secure_silent_post_hash';
+
+    /**
      * Do not validate payment form using server methods
      *
      * @return  bool
@@ -110,7 +117,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
                 $order->setCanSendNewEmailFlag(false);
                 $payment->setAmountAuthorized($order->getTotalDue());
                 $payment->setBaseAmountAuthorized($order->getBaseTotalDue());
-
+                $this->_generateSecureSilentPostHash($payment);
                 $request = $this->_buildTokenRequest($payment);
                 $response = $this->_postRequest($request);
                 $this->_processTokenErrors($response, $payment);
@@ -170,8 +177,9 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
 
         $this->setResponseData($responseData);
 
-        $order = $this->_getOrderFromResponse();
-        $this->_processOrder($order);
+        if ($order = $this->_getOrderFromResponse()) {
+            $this->_processOrder($order);
+        }
     }
 
     /**
@@ -254,7 +262,12 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
         $response = $this->getResponse();
 
         $order = Mage::getModel('sales/order')
-                ->loadByIncrementId($response->getInvoice());
+                ->loadByIncrementId($response->getInvnum());
+
+        if ($this->_getSecureSilentPostHash($order->getPayment()) != $response->getUser2()
+            || $this->_code != $order->getPayment()->getMethodInstance()->getCode()) {
+            return false;
+        }
 
         if ($response->getResult() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER &&
             $response->getResult() != self::RESPONSE_CODE_DECLINED_BY_FILTER &&
@@ -265,7 +278,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             Mage::throwException($response->getRespmsg());
         }
 
-        $amountCompared = ($response->getAmount() ==
+        $amountCompared = ($response->getAmt() ==
             $order->getPayment()->getBaseAmountAuthorized()) ? true : false;
         if (!$order->getId() ||
             $order->getState() != Mage_Sales_Model_Order::STATE_PENDING_PAYMENT ||
@@ -330,7 +343,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
                 ->setShiptocountry($shipping->getCountry());
         }
         //pass store Id to request
-        $request->setUser1($order->getStoreId());
+        $request->setUser1($order->getStoreId())
+            ->setUser2($this->_getSecureSilentPostHash($payment));
 
         return $request;
     }
@@ -425,5 +439,29 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             $payment->setAdditionalInformation('secure_token_id', $response->getSecuretokenid())
                 ->setAdditionalInformation('secure_token', $response->getSecuretoken());
         }
+    }
+
+    /**
+     * Return secure hash value for silent post request
+     *
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @return string
+     */
+    protected function _getSecureSilentPostHash($payment)
+    {
+        return $payment->getAdditionalInformation($this->_secureSilentPostHashKey);
+    }
+
+    /**
+     * Generate end return new secure hash value
+     *
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @return string
+     */
+    protected function _generateSecureSilentPostHash($payment)
+    {
+        $secureHash = md5(Mage::helper('core')->getRandomString(10));
+        $payment->setAdditionalInformation($this->_secureSilentPostHashKey, $secureHash);
+        return $secureHash;
     }
 }

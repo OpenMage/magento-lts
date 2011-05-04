@@ -93,14 +93,14 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
         if ($request->getOrigCountry()) {
             $origCountry = $request->getOrigCountry();
         } else {
-            $origCountry = Mage::getStoreConfig('shipping/origin/country_id', $this->getStore());
+            $origCountry = Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_COUNTRY_ID, $this->getStore());
         }
         $r->setOrigCountry(Mage::getModel('directory/country')->load($origCountry)->getIso2Code());
 
         if ($request->getOrigPostcode()) {
             $r->setOrigPostal($request->getOrigPostcode());
         } else {
-            $r->setOrigPostal(Mage::getStoreConfig('shipping/origin/postcode', $this->getStore()));
+            $r->setOrigPostal(Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_POSTCODE, $this->getStore()));
         }
 
         if ($request->getDestCountryId()) {

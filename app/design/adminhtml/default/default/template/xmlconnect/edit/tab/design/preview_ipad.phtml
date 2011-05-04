@@ -25,7 +25,7 @@
  */
 ?>
 <?php
-    $deviceType = Mage::helper('xmlconnect')->getApplication()->getType();
+    $deviceType = Mage::helper('xmlconnect')->getDeviceType();
 
     $homeFlag = 'home';
     $catalogFlag = 'catalog';
@@ -36,13 +36,12 @@
     $homeHorAction = $this->getPreviewActionUrl($homeHorFlag);
     $catalogHorAction = $this->getPreviewActionUrl($catalogHorFlag);
 ?>
-<div id="XmlconnectThemePreview">
-    <iframe src="about:blank" id="XmlconnectThemePreviewIframe" name="XmlconnectThemePreviewIframe" class="ipad-portrait" frameborder="0" scrolling="no"></iframe>
-</div>
+<div id="XmlconnectThemePreview" class="ipad-portrait"></div>
 
 <div id="ipad-tab-orientation" class="mm-box-blue a-center ipad-tab-portrait">
     <button type="button" class="scalable" onclick="updatePreview()"><span><?php echo $this->__('Update Preview');?></span></button>
     <button type="button" class="scalable" onclick="changeOrientation()"><span><?php echo $this->__('Change Orientation');?></span></button>
+    <p><br />To preview the newly uploaded images, please save your application first.</p>
 </div>
 <div class="mm-pager" style="padding-left:60px;">
     <strong><?php echo $this->__('Screens:'); ?></strong>
@@ -58,8 +57,10 @@
 <script type="text/javascript">
 mmPreviewPage = '<?php echo $homeAction; ?>';
 mmPreviewFlag = '<?php echo $homeFlag ?>';
-previewFrame = $('XmlconnectThemePreviewIframe');
+previewIframe = $('XmlconnectThemePreview');
 ipadTabOrientn = $('ipad-tab-orientation');
+// submit application flag
+mmPreviewPagePrefix = '';
 function changeOrientation() {
     $('mmPager').toggle();
     $('mmPager2').toggle();
@@ -82,24 +83,45 @@ function changeOrientation() {
         mmPreviewFlag = '<?php echo $catalogFlag ?>';
     }
 
-        previewFrame.removeClassName((flagOrient ? 'ipad-portrait' : 'ipad-horizontal'))
-            .addClassName((flagOrient ? 'ipad-horizontal' : 'ipad-portrait'));
-        ipadTabOrientn.removeClassName((flagOrient ? 'ipad-tab-portrait' : 'ipad-tab-horizontal'))
-            .addClassName((flagOrient ? 'ipad-tab-horizontal' : 'ipad-tab-portrait'));
+        previewIframe.removeClassName((flagOrient ? 'ipad-portrait' : 'ipad-landscape'))
+            .addClassName((flagOrient ? 'ipad-landscape' : 'ipad-portrait'));
+        ipadTabOrientn.removeClassName((flagOrient ? 'ipad-tab-portrait' : 'ipad-tab-landscape'))
+            .addClassName((flagOrient ? 'ipad-tab-landscape' : 'ipad-tab-portrait'));
 
     resetPager();
     $(mmPreviewFlag).addClassName('active');
     updatePreview();
 }
-
 function updatePreview(someAction) {
-    saveAction = $('edit_form').action;
-    $('edit_form').action = mmPreviewPage + (someAction ? someAction : '');
-    $('edit_form').target = 'XmlconnectThemePreviewIframe';
-    $('edit_form').submit();
-    // FIXME
-    $('edit_form').action = saveAction;
-    $('edit_form').target = '';
+    var loadingClassName = previewIframe.className + '-loading';
+    previewIframe.update('<?php echo $this->__('Loading Preview...'); ?>').addClassName(loadingClassName);
+    new Ajax.Request(mmPreviewPage + (someAction ? someAction : '') + mmPreviewPagePrefix, {
+        parameters: $('edit_form').serialize(true),
+        onSuccess : function(transport) {
+            try{
+                if (transport.responseText.isJSON()) {
+                    var response = transport.responseText.evalJSON()
+                    if (response.error) {
+                        alert(response.message);
+                    }
+                    if(response.ajaxExpired && response.ajaxRedirect) {
+                        setLocation(response.ajaxRedirect);
+                    }
+                } else {
+                    previewIframe.removeClassName(loadingClassName).update(transport.responseText);
+                }
+            } catch (e) {
+                alert(transport.responseText);
+            }
+
+            if (!response.success) {
+                var msg = response.error_message;
+                if (msg) {
+                    alert(msg);
+                }
+            }
+        }
+    });
 }
 function resetPager() {
     $('mmPager').childElements().each(function(t){
@@ -140,7 +162,8 @@ Event.observe(document, 'dom:loaded', function() {
         });
     } else {
         // 1 is correct value - tells that you don't need to load app data
-        $('XmlconnectThemePreviewIframe').src = mmPreviewPage + 'submission_action/1/';
+        mmPreviewPagePrefix = 'submission_action/1/';
+        updatePreview();
     }
 });
 

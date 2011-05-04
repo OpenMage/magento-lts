@@ -54,7 +54,10 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
         foreach ($tierPrices as $tierPrice) {
             $row = array();
             $row['customer_group_id'] = (empty($tierPrice['all_groups']) ? $tierPrice['cust_group'] : 'all' );
-            $row['website']           = ($tierPrice['website_id'] ? Mage::app()->getWebsite($tierPrice['website_id'])->getCode() : 'all');
+            $row['website']           = ($tierPrice['website_id'] ?
+                            Mage::app()->getWebsite($tierPrice['website_id'])->getCode() :
+                            'all'
+                    );
             $row['qty']               = $tierPrice['price_qty'];
             $row['price']             = $tierPrice['price'];
 
@@ -160,38 +163,18 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
 
         return $updateValue;
     }
-    
+
     /**
      * Retrieve product
      *
      * @param int $productId
      * @param string|int $store
+     * @param  string $identifierType
      * @return Mage_Catalog_Model_Product
      */
     protected function _initProduct($productId, $identifierType = null)
     {
-        $loadByIdOnFalse = false;
-        if ($identifierType === null) {
-            $identifierType = 'sku';
-            $loadByIdOnFalse = true;
-        }
-        $product = Mage::getModel('catalog/product')
-                       ->setStoreId($this->_getStoreId());
-
-        if ($identifierType == 'sku') {
-            $idBySku = $product->getIdBySku($productId);
-            if ($idBySku) {
-                $productId = $idBySku;
-            }
-            if ($idBySku || $loadByIdOnFalse) {
-                $product->load($productId);
-            }
-        } elseif ($identifierType == 'id') {
-            $product->load($productId);
-        }
-
-        /* @var $product Mage_Catalog_Model_Product */
-
+        $product = Mage::helper('catalog/product')->getProduct($productId, $this->_getStoreId($store), $identifierType);
         if (!$product->getId()) {
             $this->_fault('product_not_exists');
         }

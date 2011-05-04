@@ -158,7 +158,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
         if (empty($label)) {
             $label = $this->__('Edit');
         }
-        $url = $this->getUrl('*/*/address', array('address_id'=>$address->getId()));
+        $url = $this->getUrl('*/sales_order/address', array('address_id'=>$address->getId()));
         return '<a href="'.$url.'">' . $label . '</a>';
     }
 }

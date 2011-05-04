@@ -204,14 +204,19 @@ class Phoenix_Moneybookers_Model_Event
 
         // check order ID
         if (empty($params['transaction_id'])
-            || ($fullCheck == false && $this->_getCheckout()->getMoneybookersRealOrderId() != $params['transaction_id']))
-        {
+            || ($fullCheck == false && $this->_getCheckout()->getMoneybookersRealOrderId() != $params['transaction_id'])
+        ) {
             Mage::throwException('Missing or invalid order ID.');
         }
         // load order for further validation
         $this->_order = Mage::getModel('sales/order')->loadByIncrementId($params['transaction_id']);
-        if (!$this->_order->getId())
+        if (!$this->_order->getId()) {
             Mage::throwException('Order not found.');
+        }
+
+        if (0 !== strpos($this->_order->getPayment()->getMethodInstance()->getCode(), 'moneybookers_')) {
+            Mage::throwException('Unknown payment method.');
+        }
 
         // make additional validation
         if ($fullCheck) {
@@ -229,9 +234,20 @@ class Phoenix_Moneybookers_Model_Event
             $md5String = '';
             foreach ($checkParams as $key) {
                 if ($key == 'merchant_id') {
-                    $md5String .= Mage::getStoreConfig(Phoenix_Moneybookers_Helper_Data::XML_PATH_CUSTOMER_ID, $this->_order->getStoreId());
+                    $md5String .= Mage::getStoreConfig(Phoenix_Moneybookers_Helper_Data::XML_PATH_CUSTOMER_ID,
+                        $this->_order->getStoreId()
+                    );
                 } elseif ($key == 'secret') {
-                    $md5String .= strtoupper(md5(Mage::getStoreConfig(Phoenix_Moneybookers_Helper_Data::XML_PATH_SECRET_KEY, $this->_order->getStoreId())));
+                    $secretKey = Mage::getStoreConfig(
+                        Phoenix_Moneybookers_Helper_Data::XML_PATH_SECRET_KEY,
+                        $this->_order->getStoreId()
+                    );
+
+                    if (empty($secretKey)) {
+                        Mage::throwException('Secret key is empty.');
+                    }
+
+                    $md5String .= strtoupper(md5($secretKey));
                 } elseif (isset($params[$key])) {
                     $md5String .= $params[$key];
                 }

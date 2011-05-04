@@ -210,7 +210,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
      */
     public function getDefaultStore()
     {
-        if (!$this->getDefaultStoreId()) {
+        if (!$this->hasDefaultStoreId()) {
             return false;
         }
         if (is_null($this->_stores)) {

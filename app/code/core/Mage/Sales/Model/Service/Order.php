@@ -92,7 +92,7 @@ class Mage_Sales_Model_Service_Order
             }
             $item = $this->_convertor->itemToInvoiceItem($orderItem);
             if ($orderItem->isDummy()) {
-                $qty = 1;
+                $qty = $orderItem->getQtyOrdered() ? $orderItem->getQtyOrdered() : 1;
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = (float) $qtys[$orderItem->getId()];
@@ -224,7 +224,7 @@ class Mage_Sales_Model_Service_Order
             if (isset($invoiceQtysRefunded[$orderItemId])) {
                 $invoiceQtyCanBeRefunded = $invoiceQtyCanBeRefunded - $invoiceQtysRefunded[$orderItemId];
             }
-            $invoiceQtysRefundLimits[$orderItemId] = $invoiceQtyCanBeRefunded; 
+            $invoiceQtysRefundLimits[$orderItemId] = $invoiceQtyCanBeRefunded;
         }
 
 

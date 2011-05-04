@@ -332,7 +332,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function generatePassword($length=6)
     {
-        return substr(md5(uniqid(rand(), true)), 0, $length);
+        return Mage::helper('core')->getRandomString($length);
     }
 
     /**
@@ -543,7 +543,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             return false;
         }
         if (null === self::$_isConfirmationRequired) {
-            self::$_isConfirmationRequired = 1 == Mage::getStoreConfig(self::XML_PATH_IS_CONFIRM, ($this->getStoreId() ? $this->getStoreId() : null));
+            $storeId = $this->getStoreId() ? $this->getStoreId() : null;
+            self::$_isConfirmationRequired = 1 == Mage::getStoreConfig(self::XML_PATH_IS_CONFIRM, $storeId);
         }
         return self::$_isConfirmationRequired;
     }
@@ -855,7 +856,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             // Handling billing address
             $billingAddress = $this->getPrimaryBillingAddress();
             if (!$billingAddress  instanceof Mage_Customer_Model_Address) {
-                $billingAddress = new Mage_Customer_Model_Address();
+                $billingAddress = Mage::getModel('customer/address');
             }
 
             $regions->addRegionNameFilter($row['billing_region'])->load();
@@ -894,7 +895,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             // Handling shipping address
             $shippingAddress = $this->getPrimaryShippingAddress();
             if (!$shippingAddress instanceof Mage_Customer_Model_Address) {
-                $shippingAddress = new Mage_Customer_Model_Address();
+                $shippingAddress = Mage::getModel('customer/address');
             }
 
             $regions->addRegionNameFilter($row['shipping_region'])->load();

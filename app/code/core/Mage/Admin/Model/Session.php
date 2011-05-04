@@ -90,6 +90,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             $user = Mage::getModel('admin/user');
             $user->login($username, $password);
             if ($user->getId()) {
+                $this->renewSession();
 
                 if (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
                     Mage::getSingleton('adminhtml/url')->renewSecretUrls();

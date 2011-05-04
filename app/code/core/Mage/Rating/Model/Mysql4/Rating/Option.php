@@ -79,42 +79,38 @@ class Mage_Rating_Model_Mysql4_Rating_Option
 
     public function addVote($option)
     {
-        $action = Mage::app()->getFrontController()->getAction();
+        $optionData = $this->load($option->getId());
+        $data = array(
+            'option_id'     => $option->getId(),
+            'review_id'     => $option->getReviewId(),
+            'percent'       => (($optionData['value'] / 5) * 100),
+            'value'          => $optionData['value']
+        );
 
-        if ($action instanceof Mage_Core_Controller_Front_Action || $action instanceof Mage_Adminhtml_Controller_Action) {
-            $optionData = $this->load($option->getId());
-            $data = array(
-                'option_id'     => $option->getId(),
-                'review_id'     => $option->getReviewId(),
-                'percent'       => (($optionData['value'] / 5) * 100),
-                'value'          => $optionData['value']
-            );
+        if( !$option->getDoUpdate() ) {
+            $data['remote_ip'] = Mage::helper('core/http')->getRemoteAddr();
+            $data['remote_ip_long'] = Mage::helper('core/http')->getRemoteAddr(true);
+            $data['customer_id'] = Mage::getSingleton('customer/session')->getCustomerId();
+            $data['entity_pk_value'] = $option->getEntityPkValue();
+            $data['rating_id'] = $option->getRatingId();
+        }
 
-            if( !$option->getDoUpdate() ) {
-                $data['remote_ip'] = Mage::helper('core/http')->getRemoteAddr();
-                $data['remote_ip_long'] = Mage::helper('core/http')->getRemoteAddr(true);
-                $data['customer_id'] = Mage::getSingleton('customer/session')->getCustomerId();
-                $data['entity_pk_value'] = $option->getEntityPkValue();
-                $data['rating_id'] = $option->getRatingId();
+        $this->_write->beginTransaction();
+        try {
+            if( $option->getDoUpdate() ) {
+                $condition = "vote_id = '{$option->getVoteId()}' AND review_id = '{$option->getReviewId()}'";
+                $this->_write->update($this->_ratingVoteTable, $data, $condition);
+                $this->aggregate($option);
+            } else {
+                $this->_write->insert($this->_ratingVoteTable, $data);
+                $option->setVoteId($this->_write->lastInsertId());
+                $this->aggregate($option);
             }
-
-            $this->_write->beginTransaction();
-            try {
-                if( $option->getDoUpdate() ) {
-                    $condition = "vote_id = '{$option->getVoteId()}' AND review_id = '{$option->getReviewId()}'";
-                    $this->_write->update($this->_ratingVoteTable, $data, $condition);
-                    $this->aggregate($option);
-                } else {
-                    $this->_write->insert($this->_ratingVoteTable, $data);
-                    $option->setVoteId($this->_write->lastInsertId());
-                    $this->aggregate($option);
-                }
-                $this->_write->commit();
-            }
-            catch (Exception $e){
-                $this->_write->rollback();
-                throw new Exception($e->getMessage());
-            }
+            $this->_write->commit();
+        }
+        catch (Exception $e){
+            $this->_write->rollback();
+            throw new Exception($e->getMessage());
         }
         return $this;
     }

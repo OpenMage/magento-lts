@@ -208,7 +208,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     public function getMaxQueryLenght()
     {
-        return Mage::getStoreConfig(self::XML_PATH_MAX_QUERY_LENGTH, $this->getStoreId());
+        return 0;
     }
 
     /**
@@ -218,7 +218,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     public function getMaxQueryLength()
     {
-        return $this->getMaxQueryLenght();
+        return Mage::getStoreConfig(self::XML_PATH_MAX_QUERY_LENGTH, $this->getStoreId());
     }
 
     /**

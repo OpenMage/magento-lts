@@ -38,7 +38,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      *
      * @var array
      */
-    protected $_cookieCheckActions = array('loginPost', 'create');
+    protected $_cookieCheckActions = array('loginPost', 'createpost');
 
     /**
      * Retrieve customer session model object
@@ -66,7 +66,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
 
         $action = $this->getRequest()->getActionName();
-        if (!preg_match('/^(create|login|logoutSuccess|forgotpassword|forgotpasswordpost|confirm|confirmation)/i', $action)) {
+        $pattern = '/^(create|login|logoutSuccess|forgotpassword|forgotpasswordpost|confirm|confirmation)/i';
+        if (!preg_match($pattern, $action)) {
             if (!$this->_getSession()->authenticate($this)) {
                 $this->setFlag('', 'no-dispatch', true);
             }
@@ -140,7 +141,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 } catch (Mage_Core_Exception $e) {
                     switch ($e->getCode()) {
                         case Mage_Customer_Model_Customer::EXCEPTION_EMAIL_NOT_CONFIRMED:
-                            $message = Mage::helper('customer')->__('This account is not confirmed. <a href="%s">Click here</a> to resend confirmation email.', Mage::helper('customer')->getEmailConfirmationUrl($login['username']));
+                            $value = Mage::helper('customer')->getEmailConfirmationUrl($login['username']);
+                            $message = Mage::helper('customer')->__('This account is not confirmed. <a href="%s">Click here</a> to resend confirmation email.', $value);
                             break;
                         case Mage_Customer_Model_Customer::EXCEPTION_INVALID_EMAIL_OR_PASSWORD:
                             $message = $e->getMessage();
@@ -365,7 +367,9 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      */
     protected function _welcomeCustomer(Mage_Customer_Model_Customer $customer, $isJustConfirmed = false)
     {
-        $this->_getSession()->addSuccess($this->__('Thank you for registering with %s.', Mage::app()->getStore()->getFrontendName()));
+        $this->_getSession()->addSuccess(
+            $this->__('Thank you for registering with %s.', Mage::app()->getStore()->getFrontendName())
+        );
 
         $customer->sendNewAccountEmail($isJustConfirmed ? 'confirmed' : 'registered');
 
@@ -579,10 +583,10 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
 
         if ($this->getRequest()->isPost()) {
-            /* @var $customer Mage_Customer_Model_Customer */
+            /** @var $customer Mage_Customer_Model_Customer */
             $customer = $this->_getSession()->getCustomer();
 
-            /* @var $customerForm Mage_Customer_Model_Form */
+            /** @var $customerForm Mage_Customer_Model_Form */
             $customerForm = Mage::getModel('customer/form');
             $customerForm->setFormCode('customer_account_edit')
                 ->setEntity($customer);
@@ -612,7 +616,10 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
                     if ($customer->hashPassword($currPass, $salt) == $oldPass) {
                         if (strlen($newPass)) {
-                            // Set entered password and its confirmation - they will be validated later to match each other and be of right length
+                            /**
+                             * Set entered password and its confirmation - they
+                             * will be validated later to match each other and be of right length
+                             */
                             $customer->setPassword($newPass);
                             $customer->setConfirmation($confPass);
                         } else {

@@ -33,6 +33,8 @@
  */
 class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
 {
+    const XML_PATH_SITEMAP_VALID_PATHS = 'general/file/sitemap_generate_valid_paths';
+
     /**
      * Attribute Tab block name for product edit
      *
@@ -89,5 +91,19 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
     {
         $this->_categoryAttributeTabBlock = $attributeTabBlock;
         return $this;
+    }
+
+    /**
+     * Get list valid paths for generate a sitemap XML file
+     *
+     * @return array
+     */
+    public function getSitemapValidPaths()
+    {
+        $path = Mage::getStoreConfig(self::XML_PATH_SITEMAP_VALID_PATHS);
+        /** @var $helper Mage_Core_Helper_Data */
+        $helper = Mage::helper('core');
+        $path = array_merge($path, $helper->getPublicFilesValidPath());
+        return $path;
     }
 }

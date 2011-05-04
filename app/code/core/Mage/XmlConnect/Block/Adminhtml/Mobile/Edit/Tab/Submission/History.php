@@ -116,7 +116,8 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Submission_History extends
             'header'    => $this->__('Activation Key'),
             'align'     => 'left',
             'index'     => 'activation_key',
-            'type'      => 'text'
+            'type'      => 'text',
+            'escape'    => true
         ));
 
         $this->addColumn('created_at', array(

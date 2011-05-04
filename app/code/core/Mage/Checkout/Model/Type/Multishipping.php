@@ -415,6 +415,8 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
         $quote = $this->getQuote();
         $quote->unsReservedOrderId();
         $quote->reserveOrderId();
+        $quote->collectTotals();
+
         $convertQuote = Mage::getSingleton('sales/convert_quote');
         $order = $convertQuote->addressToOrder($address);
         $order->setBillingAddress(

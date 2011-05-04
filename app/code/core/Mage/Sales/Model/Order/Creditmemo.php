@@ -245,8 +245,12 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     public function refund()
     {
         $this->setState(self::STATE_REFUNDED);
-        $orderRefund = Mage::app()->getStore()->roundPrice($this->getOrder()->getTotalRefunded()+$this->getGrandTotal());
-        $baseOrderRefund = Mage::app()->getStore()->roundPrice($this->getOrder()->getBaseTotalRefunded()+$this->getBaseGrandTotal());
+        $orderRefund = Mage::app()->getStore()->roundPrice(
+            $this->getOrder()->getTotalRefunded()+$this->getGrandTotal()
+        );
+        $baseOrderRefund = Mage::app()->getStore()->roundPrice(
+            $this->getOrder()->getBaseTotalRefunded()+$this->getBaseGrandTotal()
+        );
 
         if ($baseOrderRefund > Mage::app()->getStore()->roundPrice($this->getOrder()->getBaseTotalPaid())) {
 
@@ -331,13 +335,17 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
             );
         }
 
-        $this->getOrder()->setBaseSubtotalRefunded($this->getOrder()->getBaseSubtotalRefunded()-$this->getBaseSubtotal());
+        $this->getOrder()->setBaseSubtotalRefunded(
+            $this->getOrder()->getBaseSubtotalRefunded()-$this->getBaseSubtotal()
+        );
         $this->getOrder()->setSubtotalRefunded($this->getOrder()->getSubtotalRefunded()-$this->getSubtotal());
 
         $this->getOrder()->setBaseTaxRefunded($this->getOrder()->getBaseTaxRefunded()-$this->getBaseTaxAmount());
         $this->getOrder()->setTaxRefunded($this->getOrder()->getTaxRefunded()-$this->getTaxAmount());
 
-        $this->getOrder()->setBaseShippingRefunded($this->getOrder()->getBaseShippingRefunded()-$this->getBaseShippingAmount());
+        $this->getOrder()->setBaseShippingRefunded(
+            $this->getOrder()->getBaseShippingRefunded()-$this->getBaseShippingAmount()
+        );
         $this->getOrder()->setShippingRefunded($this->getOrder()->getShippingRefunded()-$this->getShippingAmount());
 
         Mage::dispatchEvent('sales_order_creditmemo_cancel', array($this->_eventObject=>$this));
@@ -513,6 +521,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         if (!$comment->getId()) {
             $this->getCommentsCollection()->addItem($comment);
         }
+        $this->_hasDataChanges = true;
         return $this;
     }
 
@@ -523,7 +532,8 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
                 ->setCreditmemoFilter($this->getId())
                 ->setCreatedAtOrder();
             /**
-             * When credit memo created with adding comment, comments collection must be loaded before we added this comment.
+             * When credit memo created with adding comment,
+             * comments collection must be loaded before we added this comment.
              */
             $this->_comments->load();
 
@@ -623,6 +633,8 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
             )
         );
         $mailer->send();
+        $this->setEmailSent(true);
+        $this->_getResource()->saveAttribute($this, 'email_sent');
 
         return $this;
     }

@@ -115,7 +115,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     public function create($productId, $data, $store = null, $identifierType = null)
     {
         $data = $this->_prepareImageData($data);
-        
+
         $product = $this->_initProduct($productId, $store, $identifierType);
 
         $gallery = $this->_getGalleryAttribute($product);
@@ -192,7 +192,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     public function update($productId, $file, $data, $store = null, $identifierType = null)
     {
         $data = $this->_prepareImageData($data);
-        
+
         $product = $this->_initProduct($productId, $store, $identifierType);
 
         $gallery = $this->_getGalleryAttribute($product);
@@ -200,7 +200,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
         if (!$gallery->getBackend()->getImage($product, $file)) {
             $this->_fault('not_exists');
         }
-        
+
         if (isset($data['file']['mime']) && isset($data['file']['content'])) {
             if (!isset($this->_mimeTypes[$data['file']['mime']])) {
                 $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid image type.'));
@@ -327,7 +327,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     {
         return $data;
     }
-    
+
     /**
      * Retrieve gallery attribute from product
      *
@@ -390,30 +390,12 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      *
      * @param int|string $productId
      * @param string|int $store
+     * @param  string $identifierType
      * @return Mage_Catalog_Model_Product
      */
     protected function _initProduct($productId, $store = null, $identifierType = null)
     {
-        $loadByIdOnFalse = false;
-        if ($identifierType === null) {
-            $identifierType = 'sku';
-            $loadByIdOnFalse = true;
-        }
-        /* @var $product Mage_Catalog_Model_Product */
-        $product = Mage::getModel('catalog/product')
-                       ->setStoreId($this->_getStoreId($store));
-        if ($identifierType == 'sku') {
-            $idBySku = $product->getIdBySku($productId);
-            if ($idBySku) {
-                $productId = $idBySku;
-            }
-            if ($idBySku || $loadByIdOnFalse) {
-                $product->load($productId);
-            }
-        } elseif ($identifierType == 'id') {
-            $product->load($productId);
-        }
-
+        $product = Mage::helper('catalog/product')->getProduct($productId, $this->_getStoreId($store), $identifierType);
         if (!$product->getId()) {
             $this->_fault('product_not_exists');
         }

@@ -407,7 +407,7 @@ Varien.DateElement.prototype = {
             this.month  = $(content + 'month');
             this.year   = $(content + 'year');
             this.full   = $(content + 'full');
-            this.advice = $(content + 'advice');
+            this.advice = $(content + 'date-advice');
         } else if (type == 'container') {
             // content must be container with data
             this.day    = content.day;
@@ -421,7 +421,7 @@ Varien.DateElement.prototype = {
 
         this.required = required;
         this.format   = format;
-        
+
         this.day.addClassName('validate-custom');
         this.day.validate = this.validate.bind(this);
         this.month.addClassName('validate-custom');
@@ -429,6 +429,7 @@ Varien.DateElement.prototype = {
         this.year.addClassName('validate-custom');
         this.year.validate = this.validate.bind(this);
 
+        this.setDateRange(false, false);
         this.year.setAttribute('autocomplete','off');
 
         this.advice.hide();
@@ -444,20 +445,17 @@ Varien.DateElement.prototype = {
         } else if (!day || !month || !year) {
             error = 'Please enter a valid full date.';
         } else {
-            var date = new Date, curyear = date.getFullYear(), countDaysInMonth = 0, errorType = null;
-            date.setYear(year); date.setMonth(month-1); date.setDate(32);
+            var date = new Date, countDaysInMonth = 0, errorType = null;
+            date.setYear(year);date.setMonth(month-1);date.setDate(32);
             countDaysInMonth = 32 - date.getDate();
             if(!countDaysInMonth || countDaysInMonth>31) countDaysInMonth = 31;
-             
+
             if (day<1 || day>countDaysInMonth) {
                 errorType = 'day';
                 error = 'Please enter a valid day (1-%d).';
             } else if (month<1 || month>12) {
                 errorType = 'month';
                 error = 'Please enter a valid month (1-12).';
-            } else if (year<1900 || year>curyear) {
-                errorType = 'year';
-                error = 'Please enter a valid year (1900-%d).';
             } else {
                 if(day % 10 == day) this.day.value = '0'+day;
                 if(month % 10 == month) this.month.value = '0'+month;
@@ -466,7 +464,15 @@ Varien.DateElement.prototype = {
                 var test = new Date(testFull);
                 if (isNaN(test)) {
                     error = 'Please enter a valid date.';
+                } else {
+                    this.setFullDate(test);
                 }
+            }
+            var valueError = false;
+            if (!error && !this.validateData()){//(year<1900 || year>curyear) {
+                errorType = this.validateDataErrorType;//'year';
+                valueError = this.validateDataErrorText;//'Please enter a valid year (1900-%d).';
+                error = valueError;
             }
         }
 
@@ -475,18 +481,40 @@ Varien.DateElement.prototype = {
                 error = Translator.translate(error);
             }
             catch (e) {}
-            this.advice.innerHTML = error.replace('%d', errorType == 'day' ? countDaysInMonth : curyear);
+            if (!valueError) {
+                this.advice.innerHTML = error.replace('%d', countDaysInMonth);
+            } else {
+                this.advice.innerHTML = this.errorTextModifier(error);
+            }
             this.advice.show();
             return false;
         }
-        
+
         // fixing elements class
         this.day.removeClassName('validation-failed');
         this.month.removeClassName('validation-failed');
         this.year.removeClassName('validation-failed');
-        
+
         this.advice.hide();
         return true;
+    },
+    validateData: function() {
+        var year = this.fullDate.getFullYear();
+        var date = new Date;
+        this.curyear = date.getFullYear();
+        return (year>=1900 && year<=this.curyear);
+    },
+    validateDataErrorType: 'year',
+    validateDataErrorText: 'Please enter a valid year (1900-%d).',
+    errorTextModifier: function(text) {
+        return text.replace('%d', this.curyear);
+    },
+    setDateRange: function(minDate, maxDate) {
+        this.minDate = minDate;
+        this.maxDate = maxDate;
+    },
+    setFullDate: function(date) {
+        this.fullDate = date;
     }
 };
 
@@ -500,17 +528,65 @@ Varien.DOB.prototype = {
         container.year      = Element.select(el, '.dob-year input')[0];
         container.full      = Element.select(el, '.dob-full input')[0];
         container.advice    = Element.select(el, '.validation-advice')[0];
-        
+
         new Varien.DateElement('container', container, required, format);
     }
 };
+
+Varien.dateRangeDate = Class.create();
+Varien.dateRangeDate.prototype = Object.extend(new Varien.DateElement(), {
+    validateData: function() {
+        var validate = true;
+        if (this.minDate || this.maxValue) {
+            if (this.minDate) {
+                this.minDate = new Date(this.minDate);
+                this.minDate.setHours(0);
+                if (isNaN(this.minDate)) {
+                    this.minDate = new Date('1/1/1900');
+                }
+                validate = validate && (this.fullDate >= this.minDate)
+            }
+            if (this.maxDate) {
+                this.maxDate = new Date(this.maxDate)
+                this.minDate.setHours(0);
+                if (isNaN(this.maxDate)) {
+                    this.maxDate = new Date();
+                }
+                validate = validate && (this.fullDate <= this.maxDate)
+            }
+            if (this.maxDate && this.minDate) {
+                this.validateDataErrorText = 'Please enter a valid date between %s and %s';
+            } else if (this.maxDate) {
+                this.validateDataErrorText = 'Please enter a valid date less than or equal to %s';
+            } else if (this.minDate) {
+                this.validateDataErrorText = 'Please enter a valid date equal to or greater than %s';
+            } else {
+                this.validateDataErrorText = '';
+            }
+        }
+        return validate;
+    },
+    validateDataErrorText: 'Date should be between %s and %s',
+    errorTextModifier: function(text) {
+        if (this.minDate) {
+            text = text.sub('%s', this.dateFormat(this.minDate));
+        }
+        if (this.maxDate) {
+            text = text.sub('%s', this.dateFormat(this.maxDate));
+        }
+        return text;
+    },
+    dateFormat: function(date) {
+        return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+    }
+});
 
 Varien.FileElement = Class.create();
 Varien.FileElement.prototype = {
     initialize: function (id) {
         this.fileElement = $(id);
         this.hiddenElement = $(id + '_value');
-        
+
         this.fileElement.observe('change', this.selectFile.bind(this));
     },
     selectFile: function(event) {

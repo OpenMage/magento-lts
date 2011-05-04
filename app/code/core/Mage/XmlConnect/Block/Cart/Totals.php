@@ -46,7 +46,7 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
 
         foreach ($this->getQuote()->getTotals() as $total) {
             $code  = $total->getCode();
-            if ($code == 'giftcardaccount') {
+            if ($code == 'giftcardaccount' || $code == 'giftwrapping') {
                 continue;
             }
             $title = '';
@@ -56,7 +56,13 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
                 case 'subtotal':
                     if ($renderer->displayBoth()) {
                         $title = $this->helper('xmlconnect')->__('Subtotal (Excl. Tax)');
-                        $this->_addTotalDataToXmlObj($totalsXmlObj, $code . '_excl_tax', $title, $total->getValueExclTax());
+                        $this->_addTotalDataToXmlObj(
+                            $totalsXmlObj,
+                            $code .
+                            '_excl_tax',
+                            $title,
+                            $total->getValueExclTax()
+                        );
 
                         $code  = $code . '_incl_tax';
                         $title = $this->helper('xmlconnect')->__('Subtotal (Incl. Tax)');
@@ -66,7 +72,13 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
                 case 'shipping':
                     if ($renderer->displayBoth()) {
                         $title = $renderer->getExcludeTaxLabel();
-                        $this->_addTotalDataToXmlObj($totalsXmlObj, $code . '_excl_tax', $title, $renderer->getShippingExcludeTax());
+                        $this->_addTotalDataToXmlObj(
+                            $totalsXmlObj,
+                            $code .
+                            '_excl_tax',
+                            $title,
+                            $renderer->getShippingExcludeTax()
+                        );
 
                         $code  = $code . '_incl_tax';
                         $title = $renderer->getIncludeTaxLabel();
@@ -91,7 +103,7 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
                 default:
                     break;
             }
-            if ($title == '') {
+            if (empty($title)) {
                 $title = $total->getTitle();
             }
             if (is_null($value)) {

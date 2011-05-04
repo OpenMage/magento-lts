@@ -120,6 +120,9 @@ class Mage_Connect_Helper_Data extends Mage_Core_Helper_Data
      */
     public function loadLocalPackage($packageName)
     {
+        //check LFI protection
+        $this->checkLfiProtection($packageName);
+
         $path = $this->getLocalPackagesPath();
         $xmlFile = $path . $packageName . '.xml';
         $serFile = $path . $packageName . '.ser';

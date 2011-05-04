@@ -317,6 +317,9 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             if (is_string($item)) {
                 Mage::throwException($item);
             }
+            if ($item->getHasError()) {
+                Mage::throwException($item->getMessage());
+            }
 
             $related = $this->getRequest()->getParam('related_product');
             if (!empty($related)) {

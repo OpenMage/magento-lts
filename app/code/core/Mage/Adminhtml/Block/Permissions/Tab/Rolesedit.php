@@ -24,7 +24,15 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
+/**
+ * Rolesedit Tab Display Block
+ *
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form
+    implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Get tab label
@@ -66,6 +74,10 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         return false;
     }
 
+    /**
+     * Class constructor
+     *
+     */
     public function __construct()
     {
         parent::__construct();
@@ -79,9 +91,10 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         $selrids = array();
 
         foreach ($rules_set->getItems() as $item) {
-            if (array_key_exists(strtolower($item->getResource_id()), $resources) && $item->getPermission() == 'allow') {
-                $resources[$item->getResource_id()]['checked'] = true;
-                array_push($selrids, $item->getResource_id());
+            $itemResourceId = $item->getResource_id();
+            if (array_key_exists(strtolower($itemResourceId), $resources) && $item->getPermission() == 'allow') {
+                $resources[$itemResourceId]['checked'] = true;
+                array_push($selrids, $itemResourceId);
             }
         }
 
@@ -92,11 +105,21 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         //->assign('checkedResources', join(',', $selrids));
     }
 
+    /**
+     * Check if everything is allowed
+     *
+     * @return boolean
+     */
     public function getEverythingAllowed()
     {
         return in_array('all', $this->getSelectedResources());
     }
 
+    /**
+     * Get Json Representation of Resource Tree
+     *
+     * @return string
+     */
     public function getResTreeJson()
     {
         $rid = Mage::app()->getRequest()->getParam('rid', false);
@@ -109,21 +132,34 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         return $json;
     }
 
+    /**
+     * Compare two nodes of the Resource Tree
+     *
+     * @param array $a
+     * @param array $b
+     * @return boolean
+     */
     protected function _sortTree($a, $b)
     {
         return $a['sort_order']<$b['sort_order'] ? -1 : ($a['sort_order']>$b['sort_order'] ? 1 : 0);
     }
 
-
-    protected function _getNodeJson($node, $level=0)
+    /**
+     * Get Node Json
+     *
+     * @param mixed $node
+     * @param int $level
+     * @return array
+     */
+    protected function _getNodeJson($node, $level = 0)
     {
         $item = array();
         $selres = $this->getSelectedResources();
 
         if ($level != 0) {
-            $item['text']= (string)$node->title;
-            $item['sort_order']= isset($node->sort_order) ? (string)$node->sort_order : 0;
-            $item['id']  = (string)$node->attributes()->aclpath;
+            $item['text'] = Mage::helper('adminhtml')->__((string)$node->title);
+            $item['sort_order'] = isset($node->sort_order) ? (string)$node->sort_order : 0;
+            $item['id'] = (string)$node->attributes()->aclpath;
 
             if (in_array($item['id'], $selres))
                 $item['checked'] = true;
@@ -141,7 +177,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
             $item['children'] = array();
             //$item['cls'] = 'fiche-node';
             foreach ($children as $child) {
-                if ($child->getName()!='title' && $child->getName()!='sort_order') {
+                if ($child->getName() != 'title' && $child->getName() != 'sort_order') {
                     if (!(string)$child->title) {
                         continue;
                     }

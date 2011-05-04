@@ -31,6 +31,9 @@
  */
 class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
 {
+    /**
+     * Xml config path for create account default group
+     */
     const XML_PATH_DEFAULT_ID       = 'customer/create_account/default_group';
 
     const NOT_LOGGED_IN_ID          = 0;

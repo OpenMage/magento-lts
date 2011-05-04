@@ -27,38 +27,38 @@
 -->
 
 <theme>
-<manifest translate="label" module="xmlconnect">
-        <name>default</name>
-        <label>Default Theme</label>
-        <version>1.0</version>
-        <requires>1.4.0.2</requires>
+    <manifest translate="label" module="xmlconnect">
+            <name>default</name>
+            <label>Default Theme</label>
+            <version>1.0</version>
+            <requires>1.4.0.2</requires>
     </manifest>
-<configuration>
-<native>
-<navigationBar>
-<tintColor>#363D40</tintColor>
-</navigationBar>
-<body>
-<primaryColor>#A8A8A8</primaryColor>
-<secondaryColor>#E76E01</secondaryColor>
-<backgroundColor>#ABABAB</backgroundColor>
-<scrollBackgroundColor>#EDEDED</scrollBackgroundColor>
-</body>
-<categoryItem>
-<tintColor>#D13B00</tintColor>
-<backgroundColor>#F3F3F3</backgroundColor>
-</categoryItem>
-<itemActions>
-<relatedProductBackgroundColor>#F3F3F3</relatedProductBackgroundColor>
-</itemActions>
-</native>
-<extra>
-<fontColors>
-<header>#FFFFFF</header>
-<primary>#222222</primary>
-<secondary>#FFFFFF</secondary>
-<price>#D55000</price>
-</fontColors>
-</extra>
-</configuration>
+    <configuration>
+        <native>
+            <navigationBar>
+                <tintColor>#363D40</tintColor>
+            </navigationBar>
+            <body>
+                <primaryColor>#A8A8A8</primaryColor>
+                <secondaryColor>#E76E01</secondaryColor>
+                <backgroundColor>#ABABAB</backgroundColor>
+                <scrollBackgroundColor>#EDEDED</scrollBackgroundColor>
+            </body>
+            <categoryItem>
+                <tintColor>#D13B00</tintColor>
+                <backgroundColor>#F3F3F3</backgroundColor>
+            </categoryItem>
+            <itemActions>
+                <relatedProductBackgroundColor>#F3F3F3</relatedProductBackgroundColor>
+            </itemActions>
+        </native>
+        <extra>
+            <fontColors>
+                <header>#FFFFFF</header>
+                <primary>#222222</primary>
+                <secondary>#FFFFFF</secondary>
+                <price>#D55000</price>
+            </fontColors>
+        </extra>
+    </configuration>
 </theme>

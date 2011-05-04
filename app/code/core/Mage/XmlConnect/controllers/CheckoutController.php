@@ -42,7 +42,8 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
     {
         parent::preDispatch();
         if (!Mage::getSingleton('customer/session')->isLoggedIn()
-            && !Mage::getSingleton('checkout/session')->getQuote()->isAllowedGuestCheckout()) {
+            && !Mage::getSingleton('checkout/session')->getQuote()->isAllowedGuestCheckout()
+        ) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             $this->_message($this->__('Customer not logged in.'), self::MESSAGE_STATUS_ERROR);
             return ;
@@ -175,6 +176,30 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
 
         $data = $this->getRequest()->getPost('shipping', array());
         $customerAddressId = $this->getRequest()->getPost('shipping_address_id', false);
+        /**
+         * For future use, please do not remove for now
+         */
+        $useForShipping = $this->getRequest()->getPost('use_for_shipping');
+
+        $billingAddress = $this->getOnepage()->getQuote()->getBillingAddress();
+        /**
+         * Checking whether shipping address is the same with billing address?
+         * This should be removed when mobile app will send just the 'use_for_shipping' flag
+         */
+        if (is_null($useForShipping)) {
+            $useForShipping = $this->_checkUseForShipping($data, $billingAddress, $customerAddressId);
+        }
+
+        if ($useForShipping) {
+            /**
+             * Set address Id with the billing address Id
+             */
+            $customerAddressId = $billingAddress->getId();
+            /**
+             * Set flag of shipping address is same as billing address
+             */
+            $data['same_as_billing'] = true;
+        }
         $result = $this->getOnepage()->saveShipping($data, $customerAddressId);
         if (!isset($result['error'])) {
             $this->_message($this->__('Shipping address has been set.'), self::MESSAGE_STATUS_SUCCESS);
@@ -184,6 +209,50 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
             }
             $this->_message(implode('. ', $result['message']), self::MESSAGE_STATUS_ERROR);
         }
+    }
+
+    /**
+     * Checks the shipping address is equal with billing address
+     *
+     * ATTENTION!!!
+     * It should be removed when mobile app will send just the 'use_for_shipping' flag
+     * instead of send shipping address same as a billing address
+     *
+     * @todo Remove when mobile app will send just the 'use_for_shipping' flag
+     * @param array $data
+     * @param Mage_Sales_Model_Quote_Address $billingAddress
+     * @param integer $shippingAddressId
+     * @return bool
+     */
+    protected function _checkUseForShipping(array $data, $billingAddress, $shippingAddressId)
+    {
+        $useForShipping = !$shippingAddressId || $billingAddress->getId() == $shippingAddressId;
+
+        if ($useForShipping) {
+            foreach ($data as $key => $value) {
+                if ($key == 'save_in_address_book') {
+                    continue;
+                }
+                $billingData = $billingAddress->getDataUsingMethod($key);
+                if (is_array($value) && is_array($billingData)) {
+                    foreach ($value as $k => $v) {
+                        if (!isset($billingData[$k]) || $billingData[$k] != trim($v)) {
+                            $useForShipping = false;
+                            break;
+                        }
+                    }
+                } else {
+                    if (is_string($value) && $billingData != trim($value)) {
+                        $useForShipping = false;
+                        break;
+                    } else {
+                        $useForShipping = false;
+                        break;
+                    }
+                }
+            }
+        }
+        return $useForShipping;
     }
 
     /**
@@ -226,7 +295,10 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
             if (!is_array($result['message'])) {
                 $result['message'] = array($result['message']);
             }
-            Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method', array('request'=>$this->getRequest(), 'quote'=>$this->getOnepage()->getQuote()));
+            Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method', array(
+                'request' => $this->getRequest(),
+                'quote' => $this->getOnepage()->getQuote()
+            ));
             $this->_message(implode('. ', $result['message']), self::MESSAGE_STATUS_ERROR);
         }
     }
@@ -364,7 +436,6 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
             $error = $this->__('An error occurred while processing your order. Please contact us or try again later.');
         }
         $this->getOnepage()->getQuote()->save();
-
         $this->_message($error, self::MESSAGE_STATUS_ERROR);
     }
 }

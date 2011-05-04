@@ -132,7 +132,7 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
     {
         $this->cleanIndex($storeId, $productIds);
 
-        // preparesearchable attributes
+        // prepare searchable attributes
         $staticFields   = array();
         foreach ($this->_getSearchableAttributes('static') as $attribute) {
             $staticFields[] = $attribute->getAttributeCode();
@@ -188,7 +188,11 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
                 }
 
                 $protductAttr = $productAttributes[$productData['entity_id']];
-                if (!isset($protductAttr[$visibility->getId()]) || !in_array($protductAttr[$visibility->getId()], $visibilityVals)) {
+                if (!isset($protductAttr[$visibility->getId()])
+                    || (!in_array($protductAttr[$visibility->getId()], $visibilityVals)
+                        && !$this->_engine->allowAdvancedIndex()
+                    )
+                ) {
                     continue;
                 }
                 if (!isset($protductAttr[$status->getId()]) || !in_array($protductAttr[$status->getId()], $statusVals)) {
@@ -259,8 +263,7 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
         $result = $this->_getWriteAdapter()->fetchAll($select);
         if ($this->_engine && $this->_engine->allowAdvancedIndex() && count($result) > 0) {
             return $this->_engine->addAdvancedIndex($result, $storeId, $productIds);
-        }
-        else {
+        } else {
             return $result;
         }
     }
@@ -652,7 +655,7 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
             $value = implode($this->_separator, $value);
         }
 
-        return preg_replace("#\s+#si", ' ', trim(strip_tags($value)));
+        return preg_replace("#\s+#siu", ' ', trim(strip_tags($value)));
     }
 
     /**

@@ -46,6 +46,7 @@
             <block type="xmlconnect/catalog_product_list" name="xmlconnect.catalog.product.list" as="product_list" output="">
                 <block type="xmlconnect/catalog_product_price" name="xmlconnect.catalog.product.price" as="product_price" output="">
                     <action method="addRenderer"><type>bundle</type><renderer>xmlconnect/catalog_product_price_bundle</renderer></action>
+                    <action method="addRenderer"><type>giftcard</type><renderer>xmlconnect/catalog_product_price_giftcard</renderer></action>
                 </block>
             </block>
 
@@ -61,6 +62,7 @@
 
             <block type="xmlconnect/catalog_product_price" name="xmlconnect.catalog.product.price" as="product_price" output="">
                 <action method="addRenderer"><type>bundle</type><renderer>xmlconnect/catalog_product_price_bundle</renderer></action>
+                <action method="addRenderer"><type>giftcard</type><renderer>xmlconnect/catalog_product_price_giftcard</renderer></action>
             </block>
 
             <block type="xmlconnect/catalog_product_attributes" name="xmlconnect.catalog.product.attributes" as="additional_info" output="" />
@@ -71,6 +73,7 @@
                 <action method="addRenderer"><type>configurable</type><renderer>xmlconnect/catalog_product_options_configurable</renderer></action>
                 <action method="addRenderer"><type>bundle</type><renderer>xmlconnect/catalog_product_options_bundle</renderer></action>
                 <action method="addRenderer"><type>grouped</type><renderer>xmlconnect/catalog_product_options_grouped</renderer></action>
+                <action method="addRenderer"><type>giftcard</type><renderer>xmlconnect/catalog_product_options_giftcard</renderer></action>
             </block>
         </block>
     </xmlconnect_catalog_product>
@@ -82,6 +85,7 @@
             <action method="addRenderer"><type>configurable</type><renderer>xmlconnect/catalog_product_options_configurable</renderer></action>
             <action method="addRenderer"><type>bundle</type><renderer>xmlconnect/catalog_product_options_bundle</renderer></action>
             <action method="addRenderer"><type>grouped</type><renderer>xmlconnect/catalog_product_options_grouped</renderer></action>
+            <action method="addRenderer"><type>giftcard</type><renderer>xmlconnect/catalog_product_options_giftcard</renderer></action>
         </block>
     </xmlconnect_catalog_productoptions>
 
@@ -104,6 +108,7 @@
             <block type="xmlconnect/catalog_product_list" name="xmlconnect.catalog.product.list" as="product_list" output="">
                 <block type="xmlconnect/catalog_product_price" name="xmlconnect.catalog.product.price" as="product_price" output="">
                     <action method="addRenderer"><type>bundle</type><renderer>xmlconnect/catalog_product_price_bundle</renderer></action>
+                    <action method="addRenderer"><type>giftcard</type><renderer>xmlconnect/catalog_product_price_giftcard</renderer></action>
                 </block>
             </block>
         </block>
@@ -120,10 +125,12 @@
             <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/cart/item/default.phtml</template></action>
             <action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>checkout/cart/item/default.phtml</template></action>
             <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/cart/item/default.phtml</template></action>
+            <action method="addItemRender"><type>giftcard</type><block>enterprise_giftcard/checkout_cart_item_renderer</block><template>checkout/cart/item/default.phtml</template></action>
 
             <block type="xmlconnect/cart_crosssell" name="xmlconnect.cart.crosssell" as="crosssell">
                 <block type="xmlconnect/catalog_product_price" name="xmlconnect.catalog.product.price" as="product_price" output="">
                     <action method="addRenderer"><type>bundle</type><renderer>xmlconnect/catalog_product_price_bundle</renderer></action>
+                    <action method="addRenderer"><type>giftcard</type><renderer>giftcard/catalog_product_price_giftcard</renderer></action>
                 </block>
             </block>
         </block>
@@ -145,6 +152,7 @@
         <block type="xmlconnect/wishlist" name="xmlconnect.wishlist" output="toHtml">
             <block type="xmlconnect/catalog_product_price" name="xmlconnect.catalog.product.price" as="product_price" output="">
                 <action method="addRenderer"><type>bundle</type><renderer>xmlconnect/catalog_product_price_bundle</renderer></action>
+                <action method="addRenderer"><type>giftcard</type><renderer>xmlconnect/catalog_product_price_giftcard</renderer></action>
             </block>
         </block>
     </xmlconnect_wishlist_index>
@@ -221,6 +229,7 @@
                 <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
                 <action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
                 <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>
+                <action method="addItemRender"><type>giftcard</type><block>enterprise_giftcard/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
             </block>
 
             <block type="xmlconnect/cart_totals" name="xmlconnect.checkout.order.review.totals" as="totals"/>
@@ -244,4 +253,15 @@
         <block type="xmlconnect/cms_page" name="xmlconnect.cms.page" output="toHtml"/>
     </xmlconnect_cms_page>
 
+    <!-- Payment bridge -->
+
+    <xmlconnect_pbridge_result>
+        <block type="xmlconnect/checkout_pbridge_result" name="xmlconnect.checkout.pbridge.result" template="xmlconnect/pbridge/result.phtml" output="toHtml" />
+    </xmlconnect_pbridge_result>
+
+    <!-- Product review -->
+
+    <xmlconnect_review_form>
+        <block type="xmlconnect/review_form" name="xmlconnect.review.form" output="toHtml"/>
+    </xmlconnect_review_form>
 </layout>

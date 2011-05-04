@@ -102,7 +102,9 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 "_discount_percent.website_id = '{$websiteId}'",
                 "_discount_percent.customer_group_id = '{$customerGroupId}'",
             );
-            $select->joinLeft(array('_discount_percent'=>Mage::getSingleton('weee/tax')->getResource()->getTable('weee/discount')), implode(' AND ', $joinConditions), array());
+            $tableWeeDiscount = Mage::getSingleton('weee/tax')->getResource()->getTable('weee/discount');
+            $select->joinLeft(
+                array('_discount_percent' => $tableWeeDiscount), implode(' AND ', $joinConditions), array());
         }
         foreach ($attributes as $attribute) {
             $tableAlias = "weee_{$attribute}_table";
@@ -116,7 +118,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         $response->setAdditionalCalculations($additionalCalculations);
 
         $rateRequest = Mage::getSingleton('tax/calculation')->getRateRequest();
-        $attributes = array();
+
         $attributes = Mage::getSingleton('weee/tax')->getWeeeTaxAttributeCodes();
         foreach ($attributes as $attribute) {
             $attributeId = Mage::getSingleton('eav/entity_attribute')->getIdByCode('catalog_product', $attribute);
@@ -133,7 +135,8 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
             $on[] = "({$tableAlias}.state in ('{$region}', '*'))";
 
             $attributeSelect = $this->_getSelect();
-            $attributeSelect->from(array($tableAlias=>Mage::getSingleton('weee/tax')->getResource()->getTable('weee/tax')));
+            $attributeSelect->from(array(
+                $tableAlias => Mage::getSingleton('weee/tax')->getResource()->getTable('weee/tax')));
 
 
             foreach ($on as $one) {
@@ -141,10 +144,11 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
             }
             $attributeSelect->limit(1);
 
-            $order = array($tableAlias.'.state DESC', $tableAlias.'.website_id DESC');
+            $order = array($tableAlias . '.state DESC', $tableAlias . '.website_id DESC');
 
             $attributeSelect->order($order);
-            $select->joinLeft(array($tableAlias=>$attributeSelect), $table.'.entity_id = '.$tableAlias.'.entity_id', array());
+            $select->joinLeft(array(
+                $tableAlias => $attributeSelect), $table . '.entity_id = ' . $tableAlias . '.entity_id', array());
         }
     }
 

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/"
-    name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
     <types>
         <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
-            <import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
-<!--            <complexType name="customerCustomerEntityToCreate">
+            <complexType name="shoppingCartAddressEntity">
                 <all>
                     <element name="address_id" type="xsd:string" minOccurs="0"/>
                     <element name="created_at" type="xsd:string" minOccurs="0"/>
@@ -223,8 +224,8 @@
                     <element name="sku" type="xsd:string" minOccurs="0"/>
                     <element name="qty" type="xsd:double" minOccurs="0"/>
                     <element name="options" type="typens:associativeArray" minOccurs="0"/>
-                    <element name="bundle_options" type="typens:associativeArray" minOccurs="0"/>
-                    <element name="bundle_options_qty" type="typens:associativeArray" minOccurs="0"/>
+                    <element name="bundle_option" type="typens:associativeArray" minOccurs="0"/>
+                    <element name="bundle_option_qty" type="typens:associativeArray" minOccurs="0"/>
                     <element name="links" type="typens:ArrayOfString" minOccurs="0"/>
                 </all>
             </complexType>
@@ -255,27 +256,24 @@
                     <element name="store_id" type="xsd:int" minOccurs="0"/>
                     <element name="group_id" type="xsd:int" minOccurs="0"/>
                 </all>
-            </complexType>-->
-<!--            <complexType name="customerCustomerEntity">
+            </complexType>
+            <complexType name="shoppingCartCustomerAddressEntity">
                 <all>
-                    <element name="customer_id" type="xsd:int" minOccurs="0" />
-                    <element name="created_at" type="xsd:string" minOccurs="0" />
-                    <element name="updated_at" type="xsd:string" minOccurs="0" />
-                    <element name="increment_id" type="xsd:string" minOccurs="0" />
-                    <element name="store_id" type="xsd:int" minOccurs="0" />
-                    <element name="website_id" type="xsd:int" minOccurs="0" />
-                    <element name="created_in" type="xsd:string" minOccurs="0" />
-                    <element name="email" type="xsd:string" minOccurs="0" />
-                    <element name="firstname" type="xsd:string" minOccurs="0" />
-                    <element name="middlename" type="xsd:string" minOccurs="0" />
-                    <element name="lastname" type="xsd:string" minOccurs="0" />
-                    <element name="group_id" type="xsd:int" minOccurs="0" />
-                    <element name="prefix" type="xsd:string" minOccurs="0" />
-                    <element name="suffix" type="xsd:string" minOccurs="0" />
-                    <element name="dob" type="xsd:string" minOccurs="0" />
-                    <element name="taxvat" type="xsd:string" minOccurs="0" />
-                    <element name="confirmation" type="xsd:boolean" minOccurs="0" />
-                    <element name="password_hash" type="xsd:string" minOccurs="0" />
+                    <element name="mode" type="xsd:string" minOccurs="0"/>
+                    <element name="address_id" type="xsd:string" minOccurs="0"/>
+                    <element name="firstname" type="xsd:string" minOccurs="0"/>
+                    <element name="lastname" type="xsd:string" minOccurs="0"/>
+                    <element name="company" type="xsd:string" minOccurs="0"/>
+                    <element name="street" type="xsd:string" minOccurs="0"/>
+                    <element name="city" type="xsd:string" minOccurs="0"/>
+                    <element name="region" type="xsd:string" minOccurs="0"/>
+                    <element name="region_id" type="xsd:string" minOccurs="0"/>
+                    <element name="postcode" type="xsd:string" minOccurs="0"/>
+                    <element name="country_id" type="xsd:string" minOccurs="0"/>
+                    <element name="telephone" type="xsd:string" minOccurs="0"/>
+                    <element name="fax" type="xsd:string" minOccurs="0"/>
+                    <element name="is_default_billing" type="xsd:int" minOccurs="0"/>
+                    <element name="is_default_shipping" type="xsd:int" minOccurs="0"/>
                 </all>
             </complexType>
             <complexType name="shoppingCartCustomerAddressEntityArray">
@@ -285,10 +283,15 @@
                     </restriction>
                 </complexContent>
             </complexType>
-            <complexType name="customerGroupEntity">
+            <complexType name="shoppingCartShippingMethodEntity">
                 <all>
-                    <element name="customer_group_id" type="xsd:int" />
-                    <element name="customer_group_code" type="xsd:string" />
+                    <element name="code" type="xsd:string" minOccurs="0"/>
+                    <element name="carrier" type="xsd:string" minOccurs="0"/>
+                    <element name="carrier_title" type="xsd:string" minOccurs="0"/>
+                    <element name="method" type="xsd:string" minOccurs="0"/>
+                    <element name="method_title" type="xsd:string" minOccurs="0"/>
+                    <element name="method_description" type="xsd:string" minOccurs="0"/>
+                    <element name="price" type="xsd:double" minOccurs="0"/>
                 </all>
             </complexType>
             <complexType name="shoppingCartShippingMethodEntityArray">
@@ -298,296 +301,472 @@
                     </restriction>
                 </complexContent>
             </complexType>
-            <complexType name="customerAddressEntityCreate">
+
+            <complexType name="shoppingCartPaymentMethodEntity">
                 <all>
-                    <element name="city" type="xsd:string" minOccurs="0" />
-                    <element name="company" type="xsd:string" minOccurs="0" />
-                    <element name="country_id" type="xsd:string" minOccurs="0" />
-                    <element name="fax" type="xsd:string" minOccurs="0" />
-                    <element name="firstname" type="xsd:string" minOccurs="0" />
-                    <element name="lastname" type="xsd:string" minOccurs="0" />
-                    <element name="middlename" type="xsd:string" minOccurs="0" />
-                    <element name="postcode" type="xsd:string" minOccurs="0" />
-                    <element name="prefix" type="xsd:string" minOccurs="0" />
-                    <element name="region_id" type="xsd:int" minOccurs="0" />
-                    <element name="region" type="xsd:string" minOccurs="0" />
-                    <element name="street" type="typens:ArrayOfString" minOccurs="0" />
-                    <element name="suffix" type="xsd:string" minOccurs="0" />
-                    <element name="telephone" type="xsd:string" minOccurs="0" />
-                    <element name="is_default_billing" type="xsd:boolean" minOccurs="0" />
-                    <element name="is_default_shipping" type="xsd:boolean" minOccurs="0" />
+                    <element name="po_number" type="xsd:string" minOccurs="0"/>
+                    <element name="method" type="xsd:string" minOccurs="0"/>
+                    <element name="cc_cid" type="xsd:string" minOccurs="0"/>
+                    <element name="cc_owner" type="xsd:string" minOccurs="0"/>
+                    <element name="cc_number" type="xsd:string" minOccurs="0"/>
+                    <element name="cc_type" type="xsd:string" minOccurs="0"/>
+                    <element name="cc_exp_year" type="xsd:string" minOccurs="0"/>
+                    <element name="cc_exp_month" type="xsd:string" minOccurs="0"/>
                 </all>
             </complexType>
-            <complexType name="customerAddressEntityItem">
+            <complexType name="shoppingCartPaymentMethodResponseEntityArray">
                 <all>
-                    <element name="customer_address_id" type="xsd:int" minOccurs="0" />
-                    <element name="created_at" type="xsd:string" minOccurs="0" />
-                    <element name="updated_at" type="xsd:string" minOccurs="0" />
-                    <element name="increment_id" type="xsd:string" minOccurs="0" />
-                    <element name="city" type="xsd:string" minOccurs="0" />
-                    <element name="company" type="xsd:string" minOccurs="0" />
-                    <element name="country_id" type="xsd:string" minOccurs="0" />
-                    <element name="fax" type="xsd:string" minOccurs="0" />
-                    <element name="firstname" type="xsd:string" minOccurs="0" />
-                    <element name="lastname" type="xsd:string" minOccurs="0" />
-                    <element name="middlename" type="xsd:string" minOccurs="0" />
-                    <element name="postcode" type="xsd:string" minOccurs="0" />
-                    <element name="prefix" type="xsd:string" minOccurs="0" />
-                    <element name="region" type="xsd:string" minOccurs="0" />
-                    <element name="region_id" type="xsd:int" minOccurs="0" />
-                    <element name="street" type="xsd:string" minOccurs="0" />
-                    <element name="suffix" type="xsd:string" minOccurs="0" />
-                    <element name="telephone" type="xsd:string" minOccurs="0" />
-                    <element name="is_default_billing" type="xsd:boolean" minOccurs="0" />
-                    <element name="is_default_shipping" type="xsd:boolean" minOccurs="0" />
+                    <element name="code" type="xsd:string"/>
+                    <element name="title" type="xsd:string"/>
+                    <element name="cc_types" type="typens:associativeArray"/>
                 </all>
             </complexType>
-            <complexType name="customerAddressEntityArray">
-                <complexContent>
-                    <restriction base="soapenc:Array">
-                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:customerAddressEntityItem[]" />
-                    </restriction>
-                </complexContent>
-            </complexType>-->
         </schema>
     </types>
     <message name="shoppingCartCreateRequest">
-        <part name="sessionId" type="xsd:string" />
-        <part name="storeId" type="xsd:string" />
+        <part name="sessionId" type="xsd:string"/>
+        <part name="storeId" type="xsd:string"/>
     </message>
     <message name="shoppingCartCreateResponse">
-        <part name="cartId" type="xsd:int" />
+        <part name="quoteId" type="xsd:int"/>
     </message>
-<!--    <message name="customerCustomerCreateRequest">
-        <part name="sessionId" type="xsd:string" />
-        <part name="customerData" type="typens:customerCustomerEntityToCreate" />
+    <message name="shoppingCartOrderRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="storeId" type="xsd:string"/>
+        <part name="licenses" type="typens:ArrayOfString"/>
     </message>
-    <message name="customerCustomerCreateResponse">
-        <part name="result" type="xsd:int" />
+    <message name="shoppingCartOrderResponse">
+        <part name="result" type="xsd:string"/>
     </message>
-    <message name="customerCustomerInfoRequest">
-        <part name="sessionId" type="xsd:string" />
-        <part name="customerId" type="xsd:int" />
-        <part name="attributes" type="typens:ArrayOfString" />
+    <message name="shoppingCartInfoRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="storeId" type="xsd:string"/>
     </message>
     <message name="shoppingCartInfoResponse">
         <part name="result" type="typens:shoppingCartInfoEntity"/>
     </message>
-    <message name="customerCustomerUpdateRequest">
-        <part name="sessionId" type="xsd:string" />
-        <part name="customerId" type="xsd:int" />
-        <part name="customerData" type="typens:customerCustomerEntityToCreate" />
+    <message name="shoppingCartTotalsRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="storeId" type="xsd:string"/>
     </message>
     <message name="shoppingCartTotalsResponse">
         <part name="result" type="typens:shoppingCartTotalsEntityArray"/>
     </message>
-    <message name="customerCustomerDeleteRequest">
-        <part name="sessionId" type="xsd:string" />
-        <part name="customerId" type="xsd:int" />
+    <message name="shoppingCartLicenseRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="storeId" type="xsd:string"/>
     </message>
-    <message name="customerCustomerDeleteResponse">
-        <part name="result" type="xsd:boolean" />
+    <message name="shoppingCartLicenseResponse">
+        <part name="result" type="typens:shoppingCartLicenseEntityArray"/>
     </message>
-    <message name="customerGroupListRequest">
-        <part name="sessionId" type="xsd:string" />
+    <message name="shoppingCartProductAddRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="products" type="typens:shoppingCartProductEntityArray"/>
+        <part name="storeId" type="xsd:string"/>
     </message>
-    <message name="customerGroupListResponse">
-        <part name="result" type="typens:customerGroupEntityArray" />
+    <message name="shoppingCartProductAddResponse">
+        <part name="result" type="xsd:boolean"/>
     </message>
-    <message name="customerAddressListRequest">
-        <part name="sessionId" type="xsd:string" />
-        <part name="customerId" type="xsd:int" />
+    <message name="shoppingCartProductUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="products" type="typens:shoppingCartProductEntityArray"/>
+        <part name="storeId" type="xsd:string"/>
     </message>
-    <message name="customerAddressListResponse">
-        <part name="result" type="typens:customerAddressEntityArray" />
+    <message name="shoppingCartProductUpdateResponse">
+        <part name="result" type="xsd:boolean"/>
     </message>
-    <message name="customerAddressCreateRequest">
-        <part name="sessionId" type="xsd:string" />
-        <part name="customerId" type="xsd:int" />
-        <part name="addressData" type="typens:customerAddressEntityCreate" />
+    <message name="shoppingCartProductRemoveRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="products" type="typens:shoppingCartProductEntityArray"/>
+        <part name="storeId" type="xsd:string"/>
     </message>
-    <message name="customerAddressCreateResponse">
-        <part name="result" type="xsd:int" />
+    <message name="shoppingCartProductRemoveResponse">
+        <part name="result" type="xsd:boolean"/>
     </message>
-    <message name="customerAddressInfoRequest">
-        <part name="sessionId" type="xsd:string" />
-        <part name="addressId" type="xsd:int" />
+    <message name="shoppingCartProductListRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="storeId" type="xsd:string"/>
     </message>
-    <message name="customerAddressInfoResponse">
-        <part name="info" type="typens:customerAddressEntityItem" />
+    <message name="shoppingCartProductListResponse">
+        <part name="result" type="typens:shoppingCartProductResponseEntityArray"/>
     </message>
-    <message name="customerAddressUpdateRequest">
-        <part name="sessionId" type="xsd:string" />
-        <part name="addressId" type="xsd:int" />
-        <part name="addressData" type="typens:customerAddressEntityCreate" />
+    <message name="shoppingCartProductMoveToCustomerQuoteRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="products" type="typens:shoppingCartProductEntityArray"/>
+        <part name="storeId" type="xsd:string"/>
     </message>
-    <message name="customerAddressUpdateResponse">
-        <part name="info" type="xsd:boolean" />
+    <message name="shoppingCartProductMoveToCustomerQuoteResponse">
+        <part name="result" type="xsd:boolean"/>
     </message>
-    <message name="customerAddressDeleteRequest">
-        <part name="sessionId" type="xsd:string" />
-        <part name="addressId" type="xsd:int" />
+    <message name="shoppingCartCustomerSetRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="customer" type="typens:shoppingCartCustomerEntity"/>
+        <part name="storeId" type="xsd:string"/>
     </message>
-    <message name="customerAddressDeleteResponse">
-        <part name="info" type="xsd:boolean" />
-    </message>-->
+    <message name="shoppingCartCustomerSetResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="shoppingCartCustomerAddressesRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="customer" type="typens:shoppingCartCustomerAddressEntityArray"/>
+        <part name="storeId" type="xsd:string"/>
+    </message>
+    <message name="shoppingCartCustomerAddressesResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="shoppingCartShippingMethodRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="method" type="xsd:string"/>
+        <part name="storeId" type="xsd:string"/>
+    </message>
+    <message name="shoppingCartShippingMethodResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="shoppingCartShippingListRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="storeId" type="xsd:string"/>
+    </message>
+    <message name="shoppingCartShippingListResponse">
+        <part name="result" type="typens:shoppingCartShippingMethodEntityArray"/>
+    </message>
+    <message name="shoppingCartPaymentMethodRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="method" type="typens:shoppingCartPaymentMethodEntity"/>
+        <part name="storeId" type="xsd:string"/>
+    </message>
+    <message name="shoppingCartPaymentMethodResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="shoppingCartPaymentListRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="storeId" type="xsd:string"/>
+    </message>
+    <message name="shoppingCartPaymentListResponse">
+        <part name="result" type="typens:shoppingCartPaymentMethodResponseEntityArray"/>
+    </message>
+    <message name="shoppingCartCouponAddRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="couponCode" type="xsd:string"/>
+        <part name="storeId" type="xsd:string"/>
+    </message>
+    <message name="shoppingCartCouponAddResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="shoppingCartCouponRemoveRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+        <part name="storeId" type="xsd:string"/>
+    </message>
+    <message name="shoppingCartCouponRemoveResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
     <portType name="{{var wsdl.handler}}PortType">
         <operation name="shoppingCartCreate">
             <documentation>Create shopping cart</documentation>
-            <input message="typens:shoppingCartCreateRequest" />
-            <output message="typens:shoppingCartCreateResponse" />
+            <input message="typens:shoppingCartCreateRequest"/>
+            <output message="typens:shoppingCartCreateResponse"/>
         </operation>
-<!--        <operation name="customerCustomerCreate">
-            <documentation>Create customer</documentation>
-            <input message="typens:customerCustomerCreateRequest" />
-            <output message="typens:customerCustomerCreateResponse" />
+        <operation name="shoppingCartInfo">
+            <documentation>Retrieve information about shopping cart</documentation>
+            <input message="typens:shoppingCartInfoRequest"/>
+            <output message="typens:shoppingCartInfoResponse"/>
         </operation>
-        <operation name="customerCustomerInfo">
-            <documentation>Retrieve customer data</documentation>
-            <input message="typens:customerCustomerInfoRequest" />
-            <output message="typens:customerCustomerInfoResponse" />
+        <operation name="shoppingCartOrder">
+            <documentation>Create an order from shopping cart</documentation>
+            <input message="typens:shoppingCartOrderRequest"/>
+            <output message="typens:shoppingCartOrderResponse"/>
         </operation>
-        <operation name="customerCustomerUpdate">
-            <documentation>Update customer data</documentation>
-            <input message="typens:customerCustomerUpdateRequest" />
-            <output message="typens:customerCustomerUpdateResponse" />
+        <operation name="shoppingCartTotals">
+            <documentation>Get total prices for shopping cart</documentation>
+            <input message="typens:shoppingCartTotalsRequest"/>
+            <output message="typens:shoppingCartTotalsResponse"/>
         </operation>
-        <operation name="customerCustomerDelete">
-            <documentation>Delete customer</documentation>
-            <input message="typens:customerCustomerDeleteRequest" />
-            <output message="typens:customerCustomerDeleteResponse" />
+        <operation name="shoppingCartLicense">
+            <documentation>Get terms and conditions</documentation>
+            <input message="typens:shoppingCartLicenseRequest"/>
+            <output message="typens:shoppingCartLicenseResponse"/>
         </operation>
-        <operation name="customerGroupList">
-            <documentation>Retrieve customer groups</documentation>
-            <input message="typens:customerGroupListRequest" />
-            <output message="typens:customerGroupListResponse" />
+        <operation name="shoppingCartProductAdd">
+            <documentation>Add product(s) to shopping cart</documentation>
+            <input message="typens:shoppingCartProductAddRequest"/>
+            <output message="typens:shoppingCartProductAddResponse"/>
         </operation>
-        <operation name="customerAddressList">
-            <documentation>Retrieve customer addresses</documentation>
-            <input message="typens:customerAddressListRequest" />
-            <output message="typens:customerAddressListResponse" />
+        <operation name="shoppingCartProductUpdate">
+            <documentation>Update product(s) quantities in shopping cart</documentation>
+            <input message="typens:shoppingCartProductUpdateRequest"/>
+            <output message="typens:shoppingCartProductUpdateResponse"/>
         </operation>
-        <operation name="customerAddressCreate">
-            <documentation>Create customer address</documentation>
-            <input message="typens:customerAddressCreateRequest" />
-            <output message="typens:customerAddressCreateResponse" />
+        <operation name="shoppingCartProductRemove">
+            <documentation>Remove product(s) from shopping cart</documentation>
+            <input message="typens:shoppingCartProductRemoveRequest"/>
+            <output message="typens:shoppingCartProductRemoveResponse"/>
         </operation>
-        <operation name="customerAddressInfo">
-            <documentation>Retrieve customer address data</documentation>
-            <input message="typens:customerAddressInfoRequest" />
-            <output message="typens:customerAddressInfoResponse" />
+        <operation name="shoppingCartProductList">
+            <documentation>Get list of products in shopping cart</documentation>
+            <input message="typens:shoppingCartProductListRequest"/>
+            <output message="typens:shoppingCartProductListResponse"/>
         </operation>
-        <operation name="customerAddressUpdate">
-            <documentation>Update customer address data</documentation>
-            <input message="typens:customerAddressUpdateRequest" />
-            <output message="typens:customerAddressUpdateResponse" />
+        <operation name="shoppingCartProductMoveToCustomerQuote">
+            <documentation>Move product(s) to customer quote</documentation>
+            <input message="typens:shoppingCartProductMoveToCustomerQuoteRequest"/>
+            <output message="typens:shoppingCartProductMoveToCustomerQuoteResponse"/>
         </operation>
-        <operation name="customerAddressDelete">
-            <documentation>Delete customer address</documentation>
-            <input message="typens:customerAddressDeleteRequest" />
-            <output message="typens:customerAddressDeleteResponse" />
-        </operation>-->
+        <operation name="shoppingCartCustomerSet">
+            <documentation>Set customer for shopping cart</documentation>
+            <input message="typens:shoppingCartCustomerSetRequest"/>
+            <output message="typens:shoppingCartCustomerSetResponse"/>
+        </operation>
+        <operation name="shoppingCartCustomerAddresses">
+            <documentation>Set customer's addresses in shopping cart</documentation>
+            <input message="typens:shoppingCartCustomerAddressesRequest"/>
+            <output message="typens:shoppingCartCustomerAddressesResponse"/>
+        </operation>
+        <operation name="shoppingCartShippingMethod">
+            <documentation>Set shipping method</documentation>
+            <input message="typens:shoppingCartShippingMethodRequest"/>
+            <output message="typens:shoppingCartShippingMethodResponse"/>
+        </operation>
+        <operation name="shoppingCartShippingList">
+            <documentation>Get list of available shipping methods</documentation>
+            <input message="typens:shoppingCartShippingListRequest"/>
+            <output message="typens:shoppingCartShippingListResponse"/>
+        </operation>
+        <operation name="shoppingCartPaymentMethod">
+            <documentation>Set payment method</documentation>
+            <input message="typens:shoppingCartPaymentMethodRequest"/>
+            <output message="typens:shoppingCartPaymentMethodResponse"/>
+        </operation>
+        <operation name="shoppingCartPaymentList">
+            <documentation>Get list of available payment methods</documentation>
+            <input message="typens:shoppingCartPaymentListRequest"/>
+            <output message="typens:shoppingCartPaymentListResponse"/>
+        </operation>
+        <operation name="shoppingCartCouponAdd">
+            <documentation>Add coupon code for shopping cart</documentation>
+            <input message="typens:shoppingCartCouponAddRequest"/>
+            <output message="typens:shoppingCartCouponAddResponse"/>
+        </operation>
+        <operation name="shoppingCartCouponRemove">
+            <documentation>Remove coupon code from shopping cart</documentation>
+            <input message="typens:shoppingCartCouponRemoveRequest"/>
+            <output message="typens:shoppingCartCouponRemoveResponse"/>
+        </operation>
     </portType>
     <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
-        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="shoppingCartCreate">
-            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
-<!--        <operation name="customerCustomerCreate">
-            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+        <operation name="shoppingCartInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
-        <operation name="customerCustomerInfo">
-            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+        <operation name="shoppingCartTotals">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
-        <operation name="customerCustomerUpdate">
-            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+        <operation name="shoppingCartOrder">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
-        <operation name="customerCustomerDelete">
-            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+        <operation name="shoppingCartLicense">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
-        <operation name="customerGroupList">
-            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+        <operation name="shoppingCartProductAdd">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
-        <operation name="customerAddressList">
-            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+        <operation name="shoppingCartProductUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
-        <operation name="customerAddressCreate">
-            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+        <operation name="shoppingCartProductRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
-        <operation name="customerAddressInfo">
-            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+        <operation name="shoppingCartProductList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
-        <operation name="customerAddressUpdate">
-            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+        <operation name="shoppingCartProductMoveToCustomerQuote">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
-        <operation name="customerAddressDelete">
-            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+        <operation name="shoppingCartCustomerSet">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
-        </operation>-->
+        </operation>
+        <operation name="shoppingCartCustomerAddresses">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="shoppingCartShippingMethod">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="shoppingCartShippingList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="shoppingCartPaymentMethod">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="shoppingCartPaymentList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="shoppingCartCouponAdd">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="shoppingCartCouponRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
     </binding>
 </definitions>

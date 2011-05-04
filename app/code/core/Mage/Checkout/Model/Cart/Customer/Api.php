@@ -112,7 +112,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
 
         $customerAddressData = $this->_prepareCustomerAddressData($customerAddressData);
         if (is_null($customerAddressData)) {
-            $this->_fault('customer_address_data_invalid');
+            $this->_fault('customer_address_data_empty');
         }
         
         foreach ($customerAddressData as $addressItem) {
@@ -132,7 +132,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
             if (!empty($addressItem['entity_id'])) {
                 $customerAddress = $this->_getCustomerAddress($addressItem['entity_id']);
                 if ($customerAddress->getCustomerId() != $quote->getCustomerId()) {
-                    $this->_fault('customer_address_invalid');
+                    $this->_fault('address_not_belong_customer');
                 }
                 $address->importCustomerAddress($customerAddress);
 

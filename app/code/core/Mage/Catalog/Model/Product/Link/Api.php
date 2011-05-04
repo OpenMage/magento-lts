@@ -261,29 +261,12 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
      * Initilize and return product model
      *
      * @param int $productId
+     * @param  string $identifierType
      * @return Mage_Catalog_Model_Product
      */
     protected function _initProduct($productId, $identifierType = null)
     {
-        $loadByIdOnFalse = false;
-        if ($identifierType === null) {
-            $identifierType = 'sku';
-            $loadByIdOnFalse = true;
-        }
-        $product = Mage::getModel('catalog/product')
-            ->setStoreId($this->_getStoreId());
-        if ($identifierType == 'sku') {
-            $idBySku = $product->getIdBySku($productId);
-            if ($idBySku) {
-                $productId = $idBySku;
-            }
-            if ($idBySku || $loadByIdOnFalse) {
-                $product->load($productId);
-            }
-        } elseif ($identifierType == 'id') {
-            $product->load($productId);
-        }
-
+        $product = Mage::helper('catalog/product')->getProduct($productId, null, $identifierType);
         if (!$product->getId()) {
             $this->_fault('product_not_exists');
         }

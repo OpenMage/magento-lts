@@ -23,12 +23,14 @@
  * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/** @var $this Mage_Adminhtml_Block_Page_Header */
 ?>
 <div class="header-top">
     <a href="<?php echo $this->getHomeLink() ?>"><img src="<?php echo $this->getSkinUrl($this->__('images/logo.gif')) ?>" alt="<?php echo $this->__('Magento Logo') ?>" class="logo"/></a>
     <div class="header-right">
         <p class="super">
-            <?php echo $this->__("Logged in as %s", $this->getUser()->getUsername()) ?><span class="separator">|</span><?php echo $this->formatDate(null, 'full') ?><span class="separator">|</span><a href="http://golinks.magento.com/CE15" onclick="this.target='_blank'" class="go-try"><?php echo $this->__('Try Magento Go for Free') ?></a><span class="separator">|</span><a href="<?php echo $this->getLogoutLink() ?>" class="link-logout"><?php echo $this->__('Log Out') ?></a>
+            <?php echo $this->__("Logged in as %s", $this->escapeHtml($this->getUser()->getUsername())) ?><span class="separator">|</span><?php echo $this->formatDate(null, 'full') ?><span class="separator">|</span><a href="http://golinks.magento.com/CE15" onclick="this.target='_blank'" class="go-try"><?php echo $this->__('Try Magento Go for Free') ?></a><span class="separator">|</span><a href="<?php echo $this->getLogoutLink() ?>" class="link-logout"><?php echo $this->__('Log Out') ?></a>
         </p>
         <?php if ( Mage::getSingleton('admin/session')->isAllowed('admin/global_search') ): ?>
         <fieldset>

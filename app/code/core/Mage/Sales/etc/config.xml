@@ -654,7 +654,7 @@
                         <statuses>
                             <pending default="1"/>
                         </statuses>
-                        <visible_on_front/>
+                        <visible_on_front>1</visible_on_front>
                     </new>
                     <pending_payment translate="label">
                         <label>Pending Payment</label>
@@ -667,35 +667,35 @@
                         <statuses>
                             <processing default="1"/>
                         </statuses>
-                        <visible_on_front/>
+                        <visible_on_front>1</visible_on_front>
                     </processing>
                     <complete translate="label">
                         <label>Complete</label>
                         <statuses>
                             <complete default="1"/>
                         </statuses>
-                        <visible_on_front/>
+                        <visible_on_front>1</visible_on_front>
                     </complete>
                     <closed translate="label">
                         <label>Closed</label>
                         <statuses>
                             <closed default="1"/>
                         </statuses>
-                        <visible_on_front/>
+                        <visible_on_front>1</visible_on_front>
                     </closed>
                     <canceled translate="label">
                         <label>Canceled</label>
                         <statuses>
                             <canceled default="1"/>
                         </statuses>
-                        <visible_on_front/>
+                        <visible_on_front>1</visible_on_front>
                     </canceled>
                     <holded translate="label">
                         <label>On Hold</label>
                         <statuses>
                             <holded default="1"/>
                         </statuses>
-                        <visible_on_front/>
+                        <visible_on_front>1</visible_on_front>
                     </holded>
                     <payment_review translate="label">
                         <label>Payment Review</label>
@@ -703,7 +703,7 @@
                             <payment_review default="1"/>
                             <fraud/>
                         </statuses>
-                        <visible_on_front/>
+                        <visible_on_front>1</visible_on_front>
                     </payment_review>
                 </states>
             </order>

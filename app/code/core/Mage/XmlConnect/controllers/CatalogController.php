@@ -27,7 +27,9 @@
 /**
  * XmlConnect catalog controller
  *
- * @author  Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Action
 {
@@ -56,7 +58,10 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
         } catch (Exception $e) {
             Mage::logException($e);
-            $this->_message($this->__('An error occurred while loading category filters.'), self::MESSAGE_STATUS_ERROR);
+            $this->_message(
+                $this->__('An error occurred while loading category filters.'),
+                self::MESSAGE_STATUS_ERROR
+            );
         }
     }
 
@@ -130,16 +135,14 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
      */
     public function searchAction()
     {
+        /** @var $_helper Mage_CatalogSearch_Helper_Data */
         $_helper = Mage::helper('catalogsearch');
         $queryParam = str_replace('%20', ' ', $this->getRequest()->getParam('query'));
         $this->getRequest()->setParam($_helper->getQueryParamName(), $queryParam);
+        /** @var $query Mage_CatalogSearch_Model_Query */
         $query = $_helper->getQuery();
-        /* @var $query Mage_CatalogSearch_Model_Query */
-
         $query->setStoreId(Mage::app()->getStore()->getId());
-        //
-        //   return Mage::helper('catalogsearch')->__('Minimum Search query length is %s', $this->_getQuery()->getMinQueryLength());
-        //
+
         if ($query->getQueryText()) {
             if ($_helper->isMinQueryLength()) {
                 $query->setId(0)
@@ -152,7 +155,12 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
                     $query->setPopularity(1);
                 }
 
-                if ($query->getRedirect()) {
+                /**
+                 * We don't support redirect at this moment
+                 *
+                 * @todo add redirect support for mobile application
+                 */
+                if (false && $query->getRedirect()) {
                     $query->save();
                     $this->getResponse()->setRedirect($query->getRedirect());
                     return;
@@ -232,12 +240,14 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
         $model->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
 
         Mage::register('send_to_friend_model', $model);
-
+/*
         if ($model->getMaxSendsToFriend()) {
-//            $this->_message($this->__('Messages cannot be sent more than %d times in an hour.', $model->getMaxSendsToFriend()), self::MESSAGE_STATUS_WARNING);
-//            return $this;
+            $this->_message($this->__('Messages cannot be sent more than %d times in an hour.',
+                    $model->getMaxSendsToFriend()),
+                    self::MESSAGE_STATUS_WARNING);
+            return $this;
         }
-
+*/
         $data = $this->getRequest()->getPost();
 
         if (!$data) {
@@ -286,7 +296,6 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
         } catch (Exception $e) {
             $this->_message($this->__('Some emails were not sent.'), self::MESSAGE_STATUS_ERROR);
         }
-
         return $this;
     }
 }

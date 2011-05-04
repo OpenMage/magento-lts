@@ -50,6 +50,6 @@ class Mage_PageCache_Block_Adminhtml_Cache_Additional extends Mage_Adminhtml_Blo
      */
     public function canShowButton()
     {
-        return Mage::helper('pagecache')->isEnabled();
+        return Mage::helper('pagecache')->isEnabled() && Mage::getSingleton('admin/session')->isAllowed('page_cache');
     }
 }
