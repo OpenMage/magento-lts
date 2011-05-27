@@ -611,8 +611,14 @@
       $this->log->LogRequest($postargs);
 
       if (Mage::getStoreConfig('google/checkout/debug')) {
-         $debug = Mage::getModel('googlecheckout/api_debug');
-         $debug->setDir('out')->setUrl($url)->setRequestBody($postargs)->save();
+            $file = "payment_googlecheckout.log";
+            $debug = Mage::getModel('core/log_adapter', $file);
+            $debug->log(
+                array(
+                    'url' => $url,
+                    'request_body' => $postargs
+                )
+            );
       }
 
       // Set the POST options.
@@ -642,7 +648,13 @@
       $response = curl_exec($session);
 
       if (!empty($debug)) {
-          $debug->setResponseBody($response)->save();
+          $debug->log(
+              array(
+                  'url' => $url,
+                  'request_body' => $postargs,
+                  'response_body' => $response
+              )
+          );
       }
 
       if (curl_errno($session)) {

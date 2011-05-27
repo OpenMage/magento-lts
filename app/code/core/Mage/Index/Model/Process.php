@@ -20,10 +20,30 @@
  *
  * @category    Mage
  * @package     Mage_Index
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Enter description here ...
+ *
+ * @method Mage_Index_Model_Resource_Process _getResource()
+ * @method Mage_Index_Model_Resource_Process getResource()
+ * @method string getIndexerCode()
+ * @method Mage_Index_Model_Process setIndexerCode(string $value)
+ * @method string getStatus()
+ * @method Mage_Index_Model_Process setStatus(string $value)
+ * @method string getStartedAt()
+ * @method Mage_Index_Model_Process setStartedAt(string $value)
+ * @method string getEndedAt()
+ * @method Mage_Index_Model_Process setEndedAt(string $value)
+ * @method string getMode()
+ * @method Mage_Index_Model_Process setMode(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Index
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 {
     const XML_PATH_INDEXER_DATA     = 'global/index/indexer';

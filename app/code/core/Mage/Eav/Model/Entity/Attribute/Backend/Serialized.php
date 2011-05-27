@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,9 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_
 {
     /**
      * Serialize before saving
+     *
      * @param Varien_Object $object
+     * @return Mage_Eav_Model_Entity_Attribute_Backend_Serialized
      */
     public function beforeSave($object)
     {
@@ -40,31 +42,41 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_
         if ($object->hasData($attrCode)) {
             $object->setData($attrCode, serialize($object->getData($attrCode)));
         }
+
+        return $this;
     }
 
     /**
      * Unserialize after saving
+     *
      * @param Varien_Object $object
+     * @return Mage_Eav_Model_Entity_Attribute_Backend_Serialized
      */
     public function afterSave($object)
     {
         parent::afterSave($object);
         $this->_unserialize($object);
+        return $this;
     }
 
     /**
      * Unserialize after loading
+     *
      * @param Varien_Object $object
+     * @return Mage_Eav_Model_Entity_Attribute_Backend_Serialized
      */
     public function afterLoad($object)
     {
         parent::afterLoad($object);
         $this->_unserialize($object);
+        return $this;
     }
 
     /**
      * Try to unserialize the attribute value
+     *
      * @param Varien_Object $object
+     * @return Mage_Eav_Model_Entity_Attribute_Backend_Serialized
      */
     protected function _unserialize(Varien_Object $object)
     {
@@ -77,5 +89,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_
                 $object->unsetData($attrCode);
             }
         }
+
+        return $this;
     }
 }

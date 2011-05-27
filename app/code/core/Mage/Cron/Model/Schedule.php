@@ -20,15 +20,32 @@
  *
  * @category    Mage
  * @package     Mage_Cron
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Crontab schedule model
  *
- * @category   Mage
- * @package    Mage_Cron
+ * @method Mage_Cron_Model_Resource_Schedule _getResource()
+ * @method Mage_Cron_Model_Resource_Schedule getResource()
+ * @method string getJobCode()
+ * @method Mage_Cron_Model_Schedule setJobCode(string $value)
+ * @method string getStatus()
+ * @method Mage_Cron_Model_Schedule setStatus(string $value)
+ * @method string getMessages()
+ * @method Mage_Cron_Model_Schedule setMessages(string $value)
+ * @method string getCreatedAt()
+ * @method Mage_Cron_Model_Schedule setCreatedAt(string $value)
+ * @method string getScheduledAt()
+ * @method Mage_Cron_Model_Schedule setScheduledAt(string $value)
+ * @method string getExecutedAt()
+ * @method Mage_Cron_Model_Schedule setExecutedAt(string $value)
+ * @method string getFinishedAt()
+ * @method Mage_Cron_Model_Schedule setFinishedAt(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Cron
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract

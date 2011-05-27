@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,7 +53,6 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
             $this->_terms = array();
             $terms = Mage::getResourceModel('catalogsearch/query_collection')
                 ->setPopularQueryFilter(Mage::app()->getStore()->getId())
-                ->setOrder('popularity', 'DESC')
                 ->setPageSize(100)
                 ->load()
                 ->getItems();

@@ -21,17 +21,16 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Catalog>
-            <version>1.4.0.0.44</version>
+            <version>1.6.0.0</version>
         </Mage_Catalog>
     </modules>
-
     <admin>
         <fieldsets>
             <catalog_product_dataflow>
@@ -39,8 +38,8 @@
                     <inventory>1</inventory>
                     <to_number>1</to_number>
                     <product_type>
-                        <simple />
-                        <virtual />
+                        <simple/>
+                        <virtual/>
                     </product_type>
                 </qty>
                 <min_qty>
@@ -48,23 +47,23 @@
                     <to_number>1</to_number>
                     <use_config>1</use_config>
                     <product_type>
-                        <simple />
-                        <virtual />
+                        <simple/>
+                        <virtual/>
                     </product_type>
                 </min_qty>
                 <is_qty_decimal>
                     <inventory>1</inventory>
                     <product_type>
-                        <simple />
-                        <virtual />
+                        <simple/>
+                        <virtual/>
                     </product_type>
                 </is_qty_decimal>
                 <backorders>
                     <inventory>1</inventory>
                     <use_config>1</use_config>
                     <product_type>
-                        <simple />
-                        <virtual />
+                        <simple/>
+                        <virtual/>
                     </product_type>
                 </backorders>
                 <min_sale_qty>
@@ -72,8 +71,8 @@
                     <to_number>1</to_number>
                     <use_config>1</use_config>
                     <product_type>
-                        <simple />
-                        <virtual />
+                        <simple/>
+                        <virtual/>
                     </product_type>
                 </min_sale_qty>
                 <max_sale_qty>
@@ -81,120 +80,253 @@
                     <to_number>1</to_number>
                     <use_config>1</use_config>
                     <product_type>
-                        <simple />
-                        <virtual />
+                        <simple/>
+                        <virtual/>
                     </product_type>
                 </max_sale_qty>
                 <is_in_stock>
                     <inventory>1</inventory>
                     <inventory_other>1</inventory_other>
                     <product_type>
-                        <simple />
-                        <virtual />
-                        <configurable />
-                        <grouped />
+                        <simple/>
+                        <virtual/>
+                        <configurable/>
+                        <grouped/>
                     </product_type>
                 </is_in_stock>
                 <notify_stock_qty>
                     <inventory>1</inventory>
                     <use_config>1</use_config>
                     <product_type>
-                        <simple />
-                        <virtual />
+                        <simple/>
+                        <virtual/>
                     </product_type>
                 </notify_stock_qty>
                 <manage_stock>
                     <inventory>1</inventory>
                     <use_config>1</use_config>
                     <product_type>
-                        <simple />
-                        <virtual />
-                        <configurable />
-                        <grouped />
+                        <simple/>
+                        <virtual/>
+                        <configurable/>
+                        <grouped/>
                     </product_type>
                 </manage_stock>
-
-                <image><img>1</img></image>
-                <small_image><img>1</img></small_image>
-                <thumbnail><img>1</img></thumbnail>
-
-                <store><external>1</external></store>
-                <websites><external>1</external></websites>
-                <sku><external>1</external></sku>
-                <attribute_set><external>1</external><ignore>1</ignore></attribute_set>
-                <type><external>1</external><ignore>1</ignore></type>
-                <name><external>1</external><required>1</required></name>
-                <description><external>1</external><required>1</required></description>
-                <short_description><external>1</external><required>1</required></short_description>
-                <weight><external>1</external><required>1</required></weight>
-                <price><external>1</external><required>1</required></price>
-
-                <tax_class_id><required>1</required></tax_class_id>
-                <category_ids><system>1</system><ignore>1</ignore></category_ids>
-
-                <entity_id><system>1</system><internal>1</internal><ignore>1</ignore></entity_id>
-                <old_id><internal>1</internal></old_id>
-                <tier_price><internal>1</internal></tier_price>
-                <media_gallery><internal>1</internal></media_gallery>
-
-                <entity_type_id><system>1</system></entity_type_id>
-                <attribute_set_id><system>1</system><ignore>1</ignore></attribute_set_id>
-                <type_id><system>1</system><ignore>1</ignore></type_id>
-                <created_at><system>1</system></created_at>
-                <updated_at><system>1</system></updated_at>
-                <item_id><system>1</system></item_id>
-                <product_id><system>1</system></product_id>
-                <stock_id><system>1</system></stock_id>
-                <required_options><system>1</system><ignore>1</ignore></required_options>
+                <image>
+                    <img>1</img>
+                </image>
+                <small_image>
+                    <img>1</img>
+                </small_image>
+                <thumbnail>
+                    <img>1</img>
+                </thumbnail>
+                <store>
+                    <external>1</external>
+                </store>
+                <websites>
+                    <external>1</external>
+                </websites>
+                <sku>
+                    <external>1</external>
+                </sku>
+                <attribute_set>
+                    <external>1</external>
+                    <ignore>1</ignore>
+                </attribute_set>
+                <type>
+                    <external>1</external>
+                    <ignore>1</ignore>
+                </type>
+                <name>
+                    <external>1</external>
+                    <required>1</required>
+                </name>
+                <description>
+                    <external>1</external>
+                    <required>1</required>
+                </description>
+                <short_description>
+                    <external>1</external>
+                    <required>1</required>
+                </short_description>
+                <weight>
+                    <external>1</external>
+                    <required>1</required>
+                </weight>
+                <price>
+                    <external>1</external>
+                    <required>1</required>
+                </price>
+                <tax_class_id>
+                    <required>1</required>
+                </tax_class_id>
+                <category_ids>
+                    <system>1</system>
+                    <ignore>1</ignore>
+                </category_ids>
+                <entity_id>
+                    <system>1</system>
+                    <internal>1</internal>
+                    <ignore>1</ignore>
+                </entity_id>
+                <old_id>
+                    <internal>1</internal>
+                </old_id>
+                <tier_price>
+                    <internal>1</internal>
+                </tier_price>
+                <media_gallery>
+                    <internal>1</internal>
+                </media_gallery>
+                <entity_type_id>
+                    <system>1</system>
+                </entity_type_id>
+                <attribute_set_id>
+                    <system>1</system>
+                    <ignore>1</ignore>
+                </attribute_set_id>
+                <type_id>
+                    <system>1</system>
+                    <ignore>1</ignore>
+                </type_id>
+                <created_at>
+                    <system>1</system>
+                </created_at>
+                <updated_at>
+                    <system>1</system>
+                </updated_at>
+                <item_id>
+                    <system>1</system>
+                </item_id>
+                <product_id>
+                    <system>1</system>
+                </product_id>
+                <stock_id>
+                    <system>1</system>
+                </stock_id>
+                <required_options>
+                    <system>1</system>
+                    <ignore>1</ignore>
+                </required_options>
             </catalog_product_dataflow>
         </fieldsets>
     </admin>
-
     <global>
         <models>
             <catalog>
                 <class>Mage_Catalog_Model</class>
-                <resourceModel>catalog_resource_eav_mysql4</resourceModel>
+                <resourceModel>catalog_resource</resourceModel>
             </catalog>
-
-            <catalog_resource_eav_mysql4>
-                <class>Mage_Catalog_Model_Resource_Eav_Mysql4</class>
+            <catalog_resource>
+                <class>Mage_Catalog_Model_Resource</class>
+                <deprecatedNode>catalog_mysql4</deprecatedNode>
                 <entities>
-                    <product><table>catalog_product_entity</table></product>
-                    <category><table>catalog_category_entity</table></category>
-                    <category_product><table>catalog_category_product</table></category_product>
-                    <category_product_index><table>catalog_category_product_index</table></category_product_index>
-                    <compare_item><table>catalog_compare_item</table></compare_item>
-                    <product_website><table>catalog_product_website</table></product_website>
-                    <product_enabled_index><table>catalog_product_enabled_index</table></product_enabled_index>
-                    <product_link_type><table>catalog_product_link_type</table></product_link_type>
-                    <product_link><table>catalog_product_link</table></product_link>
-                    <product_link_attribute><table>catalog_product_link_attribute</table></product_link_attribute>
-                    <product_link_attribute_decimal><table>catalog_product_link_attribute_decimal</table></product_link_attribute_decimal>
-                    <product_link_attribute_int><table>catalog_product_link_attribute_int</table></product_link_attribute_int>
-                    <product_link_attribute_varchar><table>catalog_product_link_attribute_varchar</table></product_link_attribute_varchar>
-                    <product_super_attribute><table>catalog_product_super_attribute</table></product_super_attribute>
-                    <product_super_attribute_label><table>catalog_product_super_attribute_label</table></product_super_attribute_label>
-                    <product_super_attribute_pricing><table>catalog_product_super_attribute_pricing</table></product_super_attribute_pricing>
-                    <product_super_link><table>catalog_product_super_link</table></product_super_link>
-                    <product_attribute_tier_price><table>catalog_product_entity_tier_price</table></product_attribute_tier_price>
-                    <product_attribute_media_gallery><table>catalog_product_entity_media_gallery</table></product_attribute_media_gallery>
-                    <product_attribute_media_gallery_value><table>catalog_product_entity_media_gallery_value</table></product_attribute_media_gallery_value>
-                    <product_option><table>catalog_product_option</table></product_option>
-                    <product_option_price><table>catalog_product_option_price</table></product_option_price>
-                    <product_option_title><table>catalog_product_option_title</table></product_option_title>
-                    <product_option_type_value><table>catalog_product_option_type_value</table></product_option_type_value>
-                    <product_option_type_price><table>catalog_product_option_type_price</table></product_option_type_price>
-                    <product_option_type_title><table>catalog_product_option_type_title</table></product_option_type_title>
-                    <category_flat><table>catalog_category_flat</table></category_flat>
-                    <product_flat><table>catalog_product_flat</table></product_flat>
-                    <eav_attribute><table>catalog_eav_attribute</table></eav_attribute>
-                    <product_relation><table>catalog_product_relation</table></product_relation>
-                    <product_index_eav><table>catalog_product_index_eav</table></product_index_eav>
-                    <product_index_eav_decimal><table>catalog_product_index_eav_decimal</table></product_index_eav_decimal>
-                    <product_index_price><table>catalog_product_index_price</table></product_index_price>
-                    <product_index_tier_price><table>catalog_product_index_tier_price</table></product_index_tier_price>
-                    <product_index_website><table>catalog_product_index_website</table></product_index_website>
+                    <product>
+                        <table>catalog_product_entity</table>
+                    </product>
+                    <category>
+                        <table>catalog_category_entity</table>
+                    </category>
+                    <category_product>
+                        <table>catalog_category_product</table>
+                    </category_product>
+                    <category_product_index>
+                        <table>catalog_category_product_index</table>
+                    </category_product_index>
+                    <compare_item>
+                        <table>catalog_compare_item</table>
+                    </compare_item>
+                    <product_website>
+                        <table>catalog_product_website</table>
+                    </product_website>
+                    <product_enabled_index>
+                        <table>catalog_product_enabled_index</table>
+                    </product_enabled_index>
+                    <product_link_type>
+                        <table>catalog_product_link_type</table>
+                    </product_link_type>
+                    <product_link>
+                        <table>catalog_product_link</table>
+                    </product_link>
+                    <product_link_attribute>
+                        <table>catalog_product_link_attribute</table>
+                    </product_link_attribute>
+                    <product_link_attribute_decimal>
+                        <table>catalog_product_link_attribute_decimal</table>
+                    </product_link_attribute_decimal>
+                    <product_link_attribute_int>
+                        <table>catalog_product_link_attribute_int</table>
+                    </product_link_attribute_int>
+                    <product_link_attribute_varchar>
+                        <table>catalog_product_link_attribute_varchar</table>
+                    </product_link_attribute_varchar>
+                    <product_super_attribute>
+                        <table>catalog_product_super_attribute</table>
+                    </product_super_attribute>
+                    <product_super_attribute_label>
+                        <table>catalog_product_super_attribute_label</table>
+                    </product_super_attribute_label>
+                    <product_super_attribute_pricing>
+                        <table>catalog_product_super_attribute_pricing</table>
+                    </product_super_attribute_pricing>
+                    <product_super_link>
+                        <table>catalog_product_super_link</table>
+                    </product_super_link>
+                    <product_attribute_tier_price>
+                        <table>catalog_product_entity_tier_price</table>
+                    </product_attribute_tier_price>
+                    <product_attribute_media_gallery>
+                        <table>catalog_product_entity_media_gallery</table>
+                    </product_attribute_media_gallery>
+                    <product_attribute_media_gallery_value>
+                        <table>catalog_product_entity_media_gallery_value</table>
+                    </product_attribute_media_gallery_value>
+                    <product_option>
+                        <table>catalog_product_option</table>
+                    </product_option>
+                    <product_option_price>
+                        <table>catalog_product_option_price</table>
+                    </product_option_price>
+                    <product_option_title>
+                        <table>catalog_product_option_title</table>
+                    </product_option_title>
+                    <product_option_type_value>
+                        <table>catalog_product_option_type_value</table>
+                    </product_option_type_value>
+                    <product_option_type_price>
+                        <table>catalog_product_option_type_price</table>
+                    </product_option_type_price>
+                    <product_option_type_title>
+                        <table>catalog_product_option_type_title</table>
+                    </product_option_type_title>
+                    <category_flat>
+                        <table>catalog_category_flat</table>
+                    </category_flat>
+                    <product_flat>
+                        <table>catalog_product_flat</table>
+                    </product_flat>
+                    <eav_attribute>
+                        <table>catalog_eav_attribute</table>
+                    </eav_attribute>
+                    <product_relation>
+                        <table>catalog_product_relation</table>
+                    </product_relation>
+                    <product_index_eav>
+                        <table>catalog_product_index_eav</table>
+                    </product_index_eav>
+                    <product_index_eav_decimal>
+                        <table>catalog_product_index_eav_decimal</table>
+                    </product_index_eav_decimal>
+                    <product_index_price>
+                        <table>catalog_product_index_price</table>
+                    </product_index_price>
+                    <product_index_tier_price>
+                        <table>catalog_product_index_tier_price</table>
+                    </product_index_tier_price>
+                    <product_index_website>
+                        <table>catalog_product_index_website</table>
+                    </product_index_website>
                     <product_price_indexer_cfg_option_aggregate_idx>
                         <table>catalog_product_index_price_cfg_opt_agr_idx</table>
                     </product_price_indexer_cfg_option_aggregate_idx>
@@ -268,18 +400,20 @@
                         <table>catalog_category_anc_products_index_tmp</table>
                     </category_anchor_products_indexer_tmp>
                 </entities>
-            </catalog_resource_eav_mysql4>
+            </catalog_resource>
         </models>
         <resources>
             <catalog_setup>
                 <setup>
                     <module>Mage_Catalog</module>
-                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
                 </setup>
             </catalog_setup>
         </resources>
         <blocks>
-            <catalog><class>Mage_Catalog_Block</class></catalog>
+            <catalog>
+                <class>Mage_Catalog_Block</class>
+            </catalog>
         </blocks>
         <index>
             <indexer>
@@ -304,122 +438,6 @@
             </indexer>
         </index>
         <events>
-<!--            <store_add>-->
-<!--                <observers>-->
-<!--                    <catalog>-->
-<!--                        <class>catalog/observer</class>-->
-<!--                        <method>storeAdd</method>-->
-<!--                    </catalog>-->
-<!--                     catalog_product_flat>-->
-<!--                        <class>catalog/product_flat_observer</class>-->
-<!--                        <method>storeAdd</method>-->
-<!--                    </catalog_product_flat -->
-<!--                </observers>-->
-<!--            </store_add>-->
-<!--            <store_edit>-->
-<!--                <observers>-->
-<!--                    <catalog>-->
-<!--                        <class>catalog/observer</class>-->
-<!--                        <method>storeEdit</method>-->
-<!--                    </catalog>-->
-<!--                     catalog_product_flat>-->
-<!--                        <class>catalog/product_flat_observer</class>-->
-<!--                        <method>storeEdit</method>-->
-<!--                    </catalog_product_flat -->
-<!--                </observers>-->
-<!--            </store_edit>-->
-<!--            <store_delete>-->
-<!--                <observers>-->
-<!--                    <catalog>-->
-<!--                        <class>catalog/observer</class>-->
-<!--                        <method>storeDelete</method>-->
-<!--                    </catalog>-->
-<!--                     catalog_product_flat>-->
-<!--                        <class>catalog/product_flat_observer</class>-->
-<!--                        <method>storeDelete</method>-->
-<!--                    </catalog_product_flat -->
-<!--                </observers>-->
-<!--            </store_delete>-->
-<!--            <store_group_save>-->
-<!--                <observers>-->
-<!--                    <catalog>-->
-<!--                        <class>catalog/observer</class>-->
-<!--                        <method>storeGroupSave</method>-->
-<!--                    </catalog>-->
-<!--                     catalog_product_flat>-->
-<!--                        <class>catalog/product_flat_observer</class>-->
-<!--                        <method>storeGroupSave</method>-->
-<!--                    </catalog_product_flat -->
-<!--                </observers>-->
-<!--            </store_group_save>-->
-<!--            <category_move>-->
-<!--                <observers>-->
-<!--                    <catalog>-->
-<!--                        <class>catalog/observer</class>-->
-<!--                        <method>categoryMove</method>-->
-<!--                    </catalog>-->
-<!--                </observers>-->
-<!--            </category_move>-->
-<!--            <catalog_product_import_after>-->
-<!--                <observers>-->
-<!--                    <catalog>-->
-<!--                        <class>catalog/observer</class>-->
-<!--                        <method>catalogProductImportAfter</method>-->
-<!--                    </catalog>-->
-<!--                     catalog_product_flat>-->
-<!--                        <class>catalog/product_flat_observer</class>-->
-<!--                        <method>catalogProductImportAfter</method>-->
-<!--                    </catalog_product_flat -->
-<!--                </observers>-->
-<!--            </catalog_product_import_after>-->
-<!--            <catalog_category_save_after>-->
-<!--                <observers>-->
-<!--                    <catalog_category_save>-->
-<!--                        <class>catalog/observer</class>-->
-<!--                        <method>categorySaveAfter</method>-->
-<!--                    </catalog_category_save>-->
-<!--                </observers>-->
-<!--            </catalog_category_save_after>-->
-<!--            <customer_group_save_after>-->
-<!--                <observers>-->
-<!--                     catalog_product_flat>-->
-<!--                        <class>catalog/product_flat_observer</class>-->
-<!--                        <method>customerGroupSaveAfter</method>-->
-<!--                    </catalog_product_flat -->
-<!--                </observers>-->
-<!--            </customer_group_save_after>-->
-<!--            <catalog_product_save_after>-->
-<!--                <observers>-->
-<!--                     catalog_product_flat>-->
-<!--                        <class>catalog/product_flat_observer</class>-->
-<!--                        <method>catalogProductSaveAfter</method>-->
-<!--                    </catalog_product_flat -->
-<!--                </observers>-->
-<!--            </catalog_product_save_after>-->
-<!--            <catalog_product_status_update>-->
-<!--                <observers>-->
-<!--                     catalog_product_flat>-->
-<!--                        <class>catalog/product_flat_observer</class>-->
-<!--                        <method>catalogProductStatusUpdate</method>-->
-<!--                    </catalog_product_flat -->
-<!--                </observers>-->
-<!--            </catalog_product_status_update>-->
-<!--            <catalog_product_website_update>-->
-<!--                <observers>-->
-<!--                     catalog_product_flat>-->
-<!--                        <class>catalog/product_flat_observer</class>-->
-<!--                        <method>catalogProductWebsiteUpdate</method>-->
-<!--                    </catalog_product_flat -->
-<!--                </observers>-->
-<!--            </catalog_product_website_update>-->
-<!--            <catalog_entity_attribute_save_after>-->
-<!--                <observers>-->
-<!--                     catalog_product_flat>-->
-<!--                        <class>catalog/product_flat_observer</class>-->
-<!--                        <method>catalogEntityAttributeSaveAfter</method>-->
-<!--                    </catalog_product_flat -->
-<!--                </observers>-->
-<!--            </catalog_entity_attribute_save_after>-->
             <log_log_clean_after>
                 <observers>
                     <catalog_product_compare_item>
@@ -429,7 +447,6 @@
                 </observers>
             </log_log_clean_after>
         </events>
-
         <catalog>
             <product>
                 <type>
@@ -474,7 +491,8 @@
                     <options_container>
                         <option1 translate="label">
                             <value>container1</value>
-                            <label>Product Info Column</label></option1>
+                            <label>Product Info Column</label>
+                        </option1>
                         <option2 translate="label">
                             <value>container2</value>
                             <label>Block after Info Column</label>
@@ -609,7 +627,6 @@
             </cms_wysiwyg_images_static_urls_allowed>
         </events>
     </adminhtml>
-
     <frontend>
         <routers>
             <catalog>
@@ -677,42 +694,42 @@
         <product>
             <collection>
                 <attributes>
-                    <name />
-                    <url_key />
-                    <price />
-                    <special_price />
-                    <special_from_date />
-                    <special_to_date />
-                    <short_description />
-                    <thumbnail />
-                    <small_image />
-                    <image_label />
-                    <thumbnail_label />
-                    <small_image_label />
-                    <tax_class_id />
-                    <status />
-                    <news_from_date />
-                    <news_to_date />
-                    <created_at />
-                    <updated_at />
+                    <name/>
+                    <url_key/>
+                    <price/>
+                    <special_price/>
+                    <special_from_date/>
+                    <special_to_date/>
+                    <short_description/>
+                    <thumbnail/>
+                    <small_image/>
+                    <image_label/>
+                    <thumbnail_label/>
+                    <small_image_label/>
+                    <tax_class_id/>
+                    <status/>
+                    <news_from_date/>
+                    <news_to_date/>
+                    <created_at/>
+                    <updated_at/>
                 </attributes>
             </collection>
         </product>
         <category>
             <collection>
                 <attributes>
-                    <name/><url_key/><is_active/>
+                    <name/>
+                    <url_key/>
+                    <is_active/>
                 </attributes>
             </collection>
         </category>
     </frontend>
-
     <default>
         <catalog>
             <navigation>
                 <max_depth>0</max_depth>
             </navigation>
-
             <frontend>
                 <list_mode>grid-list</list_mode>
                 <grid_per_page_values>9,15,30</grid_per_page_values>
@@ -730,7 +747,6 @@
             <product>
                 <default_tax_group>2</default_tax_group>
             </product>
-
             <seo>
                 <product_url_suffix>.html</product_url_suffix>
                 <category_url_suffix>.html</category_url_suffix>
@@ -749,11 +765,6 @@
                 <price_range_calculation>auto</price_range_calculation>
                 <price_range_step>100</price_range_step>
             </layered_navigation>
-<!--
-            <layer>
-                <configurable_children>1</configurable_children>
-            </layer>
--->
         </catalog>
         <system>
             <media_storage_configuration>
@@ -764,12 +775,15 @@
             </media_storage_configuration>
         </system>
     </default>
-
     <crontab>
         <jobs>
             <catalog_product_index_price_reindex_all>
-                <schedule><cron_expr>0 2 * * *</cron_expr></schedule>
-                <run><model>catalog/product_indexer_price::reindexAll</model></run>
+                <schedule>
+                    <cron_expr>0 2 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>catalog/product_indexer_price::reindexAll</model>
+                </run>
             </catalog_product_index_price_reindex_all>
         </jobs>
     </crontab>

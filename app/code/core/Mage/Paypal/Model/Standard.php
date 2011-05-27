@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -183,7 +183,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
      */
     public function isAvailable($quote = null)
     {
-        if ($this->getConfig()->isMethodAvailable() && parent::isAvailable($quote)) {
+        if (parent::isAvailable($quote) && $this->getConfig()->isMethodAvailable()) {
             return true;
         }
         return false;

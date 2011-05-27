@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -352,7 +352,9 @@ class Mage_Paypal_Model_Express_Checkout
         $billingAddress = $this->_quote->getBillingAddress();
         $exportedBillingAddress = $this->_api->getExportedBillingAddress();
         foreach ($exportedBillingAddress->getExportedKeys() as $key) {
-            $billingAddress->setDataUsingMethod($key, $exportedBillingAddress->getData($key));
+            if (!$billingAddress->getDataUsingMethod($key)) {
+                $billingAddress->setDataUsingMethod($key, $exportedBillingAddress->getData($key));
+            }
         }
 
         // import shipping address
@@ -375,7 +377,10 @@ class Mage_Paypal_Model_Express_Checkout
                         $shippingAddress->setShippingMethod($code)->setCollectShippingRates(true);
                     }
                 }
-                $this->_quote->getPayment()->setAdditionalInformation(self::PAYMENT_INFO_TRANSPORT_SHIPPING_METHOD, $code);
+                $this->_quote->getPayment()->setAdditionalInformation(
+                    self::PAYMENT_INFO_TRANSPORT_SHIPPING_METHOD,
+                    $code
+                );
             }
         }
         $this->_ignoreAddressValidation();
@@ -500,7 +505,9 @@ class Mage_Paypal_Model_Express_Checkout
         $this->_billingAgreement = $order->getPayment()->getBillingAgreement();
 
         // commence redirecting to finish payment, if paypal requires it
-        if ($order->getPayment()->getAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT)) {
+        if ($order->getPayment()->getAdditionalInformation(
+                Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT
+        )) {
             $this->_redirectUrl = $this->_config->getExpressCheckoutCompleteUrl($token);
         }
 

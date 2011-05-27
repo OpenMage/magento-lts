@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +39,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
 
     public function getBackordersOption()
     {
-        return Mage::getSingleton('cataloginventory/source_backorders')->toOptionArray();
+        if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
+            return Mage::getSingleton('cataloginventory/source_backorders')->toOptionArray();
+        }
+
+        return array();
     }
 
     /**
@@ -49,7 +53,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
      */
     public function getStockOption()
     {
-        return Mage::getSingleton('cataloginventory/source_stock')->toOptionArray();
+        if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
+            return Mage::getSingleton('cataloginventory/source_stock')->toOptionArray();
+        }
+
+        return array();
     }
 
     /**
@@ -69,12 +77,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
      */
     public function getStockItem()
     {
-        return Mage::registry('product')->getStockItem();
+        return $this->getProduct()->getStockItem();
     }
 
     public function isConfigurable()
     {
-        return Mage::registry('product')->isConfigurable();
+        return $this->getProduct()->isConfigurable();
     }
 
     public function getFieldValue($field)
@@ -114,7 +122,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
 
     public function isNew()
     {
-        if (Mage::registry('product')->getId()) {
+        if ($this->getProduct()->getId()) {
             return false;
         }
         return true;

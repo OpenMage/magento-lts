@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,6 +28,28 @@
 /**
  * Tier Price indexer
  *
+ * @method Mage_CatalogIndex_Model_Resource_Indexer_Price _getResource()
+ * @method Mage_CatalogIndex_Model_Resource_Indexer_Price getResource()
+ * @method Mage_CatalogIndex_Model_Indexer_Tierprice setEntityId(int $value)
+ * @method int getCustomerGroupId()
+ * @method Mage_CatalogIndex_Model_Indexer_Tierprice setCustomerGroupId(int $value)
+ * @method int getWebsiteId()
+ * @method Mage_CatalogIndex_Model_Indexer_Tierprice setWebsiteId(int $value)
+ * @method int getTaxClassId()
+ * @method Mage_CatalogIndex_Model_Indexer_Tierprice setTaxClassId(int $value)
+ * @method float getPrice()
+ * @method Mage_CatalogIndex_Model_Indexer_Tierprice setPrice(float $value)
+ * @method float getFinalPrice()
+ * @method Mage_CatalogIndex_Model_Indexer_Tierprice setFinalPrice(float $value)
+ * @method float getMinPrice()
+ * @method Mage_CatalogIndex_Model_Indexer_Tierprice setMinPrice(float $value)
+ * @method float getMaxPrice()
+ * @method Mage_CatalogIndex_Model_Indexer_Tierprice setMaxPrice(float $value)
+ * @method float getTierPrice()
+ * @method Mage_CatalogIndex_Model_Indexer_Tierprice setTierPrice(float $value)
+ *
+ * @category    Mage
+ * @package     Mage_CatalogIndex
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_Indexer_Abstract

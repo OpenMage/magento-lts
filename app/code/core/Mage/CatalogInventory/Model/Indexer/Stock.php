@@ -20,13 +20,26 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * CatalogInventory Stock Status Indexer Model
+ *
+ * @method Mage_CatalogInventory_Model_Resource_Indexer_Stock _getResource()
+ * @method Mage_CatalogInventory_Model_Resource_Indexer_Stock getResource()
+ * @method int getProductId()
+ * @method Mage_CatalogInventory_Model_Indexer_Stock setProductId(int $value)
+ * @method int getWebsiteId()
+ * @method Mage_CatalogInventory_Model_Indexer_Stock setWebsiteId(int $value)
+ * @method int getStockId()
+ * @method Mage_CatalogInventory_Model_Indexer_Stock setStockId(int $value)
+ * @method float getQty()
+ * @method Mage_CatalogInventory_Model_Indexer_Stock setQty(float $value)
+ * @method int getStockStatus()
+ * @method Mage_CatalogInventory_Model_Indexer_Stock setStockStatus(int $value)
  *
  * @category    Mage
  * @package     Mage_CatalogInventory

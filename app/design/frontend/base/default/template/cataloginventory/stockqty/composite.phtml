@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -28,15 +28,17 @@
  * @see Mage_CatalogInventory_Block_Stockqty_Composite
  */
 ?>
-<?php if ($this->isMsgVisible()): ?>
-    <a href="#" id="<?php echo $this->getPlaceholderId() ?>" class="stock-qty">
-        <?php echo $this->__('Only %s left', $this->getStockQty()) ?>
-    </a>
-    <table id="<?php echo $this->getDetailsPlaceholderId() ?>" class="stock-qty-details no-display">
+<?php if($this->isMsgVisible()): ?>
+    <p class="availability-only">
+        <a href="#" id="<?php echo $this->getPlaceholderId() ?>" title="<?php echo $this->__('Only %s left', ($this->getStockQty())) ?>"><?php echo $this->__('Only %s left', "<strong>{$this->getStockQty()}</strong>") ?></a>
+    </p>
+    <table id="<?php echo $this->getDetailsPlaceholderId() ?>" class="availability-only-details no-display">
+        <col />
+        <col width="1" />
         <thead>
             <tr>
                 <th><?php echo $this->__('Product Name') ?></th>
-                <th><?php echo $this->__('Qty') ?></th>
+                <th class="a-center"><?php echo $this->__('Qty') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -45,7 +47,7 @@
             <?php if ($childProductStockQty > 0) : ?>
                 <tr>
                     <td><?php echo $childProduct->getName() ?></td>
-                    <td><?php echo $childProductStockQty ?></td>
+                    <td class="a-center"><?php echo $childProductStockQty ?></td>
                 </tr>
             <?php endif ?>
         <?php endforeach ?>
@@ -54,9 +56,11 @@
     <script type="text/javascript">
     //<![CDATA[
     $('<?php echo $this->getPlaceholderId() ?>').observe('click', function(event){
+        this.toggleClassName('expanded');
         $('<?php echo $this->getDetailsPlaceholderId() ?>').toggleClassName('no-display');
         event.stop();
+        decorateTable('<?php echo $this->getDetailsPlaceholderId() ?>');
     });
     //]]>
     </script>
-<?php endif; ?>
+<?php endif ?>

@@ -20,12 +20,25 @@
  *
  * @category    Mage
  * @package     Mage_Poll
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Pool vote model
+ *
+ * @method Mage_Poll_Model_Resource_Poll_Vote _getResource()
+ * @method Mage_Poll_Model_Resource_Poll_Vote getResource()
+ * @method int getPollId()
+ * @method Mage_Poll_Model_Poll_Vote setPollId(int $value)
+ * @method int getPollAnswerId()
+ * @method Mage_Poll_Model_Poll_Vote setPollAnswerId(int $value)
+ * @method int getIpAddress()
+ * @method Mage_Poll_Model_Poll_Vote setIpAddress(int $value)
+ * @method int getCustomerId()
+ * @method Mage_Poll_Model_Poll_Vote setCustomerId(int $value)
+ * @method string getVoteTime()
+ * @method Mage_Poll_Model_Poll_Vote setVoteTime(string $value)
  *
  * @category    Mage
  * @package     Mage_Poll

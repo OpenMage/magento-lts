@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
     {
         if (is_null($this->_options)) {
             $this->_options = Mage::getResourceModel('tax/class_collection')
-                ->addFieldToFilter('class_type', 'PRODUCT')
+                ->addFieldToFilter('class_type', Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT)
                 ->load()
                 ->toOptionArray();
         }
@@ -76,11 +76,12 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
     {
         $columns = array();
         $columns[$this->getAttribute()->getAttributeCode()] = array(
-            'type'      => 'int',
+            'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
             'unsigned'  => false,
-            'is_null'   => true,
+            'nullable'   => true,
             'default'   => null,
-            'extra'     => null
+            'extra'     => null,
+            'comment'   => $this->getAttribute()->getAttributeCode() . ' tax column'
         );
         return $columns;
    }

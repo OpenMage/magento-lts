@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,46 +28,10 @@
 /**
  * Wishlist item model resource
  *
- * @category   Mage
- * @package    Mage_Wishlist
+ * @category    Mage
+ * @package     Mage_Wishlist
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Wishlist_Model_Mysql4_Item extends Mage_Core_Model_Mysql4_Abstract
+class Mage_Wishlist_Model_Mysql4_Item extends Mage_Wishlist_Model_Resource_Item
 {
-    /**
-     * Initialize connection and define main table
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('wishlist/item', 'wishlist_item_id');
-    }
-
-    /**
-     * Load item by wishlist, product and shared stores
-     *
-     * @param Mage_Wishlist_Model_Item $object
-     * @param int $wishlistId
-     * @param int $productId
-     * @param array $sharedStores
-     * @return Mage_Wishlist_Model_Mysql4_Item
-     */
-    public function loadByProductWishlist($object, $wishlistId, $productId, $sharedStores)
-    {
-        $adapter = $this->_getReadAdapter();
-        $select  = $adapter->select()
-            ->from($this->getMainTable())
-            ->where('wishlist_id=?', $wishlistId)
-            ->where('product_id=?', $productId)
-            ->where('store_id IN(?)', $sharedStores);
-
-        $data = $adapter->fetchRow($select);
-        if ($data) {
-            $object->setData($data);
-        }
-
-        $this->_afterLoad($object);
-
-        return $this;
-    }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,24 @@
  * Perform fetching reports from remote servers with following saving them to database
  * Prepare report rows for Mage_Paypal_Model_Report_Settlement_Row model
  *
+ */
+/**
+ * Enter description here ...
+ *
+ * @method Mage_Paypal_Model_Resource_Report_Settlement _getResource()
+ * @method Mage_Paypal_Model_Resource_Report_Settlement getResource()
+ * @method string getReportDate()
+ * @method Mage_Paypal_Model_Report_Settlement setReportDate(string $value)
+ * @method string getAccountId()
+ * @method Mage_Paypal_Model_Report_Settlement setAccountId(string $value)
+ * @method string getFilename()
+ * @method Mage_Paypal_Model_Report_Settlement setFilename(string $value)
+ * @method string getLastModified()
+ * @method Mage_Paypal_Model_Report_Settlement setLastModified(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Paypal
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
 {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,6 +34,104 @@
  *  sales_quote_delete_before
  *  sales_quote_delete_after
  *
+ * @method Mage_Sales_Model_Resource_Quote _getResource()
+ * @method Mage_Sales_Model_Resource_Quote getResource()
+ * @method Mage_Sales_Model_Quote setStoreId(int $value)
+ * @method string getCreatedAt()
+ * @method Mage_Sales_Model_Quote setCreatedAt(string $value)
+ * @method string getUpdatedAt()
+ * @method Mage_Sales_Model_Quote setUpdatedAt(string $value)
+ * @method string getConvertedAt()
+ * @method Mage_Sales_Model_Quote setConvertedAt(string $value)
+ * @method int getIsActive()
+ * @method Mage_Sales_Model_Quote setIsActive(int $value)
+ * @method Mage_Sales_Model_Quote setIsVirtual(int $value)
+ * @method int getIsMultiShipping()
+ * @method Mage_Sales_Model_Quote setIsMultiShipping(int $value)
+ * @method int getItemsCount()
+ * @method Mage_Sales_Model_Quote setItemsCount(int $value)
+ * @method float getItemsQty()
+ * @method Mage_Sales_Model_Quote setItemsQty(float $value)
+ * @method int getOrigOrderId()
+ * @method Mage_Sales_Model_Quote setOrigOrderId(int $value)
+ * @method float getStoreToBaseRate()
+ * @method Mage_Sales_Model_Quote setStoreToBaseRate(float $value)
+ * @method float getStoreToQuoteRate()
+ * @method Mage_Sales_Model_Quote setStoreToQuoteRate(float $value)
+ * @method string getBaseCurrencyCode()
+ * @method Mage_Sales_Model_Quote setBaseCurrencyCode(string $value)
+ * @method string getStoreCurrencyCode()
+ * @method Mage_Sales_Model_Quote setStoreCurrencyCode(string $value)
+ * @method string getQuoteCurrencyCode()
+ * @method Mage_Sales_Model_Quote setQuoteCurrencyCode(string $value)
+ * @method float getGrandTotal()
+ * @method Mage_Sales_Model_Quote setGrandTotal(float $value)
+ * @method float getBaseGrandTotal()
+ * @method Mage_Sales_Model_Quote setBaseGrandTotal(float $value)
+ * @method Mage_Sales_Model_Quote setCheckoutMethod(string $value)
+ * @method int getCustomerId()
+ * @method Mage_Sales_Model_Quote setCustomerId(int $value)
+ * @method Mage_Sales_Model_Quote setCustomerTaxClassId(int $value)
+ * @method Mage_Sales_Model_Quote setCustomerGroupId(int $value)
+ * @method string getCustomerEmail()
+ * @method Mage_Sales_Model_Quote setCustomerEmail(string $value)
+ * @method string getCustomerPrefix()
+ * @method Mage_Sales_Model_Quote setCustomerPrefix(string $value)
+ * @method string getCustomerFirstname()
+ * @method Mage_Sales_Model_Quote setCustomerFirstname(string $value)
+ * @method string getCustomerMiddlename()
+ * @method Mage_Sales_Model_Quote setCustomerMiddlename(string $value)
+ * @method string getCustomerLastname()
+ * @method Mage_Sales_Model_Quote setCustomerLastname(string $value)
+ * @method string getCustomerSuffix()
+ * @method Mage_Sales_Model_Quote setCustomerSuffix(string $value)
+ * @method string getCustomerDob()
+ * @method Mage_Sales_Model_Quote setCustomerDob(string $value)
+ * @method string getCustomerNote()
+ * @method Mage_Sales_Model_Quote setCustomerNote(string $value)
+ * @method int getCustomerNoteNotify()
+ * @method Mage_Sales_Model_Quote setCustomerNoteNotify(int $value)
+ * @method int getCustomerIsGuest()
+ * @method Mage_Sales_Model_Quote setCustomerIsGuest(int $value)
+ * @method string getRemoteIp()
+ * @method Mage_Sales_Model_Quote setRemoteIp(string $value)
+ * @method string getAppliedRuleIds()
+ * @method Mage_Sales_Model_Quote setAppliedRuleIds(string $value)
+ * @method string getReservedOrderId()
+ * @method Mage_Sales_Model_Quote setReservedOrderId(string $value)
+ * @method string getPasswordHash()
+ * @method Mage_Sales_Model_Quote setPasswordHash(string $value)
+ * @method string getCouponCode()
+ * @method Mage_Sales_Model_Quote setCouponCode(string $value)
+ * @method string getGlobalCurrencyCode()
+ * @method Mage_Sales_Model_Quote setGlobalCurrencyCode(string $value)
+ * @method float getBaseToGlobalRate()
+ * @method Mage_Sales_Model_Quote setBaseToGlobalRate(float $value)
+ * @method float getBaseToQuoteRate()
+ * @method Mage_Sales_Model_Quote setBaseToQuoteRate(float $value)
+ * @method string getCustomerTaxvat()
+ * @method Mage_Sales_Model_Quote setCustomerTaxvat(string $value)
+ * @method string getCustomerGender()
+ * @method Mage_Sales_Model_Quote setCustomerGender(string $value)
+ * @method float getSubtotal()
+ * @method Mage_Sales_Model_Quote setSubtotal(float $value)
+ * @method float getBaseSubtotal()
+ * @method Mage_Sales_Model_Quote setBaseSubtotal(float $value)
+ * @method float getSubtotalWithDiscount()
+ * @method Mage_Sales_Model_Quote setSubtotalWithDiscount(float $value)
+ * @method float getBaseSubtotalWithDiscount()
+ * @method Mage_Sales_Model_Quote setBaseSubtotalWithDiscount(float $value)
+ * @method int getIsChanged()
+ * @method Mage_Sales_Model_Quote setIsChanged(int $value)
+ * @method int getTriggerRecollect()
+ * @method Mage_Sales_Model_Quote setTriggerRecollect(int $value)
+ * @method string getExtShippingInfo()
+ * @method Mage_Sales_Model_Quote setExtShippingInfo(string $value)
+ * @method int getGiftMessageId()
+ * @method Mage_Sales_Model_Quote setGiftMessageId(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
@@ -75,6 +173,18 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('sales/quote');
+    }
+
+    /**
+     * Init mapping array of short fields to
+     * its full names
+     *
+     * @return Varien_Object
+     */
+    protected function _initOldFieldsMap()
+    {
+        $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('quote');
+        return $this;
     }
 
     /**

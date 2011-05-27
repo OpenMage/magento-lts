@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Usa>
-            <version>0.7.1</version>
+            <version>1.6.0.0</version>
         </Mage_Usa>
     </modules>
     <global>
@@ -92,25 +92,24 @@
             </modules>
         </translate>
     </frontend>
-
     <default>
         <carriers>
             <dhl>
-                <account></account>
+                <account/>
                 <active>0</active>
                 <sallowspecific>0</sallowspecific>
                 <allowed_methods>E,N,S,G,IE,E SAT,E 10:30AM</allowed_methods>
                 <contentdesc>Big Box</contentdesc>
-                <cutoff_cost></cutoff_cost>
+                <cutoff_cost/>
                 <dutypaymenttype>R</dutypaymenttype>
                 <free_method>G</free_method>
                 <gateway_url>https://eCommerce.airborne.com/ApiLandingTest.asp</gateway_url>
-                <id backend_model="adminhtml/system_config_backend_encrypted"></id>
+                <id backend_model="adminhtml/system_config_backend_encrypted"/>
                 <model>usa/shipping_carrier_dhl</model>
-                <password backend_model="adminhtml/system_config_backend_encrypted"></password>
+                <password backend_model="adminhtml/system_config_backend_encrypted"/>
                 <shipment_type>P</shipment_type>
-                <shipping_key backend_model="adminhtml/system_config_backend_encrypted"></shipping_key>
-                <shipping_intlkey backend_model="adminhtml/system_config_backend_encrypted"></shipping_intlkey>
+                <shipping_key backend_model="adminhtml/system_config_backend_encrypted"/>
+                <shipping_intlkey backend_model="adminhtml/system_config_backend_encrypted"/>
                 <title>DHL</title>
                 <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
                 <max_package_weight>150</max_package_weight>
@@ -120,13 +119,12 @@
                 <intl_shipment_days>1,2,3,4,5</intl_shipment_days>
                 <additional_protection_rounding>0</additional_protection_rounding>
             </dhl>
-
             <fedex>
-                <account backend_model="adminhtml/system_config_backend_encrypted"></account>
+                <account backend_model="adminhtml/system_config_backend_encrypted"/>
                 <active>0</active>
                 <sallowspecific>0</sallowspecific>
                 <allowed_methods>PRIORITYOVERNIGHT,STANDARDOVERNIGHT,FIRSTOVERNIGHT,FEDEX2DAY,FEDEXEXPRESSSAVER,INTERNATIONALPRIORITY,INTERNATIONALECONOMY,INTERNATIONALFIRST,FEDEX1DAYFREIGHT,FEDEX2DAYFREIGHT,FEDEX3DAYFREIGHT,FEDEXGROUND,GROUNDHOMEDELIVERY,INTERNATIONALPRIORITY FREIGHT,INTERNATIONALECONOMY FREIGHT,EUROPEFIRSTINTERNATIONALPRIORITY</allowed_methods>
-                <cutoff_cost></cutoff_cost>
+                <cutoff_cost/>
                 <dropoff>REGULARPICKUP</dropoff>
                 <free_method>FEDEXGROUND</free_method>
                 <gateway_url>https://gateway.fedex.com/GatewayDC</gateway_url>
@@ -139,7 +137,6 @@
                 <handling_type>F</handling_type>
                 <handling_action>O</handling_action>
             </fedex>
-
             <ups>
                 <access_license_number backend_model="adminhtml/system_config_backend_encrypted"/>
                 <active>0</active>
@@ -147,7 +144,7 @@
                 <allowed_methods>1DM,1DML,1DA,1DAL,1DAPI,1DP,1DPL,2DM,2DML,2DA,2DAL,3DS,GND,GNDCOM,GNDRES,STD,XPR,WXS,XPRL,XDM,XDML,XPD</allowed_methods>
                 <origin_shipment>Shipments Originating in United States</origin_shipment>
                 <container>CP</container>
-                <cutoff_cost></cutoff_cost>
+                <cutoff_cost/>
                 <dest_type>RES</dest_type>
                 <free_method>GND</free_method>
                 <gateway_url>http://www.ups.com/using/services/rave/qcostcgi.cgi</gateway_url>
@@ -169,16 +166,15 @@
                 <mode_xml>1</mode_xml>
                 <type>UPS</type>
             </ups>
-
             <usps>
                 <active>0</active>
                 <sallowspecific>0</sallowspecific>
                 <allowed_methods>Bound Printed Matter,Express Mail,Express Mail Flat Rate Envelope,Express Mail Flat Rate Envelope Hold For Pickup,Express Mail Flat-Rate Envelope Sunday/Holiday Guarantee,Express Mail Hold For Pickup,Express Mail International,Express Mail International Flat Rate Envelope,Express Mail PO to PO,Express Mail Sunday/Holiday Guarantee,First-Class Mail International Large Envelope,First-Class Mail International Letters,First-Class Mail International Package,First-Class,First-Class Mail,First-Class Mail Flat,First-Class Mail Large Envelope,First-Class Mail International,First-Class Mail Letter,First-Class Mail Parcel,First-Class Mail Package,Global Express Guaranteed (GXG),Global Express Guaranteed Non-Document Non-Rectangular,Global Express Guaranteed Non-Document Rectangular,Library Mail,Media Mail,Parcel Post,Priority Mail,Priority Mail Small Flat Rate Box,Priority Mail Medium Flat Rate Box,Priority Mail Large Flat Rate Box,Priority Mail Flat Rate Box,Priority Mail Flat Rate Envelope,Priority Mail International,Priority Mail International Flat Rate Box,Priority Mail International Flat Rate Envelope,Priority Mail International Small Flat Rate Box,Priority Mail International Medium Flat Rate Box,Priority Mail International Large Flat Rate Box,USPS GXG Envelopes</allowed_methods>
                 <container>VARIABLE</container>
-                <cutoff_cost></cutoff_cost>
-                <free_method></free_method>
+                <cutoff_cost/>
+                <free_method/>
                 <gateway_url>http://production.shippingapis.com/ShippingAPI.dll</gateway_url>
-                <handling></handling>
+                <handling/>
                 <machinable>true</machinable>
                 <methods>Bound Printed Matter,Express Mail,Express Mail Flat Rate Envelope,Express Mail Flat Rate Envelope Hold For Pickup,Express Mail Flat-Rate Envelope Sunday/Holiday Guarantee,Express Mail Hold For Pickup,Express Mail International,Express Mail International Flat Rate Envelope,Express Mail PO to PO,Express Mail Sunday/Holiday Guarantee,First-Class Mail International Large Envelope,First-Class Mail International Letters,First-Class Mail International Package,First-Class,First-Class Mail,First-Class Mail Flat,First-Class Mail Large Envelope,First-Class Mail International,First-Class Mail Letter,First-Class Mail Parcel,First-Class Mail Package,Global Express Guaranteed (GXG),Global Express Guaranteed Non-Document Non-Rectangular,Global Express Guaranteed Non-Document Rectangular,Library Mail,Media Mail,Parcel Post,Priority Mail,Priority Mail Small Flat Rate Box,Priority Mail Medium Flat Rate Box,Priority Mail Large Flat Rate Box,Priority Mail Flat Rate Box,Priority Mail Flat Rate Envelope,Priority Mail International,Priority Mail International Flat Rate Box,Priority Mail International Flat Rate Envelope,Priority Mail International Small Flat Rate Box,Priority Mail International Medium Flat Rate Box,Priority Mail International Large Flat Rate Box,USPS GXG Envelopes</methods>
                 <model>usa/shipping_carrier_usps</model>

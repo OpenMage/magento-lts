@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -114,7 +114,6 @@
     <?php
         // Set form template elements prefix
         $this->getFormObject()->setHtmlIdPrefix($_templatePrefix)
-                ->setValues(array('country_id' => Mage::helper('core')->getDefaultCountry($customer->getStore())))
                 ->setFieldNameSuffix('address['.$_templatePrefix.']');
     ?>
     <?php echo $this->getFormObject()->getHtml() ?>

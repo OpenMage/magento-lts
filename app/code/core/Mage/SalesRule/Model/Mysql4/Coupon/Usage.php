@@ -20,63 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
-class Mage_SalesRule_Model_Mysql4_Coupon_Usage extends Mage_Core_Model_Mysql4_Abstract
+/**
+ * SalesRule Mysql4 Coupon Usage Resource Model
+ *
+ * @category    Mage
+ * @package     Mage_SalesRule
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_SalesRule_Model_Mysql4_Coupon_Usage extends Mage_SalesRule_Model_Resource_Coupon_Usage
 {
-    protected function _construct()
-    {
-        $this->_init('salesrule/coupon_usage', '');
-    }
-
-    /**
-     * Increment times_used counter
-     *
-     * @param int Customer Id
-     * @param int Coupon Id
-     */
-    public function updateCustomerCouponTimesUsed($customerId, $couponId)
-    {
-        $this->_getWriteAdapter()->insertOnDuplicate(
-            $this->getMainTable(),
-            array(
-                'coupon_id' => $couponId,
-                'customer_id' => $customerId,
-                'times_used' => 1
-            ),
-            array(
-                'times_used' => new Zend_Db_Expr('times_used + 1')
-            )
-        );
-    }
-
-    /**
-     * Load an object by customer_id & coupon_id
-     *
-     * @param  Varien_Object Object to load data to
-     * @param  int Customer Id
-     * @param  int Coupon Id
-     * @return Mage_Core_Model_Mysql4_Abstract
-     */
-    public function loadByCustomerCoupon(Varien_Object $object, $customerId, $couponId)
-    {
-        $read = $this->_getReadAdapter();
-        if ($read && $couponId && $customerId) {
-            $select = $read->select()
-                ->from($this->getMainTable())
-                ->where($this->getMainTable() . '.customer_id=?', $customerId)
-                ->where($this->getMainTable() . '.coupon_id=?', $couponId);
-            $data = $read->fetchRow($select);
-            if ($data) {
-                $object->setData($data);
-            }
-        }
-        if ($object instanceof Mage_Core_Model_Abstract) {
-            $this->_afterLoad($object);
-        }
-        return $this;
-    }
 }

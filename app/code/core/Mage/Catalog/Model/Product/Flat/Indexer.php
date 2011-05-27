@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,9 +28,28 @@
 /**
  * Catalog Product Flat Indexer Model
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @method Mage_Catalog_Model_Resource_Product_Flat_Indexer _getResource()
+ * @method Mage_Catalog_Model_Resource_Product_Flat_Indexer getResource()
+ * @method int getEntityTypeId()
+ * @method Mage_Catalog_Model_Product_Flat_Indexer setEntityTypeId(int $value)
+ * @method int getAttributeSetId()
+ * @method Mage_Catalog_Model_Product_Flat_Indexer setAttributeSetId(int $value)
+ * @method string getTypeId()
+ * @method Mage_Catalog_Model_Product_Flat_Indexer setTypeId(string $value)
+ * @method string getSku()
+ * @method Mage_Catalog_Model_Product_Flat_Indexer setSku(string $value)
+ * @method int getHasOptions()
+ * @method Mage_Catalog_Model_Product_Flat_Indexer setHasOptions(int $value)
+ * @method int getRequiredOptions()
+ * @method Mage_Catalog_Model_Product_Flat_Indexer setRequiredOptions(int $value)
+ * @method string getCreatedAt()
+ * @method Mage_Catalog_Model_Product_Flat_Indexer setCreatedAt(string $value)
+ * @method string getUpdatedAt()
+ * @method Mage_Catalog_Model_Product_Flat_Indexer setUpdatedAt(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
 {
@@ -41,16 +60,6 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('catalog/product_flat_indexer');
-    }
-
-    /**
-     * Get resource instance
-     *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**

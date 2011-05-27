@@ -21,46 +21,77 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Eav>
-            <version>0.7.16</version>
+            <version>1.6.0.0</version>
         </Mage_Eav>
     </modules>
     <global>
         <models>
             <eav>
                 <class>Mage_Eav_Model</class>
-                <resourceModel>eav_mysql4</resourceModel>
+                <resourceModel>eav_resource</resourceModel>
             </eav>
-
-            <eav_mysql4>
-                <class>Mage_Eav_Model_Mysql4</class>
+            <eav_resource>
+                <class>Mage_Eav_Model_Resource</class>
+                <deprecatedNode>eav_mysql4</deprecatedNode>
                 <entities>
-                    <entity><table>eav_entity</table></entity>
-                    <entity_value_prefix><table>eav_entity</table></entity_value_prefix>
-                    <entity_type><table>eav_entity_type</table></entity_type>
-                    <entity_store><table>eav_entity_store</table></entity_store>
-                    <entity_attribute><table>eav_entity_attribute</table></entity_attribute>
-                    <attribute><table>eav_attribute</table></attribute>
-                    <attribute_set><table>eav_attribute_set</table></attribute_set>
-                    <attribute_group><table>eav_attribute_group</table></attribute_group>
-                    <attribute_option><table>eav_attribute_option</table></attribute_option>
-                    <attribute_option_value><table>eav_attribute_option_value</table></attribute_option_value>
-                    <attribute_label><table>eav_attribute_label</table></attribute_label>
-                    <form_type><table>eav_form_type</table></form_type>
-                    <form_type_entity><table>eav_form_type_entity</table></form_type_entity>
-                    <form_fieldset><table>eav_form_fieldset</table></form_fieldset>
-                    <form_fieldset_label><table>eav_form_fieldset_label</table></form_fieldset_label>
-                    <form_element><table>eav_form_element</table></form_element>
+                    <entity>
+                        <table>eav_entity</table>
+                    </entity>
+                    <entity_value_prefix>
+                        <table>eav_entity</table>
+                    </entity_value_prefix>
+                    <entity_type>
+                        <table>eav_entity_type</table>
+                    </entity_type>
+                    <entity_store>
+                        <table>eav_entity_store</table>
+                    </entity_store>
+                    <entity_attribute>
+                        <table>eav_entity_attribute</table>
+                    </entity_attribute>
+                    <attribute>
+                        <table>eav_attribute</table>
+                    </attribute>
+                    <attribute_set>
+                        <table>eav_attribute_set</table>
+                    </attribute_set>
+                    <attribute_group>
+                        <table>eav_attribute_group</table>
+                    </attribute_group>
+                    <attribute_option>
+                        <table>eav_attribute_option</table>
+                    </attribute_option>
+                    <attribute_option_value>
+                        <table>eav_attribute_option_value</table>
+                    </attribute_option_value>
+                    <attribute_label>
+                        <table>eav_attribute_label</table>
+                    </attribute_label>
+                    <form_type>
+                        <table>eav_form_type</table>
+                    </form_type>
+                    <form_type_entity>
+                        <table>eav_form_type_entity</table>
+                    </form_type_entity>
+                    <form_fieldset>
+                        <table>eav_form_fieldset</table>
+                    </form_fieldset>
+                    <form_fieldset_label>
+                        <table>eav_form_fieldset_label</table>
+                    </form_fieldset_label>
+                    <form_element>
+                        <table>eav_form_element</table>
+                    </form_element>
                 </entities>
-            </eav_mysql4>
+            </eav_resource>
         </models>
-
         <resources>
             <eav_setup>
                 <setup>
@@ -81,20 +112,8 @@
         <eav_frontendclasses>
         </eav_frontendclasses>
         <eav_attributes>
-            <!--
-                <entity_type>
-                    <unique_node_name>
-                        <code>attribute_code</code>
-                        <locked_fields>
-                            <attribute_field_1/>
-                            <attribute_field_2/>
-                        </locked_fields>
-                    </unique_node_name>
-                </entity_type>
-             -->
         </eav_attributes>
     </global>
-
     <adminhtml>
         <translate>
             <modules>
@@ -106,7 +125,6 @@
             </modules>
         </translate>
     </adminhtml>
-
     <frontend>
         <translate>
             <modules>

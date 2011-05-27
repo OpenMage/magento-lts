@@ -20,12 +20,30 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order status history comments
+ *
+ * @method Mage_Sales_Model_Resource_Order_Status_History _getResource()
+ * @method Mage_Sales_Model_Resource_Order_Status_History getResource()
+ * @method int getParentId()
+ * @method Mage_Sales_Model_Order_Status_History setParentId(int $value)
+ * @method int getIsCustomerNotified()
+ * @method int getIsVisibleOnFront()
+ * @method Mage_Sales_Model_Order_Status_History setIsVisibleOnFront(int $value)
+ * @method string getComment()
+ * @method Mage_Sales_Model_Order_Status_History setComment(string $value)
+ * @method string getStatus()
+ * @method Mage_Sales_Model_Order_Status_History setStatus(string $value)
+ * @method string getCreatedAt()
+ * @method Mage_Sales_Model_Order_Status_History setCreatedAt(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Sales
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 {

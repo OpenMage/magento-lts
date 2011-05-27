@@ -20,66 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Store group collection
  *
- * @category   Mage
- * @package    Mage_Core
+ * @category    Mage
+ * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Core_Model_Mysql4_Store_Group_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Core_Model_Mysql4_Store_Group_Collection extends Mage_Core_Model_Resource_Store_Group_Collection
 {
-    protected $_loadDefault = false;
-
-    protected function _construct()
-    {
-        $this->_init('core/store_group');
-    }
-
-    public function load($printQuery = false, $logQuery = false)
-    {
-        if (!$this->_loadDefault) {
-            $this->setWithoutDefaultFilter();
-        }
-        $this->addOrder('main_table.name', 'ASC');
-        return parent::load($printQuery, $logQuery);
-    }
-
-    public function setLoadDefault($loadDefault)
-    {
-        $this->_loadDefault = (bool)$loadDefault;
-        return $this;
-    }
-
-    public function getLoadDefault()
-    {
-        return $this->_loadDefault;
-    }
-
-    public function setWithoutDefaultFilter()
-    {
-        $this->getSelect()->where($this->getConnection()->quoteInto('main_table.group_id>?', 0));
-        return $this;
-    }
-
-    public function toOptionArray()
-    {
-        return $this->_toOptionArray('group_id', 'name');
-    }
-
-    public function addWebsiteFilter($website)
-    {
-        if (is_array($website)) {
-            $condition = $this->getConnection()->quoteInto('main_table.website_id IN(?)', $website);
-        }
-        else {
-            $condition = $this->getConnection()->quoteInto('main_table.website_id=?', $website);
-        }
-        return $this->addFilter('website_id', $condition, 'string');
-    }
 }

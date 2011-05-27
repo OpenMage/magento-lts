@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,9 +28,28 @@
 /**
  * Url rewrite model class
  *
+ * @method Mage_Core_Model_Resource_Url_Rewrite _getResource()
+ * @method Mage_Core_Model_Resource_Url_Rewrite getResource()
+ * @method Mage_Core_Model_Url_Rewrite setStoreId(int $value)
+ * @method int getCategoryId()
+ * @method Mage_Core_Model_Url_Rewrite setCategoryId(int $value)
+ * @method int getProductId()
+ * @method Mage_Core_Model_Url_Rewrite setProductId(int $value)
+ * @method string getIdPath()
+ * @method Mage_Core_Model_Url_Rewrite setIdPath(string $value)
+ * @method string getRequestPath()
+ * @method Mage_Core_Model_Url_Rewrite setRequestPath(string $value)
+ * @method string getTargetPath()
+ * @method Mage_Core_Model_Url_Rewrite setTargetPath(string $value)
+ * @method int getIsSystem()
+ * @method Mage_Core_Model_Url_Rewrite setIsSystem(int $value)
+ * @method string getOptions()
+ * @method Mage_Core_Model_Url_Rewrite setOptions(string $value)
+ * @method string getDescription()
+ * @method Mage_Core_Model_Url_Rewrite setDescription(string $value)
  *
- * @category   Mage
- * @package    Mage_Core
+ * @category    Mage
+ * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract

@@ -20,33 +20,19 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Flat sales order creditmemo items collection
  *
+ * @category    Mage
+ * @package     Mage_Sales
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Mysql4_Order_Creditmemo_Item_Collection extends Mage_Sales_Model_Mysql4_Collection_Abstract
+class Mage_Sales_Model_Mysql4_Order_Creditmemo_Item_Collection
+    extends Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection
 {
-    protected $_eventPrefix = 'sales_order_creditmemo_item_collection';
-    protected $_eventObject = 'order_creditmemo_item_collection';
-
-    protected function _construct()
-    {
-        $this->_init('sales/order_creditmemo_item');
-    }
-
-    /**
-     * Set creditmemo filter
-     *
-     * @param int $creditmemoId
-     * @return Mage_Sales_Model_Mysql4_Order_Creditmemo_Item_Collection
-     */
-    public function setCreditmemoFilter($creditmemoId)
-    {
-        $this->addFieldToFilter('parent_id', $creditmemoId);
-        return $this;
-    }
 }

@@ -20,12 +20,40 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @deprecated after 1.4, moved to tax module
+ *
+ * @method Mage_Sales_Model_Resource_Order_Tax _getResource()
+ * @method Mage_Sales_Model_Resource_Order_Tax getResource()
+ * @method int getOrderId()
+ * @method Mage_Sales_Model_Order_Tax setOrderId(int $value)
+ * @method string getCode()
+ * @method Mage_Sales_Model_Order_Tax setCode(string $value)
+ * @method string getTitle()
+ * @method Mage_Sales_Model_Order_Tax setTitle(string $value)
+ * @method float getPercent()
+ * @method Mage_Sales_Model_Order_Tax setPercent(float $value)
+ * @method float getAmount()
+ * @method Mage_Sales_Model_Order_Tax setAmount(float $value)
+ * @method int getPriority()
+ * @method Mage_Sales_Model_Order_Tax setPriority(int $value)
+ * @method int getPosition()
+ * @method Mage_Sales_Model_Order_Tax setPosition(int $value)
+ * @method float getBaseAmount()
+ * @method Mage_Sales_Model_Order_Tax setBaseAmount(float $value)
+ * @method int getProcess()
+ * @method Mage_Sales_Model_Order_Tax setProcess(int $value)
+ * @method float getBaseRealAmount()
+ * @method Mage_Sales_Model_Order_Tax setBaseRealAmount(float $value)
+ * @method int getHidden()
+ * @method Mage_Sales_Model_Order_Tax setHidden(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Sales
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order_Tax extends Mage_Core_Model_Abstract
 {

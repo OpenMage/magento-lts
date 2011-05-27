@@ -21,24 +21,25 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_XmlConnect>
-            <version>1.4.0.13</version>
+            <version>1.6.0.0</version>
         </Mage_XmlConnect>
     </modules>
     <global>
         <models>
             <xmlconnect>
                 <class>Mage_XmlConnect_Model</class>
-                <resourceModel>xmlconnect_mysql4</resourceModel>
+                <resourceModel>xmlconnect_resource</resourceModel>
             </xmlconnect>
-            <xmlconnect_mysql4>
-                <class>Mage_XmlConnect_Model_Mysql4</class>
+            <xmlconnect_resource>
+                <class>Mage_XmlConnect_Model_Resource</class>
+                <deprecatedNode>xmlconnect_mysql4</deprecatedNode>
                 <entities>
                     <application><table>xmlconnect_application</table></application>
                     <history><table>xmlconnect_history</table></history>
@@ -46,7 +47,7 @@
                     <queue><table>xmlconnect_queue</table></queue>
                     <template><table>xmlconnect_notification_template</table></template>
                 </entities>
-            </xmlconnect_mysql4>
+            </xmlconnect_resource>
         </models>
         <blocks>
             <xmlconnect>
@@ -62,7 +63,7 @@
             <xmlconnect_setup>
                 <setup>
                     <module>Mage_XmlConnect</module>
-                    <class>Mage_XmlConnect_Model_Mysql4_Setup</class>
+                    <class>Mage_XmlConnect_Model_Resource_Setup</class>
                 </setup>
             </xmlconnect_setup>
         </resources>

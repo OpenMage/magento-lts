@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -125,8 +125,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
                 $this->_table = $this->getAttribute()->getBackendTable();
             } else {
                 $entity = $this->getAttribute()->getEntity();
-                $this->_table = $entity->getValueTablePrefix()
-                    .'_'.$this->getType();
+                $tableName = sprintf('%s_%s', $entity->getValueTablePrefix(), $this->getType());
+                $this->_table = $tableName;
             }
         }
 
@@ -147,32 +147,57 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
                 $this->_entityIdField = $this->getAttribute()->getEntityType()->getValueEntityIdField();
             }
         }
+
         return $this->_entityIdField;
     }
 
+    /**
+     * Set value id
+     *
+     * @param int $valueId
+     * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     */
     public function setValueId($valueId)
     {
         $this->_valueId = $valueId;
         return $this;
     }
 
+    /**
+     * Retreive value id
+     *
+     * @return int
+     */
     public function getValueId()
     {
         return $this->_valueId;
     }
 
+    /**
+     * Retreive default value
+     *
+     * @return mixed
+     */
     public function getDefaultValue()
     {
-        if (is_null($this->_defaultValue)) {
+        if ($this->_defaultValue === null) {
             if ($this->getAttribute()->getDefaultValue()) {
                 $this->_defaultValue = $this->getAttribute()->getDefaultValue();
             } else {
                 $this->_defaultValue = "";
             }
         }
+
         return $this->_defaultValue;
     }
 
+    /**
+     * Validate object
+     *
+     * @param Varien_Object $object
+     * @throws Mage_Eav_Exception
+     * @return boolean
+     */
     public function validate($object)
     {
         $attrCode = $this->getAttribute()->getAttributeCode();
@@ -181,44 +206,81 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
             return false;
         }
 
-        if ($this->getAttribute()->getIsUnique() && !$this->getAttribute()->getIsRequired() && ($value == '' || $this->getAttribute()->isValueEmpty($value))) {
+        if ($this->getAttribute()->getIsUnique()
+            && !$this->getAttribute()->getIsRequired()
+            && ($value == '' || $this->getAttribute()->isValueEmpty($value)))
+        {
             return true;
         }
 
         if ($this->getAttribute()->getIsUnique()) {
             if (!$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)) {
                 $label = $this->getAttribute()->getFrontend()->getLabel();
-                Mage::throwException(Mage::helper('eav')->__('The value of attribute "%s" must be unique.', $label));
+                throw Mage::exception('Mage_Eav',
+                    Mage::helper('eav')->__('The value of attribute "%s" must be unique', $label)
+                );
             }
         }
+
         return true;
     }
 
+    /**
+     * After load method
+     *
+     * @param Varien_Object $object
+     * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     */
     public function afterLoad($object)
     {
-
+        return $this;
     }
 
+    /**
+     * Before save method
+     *
+     * @param Varien_Object $object
+     * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     */
     public function beforeSave($object)
     {
         $attrCode = $this->getAttribute()->getAttributeCode();
         if (!$object->hasData($attrCode) && $this->getDefaultValue()) {
             $object->setData($attrCode, $this->getDefaultValue());
         }
+
+        return $this;
     }
 
+    /**
+     * After save method
+     *
+     * @param Varien_Object $object
+     * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     */
     public function afterSave($object)
     {
-
+        return $this;
     }
 
+    /**
+     * Before delete method
+     *
+     * @param Varien_Object $object
+     * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     */
     public function beforeDelete($object)
     {
-
+        return $this;
     }
-
+    /**
+     * After delete method
+     *
+     * @param Varien_Object $object
+     * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     */
     public function afterDelete($object)
     {
-
+        return $this;
     }
 }

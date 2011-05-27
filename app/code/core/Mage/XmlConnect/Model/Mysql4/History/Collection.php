@@ -20,50 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * History resource collection
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Model_Mysql4_History_Collection
-    extends Mage_Core_Model_Mysql4_Collection_Abstract
+    extends Mage_XmlConnect_Model_Resource_History_Collection
 {
-    /**
-     * Internal constructor
-     */
-    protected function _construct()
-    {
-        $this->_init('xmlconnect/history');
-    }
-
-    /**
-     * Filter collection by store
-     *
-     * @param int $storeId
-     * @return Mage_Core_Model_Mysql4_Collection_Abstract
-     */
-    public function addStoreFilter($storeId)
-    {
-        $this->addFieldToFilter('store_id', $storeId);
-        return $this;
-    }
-
-    /**
-     * Filter collection by application_id
-     *
-     * @param int $applicationId
-     * @return Mage_Core_Model_Mysql4_Collection_Abstract
-     */
-    public function addApplicationFilter($applicationId)
-    {
-        $this->addFieldToFilter('application_id', $applicationId);
-        return $this;
-    }
 }

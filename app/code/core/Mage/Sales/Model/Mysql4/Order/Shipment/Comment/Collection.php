@@ -20,45 +20,19 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Flat sales order shipment comments collection
  *
+ * @category    Mage
+ * @package     Mage_Sales
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Mysql4_Order_Shipment_Comment_Collection extends Mage_Sales_Model_Mysql4_Order_Comment_Collection_Abstract
+class Mage_Sales_Model_Mysql4_Order_Shipment_Comment_Collection
+    extends Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection
 {
-    /*
-     * @var string
-     */
-    protected $_eventPrefix = 'sales_order_shipment_comment_collection';
-
-    /*
-     * @var string
-     */
-    protected $_eventObject = 'order_shipment_comment_collection';
-
-    /*
-     * Inits shipment comment collection
-     *
-     * @return void
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_init('sales/order_shipment_comment');
-    }
-
-    /**
-     * Set shipment filter
-     *
-     * @param int $shipmentId
-     * @return Mage_Sales_Model_Mysql4_Order_Shipment_Comment_Collection
-     */
-    public function setShipmentFilter($shipmentId)
-    {
-        return $this->setParentFilter($shipmentId);
-    }
 }

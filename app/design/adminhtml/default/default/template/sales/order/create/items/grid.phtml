@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -110,17 +110,11 @@
                                 <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->htmlEscape($_item->getSku()))); ?>
                             </div>
                             <?php if($_item->getMessage(false)): ?>
-                                <?php if($_item->getHasError()): ?>
-                                    <div class="error">
-                                        <div style="font-size:95%"><?php echo $this->helper('sales')->__('This product has not been configured.') ?></div>
-                                    </div>
-                                <?php else: ?>
-                                    <?php foreach ($_item->getMessage(false) as $message): ?>
-                                        <div class=">notice">
-                                            <div style="font-size:95%"><?php echo $message; ?></div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                                <?php foreach ($_item->getMessage(false) as $message): ?>
+                                <div class="<?php if($_item->getHasError()): ?>error<?php else: ?>notice<?php endif; ?>">
+                                    <div style="font-size:95%"><?php echo $message; ?></div>
+                                </div>
+                                <?php endforeach; ?>
                             <?php endif; ?>
                         </td>
                         <td class="a-center v-middle">

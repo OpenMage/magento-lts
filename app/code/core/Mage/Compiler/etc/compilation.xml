@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Compiler
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -71,8 +71,8 @@
             <Mage_Wishlist_Block_Links/>
 
             <Mage_Tag_Model_Tag/>
-            <Mage_Tag_Model_Mysql4_Tag/>
-            <Mage_Tag_Model_Mysql4_Popular_Collection/>
+            <Mage_Tag_Model_Resource_Tag/>
+            <Mage_Tag_Model_Resource_Popular_Collection/>
             <Mage_Tag_Block_Popular/>
 
             <Mage_Rss_Helper_Data/>
@@ -85,9 +85,9 @@
 
             <Mage_Poll_Model_Poll_Answer/>
             <Mage_Poll_Model_Poll/>
-            <Mage_Poll_Model_Mysql4_Poll_Answer_Collection/>
-            <Mage_Poll_Model_Mysql4_Poll_Answer/>
-            <Mage_Poll_Model_Mysql4_Poll/>
+            <Mage_Poll_Model_Resource_Poll_Answer_Collection/>
+            <Mage_Poll_Model_Resource_Poll_Answer/>
+            <Mage_Poll_Model_Resource_Poll/>
             <Mage_Poll_Block_ActivePoll/>
 
             <Mage_Page_Block_Template_Links/>
@@ -101,7 +101,7 @@
             <Mage_Newsletter_Block_Subscribe/>
 
             <Mage_Log_Model_Visitor/>
-            <Mage_Log_Model_Mysql4_Visitor/>
+            <Mage_Log_Model_Resource_Visitor/>
 
             <Mage_GoogleOptimizer_Model_Observer/>
             <Mage_GoogleOptimizer_Helper_Data/>
@@ -118,7 +118,7 @@
             <Mage_Contacts_Helper_Data/>
 
             <Mage_Cms_Model_Page/>
-            <Mage_Cms_Model_Mysql4_Page/>
+            <Mage_Cms_Model_Resource_Page/>
             <Mage_Cms_Model_Block/>
             <Mage_Cms_Helper_Page/>
             <Mage_Cms_Controller_Router/>
@@ -160,16 +160,16 @@
             <Mage_Core_Model_Resource_Type_Abstract/>
             <Mage_Core_Model_Resource_Abstract/>
             <Mage_Core_Model_Resource/>
-            <Mage_Core_Model_Mysql4_Website_Collection/>
-            <Mage_Core_Model_Mysql4_Website/>
-            <Mage_Core_Model_Mysql4_Url_Rewrite/>
-            <Mage_Core_Model_Mysql4_Store_Group_Collection/>
-            <Mage_Core_Model_Mysql4_Store_Group/>
-            <Mage_Core_Model_Mysql4_Store_Collection/>
-            <Mage_Core_Model_Mysql4_Store/>
-            <Mage_Core_Model_Mysql4_Design/>
-            <Mage_Core_Model_Mysql4_Collection_Abstract/>
-            <Mage_Core_Model_Mysql4_Abstract/>
+            <Mage_Core_Model_Resource_Website_Collection/>
+            <Mage_Core_Model_Resource_Website/>
+            <Mage_Core_Model_Resource_Url_Rewrite/>
+            <Mage_Core_Model_Resource_Store_Group_Collection/>
+            <Mage_Core_Model_Resource_Store_Group/>
+            <Mage_Core_Model_Resource_Store_Collection/>
+            <Mage_Core_Model_Resource_Store/>
+            <Mage_Core_Model_Resource_Design/>
+            <Mage_Core_Model_Resource_Db_Collection_Abstract/>
+            <Mage_Core_Model_Resource_Abstract/>
             <Mage_Core_Model_Message_Collection/>
             <Mage_Core_Model_Message/>
             <Mage_Core_Model_Locale/>
@@ -216,9 +216,9 @@
             <Mage_Eav_Model_Entity_Attribute_Interface/>
             <Mage_Eav_Model_Entity_Interface/>
             <Mage_Eav_Model_Entity_Type/>
-            <Mage_Eav_Model_Mysql4_Entity_Attribute/>
-            <Mage_Eav_Model_Mysql4_Entity_Type/>
-            <Mage_Eav_Model_Mysql4_Entity_Attribute_Collection/>
+            <Mage_Eav_Model_Resource_Entity_Attribute/>
+            <Mage_Eav_Model_Resource_Entity_Type/>
+            <Mage_Eav_Model_Resource_Entity_Attribute_Collection/>
             <Mage_Eav_Model_Entity_Attribute_Backend_Default/>
             <Mage_Eav_Model_Entity_Attribute_Backend_Datetime/>
             <Mage_Eav_Model_Entity_Attribute_Backend_Time_Created/>
@@ -242,29 +242,33 @@
             <Mage_Catalog_Model_Product_Status/>
             <Mage_Catalog_Model_Product_Visibility/>
             <Mage_Catalog_Model_Resource_Eav_Attribute/>
-            <Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract/>
-            <Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat/>
-            <Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract/>
-            <Mage_Catalog_Model_Resource_Eav_Mysql4_Config/>
-            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product/>
-            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection/>
+            <Mage_Catalog_Model_Resource_Abstract/>
+            <Mage_Catalog_Model_Resource_Category_Flat/>
+            <Mage_Catalog_Model_Resource_Collection_Abstract/>
+            <Mage_Catalog_Model_Resource_Config/>
+            <Mage_Catalog_Model_Resource_Product/>
+            <Mage_Catalog_Model_Resource_Product_Collection/>
             <Mage_Eav_Model_Entity_Collection_Abstract/>
+            <Mage_Eav_Model_Entity_Interface/>
+            <Mage_Eav_Model_Entity_Type/>
+            <Mage_Eav_Model_Resource_Entity_Attribute/>
+            <Mage_Eav_Model_Resource_Entity_Type/>
         </catalog>
 
         <checkout>
-            <Mage_CatalogIndex_Model_Mysql4_Abstract/>
-            <Mage_CatalogIndex_Model_Mysql4_Price/>
+            <Mage_CatalogIndex_Model_Resource_Abstract/>
+            <Mage_CatalogIndex_Model_Resource_Price/>
             <Mage_CatalogIndex_Model_Price/>
-            <Mage_CatalogInventory_Model_Mysql4_Stock/>
-            <Mage_CatalogInventory_Model_Mysql4_Stock_Item/>
-            <Mage_CatalogInventory_Model_Mysql4_Stock_Item_Collection/>
-            <Mage_CatalogInventory_Model_Mysql4_Stock_Status/>
+            <Mage_CatalogInventory_Model_Resource_Stock/>
+            <Mage_CatalogInventory_Model_Resource_Stock_Item/>
+            <Mage_CatalogInventory_Model_Resource_Stock_Item_Collection/>
+            <Mage_CatalogInventory_Model_Resource_Stock_Status/>
             <Mage_CatalogInventory_Model_Observer/>
             <Mage_CatalogInventory_Model_Stock/>
             <Mage_CatalogInventory_Model_Stock_Item/>
             <Mage_CatalogInventory_Model_Stock_Status/>
             <Mage_CatalogRule_Helper_Data/>
-            <Mage_CatalogRule_Model_Mysql4_Rule/>
+            <Mage_CatalogRule_Model_Resource_Rule/>
             <Mage_CatalogRule_Model_Observer/>
             <Mage_CatalogRule_Model_Rule_Condition_Product/>
             <Mage_Catalog_Block_Product_Price/>
@@ -287,16 +291,16 @@
             <Mage_Catalog_Model_Product_Url/>
             <Mage_Catalog_Model_Product_Visibility/>
             <Mage_Catalog_Model_Resource_Eav_Attribute/>
-            <Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract/>
-            <Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract/>
-            <Mage_Catalog_Model_Resource_Eav_Mysql4_Config/>
-            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product/>
-            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Media/>
-            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Tierprice/>
-            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection/>
-            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection/>
-            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option/>
-            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Collection/>
+            <Mage_Catalog_Model_Resource_Abstract/>
+            <Mage_Catalog_Model_Resource_Collection_Abstract/>
+            <Mage_Catalog_Model_Resource_Config/>
+            <Mage_Catalog_Model_Resource_Product/>
+            <Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media/>
+            <Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice/>
+            <Mage_Catalog_Model_Resource_Product_Collection/>
+            <Mage_Catalog_Model_Resource_Product_Link_Product_Collection/>
+            <Mage_Catalog_Model_Resource_Product_Option/>
+            <Mage_Catalog_Model_Resource_Product_Option_Collection/>
             <Mage_Checkout_Block_Cart/>
             <Mage_Checkout_Block_Cart_Coupon/>
             <Mage_Checkout_Block_Cart_Crosssell/>
@@ -316,8 +320,8 @@
             <Mage_Directory_Block_Data/>
             <Mage_Directory_Helper_Data/>
             <Mage_Directory_Model_Currency/>
-            <Mage_Directory_Model_Mysql4_Currency/>
-            <Mage_Directory_Model_Mysql4_Region/>
+            <Mage_Directory_Model_Resource_Currency/>
+            <Mage_Directory_Model_Resource_Region/>
             <Mage_Directory_Model_Region/>
             <Mage_Eav_Model_Config/>
             <Mage_Eav_Model_Entity/>
@@ -329,8 +333,8 @@
             <Mage_Eav_Model_Entity_Collection_Abstract/>
             <Mage_Eav_Model_Entity_Interface/>
             <Mage_Eav_Model_Entity_Type/>
-            <Mage_Eav_Model_Mysql4_Entity_Attribute/>
-            <Mage_Eav_Model_Mysql4_Entity_Type/>
+            <Mage_Eav_Model_Resource_Entity_Attribute/>
+            <Mage_Eav_Model_Resource_Entity_Type/>
             <Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config/>
             <Mage_GiftMessage_Model_Observer/>
             <Mage_GoogleCheckout_Block_Link/>
@@ -343,8 +347,8 @@
             <Mage_Rule_Model_Condition_Interface/>
             <Mage_Rule_Model_Rule/>
             <Mage_SalesRule_Helper_Data/>
-            <Mage_SalesRule_Model_Mysql4_Rule/>
-            <Mage_SalesRule_Model_Mysql4_Rule_Collection/>
+            <Mage_SalesRule_Model_Resource_Rule/>
+            <Mage_SalesRule_Model_Resource_Rule_Collection/>
             <Mage_SalesRule_Model_Observer/>
             <Mage_SalesRule_Model_Rule/>
             <Mage_SalesRule_Model_Rule_Condition_Combine/>
@@ -353,18 +357,18 @@
             <Mage_SalesRule_Model_Rule_Customer/>
             <Mage_SalesRule_Model_Validator/>
             <Mage_Sales_Helper_Data/>
-            <Mage_Sales_Model_Mysql4_Abstract/>
-            <Mage_Sales_Model_Mysql4_Quote/>
-            <Mage_Sales_Model_Mysql4_Quote_Address/>
-            <Mage_Sales_Model_Mysql4_Quote_Address_Collection/>
-            <Mage_Sales_Model_Mysql4_Quote_Address_Item/>
-            <Mage_Sales_Model_Mysql4_Quote_Address_Item_Collection/>
-            <Mage_Sales_Model_Mysql4_Quote_Address_Rate/>
-            <Mage_Sales_Model_Mysql4_Quote_Address_Rate_Collection/>
-            <Mage_Sales_Model_Mysql4_Quote_Item/>
-            <Mage_Sales_Model_Mysql4_Quote_Item_Collection/>
-            <Mage_Sales_Model_Mysql4_Quote_Item_Option/>
-            <Mage_Sales_Model_Mysql4_Quote_Item_Option_Collection/>
+            <Mage_Sales_Model_Resource_Abstract/>
+            <Mage_Sales_Model_Resource_Quote/>
+            <Mage_Sales_Model_Resource_Quote_Address/>
+            <Mage_Sales_Model_Resource_Quote_Address_Collection/>
+            <Mage_Sales_Model_Resource_Quote_Address_Item/>
+            <Mage_Sales_Model_Resource_Quote_Address_Item_Collection/>
+            <Mage_Sales_Model_Resource_Quote_Address_Rate/>
+            <Mage_Sales_Model_Resource_Quote_Address_Rate_Collection/>
+            <Mage_Sales_Model_Resource_Quote_Item/>
+            <Mage_Sales_Model_Resource_Quote_Item_Collection/>
+            <Mage_Sales_Model_Resource_Quote_Item_Option/>
+            <Mage_Sales_Model_Resource_Quote_Item_Option_Collection/>
             <Mage_Sales_Model_Quote/>
             <Mage_Sales_Model_Quote_Address/>
             <Mage_Sales_Model_Quote_Address_Item/>
@@ -384,7 +388,7 @@
             <Mage_Tax_Helper_Data/>
             <Mage_Tax_Model_Calculation/>
             <Mage_Tax_Model_Config/>
-            <Mage_Tax_Model_Mysql4_Calculation/>
+            <Mage_Tax_Model_Resource_Calculation/>
             <Mage_Tax_Model_Observer/>
             <Varien_Crypt/>
             <Varien_Crypt_Abstract/>

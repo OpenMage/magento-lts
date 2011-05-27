@@ -21,38 +21,68 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Downloadable>
-            <version>1.4.0.3</version>
+            <version>1.6.0.0</version>
         </Mage_Downloadable>
     </modules>
     <global>
         <fieldsets>
             <downloadable_sales_copy_order>
-                <entity_id><to_downloadable>order_id</to_downloadable></entity_id>
-                <increment_id><to_downloadable>order_increment_id</to_downloadable></increment_id>
-                <created_at><to_downloadable>*</to_downloadable></created_at>
-                <updated_at><to_downloadable>*</to_downloadable></updated_at>
-                <customer_id><to_downloadable>*</to_downloadable></customer_id>
+                <entity_id>
+                    <to_downloadable>order_id</to_downloadable>
+                </entity_id>
+                <increment_id>
+                    <to_downloadable>order_increment_id</to_downloadable>
+                </increment_id>
+                <created_at>
+                    <to_downloadable>*</to_downloadable>
+                </created_at>
+                <updated_at>
+                    <to_downloadable>*</to_downloadable>
+                </updated_at>
+                <customer_id>
+                    <to_downloadable>*</to_downloadable>
+                </customer_id>
             </downloadable_sales_copy_order>
             <downloadable_sales_copy_order_item>
-                <item_id><to_downloadable>order_item_id</to_downloadable></item_id>
-                <name><to_downloadable>product_name</to_downloadable></name>
-                <sku><to_downloadable>product_sku</to_downloadable></sku>
+                <item_id>
+                    <to_downloadable>order_item_id</to_downloadable>
+                </item_id>
+                <name>
+                    <to_downloadable>product_name</to_downloadable>
+                </name>
+                <sku>
+                    <to_downloadable>product_sku</to_downloadable>
+                </sku>
             </downloadable_sales_copy_order_item>
             <downloadable_sales_copy_link>
-                <product_id><to_purchased>*</to_purchased></product_id>
-                <link_id><to_purchased>*</to_purchased></link_id>
-                <title><to_purchased>link_title</to_purchased></title>
-                <is_shareable><to_purchased>*</to_purchased></is_shareable>
-                <link_url><to_purchased>*</to_purchased></link_url>
-                <link_file><to_purchased>*</to_purchased></link_file>
-                <link_type><to_purchased>*</to_purchased></link_type>
+                <product_id>
+                    <to_purchased>*</to_purchased>
+                </product_id>
+                <link_id>
+                    <to_purchased>*</to_purchased>
+                </link_id>
+                <title>
+                    <to_purchased>link_title</to_purchased>
+                </title>
+                <is_shareable>
+                    <to_purchased>*</to_purchased>
+                </is_shareable>
+                <link_url>
+                    <to_purchased>*</to_purchased>
+                </link_url>
+                <link_file>
+                    <to_purchased>*</to_purchased>
+                </link_file>
+                <link_type>
+                    <to_purchased>*</to_purchased>
+                </link_type>
             </downloadable_sales_copy_link>
         </fieldsets>
         <sales>
@@ -68,10 +98,11 @@
         <models>
             <downloadable>
                 <class>Mage_Downloadable_Model</class>
-                <resourceModel>downloadable_mysql4</resourceModel>
+                <resourceModel>downloadable_resource</resourceModel>
             </downloadable>
-            <downloadable_mysql4>
-                <class>Mage_Downloadable_Model_Mysql4</class>
+            <downloadable_resource>
+                <class>Mage_Downloadable_Model_Resource</class>
+                <deprecatedNode>downloadable_mysql4</deprecatedNode>
                 <entities>
                     <link>
                         <table>downloadable_link</table>
@@ -101,7 +132,7 @@
                         <table>catalog_product_index_price_downlod_tmp</table>
                     </product_price_indexer_tmp>
                 </entities>
-            </downloadable_mysql4>
+            </downloadable_resource>
         </models>
         <blocks>
             <downloadable>
@@ -129,19 +160,19 @@
                         <price_indexer>downloadable/indexer_price</price_indexer>
                         <can_use_qty_decimals>0</can_use_qty_decimals>
                     </downloadable>
-                    <bundle>
-                        <allowed_selection_types>
-                            <downloadable />
-                        </allowed_selection_types>
-                    </bundle>
+                    <!--<bundle>-->
+                        <!--<allowed_selection_types>-->
+                            <!--<downloadable/>-->
+                        <!--</allowed_selection_types>-->
+                    <!--</bundle>-->
                     <configurable>
                         <allow_product_types>
-                            <downloadable />
+                            <downloadable/>
                         </allow_product_types>
                     </configurable>
                     <grouped>
                         <allow_product_types>
-                            <downloadable />
+                            <downloadable/>
                         </allow_product_types>
                     </grouped>
                 </type>
@@ -286,47 +317,47 @@
             <catalog_product_dataflow>
                 <qty>
                     <product_type>
-                        <downloadable />
+                        <downloadable/>
                     </product_type>
                 </qty>
                 <min_qty>
                     <product_type>
-                        <downloadable />
+                        <downloadable/>
                     </product_type>
                 </min_qty>
                 <is_qty_decimal>
                     <product_type>
-                        <downloadable />
+                        <downloadable/>
                     </product_type>
                 </is_qty_decimal>
                 <backorders>
                     <product_type>
-                        <downloadable />
+                        <downloadable/>
                     </product_type>
                 </backorders>
                 <min_sale_qty>
                     <product_type>
-                        <downloadable />
+                        <downloadable/>
                     </product_type>
                 </min_sale_qty>
                 <max_sale_qty>
                     <product_type>
-                        <downloadable />
+                        <downloadable/>
                     </product_type>
                 </max_sale_qty>
                 <is_in_stock>
                     <product_type>
-                        <downloadable />
+                        <downloadable/>
                     </product_type>
                 </is_in_stock>
                 <notify_stock_qty>
                     <product_type>
-                        <downloadable />
+                        <downloadable/>
                     </product_type>
                 </notify_stock_qty>
                 <manage_stock>
                     <product_type>
-                        <downloadable />
+                        <downloadable/>
                     </product_type>
                 </manage_stock>
             </catalog_product_dataflow>

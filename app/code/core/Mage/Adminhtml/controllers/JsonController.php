@@ -20,17 +20,24 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Json controller
  *
+ * @category    Mage
+ * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_JsonController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * Return JSON-encoded array of country regions
+     *
+     * @return string
+     */
     public function countryRegionAction()
     {
         $arrRes = array();

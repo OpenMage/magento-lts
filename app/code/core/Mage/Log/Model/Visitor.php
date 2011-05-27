@@ -20,11 +20,29 @@
  *
  * @category    Mage
  * @package     Mage_Log
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
+/**
+ * Enter description here ...
+ *
+ * @method Mage_Log_Model_Resource_Visitor _getResource()
+ * @method Mage_Log_Model_Resource_Visitor getResource()
+ * @method string getSessionId()
+ * @method Mage_Log_Model_Visitor setSessionId(string $value)
+ * @method Mage_Log_Model_Visitor setFirstVisitAt(string $value)
+ * @method Mage_Log_Model_Visitor setLastVisitAt(string $value)
+ * @method int getLastUrlId()
+ * @method Mage_Log_Model_Visitor setLastUrlId(int $value)
+ * @method int getStoreId()
+ * @method Mage_Log_Model_Visitor setStoreId(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Log
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
 {
     const DEFAULT_ONLINE_MINUTES_INTERVAL = 15;

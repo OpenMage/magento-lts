@@ -20,28 +20,19 @@
  *
  * @category    Mage
  * @package     Mage_CatalogRule
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
-class Mage_CatalogRule_Model_Mysql4_Rule_Product_Price_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+/**
+ * Enter description here ...
+ *
+ * @category    Mage
+ * @package     Mage_CatalogRule
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_CatalogRule_Model_Mysql4_Rule_Product_Price_Collection
+    extends Mage_CatalogRule_Model_Resource_Rule_Product_Price_Collection
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_init('catalogrule/rule_product_price');
-    }
-
-    public function getProductIds()
-    {
-        $idsSelect = clone $this->getSelect();
-        $idsSelect->reset(Zend_Db_Select::ORDER);
-        $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
-        $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $idsSelect->reset(Zend_Db_Select::COLUMNS);
-        $idsSelect->columns('main_table.product_id');
-        $idsSelect->distinct(true);
-        return $this->getConnection()->fetchCol($idsSelect);
-    }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +35,7 @@ class Mage_GoogleCheckout_Model_Api extends Varien_Object
 
     protected function _getApi($area)
     {
-        $api = Mage::getModel('googlecheckout/api_xml_'.$area)->setStoreId($this->getStoreId());
+        $api = Mage::getModel('googlecheckout/api_xml_' . $area)->setStoreId($this->getStoreId());
         $api->setApi($this);
         return $api;
     }
@@ -66,7 +66,7 @@ class Mage_GoogleCheckout_Model_Api extends Varien_Object
         return $api;
     }
 
-    public function refund($gOrderId, $amount, $reason, $comment='')
+    public function refund($gOrderId, $amount, $reason, $comment = '')
     {
         $api = $this->_getApi('order')
             ->setGoogleOrderNumber($gOrderId)
@@ -74,7 +74,7 @@ class Mage_GoogleCheckout_Model_Api extends Varien_Object
         return $api;
     }
 
-    public function cancel($gOrderId, $reason, $comment='')
+    public function cancel($gOrderId, $reason, $comment = '')
     {
         $api = $this->_getApi('order')
             ->setGoogleOrderNumber($gOrderId)
@@ -92,9 +92,9 @@ class Mage_GoogleCheckout_Model_Api extends Varien_Object
         return $api;
     }
 
-    public function deliver($gOrderId, $carrier, $trackingNo, $sendMail=true)
+    public function deliver($gOrderId, $carrier, $trackingNo, $sendMail = true)
     {
-        $gCarriers = array('dhl'=>'DHL', 'fedex'=>'FedEx', 'ups'=>'UPS', 'usps'=>'USPS');
+        $gCarriers = array('dhl' => 'DHL', 'fedex' => 'FedEx', 'ups' => 'UPS', 'usps' => 'USPS');
         $carrier = strtolower($carrier);
         $carrier = isset($gCarriers[$carrier]) ? $gCarriers[$carrier] : 'Other';
 

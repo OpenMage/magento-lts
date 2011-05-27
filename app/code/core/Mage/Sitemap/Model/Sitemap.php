@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sitemap
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,8 +28,21 @@
 /**
  * Sitemap model
  *
- * @category   Mage
- * @package    Mage_Sitemap
+ * @method Mage_Sitemap_Model_Resource_Sitemap _getResource()
+ * @method Mage_Sitemap_Model_Resource_Sitemap getResource()
+ * @method string getSitemapType()
+ * @method Mage_Sitemap_Model_Sitemap setSitemapType(string $value)
+ * @method string getSitemapFilename()
+ * @method Mage_Sitemap_Model_Sitemap setSitemapFilename(string $value)
+ * @method string getSitemapPath()
+ * @method Mage_Sitemap_Model_Sitemap setSitemapPath(string $value)
+ * @method string getSitemapTime()
+ * @method Mage_Sitemap_Model_Sitemap setSitemapTime(string $value)
+ * @method int getStoreId()
+ * @method Mage_Sitemap_Model_Sitemap setStoreId(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Sitemap
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -206,32 +206,30 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
 
             $xml->addAttribute('USERID', $r->getUserId());
             $package = $xml->addChild('Package');
-                $package->addAttribute('ID', 0);
-                $service = $this->getCode('service_to_code', $r->getService());
-                if (!$service) {
-                    $service = $r->getService();
-                }
-                $package->addChild('Service', $service);
+            $package->addAttribute('ID', 0);
+            $service = $this->getCode('service_to_code', $r->getService());
+            if (!$service) {
+                $service = $r->getService();
+            }
+            $package->addChild('Service', $service);
 
-                // no matter Letter, Flat or Parcel, use Parcel
-                if ($r->getService() == 'FIRST CLASS') {
-                    $package->addChild('FirstClassMailType', 'PARCEL');
-                }
-                $package->addChild('ZipOrigination', $r->getOrigPostal());
-                //only 5 chars avaialble
-                $package->addChild('ZipDestination', substr($r->getDestPostal(),0,5));
-                $package->addChild('Pounds', $r->getWeightPounds());
-                $package->addChild('Ounces', $r->getWeightOunces());
-//                $package->addChild('Pounds', '0');
-//                $package->addChild('Ounces', '3');
+            // no matter Letter, Flat or Parcel, use Parcel
+            if ($r->getService() == 'FIRST CLASS') {
+                $package->addChild('FirstClassMailType', 'PARCEL');
+            }
+            $package->addChild('ZipOrigination', $r->getOrigPostal());
+            //only 5 chars avaialble
+            $package->addChild('ZipDestination', substr($r->getDestPostal(),0,5));
+            $package->addChild('Pounds', $r->getWeightPounds());
+            $package->addChild('Ounces', $r->getWeightOunces());
 
-                // Because some methods don't accept VARIABLE and (NON)RECTANGULAR containers
-                if (strtoupper($r->getContainer()) == 'FLAT RATE ENVELOPE' || strtoupper($r->getContainer()) == 'FLAT RATE BOX') {
-                    $package->addChild('Container', $r->getContainer());
-                }
+            // Because some methods don't accept VARIABLE and (NON)RECTANGULAR containers
+            if (strtoupper($r->getContainer()) == 'FLAT RATE ENVELOPE' || strtoupper($r->getContainer()) == 'FLAT RATE BOX') {
+                $package->addChild('Container', $r->getContainer());
+            }
 
-                $package->addChild('Size', $r->getSize());
-                $package->addChild('Machinable', $r->getMachinable());
+            $package->addChild('Size', $r->getSize());
+            $package->addChild('Machinable', $r->getMachinable());
 
             $api = 'RateV3';
             $request = $xml->asXML();
@@ -357,7 +355,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                 $result->append($rate);
             }
         }
-        
+
         return $result;
     }
 
@@ -373,31 +371,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                 'PARCEL'      => Mage::helper('usa')->__('Parcel Post'),
                 'MEDIA'       => Mage::helper('usa')->__('Media Mail'),
                 'LIBRARY'     => Mage::helper('usa')->__('Library'),
-//                'ALL'         => Mage::helper('usa')->__('All Services'),
             ),
-
-/*
-            'method'=>array(
-                'First-Class',
-                'Express Mail',
-                'Express Mail PO to PO',
-                'Priority Mail',
-                'Parcel Post',
-                'Express Mail Flat-Rate Envelope',
-                'Priority Mail Flat-Rate Box',
-                'Bound Printed Matter',
-                'Media Mail',
-                'Library Mail',
-                'Priority Mail Flat-Rate Envelope',
-                'Global Express Guaranteed',
-                'Global Express Guaranteed Non-Document Rectangular',
-                'Global Express Guaranteed Non-Document Non-Rectangular',
-                'Express Mail International (EMS)',
-                'Express Mail International (EMS) Flat Rate Envelope',
-                'Priority Mail International',
-                'Priority Mail International Flat Rate Box',
-            ),
-*/
 
             'service_to_code'=>array(
                 'First-Class'                                   => 'FIRST CLASS',

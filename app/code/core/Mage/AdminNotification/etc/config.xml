@@ -21,31 +21,31 @@
  *
  * @category    Mage
  * @package     Mage_AdminNotification
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_AdminNotification>
-            <version>1.0.0</version>
+            <version>1.6.0.0</version>
         </Mage_AdminNotification>
     </modules>
-
     <global>
         <models>
             <adminnotification>
                 <class>Mage_AdminNotification_Model</class>
-                <resourceModel>adminnotification_mysql4</resourceModel>
+                <resourceModel>adminnotification_resource</resourceModel>
             </adminnotification>
-            <adminnotification_mysql4>
-                <class>Mage_AdminNotification_Model_Mysql4</class>
+            <adminnotification_resource>
+                <class>Mage_AdminNotification_Model_Resource</class>
+                <deprecatedNode>adminnotification_mysql4</deprecatedNode>
                 <entities>
                     <inbox>
                         <table>adminnotification_inbox</table>
                     </inbox>
                 </entities>
-            </adminnotification_mysql4>
+            </adminnotification_resource>
         </models>
         <helpers>
             <adminnotification>
@@ -59,13 +59,7 @@
                 </setup>
             </adminnotification_setup>
         </resources>
-        <blocks>
-            <productalert>
-                <class>Mage_AdminNotification_Block</class>
-            </productalert>
-        </blocks>
     </global>
-
     <adminhtml>
         <translate>
             <modules>
@@ -94,7 +88,6 @@
             </updates>
         </layout>
     </adminhtml>
-
     <default>
         <system>
             <adminnotification>

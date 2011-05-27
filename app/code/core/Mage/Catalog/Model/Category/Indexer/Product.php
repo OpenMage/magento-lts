@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,6 +31,25 @@
  *  - Category save (changed assigned products list or category move)
  *  - Store save (new store creation, changed store group) - require reindex all data
  *  - Store group save (changed root category or group website) - require reindex all data
+ *
+ * @method Mage_Catalog_Model_Resource_Category_Indexer_Product _getResource()
+ * @method Mage_Catalog_Model_Resource_Category_Indexer_Product getResource()
+ * @method int getCategoryId()
+ * @method Mage_Catalog_Model_Category_Indexer_Product setCategoryId(int $value)
+ * @method int getProductId()
+ * @method Mage_Catalog_Model_Category_Indexer_Product setProductId(int $value)
+ * @method int getPosition()
+ * @method Mage_Catalog_Model_Category_Indexer_Product setPosition(int $value)
+ * @method int getIsParent()
+ * @method Mage_Catalog_Model_Category_Indexer_Product setIsParent(int $value)
+ * @method int getStoreId()
+ * @method Mage_Catalog_Model_Category_Indexer_Product setStoreId(int $value)
+ * @method int getVisibility()
+ * @method Mage_Catalog_Model_Category_Indexer_Product setVisibility(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Indexer_Abstract
 {

@@ -21,24 +21,25 @@
  *
  * @category    Mage
  * @package     Mage_Review
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Review>
-            <version>0.7.6</version>
+            <version>1.6.0.0</version>
         </Mage_Review>
     </modules>
     <global>
         <models>
             <review>
                 <class>Mage_Review_Model</class>
-                <resourceModel>review_mysql4</resourceModel>
+                <resourceModel>review_resource</resourceModel>
             </review>
-            <review_mysql4>
-                <class>Mage_Review_Model_Mysql4</class>
+            <review_resource>
+                <class>Mage_Review_Model_Resource</class>
+                <deprecatedNode>review_mysql4</deprecatedNode>
                 <entities>
                     <review>
                         <table>review</table>
@@ -59,7 +60,7 @@
                         <table>review_store</table>
                     </review_store>
                 </entities>
-            </review_mysql4>
+            </review_resource>
         </models>
         <resources>
             <review_setup>
@@ -69,9 +70,9 @@
             </review_setup>
         </resources>
         <blocks>
-                <review>
-                    <class>Mage_Review_Block</class>
-                </review>
+            <review>
+                <class>Mage_Review_Block</class>
+            </review>
         </blocks>
     </global>
     <adminhtml>
@@ -141,6 +142,15 @@
                     </review>
                 </observers>
             </tag_tag_product_collection_load_after>
+            <catalog_block_product_list_collection>
+                <observers>
+                    <review>
+                        <type>model</type>
+                        <class>review/observer</class>
+                        <method>catalogBlockProductCollectionBeforeToHtml</method>
+                    </review>
+                </observers>
+            </catalog_block_product_list_collection>
         </events>
         <secure_url>
             <review_customer>/review/customer/</review_customer>

@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleBase
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -29,20 +29,20 @@
     <menu>
         <catalog>
             <children>
-                <googlebase translate="title" module="googlebase">
-                    <title>Google Base</title>
-                    <children>
-                        <types translate="title" module="googlebase">
-                            <title>Manage Attributes</title>
-                            <action>adminhtml/googlebase_types</action>
-                        </types>
-                        <items translate="title" module="googlebase">
-                            <title>Manage Items</title>
-                            <action>adminhtml/googlebase_items</action>
-                        </items>
-                    </children>
-                    <sort_order>70</sort_order>
-                </googlebase>
+<!--            <googlebase translate="title" module="googlebase">-->
+<!--                <title>Google Base</title>-->
+<!--                <children>-->
+<!--                    <types translate="title" module="googlebase">-->
+<!--                        <title>Manage Attributes</title>-->
+<!--                        <action>adminhtml/googlebase_types</action>-->
+<!--                    </types>-->
+<!--                    <items translate="title" module="googlebase">-->
+<!--                        <title>Manage Items</title>-->
+<!--                        <action>adminhtml/googlebase_items</action>-->
+<!--                    </items>-->
+<!--                </children>-->
+<!--                <sort_order>70</sort_order>-->
+<!--            </googlebase>-->
              </children>
         </catalog>
     </menu>
@@ -52,20 +52,20 @@
                 <children>
                     <catalog>
                         <children>
-                            <googlebase translate="title" module="googlebase">
-                                <title>Google Base</title>
-                                <sort_order>500</sort_order>
-                                <children>
-                                    <types translate="title">
-                                        <title>Manage Attributes</title>
-                                        <sort_order>0</sort_order>
-                                    </types>
-                                    <items translate="title">
-                                        <title>Manage Items</title>
-                                        <sort_order>5</sort_order>
-                                    </items>
-                                </children>
-                            </googlebase>
+<!--                            <googlebase translate="title" module="googlebase">-->
+<!--                                <title>Google Base</title>-->
+<!--                                <sort_order>500</sort_order>-->
+<!--                                <children>-->
+<!--                                    <types translate="title">-->
+<!--                                        <title>Manage Attributes</title>-->
+<!--                                        <sort_order>0</sort_order>-->
+<!--                                    </types>-->
+<!--                                    <items translate="title">-->
+<!--                                        <title>Manage Items</title>-->
+<!--                                        <sort_order>5</sort_order>-->
+<!--                                    </items>-->
+<!--                                </children>-->
+<!--                            </googlebase>-->
                         </children>
                     </catalog>
                 </children>

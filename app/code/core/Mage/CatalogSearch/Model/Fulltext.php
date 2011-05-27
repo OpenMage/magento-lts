@@ -20,15 +20,24 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog advanced search model
  *
- * @category   Mage
- * @package    Mage_CatalogSearch
+ * @method Mage_CatalogSearch_Model_Resource_Fulltext _getResource()
+ * @method Mage_CatalogSearch_Model_Resource_Fulltext getResource()
+ * @method int getProductId()
+ * @method Mage_CatalogSearch_Model_Fulltext setProductId(int $value)
+ * @method int getStoreId()
+ * @method Mage_CatalogSearch_Model_Fulltext setStoreId(int $value)
+ * @method string getDataIndex()
+ * @method Mage_CatalogSearch_Model_Fulltext setDataIndex(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_CatalogSearch
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -1234,12 +1234,12 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             'notify_stock_qty'                   => 1,
             'use_config_notify_stock_qty'        => 1,
             'enable_qty_increments'              => 0,
-            'use_config_enable_qty_increments'   => 1,
+            'use_config_enable_qty_inc'          => 1,
             'qty_increments'                     => 0,
             'use_config_qty_increments'          => 1,
             'is_in_stock'                        => 0,
             'low_stock_date'                     => null,
-            'stock_status_changed_automatically' => 0
+            'stock_status_changed_auto'          => 0
         );
 
         $entityTable = Mage::getResourceModel('cataloginventory/stock_item')->getMainTable();
@@ -1274,7 +1274,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                     } else {
                         $stockItem->setQty(0);
                     }
-                    $stockData[] = $stockItem->getData();
+                    $stockData[] = $stockItem->unsetOldData()->getData();
                 }
             }
             if ($stockData) {

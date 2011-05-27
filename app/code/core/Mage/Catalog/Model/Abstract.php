@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -127,7 +127,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Checks that model have locked attribtues
+     * Checks that model have locked attributes
      *
      * @return boolean
      */
@@ -139,7 +139,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Retrieve locked attributes
      *
-     * @return array
+     * @return boolean
      */
     public function isLockedAttribute($attributeCode)
     {
@@ -161,7 +161,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      * @param boolean $isChanged
      * @return Varien_Object
      */
-    public function setData($key, $value=null)
+    public function setData($key, $value = null)
     {
         if ($this->hasLockedAttributes()) {
             if (is_array($key)) {
@@ -189,9 +189,9 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @param string $key
      * @param boolean $isChanged
-     * @return Varien_Object
+     * @return Mage_Catalog_Model_Abstract
      */
-    public function unsetData($key=null)
+    public function unsetData($key = null)
     {
         if ((!is_null($key) && $this->isLockedAttribute($key)) ||
             $this->isReadonly()) {
@@ -204,7 +204,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Get collection instance
      *
-     * @return object
+     * @return Mage_Catalog_Model_Resource_Collection_Abstract
      */
     public function getResourceCollection()
     {
@@ -213,7 +213,15 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
         return $collection;
     }
 
-    public function loadByAttribute($attribute, $value, $additionalAttributes='*')
+    /**
+     * Load entity by attribute
+     *
+     * @param Mage_Eav_Model_Entity_Attribute_Interface|integer|string|array $attribute
+     * @param null|string|array $value
+     * @param string $additionalAttributes
+     * @return bool|Mage_Catalog_Model_Abstract
+     */
+    public function loadByAttribute($attribute, $value, $additionalAttributes = '*')
     {
         $collection = $this->getResourceCollection()
             ->addAttributeToSelect($additionalAttributes)
@@ -239,7 +247,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Retrieve all store ids of object current website
      *
-     * @return unknown
+     * @return array
      */
     public function getWebsiteStoreIds()
     {
@@ -252,6 +260,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      * Default value existing is flag for using store value in data
      *
      * @param   string $attributeCode
+     * @value   mixed  $value
      * @return  Mage_Catalog_Model_Abstract
      */
     public function setAttributeDefaultValue($attributeCode, $value)
@@ -264,7 +273,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      * Retrieve default value for attribute code
      *
      * @param   string $attributeCode
-     * @return  mixed
+     * @return  array|boolean
      */
     public function getAttributeDefaultValue($attributeCode)
     {
@@ -307,7 +316,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Checks model is deleteable
+     * Checks model is deletable
      *
      * @return boolean
      */
@@ -317,19 +326,19 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Set is deleteable flag
+     * Set is deletable flag
      *
      * @param boolean $value
      * @return Mage_Catalog_Model_Abstract
      */
     public function setIsDeleteable($value)
     {
-        $this->_isDeleteable = (boolean) $value;
+        $this->_isDeleteable = (bool) $value;
         return $this;
     }
 
     /**
-     * Checks model is deleteable
+     * Checks model is deletable
      *
      * @return boolean
      */
@@ -339,14 +348,14 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Set is deleteable flag
+     * Set is deletable flag
      *
      * @param boolean $value
      * @return Mage_Catalog_Model_Abstract
      */
     public function setIsReadonly($value)
     {
-        $this->_isReadonly = (boolean) $value;
+        $this->_isReadonly = (bool)$value;
         return $this;
     }
 

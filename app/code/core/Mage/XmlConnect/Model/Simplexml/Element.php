@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +42,7 @@ class Mage_XmlConnect_Model_Simplexml_Element extends Varien_Simplexml_Element
     {
         if (sizeof($source->children())) {
             /**
-             * @see http://bugs.php.net/bug.php?id=41867 , fixed in 5.2.4
+             * @link http://bugs.php.net/bug.php?id=41867 , fixed in 5.2.4
              */
             if (version_compare(phpversion(), '5.2.4', '<')===true) {
                 $name = $source->children()->getName();

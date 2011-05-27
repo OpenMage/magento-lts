@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,56 +32,6 @@
  * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Core_Model_Mysql4_File_Storage_Abstract  extends Mage_Core_Model_Mysql4_Abstract
+abstract class Mage_Core_Model_Mysql4_File_Storage_Abstract extends Mage_Core_Model_Resource_File_Storage_Abstract
 {
-    /**
-     * File storage connection name
-     *
-     * @var string
-     */
-    protected $_connectionName = null;
-
-
-    public function setConnectionName($name)
-    {
-        $this->_connectionName = $name;
-        return $this;
-    }
-
-    /**
-     * Retrieve connection for read data
-     *
-     * @return  Varien_Db_Adapter_Pdo_Mysql
-     */
-    protected function _getReadAdapter()
-    {
-        return $this->_getConnection($this->_connectionName);
-    }
-
-    /**
-     * Retrieve connection for write data
-     *
-     * @return  Varien_Db_Adapter_Pdo_Mysql
-     */
-    protected function _getWriteAdapter()
-    {
-        return $this->_getConnection($this->_connectionName);
-    }
-
-    /**
-     * Get connection by name or type
-     *
-     * @param   string $connectionName
-     * @return  Zend_Db_Adapter_Abstract
-     */
-    protected function _getConnection($connectionName)
-    {
-        if (isset($this->_connections[$connectionName])) {
-            return $this->_connections[$connectionName];
-        }
-
-        $this->_connections[$connectionName] = $this->_resources->getConnection($connectionName);
-
-        return $this->_connections[$connectionName];
-    }
 }

@@ -21,30 +21,31 @@
  *
  * @category    Mage
  * @package     Mage_Compiler
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Compiler>
-            <version>0.1.0</version>
+            <version>1.6.0.0</version>
         </Mage_Compiler>
     </modules>
     <global>
         <models>
             <compiler>
                 <class>Mage_Compiler_Model</class>
-                <resourceModel>compiler_mysql4</resourceModel>
+                <resourceModel>compiler_resource</resourceModel>
             </compiler>
-            <compiler_mysql4>
-                <class>Mage_Compiler_Model_Mysql4</class>
+            <compiler_resource>
+                <class>Mage_Compiler_Model_Resource</class>
+                <deprecatedNode>compiler_mysql4</deprecatedNode>
                 <entities>
                     <configuration>
                         <table>compiler_configuration</table>
                     </configuration>
                 </entities>
-            </compiler_mysql4>
+            </compiler_resource>
         </models>
         <resources>
             <compiler_setup>

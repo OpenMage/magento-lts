@@ -20,15 +20,20 @@
  *
  * @category    Mage
  * @package     Mage_Rating
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Ratings entity model
  *
- * @category   Mage
- * @package    Mage_Rating
+ * @method Mage_Rating_Model_Resource_Rating_Entity _getResource()
+ * @method Mage_Rating_Model_Resource_Rating_Entity getResource()
+ * @method string getEntityCode()
+ * @method Mage_Rating_Model_Rating_Entity setEntityCode(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Rating
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 

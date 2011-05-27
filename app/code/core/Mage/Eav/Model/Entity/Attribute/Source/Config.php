@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,23 +36,29 @@
  */
 class Mage_Eav_Model_Entity_Attribute_Source_Config extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+    /**
+     * Config Node Path
+     *
+     * @var Mage_Core_Model_Config_Element
+     */
     protected $_configNodePath;
 
     /**
      * Retrieve all options for the source from configuration
      *
+     * @throws Mage_Eav_Exception
      * @return array
      */
     public function getAllOptions()
     {
-        if (is_null($this->_options)) {
+        if ($this->_options === null) {
             $this->_options = array();
             $rootNode = null;
             if ($this->_configNodePath) {
                 $rootNode = Mage::getConfig()->getNode($this->_configNodePath);
             }
             if (!$rootNode) {
-                throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Failed to load node %s from config.', $this->_configNodePath));
+                throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Failed to load node %s from config', $this->_configNodePath));
             }
             $options = $rootNode->children();
             if (empty($options)) {

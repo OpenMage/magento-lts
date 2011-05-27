@@ -1,3 +1,137 @@
+==== 1.6.0.0-alpha1 ====
+
+=== Improvements ===
+Add Dynamic sku option for configurable products
+Moneybookers Multistore System Configuration
+Moneybookers OBT Defaults
+PrototypeJS upgraded to 1.7
+
+=== Changes ===
+Relations between models and resource models were revised for better support of multiple databases
+* Varien_Db_Adapter_Pdo_Mysql revised
+* Introduced Varien_Db_Adapter_Interface,  Varien_Db_Ddl_Table
+* Introduced new classes named resource helpers
+* Backwards comatibility and known issues
+** Flat attribute definition is not backward compatible
+** Old columns names are not fully mapped to new ones
+** Error appears after Customer Group saving with name length more than 32
+** Caching config in Database results in endless recursion
+** There's no sql upgrade for media storage tables
+Deprecated GoogleBase module (http://googlemerchantblog.blogspot.com/2010/12/new-shopping-apis-and-deprecation-of.html)
+
+=== Fixes ===
+Fixed Unable to change customer password when email confirmation is enabled
+Fixed Can't choose Group at the creation new Order by admin
+Fixed Subtotal for Bundle product with quantity 2 calculates as for one
+Fixed Breadcrumbs and the ?Use categories path for product URLs setting
+Fixed RSS feed redirected to 404 error page (from admin panel)
+Fixed Cache Management incorrect ACL check
+Fixed Media Sub-Folder Creation and View in Admin
+Fixed Quantity of bundle item is not stored correctly, in case when it is decimal
+Fixed Shipping creation for bundle product shows wrong q-ty
+Fixed Issue creating content staging site
+Fixed Unable to create attribute with numbers
+Fixed Moving Grouped product from Order and Shopping cart to the Wishlist does not work
+Fixed Product Attribute can't be saved if Attribute Code contain numbers
+Fixed Incorrect titles in "Sales Emails" tab
+Fixed Any backend user can access the MCM (Downloader)
+Fixed Saving attribute value in store view scope only causes data loss
+Fixed Resources names are not translated on Role Resources page at backend
+Fixed Quote Lifetime don't work
+Fixed WYSIWYG Editor - Unable to Create a Folder when Inserting a File
+Fixed Out of stock products getting "This product has not been configured." error msg
+Fixed Impossible save empty values for store view scope
+Fixed Include in Navigation Menu
+Fixed Date Field error in product
+Fixed product.js not working well images that are taller than wider.
+Fixed Modern theme search results page bug
+Fixed Bundled product special pricing does not reflect in cart
+Fixed In Configurable Products only Admin attribute label is retrieved
+Fixed Anchored categories w/ subcategories and products in both
+Fixed Minimum quantity in Grouped product
+Fixed Minimum Quantities Warning not working properly
+Fixed Unable to change configurable product name for store view
+Fixed Dropdown attributes with no value should be hidden
+Fixed CLONE -"Compare Products" block does not appear on the category page and product page
+Fixed Category and product design settings inheritance
+Fixed Not shown button for browsing file in "downloadable product" tab "Downloadable Information"(Just for new prototype version).
+Fixed Some small and thumbnail images are corrupted for products
+Fixed Zooming doesn't work for an image larger or taller than the container
+Fixed Frontend->Necessary to add pagination to the bottom of category
+Fixed Category Tree -> Changing category color
+Fixed Changing Attribute Scopes
+Fixed Typo: wrong helper used in ProductController to call initProductLayout()
+Fixed Unable to continue checkout when "Street Address" use non English characters
+Fixed Time payment processing extremely long
+Fixed Cannot create or save after editing customer's Address, "Please enter the street" error appears on frontend
+Fixed product not salable marking/language issue
+Fixed Free shipping doesn't work in table rates shipping method
+Fixed Wrong order status after "Credit Memo" for product's with FPT
+Fixed Missing Capture transaction in backend when capture money from PayPal (PayPal UK Express)
+Fixed Unable to made online refund from Magento using PayPal UK Express checkout
+Fixed It's possible to click twice on order place button and receive "Cart is empty" page
+Fixed Unable to place order for customer with Cyrillic street name.
+Fixed Backend - Add new customer - ALL TRANSLATIONS MISSING
+Fixed Customer Segment "Up to Date" Condition Logical Inversion
+Fixed Errorhandling in saveAction / editAction broken
+Fixed Reward points expiration date is shown incorrect
+Fixed Incorrect "Date of Birth" validation
+Fixed Error when searching Customer Wishlist by Qty at admin backend
+Fixed Default values for customer attributes settings are not used in some cases
+Fixed Category Treeview Broken (Manage Products/Manage Categories)
+Fixed Categories' does not show full categories tree (Just for new prototype version).
+Fixed It should be possible to create Simple associated product during Configurable product creation process (Just for new prototype version)
+Fixed It should be possible to delete row with Samples for Downloadable product during creation (Just for new prototype version)
+Fixed No display of Remaining Balance, if only one credit card used with Authorize.net Payment Method
+Fixed Partial Authorization is not working at all, when Authorize and Capture setting is enabled for Authorize.net
+Fixed Subtotal displays incorrect subtotal if gift wrapping was applied
+Fixed Orders with not supported statuses moved to orders archive.
+Fixed No compiled CSS and JavaScripts are present in native database
+Fixed View Details" link is not present for simple product with custom options or Gift Cards added to the Wishlist
+Fixed Full Page Cache and design themes exceptions
+Fixed Setting "Backorders" > "No Backorders" do not apply in backend and order creation.
+Fixed Not received the warning message "This product is available for purchase in increments of 2 only." in backend order creation.
+Fixed Order is in google sandbox doesn't contain gift card
+Fixed Broken JS validation on "Configuration" step
+Fixed Broken mysql4-data-upgrade-1.4.0.0.13-1.4.0.0.14.php file
+Fixed "Turkish Lira" missing on the "Localization" step during installation
+Fixed Magento Connect -> MCM -> "Log in" page - Message or some information about required fields doesn't appeared
+Fixed Magento Connect -> MCM -> "Settings" tab -> Changes don't saved
+Fixed Magento Connect -> MCM -> "Settings" tab -> data doesn't saved
+Fixed Magento Connect -> MCM -> If extension packages contains files with the same names, it installation shoul be conflicted.
+Fixed Payment Applicable From = "Specific Countries" option does not work for Express Checkout (Payflow Edition)
+Fixed Credit Card information is required for $0.00 total.
+Fixed Image-Upload does not work in Safari 5
+Fixed Paypal Direct send wrong billing address to API
+Fixed Incorrect billing/shipping address transfer from Magento to PayPal ( WPP Payflow Edition, WPP Payflow Edition EC )
+Fixed Gateway error: A valid amount is required' appears during create Credit Memo for order, which uses Authorize.net
+Fixed Magento creates order even if response from PaypalUk is empty
+Fixed Enabled payment actions are available for order with "Zero subtotal"
+Fixed Incorrect format of the transferring shipping/billing addresses from Magento to PayPal (WPP EC, WPS, WPP )
+Fixed When in backend ?new order? and using a custom price the subtotal is wrong
+Fixed Buy One Get One Free not working
+Fixed Table Rates & Free Shipping Cart Rules not working together
+Fixed Catalog Prices include tax is not working.
+Fixed buy 1 get 1 free doesn't work
+Fixed Bundle Product using Fixed Price does not Display Tier Pricing Correctly
+Fixed Cart Price Rule not working with Product Attributes
+Fixed Tax from orders in status pending presents in Tax Report
+Fixed Coupons Report Math Bug
+Fixed Credit Memo refunding not working due to four decimal places for Shipping costs
+Fixed Can not ad Product to order if it has custom options
+Fixed Tier price does not applies correctly on the back-end if customer group is changed on the backoffice order
+Fixed Wrong product with custom options price is displayed in the wishlist sidebar during order creation via back-end
+Fixed Missing isset() in Mage_Sales_Model_Recurring_Profile::createOrder()
+Fixed Shipping address is not saving during process order in backend with 'Save in Address book' option for existing customer.
+Fixed Advanced search on boolean type attributes
+Fixed UPS (UPSS,DHL,FedEx) options "Maximum Package Weight " works not correct.
+Fixed Shipping method UPS_XML missing titles
+Fixed Table rate shipping is not recalculate after applying a discount
+Fixed PDF subtotal including tax is zero
+Fixed Tax/VAT number not displayed
+Fixed HTML typo in Transactional mail "account_new_confirmation.html"
+Fixed Varien_Db_Adapter_Mysqli::raw_query() should throw an Exception after 10 tries
+
 ==== 1.5.1.0 ====                                                                     
                                              
 === Improvements ===
@@ -602,7 +736,7 @@ Fixed No customer's information
 Fixed PayPal Business Email address update
 
 
-==== 1.5.x-devel-97859 ====
+==== 1.5.x-devel-96719 ====
 
 === Improvements ===
 Implemented WS-I for API
@@ -1627,6 +1761,7 @@ Fixed Order success page is not displayed after placing Order using Website Paym
 - now, return and cancel urls can be secure (https)
 Fixed Problems with newsletter template preview on newsletter queue edit page
 Fixed Link "configure" is inactive for downloadable products in product grid on Order creation page in backend
+- also fixed "Manage Customer" grids + Manage Shopping Cart (Enterprise Checkout) grids
 Fixed A system error message is missing for cases when media storage synchronization is complete or an error occurred
 - output messages for notifications edited
 Fixed Incorrect price calculation for bundle product during backend order creation(Tax is doubles in Total)

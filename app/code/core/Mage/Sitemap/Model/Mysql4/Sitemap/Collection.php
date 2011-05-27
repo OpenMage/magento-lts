@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sitemap
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,30 +28,10 @@
 /**
  * Sitemap resource model collection
  *
- * @category   Mage
- * @package    Mage_Sitemap
+ * @category    Mage
+ * @package     Mage_Sitemap
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sitemap_Model_Mysql4_Sitemap_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Sitemap_Model_Mysql4_Sitemap_Collection extends Mage_Sitemap_Model_Resource_Sitemap_Collection
 {
-
-    /**
-     * Init collection
-     */
-    public function _construct()
-    {
-        $this->_init('sitemap/sitemap');
-    }
-
-    /**
-     * Filter collection by specified store ids
-     *
-     * @param array|int $storeIds
-     * @return Mage_Sitemap_Model_Mysql4_Sitemap_Collection
-     */
-    public function addStoreFilter($storeIds)
-    {
-        $this->getSelect()->where('main_table.store_id IN (?)', $storeIds);
-        return $this;
-    }
 }

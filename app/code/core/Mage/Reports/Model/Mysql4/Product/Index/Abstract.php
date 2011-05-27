@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,158 +28,10 @@
 /**
  * Reports Product Index Abstract Resource Model
  *
- * @category   Mage
- * @package    Mage_Reports
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_Reports
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Reports_Model_Mysql4_Product_Index_Abstract extends Mage_Core_Model_Mysql4_Abstract
+class Mage_Reports_Model_Mysql4_Product_Index_Abstract extends Mage_Reports_Model_Resource_Product_Index_Abstract
 {
-    /**
-     * Fields List for update in forsedSave
-     *
-     * @var array
-     */
-    protected $_fieldsForUpdate = array('store_id', 'added_at');
-
-    /**
-     * Update Customer from visitor (Customer loggin)
-     *
-     * @param Mage_Reports_Model_Product_Index_Abstract $object
-     * @return Mage_Reports_Model_Mysql4_Product_Index_Abstract
-     */
-    public function updateCustomerFromVisitor(Mage_Reports_Model_Product_Index_Abstract $object)
-    {
-        /**
-         * Do nothing if customer not logged in
-         */
-        if (!$object->getCustomerId()) {
-            return $this;
-        }
-
-        $select = $this->_getWriteAdapter()->select()
-            ->from($this->getMainTable())
-            ->where('visitor_id=?', $object->getVisitorId());
-        $rowSet = $select->query()->fetchAll();
-        foreach ($rowSet as $row) {
-            $select = $this->_getWriteAdapter()->select()
-                ->from($this->getMainTable())
-                ->where('customer_id=?', $object->getCustomerId())
-                ->where('product_id=?', $row['product_id']);
-            $idx = $this->_getWriteAdapter()->fetchRow($select);
-
-            if ($idx) {
-                $this->_getWriteAdapter()->delete($this->getMainTable(),
-                    $this->_getWriteAdapter()->quoteInto('index_id=?', $row['index_id'])
-                );
-                $this->_getWriteAdapter()->update($this->getMainTable(), array(
-                    'visitor_id'    => $object->getVisitorId(),
-                    'store_id'      => $object->getStoreId(),
-                    'added_at'      => now(),
-                    ), $this->_getWriteAdapter()->quoteInto('index_id=?', $idx['index_id']));
-            }
-            else {
-                $this->_getWriteAdapter()->update($this->getMainTable(), array(
-                    'customer_id'   => $object->getCustomerId(),
-                    'store_id'      => $object->getStoreId(),
-                    'added_at'      => now()
-                    ), $this->_getWriteAdapter()->quoteInto('index_id=?', $row['index_id']));
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Purge visitor data by customer (logout)
-     *
-     * @param Mage_Reports_Model_Product_Index_Abstract $object
-     * @return Mage_Reports_Model_Mysql4_Product_Index_Abstract
-     */
-    public function purgeVisitorByCustomer(Mage_Reports_Model_Product_Index_Abstract $object)
-    {
-        if (!$object->getCustomerId()) {
-            return $this;
-        }
-
-        $where  = $this->_getWriteAdapter()->quoteInto('customer_id=?', $object->getCustomerId());
-        $bind   = array(
-            'visitor_id' => null,
-        );
-
-        $this->_getWriteAdapter()->update($this->getMainTable(), $bind, $where);
-
-        return $this;
-    }
-
-    /**
-     * Save Product Index data (forsed save)
-     *
-     * @param Mage_Reports_Model_Product_Index_Abstract $object
-     * @return Mage_Reports_Model_Mysql4_Product_Index_Abstract
-     */
-    public function save(Mage_Core_Model_Abstract $object)
-    {
-        return $this->forsedSave($object);
-    }
-
-    /**
-     * Clean index (visitor)
-     *
-     * @return Mage_Reports_Model_Mysql4_Product_Index_Abstract
-     */
-    public function clean()
-    {
-        while (true) {
-            $select = $this->_getReadAdapter()->select()
-                ->from(array('main_table' => $this->getMainTable()), array($this->getIdFieldName()))
-                ->joinLeft(
-                    array('visitor_table' => $this->getTable('log/visitor')),
-                    'main_table.visitor_id = visitor_table.visitor_id',
-                    array())
-                ->where('main_table.visitor_id > 0')
-                ->where('visitor_table.visitor_id IS NULL')
-                ->limit(100);
-            $indexIds = $this->_getReadAdapter()->fetchCol($select);
-
-            if (!$indexIds) {
-                break;
-            }
-
-            $this->_getWriteAdapter()->delete(
-                $this->getMainTable(),
-                $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . ' IN(?)', $indexIds)
-            );
-        }
-        return $this;
-    }
-
-    /**
-     * Add information about product ids to visitor/customer
-     *
-     * @param $object
-     * @param $productIds
-     */
-    public function registerIds($object, $productIds)
-    {
-        $row = array(
-            'visitor_id'    => $object->getVisitorId(),
-            'customer_id'   => $object->getCustomerId(),
-            'store_id'      => $object->getStoreId(),
-        );
-        $addedAt = new Zend_Date();
-        $data = array();
-        foreach ($productIds as $productId) {
-            $productId = (int) $productId;
-            if ($productId) {
-                $row['product_id'] = $productId;
-                $row['added_at'] = $addedAt->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
-                $data[] = $row;
-            }
-            $addedAt->subSecond(1);
-        }
-        if (!empty($data)) {
-            $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), $data, array_keys($row));
-        }
-        return $this;
-    }
 }

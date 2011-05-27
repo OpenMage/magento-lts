@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,6 +48,9 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
         $purchasedIds = array();
         foreach ($purchased as $_item) {
             $purchasedIds[] = $_item->getId();
+        }
+        if (empty($purchasedIds)) {
+            $purchasedIds = array(null);
         }
         $purchasedItems = Mage::getResourceModel('downloadable/link_purchased_item_collection')
             ->addFieldToFilter('purchased_id', array('in' => $purchasedIds))

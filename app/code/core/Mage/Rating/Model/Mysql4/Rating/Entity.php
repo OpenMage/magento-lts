@@ -20,31 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Rating
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Rating entity resource
  *
- * @category   Mage
- * @package    Mage_Rating
+ * @category    Mage
+ * @package     Mage_Rating
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Rating_Model_Mysql4_Rating_Entity extends Mage_Core_Model_Mysql4_Abstract
+class Mage_Rating_Model_Mysql4_Rating_Entity extends Mage_Rating_Model_Resource_Rating_Entity
 {
-    function _construct()
-    {
-        $this->_init('rating/rating_entity', 'entity_id');
-    }
-
-    public function getIdByCode($entityCode)
-    {
-        $read = $this->_getReadAdapter();
-        $select = $read->select();
-        $select->from($this->getTable('rating_entity'), $this->getIdFieldName())
-            ->where('entity_code = ?', $entityCode);
-        return $read->fetchOne($select);
-    }
 }

@@ -21,24 +21,25 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Tax>
-            <version>1.4.0.1</version>
+            <version>1.6.0.0</version>
         </Mage_Tax>
     </modules>
     <global>
         <models>
             <tax>
                 <class>Mage_Tax_Model</class>
-                <resourceModel>tax_mysql4</resourceModel>
+                <resourceModel>tax_resource</resourceModel>
             </tax>
-            <tax_mysql4>
-                <class>Mage_Tax_Model_Mysql4</class>
+            <tax_resource>
+                <class>Mage_Tax_Model_Resource</class>
+                <deprecatedNode>tax_mysql4</deprecatedNode>
                 <entities>
                     <tax_class>
                         <table>tax_class</table>
@@ -65,30 +66,50 @@
                         <table>sales_order_tax</table>
                     </sales_order_tax>
                 </entities>
-            </tax_mysql4>
+            </tax_resource>
         </models>
         <resources>
             <tax_setup>
                 <setup>
                     <module>Mage_Tax</module>
-                    <class>Mage_Tax_Model_Mysql4_Setup</class>
+                    <class>Mage_Tax_Model_Resource_Setup</class>
                 </setup>
             </tax_setup>
         </resources>
         <fieldsets>
             <sales_convert_quote_address>
-                <subtotal_incl_tax><to_order>*</to_order></subtotal_incl_tax>
-                <base_subtotal_incl_tax><to_order>*</to_order></base_subtotal_incl_tax>
+                <subtotal_incl_tax>
+                    <to_order>*</to_order>
+                </subtotal_incl_tax>
+                <base_subtotal_incl_tax>
+                    <to_order>*</to_order>
+                </base_subtotal_incl_tax>
             </sales_convert_quote_address>
             <sales_convert_quote_item>
-                <price_incl_tax><to_order_item>*</to_order_item></price_incl_tax>
-                <base_price_incl_tax><to_order_item>*</to_order_item></base_price_incl_tax>
-                <row_total_incl_tax><to_order_item>*</to_order_item></row_total_incl_tax>
-                <base_row_total_incl_tax><to_order_item>*</to_order_item></base_row_total_incl_tax>
+                <price_incl_tax>
+                    <to_order_item>*</to_order_item>
+                </price_incl_tax>
+                <base_price_incl_tax>
+                    <to_order_item>*</to_order_item>
+                </base_price_incl_tax>
+                <row_total_incl_tax>
+                    <to_order_item>*</to_order_item>
+                </row_total_incl_tax>
+                <base_row_total_incl_tax>
+                    <to_order_item>*</to_order_item>
+                </base_row_total_incl_tax>
             </sales_convert_quote_item>
             <sales_convert_order_item>
-                <price_incl_tax><to_invoice_item>*</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></price_incl_tax>
-                <base_price_incl_tax><to_invoice_item>*</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></base_price_incl_tax>
+                <price_incl_tax>
+                    <to_invoice_item>*</to_invoice_item>
+                    <to_shipment_item>*</to_shipment_item>
+                    <to_cm_item>*</to_cm_item>
+                </price_incl_tax>
+                <base_price_incl_tax>
+                    <to_invoice_item>*</to_invoice_item>
+                    <to_shipment_item>*</to_shipment_item>
+                    <to_cm_item>*</to_cm_item>
+                </base_price_incl_tax>
             </sales_convert_order_item>
         </fieldsets>
         <events>
@@ -184,9 +205,15 @@
         </sales>
         <pdf>
             <totals>
-                <subtotal><model>tax/sales_pdf_subtotal</model></subtotal>
-                <shipping><model>tax/sales_pdf_shipping</model></shipping>
-                <grand_total><model>tax/sales_pdf_grandtotal</model></grand_total>
+                <subtotal>
+                    <model>tax/sales_pdf_subtotal</model>
+                </subtotal>
+                <shipping>
+                    <model>tax/sales_pdf_shipping</model>
+                </shipping>
+                <grand_total>
+                    <model>tax/sales_pdf_grandtotal</model>
+                </grand_total>
                 <tax translate="title">
                     <title>Tax</title>
                     <source_field>tax_amount</source_field>
@@ -209,7 +236,6 @@
             </modules>
         </translate>
     </adminhtml>
-
     <frontend>
         <translate>
             <modules>
@@ -224,7 +250,7 @@
     <default>
         <tax>
             <classes>
-                <shipping_tax_class></shipping_tax_class>
+                <shipping_tax_class/>
             </classes>
             <calculation>
                 <algorithm>TOTAL_BASE_CALCULATION</algorithm>
@@ -268,8 +294,12 @@
     <crontab>
         <jobs>
             <aggregate_sales_report_tax_data>
-                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
-                <run><model>tax/observer::aggregateSalesReportTaxData</model></run>
+                <schedule>
+                    <cron_expr>0 0 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>tax/observer::aggregateSalesReportTaxData</model>
+                </run>
             </aggregate_sales_report_tax_data>
         </jobs>
     </crontab>

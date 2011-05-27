@@ -20,13 +20,26 @@
  *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * Wishlist item model
+ *
+ * @method Mage_Wishlist_Model_Resource_Item _getResource()
+ * @method Mage_Wishlist_Model_Resource_Item getResource()
+ * @method int getWishlistId()
+ * @method Mage_Wishlist_Model_Item setWishlistId(int $value)
+ * @method int getProductId()
+ * @method Mage_Wishlist_Model_Item setProductId(int $value)
+ * @method int getStoreId()
+ * @method Mage_Wishlist_Model_Item setStoreId(int $value)
+ * @method string getAddedAt()
+ * @method Mage_Wishlist_Model_Item setAddedAt(string $value)
+ * @method string getDescription()
+ * @method Mage_Wishlist_Model_Item setDescription(string $value)
  *
  * @category    Mage
  * @package     Mage_Wishlist
@@ -399,7 +412,14 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
     public function getBuyRequest()
     {
         $option = $this->getOptionByCode('info_buyRequest');
-        $buyRequest = new Varien_Object($option ? unserialize($option->getValue()) : null);
+        $initialData = $option ? unserialize($option->getValue()) : null;
+
+        // There can be wrong data due to bug in Grouped products - it formed 'info_buyRequest' as Varien_Object
+        if ($initialData instanceof Varien_Object) {
+            $initialData = $initialData->getData();
+        }
+
+        $buyRequest = new Varien_Object($initialData);
         $buyRequest->setOriginalQty($buyRequest->getQty())
             ->setQty($this->getQty() * 1);
         return $buyRequest;

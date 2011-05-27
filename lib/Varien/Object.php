@@ -77,6 +77,13 @@ class Varien_Object implements ArrayAccess
     protected $_isDeleted = false;
 
     /**
+     * Map short fields names to its full names
+     *
+     * @var array
+     */
+    protected $_oldFieldsMap = array();
+
+    /**
      * Constructor
      *
      * By default is looking for first argument as array and assignes it as object attributes
@@ -85,13 +92,37 @@ class Varien_Object implements ArrayAccess
      */
     public function __construct()
     {
+        $this->_initOldFieldsMap();
         $args = func_get_args();
         if (empty($args[0])) {
             $args[0] = array();
         }
         $this->_data = $args[0];
+        $this->_addFullNames();
 
         $this->_construct();
+    }
+
+    protected function _addFullNames()
+    {
+        $existedShortKeys = array_intersect($this->_oldFieldsMap, array_keys($this->_data));
+        if (!empty($existedShortKeys)) {
+            foreach ($existedShortKeys as $key) {
+                $fullFieldName = array_search($key, $this->_oldFieldsMap);
+                $this->_data[$fullFieldName] = $this->_data[$key];
+            }
+        }
+    }
+
+    /**
+     * Init mapping array of short fields to
+     * its full names
+     *
+     * @resturn Varien_Object
+     */
+    protected function _initOldFieldsMap()
+    {
+
     }
 
     /**
@@ -211,8 +242,13 @@ class Varien_Object implements ArrayAccess
         $this->_hasDataChanges = true;
         if(is_array($key)) {
             $this->_data = $key;
+            $this->_addFullNames();
         } else {
             $this->_data[$key] = $value;
+            if (isset($this->_oldFieldsMap[$key])) {
+                $fullFieldName = $this->_oldFieldsMap[$key];
+                $this->_data[$fullFieldName] = $value;
+            }
         }
         return $this;
     }
@@ -230,6 +266,30 @@ class Varien_Object implements ArrayAccess
         $this->_hasDataChanges = true;
         if (is_null($key)) {
             $this->_data = array();
+        } else {
+            unset($this->_data[$key]);
+            if (isset($this->_oldFieldsMap[$key])) {
+                $fullFieldName = $this->_oldFieldsMap[$key];
+                unset($this->_data[$fullFieldName]);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Unset old fields data from the object.
+     *
+     * $key can be a string only. Array will be ignored.
+     *
+     * @param string $key
+     * @return Varien_Object
+     */
+    public function unsetOldData($key=null)
+    {
+        if (is_null($key)) {
+            foreach ($this->_oldFieldsMap as $key => $newFieldName) {
+                unset($this->_data[$key]);
+            }
         } else {
             unset($this->_data[$key]);
         }

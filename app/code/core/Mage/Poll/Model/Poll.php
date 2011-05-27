@@ -20,13 +20,33 @@
  *
  * @category    Mage
  * @package     Mage_Poll
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Poll model
  *
+ * @method Mage_Poll_Model_Resource_Poll _getResource()
+ * @method Mage_Poll_Model_Resource_Poll getResource()
+ * @method string getPollTitle()
+ * @method Mage_Poll_Model_Poll setPollTitle(string $value)
+ * @method Mage_Poll_Model_Poll setVotesCount(int $value)
+ * @method int getStoreId()
+ * @method Mage_Poll_Model_Poll setStoreId(int $value)
+ * @method string getDatePosted()
+ * @method Mage_Poll_Model_Poll setDatePosted(string $value)
+ * @method string getDateClosed()
+ * @method Mage_Poll_Model_Poll setDateClosed(string $value)
+ * @method int getActive()
+ * @method Mage_Poll_Model_Poll setActive(int $value)
+ * @method int getClosed()
+ * @method Mage_Poll_Model_Poll setClosed(int $value)
+ * @method int getAnswersDisplay()
+ * @method Mage_Poll_Model_Poll setAnswersDisplay(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Poll
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 

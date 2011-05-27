@@ -20,12 +20,11 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype
 {
-
     public function toOptionArray()
     {
         return array(
@@ -37,5 +36,4 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype
             array('value' => 'select', 'label' => Mage::helper('eav')->__('Dropdown'))
         );
     }
-
 }

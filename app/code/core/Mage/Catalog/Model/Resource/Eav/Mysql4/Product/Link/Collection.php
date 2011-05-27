@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,117 +28,11 @@
 /**
  * Catalog product links collection
  *
- * @category   Mage
- * @package    Mage_Catalog
+ * @category    Mage
+ * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Collection
-    extends Mage_Core_Model_Mysql4_Collection_Abstract
+    extends Mage_Catalog_Model_Resource_Product_Link_Collection
 {
-    protected $_product;
-    protected $_linkModel;
-    protected $_linkTypeId;
-
-    protected function _construct()
-    {
-        $this->_init('catalog/product_link');
-    }
-
-    /**
-     * Declare link model and initialize type attributes join
-     *
-     * @param   Mage_Catalog_Model_Product_Link $linkModel
-     * @return  Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Collection
-     */
-    public function setLinkModel($linkModel)
-    {
-        $this->_linkModel = $linkModel;
-        if ($linkModel->getLinkTypeId()) {
-            $this->_linkTypeId = $linkModel->getLinkTypeId();
-        }
-        return $this;
-    }
-
-    /**
-     * Retrieve collection link model
-     *
-     * @return  Mage_Catalog_Model_Product_Link
-     */
-    public function getLinkModel()
-    {
-        return $this->_linkModel;
-    }
-
-    /**
-     * Initialize collection parent product and add limitation join
-     *
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Collection
-     */
-    public function setProduct($product)
-    {
-        $this->_product = $product;
-        return $this;
-    }
-
-    /**
-     * Retrieve collection base product object
-     *
-     * @return Mage_Catalog_Model_Product
-     */
-    public function getProduct()
-    {
-        return $this->_product;
-    }
-
-    /**
-     * Add link's type to filter
-     *
-     * @return Mage_Catalog_Model_Product
-     */
-    public function addLinkTypeIdFilter()
-    {
-        if ($this->_linkTypeId) {
-            $this->addFieldToFilter("link_type_id", $this->_linkTypeId);
-        }
-        return $this;
-    }
-
-    /**
-     * Add product to filter
-     *
-     * @return Mage_Catalog_Model_Product
-     */
-    public function addProductIdFilter()
-    {
-        if ($this->getProduct() && $this->getProduct()->getId()) {
-            $this->addFieldToFilter("product_id", $this->getProduct()->getId());
-        }
-        return $this;
-    }
-
-    /**
-     * Join attributes
-     *
-     * @return Mage_Catalog_Model_Product
-     */
-    public function joinAttributes()
-    {
-        if ($this->getLinkModel()) {
-            $attributes = $this->getLinkModel()->getAttributes();
-            $adapter = $this->getConnection();
-            foreach ($attributes as $attribute) {
-                $table = $this->getLinkModel()->getAttributeTypeTable($attribute['type']);
-                $alias = 'link_attribute_' . $attribute['code'] . '_' . $attribute['type'];
-                $aliasInCondition = $adapter->quoteColumnAs($alias, null);
-                $this->getSelect()->joinLeft(
-                    array($alias => $table),
-                    $aliasInCondition . '.link_id = main_table.link_id AND '
-                        . $aliasInCondition . '.product_link_attribute_id = ' . (int) $attribute['id'],
-                    array($attribute['code'] => 'value')
-                );
-            }
-        }
-        return $this;
-    }
 }

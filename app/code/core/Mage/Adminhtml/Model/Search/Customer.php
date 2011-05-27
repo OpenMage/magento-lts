@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,9 +50,9 @@ class Mage_Adminhtml_Model_Search_Customer extends Varien_Object
             ->addNameToSelect()
             ->joinAttribute('company', 'customer_address/company', 'default_billing', null, 'left')
             ->addAttributeToFilter(array(
-                array('attribute'=>'firstname', 'like'=>$this->getQuery().'%'),
-                array('attribute'=>'lastname', 'like'=>$this->getQuery().'%'),
-                array('attribute'=>'company', 'like'=>$this->getQuery().'%'),
+                array('attribute'=>'firstname', 'like' => $this->getQuery().'%'),
+                array('attribute'=>'lastname', 'like'  => $this->getQuery().'%'),
+                array('attribute'=>'company', 'like'   => $this->getQuery().'%'),
             ))
             ->setPage(1, 10)
             ->load();

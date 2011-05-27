@@ -20,13 +20,23 @@
  *
  * @category    Mage
  * @package     Mage_GoogleBase
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Attributes Model
  *
+ * @method Mage_GoogleBase_Model_Resource_Attribute _getResource()
+ * @method Mage_GoogleBase_Model_Resource_Attribute getResource()
+ * @method int getAttributeId()
+ * @method Mage_GoogleBase_Model_Attribute setAttributeId(int $value)
+ * @method string getGbaseAttribute()
+ * @method Mage_GoogleBase_Model_Attribute setGbaseAttribute(string $value)
+ * @method int getTypeId()
+ * @method Mage_GoogleBase_Model_Attribute setTypeId(int $value)
+ *
+ * @deprecated after 1.5.1.0
  * @category   Mage
  * @package    Mage_GoogleBase
  * @author     Magento Core Team <core@magentocommerce.com>

@@ -20,14 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_Tax_Model_Mysql4_Sales_Order_Tax extends Mage_Core_Model_Mysql4_Abstract
+
+/**
+ * Enter description here ...
+ *
+ * @category    Mage
+ * @package     Mage_Tax
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_Tax_Model_Mysql4_Sales_Order_Tax extends Mage_Tax_Model_Resource_Sales_Order_Tax
 {
-    protected function _construct()
-    {
-        $this->_init('tax/sales_order_tax', 'tax_id');
-    }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -97,8 +97,10 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             /** @var $helper Mage_Adminhtml_Helper_Data */
             $helper = Mage::helper('adminhtml');
             $ratePost['code'] = $helper->stripTags($ratePost['code']);
-            foreach ($ratePost['title'] as &$title) {
-                $title = $helper->stripTags($title);
+            if (!empty($ratePost['title'])) {
+                foreach ($ratePost['title'] as &$title) {
+                    $title = $helper->stripTags($title);
+                }
             }
 
             $rateId = $this->getRequest()->getParam('tax_calculation_rate_id');

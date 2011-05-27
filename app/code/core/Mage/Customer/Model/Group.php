@@ -20,13 +20,21 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer group model
  *
+ * @method Mage_Customer_Model_Resource_Group _getResource()
+ * @method Mage_Customer_Model_Resource_Group getResource()
+ * @method string getCustomerGroupCode()
+ * @method Mage_Customer_Model_Group setCustomerGroupCode(string $value)
+ * @method Mage_Customer_Model_Group setTaxClassId(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
@@ -84,7 +92,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
         return $this->getCustomerGroupCode();
     }
 
-    public function getTaxClassId($groupId=null)
+    public function getTaxClassId($groupId = null)
     {
         if (!is_null($groupId)) {
             if (empty(self::$_taxClassIds[$groupId])) {

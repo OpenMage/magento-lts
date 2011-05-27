@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,84 +28,10 @@
 /**
  * Newsletter problem model collection
  *
- * @category   Mage
- * @package    Mage_Newsletter
+ * @category    Mage
+ * @package     Mage_Newsletter
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Newsletter_Model_Mysql4_Problem_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Newsletter_Model_Mysql4_Problem_Collection extends Mage_Newsletter_Model_Resource_Problem_Collection
 {
-
-    protected $_subscribersInfoJoinedFlag = false;
-    protected $_problemGrouped = false;
-
-    protected function _construct()
-    {
-        $this->_init('newsletter/problem');
-    }
-
-    public function addSubscriberInfo()
-    {
-        $this->getSelect()
-            ->joinLeft(array('subscriber'=>$this->getTable('subscriber')),'main_table.subscriber_id = subscriber.subscriber_id',
-                       array('subscriber_email','customer_id','subscriber_status'));
-        $this->_subscribersInfoJoinedFlag = true;
-
-        return $this;
-    }
-
-    public function addQueueInfo()
-    {
-        $this->getSelect()
-            ->joinLeft(array('queue'=>$this->getTable('queue')),'main_table.queue_id = queue.queue_id',
-                       array('queue_start_at', 'queue_finish_at'))
-            ->joinLeft(array('template'=>$this->getTable('template')),'main_table.queue_id = queue.queue_id',
-                       array('template_subject','template_code','template_sender_name','template_sender_email'));
-        return $this;
-    }
-
-
-    /**
-     * Loads customers info to collection
-     *
-     */
-    protected function _addCustomersData( )
-    {
-        $customersIds = array();
-
-        foreach ($this->getItems() as $item) {
-            if($item->getCustomerId()) {
-                $customersIds[] = $item->getCustomerId();
-            }
-        }
-
-        if(count($customersIds) == 0) {
-            return;
-        }
-
-        $customers = Mage::getResourceModel('customer/customer_collection')
-            ->addNameToSelect()
-            ->addAttributeToFilter('entity_id', array("in"=>$customersIds));
-
-        $customers->load();
-
-        foreach($customers->getItems() as $customer) {
-            $problems = $this->getItemsByColumnValue('customer_id', $customer->getId());
-            foreach ($problems as $problem) {
-                $problem->setCustomerName($customer->getName())
-                    ->setCustomerFirstName($customer->getFirstName())
-                    ->setCustomerLastName($customer->getLastName());
-            }
-        }
-
-    }
-
-    public function load($printQuery=false, $logQuery=false)
-    {
-        parent::load($printQuery, $logQuery);
-        if($this->_subscribersInfoJoinedFlag && !$this->isLoaded()) {
-            $this->_addCustomersData();
-        }
-        return $this;
-    }
-
 }

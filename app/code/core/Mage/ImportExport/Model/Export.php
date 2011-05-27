@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ImportExport_Model_Export extends Varien_Object
+class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
 {
     const FILTER_ELEMENT_GROUP = 'export_filter';
     const FILTER_ELEMENT_SKIP  = 'skip_attr';
@@ -138,15 +138,29 @@ class Mage_ImportExport_Model_Export extends Varien_Object
     /**
      * Export data.
      *
-     * @throws Exception
+     * @throws Mage_Core_Exception
      * @return string
      */
     public function export()
     {
         if (isset($this->_data[self::FILTER_ELEMENT_GROUP])) {
-            return $this->_getEntityAdapter()
+            $this->addLogComment(Mage::helper('importexport')->__('Begin export of %s', $this->getEntity()));
+            $result = $this->_getEntityAdapter()
                 ->setWriter($this->_getWriter())
                 ->export();
+            $countRows = substr_count(trim($result), "\n");
+            if (!$countRows) {
+                Mage::throwException(
+                    Mage::helper('importexport')->__('There is no data for export')
+                );
+            }
+            if ($result) {
+                $this->addLogComment(array(
+                    Mage::helper('importexport')->__('Exported %s rows.', $countRows),
+                    Mage::helper('importexport')->__('Export has been done.')
+                ));
+            }
+            return $result;
         } else {
             Mage::throwException(
                 Mage::helper('importexport')->__('No filter data provided')
@@ -157,10 +171,10 @@ class Mage_ImportExport_Model_Export extends Varien_Object
     /**
      * Clean up already loaded attribute collection.
      *
-     * @param Mage_Eav_Model_Mysql4_Entity_Attribute_Collection $collection
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
+     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
-    public function filterAttributeCollection(Mage_Eav_Model_Mysql4_Entity_Attribute_Collection $collection)
+    public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
     {
         return $this->_getEntityAdapter()->filterAttributeCollection($collection);
     }
@@ -177,15 +191,15 @@ class Mage_ImportExport_Model_Export extends Varien_Object
     {
         if ($attribute->usesSource() || $attribute->getFilterOptions()) {
             return self::FILTER_TYPE_SELECT;
+        } elseif ('datetime' == $attribute->getBackendType()) {
+            return self::FILTER_TYPE_DATE;
+        } elseif ('decimal' == $attribute->getBackendType() || 'int' == $attribute->getBackendType()) {
+            return self::FILTER_TYPE_NUMBER;
         } elseif ($attribute->isStatic()
                   || 'varchar' == $attribute->getBackendType()
                   || 'text' == $attribute->getBackendType()
         ) {
             return self::FILTER_TYPE_INPUT;
-        } elseif ('datetime' == $attribute->getBackendType()) {
-            return self::FILTER_TYPE_DATE;
-        } elseif ('decimal' == $attribute->getBackendType() || 'int' == $attribute->getBackendType()) {
-            return self::FILTER_TYPE_NUMBER;
         } else {
             Mage::throwException(
                 Mage::helper('importexport')->__('Can not determine attribute filter type')
@@ -220,7 +234,7 @@ class Mage_ImportExport_Model_Export extends Varien_Object
     /**
      * Entity attributes collection getter.
      *
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function getEntityAttributeCollection()
     {

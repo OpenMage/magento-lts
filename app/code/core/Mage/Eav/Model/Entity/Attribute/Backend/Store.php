@@ -20,17 +20,25 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 class Mage_Eav_Model_Entity_Attribute_Backend_Store extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+    /**
+     * Prepare data before save
+     *
+     * @param Varien_Object $object
+     * @return Mage_Eav_Model_Entity_Attribute_Backend_Store
+     */
     protected function _beforeSave($object)
     {
         if (!$object->getData($this->getAttribute()->getAttributeCode())) {
             $object->setData($this->getAttribute()->getAttributeCode(), Mage::app()->getStore()->getId());
         }
+
+        return $this;
     }
 }

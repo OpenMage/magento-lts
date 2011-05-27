@@ -20,22 +20,19 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
- * @deprecated after 1.4, no more EAV for sales
+ * Enter description here ...
+ *
+ * @category    Mage
+ * @package     Mage_Sales
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Mysql4_Order_Invoice_Attribute_Backend_Order
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+    extends Mage_Sales_Model_Resource_Order_Invoice_Attribute_Backend_Order
 {
-    public function beforeSave($object)
-    {
-        if ($object->getOrder()) {
-            $object->setOrderId($object->getOrder()->getId());
-            $object->setBillingAddressId($object->getOrder()->getBillingAddress()->getId());
-        }
-        return parent::beforeSave($object);
-    }
 }

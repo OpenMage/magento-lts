@@ -544,7 +544,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         if (!is_dir(dirname($folder))) {
             $this->checkAndCreateFolder(dirname($folder), $mode);
         }
-        if (!is_dir($folder) && !@mkdir($folder, $mode)) {
+        if (!is_dir($folder) && !$this->mkdir($folder, $mode)) {
             throw new Exception("Unable to create directory '{$folder}'. Access forbidden.");
         }
         return true;

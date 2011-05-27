@@ -20,29 +20,19 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Sales report invoiced collection
  *
- * @category   Mage
- * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_Sales
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Mysql4_Report_Invoiced_Collection_Invoiced extends Mage_Sales_Model_Mysql4_Report_Invoiced_Collection_Order
+class Mage_Sales_Model_Mysql4_Report_Invoiced_Collection_Invoiced
+    extends Mage_Sales_Model_Resource_Report_Invoiced_Collection_Invoiced
 {
-    /**
-     * Initialize custom resource model
-     *
-     * @param array $parameters
-     */
-    public function __construct()
-    {
-        parent::_construct();
-        $this->setModel('adminhtml/report_item');
-        $this->_resource = Mage::getResourceModel('sales/report')->init('sales/invoiced_aggregated');
-        $this->setConnection($this->getResource()->getReadConnection());
-    }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,29 +32,7 @@
  * @package     Mage_CatalogSearch
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_CatalogSearch_Model_Mysql4_Indexer_Fulltext extends Mage_Core_Model_Mysql4_Abstract
+class Mage_CatalogSearch_Model_Mysql4_Indexer_Fulltext extends Mage_CatalogSearch_Model_Resource_Indexer_Fulltext
 {
-    /**
-     * Initialize connection and define catalog product table as main table
-     */
-    protected function _construct()
-    {
-        $this->_init('catalogsearch/fulltext', 'product_id');
-    }
-
-    /**
-     * Retrieve product relations by children
-     *
-     * @param int|array $childIds
-     * @return array
-     */
-    public function getRelationsByChild($childIds)
-    {
-        $write = $this->_getWriteAdapter();
-        $select = $write->select()
-            ->from($this->getTable('catalog/product_relation'), 'parent_id')
-            ->where('child_id IN(?)', $childIds);
-
-        return $write->fetchCol($select);
-    }
+    
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,50 +28,10 @@
 /**
  * Dataflow Batch abstract resource model
  *
- * @category   Mage
- * @package    Mage_Dataflow
+ * @category    Mage
+ * @package     Mage_Dataflow
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Dataflow_Model_Mysql4_Batch_Abstract extends Mage_Core_Model_Mysql4_Abstract
+class Mage_Dataflow_Model_Mysql4_Batch_Abstract extends Mage_Dataflow_Model_Resource_Batch_Abstract
 {
-    /**
-     * Retrieve Id collection
-     *
-     * @param Mage_Dataflow_Model_Batch_Abstract $object
-     * @return array
-     */
-    public function getIdCollection(Mage_Dataflow_Model_Batch_Abstract $object)
-    {
-        if (!$object->getBatchId()) {
-            return array();
-        }
-
-        $ids = array();
-        $select = $this->_getWriteAdapter()->select()
-            ->from($this->getMainTable(), array($this->getIdFieldName()))
-            ->where('batch_id=?', $object->getBatchId());
-        $query = $this->_getWriteAdapter()->query($select);
-        while ($row = $query->fetch()) {
-            $ids[] = $row[$this->getIdFieldName()];
-        }
-        return $ids;
-    }
-
-    /**
-     * Delete current Batch collection
-     *
-     * @param Mage_Dataflow_Model_Batch_Abstract $object
-     * @return Mage_Dataflow_Model_Mysql4_Batch_Abstract
-     */
-    public function deleteCollection(Mage_Dataflow_Model_Batch_Abstract $object)
-    {
-        if (!$object->getBatchId()) {
-            return $this;
-        }
-
-        $this->_getWriteAdapter()->delete($this->getMainTable(),
-            $this->_getWriteAdapter()->quoteInto('batch_id=?', $object->getBatchId())
-        );
-        return $this;
-    }
 }

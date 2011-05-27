@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -31,16 +31,16 @@
             <version>0.7.1</version>
         </Mage_Adminhtml>
     </modules>
-
     <global>
         <models>
             <adminhtml>
                 <class>Mage_Adminhtml_Model</class>
-                <resourceModel>adminhtml_mysql4</resourceModel>
+                <resourceModel>adminhtml_resource</resourceModel>
             </adminhtml>
-            <adminhtml_mysql4>
-                <class>Mage_Adminhtml_Model_Mysql4</class>
-            </adminhtml_mysql4>
+            <adminhtml_resource>
+                <class>Mage_Adminhtml_Model_Resource</class>
+                <deprecatedNode>adminhtml_mysql4</deprecatedNode>
+            </adminhtml_resource>
         </models>
         <blocks>
             <adminhtml>
@@ -56,7 +56,6 @@
                 </admin_emails_forgot_email_template>
             </email>
         </template>
-
         <events>
             <adminhtml_controller_action_predispatch_start>
                 <observers>
@@ -80,7 +79,6 @@
             </admin_user_authenticate_after>
         </events>
     </global>
-
     <admin>
         <routers>
             <adminhtml>
@@ -92,7 +90,6 @@
             </adminhtml>
         </routers>
     </admin>
-
     <adminhtml>
         <events>
             <controller_action_predispatch>
@@ -197,7 +194,6 @@
     </default>
     <stores>
         <admin>
-            <!-- default admin design package and theme -->
             <design>
                 <package>
                     <name>default</name>
@@ -212,7 +208,9 @@
         <admin>
             <web>
                 <routers>
-                    <frontend><disabled>true</disabled></frontend>
+                    <frontend>
+                        <disabled>true</disabled>
+                    </frontend>
                 </routers>
                 <default>
                     <no_route>admin/index/noRoute</no_route>

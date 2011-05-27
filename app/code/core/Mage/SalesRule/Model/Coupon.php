@@ -20,11 +20,35 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
+/**
+ * SalesRule Coupon Model
+ *
+ * @method Mage_SalesRule_Model_Resource_Coupon _getResource()
+ * @method Mage_SalesRule_Model_Resource_Coupon getResource()
+ * @method int getRuleId()
+ * @method Mage_SalesRule_Model_Coupon setRuleId(int $value)
+ * @method string getCode()
+ * @method Mage_SalesRule_Model_Coupon setCode(string $value)
+ * @method int getUsageLimit()
+ * @method Mage_SalesRule_Model_Coupon setUsageLimit(int $value)
+ * @method int getUsagePerCustomer()
+ * @method Mage_SalesRule_Model_Coupon setUsagePerCustomer(int $value)
+ * @method int getTimesUsed()
+ * @method Mage_SalesRule_Model_Coupon setTimesUsed(int $value)
+ * @method string getExpirationDate()
+ * @method Mage_SalesRule_Model_Coupon setExpirationDate(string $value)
+ * @method int getIsPrimary()
+ * @method Mage_SalesRule_Model_Coupon setIsPrimary(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_SalesRule
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
 {
     /**

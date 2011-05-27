@@ -20,22 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Rating
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Rating vote resource model
  *
- * @category   Mage
- * @package    Mage_Rating
+ * @category    Mage
+ * @package     Mage_Rating
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Rating_Model_Mysql4_Rating_Option_Vote extends Mage_Core_Model_Mysql4_Abstract
+class Mage_Rating_Model_Mysql4_Rating_Option_Vote extends Mage_Rating_Model_Resource_Rating_Option_Vote
 {
-    function _construct()
-    {
-        $this->_init('rating/rating_option_vote', 'vote_id');
-    }
 }

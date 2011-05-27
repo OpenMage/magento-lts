@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,29 +32,6 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Sales_Model_Mysql4_Quote_Payment_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Sales_Model_Mysql4_Quote_Payment_Collection extends Mage_Sales_Model_Resource_Quote_Payment_Collection
 {
-    protected function _construct()
-    {
-        $this->_init('sales/quote_payment');
-    }
-
-    public function setQuoteFilter($quoteId)
-    {
-        $this->addFieldToFilter('quote_id', $quoteId);
-        return $this;
-    }
-
-    /**
-     * Unserialize additional_information in each item
-     * @return Mage_Core_Model_Mysql4_Collection_Abstract
-     */
-    protected function _afterLoad()
-    {
-        foreach ($this->_items as $item) {
-            $this->getResource()->unserializeFields($item);
-        }
-        return parent::_afterLoad();
-    }
 }

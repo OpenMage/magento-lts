@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,6 +62,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
      * @var array|null
      */
     protected $_confPaths = null;
+
     /**
      * Process uploaded file
      * setup filenames to the configuration
@@ -414,15 +415,13 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
      */
     public function getCustomSizeImageUrl($imageUrl, $width = 100, $height = 100)
     {
-        $customDirRoot = Mage::getBaseDir('media') . DS . 'xmlconnect' . DS . 'custom';
         $screenSize = $width . 'x' . $height;
-        $customDir = $customDirRoot . DS . $screenSize;
+        $customDir = $this->getMediaPath('custom' . DS . $screenSize);
         $this->_verifyDirExist($customDir);
         $imageUrl = explode('/', $imageUrl);
         $file = $imageUrl[count($imageUrl)-1];
         $filePath = $this->getDefaultSizeUploadDir() . DS . $file;
-
-        if (!file_exists($customDir . $file)) {
+        if (!file_exists($customDir . DS . $file)) {
             $image = new Varien_Image($filePath);
             $widthOriginal = $image->getOriginalWidth();
             $heightOriginal = $image->getOriginalHeight();
@@ -445,7 +444,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
                 $image->save($customDir, basename($file));
             }
         }
-        return Mage::getBaseUrl('media') . "xmlconnect/custom/{$screenSize}/" . basename($file);
+        return $this->getMediaUrl("custom/{$screenSize}/" . basename($file));
     }
 
     /**
@@ -641,9 +640,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
     public function getCustomSizeUploadDir($screenSize)
     {
         $screenSize = $this->filterScreenSize($screenSize);
-        $customDirRoot = Mage::getBaseDir('media') . DS . 'xmlconnect' . DS . 'custom';
-        $this->_verifyDirExist($customDirRoot);
-        $customDir = $customDirRoot . DS .$screenSize;
+        $customDir = $this->getMediaPath('custom' . DS .$screenSize);
         $this->_verifyDirExist($customDir);
         return $customDir;
     }
@@ -655,7 +652,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
      */
     public function getOriginalSizeUploadDir()
     {
-        $dir = Mage::getBaseDir('media') . DS . 'xmlconnect' . DS . 'original';
+        $dir = $this->getMediaPath('original');
         $this->_verifyDirExist($dir);
         return $dir;
     }
@@ -667,7 +664,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
      */
     public function getOldUploadDir()
     {
-        $dir = Mage::getBaseDir('media') . DS . 'xmlconnect';
+        $dir = $this->getMediaPath();
         $this->_verifyDirExist($dir);
         return $dir;
     }

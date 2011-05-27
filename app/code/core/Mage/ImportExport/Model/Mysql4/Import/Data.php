@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,117 +31,6 @@
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ImportExport_Model_Mysql4_Import_Data extends Mage_Core_Model_Mysql4_Abstract implements IteratorAggregate
+class Mage_ImportExport_Model_Mysql4_Import_Data extends Mage_ImportExport_Model_Resource_Import_Data
 {
-    /**
-     * @var IteratorIterator
-     */
-    protected $_iterator = null;
-
-    /**
-     * Resource initialization
-     */
-    protected function _construct()
-    {
-        $this->_init('importexport/importdata', 'id');
-    }
-
-    /**
-     * Retrieve an external iterator
-     *
-     * @return IteratorIterator
-     */
-    public function getIterator ()
-    {
-        $stmt = $this->_getWriteAdapter()->query(
-            $this->_getWriteAdapter()->select()->from($this->getMainTable(), array('data'))->order('id ASC')
-        );
-        $stmt->setFetchMode(PDO::FETCH_NUM);
-
-        return $stmt->getIterator();
-    }
-
-    /**
-     * Clean all bunches from table.
-     *
-     * @return int
-     */
-    public function cleanBunches()
-    {
-        return $this->_getWriteAdapter()->query(
-            'TRUNCATE ' . $this->_getWriteAdapter()->quoteIdentifier($this->getMainTable())
-        );
-    }
-
-    /**
-     * Return behavior from import data table.
-     *
-     * @throws Exception
-     * @return string
-     */
-    public function getBehavior()
-    {
-        $behaviors = array_unique($this->_getReadAdapter()->fetchCol(
-            $this->_getReadAdapter()->select()->from($this->getMainTable(), array('behavior'))
-        ));
-        if (count($behaviors) != 1) {
-            Mage::throwException(Mage::helper('importexport')->__('Error in data structure: behaviors are mixed'));
-        }
-        return $behaviors[0];
-    }
-
-    /**
-     * Return entity type code from import data table.
-     *
-     * @throws Exception
-     * @return string
-     */
-    public function getEntityTypeCode()
-    {
-        $entityCodes = array_unique($this->_getReadAdapter()->fetchCol(
-            $this->_getReadAdapter()->select()->from($this->getMainTable(), array('entity'))
-        ));
-        if (count($entityCodes) != 1) {
-            Mage::throwException(Mage::helper('importexport')->__('Error in data structure: entity codes are mixed'));
-        }
-        return $entityCodes[0];
-    }
-
-    /**
-     * Get next bunch of validatetd rows.
-     *
-     * @return array|null
-     */
-    public function getNextBunch()
-    {
-        if (null === $this->_iterator) {
-            $this->_iterator = $this->getIterator();
-            $this->_iterator->rewind();
-        }
-        if ($this->_iterator->valid()) {
-            $dataRow = $this->_iterator->current();
-            $dataRow = unserialize($dataRow[0]);
-            $this->_iterator->next();
-        } else {
-            $this->_iterator = null;
-            $dataRow = null;
-        }
-        return $dataRow;
-    }
-
-    /**
-     * Save import rows bunch.
-     *
-     * @param string $entity
-     * @param string $behavior
-     * @param array $data
-     * @return int
-     */
-    public function saveBunch($entity, $behavior, array $data)
-    {
-        return $this->_getWriteAdapter()->insert(
-            $this->getMainTable(),
-            array('behavior' => $behavior, 'entity' => $entity, 'data' => serialize($data))
-        );
-    }
 }

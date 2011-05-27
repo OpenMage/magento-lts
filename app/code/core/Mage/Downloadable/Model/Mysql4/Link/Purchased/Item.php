@@ -20,27 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Downloadable Product link purchased items resource model
  *
- * @category   Mage
- * @package    Mage_Downloadable
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_Downloadable
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Downloadable_Model_Mysql4_Link_Purchased_Item extends Mage_Core_Model_Mysql4_Abstract
+class Mage_Downloadable_Model_Mysql4_Link_Purchased_Item extends Mage_Downloadable_Model_Resource_Link_Purchased_Item
 {
-
-    /**
-     * Varien class constructor
-     *
-     */
-    protected function  _construct()
-    {
-        $this->_init('downloadable/link_purchased_item', 'item_id');
-    }
-
 }

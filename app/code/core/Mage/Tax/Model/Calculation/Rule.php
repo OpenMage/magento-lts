@@ -20,26 +20,37 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tax Rule Model
  *
- * @author Magento Core Team <core@magentocommerce.com>
+ * @method Mage_Tax_Model_Resource_Calculation_Rule _getResource()
+ * @method Mage_Tax_Model_Resource_Calculation_Rule getResource()
+ * @method string getCode()
+ * @method Mage_Tax_Model_Calculation_Rule setCode(string $value)
+ * @method int getPriority()
+ * @method Mage_Tax_Model_Calculation_Rule setPriority(int $value)
+ * @method int getPosition()
+ * @method Mage_Tax_Model_Calculation_Rule setPosition(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Tax
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
 {
-    protected $_ctcs = null;
-    protected $_ptcs = null;
-    protected $_rates = null;
+    protected $_ctcs                = null;
+    protected $_ptcs                = null;
+    protected $_rates               = null;
 
-    protected $_ctcModel = null;
-    protected $_ptcModel = null;
-    protected $_rateModel = null;
+    protected $_ctcModel            = null;
+    protected $_ptcModel            = null;
+    protected $_rateModel           = null;
 
-    protected $_calculationModel = null;
+    protected $_calculationModel    = null;
 
     /**
      * Varien model constructor
@@ -120,3 +131,4 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
         return $this->getCalculationModel()->getProductTaxClasses($this->getId());
     }
 }
+

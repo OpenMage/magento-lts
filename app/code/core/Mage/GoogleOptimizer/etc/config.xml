@@ -21,31 +21,31 @@
  *
  * @category    Mage
  * @package     Mage_GoogleOptimizer
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_GoogleOptimizer>
-            <version>0.1.2</version>
+            <version>1.6.0.0</version>
         </Mage_GoogleOptimizer>
     </modules>
     <global>
         <models>
             <googleoptimizer>
                 <class>Mage_GoogleOptimizer_Model</class>
-                <resourceModel>googleoptimizer_mysql4</resourceModel>
+                <resourceModel>googleoptimizer_resource</resourceModel>
             </googleoptimizer>
-
-            <googleoptimizer_mysql4>
-                <class>Mage_GoogleOptimizer_Model_Mysql4</class>
+            <googleoptimizer_resource>
+                <class>Mage_GoogleOptimizer_Model_Resource</class>
+                <deprecatedNode>googleoptimizer_mysql4</deprecatedNode>
                 <entities>
                     <code>
                         <table>googleoptimizer_code</table>
                     </code>
                 </entities>
-            </googleoptimizer_mysql4>
+            </googleoptimizer_resource>
         </models>
         <helpers>
             <googleoptimizer>
@@ -60,7 +60,9 @@
             </googleoptimizer_setup>
         </resources>
         <blocks>
-            <googleoptimizer><class>Mage_GoogleOptimizer_Block</class></googleoptimizer>
+            <googleoptimizer>
+                <class>Mage_GoogleOptimizer_Block</class>
+            </googleoptimizer>
         </blocks>
         <events>
             <cms_page_load_after>
@@ -134,7 +136,6 @@
             </catalog_helper_output_construct>
         </events>
     </frontend>
-
     <adminhtml>
         <translate>
             <modules>

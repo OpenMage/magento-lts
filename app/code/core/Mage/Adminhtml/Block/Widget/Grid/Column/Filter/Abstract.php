@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,12 +64,19 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
 
     public function getCondition()
     {
-        return array('like'=>'%'.$this->_escapeValue($this->getValue()).'%');
+        $helper = Mage::getResourceHelper('core');
+        $likeExpression = $helper->addLikeEscape($this->getValue(), array('position' => 'any'));
+        return array('like' => $likeExpression);
     }
 
+    /**
+     * @deprecated after 1.5.0.0
+     * @param  $value
+     * @return mixed
+     */
     protected function _escapeValue($value)
     {
-        return str_replace('_', '\_', $value);
+        return str_replace('_', '\_', str_replace('\\', '\\\\', $value));
     }
 
     public function getHtml()

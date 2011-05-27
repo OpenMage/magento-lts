@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,9 +52,12 @@ class Mage_GoogleCheckout_Model_Api_Xml_Order extends Mage_GoogleCheckout_Model_
     {
         $GRequest = $this->getGRequest();
 
-        $postargs = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-            <authorize-order xmlns=\"".$GRequest->schema_url.
-            "\" google-order-number=\"". $this->getGoogleOrderNumber() . "\"/>";
+        $postargs = '<?xml version="1.0" encoding="UTF-8"?>
+            <authorize-order xmlns="'
+            . $GRequest->schema_url
+            . '" google-order-number="'
+            . $this->getGoogleOrderNumber()
+            . '"/>';
 
         $response = $GRequest->SendReq($GRequest->request_url,
                    $GRequest->GetAuthenticationHeaders(), $postargs);
@@ -68,14 +71,14 @@ class Mage_GoogleCheckout_Model_Api_Xml_Order extends Mage_GoogleCheckout_Model_
         return $this->_processGResponse($response);
     }
 
-    public function refund($amount, $reason, $comment='')
+    public function refund($amount, $reason, $comment = '')
     {
         $response = $this->getGRequest()
             ->SendRefundOrder($this->getGoogleOrderNumber(), $amount, $reason, $comment);
         return $this->_processGResponse($response);
     }
 
-    public function cancel($reason, $comment='')
+    public function cancel($reason, $comment = '')
     {
         $response = $this->getGRequest()
             ->SendCancelOrder($this->getGoogleOrderNumber(), $reason, $comment);
@@ -91,10 +94,10 @@ class Mage_GoogleCheckout_Model_Api_Xml_Order extends Mage_GoogleCheckout_Model_
         return $this->_processGResponse($response);
     }
 
-    public function deliver($carrier, $trackingNo, $sendMail=true)
+    public function deliver($carrier, $trackingNo, $sendMail = true)
     {
         $response = $this->getGRequest()
-            ->SendDeliverOrder($this->getGoogleOrderNumber(), $carrier, $trackingNo, $sendMail?'true':'false');
+            ->SendDeliverOrder($this->getGoogleOrderNumber(), $carrier, $trackingNo, $sendMail ? 'true' : 'false');
         return $this->_processGResponse($response);
     }
 
@@ -105,7 +108,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Order extends Mage_GoogleCheckout_Model_
         return $this->_processGResponse($response);
     }
 
-    public function shipItems($items, $sendMail=true)
+    public function shipItems($items, $sendMail = true)
     {
         $googleShipItems = array();
         foreach ($items as $item) {
@@ -113,35 +116,35 @@ class Mage_GoogleCheckout_Model_Api_Xml_Order extends Mage_GoogleCheckout_Model_
         }
 
         $response = $this->getGRequest()
-            ->SendShipItems($this->getGoogleOrderNumber(), $googleShipItems, $sendMail?'true':'false');
+            ->SendShipItems($this->getGoogleOrderNumber(), $googleShipItems, $sendMail ? 'true' : 'false');
         return $this->_processGResponse($response);
     }
 
-    public function backorderItems($items, $sendMail=true)
+    public function backorderItems($items, $sendMail = true)
     {
         $response = $this->getGRequest()
-            ->SendBackorderItems($this->getGoogleOrderNumber(), $items, $sendMail?'true':'false');
+            ->SendBackorderItems($this->getGoogleOrderNumber(), $items, $sendMail ? 'true' : 'false');
         return $this->_processGResponse($response);
     }
 
-    public function cancelItems($items, $reason, $comment='', $sendMail=true)
+    public function cancelItems($items, $reason, $comment = '', $sendMail = true)
     {
         $response = $this->getGRequest()
-            ->SendCancelItems($this->getGoogleOrderNumber(), $items, $reason, $comment, $sendMail?'true':'false');
+            ->SendCancelItems($this->getGoogleOrderNumber(), $items, $reason, $comment, $sendMail ? 'true' : 'false');
         return $this->_processGResponse($response);
     }
 
-    public function returnItems($items, $sendMail=true)
+    public function returnItems($items, $sendMail = true)
     {
         $response = $this->getGRequest()
-            ->SendReturnItems($this->getGoogleOrderNumber(), $items, $sendMail?'true':'false');
+            ->SendReturnItems($this->getGoogleOrderNumber(), $items, $sendMail ? 'true' : 'false');
         return $this->_processGResponse($response);
     }
 
-    public function resetItems($items, $sendMail=true)
+    public function resetItems($items, $sendMail = true)
     {
         $response = $this->getGRequest()
-            ->SendRResetItemsShippingInformation($this->getGoogleOrderNumber(), $items, $sendMail?'true':'false');
+            ->SendRResetItemsShippingInformation($this->getGoogleOrderNumber(), $items, $sendMail ? 'true' : 'false');
         return $this->_processGResponse($response);
     }
 
@@ -169,10 +172,10 @@ class Mage_GoogleCheckout_Model_Api_Xml_Order extends Mage_GoogleCheckout_Model_
     }
 
 
-    public function addBuyerMessage($message, $sendMail=true)
+    public function addBuyerMessage($message, $sendMail = true)
     {
         $response = $this->getGRequest()
-            ->SendBuyerMessage($this->getGoogleOrderNumber(), $message, $sendMail?'true':'false');
+            ->SendBuyerMessage($this->getGoogleOrderNumber(), $message, $sendMail ? 'true' : 'false');
         return $this->_processGResponse($response);
     }
 }

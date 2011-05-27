@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +43,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Edit_Form extends Mage_Adminhtml_
         $helper = Mage::helper('importexport');
         $form = new Varien_Data_Form(array(
             'id'     => 'edit_form',
-            'action' => $this->getUrl('*/*/getfilter'),
+            'action' => $this->getUrl('*/*/getFilter'),
             'method' => 'post'
         ));
         $fieldset = $form->addFieldset('base_fieldset', array('legend' => $helper->__('Export Settings')));

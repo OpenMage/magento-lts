@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,9 +57,9 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
 
         $form = new Varien_Data_Form(
             array(
-                'id'        => 'edit_form',
-                'action'    => $this->getData('action'),
-                'method'    => 'post'
+                'id' => 'edit_form',
+                'action' => $this->getData('action'),
+                'method' => 'post'
             )
         );
 
@@ -97,6 +97,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
             'value'     => $model->getIsSystem()
         ));
 
+        $isFilterAllowed = false;
         // get store switcher or a hidden field with its id
         if (!Mage::app()->isSingleStoreMode()) {
             $stores  = Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm();
@@ -115,7 +116,9 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
                 if ($category && $category->getId()) {
                     $categoryStores = $category->getStoreIds() ? $category->getStoreIds() : array();
                     $entityStores = array_intersect($entityStores, $categoryStores);
+
                 }
+                $isFilterAllowed = true;
             } elseif ($category && $category->getId()) {
                 $entityStores = $category->getStoreIds() ? $category->getStoreIds() : array();
                 if  (!$entityStores) {
@@ -123,27 +126,26 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
                     $noStoreError = $this->__('Chosen category does not associated with any website, ') .
                         $this->__('so url rewrite is not possible.');
                 }
+                $isFilterAllowed = true;
             }
 
             /*
              * Stores should be filtered only if product and/or category is specified.
              * If we use custom rewrite, all stores are accepted.
              */
-            if (($product && $product->getId()) || ($category && $category->getId())) {
-                if ($stores) {
-                    foreach ($stores as $i => $store) {
-                        if (isset($store['value']) && $store['value']) {
-                            $found = false;
-                            foreach ($store['value'] as $_k => $_v) {
-                                if (isset($_v['value']) && in_array($_v['value'], $entityStores)) {
-                                   $found = true;
-                                } else {
-                                    unset($stores[$i]['value'][$_k]);
-                                }
+            if ($stores && $isFilterAllowed) {
+                foreach ($stores as $i => $store) {
+                    if (isset($store['value']) && $store['value']) {
+                        $found = false;
+                        foreach ($store['value'] as $_k => $_v) {
+                            if (isset($_v['value']) && in_array($_v['value'], $entityStores)) {
+                               $found = true;
+                            } else {
+                                unset($stores[$i]['value'][$_k]);
                             }
-                            if (!$found) {
-                                unset($stores[$i]);
-                            }
+                        }
+                        if (!$found) {
+                            unset($stores[$i]);
                         }
                     }
                 }

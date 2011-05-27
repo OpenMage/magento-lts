@@ -21,24 +21,22 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Payment>
-            <version>0.7.0</version>
+            <version>1.6.0.0</version>
         </Mage_Payment>
     </modules>
-
     <global>
         <models>
             <payment>
                 <class>Mage_Payment_Model</class>
             </payment>
         </models>
-
         <resources>
             <payment_setup>
                 <setup>
@@ -46,15 +44,12 @@
                 </setup>
             </payment_setup>
         </resources>
-
         <blocks>
             <payment>
                 <class>Mage_Payment_Block</class>
             </payment>
         </blocks>
-
         <payment>
-
             <cc>
                 <types>
                     <AE>
@@ -99,12 +94,10 @@
                     </OT>
                 </types>
             </cc>
-
             <groups>
                 <offline>Offline Payment Methods</offline>
             </groups>
         </payment>
-
         <events>
             <sales_order_save_before>
                 <observers>
@@ -116,7 +109,6 @@
             </sales_order_save_before>
         </events>
     </global>
-
     <frontend>
         <translate>
             <modules>
@@ -155,8 +147,7 @@
                 </Mage_Payment>
             </modules>
         </translate>
-   </adminhtml>
-
+    </adminhtml>
     <default>
         <payment>
             <ccsave>
@@ -168,7 +159,6 @@
                 <allowspecific>0</allowspecific>
                 <group>offline</group>
             </ccsave>
-
             <checkmo>
                 <active>1</active>
                 <model>payment/method_checkmo</model>
@@ -177,21 +167,15 @@
                 <allowspecific>0</allowspecific>
                 <group>offline</group>
             </checkmo>
-
             <free>
                 <active>1</active>
                 <model>payment/method_free</model>
                 <order_status>pending</order_status>
                 <title>No Payment Information Required</title>
                 <allowspecific>0</allowspecific>
-<!--
-                <min_order_total>0</min_order_total>
-                <max_order_total>0</max_order_total>
--->
                 <sort_order>1</sort_order>
                 <group>offline</group>
             </free>
-
             <purchaseorder>
                 <active>0</active>
                 <model>payment/method_purchaseorder</model>
@@ -200,7 +184,6 @@
                 <allowspecific>0</allowspecific>
                 <group>offline</group>
             </purchaseorder>
-
-         </payment>
+        </payment>
     </default>
 </config>

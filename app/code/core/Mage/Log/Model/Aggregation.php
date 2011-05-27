@@ -20,40 +20,74 @@
  *
  * @category    Mage
  * @package     Mage_Log
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Log Aggregation Model
+ *
+ * @method Mage_Log_Model_Resource_Aggregation getResource()
+ * @method Mage_Log_Model_Resource_Aggregation _getResource()
+ *
+ * @category   Mage
+ * @package    Mage_Log
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
 {
+
+    /**
+     * Last record data
+     *
+     * @var string
+     */
+    protected $_lastRecord;
+
+    /**
+     * Init model
+     */
     protected function _construct()
     {
         $this->_init('log/aggregation');
     }
 
+    /**
+     * Run action
+     */
     public function run()
     {
         $this->_lastRecord = $this->_timestamp($this->_round($this->getLastRecordDate()));
-        $stores = Mage::getResourceModel('core/store_collection');
-
-        foreach ($stores as $store) {
+        foreach (Mage::app()->getStores(false) as $store) {
             $this->_process($store->getId());
         }
     }
 
-    private function _removeEmpty($last)
+    /**
+     * Remove empty records before $lastDate
+     *
+     * @param  string $lastDate
+     * @return void
+     */
+    private function _removeEmpty($lastDate)
     {
-        return $this->_getResource()->removeEmpty($last);
+        return $this->_getResource()->removeEmpty($lastDate);
     }
 
+    /**
+     * Process
+     *
+     * @param  int $store
+     * @return mixed
+     */
     private function _process($store)
     {
         $lastDateRecord = null;
-        $start = $this->_lastRecord;
-        $end = time();
-        $date = $start;
+        $start          = $this->_lastRecord;
+        $end            = time();
+        $date           = $start;
 
-        while($date < $end){
+        while ($date < $end) {
             $to = $date + 3600;
             $counts = $this->_getCounts($this->_date($date), $this->_date($to), $store);
             $data = array(
@@ -68,11 +102,18 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
             }
 
             $lastDateRecord = $date;
-            $date = $to;
+            $date = $to; 
         }
         return $lastDateRecord;
     }
 
+    /**
+     * Save log data
+     *
+     * @param  array $data
+     * @param  string $from
+     * @param  string $to
+     */
     private function _save($data, $from, $to)
     {
         if ($logId = $this->_getResource()->getLogId($from, $to)) {
@@ -122,6 +163,10 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
         return $out;
     }
 
+    /**
+     * @param  $in
+     * @return string
+     */
     private function _round($in)
     {
         return date("Y-m-d H:00:00", $this->_timestamp($in));

@@ -19,7 +19,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -94,9 +94,9 @@ ul,ol         { list-style:none; }
 /* Layout ================================================================================ */
 .wrapper { min-height:100%; background:url(../images/bkg_body2.gif) 0 100% repeat-x; }
 .page { width:970px; margin:0 auto; min-height:100%; text-align:left; }
-.page-print { background:#fff; padding:25px 30px; text-align:left; }
-.page-empty { background:#fff; padding:20px; text-align:left; }
-.page-popup { background:#fff; padding:25px 30px; text-align:left; }
+.page-print { height:auto; background:#fff; padding:25px 30px; text-align:left; }
+.page-empty { height:auto; background:#fff; padding:20px; text-align:left; }
+.page-popup { height:auto; background:#fff; padding:25px 30px; text-align:left; }
 .main-container { width:950px; padding:0 10px; background:url(../images/bkg_shadow.png) 50% 0 repeat-y; }
 .main { width:900px; margin:0 auto; min-height:400px; padding:25px 25px 80px; background:#fffffe url(../images/bkg_main2.gif) 0 0 no-repeat; text-align:left; }
 
@@ -337,9 +337,10 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 
 /* Data Table */
 .data-table { width:100%; border:1px solid #bebcb7; }
-.data-table tr { background:#fff; }
 .data-table .odd  { background:#f8f7f5 }
-.data-table .even { background:#eeeded !important; }
+.data-table .even { background:#eeeded; }
+.data-table tr.odd:hover,
+.data-table tr.even:hover { background:#ebf1f6; }
 .data-table td.last,
 .data-table th.last { border-right:0; }
 .data-table tr.last th,
@@ -347,11 +348,12 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 .data-table th { padding:3px 8px; font-weight:bold; }
 .data-table td { padding:3px 8px; }
 
-.data-table thead th { font-weight:bold; border-right:1px solid #c2d3e0; padding:2px 8px; color:#0a263c; white-space:nowrap; }
+.data-table thead th { font-weight:bold; border-right:1px solid #c2d3e0; padding:2px 8px; color:#0a263c; white-space:nowrap; vertical-align:middle; }
 .data-table thead th.wrap { white-space:normal; }
 .data-table thead th a,
 .data-table thead th a:hover { color:#fff; }
 .data-table thead th { background:url(../images/bkg_th.gif) repeat-x 0 100% #d9e5ee; }
+.data-table thead th .tax-flag { font-size:11px; white-space:nowrap; }
 
 .data-table tfoot { border-bottom:1px solid #d9dde3; }
 .data-table tfoot tr.first td { background:url(../images/bkg_tfoot.gif) 0 0 repeat-x; }
@@ -390,9 +392,12 @@ tr.summary-details-first td { border-top:1px solid #d2d8db; }
 tr.summary-details-excluded { font-style:italic; }
 
 /* Shopping cart tax info */
+.cart-tax-info { display:block; }
 .cart-tax-info,
 .cart-tax-info .cart-price { padding-right:20px; }
-.cart-tax-total { display:block; padding-right:20px; background:url(../images/bkg_collapse.gif) 100% 4px no-repeat; cursor:pointer; }
+.cart-tax-total { display:block; padding-right:20px; background:url(../images/bkg_collapse.gif) 100% 5px no-repeat; cursor:pointer; }
+.cart-tax-info .price,
+.cart-tax-total .price { display:inline !important; font-weight:normal !important; }
 .cart-tax-total-expanded { background-position:100% -52px; }
 
 /* Class: std - styles for admin-controlled content */
@@ -1162,9 +1167,9 @@ tr.summary-details-excluded { font-style:italic; }
 .cart .shipping .sp-methods { margin:10px 0 0; padding:5px 0 0; background:url(../images/bkg_divider1.gif) 0 0 repeat-x; }
 
 /* Shopping Cart Totals */
-.cart .totals { float:right; width:258px; background:#dee5e8; border:1px solid #bebcb7; }
+.cart .totals { float:right; width:268px; background:#dee5e8; border:1px solid #bebcb7; }
 .cart .totals table { width:100%; margin:7px 0; }
-.cart .totals td { padding:0 15px; }
+.cart .totals td { padding:1px 15px 1px 7px; }
 .cart .totals tr.last td {}
 .cart .totals tfoot th { padding:5px 15px 5px 7px; }
 .cart .totals tfoot td { padding-top:5px; padding-bottom:5px; }

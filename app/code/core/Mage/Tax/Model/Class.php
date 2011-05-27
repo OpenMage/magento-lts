@@ -20,15 +20,22 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tax class model
  *
- * @category   Mage
- * @package    Mage_Tax
+ * @method Mage_Tax_Model_Resource_Class _getResource()
+ * @method Mage_Tax_Model_Resource_Class getResource()
+ * @method string getClassName()
+ * @method Mage_Tax_Model_Class setClassName(string $value)
+ * @method string getClassType()
+ * @method Mage_Tax_Model_Class setClassType(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Tax
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 
@@ -41,42 +48,4 @@ class Mage_Tax_Model_Class extends Mage_Core_Model_Abstract
     {
         $this->_init('tax/class');
     }
-//    public function __construct($class=false)
-//    {
-//        parent::__construct();
-//        $this->setIdFieldName($this->getResource()->getIdFieldName());
-//    }
-//
-//    public function getResource()
-//    {
-//        return Mage::getResourceModel('tax/class');
-//    }
-//
-//    public function load($classId)
-//    {
-//        $this->getResource()->load($this, $classId);
-//        return $this;
-//    }
-//
-//    public function save()
-//    {
-//        $this->getResource()->save($this);
-//        return $this;
-//    }
-//
-//    public function delete()
-//    {
-//        $this->getResource()->delete($this);
-//        return $this;
-//    }
-//
-//    public function getCustomerGroupCollection()
-//    {
-//        return Mage::getResourceModel('customer/group_collection');
-//    }
-//
-//    public function itemExists()
-//    {
-//        return $this->getResource()->itemExists($this);
-//    }
 }

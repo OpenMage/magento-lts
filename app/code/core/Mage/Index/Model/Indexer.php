@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Index
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,7 +32,7 @@ class Mage_Index_Model_Indexer
     /**
      * Collection of available processes
      *
-     * @var Mage_Index_Model_Mysql4_Process_Collection
+     * @var Mage_Index_Model_Resource_Process_Collection
      */
     protected $_processesCollection;
 
@@ -54,7 +54,7 @@ class Mage_Index_Model_Indexer
     /**
      * Get collection of all available processes
      *
-     * @return Mage_Index_Model_Mysql4_Process_Collection
+     * @return Mage_Index_Model_Resource_Process_Collection
      */
     public function getProcessesCollection()
     {

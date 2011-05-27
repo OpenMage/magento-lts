@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,6 +28,18 @@
 /**
  * Attribute index model
  *
+ * @method Mage_CatalogIndex_Model_Resource_Attribute _getResource()
+ * @method Mage_CatalogIndex_Model_Resource_Attribute getResource()
+ * @method Mage_CatalogIndex_Model_Attribute setEntityId(int $value)
+ * @method int getAttributeId()
+ * @method Mage_CatalogIndex_Model_Attribute setAttributeId(int $value)
+ * @method int getStoreId()
+ * @method Mage_CatalogIndex_Model_Attribute setStoreId(int $value)
+ * @method int getValue()
+ * @method Mage_CatalogIndex_Model_Attribute setValue(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_CatalogIndex
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogIndex_Model_Attribute extends Mage_Core_Model_Abstract

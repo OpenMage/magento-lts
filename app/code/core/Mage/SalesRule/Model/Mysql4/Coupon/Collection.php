@@ -20,41 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
-class Mage_SalesRule_Model_Mysql4_Coupon_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+/**
+ * SalesRule Mysql4 coupon collection
+ *
+ * @category    Mage
+ * @package     Mage_SalesRule
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_SalesRule_Model_Mysql4_Coupon_Collection extends Mage_SalesRule_Model_Resource_Coupon_Collection
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_init('salesrule/coupon');
-    }
-
-    /**
-     * Add rule to filter
-     *
-     * @param Mage_SalesRule_Model_Rule|int Rule
-     */
-    public function addRuleToFilter($rule)
-    {
-        if ($rule instanceof Mage_SalesRule_Model_Rule) {
-            $ruleId = $rule->getId();
-        } else {
-            $ruleId = (int)$rule;
-        }
-        $this->addFieldToFilter('rule_id', $ruleId);
-    }
-
-    /**
-     * Add rule IDs to filter
-     *
-     * @param array Rule Ids
-     */
-    public function addRuleIdsToFilter(array $ruleIds)
-    {
-        $this->addFieldToFilter('rule_id', array('in' => $ruleIds));
-    }
 }

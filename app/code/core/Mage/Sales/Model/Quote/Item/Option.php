@@ -20,12 +20,23 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Item option model
+ *
+ * @method Mage_Sales_Model_Resource_Quote_Item_Option _getResource()
+ * @method Mage_Sales_Model_Resource_Quote_Item_Option getResource()
+ * @method int getItemId()
+ * @method Mage_Sales_Model_Quote_Item_Option setItemId(int $value)
+ * @method int getProductId()
+ * @method Mage_Sales_Model_Quote_Item_Option setProductId(int $value)
+ * @method string getCode()
+ * @method Mage_Sales_Model_Quote_Item_Option setCode(string $value)
+ * @method string getValue()
+ * @method Mage_Sales_Model_Quote_Item_Option setValue(string $value)
  *
  * @category    Mage
  * @package     Mage_Sales

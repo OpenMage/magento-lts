@@ -20,13 +20,37 @@
  *
  * @category    Mage
  * @package     Mage_GoogleBase
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Google Base Item Types Model
  *
+ * @method Mage_GoogleBase_Model_Resource_Item _getResource()
+ * @method Mage_GoogleBase_Model_Resource_Item getResource()
+ * @method int getTypeId()
+ * @method Mage_GoogleBase_Model_Item setTypeId(int $value)
+ * @method int getProductId()
+ * @method Mage_GoogleBase_Model_Item setProductId(int $value)
+ * @method string getGbaseItemId()
+ * @method Mage_GoogleBase_Model_Item setGbaseItemId(string $value)
+ * @method int getStoreId()
+ * @method Mage_GoogleBase_Model_Item setStoreId(int $value)
+ * @method string getPublished()
+ * @method Mage_GoogleBase_Model_Item setPublished(string $value)
+ * @method string getExpires()
+ * @method Mage_GoogleBase_Model_Item setExpires(string $value)
+ * @method int getImpr()
+ * @method Mage_GoogleBase_Model_Item setImpr(int $value)
+ * @method int getClicks()
+ * @method Mage_GoogleBase_Model_Item setClicks(int $value)
+ * @method int getViews()
+ * @method Mage_GoogleBase_Model_Item setViews(int $value)
+ * @method int getIsHidden()
+ * @method Mage_GoogleBase_Model_Item setIsHidden(int $value)
+ *
+ * @deprecated after 1.5.1.0
  * @category   Mage
  * @package    Mage_GoogleBase
  * @author     Magento Core Team <core@magentocommerce.com>
@@ -264,8 +288,10 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
             $frontendLabel = array_shift($frontendLabel);
         }
         if (!$this->_translations) {
+            $moduleName = Mage_Catalog_Model_Entity_Attribute::MODULE_NAME;
+            $separator  = Mage_Core_Model_Translate::SCOPE_SEPARATOR;
             $this->_translations = Mage::getModel('core/translate_string')
-               ->load(Mage_Catalog_Model_Entity_Attribute::MODULE_NAME.Mage_Core_Model_Translate::SCOPE_SEPARATOR.$frontendLabel)
+               ->load($moduleName . $separator . $frontendLabel)
                ->getStoreTranslations();
         }
         if (isset($this->_translations[$storeId])) {

@@ -20,9 +20,10 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Sales mysql4 abstract resource model
@@ -31,21 +32,6 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Sales_Model_Mysql4_Abstract extends Mage_Core_Model_Mysql4_Abstract
+class Mage_Sales_Model_Mysql4_Abstract extends Mage_Sales_Model_Resource_Abstract
 {
-    /**
-     * Prepare data for save
-     *
-     * @param   Mage_Core_Model_Abstract $object
-     * @return  array
-     */
-    protected function _prepareDataForSave(Mage_Core_Model_Abstract $object)
-    {
-        if (!$object->getId() || $object->isObjectNew()) {
-            $object->setCreatedAt(now());
-        }
-        $object->setUpdatedAt(now());
-        $data = parent::_prepareDataForSave($object);
-        return $data;
-    }
 }

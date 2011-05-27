@@ -20,13 +20,22 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * Eav Form Fieldset Model
+ *
+ * @method Mage_Eav_Model_Resource_Form_Fieldset _getResource()
+ * @method Mage_Eav_Model_Resource_Form_Fieldset getResource()
+ * @method int getTypeId()
+ * @method Mage_Eav_Model_Form_Fieldset setTypeId(int $value)
+ * @method string getCode()
+ * @method Mage_Eav_Model_Form_Fieldset setCode(string $value)
+ * @method int getSortOrder()
+ * @method Mage_Eav_Model_Form_Fieldset setSortOrder(int $value)
  *
  * @category    Mage
  * @package     Mage_Eav

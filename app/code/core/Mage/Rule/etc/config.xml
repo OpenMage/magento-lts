@@ -21,30 +21,31 @@
  *
  * @category    Mage
  * @package     Mage_Rule
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Rule>
-            <version>0.7.0</version>
+            <version>1.6.0.0</version>
         </Mage_Rule>
     </modules>
     <global>
         <models>
             <rule>
                 <class>Mage_Rule_Model</class>
-                <resourceModel>rule_mysql4</resourceModel>
+                <resourceModel>rule_resource</resourceModel>
             </rule>
-            <rule_mysql4>
-                <class>Mage_Rule_Model_Mysql4</class>
-            </rule_mysql4>
+            <rule_resource>
+                <class>Mage_Rule_Model_Resource</class>
+                <deprecatedNode>rule_mysql4</deprecatedNode>
+            </rule_resource>
         </models>
         <blocks>
-                <rule>
-                    <class>Mage_Rule_Block</class>
-                </rule>
+            <rule>
+                <class>Mage_Rule_Block</class>
+            </rule>
         </blocks>
     </global>
     <adminhtml>
@@ -58,7 +59,6 @@
             </modules>
         </translate>
     </adminhtml>
-    
     <frontend>
         <translate>
             <modules>

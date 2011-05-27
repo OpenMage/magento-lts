@@ -20,13 +20,24 @@
  *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Country model
  *
+ * @method Mage_Directory_Model_Resource_Country _getResource()
+ * @method Mage_Directory_Model_Resource_Country getResource()
+ * @method string getCountryId()
+ * @method Mage_Directory_Model_Country setCountryId(string $value)
+ * @method string getIso2Code()
+ * @method Mage_Directory_Model_Country setIso2Code(string $value)
+ * @method string getIso3Code()
+ * @method Mage_Directory_Model_Country setIso3Code(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Directory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
@@ -104,7 +115,7 @@ T: {{telephone}}";
     /**
      * Retrive formats for
      *
-     * @return Mage_Directory_Model_Mysql4_Country_Format_Collection
+     * @return Mage_Directory_Model_Resource_Country_Format_Collection
      */
     public function getFormats()
     {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,98 +32,6 @@
  * @package     Mage_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Eav_Model_Mysql4_Form_Fieldset_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Eav_Model_Mysql4_Form_Fieldset_Collection extends Mage_Eav_Model_Resource_Form_Fieldset_Collection
 {
-    /**
-     * Store scope ID
-     *
-     * @var int
-     */
-    protected $_storeId;
-
-    /**
-     * Initialize collection model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('eav/form_fieldset');
-    }
-
-    /**
-     * Add Form Type filter to collection
-     *
-     * @param Mage_Eav_Model_Form_Type|int $type
-     * @return Mage_Eav_Model_Mysql4_Form_Fieldset_Collection
-     */
-    public function addTypeFilter($type)
-    {
-        if ($type instanceof Mage_Eav_Model_Form_Type) {
-            $type = $type->getId();
-        }
-
-        $this->addFieldToFilter('type_id', $type);
-
-        return $this;
-    }
-
-    /**
-     * Set order by fieldset sort order
-     *
-     * @return Mage_Eav_Model_Mysql4_Form_Fieldset_Collection
-     */
-    public function setSortOrder()
-    {
-        $this->setOrder('sort_order', self::SORT_ORDER_ASC);
-
-        return $this;
-    }
-
-    /**
-     * Retrieve label store scope
-     *
-     * @return int
-     */
-    public function getStoreId()
-    {
-        if (is_null($this->_storeId)) {
-            return Mage::app()->getStore()->getId();
-        }
-        return $this->_storeId;
-    }
-
-    /**
-     * Set store scope ID
-     *
-     * @param int $storeId
-     * @return Mage_Eav_Model_Mysql4_Form_Fieldset_Collection
-     */
-    public function setStoreId($storeId)
-    {
-        $this->_storeId = $storeId;
-        return $this;
-    }
-
-    /**
-     * Initialize select object
-     *
-     */
-    protected function _initSelect()
-    {
-        parent::_initSelect();
-
-        $this->getSelect()->join(
-            array('default_label' => $this->getTable('eav/form_fieldset_label')),
-            'main_table.fieldset_id=default_label.fieldset_id AND default_label.store_id=0',
-            array());
-        if ($this->getStoreId() == 0) {
-            $this->getSelect()->columns('label', 'default_label');
-        } else {
-            $this->getSelect()->joinLeft(
-                array('store_label' => $this->getTable('eav/form_fieldset_label')),
-                'main_table.fieldset_id=store_label.fieldset_id AND store_label.store_id='.(int)$this->getStoreId(),
-                array('label' => new Zend_Db_Expr('IFNULL(store_label.label, default_label.label)'))
-            );
-        }
-    }
 }

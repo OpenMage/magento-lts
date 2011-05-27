@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -168,7 +168,9 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         /**
          * Collecting shipping rates
          */
-        if (!$this->_getOrderCreateModel()->getQuote()->isVirtual() && $this->getRequest()->getPost('collect_shipping_rates')) {
+        if (!$this->_getOrderCreateModel()->getQuote()->isVirtual() &&
+            $this->getRequest()->getPost('collect_shipping_rates')
+        ) {
             $this->_getOrderCreateModel()->collectShippingRates();
         }
 
@@ -257,7 +259,8 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
          * Importing gift message allow items from specific product grid
          */
         if ($data = $this->getRequest()->getPost('add_products')) {
-            $this->_getGiftmessageSaveModel()->importAllowQuoteItemsFromProducts(Mage::helper('core')->jsonDecode($data));
+            $this->_getGiftmessageSaveModel()
+                ->importAllowQuoteItemsFromProducts(Mage::helper('core')->jsonDecode($data));
         }
 
         /**
@@ -321,6 +324,9 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         $this->_getSession()->clear();
         $orderId = $this->getRequest()->getParam('order_id');
         $order = Mage::getModel('sales/order')->load($orderId);
+        if (!Mage::helper('sales/reorder')->canReorder($order)) {
+            return $this->_forward('noRoute');
+        }
 
         if ($order->getId()) {
             $order->setReordered(true);

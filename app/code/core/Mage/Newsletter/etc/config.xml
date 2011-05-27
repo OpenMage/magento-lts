@@ -21,27 +21,30 @@
  *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Newsletter>
-            <version>0.8.3</version>
+            <version>1.6.0.0</version>
         </Mage_Newsletter>
     </modules>
     <global>
         <blocks>
-            <newsletter><class>Mage_Newsletter_Block</class></newsletter>
+            <newsletter>
+                <class>Mage_Newsletter_Block</class>
+            </newsletter>
         </blocks>
         <models>
             <newsletter>
                 <class>Mage_Newsletter_Model</class>
-                <resourceModel>newsletter_mysql4</resourceModel>
+                <resourceModel>newsletter_resource</resourceModel>
             </newsletter>
-            <newsletter_mysql4>
-                <class>Mage_Newsletter_Model_Mysql4</class>
+            <newsletter_resource>
+                <class>Mage_Newsletter_Model_Resource</class>
+                <deprecatedNode>newsletter_mysql4</deprecatedNode>
                 <entities>
                     <subscriber>
                         <table>newsletter_subscriber</table>
@@ -62,7 +65,7 @@
                         <table>newsletter_problem</table>
                     </problem>
                 </entities>
-            </newsletter_mysql4>
+            </newsletter_resource>
         </models>
         <resources>
             <newsletter_setup>
@@ -123,11 +126,11 @@
             </modules>
         </translate>
         <layout>
-              <updates>
-                  <newsletter>
-                      <file>newsletter.xml</file>
-                  </newsletter>
-              </updates>
+            <updates>
+                <newsletter>
+                    <file>newsletter.xml</file>
+                </newsletter>
+            </updates>
         </layout>
     </adminhtml>
     <frontend>
@@ -167,18 +170,17 @@
                 </Mage_Newsletter>
             </modules>
         </translate>
-          <layout>
-              <updates>
-                  <newsletter module="Mage_Newsletter">
-                      <file>newsletter.xml</file>
-                  </newsletter>
-              </updates>
-          </layout>
+        <layout>
+            <updates>
+                <newsletter module="Mage_Newsletter">
+                    <file>newsletter.xml</file>
+                </newsletter>
+            </updates>
+        </layout>
         <secure_url>
             <newsletter_manage>/newsletter/manage/</newsletter_manage>
         </secure_url>
     </frontend>
-
     <default>
         <newsletter>
             <subscription>
@@ -196,12 +198,15 @@
             </sending>
         </newsletter>
     </default>
-
     <crontab>
         <jobs>
             <newsletter_send_all>
-                <schedule><cron_expr>*/5 * * * *</cron_expr></schedule>
-                <run><model>newsletter/observer::scheduledSend</model></run>
+                <schedule>
+                    <cron_expr>*/5 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>newsletter/observer::scheduledSend</model>
+                </run>
             </newsletter_send_all>
         </jobs>
     </crontab>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -76,17 +76,17 @@ class Mage_Tax_Model_Observer
                 }
                 $hidden = (isset($row['hidden']) ? $row['hidden'] : 0);
                 $data = array(
-                            'order_id'=>$order->getId(),
-                            'code'=>$tax['code'],
-                            'title'=>$tax['title'],
-                            'hidden'=>$hidden,
-                            'percent'=>$tax['percent'],
-                            'priority'=>$tax['priority'],
-                            'position'=>$tax['position'],
-                            'amount'=>$row['amount'],
-                            'base_amount'=>$row['base_amount'],
-                            'process'=>$row['process'],
-                            'base_real_amount'=>$baseRealAmount,
+                            'order_id'          => $order->getId(),
+                            'code'              => $tax['code'],
+                            'title'             => $tax['title'],
+                            'hidden'            => $hidden,
+                            'percent'           => $tax['percent'],
+                            'priority'          => $tax['priority'],
+                            'position'          => $tax['position'],
+                            'amount'            => $row['amount'],
+                            'base_amount'       => $row['base_amount'],
+                            'process'           => $row['process'],
+                            'base_real_amount'  => $baseRealAmount,
                             );
 
                 Mage::getModel('tax/sales_order_tax')->setData($data)->save();

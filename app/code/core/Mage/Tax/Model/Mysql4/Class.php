@@ -20,36 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Tax class resource
  *
- * @category   Mage
- * @package    Mage_Tax
+ * @category    Mage
+ * @package     Mage_Tax
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Tax_Model_Mysql4_Class extends Mage_Core_Model_Mysql4_Abstract
+class Mage_Tax_Model_Mysql4_Class extends Mage_Tax_Model_Resource_Class
 {
-    public function _construct()
-    {
-        $this->_init('tax/tax_class', 'class_id');
-    }
-
-    /**
-     * Initialize unique fields
-     *
-     * @return Mage_Core_Model_Mysql4_Abstract
-     */
-    protected function _initUniqueFields()
-    {
-        $this->_uniqueFields = array(array(
-            'field' => array('class_type', 'class_name'),
-            'title' => Mage::helper('tax')->__('An error occurred while saving this tax class. A class with the same name already exists.'),
-        ));
-        return $this;
-    }
 }

@@ -20,16 +20,33 @@
  *
  * @category    Mage
  * @package     Mage_GoogleOptimizer
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Google Optimizer Scripts Model
  *
- * @category   Mage
- * @package    Mage_GoogleOptimizer
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @method Mage_GoogleOptimizer_Model_Resource_Code _getResource()
+ * @method Mage_GoogleOptimizer_Model_Resource_Code getResource()
+ * @method Mage_GoogleOptimizer_Model_Code setEntityId(int $value)
+ * @method Mage_GoogleOptimizer_Model_Code setEntityType(string $value)
+ * @method int getStoreId()
+ * @method Mage_GoogleOptimizer_Model_Code setStoreId(int $value)
+ * @method string getControlScript()
+ * @method Mage_GoogleOptimizer_Model_Code setControlScript(string $value)
+ * @method string getTrackingScript()
+ * @method Mage_GoogleOptimizer_Model_Code setTrackingScript(string $value)
+ * @method string getConversionScript()
+ * @method Mage_GoogleOptimizer_Model_Code setConversionScript(string $value)
+ * @method string getConversionPage()
+ * @method Mage_GoogleOptimizer_Model_Code setConversionPage(string $value)
+ * @method string getAdditionalData()
+ * @method Mage_GoogleOptimizer_Model_Code setAdditionalData(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_GoogleOptimizer
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_GoogleOptimizer_Model_Code extends Mage_Core_Model_Abstract
 {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -75,27 +75,35 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     }
 
     /**
-     * Enter description here...
+     * Retreive lable
      *
      * @return string
      */
     public function getLabel()
     {
         $label = $this->getAttribute()->getFrontendLabel();
-        if (is_null($label) || $label=='') {
+        if (($label === null) || $label == '') {
             $label = $this->getAttribute()->getAttributeCode();
         }
+
         return $label;
     }
 
+    /**
+     * Retreive attribute value
+     *
+     * @param $object
+     * @return mixed
+     */
     public function getValue(Varien_Object $object)
     {
         $value = $object->getData($this->getAttribute()->getAttributeCode());
         if (in_array($this->getConfigField('input'), array('select','boolean'))) {
             $valueOption = $this->getOption($value);
             if (!$valueOption) {
-                $opt = new Mage_Eav_Model_Entity_Attribute_Source_Boolean();
-                if ($options = $opt->getAllOptions()) {
+                $opt     = Mage::getModel('eav/entity_attribute_source_boolean');
+                $options = $opt->getAllOptions();
+                if ($options) {
                     foreach ($options as $option) {
                         if ($option['value'] == $value) {
                             $valueOption = $option['label'];
@@ -104,21 +112,31 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
                 }
             }
             $value = $valueOption;
-        }
-        elseif ($this->getConfigField('input')=='multiselect') {
+        } elseif ($this->getConfigField('input') == 'multiselect') {
             $value = $this->getOption($value);
             if (is_array($value)) {
                 $value = implode(', ', $value);
             }
         }
+
         return $value;
     }
 
+    /**
+     * Checks if attribute is visible on frontend
+     *
+     * @return boolean
+     */
     public function isVisible()
     {
         return $this->getConfigField('frontend_visible');
     }
 
+    /**
+     * Retreive frontend class
+     *
+     * @return string
+     */
     public function getClass()
     {
         $out = $this->getAttribute()->getFrontendClass();
@@ -128,9 +146,15 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
         return $out;
     }
 
+    /**
+     * Reireive config field
+     *
+     * @param string $fieldName
+     * @return mixed
+     */
     public function getConfigField($fieldName)
     {
-        return $this->getAttribute()->getData('frontend_'.$fieldName);
+        return $this->getAttribute()->getData('frontend_' . $fieldName);
     }
 
     /**
@@ -143,9 +167,16 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
         return $this->getAttribute()->getSource()->getAllOptions();
     }
 
+    /**
+     * Retreive option by option id
+     *
+     * @param int $optionId
+     * @return mixed|boolean
+     */
     public function getOption($optionId)
     {
-        if ($source = $this->getAttribute()->getSource()) {
+        $source = $this->getAttribute()->getSource();
+        if ($source) {
             return $source->getOptionText($optionId);
         }
         return false;
@@ -157,10 +188,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
      * @return string
      */
     public function getInputRendererClass() {
-        if ($className = $this->getAttribute()->getData('frontend_input_renderer')) {
+        $className = $this->getAttribute()->getData('frontend_input_renderer');
+        if ($className) {
             return Mage::getConfig()->getBlockClassName($className);
         }
         return null;
     }
-
 }

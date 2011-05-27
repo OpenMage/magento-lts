@@ -20,11 +20,45 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
+/**
+ * Sales order shipment model
+ *
+ * @method Mage_Sales_Model_Resource_Order_Shipment _getResource()
+ * @method Mage_Sales_Model_Resource_Order_Shipment getResource()
+ * @method int getStoreId()
+ * @method Mage_Sales_Model_Order_Shipment setStoreId(int $value)
+ * @method float getTotalWeight()
+ * @method Mage_Sales_Model_Order_Shipment setTotalWeight(float $value)
+ * @method float getTotalQty()
+ * @method Mage_Sales_Model_Order_Shipment setTotalQty(float $value)
+ * @method int getEmailSent()
+ * @method Mage_Sales_Model_Order_Shipment setEmailSent(int $value)
+ * @method int getOrderId()
+ * @method Mage_Sales_Model_Order_Shipment setOrderId(int $value)
+ * @method int getCustomerId()
+ * @method Mage_Sales_Model_Order_Shipment setCustomerId(int $value)
+ * @method int getShippingAddressId()
+ * @method Mage_Sales_Model_Order_Shipment setShippingAddressId(int $value)
+ * @method int getBillingAddressId()
+ * @method Mage_Sales_Model_Order_Shipment setBillingAddressId(int $value)
+ * @method int getShipmentStatus()
+ * @method Mage_Sales_Model_Order_Shipment setShipmentStatus(int $value)
+ * @method string getIncrementId()
+ * @method Mage_Sales_Model_Order_Shipment setIncrementId(string $value)
+ * @method string getCreatedAt()
+ * @method Mage_Sales_Model_Order_Shipment setCreatedAt(string $value)
+ * @method string getUpdatedAt()
+ * @method Mage_Sales_Model_Order_Shipment setUpdatedAt(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Sales
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 {
     const STATUS_NEW    = 1;
@@ -60,6 +94,17 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     protected function _construct()
     {
         $this->_init('sales/order_shipment');
+    }
+
+    /**
+     * Init mapping array of short fields to its full names
+     *
+     * @return Mage_Sales_Model_Order_Shipment
+     */
+    protected function _initOldFieldsMap()
+    {
+        $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('order_shipment');
+        return $this;
     }
 
     /**

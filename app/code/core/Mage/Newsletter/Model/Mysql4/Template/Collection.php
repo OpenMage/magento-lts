@@ -20,55 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Templates collection
- * 
- * @category   Mage
- * @package    Mage_Newsletter
+ *
+ * @category    Mage
+ * @package     Mage_Newsletter
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Newsletter_Model_Mysql4_Template_Collection extends Varien_Data_Collection_Db
+class Mage_Newsletter_Model_Mysql4_Template_Collection extends Mage_Newsletter_Model_Resource_Template_Collection
 {
-    /**
-     * Template table name
-     *
-     * @var string
-     */
-    protected $_templateTable;
-    
-    public function __construct()
-    {
-        parent::__construct(Mage::getSingleton('core/resource')->getConnection('newsletter_read'));
-        $this->_templateTable = Mage::getSingleton('core/resource')->getTableName('newsletter/template');
-        $this->_select->from($this->_templateTable, array('template_id','template_code',
-                                                             'template_type',
-                                                             'template_subject','template_sender_name',
-                                                             'template_sender_email',
-                                                             'added_at',
-                                                             'modified_at'
-                                                             ));
-        $this->setItemObjectClass(Mage::getConfig()->getModelClassName('newsletter/template'));
-    }
-    
-    /**
-     * Load only actual template
-     *
-     * @return  Mage_Newsletter_Model_Mysql4_Template_Collection
-     */
-    public function useOnlyActual()
-    {
-        $this->_select->where('template_actual=?', 1);
-        
-        return $this;
-    }
-        
-    public function toOptionArray()
-    {
-        return $this->_toOptionArray('template_id', 'template_code');
-    }
-    
 }

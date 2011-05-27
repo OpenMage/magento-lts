@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +41,7 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
      */
     public function prepareProfilesGrid()
     {
-        $this->_prepareProfiles(array('profile_id', 'reference_id', 'state', 'created_at', 'updated_at', 'method_code'));
+        $this->_prepareProfiles(array('reference_id', 'state', 'created_at', 'updated_at', 'method_code'));
 
         $pager = $this->getLayout()->createBlock('page/html_pager')
             ->setCollection($this->_profiles)->setIsOutputRequired(false);

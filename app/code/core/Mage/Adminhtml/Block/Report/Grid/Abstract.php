@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -98,12 +98,42 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                     $filterFieldId = $k;
                     $filterFieldValue = $v;
                 }
-                if (!$filterData->hasData($filterFieldId) || $filterData->getData($filterFieldId) != $filterFieldValue) {
+                if (
+                    !$filterData->hasData($filterFieldId) ||
+                    $filterData->getData($filterFieldId) != $filterFieldValue
+                ) {
                     return $this;  // don't add column
                 }
             }
         }
         return parent::addColumn($columnId, $column);
+    }
+
+    /**
+     * Get allowed store ids array intersected with selected scope in store switcher
+     *
+     * @return  array
+     */
+    protected function _getStoreIds()
+    {
+        $filterData = $this->getFilterData();
+        if ($filterData) {
+            $storeIds = explode(',', $filterData->getData('store_ids'));
+        } else {
+            $storeIds = array();
+        }
+        // By default storeIds array contains only allowed stores
+        $allowedStoreIds = array_keys(Mage::app()->getStores());
+        // And then array_intersect with post data for prevent unauthorized stores reports
+        $storeIds = array_intersect($allowedStoreIds, $storeIds);
+        // If selected all websites or unauthorized stores use only allowed
+        if (empty($storeIds)) {
+            $storeIds = $allowedStoreIds;
+        }
+        // reset array keys
+        $storeIds = array_values($storeIds);
+
+        return $storeIds;
     }
 
     protected function _prepareCollection()
@@ -116,10 +146,12 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             return parent::_prepareCollection();
         }
 
+        $storeIds = $this->_getStoreIds();;
+
         $resourceCollection = Mage::getResourceModel($this->getResourceCollectionName())
             ->setPeriod($filterData->getData('period_type'))
             ->setDateRange($filterData->getData('from', null), $filterData->getData('to', null))
-            ->addStoreFilter(explode(',', $filterData->getData('store_ids')))
+            ->addStoreFilter($storeIds)
             ->addOrderStatusFilter($filterData->getData('order_statuses'))
             ->setAggregatedColumns($this->_getAggregatedColumns());
 
@@ -145,7 +177,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             $totalsCollection = Mage::getResourceModel($this->getResourceCollectionName())
                 ->setPeriod($filterData->getData('period_type'))
                 ->setDateRange($filterData->getData('from', null), $filterData->getData('to', null))
-                ->addStoreFilter(explode(',', $filterData->getData('store_ids')))
+                ->addStoreFilter($storeIds)
                 ->addOrderStatusFilter($filterData->getData('order_statuses'))
                 ->setAggregatedColumns($this->_getAggregatedColumns())
                 ->isTotals(true);
@@ -168,7 +200,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             $totalsCollection = Mage::getResourceModel($this->getResourceCollectionName())
                 ->setPeriod($filterData->getData('period_type'))
                 ->setDateRange($filterData->getData('from', null), $filterData->getData('to', null))
-                ->addStoreFilter(explode(',', $filterData->getData('store_ids')))
+                ->addStoreFilter($this->_getStoreIds())
                 ->addOrderStatusFilter($filterData->getData('order_statuses'))
                 ->setAggregatedColumns($this->_getAggregatedColumns())
                 ->isTotals(true);
@@ -190,7 +222,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         $subTotalsCollection = Mage::getResourceModel($this->getResourceCollectionName())
             ->setPeriod($filterData->getData('period_type'))
             ->setDateRange($filterData->getData('from', null), $filterData->getData('to', null))
-            ->addStoreFilter(explode(',', $filterData->getData('store_ids')))
+            ->addStoreFilter($this->_getStoreIds())
             ->addOrderStatusFilter($filterData->getData('order_statuses'))
             ->setAggregatedColumns($this->_getAggregatedColumns())
             ->isSubTotals(true);

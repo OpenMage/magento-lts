@@ -20,13 +20,15 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @method Mage_XmlConnect_Model_Mysql4_Application _getResource()
- * @method Mage_XmlConnect_Model_Mysql4_Application getResource()
+ * XmlConnect Model Application
+ *
+ * @method Mage_XmlConnect_Model_Resource_Application _getResource()
+ * @method Mage_XmlConnect_Model_Resource_Application getResource()
  * @method string getName()
  * @method Mage_XmlConnect_Model_Application setName(string $value)
  * @method string getCode()
@@ -177,6 +179,27 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     const XML_PATH_URBAN_AIRSHIP_TOS_URL = 'xmlconnect/mobile_application/urbanairship_terms_of_service_url';
 
     /**
+     * XML path to config with Urban Airship partner's login URL
+     *
+     * @var string
+     */
+    const XML_PATH_URBAN_AIRSHIP_PARTNER_LOGIN_URL = 'xmlconnect/mobile_application/urbanairship_login_url';
+
+    /**
+     * XML path to config with Urban Airship Push notifications product URL
+     *
+     * @var string
+     */
+    const XML_PATH_URBAN_AIRSHIP_ABOUT_PUSH_URL = 'xmlconnect/mobile_application/urbanairship_push_url';
+
+    /**
+     * XML path to config with Urban Airship Rich Push notifications product URL
+     *
+     * @var string
+     */
+    const XML_PATH_URBAN_AIRSHIP_ABOUT_RICH_PUSH_URL = 'xmlconnect/mobile_application/urbanairship_rich_push_url';
+
+    /**
      * XML path to config copyright data
      *
      * @var string
@@ -219,6 +242,27 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      * @var string
      */
     const XML_PATH_DEFAULT_CACHE_LIFETIME = 'xmlconnect/mobile_application/cache_lifetime';
+
+    /**
+     * XML path to How-To URL for twitter
+     *
+     * @var string
+     */
+    const XML_PATH_HOWTO_TWITTER_URL    = 'xmlconnect/social_networking/howto_twitter_url';
+
+    /**
+     * XML path to How-To URL for facebook
+     *
+     * @var string
+     */
+    const XML_PATH_HOWTO_FACEBOOK_URL   = 'xmlconnect/social_networking/howto_facebook_url';
+
+    /**
+     * XML path to How-To URL for linkedin
+     *
+     * @var string
+     */
+    const XML_PATH_HOWTO_LINKEDIN_URL   = 'xmlconnect/social_networking/howto_linkedin_url';
 
     /**
      * Initialize application
@@ -413,7 +457,6 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
 
         /**
          * General configuration
-	 $resulI = $this->_absPath($result);
          */
         $result['general']['updateTimeUTC'] = strtotime($this->getUpdatedAt());
         $result['general']['browsingMode'] = $this->getBrowsingMode();

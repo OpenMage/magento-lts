@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,9 +28,114 @@
 /**
  * Sales Quote address model
  *
- * @category   Mage
- * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @method Mage_Sales_Model_Resource_Quote_Address _getResource()
+ * @method Mage_Sales_Model_Resource_Quote_Address getResource()
+ * @method int getQuoteId()
+ * @method Mage_Sales_Model_Quote_Address setQuoteId(int $value)
+ * @method string getCreatedAt()
+ * @method Mage_Sales_Model_Quote_Address setCreatedAt(string $value)
+ * @method string getUpdatedAt()
+ * @method Mage_Sales_Model_Quote_Address setUpdatedAt(string $value)
+ * @method int getCustomerId()
+ * @method Mage_Sales_Model_Quote_Address setCustomerId(int $value)
+ * @method int getSaveInAddressBook()
+ * @method Mage_Sales_Model_Quote_Address setSaveInAddressBook(int $value)
+ * @method int getCustomerAddressId()
+ * @method Mage_Sales_Model_Quote_Address setCustomerAddressId(int $value)
+ * @method string getAddressType()
+ * @method Mage_Sales_Model_Quote_Address setAddressType(string $value)
+ * @method string getEmail()
+ * @method Mage_Sales_Model_Quote_Address setEmail(string $value)
+ * @method string getPrefix()
+ * @method Mage_Sales_Model_Quote_Address setPrefix(string $value)
+ * @method string getFirstname()
+ * @method Mage_Sales_Model_Quote_Address setFirstname(string $value)
+ * @method string getMiddlename()
+ * @method Mage_Sales_Model_Quote_Address setMiddlename(string $value)
+ * @method string getLastname()
+ * @method Mage_Sales_Model_Quote_Address setLastname(string $value)
+ * @method string getSuffix()
+ * @method Mage_Sales_Model_Quote_Address setSuffix(string $value)
+ * @method string getCompany()
+ * @method Mage_Sales_Model_Quote_Address setCompany(string $value)
+ * @method string getCity()
+ * @method Mage_Sales_Model_Quote_Address setCity(string $value)
+ * @method Mage_Sales_Model_Quote_Address setRegion(string $value)
+ * @method Mage_Sales_Model_Quote_Address setRegionId(int $value)
+ * @method string getPostcode()
+ * @method Mage_Sales_Model_Quote_Address setPostcode(string $value)
+ * @method string getCountryId()
+ * @method Mage_Sales_Model_Quote_Address setCountryId(string $value)
+ * @method string getTelephone()
+ * @method Mage_Sales_Model_Quote_Address setTelephone(string $value)
+ * @method string getFax()
+ * @method Mage_Sales_Model_Quote_Address setFax(string $value)
+ * @method int getSameAsBilling()
+ * @method Mage_Sales_Model_Quote_Address setSameAsBilling(int $value)
+ * @method int getFreeShipping()
+ * @method Mage_Sales_Model_Quote_Address setFreeShipping(int $value)
+ * @method int getCollectShippingRates()
+ * @method Mage_Sales_Model_Quote_Address setCollectShippingRates(int $value)
+ * @method string getShippingMethod()
+ * @method Mage_Sales_Model_Quote_Address setShippingMethod(string $value)
+ * @method string getShippingDescription()
+ * @method Mage_Sales_Model_Quote_Address setShippingDescription(string $value)
+ * @method float getWeight()
+ * @method Mage_Sales_Model_Quote_Address setWeight(float $value)
+ * @method float getSubtotal()
+ * @method Mage_Sales_Model_Quote_Address setSubtotal(float $value)
+ * @method float getBaseSubtotal()
+ * @method Mage_Sales_Model_Quote_Address setBaseSubtotal(float $value)
+ * @method Mage_Sales_Model_Quote_Address setSubtotalWithDiscount(float $value)
+ * @method Mage_Sales_Model_Quote_Address setBaseSubtotalWithDiscount(float $value)
+ * @method float getTaxAmount()
+ * @method Mage_Sales_Model_Quote_Address setTaxAmount(float $value)
+ * @method float getBaseTaxAmount()
+ * @method Mage_Sales_Model_Quote_Address setBaseTaxAmount(float $value)
+ * @method float getShippingAmount()
+ * @method float getBaseShippingAmount()
+ * @method float getShippingTaxAmount()
+ * @method Mage_Sales_Model_Quote_Address setShippingTaxAmount(float $value)
+ * @method float getBaseShippingTaxAmount()
+ * @method Mage_Sales_Model_Quote_Address setBaseShippingTaxAmount(float $value)
+ * @method float getDiscountAmount()
+ * @method Mage_Sales_Model_Quote_Address setDiscountAmount(float $value)
+ * @method float getBaseDiscountAmount()
+ * @method Mage_Sales_Model_Quote_Address setBaseDiscountAmount(float $value)
+ * @method float getGrandTotal()
+ * @method Mage_Sales_Model_Quote_Address setGrandTotal(float $value)
+ * @method float getBaseGrandTotal()
+ * @method Mage_Sales_Model_Quote_Address setBaseGrandTotal(float $value)
+ * @method string getCustomerNotes()
+ * @method Mage_Sales_Model_Quote_Address setCustomerNotes(string $value)
+ * @method string getDiscountDescription()
+ * @method Mage_Sales_Model_Quote_Address setDiscountDescription(string $value)
+ * @method float getShippingDiscountAmount()
+ * @method Mage_Sales_Model_Quote_Address setShippingDiscountAmount(float $value)
+ * @method float getBaseShippingDiscountAmount()
+ * @method Mage_Sales_Model_Quote_Address setBaseShippingDiscountAmount(float $value)
+ * @method float getSubtotalInclTax()
+ * @method Mage_Sales_Model_Quote_Address setSubtotalInclTax(float $value)
+ * @method float getBaseSubtotalTotalInclTax()
+ * @method Mage_Sales_Model_Quote_Address setBaseSubtotalTotalInclTax(float $value)
+ * @method int getGiftMessageId()
+ * @method Mage_Sales_Model_Quote_Address setGiftMessageId(int $value)
+ * @method float getHiddenTaxAmount()
+ * @method Mage_Sales_Model_Quote_Address setHiddenTaxAmount(float $value)
+ * @method float getBaseHiddenTaxAmount()
+ * @method Mage_Sales_Model_Quote_Address setBaseHiddenTaxAmount(float $value)
+ * @method float getShippingHiddenTaxAmount()
+ * @method Mage_Sales_Model_Quote_Address setShippingHiddenTaxAmount(float $value)
+ * @method float getBaseShippingHiddenTaxAmount()
+ * @method Mage_Sales_Model_Quote_Address setBaseShippingHiddenTaxAmount(float $value)
+ * @method float getShippingInclTax()
+ * @method Mage_Sales_Model_Quote_Address setShippingInclTax(float $value)
+ * @method float getBaseShippingInclTax()
+ * @method Mage_Sales_Model_Quote_Address setBaseShippingInclTax(float $value)
+ *
+ * @category    Mage
+ * @package     Mage_Sales
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstract
 {
@@ -93,6 +198,17 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     protected function _construct()
     {
         $this->_init('sales/quote_address');
+    }
+
+    /**
+     * Init mapping array of short fields to its full names
+     *
+     * @return Mage_Sales_Model_Quote_Address
+     */
+    protected function _initOldFieldsMap()
+    {
+        $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('quote_address');
+        return $this;
     }
 
     /**

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,13 @@ class Mage_Catalog_Model_Convert_Adapter_Product
 {
     const MULTI_DELIMITER   = ' , ';
     const ENTITY            = 'catalog_product_import';
+
+    /**
+     * Event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'catalog_product_import';
 
     /**
      * Product model
@@ -93,8 +100,64 @@ class Mage_Catalog_Model_Convert_Adapter_Product
     protected $_toNumber = array();
 
     /**
-     * Load product collection Id(s)
+     * Retrieve event prefix for adapter
      *
+     * @return string
+     */
+    public function getEventPrefix()
+    {
+        return $this->_eventPrefix;
+    }
+
+    /**
+     * Affected entity ids
+     *
+     * @var array
+     */
+    protected $_affectedEntityIds = array();
+
+    /**
+     * Store affected entity ids
+     *
+     * @param  int|array $ids
+     * @return Mage_Catalog_Model_Convert_Adapter_Product
+     */
+    protected function _addAffectedEntityIds($ids)
+    {
+        if (is_array($ids)) {
+            foreach ($ids as $id) {
+                $this->_addAffectedEntityIds($id);
+            }
+        } else {
+            $this->_affectedEntityIds[] = $ids;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Retrieve affected entity ids
+     *
+     * @return array
+     */
+    public function getAffectedEntityIds()
+    {
+        return $this->_affectedEntityIds;
+    }
+
+    /**
+     * Clear affected entity ids results
+     *
+     * @return Mage_Catalog_Model_Convert_Adapter_Product
+     */
+    public function clearAffectedEntityIds()
+    {
+        $this->_affectedEntityIds = array();
+        return $this;
+    }
+
+    /**
+     * Load product collection Id(s)
      */
     public function load()
     {
@@ -273,6 +336,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
         if (isset($this->_stores[$store])) {
             return $this->_stores[$store];
         }
+
         return false;
     }
 
@@ -295,6 +359,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
         if (isset($this->_storesIdCode[$id])) {
             return $this->getStoreByCode($this->_storesIdCode[$id]);
         }
+
         return false;
     }
 
@@ -390,16 +455,12 @@ class Mage_Catalog_Model_Convert_Adapter_Product
     public function setStockItem(Mage_CatalogInventory_Model_Stock_Item $object)
     {
         $id = Mage::objects()->save($object);
-        //$this->_product = $object;
         Mage::register('Object_Cache_StockItem', $id);
-
-        //$this->_stockItem = $object;
     }
 
     public function getStockItem()
     {
         return Mage::objects()->load(Mage::registry('Object_Cache_StockItem'));
-        //return $this->_stockItem;
     }
 
     public function save()
@@ -419,7 +480,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product
             );
         }
 
-        //$stockItems = $this->getInventoryItems();
         $stockItems = Mage::registry('current_imported_inventory');
         if ($collections) foreach ($collections as $storeId=>$collection) {
             $this->addException(Mage::helper('catalog')->__('Records for "'.$stores[$storeId].'" store found.'));
@@ -512,15 +572,15 @@ class Mage_Catalog_Model_Convert_Adapter_Product
                 }
             }
         }
-        //unset(Zend::unregister('imported_stock_item'));
         unset($collections);
+
         return $this;
     }
 
     /**
      * Save product (import)
      *
-     * @param array $importData
+     * @param  array $importData
      * @throws Mage_Core_Exception
      * @return bool
      */
@@ -539,8 +599,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
                 );
                 Mage::throwException($message);
             }
-        }
-        else {
+        } else {
             $store = $this->getStoreByCode($importData['store']);
         }
 
@@ -561,8 +620,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
 
         if ($productId) {
             $product->load($productId);
-        }
-        else {
+        } else {
             $productTypes = $this->getProductTypes();
             $productAttributeSets = $this->getProductAttributeSets();
 
@@ -640,8 +698,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
                     if (!in_array($website->getId(), $websiteIds)) {
                         $websiteIds[] = $website->getId();
                     }
-                }
-                catch (Exception $e) {}
+                } catch (Exception $e) {}
             }
             $product->setWebsiteIds($websiteIds);
             unset($websiteIds);
@@ -707,8 +764,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
             if (isset($importData[$field])) {
                 if (in_array($field, $this->_toNumber)) {
                     $stockData[$field] = $this->getNumber($importData[$field]);
-                }
-                else {
+                } else {
                     $stockData[$field] = $importData[$field];
                 }
             }
@@ -761,13 +817,16 @@ class Mage_Catalog_Model_Convert_Adapter_Product
 
         $product->save();
 
+        // Store affected products ids
+        $this->_addAffectedEntityIds($product->getId());
+
         return true;
     }
 
     /**
      * Silently save product (import)
      *
-     * @param array $
+     * @param  array $importData
      * @return bool
      */
     public function saveRowSilently(array $importData)
@@ -775,8 +834,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
         try {
             $result = $this->saveRow($importData);
             return $result;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
@@ -784,14 +842,13 @@ class Mage_Catalog_Model_Convert_Adapter_Product
     /**
      * Process after import data
      * Init indexing process after catalog product import
-     *
      */
     public function finish()
     {
         /**
          * Back compatibility event
          */
-        Mage::dispatchEvent('catalog_product_import_after', array());
+        Mage::dispatchEvent($this->_eventPrefix . '_after', array());
 
         $entity = new Varien_Object();
         Mage::getSingleton('index/indexer')->processEntityAction(

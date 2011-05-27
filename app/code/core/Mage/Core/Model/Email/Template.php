@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,8 +38,33 @@
  * );
  * $emailTemplate->send('some@domain.com', 'Name Of User', $variables);
  *
- * @category   Mage
- * @package    Mage_Core
+ * @method Mage_Core_Model_Resource_Email_Template _getResource()
+ * @method Mage_Core_Model_Resource_Email_Template getResource()
+ * @method string getTemplateCode()
+ * @method Mage_Core_Model_Email_Template setTemplateCode(string $value)
+ * @method string getTemplateText()
+ * @method Mage_Core_Model_Email_Template setTemplateText(string $value)
+ * @method string getTemplateStyles()
+ * @method Mage_Core_Model_Email_Template setTemplateStyles(string $value)
+ * @method int getTemplateType()
+ * @method Mage_Core_Model_Email_Template setTemplateType(int $value)
+ * @method string getTemplateSubject()
+ * @method Mage_Core_Model_Email_Template setTemplateSubject(string $value)
+ * @method string getTemplateSenderName()
+ * @method Mage_Core_Model_Email_Template setTemplateSenderName(string $value)
+ * @method string getTemplateSenderEmail()
+ * @method Mage_Core_Model_Email_Template setTemplateSenderEmail(string $value)
+ * @method string getAddedAt()
+ * @method Mage_Core_Model_Email_Template setAddedAt(string $value)
+ * @method string getModifiedAt()
+ * @method Mage_Core_Model_Email_Template setModifiedAt(string $value)
+ * @method string getOrigTemplateCode()
+ * @method Mage_Core_Model_Email_Template setOrigTemplateCode(string $value)
+ * @method string getOrigTemplateVariables()
+ * @method Mage_Core_Model_Email_Template setOrigTemplateVariables(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Email_Template extends Mage_Core_Model_Template
@@ -139,17 +164,17 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Template
             $data['file'], 'email', $locale
         );
 
-        if (preg_match('/<!--@subject\s*(.*?)\s*@-->/', $templateText, $matches)) {
+        if (preg_match('/<!--@subject\s*(.*?)\s*@-->/u', $templateText, $matches)) {
             $this->setTemplateSubject($matches[1]);
             $templateText = str_replace($matches[0], '', $templateText);
         }
 
-        if (preg_match('/<!--@vars\n((?:.)*?)\n@-->/us', $templateText, $matches)) {
+        if (preg_match('/<!--@vars\s*((?:.)*?)\s*@-->/us', $templateText, $matches)) {
             $this->setData('orig_template_variables', str_replace("\n", '', $matches[1]));
             $templateText = str_replace($matches[0], '', $templateText);
         }
 
-        if (preg_match('/<!--@styles\s*(.*?)\s*@-->/sm', $templateText, $matches)) {
+        if (preg_match('/<!--@styles\s*(.*?)\s*@-->/s', $templateText, $matches)) {
            $this->setTemplateStyles($matches[1]);
            $templateText = str_replace($matches[0], '', $templateText);
         }

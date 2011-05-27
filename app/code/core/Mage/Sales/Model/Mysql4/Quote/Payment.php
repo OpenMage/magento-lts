@@ -20,9 +20,10 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Quote payment mysql4 resource model
@@ -31,19 +32,6 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Mysql4_Quote_Payment extends Mage_Sales_Model_Mysql4_Abstract
+class Mage_Sales_Model_Mysql4_Quote_Payment extends Mage_Sales_Model_Resource_Quote_Payment
 {
-    /**
-     * Serializeable field: additional_information
-     *
-     * @var array
-     */
-    protected $_serializableFields = array(
-        'additional_information' => array(null, array())
-    );
-
-    protected function _construct()
-    {
-        $this->_init('sales/quote_payment', 'payment_id');
-    }
 }

@@ -20,15 +20,26 @@
  *
  * @category    Mage
  * @package     Mage_Poll
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Poll answers model
  *
- * @category   Mage
- * @package    Mage_Poll
+ * @method Mage_Poll_Model_Resource_Poll_Answer _getResource()
+ * @method Mage_Poll_Model_Resource_Poll_Answer getResource()
+ * @method int getPollId()
+ * @method Mage_Poll_Model_Poll_Answer setPollId(int $value)
+ * @method string getAnswerTitle()
+ * @method Mage_Poll_Model_Poll_Answer setAnswerTitle(string $value)
+ * @method int getVotesCount()
+ * @method Mage_Poll_Model_Poll_Answer setVotesCount(int $value)
+ * @method int getAnswerOrder()
+ * @method Mage_Poll_Model_Poll_Answer setAnswerOrder(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Poll
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 

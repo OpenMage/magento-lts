@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,8 +33,14 @@
  */
 abstract class Mage_Core_Model_Resource_Abstract
 {
+    /**
+     * Main constructor
+     */
     public function __construct()
     {
+        /**
+         * Please override this one instead of overriding real __construct constructor
+         */
         $this->_construct();
     }
 
@@ -122,39 +128,24 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Format date to internal format
      *
-     * @param   string | Zend_Date $date
-     * @param   bool $includeTime
-     * @return  string
+     * @param string|Zend_Date $date
+     * @param bool $includeTime
+     * @return string
      */
     public function formatDate($date, $includeTime=true)
     {
-        if ($date instanceof Zend_Date) {
-            if ($includeTime) {
-                return $date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
-            }
-            else {
-                return $date->toString(Varien_Date::DATE_INTERNAL_FORMAT);
-            }
-        }
-
-        if (empty($date)) {
-            return new Zend_Db_Expr('NULL');
-        }
-
-        if (!is_numeric($date)) {
-            $date = strtotime($date);
-        }
-        if ($includeTime) {
-            return date('Y-m-d H:i:s', $date);
-        }
-        else {
-            return date('Y-m-d', $date);
-        }
+         return Varien_Date::formatDate($date, $includeTime);
     }
 
+    /**
+     * Convert internal date to UNIX timestamp
+     *
+     * @param string $str
+     * @return int
+     */
     public function mktime($str)
     {
-        return  strtotime($str);
+        return Varien_Date::formatDate($str);
     }
 
     /**
@@ -164,6 +155,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      * @param string $field
      * @param mixed $defaultValue
      * @param bool $unsetEmpty
+     * @return Mage_Core_Model_Resource_Abstract
      */
     protected function _serializeField(Varien_Object $object, $field, $defaultValue = null, $unsetEmpty = false)
     {
@@ -180,6 +172,8 @@ abstract class Mage_Core_Model_Resource_Abstract
         } elseif (is_array($value) || is_object($value)) {
             $object->setData($field, serialize($value));
         }
+
+        return $this;
     }
 
     /**
@@ -197,5 +191,50 @@ abstract class Mage_Core_Model_Resource_Abstract
         } elseif (!is_array($value) && !is_object($value)) {
             $object->setData($field, unserialize($value));
         }
+    }
+
+    /**
+     * Prepare data for passed table
+     *
+     * @param Varien_Object $object
+     * @param string $table
+     * @return array
+     */
+    protected function _prepareDataForTable(Varien_Object $object, $table)
+    {
+        $data = array();
+        $fields = $this->_getWriteAdapter()->describeTable($table);
+        foreach (array_keys($fields) as $field) {
+            if ($object->hasData($field)) {
+                $fieldValue = $object->getData($field);
+                if ($fieldValue instanceof Zend_Db_Expr) {
+                    $data[$field] = $fieldValue;
+                } else {
+                    if (null !== $fieldValue) {
+                        $fieldValue   = $this->_prepareTableValueForSave($fieldValue, $fields[$field]['DATA_TYPE']);
+                        $data[$field] = $this->_getWriteAdapter()->prepareColumnValue($fields[$field], $fieldValue);
+                    } else if (!empty($fields[$field]['NULLABLE'])) {
+                        $data[$field] = null;
+                    }
+                }
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * Prepare value for save
+     *
+     * @param mixed $value
+     * @param string $type
+     * @return mixed
+     */
+    protected function _prepareTableValueForSave($value, $type)
+    {
+        $type = strtolower($type);
+        if ($type == 'decimal' || $type == 'numeric' || $type == 'float') {
+            $value = Mage::app()->getLocale()->getNumber($value);
+        }
+        return $value;
     }
 }

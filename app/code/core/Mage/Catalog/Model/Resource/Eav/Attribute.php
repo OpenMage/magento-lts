@@ -20,35 +20,87 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog attribute model
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @method Mage_Catalog_Model_Resource_Attribute _getResource()
+ * @method Mage_Catalog_Model_Resource_Attribute getResource()
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getFrontendInputRenderer()
+ * @method string setFrontendInputRenderer(string $value)
+ * @method int setIsGlobal(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsVisible()
+ * @method int setIsVisible(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsSearchable()
+ * @method int setIsSearchable(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getSearchWeight()
+ * @method int setSearchWeight(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsFilterable()
+ * @method int setIsFilterable(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsComparable()
+ * @method int setIsComparable(int $value)
+ * @method int setIsVisibleOnFront(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsHtmlAllowedOnFront()
+ * @method int setIsHtmlAllowedOnFront(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsUsedForPriceRules()
+ * @method int setIsUsedForPriceRules(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsFilterableInSearch()
+ * @method int setIsFilterableInSearch(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getUsedInProductListing()
+ * @method int setUsedInProductListing(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getUsedForSortBy()
+ * @method int setUsedForSortBy(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsConfigurable()
+ * @method int setIsConfigurable(int $value)
+ * @method string setApplyTo(string $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsVisibleInAdvancedSearch()
+ * @method int setIsVisibleInAdvancedSearch(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getPosition()
+ * @method int setPosition(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsWysiwygEnabled()
+ * @method int setIsWysiwygEnabled(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsUsedForPromoRules()
+ * @method int setIsUsedForPromoRules(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsUsedForCustomerSegment()
+ * @method int setIsUsedForCustomerSegment(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsUsedForTargetRules()
+ * @method int setIsUsedForTargetRules(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_Attribute
 {
-    const SCOPE_STORE   = 0;
-    const SCOPE_GLOBAL  = 1;
-    const SCOPE_WEBSITE = 2;
+    const SCOPE_STORE                           = 0;
+    const SCOPE_GLOBAL                          = 1;
+    const SCOPE_WEBSITE                         = 2;
 
-    const MODULE_NAME   = 'Mage_Catalog';
-    const ENTITY        = 'catalog_eav_attribute';
+    const MODULE_NAME                           = 'Mage_Catalog';
+    const ENTITY                                = 'catalog_eav_attribute';
 
-    protected $_eventPrefix = 'catalog_entity_attribute';
-    protected $_eventObject = 'attribute';
+    /**
+     * Event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix                     = 'catalog_entity_attribute';
+    /**
+     * Event object name
+     *
+     * @var string
+     */
+    protected $_eventObject                     = 'attribute';
 
     /**
      * Array with labels
      *
      * @var array
      */
-    static protected $_labels = null;
+    static protected $_labels                   = null;
 
     protected function _construct()
     {
@@ -58,6 +110,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Processing object before save data
      *
+     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Abstract
      */
     protected function _beforeSave()
@@ -65,11 +118,11 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
         $this->setData('modulePrefix', self::MODULE_NAME);
         if (isset($this->_origData['is_global'])) {
             if (!isset($this->_data['is_global'])) {
-                Mage::throwException('0_o');
+                $this->_data['is_global'] = self::SCOPE_GLOBAL;
             }
             if (($this->_data['is_global'] != $this->_origData['is_global'])
                 && $this->_getResource()->isUsedBySuperProducts($this)) {
-                Mage::throwException(Mage::helper('eav')->__('Scope must not be changed, because the attribute is used in configurable products.'));
+                Mage::throwException(Mage::helper('catalog')->__('Scope must not be changed, because the attribute is used in configurable products.'));
             }
         }
         if ($this->getFrontendInput() == 'price') {
@@ -102,7 +155,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Init indexing process after attribute data commit
      *
-     * @return Mage_CatalogInventory_Model_Stock_Item
+     * @return Mage_Catalog_Model_Resource_Eav_Attribute
      */
     public function afterCommitCallback()
     {
@@ -138,6 +191,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
         Mage::getSingleton('index/indexer')->indexEvents(
             self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
         );
+        return $this;
     }
 
     /**
@@ -187,7 +241,8 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
      */
     public function getStoreId()
     {
-        if ($dataObject = $this->getDataObject()) {
+        $dataObject = $this->getDataObject();
+        if ($dataObject) {
             return $dataObject->getStoreId();
         }
         return $this->getData('store_id');
@@ -221,7 +276,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
         $model = $this->getData('source_model');
         if (empty($model)) {
             if ($this->getBackendType() == 'int' && $this->getFrontendInput() == 'select') {
-                return 'eav/entity_attribute_source_table';
+                return $this->_getDefaultSourceModel();
             }
         }
         return $model;
@@ -257,8 +312,6 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     protected function _getLabelForStore()
     {
         return $this->getFrontendLabel();
-//        self::initLabels();
-//        return isset(self::$_labels[$this->getData('frontend_label')]) ? self::$_labels[$this->getData('frontend_label')] : false;
     }
 
     /**

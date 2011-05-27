@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +33,6 @@
  */
 class Mage_Eav_Model_Entity extends Mage_Eav_Model_Entity_Abstract
 {
-
     const DEFAULT_ENTITY_MODEL      = 'eav/entity';
     const DEFAULT_ATTRIBUTE_MODEL   = 'eav/entity_attribute';
     const DEFAULT_BACKEND_MODEL     = 'eav/entity_attribute_backend_default';
@@ -45,12 +44,12 @@ class Mage_Eav_Model_Entity extends Mage_Eav_Model_Entity_Abstract
     const DEFAULT_VALUE_TABLE_PREFIX= 'eav/entity_attribute';
 
     /**
-     * Enter description here...
-     *
+     * Resource initialization
      */
     public function __construct()
     {
-        $this->setConnection(Mage::getSingleton('core/resource')->getConnection('core_read'));
+        $resource = Mage::getSingleton('core/resource');
+        $this->setConnection($resource->getConnection('eav_read'));
     }
 
 }

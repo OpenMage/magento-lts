@@ -20,14 +20,35 @@
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Index data retreiver factory
  *
- * @author Magento Core Team <core@magentocommerce.com>
+ * @method Mage_CatalogIndex_Model_Resource_Retreiver _getResource()
+ * @method Mage_CatalogIndex_Model_Resource_Retreiver getResource()
+ * @method int getEntityTypeId()
+ * @method Mage_CatalogIndex_Model_Retreiver setEntityTypeId(int $value)
+ * @method int getAttributeSetId()
+ * @method Mage_CatalogIndex_Model_Retreiver setAttributeSetId(int $value)
+ * @method string getTypeId()
+ * @method Mage_CatalogIndex_Model_Retreiver setTypeId(string $value)
+ * @method string getSku()
+ * @method Mage_CatalogIndex_Model_Retreiver setSku(string $value)
+ * @method int getHasOptions()
+ * @method Mage_CatalogIndex_Model_Retreiver setHasOptions(int $value)
+ * @method int getRequiredOptions()
+ * @method Mage_CatalogIndex_Model_Retreiver setRequiredOptions(int $value)
+ * @method string getCreatedAt()
+ * @method Mage_CatalogIndex_Model_Retreiver setCreatedAt(string $value)
+ * @method string getUpdatedAt()
+ * @method Mage_CatalogIndex_Model_Retreiver setUpdatedAt(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_CatalogIndex
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
 {

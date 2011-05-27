@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -1338,7 +1338,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                 $customerAddressId = $this->getShippingAddress()->getCustomerAddressId();
                 if ($customerAddressId && $customer->getId()) {
                     $customer->getAddressItemById($customerAddressId)->addData($shippingAddress->getData());
-                } elseif ($billingAddress !== null
+                } elseif (!empty($customerAddressId)
+                    && $billingAddress !== null
                     && $this->getBillingAddress()->getCustomerAddressId() == $customerAddressId
                 ) {
                     $billingAddress->setIsDefaultShipping(true);
@@ -1474,6 +1475,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
         if ($this->getSendConfirmation()) {
             $order->sendNewOrderEmail();
         }
+
         Mage::dispatchEvent('checkout_submit_all_after', array('order' => $order, 'quote' => $quote));
 
         return $order;

@@ -20,13 +20,84 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales implementation of recurring payment profiles
  * Implements saving and manageing profiles
+ *
+ * @method Mage_Sales_Model_Resource_Recurring_Profile _getResource()
+ * @method Mage_Sales_Model_Resource_Recurring_Profile getResource()
+ * @method string getState()
+ * @method Mage_Sales_Model_Recurring_Profile setState(string $value)
+ * @method int getCustomerId()
+ * @method Mage_Sales_Model_Recurring_Profile setCustomerId(int $value)
+ * @method int getStoreId()
+ * @method Mage_Sales_Model_Recurring_Profile setStoreId(int $value)
+ * @method string getMethodCode()
+ * @method Mage_Sales_Model_Recurring_Profile setMethodCode(string $value)
+ * @method string getCreatedAt()
+ * @method Mage_Sales_Model_Recurring_Profile setCreatedAt(string $value)
+ * @method string getUpdatedAt()
+ * @method Mage_Sales_Model_Recurring_Profile setUpdatedAt(string $value)
+ * @method string getReferenceId()
+ * @method Mage_Sales_Model_Recurring_Profile setReferenceId(string $value)
+ * @method string getSubscriberName()
+ * @method Mage_Sales_Model_Recurring_Profile setSubscriberName(string $value)
+ * @method string getStartDatetime()
+ * @method Mage_Sales_Model_Recurring_Profile setStartDatetime(string $value)
+ * @method string getInternalReferenceId()
+ * @method Mage_Sales_Model_Recurring_Profile setInternalReferenceId(string $value)
+ * @method string getScheduleDescription()
+ * @method Mage_Sales_Model_Recurring_Profile setScheduleDescription(string $value)
+ * @method int getSuspensionThreshold()
+ * @method Mage_Sales_Model_Recurring_Profile setSuspensionThreshold(int $value)
+ * @method int getBillFailedLater()
+ * @method Mage_Sales_Model_Recurring_Profile setBillFailedLater(int $value)
+ * @method string getPeriodUnit()
+ * @method Mage_Sales_Model_Recurring_Profile setPeriodUnit(string $value)
+ * @method int getPeriodFrequency()
+ * @method Mage_Sales_Model_Recurring_Profile setPeriodFrequency(int $value)
+ * @method int getPeriodMaxCycles()
+ * @method Mage_Sales_Model_Recurring_Profile setPeriodMaxCycles(int $value)
+ * @method float getBillingAmount()
+ * @method Mage_Sales_Model_Recurring_Profile setBillingAmount(float $value)
+ * @method string getTrialPeriodUnit()
+ * @method Mage_Sales_Model_Recurring_Profile setTrialPeriodUnit(string $value)
+ * @method int getTrialPeriodFrequency()
+ * @method Mage_Sales_Model_Recurring_Profile setTrialPeriodFrequency(int $value)
+ * @method int getTrialPeriodMaxCycles()
+ * @method Mage_Sales_Model_Recurring_Profile setTrialPeriodMaxCycles(int $value)
+ * @method float getTrialBillingAmount()
+ * @method Mage_Sales_Model_Recurring_Profile setTrialBillingAmount(float $value)
+ * @method string getCurrencyCode()
+ * @method Mage_Sales_Model_Recurring_Profile setCurrencyCode(string $value)
+ * @method float getShippingAmount()
+ * @method Mage_Sales_Model_Recurring_Profile setShippingAmount(float $value)
+ * @method float getTaxAmount()
+ * @method Mage_Sales_Model_Recurring_Profile setTaxAmount(float $value)
+ * @method float getInitAmount()
+ * @method Mage_Sales_Model_Recurring_Profile setInitAmount(float $value)
+ * @method int getInitMayFail()
+ * @method Mage_Sales_Model_Recurring_Profile setInitMayFail(int $value)
+ * @method string getOrderInfo()
+ * @method Mage_Sales_Model_Recurring_Profile setOrderInfo(string $value)
+ * @method string getOrderItemInfo()
+ * @method Mage_Sales_Model_Recurring_Profile setOrderItemInfo(string $value)
+ * @method string getBillingAddressInfo()
+ * @method Mage_Sales_Model_Recurring_Profile setBillingAddressInfo(string $value)
+ * @method string getShippingAddressInfo()
+ * @method Mage_Sales_Model_Recurring_Profile setShippingAddressInfo(string $value)
+ * @method string getProfileVendorInfo()
+ * @method Mage_Sales_Model_Recurring_Profile setProfileVendorInfo(string $value)
+ * @method string getAdditionalInfo()
+ * @method Mage_Sales_Model_Recurring_Profile setAdditionalInfo(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Sales
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Profile
 {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,53 +32,6 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Relation extends Mage_Core_Model_Mysql4_Abstract
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Relation extends Mage_Catalog_Model_Resource_Product_Relation
 {
-    /**
-     * Initialize resource model and define main table
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/product_relation', 'parent_id');
-    }
-
-    /**
-     * Save (rebuild) product relations
-     *
-     * @param int $parentId
-     * @param array $childIds
-     * @return Mage_Catalog_Model_Resource_Eav_Product_Relation
-     */
-    public function processRelations($parentId, $childIds)
-    {
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), array('child_id'))
-            ->where('parent_id=?', $parentId);
-        $old = $this->_getReadAdapter()->fetchCol($select);
-        $new = $childIds;
-
-        $insert = array_diff($new, $old);
-        $delete = array_diff($old, $new);
-
-        if (!empty($insert)) {
-            $insertData = array();
-            foreach ($insert as $childId) {
-                $insertData[] = array(
-                    'parent_id' => $parentId,
-                    'child_id'  => $childId
-                );
-            }
-            $this->_getWriteAdapter()->insertMultiple($this->getMainTable(), $insertData);
-        }
-        if (!empty($delete)) {
-            $where = join(' AND ', array(
-                $this->_getWriteAdapter()->quoteInto('parent_id=?', $parentId),
-                $this->_getWriteAdapter()->quoteInto('child_id IN(?)', $delete)
-            ));
-            $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
-        }
-
-        return $this;
-    }
 }

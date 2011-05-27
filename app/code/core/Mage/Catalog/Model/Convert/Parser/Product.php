@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -211,7 +211,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
         return $this->_storeId;
     }
 
-/**
+    /**
      * ReDefine Product Type Instance to Product
      *
      * @param Mage_Catalog_Model_Product $product
@@ -260,9 +260,9 @@ class Mage_Catalog_Model_Convert_Parser_Product
      */
     public function parse()
     {
-        $data               = $this->getData();
-        $entityTypeId       = Mage::getSingleton('eav/config')->getEntityType('catalog_product')->getId();
-        $inventoryFields    = array();
+        $data            = $this->getData();
+        $entityTypeId    = Mage::getSingleton('eav/config')->getEntityType(Mage_Catalog_Model_Product::ENTITY)->getId();
+        $inventoryFields = array();
 
         foreach ($data as $i=>$row) {
             $this->setPosition('Line: '.($i+1));

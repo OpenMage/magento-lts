@@ -20,15 +20,10 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /* @var $installer Mage_Sales_Model_Mysql4_Setup */
 $installer = $this;
 
-$installer->startSetup();
-
-$installer->addAttribute('order', 'forced_do_shipment_with_invoice', array('type'=>'int', 'default' => 0));
-
-$installer->endSetup();

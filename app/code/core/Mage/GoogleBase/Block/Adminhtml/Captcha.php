@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleBase
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +48,9 @@ class Mage_GoogleBase_Block_Adminhtml_Captcha extends Mage_Adminhtml_Block_Templ
                 'label'     => $this->__('Confirm'),
                 'onclick'   => "if($('user_confirm').value != '')
                                 {
-                                    setLocation('".$this->getUrl('*/*/confirmCaptcha', array('_current'=>true))."' + 'user_confirm/' + $('user_confirm').value + '/');
+                                    setLocation('"
+                                    . $this->getUrl('*/*/confirmCaptcha', array('_current'=>true))
+                                    . "' + 'user_confirm/' + $('user_confirm').value + '/');
                                 }",
                 'class'     => 'task'
             ));

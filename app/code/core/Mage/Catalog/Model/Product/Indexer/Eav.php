@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,8 +28,19 @@
 /**
  * Catalog Product Eav Indexer Model
  *
- * @category   Mage
- * @package    Mage_Catalog
+ * @method Mage_Catalog_Model_Resource_Product_Indexer_Eav _getResource()
+ * @method Mage_Catalog_Model_Resource_Product_Indexer_Eav getResource()
+ * @method Mage_Catalog_Model_Product_Indexer_Eav setEntityId(int $value)
+ * @method int getAttributeId()
+ * @method Mage_Catalog_Model_Product_Indexer_Eav setAttributeId(int $value)
+ * @method int getStoreId()
+ * @method Mage_Catalog_Model_Product_Indexer_Eav setStoreId(int $value)
+ * @method int getValue()
+ * @method Mage_Catalog_Model_Product_Indexer_Eav setValue(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Abstract
 {
@@ -123,7 +134,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
     {
         if (!$attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
             $attribute = Mage::getSingleton('eav/config')
-                ->getAttribute('catalog_product', $attribute);
+                ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attribute);
         }
 
         return $attribute->isIndexable();

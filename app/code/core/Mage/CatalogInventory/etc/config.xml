@@ -21,24 +21,25 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_CatalogInventory>
-            <version>0.7.8</version>
+            <version>1.6.0.0</version>
         </Mage_CatalogInventory>
     </modules>
     <global>
         <models>
             <cataloginventory>
                 <class>Mage_CatalogInventory_Model</class>
-                <resourceModel>cataloginventory_mysql4</resourceModel>
+                <resourceModel>cataloginventory_resource</resourceModel>
             </cataloginventory>
-            <cataloginventory_mysql4>
-                <class>Mage_CatalogInventory_Model_Mysql4</class>
+            <cataloginventory_resource>
+                <class>Mage_CatalogInventory_Model_Resource</class>
+                <deprecatedNode>cataloginventory_mysql4</deprecatedNode>
                 <entities>
                     <stock>
                         <table>cataloginventory_stock</table>
@@ -56,7 +57,7 @@
                         <table>cataloginventory_stock_status_tmp</table>
                     </stock_status_indexer_tmp>
                 </entities>
-            </cataloginventory_mysql4>
+            </cataloginventory_resource>
         </models>
         <helpers>
             <cataloginventory>
@@ -72,9 +73,10 @@
             </cataloginventory_setup>
         </resources>
         <blocks>
-            <cataloginventory><class>Mage_CatalogInventory_Block</class></cataloginventory>
+            <cataloginventory>
+                <class>Mage_CatalogInventory_Block</class>
+            </cataloginventory>
         </blocks>
-
         <events>
             <catalog_product_load_after>
                 <observers>
@@ -116,14 +118,6 @@
                     </inventory>
                 </observers>
             </sales_quote_item_collection_products_after_load>
-            <!-- catalog_product_status_update>
-                <observers>
-                    <inventory>
-                        <class>cataloginventory/observer</class>
-                        <method>productStatusUpdate</method>
-                    </inventory>
-                </observers>
-            </catalog_product_status_update -->
             <sales_quote_item_qty_set_after>
                 <observers>
                     <inventory>
@@ -204,14 +198,6 @@
                     </inventory>
                 </observers>
             </admin_system_config_changed_section_cataloginventory>
-            <!-- catalog_product_website_update>
-                <observers>
-                    <cataloginventory>
-                        <class>cataloginventory/observer</class>
-                        <method>catalogProductWebsiteUpdate</method>
-                    </cataloginventory>
-                </observers>
-            </catalog_product_website_update  -->
             <prepare_catalog_product_index_select>
                 <observers>
                     <cataloginventory>
@@ -221,7 +207,6 @@
                 </observers>
             </prepare_catalog_product_index_select>
         </events>
-
         <catalog>
             <product>
                 <type>
@@ -240,7 +225,6 @@
                 </type>
             </product>
         </catalog>
-
         <index>
             <indexer>
                 <cataloginventory_stock>
@@ -248,18 +232,17 @@
                 </cataloginventory_stock>
                 <catalog_product_attribute>
                     <depends>
-                        <cataloginventory_stock />
+                        <cataloginventory_stock/>
                     </depends>
                 </catalog_product_attribute>
                 <catalog_product_price>
                     <depends>
-                        <cataloginventory_stock />
+                        <cataloginventory_stock/>
                     </depends>
                 </catalog_product_price>
             </indexer>
         </index>
     </global>
-
     <frontend>
         <layout>
             <updates>
@@ -278,7 +261,6 @@
             </modules>
         </translate>
     </frontend>
-
     <adminhtml>
         <translate>
             <modules>
@@ -290,7 +272,6 @@
             </modules>
         </translate>
     </adminhtml>
-
     <default>
         <cataloginventory>
             <options>

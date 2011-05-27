@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,21 +36,21 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Favicon extends Mage_Admi
 {
     /**
      * The tail part of directory path for uploading
-     * 
+     *
      */
     const UPLOAD_DIR = 'favicon';
 
     /**
      * Token for the root part of directory path for uploading
-     * 
+     *
      */
-    const UPLOAD_ROOT = 'system/filesystem/media';
+    const UPLOAD_ROOT = 'media';
 
     /**
      * Return path to directory for upload file
      *
      * @return string
-     * @throw Mage_Core_Exception 
+     * @throw Mage_Core_Exception
      */
     protected function _getUploadDir()
     {
@@ -62,8 +62,8 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Favicon extends Mage_Admi
 
     /**
      * Makes a decision about whether to add info about the scope.
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     protected function _addWhetherScopeInfo()
     {
@@ -72,11 +72,21 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Favicon extends Mage_Admi
 
     /**
      * Getter for allowed extensions of uploaded files.
-     * 
-     * @return array 
+     *
+     * @return array
      */
     protected function _getAllowedExtensions()
     {
         return array('ico', 'png', 'gif', 'jpeg', 'apng', 'svg');
+    }
+
+    /**
+     * Get real media dir path
+     *
+     * @param  $token
+     * @return string
+     */
+    protected function _getUploadRoot($token) {
+        return Mage::getBaseDir($token);
     }
 }

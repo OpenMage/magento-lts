@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -1146,7 +1146,7 @@ $installer->getConnection()->query('DROP TEMPORARY TABLE ' . $temporaryTable);
  * The problem is that Mage_SalesRule depends on Mage_Sales and sometimes the attribute doesn't get updated before this line of code.
  * As a result: an existing column in the sales_flat_order table, but wrong type in the attribute registry and sometimes even data lost
  * Reproduces on upgrading from 1.4.0.x to 1.4.1.0
- * 
+ *
  * Test case:
  * 1) Have Magento instance without flat sales yet, and without Mage_SalesRule/sql/mysql4-upgrade-0.7.10-0.7.11.php
  * 2) Upgrade it to the flat one instantly (runs this upgrade). Without this code the proper upgrade of coupon_code is missed. Data is lost.
@@ -1199,6 +1199,65 @@ foreach ($tablesToDrop as $table) {
     $installer->getConnection()->query(
         'DROP TABLE ' . $installer->getConnection()->quoteIdentifier($table)
     );
+}
+
+
+/* Add columns to tables */
+$tableData = array(
+    'sales/quote_item' => array(
+        'price_incl_tax' => 'decimal',
+        'base_price_incl_tax' => 'decimal',
+        'row_total_incl_tax' => 'decimal',
+        'base_row_total_incl_tax' => 'decimal'
+    ),
+    'sales/order_item' => array(
+        'price_incl_tax' => 'decimal',
+        'base_price_incl_tax' => 'decimal',
+        'row_total_incl_tax' => 'decimal',
+        'base_row_total_incl_tax' => 'decimal'
+    ),
+    'sales/quote_address' => array(
+        'shipping_discount_amount' => 'decimal',
+        'base_shipping_discount_amount' => 'decimal',
+        'subtotal_incl_tax' => 'decimal',
+        'base_subtotal_total_incl_tax' => 'decimal',
+        'discount_description' => 'varchar'
+    ),
+    'sales/quote_address_item' => array(
+        'product_id' => 'int',
+        'super_product_id' => 'int',
+        'parent_product_id' => 'int',
+        'sku' => 'varchar',
+        'image' => 'varchar',
+        'name' => 'varchar',
+        'description' => 'text',
+        'free_shipping' => 'int',
+        'is_qty_decimal' => 'int',
+        'price' => 'decimal',
+        'discount_percent' => 'decimal',
+        'no_discount' => 'int',
+        'tax_percent' => 'decimal',
+        'base_price' => 'decimal',
+        'price_incl_tax' => 'decimal',
+        'base_price_incl_tax' => 'decimal',
+        'row_total_incl_tax' => 'decimal',
+        'base_row_total_incl_tax' => 'decimal'
+    ),
+    'sales/quote_payment' => array(
+        'additional_data' => 'text',
+        'cc_ss_issue' => 'varchar'
+    ),
+    'sales/quote_address_shipping_rate' => array(
+        'error_message' => 'text'
+    )
+);
+
+foreach ($tableData as $table => $columns) {
+    foreach ($columns as $columnName => $columnType) {
+        $installer->getConnection()->addColumn(
+            $installer->getTable($table), $columnName, $definitions[$columnType]
+        );
+    }
 }
 
 $installer->endSetup();

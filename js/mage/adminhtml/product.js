@@ -19,7 +19,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -119,7 +119,7 @@ Product.Gallery.prototype = {
         this.updateImages();
     },
     updateImages : function() {
-        this.getElement('save').value = this.images.toJSON();
+        this.getElement('save').value = Object.toJSON(this.images);
         $H(this.imageTypes).each(
                 function(pair) {
                     this.getFileElement('no_selection',
@@ -174,7 +174,7 @@ Product.Gallery.prototype = {
                 'cell-remove input').checked ? 1 : 0);
         this.images[index].disabled = (this.getFileElement(file,
                 'cell-disable input').checked ? 1 : 0);
-        this.getElement('save').value = this.images.toJSON();
+        this.getElement('save').value = Object.toJSON(this.images);
         this.updateState(file);
         this.container.setHasChanges();
     },
@@ -195,7 +195,7 @@ Product.Gallery.prototype = {
                             }
                         }.bind(this));
 
-        this.getElement('save_image').value = $H(this.imagesValues).toJSON();
+        this.getElement('save_image').value = Object.toJSON($H(this.imagesValues));
     },
     updateVisualisation : function(file) {
         var image = this.getImageByFile(file);
@@ -744,8 +744,8 @@ Product.Configurable.prototype = {
         this.updateSaveInput();
     },
     updateSaveInput : function() {
-        $(this.idPrefix + 'save_attributes').value = this.attributes.toJSON();
-        $(this.idPrefix + 'save_links').value = this.links.toJSON();
+        $(this.idPrefix + 'save_attributes').value = Object.toJSON(this.attributes);
+        $(this.idPrefix + 'save_links').value = Object.toJSON(this.links);
     },
     initializeAdvicesForSimpleForm : function() {
         if ($(this.idPrefix + 'simple_form').advicesInited) {

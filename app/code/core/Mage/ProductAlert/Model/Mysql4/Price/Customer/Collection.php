@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ProductAlert
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,27 +28,11 @@
 /**
  * ProductAlert Price Customer collection
  *
- * @category   Mage
- * @package    Mage_ProductAlert
+ * @category    Mage
+ * @package     Mage_ProductAlert
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ProductAlert_Model_Mysql4_Price_Customer_Collection extends Mage_Customer_Model_Entity_Customer_Collection
+class Mage_ProductAlert_Model_Mysql4_Price_Customer_Collection
+    extends Mage_ProductAlert_Model_Resource_Price_Customer_Collection
 {
-    public function join($productId, $websiteId)
-    {
-        $this->getSelect()->join(
-            array('alert' => $this->getTable('productalert/price')),
-            'e.entity_id=alert.customer_id',
-            array('alert_price_id', 'website_id', 'price', 'add_date', 'last_send_date', 'send_count', 'status')
-        );
-
-        $this->getSelect()->where('alert.product_id=?', $productId);
-        if ($websiteId) {
-            $this->getSelect()->where('alert.website_id=?', $websiteId);
-        }
-        $this->_setIdFieldName('alert_price_id');
-        $this->addAttributeToSelect('*');
-
-        return $this;
-    }
 }

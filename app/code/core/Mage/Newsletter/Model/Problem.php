@@ -20,15 +20,26 @@
  *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Newsletter problem model
  *
- * @category   Mage
- * @package    Mage_Newsletter
+ * @method Mage_Newsletter_Model_Resource_Problem _getResource()
+ * @method Mage_Newsletter_Model_Resource_Problem getResource()
+ * @method int getSubscriberId()
+ * @method Mage_Newsletter_Model_Problem setSubscriberId(int $value)
+ * @method int getQueueId()
+ * @method Mage_Newsletter_Model_Problem setQueueId(int $value)
+ * @method int getProblemErrorCode()
+ * @method Mage_Newsletter_Model_Problem setProblemErrorCode(int $value)
+ * @method string getProblemErrorText()
+ * @method Mage_Newsletter_Model_Problem setProblemErrorText(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Newsletter
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract

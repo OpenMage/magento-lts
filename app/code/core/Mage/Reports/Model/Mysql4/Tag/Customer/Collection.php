@@ -20,54 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Report Customers Tags collection
  *
- * @category   Mage
- * @package    Mage_Reports
+ * @category    Mage
+ * @package     Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Reports_Model_Mysql4_Tag_Customer_Collection extends Mage_Tag_Model_Mysql4_Customer_Collection
+class Mage_Reports_Model_Mysql4_Tag_Customer_Collection extends Mage_Reports_Model_Resource_Tag_Customer_Collection
 {
-
-    public function addTagedCount()
-    {
-        $this->getSelect()
-            ->columns(array('taged' => 'count(tr.tag_relation_id)'));
-            //->order('taged desc');
-        return $this;
-    }
-
-    public function getSelectCountSql()
-    {
-        $countSelect = clone $this->getSelect();
-        $countSelect->reset(Zend_Db_Select::ORDER);
-        $countSelect->reset(Zend_Db_Select::GROUP);
-        $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
-        $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-
-        $sql = $countSelect->__toString();
-
-        $sql = preg_replace('/^select\s+.+?\s+from\s+/is', 'select count(DISTINCT tr.customer_id) from ', $sql);
-
-        return $sql;
-    }
-
-    public function setOrder($attribute, $dir='desc')
-    {
-        switch( $attribute ) {
-            case 'taged':
-                $this->getSelect()->order($attribute . ' ' . $dir);
-                break;
-
-            default:
-                parent::setOrder($attribute, $dir);
-        }
-        return $this;
-    }
 }

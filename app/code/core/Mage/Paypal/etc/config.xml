@@ -21,48 +21,60 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Paypal>
-            <version>1.4.0.2</version>
+            <version>1.6.0.0</version>
         </Mage_Paypal>
     </modules>
     <global>
         <models>
             <paypal>
                 <class>Mage_Paypal_Model</class>
-                <resourceModel>paypal_mysql4</resourceModel>
+                <resourceModel>paypal_resource</resourceModel>
             </paypal>
-            <paypal_mysql4>
-                <class>Mage_Paypal_Model_Mysql4</class>
+            <paypal_resource>
+                <class>Mage_Paypal_Model_Resource</class>
+                <deprecatedNode>paypal_mysql4</deprecatedNode>
                 <entities>
-                    <api_debug><table>paypal_api_debug</table></api_debug>
-                    <settlement_report><table>paypal_settlement_report</table></settlement_report>
-                    <settlement_report_row><table>paypal_settlement_report_row</table></settlement_report_row>
-                    <cert><table>paypal_cert</table></cert>
+                    <api_debug>
+                        <table>paypal_api_debug</table>
+                    </api_debug>
+                    <settlement_report>
+                        <table>paypal_settlement_report</table>
+                    </settlement_report>
+                    <settlement_report_row>
+                        <table>paypal_settlement_report_row</table>
+                    </settlement_report_row>
+                    <cert>
+                        <table>paypal_cert</table>
+                    </cert>
                 </entities>
-            </paypal_mysql4>
+            </paypal_resource>
         </models>
         <resources>
             <paypal_setup>
                 <setup>
                     <module>Mage_Paypal</module>
-                    <class>Mage_Paypal_Model_Mysql4_Setup</class>
+                    <class>Mage_Paypal_Model_Resource_Setup</class>
                 </setup>
             </paypal_setup>
         </resources>
         <blocks>
-            <paypal><class>Mage_Paypal_Block</class></paypal>
+            <paypal>
+                <class>Mage_Paypal_Block</class>
+            </paypal>
         </blocks>
         <sales>
             <order>
                 <statuses>
-                    <!-- retained for backwards compatibility, not used anymore -->
-                    <pending_paypal translate="label"><label>Pending PayPal</label></pending_paypal>
+                    <pending_paypal translate="label">
+                        <label>Pending PayPal</label>
+                    </pending_paypal>
                 </statuses>
             </order>
         </sales>
@@ -160,7 +172,6 @@
                 <api_password backend_model="adminhtml/system_config_backend_encrypted"/>
                 <api_signature backend_model="adminhtml/system_config_backend_encrypted"/>
                 <api_username backend_model="adminhtml/system_config_backend_encrypted"/>
-                <api_authentication>0</api_authentication>
                 <button_flavor>dynamic</button_flavor>
             </wpp>
             <wpuk>
@@ -185,6 +196,9 @@
                 <visible_on_product>1</visible_on_product>
                 <allow_ba_signup>never</allow_ba_signup>
                 <group>paypal</group>
+                <authorization_honor_period>3</authorization_honor_period>
+                <order_valid_period>29</order_valid_period>
+                <child_authorization_number>1</child_authorization_number>
             </paypal_express>
             <paypal_direct>
                 <model>paypal/direct</model>
@@ -254,7 +268,9 @@
     <crontab>
         <jobs>
             <paypal_fetch_settlement_reports>
-                <run><model>paypal/observer::fetchReports</model></run>
+                <run>
+                    <model>paypal/observer::fetchReports</model>
+                </run>
             </paypal_fetch_settlement_reports>
         </jobs>
     </crontab>

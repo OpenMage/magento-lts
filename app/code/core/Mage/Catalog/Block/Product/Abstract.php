@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -230,8 +230,11 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getReviewsSummaryHtml(Mage_Catalog_Model_Product $product, $templateType = false, $displayIfNoReviews = false)
     {
-        $this->_initReviewsHelperBlock();
-        return $this->_reviewsHelperBlock->getSummaryHtml($product, $templateType, $displayIfNoReviews);
+        if ($this->_initReviewsHelperBlock()) {
+            return $this->_reviewsHelperBlock->getSummaryHtml($product, $templateType, $displayIfNoReviews);
+        }
+
+        return '';
     }
 
     /**
@@ -242,19 +245,28 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function addReviewSummaryTemplate($type, $template)
     {
-        $this->_initReviewsHelperBlock();
-        $this->_reviewsHelperBlock->addTemplate($type, $template);
+        if ($this->_initReviewsHelperBlock()) {
+            $this->_reviewsHelperBlock->addTemplate($type, $template);
+        }
+
+        return '';
     }
 
     /**
      * Create reviews summary helper block once
      *
+     * @return boolean
      */
     protected function _initReviewsHelperBlock()
     {
         if (!$this->_reviewsHelperBlock) {
-            $this->_reviewsHelperBlock = $this->getLayout()->createBlock('review/helper');
+            if (Mage::helper('catalog')->isModuleEnabled('Mage_Review')) {
+                $this->_reviewsHelperBlock = $this->getLayout()->createBlock('review/helper');
+                return true;
+            }
         }
+
+        return false;
     }
 
     /**
@@ -342,7 +354,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection
      * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
      */
-    protected function _addProductAttributesAndPrices(Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection)
+    protected function _addProductAttributesAndPrices(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
         return $collection
             ->addMinimalPrice()

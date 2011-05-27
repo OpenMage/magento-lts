@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Install
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -85,7 +85,7 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
     protected function _checkPath($path, $recursive, $existence, $mode)
     {
         $res = true;
-        $fullPath = dirname(Mage::getRoot()).$path;
+        $fullPath = dirname(Mage::getRoot()) . $path;
         if ($mode == self::MODE_WRITE) {
             $setError = false;
             if ($existence) {
@@ -110,7 +110,7 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
         if ($recursive && is_dir($fullPath)) {
             foreach (new DirectoryIterator($fullPath) as $file) {
                 if (!$file->isDot() && $file->getFilename() != '.svn' && $file->getFilename() != '.htaccess') {
-                    $res = $res && $this->_checkPath($path.DS.$file->getFilename(), $recursive, $existence, $mode);
+                    $res = $res && $this->_checkPath($path . DS . $file->getFilename(), $recursive, $existence, $mode);
                 }
             }
         }

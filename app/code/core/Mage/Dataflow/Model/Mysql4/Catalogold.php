@@ -20,11 +20,13 @@
  *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @deprecated after 1.5.0.1
+ */
 class Mage_Catalog_Model_Mysql4_Convert
 {
     protected $_productsBySku;
@@ -228,9 +230,6 @@ class Mage_Catalog_Model_Mysql4_Convert
             ->from(array('ao'=>$this->getTable('eav/attribute_option')), array('attribute_id', 'option_id'))
             ->join(array('aov'=>$this->getTable('eav/attribute_option_value')), 'aov.option_id=ao.option_id', array('value_id', 'value'))
             ->where('aov.store_id=0');
-
-        echo $select->__toString();
-        die();
 
         $collection = Mage::getResourceModel('catalog/product_collection')
             ->addAttributeToSelect('*')

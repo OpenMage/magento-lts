@@ -20,12 +20,54 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /*
  * Model for report rows
+ */
+/**
+ * Enter description here ...
+ *
+ * @method Mage_Paypal_Model_Resource_Report_Settlement_Row _getResource()
+ * @method Mage_Paypal_Model_Resource_Report_Settlement_Row getResource()
+ * @method int getReportId()
+ * @method Mage_Paypal_Model_Report_Settlement_Row setReportId(int $value)
+ * @method string getTransactionId()
+ * @method Mage_Paypal_Model_Report_Settlement_Row setTransactionId(string $value)
+ * @method string getInvoiceId()
+ * @method Mage_Paypal_Model_Report_Settlement_Row setInvoiceId(string $value)
+ * @method string getPaypalReferenceId()
+ * @method Mage_Paypal_Model_Report_Settlement_Row setPaypalReferenceId(string $value)
+ * @method string getPaypalReferenceIdType()
+ * @method Mage_Paypal_Model_Report_Settlement_Row setPaypalReferenceIdType(string $value)
+ * @method string getTransactionEventCode()
+ * @method Mage_Paypal_Model_Report_Settlement_Row setTransactionEventCode(string $value)
+ * @method string getTransactionInitiationDate()
+ * @method Mage_Paypal_Model_Report_Settlement_Row setTransactionInitiationDate(string $value)
+ * @method string getTransactionCompletionDate()
+ * @method Mage_Paypal_Model_Report_Settlement_Row setTransactionCompletionDate(string $value)
+ * @method string getTransactionDebitOrCredit()
+ * @method Mage_Paypal_Model_Report_Settlement_Row setTransactionDebitOrCredit(string $value)
+ * @method float getGrossTransactionAmount()
+ * @method Mage_Paypal_Model_Report_Settlement_Row setGrossTransactionAmount(float $value)
+ * @method string getGrossTransactionCurrency()
+ * @method Mage_Paypal_Model_Report_Settlement_Row setGrossTransactionCurrency(string $value)
+ * @method string getFeeDebitOrCredit()
+ * @method Mage_Paypal_Model_Report_Settlement_Row setFeeDebitOrCredit(string $value)
+ * @method float getFeeAmount()
+ * @method Mage_Paypal_Model_Report_Settlement_Row setFeeAmount(float $value)
+ * @method string getFeeCurrency()
+ * @method Mage_Paypal_Model_Report_Settlement_Row setFeeCurrency(string $value)
+ * @method string getCustomField()
+ * @method Mage_Paypal_Model_Report_Settlement_Row setCustomField(string $value)
+ * @method string getConsumerId()
+ * @method Mage_Paypal_Model_Report_Settlement_Row setConsumerId(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Paypal
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
 {

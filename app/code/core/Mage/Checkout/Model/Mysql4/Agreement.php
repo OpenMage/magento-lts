@@ -20,73 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_Checkout_Model_Mysql4_Agreement extends Mage_Core_Model_Mysql4_Abstract
+
+/**
+ * Enter description here ...
+ *
+ * @category    Mage
+ * @package     Mage_Checkout
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_Checkout_Model_Mysql4_Agreement extends Mage_Checkout_Model_Resource_Agreement
 {
-    protected function _construct()
-    {
-        $this->_init('checkout/agreement', 'agreement_id');
-    }
-
-    protected function _beforeSave(Mage_Core_Model_Abstract $object)
-    {
-        // format height
-        $height = $object->getContentHeight();
-        if (!$height) {
-            $height = '';
-        }
-        if ($height && preg_match('/[0-9]$/', $height)) {
-            $height .= 'px';
-        }
-        $object->setContentHeight($height);
-        return parent::_beforeSave($object);
-    }
-
-    protected function _afterSave(Mage_Core_Model_Abstract $object)
-    {
-        $condition = $this->_getWriteAdapter()->quoteInto('agreement_id = ?', $object->getId());
-        $this->_getWriteAdapter()->delete($this->getTable('checkout/agreement_store'), $condition);
-
-        foreach ((array)$object->getData('stores') as $store) {
-            $storeArray = array();
-            $storeArray['agreement_id'] = $object->getId();
-            $storeArray['store_id'] = $store;
-            $this->_getWriteAdapter()->insert($this->getTable('checkout/agreement_store'), $storeArray);
-        }
-
-        return parent::_afterSave($object);
-    }
-
-    protected function _afterLoad(Mage_Core_Model_Abstract $object)
-    {
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('checkout/agreement_store'))
-            ->where('agreement_id = ?', $object->getId());
-
-        if ($data = $this->_getReadAdapter()->fetchAll($select)) {
-            $storesArray = array();
-            foreach ($data as $row) {
-                $storesArray[] = $row['store_id'];
-            }
-            $object->setData('store_id', $storesArray);
-        }
-
-        return parent::_afterLoad($object);
-    }
-
-    protected function _getLoadSelect($field, $value, $object)
-    {
-        $select = parent::_getLoadSelect($field, $value, $object);
-
-        if ($object->getStoreId()) {
-            $select->join(array('cps' => $this->getTable('checkout/agreement_store')), $this->getMainTable().'.agreement_id = `cps`.agreement_id')
-                    ->where('is_active=1 AND `cps`.store_id in (0, ?) ', $object->getStoreId())
-                    ->order('store_id DESC')
-                    ->limit(1);
-        }
-        return $select;
-    }
 }

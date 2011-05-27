@@ -21,43 +21,36 @@
  *
  * @category    Mage
  * @package     Mage_Rss
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Rss>
-            <version>0.8.0</version>
+            <version>1.6.0.0</version>
         </Mage_Rss>
     </modules>
     <global>
         <models>
             <rss>
                 <class>Mage_Rss_Model</class>
-                <resourceModel>rss_mysql4</resourceModel>
+                <resourceModel>rss_resource</resourceModel>
             </rss>
-            <rss_mysql4>
-                <class>Mage_Rss_Model_Mysql4</class>
-            </rss_mysql4>
+            <rss_resource>
+                <class>Mage_Rss_Model_Resource</class>
+                <deprecatedNode>rss_mysql4</deprecatedNode>
+            </rss_resource>
         </models>
         <blocks>
-            <rss><class>Mage_Rss_Block</class></rss>
+            <rss>
+                <class>Mage_Rss_Block</class>
+            </rss>
         </blocks>
     </global>
-
     <admin>
-        <!--routers>
-            <adminhtml>
-                <args>
-                    <modules>
-                        <Mage_Rss before="Mage_Adminhtml">Mage_Rss</Mage_Rss>
-                    </modules>
-                </args>
-            </adminhtml>
-        </routers-->
+        
     </admin>
-
     <adminhtml>
         <translate>
             <modules>

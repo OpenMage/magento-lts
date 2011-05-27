@@ -20,13 +20,26 @@
  *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Convert history
  *
+ * @method Mage_Dataflow_Model_Resource_Profile_History _getResource()
+ * @method Mage_Dataflow_Model_Resource_Profile_History getResource()
+ * @method int getProfileId()
+ * @method Mage_Dataflow_Model_Profile_History setProfileId(int $value)
+ * @method string getActionCode()
+ * @method Mage_Dataflow_Model_Profile_History setActionCode(string $value)
+ * @method int getUserId()
+ * @method Mage_Dataflow_Model_Profile_History setUserId(int $value)
+ * @method string getPerformedAt()
+ * @method Mage_Dataflow_Model_Profile_History setPerformedAt(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Dataflow
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Dataflow_Model_Profile_History extends Mage_Core_Model_Abstract
@@ -44,8 +57,9 @@ class Mage_Dataflow_Model_Profile_History extends Mage_Core_Model_Abstract
                 $this->setProfileId($profile->getId());
             }
         }
-        if (!$this->getUserId()) {
-            $this->setUserId(Mage::getSingleton('admin/session')->getUser()->getId());
+
+        if(!$this->hasData('user_id')) {
+            $this->setUserId(0);
         }
 
         parent::_beforeSave();

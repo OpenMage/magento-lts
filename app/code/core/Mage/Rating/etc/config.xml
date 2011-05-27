@@ -21,24 +21,25 @@
  *
  * @category    Mage
  * @package     Mage_Rating
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Rating>
-            <version>0.7.2</version>
+            <version>1.6.0.0</version>
         </Mage_Rating>
     </modules>
     <global>
         <models>
             <rating>
                 <class>Mage_Rating_Model</class>
-                <resourceModel>rating_mysql4</resourceModel>
+                <resourceModel>rating_resource</resourceModel>
             </rating>
-            <rating_mysql4>
-                <class>Mage_Rating_Model_Mysql4</class>
+            <rating_resource>
+                <class>Mage_Rating_Model_Resource</class>
+                <deprecatedNode>rating_mysql4</deprecatedNode>
                 <entities>
                     <rating>
                         <table>rating</table>
@@ -55,9 +56,6 @@
                     <rating_option>
                         <table>rating_option</table>
                     </rating_option>
-                    <rating_vote>
-                        <table>rating_option_vote</table>
-                    </rating_vote>
                     <rating_option_vote>
                         <table>rating_option_vote</table>
                     </rating_option_vote>
@@ -65,7 +63,7 @@
                         <table>rating_option_vote_aggregated</table>
                     </rating_vote_aggregated>
                 </entities>
-            </rating_mysql4>
+            </rating_resource>
         </models>
         <resources>
             <rating_setup>
@@ -75,9 +73,9 @@
             </rating_setup>
         </resources>
         <blocks>
-                <rating>
-                    <class>Mage_Rating_Block</class>
-                </rating>
+            <rating>
+                <class>Mage_Rating_Block</class>
+            </rating>
         </blocks>
     </global>
     <frontend>
@@ -91,7 +89,6 @@
             </modules>
         </translate>
     </frontend>
-
     <adminhtml>
         <translate>
             <modules>

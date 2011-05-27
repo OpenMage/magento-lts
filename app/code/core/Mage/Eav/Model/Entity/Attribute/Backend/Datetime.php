@@ -20,29 +20,31 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
-     * Formating date value before save to DB
+     * Formating date value before save
      *
-     * should set (bool, string) correct type for empty value from html form,
+     * Should set (bool, string) correct type for empty value from html form,
      * neccessary for farther proccess, else date string
      *
-     * @param mixed $object
+     * @param Varien_Object $object
+     * @throws Mage_Eav_Exception
+     * @return Mage_Eav_Model_Entity_Attribute_Backend_Datetime
      */
     public function beforeSave($object)
     {
         $attributeName = $this->getAttribute()->getName();
-        $_formated = $object->getData($attributeName . '_is_formated');
+        $_formated     = $object->getData($attributeName . '_is_formated');
         if (!$_formated && $object->hasData($attributeName)) {
             try {
                 $value = $this->formatDate($object->getData($attributeName));
             } catch (Exception $e) {
-                throw new Exception("Invalid date.");
+                throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid date'));
             }
 
             if (is_null($value)) {
@@ -52,6 +54,8 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
             $object->setData($attributeName, $value);
             $object->setData($attributeName . '_is_formated', true);
         }
+
+        return $this;
     }
 
     /**
@@ -86,5 +90,4 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
         }
         return $date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
     }
-
 }

@@ -20,37 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Flat sales order payment collection
  *
+ * @category    Mage
+ * @package     Mage_Sales
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Mysql4_Order_Address_Collection extends Mage_Sales_Model_Mysql4_Order_Collection_Abstract
+class Mage_Sales_Model_Mysql4_Order_Address_Collection extends Mage_Sales_Model_Resource_Order_Address_Collection
 {
-    protected $_eventPrefix = 'sales_order_address_collection';
-    protected $_eventObject = 'order_address_collection';
-
-    protected function _construct()
-    {
-        $this->_init('sales/order_address');
-    }
-
-    /**
-     * Redeclare after load method for dispatch event
-     *
-     * @return Mage_Sales_Model_Mysql4_Order_Address_Collection
-     */
-    protected function _afterLoad()
-    {
-        parent::_afterLoad();
-
-        Mage::dispatchEvent($this->_eventPrefix.'_load_after', array(
-            $this->_eventObject => $this
-        ));
-
-        return $this;
-    }
 }

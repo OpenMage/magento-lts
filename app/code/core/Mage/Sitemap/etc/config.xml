@@ -21,30 +21,31 @@
  *
  * @category    Mage
  * @package     Mage_Sitemap
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Sitemap>
-            <version>0.7.2</version>
+            <version>1.6.0.0</version>
         </Mage_Sitemap>
     </modules>
     <global>
         <models>
             <sitemap>
                 <class>Mage_Sitemap_Model</class>
-                <resourceModel>sitemap_mysql4</resourceModel>
+                <resourceModel>sitemap_resource</resourceModel>
             </sitemap>
-            <sitemap_mysql4>
-                <class>Mage_Sitemap_Model_Mysql4</class>
+            <sitemap_resource>
+                <class>Mage_Sitemap_Model_Resource</class>
+                <deprecatedNode>sitemap_mysql4</deprecatedNode>
                 <entities>
                     <sitemap>
                         <table>sitemap</table>
                     </sitemap>
                 </entities>
-            </sitemap_mysql4>
+            </sitemap_resource>
         </models>
         <resources>
             <sitemap_setup>
@@ -90,7 +91,7 @@
             </product>
             <generate>
                 <enabled>0</enabled>
-                <error_email><![CDATA[]]></error_email>
+                <error_email/>
                 <error_email_template>sitemap_generate_error_email_template</error_email_template>
                 <error_email_identity>general</error_email_identity>
             </generate>

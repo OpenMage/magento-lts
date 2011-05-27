@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Cron
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Cron>
-            <version>0.7.1</version>
+            <version>1.6.0.0</version>
         </Mage_Cron>
     </modules>
     <global>
@@ -42,19 +42,19 @@
         <models>
             <cron>
                 <class>Mage_Cron_Model</class>
-                <resourceModel>cron_mysql4</resourceModel>
+                <resourceModel>cron_resource</resourceModel>
             </cron>
-            <cron_mysql4>
-                <class>Mage_Cron_Model_Mysql4</class>
+            <cron_resource>
+                <class>Mage_Cron_Model_Resource</class>
+                <deprecatedNode>cron_mysql4</deprecatedNode>
                 <entities>
                     <schedule>
                         <table>cron_schedule</table>
                     </schedule>
                 </entities>
-            </cron_mysql4>
+            </cron_resource>
         </models>
     </global>
-
     <crontab>
         <events>
             <default>
@@ -66,20 +66,7 @@
                 </observers>
             </default>
         </events>
-<!--
-        <jobs>
-            <every_15_minutes_during_business_hours_at_winter>
-                <schedule>
-                    <cron_expr>*/15 9-12,14-17 * Nov-Dec,Jan-Feb Mon-Fri -8</cron_expr>
-                </schedule>
-                <run>
-                    <model>cron/observer::test</model>
-                </run>
-            </every_15_minutes_during_business_hours_at_winter>
-        </jobs>
--->
     </crontab>
-
     <default>
         <system>
             <cron>
@@ -92,16 +79,15 @@
             </cron>
         </system>
     </default>
-    
     <adminhtml>
-      <translate>
-        <modules>
-            <Mage_Cron>
-                <files>
-                    <default>Mage_Cron.csv</default>
-                </files>
-            </Mage_Cron>
-        </modules>
-      </translate>
+        <translate>
+            <modules>
+                <Mage_Cron>
+                    <files>
+                        <default>Mage_Cron.csv</default>
+                    </files>
+                </Mage_Cron>
+            </modules>
+        </translate>
     </adminhtml>
 </config>

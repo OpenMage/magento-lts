@@ -20,48 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_Api_Model_Mysql4_Rules extends Mage_Core_Model_Mysql4_Abstract
+
+/**
+ * Enter description here ...
+ *
+ * @category    Mage
+ * @package     Mage_Api
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_Api_Model_Mysql4_Rules extends Mage_Api_Model_Resource_Rules
 {
-    protected function _construct() {
-        $this->_init('api/rule', 'rule_id');
-    }
-
-    public function saveRel(Mage_Api_Model_Rules $rule) {
-        $this->_getWriteAdapter()->beginTransaction();
-
-        try {
-            $roleId = $rule->getRoleId();
-            $this->_getWriteAdapter()->delete($this->getMainTable(), "role_id = {$roleId}");
-            $masterResources = Mage::getModel('api/roles')->getResourcesList2D();
-            $masterAdmin = false;
-            if ( $postedResources = $rule->getResources() ) {
-                foreach ($masterResources as $index => $resName) {
-                    if ( !$masterAdmin ) {
-                        $permission = ( in_array($resName, $postedResources) )? 'allow' : 'deny';
-                        $this->_getWriteAdapter()->insert($this->getMainTable(), array(
-                            'role_type' 	=> 'G',
-                            'resource_id' 	=> trim($resName, '/'),
-                            'privileges' 	=> '', # FIXME !!!
-                            'assert_id' 	=> 0,
-                            'role_id' 		=> $roleId,
-                            'permission'	=> $permission
-                            ));
-                    }
-                    if ( $resName == 'all' && $permission == 'allow' ) {
-                        $masterAdmin = true;
-                    }
-                }
-            }
-
-            $this->_getWriteAdapter()->commit();
-        } catch (Mage_Core_Exception $e) {
-            throw $e;
-        } catch (Exception $e){
-            $this->_getWriteAdapter()->rollBack();
-        }
-    }
 }

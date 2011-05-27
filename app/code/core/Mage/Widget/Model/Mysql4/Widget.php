@@ -20,9 +20,10 @@
  *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Preconfigured widget
@@ -31,33 +32,6 @@
  * @package     Mage_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Widget_Model_Mysql4_Widget extends Mage_Core_Model_Mysql4_Abstract
+class Mage_Widget_Model_Mysql4_Widget extends Mage_Widget_Model_Resource_Widget
 {
-    protected function _construct()
-    {
-        $this->_init('widget/widget', 'widget_id');
-    }
-
-    /**
-     * Retrieves preconfigured parameters for widget
-     *
-     * @param int $widgetId
-     * @return array
-     */
-    public function loadPreconfiguredWidget($widgetId)
-    {
-        $read = $this->_getReadAdapter();
-        $select = $read->select();
-        $select->from($this->getMainTable())
-            ->where($this->getIdFieldName() . ' = ?', $widgetId);
-
-        $widget = $read->fetchRow($select);
-        if (is_array($widget)) {
-            if ($widget['parameters']) {
-                $widget['parameters'] = unserialize($widget['parameters']);
-            }
-            return $widget;
-        }
-        return false;
-    }
 }

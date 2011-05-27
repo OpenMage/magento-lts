@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,12 +37,14 @@ class Mage_Adminhtml_Block_Dashboard_Totals extends Mage_Adminhtml_Block_Dashboa
     protected function _construct()
     {
         parent::_construct();
-
         $this->setTemplate('dashboard/totalbar.phtml');
     }
 
     protected function _prepareLayout()
     {
+        if (!Mage::helper('core')->isModuleEnabled('Mage_Reports')) {
+            return $this;
+        }
         $isFilter = $this->getRequest()->getParam('store') || $this->getRequest()->getParam('website') || $this->getRequest()->getParam('group');
         $period = $this->getRequest()->getParam('period', '24h');
 

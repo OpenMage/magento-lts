@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -135,10 +135,6 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
      */
     protected function _beforeToHtml()
     {
-        /*$toolbar = $this->getLayout()->createBlock('catalog/product_list_toolbar', microtime());
-        if ($toolbarTemplate = $this->getToolbarTemplate()) {
-            $toolbar->setTemplate($toolbarTemplate);
-        }*/
         $toolbar = $this->getToolbarBlock();
 
         // called prepare sortable parameters
@@ -167,7 +163,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
         ));
 
         $this->_getProductCollection()->load();
-        Mage::getModel('review/review')->appendSummary($this->_getProductCollection());
+
         return parent::_beforeToHtml();
     }
 

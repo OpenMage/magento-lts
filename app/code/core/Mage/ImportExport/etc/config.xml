@@ -21,30 +21,30 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_ImportExport>
-            <version>0.1.0</version>
+            <version>1.6.0.1</version>
         </Mage_ImportExport>
     </modules>
     <global>
         <models>
             <importexport>
                 <class>Mage_ImportExport_Model</class>
-                <resourceModel>importexport_mysql4</resourceModel>
+                <resourceModel>importexport_resource</resourceModel>
             </importexport>
-             <importexport_mysql4>
-                <class>Mage_ImportExport_Model_Mysql4</class>
+            <importexport_resource>
+                <class>Mage_ImportExport_Model_Resource</class>
                 <entities>
                     <importdata>
                         <table>importexport_importdata</table>
                     </importdata>
                 </entities>
-            </importexport_mysql4>
+            </importexport_resource>
         </models>
         <blocks>
             <importexport>
@@ -60,7 +60,7 @@
             <importexport_setup>
                 <setup>
                     <module>Mage_ImportExport</module>
-                    <class>Mage_ImportExport_Model_Mysql4_Setup</class>
+                    <class>Mage_ImportExport_Model_Resource_Setup</class>
                 </setup>
             </importexport_setup>
         </resources>

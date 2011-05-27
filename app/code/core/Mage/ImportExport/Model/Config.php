@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +38,7 @@ class Mage_ImportExport_Model_Config
      *
      * @static
      * @param string $configKey
-     * @throws Exception
+     * @throws Mage_Core_Exception
      * @return array
      */
     public static function getModels($configKey)
@@ -74,6 +74,26 @@ class Mage_ImportExport_Model_Config
         }
         foreach (self::getModels($configKey) as $type => $params) {
             $options[] = array('value' => $type, 'label' => $params['label']);
+        }
+        return $options;
+    }
+
+    /**
+     * Get model params as array of options.
+     *
+     * @static
+     * @param string $configKey
+     * @param boolean $withEmpty OPTIONAL Include 'Please Select' option or not
+     * @return array
+     */
+    public static function getModelsArrayOptions($configKey, $withEmpty = false)
+    {
+        $options = array();
+        if ($withEmpty) {
+            $options[0] = Mage::helper('importexport')->__('-- Please Select --');
+        }
+        foreach (self::getModels($configKey) as $type => $params) {
+            $options[$type] = $params['label'];
         }
         return $options;
     }

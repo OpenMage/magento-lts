@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,6 +28,22 @@
 /**
  * Catalog indexer price processor
  *
+ * @method Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice _getResource()
+ * @method Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice getResource()
+ * @method Mage_CatalogIndex_Model_Indexer_Minimalprice setEntityId(int $value)
+ * @method int getCustomerGroupId()
+ * @method Mage_CatalogIndex_Model_Indexer_Minimalprice setCustomerGroupId(int $value)
+ * @method float getQty()
+ * @method Mage_CatalogIndex_Model_Indexer_Minimalprice setQty(float $value)
+ * @method float getValue()
+ * @method Mage_CatalogIndex_Model_Indexer_Minimalprice setValue(float $value)
+ * @method int getTaxClassId()
+ * @method Mage_CatalogIndex_Model_Indexer_Minimalprice setTaxClassId(int $value)
+ * @method int getWebsiteId()
+ * @method Mage_CatalogIndex_Model_Indexer_Minimalprice setWebsiteId(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_CatalogIndex
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Model_Indexer_Abstract
@@ -49,7 +65,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
     {
         $data = $this->getData('tier_price_attribute');
         if (is_null($data)) {
-            $data = Mage::getModel('eav/entity_attribute')->loadByCode('catalog_product', 'tier_price');
+            $data = Mage::getModel('eav/entity_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'tier_price');
             $this->setData('tier_price_attribute', $data);
         }
         return $data;
@@ -59,7 +75,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
     {
         $data = $this->getData('price_attribute');
         if (is_null($data)) {
-            $data = Mage::getModel('eav/entity_attribute')->loadByCode('catalog_product', 'price');
+            $data = Mage::getModel('eav/entity_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'price');
             $this->setData('price_attribute', $data);
         }
         return $data;

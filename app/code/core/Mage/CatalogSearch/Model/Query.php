@@ -20,13 +20,36 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog search query model
  *
+ * @method Mage_CatalogSearch_Model_Resource_Query _getResource()
+ * @method Mage_CatalogSearch_Model_Resource_Query getResource()
+ * @method string getQueryText()
+ * @method Mage_CatalogSearch_Model_Query setQueryText(string $value)
+ * @method int getNumResults()
+ * @method Mage_CatalogSearch_Model_Query setNumResults(int $value)
+ * @method int getPopularity()
+ * @method Mage_CatalogSearch_Model_Query setPopularity(int $value)
+ * @method string getRedirect()
+ * @method Mage_CatalogSearch_Model_Query setRedirect(string $value)
+ * @method string getSynonymFor()
+ * @method Mage_CatalogSearch_Model_Query setSynonymFor(string $value)
+ * @method int getDisplayInTerms()
+ * @method Mage_CatalogSearch_Model_Query setDisplayInTerms(int $value)
+ * @method int getIsActive()
+ * @method Mage_CatalogSearch_Model_Query setIsActive(int $value)
+ * @method int getIsProcessed()
+ * @method Mage_CatalogSearch_Model_Query setIsProcessed(int $value)
+ * @method string getUpdatedAt()
+ * @method Mage_CatalogSearch_Model_Query setUpdatedAt(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_CatalogSearch
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
@@ -62,7 +85,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     /**
      * Retrieve search collection
      *
-     * @return Mage_CatalogSearch_Model_Mysql4_Search_Collection
+     * @return Mage_CatalogSearch_Model_Resource_Search_Collection
      */
     public function getSearchCollection()
     {
@@ -97,7 +120,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     /**
      * Retrieve collection of suggest queries
      *
-     * @return Mage_CatalogSearch_Model_Mysql4_Query_Collection
+     * @return Mage_CatalogSearch_Model_Resource_Query_Collection
      */
     public function getSuggestCollection()
     {

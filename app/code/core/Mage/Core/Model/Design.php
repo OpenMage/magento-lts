@@ -20,11 +20,29 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
+/**
+ * Enter description here ...
+ *
+ * @method Mage_Core_Model_Resource_Design _getResource()
+ * @method Mage_Core_Model_Resource_Design getResource()
+ * @method int getStoreId()
+ * @method Mage_Core_Model_Design setStoreId(int $value)
+ * @method string getDesign()
+ * @method Mage_Core_Model_Design setDesign(string $value)
+ * @method string getDateFrom()
+ * @method Mage_Core_Model_Design setDateFrom(string $value)
+ * @method string getDateTo()
+ * @method Mage_Core_Model_Design setDateTo(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Core
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Core_Model_Design extends Mage_Core_Model_Abstract
 {
     protected function _construct()

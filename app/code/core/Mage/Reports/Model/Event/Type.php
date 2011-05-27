@@ -20,15 +20,22 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Event type model
  *
- * @category   Mage
- * @package    Mage_Reports
+ * @method Mage_Reports_Model_Resource_Event_Type _getResource()
+ * @method Mage_Reports_Model_Resource_Event_Type getResource()
+ * @method string getEventName()
+ * @method Mage_Reports_Model_Event_Type setEventName(string $value)
+ * @method int getCustomerLogin()
+ * @method Mage_Reports_Model_Event_Type setCustomerLogin(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 

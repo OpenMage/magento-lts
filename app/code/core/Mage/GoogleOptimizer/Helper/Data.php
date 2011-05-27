@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleOptimizer
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -135,11 +135,11 @@ class Mage_GoogleOptimizer_Helper_Data extends Mage_Core_Helper_Abstract
         $newAttributeName = 'category_'.$attributeName.'_'.$category->getId();
         if (strlen($newAttributeName) > self::MAX_ATTRIBUTE_LENGTH_LIMIT) {
             $newAttributeName = 'category_';
-            $newAttributeName .= substr($attributeName, 0, (self::MAX_ATTRIBUTE_LENGTH_LIMIT - strlen('category__'.$category->getId())));
-            $newAttributeName .= '_'.$category->getId();
+            $newAttributeName .= substr($attributeName, 0, (self::MAX_ATTRIBUTE_LENGTH_LIMIT - strlen('category__' . $category->getId())));
+            $newAttributeName .= '_' . $category->getId();
         }
 
-        $attributeHtml = '<script>utmx_section("'.$newAttributeName.'")</script>' . $attributeHtml . '</noscript>';
+        $attributeHtml = '<script>utmx_section("' . $newAttributeName . '")</script>' . $attributeHtml . '</noscript>';
         return $attributeHtml;
     }
 
@@ -197,7 +197,9 @@ class Mage_GoogleOptimizer_Helper_Data extends Mage_Core_Helper_Abstract
                 if ($storeBaseUrl == $websiteBaseUrl && !Mage::app()->isSingleStoreMode()) {
                     $_query = array('__store' => $store->getCode());
                 }
-                $urls[$choice['value']] = $url->setStore($this->getStoreId())->getUrl($route, array('_secure' => true, '_query' => $_query));
+                $urls[$choice['value']] = $url->setStore($this->getStoreId())->getUrl($route,
+                    array('_secure' => true, '_query' => $_query)
+                );
             }
         }
         $session->setSkipSessionIdFlag(false);

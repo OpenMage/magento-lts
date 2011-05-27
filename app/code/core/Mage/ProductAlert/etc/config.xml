@@ -21,25 +21,25 @@
  *
  * @category    Mage
  * @package     Mage_ProductAlert
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_ProductAlert>
-            <version>0.7.2</version>
+            <version>1.6.0.0</version>
         </Mage_ProductAlert>
     </modules>
-
     <global>
         <models>
             <productalert>
                 <class>Mage_ProductAlert_Model</class>
-                <resourceModel>productalert_mysql4</resourceModel>
+                <resourceModel>productalert_resource</resourceModel>
             </productalert>
-            <productalert_mysql4>
-                <class>Mage_ProductAlert_Model_Mysql4</class>
+            <productalert_resource>
+                <class>Mage_ProductAlert_Model_Resource</class>
+                <deprecatedNode>productalert_mysql4</deprecatedNode>
                 <entities>
                     <price>
                         <table>product_alert_price</table>
@@ -48,7 +48,7 @@
                         <table>product_alert_stock</table>
                     </stock>
                 </entities>
-            </productalert_mysql4>
+            </productalert_resource>
         </models>
         <helpers>
             <productalert>
@@ -85,10 +85,8 @@
                     <type>html</type>
                 </catalog_productalert_cron_error_email_template>
             </email>
-
         </template>
     </global>
-
     <adminhtml>
         <translate>
             <modules>
@@ -100,7 +98,6 @@
             </modules>
         </translate>
     </adminhtml>
-
     <frontend>
         <translate>
             <modules>
@@ -128,7 +125,6 @@
             </productalert>
         </routers>
     </frontend>
-
     <default>
         <catalog>
             <productalert>
@@ -139,13 +135,12 @@
                 <email_identity>general</email_identity>
             </productalert>
             <productalert_cron>
-                <error_email><![CDATA[]]></error_email>
+                <error_email/>
                 <error_email_template>catalog_productalert_cron_error_email_template</error_email_template>
                 <error_email_identity>general</error_email_identity>
             </productalert_cron>
         </catalog>
     </default>
-
     <crontab>
         <jobs>
             <catalog_product_alert>

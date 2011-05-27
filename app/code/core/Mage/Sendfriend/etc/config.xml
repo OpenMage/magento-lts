@@ -21,42 +21,45 @@
  *
  * @category    Mage
  * @package     Mage_Sendfriend
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Sendfriend>
-            <version>0.7.4</version>
+            <version>1.6.0.0</version>
         </Mage_Sendfriend>
     </modules>
     <global>
         <models>
             <sendfriend>
                 <class>Mage_Sendfriend_Model</class>
-                <resourceModel>sendfriend_mysql4</resourceModel>
+                <resourceModel>sendfriend_resource</resourceModel>
             </sendfriend>
-            <sendfriend_mysql4>
-                <class>Mage_Sendfriend_Model_Mysql4</class>
+            <sendfriend_resource>
+                <class>Mage_Sendfriend_Model_Resource</class>
+                <deprecatedNode>sendfriend_mysql4</deprecatedNode>
                 <resourceModel>sendfriend_mysql4</resourceModel>
                 <entities>
                     <sendfriend>
                         <table>sendfriend_log</table>
                     </sendfriend>
                 </entities>
-            </sendfriend_mysql4>
+            </sendfriend_resource>
         </models>
         <resources>
             <sendfriend_setup>
                 <setup>
-                   <module>Mage_Sendfriend</module>
-                   <class>Mage_Sendfriend_Model_Mysql4_Setup</class>
+                    <module>Mage_Sendfriend</module>
+                    <class>Mage_Sendfriend_Model_Resource_Setup</class>
                 </setup>
             </sendfriend_setup>
         </resources>
         <blocks>
-            <sendfriend><class>Mage_Sendfriend_Block</class></sendfriend>
+            <sendfriend>
+                <class>Mage_Sendfriend_Block</class>
+            </sendfriend>
         </blocks>
         <template>
             <email>
@@ -68,7 +71,6 @@
             </email>
         </template>
     </global>
-    
     <adminhtml>
         <translate>
             <modules>
@@ -80,7 +82,6 @@
             </modules>
         </translate>
     </adminhtml>
-    
     <frontend>
         <events>
             <catalog_controller_product_view>
@@ -118,7 +119,6 @@
             </modules>
         </translate>
     </frontend>
-    
     <default>
         <sendfriend>
             <email>

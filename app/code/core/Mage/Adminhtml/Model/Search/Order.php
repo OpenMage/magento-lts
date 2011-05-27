@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,16 +52,16 @@ class Mage_Adminhtml_Model_Search_Order extends Varien_Object
         $collection = Mage::getResourceModel('sales/order_collection')
             ->addAttributeToSelect('*')
             ->addAttributeToSearchFilter(array(
-                array('attribute'=>'increment_id', 'like'=>$query.'%'),
-                array('attribute'=>'billing_firstname', 'like'=>$query.'%'),
-                array('attribute'=>'billing_lastname', 'like'=>$query.'%'),
-                array('attribute'=>'billing_telephone', 'like'=>$query.'%'),
-                array('attribute'=>'billing_postcode', 'like'=>$query.'%'),
+                array('attribute' => 'increment_id',       'like'=>$query.'%'),
+                array('attribute' => 'billing_firstname',  'like'=>$query.'%'),
+                array('attribute' => 'billing_lastname',   'like'=>$query.'%'),
+                array('attribute' => 'billing_telephone',  'like'=>$query.'%'),
+                array('attribute' => 'billing_postcode',   'like'=>$query.'%'),
 
-                array('attribute'=>'shipping_firstname', 'like'=>$query.'%'),
-                array('attribute'=>'shipping_lastname', 'like'=>$query.'%'),
-                array('attribute'=>'shipping_telephone', 'like'=>$query.'%'),
-                array('attribute'=>'shipping_postcode', 'like'=>$query.'%'),
+                array('attribute' => 'shipping_firstname', 'like'=>$query.'%'),
+                array('attribute' => 'shipping_lastname',  'like'=>$query.'%'),
+                array('attribute' => 'shipping_telephone', 'like'=>$query.'%'),
+                array('attribute' => 'shipping_postcode',  'like'=>$query.'%'),
             ))
             ->setCurPage($this->getStart())
             ->setPageSize($this->getLimit())

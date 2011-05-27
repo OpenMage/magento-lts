@@ -20,85 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Google Checkout resource notification model
  *
- * @category   Mage
- * @package    Mage_GoogleCheckout
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_GoogleCheckout
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_GoogleCheckout_Model_Mysql4_Notification extends Mage_Core_Model_Mysql4_Abstract
+class Mage_GoogleCheckout_Model_Mysql4_Notification extends Mage_GoogleCheckout_Model_Resource_Notification
 {
-    /**
-     * Intialize resource model
-     */
-    protected function _construct()
-    {
-        $this->_init('googlecheckout/notification', 'serial_number');
-    }
-
-    /**
-     * Return notification data by serial number
-     *
-     * @param string $serialNumber
-     * @return array
-     */
-    public function getNotificationData($serialNumber)
-    {
-        $select = $this->_getWriteAdapter()->select()
-            ->from($this->getMainTable(), array('*'))
-            ->where($this->_getWriteAdapter()->quoteInto('serial_number = ?', $serialNumber));
-        return $this->_getWriteAdapter()->fetchRow($select);
-    }
-
-    /**
-     * Start notification processing
-     *
-     * @param string $serialNumber
-     * @return Mage_GoogleCheckout_Model_Mysql4_Notification
-     */
-    public function startProcess($serialNumber)
-    {
-        $data = array(
-            'serial_number' => $serialNumber,
-            'started_at'    => $this->formatDate(time()),
-            'status'        => Mage_GoogleCheckout_Model_Notification::STATUS_INPROCESS
-        );
-        $this->_getWriteAdapter()->insert($this->getMainTable(), $data);
-        return $this;
-    }
-
-    /**
-     * Stop notification processing
-     *
-     * @param string $serialNumber
-     * @return Mage_GoogleCheckout_Model_Mysql4_Notification
-     */
-    public function stopProcess($serialNumber)
-    {
-        $this->_getWriteAdapter()->update($this->getMainTable(),
-            array('status' => Mage_GoogleCheckout_Model_Notification::STATUS_PROCESSED),
-            array($this->_getWriteAdapter()->quoteInto('serial_number = ?', $serialNumber))
-        );
-        return $this;
-    }
-
-    /**
-     * Update notification processing
-     *
-     * @param string $serialNumber
-     * @return Mage_GoogleCheckout_Model_Mysql4_Notification
-     */
-    public function updateProcess($serialNumber)
-    {
-        $this->_getWriteAdapter()->update($this->getMainTable(),
-            array('started_at' => $this->formatDate(time())),
-            array($this->_getWriteAdapter()->quoteInto('serial_number = ?', $serialNumber))
-        );
-        return $this;
-    }
 }

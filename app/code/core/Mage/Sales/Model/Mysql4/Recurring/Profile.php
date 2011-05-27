@@ -20,64 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Recurring payment profiles resource model
+ *
+ * @category    Mage
+ * @package     Mage_Sales
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Mysql4_Recurring_Profile extends Mage_Sales_Model_Mysql4_Abstract
+class Mage_Sales_Model_Mysql4_Recurring_Profile extends Mage_Sales_Model_Resource_Recurring_Profile
 {
-    /**
-     * Initialize main table and column
-     */
-    protected function _construct()
-    {
-        $this->_init('sales/recurring_profile', 'profile_id');
-
-        $this->_serializableFields = array(
-            'profile_vendor_info'    => array(null, array()),
-            'additional_info' => array(null, array()),
-
-            'order_info' => array(null, array()),
-            'order_item_info' => array(null, array()),
-            'billing_address_info' => array(null, array()),
-            'shipping_address_info' => array(null, array())
-        );
-    }
-
-    /**
-     * Return recurring profile child Orders Ids
-     *
-     * @param Mage_Sales_Model_Recurring_Profile
-     * @return array
-     */
-    public function getChildOrderIds($object)
-    {
-        $select = $this->_getReadAdapter()->select()
-            ->from(
-                array('main_table' => $this->getTable('sales/recurring_profile_order')),
-                array('order_id'))
-            ->where('profile_id=?', $object->getId());
-        return $this->_getReadAdapter()->fetchCol($select);
-    }
-
-    /**
-     * Add order relation to recurring profile
-     *
-     * @param int $recurringProfileId
-     * @param int $orderId
-     * @return Mage_Sales_Model_Mysql4_Recurring_Profile
-     */
-    public function addOrderRelation($recurringProfileId, $orderId)
-    {
-        $this->_getWriteAdapter()->insert(
-            $this->getTable('sales/recurring_profile_order'), array(
-                'profile_id'  => $recurringProfileId,
-                'order_id'      => $orderId
-            )
-        );
-        return $this;
-    }
 }

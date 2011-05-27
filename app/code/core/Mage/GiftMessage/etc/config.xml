@@ -21,42 +21,47 @@
  *
  * @category    Mage
  * @package     Mage_GiftMessage
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_GiftMessage>
-            <version>0.7.6</version>
+            <version>1.6.0.0</version>
         </Mage_GiftMessage>
     </modules>
     <global>
         <blocks>
-            <giftmessage><class>Mage_GiftMessage_Block</class></giftmessage>
+            <giftmessage>
+                <class>Mage_GiftMessage_Block</class>
+            </giftmessage>
         </blocks>
-         <helpers>
-            <giftmessage><class>Mage_GiftMessage_Helper</class></giftmessage>
+        <helpers>
+            <giftmessage>
+                <class>Mage_GiftMessage_Helper</class>
+            </giftmessage>
         </helpers>
         <models>
             <giftmessage>
                 <class>Mage_GiftMessage_Model</class>
-                <resourceModel>giftmessage_mysql4</resourceModel>
+                <resourceModel>giftmessage_resource</resourceModel>
             </giftmessage>
-            <giftmessage_mysql4>
-                <class>Mage_GiftMessage_Model_Mysql4</class>
+            <giftmessage_resource>
+                <class>Mage_GiftMessage_Model_Resource</class>
+                <deprecatedNode>giftmessage_mysql4</deprecatedNode>
                 <entities>
                     <message>
                         <table>gift_message</table>
                     </message>
                 </entities>
-            </giftmessage_mysql4>
+            </giftmessage_resource>
         </models>
         <resources>
             <giftmessage_setup>
                 <setup>
-                   <module>Mage_GiftMessage</module>
-                   <class>Mage_GiftMessage_Model_Mysql4_Setup</class>
+                    <module>Mage_GiftMessage</module>
+                    <class>Mage_GiftMessage_Model_Resource_Setup</class>
                 </setup>
             </giftmessage_setup>
         </resources>
@@ -70,7 +75,6 @@
             </quote>
         </sales>
     </global>
-
     <default>
         <sales>
             <gift_messages>
@@ -79,7 +83,6 @@
             </gift_messages>
         </sales>
     </default>
-
     <adminhtml>
         <translate>
             <modules>
@@ -134,7 +137,7 @@
                         <class>giftmessage/observer</class>
                         <method>salesEventOrderToQuote</method>
                     </giftmessage>
-                 </observers>
+                </observers>
             </sales_convert_order_to_quote>
             <sales_convert_order_item_to_quote_item>
                 <observers>
@@ -143,7 +146,7 @@
                         <class>giftmessage/observer</class>
                         <method>salesEventOrderItemToQuoteItem</method>
                     </giftmessage>
-                 </observers>
+                </observers>
             </sales_convert_order_item_to_quote_item>
         </events>
         <layout>

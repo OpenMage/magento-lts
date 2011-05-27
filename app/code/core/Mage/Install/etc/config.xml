@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Install
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -35,14 +35,17 @@
         <models>
             <install>
                 <class>Mage_Install_Model</class>
-                <resourceModel>install_mysql4</resourceModel>
+                <resourceModel>install_resource</resourceModel>
             </install>
-            <install_mysql4>
-                <class>Mage_Install_Model_Mysql4</class>
-            </install_mysql4>
+            <install_resource>
+                <class>Mage_Install_Model_Resource</class>
+                <deprecatedNode>install_mysql4</deprecatedNode>
+            </install_resource>
         </models>
         <blocks>
-            <install><class>Mage_Install_Block</class></install>
+            <install>
+                <class>Mage_Install_Block</class>
+            </install>
         </blocks>
     </global>
     <frontend>
@@ -60,9 +63,21 @@
         </routers>
     </frontend>
     <install>
+        <databases>
+            <mysql4>
+                <type>pdo_mysql</type>
+                <initStatements>SET NAMES utf8</initStatements>
+                <min_version>4.1.20</min_version>
+                <extensions>
+                    <pdo_mysql/>
+                </extensions>
+            </mysql4>
+        </databases>
         <layout>
             <updates>
-                <main><file>main.xml</file></main>
+                <main>
+                    <file>main.xml</file>
+                </main>
             </updates>
         </layout>
         <events>

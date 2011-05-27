@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,9 +28,18 @@
 /**
  * Wishlist model
  *
- * @category   Mage
- * @package    Mage_Wishlist
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @method Mage_Wishlist_Model_Resource_Wishlist _getResource()
+ * @method Mage_Wishlist_Model_Resource_Wishlist getResource()
+ * @method int getShared()
+ * @method Mage_Wishlist_Model_Wishlist setShared(int $value)
+ * @method string getSharingCode()
+ * @method Mage_Wishlist_Model_Wishlist setSharingCode(string $value)
+ * @method string getUpdatedAt()
+ * @method Mage_Wishlist_Model_Wishlist setUpdatedAt(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Wishlist
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
 {
@@ -313,7 +322,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
                 continue;
             }
             $candidate->setWishlistStoreId($storeId);
-            $item = $this->_addCatalogProduct($candidate, $candidate->getQty(), $forciblySetQty);
+
+            $qty = $candidate->getQty() ? $candidate->getQty() : 1; // No null values as qty. Convert zero to 1.
+            $item = $this->_addCatalogProduct($candidate, $qty, $forciblySetQty);
             $items[] = $item;
 
             // Collect errors instead of throwing first one

@@ -21,40 +21,47 @@
  *
  * @category    Mage
  * @package     Mage_Weee
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Weee>
-            <version>0.13</version>
+            <version>1.6.0.0</version>
         </Mage_Weee>
     </modules>
     <global>
         <models>
             <weee>
                 <class>Mage_Weee_Model</class>
-                <resourceModel>weee_mysql4</resourceModel>
+                <resourceModel>weee_resource</resourceModel>
             </weee>
-            <weee_mysql4>
-                <class>Mage_Weee_Model_Mysql4</class>
+            <weee_resource>
+                <class>Mage_Weee_Model_Resource</class>
+                <deprecatedNode>weee_mysql4</deprecatedNode>
                 <entities>
-                    <tax><table>weee_tax</table></tax>
-                    <discount><table>weee_discount</table></discount>
+                    <tax>
+                        <table>weee_tax</table>
+                    </tax>
+                    <discount>
+                        <table>weee_discount</table>
+                    </discount>
                 </entities>
-            </weee_mysql4>
+            </weee_resource>
         </models>
         <resources>
             <weee_setup>
                 <setup>
                     <module>Mage_Weee</module>
-                    <class>Mage_Weee_Model_Mysql4_Setup</class>
+                    <class>Mage_Weee_Model_Resource_Setup</class>
                 </setup>
             </weee_setup>
         </resources>
         <blocks>
-            <weee><class>Mage_Weee_Block</class></weee>
+            <weee>
+                <class>Mage_Weee_Block</class>
+            </weee>
         </blocks>
         <events>
             <catalogindex_prepare_price_select>
@@ -130,7 +137,6 @@
                     <to_order_item>*</to_order_item>
                 </base_weee_tax_row_disposition>
             </sales_convert_quote_item>
-
             <sales_convert_order_item>
                 <weee_tax_applied>
                     <to_cm_item>*</to_cm_item>
@@ -170,7 +176,6 @@
                 </base_weee_tax_row_disposition>
             </sales_convert_order_item>
         </fieldsets>
-
         <sales>
             <quote>
                 <totals>
@@ -205,9 +210,19 @@
                     </weee>
                 </totals>
             </order_creditmemo>
+            <old_fields_map>
+                <order_item>
+                    <base_weee_tax_applied_row_amount>base_weee_tax_applied_row_amnt</base_weee_tax_applied_row_amount>
+                </order_item>
+                <invoice_item>
+                    <base_weee_tax_applied_row_amount>base_weee_tax_applied_row_amnt</base_weee_tax_applied_row_amount>
+                </invoice_item>
+                <creditmemo_item>
+                    <base_weee_tax_applied_row_amount>base_weee_tax_applied_row_amnt</base_weee_tax_applied_row_amount>
+                </creditmemo_item>
+            </old_fields_map>
         </sales>
     </global>
-
     <adminhtml>
         <events>
             <adminhtml_catalog_product_edit_prepare_form>
@@ -245,7 +260,6 @@
             </adminhtml_catalog_product_edit_element_types>
         </events>
     </adminhtml>
-
     <default>
         <sales>
             <totals_sort>
@@ -272,12 +286,13 @@
             </validator_data>
         </general>
     </default>
-
     <frontend>
         <layout>
-             <updates>
-                  <weee><file>weee.xml</file></weee>
-             </updates>
+            <updates>
+                <weee>
+                    <file>weee.xml</file>
+                </weee>
+            </updates>
         </layout>
     </frontend>
 </config>

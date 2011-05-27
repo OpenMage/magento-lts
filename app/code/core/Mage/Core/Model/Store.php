@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,9 +28,19 @@
 /**
  * Store model
  *
- * @author     Magento Core Team <core@magentocommerce.com>
- * @category   Mage
- * @package    Mage_Core
+ * @method Mage_Core_Model_Resource_Store _getResource()
+ * @method Mage_Core_Model_Resource_Store getResource()
+ * @method Mage_Core_Model_Store setCode(string $value)
+ * @method Mage_Core_Model_Store setWebsiteId(int $value)
+ * @method Mage_Core_Model_Store setGroupId(int $value)
+ * @method Mage_Core_Model_Store setName(string $value)
+ * @method int getSortOrder()
+ * @method Mage_Core_Model_Store setSortOrder(int $value)
+ * @method Mage_Core_Model_Store setIsActive(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Core
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 {
@@ -205,7 +215,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Retrieve store configuration data
      *
      * @param   string $path
-     * @param   string $scope
      * @return  string|null
      */
     public function getConfig($path)
@@ -216,7 +225,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
         $config = Mage::getConfig();
 
-        $fullPath = 'stores/'.$this->getCode().'/'.$path;
+        $fullPath = 'stores/' . $this->getCode() . '/' . $path;
         $data = $config->getNode($fullPath);
         if (!$data && !Mage::isInstalled()) {
             $data = $config->getNode('default/' . $path);
@@ -566,7 +575,10 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
     public function isCurrentlySecure()
     {
-        if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
+        $standardRule = !empty($_SERVER['HTTPS']) && 'off' != $_SERVER['HTTPS'];
+        $offloaderHeader = trim(Mage::getStoreConfig('web/secure/offloader_header'));
+
+        if ((!empty($offloaderHeader) && !empty($_SERVER[$offloaderHeader])) || $standardRule) {
             return true;
         }
 

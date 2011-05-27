@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +38,7 @@ $select = $installer->getConnection()->select()
     ))
     ->group('category_id')
     ->group('product_id')
-    ->having($installer->getConnection()->quoteInto('cnt > ?', 1));
+    ->having('cnt > 1');
 $rowSet = $installer->getConnection()->fetchAll($select);
 
 foreach ($rowSet as $row) {

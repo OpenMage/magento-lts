@@ -27,6 +27,25 @@
 /**
  * Class for SQL SELECT generation and results.
  *
+ * @method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract getAdapter()
+ * @property Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract $_adapter
+ * @method Varien_Db_Select from($name, $cols, $schema = null)
+ * @method Varien_Db_Select join($name, $cond, $cols, $schema = null)
+ * @method Varien_Db_Select joinInner($name, $cond, $cols, $schema = null)
+ * @method Varien_Db_Select joinLeft($name, $cond, $cols, $schema = null)
+ * @method Varien_Db_Select joinNatural($name, $cond, $cols, $schema = null)
+ * @method Varien_Db_Select joinFull($name, $cond, $cols, $schema = null)
+ * @method Varien_Db_Select joinRight($name, $cond, $cols, $schema = null)
+ * @method Varien_Db_Select joinCross($name, $cols, $schema = null)
+ * @method Varien_Db_Select orWhere($cond, $value = null, $type = null)
+ * @method Varien_Db_Select group($spec)
+ * @method Varien_Db_Select order($spec)
+ * @method Varien_Db_Select limitPage($page, $rowCount)
+ * @method Varien_Db_Select forUpdate($flag = true)
+ * @method Varien_Db_Select distinct($flag = true)
+ * @method Varien_Db_Select reset($part = null)
+ * @method Varien_Db_Select columns($cols, $correlationName = null)
+ *
  * @category    Varien
  * @package     Varien_Db
  * @author      Magento Core Team <core@magentocommerce.com>
@@ -35,22 +54,23 @@ class Varien_Db_Select extends Zend_Db_Select
 {
     const TYPE_CONDITION    = 'TYPE_CONDITION';
 
-    const STRAIGHT_JOIN_ON  = 'straight_join';
     const STRAIGHT_JOIN     = 'straightjoin';
+
     const SQL_STRAIGHT_JOIN = 'STRAIGHT_JOIN';
 
     /**
      * Class constructor
+     * Add straight join support
      *
      * @param Zend_Db_Adapter_Abstract $adapter
      */
     public function __construct(Zend_Db_Adapter_Abstract $adapter)
     {
-        parent::__construct($adapter);
-        if (!in_array(self::STRAIGHT_JOIN_ON, self::$_joinTypes)) {
-            self::$_joinTypes[] = self::STRAIGHT_JOIN_ON;
+        if (!isset(self::$_partsInit[self::STRAIGHT_JOIN])) {
             self::$_partsInit = array(self::STRAIGHT_JOIN => false) + self::$_partsInit;
         }
+
+        parent::__construct($adapter);
     }
 
     /**
@@ -83,7 +103,7 @@ class Varien_Db_Select extends Zend_Db_Select
      * @param string   $cond  The WHERE condition.
      * @param string   $value OPTIONAL A single value to quote into the condition.
      * @param constant $type  OPTIONAL The type of the given value
-     * @return Zend_Db_Select This Zend_Db_Select object.
+     * @return Varien_Db_Select This Zend_Db_Select object.
      */
     public function where($cond, $value = null, $type = null)
     {
@@ -120,8 +140,7 @@ class Varien_Db_Select extends Zend_Db_Select
                             || $this->_findTableInCond($tableProp['tableName'], $column)) {
                             $useJoin = true;
                         }
-                    }
-                    else {
+                    } else {
                         if ($correlationName == $tableId) {
                             $useJoin = true;
                         }
@@ -152,8 +171,7 @@ class Varien_Db_Select extends Zend_Db_Select
 
                 if (!$useJoin) {
                     unset($this->_parts[self::FROM][$tableId]);
-                }
-                else {
+                } else {
                     $this->_parts[self::FROM][$tableId]['useInCond'] = $joinUseInCond;
                     $this->_parts[self::FROM][$tableId]['joinInTables'] = $joinInTables;
                 }
@@ -165,6 +183,11 @@ class Varien_Db_Select extends Zend_Db_Select
         return $this;
     }
 
+    /**
+     * Validate LEFT joins, and remove it if not exists
+     *
+     * @return Varien_Db_Select
+     */
     protected function _resetJoinLeft()
     {
         foreach ($this->_parts[self::FROM] as $tableId => $tableProp) {
@@ -177,6 +200,7 @@ class Varien_Db_Select extends Zend_Db_Select
                 foreach ($tableProp['joinInTables'] as $table) {
                     if (isset($this->_parts[self::FROM][$table])) {
                         $used = true;
+                        break;
                     }
                 }
 
@@ -234,68 +258,60 @@ class Varien_Db_Select extends Zend_Db_Select
     }
 
     /**
+     * Populate the {@link $_parts} 'join' key
+     *
+     * Does the dirty work of populating the join key.
+     *
+     * The $name and $cols parameters follow the same logic
+     * as described in the from() method.
+     *
+     * @param  null|string $type Type of join; inner, left, and null are currently supported
+     * @param  array|string|Zend_Db_Expr $name Table name
+     * @param  string $cond Join on this condition
+     * @param  array|string $cols The columns to select from the joined table
+     * @param  string $schema The database name to specify, if any.
+     * @return Zend_Db_Select This Zend_Db_Select object
+     * @throws Zend_Db_Select_Exception
+     */
+    protected function _join($type, $name, $cond, $cols, $schema = null)
+    {
+        if ($type == self::INNER_JOIN && empty($cond)) {
+            $type = self::CROSS_JOIN;
+        }
+        return parent::_join($type, $name, $cond, $cols, $schema);
+    }
+
+    /**
+     * Sets a limit count and offset to the query.
+     *
+     * @param int $count OPTIONAL The number of rows to return.
+     * @param int $offset OPTIONAL Start returning after this many rows.
+     * @return Zend_Db_Select This Zend_Db_Select object.
+     */
+    public function limit($count = null, $offset = null)
+    {
+        if ($count === null) {
+            $this->reset(self::LIMIT_COUNT);
+        } else {
+            $this->_parts[self::LIMIT_COUNT]  = (int) $count;
+        }
+        if ($offset === null) {
+            $this->reset(self::LIMIT_OFFSET);
+        } else {
+            $this->_parts[self::LIMIT_OFFSET] = (int) $offset;
+        }
+        return $this;
+    }
+
+    /**
      * Cross Table Update From Current select
      *
      * @param string|array $table
      * @return string
      */
-    public function crossUpdateFromSelect($table) {
-        if (!is_array($table)) {
-            $table = array($table => $table);
-        }
-        $keys = array_keys($table);
-        $tableAlias = $keys[0];
-        $tableName  = $table[$keys[0]];
-
-        $sql = "UPDATE `{$tableName}`";
-        if ($tableAlias != $tableName) {
-            $sql .= " AS `{$tableAlias}`";
-        }
-
-        // render FROM
-        $from = array();
-
-        foreach ($this->_parts[self::FROM] as $correlationName => $table) {
-            $tmp = '';
-            $tmp .= ' ' . strtoupper($table['joinType']) . ' ';
-
-            $tmp .= $this->_getQuotedSchema($table['schema']);
-            $tmp .= $this->_getQuotedTable($table['tableName'], $correlationName);
-
-            // Add join conditions (if applicable)
-            if (! empty($table['joinCondition'])) {
-                $tmp .= ' ' . self::SQL_ON . ' ' . $table['joinCondition'];
-            }
-
-            // Add the table name and condition add to the list
-            $from[] = $tmp;
-        }
-
-        // Add the list of all joins
-        if (!empty($from)) {
-            $sql .= implode("\n", $from);
-        }
-
-        // render UPDATE SET
-        $columns = array();
-        foreach ($this->_parts[self::COLUMNS] as $columnEntry) {
-            list($correlationName, $column, $alias) = $columnEntry;
-            if (empty($alias)) {
-                $alias = $column;
-            }
-            if (!$column instanceof Zend_Db_Expr && !empty($correlationName)) {
-                $column = $this->_adapter->quoteIdentifier(array($correlationName, $column));
-            }
-            $columns[] = $this->_adapter->quoteIdentifier(array($tableAlias, $alias))
-                . " = {$column}";
-        }
-
-        $sql .= "\n SET " . implode(', ', $columns) . "\n";
-
-        // render WHERE
-        $sql = $this->_renderWhere($sql);
-
-        return $sql;
+    public function crossUpdateFromSelect($table)
+    {
+        return $this->getAdapter()->updateFromSelect($this, $table);
     }
 
     /**
@@ -308,34 +324,8 @@ class Varien_Db_Select extends Zend_Db_Select
      */
     public function insertFromSelect($tableName, $fields = array(), $onDuplicate = true)
     {
-        $sql = "INSERT INTO `{$tableName}` ";
-        $inserFields = array();
-        foreach ($fields as $key => $field) {
-            if (is_string($field)) {
-                $inserFields[] = $field;
-            } else {
-                $inserFields[] = $key;
-            }
-        }
-        if ($inserFields) {
-            $sql .= "(`".join('`,`', $inserFields) . "`) ";
-        }
-
-        $sql .= $this->assemble();
-
-        if ($onDuplicate && $fields) {
-            $sql .= " ON DUPLICATE KEY UPDATE";
-            $updateFields = array();
-            foreach ($fields as $key => $field) {
-                if (is_string($field)) {
-                    $field = $this->_adapter->quoteIdentifier($field);
-                    $updateFields[] = "{$field}=VALUES({$field})";
-                }
-            }
-            $sql .= " " . join(', ', $updateFields);
-        }
-
-        return $sql;
+        $mode = $onDuplicate ? Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE : false;
+        return $this->getAdapter()->insertFromSelect($this, $tableName, $fields, $mode);
     }
 
     /**
@@ -347,16 +337,8 @@ class Varien_Db_Select extends Zend_Db_Select
      */
     public function insertIgnoreFromSelect($tableName, $fields = array())
     {
-        $insertFields = '';
-        if ($fields) {
-            $quotedFields = array_map(array($this->getAdapter(), 'quoteIdentifier'), $fields);
-            $insertFields = '(' . join(',', $quotedFields) . ') ';
-        }
-        return sprintf('INSERT IGNORE %s %s%s',
-            $this->getAdapter()->quoteIdentifier($tableName),
-            $insertFields,
-            $this->assemble()
-        );
+        return $this->getAdapter()
+            ->insertFromSelect($this, $tableName, $fields, Varien_Db_Adapter_Interface::INSERT_IGNORE);
     }
 
     /**
@@ -365,19 +347,9 @@ class Varien_Db_Select extends Zend_Db_Select
      * @param string $table The table name or alias
      * @return string
      */
-    public function deleteFromSelect($table) {
-        $partsInit = self::$_partsInit;
-        unset($partsInit[self::DISTINCT]);
-        unset($partsInit[self::COLUMNS]);
-
-        $sql = 'DELETE ' . $table;
-        foreach (array_keys($partsInit) as $part) {
-            $method = '_render' . ucfirst($part);
-            if (method_exists($this, $method)) {
-                $sql = $this->$method($sql);
-            }
-        }
-        return $sql;
+    public function deleteFromSelect($table)
+    {
+        return $this->getAdapter()->deleteFromSelect($this, $table);
     }
 
     /**
@@ -386,35 +358,16 @@ class Varien_Db_Select extends Zend_Db_Select
      * @param string $part
      * @param mixed $value
      * @return Varien_Db_Select
+     * @throws Zend_Db_Select_Exception
      */
     public function setPart($part, $value)
     {
         $part = strtolower($part);
         if (!array_key_exists($part, $this->_parts)) {
-            throw new Zend_Db_Select_Exception("Invalid Select part '$part'");
+            throw new Zend_Db_Select_Exception("Invalid Select part '{$part}'");
         }
         $this->_parts[$part] = $value;
         return $this;
-    }
-
-    /**
-     * Add a STRAIGHT_JOIN table and colums to the query (MySQL only).
-     * STRAIGHT_JOIN is similar to JOIN, except that the left table
-     * is always read before the right table. This can be used for those
-     * (few) cases for which the join optimizer puts the tables in the wrong order
-     *
-     * The $name and $cols parameters follow the same logic
-     * as described in the from() method.
-     *
-     * @param  array|string|Zend_Db_Expr $name The table name.
-     * @param  string $cond Join on this condition.
-     * @param  array|string $cols The columns to select from the joined table.
-     * @param  string $schema The database name to specify, if any.
-     * @return Zend_Db_Select This Zend_Db_Select object.
-     */
-    public function joinStraight($name, $cond, $cols = self::SQL_WILDCARD, $schema = null)
-    {
-        return $this->_join(self::STRAIGHT_JOIN_ON, $name, $cond, $cols, $schema);
     }
 
     /**
@@ -437,10 +390,85 @@ class Varien_Db_Select extends Zend_Db_Select
      */
     protected function _renderStraightjoin($sql)
     {
-        if (!empty($this->_parts[self::STRAIGHT_JOIN])) {
+        if ($this->_adapter->supportStraightJoin() && !empty($this->_parts[self::STRAIGHT_JOIN])) {
             $sql .= ' ' . self::SQL_STRAIGHT_JOIN;
         }
 
         return $sql;
+    }
+
+    /**
+     * Adds to the internal table-to-column mapping array.
+     *
+     * @param  string $tbl The table/join the columns come from.
+     * @param  array|string $cols The list of columns; preferably as
+     * an array, but possibly as a string containing one column.
+     * @param  bool|string True if it should be prepended, a correlation name if it should be inserted
+     * @return void
+     */
+    protected function _tableCols($correlationName, $cols, $afterCorrelationName = null)
+    {
+        if (!is_array($cols)) {
+            $cols = array($cols);
+        }
+
+        foreach ($cols as $k => $v) {
+            if ($v instanceof Varien_Db_Select) {
+                $cols[$k] = new Zend_Db_Expr(sprintf('(%s)', $v->assemble()));
+            }
+        }
+
+        return parent::_tableCols($correlationName, $cols, $afterCorrelationName);
+    }
+
+    /**
+     * Adds the random order to query
+     *
+     * @param string $field     integer field name
+     * @return Varien_Db_Select
+     */
+    public function orderRand($field = null)
+    {
+        $this->_adapter->orderRand($this, $field);
+        return $this;
+    }
+
+    /**
+     * Render FOR UPDATE clause
+     *
+     * @param string   $sql SQL query
+     * @return string
+     */
+    protected function _renderForupdate($sql)
+    {
+        if ($this->_parts[self::FOR_UPDATE]) {
+            $sql = $this->_adapter->forUpdate($sql);
+        }
+
+        return $sql;
+    }
+    /**
+     * Add EXISTS clause
+     *
+     * @param  Varien_Db_Select $select
+     * @param  string           $joinCondition
+     * @param   bool            $isExists
+     * @return Varien_Db_Select
+     */
+    public function exists($select, $joinCondition, $isExists = true)
+    {
+        if ($isExists) {
+            $exists = 'EXISTS (%s)';
+        } else {
+            $exists = 'NOT EXISTS (%s)';
+        }
+        $select->reset(self::COLUMNS)
+            ->columns(array(new Zend_Db_Expr('1')))
+            ->where($joinCondition);
+
+        $exists = sprintf($exists, $select->assemble());
+
+        $this->where($exists);
+        return $this;
     }
 }

@@ -20,38 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Tax class collection
  *
- * @category   Mage
- * @package    Mage_Tax
+ * @category    Mage
+ * @package     Mage_Tax
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Tax_Model_Mysql4_Class_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Tax_Model_Mysql4_Class_Collection extends Mage_Tax_Model_Resource_Class_Collection
 {
-    public function _construct()
-    {
-        $this->_init('tax/class');
-    }
-
-    public function setClassTypeFilter($classTypeId)
-    {
-        $this->_select->where('main_table.class_type = ?', $classTypeId);
-        return $this;
-    }
-
-    public function toOptionArray()
-    {
-        return $this->_toOptionArray('class_id', 'class_name');
-    }
-
-    public function toOptionHash()
-    {
-        return $this->_toOptionHash('class_id', 'class_name');
-    }
 }

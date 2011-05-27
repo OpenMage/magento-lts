@@ -20,10 +20,24 @@
  *
  * @category    Mage
  * @package     Mage_Sendfriend
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * SendFriend Log
+ *
+ * @method Mage_Sendfriend_Model_Resource_Sendfriend _getResource()
+ * @method Mage_Sendfriend_Model_Resource_Sendfriend getResource()
+ * @method int getIp()
+ * @method Mage_Sendfriend_Model_Sendfriend setIp(int $value)
+ * @method int getTime()
+ * @method Mage_Sendfriend_Model_Sendfriend setTime(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Sendfriend
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
 {
     /**

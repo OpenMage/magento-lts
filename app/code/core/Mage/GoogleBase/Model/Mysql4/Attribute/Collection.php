@@ -20,75 +20,19 @@
  *
  * @category    Mage
  * @package     Mage_GoogleBase
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * GoogleBase Attributes collection
  *
+ * @deprecated after 1.5.1.0
  * @category   Mage
  * @package    Mage_GoogleBase
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_GoogleBase_Model_Mysql4_Attribute_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_GoogleBase_Model_Mysql4_Attribute_Collection extends Mage_GoogleBase_Model_Resource_Attribute_Collection
 {
-    /**
-     * Whether to join attribute_set_id to attributes or not
-     */
-    protected $_joinAttributeSetFlag = true;
-
-
-    protected function _construct()
-    {
-        $this->_init('googlebase/attribute');
-    }
-
-    public function addAttributeSetFilter($attributeSetId, $targetCountry)
-    {
-        if (!$this->getJoinAttributeSetFlag()) {
-            return $this;
-        }
-        $this->getSelect()->where('attribute_set_id = ?', $attributeSetId);
-        $this->getSelect()->where('target_country = ?', $targetCountry);
-        return $this;
-    }
-
-    public function addTypeFilter($type_id)
-    {
-        $this->getSelect()->where('main_table.type_id = ?', $type_id);
-        return $this;
-    }
-
-    public function load($printQuery = false, $logQuery = false)
-    {
-        if ($this->isLoaded()) {
-            return $this;
-        }
-        if ($this->getJoinAttributeSetFlag()) {
-            $this->_joinAttributeSet();
-        }
-        parent::load($printQuery, $logQuery);
-        return $this;
-    }
-
-    protected function _joinAttributeSet()
-    {
-        $this->getSelect()
-            ->joinInner(
-                array('types'=>$this->getTable('googlebase/types')),
-                'main_table.type_id=types.type_id',
-                array('attribute_set_id' => 'types.attribute_set_id', 'target_country' => 'types.target_country'));
-        return $this;
-    }
-
-    public function getJoinAttributeSetFlag()
-    {
-        return $this->_joinAttributeSetFlag;
-    }
-
-    public function setJoinAttributeSetFlag($flag)
-    {
-        return $this->_joinAttributeSetFlag = (bool)$flag;
-    }
 }

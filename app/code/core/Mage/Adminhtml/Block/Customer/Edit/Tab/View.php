@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,12 +57,16 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
         }
     }
 
+    /**
+     * Load Customer Log model
+     *
+     * @return Mage_Log_Model_Customer
+     */
     public function getCustomerLog()
     {
         if (!$this->_customerLog) {
             $this->_customerLog = Mage::getModel('log/customer')
-                ->load($this->getCustomer()->getId());
-
+                ->loadByCustomer($this->getCustomer()->getId());
         }
         return $this->_customerLog;
     }

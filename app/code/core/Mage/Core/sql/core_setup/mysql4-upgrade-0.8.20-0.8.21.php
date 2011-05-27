@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,4 +28,11 @@
 $installer = $this;
 $installer->getConnection()->addColumn($installer->getTable('core/resource'), 'data_version', 'varchar(50)');
 
-
+/*
+ * Update core_resource table to prevent running data upgrade install scripts,
+ * New 'data_version' column will contain value from 'version' column
+ */
+$installer->getConnection()->update(
+    $this->getTable('core/resource'),
+    array('data_version' => new Zend_Db_Expr('version'))
+);

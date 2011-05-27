@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -116,7 +116,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
             $quote = $this->getQuote();
             $store = $quote ? $quote->getStoreId() : null;
             $methods = $this->helper('payment')->getStoreMethods($store, $quote);
-            $total = $quote->getBaseSubtotal();
+            $total = $quote->getGrandTotal();
             foreach ($methods as $key => $method) {
                 if ($this->_canUseMethod($method)
                     && ($total != 0

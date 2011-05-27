@@ -198,7 +198,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Retrieve connection object
      *
-     * @return Zend_Db_Adapter_Abstract
+     * @return Varien_Db_Adapter_Interface
      */
     public function getConnection()
     {
@@ -409,136 +409,37 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Build SQL statement for condition
      *
-     * If $condition integer or string - exact value will be filtered
+     * If $condition integer or string - exact value will be filtered ('eq' condition)
      *
-     * If $condition is array is - one of the following structures is expected:
-     * - array("from"=>$fromValue, "to"=>$toValue)
-     * - array("like"=>$likeValue)
-     * - array("neq"=>$notEqualValue)
-     * - array("in"=>array($inValues))
-     * - array("nin"=>array($notInValues))
+     * If $condition is array - one of the following structures is expected:
+     * - array("from" => $fromValue, "to" => $toValue)
+     * - array("eq" => $equalValue)
+     * - array("neq" => $notEqualValue)
+     * - array("like" => $likeValue)
+     * - array("in" => array($inValues))
+     * - array("nin" => array($notInValues))
+     * - array("notnull" => $valueIsNotNull)
+     * - array("null" => $valueIsNull)
+     * - array("moreq" => $moreOrEqualValue)
+     * - array("gt" => $greaterValue)
+     * - array("lt" => $lessValue)
+     * - array("gteq" => $greaterOrEqualValue)
+     * - array("lteq" => $lessOrEqualValue)
+     * - array("finset" => $valueInSet)
+     * - array("regexp" => $regularExpression)
+     * - array("seq" => $stringValue)
+     * - array("sneq" => $stringValue)
      *
      * If non matched - sequential array is expected and OR conditions
      * will be built using above mentioned structure
      *
-     * @param string|array $fieldName
+     * @param string $fieldName
      * @param integer|string|array $condition
      * @return string
      */
-    protected function _getConditionSql($fieldName, $condition) {
-        if (is_array($fieldName)) {
-            $orSql = array();
-            foreach ($fieldName as $key=>$name) {
-                if (isset($condition[$key])) {
-                    $orSql[] = '('.$this->_getConditionSql($name, $condition[$key]).')';
-                } else {
-                    //if nothing passed as condition adding empty condition to avoid sql error
-                    $orSql[] = $this->getConnection()->quoteInto("$name = ?", '');
-                }
-            }
-            $sql = '('. join(' or ', $orSql) .')';
-            return $sql;
-        }
-
-        $sql = '';
-        $fieldName = $this->_getConditionFieldName($fieldName);
-        if (is_array($condition) && isset($condition['field_expr'])) {
-            $fieldName = str_replace(
-                '#?',
-                $this->getConnection()->quoteIdentifier($fieldName),
-                $condition['field_expr']
-            );
-        }
-        if (is_array($condition)) {
-            if (isset($condition['from']) || isset($condition['to'])) {
-                if (isset($condition['from'])) {
-                    if (empty($condition['date'])) {
-                        if ( empty($condition['datetime'])) {
-                            $from = $condition['from'];
-                        }
-                        else {
-                            $from = $this->getConnection()->convertDateTime($condition['from']);
-                        }
-                    }
-                    else {
-                        $from = $this->getConnection()->convertDate($condition['from']);
-                    }
-                    $sql.= $this->getConnection()->quoteInto("$fieldName >= ?", $from);
-                }
-                if (isset($condition['to'])) {
-                    $sql.= empty($sql) ? '' : ' and ';
-
-                    if (empty($condition['date'])) {
-                        if ( empty($condition['datetime'])) {
-                            $to = $condition['to'];
-                        }
-                        else {
-                            $to = $this->getConnection()->convertDateTime($condition['to']);
-                        }
-                    }
-                    else {
-                        $to = $this->getConnection()->convertDate($condition['to']);
-                    }
-
-                    $sql.= $this->getConnection()->quoteInto("$fieldName <= ?", $to);
-                }
-            }
-            elseif (isset($condition['eq'])) {
-                $sql = $this->getConnection()->quoteInto("$fieldName = ?", $condition['eq']);
-            }
-            elseif (isset($condition['neq'])) {
-                $sql = $this->getConnection()->quoteInto("$fieldName != ?", $condition['neq']);
-            }
-            elseif (isset($condition['like'])) {
-                $sql = $this->getConnection()->quoteInto("$fieldName like ?", $condition['like']);
-            }
-            elseif (isset($condition['nlike'])) {
-                $sql = $this->getConnection()->quoteInto("$fieldName not like ?", $condition['nlike']);
-            }
-            elseif (isset($condition['in'])) {
-                $sql = $this->getConnection()->quoteInto("$fieldName in (?)", $condition['in']);
-            }
-            elseif (isset($condition['nin'])) {
-                $sql = $this->getConnection()->quoteInto("$fieldName not in (?)", $condition['nin']);
-            }
-            elseif (isset($condition['is'])) {
-                $sql = $this->getConnection()->quoteInto("$fieldName is ?", $condition['is']);
-            }
-            elseif (isset($condition['notnull'])) {
-                $sql = "$fieldName is NOT NULL";
-            }
-            elseif (isset($condition['null'])) {
-                $sql = "$fieldName is NULL";
-            }
-            elseif (isset($condition['moreq'])) {
-                $sql = $this->getConnection()->quoteInto("$fieldName >= ?", $condition['moreq']);
-            }
-            elseif (isset($condition['gt'])) {
-                $sql = $this->getConnection()->quoteInto("$fieldName > ?", $condition['gt']);
-            }
-            elseif (isset($condition['lt'])) {
-                $sql = $this->getConnection()->quoteInto("$fieldName < ?", $condition['lt']);
-            }
-            elseif (isset($condition['gteq'])) {
-                $sql = $this->getConnection()->quoteInto("$fieldName >= ?", $condition['gteq']);
-            }
-            elseif (isset($condition['lteq'])) {
-                $sql = $this->getConnection()->quoteInto("$fieldName <= ?", $condition['lteq']);
-            }
-            elseif (isset($condition['finset'])) {
-                $sql = $this->getConnection()->quoteInto("find_in_set(?,$fieldName)", $condition['finset']);
-            }
-            else {
-                $orSql = array();
-                foreach ($condition as $orCondition) {
-                    $orSql[] = "(".$this->_getConditionSql($fieldName, $orCondition).")";
-                }
-                $sql = "(".join(" or ", $orSql).")";
-            }
-        } else {
-            $sql = $this->getConnection()->quoteInto("$fieldName = ?", (string)$condition);
-        }
-        return $sql;
+    protected function _getConditionSql($fieldName, $condition)
+    {
+        return $this->getConnection()->prepareSqlCondition($fieldName, $condition);
     }
 
     protected function _getConditionFieldName($fieldName)
@@ -617,7 +518,6 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
              ->_renderLimit();
 
         $this->printLogQuery($printQuery, $logQuery);
-
         $data = $this->getData();
         $this->resetData();
 
@@ -832,12 +732,12 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Get cache identifier base on select
      *
-     * @param Zend_Db_Select $select
+     * @param Zend_Db_Select|string $select
      * @return string
      */
     protected function _getSelectCacheId($select)
     {
-        $id = md5($select->__toString());
+        $id = md5((string)$select);
         if (isset($this->_cacheConf['prefix'])) {
             $id = $this->_cacheConf['prefix'].'_'.$id;
         }

@@ -21,46 +21,49 @@
  *
  * @category    Mage
  * @package     Mage_Index
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Index>
-            <version>1.4.0.2</version>
+            <version>1.6.0.0</version>
         </Mage_Index>
     </modules>
     <global>
         <models>
             <index>
                 <class>Mage_Index_Model</class>
-                <resourceModel>index_mysql4</resourceModel>
+                <resourceModel>index_resource</resourceModel>
             </index>
-            <index_mysql4>
-                <class>Mage_Index_Model_Mysql4</class>
+            <index_resource>
+                <class>Mage_Index_Model_Resource</class>
+                <deprecatedNode>index_mysql4</deprecatedNode>
                 <entities>
-                    <event><table>index_event</table></event>
-                    <process><table>index_process</table></process>
-                    <process_event><table>index_process_event</table></process_event>
+                    <event>
+                        <table>index_event</table>
+                    </event>
+                    <process>
+                        <table>index_process</table>
+                    </process>
+                    <process_event>
+                        <table>index_process_event</table>
+                    </process_event>
                 </entities>
-            </index_mysql4>
+            </index_resource>
         </models>
         <resources>
             <index_setup>
                 <setup>
                     <module>Mage_Index</module>
-                    <class>Mage_Index_Model_Mysql4_Setup</class>
+                    <class>Mage_Index_Model_Resource_Setup</class>
                 </setup>
             </index_setup>
         </resources>
         <index>
             <indexer>
-                <!-- // Indexer declaration example 
-                <catalog_index>
-                    <model>index/indexer_catalogindex</model>
-                </catalog_index>
-                 -->
+                
             </indexer>
         </index>
         <events>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,8 +33,15 @@
  */
 class Mage_Eav_Model_Entity_Attribute_Backend_Time_Updated extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+    /**
+     * Set modified date
+     *
+     * @param Varien_Object $object
+     * @return Mage_Eav_Model_Entity_Attribute_Backend_Time_Updated
+     */
     public function beforeSave($object)
     {
-        $object->setData($this->getAttribute()->getAttributeCode(), now());
+        $object->setData($this->getAttribute()->getAttributeCode(), Varien_Date::now());
+        return $this;
     }
 }

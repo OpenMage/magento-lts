@@ -20,15 +20,25 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tag model
  *
- * @category   Mage
- * @package    Mage_Tag
+ * @method Mage_Tag_Model_Resource_Tag _getResource()
+ * @method Mage_Tag_Model_Resource_Tag getResource()
+ * @method Mage_Tag_Model_Tag setName(string $value)
+ * @method int getStatus()
+ * @method Mage_Tag_Model_Tag setStatus(int $value)
+ * @method int getFirstCustomerId()
+ * @method Mage_Tag_Model_Tag setFirstCustomerId(int $value)
+ * @method int getFirstStoreId()
+ * @method Mage_Tag_Model_Tag setFirstStoreId(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Tag
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 

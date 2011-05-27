@@ -21,24 +21,25 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Bundle>
-            <version>0.1.14</version>
+            <version>1.6.0.0</version>
         </Mage_Bundle>
     </modules>
     <global>
         <models>
             <bundle>
                 <class>Mage_Bundle_Model</class>
-                <resourceModel>bundle_mysql4</resourceModel>
+                <resourceModel>bundle_resource</resourceModel>
             </bundle>
-            <bundle_mysql4>
-                <class>Mage_Bundle_Model_Mysql4</class>
+            <bundle_resource>
+                <class>Mage_Bundle_Model_Resource</class>
+                <deprecatedNode>bundle_mysql4</deprecatedNode>
                 <entities>
                     <option>
                         <table>catalog_product_bundle_option</table>
@@ -77,18 +78,20 @@
                         <table>catalog_product_index_price_bundle_opt_tmp</table>
                     </option_indexer_tmp>
                 </entities>
-            </bundle_mysql4>
+            </bundle_resource>
         </models>
         <resources>
             <bundle_setup>
                 <setup>
                     <module>Mage_Bundle</module>
-                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
                 </setup>
             </bundle_setup>
         </resources>
         <blocks>
-            <bundle><class>Mage_Bundle_Block</class></bundle>
+            <bundle>
+                <class>Mage_Bundle_Block</class>
+            </bundle>
         </blocks>
         <catalog>
             <product>
@@ -98,8 +101,8 @@
                         <model>bundle/product_type</model>
                         <composite>1</composite>
                         <allowed_selection_types>
-                            <simple />
-                            <virtual />
+                            <simple/>
+                            <virtual/>
                         </allowed_selection_types>
                         <price_model>bundle/product_price</price_model>
                         <index_data_retreiver>bundle/catalogIndex_data_bundle</index_data_retreiver>
@@ -132,11 +135,11 @@
             <quote>
                 <item>
                     <product_attributes>
-                        <price_view />
-                        <price_type />
-                        <shipment_type />
-                        <weight_type />
-                        <sku_type />
+                        <price_view/>
+                        <price_type/>
+                        <shipment_type/>
+                        <weight_type/>
+                        <sku_type/>
                     </product_attributes>
                 </item>
             </quote>
@@ -183,8 +186,8 @@
         <product>
             <collection>
                 <attributes>
-                    <price_view />
-                    <price_type />
+                    <price_view/>
+                    <price_type/>
                 </attributes>
             </collection>
         </product>
@@ -220,12 +223,12 @@
             <catalog_product_dataflow>
                 <is_in_stock>
                     <product_type>
-                        <bundle />
+                        <bundle/>
                     </product_type>
                 </is_in_stock>
                 <manage_stock>
                     <product_type>
-                        <bundle />
+                        <bundle/>
                     </product_type>
                 </manage_stock>
             </catalog_product_dataflow>

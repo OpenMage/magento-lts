@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_SalesRule>
-            <version>1.4.0.0.6</version>
+            <version>1.6.0.0</version>
         </Mage_SalesRule>
     </modules>
     <global>
@@ -40,39 +40,58 @@
         <models>
             <salesrule>
                 <class>Mage_SalesRule_Model</class>
-                <resourceModel>salesrule_mysql4</resourceModel>
+                <resourceModel>salesrule_resource</resourceModel>
             </salesrule>
-            <salesrule_mysql4>
-                <class>Mage_SalesRule_Model_Mysql4</class>
+            <salesrule_resource>
+                <class>Mage_SalesRule_Model_Resource</class>
+                <deprecatedNode>salesrule_mysql4</deprecatedNode>
                 <entities>
-                    <rule><table>salesrule</table></rule>
-                    <rule_customer><table>salesrule_customer</table></rule_customer>
-                    <label><table>salesrule_label</table></label>
-                    <coupon><table>salesrule_coupon</table></coupon>
-                    <coupon_usage><table>salesrule_coupon_usage</table></coupon_usage>
+                    <rule>
+                        <table>salesrule</table>
+                    </rule>
+                    <rule_customer>
+                        <table>salesrule_customer</table>
+                    </rule_customer>
+                    <label>
+                        <table>salesrule_label</table>
+                    </label>
+                    <coupon>
+                        <table>salesrule_coupon</table>
+                    </coupon>
+                    <coupon_usage>
+                        <table>salesrule_coupon_usage</table>
+                    </coupon_usage>
                     <coupon_aggregated>
                         <table>coupon_aggregated</table>
                     </coupon_aggregated>
                     <coupon_aggregated_order>
                         <table>coupon_aggregated_order</table>
                     </coupon_aggregated_order>
-                    <product_attribute><table>salesrule_product_attribute</table></product_attribute>
+                    <product_attribute>
+                        <table>salesrule_product_attribute</table>
+                    </product_attribute>
                 </entities>
-            </salesrule_mysql4>
+            </salesrule_resource>
         </models>
         <resources>
             <salesrule_setup>
                 <setup>
                     <module>Mage_SalesRule</module>
-                    <class>Mage_Sales_Model_Mysql4_Setup</class>
+                    <class>Mage_Sales_Model_Resource_Setup</class>
                 </setup>
             </salesrule_setup>
         </resources>
         <fieldsets>
             <sales_convert_quote_address>
-                <discount_description><to_order>*</to_order></discount_description>
-                <shipping_discount_amount><to_order>*</to_order></shipping_discount_amount>
-                <base_shipping_discount_amount><to_order>*</to_order></base_shipping_discount_amount>
+                <discount_description>
+                    <to_order>*</to_order>
+                </discount_description>
+                <shipping_discount_amount>
+                    <to_order>*</to_order>
+                </shipping_discount_amount>
+                <base_shipping_discount_amount>
+                    <to_order>*</to_order>
+                </base_shipping_discount_amount>
             </sales_convert_quote_address>
         </fieldsets>
         <events>
@@ -145,7 +164,6 @@
             </catalog_entity_attribute_save_after>
         </events>
     </adminhtml>
-
     <frontend>
         <translate>
             <modules>
@@ -157,12 +175,15 @@
             </modules>
         </translate>
     </frontend>
-
     <crontab>
         <jobs>
             <aggregate_sales_report_coupons_data>
-                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
-                <run><model>salesrule/observer::aggregateSalesReportCouponsData</model></run>
+                <schedule>
+                    <cron_expr>0 0 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>salesrule/observer::aggregateSalesReportCouponsData</model>
+                </run>
             </aggregate_sales_report_coupons_data>
         </jobs>
     </crontab>

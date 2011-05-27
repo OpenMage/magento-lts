@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -81,7 +81,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      */
     public function widthForStringUsingFontSize($string, $font, $fontSize)
     {
-        $drawingString = '"libiconv"' == ICONV_IMPL ? iconv('UTF-8', 'UTF-16BE//IGNORE', $string) : @iconv('UTF-8', 'UTF-16BE', $string);
+        $drawingString = '"libiconv"' == ICONV_IMPL ?
+            iconv('UTF-8', 'UTF-16BE//IGNORE', $string) :
+            @iconv('UTF-8', 'UTF-16BE', $string);
 
         $characters = array();
         for ($i = 0; $i < strlen($drawingString); $i++) {
@@ -131,7 +133,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     {
         $image = Mage::getStoreConfig('sales/identity/logo', $store);
         if ($image) {
-            $image = Mage::getStoreConfig('system/filesystem/media', $store) . '/sales/store/logo/' . $image;
+            $image = Mage::getBaseDir('media') . '/sales/store/logo/' . $image;
             if (is_file($image)) {
                 $image = Zend_Pdf_Image::imageWithPath($image);
                 $page->drawImage($image, 25, 800, 125, 825);
@@ -355,7 +357,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                     }
 
                     //$truncatedCarrierTitle = substr($carrierTitle, 0, 35) . (strlen($carrierTitle) > 35 ? '...' : '');
-                    $truncatedTitle = substr($track->getTitle(), 0, 45) . (strlen($track->getTitle()) > 45 ? '...' : '');
+                    $maxTitleLen = 45;
+                    $endOfTitle = strlen($track->getTitle()) > $maxTitleLen ? '...' : '';
+                    $truncatedTitle = substr($track->getTitle(), 0, $maxTitleLen) . $endOfTitle;
                     //$page->drawText($truncatedCarrierTitle, 285, $yShipments , 'UTF-8');
                     $page->drawText($truncatedTitle, 300, $yShipments , 'UTF-8');
                     $page->drawText($track->getNumber(), 395, $yShipments , 'UTF-8');

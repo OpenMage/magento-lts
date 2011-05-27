@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,9 +28,18 @@
 /**
  * Core Flag model
  *
- * @category   Mage
- * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @method Mage_Core_Model_Resource_Flag _getResource()
+ * @method Mage_Core_Model_Resource_Flag getResource()
+ * @method string getFlagCode()
+ * @method Mage_Core_Model_Flag setFlagCode(string $value)
+ * @method int getState()
+ * @method Mage_Core_Model_Flag setState(int $value)
+ * @method string getLastUpdate()
+ * @method Mage_Core_Model_Flag setLastUpdate(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Core
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
 {

@@ -20,12 +20,45 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable links purchased item model
+ *
+ * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item _getResource()
+ * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item getResource()
+ * @method int getPurchasedId()
+ * @method Mage_Downloadable_Model_Link_Purchased_Item setPurchasedId(int $value)
+ * @method int getOrderItemId()
+ * @method Mage_Downloadable_Model_Link_Purchased_Item setOrderItemId(int $value)
+ * @method int getProductId()
+ * @method Mage_Downloadable_Model_Link_Purchased_Item setProductId(int $value)
+ * @method string getLinkHash()
+ * @method Mage_Downloadable_Model_Link_Purchased_Item setLinkHash(string $value)
+ * @method int getNumberOfDownloadsBought()
+ * @method Mage_Downloadable_Model_Link_Purchased_Item setNumberOfDownloadsBought(int $value)
+ * @method int getNumberOfDownloadsUsed()
+ * @method Mage_Downloadable_Model_Link_Purchased_Item setNumberOfDownloadsUsed(int $value)
+ * @method int getLinkId()
+ * @method Mage_Downloadable_Model_Link_Purchased_Item setLinkId(int $value)
+ * @method string getLinkTitle()
+ * @method Mage_Downloadable_Model_Link_Purchased_Item setLinkTitle(string $value)
+ * @method int getIsShareable()
+ * @method Mage_Downloadable_Model_Link_Purchased_Item setIsShareable(int $value)
+ * @method string getLinkUrl()
+ * @method Mage_Downloadable_Model_Link_Purchased_Item setLinkUrl(string $value)
+ * @method string getLinkFile()
+ * @method Mage_Downloadable_Model_Link_Purchased_Item setLinkFile(string $value)
+ * @method string getLinkType()
+ * @method Mage_Downloadable_Model_Link_Purchased_Item setLinkType(string $value)
+ * @method string getStatus()
+ * @method Mage_Downloadable_Model_Link_Purchased_Item setStatus(string $value)
+ * @method string getCreatedAt()
+ * @method Mage_Downloadable_Model_Link_Purchased_Item setCreatedAt(string $value)
+ * @method string getUpdatedAt()
+ * @method Mage_Downloadable_Model_Link_Purchased_Item setUpdatedAt(string $value)
  *
  * @category    Mage
  * @package     Mage_Downloadable

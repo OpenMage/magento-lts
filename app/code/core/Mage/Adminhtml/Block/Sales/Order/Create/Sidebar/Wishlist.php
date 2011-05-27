@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,8 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
+class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist
+    extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
 {
     /**
      * Storage action on selected item
@@ -81,7 +82,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
         foreach ($items as $item) {
             $product = $item->getProduct();
             $item->setName($product->getName());
-            $item->setPrice($product->getPrice());
+            $item->setPrice($product->getFinalPrice(1));
             $item->setTypeId($product->getTypeId());
         }
         return $items;

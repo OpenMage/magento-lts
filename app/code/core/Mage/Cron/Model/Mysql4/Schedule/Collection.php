@@ -20,21 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Cron
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Schedules Collection
  *
- * @category   Mage
- * @package    Mage_Cron
+ * @category    Mage
+ * @package     Mage_Cron
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Cron_Model_Mysql4_Schedule_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Cron_Model_Mysql4_Schedule_Collection extends Mage_Cron_Model_Resource_Schedule_Collection
 {
-    public function _construct()
-    {
-        $this->_init('cron/schedule');
-    }
 }

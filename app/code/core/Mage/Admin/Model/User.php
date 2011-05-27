@@ -20,12 +20,39 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Admin user model
+ *
+ * @method Mage_Admin_Model_Resource_User _getResource()
+ * @method Mage_Admin_Model_Resource_User getResource()
+ * @method string getFirstname()
+ * @method Mage_Admin_Model_User setFirstname(string $value)
+ * @method string getLastname()
+ * @method Mage_Admin_Model_User setLastname(string $value)
+ * @method string getEmail()
+ * @method Mage_Admin_Model_User setEmail(string $value)
+ * @method string getUsername()
+ * @method Mage_Admin_Model_User setUsername(string $value)
+ * @method string getPassword()
+ * @method Mage_Admin_Model_User setPassword(string $value)
+ * @method string getCreated()
+ * @method Mage_Admin_Model_User setCreated(string $value)
+ * @method string getModified()
+ * @method Mage_Admin_Model_User setModified(string $value)
+ * @method string getLogdate()
+ * @method Mage_Admin_Model_User setLogdate(string $value)
+ * @method int getLognum()
+ * @method Mage_Admin_Model_User setLognum(int $value)
+ * @method int getReloadAclFlag()
+ * @method Mage_Admin_Model_User setReloadAclFlag(int $value)
+ * @method int getIsActive()
+ * @method Mage_Admin_Model_User setIsActive(int $value)
+ * @method string getExtra()
+ * @method Mage_Admin_Model_User setExtra(string $value)
  *
  * @category    Mage
  * @package     Mage_Admin
@@ -194,7 +221,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         return $this;
     }
 
-    public function getName($separator=' ')
+    public function getName($separator = ' ')
     {
         return $this->getFirstname() . $separator . $this->getLastname();
     }
@@ -229,7 +256,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 
         try {
             $this->loadByUsername($username);
-            $sensitive = ($config) ? $username==$this->getUsername() : true;
+            $sensitive = ($config) ? $username == $this->getUsername() : true;
 
             if ($sensitive && $this->getId() && Mage::helper('core')->validateHash($password, $this->getPassword())) {
                 if ($this->getIsActive() != '1') {
@@ -306,18 +333,18 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * @param integer $level
      * @return string
      */
-    public function findFirstAvailableMenu($parent=null, $path='', $level=0)
+    public function findFirstAvailableMenu($parent = null, $path = '', $level = 0)
     {
         if ($parent == null) {
             $parent = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
         }
-        foreach ($parent->children() as $childName=>$child) {
+        foreach ($parent->children() as $childName => $child) {
             $aclResource = 'admin/' . $path . $childName;
             if (Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
                 if (!$child->children) {
                     return (string)$child->action;
                 } else if ($child->children) {
-                    $action = $this->findFirstAvailableMenu($child->children, $path . $childName . '/', $level+1);
+                    $action = $this->findFirstAvailableMenu($child->children, $path . $childName . '/', $level + 1);
                     return $action ? $action : (string)$child->action;
                 }
             }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
@@ -74,8 +74,8 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form extends Mage_XmlConnect
             ));
         }
 
-        $fieldset->addField('app_code', 'select', array(
-            'name'      => 'app_code',
+        $fieldset->addField('application_id', 'select', array(
+            'name'      => 'application_id',
             'label'     => $this->__('Application'),
             'title'     => $this->__('Application'),
             'disabled'  => $model->getId() || !$this->_fieldsEnabled ? true : false,

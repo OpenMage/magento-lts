@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,9 +34,9 @@
 class Mage_GoogleCheckout_Block_Redirect extends Mage_Page_Block_Redirect
 {
     /**
-     *  Description goes here...
+     *  Get target URL
      *
-     *  @return	  string
+     *  @return string
      */
     public function getTargetURL ()
     {

@@ -21,20 +21,20 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Api>
-            <version>0.8.1</version>
+            <version>1.6.0.0</version>
         </Mage_Api>
     </modules>
     <global>
         <ignoredModules>
             <entities>
-                <api />
+                <api/>
             </entities>
         </ignoredModules>
         <cache>
@@ -49,10 +49,11 @@
         <models>
             <api>
                 <class>Mage_Api_Model</class>
-                <resourceModel>api_mysql4</resourceModel>
+                <resourceModel>api_resource</resourceModel>
             </api>
-            <api_mysql4>
-                <class>Mage_Api_Model_Mysql4</class>
+            <api_resource>
+                <class>Mage_Api_Model_Resource</class>
+                <deprecatedNode>api_mysql4</deprecatedNode>
                 <entities>
                     <assert>
                         <table>api_assert</table>
@@ -70,7 +71,7 @@
                         <table>api_session</table>
                     </session>
                 </entities>
-            </api_mysql4>
+            </api_resource>
         </models>
         <resources>
             <api_setup>

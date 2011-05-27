@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -745,7 +745,7 @@ EOT;
 
 EOT;
                         if ($rate['country'] === Mage_Usa_Model_Shipping_Carrier_Abstract::USA_COUNTRY_ID) {
-                            if (!empty($rate['postcode']) && $rate['postcode']!=='*') {
+                            if (!empty($rate['postcode']) && $rate['postcode'] !== '*') {
                                 $xml .= <<<EOT
                                             <us-zip-area>
                                                 <zip-pattern>{$rate['postcode']}</zip-pattern>
@@ -773,7 +773,7 @@ EOT;
                                             <postal-area>
                                                 <country-code>{$rate['country']}</country-code>
 EOT;
-                                if (!empty($rate['postcode']) && $rate['postcode']!=='*') {
+                                if (!empty($rate['postcode']) && $rate['postcode'] !== '*') {
                                     $xml .= <<<EOT
                                                 <postal-code-pattern>{$rate['postcode']}</postal-code-pattern>
 
@@ -937,7 +937,7 @@ EOT;
     }
 
     /**
-     * Retrieve yax rules
+     * Retrieve tax rules
      *
      * @return array
      */

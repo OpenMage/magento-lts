@@ -20,19 +20,41 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * User acl role
- * 
- * @category   Mage
- * @package    Mage_Admin
+ *
+ * @method Mage_Admin_Model_Resource_Acl_Role _getResource()
+ * @method Mage_Admin_Model_Resource_Acl_Role getResource()
+ * @method int getParentId()
+ * @method Mage_Admin_Model_Acl_Role setParentId(int $value)
+ * @method int getTreeLevel()
+ * @method Mage_Admin_Model_Acl_Role setTreeLevel(int $value)
+ * @method int getSortOrder()
+ * @method Mage_Admin_Model_Acl_Role setSortOrder(int $value)
+ * @method string getRoleType()
+ * @method Mage_Admin_Model_Acl_Role setRoleType(string $value)
+ * @method int getUserId()
+ * @method Mage_Admin_Model_Acl_Role setUserId(int $value)
+ * @method string getRoleName()
+ * @method Mage_Admin_Model_Acl_Role setRoleName(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Admin
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Admin_Model_Acl_Role extends Varien_Object 
+class Mage_Admin_Model_Acl_Role extends Mage_Core_Model_Abstract 
 {
-
+    /**
+     * Initialize resource model
+     * 
+     */
+    protected function _construct()
+    {
+        $this->_init('admin/acl_role');
+    }
 }

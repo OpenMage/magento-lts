@@ -20,15 +20,25 @@
  *
  * @category    Mage
  * @package     Mage_Review
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Review model
  *
- * @category   Mage
- * @package    Mage_Review
+ * @method Mage_Review_Model_Resource_Review _getResource()
+ * @method Mage_Review_Model_Resource_Review getResource()
+ * @method string getCreatedAt()
+ * @method Mage_Review_Model_Review setCreatedAt(string $value)
+ * @method Mage_Review_Model_Review setEntityId(int $value)
+ * @method int getEntityPkValue()
+ * @method Mage_Review_Model_Review setEntityPkValue(int $value)
+ * @method int getStatusId()
+ * @method Mage_Review_Model_Review setStatusId(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Review
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Review_Model_Review extends Mage_Core_Model_Abstract

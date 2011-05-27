@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,8 +28,20 @@
 /**
  * Config data model
  *
- * @category   Mage
- * @package    Mage_Core
+ * @method Mage_Core_Model_Resource_Config_Data _getResource()
+ * @method Mage_Core_Model_Resource_Config_Data getResource()
+ * @method string getScope()
+ * @method Mage_Core_Model_Config_Data setScope(string $value)
+ * @method int getScopeId()
+ * @method Mage_Core_Model_Config_Data setScopeId(int $value)
+ * @method string getPath()
+ * @method Mage_Core_Model_Config_Data setPath(string $value)
+ * @method string getValue()
+ * @method Mage_Core_Model_Config_Data setValue(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Core
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
 {

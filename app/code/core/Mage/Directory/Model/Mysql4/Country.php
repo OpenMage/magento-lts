@@ -20,33 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
-class Mage_Directory_Model_Mysql4_Country extends Mage_Core_Model_Mysql4_Abstract
+/**
+ * Enter description here ...
+ *
+ * @category    Mage
+ * @package     Mage_Directory
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_Directory_Model_Mysql4_Country extends Mage_Directory_Model_Resource_Country
 {
-    protected function _construct()
-    {
-        $this->_init('directory/country', 'country_id');
-    }
-
-    public function loadByCode(Mage_Directory_Model_Country $country, $code)
-    {
-        switch (strlen($code)) {
-            case 2:
-                $field = 'iso2_code';
-                break;
-
-            case 3:
-                $field = 'iso3_code';
-                break;
-
-            default:
-                Mage::throwException(Mage::helper('directory')->__('Invalid country code: %s', $code));
-        }
-        $this->load($country, $code, $field);
-        return $this;
-    }
 }

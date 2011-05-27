@@ -20,12 +20,33 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable links purchased model
+ *
+ * @method Mage_Downloadable_Model_Resource_Link_Purchased _getResource()
+ * @method Mage_Downloadable_Model_Resource_Link_Purchased getResource()
+ * @method int getOrderId()
+ * @method Mage_Downloadable_Model_Link_Purchased setOrderId(int $value)
+ * @method string getOrderIncrementId()
+ * @method Mage_Downloadable_Model_Link_Purchased setOrderIncrementId(string $value)
+ * @method int getOrderItemId()
+ * @method Mage_Downloadable_Model_Link_Purchased setOrderItemId(int $value)
+ * @method string getCreatedAt()
+ * @method Mage_Downloadable_Model_Link_Purchased setCreatedAt(string $value)
+ * @method string getUpdatedAt()
+ * @method Mage_Downloadable_Model_Link_Purchased setUpdatedAt(string $value)
+ * @method int getCustomerId()
+ * @method Mage_Downloadable_Model_Link_Purchased setCustomerId(int $value)
+ * @method string getProductName()
+ * @method Mage_Downloadable_Model_Link_Purchased setProductName(string $value)
+ * @method string getProductSku()
+ * @method Mage_Downloadable_Model_Link_Purchased setProductSku(string $value)
+ * @method string getLinkSectionTitle()
+ * @method Mage_Downloadable_Model_Link_Purchased setLinkSectionTitle(string $value)
  *
  * @category    Mage
  * @package     Mage_Downloadable

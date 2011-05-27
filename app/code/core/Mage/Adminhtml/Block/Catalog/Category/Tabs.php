@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -104,8 +104,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
         }
 
         $attributeSetId     = $this->getCategory()->getDefaultAttributeSetId();
+        /** @var $groupCollection Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection */
         $groupCollection    = Mage::getResourceModel('eav/entity_attribute_group_collection')
             ->setAttributeSetFilter($attributeSetId)
+            ->setSortOrder()
             ->load();
         $defaultGroupId = 0;
         foreach ($groupCollection as $group) {
@@ -142,12 +144,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
                 'active'    => $active
             ));
         }
-
-//        $this->addTab('general', array(
-//            'label'     => Mage::helper('catalog')->__('General Information'),
-//            'content'   => $this->getLayout()->createBlock('adminhtml/catalog_category_tab_general')->toHtml(),
-//            'active'    => true
-//        ));
 
         $this->addTab('products', array(
             'label'     => Mage::helper('catalog')->__('Category Products'),

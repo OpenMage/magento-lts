@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Review
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -54,6 +54,24 @@
                 </reviews_ratings>
             </children>
          </catalog>
+        <report>
+            <children>
+                <review translate="title" module="reports">
+                    <title>Reviews</title>
+                    <sort_order>55</sort_order>
+                    <children>
+                        <customer translate="title" module="review">
+                            <title>Customers Reviews</title>
+                            <action>adminhtml/report_review/customer</action>
+                        </customer>
+                        <product translate="title" module="review">
+                            <title>Products Reviews</title>
+                            <action>adminhtml/report_review/product</action>
+                        </product>
+                    </children>
+                </review>
+            </children>
+        </report>
     </menu>
     <acl>
         <resources>

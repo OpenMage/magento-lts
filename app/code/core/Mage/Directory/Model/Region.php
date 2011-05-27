@@ -20,15 +20,24 @@
  *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Region
  *
- * @category   Mage
- * @package    Mage_Directory
+ * @method Mage_Directory_Model_Resource_Region _getResource()
+ * @method Mage_Directory_Model_Resource_Region getResource()
+ * @method string getCountryId()
+ * @method Mage_Directory_Model_Region setCountryId(string $value)
+ * @method string getCode()
+ * @method Mage_Directory_Model_Region setCode(string $value)
+ * @method string getDefaultName()
+ * @method Mage_Directory_Model_Region setDefaultName(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Directory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Directory_Model_Region extends Mage_Core_Model_Abstract

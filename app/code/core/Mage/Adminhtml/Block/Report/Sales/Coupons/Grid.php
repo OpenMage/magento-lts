@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,9 +44,11 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
 
     public function getResourceCollectionName()
     {
-        return ($this->getFilterData()->getData('report_type') == 'updated_at_order')
-            ? 'salesrule/report_updatedat_collection'
-            : 'salesrule/report_collection';
+        if (($this->getFilterData()->getData('report_type') == 'updated_at_order')) {
+            return 'salesrule/report_updatedat_collection';
+        } else {
+            return 'salesrule/report_collection';
+        }
     }
 
     protected function _prepareColumns()

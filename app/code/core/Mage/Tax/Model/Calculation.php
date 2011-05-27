@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,24 +31,24 @@
  */
 class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
 {
-    const CALC_TAX_BEFORE_DISCOUNT_ON_EXCL  = '0_0';
-    const CALC_TAX_BEFORE_DISCOUNT_ON_INCL  = '0_1';
-    const CALC_TAX_AFTER_DISCOUNT_ON_EXCL   = '1_0';
-    const CALC_TAX_AFTER_DISCOUNT_ON_INCL   = '1_1';
+    const CALC_TAX_BEFORE_DISCOUNT_ON_EXCL      = '0_0';
+    const CALC_TAX_BEFORE_DISCOUNT_ON_INCL      = '0_1';
+    const CALC_TAX_AFTER_DISCOUNT_ON_EXCL       = '1_0';
+    const CALC_TAX_AFTER_DISCOUNT_ON_INCL       = '1_1';
 
-    const CALC_UNIT_BASE    = 'UNIT_BASE_CALCULATION';
-    const CALC_ROW_BASE     = 'ROW_BASE_CALCULATION';
-    const CALC_TOTAL_BASE   = 'TOTAL_BASE_CALCULATION';
+    const CALC_UNIT_BASE                        = 'UNIT_BASE_CALCULATION';
+    const CALC_ROW_BASE                         = 'ROW_BASE_CALCULATION';
+    const CALC_TOTAL_BASE                       = 'TOTAL_BASE_CALCULATION';
 
-    protected $_rates   = array();
-    protected $_ctc     = array();
-    protected $_ptc     = array();
+    protected $_rates                           = array();
+    protected $_ctc                             = array();
+    protected $_ptc                             = array();
 
-    protected $_rateCache = array();
-    protected $_rateCalculationProcess = array();
+    protected $_rateCache                       = array();
+    protected $_rateCalculationProcess          = array();
 
-    protected $_customer = null;
-    protected $_defaultCustomerTaxClass = null;
+    protected $_customer                        = null;
+    protected $_defaultCustomerTaxClass         = null;
 
     protected function _construct()
     {
@@ -67,7 +67,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         return $this;
     }
 
-    public function getDefaultCustomerTaxClass($store=null)
+    public function getDefaultCustomerTaxClass($store = null)
     {
         if ($this->_defaultCustomerTaxClass === null) {
             $defaultCustomerGroup = Mage::getStoreConfig(Mage_Customer_Model_Group::XML_PATH_DEFAULT_ID, $store);
@@ -401,11 +401,11 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
 
     public function getRatesForAllProductTaxClasses($request)
     {
-        return $this->_getRates($request, 'product_class_id', 'PRODUCT');
+        return $this->_getRates($request, 'product_class_id', Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT);
     }
     public function getRatesForAllCustomerTaxClasses($request)
     {
-        return $this->_getRates($request, 'customer_class_id', 'CUSTOMER');
+        return $this->_getRates($request, 'customer_class_id', Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER);
     }
 
     /**
@@ -459,9 +459,9 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
 
         if ($round) {
             return $this->round($amount);
-        } else {
-            return $amount;
         }
+
+        return $amount;
     }
 
     /**

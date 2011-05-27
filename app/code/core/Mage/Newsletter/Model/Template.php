@@ -20,15 +20,38 @@
  *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Template model
  *
- * @category   Mage
- * @package    Mage_Newsletter
+ * @method Mage_Newsletter_Model_Resource_Template _getResource()
+ * @method Mage_Newsletter_Model_Resource_Template getResource()
+ * @method string getTemplateCode()
+ * @method Mage_Newsletter_Model_Template setTemplateCode(string $value)
+ * @method Mage_Newsletter_Model_Template setTemplateText(string $value)
+ * @method Mage_Newsletter_Model_Template setTemplateTextPreprocessed(string $value)
+ * @method string getTemplateStyles()
+ * @method Mage_Newsletter_Model_Template setTemplateStyles(string $value)
+ * @method int getTemplateType()
+ * @method Mage_Newsletter_Model_Template setTemplateType(int $value)
+ * @method string getTemplateSubject()
+ * @method Mage_Newsletter_Model_Template setTemplateSubject(string $value)
+ * @method string getTemplateSenderName()
+ * @method Mage_Newsletter_Model_Template setTemplateSenderName(string $value)
+ * @method string getTemplateSenderEmail()
+ * @method Mage_Newsletter_Model_Template setTemplateSenderEmail(string $value)
+ * @method int getTemplateActual()
+ * @method Mage_Newsletter_Model_Template setTemplateActual(int $value)
+ * @method string getAddedAt()
+ * @method Mage_Newsletter_Model_Template setAddedAt(string $value)
+ * @method string getModifiedAt()
+ * @method Mage_Newsletter_Model_Template setModifiedAt(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Newsletter
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template

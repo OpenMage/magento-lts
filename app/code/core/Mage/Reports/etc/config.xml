@@ -21,24 +21,25 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Reports>
-            <version>0.7.10</version>
+            <version>1.6.0.0</version>
         </Mage_Reports>
     </modules>
     <global>
         <models>
             <reports>
                 <class>Mage_Reports_Model</class>
-                <resourceModel>reports_mysql4</resourceModel>
+                <resourceModel>reports_resource</resourceModel>
             </reports>
-            <reports_mysql4>
-                <class>Mage_Reports_Model_Mysql4</class>
+            <reports_resource>
+                <class>Mage_Reports_Model_Resource</class>
+                <deprecatedNode>reports_mysql4</deprecatedNode>
                 <entities>
                     <event>
                         <table>report_event</table>
@@ -53,9 +54,8 @@
                         <table>report_viewed_product_index</table>
                     </viewed_product_index>
                 </entities>
-            </reports_mysql4>
+            </reports_resource>
         </models>
-
         <resources>
             <reports_setup>
                 <setup>
@@ -74,7 +74,6 @@
             </log_log_clean_after>
         </events>
     </global>
-
     <adminhtml>
         <translate>
             <modules>
@@ -186,7 +185,6 @@
             </wishlist_share>
         </events>
     </frontend>
-
     <default>
         <catalog>
             <recently_products>

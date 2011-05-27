@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,36 +32,7 @@
  * @package     Mage_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-interface Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Interface
+class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Interface
+    extends Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
 {
-    /**
-     * Reindex all stock status data
-     *
-     * @return Mage_CatalogIndex_Model_Mysql4_Indexer_Stock_Interface
-     */
-    public function reindexAll();
-
-    /**
-     * Reindex stock status data for defined ids
-     *
-     * @param int|array $entityIds
-     * @return Mage_CatalogIndex_Model_Mysql4_Indexer_Stock_Interface
-     */
-    public function reindexEntity($entityIds);
-
-    /**
-     * Set Product Type Id for indexer
-     *
-     * @param string $typeId
-     * @return Mage_CatalogIndex_Model_Mysql4_Indexer_Stock_Interface
-     */
-    public function setTypeId($typeId);
-
-    /**
-     * Retrieve Product Type Id for indexer
-     *
-     * @throws Mage_Core_Exception
-     * @return string
-     */
-    public function getTypeId();
 }

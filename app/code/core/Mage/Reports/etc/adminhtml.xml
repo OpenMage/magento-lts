@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -33,6 +33,7 @@
             <children>
                 <salesroot translate="title" module="reports">
                     <title>Sales</title>
+                    <sort_order>10</sort_order>
                     <children>
                         <sales translate="title" module="reports">
                             <title>Orders</title>
@@ -62,6 +63,7 @@
                 </salesroot>
                 <shopcart translate="title" module="reports">
                     <title>Shopping Cart</title>
+                    <sort_order>20</sort_order>
                     <children>
                         <product translate="title" module="reports">
                             <title>Products in carts</title>
@@ -79,6 +81,7 @@
                 </shopcart>
                 <products translate="title" module="reports">
                     <title>Products</title>
+                    <sort_order>30</sort_order>
                     <children>
                         <bestsellers translate="title" module="reports">
                             <title>Bestsellers</title>
@@ -104,6 +107,7 @@
                 </products>
                 <customers translate="title" module="reports">
                     <title>Customers</title>
+                    <sort_order>40</sort_order>
                     <children>
                         <accounts translate="title" module="reports">
                             <title>New Accounts</title>
@@ -119,60 +123,11 @@
                         </orders>
                     </children>
                 </customers>
-                <!--wishlist translate="title" module="reports">
-                    <title>Wishlist Report</title>
-                    <action>adminhtml/report/wishlist</action>
-                </wishlist>-->
-                <review translate="title" module="catalog">
-                    <title>Reviews</title>
-                    <children>
-                        <customer translate="title" module="catalog">
-                            <title>Customers Reviews</title>
-                            <action>adminhtml/report_review/customer</action>
-                        </customer>
-                        <product translate="title" module="catalog">
-                            <title>Products Reviews</title>
-                            <action>adminhtml/report_review/product</action>
-                        </product>
-                    </children>
-                </review>
-                <tags translate="title" module="tag">
-                    <title>Tags</title>
-                    <children>
-                        <customer translate="title" module="tag">
-                            <title>Customers</title>
-                            <action>adminhtml/report_tag/customer</action>
-                        </customer>
-                        <product translate="title" module="tag">
-                            <title>Products</title>
-                            <action>adminhtml/report_tag/product</action>
-                        </product>
-                        <!--<product_total>
-                            <title>Products (Total)</title>
-                            <action>adminhtml/report_tag/productAll</action>
-                        </product_total>-->
-                        <popular translate="title" module="tag">
-                            <title>Popular</title>
-                            <action>adminhtml/report_tag/popular</action>
-                        </popular>
-                    </children>
-                </tags>
                 <search translate="title" module="reports">
                     <title>Search Terms</title>
+                    <sort_order>60</sort_order>
                     <action>adminhtml/report/search</action>
                 </search>
-                <!--<customers translate="title" module="reports">
-                    <title>Best Customers</title>
-                    <action>adminhtml/report/customers</action>
-                </customers>
-                <orders translate="title" module="reports">
-                    <title>Recent Orders</title>
-                    <action>adminhtml/report/orders</action>
-                </orders>
-                <totals translate="title" module="reports">
-                    <title>Order Totals</title>
-                    <action>adminhtml/report/totals</action>
-                </totals>-->
                 <refresh_statistics translate="title" module="reports">
                     <sort_order>65535</sort_order>
                     <title>Refresh Statistics</title>

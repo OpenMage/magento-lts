@@ -20,36 +20,69 @@
  *
  * @category    Mage
  * @package     Mage_Log
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer log model
  *
- * @category   Mage
- * @package    Mage_Log
+ * @method Mage_Log_Model_Resource_Customer _getResource()
+ * @method Mage_Log_Model_Resource_Customer getResource()
+ * @method int getVisitorId()
+ * @method Mage_Log_Model_Customer setVisitorId(int $value)
+ * @method int getCustomerId()
+ * @method Mage_Log_Model_Customer setCustomerId(int $value)
+ * @method string getLoginAt()
+ * @method Mage_Log_Model_Customer setLoginAt(string $value)
+ * @method string getLogoutAt()
+ * @method Mage_Log_Model_Customer setLogoutAt(string $value)
+ * @method int getStoreId()
+ * @method Mage_Log_Model_Customer setStoreId(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Log
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
 {
-    public function __construct()
+    /**
+     * Define resource model
+     *
+     */
+    protected function _construct()
     {
-        parent::__construct();
-        $this->_setResourceModel('log/customer');
+        parent::_construct();
+        $this->_init('log/customer');
     }
 
-    public function load($customerId, $field=null)
+    /**
+     * Load last log by customer id
+     *
+     * @param Mage_Customer_Model_Customer|int $customer
+     * @return Mage_Log_Model_Customer
+     */
+    public function loadByCustomer($customer)
     {
-        $this->_getResource()->load($this, $customerId);
-        return $this;
+        if ($customer instanceof Mage_Customer_Model_Customer) {
+            $customer = $customer->getId();
+        }
+
+        return $this->load($customer, 'customer_id');
     }
 
+    /**
+     * Return last login at in Unix time format
+     *
+     * @return int
+     */
     public function getLoginAtTimestamp()
     {
-        if ($date = $this->getLoginAt()) {
-            return strtotime($date);
+        $loginAt = $this->getLoginAt();
+        if ($loginAt) {
+            return Varien_Date::toTimestamp($loginAt);
         }
+
         return null;
     }
 }

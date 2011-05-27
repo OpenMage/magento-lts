@@ -20,76 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Custom variabel collection
  *
- * @category   Mage
- * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_Core
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Core_Model_Mysql4_Variable_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Core_Model_Mysql4_Variable_Collection extends Mage_Core_Model_Resource_Variable_Collection
 {
-    protected $_storeId = 0;
-
-    /**
-     * Constructor
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_init('core/variable');
-    }
-
-    /**
-     * Setter
-     *
-     * @param integer $storeId
-     * @return Mage_Core_Model_Mysql4_Variable_Collection
-     */
-    public function setStoreId($storeId)
-    {
-        $this->_storeId = $storeId;
-        return $this;
-    }
-
-    /**
-     * Getter
-     *
-     * @return integer
-     */
-    public function getStoreId()
-    {
-        return $this->_storeId;
-    }
-
-    /**
-     * Add store values to result
-     *
-     * @return Mage_Core_Model_Mysql4_Variable_Collection
-     */
-    public function addValuesToResult()
-    {
-        $this->getSelect()
-            ->join(
-                array('value_table' => $this->getTable('core/variable_value')),
-                $this->getConnection()->quoteInto('value_table.variable_id = main_table.variable_id AND store_id = ?', $this->getStoreId()),
-                array())
-            ->columns(array('value' => 'value_table.value'));
-        return $this;
-    }
-
-    /**
-     * Retrieve option array
-     *
-     * @return array
-     */
-    public function toOptionArray()
-    {
-        return $this->_toOptionArray('code', 'name');
-    }
-
 }

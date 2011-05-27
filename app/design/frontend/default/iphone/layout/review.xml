@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -81,7 +81,15 @@ Product reviews page
                     <action method="disableGallery"/>
                 </block>
                 <block type="catalog/product_view" name="product.info.addto" as="addto" template="catalog/product/view/addto.phtml"/>
-                <block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="catalog/product/view/addtocart.phtml"/>
+                <block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="catalog/product/view/addtocart.phtml">
+                    <!-- workaround: a better place for this code is in paypal.xml -->
+                    <block type="page/html_wrapper" name="review.product.info.addtocart.paypal.wrapper" translate="label" module="paypal">
+                        <label>PayPal Express Checkout Shortcut Wrapper</label>
+                        <block type="paypal/express_shortcut" name="review.product.info.addtocart.paypal" template="paypal/express/shortcut.phtml">
+                            <action method="setIsInCatalogProduct"><value>1</value></action>
+                        </block>
+                    </block>
+                </block>
                 <block type="catalog/product_view" name="product.tierprices" as="tierprices" template="catalog/product/view/tierprices.phtml"/>
                 <block type="core/template" name="product.info.other" as="other" template="review/product/view/other.phtml"/>
                 <block type="page/html_pager" name="product_review_list.toolbar" />

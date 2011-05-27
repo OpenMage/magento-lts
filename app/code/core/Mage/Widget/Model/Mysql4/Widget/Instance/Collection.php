@@ -20,9 +20,10 @@
  *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Widget Instance Collection
@@ -31,36 +32,6 @@
  * @package     Mage_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Widget_Model_Mysql4_Widget_Instance_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Widget_Model_Mysql4_Widget_Instance_Collection extends Mage_Widget_Model_Resource_Widget_Instance_Collection
 {
-    /**
-     * Constructor
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_init('widget/widget_instance');
-    }
-
-    /**
-     * Filter by store ids
-     *
-     * @param array|integer $storeIds
-     * @param boolean $withDefaultStore if TRUE also filter by store id '0'
-     * @return Mage_Widget_Model_Mysql4_Widget_Instance_Collection
-     */
-    public function addStoreFilter($storeIds = array(), $withDefaultStore = true)
-    {
-        if (!is_array($storeIds)) {
-            $storeIds = array($storeIds);
-        }
-        if ($withDefaultStore && !in_array(0, $storeIds)) {
-            array_unshift($storeIds, 0);
-        }
-        $select = $this->getSelect();
-        foreach ($storeIds as $storeId) {
-            $select->orWhere('FIND_IN_SET(?, `store_ids`)', $storeId);
-        }
-        return $this;
-    }
 }

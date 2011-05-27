@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -77,14 +77,14 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      *
      * @var array
      */
-    protected $_attributeIdCache = array();
+    protected $_attributeIdCache            = array();
 
     /**
      * Attribute data table name
      *
      * @var string
      */
-    protected $_dataTable   = null;
+    protected $_dataTable                   = null;
 
     /**
      * Initialize resource model
@@ -263,13 +263,14 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * @param Mage_Eav_Model_Entity_Abstract $entity exclude this entity
      * @return string
      */
-    public function getAlias($entity=null)
+    public function getAlias($entity = null)
     {
         $alias = '';
-        if (is_null($entity) || ($entity->getType() !== $this->getEntity()->getType())) {
+        if (($entity === null) || ($entity->getType() !== $this->getEntity()->getType())) {
             $alias .= $this->getEntity()->getType() . '/';
         }
         $alias .= $this->getAttributeCode();
+
         return  $alias;
     }
 
@@ -284,11 +285,13 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
         return $this->setData('attribute_code', $name);
     }
 
+    /**
+     * Retreive entity type
+     *
+     * @return string
+     */
     public function getEntityType()
     {
-        /*if ($this->hasData('entity_type')) {
-            return $this->_getData('entity_type');
-        }*/
         return Mage::getSingleton('eav/config')->getEntityType($this->getEntityTypeId());
     }
 
@@ -317,6 +320,11 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
         return $this->_entity;
     }
 
+    /**
+     * Retreive entity type
+     *
+     * @return string
+     */
     public function getEntityIdField()
     {
         return $this->getEntity()->getValueEntityIdField();
@@ -335,10 +343,11 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             }
             $backend = Mage::getModel($this->getBackendModel());
             if (!$backend) {
-                throw Mage::exception('Mage_Eav', 'Invalid backend model specified: '.$this->getBackendModel());
+                throw Mage::exception('Mage_Eav', 'Invalid backend model specified: ' . $this->getBackendModel());
             }
             $this->_backend = $backend->setAttribute($this);
         }
+
         return $this->_backend;
     }
 
@@ -356,6 +365,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             $this->_frontend = Mage::getModel($this->getFrontendModel())
                 ->setAttribute($this);
         }
+
         return $this->_frontend;
     }
 
@@ -372,9 +382,9 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             }
             $source = Mage::getModel($this->getSourceModel());
             if (!$source) {
-                throw new Exception(sprintf('Source model "%s" not found for attribute "%s".',
-                    $this->getSourceModel(), $this->getAttributeCode()
-                ));
+                throw Mage::exception('Mage_Eav',
+                    Mage::helper('eav')->__('Source model "%s" not found for attribute "%s"',$this->getSourceModel(), $this->getAttributeCode())
+                );
             }
             $this->_source = $source->setAttribute($this);
         }
@@ -406,9 +416,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     {
         $attrType = $this->getBackend()->getType();
         $isEmpty = is_array($value)
-            || is_null($value)
-            || $value===false && $attrType!='int'
-            || $value==='' && ($attrType=='int' || $attrType=='decimal' || $attrType=='datetime');
+            || ($value === null)
+            || $value === false && $attrType != 'int'
+            || $value === '' && ($attrType == 'int' || $attrType == 'decimal' || $attrType == 'datetime');
+
         return $isEmpty;
     }
 
@@ -446,7 +457,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      */
     public function isInGroup($setId, $groupId)
     {
-        if ($this->isInSet($setId) && $this->getData('attribute_set_info/' . $setId . '/group_id') == $groupId) {
+        $dataPath = sprintf('attribute_set_info/%s/group_id', $setId);
+        if ($this->isInSet($setId) && $this->getData($dataPath) == $groupId) {
             return true;
         }
 
@@ -489,25 +501,45 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
         if ($this->_dataTable === null) {
             if ($this->isStatic()) {
                 $this->_dataTable = $this->getEntityType()->getValueTablePrefix();
-            } elseif ($backendTable = trim($this->_getData('backend_table'))) {
-                $this->_dataTable = $backendTable;
             } else {
-                $this->_dataTable = $this->getEntity()->getValueTablePrefix().'_'.$this->getBackendType();
+                $backendTable = trim($this->_getData('backend_table'));
+                if (empty($backendTable)) {
+                    $entityTable  = array($this->getEntity()->getEntityTablePrefix(), $this->getBackendType());
+                    $backendTable = $this->getResource()->getTable($entityTable);
+                }
+                $this->_dataTable = $backendTable;
             }
         }
         return $this->_dataTable;
     }
 
     /**
-     * Retrieve Flat Column(s)
+     * Retrieve Flat Column(s) DDL definition
      *
      * @return array
      */
-    public function getFlatColumns() {
-        if ($this->usesSource() && $this->getBackendType() != 'static') {
-            return $this->getSource()->getFlatColums();
+    public function getFlatColumns()
+    {
+        // If source model exists - get definition from it
+        if ($this->usesSource() && $this->getBackendType() != self::TYPE_STATIC) {
+            $columns = $this->getSource()->getFlatColums();
+            /**
+             * In MMDB flat columns are returned in DDL format. But non-updated extensions may still return them in
+             * older not-so-strict format. We detect such case and reformat result.
+             */
+            if ($columns) {
+                $testColumn = current($columns);
+                if (array_key_exists('is_null', $testColumn)) {
+                    foreach ($columns as $key => $column) {
+                        $columns[$key] = $this->_convertOldColumn2New($column);
+                    }
+                }
+                return $columns;
+            }
         }
 
+        // Generate column definition by common rules
+        $helper  = Mage::getResourceHelper('eav');
         $columns = array();
         switch ($this->getBackendType()) {
             case 'static':
@@ -517,61 +549,87 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     break;
                 }
                 $prop = $describe[$this->getAttributeCode()];
+                $type = $prop['DATA_TYPE'];
+                $size = ($prop['LENGTH'] ? $prop['LENGTH'] : null);
+
                 $columns[$this->getAttributeCode()] = array(
-                    'type'      => $prop['DATA_TYPE'] . ($prop['LENGTH'] ? "({$prop['LENGTH']})" : ""),
+                    'type'      => $helper->getDdlTypeByColumnType($type),
+                    'length'    => $size,
                     'unsigned'  => $prop['UNSIGNED'] ? true: false,
-                    'is_null'   => $prop['NULLABLE'],
+                    'nullable'   => $prop['NULLABLE'],
                     'default'   => $prop['DEFAULT'],
                     'extra'     => null
                 );
                 break;
             case 'datetime':
                 $columns[$this->getAttributeCode()] = array(
-                    'type'      => 'datetime',
+                    'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                     'unsigned'  => false,
-                    'is_null'   => true,
+                    'nullable'  => true,
                     'default'   => null,
                     'extra'     => null
                 );
                 break;
             case 'decimal':
                 $columns[$this->getAttributeCode()] = array(
-                    'type'      => 'decimal(12,4)',
+                    'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+                    'length'    => '12,4',
                     'unsigned'  => false,
-                    'is_null'   => true,
+                    'nullable'  => true,
                     'default'   => null,
                     'extra'     => null
                 );
                 break;
             case 'int':
                 $columns[$this->getAttributeCode()] = array(
-                    'type'      => 'int',
+                    'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                     'unsigned'  => false,
-                    'is_null'   => true,
+                    'nullable'  => true,
                     'default'   => null,
                     'extra'     => null
                 );
                 break;
             case 'text':
                 $columns[$this->getAttributeCode()] = array(
-                    'type'      => 'text',
+                    'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                     'unsigned'  => false,
-                    'is_null'   => true,
+                    'nullable'  => true,
                     'default'   => null,
-                    'extra'     => null
+                    'extra'     => null,
+                    'length'    => Varien_Db_Ddl_Table::MAX_TEXT_SIZE
                 );
                 break;
             case 'varchar':
                 $columns[$this->getAttributeCode()] = array(
-                    'type'      => 'varchar(255)',
+                    'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
+                    'length'    => '255',
                     'unsigned'  => false,
-                    'is_null'   => true,
+                    'nullable'  => true,
                     'default'   => null,
                     'extra'     => null
                 );
                 break;
         }
+
         return $columns;
+    }
+
+    /**
+     * Convert older format of flat columns to new MMDB format that uses DDL types and definitions.
+     *
+     * @param array $column
+     * @return array
+     */
+    protected function _convertOldColumn2New($column)
+    {
+        $result = Mage::getResourceHelper('eav')
+            ->convertOldColumnType2Ddl($column['type']);
+        $result['unsigned'] = $column['unsigned'];
+        $result['nullable'] = $column['is_null'];
+        $result['default'] = $column['default'];
+        $result['identity'] = stripos($column['extra'], 'auto_increment') !== false;
+
+        return $result;
     }
 
     /**
@@ -587,7 +645,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
         }
 
         if ($condition) {
-            if ($this->usesSource() && $this->getBackendType() != 'static') {
+            if ($this->usesSource() && $this->getBackendType() != self::TYPE_STATIC) {
                 return $this->getSource()->getFlatIndexes();
             }
             $indexes = array();
@@ -645,6 +703,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
 
             return $indexes;
         }
+
         return array();
     }
 
@@ -655,14 +714,14 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * @return Varien_Db_Select
      */
     public function getFlatUpdateSelect($store = null) {
-        if (is_null($store)) {
+        if ($store === null) {
             foreach (Mage::app()->getStores() as $store) {
                 $this->getFlatUpdateSelect($store->getId());
             }
             return $this;
         }
 
-        if ($this->getBackendType() == 'static') {
+        if ($this->getBackendType() == self::TYPE_STATIC) {
             return null;
         }
 

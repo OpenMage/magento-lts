@@ -20,37 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Poll
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
- * @category   Mage
- * @package    Mage_Poll
+ * Enter description here ...
+ *
+ * @category    Mage
+ * @package     Mage_Poll
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Poll_Model_Mysql4_Poll_Answer_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Poll_Model_Mysql4_Poll_Answer_Collection extends Mage_Poll_Model_Resource_Poll_Answer_Collection
 {
-    public function _construct()
-    {
-        $this->_init('poll/poll_answer');
-    }
-
-    public function addPollFilter($pollId)
-    {
-        $this->getSelect()->where("poll_id IN(?) ", $pollId);
-        return $this;
-    }
-
-    public function countPercent($pollObject)
-    {
-        if( !$pollObject ) {
-            return;
-        } else {
-            foreach( $this->getItems() as $answer ) {
-                $answer->countPercent($pollObject);
-            }
-        }
-        return $this;
-    }
 }

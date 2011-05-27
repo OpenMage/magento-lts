@@ -20,70 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Sitemap
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Sitemap cms page collection model
  *
- * @category   Mage
- * @package    Mage_Sitemap
+ * @category    Mage
+ * @package     Mage_Sitemap
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sitemap_Model_Mysql4_Cms_Page extends Mage_Core_Model_Mysql4_Abstract
+class Mage_Sitemap_Model_Mysql4_Cms_Page extends Mage_Sitemap_Model_Resource_Cms_Page
 {
-    /**
-     * Init resource model (catalog/category)
-     */
-    protected function _construct()
-    {
-        $this->_init('cms/page', 'page_id');
-    }
-
-    /**
-     * Retrieve cms page collection array
-     *
-     * @return array
-     */
-    public function getCollection($storeId)
-    {
-        $pages = array();
-
-        $select = $this->_getWriteAdapter()->select()
-            ->from(array('main_table' => $this->getMainTable()), array($this->getIdFieldName(), 'identifier AS url'))
-            ->join(
-                array('store_table' => $this->getTable('cms/page_store')),
-                'main_table.page_id=store_table.page_id',
-                array()
-            )
-            ->where('main_table.is_active=1')
-            ->where('store_table.store_id IN(?)', array(0, $storeId));
-        $query = $this->_getWriteAdapter()->query($select);
-        while ($row = $query->fetch()) {
-            if ($row['url'] == Mage_Cms_Model_Page::NOROUTE_PAGE_ID) {
-                continue;
-            }
-            $page = $this->_prepareObject($row);
-            $pages[$page->getId()] = $page;
-        }
-
-        return $pages;
-    }
-
-    /**
-     * Prepare page object
-     *
-     * @param array $data
-     * @return Varien_Object
-     */
-    protected function _prepareObject(array $data)
-    {
-        $object = new Varien_Object();
-        $object->setId($data[$this->getIdFieldName()]);
-        $object->setUrl($data['url']);
-
-        return $object;
-    }
-
 }

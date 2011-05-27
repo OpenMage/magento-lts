@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -82,17 +82,19 @@ class Mage_Adminhtml_Block_Poll_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'header'    => Mage::helper('poll')->__('Date Posted'),
             'align'     => 'left',
             'width'     => '120px',
-            'type'      => 'date',
+            'type'      => 'datetime',
             'index'     => 'date_posted',
+            'format'	=> Mage::app()->getLocale()->getDateFormat()
         ));
 
         $this->addColumn('date_closed', array(
             'header'    => Mage::helper('poll')->__('Date Closed'),
             'align'     => 'left',
             'width'     => '120px',
-            'type'      => 'date',
+            'type'      => 'datetime',
             'default'   => '--',
             'index'     => 'date_closed',
+            'format'	=> Mage::app()->getLocale()->getDateFormat()
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {

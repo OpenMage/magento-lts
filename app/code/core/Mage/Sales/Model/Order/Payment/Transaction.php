@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,6 +28,25 @@
  * Payment transaction model
  * Tracks transaction history, allows to build transactions hierarchy
  * By default transactions are saved as closed.
+ *
+ * @method Mage_Sales_Model_Resource_Order_Payment_Transaction _getResource()
+ * @method Mage_Sales_Model_Resource_Order_Payment_Transaction getResource()
+ * @method int getParentId()
+ * @method Mage_Sales_Model_Order_Payment_Transaction setParentId(int $value)
+ * @method Mage_Sales_Model_Order_Payment_Transaction setOrderId(int $value)
+ * @method int getPaymentId()
+ * @method Mage_Sales_Model_Order_Payment_Transaction setPaymentId(int $value)
+ * @method string getTxnId()
+ * @method string getParentTxnId()
+ * @method string getTxnType()
+ * @method int getIsClosed()
+ * @method Mage_Sales_Model_Order_Payment_Transaction setIsClosed(int $value)
+ * @method string getCreatedAt()
+ * @method Mage_Sales_Model_Order_Payment_Transaction setCreatedAt(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Sales
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstract
 {

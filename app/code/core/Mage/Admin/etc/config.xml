@@ -21,46 +21,54 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
-   <modules>
-      <Mage_Admin>
-         <version>0.7.2</version>
-      </Mage_Admin>
-   </modules>
-
-   <global>
-      <models>
-         <admin>
-            <class>Mage_Admin_Model</class>
-            <resourceModel>admin_mysql4</resourceModel>
-         </admin>
-         <admin_mysql4>
-            <class>Mage_Admin_Model_Mysql4</class>
-            <entities>
-               <user><table>admin_user</table></user>
-               <role><table>admin_role</table></role>
-               <rule><table>admin_rule</table></rule>
-               <assert><table>admin_assert</table></assert>
-            </entities>
-         </admin_mysql4>
-      </models>
-
-      <resources>
-         <admin_setup>
-            <setup>
-               <module>Mage_Admin</module>
-            </setup>
-         </admin_setup>
-      </resources>
+    <modules>
+        <Mage_Admin>
+            <version>1.6.0.0</version>
+        </Mage_Admin>
+    </modules>
+    <global>
+        <models>
+            <admin>
+                <class>Mage_Admin_Model</class>
+                <resourceModel>admin_resource</resourceModel>
+            </admin>
+            <admin_resource>
+                <class>Mage_Admin_Model_Resource</class>
+                <deprecatedNode>admin_mysql4</deprecatedNode>
+                <entities>
+                    <user>
+                        <table>admin_user</table>
+                    </user>
+                    <role>
+                        <table>admin_role</table>
+                    </role>
+                    <rule>
+                        <table>admin_rule</table>
+                    </rule>
+                    <assert>
+                        <table>admin_assert</table>
+                    </assert>
+                </entities>
+            </admin_resource>
+        </models>
+        <resources>
+            <admin_setup>
+                <setup>
+                    <module>Mage_Admin</module>
+                </setup>
+            </admin_setup>
+        </resources>
         <blocks>
-            <admin><class>Mage_Admin_Block</class></admin>
+            <admin>
+                <class>Mage_Admin_Block</class>
+            </admin>
         </blocks>
-   </global>
-
+    </global>
     <default>
         <admin>
             <emails>
@@ -69,7 +77,6 @@
             </emails>
         </admin>
     </default>
-
     <adminhtml>
         <layout>
             <updates>

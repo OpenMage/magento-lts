@@ -20,10 +20,32 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Enter description here ...
+ *
+ * @method Mage_Checkout_Model_Resource_Agreement _getResource()
+ * @method Mage_Checkout_Model_Resource_Agreement getResource()
+ * @method string getName()
+ * @method Mage_Checkout_Model_Agreement setName(string $value)
+ * @method string getContent()
+ * @method Mage_Checkout_Model_Agreement setContent(string $value)
+ * @method string getContentHeight()
+ * @method Mage_Checkout_Model_Agreement setContentHeight(string $value)
+ * @method string getCheckboxText()
+ * @method Mage_Checkout_Model_Agreement setCheckboxText(string $value)
+ * @method int getIsActive()
+ * @method Mage_Checkout_Model_Agreement setIsActive(int $value)
+ * @method int getIsHtml()
+ * @method Mage_Checkout_Model_Agreement setIsHtml(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Checkout
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Checkout_Model_Agreement extends Mage_Core_Model_Abstract
 {
     protected function _construct()

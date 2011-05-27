@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +40,7 @@ class Mage_GoogleCheckout_Block_Adminhtml_Shipping_Merchant
 
         $html .= '<ul id="merchant_allowed_methods_container">';
         if ($this->_getValue('method')) {
-            foreach ($this->_getValue('method') as $i=>$f) {
+            foreach ($this->_getValue('method') as $i => $f) {
                 if ($i) {
                     $html .= $this->_getRowTemplateHtml($i);
                 }
@@ -56,21 +56,28 @@ class Mage_GoogleCheckout_Block_Adminhtml_Shipping_Merchant
     protected function _getRowTemplateHtml($i=0)
     {
         $html = '<li>';
-        $html .= '<select name="'.$this->getElement()->getName().'[method][]" '.$this->_getDisabled().'>';
-        $html .= '<option value="">'.$this->__('* Select shipping method').'</option>';
+        $html .= '<select name="' . $this->getElement()->getName() . '[method][]" ' . $this->_getDisabled() . '>';
+        $html .= '<option value="">' . $this->__('* Select shipping method') . '</option>';
+
         foreach ($this->getShippingMethods() as $carrierCode=>$carrier) {
-            $html .= '<optgroup label="'.$carrier['title'].'" style="border-top:solid 1px black; margin-top:3px;">';
+            $html .= '<optgroup label="' . $carrier['title']
+                . '" style="border-top:solid 1px black; margin-top:3px;">';
+
             foreach ($carrier['methods'] as $methodCode=>$method) {
-                $code = $carrierCode.'/'.$methodCode;
-                $html .= '<option value="'.$code.'" '.$this->_getSelected('method/'.$i, $code).' style="background:white;">'.$method['title'].'</option>';
+                $code = $carrierCode . '/' . $methodCode;
+                $html .= '<option value="' . $code . '" '
+                    . $this->_getSelected('method/' . $i, $code)
+                    . ' style="background:white;">' . $method['title'] . '</option>';
             }
             $html .= '</optgroup>';
         }
         $html .= '</select>';
 
         $html .= '<div style="margin:5px 0 10px;">';
-        $html .= '<label>'.$this->__('Default price:').'</label> ';
-        $html .= '<input class="input-text" style="width:70px;" name="'.$this->getElement()->getName().'[price][]" value="'.$this->_getValue('price/'.$i).'" '.$this->_getDisabled().'/> ';
+        $html .= '<label>' . $this->__('Default price:') . '</label> ';
+        $html .= '<input class="input-text" style="width:70px;" name="'
+            . $this->getElement()->getName() . '[price][]" value="'
+            . $this->_getValue('price/' . $i) . '" ' . $this->_getDisabled() . '/> ';
 
         $html .= $this->_getRemoveRowButtonHtml();
         $html .= '</div>';
@@ -87,9 +94,14 @@ class Mage_GoogleCheckout_Block_Adminhtml_Shipping_Merchant
 
             $storeId = null;
             if (!is_null($website)) {
-                $storeId = Mage::getModel('core/website')->load($website, 'code')->getDefaultGroup()->getDefaultStoreId();
+                $storeId = Mage::getModel('core/website')
+                    ->load($website, 'code')
+                    ->getDefaultGroup()
+                    ->getDefaultStoreId();
             } elseif (!is_null($store)) {
-                $storeId = Mage::getModel('core/store')->load($store, 'code')->getId();
+                $storeId = Mage::getModel('core/store')
+                    ->load($store, 'code')
+                    ->getId();
             }
 
             $methods = array();
@@ -102,14 +114,14 @@ class Mage_GoogleCheckout_Block_Adminhtml_Shipping_Merchant
                 if (!$carrierMethods) {
                     continue;
                 }
-                $carrierTitle = Mage::getStoreConfig('carriers/'.$carrierCode.'/title', $storeId);
+                $carrierTitle = Mage::getStoreConfig('carriers/' . $carrierCode . '/title', $storeId);
                 $methods[$carrierCode] = array(
                     'title'   => $carrierTitle,
                     'methods' => array(),
                 );
                 foreach ($carrierMethods as $methodCode=>$methodTitle) {
                     $methods[$carrierCode]['methods'][$methodCode] = array(
-                        'title' => '['.$carrierCode.'] '.$methodTitle,
+                        'title' => '[' . $carrierCode . '] ' . $methodTitle,
                     );
                 }
             }
@@ -125,12 +137,12 @@ class Mage_GoogleCheckout_Block_Adminhtml_Shipping_Merchant
 
     protected function _getValue($key)
     {
-        return $this->getElement()->getData('value/'.$key);
+        return $this->getElement()->getData('value/' . $key);
     }
 
     protected function _getSelected($key, $value)
     {
-        return $this->getElement()->getData('value/'.$key)==$value ? 'selected="selected"' : '';
+        return $this->getElement()->getData('value/' . $key) == $value ? 'selected="selected"' : '';
     }
 
     protected function _getAddRowButtonHtml($container, $template, $title='Add')
@@ -138,25 +150,25 @@ class Mage_GoogleCheckout_Block_Adminhtml_Shipping_Merchant
         if (!isset($this->_addRowButtonHtml[$container])) {
             $this->_addRowButtonHtml[$container] = $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setType('button')
-                    ->setClass('add '.$this->_getDisabled())
+                    ->setClass('add ' . $this->_getDisabled())
                     ->setLabel($this->__($title))
                     //$this->__('Add')
-                    ->setOnClick("Element.insert($('".$container."'), {bottom: $('".$template."').innerHTML})")
+                    ->setOnClick("Element.insert($('" . $container . "'), {bottom: $('" . $template . "').innerHTML})")
                     ->setDisabled($this->_getDisabled())
                     ->toHtml();
         }
         return $this->_addRowButtonHtml[$container];
     }
 
-    protected function _getRemoveRowButtonHtml($selector='li', $title='Remove')
+    protected function _getRemoveRowButtonHtml($selector = 'li', $title = 'Remove')
     {
         if (!$this->_removeRowButtonHtml) {
             $this->_removeRowButtonHtml = $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setType('button')
-                    ->setClass('delete v-middle '.$this->_getDisabled())
+                    ->setClass('delete v-middle ' . $this->_getDisabled())
                     ->setLabel($this->__($title))
                     //$this->__('Remove')
-                    ->setOnClick("Element.remove($(this).up('".$selector."'))")
+                    ->setOnClick("Element.remove($(this).up('" . $selector . "'))")
                     ->setDisabled($this->_getDisabled())
                     ->toHtml();
         }

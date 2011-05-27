@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,80 +28,10 @@
 /**
  * Reports invoiced collection
  *
- * @category   Mage
- * @package    Mage_Reports
+ * @category    Mage
+ * @package     Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Reports_Model_Mysql4_Invoiced_Collection extends Mage_Sales_Model_Entity_Order_Collection
+class Mage_Reports_Model_Mysql4_Invoiced_Collection extends Mage_Reports_Model_Resource_Invoiced_Collection
 {
-
-    public function setDateRange($from, $to)
-    {
-        $this->_reset()
-            ->addAttributeToSelect('*')
-            ->addAttributeToFilter('created_at', array('from' => $from, 'to' => $to))
-            ->addExpressionAttributeToSelect('orders',
-                'COUNT({{base_total_invoiced}})',
-                 array('base_total_invoiced'))
-            ->addExpressionAttributeToSelect('orders_invoiced',
-                'SUM(IF({{base_total_invoiced}} > 0, 1, 0))',
-                 array('base_total_invoiced'))
-            ->addAttributeToFilter('state', array('neq' => Mage_Sales_Model_Order::STATE_CANCELED))
-            ->getSelect()->group('("*")')->having('orders > 0');
-
-        return $this;
-    }
-
-    /**
-     * Set store filter collection
-     * @param  array $storeIds
-     * @return Mage_Reports_Model_Mysql4_Invoiced_Collection
-     */
-    public function setStoreIds($storeIds)
-    {
-        if ($storeIds) {
-            $this->addAttributeToFilter('store_id', array('in' => (array)$storeIds))
-                ->addExpressionAttributeToSelect(
-                    'invoiced',
-                    'SUM({{base_total_invoiced}})',
-                    array('base_total_invoiced'))
-                ->addExpressionAttributeToSelect(
-                    'invoiced_captured',
-                    'SUM({{base_total_paid}})',
-                    array('base_total_paid'))
-                ->addExpressionAttributeToSelect(
-                    'invoiced_not_captured',
-                    'SUM({{base_total_invoiced}}-{{base_total_paid}})',
-                    array('base_total_invoiced', 'base_total_paid'));
-        } else {
-            $this->addExpressionAttributeToSelect(
-                    'invoiced',
-                    'SUM({{base_total_invoiced}}*{{base_to_global_rate}})',
-                    array('base_total_invoiced', 'base_to_global_rate'))
-                ->addExpressionAttributeToSelect(
-                    'invoiced_captured',
-                    'SUM({{base_total_paid}}*{{base_to_global_rate}})',
-                    array('base_total_paid', 'base_to_global_rate'))
-                ->addExpressionAttributeToSelect(
-                    'invoiced_not_captured',
-                    'SUM(({{base_total_invoiced}}-{{base_total_paid}})*{{base_to_global_rate}})',
-                    array('base_total_invoiced', 'base_to_global_rate', 'base_total_paid'));
-        }
-
-        return $this;
-    }
-
-    public function getSelectCountSql()
-    {
-        $countSelect = clone $this->getSelect();
-        $countSelect->reset(Zend_Db_Select::ORDER);
-        $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
-        $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $countSelect->reset(Zend_Db_Select::COLUMNS);
-        $countSelect->reset(Zend_Db_Select::GROUP);
-        $countSelect->reset(Zend_Db_Select::HAVING);
-        $countSelect->columns("count(*)");
-        $sql = $countSelect->__toString();
-        return $sql;
-    }
 }

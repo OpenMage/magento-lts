@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_CatalogRule
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_CatalogRule>
-            <version>0.7.10</version>
+            <version>1.6.0.0</version>
         </Mage_CatalogRule>
     </modules>
     <global>
@@ -40,18 +40,29 @@
         <models>
             <catalogrule>
                 <class>Mage_CatalogRule_Model</class>
-                <resourceModel>catalogrule_mysql4</resourceModel>
+                <resourceModel>catalogrule_resource</resourceModel>
             </catalogrule>
-            <catalogrule_mysql4>
-                <class>Mage_CatalogRule_Model_Mysql4</class>
+            <catalogrule_resource>
+                <class>Mage_CatalogRule_Model_Resource</class>
+                <deprecatedNode>catalogrule_mysql4</deprecatedNode>
                 <entities>
-                    <rule><table>catalogrule</table></rule>
-                    <rule_product><table>catalogrule_product</table></rule_product>
-                    <rule_product_price><table>catalogrule_product_price</table></rule_product_price>
-                    <affected_product><table>catalogrule_affected_product</table></affected_product>
-                    <rule_group_website><table>catalogrule_group_website</table></rule_group_website>
+                    <rule>
+                        <table>catalogrule</table>
+                    </rule>
+                    <rule_product>
+                        <table>catalogrule_product</table>
+                    </rule_product>
+                    <rule_product_price>
+                        <table>catalogrule_product_price</table>
+                    </rule_product_price>
+                    <affected_product>
+                        <table>catalogrule_affected_product</table>
+                    </affected_product>
+                    <rule_group_website>
+                        <table>catalogrule_group_website</table>
+                    </rule_group_website>
                 </entities>
-            </catalogrule_mysql4>
+            </catalogrule_resource>
         </models>
         <resources>
             <catalogrule_setup>
@@ -113,7 +124,6 @@
             </modules>
         </translate>
     </frontend>
-
     <adminhtml>
         <translate>
             <modules>
@@ -141,6 +151,16 @@
                     </catalogrule>
                 </observers>
             </catalog_product_save_after>
+
+            <catalog_product_import_finish_before>
+                <observers>
+                    <catalogrule>
+                        <class>catalogrule/observer</class>
+                        <method>createCatalogRulesRelations</method>
+                    </catalogrule>
+                </observers>
+            </catalog_product_import_finish_before>
+
             <catalog_product_import_after>
                 <observers>
                     <catalogrule>
@@ -167,12 +187,15 @@
             </catalog_entity_attribute_save_after>
         </events>
     </adminhtml>
-
     <crontab>
         <jobs>
             <catalogrule_apply_all>
-                <schedule><cron_expr>0 1 * * *</cron_expr></schedule>
-                <run><model>catalogrule/observer::dailyCatalogUpdate</model></run>
+                <schedule>
+                    <cron_expr>0 1 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>catalogrule/observer::dailyCatalogUpdate</model>
+                </run>
             </catalogrule_apply_all>
         </jobs>
         <events>

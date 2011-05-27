@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,14 +45,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag_Customer extends Mage_Ad
 
     protected function _prepareCollection()
     {
-        $tagId = Mage::registry('tagId');
-        $collection = Mage::getModel('tag/tag')
-            ->getCustomerCollection()
-            ->addProductFilter($this->getProductId())
-            ->addGroupByTag()
-            ->addDescOrder();
+        if (Mage::helper('catalog')->isModuleEnabled('Mage_Tag')) {
+            $collection = Mage::getModel('tag/tag')
+                ->getCustomerCollection()
+                ->addProductFilter($this->getProductId())
+                ->addGroupByTag()
+                ->addDescOrder();
 
-        $this->setCollection($collection);
+            $this->setCollection($collection);
+        }
         return parent::_prepareCollection();
     }
 

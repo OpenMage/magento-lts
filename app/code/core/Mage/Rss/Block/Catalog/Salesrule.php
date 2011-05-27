@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rss
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,6 +66,7 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
 
         $now = date('Y-m-d');
         $_saleRule = Mage::getModel('salesrule/rule');
+
         $collection = $_saleRule->getResourceCollection()
                     ->addFieldToFilter('from_date', array('date'=>true, 'to' => $now))
                     ->addFieldToFilter('website_ids',array('finset' => $websiteId))
@@ -73,6 +74,7 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
                     ->addFieldToFilter('is_rss',1)
                     ->addFieldToFilter('is_active',1)
                     ->setOrder('from_date','desc');
+
         $collection->getSelect()->where('to_date is null or to_date>=?', $now);
         $collection->load();
 

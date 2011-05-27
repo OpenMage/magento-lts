@@ -118,11 +118,21 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         $this->_select->from($this->_table);
     }
 
+    /**
+     * Retrieve current select object
+     *
+     * @return Varien_Db_Select
+     */
     public function getDbSelect()
     {
         return $this->_select;
     }
 
+    /**
+     * Set Select object
+     *
+     * @param Varien_Db_Select $select
+     */
     public function setDbSelect($select)
     {
         $this->_select = $select;
@@ -143,28 +153,31 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             if ($parentNode instanceof Varien_Data_Tree_Node) {
                 $parentPath = $parentNode->getData($this->_pathField);
                 $startLevel = $parentNode->getData($this->_levelField);
-            } elseif (is_numeric($parentNode)) {
-                $select = $this->_conn->select();
-                $select->from($this->_table, array($this->_pathField, $this->_levelField))->where("{$this->_idField} = ?", $parentNode);
+            } else if (is_numeric($parentNode)) {
+                $select = $this->_conn->select()
+                    ->from($this->_table, array($this->_pathField, $this->_levelField))
+                    ->where("{$this->_idField} = ?", $parentNode);
                 $parent = $this->_conn->fetchRow($select);
+
                 $startLevel = $parent[$this->_levelField];
                 $parentPath = $parent[$this->_pathField];
                 $parentNode = null;
-            } elseif (is_string($parentNode)) {
+            } else if (is_string($parentNode)) {
                 $parentPath = $parentNode;
                 $startLevel = count(explode($parentPath))-1;
                 $parentNode = null;
             }
 
             $select = clone $this->_select;
-            $select->order($this->_table.'.'.$this->_orderField . ' ASC');
 
+            $select->order($this->_table . '.' . $this->_orderField . ' ASC');
             if ($parentPath) {
-                $condition = $this->_conn->quoteInto("$this->_table.$this->_pathField like ?", "$parentPath/%");
-                $select->where($condition);
+                $pathField = $this->_conn->quoteIdentifier(array($this->_table, $this->_pathField));
+                $select->where("{$pathField} LIKE ?", "{$parentPath}/%");
             }
             if ($recursionLevel != 0) {
-                $select->where("$this->_levelField <= ?", $startLevel + $recursionLevel);
+                $levelField = $this->_conn->quoteIdentifier(array($this->_table, $this->_levelField));
+                $select->where("{$levelField} <= ?", $startLevel + $recursionLevel);
             }
 
             $arrNodes = $this->_conn->fetchAll($select);
@@ -219,18 +232,19 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     /**
      * Enter description here...
      *
-     * @param unknown_type $nodeId
+     * @param int|string $nodeId
      * @return Varien_Data_Tree_Node
      */
     public function loadNode($nodeId)
     {
         $select = clone $this->_select;
-        if (is_numeric($nodeId))
-            $condition = $this->_conn->quoteInto("$this->_table.$this->_idField=?", $nodeId);
-        else
-            $condition = $this->_conn->quoteInto("$this->_table.$this->_pathField=?", $nodeId);
+        if (is_numeric($nodeId)) {
+            $condField = $this->_conn->quoteIdentifier(array($this->_table, $this->_idField));
+        } else {
+            $condField = $this->_conn->quoteIdentifier(array($this->_table, $this->_pathField));
+        }
 
-        $select->where($condition);
+        $select->where("{$condField} = ?", $nodeId);
 
         $node = new Varien_Data_Tree_Node($this->_conn->fetchRow($select), $this->_idField, $this);
         $this->addNode($node);
@@ -241,8 +255,9 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         if (is_numeric($node)) {
             $node = $this->getNodeById($node);
         }
-        if (!$node)
+        if (!$node) {
             return $result;
+        }
 
         foreach ($node->getChildren() as $child) {
             if ($recursive) {
@@ -258,6 +273,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     /**
      * Move tree node
      *
+     * @todo Use adapter for generate conditions
      * @param Varien_Data_Tree_Node $node
      * @param Varien_Data_Tree_Node $newParent
      * @param Varien_Data_Tree_Node $prevNode
@@ -375,5 +391,4 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             }
         }
     }
-
 }

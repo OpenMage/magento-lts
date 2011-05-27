@@ -20,71 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
-class Mage_CatalogSearch_Model_Mysql4_Fulltext_Collection
-    extends Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+/**
+ * Enter description here ...
+ *
+ * @category    Mage
+ * @package     Mage_CatalogSearch
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_CatalogSearch_Model_Mysql4_Fulltext_Collection extends Mage_CatalogSearch_Model_Resource_Fulltext_Collection
 {
-    /**
-     * Retrieve query model object
-     *
-     * @return Mage_CatalogSearch_Model_Query
-     */
-    protected function _getQuery()
-    {
-        return Mage::helper('catalogsearch')->getQuery();
-    }
-
-    /**
-     * Add search query filter
-     *
-     * @param   string $query
-     * @return  Mage_CatalogSearch_Model_Mysql4_Search_Collection
-     */
-    public function addSearchFilter($query)
-    {
-        Mage::getSingleton('catalogsearch/fulltext')->prepareResult();
-
-        $this->getSelect()->joinInner(
-            array('search_result' => $this->getTable('catalogsearch/result')),
-            $this->getConnection()->quoteInto(
-                'search_result.product_id=e.entity_id AND search_result.query_id=?',
-                $this->_getQuery()->getId()
-            ),
-            array('relevance' => 'relevance')
-        );
-
-        return $this;
-    }
-
-    /**
-     * Set Order field
-     *
-     * @param string $attribute
-     * @param string $dir
-     * @return Mage_CatalogSearch_Model_Mysql4_Fulltext_Collection
-     */
-    public function setOrder($attribute, $dir = 'desc')
-    {
-        if ($attribute == 'relevance') {
-            $this->getSelect()->order("relevance {$dir}");
-        }
-        else {
-            parent::setOrder($attribute, $dir);
-        }
-        return $this;
-    }
-
-    /**
-     * Stub method for campatibility with other search engines
-     *
-     * @return Mage_CatalogSearch_Model_Mysql4_Fulltext_Collection
-     */
-    public function setGeneralDefaultQuery()
-    {
-        return $this;
-    }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -77,6 +77,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
     public function getPrefixOptions()
     {
         $prefixOptions = $this->helper('customer')->getNamePrefixOptions();
+
         if ($this->getObject() && !empty($prefixOptions)) {
             $oldPrefix = $this->escapeHtml(trim($this->getObject()->getPrefix()));
             $prefixOptions[$oldPrefix] = $oldPrefix;
@@ -157,16 +158,17 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
     }
 
     /**
-     * Retrieve customer attribute instance
+     * Retrieve customer or customer address attribute instance
      *
      * @param string $attributeCode
-     * @return Mage_Customer_Model_Attribute
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     protected function _getAttribute($attributeCode)
     {
-        if (!($this->getObject() instanceof Mage_Customer_Model_Customer)) {
-            return Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);
+        if ($this->getForceUseCustomerAttributes() || $this->getObject() instanceof Mage_Customer_Model_Customer) {
+            return parent::_getAttribute($attributeCode);
         }
-        return parent::_getAttribute($attributeCode);
+
+        return Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);
     }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,34 +28,11 @@
 /**
  * Directory country format resource model
  *
- * @category   Mage
- * @package    Mage_Directory
+ * @category    Mage
+ * @package     Mage_Directory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Directory_Model_Mysql4_Country_Format_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Directory_Model_Mysql4_Country_Format_Collection
+    extends Mage_Directory_Model_Resource_Country_Format_Collection
 {
-
-    protected function _construct()
-    {
-        $this->_init('directory/country_format');
-    }
-
-    /**
-     * Set country filter
-     *
-     * @param string|Mage_Directory_Model_Country $country
-     * @return Mage_Directory_Model_Mysql4_Country_Format_Collection
-     */
-    public function setCountryFilter($country)
-    {
-        if(is_object($country)) {
-            $countryId = $country->getId();
-        } else {
-            $countryId = $country;
-        }
-
-        $this->addFieldToFilter('country_id', $countryId);
-        return $this;
-    }
-
 }

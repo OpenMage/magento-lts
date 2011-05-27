@@ -20,89 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Coupons Report collection
  *
- * @category   Mage
- * @package    Mage_Reports
+ * @category    Mage
+ * @package     Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Reports_Model_Mysql4_Coupons_Collection extends Mage_Sales_Model_Entity_Order_Collection
+class Mage_Reports_Model_Mysql4_Coupons_Collection extends Mage_Reports_Model_Resource_Coupons_Collection
 {
-
-    protected $_from = '';
-    protected $_to = '';
-
-    public function setDateRange($from, $to)
-    {
-        $this->_from = $from;
-        $this->_to = $to;
-        $this->_reset();
-        return $this;
-    }
-
-    public function setStoreIds($storeIds)
-    {
-        $this->joinFields($this->_from, $this->_to, $storeIds);
-        return $this;
-    }
-
-    public function joinFields($from, $to, $storeIds = array())
-    {
-        $this->groupByAttribute('coupon_code')
-            ->addAttributeToFilter('created_at', array('from' => $from, 'to' => $to, 'datetime' => true))
-            ->addAttributeToFilter('coupon_code', array('neq' => ''))
-            ->getselect()->columns(array('uses' => 'COUNT(e.entity_id)'))
-            ->having('uses > 0')
-            ->order('uses desc');
-        //die($this->getSelect());
-        $storeIds = array_values($storeIds);
-        if (count($storeIds) >= 1 && $storeIds[0] != '') {
-            $this->addAttributeToFilter('store_id', array('in' => $storeIds));
-            $this->addExpressionAttributeToSelect(
-                    'subtotal',
-                    'SUM({{base_subtotal}})',
-                    array('base_subtotal'))
-                ->addExpressionAttributeToSelect(
-                    'discount',
-                    'SUM({{base_discount_amount}})',
-                    array('base_discount_amount'))
-                ->addExpressionAttributeToSelect(
-                    'total',
-                    'SUM({{base_subtotal}}-{{base_discount_amount}})',
-                    array('base_subtotal', 'base_discount_amount'));
-        } else {
-            $this->addExpressionAttributeToSelect(
-                    'subtotal',
-                    'SUM({{base_subtotal}}*{{base_to_global_rate}})',
-                    array('base_subtotal', 'base_to_global_rate'))
-                ->addExpressionAttributeToSelect(
-                    'discount',
-                    'SUM({{base_discount_amount}}*{{base_to_global_rate}})',
-                    array('base_discount_amount', 'base_to_global_rate'))
-                ->addExpressionAttributeToSelect(
-                    'total',
-                    'SUM(({{base_subtotal}}-{{base_discount_amount}})*{{base_to_global_rate}})',
-                    array('base_subtotal', 'base_discount_amount', 'base_to_global_rate'));
-        }
-    }
-
-    public function getSelectCountSql()
-    {
-        $countSelect = clone $this->getSelect();
-        $countSelect->reset(Zend_Db_Select::ORDER);
-        $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
-        $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $countSelect->reset(Zend_Db_Select::COLUMNS);
-        $countSelect->reset(Zend_Db_Select::GROUP);
-        $countSelect->reset(Zend_Db_Select::HAVING);
-        $countSelect->columns("count(DISTINCT main_table.rule_id)");
-        $sql = $countSelect->__toString();
-        return $sql;
-    }
 }

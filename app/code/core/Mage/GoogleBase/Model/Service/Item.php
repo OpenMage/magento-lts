@@ -20,13 +20,14 @@
  *
  * @category    Mage
  * @package     Mage_GoogleBase
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Google Base Item Model
  *
+ * @deprecated after 1.5.1.0
  * @category   Mage
  * @package    Mage_GoogleBase
  * @author     Magento Core Team <core@magentocommerce.com>
@@ -252,7 +253,8 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
      */
     protected function _cleanAtomAttribute($string)
     {
-        return Mage::helper('core/string')->substr(preg_replace('/[\pC¢€•—™°½]|shipping/ui', '', $string), 0, 3500);
+        return Mage::helper('core/string')
+            ->substr(preg_replace('/[\pC¢€•—™°½]|shipping/ui', '', $string), 0, 3500);
     }
 
     /**
@@ -399,7 +401,9 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
      */
     protected function _getItemType()
     {
-        return $this->getItemType() ? $this->getItemType() : $this->getConfig()->getDefaultItemType($this->getStoreId());
+        return $this->getItemType()
+            ? $this->getItemType()
+            : $this->getConfig()->getDefaultItemType($this->getStoreId());
     }
 
     /**

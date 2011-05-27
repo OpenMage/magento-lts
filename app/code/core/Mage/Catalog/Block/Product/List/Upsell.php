@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,14 +47,16 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         $product = Mage::registry('product');
         /* @var $product Mage_Catalog_Model_Product */
         $this->_itemCollection = $product->getUpSellProductCollection()
-            ->addAttributeToSort('position', 'asc')
+            ->addAttributeToSort('position', Varien_Db_Select::SQL_ASC)
             ->addStoreFilter()
         ;
-        Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter($this->_itemCollection,
-            Mage::getSingleton('checkout/session')->getQuoteId()
-        );
-        $this->_addProductAttributesAndPrices($this->_itemCollection);
+        if (Mage::helper('catalog')->isModuleEnabled('Mage_Checkout')) {
+            Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter($this->_itemCollection,
+                Mage::getSingleton('checkout/session')->getQuoteId()
+            );
 
+            $this->_addProductAttributesAndPrices($this->_itemCollection);
+        }
 //        Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($this->_itemCollection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($this->_itemCollection);
 

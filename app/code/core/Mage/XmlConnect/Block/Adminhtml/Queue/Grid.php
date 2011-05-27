@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +33,6 @@
  */
 class Mage_XmlConnect_Block_Adminhtml_Queue_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     /**
      * Constructor
      *
@@ -57,7 +56,10 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Grid extends Mage_Adminhtml_Block_Wi
     {
         $collection = Mage::getModel('xmlconnect/queue')->getCollection();
 
-        $collection->addFieldToFilter('main_table.status', array('neq' => Mage_XmlConnect_Model_Queue::STATUS_DELETED));
+        $collection->addFieldToFilter(
+            'main_table.status',
+            array('neq' => Mage_XmlConnect_Model_Queue::STATUS_DELETED)
+        );
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -69,10 +71,10 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Grid extends Mage_Adminhtml_Block_Wi
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('id', array(
+        $this->addColumn('queue_id', array(
             'header'    => $this->__('ID'),
             'align'     => 'center',
-            'index'     => 'main_table.id',
+            'index'     => 'main_table.queue_id',
             'width'     => '40px',
             'renderer'  => 'xmlconnect/adminhtml_queue_grid_renderer_id'
         ));
@@ -88,7 +90,7 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Grid extends Mage_Adminhtml_Block_Wi
         $this->addColumn('app_code', array(
             'header'    => $this->__('Application Name'),
             'align'     => 'left',
-            'index'     => 'main_table.app_code',
+            'index'     => 'app.code',
             'type'      => 'options',
             'options'   => Mage::helper('xmlconnect')->getApplications(),
             'renderer'  => 'xmlconnect/adminhtml_queue_grid_renderer_application'

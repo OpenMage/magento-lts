@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Review
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,6 +61,24 @@ class Mage_Review_Model_Observer
         if ($eventProduct && $eventProduct->getId()) {
             Mage::getResourceSingleton('review/review')->deleteReviewsByProductId($eventProduct->getId());
         }
+
+        return $this;
+    }
+
+    /**
+     * Append review summary before rendering html
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Review_Model_Observer
+     */
+    public function catalogBlockProductCollectionBeforeToHtml(Varien_Event_Observer $observer)
+    {
+        $productCollection = $observer->getEvent()->getCollection();
+        if ($productCollection instanceof Varien_Data_Collection) {
+            $productCollection->load();
+            Mage::getModel('review/review')->appendSummary($productCollection);
+        }
+
         return $this;
     }
 }

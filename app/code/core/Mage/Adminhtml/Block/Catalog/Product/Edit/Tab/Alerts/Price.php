@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
 
         $this->setId('alertPrice');
         $this->setDefaultSort('add_date');
-        $this->setDefaultSort('desc');
+        $this->setDefaultSort('DESC');
         $this->setUseAjax(true);
         $this->setFilterVisibility(false);
         $this->setEmptyText(Mage::helper('catalog')->__('There are no customers for this alert'));
@@ -53,10 +53,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
         if ($store = $this->getRequest()->getParam('store')) {
             $websiteId = Mage::app()->getStore($store)->getWebsiteId();
         }
-        $collection = Mage::getModel('productalert/price')
-            ->getCustomerCollection()
-            ->join($productId, $websiteId);
-        $this->setCollection($collection);
+        if (Mage::helper('catalog')->isModuleEnabled('Mage_ProductAlert')) {
+            $collection = Mage::getModel('productalert/price')
+                ->getCustomerCollection()
+                ->join($productId, $websiteId);
+            $this->setCollection($collection);
+        }
         return parent::_prepareCollection();
     }
 

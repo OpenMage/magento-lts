@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,6 +28,19 @@
  * Index data aggregation model
  *
  * Allow cache some aggregated data with tag dependency
+ *
+ * @method Mage_CatalogIndex_Model_Resource_Aggregation _getResource()
+ * @method Mage_CatalogIndex_Model_Resource_Aggregation getResource()
+ * @method int getStoreId()
+ * @method Mage_CatalogIndex_Model_Aggregation setStoreId(int $value)
+ * @method string getCreatedAt()
+ * @method Mage_CatalogIndex_Model_Aggregation setCreatedAt(string $value)
+ * @method string getKey()
+ * @method Mage_CatalogIndex_Model_Aggregation setKey(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_CatalogIndex
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
 {
@@ -91,13 +104,13 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Delete cached aggreagation data
+     * Delete cached aggregation data
      *
      * @param   array $tags
      * @param   int|null|string $store
      * @return  Mage_CatalogIndex_Model_Aggregation
      */
-    public function clearCacheData($tags=array(), $store=null)
+    public function clearCacheData($tags = array(), $store = null)
     {
         $tags    = $this->_processTags($tags);
         if ($store !== null) {

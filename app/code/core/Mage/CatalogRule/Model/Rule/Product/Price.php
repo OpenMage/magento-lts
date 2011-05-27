@@ -20,13 +20,30 @@
  *
  * @category    Mage
  * @package     Mage_CatalogRule
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * Catalog Rule Product Aggregated Price per date Model
+ *
+ * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price _getResource()
+ * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price getResource()
+ * @method string getRuleDate()
+ * @method Mage_CatalogRule_Model_Rule_Product_Price setRuleDate(string $value)
+ * @method int getCustomerGroupId()
+ * @method Mage_CatalogRule_Model_Rule_Product_Price setCustomerGroupId(int $value)
+ * @method int getProductId()
+ * @method Mage_CatalogRule_Model_Rule_Product_Price setProductId(int $value)
+ * @method float getRulePrice()
+ * @method Mage_CatalogRule_Model_Rule_Product_Price setRulePrice(float $value)
+ * @method int getWebsiteId()
+ * @method Mage_CatalogRule_Model_Rule_Product_Price setWebsiteId(int $value)
+ * @method string getLatestStartDate()
+ * @method Mage_CatalogRule_Model_Rule_Product_Price setLatestStartDate(string $value)
+ * @method string getEarliestEndDate()
+ * @method Mage_CatalogRule_Model_Rule_Product_Price setEarliestEndDate(string $value)
  *
  * @category    Mage
  * @package     Mage_CatalogRule
@@ -58,6 +75,7 @@ class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
     public function applyPriceRuleToIndexTable(Varien_Db_Select $select, $indexTable, $entityId, $customerGroupId,
         $websiteId, $updateFields, $websiteDate)
     {
+
         $this->_getResource()->applyPriceRuleToIndexTable($select, $indexTable, $entityId, $customerGroupId, $websiteId,
             $updateFields, $websiteDate);
 

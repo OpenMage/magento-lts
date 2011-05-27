@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,9 +28,24 @@
 /**
  * Tag relation model
  *
- * @category   Mage
- * @package    Mage_Tag
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @method Mage_Tag_Model_Resource_Tag_Relation _getResource()
+ * @method Mage_Tag_Model_Resource_Tag_Relation getResource()
+ * @method int getTagId()
+ * @method Mage_Tag_Model_Tag_Relation setTagId(int $value)
+ * @method int getCustomerId()
+ * @method Mage_Tag_Model_Tag_Relation setCustomerId(int $value)
+ * @method int getProductId()
+ * @method Mage_Tag_Model_Tag_Relation setProductId(int $value)
+ * @method int getStoreId()
+ * @method Mage_Tag_Model_Tag_Relation setStoreId(int $value)
+ * @method int getActive()
+ * @method Mage_Tag_Model_Tag_Relation setActive(int $value)
+ * @method string getCreatedAt()
+ * @method Mage_Tag_Model_Tag_Relation setCreatedAt(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Tag
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
 {

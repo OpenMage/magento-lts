@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,21 +71,20 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
     /**
      * Load data with filter applying and create file for download.
      *
-     * @return void
+     * @return Mage_ImportExport_Adminhtml_ExportController
      */
     public function exportAction()
     {
         if ($this->getRequest()->getPost(Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP)) {
             try {
                 /** @var $export Mage_ImportExport_Model_Export */
-                $export = Mage::getModel('importexport/export');
-
-                $export->setData($this->getRequest()->getParams());
+                $model = Mage::getModel('importexport/export');
+                $model->setData($this->getRequest()->getParams());
 
                 return $this->_prepareDownloadResponse(
-                    $export->getFileName(),
-                    $export->export(),
-                    $export->getContentType()
+                    $model->getFileName(),
+                    $model->export(),
+                    $model->getContentType()
                 );
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
@@ -100,13 +99,28 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
     }
 
     /**
-     * Get grid of entity attributes and filter  action.
+     * Index action.
      *
      * @return void
      */
-    public function getfilterAction()
+    public function indexAction()
     {
-        if ($this->getRequest()->isXmlHttpRequest() && ($data = $this->getRequest()->getParams())) {
+        $this->_initAction()
+            ->_title($this->__('Export'))
+            ->_addBreadcrumb($this->__('Export'), $this->__('Export'));
+
+        $this->renderLayout();
+    }
+
+    /**
+     * Get grid-filter of entity attributes action.
+     *
+     * @return void
+     */
+    public function getFilterAction()
+    {
+        $data = $this->getRequest()->getParams();
+        if ($this->getRequest()->isXmlHttpRequest() && $data) {
             try {
                 $this->loadLayout();
 
@@ -127,20 +141,6 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
         } else {
             $this->_getSession()->addError($this->__('No valid data sent'));
         }
-        return $this->_redirect('*/*/index');
-    }
-
-    /**
-     * Index action.
-     *
-     * @return void
-     */
-    public function indexAction()
-    {
-        $this->_initAction()
-            ->_title($this->__('Export'))
-            ->_addBreadcrumb($this->__('Export'), $this->__('Export'));
-
-        $this->renderLayout();
+        $this->_redirect('*/*/index');
     }
 }

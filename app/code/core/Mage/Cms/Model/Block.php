@@ -20,15 +20,30 @@
  *
  * @category    Mage
  * @package     Mage_Cms
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CMS block model
  *
- * @category   Mage
- * @package    Mage_Cms
+ * @method Mage_Cms_Model_Resource_Block _getResource()
+ * @method Mage_Cms_Model_Resource_Block getResource()
+ * @method string getTitle()
+ * @method Mage_Cms_Model_Block setTitle(string $value)
+ * @method string getIdentifier()
+ * @method Mage_Cms_Model_Block setIdentifier(string $value)
+ * @method string getContent()
+ * @method Mage_Cms_Model_Block setContent(string $value)
+ * @method string getCreationTime()
+ * @method Mage_Cms_Model_Block setCreationTime(string $value)
+ * @method string getUpdateTime()
+ * @method Mage_Cms_Model_Block setUpdateTime(string $value)
+ * @method int getIsActive()
+ * @method Mage_Cms_Model_Block setIsActive(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Cms
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 

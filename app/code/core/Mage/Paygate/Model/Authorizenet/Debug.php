@@ -20,11 +20,33 @@
  *
  * @category    Mage
  * @package     Mage_Paygate
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
+/**
+ * Enter description here ...
+ *
+ * @method Mage_Paygate_Model_Resource_Authorizenet_Debug _getResource()
+ * @method Mage_Paygate_Model_Resource_Authorizenet_Debug getResource()
+ * @method string getRequestBody()
+ * @method Mage_Paygate_Model_Authorizenet_Debug setRequestBody(string $value)
+ * @method string getResponseBody()
+ * @method Mage_Paygate_Model_Authorizenet_Debug setResponseBody(string $value)
+ * @method string getRequestSerialized()
+ * @method Mage_Paygate_Model_Authorizenet_Debug setRequestSerialized(string $value)
+ * @method string getResultSerialized()
+ * @method Mage_Paygate_Model_Authorizenet_Debug setResultSerialized(string $value)
+ * @method string getRequestDump()
+ * @method Mage_Paygate_Model_Authorizenet_Debug setRequestDump(string $value)
+ * @method string getResultDump()
+ * @method Mage_Paygate_Model_Authorizenet_Debug setResultDump(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Paygate
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Paygate_Model_Authorizenet_Debug extends Mage_Core_Model_Abstract
 {
     protected function _construct()

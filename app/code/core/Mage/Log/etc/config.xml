@@ -21,22 +21,22 @@
  *
  * @category    Mage
  * @package     Mage_Log
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
-    <Mage_Log>
-        <version>0.7.7</version>
-    </Mage_Log>
+        <Mage_Log>
+            <version>1.6.0.0</version>
+        </Mage_Log>
     </modules>
     <global>
         <ignoredModules>
             <entities>
-                <install />
-                <adminhtml />
-                <admin />
+                <install/>
+                <adminhtml/>
+                <admin/>
             </entities>
         </ignoredModules>
         <ignore_user_agents>
@@ -47,22 +47,41 @@
         <models>
             <log>
                 <class>Mage_Log_Model</class>
-                <resourceModel>log_mysql4</resourceModel>
+                <resourceModel>log_resource</resourceModel>
             </log>
-            <log_mysql4>
-                <class>Mage_Log_Model_Mysql4</class>
+            <log_resource>
+                <class>Mage_Log_Model_Resource</class>
+                <deprecatedNode>log_mysql4</deprecatedNode>
                 <entities>
-                    <customer><table>log_customer</table></customer>
-                    <visitor><table>log_visitor</table></visitor>
-                    <visitor_info><table>log_visitor_info</table></visitor_info>
-                    <url_table><table>log_url</table></url_table>
-                    <url_info_table><table>log_url_info</table></url_info_table>
-                    <summary_table><table>log_summary</table></summary_table>
-                    <summary_type_table><table>log_summary_type</table></summary_type_table>
-                    <quote_table><table>log_quote</table></quote_table>
-                    <visitor_online><table>log_visitor_online</table></visitor_online>
+                    <customer>
+                        <table>log_customer</table>
+                    </customer>
+                    <visitor>
+                        <table>log_visitor</table>
+                    </visitor>
+                    <visitor_info>
+                        <table>log_visitor_info</table>
+                    </visitor_info>
+                    <url_table>
+                        <table>log_url</table>
+                    </url_table>
+                    <url_info_table>
+                        <table>log_url_info</table>
+                    </url_info_table>
+                    <summary_table>
+                        <table>log_summary</table>
+                    </summary_table>
+                    <summary_type_table>
+                        <table>log_summary_type</table>
+                    </summary_type_table>
+                    <quote_table>
+                        <table>log_quote</table>
+                    </quote_table>
+                    <visitor_online>
+                        <table>log_visitor_online</table>
+                    </visitor_online>
                 </entities>
-            </log_mysql4>
+            </log_resource>
         </models>
         <resources>
             <log_setup>
@@ -133,7 +152,6 @@
             </checkout_quote_destroy>
         </events>
     </frontend>
-
     <adminhtml>
         <translate>
             <modules>
@@ -145,7 +163,6 @@
             </modules>
         </translate>
     </adminhtml>
-
     <default>
         <log>
             <visitor>
@@ -156,15 +173,14 @@
             <log>
                 <clean_after_day>180</clean_after_day>
                 <enabled>0</enabled>
-                <time></time>
+                <time/>
                 <frequency>D</frequency>
-                <error_email></error_email>
+                <error_email/>
                 <error_email_identity>general</error_email_identity>
                 <error_email_template>system_log_error_email_template</error_email_template>
             </log>
         </system>
     </default>
-
     <crontab>
         <jobs>
             <log_clean>
@@ -172,14 +188,6 @@
                     <model>log/cron::logClean</model>
                 </run>
             </log_clean>
-            <!-- every_10_minutes>
-                <schedule>
-                    <cron_expr>*/10 * * * *</cron_expr>
-                </schedule>
-                <run>
-                    <model>log/aggregation::run</model>
-                </run>
-            </every_10_minutes -->
         </jobs>
     </crontab>
 </config>

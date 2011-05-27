@@ -20,11 +20,27 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
+/**
+ * SalesRule Rule Customer Model
+ *
+ * @method Mage_SalesRule_Model_Resource_Rule_Customer _getResource()
+ * @method Mage_SalesRule_Model_Resource_Rule_Customer getResource()
+ * @method int getRuleId()
+ * @method Mage_SalesRule_Model_Rule_Customer setRuleId(int $value)
+ * @method int getCustomerId()
+ * @method Mage_SalesRule_Model_Rule_Customer setCustomerId(int $value)
+ * @method int getTimesUsed()
+ * @method Mage_SalesRule_Model_Rule_Customer setTimesUsed(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_SalesRule
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_SalesRule_Model_Rule_Customer extends Mage_Core_Model_Abstract 
 {
     protected function _construct()

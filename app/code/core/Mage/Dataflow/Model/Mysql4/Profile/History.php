@@ -20,30 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Convert history resource model
  *
- * @category   Mage
- * @package    Mage_Dataflow
+ * @category    Mage
+ * @package     Mage_Dataflow
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Dataflow_Model_Mysql4_Profile_History extends Mage_Core_Model_Mysql4_Abstract
+class Mage_Dataflow_Model_Mysql4_Profile_History extends Mage_Dataflow_Model_Resource_Profile_History
 {
-    protected function _construct()
-    {
-        $this->_init('dataflow/profile_history', 'history_id');
-    }
-
-    protected function _beforeSave(Mage_Core_Model_Abstract $object)
-    {
-        if (!$object->getPerformedAt()) {
-            $object->setPerformedAt($this->formatDate(time()));
-        }
-        parent::_beforeSave($object);
-        return $this;
-    }
 }

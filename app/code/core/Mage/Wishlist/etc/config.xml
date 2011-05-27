@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Wishlist>
-            <version>0.7.9</version>
+            <version>1.6.0.0</version>
         </Mage_Wishlist>
     </modules>
     <global>
@@ -40,10 +40,11 @@
         <models>
             <wishlist>
                 <class>Mage_Wishlist_Model</class>
-                <resourceModel>wishlist_mysql4</resourceModel>
+                <resourceModel>wishlist_resource</resourceModel>
             </wishlist>
-            <wishlist_mysql4>
-                <class>Mage_Wishlist_Model_Mysql4</class>
+            <wishlist_resource>
+                <class>Mage_Wishlist_Model_Resource</class>
+                <deprecatedNode>wishlist_mysql4</deprecatedNode>
                 <entities>
                     <wishlist>
                         <table>wishlist</table>
@@ -56,7 +57,7 @@
                     </item>
                     <item_option><table>wishlist_item_option</table></item_option>
                 </entities>
-            </wishlist_mysql4>
+            </wishlist_resource>
         </models>
         <resources>
             <wishlist_setup>
@@ -121,13 +122,13 @@
                 </Mage_Wishlist>
             </modules>
         </translate>
-          <layout>
-              <updates>
-                  <wishlist module="Mage_Wishlist">
-                      <file>wishlist.xml</file>
-                  </wishlist>
-              </updates>
-          </layout>
+        <layout>
+            <updates>
+                <wishlist module="Mage_Wishlist">
+                    <file>wishlist.xml</file>
+                </wishlist>
+            </updates>
+        </layout>
         <events>
             <customer_login>
                 <observers>
@@ -161,7 +162,6 @@
             </modules>
         </translate>
     </adminhtml>
-
     <default>
         <wishlist>
             <general>

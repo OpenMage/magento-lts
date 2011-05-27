@@ -20,24 +20,25 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection
+class Mage_Reports_Model_Grouped_Collection
+    extends Varien_Data_Collection //Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Enter description here...
+     * Column name for group by clause 
      *
-     * @var unknown_type
+     * @var string
      */
     protected $_columnGroupBy       = null;
 
     /**
-     * Enter description here...
+     * Collection resource
      *
-     * @var unknown_type
+     * @var Mage_Core_Model_Resource_Db_Collection_Abstract
      */
-    protected $_resourceCollection  = array();
+    protected $_resourceCollection  = null;
 
     /**
      * Set column to group by
@@ -47,7 +48,7 @@ class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection
      */
     public function setColumnGroupBy($column)
     {
-        $this->_columnGroupBy = $column;
+        $this->_columnGroupBy = (string)$column;
         return $this;
     }
 
@@ -55,7 +56,7 @@ class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection
      * Load collection
      *
      * @param boolean $printQuery
-     * @param boolean$logQuery
+     * @param boolean $logQuery
      * @return Mage_Reports_Model_Grouped_Collection
      */
     public function load($printQuery = false, $logQuery = false)
@@ -67,7 +68,7 @@ class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection
         parent::load($printQuery, $logQuery);
         $this->_setIsLoaded();
 
-        if (!is_null($this->_columnGroupBy)) {
+        if ($this->_columnGroupBy !== null) {
             $this->_mergeWithEmptyData();
             $this->_groupResourceData();
         }
@@ -78,7 +79,7 @@ class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection
     /**
      * Setter for resource collection
      *
-     * @param unknown_type $collection
+     * @param Varien_Data_Collection_Db $collection
      * @return Mage_Reports_Model_Grouped_Collection
      */
     public function setResourceCollection($collection)

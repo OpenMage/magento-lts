@@ -21,20 +21,20 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <global>
         <install>
-            <date></date>
+            <date/>
         </install>
         <resources>
             <default_setup>
                 <connection>
                     <host>localhost</host>
-                    <username></username>
+                    <username/>
                     <password/>
                     <dbname>magento</dbname>
                     <model>mysql4</model>
@@ -76,6 +76,7 @@
             <connection>
                 <types>
                     <pdo_mysql>
+                        <adapter>Varien_Db_Adapter_Pdo_Mysql</adapter>
                         <class>Mage_Core_Model_Resource_Type_Db_Pdo_Mysql</class>
                     </pdo_mysql>
                 </types>
@@ -87,23 +88,37 @@
             </varien>
             <core>
                 <class>Mage_Core_Model</class>
-                <resourceModel>core_mysql4</resourceModel>
+                <resourceModel>core_resource</resourceModel>
             </core>
-            <core_mysql4>
-                <class>Mage_Core_Model_Mysql4</class>
+            <core_resource>
+                <class>Mage_Core_Model_Resource</class>
+                <deprecatedNode>core_mysql4</deprecatedNode>
                 <entities>
-                    <config_data><table>core_config_data</table></config_data>
-                    <website><table>core_website</table></website>
-                    <store><table>core_store</table></store>
-                    <resource><table>core_resource</table></resource>
-                    <cache><table>core_cache</table></cache>
-                    <cache_tag><table>core_cache_tag</table></cache_tag>
-                    <cache_option><table>core_cache_option</table></cache_option>
+                    <config_data>
+                        <table>core_config_data</table>
+                    </config_data>
+                    <website>
+                        <table>core_website</table>
+                    </website>
+                    <store>
+                        <table>core_store</table>
+                    </store>
+                    <resource>
+                        <table>core_resource</table>
+                    </resource>
+                    <cache>
+                        <table>core_cache</table>
+                    </cache>
+                    <cache_tag>
+                        <table>core_cache_tag</table>
+                    </cache_tag>
+                    <cache_option>
+                        <table>core_cache_option</table>
+                    </cache_option>
                 </entities>
-            </core_mysql4>
+            </core_resource>
         </models>
     </global>
-
     <default>
         <system>
             <filesystem>
@@ -131,4 +146,7 @@
             </locale>
         </general>
     </default>
+    <varien>
+        <class>Varien</class>
+    </varien>
 </config>

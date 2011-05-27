@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -447,18 +447,29 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     public function isSalable($product = null)
     {
         $salable = parent::isSalable($product);
-        if (!is_null($salable)) {
-            return $salable;
-        }
 
-        $salable = false;
-        foreach ($this->getUsedProducts(null, $product) as $child) {
-            if ($child->isSalable()) {
-                $salable = true;
-                break;
+        if ($salable !== false) {
+            $salable = false;
+            foreach ($this->getUsedProducts(null, $product) as $child) {
+                if ($child->isSalable()) {
+                    $salable = true;
+                    break;
+                }
             }
         }
+
         return $salable;
+    }
+
+    /**
+     * Chack is product available for sale
+     * is alias to isSalable for compatibility
+     *
+     * @return bool
+     */
+    public function getIsSalable($product = null)
+    {
+        return $this->isSalable($product);
     }
 
     /**
@@ -563,7 +574,11 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                     $product->addCustomOption('product_qty_'.$subProduct->getId(), 1, $subProduct);
                     $product->addCustomOption('simple_product', $subProduct->getId(), $subProduct);
 
-                    $_result = $subProduct->getTypeInstance(true)->_prepareProduct($buyRequest, $subProduct, $processMode);
+                    $_result = $subProduct->getTypeInstance(true)->_prepareProduct(
+                        $buyRequest,
+                        $subProduct,
+                        $processMode
+                    );
                     if (is_string($_result) && !is_array($_result)) {
                         return $_result;
                     }
@@ -586,7 +601,8 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                     }
 
                     $_result[0]->setParentProductId($product->getId())
-                        // add custom option to simple product for protection of process when we add simple product separately
+                        // add custom option to simple product for protection of process
+                        //when we add simple product separately
                         ->addCustomOption('parent_product_id', $product->getId());
                     if ($this->_isStrictProcessMode($processMode)) {
                         $_result[0]->setCartQty(1);
@@ -713,7 +729,9 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function getWeight($product = null)
     {
-        if ($this->getProduct($product)->hasCustomOptions() && ($simpleProductOption = $this->getProduct($product)->getCustomOption('simple_product'))) {
+        if ($this->getProduct($product)->hasCustomOptions() &&
+            ($simpleProductOption = $this->getProduct($product)->getCustomOption('simple_product'))
+        ) {
             $simpleProduct = $simpleProductOption->getProduct($product);
             if ($simpleProduct) {
                 return $simpleProduct->getWeight();

@@ -21,25 +21,25 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_CatalogSearch>
-            <version>0.7.7</version>
+            <version>1.6.0.0</version>
         </Mage_CatalogSearch>
     </modules>
     <global>
         <models>
             <catalogsearch>
                 <class>Mage_CatalogSearch_Model</class>
-                <resourceModel>catalogsearch_mysql4</resourceModel>
+                <resourceModel>catalogsearch_resource</resourceModel>
             </catalogsearch>
-
-            <catalogsearch_mysql4>
-                <class>Mage_CatalogSearch_Model_Mysql4</class>
+            <catalogsearch_resource>
+                <class>Mage_CatalogSearch_Model_Resource</class>
+                <deprecatedNode>catalogsearch_mysql4</deprecatedNode>
                 <entities>
                     <search_query>
                         <table>catalogsearch_query</table>
@@ -51,7 +51,7 @@
                         <table>catalogsearch_fulltext</table>
                     </fulltext>
                 </entities>
-            </catalogsearch_mysql4>
+            </catalogsearch_resource>
         </models>
         <helpers>
             <catalogsearch>
@@ -66,73 +66,12 @@
             </catalogsearch_setup>
         </resources>
         <events>
-            <!-- catalog_product_save_after>
-                <observers>
-                    <catalogsearch>
-                        <class>catalogsearch/fulltext_observer</class>
-                        <method>refreshProductIndex</method>
-                    </catalogsearch>
-                </observers>
-            </catalog_product_save_after>
-            <catalog_product_delete_after>
-                <observers>
-                    <catalogsearch>
-                        <class>catalogsearch/fulltext_observer</class>
-                        <method>cleanProductIndex</method>
-                    </catalogsearch>
-                </observers>
-            </catalog_product_delete_after>
-            <catalog_entity_attribute_save_after>
-                <observers>
-                    <catalogsearch>
-                        <class>catalogsearch/fulltext_observer</class>
-                        <method>eavAttributeChange</method>
-                    </catalogsearch>
-                </observers>
-            </catalog_entity_attribute_save_after>
-            <catalog_entity_attribute_delete_after>
-                <observers>
-                    <catalogsearch>
-                        <class>catalogsearch/fulltext_observer</class>
-                        <method>eavAttributeChange</method>
-                    </catalogsearch>
-                </observers>
-            </catalog_entity_attribute_delete_after>
-            <catalog_product_import_after>
-                <observers>
-                    <catalogsearch>
-                        <class>catalogsearch/fulltext_observer</class>
-                        <method>refreshIndexAfterImport</method>
-                    </catalogsearch>
-                </observers>
-            </catalog_product_import_after>
-            <store_add>
-                <observers>
-                    <catalogsearch>
-                        <class>catalogsearch/fulltext_observer</class>
-                        <method>refreshStoreIndex</method>
-                    </catalogsearch>
-                </observers>
-            </store_add>
-            <store_delete>
-                <observers>
-                    <catalogsearch>
-                        <class>catalogsearch/fulltext_observer</class>
-                        <method>cleanStoreIndex</method>
-                    </catalogsearch>
-                </observers>
-            </store_delete>
-            <catalog_product_website_update>
-                <observers>
-                    <catalogsearch>
-                        <class>catalogsearch/fulltext_observer</class>
-                        <method>catalogProductWebsiteUpdate</method>
-                    </catalogsearch>
-                </observers>
-            </catalog_product_website_update -->
+            
         </events>
         <blocks>
-            <catalogsearch><class>Mage_CatalogSearch_Block</class></catalogsearch>
+            <catalogsearch>
+                <class>Mage_CatalogSearch_Block</class>
+            </catalogsearch>
         </blocks>
         <index>
             <indexer>
@@ -155,27 +94,27 @@
         <translate>
             <modules>
                 <Mage_CatalogSearch>
-                     <files>
-                          <default>Mage_CatalogSearch.csv</default>
-                     </files>
+                    <files>
+                        <default>Mage_CatalogSearch.csv</default>
+                    </files>
                 </Mage_CatalogSearch>
             </modules>
         </translate>
         <layout>
-             <updates>
-                  <catalogsearch>
-                        <file>catalogsearch.xml</file>
-                  </catalogsearch>
-             </updates>
+            <updates>
+                <catalogsearch>
+                    <file>catalogsearch.xml</file>
+                </catalogsearch>
+            </updates>
         </layout>
     </frontend>
     <adminhtml>
         <translate>
             <modules>
                 <Mage_CatalogSearch>
-                     <files>
-                          <default>Mage_CatalogSearch.csv</default>
-                     </files>
+                    <files>
+                        <default>Mage_CatalogSearch.csv</default>
+                    </files>
                 </Mage_CatalogSearch>
             </modules>
         </translate>
@@ -187,7 +126,6 @@
             </updates>
         </layout>
     </adminhtml>
-
     <default>
         <catalog>
             <seo>

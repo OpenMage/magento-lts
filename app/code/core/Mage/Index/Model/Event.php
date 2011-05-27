@@ -20,10 +20,28 @@
  *
  * @category    Mage
  * @package     Mage_Index
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Enter description here ...
+ *
+ * @method Mage_Index_Model_Resource_Event _getResource()
+ * @method Mage_Index_Model_Resource_Event getResource()
+ * @method Mage_Index_Model_Event setType(string $value)
+ * @method Mage_Index_Model_Event setEntity(string $value)
+ * @method int getEntityPk()
+ * @method Mage_Index_Model_Event setEntityPk(int $value)
+ * @method string getCreatedAt()
+ * @method Mage_Index_Model_Event setCreatedAt(string $value)
+ * @method Mage_Index_Model_Event setOldData(string $value)
+ * @method Mage_Index_Model_Event setNewData(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Index
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
 {
     /**

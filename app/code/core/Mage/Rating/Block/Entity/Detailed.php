@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rating
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,13 +42,13 @@ class Mage_Rating_Block_Entity_Detailed extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         $entityId = Mage::app()->getRequest()->getParam('id');
-        if( intval($entityId) <= 0 ) {
+        if (intval($entityId) <= 0) {
             return '';
         }
 
         $reviewsCount = Mage::getModel('review/review')
             ->getTotalReviews($entityId, true);
-        if( $reviewsCount == 0 ) {
+        if ($reviewsCount == 0) {
             #return Mage::helper('rating')->__('Be the first to review this product');
             $this->setTemplate('rating/empty.phtml');
             return parent::_toHtml();

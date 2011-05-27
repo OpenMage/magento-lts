@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -157,8 +157,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                 $profile->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('The profile has been deleted.'));
-            }
-            catch (Exception $e){
+            } catch (Exception $e){
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
@@ -172,7 +171,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
     {
         if ($data = $this->getRequest()->getPost()) {
             if (!$this->_initProfile('profile_id')) {
-                return ;
+                return;
             }
             $profile = Mage::registry('current_convert_profile');
 
@@ -186,20 +185,18 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('The profile has been saved.'));
-            }
-            catch (Exception $e){
+            } catch (Exception $e){
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setConvertProfileData($data);
-                $this->getResponse()->setRedirect($this->getUrl('*/*/edit', array('id'=>$profile->getId())));
+                $this->getResponse()->setRedirect($this->getUrl('*/*/edit', array('id' => $profile->getId())));
                 return;
             }
             if ($this->getRequest()->getParam('continue')) {
-                $this->_redirect('*/*/edit', array('id'=>$profile->getId()));
+                $this->_redirect('*/*/edit', array('id' => $profile->getId()));
             } else {
                 $this->_redirect('*/*');
             }
-        }
-        else {
+        } else {
             Mage::getSingleton('adminhtml/session')->addError(
                 $this->__('Invalid POST data (please check post_max_size and upload_max_filesize settings in your php.ini file).')
             );
@@ -217,23 +214,20 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
     public function batchRunAction()
     {
         if ($this->getRequest()->isPost()) {
-            $batchId = $this->getRequest()->getPost('batch_id',0);
+            $batchId = $this->getRequest()->getPost('batch_id', 0);
             $rowIds  = $this->getRequest()->getPost('rows');
 
             /* @var $batchModel Mage_Dataflow_Model_Batch */
             $batchModel = Mage::getModel('dataflow/batch')->load($batchId);
 
             if (!$batchModel->getId()) {
-                //exit
-                return ;
+                return;
             }
             if (!is_array($rowIds) || count($rowIds) < 1) {
-                //exit
-                return ;
+                return;
             }
             if (!$batchModel->getAdapter()) {
-                //exit
-                return ;
+                return;
             }
 
             $batchImportModel = $batchModel->getBatchImportModel();
@@ -244,7 +238,6 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
 
             $errors = array();
             $saved  = 0;
-
             foreach ($rowIds as $importId) {
                 $batchImportModel->load($importId);
                 if (!$batchImportModel->getId()) {
@@ -255,12 +248,25 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                 try {
                     $importData = $batchImportModel->getBatchData();
                     $adapter->saveRow($importData);
-                }
-                catch (Exception $e) {
+                } catch (Exception $e) {
                     $errors[] = $e->getMessage();
                     continue;
                 }
                 $saved ++;
+            }
+
+            if (method_exists($adapter, 'getEventPrefix')) {
+                /**
+                 * Event for process rules relations after products import
+                 */
+                Mage::dispatchEvent($adapter->getEventPrefix() . '_finish_before', array(
+                    'adapter' => $adapter
+                ));
+
+                /**
+                 * Clear affected ids for adapter possible reuse
+                 */
+                $adapter->clearAffectedEntityIds();
             }
 
             $result = array(
@@ -273,7 +279,8 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
 
     public function batchFinishAction()
     {
-        if ($batchId = $this->getRequest()->getParam('id')) {
+        $batchId = $this->getRequest()->getParam('id');
+        if ($batchId) {
             $batchModel = Mage::getModel('dataflow/batch')->load($batchId);
             /* @var $batchModel Mage_Dataflow_Model_Batch */
 
@@ -281,11 +288,9 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                 $result = array();
                 try {
                     $batchModel->beforeFinish();
-                }
-                catch (Mage_Core_Exception $e) {
+                } catch (Mage_Core_Exception $e) {
                     $result['error'] = $e->getMessage();
-                }
-                catch (Exception $e) {
+                } catch (Exception $e) {
                     $result['error'] = Mage::helper('adminhtml')->__('An error occurred while finishing process. Please refresh the cache');
                 }
                 $batchModel->delete();
@@ -307,22 +312,6 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
 
     protected function _isAllowed()
     {
-//        switch ($this->getRequest()->getActionName()) {
-//            case 'index':
-//                $aclResource = 'admin/system/convert/profiles';
-//                break;
-//            case 'grid':
-//                $aclResource = 'admin/system/convert/profiles';
-//                break;
-//            case 'run':
-//                $aclResource = 'admin/system/convert/profiles/run';
-//                break;
-//            default:
-//                $aclResource = 'admin/system/convert/profiles/edit';
-//                break;
-//        }
-
         return Mage::getSingleton('admin/session')->isAllowed('admin/system/convert/profiles');
     }
 }
-

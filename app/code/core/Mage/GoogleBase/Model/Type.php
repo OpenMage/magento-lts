@@ -20,13 +20,23 @@
  *
  * @category    Mage
  * @package     Mage_GoogleBase
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Google Base Item Types Model
  *
+ * @method Mage_GoogleBase_Model_Resource_Type _getResource()
+ * @method Mage_GoogleBase_Model_Resource_Type getResource()
+ * @method int getAttributeSetId()
+ * @method Mage_GoogleBase_Model_Type setAttributeSetId(int $value)
+ * @method string getGbaseItemtype()
+ * @method Mage_GoogleBase_Model_Type setGbaseItemtype(string $value)
+ * @method string getTargetCountry()
+ * @method Mage_GoogleBase_Model_Type setTargetCountry(string $value)
+ *
+ * @deprecated after 1.5.1.0
  * @category   Mage
  * @package    Mage_GoogleBase
  * @author     Magento Core Team <core@magentocommerce.com>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -301,12 +301,12 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout
             foreach ($widgetInstance->getPageGroups() as $pageGroup) {
                 $pageGroups[] = array(
                     'page_id' => $pageGroup['page_id'],
-                    'group' => $pageGroup['group'],
+                    'group' => $pageGroup['page_group'],
                     'block' => $pageGroup['block_reference'],
-                    'for_value'   => $pageGroup['for'],
+                    'for_value'   => $pageGroup['page_for'],
                     'layout_handle' => $pageGroup['layout_handle'],
-                    $pageGroup['group'].'_entities' => $pageGroup['entities'],
-                    'template' => $pageGroup['template']
+                    $pageGroup['page_group'].'_entities' => $pageGroup['entities'],
+                    'template' => $pageGroup['page_template']
                 );
             }
         }

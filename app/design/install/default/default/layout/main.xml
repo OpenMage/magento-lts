@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -32,7 +32,14 @@
         <block type="core/template" name="root" output="toHtml">
             <action method="setTemplate"><template>page.phtml</template></action>
             <block type="core/text_list" name="left" as="left"/>
-            <block type="core/text_list" name="content" as="content"/>
+            <block type="core/text_list" name="content" as="content" />
         </block>
+        <block type="install/db_main" name="database" as="database"/>
     </install_wizard>
+    <install_wizard_config>
+        <reference name="database">
+            <action method="setTemplate"><template>install/db/main.phtml</template></action>
+            <action method="addDatabaseBlock"><type>mysql4</type><block>install/db_type_mysql4</block><template>install/db/mysql4.phtml</template></action>
+        </reference>
+    </install_wizard_config>
 </layout>

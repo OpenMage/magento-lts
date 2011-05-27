@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,6 +28,13 @@ $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
 $installer->startSetup();
+
+/*
+ * Fix unknown issue on MySQL 4.1.x,
+ * After removing foreign key on some table and try to insert data to other table with auto increment on primary key
+ * DB engine generates "Duplicate entry '1' for key 1" error
+ */
+$installer->getConnection()->closeConnection();
 
 // Add listing and sort attribute properties
 $installer->getConnection()->addColumn(

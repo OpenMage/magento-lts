@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -193,11 +193,12 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     public function getFlatColums()
     {
         return array($this->getAttribute()->getAttributeCode() => array(
-            'type'      => 'tinyint',
+            'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
             'unsigned'  => true,
-            'is_null'   => true,
+            'nullable'   => true,
             'default'   => null,
-            'extra'     => null
+            'extra'     => null,
+            'comment'   => 'Catalog Product Visibility ' . $this->getAttribute()->getAttributeCode() . ' column'
         ));
     }
 

@@ -30,9 +30,4 @@
             <block type="importexport/adminhtml_export_filter" name="export.filter"/>
         </block>
     </adminhtml_export_getfilter>
-    <adminhtml_faq_index>
-        <reference name="content">
-            <block type="adminhtml/template" template="importexport/faq.phtml" name="faq" alias="faq"/>
-        </reference>
-    </adminhtml_faq_index>
 </layout>

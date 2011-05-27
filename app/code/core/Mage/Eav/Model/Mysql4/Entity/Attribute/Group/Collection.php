@@ -20,32 +20,19 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
-class Mage_Eav_Model_Mysql4_Entity_Attribute_Group_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+/**
+ * Enter description here ...
+ *
+ * @category    Mage
+ * @package     Mage_Eav
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_Eav_Model_Mysql4_Entity_Attribute_Group_Collection
+    extends Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection
 {
-    /**
-     * Init resource model for collection
-     *
-     */
-    public function _construct()
-    {
-        $this->_init('eav/entity_attribute_group');
-    }
-
-    /**
-     * Set Attribute Set Filter
-     *
-     * @param int $setId
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Group_Collection
-     */
-    public function setAttributeSetFilter($setId)
-    {
-        $this->getSelect()->where('main_table.attribute_set_id=?', $setId);
-        $this->getSelect()->order('main_table.sort_order');
-        return $this;
-    }
 }

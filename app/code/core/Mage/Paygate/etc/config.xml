@@ -21,39 +21,40 @@
  *
  * @category    Mage
  * @package     Mage_Paygate
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
-   <modules>
-      <Mage_Paygate>
-         <version>0.7.1</version>
-
-      </Mage_Paygate>
-   </modules>
-   <global>
-      <models>
-         <paygate>
-            <class>Mage_Paygate_Model</class>
-            <resourceModel>paygate_mysql4</resourceModel>
-         </paygate>
-         <paygate_mysql4>
-            <class>Mage_Paygate_Model_Mysql4</class>
-            <entities>
-                <authorizenet_debug><table>paygate_authorizenet_debug</table></authorizenet_debug>
-            </entities>
-         </paygate_mysql4>
-      </models>
-      <resources>
-         <paygate_setup>
-            <setup>
-               <module>Mage_Paygate</module>
-            </setup>
-         </paygate_setup>
-      </resources>
-   </global>
-
+    <modules>
+        <Mage_Paygate>
+            <version>1.6.0.0</version>
+        </Mage_Paygate>
+    </modules>
+    <global>
+        <models>
+            <paygate>
+                <class>Mage_Paygate_Model</class>
+                <resourceModel>paygate_resource</resourceModel>
+            </paygate>
+            <paygate_resource>
+                <class>Mage_Paygate_Model_Resource</class>
+                <deprecatedNode>paygate_mysql4</deprecatedNode>
+                <entities>
+                    <authorizenet_debug>
+                        <table>paygate_authorizenet_debug</table>
+                    </authorizenet_debug>
+                </entities>
+            </paygate_resource>
+        </models>
+        <resources>
+            <paygate_setup>
+                <setup>
+                    <module>Mage_Paygate</module>
+                </setup>
+            </paygate_setup>
+        </resources>
+    </global>
     <adminhtml>
         <translate>
             <modules>
@@ -65,7 +66,6 @@
             </modules>
         </translate>
     </adminhtml>
-
     <frontend>
         <translate>
             <modules>
@@ -107,7 +107,7 @@
                 <debug>0</debug>
                 <email_customer>0</email_customer>
                 <login backend_model="adminhtml/system_config_backend_encrypted"/>
-                <merchant_email></merchant_email>
+                <merchant_email/>
                 <model>paygate/authorizenet</model>
                 <order_status>processing</order_status>
                 <payment_action>authorize</payment_action>

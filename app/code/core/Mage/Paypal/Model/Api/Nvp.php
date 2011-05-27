@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,6 +35,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     const DO_DIRECT_PAYMENT = 'DoDirectPayment';
     const DO_CAPTURE = 'DoCapture';
+    const DO_AUTHORIZATION = 'DoAuthorization';
     const DO_VOID = 'DoVoid';
     const REFUND_TRANSACTION = 'RefundTransaction';
     const SET_EXPRESS_CHECKOUT = 'SetExpressCheckout';
@@ -273,6 +274,14 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected $_doCaptureRequest = array('AUTHORIZATIONID', 'COMPLETETYPE', 'AMT', 'CURRENCYCODE', 'NOTE', 'INVNUM',);
     protected $_doCaptureResponse = array('TRANSACTIONID', 'CURRENCYCODE', 'AMT', 'PAYMENTSTATUS', 'PENDINGREASON',);
+
+
+    /**
+     * DoAuthorization request/response map
+     * @var array
+     */
+    protected $_doAuthorizationRequest = array('TRANSACTIONID', 'AMT', 'CURRENCYCODE');
+    protected $_doAuthorizationResponse = array('TRANSACTIONID', 'AMT');
 
     /**
      * DoVoid request map
@@ -672,6 +681,23 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $this->_importFromResponse($this->_paymentInformationResponse, $response);
         $this->_importFromResponse($this->_doCaptureResponse, $response);
     }
+
+    /**
+     * DoAuthorization call
+     *
+     * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_DoAuthorization
+     * @return Mage_Paypal_Model_Api_Nvp
+     */
+    public function callDoAuthorization()
+    {
+        $request = $this->_exportToRequest($this->_doAuthorizationRequest);
+        $response = $this->call(self::DO_AUTHORIZATION, $request);
+        $this->_importFromResponse($this->_paymentInformationResponse, $response);
+        $this->_importFromResponse($this->_doAuthorizationResponse, $response);
+
+        return $this;
+    }
+
 
     /**
      * DoVoid call

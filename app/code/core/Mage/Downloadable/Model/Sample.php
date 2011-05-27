@@ -20,12 +20,25 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable sample model
+ *
+ * @method Mage_Downloadable_Model_Resource_Sample _getResource()
+ * @method Mage_Downloadable_Model_Resource_Sample getResource()
+ * @method int getProductId()
+ * @method Mage_Downloadable_Model_Sample setProductId(int $value)
+ * @method string getSampleUrl()
+ * @method Mage_Downloadable_Model_Sample setSampleUrl(string $value)
+ * @method string getSampleFile()
+ * @method Mage_Downloadable_Model_Sample setSampleFile(string $value)
+ * @method string getSampleType()
+ * @method Mage_Downloadable_Model_Sample setSampleType(string $value)
+ * @method int getSortOrder()
+ * @method Mage_Downloadable_Model_Sample setSortOrder(int $value)
  *
  * @category    Mage
  * @package     Mage_Downloadable

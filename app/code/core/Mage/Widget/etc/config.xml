@@ -21,31 +21,40 @@
  *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Widget>
-            <version>1.4.0.0.0</version>
+            <version>1.6.0.0</version>
         </Mage_Widget>
     </modules>
     <global>
         <models>
             <widget>
                 <class>Mage_Widget_Model</class>
-                <resourceModel>widget_mysql4</resourceModel>
+                <resourceModel>widget_resource</resourceModel>
             </widget>
-            <widget_mysql4>
-                <class>Mage_Widget_Model_Mysql4</class>
+            <widget_resource>
+                <class>Mage_Widget_Model_Resource</class>
+                <deprecatedNode>widget_mysql4</deprecatedNode>
                 <entities>
-                    <widget><table>widget</table></widget>
-                    <widget_instance><table>widget_instance</table></widget_instance>
-                    <widget_instance_page><table>widget_instance_page</table></widget_instance_page>
-                    <widget_instance_page_layout><table>widget_instance_page_layout</table></widget_instance_page_layout>
+                    <widget>
+                        <table>widget</table>
+                    </widget>
+                    <widget_instance>
+                        <table>widget_instance</table>
+                    </widget_instance>
+                    <widget_instance_page>
+                        <table>widget_instance_page</table>
+                    </widget_instance_page>
+                    <widget_instance_page_layout>
+                        <table>widget_instance_page_layout</table>
+                    </widget_instance_page_layout>
                 </entities>
-            </widget_mysql4>
+            </widget_resource>
         </models>
         <resources>
             <widget_setup>

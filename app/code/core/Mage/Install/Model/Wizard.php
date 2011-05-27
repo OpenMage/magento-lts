@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Install
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,20 +49,20 @@ class Mage_Install_Model_Wizard
                 $this->_getUrl($this->_steps[$index]->getController(), $this->_steps[$index]->getAction())
             );
 
-            if (isset($this->_steps[$index+1])) {
+            if (isset($this->_steps[$index + 1])) {
                 $this->_steps[$index]->setNextUrl(
-                    $this->_getUrl($this->_steps[$index+1]->getController(), $this->_steps[$index+1]->getAction())
+                    $this->_getUrl($this->_steps[$index + 1]->getController(), $this->_steps[$index + 1]->getAction())
                 );
                 $this->_steps[$index]->setNextUrlPath(
-                    $this->_getUrlPath($this->_steps[$index+1]->getController(), $this->_steps[$index+1]->getAction())
+                    $this->_getUrlPath($this->_steps[$index + 1]->getController(), $this->_steps[$index + 1]->getAction())
                 );
             }
-            if (isset($this->_steps[$index-1])) {
+            if (isset($this->_steps[$index - 1])) {
                 $this->_steps[$index]->setPrevUrl(
-                    $this->_getUrl($this->_steps[$index-1]->getController(), $this->_steps[$index-1]->getAction())
+                    $this->_getUrl($this->_steps[$index - 1]->getController(), $this->_steps[$index - 1]->getAction())
                 );
                 $this->_steps[$index]->setPrevUrlPath(
-                    $this->_getUrlPath($this->_steps[$index-1]->getController(), $this->_steps[$index-1]->getAction())
+                    $this->_getUrlPath($this->_steps[$index - 1]->getController(), $this->_steps[$index - 1]->getAction())
                 );
             }
         }
@@ -77,7 +77,8 @@ class Mage_Install_Model_Wizard
     public function getStepByRequest(Zend_Controller_Request_Abstract $request)
     {
         foreach ($this->_steps as $step) {
-            if ($step->getController() == $request->getControllerName() && $step->getAction() == $request->getActionName()) {
+            if ($step->getController() == $request->getControllerName()
+                    && $step->getAction() == $request->getActionName()) {
                 return $step;
             }
         }
@@ -124,6 +125,6 @@ class Mage_Install_Model_Wizard
      */
     protected function _getUrlPath($controller, $action)
     {
-        return 'install/'.$controller.'/'.$action;
+        return 'install/' . $controller . '/' . $action;
     }
 }

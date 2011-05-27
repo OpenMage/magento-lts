@@ -20,13 +20,14 @@
  *
  * @category    Mage
  * @package     Mage_PaypalUk
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * PayPal Website Payments Pro (Payflow Edition) implementation for payment method instaces
- * This model was created because right now PayPal Direct and PayPal Express payment (Payflow Edition) methods cannot have same abstract
+ * PayPal Website Payments Pro (Payflow Edition) implementation for payment method instances
+ * This model was created because right now PayPal Direct and PayPal Express payment
+ * (Payflow Edition) methods cannot have same abstract
  */
 class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
 {
@@ -86,7 +87,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
     {
         if ($payment->getParentTransactionId()) {
             return $payment->getTransaction($payment->getParentTransactionId())
-                            ->getAdditionalInformation(Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID);
+                ->getAdditionalInformation(Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID);
         }
         return $payment->getParentTransactionId();
     }
@@ -100,10 +101,30 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
     protected function _importCaptureResultToPayment($api, $payment)
     {
         $payment->setTransactionId($api->getPaypalTransactionId())
-                ->setIsTransactionClosed(false)
-                ->setTransactionAdditionalInfo(Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID, $api->getTransactionId());
-        $payment->setPreparedMessage(Mage::helper('paypaluk')->__('Payflow PNREF: #%s.', $api->getTransactionId()));
+            ->setIsTransactionClosed(false)
+            ->setTransactionAdditionalInfo(
+                Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID,
+                $api->getTransactionId()
+        );
+        $payment->setPreparedMessage(
+            Mage::helper('paypaluk')->__('Payflow PNREF: #%s.', $api->getTransactionId())
+        );
         Mage::getModel('paypal/info')->importToPayment($api, $payment);
+    }
+
+    /**
+     * Fetch transaction details info method does not exists in PaypalUK
+     *
+     * @param Mage_Payment_Model_Info $payment
+     * @param string $transactionId
+     * @throws Mage_Core_Exception
+     * @return void
+     */
+    public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
+    {
+        Mage::throwException(
+            Mage::helper('paypaluk')->__('Fetch transaction details method does not exists in PaypalUK')
+        );
     }
 
     /**
@@ -116,11 +137,15 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
     protected function _importRefundResultToPayment($api, $payment, $canRefundMore)
     {
         $payment->setTransactionId($api->getPaypalTransactionId())
-                ->setIsTransactionClosed(1) // refund initiated by merchant
-                ->setShouldCloseParentTransaction(!$canRefundMore)
-                ->setTransactionAdditionalInfo(Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID, $api->getTransactionId());
-            ;
-        $payment->setPreparedMessage(Mage::helper('paypaluk')->__('Payflow PNREF: #%s.', $api->getTransactionId()));
+            ->setIsTransactionClosed(1) // refund initiated by merchant
+            ->setShouldCloseParentTransaction(!$canRefundMore)
+            ->setTransactionAdditionalInfo(
+                Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID,
+                $api->getTransactionId()
+        );
+        $payment->setPreparedMessage(
+            Mage::helper('paypaluk')->__('Payflow PNREF: #%s.', $api->getTransactionId())
+        );
         Mage::getModel('paypal/info')->importToPayment($api, $payment);
     }
 }

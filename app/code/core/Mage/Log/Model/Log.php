@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Log
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,9 +28,22 @@
 /**
  * Log Model
  *
- * @category   Mage
- * @package    Mage_Log
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @method Mage_Log_Model_Resource_Log _getResource()
+ * @method Mage_Log_Model_Resource_Log getResource()
+ * @method string getSessionId()
+ * @method Mage_Log_Model_Log setSessionId(string $value)
+ * @method string getFirstVisitAt()
+ * @method Mage_Log_Model_Log setFirstVisitAt(string $value)
+ * @method string getLastVisitAt()
+ * @method Mage_Log_Model_Log setLastVisitAt(string $value)
+ * @method int getLastUrlId()
+ * @method Mage_Log_Model_Log setLastUrlId(int $value)
+ * @method int getStoreId()
+ * @method Mage_Log_Model_Log setStoreId(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Log
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Log_Model_Log extends Mage_Core_Model_Abstract
 {

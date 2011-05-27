@@ -20,121 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Template db resource
  *
- * @category   Mage
- * @package    Mage_Newsletter
+ * @category    Mage
+ * @package     Mage_Newsletter
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Newsletter_Model_Mysql4_Template extends Mage_Core_Model_Mysql4_Abstract
+class Mage_Newsletter_Model_Mysql4_Template extends Mage_Newsletter_Model_Resource_Template
 {
-    /**
-     * Initialize connection
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('newsletter/template', 'template_id');
-    }
-
-    /**
-     * Load an object by template code
-     *
-     * @param Mage_Newsletter_Model_Template $object
-     * @param string $templateCode
-     * @return Mage_Newsletter_Model_Mysql4_Template
-     */
-    public function loadByCode(Mage_Newsletter_Model_Template $object, $templateCode)
-    {
-        $read = $this->_getReadAdapter();
-        if ($read && !is_null($templateCode)) {
-            $select = $this->_getLoadSelect('template_code', $templateCode, $object)
-                ->where('template_actual=?', 1);
-            $data = $read->fetchRow($select);
-
-            if ($data) {
-                $object->setData($data);
-            }
-        }
-
-        $this->_afterLoad($object);
-
-        return $this;
-    }
-
-    /**
-     * Check usage of template in queue
-     *
-     * @param  Mage_Newsletter_Model_Template $template
-     * @return boolean
-     */
-    public function checkUsageInQueue(Mage_Newsletter_Model_Template $template)
-    {
-        if ($template->getTemplateActual() !== 0 && !$template->getIsSystem()) {
-            $select = $this->_getReadAdapter()->select()
-                ->from($this->getTable('newsletter/queue'), new Zend_Db_Expr('COUNT(queue_id)'))
-                ->where('template_id=?',$template->getId());
-
-            $countOfQueue = $this->_getReadAdapter()->fetchOne($select);
-
-            return $countOfQueue > 0;
-        }
-        elseif ($template->getIsSystem()) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-
-    /**
-     * Check usage of template code in other templates
-     *
-     * @param   Mage_Newsletter_Model_Template $template
-     * @return  boolean
-     */
-    public function checkCodeUsage(Mage_Newsletter_Model_Template $template)
-    {
-        if ($template->getTemplateActual() != 0 || is_null($template->getTemplateActual())) {
-            $select = $this->_getReadAdapter()->select()
-                ->from($this->getMainTable(), new Zend_Db_Expr('COUNT(template_id)'))
-                ->where('template_id!=?',$template->getId())
-                ->where('template_code=?',$template->getTemplateCode())
-                ->where('template_actual=?',1);
-
-            $countOfCodes = $this->_getReadAdapter()->fetchOne($select);
-
-            return $countOfCodes > 0;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Perform actions before object save
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Newsletter_Model_Mysql4_Template
-     */
-    protected function _beforeSave(Mage_Core_Model_Abstract $object)
-    {
-        if ($this->checkCodeUsage($object)) {
-            Mage::throwException(Mage::helper('newsletter')->__('Duplicate template code.'));
-        }
-
-        if (!$object->hasTemplateActual()) {
-            $object->setTemplateActual(1);
-        }
-        if (!$object->hasAddedAt()) {
-            $object->setAddedAt(Mage::getSingleton('core/date')->gmtDate());
-        }
-        $object->setModifiedAt(Mage::getSingleton('core/date')->gmtDate());
-
-        return parent::_beforeSave($object);
-    }
 }

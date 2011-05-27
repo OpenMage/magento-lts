@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -358,7 +358,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         $id = (int) $this->getRequest()->getParam('item');
         $item = Mage::getModel('wishlist/item')->load($id);
 
-        if($item->getWishlistId()==$wishlist->getId()) {
+        if($item->getWishlistId() == $wishlist->getId()) {
             try {
                 $item->delete();
                 $wishlist->save();
@@ -468,9 +468,9 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             return $this->_redirect('*/*/');
         }
 
-        $emails = explode(',', $this->getRequest()->getPost('emails'));
-        $message= nl2br(htmlspecialchars((string) $this->getRequest()->getPost('message')));
-        $error  = false;
+        $emails  = explode(',', $this->getRequest()->getPost('emails'));
+        $message = nl2br(htmlspecialchars((string) $this->getRequest()->getPost('message')));
+        $error   = false;
         if (empty($emails)) {
             $error = $this->__('Email address can\'t be empty.');
         }
@@ -523,7 +523,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                         'addAllLink'    => Mage::getUrl('*/shared/allcart', array('code' => $wishlist->getSharingCode())),
                         'viewOnSiteLink'=> Mage::getUrl('*/shared/index', array('code' => $wishlist->getSharingCode())),
                         'message'       => $message
-                    ));
+                    )
+                );
             }
 
             $wishlist->setShared(1);

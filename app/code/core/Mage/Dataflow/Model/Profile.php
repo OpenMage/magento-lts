@@ -20,13 +20,36 @@
  *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Convert profile
  *
+ * @method Mage_Dataflow_Model_Resource_Profile _getResource()
+ * @method Mage_Dataflow_Model_Resource_Profile getResource()
+ * @method string getName()
+ * @method Mage_Dataflow_Model_Profile setName(string $value)
+ * @method string getCreatedAt()
+ * @method Mage_Dataflow_Model_Profile setCreatedAt(string $value)
+ * @method string getUpdatedAt()
+ * @method Mage_Dataflow_Model_Profile setUpdatedAt(string $value)
+ * @method string getActionsXml()
+ * @method Mage_Dataflow_Model_Profile setActionsXml(string $value)
+ * @method string getGuiData()
+ * @method Mage_Dataflow_Model_Profile setGuiData(string $value)
+ * @method string getDirection()
+ * @method Mage_Dataflow_Model_Profile setDirection(string $value)
+ * @method string getEntityType()
+ * @method Mage_Dataflow_Model_Profile setEntityType(string $value)
+ * @method int getStoreId()
+ * @method Mage_Dataflow_Model_Profile setStoreId(int $value)
+ * @method string getDataTransfer()
+ * @method Mage_Dataflow_Model_Profile setDataTransfer(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Dataflow
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
@@ -54,7 +77,6 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     protected function _beforeSave()
     {
         parent::_beforeSave();
-
         $actionsXML = $this->getData('actions_xml');
         if (strlen($actionsXML) < 0 &&
         @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false) {
@@ -108,7 +130,14 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $this->setGuiData(unserialize($this->getGuiData()));
         }
 
-        Mage::getModel('dataflow/profile_history')
+        $profileHistory = Mage::getModel('dataflow/profile_history');
+
+        $adminUserId = $this->getAdminUserId();
+        if($adminUserId) {
+            $profileHistory->setUserId($adminUserId);
+        }
+
+        $profileHistory
             ->setProfileId($this->getId())
             ->setActionCode($this->getOrigData('profile_id') ? 'update' : 'create')
             ->save();

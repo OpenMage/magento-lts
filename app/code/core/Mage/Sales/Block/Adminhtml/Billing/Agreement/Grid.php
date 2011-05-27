@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -100,13 +100,15 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
         $this->addColumn('customer_firstname', array(
             'header'    => Mage::helper('sales')->__('Customer Name'),
             'index'     => 'customer_firstname',
-            'type'      => 'text'
+            'type'      => 'text',
+            'escape'    => true
         ));
 
         $this->addColumn('customer_lastname', array(
             'header'    => Mage::helper('sales')->__('Customer Last Name'),
             'index'     => 'customer_lastname',
-            'type'      => 'text'
+            'type'      => 'text',
+            'escape'    => true
         ));
 
         $this->addColumn('method_code', array(

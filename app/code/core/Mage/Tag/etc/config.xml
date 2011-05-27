@@ -21,31 +21,30 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Tag>
-            <version>0.7.7</version>
+            <version>1.6.0.0</version>
         </Mage_Tag>
     </modules>
     <global>
         <models>
             <tag>
                 <class>Mage_Tag_Model</class>
-                <resourceModel>tag_mysql4</resourceModel>
+                <resourceModel>tag_resource</resourceModel>
             </tag>
             <tag_customer>
                 <class>Mage_Tag_Model_Customer</class>
-                <resourceModel>tag_entity_customer</resourceModel>
+                <!-- <resourceModel>tag_customer_mysql4</resourceModel> -->
+                <resourceModel>tag_customer_resource</resourceModel>
             </tag_customer>
-            <tag_entity_customer>
-                <class>Mage_Tag_Model_Entity_Customer</class>
-                </tag_entity_customer>
-            <tag_mysql4>
-                <class>Mage_Tag_Model_Mysql4</class>
+            <tag_resource>
+                <class>Mage_Tag_Model_Resource</class>
+                <deprecatedNode>tag_mysql4</deprecatedNode>
                 <entities>
                     <tag>
                         <table>tag</table>
@@ -60,7 +59,10 @@
                         <table>tag_properties</table>
                     </properties>
                 </entities>
-            </tag_mysql4>
+            </tag_resource>
+            <tag_customer_resource>
+                <class>Mage_Tag_Model_Customer_Resource</class>
+            </tag_customer_resource>
         </models>
         <resources>
             <tag_setup>
@@ -70,7 +72,9 @@
             </tag_setup>
         </resources>
         <blocks>
-            <tag><class>Mage_Tag_Block</class></tag>
+            <tag>
+                <class>Mage_Tag_Block</class>
+            </tag>
         </blocks>
         <index>
             <indexer>
@@ -99,13 +103,13 @@
                 </Mage_Tag>
             </modules>
         </translate>
-          <layout>
-              <updates>
-                  <tag module="Mage_Tag">
-                      <file>tag.xml</file>
-                  </tag>
-              </updates>
-          </layout>
+        <layout>
+            <updates>
+                <tag module="Mage_Tag">
+                    <file>tag.xml</file>
+                </tag>
+            </updates>
+        </layout>
         <secure_url>
             <tag_customer>/tag/customer/</tag_customer>
         </secure_url>

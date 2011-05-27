@@ -21,25 +21,26 @@
  *
  * @category    Mage
  * @package     Mage_Backup
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Backup>
-            <version>0.7.0</version>
+            <version>1.6.0.0</version>
         </Mage_Backup>
     </modules>
     <global>
         <models>
             <backup>
                 <class>Mage_Backup_Model</class>
-                <resourceModel>backup_mysql4</resourceModel>
+                <resourceModel>backup_resource</resourceModel>
             </backup>
-            <backup_mysql4>
-                <class>Mage_Backup_Model_Mysql4</class>
-            </backup_mysql4>
+            <backup_resource>
+                <class>Mage_Backup_Model_Resource</class>
+                <deprecatedNode>backup_mysql4</deprecatedNode>
+            </backup_resource>
         </models>
         <resources>
             <backup_setup>

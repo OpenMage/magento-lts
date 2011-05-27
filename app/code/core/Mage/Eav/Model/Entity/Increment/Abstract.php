@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,8 +34,7 @@
  * - pad_char
  * - last_id
  */
-abstract class Mage_Eav_Model_Entity_Increment_Abstract
-    extends Varien_Object
+abstract class Mage_Eav_Model_Entity_Increment_Abstract extends Varien_Object
     implements Mage_Eav_Model_Entity_Increment_Interface
 {
     public function getPadLength()
@@ -46,7 +45,7 @@ abstract class Mage_Eav_Model_Entity_Increment_Abstract
         }
         return $padLength;
     }
-    
+
     public function getPadChar()
     {
         $padChar = $this->getData('pad_char');
@@ -55,17 +54,16 @@ abstract class Mage_Eav_Model_Entity_Increment_Abstract
         }
         return $padChar;
     }
-    
+
     public function format($id)
     {
         $result = $this->getPrefix();
         $result.= str_pad((string)$id, $this->getPadLength(), $this->getPadChar(), STR_PAD_LEFT);
         return $result;
     }
-    
+
     public function frontendFormat($id)
     {
-        $result = $id;
-        return $result;
+        return $id;
     }
 }

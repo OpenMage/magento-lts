@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,18 +28,10 @@
 /**
  * Reports Compared Product Index Resource Model
  *
- * @category   Mage
- * @package    Mage_Reports
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_Reports
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Reports_Model_Mysql4_Product_Index_Compared extends Mage_Reports_Model_Mysql4_Product_Index_Abstract
+class Mage_Reports_Model_Mysql4_Product_Index_Compared extends Mage_Reports_Model_Resource_Product_Index_Compared
 {
-    /**
-     * Initialize connection and main resource table
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('reports/compared_product_index', 'index_id');
-    }
 }

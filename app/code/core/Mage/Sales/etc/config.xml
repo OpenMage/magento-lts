@@ -21,543 +21,1166 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Sales>
-            <version>1.4.0.25</version>
+            <version>1.6.0.0</version>
         </Mage_Sales>
     </modules>
     <global>
         <fieldsets>
             <sales_copy_order>
-                <customer_email><to_edit>*</to_edit></customer_email>
-                <customer_group_id><to_edit>*</to_edit></customer_group_id>
+                <customer_email>
+                    <to_edit>*</to_edit>
+                </customer_email>
+                <customer_group_id>
+                    <to_edit>*</to_edit>
+                </customer_group_id>
             </sales_copy_order>
             <sales_copy_order_billing_address>
-                <prefix><to_order>*</to_order></prefix>
-                <firstname><to_order>*</to_order></firstname>
-                <middlename><to_order>*</to_order></middlename>
-                <lastname><to_order>*</to_order></lastname>
-                <suffix><to_order>*</to_order></suffix>
-                <customer_address_id><to_order>*</to_order></customer_address_id>
-                <company><to_order>*</to_order></company>
-                <street><to_order>*</to_order></street>
-                <city><to_order>*</to_order></city>
-                <region><to_order>*</to_order></region>
-                <postcode><to_order>*</to_order></postcode>
-                <country_id><to_order>*</to_order></country_id>
-                <telephone><to_order>*</to_order></telephone>
-                <fax><to_order>*</to_order></fax>
-                <region_id><to_order>*</to_order></region_id>
+                <prefix>
+                    <to_order>*</to_order>
+                </prefix>
+                <firstname>
+                    <to_order>*</to_order>
+                </firstname>
+                <middlename>
+                    <to_order>*</to_order>
+                </middlename>
+                <lastname>
+                    <to_order>*</to_order>
+                </lastname>
+                <suffix>
+                    <to_order>*</to_order>
+                </suffix>
+                <customer_address_id>
+                    <to_order>*</to_order>
+                </customer_address_id>
+                <company>
+                    <to_order>*</to_order>
+                </company>
+                <street>
+                    <to_order>*</to_order>
+                </street>
+                <city>
+                    <to_order>*</to_order>
+                </city>
+                <region>
+                    <to_order>*</to_order>
+                </region>
+                <postcode>
+                    <to_order>*</to_order>
+                </postcode>
+                <country_id>
+                    <to_order>*</to_order>
+                </country_id>
+                <telephone>
+                    <to_order>*</to_order>
+                </telephone>
+                <fax>
+                    <to_order>*</to_order>
+                </fax>
+                <region_id>
+                    <to_order>*</to_order>
+                </region_id>
             </sales_copy_order_billing_address>
             <sales_copy_order_shipping_address>
-                <prefix><to_order>*</to_order></prefix>
-                <firstname><to_order>*</to_order></firstname>
-                <middlename><to_order>*</to_order></middlename>
-                <lastname><to_order>*</to_order></lastname>
-                <suffix><to_order>*</to_order></suffix>
-                <customer_address_id><to_order>*</to_order></customer_address_id>
-                <company><to_order>*</to_order></company>
-                <street><to_order>*</to_order></street>
-                <city><to_order>*</to_order></city>
-                <region><to_order>*</to_order></region>
-                <postcode><to_order>*</to_order></postcode>
-                <country_id><to_order>*</to_order></country_id>
-                <telephone><to_order>*</to_order></telephone>
-                <fax><to_order>*</to_order></fax>
-                <region_id><to_order>*</to_order></region_id>
+                <prefix>
+                    <to_order>*</to_order>
+                </prefix>
+                <firstname>
+                    <to_order>*</to_order>
+                </firstname>
+                <middlename>
+                    <to_order>*</to_order>
+                </middlename>
+                <lastname>
+                    <to_order>*</to_order>
+                </lastname>
+                <suffix>
+                    <to_order>*</to_order>
+                </suffix>
+                <customer_address_id>
+                    <to_order>*</to_order>
+                </customer_address_id>
+                <company>
+                    <to_order>*</to_order>
+                </company>
+                <street>
+                    <to_order>*</to_order>
+                </street>
+                <city>
+                    <to_order>*</to_order>
+                </city>
+                <region>
+                    <to_order>*</to_order>
+                </region>
+                <postcode>
+                    <to_order>*</to_order>
+                </postcode>
+                <country_id>
+                    <to_order>*</to_order>
+                </country_id>
+                <telephone>
+                    <to_order>*</to_order>
+                </telephone>
+                <fax>
+                    <to_order>*</to_order>
+                </fax>
+                <region_id>
+                    <to_order>*</to_order>
+                </region_id>
             </sales_copy_order_shipping_address>
             <sales_convert_quote>
-                <remote_ip><to_order>*</to_order></remote_ip>
-                <x_forwarded_for><to_order>*</to_order></x_forwarded_for>
-
-                <customer_id><to_order>*</to_order></customer_id>
-                <customer_email><to_order>*</to_order></customer_email>
-                <customer_prefix><to_order>*</to_order></customer_prefix>
-                <customer_firstname><to_order>*</to_order></customer_firstname>
-                <customer_middlename><to_order>*</to_order></customer_middlename>
-                <customer_lastname><to_order>*</to_order></customer_lastname>
-                <customer_suffix><to_order>*</to_order></customer_suffix>
-                <customer_group_id><to_order>*</to_order></customer_group_id>
-                <customer_tax_class_id><to_order>*</to_order></customer_tax_class_id>
-                <customer_note><to_order>*</to_order></customer_note>
-                <customer_note_notify><to_order>*</to_order></customer_note_notify>
-                <customer_is_guest><to_order>*</to_order></customer_is_guest>
-                <customer_dob><to_order>*</to_order></customer_dob>
-                <customer_taxvat><to_order>*</to_order></customer_taxvat>
-                <customer_gender><to_order>*</to_order></customer_gender>
-
-                <base_grand_total><to_order>quote_base_grand_total</to_order></base_grand_total>
-
-                <global_currency_code><to_order>*</to_order></global_currency_code>
-                <base_currency_code><to_order>*</to_order></base_currency_code>
-                <store_currency_code><to_order>*</to_order></store_currency_code>
-                <quote_currency_code><to_order>order_currency_code</to_order></quote_currency_code>
-                <store_to_base_rate><to_order>*</to_order></store_to_base_rate>
-                <store_to_quote_rate><to_order>store_to_order_rate</to_order></store_to_quote_rate>
-                <base_to_global_rate><to_order>*</to_order></base_to_global_rate>
-                <base_to_quote_rate><to_order>base_to_order_rate</to_order></base_to_quote_rate>
-
-                <coupon_code><to_order>*</to_order></coupon_code>
-                <is_virtual><to_order>*</to_order></is_virtual>
-                <is_multi_payment><to_order>*</to_order></is_multi_payment>
-                <applied_rule_ids><to_order>*</to_order></applied_rule_ids>
-
-                <items_qty><to_order>total_qty_ordered</to_order></items_qty>
+                <remote_ip>
+                    <to_order>*</to_order>
+                </remote_ip>
+                <x_forwarded_for>
+                    <to_order>*</to_order>
+                </x_forwarded_for>
+                <customer_id>
+                    <to_order>*</to_order>
+                </customer_id>
+                <customer_email>
+                    <to_order>*</to_order>
+                </customer_email>
+                <customer_prefix>
+                    <to_order>*</to_order>
+                </customer_prefix>
+                <customer_firstname>
+                    <to_order>*</to_order>
+                </customer_firstname>
+                <customer_middlename>
+                    <to_order>*</to_order>
+                </customer_middlename>
+                <customer_lastname>
+                    <to_order>*</to_order>
+                </customer_lastname>
+                <customer_suffix>
+                    <to_order>*</to_order>
+                </customer_suffix>
+                <customer_group_id>
+                    <to_order>*</to_order>
+                </customer_group_id>
+                <customer_tax_class_id>
+                    <to_order>*</to_order>
+                </customer_tax_class_id>
+                <customer_note>
+                    <to_order>*</to_order>
+                </customer_note>
+                <customer_note_notify>
+                    <to_order>*</to_order>
+                </customer_note_notify>
+                <customer_is_guest>
+                    <to_order>*</to_order>
+                </customer_is_guest>
+                <customer_dob>
+                    <to_order>*</to_order>
+                </customer_dob>
+                <customer_taxvat>
+                    <to_order>*</to_order>
+                </customer_taxvat>
+                <customer_gender>
+                    <to_order>*</to_order>
+                </customer_gender>
+                <base_grand_total>
+                    <to_order>quote_base_grand_total</to_order>
+                </base_grand_total>
+                <global_currency_code>
+                    <to_order>*</to_order>
+                </global_currency_code>
+                <base_currency_code>
+                    <to_order>*</to_order>
+                </base_currency_code>
+                <store_currency_code>
+                    <to_order>*</to_order>
+                </store_currency_code>
+                <quote_currency_code>
+                    <to_order>order_currency_code</to_order>
+                </quote_currency_code>
+                <store_to_base_rate>
+                    <to_order>*</to_order>
+                </store_to_base_rate>
+                <store_to_quote_rate>
+                    <to_order>store_to_order_rate</to_order>
+                </store_to_quote_rate>
+                <base_to_global_rate>
+                    <to_order>*</to_order>
+                </base_to_global_rate>
+                <base_to_quote_rate>
+                    <to_order>base_to_order_rate</to_order>
+                </base_to_quote_rate>
+                <coupon_code>
+                    <to_order>*</to_order>
+                </coupon_code>
+                <is_virtual>
+                    <to_order>*</to_order>
+                </is_virtual>
+                <is_multi_payment>
+                    <to_order>*</to_order>
+                </is_multi_payment>
+                <applied_rule_ids>
+                    <to_order>*</to_order>
+                </applied_rule_ids>
+                <items_qty>
+                    <to_order>total_qty_ordered</to_order>
+                </items_qty>
             </sales_convert_quote>
-
             <sales_convert_quote_address>
-                <weight><to_order>*</to_order></weight>
-                <shipping_method><to_order>*</to_order></shipping_method>
-                <shipping_description><to_order>*</to_order></shipping_description>
-                <shipping_rate><to_order>*</to_order></shipping_rate>
-
-                <subtotal><to_order>*</to_order></subtotal>
-                <tax_amount><to_order>*</to_order></tax_amount>
-                <tax_string><to_order>*</to_order></tax_string>
-                <discount_amount><to_order>*</to_order></discount_amount>
-                <shipping_amount><to_order>*</to_order></shipping_amount>
-                <shipping_incl_tax><to_order>*</to_order></shipping_incl_tax>
-                <shipping_tax_amount><to_order>*</to_order></shipping_tax_amount>
-                <custbalance_amount><to_order>*</to_order></custbalance_amount>
-                <grand_total><to_order>*</to_order></grand_total>
-
-                <base_subtotal><to_order>*</to_order></base_subtotal>
-                <base_tax_amount><to_order>*</to_order></base_tax_amount>
-                <base_discount_amount><to_order>*</to_order></base_discount_amount>
-                <base_shipping_amount><to_order>*</to_order></base_shipping_amount>
-                <base_shipping_incl_tax><to_order>*</to_order></base_shipping_incl_tax>
-                <base_shipping_tax_amount><to_order>*</to_order></base_shipping_tax_amount>
-                <base_custbalance_amount><to_order>*</to_order></base_custbalance_amount>
-                <base_grand_total><to_order>*</to_order></base_grand_total>
-
-                <hidden_tax_amount><to_order>*</to_order></hidden_tax_amount>
-                <base_hidden_tax_amount><to_order>*</to_order></base_hidden_tax_amount>
-                <shipping_hidden_tax_amount><to_order>*</to_order></shipping_hidden_tax_amount>
-                <base_shipping_hidden_tax_amount><to_order>*</to_order></base_shipping_hidden_tax_amount>
-
-                <prefix><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></prefix>
-                <firstname><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></firstname>
-                <middlename><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></middlename>
-                <lastname><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></lastname>
-                <suffix><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></suffix>
-                <company><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></company>
-                <street_full><to_order_address>street</to_order_address></street_full>
-                <street><to_customer_address>*</to_customer_address></street><!-- ^^^ ? -->
-                <city><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></city>
-                <region><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></region>
-                <region_id><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></region_id>
-                <postcode><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></postcode>
-                <country_id><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></country_id>
-                <telephone><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></telephone>
-                <fax><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></fax>
-                <email><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></email>
+                <weight>
+                    <to_order>*</to_order>
+                </weight>
+                <shipping_method>
+                    <to_order>*</to_order>
+                </shipping_method>
+                <shipping_description>
+                    <to_order>*</to_order>
+                </shipping_description>
+                <shipping_rate>
+                    <to_order>*</to_order>
+                </shipping_rate>
+                <subtotal>
+                    <to_order>*</to_order>
+                </subtotal>
+                <tax_amount>
+                    <to_order>*</to_order>
+                </tax_amount>
+                <tax_string>
+                    <to_order>*</to_order>
+                </tax_string>
+                <discount_amount>
+                    <to_order>*</to_order>
+                </discount_amount>
+                <shipping_amount>
+                    <to_order>*</to_order>
+                </shipping_amount>
+                <shipping_incl_tax>
+                    <to_order>*</to_order>
+                </shipping_incl_tax>
+                <shipping_tax_amount>
+                    <to_order>*</to_order>
+                </shipping_tax_amount>
+                <custbalance_amount>
+                    <to_order>*</to_order>
+                </custbalance_amount>
+                <grand_total>
+                    <to_order>*</to_order>
+                </grand_total>
+                <base_subtotal>
+                    <to_order>*</to_order>
+                </base_subtotal>
+                <base_tax_amount>
+                    <to_order>*</to_order>
+                </base_tax_amount>
+                <base_discount_amount>
+                    <to_order>*</to_order>
+                </base_discount_amount>
+                <base_shipping_amount>
+                    <to_order>*</to_order>
+                </base_shipping_amount>
+                <base_shipping_incl_tax>
+                    <to_order>*</to_order>
+                </base_shipping_incl_tax>
+                <base_shipping_tax_amount>
+                    <to_order>*</to_order>
+                </base_shipping_tax_amount>
+                <base_custbalance_amount>
+                    <to_order>*</to_order>
+                </base_custbalance_amount>
+                <base_grand_total>
+                    <to_order>*</to_order>
+                </base_grand_total>
+                <hidden_tax_amount>
+                    <to_order>*</to_order>
+                </hidden_tax_amount>
+                <base_hidden_tax_amount>
+                    <to_order>*</to_order>
+                </base_hidden_tax_amount>
+                <shipping_hidden_tax_amount>
+                    <to_order>*</to_order>
+                </shipping_hidden_tax_amount>
+                <base_shipping_hidden_tax_amount>
+                    <to_order>*</to_order>
+                </base_shipping_hidden_tax_amount>
+                <prefix>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </prefix>
+                <firstname>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </firstname>
+                <middlename>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </middlename>
+                <lastname>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </lastname>
+                <suffix>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </suffix>
+                <company>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </company>
+                <street_full>
+                    <to_order_address>street</to_order_address>
+                </street_full>
+                <street>
+                    <to_customer_address>*</to_customer_address>
+                </street>
+                <city>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </city>
+                <region>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </region>
+                <region_id>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </region_id>
+                <postcode>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </postcode>
+                <country_id>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </country_id>
+                <telephone>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </telephone>
+                <fax>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </fax>
+                <email>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </email>
             </sales_convert_quote_address>
-
             <sales_convert_quote_payment>
-                <method><to_order_payment>*</to_order_payment></method>
-                <additional_data><to_order_payment>*</to_order_payment></additional_data>
-                <additional_information><to_order_payment>*</to_order_payment></additional_information>
-                <po_number><to_order_payment>*</to_order_payment></po_number>
-                <cc_type><to_order_payment>*</to_order_payment></cc_type>
-                <cc_number_enc><to_order_payment>*</to_order_payment></cc_number_enc>
-                <cc_last4><to_order_payment>*</to_order_payment></cc_last4>
-                <cc_owner><to_order_payment>*</to_order_payment></cc_owner>
-                <cc_exp_month><to_order_payment>*</to_order_payment></cc_exp_month>
-                <cc_exp_year><to_order_payment>*</to_order_payment></cc_exp_year>
-
-                <cc_number><to_order_payment>*</to_order_payment></cc_number>
-                <cc_cid><to_order_payment>*</to_order_payment></cc_cid>
-
-                <cc_ss_issue><to_order_payment>*</to_order_payment></cc_ss_issue>
-                <cc_ss_start_month><to_order_payment>*</to_order_payment></cc_ss_start_month>
-                <cc_ss_start_year><to_order_payment>*</to_order_payment></cc_ss_start_year>
+                <method>
+                    <to_order_payment>*</to_order_payment>
+                </method>
+                <additional_data>
+                    <to_order_payment>*</to_order_payment>
+                </additional_data>
+                <additional_information>
+                    <to_order_payment>*</to_order_payment>
+                </additional_information>
+                <po_number>
+                    <to_order_payment>*</to_order_payment>
+                </po_number>
+                <cc_type>
+                    <to_order_payment>*</to_order_payment>
+                </cc_type>
+                <cc_number_enc>
+                    <to_order_payment>*</to_order_payment>
+                </cc_number_enc>
+                <cc_last4>
+                    <to_order_payment>*</to_order_payment>
+                </cc_last4>
+                <cc_owner>
+                    <to_order_payment>*</to_order_payment>
+                </cc_owner>
+                <cc_exp_month>
+                    <to_order_payment>*</to_order_payment>
+                </cc_exp_month>
+                <cc_exp_year>
+                    <to_order_payment>*</to_order_payment>
+                </cc_exp_year>
+                <cc_number>
+                    <to_order_payment>*</to_order_payment>
+                </cc_number>
+                <cc_cid>
+                    <to_order_payment>*</to_order_payment>
+                </cc_cid>
+                <cc_ss_issue>
+                    <to_order_payment>*</to_order_payment>
+                </cc_ss_issue>
+                <cc_ss_start_month>
+                    <to_order_payment>*</to_order_payment>
+                </cc_ss_start_month>
+                <cc_ss_start_year>
+                    <to_order_payment>*</to_order_payment>
+                </cc_ss_start_year>
             </sales_convert_quote_payment>
-
             <sales_convert_quote_item>
-                <sku><to_order_item>*</to_order_item></sku>
-                <name><to_order_item>*</to_order_item></name>
-                <description><to_order_item>*</to_order_item></description>
-                <weight><to_order_item>*</to_order_item></weight>
-                <is_qty_decimal><to_order_item>*</to_order_item></is_qty_decimal>
-                <qty><to_order_item>qty_ordered</to_order_item></qty>
-                <is_virtual><to_order_item>*</to_order_item></is_virtual>
-                <original_price><to_order_item>*</to_order_item></original_price>
-                <applied_rule_ids><to_order_item>*</to_order_item></applied_rule_ids>
-                <additional_data><to_order_item>*</to_order_item></additional_data>
-                <calculation_price><to_order_item>price</to_order_item></calculation_price>
-                <base_calculation_price><to_order_item>base_price</to_order_item></base_calculation_price>
-                <tax_percent><to_order_item>*</to_order_item></tax_percent>
-                <tax_amount><to_order_item>*</to_order_item></tax_amount>
-                <tax_before_discount><to_order_item>*</to_order_item></tax_before_discount>
-                <base_tax_before_discount><to_order_item>*</to_order_item></base_tax_before_discount>
-                <tax_string><to_order_item>*</to_order_item></tax_string>
-                <row_weight><to_order_item>*</to_order_item></row_weight>
-                <row_total><to_order_item>*</to_order_item></row_total>
-                <base_original_price><to_order_item>*</to_order_item></base_original_price>
-                <base_tax_amount><to_order_item>*</to_order_item></base_tax_amount>
-                <base_row_total><to_order_item>*</to_order_item></base_row_total>
-                <discount_percent><to_order_item_discount>*</to_order_item_discount></discount_percent>
-                <discount_amount><to_order_item_discount>*</to_order_item_discount></discount_amount>
-                <base_discount_amount><to_order_item_discount>*</to_order_item_discount></base_discount_amount>
-                <base_cost><to_order_item>*</to_order_item></base_cost>
-                <store_id><to_order_item>*</to_order_item></store_id>
-                <hidden_tax_amount><to_order_item>*</to_order_item></hidden_tax_amount>
-                <base_hidden_tax_amount><to_order_item>*</to_order_item></base_hidden_tax_amount>
-                <is_recurring><to_order_item>*</to_order_item></is_recurring>
-                <is_nominal><to_order_item>*</to_order_item></is_nominal>
+                <sku>
+                    <to_order_item>*</to_order_item>
+                </sku>
+                <name>
+                    <to_order_item>*</to_order_item>
+                </name>
+                <description>
+                    <to_order_item>*</to_order_item>
+                </description>
+                <weight>
+                    <to_order_item>*</to_order_item>
+                </weight>
+                <is_qty_decimal>
+                    <to_order_item>*</to_order_item>
+                </is_qty_decimal>
+                <qty>
+                    <to_order_item>qty_ordered</to_order_item>
+                </qty>
+                <is_virtual>
+                    <to_order_item>*</to_order_item>
+                </is_virtual>
+                <original_price>
+                    <to_order_item>*</to_order_item>
+                </original_price>
+                <applied_rule_ids>
+                    <to_order_item>*</to_order_item>
+                </applied_rule_ids>
+                <additional_data>
+                    <to_order_item>*</to_order_item>
+                </additional_data>
+                <calculation_price>
+                    <to_order_item>price</to_order_item>
+                </calculation_price>
+                <base_calculation_price>
+                    <to_order_item>base_price</to_order_item>
+                </base_calculation_price>
+                <tax_percent>
+                    <to_order_item>*</to_order_item>
+                </tax_percent>
+                <tax_amount>
+                    <to_order_item>*</to_order_item>
+                </tax_amount>
+                <tax_before_discount>
+                    <to_order_item>*</to_order_item>
+                </tax_before_discount>
+                <base_tax_before_discount>
+                    <to_order_item>*</to_order_item>
+                </base_tax_before_discount>
+                <tax_string>
+                    <to_order_item>*</to_order_item>
+                </tax_string>
+                <row_weight>
+                    <to_order_item>*</to_order_item>
+                </row_weight>
+                <row_total>
+                    <to_order_item>*</to_order_item>
+                </row_total>
+                <base_original_price>
+                    <to_order_item>*</to_order_item>
+                </base_original_price>
+                <base_tax_amount>
+                    <to_order_item>*</to_order_item>
+                </base_tax_amount>
+                <base_row_total>
+                    <to_order_item>*</to_order_item>
+                </base_row_total>
+                <discount_percent>
+                    <to_order_item_discount>*</to_order_item_discount>
+                </discount_percent>
+                <discount_amount>
+                    <to_order_item_discount>*</to_order_item_discount>
+                </discount_amount>
+                <base_discount_amount>
+                    <to_order_item_discount>*</to_order_item_discount>
+                </base_discount_amount>
+                <base_cost>
+                    <to_order_item>*</to_order_item>
+                </base_cost>
+                <store_id>
+                    <to_order_item>*</to_order_item>
+                </store_id>
+                <hidden_tax_amount>
+                    <to_order_item>*</to_order_item>
+                </hidden_tax_amount>
+                <base_hidden_tax_amount>
+                    <to_order_item>*</to_order_item>
+                </base_hidden_tax_amount>
+                <is_recurring>
+                    <to_order_item>*</to_order_item>
+                </is_recurring>
+                <is_nominal>
+                    <to_order_item>*</to_order_item>
+                </is_nominal>
             </sales_convert_quote_item>
-
             <sales_convert_order>
-                <customer_id><to_quote>*</to_quote></customer_id>
-                <customer_email><to_quote>*</to_quote></customer_email>
-                <customer_group_id><to_quote>*</to_quote></customer_group_id>
-                <customer_tax_class_id><to_quote>*</to_quote></customer_tax_class_id>
-                <customer_taxvat><to_quote>*</to_quote></customer_taxvat>
-
-                <customer_note><to_quote>*</to_quote></customer_note>
-                <customer_note_notify><to_quote>*</to_quote></customer_note_notify>
-                <customer_is_guest><to_quote>*</to_quote></customer_is_guest>
-
-                <global_currency_code><to_quote>*</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></global_currency_code>
-                <base_currency_code><to_quote>*</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></base_currency_code>
-                <store_currency_code><to_quote>*</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></store_currency_code>
-                <order_currency_code><to_quote>quote_currency_code</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></order_currency_code>
-                <store_to_base_rate><to_quote>*</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></store_to_base_rate>
-                <store_to_order_rate><to_quote>store_to_quote_rate</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></store_to_order_rate>
-                <base_to_global_rate><to_quote>*</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></base_to_global_rate>
-                <base_to_order_rate><to_quote>base_to_quote_rate</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></base_to_order_rate>
-
-                <grand_total><to_quote>*</to_quote><to_quote_address_shipping>*</to_quote_address_shipping></grand_total>
-                <base_grand_total><to_quote>*</to_quote><to_quote_address_shipping>*</to_quote_address_shipping></base_grand_total>
-
-                <coupon_code><to_quote>*</to_quote></coupon_code>
-                <applied_rule_ids><to_quote>*</to_quote></applied_rule_ids>
-
-                <weight><to_quote_address_shipping>*</to_quote_address_shipping></weight>
-                <shipping_method><to_quote_address_shipping>*</to_quote_address_shipping></shipping_method>
-                <shipping_description><to_quote_address_shipping>*</to_quote_address_shipping></shipping_description>
-                <shipping_rate><to_quote_address_shipping>*</to_quote_address_shipping></shipping_rate>
-
-                <subtotal><to_quote_address_shipping>*</to_quote_address_shipping></subtotal>
-                <tax_amount><to_quote_address_shipping>*</to_quote_address_shipping></tax_amount>
-                <tax_string><to_quote_address_shipping>*</to_quote_address_shipping></tax_string>
-                <discount_amount><to_quote_address_shipping>*</to_quote_address_shipping></discount_amount>
-                <shipping_amount><to_quote_address_shipping>*</to_quote_address_shipping></shipping_amount>
-                <shipping_incl_tax><to_quote_address_shipping>*</to_quote_address_shipping></shipping_incl_tax>
-                <custbalance_amount><to_quote_address_shipping>*</to_quote_address_shipping></custbalance_amount>
-
-                <base_subtotal><to_quote_address_shipping>*</to_quote_address_shipping></base_subtotal>
-                <base_tax_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_tax_amount>
-                <base_discount_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_discount_amount>
-                <base_shipping_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_shipping_amount>
-                <base_shipping_incl_tax><to_quote_address_shipping>*</to_quote_address_shipping></base_shipping_incl_tax>
-                <base_custbalance_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_custbalance_amount>
-
-                <shipping_tax_amount><to_cm>*</to_cm></shipping_tax_amount>
-                <base_shipping_tax_amount><to_cm>*</to_cm></base_shipping_tax_amount>
-
+                <customer_id>
+                    <to_quote>*</to_quote>
+                </customer_id>
+                <customer_email>
+                    <to_quote>*</to_quote>
+                </customer_email>
+                <customer_group_id>
+                    <to_quote>*</to_quote>
+                </customer_group_id>
+                <customer_tax_class_id>
+                    <to_quote>*</to_quote>
+                </customer_tax_class_id>
+                <customer_taxvat>
+                    <to_quote>*</to_quote>
+                </customer_taxvat>
+                <customer_note>
+                    <to_quote>*</to_quote>
+                </customer_note>
+                <customer_note_notify>
+                    <to_quote>*</to_quote>
+                </customer_note_notify>
+                <customer_is_guest>
+                    <to_quote>*</to_quote>
+                </customer_is_guest>
+                <global_currency_code>
+                    <to_quote>*</to_quote>
+                    <to_invoice>*</to_invoice>
+                    <to_shipment>*</to_shipment>
+                    <to_cm>*</to_cm>
+                </global_currency_code>
+                <base_currency_code>
+                    <to_quote>*</to_quote>
+                    <to_invoice>*</to_invoice>
+                    <to_shipment>*</to_shipment>
+                    <to_cm>*</to_cm>
+                </base_currency_code>
+                <store_currency_code>
+                    <to_quote>*</to_quote>
+                    <to_invoice>*</to_invoice>
+                    <to_shipment>*</to_shipment>
+                    <to_cm>*</to_cm>
+                </store_currency_code>
+                <order_currency_code>
+                    <to_quote>quote_currency_code</to_quote>
+                    <to_invoice>*</to_invoice>
+                    <to_shipment>*</to_shipment>
+                    <to_cm>*</to_cm>
+                </order_currency_code>
+                <store_to_base_rate>
+                    <to_quote>*</to_quote>
+                    <to_invoice>*</to_invoice>
+                    <to_shipment>*</to_shipment>
+                    <to_cm>*</to_cm>
+                </store_to_base_rate>
+                <store_to_order_rate>
+                    <to_quote>store_to_quote_rate</to_quote>
+                    <to_invoice>*</to_invoice>
+                    <to_shipment>*</to_shipment>
+                    <to_cm>*</to_cm>
+                </store_to_order_rate>
+                <base_to_global_rate>
+                    <to_quote>*</to_quote>
+                    <to_invoice>*</to_invoice>
+                    <to_shipment>*</to_shipment>
+                    <to_cm>*</to_cm>
+                </base_to_global_rate>
+                <base_to_order_rate>
+                    <to_quote>base_to_quote_rate</to_quote>
+                    <to_invoice>*</to_invoice>
+                    <to_shipment>*</to_shipment>
+                    <to_cm>*</to_cm>
+                </base_to_order_rate>
+                <grand_total>
+                    <to_quote>*</to_quote>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </grand_total>
+                <base_grand_total>
+                    <to_quote>*</to_quote>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </base_grand_total>
+                <coupon_code>
+                    <to_quote>*</to_quote>
+                </coupon_code>
+                <applied_rule_ids>
+                    <to_quote>*</to_quote>
+                </applied_rule_ids>
+                <weight>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </weight>
+                <shipping_method>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </shipping_method>
+                <shipping_description>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </shipping_description>
+                <shipping_rate>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </shipping_rate>
+                <subtotal>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </subtotal>
+                <tax_amount>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </tax_amount>
+                <tax_string>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </tax_string>
+                <discount_amount>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </discount_amount>
+                <shipping_amount>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </shipping_amount>
+                <shipping_incl_tax>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </shipping_incl_tax>
+                <custbalance_amount>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </custbalance_amount>
+                <base_subtotal>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </base_subtotal>
+                <base_tax_amount>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </base_tax_amount>
+                <base_discount_amount>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </base_discount_amount>
+                <base_shipping_amount>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </base_shipping_amount>
+                <base_shipping_incl_tax>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </base_shipping_incl_tax>
+                <base_custbalance_amount>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </base_custbalance_amount>
+                <shipping_tax_amount>
+                    <to_cm>*</to_cm>
+                </shipping_tax_amount>
+                <base_shipping_tax_amount>
+                    <to_cm>*</to_cm>
+                </base_shipping_tax_amount>
             </sales_convert_order>
-
             <sales_convert_order_address>
-                <prefix><to_quote_address>*</to_quote_address></prefix>
-                <firstname><to_quote_address>*</to_quote_address></firstname>
-                <middlename><to_quote_address>*</to_quote_address></middlename>
-                <lastname><to_quote_address>*</to_quote_address></lastname>
-                <suffix><to_quote_address>*</to_quote_address></suffix>
-                <company><to_quote_address>*</to_quote_address></company>
-                <street_full><to_quote_address>street</to_quote_address></street_full>
-                <city><to_quote_address>*</to_quote_address></city>
-                <region><to_quote_address>*</to_quote_address></region>
-                <region_id><to_quote_address>*</to_quote_address></region_id>
-                <postcode><to_quote_address>*</to_quote_address></postcode>
-                <country_id><to_quote_address>*</to_quote_address></country_id>
-                <telephone><to_quote_address>*</to_quote_address></telephone>
-                <fax><to_quote_address>*</to_quote_address></fax>
+                <prefix>
+                    <to_quote_address>*</to_quote_address>
+                </prefix>
+                <firstname>
+                    <to_quote_address>*</to_quote_address>
+                </firstname>
+                <middlename>
+                    <to_quote_address>*</to_quote_address>
+                </middlename>
+                <lastname>
+                    <to_quote_address>*</to_quote_address>
+                </lastname>
+                <suffix>
+                    <to_quote_address>*</to_quote_address>
+                </suffix>
+                <company>
+                    <to_quote_address>*</to_quote_address>
+                </company>
+                <street_full>
+                    <to_quote_address>street</to_quote_address>
+                </street_full>
+                <city>
+                    <to_quote_address>*</to_quote_address>
+                </city>
+                <region>
+                    <to_quote_address>*</to_quote_address>
+                </region>
+                <region_id>
+                    <to_quote_address>*</to_quote_address>
+                </region_id>
+                <postcode>
+                    <to_quote_address>*</to_quote_address>
+                </postcode>
+                <country_id>
+                    <to_quote_address>*</to_quote_address>
+                </country_id>
+                <telephone>
+                    <to_quote_address>*</to_quote_address>
+                </telephone>
+                <fax>
+                    <to_quote_address>*</to_quote_address>
+                </fax>
             </sales_convert_order_address>
-
             <sales_convert_order_payment>
-                <method><to_quote_payment>*</to_quote_payment></method>
-                <additional_data><to_quote_payment>*</to_quote_payment></additional_data>
-                <additional_information><to_quote_payment>*</to_quote_payment></additional_information>
-                <po_number><to_quote_payment>*</to_quote_payment></po_number>
-                <cc_type><to_quote_payment>*</to_quote_payment></cc_type>
-                <cc_number_enc><to_quote_payment>*</to_quote_payment></cc_number_enc>
-                <cc_last4><to_quote_payment>*</to_quote_payment></cc_last4>
-                <cc_owner><to_quote_payment>*</to_quote_payment></cc_owner>
-                <cc_exp_month><to_quote_payment>*</to_quote_payment></cc_exp_month>
-                <cc_exp_year><to_quote_payment>*</to_quote_payment></cc_exp_year>
-
-                <cc_ss_issue><to_quote_payment>*</to_quote_payment></cc_ss_issue>
-                <cc_ss_start_month><to_quote_payment>*</to_quote_payment></cc_ss_start_month>
-                <cc_ss_start_year><to_quote_payment>*</to_quote_payment></cc_ss_start_year>
+                <method>
+                    <to_quote_payment>*</to_quote_payment>
+                </method>
+                <additional_data>
+                    <to_quote_payment>*</to_quote_payment>
+                </additional_data>
+                <additional_information>
+                    <to_quote_payment>*</to_quote_payment>
+                </additional_information>
+                <po_number>
+                    <to_quote_payment>*</to_quote_payment>
+                </po_number>
+                <cc_type>
+                    <to_quote_payment>*</to_quote_payment>
+                </cc_type>
+                <cc_number_enc>
+                    <to_quote_payment>*</to_quote_payment>
+                </cc_number_enc>
+                <cc_last4>
+                    <to_quote_payment>*</to_quote_payment>
+                </cc_last4>
+                <cc_owner>
+                    <to_quote_payment>*</to_quote_payment>
+                </cc_owner>
+                <cc_exp_month>
+                    <to_quote_payment>*</to_quote_payment>
+                </cc_exp_month>
+                <cc_exp_year>
+                    <to_quote_payment>*</to_quote_payment>
+                </cc_exp_year>
+                <cc_ss_issue>
+                    <to_quote_payment>*</to_quote_payment>
+                </cc_ss_issue>
+                <cc_ss_start_month>
+                    <to_quote_payment>*</to_quote_payment>
+                </cc_ss_start_month>
+                <cc_ss_start_year>
+                    <to_quote_payment>*</to_quote_payment>
+                </cc_ss_start_year>
             </sales_convert_order_payment>
-
             <sales_convert_order_item>
-                <sku><to_quote_item>*</to_quote_item><to_invoice_item>*</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></sku>
-                <name><to_quote_item>*</to_quote_item><to_invoice_item>*</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></name>
-                <description><to_quote_item>*</to_quote_item><to_invoice_item>*</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></description>
-                <weight><to_quote_item>*</to_quote_item><to_shipment_item>*</to_shipment_item></weight>
-                <price><to_quote_item>custom_price</to_quote_item><to_invoice_item>*</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></price>
-                <discount_percent><to_quote_item_discount>*</to_quote_item_discount></discount_percent>
-                <discount_amount><to_quote_item_discount>*</to_quote_item_discount></discount_amount>
-                <tax_percent><to_quote_item>*</to_quote_item></tax_percent>
-                <tax_string><to_quote_item>*</to_quote_item></tax_string>
-                <tax_amount><to_quote_item>*</to_quote_item></tax_amount>
-                <row_weight><to_quote_item>*</to_quote_item></row_weight>
-                <row_total><to_quote_item>*</to_quote_item></row_total>
-                <applied_rule_ids><to_quote_item>*</to_quote_item></applied_rule_ids>
-
-                <base_discount_amount><to_quote_item_discount>*</to_quote_item_discount></base_discount_amount>
-                <base_tax_amount><to_quote_item>*</to_quote_item></base_tax_amount>
-                <base_row_total><to_quote_item>*</to_quote_item></base_row_total>
-
-                <base_price><to_invoice_item>base_price</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></base_price>
-                <base_cost><to_invoice_item>*</to_invoice_item><to_cm_item>*</to_cm_item><to_quote_item>*</to_quote_item></base_cost>
+                <sku>
+                    <to_quote_item>*</to_quote_item>
+                    <to_invoice_item>*</to_invoice_item>
+                    <to_shipment_item>*</to_shipment_item>
+                    <to_cm_item>*</to_cm_item>
+                </sku>
+                <name>
+                    <to_quote_item>*</to_quote_item>
+                    <to_invoice_item>*</to_invoice_item>
+                    <to_shipment_item>*</to_shipment_item>
+                    <to_cm_item>*</to_cm_item>
+                </name>
+                <description>
+                    <to_quote_item>*</to_quote_item>
+                    <to_invoice_item>*</to_invoice_item>
+                    <to_shipment_item>*</to_shipment_item>
+                    <to_cm_item>*</to_cm_item>
+                </description>
+                <weight>
+                    <to_quote_item>*</to_quote_item>
+                    <to_shipment_item>*</to_shipment_item>
+                </weight>
+                <price>
+                    <to_quote_item>custom_price</to_quote_item>
+                    <to_invoice_item>*</to_invoice_item>
+                    <to_shipment_item>*</to_shipment_item>
+                    <to_cm_item>*</to_cm_item>
+                </price>
+                <discount_percent>
+                    <to_quote_item_discount>*</to_quote_item_discount>
+                </discount_percent>
+                <discount_amount>
+                    <to_quote_item_discount>*</to_quote_item_discount>
+                </discount_amount>
+                <tax_percent>
+                    <to_quote_item>*</to_quote_item>
+                </tax_percent>
+                <tax_string>
+                    <to_quote_item>*</to_quote_item>
+                </tax_string>
+                <tax_amount>
+                    <to_quote_item>*</to_quote_item>
+                </tax_amount>
+                <row_weight>
+                    <to_quote_item>*</to_quote_item>
+                </row_weight>
+                <row_total>
+                    <to_quote_item>*</to_quote_item>
+                </row_total>
+                <applied_rule_ids>
+                    <to_quote_item>*</to_quote_item>
+                </applied_rule_ids>
+                <base_discount_amount>
+                    <to_quote_item_discount>*</to_quote_item_discount>
+                </base_discount_amount>
+                <base_tax_amount>
+                    <to_quote_item>*</to_quote_item>
+                </base_tax_amount>
+                <base_row_total>
+                    <to_quote_item>*</to_quote_item>
+                </base_row_total>
+                <base_price>
+                    <to_invoice_item>base_price</to_invoice_item>
+                    <to_shipment_item>*</to_shipment_item>
+                    <to_cm_item>*</to_cm_item>
+                </base_price>
+                <base_cost>
+                    <to_invoice_item>*</to_invoice_item>
+                    <to_cm_item>*</to_cm_item>
+                    <to_quote_item>*</to_quote_item>
+                </base_cost>
             </sales_convert_order_item>
-
             <customer_account>
-                <id><to_quote>customer_id</to_quote></id>
-                <email><to_quote>customer_email</to_quote></email>
-                <prefix><to_quote>customer_prefix</to_quote></prefix>
-                <firstname><to_quote>customer_firstname</to_quote></firstname>
-                <middlename><to_quote>customer_middlename</to_quote></middlename>
-                <lastname><to_quote>customer_lastname</to_quote></lastname>
-                <suffix><to_quote>customer_suffix</to_quote></suffix>
-                <group_id><to_quote>customer_group_id</to_quote></group_id>
-                <tax_class_id><to_quote>customer_tax_class_id</to_quote></tax_class_id>
-                <taxvat><to_quote>customer_taxvat</to_quote></taxvat>
-                <dob><to_quote>customer_dob</to_quote></dob>
-                <gender><to_quote>customer_gender</to_quote></gender>
+                <id>
+                    <to_quote>customer_id</to_quote>
+                </id>
+                <email>
+                    <to_quote>customer_email</to_quote>
+                </email>
+                <prefix>
+                    <to_quote>customer_prefix</to_quote>
+                </prefix>
+                <firstname>
+                    <to_quote>customer_firstname</to_quote>
+                </firstname>
+                <middlename>
+                    <to_quote>customer_middlename</to_quote>
+                </middlename>
+                <lastname>
+                    <to_quote>customer_lastname</to_quote>
+                </lastname>
+                <suffix>
+                    <to_quote>customer_suffix</to_quote>
+                </suffix>
+                <group_id>
+                    <to_quote>customer_group_id</to_quote>
+                </group_id>
+                <tax_class_id>
+                    <to_quote>customer_tax_class_id</to_quote>
+                </tax_class_id>
+                <taxvat>
+                    <to_quote>customer_taxvat</to_quote>
+                </taxvat>
+                <dob>
+                    <to_quote>customer_dob</to_quote>
+                </dob>
+                <gender>
+                    <to_quote>customer_gender</to_quote>
+                </gender>
             </customer_account>
-
             <customer_address>
-                <id><to_quote_address>customer_address_id</to_quote_address></id>
-                <parent_id><to_quote_address>customer_id</to_quote_address></parent_id>
-                <prefix><to_quote_address>*</to_quote_address></prefix>
-                <firstname><to_quote_address>*</to_quote_address></firstname>
-                <middlename><to_quote_address>*</to_quote_address></middlename>
-                <lastname><to_quote_address>*</to_quote_address></lastname>
-                <suffix><to_quote_address>*</to_quote_address></suffix>
-                <!--<email><to_quote_address>*</to_quote_address></email>-->
-                <company><to_quote_address>*</to_quote_address></company>
-                <street_full><to_quote_address>street</to_quote_address></street_full>
-                <city><to_quote_address>*</to_quote_address></city>
-                <region><to_quote_address>*</to_quote_address></region>
-                <region_id><to_quote_address>*</to_quote_address></region_id>
-                <postcode><to_quote_address>*</to_quote_address></postcode>
-                <country_id><to_quote_address>*</to_quote_address></country_id>
-                <telephone><to_quote_address>*</to_quote_address></telephone>
-                <fax><to_quote_address>*</to_quote_address></fax>
+                <id>
+                    <to_quote_address>customer_address_id</to_quote_address>
+                </id>
+                <parent_id>
+                    <to_quote_address>customer_id</to_quote_address>
+                </parent_id>
+                <prefix>
+                    <to_quote_address>*</to_quote_address>
+                </prefix>
+                <firstname>
+                    <to_quote_address>*</to_quote_address>
+                </firstname>
+                <middlename>
+                    <to_quote_address>*</to_quote_address>
+                </middlename>
+                <lastname>
+                    <to_quote_address>*</to_quote_address>
+                </lastname>
+                <suffix>
+                    <to_quote_address>*</to_quote_address>
+                </suffix>
+                <company>
+                    <to_quote_address>*</to_quote_address>
+                </company>
+                <street_full>
+                    <to_quote_address>street</to_quote_address>
+                </street_full>
+                <city>
+                    <to_quote_address>*</to_quote_address>
+                </city>
+                <region>
+                    <to_quote_address>*</to_quote_address>
+                </region>
+                <region_id>
+                    <to_quote_address>*</to_quote_address>
+                </region_id>
+                <postcode>
+                    <to_quote_address>*</to_quote_address>
+                </postcode>
+                <country_id>
+                    <to_quote_address>*</to_quote_address>
+                </country_id>
+                <telephone>
+                    <to_quote_address>*</to_quote_address>
+                </telephone>
+                <fax>
+                    <to_quote_address>*</to_quote_address>
+                </fax>
             </customer_address>
         </fieldsets>
-
         <models>
             <sales>
                 <class>Mage_Sales_Model</class>
-                <resourceModel>sales_mysql4</resourceModel>
+                <resourceModel>sales_resource</resourceModel>
             </sales>
-            <sales_mysql4>
-                <class>Mage_Sales_Model_Mysql4</class>
-                <entities>
-                    <quote><table>sales_flat_quote</table></quote>
-                    <quote_item><table>sales_flat_quote_item</table></quote_item>
-                    <quote_address><table>sales_flat_quote_address</table></quote_address>
-                    <quote_address_item><table>sales_flat_quote_address_item</table></quote_address_item>
-                    <quote_item_option><table>sales_flat_quote_item_option</table></quote_item_option>
-                    <quote_payment><table>sales_flat_quote_payment</table></quote_payment>
-                    <quote_address_shipping_rate><table>sales_flat_quote_shipping_rate</table></quote_address_shipping_rate>
-
-                    <order><table>sales_flat_order</table></order>
-                    <order_grid><table>sales_flat_order_grid</table></order_grid>
-                    <order_item><table>sales_flat_order_item</table></order_item>
-                    <order_address><table>sales_flat_order_address</table></order_address>
-                    <order_payment><table>sales_flat_order_payment</table></order_payment>
-                    <order_status_history><table>sales_flat_order_status_history</table></order_status_history>
-                    <order_status><table>sales_order_status</table></order_status>
-                    <order_status_state><table>sales_order_status_state</table></order_status_state>
-                    <order_status_label><table>sales_order_status_label</table></order_status_label>
-
-                    <invoice><table>sales_flat_invoice</table></invoice>
-                    <invoice_grid><table>sales_flat_invoice_grid</table></invoice_grid>
-                    <invoice_item><table>sales_flat_invoice_item</table></invoice_item>
-                    <invoice_comment><table>sales_flat_invoice_comment</table></invoice_comment>
-
-                    <shipment><table>sales_flat_shipment</table></shipment>
-                    <shipment_grid><table>sales_flat_shipment_grid</table></shipment_grid>
-                    <shipment_item><table>sales_flat_shipment_item</table></shipment_item>
-                    <shipment_comment><table>sales_flat_shipment_comment</table></shipment_comment>
-                    <shipment_track><table>sales_flat_shipment_track</table></shipment_track>
-
-                    <creditmemo><table>sales_flat_creditmemo</table></creditmemo>
-                    <creditmemo_grid><table>sales_flat_creditmemo_grid</table></creditmemo_grid>
-                    <creditmemo_item><table>sales_flat_creditmemo_item</table></creditmemo_item>
-                    <creditmemo_comment><table>sales_flat_creditmemo_comment</table></creditmemo_comment>
-
-                    <recurring_profile><table>sales_recurring_profile</table></recurring_profile>
-                    <recurring_profile_order><table>sales_recurring_profile_order</table></recurring_profile_order>
-
-                    <!-- /**
-                          * @depraceted since 1.4 order taxes moved to tax module
-                          */
-                    -->
-                    <order_tax><table>sales_order_tax</table></order_tax>
-
-                    <!-- /**
-                          * @depraceted since 1.4 unused table configurations definition
-                          */
-                    -->
-                    <order_item_option><table>sales_flat_order_item_option</table></order_item_option>
-
-
-                    <!-- /**
-                          * @depraceted since 1.4 sales order no more EAV
-                          */
-                    -->
-                    <order_entity><table>sales_order_entity</table></order_entity>
-
-
-                    <order_aggregated_created><table>sales_order_aggregated_created</table></order_aggregated_created>
-                    <order_aggregated_updated><table>sales_order_aggregated_updated</table></order_aggregated_updated>
-
-                    <shipping_aggregated><table>sales_shipping_aggregated</table></shipping_aggregated>
-                    <shipping_aggregated_order><table>sales_shipping_aggregated_order</table></shipping_aggregated_order>
-
-                    <invoiced_aggregated><table>sales_invoiced_aggregated</table></invoiced_aggregated>
-                    <invoiced_aggregated_order><table>sales_invoiced_aggregated_order</table></invoiced_aggregated_order>
-
-                    <refunded_aggregated><table>sales_refunded_aggregated</table></refunded_aggregated>
-                    <refunded_aggregated_order><table>sales_refunded_aggregated_order</table></refunded_aggregated_order>
-
-                    <payment_transaction><table>sales_payment_transaction</table></payment_transaction>
-
-                    <bestsellers_aggregated_daily><table>sales_bestsellers_aggregated_daily</table></bestsellers_aggregated_daily>
-                    <bestsellers_aggregated_monthly><table>sales_bestsellers_aggregated_monthly</table></bestsellers_aggregated_monthly>
-                    <bestsellers_aggregated_yearly><table>sales_bestsellers_aggregated_yearly</table></bestsellers_aggregated_yearly>
-
-                    <billing_agreement><table>sales_billing_agreement</table></billing_agreement>
-                    <billing_agreement_order><table>sales_billing_agreement_order</table></billing_agreement_order>
-
-                    <!--order></order>
-
-                    <invoice></invoice>
-
-                    <shipment></shipment>
-
-                    <creditmemo></creditmemo-->
-                </entities>
-            </sales_mysql4>
             <sales_entity>
                 <class>Mage_Sales_Model_Entity</class>
                 <entities>
-                    <quote><table>sales_quote</table></quote>
-                    <quote_address><table>sales_quote_address</table></quote_address>
-                    <quote_item><table>sales_quote_item</table></quote_item>
-                    <quote_entity><table>sales_quote_entity</table></quote_entity>
-                    <quote_temp><table>sales_quote_temp</table></quote_temp>
-                    <order><table>sales_order</table></order>
-                    <order_entity><table>sales_order_entity</table></order_entity>
+                    <quote>
+                        <table>sales_quote</table>
+                    </quote>
+                    <quote_address>
+                        <table>sales_quote_address</table>
+                    </quote_address>
+                    <quote_item>
+                        <table>sales_quote_item</table>
+                    </quote_item>
+                    <quote_entity>
+                        <table>sales_quote_entity</table>
+                    </quote_entity>
+                    <quote_temp>
+                        <table>sales_quote_temp</table>
+                    </quote_temp>
+                    <order>
+                        <table>sales_order</table>
+                    </order>
+                    <order_entity>
+                        <table>sales_order_entity</table>
+                    </order_entity>
                 </entities>
             </sales_entity>
+            <sales_resource>
+                <class>Mage_Sales_Model_Resource</class>
+                <deprecatedNode>sales_mysql4</deprecatedNode>
+                <entities>
+                    <quote>
+                        <table>sales_flat_quote</table>
+                    </quote>
+                    <quote_item>
+                        <table>sales_flat_quote_item</table>
+                    </quote_item>
+                    <quote_address>
+                        <table>sales_flat_quote_address</table>
+                    </quote_address>
+                    <quote_address_item>
+                        <table>sales_flat_quote_address_item</table>
+                    </quote_address_item>
+                    <quote_item_option>
+                        <table>sales_flat_quote_item_option</table>
+                    </quote_item_option>
+                    <quote_payment>
+                        <table>sales_flat_quote_payment</table>
+                    </quote_payment>
+                    <quote_address_shipping_rate>
+                        <table>sales_flat_quote_shipping_rate</table>
+                    </quote_address_shipping_rate>
+                    <order>
+                        <table>sales_flat_order</table>
+                    </order>
+                    <order_grid>
+                        <table>sales_flat_order_grid</table>
+                    </order_grid>
+                    <order_item>
+                        <table>sales_flat_order_item</table>
+                    </order_item>
+                    <order_address>
+                        <table>sales_flat_order_address</table>
+                    </order_address>
+                    <order_payment>
+                        <table>sales_flat_order_payment</table>
+                    </order_payment>
+                    <order_status_history>
+                        <table>sales_flat_order_status_history</table>
+                    </order_status_history>
+                    <order_status>
+                        <table>sales_order_status</table>
+                    </order_status>
+                    <order_status_state>
+                        <table>sales_order_status_state</table>
+                    </order_status_state>
+                    <order_status_label>
+                        <table>sales_order_status_label</table>
+                    </order_status_label>
+                    <invoice>
+                        <table>sales_flat_invoice</table>
+                    </invoice>
+                    <invoice_grid>
+                        <table>sales_flat_invoice_grid</table>
+                    </invoice_grid>
+                    <invoice_item>
+                        <table>sales_flat_invoice_item</table>
+                    </invoice_item>
+                    <invoice_comment>
+                        <table>sales_flat_invoice_comment</table>
+                    </invoice_comment>
+                    <shipment>
+                        <table>sales_flat_shipment</table>
+                    </shipment>
+                    <shipment_grid>
+                        <table>sales_flat_shipment_grid</table>
+                    </shipment_grid>
+                    <shipment_item>
+                        <table>sales_flat_shipment_item</table>
+                    </shipment_item>
+                    <shipment_comment>
+                        <table>sales_flat_shipment_comment</table>
+                    </shipment_comment>
+                    <shipment_track>
+                        <table>sales_flat_shipment_track</table>
+                    </shipment_track>
+                    <creditmemo>
+                        <table>sales_flat_creditmemo</table>
+                    </creditmemo>
+                    <creditmemo_grid>
+                        <table>sales_flat_creditmemo_grid</table>
+                    </creditmemo_grid>
+                    <creditmemo_item>
+                        <table>sales_flat_creditmemo_item</table>
+                    </creditmemo_item>
+                    <creditmemo_comment>
+                        <table>sales_flat_creditmemo_comment</table>
+                    </creditmemo_comment>
+                    <recurring_profile>
+                        <table>sales_recurring_profile</table>
+                    </recurring_profile>
+                    <recurring_profile_order>
+                        <table>sales_recurring_profile_order</table>
+                    </recurring_profile_order>
+                    <order_tax>
+                        <table>sales_order_tax</table>
+                    </order_tax>
+                    <order_item_option>
+                        <table>sales_flat_order_item_option</table>
+                    </order_item_option>
+                    <order_entity>
+                        <table>sales_order_entity</table>
+                    </order_entity>
+                    <order_aggregated_created>
+                        <table>sales_order_aggregated_created</table>
+                    </order_aggregated_created>
+                    <order_aggregated_updated>
+                        <table>sales_order_aggregated_updated</table>
+                    </order_aggregated_updated>
+                    <shipping_aggregated>
+                        <table>sales_shipping_aggregated</table>
+                    </shipping_aggregated>
+                    <shipping_aggregated_order>
+                        <table>sales_shipping_aggregated_order</table>
+                    </shipping_aggregated_order>
+                    <invoiced_aggregated>
+                        <table>sales_invoiced_aggregated</table>
+                    </invoiced_aggregated>
+                    <invoiced_aggregated_order>
+                        <table>sales_invoiced_aggregated_order</table>
+                    </invoiced_aggregated_order>
+                    <refunded_aggregated>
+                        <table>sales_refunded_aggregated</table>
+                    </refunded_aggregated>
+                    <refunded_aggregated_order>
+                        <table>sales_refunded_aggregated_order</table>
+                    </refunded_aggregated_order>
+                    <payment_transaction>
+                        <table>sales_payment_transaction</table>
+                    </payment_transaction>
+                    <bestsellers_aggregated_daily>
+                        <table>sales_bestsellers_aggregated_daily</table>
+                    </bestsellers_aggregated_daily>
+                    <bestsellers_aggregated_monthly>
+                        <table>sales_bestsellers_aggregated_monthly</table>
+                    </bestsellers_aggregated_monthly>
+                    <bestsellers_aggregated_yearly>
+                        <table>sales_bestsellers_aggregated_yearly</table>
+                    </bestsellers_aggregated_yearly>
+                    <billing_agreement>
+                        <table>sales_billing_agreement</table>
+                    </billing_agreement>
+                    <billing_agreement_order>
+                        <table>sales_billing_agreement_order</table>
+                    </billing_agreement_order>
+                </entities>
+            </sales_resource>
         </models>
         <template>
             <email>
-               <sales_email_order_template translate="label" module="sales">
-                   <label>New Order</label>
-                   <file>sales/order_new.html</file>
-                   <type>html</type>
-               </sales_email_order_template>
-               <sales_email_order_guest_template translate="label" module="sales">
-                   <label>New Order for Guest</label>
-                   <file>sales/order_new_guest.html</file>
-                   <type>html</type>
-               </sales_email_order_guest_template>
-               <sales_email_order_comment_template translate="label" module="sales">
-                   <label>Order Update</label>
-                   <file>sales/order_update.html</file>
-                   <type>html</type>
-               </sales_email_order_comment_template>
-               <sales_email_order_comment_guest_template translate="label" module="sales">
-                   <label>Order Update for Guest</label>
-                   <file>sales/order_update_guest.html</file>
-                   <type>html</type>
-               </sales_email_order_comment_guest_template>
-               <sales_email_invoice_template translate="label" module="sales">
-                   <label>New Invoice</label>
-                   <file>sales/invoice_new.html</file>
-                   <type>html</type>
-               </sales_email_invoice_template>
-               <sales_email_invoice_guest_template translate="label" module="sales">
-                   <label>New Invoice for Guest</label>
-                   <file>sales/invoice_new_guest.html</file>
-                   <type>html</type>
-               </sales_email_invoice_guest_template>
-               <sales_email_invoice_comment_template translate="label" module="sales">
-                   <label>Invoice Update</label>
-                   <file>sales/invoice_update.html</file>
-                   <type>html</type>
-               </sales_email_invoice_comment_template>
-               <sales_email_invoice_comment_guest_template translate="label" module="sales">
-                   <label>Invoice Update for Guest</label>
-                   <file>sales/invoice_update_guest.html</file>
-                   <type>html</type>
-               </sales_email_invoice_comment_guest_template>
-               <sales_email_creditmemo_template translate="label" module="sales">
-                   <label>New Credit Memo</label>
-                   <file>sales/creditmemo_new.html</file>
-                   <type>html</type>
-               </sales_email_creditmemo_template>
-               <sales_email_creditmemo_guest_template translate="label" module="sales">
-                   <label>New Credit Memo for Guest</label>
-                   <file>sales/creditmemo_new_guest.html</file>
-                   <type>html</type>
-               </sales_email_creditmemo_guest_template>
-               <sales_email_creditmemo_comment_template translate="label" module="sales">
-                   <label>Credit Memo Update</label>
-                   <file>sales/creditmemo_update.html</file>
-                   <type>html</type>
-               </sales_email_creditmemo_comment_template>
-               <sales_email_creditmemo_comment_guest_template translate="label" module="sales">
-                   <label>Credit Memo Update for Guest</label>
-                   <file>sales/creditmemo_update_guest.html</file>
-                   <type>html</type>
-               </sales_email_creditmemo_comment_guest_template>
-               <sales_email_shipment_template translate="label" module="sales">
-                   <label>New Shipment</label>
-                   <file>sales/shipment_new.html</file>
-                   <type>html</type>
-               </sales_email_shipment_template>
-               <sales_email_shipment_guest_template translate="label" module="sales">
-                   <label>New Shipment for Guest</label>
-                   <file>sales/shipment_new_guest.html</file>
-                   <type>html</type>
-               </sales_email_shipment_guest_template>
-               <sales_email_shipment_comment_template translate="label" module="sales">
-                   <label>Shipment Update</label>
-                   <file>sales/shipment_update.html</file>
-                   <type>html</type>
-               </sales_email_shipment_comment_template>
-               <sales_email_shipment_comment_guest_template translate="label" module="sales">
-                   <label>Shipment Update for Guest</label>
-                   <file>sales/shipment_update_guest.html</file>
-                   <type>html</type>
-               </sales_email_shipment_comment_guest_template>
+                <sales_email_order_template translate="label" module="sales">
+                    <label>New Order</label>
+                    <file>sales/order_new.html</file>
+                    <type>html</type>
+                </sales_email_order_template>
+                <sales_email_order_guest_template translate="label" module="sales">
+                    <label>New Order for Guest</label>
+                    <file>sales/order_new_guest.html</file>
+                    <type>html</type>
+                </sales_email_order_guest_template>
+                <sales_email_order_comment_template translate="label" module="sales">
+                    <label>Order Update</label>
+                    <file>sales/order_update.html</file>
+                    <type>html</type>
+                </sales_email_order_comment_template>
+                <sales_email_order_comment_guest_template translate="label" module="sales">
+                    <label>Order Update for Guest</label>
+                    <file>sales/order_update_guest.html</file>
+                    <type>html</type>
+                </sales_email_order_comment_guest_template>
+                <sales_email_invoice_template translate="label" module="sales">
+                    <label>New Invoice</label>
+                    <file>sales/invoice_new.html</file>
+                    <type>html</type>
+                </sales_email_invoice_template>
+                <sales_email_invoice_guest_template translate="label" module="sales">
+                    <label>New Invoice for Guest</label>
+                    <file>sales/invoice_new_guest.html</file>
+                    <type>html</type>
+                </sales_email_invoice_guest_template>
+                <sales_email_invoice_comment_template translate="label" module="sales">
+                    <label>Invoice Update</label>
+                    <file>sales/invoice_update.html</file>
+                    <type>html</type>
+                </sales_email_invoice_comment_template>
+                <sales_email_invoice_comment_guest_template translate="label" module="sales">
+                    <label>Invoice Update for Guest</label>
+                    <file>sales/invoice_update_guest.html</file>
+                    <type>html</type>
+                </sales_email_invoice_comment_guest_template>
+                <sales_email_creditmemo_template translate="label" module="sales">
+                    <label>New Credit Memo</label>
+                    <file>sales/creditmemo_new.html</file>
+                    <type>html</type>
+                </sales_email_creditmemo_template>
+                <sales_email_creditmemo_guest_template translate="label" module="sales">
+                    <label>New Credit Memo for Guest</label>
+                    <file>sales/creditmemo_new_guest.html</file>
+                    <type>html</type>
+                </sales_email_creditmemo_guest_template>
+                <sales_email_creditmemo_comment_template translate="label" module="sales">
+                    <label>Credit Memo Update</label>
+                    <file>sales/creditmemo_update.html</file>
+                    <type>html</type>
+                </sales_email_creditmemo_comment_template>
+                <sales_email_creditmemo_comment_guest_template translate="label" module="sales">
+                    <label>Credit Memo Update for Guest</label>
+                    <file>sales/creditmemo_update_guest.html</file>
+                    <type>html</type>
+                </sales_email_creditmemo_comment_guest_template>
+                <sales_email_shipment_template translate="label" module="sales">
+                    <label>New Shipment</label>
+                    <file>sales/shipment_new.html</file>
+                    <type>html</type>
+                </sales_email_shipment_template>
+                <sales_email_shipment_guest_template translate="label" module="sales">
+                    <label>New Shipment for Guest</label>
+                    <file>sales/shipment_new_guest.html</file>
+                    <type>html</type>
+                </sales_email_shipment_guest_template>
+                <sales_email_shipment_comment_template translate="label" module="sales">
+                    <label>Shipment Update</label>
+                    <file>sales/shipment_update.html</file>
+                    <type>html</type>
+                </sales_email_shipment_comment_template>
+                <sales_email_shipment_comment_guest_template translate="label" module="sales">
+                    <label>Shipment Update for Guest</label>
+                    <file>sales/shipment_update_guest.html</file>
+                    <type>html</type>
+                </sales_email_shipment_comment_guest_template>
             </email>
         </template>
         <resources>
             <sales_setup>
                 <setup>
                     <module>Mage_Sales</module>
-                    <class>Mage_Sales_Model_Mysql4_Setup</class>
+                    <class>Mage_Sales_Model_Resource_Setup</class>
                 </setup>
             </sales_setup>
         </resources>
         <blocks>
-            <sales><class>Mage_Sales_Block</class></sales>
+            <sales>
+                <class>Mage_Sales_Block</class>
+            </sales>
         </blocks>
         <catalog>
             <product>
@@ -569,6 +1192,13 @@
             </product>
         </catalog>
         <sales>
+            <old_fields_map>
+                <order>
+                    <payment_authorization_expiration>payment_auth_expiration</payment_authorization_expiration>
+                    <forced_do_shipment_with_invoice>forced_shipment_with_invoice</forced_do_shipment_with_invoice>
+                    <base_shipping_hidden_tax_amount>base_shipping_hidden_tax_amnt</base_shipping_hidden_tax_amount>
+                </order>
+            </old_fields_map>
             <quote>
                 <totals>
                     <nominal>
@@ -626,8 +1256,8 @@
                         <special_to_date/>
                         <special_price/>
                         <cost/>
-                        <is_recurring/><!-- for totals calculation, placing and processing order -->
-                        <recurring_profile/><!-- for placing order -->
+                        <is_recurring/>
+                        <recurring_profile/>
                         <gift_message_available/>
                     </product_attributes>
                 </item>
@@ -638,15 +1268,33 @@
                       */
                 -->
                 <statuses>
-                    <pending translate="label"><label>Pending</label></pending>
-                    <pending_payment translate="label"><label>Pending Payment</label></pending_payment>
-                    <processing translate="label"><label>Processing</label></processing>
-                    <holded translate="label"><label>On Hold</label></holded>
-                    <complete translate="label"><label>Complete</label></complete>
-                    <closed translate="label"><label>Closed</label></closed>
-                    <canceled translate="label"><label>Canceled</label></canceled>
-                    <fraud translate="label"><label>Suspected Fraud</label></fraud>
-                    <payment_review translate="label"><label>Payment Review</label></payment_review>
+                    <pending translate="label">
+                        <label>Pending</label>
+                    </pending>
+                    <pending_payment translate="label">
+                        <label>Pending Payment</label>
+                    </pending_payment>
+                    <processing translate="label">
+                        <label>Processing</label>
+                    </processing>
+                    <holded translate="label">
+                        <label>On Hold</label>
+                    </holded>
+                    <complete translate="label">
+                        <label>Complete</label>
+                    </complete>
+                    <closed translate="label">
+                        <label>Closed</label>
+                    </closed>
+                    <canceled translate="label">
+                        <label>Canceled</label>
+                    </canceled>
+                    <fraud translate="label">
+                        <label>Suspected Fraud</label>
+                    </fraud>
+                    <payment_review translate="label">
+                        <label>Payment Review</label>
+                    </payment_review>
                 </statuses>
                 <states>
                     <new translate="label">
@@ -811,7 +1459,6 @@
             </totals>
         </pdf>
     </global>
-
     <frontend>
         <secure_url>
             <sales>/sales/</sales>
@@ -924,7 +1571,6 @@
             </payment_method_is_active>
         </events>
     </adminhtml>
-
     <default>
         <payment>
             <googlecheckout>
@@ -933,7 +1579,6 @@
                 <title>Google Checkout</title>
             </googlecheckout>
         </payment>
-
         <sales>
             <totals_sort>
                 <discount>20</discount>
@@ -1019,33 +1664,55 @@
             <use_aggregated_data>0</use_aggregated_data>
         </dashboard>
     </default>
-
     <crontab>
         <jobs>
             <sales_clean_quotes>
-                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
-                <run><model>sales/observer::cleanExpiredQuotes</model></run>
+                <schedule>
+                    <cron_expr>0 0 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>sales/observer::cleanExpiredQuotes</model>
+                </run>
             </sales_clean_quotes>
-
             <aggregate_sales_report_order_data>
-                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
-                <run><model>sales/observer::aggregateSalesReportOrderData</model></run>
+                <schedule>
+                    <cron_expr>0 0 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>sales/observer::aggregateSalesReportOrderData</model>
+                </run>
             </aggregate_sales_report_order_data>
             <aggregate_sales_report_shipment_data>
-                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
-                <run><model>sales/observer::aggregateSalesReportShipmentData</model></run>
+                <schedule>
+                    <cron_expr>0 0 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>sales/observer::aggregateSalesReportShipmentData</model>
+                </run>
             </aggregate_sales_report_shipment_data>
             <aggregate_sales_report_invoiced_data>
-                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
-                <run><model>sales/observer::aggregateSalesReportInvoicedData</model></run>
+                <schedule>
+                    <cron_expr>0 0 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>sales/observer::aggregateSalesReportInvoicedData</model>
+                </run>
             </aggregate_sales_report_invoiced_data>
             <aggregate_sales_report_refunded_data>
-                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
-                <run><model>sales/observer::aggregateSalesReportRefundedData</model></run>
+                <schedule>
+                    <cron_expr>0 0 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>sales/observer::aggregateSalesReportRefundedData</model>
+                </run>
             </aggregate_sales_report_refunded_data>
             <aggregate_sales_report_bestsellers_data>
-                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
-                <run><model>sales/observer::aggregateSalesReportBestsellersData</model></run>
+                <schedule>
+                    <cron_expr>0 0 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>sales/observer::aggregateSalesReportBestsellersData</model>
+                </run>
             </aggregate_sales_report_bestsellers_data>
         </jobs>
     </crontab>

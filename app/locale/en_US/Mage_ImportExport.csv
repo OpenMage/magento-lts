@@ -6,7 +6,7 @@
 "Can not find required columns: ","Can not find required columns: "
 "Can not get autoincrement value","Can not get autoincrement value"
 "Check Data","Check Data"
-"Column names has duplicates","Column names has duplicates"
+"Column names have duplicates","Column names have duplicates"
 "Column names is empty or is not an array","Column names is empty or is not an array"
 "Column names: ""%s"" are invalid","Column names: ""%s"" are invalid"
 "Continue","Continue"

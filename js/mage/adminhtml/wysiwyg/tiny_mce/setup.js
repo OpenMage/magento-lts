@@ -19,7 +19,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -172,7 +172,7 @@ tinyMceWysiwygSetup.prototype =
         var storeId = this.config.store_id !== null ? this.config.store_id : 0;
         var wUrl = this.config.files_browser_window_url + 
                    'target_element_id/' + this.id + '/' +
-                  'store/' + storeId + '/';
+                   'store/' + storeId + '/';
 
         this.mediaBrowserOpener = o.win;
         this.mediaBrowserOpener.blur();
@@ -349,4 +349,3 @@ tinyMceWysiwygSetup.prototype =
         return this.config.widget_placeholders.indexOf(filename) != -1;
     }
 }
-

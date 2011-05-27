@@ -20,105 +20,19 @@
  *
  * @category    Mage
  * @package     Mage_GoogleBase
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Google Base items collection
  *
+ * @deprecated after 1.5.1.0
  * @category   Mage
  * @package    Mage_GoogleBase
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_GoogleBase_Model_Mysql4_Item_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_GoogleBase_Model_Mysql4_Item_Collection extends Mage_GoogleBase_Model_Resource_Item_Collection
 {
-    protected function _construct()
-    {
-        $this->_init('googlebase/item');
-    }
-
-    protected function _initSelect()
-    {
-        parent::_initSelect();
-        $this->_joinTables();
-        return $this;
-    }
-
-    /**
-     * Deprecated
-     *
-     * @param int $storeId
-     * @return Mage_GoogleBase_Model_Mysql4_Item_Collection
-     */
-    public function addStoreFilterId($storeId)
-    {
-        return $this->addStoreFilter($storeId);
-    }
-
-    /**
-     * Filter collection by specified store ids
-     *
-     * @param array|int $storeIds
-     * @return Mage_GoogleBase_Model_Mysql4_Item_Collection
-     */
-    public function addStoreFilter($storeIds)
-    {
-        $this->getSelect()->where('main_table.store_id IN (?)', $storeIds);
-        return $this;
-    }
-
-    public function addProductFilterId($productId)
-    {
-        $this->getSelect()->where('main_table.product_id=?', $productId);
-        return $this;
-    }
-
-    public function addFieldToFilter($field, $condition=null)
-    {
-        if ($field == 'name') {
-            $conditionSql = $this->_getConditionSql('IFNULL(p.value, p_d.value)', $condition);
-            $this->getSelect()->where($conditionSql, null, Varien_Db_Select::TYPE_CONDITION);
-        } else {
-            parent::addFieldToFilter($field, $condition);
-        }
-    }
-
-    /**
-     * Join product and type data
-     *
-     * @return Mage_GoogleBase_Model_Mysql4_Item_Collection
-     */
-    protected function _joinTables()
-    {
-        $entityType = Mage::getSingleton('eav/config')->getEntityType('catalog_product');
-        $attribute = Mage::getModel('eav/config')->getAttribute($entityType->getEntityTypeId(),'name');
-
-        $joinConditionDefault = sprintf("p_d.attribute_id=%d AND p_d.store_id='0' AND main_table.product_id=p_d.entity_id",
-            $attribute->getAttributeId()
-        );
-        $joinCondition = sprintf("p.attribute_id=%d AND p.store_id=main_table.store_id AND main_table.product_id=p.entity_id",
-            $attribute->getAttributeId()
-        );
-
-        $this->getSelect()
-            ->joinLeft(
-                array('p_d' => $attribute->getBackend()->getTable()),
-                $joinConditionDefault,
-                array());
-
-        $this->getSelect()
-            ->joinLeft(
-                array('p' => $attribute->getBackend()->getTable()),
-                $joinCondition,
-                array('name' => new Zend_Db_Expr('IFNULL(p.value, p_d.value)')));
-
-        $this->getSelect()
-            ->joinLeft(
-                array('types' => $this->getTable('googlebase/types')),
-                'main_table.type_id=types.type_id',
-                array('gbase_itemtype' =>  new Zend_Db_Expr('IFNULL(types.gbase_itemtype, \''.Mage_GoogleBase_Model_Service_Item::DEFAULT_ITEM_TYPE .'\')')));
-
-        return $this;
-    }
 }

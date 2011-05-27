@@ -20,22 +20,19 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
+/**
+ * Enter description here ...
+ *
+ * @category    Mage
+ * @package     Mage_Sales
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Sales_Model_Mysql4_Quote_Address_Attribute_Backend_Region
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+    extends Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Region
 {
-    public function beforeSave($object)
-    {
-        if (is_numeric($object->getRegion())) {
-            $region = Mage::getModel('directory/region')->load((int)$object->getRegion());
-            if ($region) {
-                $object->setRegionId($region->getId());
-                $object->setRegion($region->getCode());
-            }
-        }
-    }
 }

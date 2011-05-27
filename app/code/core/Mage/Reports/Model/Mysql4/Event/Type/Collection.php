@@ -20,27 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Report event types collection
  *
- * @category   Mage
- * @package    Mage_Reports
+ * @category    Mage
+ * @package     Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Reports_Model_Mysql4_Event_Type_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Reports_Model_Mysql4_Event_Type_Collection extends Mage_Reports_Model_Resource_Event_Type_Collection
 {
-    protected function _construct()
-    {
-        $this->_init('reports/event_type');
-    }
-
-    public function toOptionArray()
-    {
-        return parent::_toOptionArray('event_type_id', 'event_name');
-    }
 }

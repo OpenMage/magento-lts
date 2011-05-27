@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,8 +48,11 @@ class Mage_Payment_Model_Config
         $methods = array();
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
-            if (Mage::getStoreConfigFlag('payment/'.$code.'/active', $store)) {
-                $methods[$code] = $this->_getMethod($code, $methodConfig);
+            if (array_key_exists('model', $methodConfig)) {
+                $methodModel = Mage::getModel($methodConfig['model']);
+                if ($methodModel && $methodModel->isAvailable()) {
+                    $methods[$code] = $this->_getMethod($code, $methodConfig);
+                }
             }
         }
         return $methods;

@@ -20,77 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Popular tags collection model
  *
- * @category   Mage
- * @package    Mage_Tag
+ * @category    Mage
+ * @package     Mage_Tag
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Tag_Model_Mysql4_Popular_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Tag_Model_Mysql4_Popular_Collection extends Mage_Tag_Model_Resource_Popular_Collection
 {
-
-    protected function _construct()
-    {
-        $this->_init('tag/tag');
-    }
-
-    /**
-     * Replacing popularity by sum of popularity and base_popularity
-     *
-     * @param int $storeId
-     * @return Mage_Tag_Model_Mysql4_Popular_Collection
-     */
-    public function joinFields($storeId = 0)
-    {
-        $this->getSelect()
-            ->reset()
-            ->from(
-                array('tag_summary' => $this->getTable('tag/summary')),
-                array(
-                    'tag_id',
-                    'popularity'
-                )
-            )
-            ->joinInner(
-                array('tag' => $this->getTable('tag/tag')),
-                'tag.tag_id = tag_summary.tag_id AND tag.status = '.Mage_Tag_Model_Tag::STATUS_APPROVED
-            )
-            ->where('tag_summary.store_id = ?', $storeId)
-            ->where('tag_summary.products > 0')
-            ->order('popularity desc');
-        return $this;
-    }
-
-    /**
-     * Add filter by specified tag status
-     *
-     * @param string $statusCode
-     * @return Mage_Tag_Model_Mysql4_Popular_Collection
-     */
-    public function addStatusFilter($statusCode)
-    {
-        $this->getSelect()->where('main_table.status = ?', $statusCode);
-        return $this;
-    }
-
-    public function load($printQuery = false, $logQuery = false)
-    {
-        if ($this->isLoaded()) {
-            return $this;
-        }
-        parent::load($printQuery, $logQuery);
-        return $this;
-    }
-
-    public function limit($limit)
-    {
-        $this->getSelect()->limit($limit);
-        return $this;
-    }
 }

@@ -20,33 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Convert profile collection
  *
- * @category   Mage
- * @package    Mage_Dataflow
+ * @category    Mage
+ * @package     Mage_Dataflow
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Dataflow_Model_Mysql4_Profile_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Dataflow_Model_Mysql4_Profile_Collection extends Mage_Dataflow_Model_Resource_Profile_Collection
 {
-    protected function _construct()
-    {
-        $this->_init('dataflow/profile');
-    }
-
-    /**
-     * Filter collection by specified store ids
-     *
-     * @param array|int $storeIds
-     * @return Mage_Dataflow_Model_Mysql4_Profile_Collection
-     */
-    public function addStoreFilter($storeIds)
-    {
-        $this->getSelect()->where('main_table.store_id IN (?)', array(0, $storeIds));
-        return $this;
-    }
 }

@@ -20,52 +20,19 @@
  *
  * @category    Mage
  * @package     Mage_GoogleBase
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Google Base Item resource model
  *
+ * @deprecated after 1.5.1.0
  * @category   Mage
  * @package    Mage_GoogleBase
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_GoogleBase_Model_Mysql4_Item extends Mage_Core_Model_Mysql4_Abstract
+class Mage_GoogleBase_Model_Mysql4_Item extends Mage_GoogleBase_Model_Resource_Item
 {
-    protected function _construct()
-    {
-        $this->_init('googlebase/items', 'item_id');
-    }
-
-    /**
-     * Load Item model by product
-     *
-     * @param Mage_GoogleBase_Model_Item $model
-     * @return Mage_GoogleBase_Model_Mysql4_Item
-     */
-    public function loadByProduct($model)
-    {
-        if (!($model->getProduct() instanceof Varien_Object)) {
-            return $this;
-        }
-
-        $product = $model->getProduct();
-        $productId = $product->getId();
-        $storeId = $model->getStoreId() ? $model->getStoreId() : $product->getStoreId();
-
-        $read = $this->_getReadAdapter();
-        $select = $read->select();
-
-        if ($productId !== null) {
-            $select->from($this->getMainTable())
-                ->where("product_id = ?", $productId)
-                ->where('store_id = ?', (int)$storeId);
-
-            $data = $read->fetchRow($select);
-            $data = is_array($data) ? $data : array();
-            $model->addData($data);
-        }
-        return $this;
-    }
 }

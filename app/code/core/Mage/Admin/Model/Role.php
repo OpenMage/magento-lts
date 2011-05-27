@@ -20,10 +20,32 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Admin Role Model
+ *
+ * @method Mage_Admin_Model_Resource_Role _getResource()
+ * @method Mage_Admin_Model_Resource_Role getResource()
+ * @method int getParentId()
+ * @method Mage_Admin_Model_Role setParentId(int $value)
+ * @method int getTreeLevel()
+ * @method Mage_Admin_Model_Role setTreeLevel(int $value)
+ * @method int getSortOrder()
+ * @method Mage_Admin_Model_Role setSortOrder(int $value)
+ * @method string getRoleType()
+ * @method Mage_Admin_Model_Role setRoleType(string $value)
+ * @method int getUserId()
+ * @method Mage_Admin_Model_Role setUserId(int $value)
+ * @method string getRoleName()
+ * @method Mage_Admin_Model_Role setRoleName(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Admin
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Admin_Model_Role extends Mage_Core_Model_Abstract
 {
     protected function _construct()

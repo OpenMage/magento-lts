@@ -33,6 +33,7 @@
  */
 class Varien_Debug
 {
+    public static $argLength = 16;
     /**
      * Magento Root path
      *
@@ -68,6 +69,20 @@ class Varien_Debug
     public static function backtrace($return = false, $html = true, $withArgs = true)
     {
         $trace  = debug_backtrace();
+        return self::trace($trace, $return, $html, $withArgs);
+    }
+
+    /**
+     * Prints or return a trace
+     *
+     * @param array $trace      trace array
+     * @param bool $return      return or print
+     * @param bool $html        output in HTML format
+     * @param bool $withArgs    add short argumets of methods
+     * @return string|bool
+     */
+    public static function trace(array $trace, $return = false, $html = true, $withArgs = true)
+    {
         $out    = '';
         if ($html) {
             $out .= '<pre>';
@@ -175,8 +190,8 @@ class Varien_Debug
         } else if (is_numeric($arg) || is_float($arg)) {
             $out .= $arg;
         } else if (is_string($arg)) {
-            if (strlen($arg) > 10) {
-                $arg = substr($arg, 0, 10) . "...";
+            if (strlen($arg) > self::$argLength) {
+                $arg = substr($arg, 0, self::$argLength) . "...";
             }
             $arg = strtr($arg, array("\t" => '\t', "\r" => '\r', "\n" => '\n', "'" => '\\\''));
             $out .= "'" . $arg . "'";

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Weee
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,9 +30,9 @@
 class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
-    const XML_PATH_FPT_ENABLED  = 'tax/weee/enable';
+    const XML_PATH_FPT_ENABLED       = 'tax/weee/enable';
 
-    protected $_storeDisplayConfig = array();
+    protected $_storeDisplayConfig   = array();
 
     /**
      * Get weee amount display type on product view page

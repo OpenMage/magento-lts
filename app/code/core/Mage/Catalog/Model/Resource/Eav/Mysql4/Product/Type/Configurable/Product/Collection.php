@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,43 +28,11 @@
 /**
  * Catalog super product link collection
  *
- * @category   Mage
- * @package    Mage_Catalog
+ * @category    Mage
+ * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Product_Collection
-    extends Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+    extends Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection
 {
-    protected $_linkTable;
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_linkTable = $this->getTable('catalog/product_super_link');
-    }
-
-    protected function _initSelect()
-    {
-        parent::_initSelect();
-        $this->getSelect()->join(array('link_table' => $this->_linkTable),
-            'link_table.product_id=e.entity_id',
-            array('parent_id')
-        );
-    }
-
-    public function setProductFilter($product)
-    {
-        $this->getSelect()->where('link_table.parent_id=?', (int) $product->getId());
-        return $this;
-    }
-
-    /**
-     * Retrieve is flat enabled flag
-     * Return alvays false if magento run admin
-     *
-     * @return bool
-     */
-    public function isEnabledFlat()
-    {
-        return false;
-    }
 }

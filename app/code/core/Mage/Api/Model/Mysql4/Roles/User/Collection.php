@@ -20,21 +20,18 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_Api_Model_Mysql4_Roles_User_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+
+/**
+ * Enter description here ...
+ *
+ * @category    Mage
+ * @package     Mage_Api
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_Api_Model_Mysql4_Roles_User_Collection extends Mage_Api_Model_Resource_Roles_User_Collection
 {
-    protected function _construct()
-    {
-        $this->_init('api/user');
-    }
-
-    protected function _initSelect()
-    {
-        parent::_initSelect();
-
-        $this->getSelect()->where("user_id > 0");
-    }
 }

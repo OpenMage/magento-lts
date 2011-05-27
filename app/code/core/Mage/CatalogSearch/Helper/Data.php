@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,7 +65,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Search engine model
      *
-     * @var Mage_CatalogSearch_Model_Mysql4_Fulltext_Engine
+     * @var Mage_CatalogSearch_Model_Resource_Fulltext_Engine
      */
     protected $_engine;
 
@@ -153,7 +153,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve suggest collection for query
      *
-     * @return Mage_CatalogSearch_Model_Mysql4_Query_Collection
+     * @return Mage_CatalogSearch_Model_Resource_Query_Collection
      */
     public function getSuggestCollection()
     {

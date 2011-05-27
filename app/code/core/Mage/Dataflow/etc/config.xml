@@ -21,24 +21,25 @@
  *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Dataflow>
-            <version>0.7.4</version>
+            <version>1.6.0.0</version>
         </Mage_Dataflow>
     </modules>
     <global>
         <models>
             <dataflow>
                 <class>Mage_Dataflow_Model</class>
-                <resourceModel>dataflow_mysql4</resourceModel>
+                <resourceModel>dataflow_resource</resourceModel>
             </dataflow>
-            <dataflow_mysql4>
-                <class>Mage_Dataflow_Model_Mysql4</class>
+            <dataflow_resource>
+                <class>Mage_Dataflow_Model_Resource</class>
+                <deprecatedNode>dataflow_mysql4</deprecatedNode>
                 <entities>
                     <session>
                         <table>dataflow_session</table>
@@ -62,7 +63,7 @@
                         <table>dataflow_batch_import</table>
                     </batch_import>
                 </entities>
-            </dataflow_mysql4>
+            </dataflow_resource>
         </models>
         <resources>
             <dataflow_setup>

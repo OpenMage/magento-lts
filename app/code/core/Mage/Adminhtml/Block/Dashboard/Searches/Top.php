@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,6 +44,9 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
 
     protected function _prepareCollection()
     {
+        if (!Mage::helper('core')->isModuleEnabled('Mage_CatalogSearch')) {
+            return parent::_prepareCollection();
+        }
         $this->_collection = Mage::getModel('catalogsearch/query')
             ->getResourceCollection();
 
@@ -70,7 +73,7 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
         $this->addColumn('search_query', array(
             'header'    => $this->__('Search Term'),
             'sortable'  => false,
-            'index'     => 'query_text',
+            'index'     => 'name',
             'renderer'  => 'adminhtml/dashboard_searches_renderer_searchquery',
         ));
 

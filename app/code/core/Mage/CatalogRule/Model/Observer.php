@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogRule
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -210,6 +210,7 @@ class Mage_CatalogRule_Model_Observer
     public function prepareCatalogProductPriceIndexTable(Varien_Event_Observer $observer)
     {
         $select             = $observer->getEvent()->getSelect();
+
         $indexTable         = $observer->getEvent()->getIndexTable();
         $entityId           = $observer->getEvent()->getEntityId();
         $customerGroupId    = $observer->getEvent()->getCustomerGroupId();
@@ -354,5 +355,28 @@ class Mage_CatalogRule_Model_Observer
         }
 
         return $this;
+    }
+
+    /**
+     * Create catalog rule relations for imported products
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function createCatalogRulesRelations(Varien_Event_Observer $observer)
+    {
+        $adapter = $observer->getEvent()->getAdapter();
+        $affectedEntityIds = $adapter->getAffectedEntityIds();
+
+        if (empty($affectedEntityIds)) {
+            return;
+        }
+
+        $rules = Mage::getModel('catalogrule/rule')->getCollection()
+            ->addFieldToFilter('is_active', 1);
+
+        foreach ($rules as $rule) {
+            $rule->setProductsFilter($affectedEntityIds);
+            Mage::getResourceSingleton('catalogrule/rule')->updateRuleProductData($rule);
+        }
     }
 }

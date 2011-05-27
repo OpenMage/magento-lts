@@ -20,19 +20,29 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Emtity attribute option model
  *
- * @category   Mage
- * @package    Mage_Eav
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Option _getResource()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Option getResource()
+ * @method int getAttributeId()
+ * @method Mage_Eav_Model_Entity_Attribute_Option setAttributeId(int $value)
+ * @method int getSortOrder()
+ * @method Mage_Eav_Model_Entity_Attribute_Option setSortOrder(int $value)
+ *
+ * @category    Mage
+ * @package     Mage_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Entity_Attribute_Option extends Mage_Core_Model_Abstract
 {
+    /**
+     * Resource initialization
+     */
     public function _construct()
     {
         $this->_init('eav/entity_attribute_option');

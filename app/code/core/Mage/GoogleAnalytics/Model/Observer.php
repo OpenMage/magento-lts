@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleAnalytics
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -95,7 +95,7 @@ class Mage_GoogleAnalytics_Model_Observer
         $beforeHtml = $block->getBeforeHtml();
         $protocol = Mage::app()->getStore()->isCurrentlySecure() ? 'https' : 'http';
         $block->setBeforeHtml($beforeHtml . '<script src="' . $protocol
-            .'://checkout.google.com/files/digital/ga_post.js" type="text/javascript"></script>'
+            . '://checkout.google.com/files/digital/ga_post.js" type="text/javascript"></script>'
         );
         $this->_isGoogleCheckoutLinkAdded = true;
     }

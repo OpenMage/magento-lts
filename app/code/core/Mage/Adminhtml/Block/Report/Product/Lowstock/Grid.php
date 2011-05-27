@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,6 +56,7 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
             $storeId = '';
         }
 
+        /** @var $collection Mage_Reports_Model_Resource_Product_Lowstock_Collection  */
         $collection = Mage::getResourceModel('reports/product_lowstock_collection')
             ->addAttributeToSelect('*')
             ->setStoreId($storeId)
@@ -63,7 +64,7 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
             ->joinInventoryItem('qty')
             ->useManageStockFilter($storeId)
             ->useNotifyStockQtyFilter($storeId)
-            ->setOrder('qty', 'asc');
+            ->setOrder('qty', Varien_Data_Collection::SORT_ORDER_ASC);
 
         if( $storeId ) {
             $collection->addStoreFilter($storeId);

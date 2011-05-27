@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +35,7 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
 {
     public function log($text, $nl=true)
     {
-        error_log(print_r($text,1).($nl?"\n":''), 3, Mage::getBaseDir('log').DS.'callback.log');
+        error_log(print_r($text, 1) . ($nl ? "\n" : ''), 3, Mage::getBaseDir('log') . DS . 'callback.log');
         return $this;
     }
 
@@ -106,8 +106,8 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
             //Setup the log file
             $logDir = Mage::getBaseDir('log');
             $this->getData('g_request')->SetLogFiles(
-                $logDir.DS.'googleerror.log',
-                $logDir.DS.'googlemessage.log',
+                $logDir . DS . 'googleerror.log',
+                $logDir . DS . 'googlemessage.log',
                 L_ALL
             );
         }
@@ -130,8 +130,8 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
             //Setup the log file
             $logDir = Mage::getBaseDir('log');
             $this->getData('g_response')->SetLogFiles(
-                $logDir.DS.'googleerror.log',
-                $logDir.DS.'googlemessage.log',
+                $logDir . DS . 'googleerror.log',
+                $logDir . DS . 'googlemessage.log',
                 L_ALL
             );
         }
@@ -153,16 +153,16 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
 
     public function _call($xml)
     {
-        $auth = 'Basic '.base64_encode($this->getMerchantId().':'.$this->getMerchantKey());
+        $auth = 'Basic ' . base64_encode($this->getMerchantId() . ':' . $this->getMerchantKey());
 
         $headers = array(
-            'Authorization: '.$auth,
+            'Authorization: ' . $auth,
             'Content-Type: application/xml;charset=UTF-8',
             'Accept: application/xml;charset=UTF-8',
         );
 
         $url = $this->_getApiUrl();
-        $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\r\n".$xml;
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\r\n" . $xml;
 
         $debugData = array('request' => $xml, 'dir' => 'out');
 
@@ -185,7 +185,7 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
         if (!$result) {
             $result = simplexml_load_string('<error><error-message>Invalid response from Google Checkout server</error-message></error>');
         }
-        if ($result->getName()=='error') {
+        if ($result->getName() == 'error') {
             $this->setError($this->__('Google Checkout: %s', (string)$result->{'error-message'}));
             $this->setWarnings((array)$result->{'warning-messages'});
         } else {

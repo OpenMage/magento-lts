@@ -20,13 +20,14 @@
  *
  * @category    Mage
  * @package     Mage_GoogleBase
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Google Base Observer
  *
+ * @deprecated after 1.5.1.0
  * @category    Mage
  * @package     Mage_GoogleBase
  * @author      Magento Core Team <core@magentocommerce.com>
@@ -57,7 +58,8 @@ class Mage_GoogleBase_Model_Observer
         } catch (Exception $e) {
             if (Mage::app()->getStore()->isAdmin()) {
                 Mage::getSingleton('adminhtml/session')->addNotice(
-                    Mage::helper('googlebase')->__("Cannot update Google Base Item for Store '%s'", Mage::app()->getStore($item->getStoreId())->getName())
+                    Mage::helper('googlebase')->__("Cannot update Google Base Item for Store '%s'",
+                        Mage::app()->getStore($item->getStoreId())->getName())
                 );
             } else {
                 throw $e;
@@ -87,7 +89,8 @@ class Mage_GoogleBase_Model_Observer
         } catch (Exception $e) {
             if (Mage::app()->getStore()->isAdmin()) {
                 Mage::getSingleton('adminhtml/session')->addNotice(
-                    Mage::helper('googlebase')->__("Cannot update Google Base Item for Store '%s'", Mage::app()->getStore($item->getStoreId())->getName())
+                    Mage::helper('googlebase')->__("Cannot update Google Base Item for Store '%s'",
+                        Mage::app()->getStore($item->getStoreId())->getName())
                 );
             } else {
                 throw $e;

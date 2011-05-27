@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleBase
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -82,8 +82,8 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit_Attributes extends Mage_Adminht
         }
 
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
-            ->setId($this->getFieldId().'_{{index}}_gattribute')
-            ->setName($this->getFieldName().'[{{index}}][gbase_attribute]')
+            ->setId($this->getFieldId() . '_{{index}}_gattribute')
+            ->setName($this->getFieldName() . '[{{index}}][gbase_attribute]')
             ->setOptions($options);
         return $select->getHtml();
     }
@@ -97,8 +97,8 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit_Attributes extends Mage_Adminht
     public function getAttributesSelectHtml($escapeJsQuotes = false)
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
-            ->setId($this->getFieldId().'_{{index}}_attribute')
-            ->setName($this->getFieldName().'[{{index}}][attribute_id]')
+            ->setId($this->getFieldId() . '_{{index}}_attribute')
+            ->setName($this->getFieldName() . '[{{index}}][attribute_id]')
             ->setOptions($this->_getAttributes($this->getAttributeSetId(), $escapeJsQuotes));
         return $select->getHtml();
     }

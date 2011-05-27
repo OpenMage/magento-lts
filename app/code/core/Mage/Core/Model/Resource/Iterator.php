@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,14 +35,14 @@ class Mage_Core_Model_Resource_Iterator extends Varien_Object
      * Walk over records fetched from query one by one using callback function
      *
      * @param Zend_Db_Statement_Interface|Zend_Db_Select|string $query
-     * @param array|string $callback
+     * @param array|string $callbacks
      * @param array $args
-     * @return Mage_Core_Model_Resource_Activerecord
+     * @param Varien_Db_Adapter_interface $adapter
+     * @return Mage_Core_Model_Resource_Iterator
      */
-    public function walk($query, array $callbacks, array $args=array())
+    public function walk($query, array $callbacks, array $args=array(), $adapter = null)
     {
-        $stmt = $this->_getStatement($query);
-
+        $stmt = $this->_getStatement($query, $adapter);
         $args['idx'] = 0;
         while ($row = $stmt->fetch()) {
             $args['row'] = $row;
@@ -64,8 +64,9 @@ class Mage_Core_Model_Resource_Iterator extends Varien_Object
      * @param Zend_Db_Statement_Interface|Zend_Db_Select|string $query
      * @param Zend_Db_Adapter_Abstract $conn
      * @return Zend_Db_Statement_Interface
+     * @throws Mage_Core_Exception
      */
-    protected function _getStatement($query, $conn=null)
+    protected function _getStatement($query, $conn = null)
     {
         if ($query instanceof Zend_Db_Statement_Interface) {
             return $query;
@@ -75,15 +76,13 @@ class Mage_Core_Model_Resource_Iterator extends Varien_Object
             return $query->query();
         }
 
-        $hlp = Mage::helper('core');
-
         if (is_string($query)) {
             if (!$conn instanceof Zend_Db_Adapter_Abstract) {
-                Mage::throwException($hlp->__('Invalid connection'));
+                Mage::throwException(Mage::helper('core')->__('Invalid connection'));
             }
             return $conn->query($query);
         }
 
-        Mage::throwException($hlp->__('Invalid query'));
+        Mage::throwException(Mage::helper('core')->__('Invalid query'));
     }
 }

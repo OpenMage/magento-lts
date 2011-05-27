@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleOptimizer
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +40,7 @@ class Mage_GoogleOptimizer_Block_Adminhtml_Catalog_Product_Edit_Tab_Googleoptimi
         $form = new Varien_Data_Form();
 
         $fieldset = $form->addFieldset('googleoptimizer_fields',
-            array('legend'=>Mage::helper('googleoptimizer')->__('Google Optimizer Scripts'))
+            array('legend' => Mage::helper('googleoptimizer')->__('Google Optimizer Scripts'))
         );
 
         if ($this->getProduct()->getStoreId() == '0') {
@@ -109,7 +109,7 @@ class Mage_GoogleOptimizer_Block_Adminhtml_Catalog_Product_Edit_Tab_Googleoptimi
             );
         }
 
-        $fieldset->addField('export_controls', 'text', array('name'  => 'export_controls'));
+        $fieldset->addField('export_controls', 'text', array('name' => 'export_controls'));
 
         $fieldset->addField('control_script', 'textarea',
             array(

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,6 +48,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
     {
         parent::__construct();
         $this->setCacheId('adminhtml_acl_menu_config');
+
         /* @var $adminhtmlConfig Varien_Simplexml_Config */
         $adminhtmlConfig = Mage::app()->loadCache($this->getCacheId());
         if ($adminhtmlConfig) {
@@ -86,13 +87,13 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
      * @param string $parentName
      * @return Mage_Admin_Model_Config
      */
-    public function loadAclResources(Mage_Admin_Model_Acl $acl, $resource=null, $parentName=null)
+    public function loadAclResources(Mage_Admin_Model_Acl $acl, $resource = null, $parentName = null)
     {
         if (is_null($resource)) {
             $resource = $this->getAdminhtmlConfig()->getNode("acl/resources");
             $resourceName = null;
         } else {
-            $resourceName = (is_null($parentName) ? '' : $parentName.'/').$resource->getName();
+            $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
             $acl->add(Mage::getModel('admin/acl_resource', $resourceName), $parentName);
         }
 
@@ -124,10 +125,10 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
      * @param string $name
      * @return Mage_Core_Model_Config_Element|boolean
      */
-    public function getAclAssert($name='')
+    public function getAclAssert($name = '')
     {
         $asserts = $this->getNode("admin/acl/asserts");
-        if (''===$name) {
+        if ('' === $name) {
             return $asserts;
         }
 
@@ -144,10 +145,10 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
      * @param string $name
      * @return Mage_Core_Model_Config_Element|boolean
      */
-    public function getAclPrivilegeSet($name='')
+    public function getAclPrivilegeSet($name = '')
     {
         $sets = $this->getNode("admin/acl/privilegeSets");
-        if (''===$name) {
+        if ('' === $name) {
             return $sets;
         }
 

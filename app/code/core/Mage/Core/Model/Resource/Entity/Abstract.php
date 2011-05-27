@@ -20,22 +20,37 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 abstract class Mage_Core_Model_Resource_Entity_Abstract
 {
     protected $_name = null;
+    /**
+     * Configuration object
+     *
+     * @var Varien_Simplexml_Config
+     */
     protected $_config = array();
 
+    /**
+     * Set config
+     *
+     * @param Varien_Simplexml_Config $config
+     */
     public function __construct($config)
     {
         $this->_config = $config;
     }
 
-    public function getConfig($key='')
+    /**
+     * Get config by key
+     *
+     * @param string $key
+     * @return string|boolean
+     */
+    public function getConfig($key = '')
     {
         if (''===$key) {
             return $this->_config;

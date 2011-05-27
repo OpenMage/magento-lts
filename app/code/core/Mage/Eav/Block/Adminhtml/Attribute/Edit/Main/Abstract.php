@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -78,12 +78,15 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
 
         $yesno = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
 
+        $validateClass = sprintf('validate-code validate-length maximum-length-%d',
+            Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH);
         $fieldset->addField('attribute_code', 'text', array(
             'name'  => 'attribute_code',
             'label' => Mage::helper('eav')->__('Attribute Code'),
             'title' => Mage::helper('eav')->__('Attribute Code'),
-            'note'  => Mage::helper('eav')->__('For internal use. Must be unique with no spaces'),
-            'class' => 'validate-code',
+            'note'  => Mage::helper('eav')->__('For internal use. Must be unique with no spaces. Maximum length of attribute code must be less then %s symbols',
+                Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH),
+            'class' => $validateClass,
             'required' => true,
         ));
 

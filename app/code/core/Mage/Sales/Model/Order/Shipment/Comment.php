@@ -20,11 +20,31 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
+/**
+ * Enter description here ...
+ *
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Comment _getResource()
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Comment getResource()
+ * @method int getParentId()
+ * @method Mage_Sales_Model_Order_Shipment_Comment setParentId(int $value)
+ * @method int getIsCustomerNotified()
+ * @method Mage_Sales_Model_Order_Shipment_Comment setIsCustomerNotified(int $value)
+ * @method int getIsVisibleOnFront()
+ * @method Mage_Sales_Model_Order_Shipment_Comment setIsVisibleOnFront(int $value)
+ * @method string getComment()
+ * @method Mage_Sales_Model_Order_Shipment_Comment setComment(string $value)
+ * @method string getCreatedAt()
+ * @method Mage_Sales_Model_Order_Shipment_Comment setCreatedAt(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_Sales
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Sales_Model_Abstract
 {
     /**

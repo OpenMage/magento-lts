@@ -20,13 +20,20 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Stock model
  *
+ * @method Mage_CatalogInventory_Model_Resource_Stock _getResource()
+ * @method Mage_CatalogInventory_Model_Resource_Stock getResource()
+ * @method string getStockName()
+ * @method Mage_CatalogInventory_Model_Stock setStockName(string $value)
+ *
+ * @category    Mage
+ * @package     Mage_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_AdminNotification
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,21 +28,11 @@
 /**
  * AdminNotification Inbox model
  *
- * @category   Mage
- * @package    Mage_AdminNotification
+ * @category    Mage
+ * @package     Mage_AdminNotification
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_AdminNotification_Model_Mysql4_Inbox_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_AdminNotification_Model_Mysql4_Inbox_Collection
+    extends Mage_AdminNotification_Model_Resource_Inbox_Collection
 {
-    protected function _construct()
-    {
-        $this->_init('adminnotification/inbox');
-    }
-
-    public function addRemoveFilter()
-    {
-        $this->getSelect()
-            ->where('is_remove=?', 0);
-        return $this;
-    }
 }

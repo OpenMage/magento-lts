@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -105,7 +105,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     protected function _prepareCollection()
     {
         $allowProductTypes = array();
-        foreach (Mage::getConfig()->getNode('global/catalog/product/type/configurable/allow_product_types')->children() as $type) {
+        foreach (
+            Mage::getConfig()
+                ->getNode('global/catalog/product/type/configurable/allow_product_types')
+                ->children() as $type
+        ) {
             $allowProductTypes[] = $type->getName();
         }
 
@@ -118,13 +122,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             ->addAttributeToSelect('price')
             ->addFieldToFilter('attribute_set_id',$product->getAttributeSetId())
             ->addFieldToFilter('type_id', $allowProductTypes)
-            ->addFilterByRequiredOptions();
+            ->addFilterByRequiredOptions()
+            ->joinAttribute('name', 'catalog_product/name', 'entity_id', null, 'inner');
 
-        Mage::getModel('cataloginventory/stock_item')->addCatalogInventoryToProductCollection($collection);
+        if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
+            Mage::getModel('cataloginventory/stock_item')->addCatalogInventoryToProductCollection($collection);
+        }
 
         foreach ($product->getTypeInstance(true)->getUsedProductAttributes($product) as $attribute) {
             $collection->addAttributeToSelect($attribute->getAttributeCode());
-            $collection->addAttributeToFilter($attribute->getAttributeCode(), array('nin'=>array(null)));
+            $collection->addAttributeToFilter($attribute->getAttributeCode(), array('notnull'=>1));
         }
 
         $this->setCollection($collection);
@@ -266,7 +273,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     protected function _getRequiredAttributesIds()
     {
         $attributesIds = array();
-        foreach ($this->_getProduct()->getTypeInstance(true)->getConfigurableAttributes($this->_getProduct()) as $attribute) {
+        foreach (
+            $this->_getProduct()
+                ->getTypeInstance(true)
+                ->getConfigurableAttributes($this->_getProduct()) as $attribute
+        ) {
             $attributesIds[] = $attribute->getProductAttribute()->getId();
         }
 

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Core_Model_Locale_Config
@@ -108,7 +108,8 @@ class Mage_Core_Model_Locale_Config
         'UYU' /*Uruguay Peso Uruguayo*/,'UZS' /*Uzbekistan Sum*/,'VUV' /*Vanuatu Vatu*/,            'VEB' /*Venezuelan Bolivar*/,
         'VEF' /*Venezuelan bolívar fuerte*/,'VND' /*Vietnamese Dong*/,  'CHE' /*WIR Euro*/,                'CHW' /*WIR Franc*/,
         'XOF' /*West African CFA franc*/,'WST' /*Western Samoa Tala*/,'YER' /*Yemeni Rial*/,        'ZMK' /*Zambian Kwacha*/,
-        'ZWD' /*Zimbabwe Dollar*/,
+        'ZWD' /*Zimbabwe Dollar*/,'TRY' /*Turkish Lira*/,'AZM' /*Azerbaijani Manat (1993-2006)*/,   'ROL' /*Old Romanian Leu*/,
+        'TRL' /*Old Turkish Lira*/,'XPF' /*CFP Franc*/
     );
 
     /**
