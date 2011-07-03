@@ -28,27 +28,35 @@
  * Shopping cart cross sell items xml renderer
  *
  * @category    Mage
- * @package     Mage_Checkout
+ * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Cart_Crosssell extends Mage_Checkout_Block_Cart_Crosssell
 {
-   /**
+    /**
      * Render cross sell items xml
      *
      * @return string
      */
     protected function _toHtml()
     {
-        $crossSellXmlObj = new Mage_XmlConnect_Model_Simplexml_Element('<crosssell></crosssell>');
+        if (is_object(Mage::getConfig()->getNode('modules/Enterprise_TargetRule'))) {
+            $blockRenderer = 'enterprise_targetrule/checkout_cart_crosssell';
+            $blockName = 'targetrule.checkout.cart.crosssell';
+            $this->getLayout()->createBlock($blockRenderer, $blockName);
+            $this->setItems($this->getLayout()->getBlock($blockName)->getItemCollection());
+        }
+
+        $crossSellXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<crosssell></crosssell>');
         if (!$this->getItemCount()) {
             return $crossSellXmlObj->asNiceXml();
         }
 
-        foreach ($this->getItems() as $_item) {
+        /** @var $product Mage_Catalog_Model_Product */
+        foreach ($this->getItems() as $product) {
             $itemXmlObj = $crossSellXmlObj->addChild('item');
-            $itemXmlObj->addChild('name', $crossSellXmlObj->xmlentities(strip_tags($_item->getName())));
-            $icon = $this->helper('catalog/image')->init($_item, 'thumbnail')
+            $itemXmlObj->addChild('name', $crossSellXmlObj->xmlentities($product->getName()));
+            $icon = $this->helper('catalog/image')->init($product, 'thumbnail')
                 ->resize(Mage::helper('xmlconnect/image')->getImageSizeForContent('product_small'));
 
             $iconXml = $itemXmlObj->addChild('icon', $icon);
@@ -56,26 +64,38 @@ class Mage_XmlConnect_Block_Cart_Crosssell extends Mage_Checkout_Block_Cart_Cros
             $file = Mage::helper('xmlconnect')->urlToPath($icon);
             $iconXml->addAttribute('modification_time', filemtime($file));
 
-            $itemXmlObj->addChild('entity_id', $_item->getId());
-            $itemXmlObj->addChild('entity_type', $_item->getTypeId());
-            $itemXmlObj->addChild('has_options', (int)$_item->getHasOptions());
+            $itemXmlObj->addChild('entity_id', $product->getId());
+            $itemXmlObj->addChild('entity_type', $product->getTypeId());
+
+            /**
+             * If product type is grouped than it has options as its grouped items
+             */
+            if ($product->getTypeId() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE) {
+                $product->setHasOptions(true);
+            }
+
+            $itemXmlObj->addChild('has_options', (int)$product->getHasOptions());
+            $itemXmlObj->addChild('in_stock', (int)$product->isInStock());
+            if ($product->getTypeId() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE) {
+                $itemXmlObj->addChild('is_salable', 0);
+            } else {
+                $itemXmlObj->addChild('is_salable', (int)$product->isSalable());
+            }
 
             if ($this->getChild('product_price')) {
-                $this->getChild('product_price')->setProduct($_item)
-                   ->setProductXmlObj($itemXmlObj)
-                   ->collectProductPrices();
+                $this->getChild('product_price')->setProduct($product)
+                    ->setProductXmlObj($itemXmlObj)
+                    ->collectProductPrices();
             }
 
-            if (!$_item->getRatingSummary()) {
+            if (!$product->getRatingSummary()) {
                 Mage::getModel('review/review')
-                   ->getEntitySummary($_item, Mage::app()->getStore()->getId());
+                    ->getEntitySummary($product, Mage::app()->getStore()->getId());
             }
 
-            $itemXmlObj->addChild('rating_summary', round((int)$_item->getRatingSummary()->getRatingSummary() / 10));
-            $itemXmlObj->addChild('reviews_count', $_item->getRatingSummary()->getReviewsCount());
+            $itemXmlObj->addChild('rating_summary', round((int)$product->getRatingSummary()->getRatingSummary() / 10));
+            $itemXmlObj->addChild('reviews_count', $product->getRatingSummary()->getReviewsCount());
         }
-
         return $crossSellXmlObj->asNiceXml();
     }
-
 }

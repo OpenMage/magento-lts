@@ -1170,6 +1170,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      */
     protected function _getAttributeFieldName($attributeCode)
     {
+        $attributeCode = trim($attributeCode);
         if (isset($this->_joinAttributes[$attributeCode]['condition_alias'])) {
             return $this->_joinAttributes[$attributeCode]['condition_alias'];
         }

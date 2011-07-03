@@ -169,6 +169,10 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'PROFILESTATUS'       => 'recurring_profile_status',
         'STATUS'              => 'status',
 
+        //Next two fields are used for Brazil only
+        'TAXID'               => 'buyer_tax_id',
+        'TAXIDTYPE'           => 'buyer_tax_id_type',
+
         'BILLINGAGREEMENTID' => 'billing_agreement_id',
         'REFERENCEID' => 'reference_id',
         'BILLINGAGREEMENTSTATUS' => 'billing_agreement_status',
@@ -413,7 +417,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected $_paymentInformationResponse = array(
         'PAYERID', 'PAYERSTATUS', 'CORRELATIONID', 'ADDRESSID', 'ADDRESSSTATUS',
-        'PAYMENTSTATUS', 'PENDINGREASON', 'PROTECTIONELIGIBILITY', 'EMAIL', 'SHIPPINGOPTIONNAME'
+        'PAYMENTSTATUS', 'PENDINGREASON', 'PROTECTIONELIGIBILITY', 'EMAIL', 'SHIPPINGOPTIONNAME', 'TAXID', 'TAXIDTYPE'
     );
 
     /**
@@ -554,7 +558,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     public function getVersion()
     {
-        return '65.2';
+        return '72.0';
     }
 
     /**

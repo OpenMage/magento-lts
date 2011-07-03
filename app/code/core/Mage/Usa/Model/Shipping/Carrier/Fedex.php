@@ -204,6 +204,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
         $r->setKey($this->getConfigData('key'));
         $r->setPassword($this->getConfigData('password'));
 
+        $r->setIsReturn($request->getIsReturn());
+
         $this->_rawRequest = $r;
 
         return $this;
@@ -334,7 +336,18 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
             } elseif (isset($response->RateReplyDetails)) {
                 $allowedMethods = explode(",", $this->getConfigData('allowed_methods'));
 
-                foreach ($response->RateReplyDetails as $rate) {
+                if (is_array($response->RateReplyDetails)) {
+                    foreach ($response->RateReplyDetails as $rate) {
+                        $serviceName = (string)$rate->ServiceType;
+                        if (in_array($serviceName, $allowedMethods)) {
+                            $amount = (string)$rate->RatedShipmentDetails[0]->ShipmentRateDetail->TotalNetCharge->Amount;
+                            $costArr[$serviceName]  = $amount;
+                            $priceArr[$serviceName] = $this->getMethodPrice($amount, $serviceName);
+                        }
+                    }
+                    asort($priceArr);
+                } else {
+                    $rate = $response->RateReplyDetails;
                     $serviceName = (string)$rate->ServiceType;
                     if (in_array($serviceName, $allowedMethods)) {
                         $amount = (string)$rate->RatedShipmentDetails[0]->ShipmentRateDetail->TotalNetCharge->Amount;
@@ -342,7 +355,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                         $priceArr[$serviceName] = $this->getMethodPrice($amount, $serviceName);
                     }
                 }
-                asort($priceArr);
             }
         }
 
@@ -609,6 +621,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                                 'FEDEX_2_DAY',
                                 'STANDARD_OVERNIGHT',
                                 'PRIORITY_OVERNIGHT',
+                                'FIRST_OVERNIGHT',
                             )
                         ),
                         'from_us' => array(
@@ -628,6 +641,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                                 'FEDEX_2_DAY',
                                 'STANDARD_OVERNIGHT',
                                 'PRIORITY_OVERNIGHT',
+                                'FIRST_OVERNIGHT',
                             )
                         ),
                         'from_us' => array(
@@ -658,6 +672,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                                 'FEDEX_2_DAY',
                                 'STANDARD_OVERNIGHT',
                                 'PRIORITY_OVERNIGHT',
+                                'FIRST_OVERNIGHT',
                             )
                         ),
                         'from_us' => array(
@@ -980,11 +995,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
      */
     protected function _formShipmentRequest(Varien_Object $request)
     {
-        if ($request->getIsReturn()) {
-            $referenceData = 'RMA #'
-                             . $request->getOrderShipment()->getRma()->getIncrementId()
-                             . ' P'
-                             . $request->getPackageId();
+        if ($request->getReferenceData()) {
+            $referenceData = $request->getReferenceData() . $request->getPackageId();
         } else {
             $referenceData = 'Order #'
                              . $request->getOrderShipment()->getOrder()->getIncrementId()
@@ -1120,7 +1132,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                         ),
                         'NumberOfPieces' => 1,
                         'CountryOfManufacture' => implode(',', array_unique($countriesOfManufacture)),
-                        'Description' => implode('\r\n', $itemsDesc),
+                        'Description' => implode(', ', $itemsDesc),
                         'Quantity' => $itemsQty,
                         'QuantityUnits' => 'pcs',
                         'UnitPrice' => array(
@@ -1226,6 +1238,19 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
      */
     public function getContainerTypes(Varien_Object $params = null)
     {
+        if ($params == null) {
+            return $this->_getAllowedContainers($params);
+        }
+        $method             = $params->getMethod();
+        $countryShipper     = $params->getCountryShipper();
+        $countryRecipient   = $params->getCountryRecipient();
+
+        if ($countryShipper == self::USA_COUNTRY_ID
+            && $countryRecipient == self::CANADA_COUNTRY_ID
+            && $method == 'FEDEX_GROUND'
+        ) {
+            return array('YOUR_PACKAGING' => Mage::helper('usa')->__('Your Packaging'));
+        }
         return $this->_getAllowedContainers($params);
     }
 

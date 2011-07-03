@@ -154,7 +154,7 @@ final class Mage
             'minor'     => '6',
             'revision'  => '0',
             'patch'     => '0',
-            'stability' => 'beta',
+            'stability' => 'rc',
             'number'    => '1',
         );
     }
@@ -731,10 +731,12 @@ final class Mage
 
         try {
             if (!isset($loggers[$file])) {
-                $logFile = self::getBaseDir('var') . DS . 'log' . DS . $file;
+                $logDir  = self::getBaseDir('var') . DS . 'log';
+                $logFile = $logDir . DS . $file;
 
-                if (!is_dir(self::getBaseDir('var').DS.'log')) {
-                    mkdir(self::getBaseDir('var').DS.'log', 0777);
+                if (!is_dir($logDir)) {
+                    mkdir($logDir);
+                    chmod($logDir, 0777);
                 }
 
                 if (!file_exists($logFile)) {

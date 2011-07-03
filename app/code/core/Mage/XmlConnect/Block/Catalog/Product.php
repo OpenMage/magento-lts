@@ -27,8 +27,8 @@
 /**
  * Product data xml renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
+ * @category    Mage
+ * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Catalog_Product extends Mage_XmlConnect_Block_Catalog
@@ -38,12 +38,12 @@ class Mage_XmlConnect_Block_Catalog_Product extends Mage_XmlConnect_Block_Catalo
      *
      * @param Mage_Catalog_Model_Product $product
      * @param string $itemNodeName
-     *
      * @return Mage_XmlConnect_Model_Simplexml_Element
      */
     public function productToXmlObject(Mage_Catalog_Model_Product $product, $itemNodeName = 'item')
     {
-        $item = new Mage_XmlConnect_Model_Simplexml_Element('<' . $itemNodeName . '></' . $itemNodeName . '>');
+        /** @var $item Mage_XmlConnect_Model_Simplexml_Element */
+        $item = Mage::getModel('xmlconnect/simplexml_element', '<' . $itemNodeName . '></' . $itemNodeName . '>');
         if ($product && $product->getId()) {
             $item->addChild('entity_id', $product->getId());
             $item->addChild('name', $item->xmlentities(strip_tags($product->getName())));
@@ -132,16 +132,18 @@ class Mage_XmlConnect_Block_Catalog_Product extends Mage_XmlConnect_Block_Catalo
     /**
      * Render product info xml
      *
+     * @throws Mage_Core_Exception
      * @return string
      */
     protected function _toHtml()
     {
+        /** @var $product Mage_Catalog_Model_Product */
         $product = Mage::getModel('catalog/product')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->load($this->getRequest()->getParam('id', 0));
 
         if (!$product) {
-            throw new Mage_Core_Exception($this->__('Selected product is unavailable.'));
+            Mage::throwException($this->__('Selected product is unavailable.'));
         } else {
             $this->setProduct($product);
             $productXmlObj = $this->productToXmlObject($product, 'product');

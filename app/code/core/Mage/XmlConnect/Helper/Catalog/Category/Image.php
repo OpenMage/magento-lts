@@ -27,13 +27,15 @@
 /**
  * Catalog image helper
  *
- * @author  Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Helper_Catalog_Category_Image extends Mage_Catalog_Helper_Image
 {
     /**
      * Init
-     * 
+     *
      * @param Mage_Catalog_Model_Product $product
      * @param string $attributeName
      * @param string $imageFile
@@ -60,10 +62,18 @@ class Mage_XmlConnect_Helper_Catalog_Category_Image extends Mage_Catalog_Helper_
         $this->_getModel()->setDestinationSubdir($attributeName);
         $this->setProduct($category);
 
-        $this->setWatermark(Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_image"));
-        $this->setWatermarkImageOpacity(Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_imageOpacity"));
-        $this->setWatermarkPosition(Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_position"));
-        $this->setWatermarkSize(Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_size"));
+        $this->setWatermark(
+            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_image")
+        );
+        $this->setWatermarkImageOpacity(
+            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_imageOpacity")
+        );
+        $this->setWatermarkPosition(
+            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_position")
+        );
+        $this->setWatermarkSize(
+            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_size")
+        );
 
         if ($imageFile) {
             $this->setImageFile($imageFile);
@@ -71,21 +81,23 @@ class Mage_XmlConnect_Helper_Catalog_Category_Image extends Mage_Catalog_Helper_
             /*
              * add for work original size
              */
-            $this->_getModel()->setBaseFile( $this->getProduct()->getData($this->_getModel()->getDestinationSubdir()) );
+            $this->_getModel()->setBaseFile(
+                $this->getProduct()->getData($this->_getModel()->getDestinationSubdir())
+            );
         }
         return $this;
     }
 
     /**
      * Return placeholder image file path
-     * 
+     *
      * @return string
      */
     public function getPlaceholder()
     {
         if (!$this->_placeholder) {
             $attr = $this->_getModel()->getDestinationSubdir();
-            $this->_placeholder = 'images/xmlconnect/catalog/category/placeholder/'.$attr.'.jpg';
+            $this->_placeholder = 'images/xmlconnect/catalog/category/placeholder/' . $attr . '.jpg';
         }
         return $this->_placeholder;
     }

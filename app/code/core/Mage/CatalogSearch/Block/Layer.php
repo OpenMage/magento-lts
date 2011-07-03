@@ -36,7 +36,7 @@ class Mage_CatalogSearch_Block_Layer extends Mage_Catalog_Block_Layer_View
     protected function _construct()
     {
         parent::_construct();
-        Mage::register('current_layer', $this->getLayer());
+        Mage::register('current_layer', $this->getLayer(), true);
     }
 
     /**

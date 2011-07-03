@@ -25,10 +25,28 @@
  */
 ?>
 <div class="notification-global notification-global-notice">
-<strong>
 <?php
-    echo $this->helper('xmlconnect')->__('After submitting the App, please contact <a href="mailto:%1$s">%1$s</a> to receive the Application Key, Application Secret and Application Master Secret.<br />Upon receiving these credentials, please fill in the corresponding fields.<br />In addition, please accept Urban Airship\'s Terms of Service: <a href="%2$s" target="_blank">click here</a>.', Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_CONTACT_CREDENTIALS_EMAIL), Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_URBAN_AIRSHIP_TOS_URL));
+    echo $this->helper('xmlconnect')->__('As a Magento customer, Urban Airship is offering you unlimited Push Notifications and Rich Push for $100/year* along with a 60 day free trial.');
+    echo '<br />';
+    echo $this->helper('xmlconnect')->__('*Subject to change');
+    echo '<br /><br /><strong>';
+    echo $this->helper('xmlconnect')->__('Extend the life of your app with Urban Airship Push Notifications.');
+    echo '</strong><br />';
+    echo $this->helper('xmlconnect')->__('Push Notifications allow you to send messages directly to the people who have installed your app on their device. Send messages to your full audience even when your app is closed. Push Notifications are one of the best ways to keep your app active by delivering valuable content directly to your customers. Learn more about Push Notifications - <a href="%1$s" target="_blank">%1$s</a>', Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_URBAN_AIRSHIP_ABOUT_PUSH_URL));
+    echo '<br /><br /><strong>';
+    echo $this->helper('xmlconnect')->__('Deeper Messaging and Engagement with Rich Push.');
+    echo '</strong><br />';
+    echo $this->helper('xmlconnect')->__('Rich Push allows you to create and send engaging experiences by adding HTML and other rich media components to your push notifications. Moving beyond alerts and badge updates, Rich Push takes users into the app while displaying content in a customizable WebKit view. Create branded messages that engage your users with new content and information, all without having to update your app. Learn more about Rich Push - <a href="%1$s" target="_blank">%1$s</a>', Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_URBAN_AIRSHIP_ABOUT_RICH_PUSH_URL));
+    echo '<br /><br /><strong>';
+    echo $this->helper('xmlconnect')->__('How to incorporate Urban Airship within your application:');
+    echo '</strong><br />';
+    echo $this->helper('xmlconnect')->__('After submitting the App to Magento, please contact <a href="mailto:%1$s">%1$s</a> to receive the Application Key, Application Secret and Application Master Secret.', Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_CONTACT_CREDENTIALS_EMAIL));
+    echo '<br />';
+    echo $this->helper('xmlconnect')->__('Upon receiving these credentials, please fill in the corresponding fields.');
+    echo '<br />';
+    echo $this->helper('xmlconnect')->__('In addition, click here to review Urban Airship\'s Terms of Service: <a href="%s" target="_blank">click here</a>.', Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_URBAN_AIRSHIP_TOS_URL));
+    echo '<br /><br />';
+    echo $this->helper('xmlconnect')->__('<a href="%s" target="_blank">Login</a> to Urabn Airship.', Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_URBAN_AIRSHIP_PARTNER_LOGIN_URL));
 ?>
-</strong>
 </div>
 <br />

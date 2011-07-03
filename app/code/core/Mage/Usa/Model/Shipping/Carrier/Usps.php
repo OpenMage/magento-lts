@@ -336,6 +336,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             if (!$service) {
                 $service = $r->getService();
             }
+            if ($r->getContainer() == 'FLAT RATE BOX' || $r->getContainer() == 'FLAT RATE ENVELOPE') {
+                $service = 'PRIORITY';
+            }
             $package->addChild('Service', $service);
 
             // no matter Letter, Flat or Parcel, use Parcel
@@ -350,10 +353,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             // Because some methods don't accept VARIABLE and (NON)RECTANGULAR containers
             $package->addChild('Container', $r->getContainer());
             $package->addChild('Size', $r->getSize());
-            $package->addChild('Width', $r->getWidth());
-            $package->addChild('Length', $r->getLength());
-            $package->addChild('Height', $r->getHeight());
-            $package->addChild('Girth', $r->getGirth());
+            if ($r->getSize() == 'LARGE') {
+                $package->addChild('Width', $r->getWidth());
+                $package->addChild('Length', $r->getLength());
+                $package->addChild('Height', $r->getHeight());
+                if ($r->getContainer() == 'NONRECTANGULAR' || $r->getContainer() == 'VARIABLE') {
+                    $package->addChild('Girth', $r->getGirth());
+                }
+            }
             $package->addChild('Machinable', $r->getMachinable());
 
             $api = 'RateV4';
@@ -372,10 +379,20 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             $package->addChild('Country', $r->getDestCountryName());
             $package->addChild('Container', $r->getContainer());
             $package->addChild('Size', $r->getSize());
-            $package->addChild('Width', $r->getWidth());
-            $package->addChild('Length', $r->getLength());
-            $package->addChild('Height', $r->getHeight());
-            $package->addChild('Girth', $r->getGirth());
+            $width = $length = $height = $girth = '';
+            if ($r->getSize() == 'LARGE') {
+                $width = $r->getWidth();
+                $length = $r->getLength();
+                $height = $r->getHeight();
+                if ($r->getContainer() == 'NONRECTANGULAR') {
+                    $girth = $r->getGirth();
+                }
+            }
+            $package->addChild('Width', $width);
+            $package->addChild('Length', $length);
+            $package->addChild('Height', $height);
+            $package->addChild('Girth', $girth);
+
 
             $api = 'IntlRateV2';
         }
@@ -572,7 +589,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                 'USPS GXG Envelopes'                               => 'EXPRESS',
                 'Express Mail International'                       => 'EXPRESS',
                 'Express Mail International Flat Rate Envelope'    => 'EXPRESS',
-                'Priority Mail'                        => 'PRIORITY',
+                'Priority Mail'                        => 'EXPRESS',
                 'Priority Mail Small Flat Rate Box'    => 'PRIORITY',
                 'Priority Mail Medium Flat Rate Box'   => 'PRIORITY',
                 'Priority Mail Large Flat Rate Box'    => 'PRIORITY',
@@ -616,7 +633,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                                 'Priority Mail',
                                 'Parcel Post',
                                 'Media Mail',
-                                'Express Mail',
                                 'First-Class Mail Large Envelope',
                             )
                         ),
@@ -690,7 +706,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                                 'USPS GXG Envelopes',
                                 'Express Mail International',
                                 'Priority Mail International',
-                                'Class Mail International Package',
+                                'First-Class Mail International Package',
                             )
                         )
                     )
@@ -1326,6 +1342,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             case 'FLAT RATE ENVELOPE':
                 $container = 'FLATRATEENV';
                 break;
+            case 'FLAT RATE BOX':
+                $container = 'FLATRATEBOX';
+                break;
             case 'RECTANGULAR':
                 $container = 'RECTANGULAR';
                 break;
@@ -1348,20 +1367,17 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         }
         // the wrap node needs for remove xml declaration above
         $xmlWrap = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><wrap/>');
+        $method = '';
         if (stripos($shippingMethod, 'Priority') !== false) {
+            $method = 'Priority';
             $rootNode = 'PriorityMailIntlRequest';
             $xml = $xmlWrap->addChild($rootNode);
         } else if (stripos($shippingMethod, 'First-Class') !== false) {
+            $method = 'FirstClass';
             $rootNode = 'FirstClassMailIntlRequest';
             $xml = $xmlWrap->addChild($rootNode);
-            if (stripos($shippingMethod, 'Letter') !== false) {
-                $xml->addChild('FirstClassMailType', 'LETTER');
-            } else if (stripos($shippingMethod, 'Flat') !== false) {
-                $xml->addChild('FirstClassMailType', 'FLAT');
-            } else{
-                $xml->addChild('FirstClassMailType', 'PARCEL');
-            }
         } else {
+            $method = 'Express';
             $rootNode = 'ExpressMailIntlRequest';
             $xml = $xmlWrap->addChild($rootNode);
         }
@@ -1374,30 +1390,27 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         $xml->addChild('FromFirstName', $request->getShipperContactPersonFirstName());
         $xml->addChild('FromLastName', $request->getShipperContactPersonLastName());
         $xml->addChild('FromFirm', $request->getShipperContactCompanyName());
-        $xml->addChild('FromAddress1', $request->getShipperAddressStreet1());
-        $xml->addChild('FromAddress2', $request->getShipperAddressStreet2());
+        $xml->addChild('FromAddress1', $request->getShipperAddressStreet2());
+        $xml->addChild('FromAddress2', $request->getShipperAddressStreet1());
         $xml->addChild('FromCity', $request->getShipperAddressCity());
         $xml->addChild('FromState', $request->getShipperAddressStateOrProvinceCode());
         $xml->addChild('FromZip5', $fromZip5);
         $xml->addChild('FromZip4', $fromZip4);
         $xml->addChild('FromPhone', $request->getShipperContactPhoneNumber());
-        if ($request->getIsReturn()) {
-            $referenceData = 'RMA #'
-                             . $request->getOrderShipment()->getRma()->getIncrementId()
-                             . ' P'
-                             . $request->getPackageId();
-        } else {
-            $referenceData = 'Order #'
-                             . $request->getOrderShipment()->getOrder()->getIncrementId()
-                             . ' P'
-                             . $request->getPackageId();
+        if ($method != 'FirstClass') {
+            if ($request->getReferenceData()) {
+                $referenceData = $request->getReferenceData() . ' P' . $request->getPackageId();
+            } else {
+                $referenceData = $request->getOrderShipment()->getOrder()->getIncrementId()
+                                 . ' P'
+                                 . $request->getPackageId();
+            }
+            $xml->addChild('FromCustomsReference', 'Order #' . $referenceData);
         }
-        $xml->addChild('FromCustomsReference', 'Order #' . $referenceData);
-
         $xml->addChild('ToName', $request->getRecipientContactPersonName());
         $xml->addChild('ToFirm', $request->getRecipientContactCompanyName());
-        $xml->addChild('ToAddress1', $request->getRecipientAddressStreet1());
-        $xml->addChild('ToAddress2', $request->getRecipientAddressStreet2());
+        $xml->addChild('ToAddress1', $request->getRecipientAddressStreet2());
+        $xml->addChild('ToAddress2', $request->getRecipientAddressStreet1());
         $xml->addChild('ToCity', $request->getRecipientAddressCity());
         $xml->addChild('ToProvince', $request->getRecipientAddressStateOrProvinceCode());
         $xml->addChild('ToCountry', $this->_getCountryName($request->getRecipientAddressCountryCode()));
@@ -1406,16 +1419,26 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         $xml->addChild('ToPhone', $request->getRecipientContactPhoneNumber());
         $xml->addChild('ToFax');
         $xml->addChild('ToEmail');
-        $xml->addChild('NonDeliveryOption', 'Return');
-        $xml->addChild('Container', $container);
+        if ($method != 'FirstClass') {
+            $xml->addChild('NonDeliveryOption', 'Return');
+        }
+        if ($method == 'FirstClass') {
+            if (stripos($shippingMethod, 'Letter') !== false) {
+                $xml->addChild('FirstClassMailType', 'LETTER');
+            } else if (stripos($shippingMethod, 'Flat') !== false) {
+                $xml->addChild('FirstClassMailType', 'FLAT');
+            } else{
+                $xml->addChild('FirstClassMailType', 'PARCEL');
+            }
+        }
+        if ($method != 'FirstClass') {
+            $xml->addChild('Container', $container);
+        }
         $shippingContents = $xml->addChild('ShippingContents');
-
         $packageItems = $request->getPackageItems();
-
         // get countries of manufacture
         $countriesOfManufacture = array();
         $productIds = array();
-
         foreach ($packageItems as $itemShipment) {
                 $item = new Varien_Object();
                 $item->setData($itemShipment);
@@ -1466,7 +1489,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         $xml->addChild('Agreement', 'y');
         $xml->addChild('ImageType', 'PDF');
         $xml->addChild('ImageLayout', 'ALLINONEFILE');
-
+        if ($method == 'FirstClass') {
+            $xml->addChild('Container', $container);
+        }
         // set size
         if ($packageParams->getSize()) {
             $xml->addChild('Size', $packageParams->getSize());

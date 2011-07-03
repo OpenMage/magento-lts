@@ -27,14 +27,12 @@
 /**
  * Product Options xml renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_XmlConnect_Block_Catalog_Product_Price extends Mage_XmlConnect_Block_Catalog
 {
-
     /**
      * Default product price renderer block factory name
      *

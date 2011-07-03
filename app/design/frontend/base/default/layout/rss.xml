@@ -26,15 +26,16 @@
  */
 -->
 <layout version="0.1.0">
+    <!--
+    Default layout, loads most of the pages
+    -->
     <default>
         <reference name="footer_links">
             <action method="addLink" translate="label title" module="rss" ifconfig="rss/config/active"><label>RSS</label><url>rss</url><title>RSS</title><prepare>true</prepare><urlParams/><position/><li/><a>class="link-rss"</a></action>
         </reference>
         <block type="rss/list" name="head_rss" ifconfig="rss/config/active" />
     </default>
-<!--
-Default layout, loads most of the pages
--->
+
     <rss_index_index translate="label">
         <label>RSS Feeds List</label>
         <reference name="root">
@@ -50,7 +51,9 @@ Default layout, loads most of the pages
     </rss_index_nofeed>
 
     <rss_index_wishlist>
-        <block type="rss/wishlist" name="rss.wishlist" output="toHtml"/>
+        <block type="rss/wishlist" name="rss.wishlist" output="toHtml">
+            <action method="addPriceBlockType"><type>msrp_rss</type><block>catalog/product_price</block><template>wishlist/render/item/price_msrp_rss.phtml</template></action>
+        </block>
     </rss_index_wishlist>
 <!--
 Catalog layout

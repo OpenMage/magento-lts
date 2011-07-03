@@ -104,55 +104,86 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
         $i = 1;
         foreach ($packages as $packageId => $package) {
             $page->setFillColor(new Zend_Pdf_Color_Rgb(0.93, 0.92, 0.92));
-            $page->drawRectangle(25, $this->y + 15, 275, $this->y - 35);
-            $page->drawRectangle(275, $this->y + 15, 570, $this->y - 35);
+            $page->drawRectangle(25, $this->y + 15, 190, $this->y - 35);
+            $page->drawRectangle(190, $this->y + 15, 350, $this->y - 35);
+            $page->drawRectangle(350, $this->y + 15, 570, $this->y - 35);
 
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(1));
             $page->drawRectangle(520, $this->y + 15, 570, $this->y - 5);
 
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
-            $page->drawText('Package ' . $i, 525, $this->y , 'UTF-8');
+            $packageText = Mage::helper('sales')->__('Package') . ' ' . $i;
+            $page->drawText($packageText, 525, $this->y , 'UTF-8');
             $i ++;
 
             $package = new Varien_Object($package);
             $params = new Varien_Object($package->getParams());
             $dimensionUnits = Mage::helper('usa')->getMeasureDimensionName($params->getDimensionUnits());
 
-            $typeText = 'Type : ' . $params->getContainer();
-            $lengthText = 'Length : ' . $params->getLength() .' '. $dimensionUnits;
-            $widthText = 'Width : ' . $params->getWidth() .' '. $dimensionUnits;
-            $heightText = 'Height : ' . $params->getHeight() .' '. $dimensionUnits;
-            $weightText = 'Total Weight : ' . $params->getWeight() .' '
-                        . Mage::helper('usa')->getMeasureWeightName($params->getWeightUnits());
-
+            $typeText = Mage::helper('sales')->__('Type') . ' : ' 
+                . $packaging->getContainerTypeByCode($params->getContainer());
             $page->drawText($typeText, 35, $this->y , 'UTF-8');
-            $page->drawText($lengthText, 285, $this->y , 'UTF-8');
+
+            if ($params->getLength() != null) {
+                $lengthText = $params->getLength() .' '. $dimensionUnits;
+            } else {
+                $lengthText = '--';
+            }
+            $lengthText = Mage::helper('sales')->__('Length') . ' : ' . $lengthText;
+            $page->drawText($lengthText, 200, $this->y , 'UTF-8');
+
+            if ($params->getDeliveryConfirmation() != null) {
+                $confirmationText = Mage::helper('sales')->__('Signature Confirmation')
+                    . ' : '
+                    . $packaging->getDeliveryConfirmationTypeByCode($params->getDeliveryConfirmation());
+                $page->drawText($confirmationText, 360, $this->y , 'UTF-8');
+            }
 
             $this->y = $this->y - 10;
-            $page->drawText($weightText, 35, $this->y , 'UTF-8');
-            $page->drawText($widthText, 285, $this->y , 'UTF-8');
+
+            $weightText = Mage::helper('sales')->__('Total Weight') . ' : ' . $params->getWeight() .' '
+                . Mage::helper('usa')->getMeasureWeightName($params->getWeightUnits());
+            $page->drawText($weightText, 35, $this->y , 'UTF-8');            
+
+            if ($params->getWidth() != null) {
+                $widthText = $params->getWidth() .' '. $dimensionUnits;
+            } else {
+                $widthText = '--';
+            }
+            $widthText = Mage::helper('sales')->__('Width') . ' : ' . $widthText;
+            $page->drawText($widthText, 200, $this->y , 'UTF-8');
 
             $this->y = $this->y - 10;
-            $page->drawText($heightText, 285, $this->y , 'UTF-8');
 
-            if ($sizeText = $this->_getSizeText($params)) {
+            if ($params->getHeight() != null) {
+                $heightText = $params->getHeight() .' '. $dimensionUnits;
+            } else {
+                $heightText = '--';
+            }
+            $heightText = Mage::helper('sales')->__('Height') . ' : ' . $heightText;
+            $page->drawText($heightText, 200, $this->y , 'UTF-8');
+
+            $sizeText = $this->_getSizeText($params);
+            if ($sizeText) {
+                $this->y = $this->y - 10;
                 $page->drawText($sizeText, 35, $this->y , 'UTF-8');
-                $this->y = $this->y - 10;
             }
 
-            if ($params->getGirth()) {
+            if ($params->getGirth() != null) {
+                $this->y = $this->y - 10;
                 $dimensionGirthUnits = Mage::helper('usa')->getMeasureDimensionName($params->getGirthDimensionUnits());
-                $girthText = 'Girth : ' . $params->getGirth() .' '. $dimensionGirthUnits;
-                $page->drawText($girthText, 285, $this->y , 'UTF-8');
-                $this->y = $this->y - 10;
+                $girthText = Mage::helper('sales')->__('Girth')
+                             . ' : ' . $params->getGirth() . ' ' . $dimensionGirthUnits;
+                $page->drawText($girthText, 200, $this->y , 'UTF-8');
             }
 
+            $this->y = $this->y - 10;
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(1));
-            $page->drawRectangle(25, $this->y+5, 570, $this->y - 25);
+            $page->drawRectangle(25, $this->y, 570, $this->y - 25);
 
             $this->y = $this->y - 10;
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
-            $page->drawText('Items in the Package', 50, $this->y, 'UTF-8');
+            $page->drawText(Mage::helper('sales')->__('Items in the Package'), 50, $this->y, 'UTF-8');
 
             $page->setFillColor(new Zend_Pdf_Color_Rgb(0.93, 0.92, 0.92));
             $page->drawRectangle(50, $this->y - 5, 200, $this->y - 15);
@@ -161,9 +192,9 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
 
             $this->y = $this->y - 12;
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
-            $page->drawText('Product', 55, $this->y, 'UTF-8');
-            $page->drawText('Weight', 205, $this->y, 'UTF-8');
-            $page->drawText('Qty', 355, $this->y, 'UTF-8');
+            $page->drawText(Mage::helper('sales')->__('Product'), 55, $this->y, 'UTF-8');
+            $page->drawText(Mage::helper('sales')->__('Weight'), 205, $this->y, 'UTF-8');
+            $page->drawText(Mage::helper('sales')->__('Qty'), 355, $this->y, 'UTF-8');
 
             foreach ($package->getItems() as $itemId => $item) {
                 $item = new Varien_Object($item);
@@ -188,16 +219,15 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
     /**
      * Get package size from params either from system config
      *
-     * @param  $params
+     * @param Varien_Object $params
      * @return string
      */
     protected function _getSizeText($params)
     {
+        $sizeText = '';
         $uspsModel = Mage::getSingleton('usa/shipping_carrier_usps');
-        if ($params->getSize()) {
-            $sizeText = 'Size : ' . $params->getSize();
-        } else {
-            $sizeText = 'Size : ' . $uspsModel->getConfigData('size');
+        if ($params->getSize() != null) {
+            $sizeText = Mage::helper('sales')->__('Size') . ' : ' . $uspsModel->getCode('size', $params->getSize());
         }
         return $sizeText;
     }

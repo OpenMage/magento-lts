@@ -31,17 +31,19 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Msrp_Enabled
-    extends Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Config
+class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Msrp_Enabled extends Varien_Data_Form_Element_Select
 {
     /**
-     * Get config value data
+     * Retrieve Element HTML fragment
      *
-     * @return bool
+     * @return string
      */
-    protected function _getValueFromConfig()
+    public function getElementHtml()
     {
-        return Mage::helper('catalog')->isMsrpApplyToAll();
+        if (is_null($this->getValue())) {
+            $this->setValue(Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled::MSRP_ENABLE_USE_CONFIG);
+        }
+        return parent::getElementHtml();
     }
 }
 

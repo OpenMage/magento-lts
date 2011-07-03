@@ -42,8 +42,6 @@
  * @method Mage_XmlConnect_Model_Application setActiveTo(string $value)
  * @method string getUpdatedAt()
  * @method Mage_XmlConnect_Model_Application setUpdatedAt(string $value)
- * @method string getConfiguration()
- * @method Mage_XmlConnect_Model_Application setConfiguration(string $value)
  * @method int getStatus()
  * @method Mage_XmlConnect_Model_Application setStatus(int $value)
  * @method int getBrowsingMode()
@@ -57,50 +55,36 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
 {
     /**
      * Application code cookie name
-     *
-     * @var string
      */
     const APP_CODE_COOKIE_NAME = 'app_code';
 
     /**
      * Device screen size name
-     *
-     * @var string
      */
     const APP_SCREEN_SIZE_NAME = 'screen_size';
 
     /**
      * Device screen size name
-     *
-     * @var string
      */
     const APP_SCREEN_SIZE_DEFAULT = '320x480';
 
     /**
      * Device screen size source name
-     *
-     * @var string
      */
     const APP_SCREEN_SOURCE_DEFAULT = 'default';
 
     /**
      * Application status "submitted" value
-     *
-     * @var int
      */
     const APP_STATUS_SUCCESS = 1;
 
     /**
      * Application status "not submitted" value
-     *
-     * @var int
      */
     const APP_STATUS_INACTIVE = 0;
 
     /**
      * Application prefix length of cutted part of deviceType and storeCode
-     *
-     * @var int
      */
     const APP_PREFIX_CUT_LENGTH = 3;
 
@@ -135,9 +119,17 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     /**
      * Main configuration of current application
      *
+     * @deprecated Serialized config storage has been removed
      * @var null|array
      */
     protected $conf;
+
+    /**
+     * Configuration model
+     *
+     * @var Mage_XmlConnect_Model_ConfigData
+     */
+    protected $_configModel;
 
     /**
      * Social networking validation array
@@ -157,8 +149,6 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
 
     /**
      * Submission/Resubmission key max length
-     *
-     * @var int
      */
     const APP_MAX_KEY_LENGTH = 40;
 
@@ -166,103 +156,91 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      * XML path to config with an email address
      * for contact to receive credentials
      * of Urban Airship notifications
-     *
-     * @var string
      */
     const XML_PATH_CONTACT_CREDENTIALS_EMAIL = 'xmlconnect/mobile_application/urbanairship_credentials_email';
 
     /**
      * XML path to config with Urban Airship Terms of Service URL
-     *
-     * @var string
      */
     const XML_PATH_URBAN_AIRSHIP_TOS_URL = 'xmlconnect/mobile_application/urbanairship_terms_of_service_url';
 
     /**
      * XML path to config with Urban Airship partner's login URL
-     *
-     * @var string
      */
     const XML_PATH_URBAN_AIRSHIP_PARTNER_LOGIN_URL = 'xmlconnect/mobile_application/urbanairship_login_url';
 
     /**
      * XML path to config with Urban Airship Push notifications product URL
-     *
-     * @var string
      */
     const XML_PATH_URBAN_AIRSHIP_ABOUT_PUSH_URL = 'xmlconnect/mobile_application/urbanairship_push_url';
 
     /**
      * XML path to config with Urban Airship Rich Push notifications product URL
-     *
-     * @var string
      */
     const XML_PATH_URBAN_AIRSHIP_ABOUT_RICH_PUSH_URL = 'xmlconnect/mobile_application/urbanairship_rich_push_url';
 
     /**
      * XML path to config copyright data
-     *
-     * @var string
      */
     const XML_PATH_DESIGN_FOOTER_COPYRIGHT = 'design/footer/copyright';
 
     /**
      * XML path to config restriction status
      * (EE module)
-     *
-     * @var string
      */
     const XML_PATH_GENERAL_RESTRICTION_IS_ACTIVE = 'general/restriction/is_active';
 
     /**
      * XML path to config restriction mode
      * (EE module)
-     *
-     * @var string
      */
     const XML_PATH_GENERAL_RESTRICTION_MODE = 'general/restriction/mode';
 
     /**
      * XML path to config secure base link URL
-     *
-     * @var string
      */
     const XML_PATH_SECURE_BASE_LINK_URL = 'web/secure/base_link_url';
 
     /**
      * XML path to config for paypal business account
-     *
-     * @var string
      */
     const XML_PATH_PAYPAL_BUSINESS_ACCOUNT = 'paypal/general/business_account';
 
     /**
      * XML path to config for default cache time
-     *
-     * @var string
      */
     const XML_PATH_DEFAULT_CACHE_LIFETIME = 'xmlconnect/mobile_application/cache_lifetime';
 
     /**
      * XML path to How-To URL for twitter
-     *
-     * @var string
      */
     const XML_PATH_HOWTO_TWITTER_URL    = 'xmlconnect/social_networking/howto_twitter_url';
 
     /**
      * XML path to How-To URL for facebook
-     *
-     * @var string
      */
     const XML_PATH_HOWTO_FACEBOOK_URL   = 'xmlconnect/social_networking/howto_facebook_url';
 
     /**
      * XML path to How-To URL for linkedin
-     *
-     * @var string
      */
     const XML_PATH_HOWTO_LINKEDIN_URL   = 'xmlconnect/social_networking/howto_linkedin_url';
+
+    /**
+     * Deprecated config flag
+     *
+     * @deprecated Serialized config storage has been removed
+     */
+    const DEPRECATED_CONFIG_FLAG = 'deprecated';
+
+    /**
+     * Delete on update paths for config data
+     *
+     * @var array
+     */
+    protected $_deleteOnUpdateConfig = array(
+        self::DEPRECATED_CONFIG_FLAG => 'native/pages'
+    );
 
     /**
      * Initialize application
@@ -272,6 +250,10 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('xmlconnect/application');
+        $this->_configModel = Mage::getModel('xmlconnect/configData');
+        $this->_configModel->setDeleteOnUpdate(
+            $this->getDeleteOnUpdateConfig()
+        );
     }
 
     /**
@@ -384,6 +366,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     /**
      * Load application configuration
      *
+     * @deprecated Serialized config storage has been removed
      * @return array
      */
     public function prepareConfiguration()
@@ -607,16 +590,96 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Get configuration model
+     *
+     * @return Mage_XmlConnect_Model_ConfigData
+     */
+    public function getConfigModel()
+    {
+        return $this->_configModel;
+    }
+
+    /**
      * Processing object before save data
      *
      * @return Mage_XmlConnect_Model_Application
      */
     protected function _beforeSave()
     {
-        $conf = serialize($this->prepareConfiguration());
-        $this->setConfiguration($conf);
-        $this->setUpdatedAt(date('Y-m-d H:i:s', time()));
+        $this->setUpdatedAt(
+            Mage::getSingleton('core/date')->gmtDate()
+        );
         return $this;
+    }
+
+    /**
+     * Processing object after save data
+     *
+     * @return Mage_XmlConnect_Model_Application
+     */
+    protected function _afterSave()
+    {
+        $this->_saveConfigData();
+        $this->_saveDeprecatedConfig();
+        parent::_afterSave();
+        return $this;
+    }
+
+    /**
+     * Save configuration data of application model
+     *
+     * @return Mage_XmlConnect_Model_Application
+     */
+    protected function _saveConfigData()
+    {
+        $configuration = $this->getData('config_data');
+        if (is_array($configuration)) {
+            $this->getConfigModel()
+                ->setConfigData($this->getId(), $configuration)
+                ->initSaveConfig();
+        }
+        return $this;
+    }
+
+    /**
+     * Save old deprecated config to application config data table
+     *
+     * @deprecated Serialized config storage has been removed
+     * @return Mage_XmlConnect_Model_Application
+     */
+    private function _saveDeprecatedConfig()
+    {
+        $deprecatedConfig = $this->getData('conf');
+        if (is_array($deprecatedConfig)) {
+            $this->getConfigModel()->saveConfig(
+                $this->getId(),
+                $this->convertOldConfing($deprecatedConfig),
+                self::DEPRECATED_CONFIG_FLAG
+            );
+        }
+        return $this;
+    }
+
+    /**
+     * Convert deprecated configuration array to new standard
+     *
+     * @deprecated Serialized config storage has been removed
+     * @param array $conf
+     * @param bool $path
+     * @return array
+     */
+    public function convertOldConfing(array $conf, $path = false)
+    {
+        $result = array();
+        foreach ($conf as $key => $val) {
+            $key = $path ? $path . '/' . $key : $key;
+            if (is_array($val)) {
+                $result += $this->convertOldConfing($val, $key);
+            } else {
+                $result[$key] = $val;
+            }
+        }
+        return $result;
     }
 
     /**
@@ -627,16 +690,83 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     public function loadConfiguration()
     {
         static $isConfigurationLoaded = null;
-
         if (is_null($isConfigurationLoaded)) {
-            $configuration = $this->getConfiguration();
-            if (!empty($configuration)) {
-                $configuration = unserialize($configuration);
-                $this->setData('conf', $configuration);
+            if ($this->getId()) {
+                $this->_loadDeprecatedConfig()
+                    ->_loadConfigData();
                 $isConfigurationLoaded = true;
             }
         }
         return $this;
+    }
+
+    /**
+     * Load configuration data
+     *
+     * @internal re-factoring in progress
+     * @return Mage_XmlConnect_Model_Application
+     */
+    protected function _loadConfigData()
+    {
+        $configuration = $this->getConfigModel()
+            ->getCollection()
+            ->addArrayFilter(
+                array(
+                    'application_id' => $this->getId(),
+                    'category' => 'payment'
+                )
+            )
+        ->toOptionArray();
+        $this->setData('config_data', $configuration);
+        return $this;
+    }
+
+    /**
+     * Load deprecated configuration
+     *
+     * @deprecated Serialized config storage has been removed
+     * @return Mage_XmlConnect_Model_Application
+     */
+    private function _loadDeprecatedConfig()
+    {
+        $configuration = $this->_convertConfig(
+            $this->getConfigModel()
+                ->getCollection()
+                ->addArrayFilter(
+                    array(
+                        'application_id' => $this->getId(),
+                        'category' => self::DEPRECATED_CONFIG_FLAG
+                    )
+                )
+                ->toOptionArray()
+        );
+        $this->setData('conf', $configuration);
+        return $this;
+    }
+
+    /**
+     * Convert old config data array
+     *
+     * @deprecated  Serialized config storage has been removed
+     * @param  $config
+     * @return array
+     */
+    protected function _convertConfig($config)
+    {
+        $result = array();
+        foreach ($config as $values) {
+            foreach ($values as $path => $value) {
+                if (preg_match('@[^\w\/]@', $path)) {
+                    Mage::throwException(
+                        Mage::helper('xmlconnect')->__('Unsupported character in path: "%s"', $path)
+                    );
+                }
+                $keyArray = explode('/', $path);
+                $keys = '$result["' . implode('"]["', $keyArray) . '"]';
+                eval($keys . ' = $value;');
+            }
+        }
+        return $result;
     }
 
     /**
@@ -987,5 +1117,27 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     {
         $lifetime = (int)$this->loadConfiguration()->getData('conf/native/cacheLifetime');
         return $lifetime <= 0 ? '' : $lifetime;
+    }
+
+    /**
+     * Get delete on update paths for config data
+     *
+     * @return array
+     */
+    public function getDeleteOnUpdateConfig()
+    {
+        return $this->_deleteOnUpdateConfig;
+    }
+
+    /**
+     * Set delete on update paths for config data
+     *
+     * @param array $pathsToDelete
+     * @return Mage_XmlConnect_Model_Application
+     */
+    public function setDeleteOnUpdateConfig(array $pathsToDelete)
+    {
+        $this->_deleteOnUpdateConfig = array_merge($this->_deleteOnUpdateConfig, $pathsToDelete);
+        return $this;
     }
 }

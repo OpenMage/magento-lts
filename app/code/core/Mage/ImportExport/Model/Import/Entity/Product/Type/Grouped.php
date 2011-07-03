@@ -44,6 +44,26 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped
     );
 
     /**
+     * Import model behavior
+     *
+     * @var string
+     */
+    protected $_behavior;
+
+    /**
+     * Retrive model behavior
+     *
+     * @return string
+     */
+    public function getBehavior()
+    {
+        if (is_null($this->_behavior)) {
+            $this->_behavior = Mage_ImportExport_Model_Import::getDataSourceModel()->getBehavior();
+        }
+        return $this->_behavior;
+    }
+
+    /**
      * Save product type specific data.
      *
      * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
@@ -130,7 +150,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped
                 }
             }
             // save links and relations
-            if ($linksData['product_ids']) {
+            if ($linksData['product_ids'] && $this->getBehavior() != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND) {
                 $connection->delete(
                     $mainTable,
                     $connection->quoteInto(
@@ -151,7 +171,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped
                         );
                     }
                 }
-                $connection->insertMultiple($mainTable, $mainData);
+                $connection->insertOnDuplicate($mainTable, $mainData);
                 $connection->insertOnDuplicate($relationTable, $linksData['relation']);
             }
             // save positions and default quantity
@@ -174,10 +194,10 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped
                     }
                 }
                 if ($linksData['position']) {
-                    $connection->insertMultiple($attributes['position']['table'], $linksData['position']);
+                    $connection->insertOnDuplicate($attributes['position']['table'], $linksData['position']);
                 }
                 if ($linksData['qty']) {
-                    $connection->insertMultiple($attributes['qty']['table'], $linksData['qty']);
+                    $connection->insertOnDuplicate($attributes['qty']['table'], $linksData['qty']);
                 }
             }
         }

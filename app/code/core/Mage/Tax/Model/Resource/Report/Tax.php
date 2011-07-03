@@ -71,8 +71,12 @@ class Mage_Tax_Model_Resource_Report_Tax extends Mage_Reports_Model_Resource_Rep
 
             $this->_clearTableByDateRange($this->getMainTable(), $from, $to, $subSelect);
             // convert dates from UTC to current admin timezone
-            $periodExpr = $writeAdapter->getDatePartSql($writeAdapter->getDateAddSql('e.created_at',
-                $this->_getStoreTimezoneUtcOffset(), Varien_Db_Adapter_Interface::INTERVAL_HOUR));
+            $periodExpr = $writeAdapter->getDatePartSql(
+                $this->getStoreTZOffsetQuery(
+                    array('e' => $this->getTable('sales/order')),
+                    'e.created_at', $from, $to
+                )
+            );
 
             $columns = array(
                 'period'                => $periodExpr,
@@ -95,7 +99,7 @@ class Mage_Tax_Model_Resource_Report_Tax extends Mage_Reports_Model_Resource_Rep
             ));
 
             if ($subSelect !== null) {
-                $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'e.created_at'));
+                $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
             $select->group(array($periodExpr, 'e.store_id', 'code', 'tax.percent', 'e.status'));

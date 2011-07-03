@@ -36,6 +36,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 {
     const XML_NODE_DIRECT_FRONT_NAMES = 'global/request/direct_front_name';
     const DEFAULT_HTTP_PORT = 80;
+    const DEFAULT_HTTPS_PORT = 443;
 
     /**
      * ORIGINAL_PATH_INFO

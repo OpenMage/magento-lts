@@ -105,4 +105,27 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
 
         return parent::_prepareColumns();
     }
+
+    /**
+     * Preparing collection
+     * Filter canceled statuses for orders in taxes
+     *
+     *@return Mage_Adminhtml_Block_Report_Sales_Tax_Grid
+     */
+    protected function _prepareCollection()
+    {
+        $filterData = $this->getFilterData();
+        if(!$filterData->hasData('order_statuses')) {
+            $orderConfig = Mage::getModel('sales/order_config');
+            $statusValues = array();
+            $canceledStatuses = $orderConfig->getStateStatuses(Mage_Sales_Model_Order::STATE_CANCELED);
+            foreach ($orderConfig->getStatuses() as $code => $label) {
+                if (!isset($canceledStatuses[$code])) {
+                    $statusValues[] = $code;
+                }
+            }
+            $filterData->setOrderStatuses($statusValues);
+        }
+        return parent::_prepareCollection();
+    }
 }

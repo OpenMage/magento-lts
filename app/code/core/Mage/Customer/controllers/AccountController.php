@@ -575,7 +575,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
 
         $this->getLayout()->getBlock('head')->setTitle($this->__('Account Information'));
-
+        $this->getLayout()->getBlock('messages')->setEscapeMessageFlag(true);
         $this->renderLayout();
     }
 

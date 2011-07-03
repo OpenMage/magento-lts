@@ -57,7 +57,6 @@ Default layout, loads most of the pages
                 <action method="setTitle" translate="title"><title>Magento Admin</title></action>
                 <action method="addJs"><script>prototype/prototype.js</script></action>
                 <action method="addJs"><script>prototype/window.js</script></action>
-                <action method="addJs" ifconfig="dev/js/deprecation"><script>prototype/deprecation.js</script></action>
                 <action method="addJs"><script>scriptaculous/builder.js</script></action>
                 <action method="addJs"><script>scriptaculous/effects.js</script></action>
                 <action method="addJs"><script>scriptaculous/dragdrop.js</script></action>
@@ -99,6 +98,7 @@ Default layout, loads most of the pages
                 <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
 
                 <action method="addItem"><type>js</type><name>extjs/ext-tree.js</name><params/><if/><condition>can_load_ext_js</condition></action>
+                <action method="addItem"><type>js</type><name>extjs/fix-defer.js</name><params/><if/><condition>can_load_ext_js</condition></action>
                 <action method="addItem"><type>js</type><name>extjs/ext-tree-checkbox.js</name><params/><if/><condition>can_load_ext_js</condition></action>
                 <action method="addItem"><type>js_css</type><name>extjs/resources/css/ext-all.css</name><params/><if/><condition>can_load_ext_js</condition></action>
                 <action method="addItem"><type>js_css</type><name>extjs/resources/css/ytheme-magento.css</name><params/><if/><condition>can_load_ext_js</condition></action>

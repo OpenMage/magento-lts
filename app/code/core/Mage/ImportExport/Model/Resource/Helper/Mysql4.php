@@ -38,7 +38,7 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
      * Constants to be used for DB
      */
     const DB_MAX_PACKET_SIZE        = 1048576; // Maximal packet length by default in MySQL
-    const DB_MAX_PACKET_COEFFICIENT = 0.9; // The coefficient of useful data from maximum packet length
+    const DB_MAX_PACKET_COEFFICIENT = 0.85; // The coefficient of useful data from maximum packet length
 
     /**
      * Returns maximum size of packet, that we can send to DB

@@ -46,7 +46,7 @@ $class   = $element->getFieldsetHtmlClass();
         <?php endif ?>
         <script type="text/javascript">
             $('select-all').observe('click', function() {
-                $$('#submission-countries-table input[@type=checkbox]').each(
+                $$('#submission-countries-table input[type=checkbox]').each(
                     function(elm) {
                         if (!elm.checked) {
                             elm.checked = true;
@@ -55,7 +55,7 @@ $class   = $element->getFieldsetHtmlClass();
                 );
             });
             $('deselect-all').observe('click', function() {
-                $$('#submission-countries-table input[@type=checkbox]').each(
+                $$('#submission-countries-table input[type=checkbox]').each(
                     function(elm) {
                         if (elm.checked) {
                             elm.checked = false;

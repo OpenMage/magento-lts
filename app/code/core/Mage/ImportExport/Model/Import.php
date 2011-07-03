@@ -404,25 +404,28 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     public function uploadSource()
     {
         $entity    = $this->getEntity();
-        $uploader  = new Mage_Core_Model_File_Uploader(self::FIELD_NAME_SOURCE_FILE);
+        $uploader  = Mage::getModel('core/file_uploader', self::FIELD_NAME_SOURCE_FILE);
         $uploader->skipDbProcessing(true);
         $result    = $uploader->save(self::getWorkingDir());
         $extension = pathinfo($result['file'], PATHINFO_EXTENSION);
 
+        $uploadedFile = $result['path'] . $result['file'];
         if (!$extension) {
-            unlink($result['path'] . $result['file']);
+            unlink($uploadedFile);
             Mage::throwException(Mage::helper('importexport')->__('Uploaded file has no extension'));
         }
         $sourceFile = self::getWorkingDir() . $entity;
 
         $sourceFile .= '.' . $extension;
 
-        if (file_exists($sourceFile)) {
-            unlink($sourceFile);
-        }
+        if(strtolower($uploadedFile) != strtolower($sourceFile)) {
+            if (file_exists($sourceFile)) {
+                unlink($sourceFile);
+            }
 
-        if (!@rename($result['path'] . $result['file'], $sourceFile)) {
-            Mage::throwException(Mage::helper('importexport')->__('Source file moving failed'));
+            if (!@rename($uploadedFile, $sourceFile)) {
+                Mage::throwException(Mage::helper('importexport')->__('Source file moving failed'));
+            }
         }
         // trying to create source adapter for file and catch possible exception to be convinced in its adequacy
         try {

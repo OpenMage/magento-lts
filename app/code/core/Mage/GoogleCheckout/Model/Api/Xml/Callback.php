@@ -885,7 +885,11 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         $totalRefunded = $this->getData('root/total-refund-amount/VALUE');
 
         $order = $this->getOrder();
-        $amountRefundLeft = $order->getBaseGrandTotal() - $order->getBaseTotalRefunded();
+        $amountRefundLeft = $order->getBaseGrandTotal() - $order->getBaseTotalRefunded()
+            - $order->getBaseAdjustmentNegative();
+        if (abs($amountRefundLeft) < .0001) {
+            return;
+        }
         if ($amountRefundLeft < $latestRefunded) {
             $latestRefunded = $amountRefundLeft;
             $totalRefunded  = $order->getBaseGrandTotal();
@@ -972,9 +976,6 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
             $payment->setParentTransactionId($parentTransactionId)
                 ->setTransactionId($googleOrderId . '-' . $typeTarget)
                 ->addTransaction($typeTarget);
-
-            $parentTransaction->setIsClosed(true)
-                ->save();
         }
 
         return $this;

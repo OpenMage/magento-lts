@@ -54,6 +54,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
     public function flushAllAction()
     {
         Mage::app()->getCacheInstance()->flush();
+        Mage::dispatchEvent('adminhtml_cache_flush_all');
         $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("The cache storage has been flushed."));
         $this->_redirect('*/*');
     }
@@ -64,6 +65,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
     public function flushSystemAction()
     {
         Mage::app()->cleanCache();
+        Mage::dispatchEvent('adminhtml_cache_flush_system');
         $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("The Magento cache storage has been flushed."));
         $this->_redirect('*/*');
     }
@@ -123,6 +125,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
         if (!empty($types)) {
             foreach ($types as $type) {
                 $tags = Mage::app()->getCacheInstance()->cleanType($type);
+                Mage::dispatchEvent('adminhtml_cache_refresh_type', array('type' => $type));
                 $updatedTypes++;
             }
         }

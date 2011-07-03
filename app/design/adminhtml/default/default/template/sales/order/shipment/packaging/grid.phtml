@@ -48,7 +48,14 @@
                 </thead>
 
                 <tbody>
-                <?php foreach($this->getCollection() as $item): if ($item->getIsVirtual() || $item->getOrderItem()->getParentItemId() || $item->getOrderItem()->getParentItem()): continue; endif; ?>
+                <?php foreach($this->getCollection() as $item): ?>
+                    <?php $_order = $this->getShipment()->getOrder() ?>
+                    <?php $_orderItem = $_order->getItemById($item->getOrderItemId()); ?>
+                    <?php if ($item->getIsVirtual()
+                              || ($_orderItem->isShipSeparately() && !($_orderItem->getParentItemId() || $_orderItem->getParentItem()))
+                              || (!$_orderItem->isShipSeparately() && ($_orderItem->getParentItemId() || $_orderItem->getParentItem()))): ?>
+                        <?php continue; ?>
+                    <?php endif; ?>
                     <tr title="#" id="" class="">
                         <td class="name">
                             <?php echo $item->getName(); ?>

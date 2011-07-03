@@ -218,6 +218,15 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     );
 
     /**
+     * Column names that holds images files names
+     *
+     * @var array
+     */
+    protected $_imagesArrayKeys = array(
+        '_media_image', 'image', 'small_image', 'thumbnail'
+    );
+
+    /**
      * Permanent entity columns.
      *
      * @var array
@@ -258,6 +267,13 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * @var array
      */
     protected $_websiteCodeToStoreIds = array();
+
+    /**
+     * Media files uploader
+     *
+     * @var Mage_ImportExport_Model_Import_Uploader
+     */
+    protected $_fileUploader;
 
     /**
      * Constructor.
@@ -1036,6 +1052,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $categories   = array();
             $tierPrices   = array();
             $mediaGallery = array();
+            $uploadedGalleryFiles = array();
 
             foreach ($bunch as $rowNum => $rowData) {
                 if (!$this->validateRow($rowData, $rowNum)) {
@@ -1094,19 +1111,24 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                                                0 : $this->_websiteCodeToId[$rowData['_tier_price_website']]
                     );
                 }
-                if (!empty($rowData['_media_image'])) { // 5. Media gallery phase
-                    $mediaGallery['file'][$rowSku][] = array(
+                foreach ($this->_imagesArrayKeys as $imageCol) {
+                    if (!empty($rowData[$imageCol])) { // 5. Media gallery phase
+                        if (!array_key_exists($rowData[$imageCol], $uploadedGalleryFiles)) {
+                            $uploadedGalleryFiles[$rowData[$imageCol]] = $this->_uploadMediaFiles($rowData[$imageCol]);
+                        }
+                        $rowData[$imageCol] = $uploadedGalleryFiles[$rowData[$imageCol]];
+                    }
+                }
+                if (!empty($rowData['_media_image'])) {
+                    $mediaGallery[$rowSku][] = array(
                         'attribute_id'      => $rowData['_media_attribute_id'],
-                        'value'             => $rowData['_media_image']
-                    );
-                    $mediaGallery['value'][$rowSku][] = array(
                         'label'             => $rowData['_media_lable'],
                         'position'          => $rowData['_media_position'],
                         'disabled'          => $rowData['_media_is_disabled'],
                         'value'             => $rowData['_media_image']
                     );
                 }
-                // 5. Attributes phase
+                // 6. Attributes phase
                 if (self::SCOPE_NULL == $rowScope) {
                     continue; // skip attribute processing for SCOPE_NULL rows
                 }
@@ -1194,6 +1216,45 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     }
 
     /**
+     * Returns an object for upload a media files
+     */
+    protected function _getUploader()
+    {
+        if (is_null($this->_fileUploader)) {
+            $this->_fileUploader    = new Mage_ImportExport_Model_Import_Uploader();
+
+            $this->_fileUploader->init();
+
+            $tmpDir     = Mage::getConfig()->getOptions()->getMediaDir() . '/import';
+            $destDir    = Mage::getConfig()->getOptions()->getMediaDir() . '/catalog/product';
+            if (!$this->_fileUploader->setTmpDir($tmpDir)) {
+                Mage::throwException("File directory '{$tmpDir}' is not readable.");
+            }
+            if (!$this->_fileUploader->setDestDir($destDir)) {
+                Mage::throwException("File directory '{$destDir}' is not writable.");
+            }
+        }
+        return $this->_fileUploader;
+    }
+
+    /**
+     * Uploading files into the "catalog/product" media folder.
+     * Return a new file name if the same file is already exists.
+     *
+     * @param string $fileName
+     * @return string
+     */
+    protected function _uploadMediaFiles($fileName)
+    {
+        try {
+            $res = $this->_getUploader()->move($fileName);
+            return $res['file'];
+        } catch (Exception $e) {
+            return '';
+        }
+    }
+
+    /**
      * Save product media gallery.
      *
      * @param array $mediaGalleryData
@@ -1219,49 +1280,57 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                     ->getTable('catalog/product_attribute_media_gallery_value');
         }
 
-        $mediaGalleryIn  = array();
-        $delProductId = array();
+        foreach ($mediaGalleryData as $productSku => $mediaGalleryRows) {
+            $productId = $this->_newSku[$productSku]['entity_id'];
+            $insertedGalleryImgs = array();
 
-        foreach ($mediaGalleryData['file'] as $delSku => $mediaGalleryRows) {
-            $productId      = $this->_newSku[$delSku]['entity_id'];
-            $delProductId[] = $productId;
-
-            foreach ($mediaGalleryRows as $row) {
-                $row['entity_id'] = $productId;
-                $mediaGalleryIn['file'][]  = $row;
-            }
-        }
-        $mediaGalleryIn['value'] = array_shift($mediaGalleryData['value']);
-
-        if (Mage_ImportExport_Model_Import::BEHAVIOR_APPEND != $this->getBehavior()) {
-            $this->_connection->delete(
-                $tableName,
-                $this->_connection->quoteInto('entity_id IN (?)', $delProductId)
-            );
-        }
-        if ($mediaGalleryIn['file']) {
-            $this->_connection
-                    ->insertOnDuplicate($mediaGalleryTableName, $mediaGalleryIn['file'], array('entity_id'));
-
-            $newMediaValues = $this->_connection->fetchPairs($this->_connection->select()
-                                    ->from($mediaGalleryTableName, array('value', 'value_id'))
-                                    ->where('entity_id IN (?)', $productId)
-            );
-
-            $mediaGalleryValueKeys = array_keys($mediaGalleryIn['value']);
-            foreach ($mediaGalleryValueKeys as $valueKey) {
-                $fileName = $mediaGalleryIn['value'][$valueKey]['value'];
-                unset($mediaGalleryIn['value'][$valueKey]['value']);
-                $mediaGalleryIn['value'][$valueKey]['value_id'] = $newMediaValues[$fileName];
-            }
-
-            try {
-                $this->_connection
-                        ->insertOnDuplicate($mediaValueTableName, $mediaGalleryIn['value'], array('value_id'));
-            } catch (Exception $e) {
+            if (Mage_ImportExport_Model_Import::BEHAVIOR_APPEND != $this->getBehavior()) {
                 $this->_connection->delete(
-                        $mediaGalleryTableName, $this->_connection->quoteInto('value_id IN (?)', $newMediaValues)
+                    $mediaGalleryTableName,
+                    $this->_connection->quoteInto('entity_id IN (?)', $productId)
                 );
+            }
+
+            foreach ($mediaGalleryRows as $insertValue) {
+
+                if (!in_array($insertValue['value'], $insertedGalleryImgs)) {
+                    $valueArr = array(
+                        'attribute_id' => $insertValue['attribute_id'],
+                        'entity_id'    => $productId,
+                        'value'        => $insertValue['value']
+                    );
+
+                    $this->_connection
+                            ->insertOnDuplicate($mediaGalleryTableName, $valueArr, array('entity_id'));
+
+                    $insertedGalleryImgs[] = $insertValue['value'];
+                }
+
+                $newMediaValues = $this->_connection->fetchPairs($this->_connection->select()
+                                        ->from($mediaGalleryTableName, array('value', 'value_id'))
+                                        ->where('entity_id IN (?)', $productId)
+                );
+
+                if (array_key_exists($insertValue['value'], $newMediaValues)) {
+                    $insertValue['value_id'] = $newMediaValues[$insertValue['value']];
+                }
+
+                $valueArr = array(
+                    'value_id' => $insertValue['value_id'],
+                    'store_id' => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID,
+                    'label'    => $insertValue['label'],
+                    'position' => $insertValue['position'],
+                    'disabled' => $insertValue['disabled']
+                );
+
+                try {
+                    $this->_connection
+                            ->insertOnDuplicate($mediaValueTableName, $valueArr, array('value_id'));
+                } catch (Exception $e) {
+                    $this->_connection->delete(
+                            $mediaGalleryTableName, $this->_connection->quoteInto('value_id IN (?)', $newMediaValues)
+                    );
+                }
             }
         }
 

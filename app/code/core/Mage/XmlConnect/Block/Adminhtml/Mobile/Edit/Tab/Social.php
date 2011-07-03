@@ -54,7 +54,8 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
         /**
          * Default values for social networks is DISABLED
          */
-        $twitterStatus = $facebookStatus = $linkedinStatus = 0;
+        $twitterStatus  = $facebookStatus = $linkedinStatus = 0;
+        $noteText       = $this->__('Please <a href="%s" target="_blank">click here</a> to see how to setup and retrieve API credentials.');
 
         /**
          * Twitter fieldset options
@@ -112,6 +113,17 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
             )
         );
 
+        $fieldsetTwitter->addField(
+            'twitterNote',
+            'note',
+            array(
+                'text'  => sprintf(
+                    $noteText,
+                    Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_HOWTO_TWITTER_URL)
+                ),
+            )
+        );
+
         /**
          * Facebook fieldset options
          */
@@ -148,6 +160,17 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
                 'name'      => 'conf[native][socialNetworking][facebook][appID]',
                 'required'  => true,
                 'value'     => $facebookAppID
+            )
+        );
+
+        $fieldsetFacebook->addField(
+            'facebookNote',
+            'note',
+            array(
+                'text'  => sprintf(
+                    $noteText,
+                    Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_HOWTO_FACEBOOK_URL)
+                ),
             )
         );
 
@@ -204,6 +227,17 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
                 'name'      => 'conf[native][socialNetworking][linkedin][secretKey]',
                 'required'  => true,
                 'value'     => $linkedinSecretKey
+            )
+        );
+
+        $fieldsetLinkedin->addField(
+            'linkedinNote',
+            'note',
+            array(
+                'text'  => sprintf(
+                    $noteText,
+                    Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_HOWTO_LINKEDIN_URL)
+                ),
             )
         );
 

@@ -48,7 +48,7 @@ class Mage_XmlConnect_Model_Resource_Application extends Mage_Core_Model_Resourc
      *
      * @param int $applicationId
      * @param string $status
-     * @param Mage_XmlConnect_Model_Resource_Application $status
+     * @return Mage_XmlConnect_Model_Resource_Application
      */
     public function updateApplicationStatus($applicationId, $status)
     {

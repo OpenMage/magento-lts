@@ -44,11 +44,11 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         $request = Mage::app()->getRequest();
         $port = $request->getServer('SERVER_PORT');
         if ($port) {
-            if ($port == Mage_Core_Controller_Request_Http::DEFAULT_HTTP_PORT) {
-                $port = '';
-            } else {
-                $port = ':' . $port;
-            }
+            $defaultPorts = array(
+                Mage_Core_Controller_Request_Http::DEFAULT_HTTP_PORT,
+                Mage_Core_Controller_Request_Http::DEFAULT_HTTPS_PORT
+            );
+            $port = (in_array($port, $defaultPorts)) ? '' : ':' . $port;
         }
         $url = $request->getScheme() . '://' . $request->getHttpHost() . $port . $request->getServer('REQUEST_URI');
         return $url;

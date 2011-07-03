@@ -179,6 +179,16 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Themes extends Mage
     }
 
     /**
+     * Get delete theme action url
+     *
+     * @return string
+     */
+    public function getDeleteThemeActionUrl()
+    {
+        return $this->getUrl('*/*/deleteTheme');
+    }
+
+    /**
      * Reset theme action url getter
      *
      * @return string

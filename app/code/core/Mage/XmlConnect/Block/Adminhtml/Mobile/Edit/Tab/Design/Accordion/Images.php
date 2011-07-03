@@ -86,8 +86,15 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion_Images
                 break;
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPAD:
                 $this->addImage($fieldset,
+                    'conf[native][body][bannerIpadLandscapeImage]',
+                    $this->__('Banner on Home Screen <br />(landscape mode)'),
+                    $this->__('Recommended size 1024px x 344px. Note: Image size affects the performance of your app.'),
+                    $this->_getDesignPreviewImageUrl('conf/native/body/bannerIpadLandscapeImage'),
+                    true
+                );
+                $this->addImage($fieldset,
                     'conf[native][body][bannerIpadImage]',
-                    $this->__('Banner on Home Screen'),
+                    $this->__('Banner on Home Screen <br />(portrait mode)'),
                     $this->__('Recommended size 768px x 294px. Note: Image size affects the performance of your app.'),
                     $this->_getDesignPreviewImageUrl('conf/native/body/bannerIpadImage'),
                     true

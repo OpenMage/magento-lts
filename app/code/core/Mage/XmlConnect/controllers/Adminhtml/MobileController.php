@@ -37,7 +37,7 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
      * Initialize application
      *
      * @param string $paramName
-     * @param string $type
+     * @param bool|string $type
      * @return Mage_XmlConnect_Model_Application
      */
     protected function _initApp($paramName = 'application_id', $type = false)
@@ -350,7 +350,6 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
 
             $app->setSuccess($success);
             if (!$app->getSuccess()) {
-                $message = '';
                 $message = isset($resultArray['message']) ? $resultArray['message']: '';
                 if (is_array($message)) {
                     $message = implode(' ,', $message);
@@ -376,7 +375,7 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
         if ($data) {
             Mage::getSingleton('adminhtml/session')->setFormData($data);
             try {
-                $id = $this->getRequest()->getParam('application_id');
+                $id = (int) $this->getRequest()->getParam('application_id');
 
                 if (!$id && isset($data['devtype'])) {
                     $devArray = Mage::helper('xmlconnect')->getSupportedDevices();
@@ -441,47 +440,64 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
      */
     protected function _saveThemeAction($data, $paramId = 'saveTheme')
     {
-        try {
-            $themeName = $this->getRequest()->getParam($paramId, false);
-            if ($themeName) {
-                if ($themeName == Mage::helper('xmlconnect/theme')->getCustomThemeName()) {
-                $theme = Mage::helper('xmlconnect/theme')->getThemeByName($themeName);
-                if ($theme instanceof Mage_XmlConnect_Model_Theme) {
-                    if ($paramId == 'saveTheme') {
-                        $convertedConf = $this->_convertPost($data);
-                    } else {
-                        if (isset($data['conf'])) {
-                            $convertedConf = $data['conf'];
+        $themeName = trim($this->getRequest()->getParam($paramId, false));
+        if ($themeName) {
+            /** @var $themesHelper Mage_XmlConnect_Helper_Theme */
+            $themesHelper = Mage::helper('xmlconnect/theme');
+            try {
+                if (array_key_exists($themeName, $themesHelper->getAllThemes())) {
+                    /** @var $theme Mage_XmlConnect_Model_Theme */
+                    $theme = $themesHelper->getThemeByName($themeName);
+                    if ($theme instanceof Mage_XmlConnect_Model_Theme) {
+                        if ($paramId == 'saveTheme') {
+                            $convertedConf = $this->_convertPost($data);
                         } else {
+                            if (isset($data['conf'])) {
+                                $convertedConf = $data['conf'];
+                            } else {
+                                $response = array(
+                                    'error' => true,
+                                    'message' => $this->__('Cannot save theme "%s". Incorrect data received', $themeName)
+                                );
+                            }
+                        }
+                        if (!isset($response)) {
+                            $theme->importAndSaveData($convertedConf);
                             $response = array(
-                                'error' => true,
-                                'message' => $this->__('Cannot save theme "%s". Incorrect data received', $themeName)
+                                'message'   => $this->__('Changes have been saved to theme.'),
+                                'themes'    => $themesHelper->getAllThemesArray(true),
+                                'themeSelector' => $themesHelper->getThemesSelector($themeName),
+                                'selectedTheme' => $themeName
                             );
                         }
-                    }
-                    if (!isset($response)) {
-                        $theme->importAndSaveData($convertedConf);
-                        $response = Mage::helper('xmlconnect/theme')->getAllThemesArray(true);
+                    } elseif ($newThemeName) {
+                        $response = array('error' => true, 'message' => $this->__('Cannot load theme "%s".', $themeName));
+                    } else {
+                        $response = array('error' => true, 'message' => $this->__('Cannot load theme "%s".', $themeName));
                     }
                 } else {
-                    $response = array('error' => true, 'message' => $this->__('Cannot load theme "%s".', $themeName));
+                    $convertedConf = $this->_convertPost($data);
+                    $newTheme = $themesHelper->createNewTheme($themeName, $convertedConf);
+                    $response = array(
+                        'message'   => $this->__('Theme has been created.'),
+                        'themes'    => $themesHelper->getAllThemesArray(true),
+                        'themeSelector' => $themesHelper->getThemesSelector($newTheme->getName()),
+                        'selectedTheme' => $newTheme->getName()
+                    );
                 }
-                } else {
-                    $response = Mage::helper('xmlconnect/theme')->getAllThemesArray(true);
-                }
-            } else {
-                $response = array('error' => true, 'message' => $this->__('Theme name is not set.'));
+            } catch (Mage_Core_Exception $e) {
+                $response = array(
+                    'error'     => true,
+                    'message'   => $e->getMessage(),
+                );
+            } catch (Exception $e) {
+                $response = array(
+                    'error'     => true,
+                    'message'   => $this->__('Can\'t save theme.')
+                );
             }
-        } catch (Mage_Core_Exception $e) {
-            $response = array(
-                'error'     => true,
-                'message'   => $e->getMessage(),
-            );
-        } catch (Exception $e) {
-            $response = array(
-                'error'     => true,
-                'message'   => $this->__('Can\'t save theme.')
-            );
+        } else {
+            $response = array('error' => true, 'message' => $this->__('Theme name is not set.'));
         }
         if (is_array($response)) {
             $response = Mage::helper('core')->jsonEncode($response);
@@ -515,6 +531,52 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
             }
         }
         return $conf;
+    }
+
+    /**
+     * Delete theme action
+     *
+     * @return void
+     */
+    public function deleteThemeAction()
+    {
+        $themeId = $this->getRequest()->getParam('theme_id', false);
+        if ($themeId) {
+            try {
+                /** @var $themesHelper Mage_XmlConnect_Helper_Theme */
+                $themesHelper = Mage::helper('xmlconnect/theme');
+                $result = $themesHelper->deleteTheme($themeId);
+                if ($result) {
+                    $response = array(
+                        'message'   => $this->__('Theme has been delete.'),
+                        'themes'    => $themesHelper->getAllThemesArray(true),
+                        'themeSelector' => $themesHelper->getThemesSelector(),
+                        'selectedTheme' => $themesHelper->getDefaultThemeName()
+                    );
+                } else {
+                    $response = array(
+                        'error'     => true,
+                        'message'   => $this->__('Can\'t delete "%s" theme.', $themeId)
+                    );
+                }
+            } catch (Mage_Core_Exception $e) {
+                $response = array(
+                    'error'     => true,
+                    'message'   => $e->getMessage(),
+                );
+            } catch (Exception $e) {
+                $response = array(
+                    'error'     => true,
+                    'message'   => $this->__('Can\'t delete "%s" theme.', $themeId)
+                );
+            }
+        } else {
+            $response = array('error' => true, 'message' => $this->__('Theme name is not set.'));
+        }
+        if (is_array($response)) {
+            $response = Mage::helper('core')->jsonEncode($response);
+            $this->getResponse()->setBody($response);
+        }
     }
 
     /**

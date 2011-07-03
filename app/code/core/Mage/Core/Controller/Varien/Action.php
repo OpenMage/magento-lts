@@ -627,6 +627,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 $block = $this->getLayout()->getMessagesBlock();
                 $block->addMessages($storage->getMessages(true));
                 $block->setEscapeMessageFlag($storage->getEscapeMessages(true));
+                $block->addStorageType($storageName);
             }
             else {
                 Mage::throwException(

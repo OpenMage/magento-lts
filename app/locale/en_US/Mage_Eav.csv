@@ -17,6 +17,7 @@
 """%s"" is not a valid hostname.","""%s"" is not a valid hostname."
 """%s"" is not a valid image format","""%s"" is not a valid image format"
 """%s"" length must be equal or greater than %s characters.","""%s"" length must be equal or greater than %s characters."
+"""%s"" length must be equal or less than %s characters.","""%s"" length must be equal or less than %s characters."
 """%s"" width exceeds allowed value of %s px.","""%s"" width exceeds allowed value of %s px."
 "'%value%' appears to be a DNS hostname but cannot extract TLD part","'%value%' appears to be a DNS hostname but cannot extract TLD part"
 "'%value%' appears to be a DNS hostname but cannot match TLD against known list","'%value%' appears to be a DNS hostname but cannot match TLD against known list"

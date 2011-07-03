@@ -174,6 +174,9 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
      */
     protected function _beforeDelete()
     {
+        if ($this->_getResource()->isUsedBySuperProducts($this)) {
+            Mage::throwException(Mage::helper('catalog')->__('This attribute is used in configurable products.'));
+        }
         Mage::getSingleton('index/indexer')->logEvent(
             $this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
         );

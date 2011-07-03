@@ -27,22 +27,22 @@
 /**
  * Product additional attributes xml renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_XmlConnect_Block_Catalog_Product_Attributes extends Mage_Catalog_Block_Product_View_Attributes
 {
-
     /**
      * Add additional information (attributes) to current product xml object
      *
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_XmlConnect_Model_Simplexml_Element $productXmlObject
-     *  
      */
-    public function addAdditionalData(Mage_Catalog_Model_Product $product, Mage_XmlConnect_Model_Simplexml_Element $productXmlObject)
+    public function addAdditionalData(
+        Mage_Catalog_Model_Product $product,
+        Mage_XmlConnect_Model_Simplexml_Element $productXmlObject
+    )
     {
         if ($product && $productXmlObject && $product->getId()) {
             $this->_product = $product;
@@ -50,12 +50,14 @@ class Mage_XmlConnect_Block_Catalog_Product_Attributes extends Mage_Catalog_Bloc
             if (!empty($additionalData)) {
                 $attributesXmlObj = $productXmlObject->addChild('additional_attributes');
                 foreach ($additionalData as $data) {
-                    $_attrXmlObject = $attributesXmlObj->addChild('item');
-                    $_attrXmlObject->addChild('label', $this->htmlEscape($data['label']));
-                    $_attrXmlObject->addChild('value', Mage::helper('catalog/output')->productAttribute($product, $data['value'], $data['code']));
+                    $attribute = Mage::helper('catalog/output')
+                        ->productAttribute($product, $data['value'], $data['code']);
+                    /** @var $attrXmlObject Mage_XmlConnect_Model_Simplexml_Element */
+                    $attrXmlObject = $attributesXmlObj->addChild('item');
+                    $attrXmlObject->addCustomChild('label', $data['label']);
+                    $attrXmlObject->addCustomChild('value', $attribute);
                 }
             }
         }
-
     }
 }

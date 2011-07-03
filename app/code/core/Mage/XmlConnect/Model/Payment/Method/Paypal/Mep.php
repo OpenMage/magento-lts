@@ -25,10 +25,11 @@
  */
 
 /**
- *
  * PayPal Mobile Embedded Payments Checkout Module
  *
- * @author Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Model_Payment_Method_Paypal_Mep extends Mage_Paypal_Model_Express
 {
@@ -51,7 +52,7 @@ class Mage_XmlConnect_Model_Payment_Method_Paypal_Mep extends Mage_Paypal_Model_
     protected $_canManageRecurringProfiles = false;
 
     /**
-     * Get config peyment action url
+     * Get config payment action url
      * Used to universalize payment actions when processing payment place
      *
      * @return string
@@ -94,8 +95,20 @@ class Mage_XmlConnect_Model_Payment_Method_Paypal_Mep extends Mage_Paypal_Model_
      */
     public function capture(Varien_Object $payment, $amount)
     {
-        $transactionId = $payment->getAdditionalInformation(Mage_XmlConnect_Model_Paypal_Mep_Checkout::PAYMENT_INFO_TRANSACTION_ID);
+        $transactionId = $payment->getAdditionalInformation(
+            Mage_XmlConnect_Model_Paypal_Mep_Checkout::PAYMENT_INFO_TRANSACTION_ID
+        );
         $payment->setTransactionId($transactionId);
         return $this;
+    }
+
+    /**
+     * Return title of the PayPal Mobile Embedded Payment method
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return Mage::helper('xmlconnect')->__('PayPal MEP');
     }
 }

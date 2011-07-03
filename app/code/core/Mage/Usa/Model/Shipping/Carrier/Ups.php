@@ -198,10 +198,9 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
                 Mage_Shipping_Model_Shipping::XML_PATH_STORE_REGION_ID,
                 $request->getStoreId()
             );
-
-            if (is_numeric($origRegionCode)) {
-                $origRegionCode = Mage::getModel('directory/region')->load($origRegionCode)->getCode();
-            }
+        }
+        if (is_numeric($origRegionCode)) {
+            $origRegionCode = Mage::getModel('directory/region')->load($origRegionCode)->getCode();
         }
         $r->setOrigRegionCode($origRegionCode);
 
@@ -270,6 +269,8 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
             $unit = $this->getConfigData('unit_of_measure');
         }
         $r->setUnitMeasure($unit);
+
+        $r->setIsReturn($request->getIsReturn());
 
         $this->_rawRequest = $r;
 
@@ -526,7 +527,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
                     '14' => Mage::helper('usa')->__('UPS Next Day Air Early A.M.'),
                     '54' => Mage::helper('usa')->__('UPS Worldwide Express Plus'),
                     '59' => Mage::helper('usa')->__('UPS Second Day Air A.M.'),
-                    '65' => Mage::helper('usa')->__('UPS Saver'),
+                    '65' => Mage::helper('usa')->__('UPS Worldwide Saver'),
                 ),
                 // Shipments Originating in Canada
                 'Shipments Originating in Canada' => array(
@@ -665,6 +666,67 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
                 'LBS'   =>  Mage::helper('usa')->__('Pounds'),
                 'KGS'   =>  Mage::helper('usa')->__('Kilograms'),
             ),
+            'containers_filter' => array(
+                array(
+                    'containers' => array('00'), // Customer Packaging
+                    'filters'    => array(
+                        'within_us' => array(
+                            'method' => array(
+                                '01', // Next Day Air
+                                '13', // Next Day Air Saver
+                                '12', // 3 Day Select
+                                '59', // 2nd Day Air AM
+                                '03', // Ground
+                                '14', // Next Day Air Early AM
+                                '02', // 2nd Day Air
+                            )
+                        ),
+                        'from_us' => array(
+                            'method' => array(
+                                '07', // Worldwide Express
+                                '54', // Worldwide Express Plus
+                                '08', // Worldwide Expedited
+                                '65', // Worldwide Saver
+                            )
+                        )
+                    )
+                ),
+                array(
+                    'containers' => array('21', '03'), // UPS Express Box, UPS Tube
+                    'filters'    => array(
+                        'within_us' => array(
+                            'method' => array(
+                                '14', // Next Day Air Early AM
+                                '02', // 2nd Day Air
+                            )
+                        ),
+                        'from_us' => array(
+                            'method' => array(
+                                '07', // Worldwide Express
+                                '54', // Worldwide Express Plus
+                                '08', // Worldwide Expedited
+                                '65', // Worldwide Saver
+                            )
+                        )
+                    )
+                ),
+                array(
+                    'containers' => array('24', '25'), // UPS Worldwide 25 kilo, UPS Worldwide 10 kilo
+                    'filters'    => array(
+                        'within_us' => array(
+                            'method' => array()
+                        ),
+                        'from_us' => array(
+                            'method' => array(
+                                '07', // Worldwide Express
+                                '54', // Worldwide Express Plus
+                                '08', // Worldwide Expedited
+                                '65', // Worldwide Saver
+                            )
+                        )
+                    )
+                ),
+            )
         );
 
         if (!isset($codes[$type])) {
@@ -755,12 +817,24 @@ XMLRequest;
             $xmlRequest .= "<ShipperNumber>{$shipper}</ShipperNumber>";
         }
 
+        if ($r->getIsReturn()) {
+            $shipperCity = '';
+            $shipperPostalCode = $params['19_destPostal'];
+            $shipperCountryCode = $params['22_destCountry'];
+            $shipperStateProvince = $params['destRegionCode'];
+        } else {
+            $shipperCity = $params['origCity'];
+            $shipperPostalCode = $params['15_origPostal'];
+            $shipperCountryCode = $params['14_origCountry'];
+            $shipperStateProvince = $params['origRegionCode'];
+        }
+
 $xmlRequest .= <<< XMLRequest
       <Address>
-          <City>{$params['origCity']}</City>
-          <PostalCode>{$params['15_origPostal']}</PostalCode>
-          <CountryCode>{$params['14_origCountry']}</CountryCode>
-          <StateProvinceCode>{$params['origRegionCode']}</StateProvinceCode>
+          <City>{$shipperCity}</City>
+          <PostalCode>{$shipperPostalCode}</PostalCode>
+          <CountryCode>{$shipperCountryCode}</CountryCode>
+          <StateProvinceCode>{$shipperStateProvince}</StateProvinceCode>
       </Address>
     </Shipper>
     <ShipTo>
@@ -1266,7 +1340,7 @@ XMLAuth;
             // UPS Print Return Label
             $returnPart->addChild('Code', '9');
         }
-        $shipmentPart->addChild('Description', implode(' ', $itemsDesc));
+        $shipmentPart->addChild('Description', substr(implode(' ', $itemsDesc), 0, 35));//empirical
 
         $shipperPart = $shipmentPart->addChild('Shipper');
         if ($request->getIsReturn()) {
@@ -1354,7 +1428,7 @@ XMLAuth;
         $servicePart = $shipmentPart->addChild('Service');
         $servicePart->addChild('Code', $request->getShippingMethod());
         $packagePart = $shipmentPart->addChild('Package');
-        $packagePart->addChild('Description', implode(' ', $itemsDesc));
+        $packagePart->addChild('Description', substr(implode(' ', $itemsDesc), 0, 35));//empirical
         $packagePart->addChild('PackagingType')
             ->addChild('Code', $request->getPackagingType());
         $packageWeight = $packagePart->addChild('PackageWeight');
@@ -1371,12 +1445,11 @@ XMLAuth;
         }
 
         // ups support reference number only for domestic service
-        if ($this->_isUSCountry($request->getRecipientAddressCountryCode())) {
-            if ($request->getIsReturn()) {
-                $referenceData = 'RMA #'
-                                 . $request->getOrderShipment()->getRma()->getIncrementId()
-                                 . ' P'
-                                 . $request->getPackageId();
+        if ($this->_isUSCountry($request->getRecipientAddressCountryCode())
+            && $this->_isUSCountry($request->getShipperAddressCountryCode())
+        ) {
+            if ($request->getReferenceData()) {
+                $referenceData = $request->getReferenceData() . $request->getPackageId();
             } else {
                 $referenceData = 'Order #'
                                  . $request->getOrderShipment()->getOrder()->getIncrementId()
@@ -1411,6 +1484,24 @@ XMLAuth;
             ->addChild('Prepaid')
             ->addChild('BillShipper')
             ->addChild('AccountNumber', $this->getConfigData('shipper_number'));
+
+        if ($request->getPackagingType() != $this->getCode('container', 'ULE')
+            && $request->getShipperAddressCountryCode() == Mage_Usa_Model_Shipping_Carrier_Abstract::USA_COUNTRY_ID
+            && ($request->getRecipientAddressCountryCode() == 'CA' //Canada
+                || $request->getRecipientAddressCountryCode() == 'PR' //Puerto Rico
+        )) {
+            $invoiceLineTotalPart = $shipmentPart->addChild('InvoiceLineTotal');
+            $invoiceLineTotalPart->addChild('CurrencyCode', $request->getBaseCurrencyCode());
+            $monetaryValue = 0;
+            if ($request->getPackageItems()) {
+                foreach ($request->getPackageItems() as $packageItem) {
+                    if (array_key_exists('price', $packageItem) && array_key_exists('qty', $packageItem)) {
+                        $monetaryValue += $packageItem['price'] * $packageItem['qty'];
+                    }
+                }
+            }
+            $invoiceLineTotalPart->addChild('MonetaryValue', ceil($monetaryValue));
+        }
 
         $labelPart = $xmlRequest->addChild('LabelSpecification');
         $labelPart->addChild('LabelPrintMethod')
@@ -1544,6 +1635,23 @@ XMLAuth;
      */
     public function getContainerTypes(Varien_Object $params = null)
     {
+        if ($params == null) {
+            return $this->_getAllowedContainers($params);
+        }
+        $method             = $params->getMethod();
+        $countryShipper     = $params->getCountryShipper();
+        $countryRecipient   = $params->getCountryRecipient();
+
+        if (($countryShipper == self::USA_COUNTRY_ID
+            && $countryRecipient == self::CANADA_COUNTRY_ID)
+            || ($countryShipper == self::CANADA_COUNTRY_ID
+            && $countryRecipient == self::USA_COUNTRY_ID)
+            || ($countryShipper == self::MEXICO_COUNTRY_ID
+            && $countryRecipient == self::USA_COUNTRY_ID)
+            && $method == '11' // UPS Standard
+        ) {
+            return array('00' => Mage::helper('usa')->__('Customer Packaging'));
+        }
         return $this->_getAllowedContainers($params);
     }
 
@@ -1563,7 +1671,7 @@ XMLAuth;
         return $result;
 
     }
-
+    
     /**
      * Return structured data of containers witch related with shipping methods
      *
@@ -1586,15 +1694,15 @@ XMLAuth;
         switch ($this->_getDeliveryConfirmationLevel($countyDest)) {
             case self::DELIVERY_CONFIRMATION_PACKAGE:
                 $deliveryConfirmationTypes = array(
-                    1 => Mage::helper('usa')->__('No Signature'),
+                    1 => Mage::helper('usa')->__('Delivery Confirmation'),
                     2 => Mage::helper('usa')->__('Signature Required'),
-                    3 => Mage::helper('usa')->__('Adult Required'),
+                    3 => Mage::helper('usa')->__('Adult Signature Required'),
                 );
                 break;
             case self::DELIVERY_CONFIRMATION_SHIPMENT:
                 $deliveryConfirmationTypes = array(
                     1 => Mage::helper('usa')->__('Signature Required'),
-                    2 => Mage::helper('usa')->__('Adult Required'),
+                    2 => Mage::helper('usa')->__('Adult Signature Required'),
                 );
         }
         array_unshift($deliveryConfirmationTypes, Mage::helper('usa')->__('Not Required'));

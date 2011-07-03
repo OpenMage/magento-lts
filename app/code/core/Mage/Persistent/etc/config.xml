@@ -216,7 +216,7 @@
                 <observers>
                     <persistent>
                         <class>persistent/observer</class>
-                        <method>clearPersistent</method>
+                        <method>removePersistentCookie</method>
                     </persistent>
                 </observers>
             </customer_register_success>
@@ -236,6 +236,22 @@
                     </persistent>
                 </observers>
             </controller_action_predispatch_googlecheckout_redirect_checkout>
+            <render_block>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer</class>
+                        <method>applyBlockPersistentData</method>
+                    </persistent>
+                </observers>
+            </render_block>
+            <update_customer_cookies>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer</class>
+                        <method>updateCustomerCookies</method>
+                    </persistent>
+                </observers>
+            </update_customer_cookies>
         </events>
     </frontend>
 

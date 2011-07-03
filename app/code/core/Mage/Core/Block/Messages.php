@@ -68,6 +68,13 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      */
     protected $_escapeMessageFlag = false;
 
+    /**
+     * Storage for used types of message storages
+     *
+     * @var array
+     */
+    protected $_usedStorageTypes = array('core/session');
+
     public function _prepareLayout()
     {
         $this->addMessages(Mage::getSingleton('core/session')->getMessages(true));
@@ -276,5 +283,27 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     public function setMessagesSecondLevelTagName($tagName)
     {
         $this->_messagesSecondLevelTagName = $tagName;
+    }
+
+    /**
+     * Get cache key informative items
+     *
+     * @return array
+     */
+    public function getCacheKeyInfo()
+    {
+        return array(
+            'storage_types' => serialize($this->_usedStorageTypes)
+        );
+    }
+
+    /**
+     * Add used storage type
+     *
+     * @param string $type
+     */
+    public function addStorageType($type)
+    {
+        $this->_usedStorageTypes[] = $type;
     }
 }

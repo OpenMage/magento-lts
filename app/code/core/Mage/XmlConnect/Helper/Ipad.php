@@ -35,71 +35,61 @@ class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
 {
     /**
      * Submission title length
-     *
-     * @var int
      */
     const SUBMISSION_TITLE_LENGTH = 200;
 
     /**
      * Submission description length
-     *
-     * @var int
      */
     const SUBMISSION_DESCRIPTION_LENGTH = 500;
 
     /**
      * Ipad landscape orientation identificator
-     *
-     * @var string
      */
     const ORIENTATION_LANDSCAPE = 'landscape';
 
     /**
      * Ipad portrait orientation identificator
-     *
-     * @var string
      */
     const ORIENTATION_PORTRAIT = 'portrait';
 
     /**
-     * Ipad preview banner widht
-     *
-     * @var int
+     * Ipad portrait preview banner widht
      */
-    const PREVIEW_BANNER_WIDTH = 350;
+    const PREVIEW_PORTRAIT_BANNER_WIDTH = 350;
 
     /**
-     * Ipad preview banner image height
-     *
-     * @var int
+     * Ipad portrait preview banner image height
      */
-    const PREVIEW_BANNER_HEIGHT = 135;
+    const PREVIEW_PORTRAIT_BANNER_HEIGHT = 135;
+
+    /**
+     * Ipad landscape preview banner widht
+     */
+    const PREVIEW_LANDSCAPE_BANNER_WIDTH = 467;
+
+    /**
+     * Ipad landscape preview banner image height
+     */
+    const PREVIEW_LANDSCAPE_BANNER_HEIGHT = 157;
 
     /**
      * Ipad landscape orientation preview image widht
-     *
-     * @var int
      */
     const PREVIEW_LANDSCAPE_BACKGROUND_WIDTH = 467;
 
     /**
      * Ipad landscape orientation preview image height
-     *
-     * @var int
      */
     const PREVIEW_LANDSCAPE_BACKGROUND_HEIGHT = 321;
 
     /**
      * Ipad portrait orientation preview image widht
-     *
-     * @var int
      */
     const PREVIEW_PORTRAIT_BACKGROUND_WIDTH = 350;
 
     /**
      * Ipad portrait orientation preview image height
-     *
-     * @var int
      */
     const PREVIEW_PORTRAIT_BACKGROUND_HEIGHT = 438;
 
@@ -578,8 +568,12 @@ class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
             $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "Logo in Header" field from Design Tab.');
         }
 
+        if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('bannerIpadLandscapeImage', $native)) {
+            $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "Banner on Home Screen (landscape mode)" field from Design Tab.');
+        }
+
         if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('bannerIpadImage', $native)) {
-            $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "Banner on Home Screen" field from Design Tab.');
+            $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "Banner on Home Screen (portrait mode)" field from Design Tab.');
         }
 
         if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('backgroundIpadLandscapeImage', $native)) {
@@ -658,25 +652,31 @@ class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
      */
     public function checkImages(array $data)
     {
-        if (isset($data['conf']['native']['navigationBar']['icon']) &&
-            !file_exists($data['conf']['native']['navigationBar']['icon'])
+        if (isset($data['conf']['native']['navigationBar']['icon'])
+            && !file_exists($data['conf']['native']['navigationBar']['icon'])
         ) {
             $data['conf']['native']['navigationBar']['icon'] = '';
         }
 
-        if (isset($data['conf']['native']['body']['bannerIpadImage']) &&
-            !file_exists($data['conf']['native']['body']['bannerIpadImage'])
+        if (isset($data['conf']['native']['body']['bannerIpadLandscapeImage'])
+            && !file_exists($data['conf']['native']['body']['bannerIpadLandscapeImage'])
+        ) {
+            $data['conf']['native']['body']['bannerIpadLandscapeImage'] = '';
+        }
+
+        if (isset($data['conf']['native']['body']['bannerIpadImage'])
+            && !file_exists($data['conf']['native']['body']['bannerIpadImage'])
         ) {
             $data['conf']['native']['body']['bannerIpadImage'] = '';
         }
 
-        if (isset($data['conf']['native']['body']['backgroundIpadLandscapeImage']) &&
-            !file_exists($data['conf']['native']['body']['backgroundIpadLandscapeImage'])
+        if (isset($data['conf']['native']['body']['backgroundIpadLandscapeImage'])
+            && !file_exists($data['conf']['native']['body']['backgroundIpadLandscapeImage'])
         ) {
             $data['conf']['native']['body']['backgroundIpadLandscapeImage'] = '';
         }
-        if (isset($data['conf']['native']['body']['backgroundIpadPortraitImage']) &&
-            !file_exists($data['conf']['native']['body']['backgroundIpadPortraitImage'])
+        if (isset($data['conf']['native']['body']['backgroundIpadPortraitImage'])
+            && !file_exists($data['conf']['native']['body']['backgroundIpadPortraitImage'])
         ) {
             $data['conf']['native']['body']['backgroundIpadPortraitImage'] = '';
         }
@@ -707,7 +707,14 @@ class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
             && empty($data['body']['bannerIpadImage'])
         ) {
             Mage::throwException(
-                Mage::helper('xmlconnect')->__('Banner on Home Screen image missing.')
+                Mage::helper('xmlconnect')->__('Banner on Home Screen (portrait mode) image missing.')
+            );
+        }
+        if (isset($data['body']['bannerIpadLandscapeImage'])
+            && empty($data['body']['bannerIpadLandscapeImage'])
+        ) {
+            Mage::throwException(
+                Mage::helper('xmlconnect')->__('Banner on Home Screen (landscape mode) image missing.')
             );
         }
         if (isset($data['body']['backgroundIpadLandscapeImage'])

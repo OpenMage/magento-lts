@@ -396,6 +396,15 @@ final class Maged_Controller
     }
 
     /**
+     * Clean cache on ajax request
+     */
+    public function cleanCacheAction()
+    {
+        $result = $this->cleanCache();
+        echo json_encode($result);
+    }
+
+    /**
      * Settings
      */
     public function settingsAction()
@@ -493,7 +502,7 @@ final class Maged_Controller
             self::$_instance = new self;
 
             if (self::$_instance->isDownloaded() && self::$_instance->isInstalled()) {
-                Mage::app();
+                Mage::app('', 'store', array('global_ban_use_cache'=>true));
                 Mage::getSingleton('adminhtml/url')->turnOffSecretKey();
             }
         }
@@ -757,7 +766,7 @@ final class Maged_Controller
         $this->setAction();
 
         if (!$this->isInstalled()) {
-            if (!in_array($this->getAction(), array('index', 'connectInstallAll', 'empty'))) {
+            if (!in_array($this->getAction(), array('index', 'connectInstallAll', 'empty', 'cleanCache'))) {
                 $this->setAction('index');
             }
         } else {
@@ -872,25 +881,41 @@ final class Maged_Controller
      */
     public function endInstall()
     {
-        if ($this->isInstalled()) {
-            try {
-                if (!empty($_GET['clean_sessions'])) {
+        //$connect
+        /** @var $connect Maged_Model_Connect */
+        $frontend = $this->model('connect', true)->connect()->getFrontend();
+        if (!($frontend instanceof Maged_Connect_Frontend)) {
+            $this->cleanCache();
+        }
+    }
+
+    protected function cleanCache()
+    {
+        $result = true;
+        $message = '';
+        try {
+            if ($this->isInstalled()) {
+                if (!empty($_REQUEST['clean_sessions'])) {
                     Mage::app()->cleanAllSessions();
+                    $message .= 'Session cleaned successfully. ';
                 }
                 Mage::app()->cleanCache();
-            } catch (Exception $e) {
-                $this->session()->addMessage(
-                    'error',
-                    "Exception during cache and session cleaning: ".$e->getMessage()
-                );
+
+                // reinit config and apply all updates
+                Mage::app()->getConfig()->reinit();
+                Mage_Core_Model_Resource_Setup::applyAllUpdates();
+                Mage_Core_Model_Resource_Setup::applyAllDataUpdates();
+                $message .= 'Cache cleaned successfully';
+            } else {
+                $result = true;
             }
-            // reinit config and apply all updates
-            Mage::app()->getConfig()->reinit();
-            Mage_Core_Model_Resource_Setup::applyAllUpdates();
-            Mage_Core_Model_Resource_Setup::applyAllDataUpdates();
+        } catch (Exception $e) {
+            $result = false;
+            $message = "Exception during cache and session cleaning: ".$e->getMessage();
+            $this->session()->addMessage('error', $message);
         }
 
-        if ($this->_getMaintenanceFlag()) {
+        if ($result && $this->_getMaintenanceFlag()) {
             $maintenance_filename='maintenance.flag';
             $config = $this->config();
             if (!$this->isWritable() && strlen($config->__get('remote_config')) > 0) {
@@ -902,6 +927,7 @@ final class Maged_Controller
                 @unlink($this->_getMaintenanceFilePath());
             }
         }
+        return array('result' => $result, 'message' => $message);
     }
 
     /**

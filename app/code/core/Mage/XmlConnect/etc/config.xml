@@ -46,6 +46,7 @@
                     <application_design><table>xmlconnect_application</table></application_design>
                     <queue><table>xmlconnect_queue</table></queue>
                     <template><table>xmlconnect_notification_template</table></template>
+                    <configData><table>xmlconnect_config_data</table></configData>
                 </entities>
             </xmlconnect_resource>
         </models>
@@ -198,6 +199,7 @@
                             <backgroundImage> <width>320</width> <height>367</height> </backgroundImage>
 
                             <!-- ipad images -->
+                            <bannerIpadLandscapeImage> <width>1024</width> <height>344</height> </bannerIpadLandscapeImage>
                             <bannerIpadImage> <width>768</width> <height>294</height> </bannerIpadImage>
                             <backgroundIpadLandscapeImage> <width>1024</width> <height>704</height> </backgroundIpadLandscapeImage>
                             <backgroundIpadPortraitImage> <width>768</width> <height>960</height> </backgroundIpadPortraitImage>
@@ -380,7 +382,10 @@
                 <magentocommerce_url>www.magentocommerce.com/products/index.php/mobile/activate/index/key/</magentocommerce_url>
                 <activation_key_url>http://www.magentocommerce.com/product/mobile</activation_key_url>
                 <resubmission_key_url>http://www.magentocommerce.com/product/mobile#resubmission</resubmission_key_url>
-                <urbanairship_terms_of_service_url>https://go.urbanairship.com/partners/magento/</urbanairship_terms_of_service_url>
+                <urbanairship_push_url>http://urbanairship.com/products/push-notifications/</urbanairship_push_url>
+                <urbanairship_rich_push_url>http://urbanairship.com/products/rich-push/</urbanairship_rich_push_url>
+                <urbanairship_terms_of_service_url>http://urbanairship.com/terms-of-service/</urbanairship_terms_of_service_url>
+                <urbanairship_login_url>https://go.urbanairship.com/partners/magento/</urbanairship_login_url>
                 <urbanairship_credentials_email>magentomobile@magento.com</urbanairship_credentials_email>
                 <cron_send_messages_count>3</cron_send_messages_count>
                 <nodes_excluded_from_config_xml>
@@ -405,6 +410,11 @@
             <flurry_analytics>
                 <statistics_url>http://www.flurry.com/product/analytics/index.html</statistics_url>
             </flurry_analytics>
+            <social_networking>
+                <howto_twitter_url>http://www.magentocommerce.com/product/mobile-social-networking-setup#twitter</howto_twitter_url>
+                <howto_facebook_url>http://www.magentocommerce.com/product/mobile-social-networking-setup#facebook</howto_facebook_url>
+                <howto_linkedin_url>http://www.magentocommerce.com/product/mobile-social-networking-setup#linkedin</howto_linkedin_url>
+            </social_networking>
             <push>
                 <broadcast_url>https://go.urbanairship.com/api/push/broadcast/</broadcast_url>
             </push>

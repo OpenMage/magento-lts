@@ -194,12 +194,14 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         $fieldList = $this->getBatchModel()->getFieldList();
         $batchExportIds = $batchExport->getIdCollection();
 
-        if (!$batchExportIds) {
-            return $this;
-        }
-
         $io = $this->getBatchModel()->getIoAdapter();
         $io->open();
+
+        if (!$batchExportIds) {
+            $io->write("");
+            $io->close();
+            return $this;
+        }
 
         if ($this->getVar('fieldnames')) {
             $csvData = $this->getCsvString($fieldList);

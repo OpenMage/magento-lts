@@ -167,7 +167,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Giftcard extends Mage_XmlCon
              */
             if (count($amounts = $priceModel->getSortedAmounts($product))) {
                 $amountNode = $optionsXmlObj->addChild('fixed_amounts');
-                foreach ($amounts as $priceId => $price) {
+                foreach ($amounts as $price) {
                     $amount = $amountNode->addChild('amount');
                     if ($configValue == $price) {
                         $amount->addAttribute('selected', 1);

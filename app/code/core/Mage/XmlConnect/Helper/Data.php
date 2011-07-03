@@ -24,19 +24,22 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * XmlConnect default helper
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
      * Push title length
-     *
-     * @var int
      */
     const PUSH_TITLE_LENGTH = 140;
 
     /**
      * Message title length
-     *
-     * @var int
      */
     const MESSAGE_TITLE_LENGTH = 255;
 
@@ -65,57 +68,41 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * XML path to nodes to be excluded
-     *
-     * @var string
      */
     const XML_NODE_CONFIG_EXCLUDE_FROM_XML = 'xmlconnect/mobile_application/nodes_excluded_from_config_xml';
 
     /**
      * Default device type
-     *
-     * @var string
      */
     const DEVICE_TYPE_DEFAULT = 'unknown';
 
     /**
      * iPhone device identifier
-     *
-     * @var string
      */
     const DEVICE_TYPE_IPHONE = 'iphone';
 
     /**
      * iPad device identifier
-     *
-     * @var string
      */
     const DEVICE_TYPE_IPAD = 'ipad';
 
     /**
      * Android device identifier
-     *
-     * @var string
      */
     const DEVICE_TYPE_ANDROID = 'android';
 
     /**
      * Social network Twitter id
-     *
-     * @var string
      */
     const SOCIAL_NETWORK_TWITTER = 'twitter';
 
     /**
      * Social network Facebook id
-     *
-     * @var string
      */
     const SOCIAL_NETWORK_FACEBOOK = 'facebook';
 
     /**
      * Social network LinkedIn id
-     *
-     * @var string
      */
     const SOCIAL_NETWORK_LINKEDIN = 'linkedin';
 
@@ -252,16 +239,16 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCountryOptionsArray($isItunes = false)
     {
-        Varien_Profiler::start('TEST: '.__METHOD__);
+        Varien_Profiler::start('TEST: ' . __METHOD__);
         $deviceType = $this->getDeviceType();
         switch ($deviceType) {
             case self::DEVICE_TYPE_IPHONE:
             case self::DEVICE_TYPE_IPAD:
-                $cacheKey = 'XMLCONNECT_COUNTRY_ITUNES_SELECT_STORE_'.Mage::app()->getStore()->getCode();
+                $cacheKey = 'XMLCONNECT_COUNTRY_ITUNES_SELECT_STORE_' . Mage::app()->getStore()->getCode();
                 $deviceCountries = $this->getDeviceHelper()->getItunesCountriesArray();
                 break;
             case self::DEVICE_TYPE_ANDROID:
-                $cacheKey = 'XMLCONNECT_COUNTRY_ANDROID_SELECT_STORE_'.Mage::app()->getStore()->getCode();
+                $cacheKey = 'XMLCONNECT_COUNTRY_ANDROID_SELECT_STORE_' . Mage::app()->getStore()->getCode();
                 $deviceCountries = $this->getDeviceHelper()->getAndroidMarketCountriesArray();
                 break;
             default:
@@ -285,7 +272,7 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
                 Mage::app()->saveCache(serialize($options), $cacheKey, array('config'));
             }
         }
-        Varien_Profiler::stop('TEST: '.__METHOD__);
+        Varien_Profiler::stop('TEST: ' . __METHOD__);
 
         if (count($options)) {
             $options[] = array(
@@ -469,7 +456,7 @@ EOT;
                 <value>' . ($k ? $k : '') . '</value>
             </item>';
         }
-        $result = implode('', $items);
+        $result = implode(PHP_EOL, $items);
         return $result;
     }
 
@@ -620,14 +607,15 @@ EOT;
      */
     public static function isTemplateAllowedForApplication($application = null)
     {
-        return $application instanceof Mage_XmlConnect_Model_Application ?
-            in_array($application->getType(), array(self::DEVICE_TYPE_IPHONE)) :
-            false;
+        return $application instanceof Mage_XmlConnect_Model_Application
+            ? in_array($application->getType(), array(self::DEVICE_TYPE_IPHONE))
+            : false;
     }
 
     /**
      * Send broadcast message
      *
+     * @throws Mage_Core_Exception
      * @param Mage_XmlConnect_Model_Queue $queue
      */
     public function sendBroadcastMessage(Mage_XmlConnect_Model_Queue $queue)
@@ -844,7 +832,8 @@ EOT;
         if ( ($native === false)
             || (!isset($native['body']) || !is_array($native['body'])
             || !isset($native['body'][$field])
-            || !Zend_Validate::is($native['body'][$field], 'NotEmpty'))) {
+            || !Zend_Validate::is($native['body'][$field], 'NotEmpty'))
+        ) {
             return false;
         }
         return true;

@@ -27,10 +27,9 @@
 /**
  * One page checkout shipping addresses xml renderer
  *
- * @category   Mage
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Checkout_Address_Shipping extends Mage_Checkout_Block_Onepage_Shipping
 {
@@ -41,7 +40,7 @@ class Mage_XmlConnect_Block_Checkout_Address_Shipping extends Mage_Checkout_Bloc
      */
     protected function _toHtml()
     {
-        $shippingXmlObj = new Mage_XmlConnect_Model_Simplexml_Element('<shipping></shipping>');
+        $shippingXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<shipping></shipping>');
 
         $addressId = $this->getAddress()->getId();
         $address = $this->getCustomer()->getPrimaryShippingAddress();

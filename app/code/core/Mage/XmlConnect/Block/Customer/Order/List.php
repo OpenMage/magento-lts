@@ -27,14 +27,14 @@
 /**
  * Customer orders history xml renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Customer_Order_List extends Mage_Core_Block_Template
 {
     /**
-     * Linmitation for orders list
+     * Orders count limit
      */
     const ORDERS_LIST_LIMIT = 10;
 
@@ -45,12 +45,20 @@ class Mage_XmlConnect_Block_Customer_Order_List extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
-        $ordersXmlObj = new Mage_XmlConnect_Model_Simplexml_Element('<orders></orders>');
+        $ordersXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<orders></orders>');
 
         $orders = Mage::getResourceModel('sales/order_collection')
             ->addFieldToSelect('*')
-            ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId())
-            ->addFieldToFilter('state', array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()))
+            ->addFieldToFilter(
+                'customer_id',
+                Mage::getSingleton('customer/session')->getCustomer()->getId()
+            )
+            ->addFieldToFilter(
+                'state',
+                array(
+                    'in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()
+                )
+            )
             ->setOrder('created_at', 'desc');
 
         $orders->getSelect()->limit(self::ORDERS_LIST_LIMIT, 0);
@@ -63,13 +71,24 @@ class Mage_XmlConnect_Block_Customer_Order_List extends Mage_Core_Block_Template
                 $item->addChild('number', $_order->getRealOrderId());
                 $item->addChild('date', $this->formatDate($_order->getCreatedAtStoreDate()));
                 if ($_order->getShippingAddress()) {
-                    $item->addChild('ship_to', $ordersXmlObj->xmlentities(strip_tags($_order->getShippingAddress()->getName())));
+                    $item->addChild(
+                        'ship_to',
+                        $ordersXmlObj->xmlentities($_order->getShippingAddress()->getName())
+                    );
                 }
-                $item->addChild('total', $_order->getOrderCurrency()->formatPrecision($_order->getGrandTotal(), 2, array(), false, false));
+                $item->addChild(
+                    'total',
+                    $_order->getOrderCurrency()->formatPrecision(
+                        $_order->getGrandTotal(),
+                        2,
+                        array(),
+                        false,
+                        false
+                    )
+                );
                 $item->addChild('status', $_order->getStatusLabel());
             }
         }
-
         return $ordersXmlObj->asNiceXml();
     }
 }

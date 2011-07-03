@@ -29,11 +29,15 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtml_Block_Widget_Grid
 {
-
+    /**
+     * Initial settings
+     *
+     * @return void
+     */
     public function __construct()
     {
         parent::__construct();
@@ -44,6 +48,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
         $this->setEmptyText(Mage::helper('customer')->__("There are no items in customer's wishlist at the moment"));
     }
 
+    /**
+     * Prepare collection
+     *
+     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist
+     */
     protected function _prepareCollection()
     {
         $wishlist = Mage::getModel('wishlist/wishlist');
@@ -59,6 +68,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
         return parent::_prepareCollection();
     }
 
+    /**
+     * Prepare columns
+     *
+     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('product_id', array(
@@ -70,7 +84,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
 
         $this->addColumn('product_name', array(
             'header'    => Mage::helper('customer')->__('Product Name'),
-            'index'     => 'product_name'
+            'index'     => 'product_name',
+            'renderer'  => 'adminhtml/customer_edit_tab_view_grid_renderer_item'
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -99,15 +114,24 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
         return parent::_prepareColumns();
     }
 
+    /**
+     * Get headers visibility
+     *
+     * @return bool
+     */
     public function getHeadersVisibility()
     {
         return ($this->getCollection()->getSize() > 0);
     }
 
+    /**
+     * Get row url
+     *
+     * @param Mage_Wishlist_Model_Item $item
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_product/edit', array('id' => $row->getProductId()));
     }
-
 }
-

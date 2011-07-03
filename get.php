@@ -84,7 +84,7 @@ $pathInfo = str_replace('..', '', ltrim($request->getPathInfo(), '/'));
 $filePath = str_replace('/', $ds, rtrim($bp, $ds) . $ds . $pathInfo);
 
 if ($mediaDirectory) {
-    if (0 !== stripos($pathInfo, $mediaDirectory . '/')) {
+    if (0 !== stripos($pathInfo, $mediaDirectory . '/') || is_dir($filePath)) {
         sendNotFoundPage();
     }
 
@@ -137,9 +137,11 @@ if (0 !== stripos($pathInfo, $mediaDirectory . '/')) {
     sendNotFoundPage();
 }
 
-$databaseFileSotrage = Mage::getModel('core/file_storage_database');
-$databaseFileSotrage->loadByFilename($relativeFilename);
-
+try {
+    $databaseFileSotrage = Mage::getModel('core/file_storage_database');
+    $databaseFileSotrage->loadByFilename($relativeFilename);
+} catch (Exception $e) {
+}
 if ($databaseFileSotrage->getId()) {
     $directory = dirname($filePath);
     if (!is_dir($directory)) {

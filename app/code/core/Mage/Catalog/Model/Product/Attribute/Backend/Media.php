@@ -150,7 +150,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $attrData = $object->getData($mediaAttrCode);
 
             if (in_array($attrData, $clearImages)) {
-                $object->setData($mediaAttrCode, false);
+                $object->setData($mediaAttrCode, 'no_selection');
             }
 
             if (in_array($attrData, array_keys($newImages))) {
@@ -195,11 +195,30 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         if (!is_array($value) || !isset($value['images']) || $object->isLockedAttribute($attrCode)) {
             return;
         }
+
+        $storeId = $object->getStoreId();
+
+        $storeIds = $object->getStoreIds();
+        $storeIds[] = Mage_Core_Model_App::ADMIN_STORE_ID;
+
+        // remove current storeId
+        $storeIds = array_flip($storeIds);
+        unset($storeIds[$storeId]);
+        $storeIds = array_keys($storeIds);
+
+        $images = Mage::getResourceModel('catalog/product')
+            ->getAssignedImages($object, $storeIds);
+
+        $picturesInOtherStores = array();
+        foreach ($images as $image) {
+            $picturesInOtherStores[$image['filepath']] = true;
+        }
+
         $toDelete = array();
         $filesToValueIds = array();
         foreach ($value['images'] as &$image) {
             if(!empty($image['removed'])) {
-                if(isset($image['value_id'])) {
+                if(isset($image['value_id']) && !isset($picturesInOtherStores[$image['file']])) {
                     $toDelete[] = $image['value_id'];
                 }
                 continue;

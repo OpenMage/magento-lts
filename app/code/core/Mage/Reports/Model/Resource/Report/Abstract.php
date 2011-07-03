@@ -165,7 +165,9 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
         $select  = $adapter->select()
             ->from(
                 array($alias => $table),
-                $adapter->getDatePartSql($adapter->quoteIdentifier($alias . '.' . $column))
+                $adapter->getDatePartSql(
+                    $this->getStoreTZOffsetQuery(array($alias => $table), $alias . '.' . $column, $from, $to)
+                )
             )
             ->distinct(true);
 
@@ -229,8 +231,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
         $adapter = $this->_getReadAdapter();
         foreach ($selectResult as $date) {
             $date = substr($date, 0, 10); // to fix differences in oracle
-            $whereCondition[] = sprintf("%s BETWEEN '%s' AND '%s'",
-                $periodColumn, "{$date} 00:00:00", "{$date} 23:59:59");
+            $whereCondition[] = $adapter->prepareSqlCondition($periodColumn, array('like' => $date));
         }
         $whereCondition = implode(' OR ', $whereCondition);
         if ($whereCondition == '') {
@@ -329,6 +330,100 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
 
         return $this;
     }
+
+    /**
+    * Retrieve query for attribute with timezone conversion
+    *
+    * @param string|array $table
+    * @param string $column
+    * @param mixed $from
+    * @param mixed $to
+    * @param int|string|Mage_Core_Model_Store|null $store
+    * @return string
+    */
+    public function getStoreTZOffsetQuery($table, $column, $from = null, $to = null, $store = null)
+    {
+        $column = $this->_getWriteAdapter()->quoteIdentifier($column);
+
+        if (is_null($from)) {
+            $selectOldest = $this->_getWriteAdapter()->select()
+                ->from(
+                    $table,
+                    array("MIN($column)")
+                );
+            $from = $this->_getWriteAdapter()->fetchOne($selectOldest);
+        }
+
+        $periods = $this->_getTZOffsetTransitions(
+            Mage::app()->getLocale()->storeDate($store)->toString(Zend_Date::TIMEZONE_NAME), $from, $to
+        );
+        if (empty($periods)) {
+            return $column;
+        }
+
+        $query = "";
+        $periodsCount = count($periods);
+
+        $i = 0;
+        foreach ($periods as $offset => $timestamps) {
+            $subParts = array();
+            foreach ($timestamps as $ts) {
+                $subParts[] = "($column between '{$ts['from']}' and '{$ts['to']}')";
+            }
+
+            $then = $this->_getWriteAdapter()
+                ->getDateAddSql($column, $offset, Varien_Db_Adapter_Interface::INTERVAL_SECOND);
+
+            $query .= (++$i == $periodsCount) ? $then : "CASE WHEN " . join(" OR ", $subParts) . " THEN $then ELSE ";
+        }
+
+        return $query . str_repeat('END ', count($periods) - 1);
+    }
+
+    /**
+     * Retrieve transitions for offsets of given timezone
+     *
+     * @param string $timezone
+     * @param mixed $from
+     * @param mixed $to
+     * @return array
+     */
+    protected function _getTZOffsetTransitions($timezone, $from = null, $to = null)
+    {
+        $tzTransitions = array();
+        try {
+            if (!empty($from)) {
+                $from = new Zend_Date($from, 'Y-m-d H:i:s');
+                $from = $from->getTimestamp();
+            }
+
+            $to = new Zend_Date($to);
+            $nextPeriod = $to->toString('c');
+            $to = $to->getTimestamp();
+
+            $dtz = new DateTimeZone($timezone);
+            $transitions = $dtz->getTransitions();
+
+            for ($i = count($transitions) - 1; $i >= 0; $i--) {
+                $tr = $transitions[$i];
+                if ($tr['ts'] > $to) {
+                    continue;
+                }
+
+                $tzTransitions[$tr['offset']][] = array('from' => $tr['time'], 'to' => $nextPeriod);
+
+                if (!empty($from) && $tr['ts'] < $from) {
+                    break;
+                }
+                $nextPeriod = $tr['time'];
+            }
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
+
+        return $tzTransitions;
+    }
+
 
     /**
      * Retrieve store timezone offset from UTC in the form acceptable by SQL's CONVERT_TZ()

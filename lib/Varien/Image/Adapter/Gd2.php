@@ -138,6 +138,12 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         if ($this->_keepTransparency) {
             $isAlpha = false;
             $transparentIndex = $this->_getTransparency($this->_imageHandler, $this->_fileType, $isAlpha);
+
+            if ($isAlpha || false === $transparentIndex || $transparentIndex < 0) {
+               $transparencyCondition = false;
+            } else {
+               $transparencyCondition = $transparentIndex < imagecolorstotal($this->_imageHandler);
+            }
             try {
                 // fill truecolor png with alpha transparency
                 if ($isAlpha) {
@@ -159,7 +165,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     return $transparentAlphaColor;
                 }
                 // fill image with indexed non-alpha transparency
-                elseif (false !== $transparentIndex) {
+                elseif ($transparentIndex) {
                     $transparentColor = false;
                     if ($transparentIndex >=0 && $transparentIndex <= imagecolorstotal($this->_imageHandler)) {
                         list($r, $g, $b)  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));

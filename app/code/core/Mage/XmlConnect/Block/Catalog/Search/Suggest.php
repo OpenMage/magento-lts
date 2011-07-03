@@ -27,11 +27,10 @@
 /**
  * Product search suggestions renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_XmlConnect_Block_Catalog_Search_Suggest extends Mage_CatalogSearch_Block_Autocomplete
 {
     const SUGGEST_ITEM_SEPARATOR = '::sep::';
@@ -43,10 +42,10 @@ class Mage_XmlConnect_Block_Catalog_Search_Suggest extends Mage_CatalogSearch_Bl
      */
     protected function _toHtml()
     {
-        $suggestXmlObj = new Mage_XmlConnect_Model_Simplexml_Element('<suggestions></suggestions>');
+        $suggestXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<suggestions></suggestions>');
 
-        if (!$this->getRequest()->getParam('q', false)) {
-               return $suggestXmlObj->asNiceXml();
+        if (!$this->getRequest()->getParam(Mage_CatalogSearch_Helper_Data::QUERY_VAR_NAME, false)) {
+            return $suggestXmlObj->asNiceXml();
         }
 
         $suggestData = $this->getSuggestData();
@@ -55,19 +54,15 @@ class Mage_XmlConnect_Block_Catalog_Search_Suggest extends Mage_CatalogSearch_Bl
         }
 
         $items = '';
-        foreach ($suggestData as $index => $item) {
+        foreach ($suggestData as $item) {
             $items .= $suggestXmlObj->xmlentities(strip_tags($item['title']))
-                   . self::SUGGEST_ITEM_SEPARATOR
-                   . (int)$item['num_of_results']
-                   . self::SUGGEST_ITEM_SEPARATOR;
-//            $itemXmlObj = $suggestXmlObj->addChild('item');
-//            $itemXmlObj->addChild('title', $suggestXmlObj->xmlentities(strip_tags($item['title'])));
-//            $itemXmlObj->addChild('count', (int)$item['num_of_results']);
+                . self::SUGGEST_ITEM_SEPARATOR
+                . (int)$item['num_of_results']
+                . self::SUGGEST_ITEM_SEPARATOR;
         }
 
-        $suggestXmlObj = new Mage_XmlConnect_Model_Simplexml_Element('<suggestions>' . $items . '</suggestions>');
+        $suggestXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<suggestions>' . $items . '</suggestions>');
 
         return $suggestXmlObj->asNiceXml();
     }
-
 }

@@ -169,6 +169,25 @@
         <block type="xmlconnect/customer_order_list" name="xmlconnect.customer.order.list" output="toHtml"/>
     </xmlconnect_customer_orderlist>
 
+    <xmlconnect_customer_orderdetails>
+        <block type="xmlconnect/customer_order_details" name="xmlconnect.customer.order.details" output="toHtml">
+            <block type="xmlconnect/customer_order_items" name="xmlconnect.customer.order.items" as="order_items" template="sales/order/items.phtml" output="">
+                <action method="addItemRender"><type>default</type><block>xmlconnect/customer_order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>xmlconnect/customer_order_item_renderer_grouped</block><template>sales/order/items/renderer/default.phtml</template></action>
+                <action method="addItemRender"><type>bundle</type><block>xmlconnect/customer_order_item_renderer_bundle</block><template>bundle/sales/order/items/renderer.phtml</template></action>
+                <action method="addItemRender"><type>downloadable</type><block>xmlconnect/customer_order_item_renderer_downloadable</block><template>downloadable/sales/order/items/renderer/downloadable.phtml</template></action>
+                <action method="addItemRender"><type>giftcard</type><block>xmlconnect/customer_order_item_renderer_giftcard</block><template>sales/order/items/renderer/default.phtml</template></action>
+
+                <block type="xmlconnect/customer_order_totals" name="xmlconnect.customer.order.totals" template="sales/order/totals.phtml" output="">
+                    <block type="xmlconnect/customer_order_totals_tax" name="xmlconnect.customer.order.tax" template="tax/order/tax.phtml" output=""/>
+                </block>
+            </block>
+            <block type="core/text_list" name="additional.product.info" translate="label" output="">
+                <label>Additional Product Info</label>
+            </block>
+        </block>
+    </xmlconnect_customer_orderdetails>
+
     <!-- Configuration -->
 
     <xmlconnect_configuration_index>
@@ -190,7 +209,7 @@
     </xmlconnect_checkout_billingaddress>
 
     <xmlconnect_checkout_newbillingaddressform>
-        <block type="xmlconnect/checkout_address_form" name="xmlconnect.checkout.new.billing.addreess.form" output="toHtml">
+        <block type="xmlconnect/checkout_address_form" name="xmlconnect.checkout.new.billing.address.form" output="toHtml">
             <action method="setType"><type>billing</type></action>
         </block>
     </xmlconnect_checkout_newbillingaddressform>
@@ -202,13 +221,13 @@
     </xmlconnect_checkout_shippingaddress>
 
     <xmlconnect_checkout_newshippingaddressform>
-        <block type="xmlconnect/checkout_address_form" name="xmlconnect.checkout.new.billing.addreess.form" output="toHtml">
+        <block type="xmlconnect/checkout_address_form" name="xmlconnect.checkout.new.billing.address.form" output="toHtml">
             <action method="setType"><type>shipping</type></action>
         </block>
     </xmlconnect_checkout_newshippingaddressform>
 
     <xmlconnect_checkout_shippingmethods>
-        <block type="xmlconnect/checkout_shipping_method_avaliable" name="xmlconnect.checkout.shipping.method.avalieble" output="toHtml"/>
+        <block type="xmlconnect/checkout_shipping_method_available" name="xmlconnect.checkout.shipping.method.available" output="toHtml"/>
     </xmlconnect_checkout_shippingmethods>
 
     <xmlconnect_checkout_paymentmethods>
@@ -240,7 +259,7 @@
     <!-- Checkout with PayPal MEP -->
 
     <xmlconnect_paypal_mep_shippingmethods>
-        <block type="xmlconnect/checkout_shipping_method_avaliable" name="xmlconnect.checkout.shipping.method.avalieble" output="toHtml"/>
+        <block type="xmlconnect/checkout_shipping_method_available" name="xmlconnect.checkout.shipping.method.available" output="toHtml"/>
     </xmlconnect_paypal_mep_shippingmethods>
 
     <xmlconnect_paypal_mep_carttotals>

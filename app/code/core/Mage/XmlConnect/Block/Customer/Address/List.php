@@ -27,9 +27,9 @@
 /**
  * Customer address book xml renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Template
 {
@@ -40,7 +40,7 @@ class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Templa
      */
     protected function _toHtml()
     {
-        $addressXmlObj          = new Mage_XmlConnect_Model_Simplexml_Element('<address></address>');
+        $addressXmlObj          = Mage::getModel('xmlconnect/simplexml_element', '<address></address>');
         $customer               = Mage::getSingleton('customer/session')->getCustomer();
 
         $_billingAddssesId      = $customer->getDefaultBilling();
@@ -81,7 +81,10 @@ class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Templa
      * @param Mage_XmlConnect_Model_Simplexml_Element $item
      * @return array
      */
-    public function prepareAddressData(Mage_Customer_Model_Address $address, Mage_XmlConnect_Model_Simplexml_Element $item)
+    public function prepareAddressData(
+        Mage_Customer_Model_Address $address,
+        Mage_XmlConnect_Model_Simplexml_Element $item
+    )
     {
         if (!$address) {
             return array();

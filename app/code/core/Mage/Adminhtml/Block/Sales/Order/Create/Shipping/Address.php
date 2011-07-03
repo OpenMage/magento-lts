@@ -98,7 +98,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address
      */
     public function getFormValues()
     {
-        return $this->getCreateOrderModel()->getShippingAddress()->getData();
+        return $this->getAddress()->getData();
     }
 
     /**
@@ -108,17 +108,22 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address
      */
     public function getAddressId()
     {
-        return $this->getCreateOrderModel()->getShippingAddress()->getCustomerAddressId();
+        return $this->getAddress()->getCustomerAddressId();
     }
 
     /**
-     * Return billing address object
+     * Return address object
      *
      * @return Mage_Customer_Model_Address
      */
     public function getAddress()
     {
-        return $this->getCreateOrderModel()->getShippingAddress();
+        if ($this->getIsAsBilling()) {
+            $address = $this->getCreateOrderModel()->getBillingAddress();
+        } else {
+            $address = $this->getCreateOrderModel()->getShippingAddress();
+        }
+        return $address;
     }
 
     /**

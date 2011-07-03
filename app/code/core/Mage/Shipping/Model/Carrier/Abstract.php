@@ -46,6 +46,8 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     protected $_customizableContainerTypes = array();
 
     const USA_COUNTRY_ID = 'US';
+    const CANADA_COUNTRY_ID = 'CA';
+    const MEXICO_COUNTRY_ID = 'MX';
 
     const HANDLING_TYPE_PERCENT = 'P';
     const HANDLING_TYPE_FIXED = 'F';

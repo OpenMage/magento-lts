@@ -27,13 +27,12 @@
 /**
  * Home categories list renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Home extends Mage_XmlConnect_Block_Catalog
 {
-
     /**
      * Category list limitation
      */
@@ -46,24 +45,32 @@ class Mage_XmlConnect_Block_Home extends Mage_XmlConnect_Block_Catalog
      */
     protected function _toHtml()
     {
-        /** @var $xmlModel Mage_XmlConnect_Model_Simplexml_Element */
+        /** @var $homeXmlObj Mage_XmlConnect_Model_Simplexml_Element */
         $homeXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<home></home>');
 
-        /** @var $categoryCollection Mage_XmlConnect_Model_Mysql4_Category_Collection */
-        $categoryCollection = Mage::getResourceModel('xmlconnect/category_collection');
-        $categoryCollection->setStoreId(Mage::app()->getStore()->getId())
-            ->addParentIdFilter(Mage::app()->getStore()->getRootCategoryId())
-            ->setOrder('position', 'ASC')
-            ->setLimit(0, self::HOME_PAGE_CATEGORIES_COUNT);
+        $categoryCollection = array();
+        $helper = Mage::helper('catalog/category');
+        $i = 0;
+        foreach ($helper->getStoreCategories() as $child) {
+            if ($child->getIsActive()) {
+                $categoryCollection[] = $child;
+                $i++;
+            }
+            if ($i == self::HOME_PAGE_CATEGORIES_COUNT) {
+                break;
+            }
+        }
 
         if (sizeof($categoryCollection)) {
             $itemsXmlObj = $homeXmlObj->addChild('categories');
         }
 
-        foreach ($categoryCollection->getItems() as $item) {
+        foreach ($categoryCollection as $item) {
+            /** @var $item Mage_Catalog_Model_Category */
+            $item = Mage::getModel('catalog/category')->load($item->getId());
             $itemXmlObj = $itemsXmlObj->addChild('item');
             $itemXmlObj->addChild('label', $homeXmlObj->xmlentities(strip_tags($item->getName())));
-            $itemXmlObj->addChild('entity_id', $item->getEntityId());
+            $itemXmlObj->addChild('entity_id', $item->getId());
             $itemXmlObj->addChild('content_type', $item->hasChildren() ? 'categories' : 'products');
             $icon = Mage::helper('xmlconnect/catalog_category_image')->initialize($item, 'thumbnail')
                 ->resize(Mage::helper('xmlconnect/image')->getImageSizeForContent('category'));
@@ -72,10 +79,8 @@ class Mage_XmlConnect_Block_Home extends Mage_XmlConnect_Block_Catalog
 
             $file = Mage::helper('xmlconnect')->urlToPath($icon);
 
-
             $iconXml->addAttribute('modification_time', filemtime($file));
         }
-
         $homeXmlObj->addChild('home_banner', '/current/media/catalog/category/banner_home.png');
 
         return $homeXmlObj->asNiceXml();

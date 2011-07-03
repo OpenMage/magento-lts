@@ -622,4 +622,18 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         $this->setData('shipping_label', $label);
         return $this;
     }
+
+    /**
+     * Get shipping label and decode by db adapter
+     *
+     * @return void
+     */
+    public function getShippingLabel()
+    {
+        $label = $this->getData('shipping_label');
+        if ($label) {
+            return $this->getResource()->getReadConnection()->decodeVarbinary($label);
+        }
+        return $label;
+    }
 }

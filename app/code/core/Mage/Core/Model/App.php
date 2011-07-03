@@ -38,6 +38,8 @@ class Mage_Core_Model_App
 
     const XML_PATH_INSTALL_DATE = 'global/install/date';
 
+    const XML_PATH_SKIP_PROCESS_MODULES_UPDATES = 'global/skip_process_modules_updates';
+
     const DEFAULT_ERROR_HANDLER = 'mageCoreErrorHandler';
 
     const DISTRO_LOCALE_CODE = 'en_US';
@@ -226,6 +228,11 @@ class Mage_Core_Model_App
      */
     protected $_useSessionVar = false;
 
+    /**
+     * Cache locked flag
+     *
+     * @var null|bool
+     */
     protected $_isCacheLocked = null;
 
     /**
@@ -375,6 +382,7 @@ class Mage_Core_Model_App
      */
     protected function _initCache()
     {
+        $this->_isCacheLocked = true;
         $options = $this->_config->getNode('global/cache');
         if ($options) {
             $options = $options->asArray();
@@ -382,6 +390,7 @@ class Mage_Core_Model_App
             $options = array();
         }
         $this->_cache = Mage::getModel('core/cache', $options);
+        $this->_isCacheLocked = false;
         return $this;
     }
 
@@ -394,7 +403,7 @@ class Mage_Core_Model_App
     {
         if (!$this->_config->loadModulesCache()) {
             $this->_config->loadModules();
-            if ($this->_config->isLocalConfigLoaded()) {
+            if ($this->_config->isLocalConfigLoaded() && !$this->_shouldSkipProcessModulesUpdates()) {
                 Varien_Profiler::start('mage::app::init::apply_db_schema_updates');
                 Mage_Core_Model_Resource_Setup::applyAllUpdates();
                 Varien_Profiler::stop('mage::app::init::apply_db_schema_updates');
@@ -403,6 +412,24 @@ class Mage_Core_Model_App
             $this->_config->saveCache();
         }
         return $this;
+    }
+
+    /**
+     * Check whether modules updates processing should be skipped
+     *
+     * @return bool
+     */
+    protected function _shouldSkipProcessModulesUpdates()
+    {
+        if (!Mage::isInstalled()) {
+            return false;
+        }
+
+        if (Mage::getIsDeveloperMode()) {
+            return false;
+        }
+
+        return (bool)(string)$this->_config->getNode(self::XML_PATH_SKIP_PROCESS_MODULES_UPDATES);
     }
 
     /**
@@ -1460,5 +1487,39 @@ class Mage_Core_Model_App
         $id = strtoupper($id);
         $id = preg_replace('/([^a-zA-Z0-9_]{1,1})/', '_', $id);
         return $id;
+    }
+
+    /**
+     * Get is cache locked
+     *
+     * @return bool
+     */
+    public function getIsCacheLocked()
+    {
+        return (bool)$this->_isCacheLocked;
+    }
+
+    /**
+     *  Unset website by id from app cache
+     *
+     * @param null|bool|int|string|Mage_Core_Model_Website $id
+     * @return void
+     */
+    public function clearWebsiteCache($id = null)
+    {
+        if (is_null($id)) {
+            $id = $this->getStore()->getWebsiteId();
+        } elseif ($id instanceof Mage_Core_Model_Website) {
+            $id = $id->getId();
+        } elseif ($id === true) {
+            $id = $this->_website->getId();
+        }
+
+        if (!empty($this->_websites[$id])) {
+            $website = $this->_websites[$id];
+
+            unset($this->_websites[$website->getWebsiteId()]);
+            unset($this->_websites[$website->getCode()]);
+        }
     }
 }

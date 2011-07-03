@@ -134,6 +134,11 @@ class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstrac
             $this->setParentId($this->getOrder()->getId());
         }
 
+        // Init customer address id if customer address is assigned
+        if ($this->getCustomerAddress()) {
+            $this->setCustomerAddressId($this->getCustomerAddress()->getId());
+        }
+
         return $this;
     }
 }

@@ -51,12 +51,22 @@ class Mage_Paypal_Model_Info
     const CENTINEL_VPAS  = 'centinel_vpas_result';
     const CENTINEL_ECI   = 'centinel_eci_result';
 
+    // Next two fields are required for Brazil
+    const BUYER_TAX_ID   = 'buyer_tax_id';
+    const BUYER_TAX_ID_TYPE = 'buyer_tax_id_type';
+
     const PAYMENT_STATUS = 'payment_status';
     const PENDING_REASON = 'pending_reason';
     const IS_FRAUD       = 'is_fraud_detected';
     const PAYMENT_STATUS_GLOBAL = 'paypal_payment_status';
     const PENDING_REASON_GLOBAL = 'paypal_pending_reason';
     const IS_FRAUD_GLOBAL       = 'paypal_is_fraud_detected';
+
+    /**
+     * Possible buyer's tax id types (Brazil only)
+     */
+    const BUYER_TAX_ID_TYPE_CPF = 'BR_CPF';
+    const BUYER_TAX_ID_TYPE_CNPJ = 'BR_CNPJ';
 
     /**
      * All payment information map
@@ -76,6 +86,8 @@ class Mage_Paypal_Model_Info
         self::CVV2_MATCH     => 'paypal_cvv2_match',
         self::CENTINEL_VPAS  => self::CENTINEL_VPAS,
         self::CENTINEL_ECI   => self::CENTINEL_ECI,
+        self::BUYER_TAX_ID   => self::BUYER_TAX_ID,
+        self::BUYER_TAX_ID_TYPE => self::BUYER_TAX_ID_TYPE,
     );
 
     /**
@@ -115,6 +127,8 @@ class Mage_Paypal_Model_Info
      */
     protected $_paymentPublicMap = array(
         'paypal_payer_email',
+        self::BUYER_TAX_ID,
+        self::BUYER_TAX_ID_TYPE
     );
 
     /**
@@ -425,6 +439,10 @@ class Mage_Paypal_Model_Info
                 return Mage::helper('paypal')->__('Address Verification System Response');
             case 'paypal_cvv2_match':
                 return Mage::helper('paypal')->__('CVV2 Check Result by PayPal');
+            case self::BUYER_TAX_ID :
+                return Mage::helper('paypal')->__('Buyer\'s Tax ID');
+            case self::BUYER_TAX_ID_TYPE :
+                return Mage::helper('paypal')->__('Buyer\'s Tax ID Type');
             case self::CENTINEL_VPAS:
                 return Mage::helper('paypal')->__('PayPal/Centinel Visa Payer Authentication Service Result');
             case self::CENTINEL_ECI:
@@ -456,6 +474,8 @@ class Mage_Paypal_Model_Info
             case self::CENTINEL_ECI:
                 $label = $this->_getCentinelEciLabel($value);
                 break;
+            case self::BUYER_TAX_ID_TYPE :
+                $value = $this->_getBuyerIdTypeValue($value);
             default:
                 return $value;
         }
@@ -619,5 +639,25 @@ class Mage_Paypal_Model_Info
             default:
                 return $value;
         }
+    }
+
+    /**
+     * Retrieve buyer id type value based on code received from PayPal (Brazil only)
+     *
+     * @param string $code
+     * @return string
+     */
+    protected function _getBuyerIdTypeValue($code)
+    {
+        $value = '';
+        switch ($code) {
+            case self::BUYER_TAX_ID_TYPE_CNPJ :
+                $value = Mage::helper('paypal')->__('CNPJ');
+                break;
+            case self::BUYER_TAX_ID_TYPE_CPF :
+                $value = Mage::helper('paypal')->__('CPF');
+                break;
+        }
+        return $value;
     }
 }

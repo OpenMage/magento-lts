@@ -27,14 +27,12 @@
 /**
  * Category info xml renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
+ * @category    Mage
+ * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_XmlConnect_Block_Catalog_Category_Info extends Mage_XmlConnect_Block_Catalog
 {
-
     /**
      * Produce category info xml object
      *
@@ -42,7 +40,7 @@ class Mage_XmlConnect_Block_Catalog_Category_Info extends Mage_XmlConnect_Block_
      */
     public function getCategoryInfoXmlObject()
     {
-        $infoXmlObj = new Mage_XmlConnect_Model_Simplexml_Element('<category_info></category_info>');
+        $infoXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<category_info></category_info>');
         $category   = $this->getCategory();
         if ($category && is_object($category) && $category->getId()) {
             /**

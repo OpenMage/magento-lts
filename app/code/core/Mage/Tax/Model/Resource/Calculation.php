@@ -254,7 +254,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 ->from(array('main_table' => $this->getMainTable()),
                 array(  'tax_calculation_rate_id',
                         'tax_calculation_rule_id',
-                        'customer_tax_class_id', 
+                        'customer_tax_class_id',
                         'product_tax_class_id'
                     )
                 )
@@ -263,8 +263,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 $select->where('product_tax_class_id IN (?)', $productClassId);
             }
             $ifnullTitleValue = $this->_getReadAdapter()->getCheckSql(
-                'title_table.value IS NULL', 
-                'rate.code', 
+                'title_table.value IS NULL',
+                'rate.code',
                 'title_table.value'
             );
             $ruleTableAliasName = $this->_getReadAdapter()->quoteIdentifier('rule.tax_calculation_rule_id');
@@ -389,17 +389,17 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      * @param int $productTaxClassId
      * @return array
      */
-    public function getRatesByCustomerTaxClass($customerTaxClassId, $productTaxClassId = null)
+    public function getRatesByCustomerTaxClass($customerTaxClass, $productTaxClass = null)
     {
         $adapter = $this->_getReadAdapter();
-        $customerTaxClass = (int)$customerTaxClass;
+        $customerTaxClassId = (int)$customerTaxClass;
         $calcJoinConditions = array(
             'calc_table.tax_calculation_rate_id = main_table.tax_calculation_rate_id',
             $adapter->quoteInto('calc_table.customer_tax_class_id = ?', $customerTaxClassId),
 
         );
-        if ($productTaxClassId) {
-            $productTaxClass = (int)$productTaxClass;
+        if ($productTaxClass) {
+            $productTaxClassId = (int)$productTaxClass;
             $calcJoinConditions[] = $adapter->quoteInto('calc_table.product_tax_class_id = ?', $productTaxClassId);
         }
 

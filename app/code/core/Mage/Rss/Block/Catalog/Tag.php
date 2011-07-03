@@ -88,6 +88,7 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         $product = $args['product'];
 
         $product->setAllowedInRss(true);
+        $product->setAllowedPriceInRss(true);
         Mage::dispatchEvent('rss_catalog_tagged_item_xml_callback', $args);
 
         if (!$product->getAllowedInRss()) {

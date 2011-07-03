@@ -583,7 +583,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             return $result;
         }
 
-        if (!$this->checkQty($summaryQty)) {
+        if (!$this->checkQty($summaryQty) || !$this->checkQty($qty)) {
             $message = $_helper->__('The requested quantity for "%s" is not available.', $this->getProductName());
             $result->setHasError(true)
                 ->setMessage($message)

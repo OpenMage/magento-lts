@@ -502,12 +502,30 @@ class Varien_Db_Ddl_Table
     /**
      * Retrieve array of table columns
      *
+     * @param bool $normalized
      * @see $this->_columns
      * @return array
      */
-    public function getColumns()
+    public function getColumns($normalized = true)
     {
-        return $this->_normalizeColumnPosition($this->_columns);
+        if ($normalized) {
+            return $this->_normalizeColumnPosition($this->_columns);
+        }
+        return $this->_columns;
+    }
+
+    /**
+     * Set column, formatted according to DDL Table format, into columns structure
+     *
+     * @param array $column
+     * @see $this->_columns
+     * @return Varien_Db_Ddl_Table
+     */
+    public function setColumn($column)
+    {
+        $upperName = strtoupper($column['COLUMN_NAME']);
+        $this->_columns[$upperName] = $column;
+        return $this;
     }
 
     /**

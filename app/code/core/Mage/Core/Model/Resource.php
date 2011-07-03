@@ -45,21 +45,28 @@ class Mage_Core_Model_Resource
      *
      * @var array
      */
-    protected $_connectionTypes  = array();
+    protected $_connectionTypes    = array();
 
     /**
      * Instances of actual connections
      *
      * @var array
      */
-    protected $_connections      = array();
+    protected $_connections        = array();
+
+    /**
+     * Names of actual connections that wait to set cache
+     *
+     * @var array
+     */
+    protected $_skippedConnections = array();
 
     /**
      * Registry of resource entities
      *
      * @var array
      */
-    protected $_entities         = array();
+    protected $_entities           = array();
 
     /**
      * Mapped tables cache array
@@ -77,7 +84,12 @@ class Mage_Core_Model_Resource
     public function getConnection($name)
     {
         if (isset($this->_connections[$name])) {
-            return $this->_connections[$name];
+            $connection = $this->_connections[$name];
+            if (isset($this->_skippedConnections[$name]) && !Mage::app()->getIsCacheLocked()) {
+                $connection->setCacheAdapter(Mage::app()->getCache());
+                unset($this->_skippedConnections[$name]);
+            }
+            return $connection;
         }
         $connConfig = Mage::getConfig()->getResourceConnectionConfig($name);
 
@@ -97,15 +109,21 @@ class Mage_Core_Model_Resource
 
         $connection = $this->_newConnection((string)$connConfig->type, $connConfig);
         if ($connection) {
-            $connection->setCacheAdapter(Mage::app()->getCache());
+            if (Mage::app()->getIsCacheLocked()) {
+                $this->_skippedConnections[$name] = true;
+            } else {
+                $connection->setCacheAdapter(Mage::app()->getCache());
+            }
         }
 
         $this->_connections[$name] = $connection;
         if ($origName !== $name) {
             $this->_connections[$origName] = $connection;
         }
+
         return $connection;
     }
+
     /**
      * Retrieve connection adapter class name by connection type
      *
@@ -165,7 +183,6 @@ class Mage_Core_Model_Resource
         }
 
         return $connection;
-
     }
 
     /**
@@ -250,7 +267,6 @@ class Mage_Core_Model_Resource
             }
 
             if ($entityConfig && !empty($entityConfig->table)) {
-
                 $tableName = (string)$entityConfig->table;
             } else {
                 Mage::throwException(Mage::helper('core')->__('Can\'t retrieve entity config: %s', $modelEntity));
@@ -266,7 +282,6 @@ class Mage_Core_Model_Resource
             'table_suffix'  => $tableSuffix
         ));
 
-
         $mappedTableName = $this->getMappedTableName($tableName);
         if ($mappedTableName) {
             $tableName = $mappedTableName;
@@ -278,17 +293,28 @@ class Mage_Core_Model_Resource
         if (!is_null($tableSuffix)) {
             $tableName .= '_' . $tableSuffix;
         }
-
         return $this->getConnection(self::DEFAULT_READ_RESOURCE)->getTableName($tableName);
-
     }
 
+    /**
+     * Set mapped table name
+     *
+     * @param string $tableName
+     * @param string $mappedName
+     * @return Mage_Core_Model_Resource
+     */
     public function setMappedTableName($tableName, $mappedName)
     {
         $this->_mappedTableNames[$tableName] = $mappedName;
         return $this;
     }
 
+    /**
+     * Get mapped table name
+     *
+     * @param string $tableName
+     * @return bool|string
+     */
     public function getMappedTableName($tableName)
     {
         if (isset($this->_mappedTableNames[$tableName])) {
@@ -298,11 +324,17 @@ class Mage_Core_Model_Resource
         }
     }
 
+    /**
+     * Clean db row
+     *
+     * @param array $row
+     * @return Mage_Core_Model_Resource
+     */
     public function cleanDbRow(&$row)
     {
         if (!empty($row) && is_array($row)) {
             foreach ($row as $key=>&$value) {
-                if (is_string($value) && $value==='0000-00-00 00:00:00') {
+                if (is_string($value) && $value === '0000-00-00 00:00:00') {
                     $value = '';
                 }
             }

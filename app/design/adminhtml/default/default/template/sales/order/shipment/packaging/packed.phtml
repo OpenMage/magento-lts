@@ -42,6 +42,8 @@
                                 <col width="100" />
                                 <col width="*" />
                                 <col width="60" />
+                                <col width="70" />
+                                <col width="150" />
                                 <col width="*" />
                             </colgroup>
                             <tbody>
@@ -50,9 +52,19 @@
                                     <td><?php echo $this->getContainerTypeByCode($params->getContainer()) ?></td>
                                     <th><?php echo Mage::helper('sales')->__('Length') ?></th>
                                     <td>
-                                        <?php echo $params->getLength() != null ? $params->getLength() : '-' ?>
-                                        <?php echo Mage::helper('usa')->getMeasureDimensionName($params->getDimensionUnits()) ?>
+                                        <?php if ($params->getLength() != null): ?>
+                                            <?php echo $params->getLength() .' '. Mage::helper('usa')->getMeasureDimensionName($params->getDimensionUnits()) ?>
+                                        <?php else: ?>
+                                            --
+                                        <?php endif; ?>
                                     </td>
+                                    <?php if ($params->getDeliveryConfirmation() != null): ?>
+                                        <th><?php echo Mage::helper('sales')->__('Signature Confirmation') ?></th>
+                                        <td><?php echo $this->getDeliveryConfirmationTypeByCode($params->getDeliveryConfirmation()) ?></td>
+                                    <?php else: ?>
+                                        <th>&nbsp;</th>
+                                        <td>&nbsp;</td>
+                                    <?php endif; ?>
                                 </tr>
                                 <tr>
                                     <?php if ($this->displayCustomsValue()): ?>
@@ -64,9 +76,14 @@
                                     <?php endif; ?>
                                     <th><?php echo Mage::helper('sales')->__('Width') ?></th>
                                     <td>
-                                        <?php echo $params->getWidth() != null ? $params->getWidth() : '-' ?>
-                                        <?php echo Mage::helper('usa')->getMeasureDimensionName($params->getDimensionUnits()) ?>
+                                        <?php if ($params->getWidth() != null): ?>
+                                            <?php echo $params->getWidth() .' '. Mage::helper('usa')->getMeasureDimensionName($params->getDimensionUnits()) ?>
+                                        <?php else: ?>
+                                            --
+                                        <?php endif; ?>
                                     </td>
+                                    <th>&nbsp;</th>
+                                    <td>&nbsp;</td>
                                 </tr>
                                 <tr>
                                     <?php if ($this->displayCustomsValue()): ?>
@@ -78,9 +95,14 @@
                                     <?php endif; ?>
                                     <th><?php echo Mage::helper('sales')->__('Height') ?></th>
                                     <td>
-                                        <?php echo $params->getHeight() != null ? $params->getHeight() : '-' ?>
-                                        <?php echo Mage::helper('usa')->getMeasureDimensionName($params->getDimensionUnits()) ?>
+                                        <?php if ($params->getHeight() != null): ?>
+                                            <?php echo $params->getHeight() .' '. Mage::helper('usa')->getMeasureDimensionName($params->getDimensionUnits()) ?>
+                                        <?php else: ?>
+                                            --
+                                        <?php endif; ?>
                                     <td>
+                                    <th>&nbsp;</th>
+                                    <td>&nbsp;</td>
                                 </tr>
                                 <tr>
                                     <?php if ($params->getSize()): ?>
@@ -97,6 +119,8 @@
                                         <th>&nbsp;</th>
                                         <td>&nbsp;</td>
                                     <?php endif; ?>
+                                    <th>&nbsp;</th>
+                                    <td>&nbsp;</td>
                                 </tr>
                             </tbody>
                         </table>

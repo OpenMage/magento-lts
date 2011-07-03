@@ -31,12 +31,51 @@
  */
 class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    /**
+     * Config value that lists ISO2 country codes which have optional Zip/Postal pre-configured
+     */
+    const OPTIONAL_ZIP_COUNTRIES_CONFIG_PATH = 'general/country/optional_zip_countries';
+
+    /**
+     * Country collection
+     *
+     * @var Mage_Directory_Model_Resource_Country_Collection
+     */
     protected $_countryCollection;
+
+    /**
+     * Region collection
+     *
+     * @var Mage_Directory_Model_Resource_Region_Collection
+     */
     protected $_regionCollection;
+
+    /**
+     * Json representation of regions data
+     *
+     * @var string
+     */
     protected $_regionJson;
+
+    /**
+     * Currency cache
+     *
+     * @var array
+     */
     protected $_currencyCache = array();
+
+    /**
+     * ISO2 country codes which have optional Zip/Postal pre-configured
+     *
+     * @var array
+     */
     protected $_optionalZipCountries = null;
 
+    /**
+     * Retrieve region collection
+     *
+     * @return Mage_Directory_Model_Resource_Region_Collection
+     */
     public function getRegionCollection()
     {
         if (!$this->_regionCollection) {
@@ -47,6 +86,11 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_regionCollection;
     }
 
+    /**
+     * Retrieve country collection
+     *
+     * @return Mage_Directory_Model_Resource_Country_Collection
+     */
     public function getCountryCollection()
     {
         if (!$this->_countryCollection) {
@@ -101,7 +145,15 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_regionJson;
     }
 
-    public function currencyConvert($amount, $from, $to=null)
+    /**
+     * Convert currency
+     *
+     * @param float $amount
+     * @param string $from
+     * @param string $to
+     * @return float
+     */
+    public function currencyConvert($amount, $from, $to = null)
     {
         if (empty($this->_currencyCache[$from])) {
             $this->_currencyCache[$from] = Mage::getModel('directory/currency')->load($from);
@@ -117,13 +169,13 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      * Return ISO2 country codes, which have optional Zip/Postal pre-configured
      *
      * @param bool $asJson
-     * @return array
+     * @return array|string
      */
     public function getCountriesWithOptionalZip($asJson = false)
     {
         if (null === $this->_optionalZipCountries) {
             $this->_optionalZipCountries = preg_split('/\,/',
-                Mage::getStoreConfig('general/country/optional_zip_countries'), 0, PREG_SPLIT_NO_EMPTY);
+                Mage::getStoreConfig(self::OPTIONAL_ZIP_COUNTRIES_CONFIG_PATH), 0, PREG_SPLIT_NO_EMPTY);
         }
         if ($asJson) {
             return Mage::helper('core')->jsonEncode($this->_optionalZipCountries);
@@ -135,6 +187,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      * Check whether zip code is optional for specified country code
      *
      * @param string $countryCode
+     * @return boolean
      */
     public function isZipCodeOptional($countryCode)
     {

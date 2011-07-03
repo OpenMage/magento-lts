@@ -42,7 +42,7 @@ class Mage_XmlConnect_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
     {
          $cartMessages   = $this->getMessages();
          $quote          = $this->getQuote();
-         $xmlObject      = new Mage_XmlConnect_Model_Simplexml_Element('<cart></cart>');
+         $xmlObject      = Mage::getModel('xmlconnect/simplexml_element', '<cart></cart>');
          $xmlObject->addAttribute('is_virtual', (int)$this->helper('checkout/cart')->getIsVirtualQuote());
          $xmlObject->addAttribute('summary_qty', (int)$this->helper('checkout/cart')->getSummaryCount());
          if (strlen($quote->getCouponCode())) {
@@ -65,7 +65,9 @@ class Mage_XmlConnect_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
              $itemXml->addChild('name', $xmlObject->xmlentities(strip_tags($renderer->getProductName())));
              $itemXml->addChild('code', 'cart[' . $item->getId() . '][qty]');
              $itemXml->addChild('qty', $renderer->getQty());
-             $icon = $renderer->getProductThumbnail()->resize(Mage::helper('xmlconnect/image')->getImageSizeForContent('product_small'));
+             $icon = $renderer->getProductThumbnail()->resize(
+                 Mage::helper('xmlconnect/image')->getImageSizeForContent('product_small')
+             );
 
              $iconXml = $itemXml->addChild('icon', $icon);
 
@@ -78,8 +80,12 @@ class Mage_XmlConnect_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
               */
              $exclPrice = $inclPrice = 0.00;
              if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()) {
-                 if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales') && $item->getWeeeTaxAppliedAmount()) {
-                     $exclPrice = $item->getCalculationPrice() + $item->getWeeeTaxAppliedAmount() + $item->getWeeeTaxDisposition();
+                 if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales')
+                     && $item->getWeeeTaxAppliedAmount()
+                 ) {
+                     $exclPrice = $item->getCalculationPrice()
+                                  + $item->getWeeeTaxAppliedAmount()
+                                  + $item->getWeeeTaxDisposition();
                  } else {
                      $exclPrice = $item->getCalculationPrice();
                  }
@@ -87,7 +93,9 @@ class Mage_XmlConnect_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 
              if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()) {
                  $_incl = $this->helper('checkout')->getPriceInclTax($item);
-                 if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales') && $item->getWeeeTaxAppliedAmount()) {
+                 if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales')
+                     && $item->getWeeeTaxAppliedAmount()
+                 ) {
                      $inclPrice = $_incl + $item->getWeeeTaxAppliedAmount();
                  } else {
                     $inclPrice = $_incl - $item->getWeeeTaxDisposition();
@@ -126,15 +134,21 @@ class Mage_XmlConnect_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
              */
              $exclPrice = $inclPrice = 0.00;
              if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()) {
-                 if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales') && $item->getWeeeTaxAppliedAmount()) {
-                     $exclPrice = $item->getRowTotal() + $item->getWeeeTaxAppliedRowAmount() + $item->getWeeeTaxRowDisposition();
+                 if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales')
+                     && $item->getWeeeTaxAppliedAmount()
+                 ) {
+                     $exclPrice = $item->getRowTotal()
+                                  + $item->getWeeeTaxAppliedRowAmount()
+                                  + $item->getWeeeTaxRowDisposition();
                  } else {
                      $exclPrice = $item->getRowTotal();
                  }
              }
              if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()) {
                  $_incl = $this->helper('checkout')->getSubtotalInclTax($item);
-                 if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales') && $item->getWeeeTaxAppliedAmount()) {
+                 if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales')
+                     && $item->getWeeeTaxAppliedAmount()
+                 ) {
                      $inclPrice = $_incl + $item->getWeeeTaxAppliedRowAmount();
                  } else {
                      $inclPrice = $_incl - $item->getWeeeTaxRowDisposition();
@@ -176,7 +190,10 @@ class Mage_XmlConnect_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
                      $_formatedOptionValue = $renderer->getFormatedOptionValue($_option);
                      $optionXml = $itemOptionsXml->addChild('option');
                      $optionXml->addAttribute('label', $xmlObject->xmlentities(strip_tags($_option['label'])));
-                     $optionXml->addAttribute('text', $xmlObject->xmlentities(strip_tags($_formatedOptionValue['value'])));
+                     $optionXml->addAttribute(
+                         'text',
+                         $xmlObject->xmlentities(strip_tags($_formatedOptionValue['value']))
+                     );
 //                     if (isset($_formatedOptionValue['full_view'])) {
 //                         $label = strip_tags($_option['label']);
 //                         $value = strip_tags($_formatedOptionValue['full_view']);
@@ -214,10 +231,15 @@ class Mage_XmlConnect_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
         /**
          * Cross Sell Products
          */
-        $crossSellXmlObj = new Mage_XmlConnect_Model_Simplexml_Element($this->getChildHtml('crosssell'));
+        if (count($this->getItems())) {
+            $crossellXml = $this->getChildHtml('crosssell');
+        } else {
+            $crossellXml = '<crosssell></crosssell>';
+        }
+
+        $crossSellXmlObj = Mage::getModel('xmlconnect/simplexml_element', $crossellXml);
         $xmlObject->appendChild($crossSellXmlObj);
 
         return $xmlObject->asNiceXml();
     }
-
 }

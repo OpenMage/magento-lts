@@ -53,8 +53,11 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     public function getCustomizedView($optionInfo)
     {
         try {
-            $result = $this->_getOptionHtml($optionInfo['option_value']);
-            return $result;
+            if (isset($optionInfo['option_value'])) {
+                return $this->_getOptionHtml($optionInfo['option_value']);
+            } elseif (isset($optionInfo['value'])) {
+                return $optionInfo['value'];
+            }
         } catch (Exception $e) {
             return $optionInfo['value'];
         }
@@ -508,24 +511,42 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      */
     protected function _getOptionHtml($optionValue)
     {
+        $value = $this->_unserializeValue($optionValue);
         try {
-            $value = unserialize($optionValue);
-        } catch (Exception $e) {
-            $value = $optionValue;
-        }
-        try {
-            if ($value['width'] > 0 && $value['height'] > 0) {
+            if (isset($value) && isset($value['width']) && isset($value['height']) && $value['width'] > 0 && $value['height'] > 0) {
                 $sizes = $value['width'] . ' x ' . $value['height'] . ' ' . Mage::helper('catalog')->__('px.');
             } else {
                 $sizes = '';
             }
+
+            $urlRoute = !empty($value['url']['route']) ? $value['url']['route'] : '';
+            $urlParams = !empty($value['url']['params']) ? $value['url']['params'] : '';
+            $title = !empty($value['title']) ? $value['title'] : '';
+
             return sprintf('<a href="%s" target="_blank">%s</a> %s',
-                $this->_getOptionDownloadUrl($value['url']['route'], $value['url']['params']),
-                Mage::helper('core')->htmlEscape($value['title']),
+                $this->_getOptionDownloadUrl($urlRoute, $urlParams),
+                Mage::helper('core')->htmlEscape($title),
                 $sizes
             );
         } catch (Exception $e) {
             Mage::throwException(Mage::helper('catalog')->__("File options format is not valid."));
+        }
+    }
+
+    /**
+     * Create a value from a storable representation
+     *
+     * @param mixed $value
+     * @return array
+     */
+    protected function _unserializeValue($value)
+    {
+        if (is_array($value)) {
+            return $value;
+        } elseif (is_string($value) && !empty($value)) {
+            return unserialize($value);
+        } else {
+            return array();
         }
     }
 

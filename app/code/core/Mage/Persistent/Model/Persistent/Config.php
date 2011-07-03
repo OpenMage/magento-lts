@@ -102,30 +102,41 @@ class Mage_Persistent_Model_Persistent_Config
                 continue;
             }
             foreach ($elements as $info) {
-                if (!isset($info['class']) || !isset($info['method'])) {
-                    continue;
-                }
-                $object     = Mage::getModel($info['class']);
-                $method     = $info['method'];
-                $instance   = false;
-
                 switch ($type) {
                     case 'blocks':
-                        $instance = Mage::getSingleton('core/layout')->getBlock($info['name_in_layout']);
+                        $this->fireOne($info, Mage::getSingleton('core/layout')->getBlock($info['name_in_layout']));
                         break;
-                }
-
-                if (!$instance || (isset($info['block_type']) && !($instance instanceof $info['block_type']))) {
-                    continue;
-                }
-
-                if (method_exists($object, $method)) {
-                    $object->$method($instance);
-                } elseif (Mage::getIsDeveloperMode()) {
-                    Mage::throwException('Method "' . $method.'" is not defined in "' . get_class($object) . '"');
                 }
             }
         }
+        return $this;
+    }
+
+    /**
+     * Run one method by given method info
+     *
+     * @param array $info
+     * @param bool $instance
+     * @return Mage_Persistent_Model_Persistent_Config
+     */
+    public function fireOne($info, $instance = false)
+    {
+        if (!$instance
+            || (isset($info['block_type']) && !($instance instanceof $info['block_type']))
+            || !isset($info['class'])
+            || !isset($info['method'])
+        ) {
+            return $this;
+        }
+        $object     = Mage::getModel($info['class']);
+        $method     = $info['method'];
+
+        if (method_exists($object, $method)) {
+            $object->$method($instance);
+        } elseif (Mage::getIsDeveloperMode()) {
+            Mage::throwException('Method "' . $method.'" is not defined in "' . get_class($object) . '"');
+        }
+
         return $this;
     }
 }

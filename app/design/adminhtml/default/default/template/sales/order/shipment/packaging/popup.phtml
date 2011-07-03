@@ -27,7 +27,7 @@
 <?php
 $shippingMethod = $this->getShipment()->getOrder()->getShippingMethod();
 $sizeSource = Mage::getModel('usa/shipping_carrier_usps_source_size')->toOptionArray();
-$girthEnabled = Mage::helper('usa')->displayGirthValue($shippingMethod) && $this->isGirthAllowed();
+$girthEnabled = Mage::helper('usa')->displayGirthValue($shippingMethod) && $this->isGirthAllowed() ? 1 : 0;
 ?>
 <script type="text/javascript">
 //<![CDATA[
@@ -36,7 +36,7 @@ document.observe("dom:loaded", function() {
     packaging.changeContainerType($$('select[name=package_container]')[0]);
     packaging.checkSizeAndGirthParameter(
         $$('select[name=package_container]')[0],
-        <?php echo $girthEnabled ? 1 : 0; ?>
+        <?php echo $girthEnabled; ?>
     );
 });
 //]]>
@@ -110,8 +110,8 @@ document.observe("dom:loaded", function() {
                         <td>
                             <input type="text" class="options-weight input-text required-entry validate-greater-than-zero" name="container_weight" />
                             <select name="container_weight_units" class="options-units-weight measures" onchange="packaging.changeMeasures(this);">
-                                <option value="<?php echo Zend_Measure_Weight::POUND ?>" selected="selected"  ><?php echo Mage::helper('sales')->__('lbs') ?></option>
-                                <option value="<?php echo Zend_Measure_Weight::KILOGRAM ?>" ><?php echo Mage::helper('sales')->__('kgs') ?></option>
+                                <option value="<?php echo Zend_Measure_Weight::POUND ?>" selected="selected"  ><?php echo Mage::helper('sales')->__('lb') ?></option>
+                                <option value="<?php echo Zend_Measure_Weight::KILOGRAM ?>" ><?php echo Mage::helper('sales')->__('kg') ?></option>
                             </select>
                         </td>
                         <td>

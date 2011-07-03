@@ -35,57 +35,41 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
 {
     /**
      * Submission title length
-     *
-     * @var int
      */
     const SUBMISSION_TITLE_LENGTH = 30;
 
     /**
      * Submission description length
-     *
-     * @var int
      */
     const SUBMISSION_DESCRIPTION_LENGTH = 4000;
 
     /**
      * Android preview banner widht
-     *
-     * @var int
      */
     const PREVIEW_BANNER_WIDTH = 320;
 
     /**
      * Android preview banner image height
-     *
-     * @var int
      */
     const PREVIEW_BANNER_HEIGHT = 258;
 
     /**
      * Tags identifier for title bar
-     *
-     * @var int
      */
     const TAGS_ID_FOR_TITLE_BAR = 1;
 
     /**
      * Tags identifier for options menu
-     *
-     * @var int
      */
     const TAGS_ID_FOR_OPTION_MENU = 2;
 
     /**
      * Country renderer for submission
-     *
-     * @var string
      */
     const SUBMISSION_COUNTRY_RENDERER = 'androidmarket';
 
     /**
      * Country columns for submission
-     *
-     * @var int
      */
     const SUBMISSION_COUNTRY_COLUMNS = 2;
 
@@ -104,16 +88,6 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
     protected $_countryRenderer = null;
 
     /**
-     * Get submit images that are required for application submit
-     *
-     * @return array
-     */
-    public function getSubmitImages()
-    {
-        return $this->_imageIds;
-    }
-
-    /**
      * List of coutries that allowed in Ituens by Apple Store
      *
      * array(
@@ -123,36 +97,46 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
      * @var array
      */
     protected $_allowedCountries = array(
-                'Argentina' => 'AR',
-                'Australia' => 'AU',
-                'Austria' => 'AT',
-                'Belgium' => 'BE',
-                'Brazil' =>'BR',
-                'Canada' => 'CA',
-                'Denmark' => 'DK',
-                'Finland' => 'FI',
-                'France' => 'FR',
-                'Germany' => 'DE',
-                'Hong Kong SAR China' => 'HK',
-                'Ireland' => 'IE',
-                'Israel' => 'IL',
-                'Italy' => 'IT',
-                'Japan' => 'JP',
-                'Mexico' => 'MX',
-                'Netherlands' => 'NL',
-                'New Zealand' => 'NZ',
-                'Norway' => 'NO',
-                'Portugal' => 'PT',
-                'Russia' => 'RU',
-                'Singapore' => 'SG',
-                'Spain' => 'ES',
-                'South Korea' => 'KR',
-                'Sweden' => 'SE',
-                'Switzerland' => 'CH',
-                'Taiwan' => 'TW',
-                'United Kingdom' => 'GB',
-                'United States' => 'US',
+        'Argentina' => 'AR',
+        'Australia' => 'AU',
+        'Austria'   => 'AT',
+        'Belgium'   => 'BE',
+        'Brazil'    =>'BR',
+        'Canada'    => 'CA',
+        'Denmark'   => 'DK',
+        'Finland'   => 'FI',
+        'France'    => 'FR',
+        'Germany'   => 'DE',
+        'Hong Kong SAR China' => 'HK',
+        'Ireland'   => 'IE',
+        'Israel'    => 'IL',
+        'Italy'     => 'IT',
+        'Japan'     => 'JP',
+        'Mexico'    => 'MX',
+        'Netherlands' => 'NL',
+        'New Zealand' => 'NZ',
+        'Norway'    => 'NO',
+        'Portugal'  => 'PT',
+        'Russia'    => 'RU',
+        'Singapore' => 'SG',
+        'Spain'     => 'ES',
+        'South Korea' => 'KR',
+        'Sweden'    => 'SE',
+        'Switzerland' => 'CH',
+        'Taiwan'    => 'TW',
+        'United Kingdom' => 'GB',
+        'United States' => 'US',
     );
+
+    /**
+     * Get submit images that are required for application submit
+     *
+     * @return array
+     */
+    public function getSubmitImages()
+    {
+        return $this->_imageIds;
+    }
 
     /**
      * Get default application tabs

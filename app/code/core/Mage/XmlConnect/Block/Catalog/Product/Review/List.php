@@ -27,11 +27,10 @@
 /**
  * Review block
  *
- * @category   Mage
- * @package    Mage_XmlConnect
+ * @category    Mage
+ * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_XmlConnect_Block_Catalog_Product_Review_List extends Mage_XmlConnect_Block_Catalog_Product_Review
 {
     /**
@@ -48,7 +47,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Review_List extends Mage_XmlConnect_
      */
     public function getReviewsXmlObject()
     {
-        $reviewsXmlObj = new Mage_XmlConnect_Model_Simplexml_Element('<reviews></reviews>');
+        $reviewsXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<reviews></reviews>');
         $collection     = $this->_getReviewCollection();
 
         if (!$collection) {

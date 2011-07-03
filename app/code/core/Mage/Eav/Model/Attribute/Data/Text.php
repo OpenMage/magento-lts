@@ -82,7 +82,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
         }
         if (!empty($validateRules['max_text_length']) && $length > $validateRules['max_text_length']) {
             $v = $validateRules['max_text_length'];
-            $errors[] = Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.', $label, $v);
+            $errors[] = Mage::helper('eav')->__('"%s" length must be equal or less than %s characters.', $label, $v);
         }
 
         $result = $this->_validateInputRule($value);

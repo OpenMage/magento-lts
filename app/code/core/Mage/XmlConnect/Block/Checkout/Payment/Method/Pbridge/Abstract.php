@@ -27,9 +27,9 @@
 /**
  * Abstract Pbridge Payment method xml renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_XmlConnect_Block_Checkout_Payment_Method_Pbridge_Abstract
     extends Enterprise_Pbridge_Block_Payment_Form_Abstract
@@ -72,11 +72,16 @@ abstract class Mage_XmlConnect_Block_Checkout_Payment_Method_Pbridge_Abstract
         return $paymentItemXmlObj;
     }
 
+    /**
+     * Create html page with iframe for devices
+     *
+     * @return string html
+     */
     protected function createIframe()
     {
         $code = $this->getMethodCode();
         $body = <<<EOT
-<div id="payment_form_{$code}">
+<div id="payment_form_{$code}" style="margin:0 auto; max-width:500px;">
     {$this->getIframeBlock()->toHtml()}
 </div>
 EOT;

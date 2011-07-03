@@ -287,6 +287,57 @@ Print pages
     </sales_order_printcreditmemo>
 
 <!--
+For guests
+-->
+    <sales_guest_view>
+        <reference name="order_items">
+            <action method="addItemRender"><type>bundle</type><block>bundle/sales_order_items_renderer</block><template>bundle/sales/order/items/renderer.phtml</template></action>
+        </reference>
+    </sales_guest_view>
+
+    <sales_guest_invoice>
+        <reference name="invoice_items">
+            <action method="addItemRender"><type>bundle</type><block>bundle/sales_order_items_renderer</block><template>bundle/sales/order/invoice/items/renderer.phtml</template></action>
+        </reference>
+    </sales_guest_invoice>
+
+    <sales_guest_shipment>
+        <reference name="shipment_items">
+            <action method="addItemRender"><type>bundle</type><block>bundle/sales_order_items_renderer</block><template>bundle/sales/order/shipment/items/renderer.phtml</template></action>
+        </reference>
+    </sales_guest_shipment>
+
+    <sales_guest_creditmemo>
+        <reference name="creditmemo_items">
+            <action method="addItemRender"><type>bundle</type><block>bundle/sales_order_items_renderer</block><template>bundle/sales/order/creditmemo/items/renderer.phtml</template></action>
+        </reference>
+    </sales_guest_creditmemo>
+
+    <sales_guest_print>
+        <reference name="sales.order.print">
+            <action method="addItemRender"><type>bundle</type><block>bundle/sales_order_items_renderer</block><template>bundle/sales/order/items/renderer.phtml</template></action>
+        </reference>
+    </sales_guest_print>
+
+    <sales_guest_printinvoice>
+        <reference name="sales.order.print.invoice">
+            <action method="addItemRender"><type>bundle</type><block>bundle/sales_order_items_renderer</block><template>bundle/sales/order/invoice/items/renderer.phtml</template></action>
+        </reference>
+    </sales_guest_printinvoice>
+
+    <sales_guest_printshipment>
+        <reference name="sales.order.print.shipment">
+            <action method="addItemRender"><type>bundle</type><block>bundle/sales_order_items_renderer</block><template>bundle/sales/order/shipment/items/renderer.phtml</template></action>
+        </reference>
+    </sales_guest_printshipment>
+
+    <sales_guest_printcreditmemo>
+        <reference name="sales.order.print.creditmemo">
+            <action method="addItemRender"><type>bundle</type><block>bundle/sales_order_items_renderer</block><template>bundle/sales/order/creditmemo/items/renderer.phtml</template></action>
+        </reference>
+    </sales_guest_printcreditmemo>
+
+<!--
 Emails
 -->
     <sales_email_order_items>

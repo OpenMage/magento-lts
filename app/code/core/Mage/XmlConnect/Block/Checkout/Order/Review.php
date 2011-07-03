@@ -27,10 +27,9 @@
 /**
  * One page checkout order review xml renderer
  *
- * @category   Mage
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Checkout_Order_Review extends Mage_Checkout_Block_Onepage_Review
 {
@@ -41,14 +40,14 @@ class Mage_XmlConnect_Block_Checkout_Order_Review extends Mage_Checkout_Block_On
      */
     protected function _toHtml()
     {
-        $orderXmlObj = new Mage_XmlConnect_Model_Simplexml_Element('<order></order>');
+        $orderXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<order></order>');
 
         /**
          * Order items
          */
         $products = $this->getChildHtml('order_products');
         if ($products) {
-            $productsXmlObj = new Mage_XmlConnect_Model_Simplexml_Element($products);
+            $productsXmlObj = Mage::getModel('xmlconnect/simplexml_element', $products);
             $orderXmlObj->appendChild($productsXmlObj);
         }
 
@@ -57,7 +56,7 @@ class Mage_XmlConnect_Block_Checkout_Order_Review extends Mage_Checkout_Block_On
          */
         $totalsXml = $this->getChildHtml('totals');
         if ($totalsXml) {
-            $totalsXmlObj = new Mage_XmlConnect_Model_Simplexml_Element($totalsXml);
+            $totalsXmlObj = Mage::getModel('xmlconnect/simplexml_element', $totalsXml);
             $orderXmlObj->appendChild($totalsXmlObj);
         }
 
@@ -66,11 +65,10 @@ class Mage_XmlConnect_Block_Checkout_Order_Review extends Mage_Checkout_Block_On
          */
         $agreements = $this->getChildHtml('agreements');
         if ($agreements) {
-            $agreementsXmlObj = new Mage_XmlConnect_Model_Simplexml_Element($agreements);
+            $agreementsXmlObj = Mage::getModel('xmlconnect/simplexml_element', $agreements);
             $orderXmlObj->appendChild($agreementsXmlObj);
         }
 
         return $orderXmlObj->asNiceXml();
     }
-
 }

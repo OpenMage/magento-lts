@@ -72,8 +72,9 @@ class Mage_Sales_Model_Resource_Report_Order extends Mage_Sales_Model_Resource_R
             }
             $this->_clearTableByDateRange($this->getMainTable(), $from, $to, $subSelect);
 
-            $periodExpr = $adapter->getDatePartSql($adapter->getDateAddSql('o.created_at',
-                $this->_getStoreTimezoneUtcOffset(), Varien_Db_Adapter_Interface::INTERVAL_HOUR));
+            $periodExpr = $adapter->getDatePartSql(
+                $this->getStoreTZOffsetQuery(array('o' => $this->getTable('sales/order')), 'o.created_at', $from, $to)
+            );
             // Columns list
             $columns = array(
                 // convert dates from UTC to current admin timezone
@@ -200,7 +201,7 @@ class Mage_Sales_Model_Resource_Report_Order extends Mage_Sales_Model_Resource_R
                 ));
 
             if ($subSelect !== null) {
-                $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'o.created_at'));
+                $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
             $select->group(array(

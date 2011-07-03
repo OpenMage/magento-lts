@@ -190,7 +190,8 @@ class Varien_File_Uploader
         $this->_result = false;
 
         $destinationFile = $destinationFolder;
-        $fileName = isset($newFileName) ? $newFileName : self::getCorrectFileName($this->_file['name']);
+        $fileName = isset($newFileName) ? $newFileName : $this->_file['name'];
+        $fileName = self::getCorrectFileName($fileName);
         if ($this->_enableFilesDispersion) {
             $fileName = $this->correctFileNameCase($fileName);
             $this->setAllowCreateFolders(true);
@@ -205,7 +206,7 @@ class Varien_File_Uploader
 
         $destinationFile = self::_addDirSeparator($destinationFile) . $fileName;
 
-        $this->_result = move_uploaded_file($this->_file['tmp_name'], $destinationFile);
+        $this->_result = $this->_moveFile($this->_file['tmp_name'], $destinationFile);
 
         if ($this->_result) {
             chmod($destinationFile, 0777);
@@ -223,6 +224,18 @@ class Varien_File_Uploader
         }
 
         return $this->_result;
+    }
+
+    /**
+     * Move files from TMP folder into destination folder
+     *
+     * @param string $tmpPath
+     * @param string $destPath
+     * @return bool
+     */
+    protected function _moveFile($tmpPath, $destPath)
+    {
+        return move_uploaded_file($tmpPath, $destPath);
     }
 
     /**

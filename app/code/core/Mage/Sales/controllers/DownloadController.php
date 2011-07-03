@@ -143,5 +143,6 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
         } catch (Exception $e) {
             $this->_forward('noRoute');
         }
+        exit(0);
     }
 }

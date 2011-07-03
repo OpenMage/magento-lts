@@ -31,7 +31,7 @@
  * @package    Mage_Rss
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Abstract
+class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
 {
     /**
      * Zend_Date object for date comparsions
@@ -120,25 +120,14 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Abstract
 
                 // add price data if needed
                 if ($product->getAllowedPriceInRss()) {
-                    $special = '';
-                    if ($result['use_special']) {
-                        $special = '<br />' . Mage::helper('catalog')->__('Special Expires On: %s', $this->formatDate($result['special_to_date'], Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM));
-                    }
                     if (Mage::helper('catalog')->canApplyMsrp($product)) {
-                        $msrpPrice = $product->getMsrp();
-                        if ($msrpPrice) {
-                            $html .= '<p class="old-price">';
-                            $msrpPrice = $this->helper('core')->currency($msrpPrice, true, true);
-                            $html .= '<span class="price-label">' . $this->__('Regular Price:') . '</span>'
-                                . ' <span class="price">' . $msrpPrice . '</span> ';
-                        }
-                        if ($this->helper('catalog')->isShowPriceOnGesture($product)) {
-                            $html .= '<a href="' . $product->getProductUrl() . '">'
-                                . $this->__('Click for price') . '</a>';
-                        } else {
-                            $html .= $this->helper('catalog')->getMsrpPriceMessage($product);
-                        }
+                        $html .= '<br/><a href="' . $product->getProductUrl() . '">'
+                            . $this->__('Click for price') . '</a>';
                     } else {
+                        $special = '';
+                        if ($result['use_special']) {
+                            $special = '<br />' . Mage::helper('catalog')->__('Special Expires On: %s', $this->formatDate($result['special_to_date'], Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM));
+                        }
                         $html .= sprintf('<p>%s %s%s</p>',
                             Mage::helper('catalog')->__('Price: %s', Mage::helper('core')->currency($result['price'])),
                             Mage::helper('catalog')->__('Special Price: %s', Mage::helper('core')->currency($result['final_price'])),

@@ -41,6 +41,13 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     protected $_customer;
 
     /**
+     * Default MAP renderer type
+     *
+     * @var string
+     */
+    protected $_mapRenderer = 'msrp_rss';
+
+    /**
      * Retrieve Wishlist model
      *
      * @return Mage_Wishlist_Model_Wishlist
@@ -103,24 +110,33 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 'language'      => $lang
             ));
 
-            /* @var $product Mage_Catalog_Model_Product */
+            /** @var $product Mage_Wishlist_Model_Item*/
             foreach ($this->getWishlistItems() as $product) {
-                $description = '<table><tr><td><a href="' . $this->getProductUrl($product) . '"><img src="'
-                    . $this->helper('catalog/image')->init($product->getProduct(), 'thumbnail')->resize(75, 75)
+                $productUrl = $this->getProductUrl($product);
+
+                /* @var $wishlistProduct Mage_Catalog_Model_Product */
+                $wishlistProduct = $product->getProduct();
+                $wishlistProduct->setAllowedInRss(true);
+                $wishlistProduct->setAllowedPriceInRss(true);
+                $wishlistProduct->setProductUrl($productUrl);
+                $args = array('product'=>$wishlistProduct);
+
+                Mage::dispatchEvent('rss_wishlist_xml_callback', $args);
+
+                if (!$wishlistProduct->getAllowedInRss()) {
+                    continue;
+                }
+
+                $description = '<table><tr><td><a href="' . $productUrl . '"><img src="'
+                    . $this->helper('catalog/image')->init($wishlistProduct, 'thumbnail')->resize(75, 75)
                     . '" border="0" align="left" height="75" width="75"></a></td>'
                     . '<td style="text-decoration:none;">'
                     . $this->helper('catalog/output')
                         ->productAttribute($product, $product->getShortDescription(), 'short_description')
                     . '<p>';
-                if ($product->getPrice() != $product->getFinalPrice()) {
-                    $description .= Mage::helper('catalog')->__('Regular Price:') . ' <strike>'
-                        . Mage::helper('core')->currency($product->getPrice()) . '</strike> '
-                        . Mage::helper('catalog')->__('Special Price:') . ' <strong>'
-                        . Mage::helper('core')->currency($product->getFinalPrice()).'</strong>';
-                }
-                else {
-                    $description .= Mage::helper('catalog')->__('Price:') . ' '
-                        . Mage::helper('core')->currency($product->getFinalPrice());
+
+                if ($wishlistProduct->getAllowedPriceInRss()) {
+                    $description .= $this->getPriceHtml($wishlistProduct,true);
                 }
                 $description .= '</p>';
                 if ($this->hasDescription($product)) {
@@ -135,7 +151,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 $rssObj->_addEntry(array(
                     'title'         => $this->helper('catalog/output')
                         ->productAttribute($product, $product->getName(), 'name'),
-                    'link'          => $this->getProductUrl($product),
+                    'link'          => $productUrl,
                     'description'   => $description,
                 ));
             }
@@ -163,5 +179,22 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     {
         $additional['_rss'] = true;
         return parent::getProductUrl($product, $additional);
+    }
+
+    /**
+     * Adding customized price template for product type, used as action in layouts
+     *
+     * @param string $type Catalog Product Type
+     * @param string $block Block Type
+     * @param string $template Template
+     */
+    public function addPriceBlockType($type, $block = '', $template = '')
+    {
+        if ($type) {
+            $this->_priceBlockTypes[$type] = array(
+                'block' => $block,
+                'template' => $template
+            );
+        }
     }
 }

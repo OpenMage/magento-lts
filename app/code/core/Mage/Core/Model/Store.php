@@ -46,7 +46,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 {
     const ENTITY = 'core_store';
 
-    const XML_PATH_STORE_STORE_NAME   = 'general/store_information/name';
+    const XML_PATH_STORE_STORE_NAME       = 'general/store_information/name';
+    const XML_PATH_STORE_STORE_PHONE      = 'general/store_information/phone';
 
     const XML_PATH_STORE_IN_URL           = 'web/url/use_store';
     const XML_PATH_USE_REWRITES           = 'web/seo/use_rewrites';

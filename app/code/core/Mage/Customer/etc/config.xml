@@ -122,27 +122,43 @@
                     <shipping>1</shipping>
                 </street_full>
                 <street1>
+                    <billing>1</billing>
+                    <shipping>1</shipping>
                     <street>1</street>
                 </street1>
                 <street2>
+                    <billing>1</billing>
+                    <shipping>1</shipping>
                     <street>1</street>
                 </street2>
                 <street3>
+                    <billing>1</billing>
+                    <shipping>1</shipping>
                     <street>1</street>
                 </street3>
                 <street4>
+                    <billing>1</billing>
+                    <shipping>1</shipping>
                     <street>1</street>
                 </street4>
                 <street5>
+                    <billing>1</billing>
+                    <shipping>1</shipping>
                     <street>1</street>
                 </street5>
                 <street6>
+                    <billing>1</billing>
+                    <shipping>1</shipping>
                     <street>1</street>
                 </street6>
                 <street7>
+                    <billing>1</billing>
+                    <shipping>1</shipping>
                     <street>1</street>
                 </street7>
                 <street8>
+                    <billing>1</billing>
+                    <shipping>1</shipping>
                     <street>1</street>
                 </street8>
                 <city>

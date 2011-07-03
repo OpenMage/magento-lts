@@ -36,8 +36,6 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
     /**#@+
      * Keys for passthrough variables in sales/quote_payment and sales/order_payment
      * Uses additional_information as storage
-     *
-     * @var string
      */
     const PAYMENT_INFO_PAYER_EMAIL = 'paypal_payer_email';
     const PAYMENT_INFO_TRANSACTION_ID = 'paypal_mep_checkout_transaction_id';
@@ -136,11 +134,21 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
         $address = $this->_quote->getBillingAddress();
 
         $this->_applyCountryWorkarounds($data);
-        if (!in_array($data['country_id'], Mage::getModel('paypal/config')->getSupportedBuyerCountryCodes())) {
-            return array(
-                'error' => 1,
-                'message' => Mage::helper('xmlconnect')->__('Buyer country is not allowed by store.')
-            );
+        /** @var $model Mage_XmlConnect_Model_Application */
+        $model = Mage::helper('xmlconnect')->getApplication();
+
+        $paypalMepAllowSpecific = $model->getData('config_data[payment:paypalmep/allowspecific]');
+        if ($paypalMepAllowSpecific !== null) {
+            if ((int)$paypalMepAllowSpecific > 0) {
+                $allowedCountries = explode(',', $model->getData('config_data[payment][paypalmep/applicable]'));
+                $allowedCountries = array_map('trim', $allowedCountries);
+                if (!in_array(trim($data['country_id']), $allowedCountries)) {
+                    return array(
+                        'error' => 1,
+                        'message' => Mage::helper('xmlconnect')->__('Buyer country is not allowed by store.')
+                    );
+                }
+            }
         }
 
         if (empty($data['firstname']) && empty($data['lastname'])) {
@@ -186,11 +194,14 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
         if (empty($shippingMethod)) {
             return array('error' => 1, 'message' => Mage::helper('xmlconnect')->__('Invalid shipping method.'));
         }
+
         $rate = $this->_quote->getShippingAddress()->getShippingRateByCode($shippingMethod);
         if (!$rate) {
             return array('error' => 1, 'message' => Mage::helper('xmlconnect')->__('Invalid shipping method.'));
         }
-        if (!$this->_quote->getIsVirtual() && $shippingAddress = $this->_quote->getShippingAddress()) {
+
+        $shippingAddress = $this->_quote->getShippingAddress();
+        if (!$this->_quote->getIsVirtual() && $shippingAddress) {
             if ($shippingMethod != $shippingAddress->getShippingMethod()) {
                 $this->_ignoreAddressValidation();
                 $this->_quote->getShippingAddress()
@@ -257,7 +268,9 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
             ->setLastOrderId($order->getId())
             ->setLastRealOrderId($order->getIncrementId());
 
-        if ($order->getState() == Mage_Sales_Model_Order::STATE_PROCESSING) {
+        if ($order->getState() == Mage_Sales_Model_Order::STATE_PROCESSING
+            && Mage::getSingleton('customer/session')->isLoggedIn()
+        ) {
             try {
                 $order->sendNewOrderEmail();
             } catch (Exception $e) {

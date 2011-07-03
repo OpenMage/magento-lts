@@ -27,12 +27,12 @@
 /**
  * XmlConnect checkout controller
  *
+ * @category    Mage
+ * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Action
 {
-
     /**
      * Make sure customer is logged in
      *
@@ -71,6 +71,7 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
             $this->_message($this->__('Onepage checkout is disabled.'), self::MESSAGE_STATUS_ERROR);
             return;
         }
+        /** @var $quote Mage_Sales_Model_Quote */
         $quote = $this->getOnepage()->getQuote();
         if ($quote->getHasError()) {
             $this->_message($this->__('Cart has some errors.'), self::MESSAGE_STATUS_ERROR);
@@ -398,7 +399,7 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
         try {
             if ($requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds()) {
                 $postedAgreements = array_keys($this->getRequest()->getPost('agreement', array()));
-                if ($diff = array_diff($requiredAgreements, $postedAgreements)) {
+                if (array_diff($requiredAgreements, $postedAgreements)) {
                     $error = $this->__('Please agree to all the terms and conditions before placing the order.');
                     $this->_message($error, self::MESSAGE_STATUS_ERROR);
                     return;
@@ -409,7 +410,8 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
             }
             $this->getOnepage()->saveOrder();
 
-            $message = new Mage_XmlConnect_Model_Simplexml_Element('<message></message>');
+            /** @var $message Mage_XmlConnect_Model_Simplexml_Element */
+            $message = Mage::getModel('xmlconnect/simplexml_element', '<message></message>');
             $message->addChild('status', self::MESSAGE_STATUS_SUCCESS);
 
             $orderId = $this->getOnepage()->getLastOrderId();

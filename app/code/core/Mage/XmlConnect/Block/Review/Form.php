@@ -48,41 +48,68 @@ class Mage_XmlConnect_Block_Review_Form extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         $customer = Mage::getSingleton('customer/session')->getCustomer();
-        $xmlModel = Mage::getModel('xmlconnect/simplexml_element', '<node></node>');
+        /** @var $xmlReview Mage_XmlConnect_Model_Simplexml_Element */
+        $xmlReview = Mage::getModel('xmlconnect/simplexml_element', '<form></form>');
+        $xmlReview->addAttribute('name', 'review_form');
+        $xmlReview->addAttribute('method', 'post');
 
-        $firstname = $ratingsXml = '';
+        $nickname = '';
         if ($customer->getId()) {
-            $firstname = $xmlModel->xmlentities(strip_tags($customer->getFirstname()));
+            $nickname = strip_tags($customer->getFirstname());
         }
 
         if ($this->getRatings()) {
+            $ratingsFieldset = $xmlReview->addCustomChild(
+                'fieldset',
+                null,
+                array(
+                    'label'    => $this->__('How do you rate this product?')
+                )
+            );
+
             foreach ($this->getRatings() as $rating) {
-                $ratingTitle = $xmlModel->xmlentities($rating->getRatingCode());
-                $ratingCode = strtolower($rating->getRatingCode());
-                $ratingCode = preg_replace('/[\W]+/', '_', $ratingCode);
-                $ratingsXml .= '
-    <fieldset name="rating_' . $ratingCode . '" title="' . $ratingTitle . '">';
+                $ratingField = $ratingsFieldset->addField(
+                    'ratings[' . $rating->getId() . ']',
+                    'radio',
+                    array(
+                        'label'     => $rating->getRatingCode(),
+                        'required'  => 'true'
+                    )
+                );
                 foreach ($rating->getOptions() as $option) {
-                    $ratingsXml .= '
-        <field name="ratings[' . $rating->getId() . ']" value="'
-                        . $option->getId() . '" required="true" type="radio"/>';
+                    $ratingField->addCustomChild('value', $option->getId());
                 }
-                $ratingsXml .= '
-    </fieldset>';
             }
         }
 
-        $xml = <<<EOT
-<form name="review_form" method="post">
-    <fieldset>
-        <field name="nickname" type="text" label="{$this->__('Nickname')}" required="true" value="{$firstname}" />
-        <field name="title" type="text" label="{$this->__('Summary of Your Review')}" required="true" />
-        <field name="detail" type="text" label="{$this->__('Review')}" required="true" />
-    </fieldset>{$ratingsXml}
-</form>
-EOT;
+        $reviewFieldset = $xmlReview->addCustomChild('fieldset');
+        $reviewFieldset->addField(
+            'nickname',
+            'text',
+            array(
+                'label'     => $this->__('Nickname'),
+                'required'  => 'true',
+                'value'     => $nickname
+            )
+        );
+        $reviewFieldset->addField(
+            'title',
+            'text',
+            array(
+                'label'     => $this->__('Summary of Your Review'),
+                'required'  => 'true'
+            )
+        );
+        $reviewFieldset->addField(
+            'detail',
+            'textarea',
+            array(
+                'label'     => $this->__('Review'),
+                'required'  => 'true'
+            )
+        );
 
-        return $xml;
+        return $xmlReview->asNiceXml();
     }
 
     /**

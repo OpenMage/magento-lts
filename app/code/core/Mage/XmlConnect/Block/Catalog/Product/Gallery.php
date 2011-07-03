@@ -27,14 +27,12 @@
 /**
  * Product images gallery block
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_XmlConnect_Block_Catalog_Product_Gallery extends Mage_XmlConnect_Block_Catalog
 {
-
     /**
      * Generate images gallery xml
      *
@@ -48,7 +46,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Gallery extends Mage_XmlConnect_Bloc
             ->load($productId);
         $collection = $product->getMediaGalleryImages();
 
-        $imagesNode = new Mage_XmlConnect_Model_Simplexml_Element('<images></images>');
+        $imagesNode = Mage::getModel('xmlconnect/simplexml_element', '<images></images>');
         $helper = $this->helper('catalog/image');
 
         foreach ($collection as $item) {

@@ -50,6 +50,10 @@ Default layout, loads most of the pages
         <update handle="MAP_popup" />
         <update handle="MAP_price_msrp_item" />
     </wishlist_index_index>
+    <wishlist_shared_index>
+        <update handle="MAP_popup" />
+        <update handle="MAP_price_msrp_item" />
+    </wishlist_shared_index>
 
     <MAP_popup>
         <reference name="head">

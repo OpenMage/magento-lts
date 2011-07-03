@@ -160,19 +160,25 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     }
 
     /**
-     * Set template location dire
+     * Set template location directory
      *
      * @param string $dir
      * @return Mage_Core_Block_Template
      */
     public function setScriptPath($dir)
     {
-        $this->_viewDir = $dir;
+        $scriptPath = realpath($dir);
+        if (strpos($scriptPath, realpath(Mage::getBaseDir('design'))) === 0 || $this->_getAllowSymlinks()) {
+            $this->_viewDir = $dir;
+        } else {
+            Mage::log('Not valid script path:' . $dir, Zend_Log::CRIT, null, null, true);
+        }
         return $this;
     }
 
     /**
-     * Check if dirrect output is allowed for block
+     * Check if direct output is allowed for block
+     *
      * @return bool
      */
     public function getDirectOutput()

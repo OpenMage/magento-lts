@@ -150,4 +150,26 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
         }
         return $entityTypeId;
     }
+    
+    /**
+     * Return Region ID
+     *
+     * @return int
+     */
+    public function getRegionId()
+    {
+        return (int)$this->getData('region_id');
+    }
+    
+    /**
+     * Set Region ID. $regionId is automatically converted to integer
+     *
+     * @param int $regionId
+     * @return Mage_Customer_Model_Address
+     */
+    public function setRegionId($regionId)
+    {
+        $this->setData('region_id', (int)$regionId);
+        return $this;
+    }
 }

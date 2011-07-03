@@ -147,7 +147,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
             }
         }
 
-        ksort($sort);
+        Mage::helper('core/string')->ksortMultibyte($sort);
         $options = array();
         foreach ($sort as $label=>$value) {
             $options[] = array(

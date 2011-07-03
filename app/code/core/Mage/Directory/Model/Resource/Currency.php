@@ -131,7 +131,7 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
             $rate    = $adapter->fetchOne($select, $bind);
             if ($rate === false) {
                 $select = $adapter->select()
-                    ->from($this->_currencyRateTable, "1/rate")
+                    ->from($this->_currencyRateTable, new Zend_Db_Expr('1/rate'))
                     ->where('currency_to = :currency_from')
                     ->where('currency_from = :currency_to');
                 $rate = $adapter->fetchOne($select, $bind);
@@ -178,7 +178,7 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
      *
      * @param Mage_Directory_Model_Currency $model
      * @param string $path
-     * 
+     *
      * @return array
      */
     public function getConfigCurrencies($model, $path)
@@ -203,7 +203,7 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
      *
      * @param string|array $currency
      * @param array $toCurrencies
-     * 
+     *
      * @return array
      */
     public function getCurrencyRates($currency, $toCurrencies = null)

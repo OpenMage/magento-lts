@@ -146,4 +146,24 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     {
         return Mage::getConfig()->getModuleDir('etc', $this->_getModuleName()) . DS . $this->_configFileName;
     }
+
+    /**
+     * Check whether specified action should be processed
+     *
+     * @param Varien_Event_Observer $observer
+     * @return bool
+     */
+    public function canProcess($observer)
+    {
+        $action = $observer->getEvent()->getAction();
+        $controllerAction = $observer->getEvent()->getControllerAction();
+
+        if ($action instanceof Mage_Core_Controller_Varien_Action) {
+            return !$action->getFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_START_SESSION);
+        }
+        if ($controllerAction instanceof Mage_Core_Controller_Varien_Action) {
+            return !$controllerAction->getFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_START_SESSION);
+        }
+        return true;
+    }
 }

@@ -27,10 +27,9 @@
 /**
  * One page checkout order info xml renderer
  *
- * @category   Mage
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Checkout_Order_Review_Info extends Mage_Checkout_Block_Onepage_Review_Info
 {
@@ -41,7 +40,7 @@ class Mage_XmlConnect_Block_Checkout_Order_Review_Info extends Mage_Checkout_Blo
      */
     protected function _toHtml()
     {
-        $itemsXmlObj = new Mage_XmlConnect_Model_Simplexml_Element('<products></products>');
+        $itemsXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<products></products>');
         $quote = Mage::getSingleton('checkout/session')->getQuote();
 
         /* @var $item Mage_Sales_Model_Quote_Item */
@@ -118,7 +117,6 @@ class Mage_XmlConnect_Block_Checkout_Order_Review_Info extends Mage_Checkout_Blo
                 }
             }
 
-
             /**
              * Subtotal
              */
@@ -192,5 +190,4 @@ class Mage_XmlConnect_Block_Checkout_Order_Review_Info extends Mage_Checkout_Blo
 
         return $itemsXmlObj->asNiceXml();
     }
-
 }

@@ -58,8 +58,6 @@ $table = $installer->getConnection()
         ), 'Active To')
     ->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         ), 'Updated At')
-    ->addColumn('configuration', Varien_Db_Ddl_Table::TYPE_BLOB, '64K', array(
-        ), 'Configuration Info')
     ->addColumn('status', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
             'unsigned'  => true,
             'nullable'  => false,
@@ -84,6 +82,46 @@ $table = $installer->getConnection()
     )
     ->setComment('Xmlconnect Application');
 $installer->getConnection()->createTable($table);
+
+/**
+ * Create table 'xmlconnect_config_data'
+ */
+$configTableName = $installer->getTable('xmlconnect/configData');
+$configTable = $installer->getConnection()
+    ->newTable($configTableName)
+    ->addColumn('application_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+            'unsigned'  => true,
+            'nullable'  => false,
+        ), 'Application Id')
+    ->addColumn('category', Varien_Db_Ddl_Table::TYPE_TEXT, 60, array(
+            'nullable'  => false,
+            'default'  => 'default',
+        ), 'Category')
+    ->addColumn('path', Varien_Db_Ddl_Table::TYPE_TEXT, 250, array(
+            'nullable'  => false,
+        ), 'Path')
+    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
+            'nullable'  => false,
+        ), 'Value')
+    ->addIndex(
+        $installer->getIdxName(
+            $configTableName,
+            array('application_id', 'category', 'path'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
+        array('application_id', 'category', 'path'),
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+    )
+    ->addForeignKey(
+        $installer->getFkName($configTableName, 'application_id', $appTableName, 'application_id'),
+        'application_id',
+        $appTableName,
+        'application_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
+    ->setComment('Xmlconnect Configuration Data');
+$installer->getConnection()->createTable($configTable);
 
 /**
  * Create table 'xmlconnect_history'

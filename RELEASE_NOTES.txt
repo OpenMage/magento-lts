@@ -1,3 +1,229 @@
+==== 1.6.0.0-rc1 ====
+
+=== Major Highlights ===
+Minimum Advertised Price
+Persistent Shopping Cart
+
+=== Improvements ===
+XmlConnect package release v21
+Order Payment Action for Express Checkout (PayPal)
+- Added settings Authorization Honor Period and Order Valid Period into EC tab in the backend
+- Automatically new authorize transaction created after order transaction
+- Automatically cancel order after the expiration of Order Valid Period
+- Automatically authorize transaction void\create after the expiration of Authorization Honor Period
+Implemented Authorize.Net 'hold for review' status shows up as 'declined' in Magento.
+Add Dynamic sku option for configurable products
+Moneybookers Multistore System Configuration
+Moneybookers OBT Defaults
+PrototypeJS upgraded to 1.7
+
+=== Changes ===
+Removed deprecation.js because its not compatible with prototype 1.7
+Relations between models and resource models were revised for better support of multiple databases
+* Varien_Db_Adapter_Pdo_Mysql revised
+* Introduced Varien_Db_Adapter_Interface,  Varien_Db_Ddl_Table
+* Introduced new classes named resource helpers
+* Backwards comatibility and known issues
+** Flat attribute definition is not backward compatible
+** Old columns names are not fully mapped to new ones
+** Error appears after Customer Group saving with name length more than 32
+** Caching config in Database results in endless recursion
+** There's no sql upgrade for media storage tables
+Deprecated GoogleBase module (http://googlemerchantblog.blogspot.com/2010/12/new-shopping-apis-and-deprecation-of.html)
+
+=== Fixes ===
+Fixed Upgrade checking after cache flushed
+Fixed Frontend: Tier price not always applied to Mini Shopping Cart
+Fixed A message for the case when shipping label is created from the order should be modified
+Fixed Spelling mistake in abbreviations unit of mass measurement (lbs, kgs)
+Fixed FedEx Ground Shipping Method unavailable (if others FedEx Shipping Methods unavailable)
+Fixed Incorrect Signature Confirmation options in the drop-down (in case with UPS)
+Fixed Frontend: Catalog Price Rule does not apply to Mini Shopping Cart after login current customer
+- add recollect total prices for quote on customer register
+Fixed Fatal error when requesting non-existent file from Media directory
+Fixed Button "Add to Cart" located in JS-popup (with Display Actual Price = On Gesture) doesn't work.
+Fixed Headers sent twice or three times when file downloading
+Fixed Shipping method is calculating based on default shipping address instead of 'Same as billing' setting in backend
+Fixed No ability to create more that one online Partial Invoice with Google Checkout
+- parent transaction will be closed on payment model level;
+- fixed exception error in Mage_Tax_Model_Resource_Calculation
+Fixed Cross Sell Sorting Not Working
+Fixed No ability to create Shipping Label for USPS - First-Class Mail International Package
+Fixed Notification remove link in admin redirects to homepage on frontend in IE8
+Fixed Incorrect behavior of image gallery
+Fixed 'On Gesture' option is not applied on products' level
+Fixed The message that appears instead or totals in the shopping cart and mini shopping cart should be modified
+Fixed Void button present when order is fully invoiced
+Fixed No ability to create Shipping Label with package type "Flat-Rate Box" (in case with USPS International)
+Fixed MAP behavior for RSS feed pages should be changed (only "Click for price" link should be present)
+Fixed PayflowLink doesn't work (error "Payment has been declined. Please try again." is shown, Order is canceled)
+Fixed Incorrect Online Refund amount in Magento, when Adjustment Fee is specified (Google Checkout)
+Fixed Brazil PayPal requirements upgrade
+Fixed No ability to create Shipping Label with package type "Flat-Rate Box" (in case with USPS International)
+Fixed Issue with add to cart action, possible to add to cart a quantity of N+1 for a product.
+Fixed No ability to create Shipping Label if "ship to" in Canada (in case with UPS)
+Fixed Wrong content in export file (all export types)
+Fixed "Mysql" must be renamed to "MySQL" in installer
+Fixed File overwriting during Import/Export.
+Fixed Reuse of adapter utilities in helper
+Fixed MAP behavior for RSS feed pages should be changed (only "Click for price" link should be present)
+Fixed When changing locale that has Unicode characters, the countries are not sorting correctly
+Fixed Importing customers via csv
+Fixed Two void transactions created when using Payment Action = Order in PayPal Express
+Fixed Issue with newsletter subscriptions and logged in customers
+Fixed Frontend: Long-term cookie session is not over after click on "(Not..?)" link
+Fixed Mismatch counts of products for different scope
+Fixed Wrong config setting are implemented for MAP functionality in admin on product's level
+Fixed Street Address and Street Address 2 are mixed up in request to shipping carrier (in case with USPS International)
+Fixed No ability to create Shipping Label if "ship to" in Canada (in case with UPS)
+- fixed MonetaryValue to be whole number
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed Add verification into predispatch observers used in persistent shopping cart
+Fixed Canceled orders should be excluded from Tax Reports
+Fixed No ability to create Shipping Label with package type "Flat-Rate Box" (in case with USPS International)
+Fixed Import/Export: Append Complex Data works incorrect with grouped products
+- check behavior was added
+Fixed Fatal error appears on get shipping rates for UPS if system base currency <> merchant country currency
+Fixed Map in the frontend link has "Click to see price" name, but must be "Click for price"
+Fixed Taxes are not displayed in the catalog from frontend for Bundle products
+Fixed Available to delete dropdown attribute which used in configurable product
+Fixed MySQL error with "max_allowed_packet" during check data step for a huge .csv file
+- Changed value for constant DB_MAX_PACKET_COEFFICIENT in Mage_ImportExport_Model_Resource_Helper_Mysql4
+Fixed Invalid requests to USPS API
+Fixed No ability to input some value in dimensions field in case for package type with non-standard dimensions
+Fixed Packages Pop-up looks incorrectly
+Fixed Caching config in Database results in endless recursion
+Fixed Shipping origin address used instead of the one specified in the RMA setting for Use Store Address = No
+Fixed No Signature Confirmation in Packages pop-up
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed "NaN" instead of two dashes in Package pop-up (in case with disabled Length, Width and Height fields)
+Fixed Prefix and suffix aren't visible in Register Form
+- Modified persistent customer templates
+Fixed Unable to Checkout with Multiple Addresses with Registration
+Fixed Not work shipping methods Fedex & DHL
+- Re-factored DHL, Fedex, Ups, Usps
+- Fixed minor bugs for frontend(package.phtml, view.phtml) and backend(popup.phtml, shippingmethod.phtml)
+Fixed When we do reindex from console, folder var/log changes permissions from 0777 to 0775
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed Orders placed through PayPal marked as "Suspected Fraud"
+- Added formatting amount  into comparing
+Fixed Enable Log Cleaning option is not working properly
+Fixed Impossible to do online refund for "CyberSource" payment method
+Fixed Incorrect transparency of PNG image in indexed non-alpha mode
+Fixed Value from Total Weight field is not passed to shipping carrier (in case with DHL and UPS)
+Fixed After enabling dashboard chart admin user is unable to login to admin panel
+Fixed Sorting on Please Select products to Add doesn't work
+Fixed Catalog Price Rules - the rule is saved but not applied
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed Cross Sell Sorting Not Working
+Fixed Error when obtaining missed file over get.php
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed Unable to save Poll for more than one Store.
+Fixed Mage_Directory_Helper_Data::getRegionJson doesn't translate region names
+Fixed Static block in the Main Content Area overlaps border of the catalog of products
+Fixed 3D secure with Saved CC works incorrectly
+Fixed Shipping origin address used instead of the one specified in the RMA setting for Use Store Address = No
+Fixed Unable add Gift Options for Individual Items
+Fixed Customer Reports
+- avoid selections group by null customer id.
+Fixed Mysql4 install error
+Fixed "What's this?" link is absent, "Click for price" link doesn't work for shared Wishlist page.
+Fixed Incorrect Row Total Calculation in Refund
+- changed tax counting algorithm(now it counts tax for single item)
+Fixed Incorrect recipient name of Shipping Label
+Fixed Missing "Street Address Line 2" in Shipping Label (in case with DHL)
+Fixed After upgrading Magento website left in the maintenance mode
+Fixed Frontend: JavaScript error appears if user registered on Checkout Page.
+Fixed Added items to the Wishlist in the "Manage Shopping Cart" are not shown
+Fixed Information is not saved in DB after placing order during checkout
+Fixed Reports data wrong even after refreshing lifetime statistics
+Fixed Frontend can be broken by recursion
+Fixed Sub items are not displayed for the order for bundles, if user use Return and Orders link
+- added renderers for non-simple product types
+Fixed Error message for the case when store information is incomplete should be changed
+Fixed MAP behavior for RSS feed pages should be changed accordingly to SRS (only "Click for price" link should be present)
+Fixed Exception after upgrade Magento via diff files
+Fixed Frontend: The block "Compare Products" is empty after relogin
+Fixed Frontend: Catalog Price Rule does not apply to Mini Shopping Cart after login current customer
+- remove checking if customerGroupId exists because quote is loaded with existed customerGroupId as guest
+Fixed Unable to delete product with tag in pending status
+Fixed Images not imported using new Import/Export
+
+
+
+==== 1.6.x-devel-112177 ====
+
+=== Improvements ===
+XmlConnect package release v21
+
+=== Changes ===
+Removed deprecation.js because its not compatible with prototype 1.7
+
+=== Fixes ===
+Fixed MySQL error with "max_allowed_packet" during check data step for a huge .csv file
+- Changed value for constant DB_MAX_PACKET_COEFFICIENT in Mage_ImportExport_Model_Resource_Helper_Mysql4
+Fixed Invalid requests to USPS API
+Fixed No ability to input some value in dimensions field in case for package type with non-standard dimensions
+Fixed Packages Pop-up looks incorrectly
+Fixed Caching config in Database results in endless recursion
+Fixed Shipping origin address used instead of the one specified in the RMA setting for Use Store Address = No
+Fixed No Signature Confirmation in Packages pop-up
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed "NaN" instead of two dashes in Package pop-up (in case with disabled Length, Width and Height fields)
+Fixed Prefix and suffix aren't visible in Register Form
+- Modified persistent customer templates
+Fixed Unable to Checkout with Multiple Addresses with Registration
+Fixed Not work shipping methods Fedex & DHL
+- Re-factored DHL, Fedex, Ups, Usps
+- Fixed minor bugs for frontend(package.phtml, view.phtml) and backend(popup.phtml, shippingmethod.phtml)
+Fixed When we do reindex from console, folder var/log changes permissions from 0777 to 0775
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed Orders placed through PayPal marked as "Suspected Fraud"
+- Added formatting amount  into comparing
+Fixed Enable Log Cleaning option is not working properly
+Fixed Impossible to do online refund for "CyberSource" payment method
+Fixed Incorrect transparency of PNG image in indexed non-alpha mode
+Fixed Value from Total Weight field is not passed to shipping carrier (in case with DHL and UPS)
+Fixed After enabling dashboard chart admin user is unable to login to admin panel
+Fixed Sorting on Please Select products to Add doesn't work
+Fixed Catalog Price Rules - the rule is saved but not applied
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed Cross Sell Sorting Not Working
+Fixed Error when obtaining missed file over get.php
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed Unable to save Poll for more than one Store.
+Fixed Mage_Directory_Helper_Data::getRegionJson doesn't translate region names
+Fixed Static block in the Main Content Area overlaps border of the catalog of products
+Fixed 3D secure with Saved CC works incorrectly
+Fixed Shipping origin address used instead of the one specified in the RMA setting for Use Store Address = No
+Fixed Unable add Gift Options for Individual Items
+Fixed Customer Reports
+- avoid selections group by null customer id.
+Fixed Mysql4 install error
+Fixed "What's this?" link is absent, "Click for price" link doesn't work for shared Wishlist page.
+Fixed Incorrect Row Total Calculation in Refund
+- changed tax counting algorithm(now it counts tax for single item)
+Fixed Incorrect recipient name of Shipping Label
+Fixed Missing "Street Address Line 2" in Shipping Label (in case with DHL)
+Fixed After upgrading Magento website left in the maintenance mode
+Fixed Frontend: JavaScript error appears if user registered on Checkout Page.
+Fixed Added items to the Wishlist in the "Manage Shopping Cart" are not shown
+Fixed Information is not saved in DB after placing order during checkout
+Fixed Reports data wrong even after refreshing lifetime statistics
+Fixed Frontend can be broken by recursion
+Fixed Sub items are not displayed for the order for bundles, if user use Return and Orders link
+- added renderers for non-simple product types
+Fixed Error message for the case when store information is incomplete should be changed
+Fixed MAP behavior for RSS feed pages should be changed accordingly to SRS (only "Click for price" link should be present)
+Fixed Exception after upgrade Magento via diff files
+Fixed Frontend: The block "Compare Products" is empty after relogin
+Fixed Frontend: Catalog Price Rule does not apply to Mini Shopping Cart after login current customer
+- remove checking if customerGroupId exists because quote is loaded with existed customerGroupId as guest
+Fixed Unable to delete product with tag in pending status
+Fixed Images not imported using new Import/Export
+
+
+
 ==== 1.6.0.0-beta1 ====
 
 === Major Highlights ===

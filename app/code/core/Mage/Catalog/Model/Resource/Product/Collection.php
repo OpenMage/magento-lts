@@ -774,7 +774,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 ->join(array('count_table' => $this->getTable('catalog/category_product_index')),
                     'count_table.product_id = e.entity_id',
                     array(
-                        'count_table.category_id', 
+                        'count_table.category_id',
                         'product_count' => new Zend_Db_Expr('COUNT(DISTINCT count_table.product_id)')
                     )
                 )
@@ -818,7 +818,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $select = $this->getProductCountSelect();
 
             Mage::dispatchEvent(
-                'catalog_product_collection_before_add_count_to_categories', 
+                'catalog_product_collection_before_add_count_to_categories',
                 array('collection' => $this)
             );
 
@@ -1577,7 +1577,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $this->_productLimitationFilters['use_price_index'] = true;
         if (!isset($this->_productLimitationFilters['customer_group_id'])) {
             $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
-            $this->_productLimitationFilters['customer_group_id'] = $customerGroupId;            
+            $this->_productLimitationFilters['customer_group_id'] = $customerGroupId;
         }
         if (!isset($this->_productLimitationFilters['website_id'])) {
             $websiteId = Mage::app()->getStore($this->getStoreId())->getWebsiteId();

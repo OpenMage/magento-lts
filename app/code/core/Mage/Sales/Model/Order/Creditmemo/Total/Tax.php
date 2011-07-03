@@ -38,14 +38,15 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
 
         $order = $creditmemo->getOrder();
 
+        /* @var $item Mage_Sales_Model_Order_Creditmemo_Item */
         foreach ($creditmemo->getAllItems() as $item) {
             if ($item->getOrderItem()->isDummy()) {
                 continue;
             }
             $orderItem        = $item->getOrderItem();
-            $orderItemTax     = $item->getOrderItem()->getTaxAmount();
-            $baseOrderItemTax = $item->getOrderItem()->getBaseTaxAmount();
-            $orderItemQty     = $item->getOrderItem()->getQtyOrdered();
+            $orderItemTax     = $orderItem->getTaxAmount();
+            $baseOrderItemTax = $orderItem->getBaseTaxAmount();
+            $orderItemQty     = $orderItem->getQtyOrdered();
 
             if ($orderItemTax && $orderItemQty) {
                 /**
@@ -54,19 +55,16 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
 
 
                 if ($item->isLast()) {
-                    $tax            = $orderItemTax - $item->getOrderItem()->getTaxRefunded()
-                        - $item->getOrderItem()->getTaxCanceled();
-                    $baseTax        = $baseOrderItemTax - $item->getOrderItem()->getTaxRefunded()
-                        - $item->getOrderItem()->getTaxCanceled();
+                    $tax            = $orderItemTax - $orderItem->getTaxRefunded() - $orderItem->getTaxCanceled();
+                    $baseTax        = $baseOrderItemTax - $orderItem->getTaxRefunded() - $orderItem->getTaxCanceled();
                     $hiddenTax      = $orderItem->getHiddenTaxAmount() - $orderItem->getHiddenTaxRefunded()
-                        - $item->getOrderItem()->getHiddenTaxCanceled();
+                        - $orderItem->getHiddenTaxCanceled();
                     $baseHiddenTax  = $orderItem->getBaseHiddenTaxAmount() - $orderItem->getBaseHiddenTaxRefunded()
-                        - $item->getOrderItem()->getHiddenTaxCanceled();
+                        - $orderItem->getHiddenTaxCanceled();
 
-                }
-                else {
-                    $tax            = $orderItemTax*$item->getQty()/$orderItemQty;
-                    $baseTax        = $baseOrderItemTax*$item->getQty()/$orderItemQty;
+                } else {
+                    $tax        = ($orderItem->getPriceInclTax() - $orderItem->getPrice()) * $item->getQty();
+                    $baseTax    = ($orderItem->getBasePriceInclTax() - $orderItem->getBasePrice()) * $item->getQty();
                     $hiddenTax      = $orderItem->getHiddenTaxAmount()*$item->getQty()/$orderItemQty;
                     $baseHiddenTax  = $orderItem->getBaseHiddenTaxAmount()*$item->getQty()/$orderItemQty;
 

@@ -53,7 +53,7 @@ $class   = $element->getFieldsetHtmlClass();
             function checkCountryValues(click) {
                 if (click) {
                     isChecked = $('select-all').checked;
-                    $$('#submission-countries-table input[@type=checkbox]').each(
+                    $$('#submission-countries-table input[type=checkbox]').each(
                         function(elm) {
                             if (isChecked && !elm.checked) {
                                 elm.checked = true;
@@ -68,9 +68,9 @@ $class   = $element->getFieldsetHtmlClass();
                         $('submission-countries-table').show();
                     }
                 } else {
-                    checkboxCount = $$('#submission-countries-table input[@type=checkbox]').length;
+                    checkboxCount = $$('#submission-countries-table input[type=checkbox]').length;
                     countEnabled = 0;
-                    $$('#submission-countries-table input[@type=checkbox]').each(
+                    $$('#submission-countries-table input[type=checkbox]').each(
                         function(elm) {
                             if (elm.checked) {
                                 countEnabled++;

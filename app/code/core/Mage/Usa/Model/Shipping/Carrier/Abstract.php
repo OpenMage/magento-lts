@@ -261,6 +261,9 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         if (!is_array($packages) || !$packages) {
             Mage::throwException(Mage::helper('usa')->__('No packages for request'));
         }
+        if ($request->getStoreId() != null) {
+            $this->setStore($request->getStoreId());
+        }
         $data = array();
         foreach ($packages as $packageId => $package) {
             $request->setPackageId($packageId);
@@ -306,6 +309,9 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         $packages = $request->getPackages();
         if (!is_array($packages) || !$packages) {
             Mage::throwException(Mage::helper('usa')->__('No packages for request'));
+        }
+        if ($request->getStoreId() != null) {
+            $this->setStore($request->getStoreId());
         }
         $data = array();
         foreach ($packages as $packageId => $package) {

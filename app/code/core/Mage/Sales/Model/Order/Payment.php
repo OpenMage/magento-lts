@@ -1467,8 +1467,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     protected function _isCaptureFinal($amountToCapture)
     {
-        $orderGrandTotal = sprintf('%.4F', $this->getOrder()->getBaseGrandTotal());
-        if ($orderGrandTotal == sprintf('%.4F', ($this->getBaseAmountPaid() + $amountToCapture))) {
+        $amountToCapture = $this->_formatAmount($amountToCapture, true);
+        $orderGrandTotal = $this->_formatAmount($this->getOrder()->getBaseGrandTotal(), true);
+        if ($orderGrandTotal == $this->_formatAmount($this->getBaseAmountPaid(), true) + $amountToCapture) {
             if (false !== $this->getShouldCloseParentTransaction()) {
                 $this->setShouldCloseParentTransaction(true);
             }

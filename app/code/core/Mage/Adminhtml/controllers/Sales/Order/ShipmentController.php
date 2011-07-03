@@ -215,7 +215,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             if ($isNeedCreateLabel) {
                 if ($this->_createShippingLabel($shipment)) {
                     $this->_getSession()
-                        ->addSuccess($this->__('The shipment has been created. The shipping label has been created'));
+                        ->addSuccess($this->__('The shipment has been created. The shipping label has been created.'));
                     $responseAjax->setOk(true);
                 }
             } else {

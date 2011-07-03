@@ -480,6 +480,8 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      */
     protected function _afterDelete()
     {
+        Mage::app()->clearWebsiteCache($this->getId());
+
         parent::_afterDelete();
         Mage::getConfig()->removeCache();
         return $this;

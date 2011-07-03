@@ -36,5 +36,5 @@ class Mage_Install_Block_Db_Type_Mysql4 extends Mage_Install_Block_Db_Type
      *
      * @var string
      */
-    protected $_title = 'Mysql';
+    protected $_title = 'MySQL';
 }

@@ -93,8 +93,12 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
 
             $this->_clearTableByDateRange($table, $from, $to, $subSelect);
             // convert dates from UTC to current admin timezone
-            $periodExpr = $adapter->getDatePartSql($adapter->getDateAddSql('source_table.created_at',
-                    $this->_getStoreTimezoneUtcOffset(), Varien_Db_Adapter_Interface::INTERVAL_HOUR));
+            $periodExpr = $adapter->getDatePartSql(
+                $this->getStoreTZOffsetQuery(
+                    array('source_table' => $sourceTable),
+                    'source_table.created_at', $from, $to
+                )
+            );
             $columns = array(
                 // convert dates from UTC to current admin timezone
                 'period'                => $periodExpr,
@@ -126,7 +130,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 ->where('filter_source_table.order_id = source_table.order_id');
 
             if ($subSelect !== null) {
-                $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'source_table.created_at'));
+                $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
             $select->where('source_table.entity_id = (?)', new Zend_Db_Expr($filterSubSelect));
@@ -201,9 +205,10 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
             $this->_clearTableByDateRange($table, $from, $to, $subSelect);
             // convert dates from UTC to current admin timezone
             $periodExpr = $adapter->getDatePartSql(
-                $adapter->getDateAddSql('created_at',
-                $this->_getStoreTimezoneUtcOffset(),
-                Varien_Db_Adapter_Interface::INTERVAL_HOUR));
+                $this->getStoreTZOffsetQuery(
+                    $sourceTable, 'created_at', $from, $to
+                )
+            );
 
             $columns = array(
                 'period'                => $periodExpr,
@@ -242,7 +247,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 ->where('state <> ?', Mage_Sales_Model_Order::STATE_CANCELED);
 
             if ($subSelect !== null) {
-                $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'created_at'));
+                $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
             $select->group(array(

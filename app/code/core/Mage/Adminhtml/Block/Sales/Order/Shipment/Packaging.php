@@ -141,6 +141,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     /**
      * Return name of container type by its code
      *
+     * @param string $code
      * @return string
      */
     public function getContainerTypeByCode($code)
@@ -150,6 +151,24 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
             $containerTypes = $carrier->getContainerTypes();
             $containerType = !empty($containerTypes[$code]) ? $containerTypes[$code] : '';
             return $containerType;
+        }
+        return '';
+    }
+
+    /**
+     * Return name of delivery confirmation type by its code
+     *
+     * @param string $code
+     * @return string
+     */
+    public function getDeliveryConfirmationTypeByCode($code)
+    {
+        $countryId = $this->getShipment()->getOrder()->getShippingAddress()->getCountryId();
+        $carrier = $this->getShipment()->getOrder()->getShippingCarrier();
+        if ($carrier) {
+            $confirmationTypes = $carrier->getDeliveryConfirmationTypes($countryId);
+            $confirmationType = !empty($confirmationTypes[$code]) ? $confirmationTypes[$code] : '';
+            return $confirmationType;
         }
         return '';
     }

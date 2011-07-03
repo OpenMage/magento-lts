@@ -250,14 +250,14 @@ Catalog.Map = {
     },
 
     bindProductForm: function(){
-        if (productAddToCartForm) {
+        if (('undefined' != typeof productAddToCartForm) && productAddToCartForm) {
             productAddToCartFormOld = productAddToCartForm;
         }else if(!$('product_addtocart_form_from_popup')) {
             return false;
         }
         productAddToCartForm = new VarienForm('product_addtocart_form_from_popup');
         productAddToCartForm.submit = function(button, url) {
-            if (productAddToCartFormOld) {
+            if (('undefined' != typeof productAddToCartFormOld) && productAddToCartFormOld) {
                 if (Catalog.Map.active) {
                     Catalog.Map.hideHelp();
                 }
@@ -287,6 +287,9 @@ Catalog.Map = {
 
                 if (url) {
                    form.action = url;
+                }
+                if (!form.getAttribute('action')) {
+                   form.action = productAddToCartForm.action;
                 }
                 try {
                     this.form.submit();

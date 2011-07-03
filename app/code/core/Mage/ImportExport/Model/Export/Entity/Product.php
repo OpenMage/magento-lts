@@ -266,7 +266,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 )
                 ->joinLeft(
                         array('mgv' => $resource->getTableName('catalog/product_attribute_media_gallery_value')),
-                        '(mg.value_id = mgv.value_id)',
+                        '(mg.value_id = mgv.value_id AND mgv.store_id = 0)',
                         array()
                 )
                 ->where('entity_id IN(?)', $productIds);

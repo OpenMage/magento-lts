@@ -27,9 +27,9 @@
 /**
  * Credit Card (Authorize.net) Payment method xml renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Checkout_Payment_Method_Authorizenet extends Mage_Payment_Block_Form_Ccsave
 {
@@ -91,35 +91,38 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Authorizenet extends Mage_Pa
             <validators>
                 <validator relation="payment[cc_type]" type="credit_card_svn" message="' . $cvnValidationText . '"/>
             </validators>
-            </field>';
+        </field>';
         }
 
+        $cvnValidationText = $this->__('Credit card number does not match credit card type.');
+        $expMonthText = $this->__('Expiration Date - Month');
+        $expYearText = $this->__('Expiration Date - Year');
         $xml = <<<EOT
     <fieldset>
         <field name="payment[cc_type]" type="select" label="{$this->__('Credit Card Type')}" required="true">
             <values>
-                $ccTypes
+                {$ccTypes}
             </values>
         </field>
         <field name="payment[cc_number]" type="text" label="{$this->__('Credit Card Number')}" required="true">
             <validators>
-                <validator relation="payment[cc_type]" type="credit_card" message="{$this->__('Credit card number does not match credit card type.')}"/>
+                <validator relation="payment[cc_type]" type="credit_card" message="{$cvnValidationText}"/>
             </validators>
         </field>
-        <field name="payment[cc_exp_month]" type="select" label="{$this->__('Expiration Date - Month')}" required="true">
+        <field name="payment[cc_exp_month]" type="select" label="{$expMonthText}" required="true">
             <values>
-                $ccMonths
+                {$ccMonths}
             </values>
         </field>
-        <field name="payment[cc_exp_year]" type="select" label="{$this->__('Expiration Date - Year')}" required="true">
+        <field name="payment[cc_exp_year]" type="select" label="{$expYearText}" required="true">
             <values>
-                $ccYears
+                {$ccYears}
             </values>
         </field>
-        $verification
+        {$verification}
     </fieldset>
 EOT;
-        $fieldsetXmlObj = new Mage_XmlConnect_Model_Simplexml_Element($xml);
+        $fieldsetXmlObj = Mage::getModel('xmlconnect/simplexml_element', $xml);
         $formXmlObj->appendChild($fieldsetXmlObj);
     }
 }

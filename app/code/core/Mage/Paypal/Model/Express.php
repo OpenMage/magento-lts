@@ -318,13 +318,24 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
                 $payment->setParentTransactionId($api->getTransactionId());
                 $isAuthorizationCreated = true;
             }
+            //close order transaction if needed
+            if ($payment->getShouldCloseParentTransaction()) {
+                $orderTransaction = $payment->lookupTransaction(
+                    false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER
+                );
+
+                if ($orderTransaction) {
+                    $orderTransaction->setIsClosed(true);
+                    $order->addRelatedObject($orderTransaction);
+                }
+            }
         }
 
         if (false === $this->_pro->capture($payment, $amount)) {
             $this->_placeOrder($payment, $amount);
         }
 
-        if ($isAuthorizationCreated && $transaction) {
+        if ($isAuthorizationCreated && isset($transaction)) {
             $transaction->setIsClosed(true);
         }
 

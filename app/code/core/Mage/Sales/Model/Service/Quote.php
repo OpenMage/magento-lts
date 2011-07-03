@@ -151,8 +151,14 @@ class Mage_Sales_Model_Service_Quote
             $order = $this->_convertor->addressToOrder($quote->getShippingAddress());
         }
         $order->setBillingAddress($this->_convertor->addressToOrderAddress($quote->getBillingAddress()));
+        if ($quote->getBillingAddress()->getCustomerAddress()) {
+            $order->getBillingAddress()->setCustomerAddress($quote->getBillingAddress()->getCustomerAddress());
+        }
         if (!$isVirtual) {
             $order->setShippingAddress($this->_convertor->addressToOrderAddress($quote->getShippingAddress()));
+            if ($quote->getShippingAddress()->getCustomerAddress()) {
+                $order->getShippingAddress()->setCustomerAddress($quote->getShippingAddress()->getCustomerAddress());
+            }
         }
         $order->setPayment($this->_convertor->paymentToOrderPayment($quote->getPayment()));
 

@@ -33,16 +33,16 @@
  */
 class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
 {
-   /**
+    /**
      * Render cart totals xml
      *
      * @return string
      */
     protected function _toHtml()
     {
-        $totalsXmlObj   = new Mage_XmlConnect_Model_Simplexml_Element('<totals></totals>');
-        $taxConfig      = Mage::getSingleton('tax/config');
-        $displayInclTax = $displayBoth = false;
+        /** @var $totalsXmlObj Mage_XmlConnect_Model_Simplexml_Element */
+        $totalsXmlObj   = Mage::getModel('xmlconnect/simplexml_element', '<totals></totals>');
+//        $taxConfig      = Mage::getSingleton('tax/config');
 
         foreach ($this->getQuote()->getTotals() as $total) {
             $code  = $total->getCode();
@@ -55,7 +55,7 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
             switch ($code) {
                 case 'subtotal':
                     if ($renderer->displayBoth()) {
-                        $title = $this->helper('xmlconnect')->__('Subtotal (Excl. Tax)');
+                        $title = $this->__('Subtotal (Excl. Tax)');
                         $this->_addTotalDataToXmlObj(
                             $totalsXmlObj,
                             $code .
@@ -65,7 +65,7 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
                         );
 
                         $code  = $code . '_incl_tax';
-                        $title = $this->helper('xmlconnect')->__('Subtotal (Incl. Tax)');
+                        $title = $this->__('Subtotal (Incl. Tax)');
                         $value = $total->getValueInclTax();
                     }
                     break;
@@ -93,11 +93,15 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
                     $grandTotalExlTax = $renderer->getTotalExclTax();
                     $displayBoth = $renderer->includeTax() && $grandTotalExlTax >= 0;
                     if ($displayBoth) {
-                        $title = $this->helper('xmlconnect')->__('Grand Total (Excl. Tax)');
-                        $this->_addTotalDataToXmlObj($totalsXmlObj, $code . '_excl_tax', $title, $grandTotalExlTax);
-
+                        $title = $this->__('Grand Total (Excl. Tax)');
+                        $this->_addTotalDataToXmlObj(
+                            $totalsXmlObj,
+                            $code . '_excl_tax',
+                            $title,
+                            $grandTotalExlTax
+                        );
                         $code  = $code . '_incl_tax';
-                        $title = $this->helper('xmlconnect')->__('Grand Total (Incl. Tax)');
+                        $title = $this->__('Grand Total (Incl. Tax)');
                     }
                     break;
                 default:
@@ -127,9 +131,9 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
     {
         $value = Mage::helper('xmlconnect')->formatPriceForXml($value);
         $totalXmlObj = $totalsXmlObj->addChild($code);
-        $totalXmlObj->addChild('title', $totalsXmlObj->xmlentities(strip_tags($title)));
-        $formatedValue = $this->getQuote()->getStore()->formatPrice($value, false);
+        $totalXmlObj->addChild('title', $totalsXmlObj->xmlentities($title));
+        $formattedValue = $this->getQuote()->getStore()->formatPrice($value, false);
         $totalXmlObj->addChild('value', $value);
-        $totalXmlObj->addChild('formated_value', $formatedValue);
+        $totalXmlObj->addChild('formated_value', $formattedValue);
     }
 }

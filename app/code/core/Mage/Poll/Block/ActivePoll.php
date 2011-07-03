@@ -33,26 +33,125 @@
 
 class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
 {
-    protected $_templates, $_voted;
+    /**
+     * Poll templates
+     *
+     * @var array
+     */
+    protected $_templates;
+
+    /**
+     * Current Poll Id
+     *
+     * @var int
+     */
+    protected $_pollId = null;
+
+    /**
+     * Already voted by current visitor Poll Ids array
+     *
+     * @var array|null
+     */
+    protected $_votedIds = null;
+
+    /**
+     * Poll model
+     *
+     * @var Mage_Poll_Model_Poll
+     */
+    protected $_pollModel;
 
     public function __construct()
     {
         parent::__construct();
+        $this->_pollModel = Mage::getModel('poll/poll');
+    }
 
-        $pollModel = Mage::getModel('poll/poll');
+    /**
+     * Set current Poll Id
+     *
+     * @param int $pollId
+     * @return Mage_Poll_Block_ActivePoll
+     */
+    public function setPollId($pollId)
+    {
+        $this->_pollId = $pollId;
+        return $this;
+    }
+
+    /**
+     * Get current Poll Id
+     *
+     * @return int|null
+     */
+    public function getPollId()
+    {
+        return $this->_pollId;
+    }
+
+    /**
+     * Retrieve already voted Poll Ids
+     *
+     * @return array|null
+     */
+    public function getVotedPollsIds()
+    {
+        if ($this->_votedIds === null) {
+            $this->_votedIds = $this->_pollModel->getVotedPollsIds();
+        }
+        return $this->_votedIds;
+    }
+
+    /**
+     * Get Ids of all active Polls
+     *
+     * @return array
+     */
+    public function getActivePollsIds()
+    {
+        return $this->_pollModel
+            ->setExcludeFilter($this->getVotedPollsIds())
+            ->setStoreFilter(Mage::app()->getStore()->getId())
+            ->getCollection()->getAllIds();
+    }
+
+    /**
+     * Get Poll Id to show
+     *
+     * @return int
+     */
+    public function getPollToShow()
+    {
+        if ($this->getPollId()) {
+            return $this->getPollId();
+        }
         // get last voted poll (from session only)
         $pollId = Mage::getSingleton('core/session')->getJustVotedPoll();
         if (empty($pollId)) {
             // get random not voted yet poll
-            $votedIds = $pollModel->getVotedPollsIds();
-            $pollId = $pollModel->setExcludeFilter($votedIds)
+            $votedIds = $this->getVotedPollsIds();
+            $pollId = $this->_pollModel
+                ->setExcludeFilter($votedIds)
                 ->setStoreFilter(Mage::app()->getStore()->getId())
                 ->getRandomId();
         }
+        $this->setPollId($pollId);
+
+        return $pollId;
+    }
+
+    /**
+     * Get Poll related data
+     *
+     * @param int $pollId
+     * @return array|bool
+     */
+    public function getPollData($pollId)
+    {
         if (empty($pollId)) {
             return false;
         }
-        $poll = $pollModel->load($pollId);
+        $poll = $this->_pollModel->load($pollId);
 
         $pollAnswers = Mage::getModel('poll/poll_answer')
             ->getResourceCollection()
@@ -77,27 +176,64 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
             $answersArr[$key]->setPercent($value + 100 - $total);
         }
 
-        $this->assign('poll', $poll)
-             ->assign('poll_answers', $pollAnswers)
-             ->assign('action', Mage::getUrl('poll/vote/add', array('poll_id' => $pollId, '_secure' => true)));
-
-        $this->_voted = Mage::getModel('poll/poll')->isVoted($pollId);
-        Mage::getSingleton('core/session')->setJustVotedPoll(false);
+        return array(
+            'poll' => $poll,
+            'poll_answers' => $pollAnswers,
+            'action' => Mage::getUrl('poll/vote/add', array('poll_id' => $pollId, '_secure' => true))
+        );
     }
 
+
+    /**
+     * Add poll template
+     *
+     * @param string $template
+     * @param string $type
+     * @return Mage_Poll_Block_ActivePoll
+     */
     public function setPollTemplate($template, $type)
     {
         $this->_templates[$type] = $template;
         return $this;
     }
 
+    /**
+     * Render block HTML
+     *
+     * @return string
+     */
     protected function _toHtml()
     {
-        if( $this->_voted === true ) {
+        $pollId = $this->getPollToShow();
+        $data = $this->getPollData($pollId);
+        $this->assign($data);
+
+        Mage::getSingleton('core/session')->setJustVotedPoll(false);
+        
+        if ($this->_pollModel->isVoted($pollId) === true) {
             $this->setTemplate($this->_templates['results']);
         } else {
             $this->setTemplate($this->_templates['poll']);
         }
         return parent::_toHtml();
     }
+
+
+    /**
+     * Get cache key informative items that must be preserved in cache placeholders
+     * for block to be rerendered by placeholder
+     *
+     * @return array
+     */
+    public function getCacheKeyInfo()
+    {
+        $items = array(
+            'templates' => serialize($this->_templates)
+        );
+
+        $items = parent::getCacheKeyInfo() + $items;
+
+        return $items;
+    }
+
 }

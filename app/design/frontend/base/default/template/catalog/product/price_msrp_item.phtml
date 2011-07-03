@@ -41,6 +41,7 @@
     /** @var $_product Mage_Catalog_Model_Product */
     $_product = $this->getProduct();
     $_id = $_product->getId();
+    $_msrpPrice = '';
 ?>
     <div class="price-box map-info">
     <?php $_price = $this->helper('tax')->getPrice($_product, $_product->getMsrp()) ?>
@@ -53,7 +54,7 @@
             <?php $priceElementId = 'product-price-' . $_id . $this->getIdSuffix(); ?>
             <span id="<?php echo $priceElementId ?>" style="display:none"></span>
             <?php $popupId = 'msrp-popup-' . $_id . $_coreHelper->getRandomString(20); ?>
-            <a href="#" id="<?php echo($popupId);?>"><?php echo $this->__('Click to see price'); ?></a>
+            <a href="#" id="<?php echo($popupId);?>"><?php echo $this->__('Click for price'); ?></a>
             <script type="text/javascript">
                 Event.observe(window, 'load', function() {
                     var priceElement = $("<?php echo $priceElementId ?>"),

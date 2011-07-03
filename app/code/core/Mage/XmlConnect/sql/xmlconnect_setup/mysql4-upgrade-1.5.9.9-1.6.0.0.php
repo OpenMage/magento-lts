@@ -30,6 +30,7 @@ $installer = $this;
 $installer->startSetup();
 
 $appTableName = $installer->getTable('xmlconnect/application');
+$configTableName = $installer->getTable('xmlconnect/configData');
 $historyTableName = $installer->getTable('xmlconnect/history');
 $templateTableName = $installer->getTable('xmlconnect/template');
 $queueTableName = $installer->getTable('xmlconnect/queue');
@@ -57,6 +58,11 @@ $installer->getConnection()->dropForeignKey(
     'FK_TEMPLATE_ID'
 );
 
+$installer->getConnection()->dropForeignKey(
+    $configTableName,
+    'FK_31EE36D814216200D7C0723145AC510E'
+);
+
 /**
  * Drop indexes
  */
@@ -73,6 +79,11 @@ $installer->getConnection()->dropIndex(
 $installer->getConnection()->dropIndex(
     $appTableName,
     'UNQ_XMLCONNECT_APPLICATION_CODE'
+);
+
+$installer->getConnection()->dropIndex(
+    $configTableName,
+    'UNQ_XMLCONNECT_CONFIG_DATA_APPLICATION_ID_CATEGORY_PATH'
 );
 
 /**
@@ -175,11 +186,6 @@ $tables = array(
                 'default'   => null,
                 'comment'   => 'Updated At'
             ),
-            'configuration' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_BLOB,
-                'length'    => '64k',
-                'comment'   => 'Configuration Info'
-            ),
             'status' => array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
@@ -195,6 +201,39 @@ $tables = array(
             )
         ),
         'comment' => 'Xmlconnect Application'
+    ),
+    /**
+     * Modify table 'xmlconnect_config_data'
+     */
+    $configTableName => array(
+        'columns' => array(
+            'application_id' => array(
+                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+                'unsigned'  => true,
+                'nullable'  => false,
+                'comment'   => 'Application Id'
+            ),
+            'category' => array(
+                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
+                'length'    => 60,
+                'nullable'  => false,
+                'default'   => 'default',
+                'comment'   => 'Category'
+            ),
+            'path' => array(
+                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
+                'length'    => 250,
+                'nullable'  => false,
+                'comment'   => 'Path'
+            ),
+            'value' => array(
+                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
+                'length'    => '64k',
+                'nullable'  => false,
+                'comment'   => 'Value'
+            ),
+        ),
+        'comment' => 'Xmlconnect Configuration Data'
     ),
     /**
      * Modify table 'xmlconnect_history'
@@ -403,6 +442,17 @@ $installer->getConnection()->addIndex(
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
+$installer->getConnection()->addIndex(
+    $configTableName,
+    $installer->getIdxName(
+        $configTableName,
+        array('application_id', 'category', 'path'),
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    ),
+    array('application_id', 'category', 'path'),
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+);
+
 /**
  * Add foreign keys
  */
@@ -414,6 +464,14 @@ $installer->getConnection()->addForeignKey(
     'store_id',
     Varien_Db_Ddl_Table::ACTION_SET_NULL,
     Varien_Db_Ddl_Table::ACTION_SET_NULL
+);
+
+$installer->getConnection()->addForeignKey(
+    $installer->getFkName($configTableName, 'application_id', $appTableName, 'application_id'),
+    $configTableName,
+    'application_id',
+    $appTableName,
+    'application_id'
 );
 
 $installer->getConnection()->addForeignKey(

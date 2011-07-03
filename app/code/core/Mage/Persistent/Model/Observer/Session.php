@@ -139,7 +139,9 @@ class Mage_Persistent_Model_Observer_Session
      */
     public function setRememberMeCheckedStatus(Varien_Event_Observer $observer)
     {
-        if (!Mage::helper('persistent')->isEnabled() || !Mage::helper('persistent')->isRememberMeEnabled()) {
+        if (!Mage::helper('persistent')->canProcess($observer)
+            || !Mage::helper('persistent')->isEnabled() || !Mage::helper('persistent')->isRememberMeEnabled()
+        ) {
             return;
         }
 
@@ -163,7 +165,9 @@ class Mage_Persistent_Model_Observer_Session
      */
     public function renewCookie(Varien_Event_Observer $observer)
     {
-        if (!Mage::helper('persistent')->isEnabled() || !Mage::helper('persistent/session')->isPersistent()) {
+        if (!Mage::helper('persistent')->canProcess($observer)
+            || !Mage::helper('persistent')->isEnabled() || !Mage::helper('persistent/session')->isPersistent()
+        ) {
             return;
         }
 

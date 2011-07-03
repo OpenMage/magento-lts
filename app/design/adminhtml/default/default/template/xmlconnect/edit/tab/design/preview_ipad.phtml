@@ -62,8 +62,7 @@ ipadTabOrientn = $('ipad-tab-orientation');
 // submit application flag
 mmPreviewPagePrefix = '';
 function changeOrientation() {
-    $('mmPager').toggle();
-    $('mmPager2').toggle();
+    $('mmPager', 'mmPager2').invoke('toggle');
 
     if (mmPreviewFlag == '<?php echo $homeFlag ?>') {
         flagOrient = true;

@@ -33,16 +33,32 @@
  */
 class Mage_XmlConnect_Model_Theme
 {
-    protected $_file;
-    protected $_xml;
-    protected $_conf;
+    /**
+     * Current theme file
+     *
+     * @var string|null
+     */
+    protected $_file = null;
+
+    /**
+     * Loaded theme xml object
+     *
+     * @var SimpleXMLElement|null
+     */
+    protected $_xml = null;
+
+    /**
+     * Theme configuration
+     *
+     * @var array|null
+     */
+    protected $_conf = null;
 
     /**
      * Load Theme xml from $file
      *
      * @param string $file
      * @throws Mage_Core_Exception
-     * @return void
      */
     public function __construct($file)
     {
@@ -53,8 +69,8 @@ class Mage_XmlConnect_Model_Theme
         if (!is_readable($file)) {
             Mage::throwException(Mage::helper('xmlconnect')->__('Can\'t read file "%s".', $file));
         }
-        $text = file_get_contents($file);
         try {
+            $text = file_get_contents($file);
             $this->_xml = simplexml_load_string($text);
         } catch (Exception $e) {
             Mage::throwException(Mage::helper('xmlconnect')->__('Can\'t load XML.'));
@@ -89,7 +105,17 @@ class Mage_XmlConnect_Model_Theme
     }
 
     /**
-     * Getter for theme name
+     * Get theme file
+     *
+     * @return null|string
+     */
+    protected function _getThemeFile()
+    {
+        return $this->_file;
+    }
+
+    /**
+     * Get theme name
      *
      * @return string
      */
@@ -99,13 +125,105 @@ class Mage_XmlConnect_Model_Theme
     }
 
     /**
-     * Getter for theme Label
+     * Set theme name
+     *
+     * @param  $name
+     * @return Mage_XmlConnect_Model_Theme
+     */
+    public function setName($name)
+    {
+        $name = trim((string) $name);
+        $this->_xml->manifest->name = htmlentities($name, ENT_QUOTES, 'UTF-8');
+        return $this;
+    }
+
+    /**
+     * Get theme Label
      *
      * @return string
      */
     public function getLabel()
     {
         return (string) $this->_xml->manifest->label;
+    }
+
+    /**
+     * Set theme Label
+     *
+     * @param  $label
+     * @return Mage_XmlConnect_Model_Theme
+     */
+    public function setLabel($label)
+    {
+        $label = trim((string) $label);
+        $this->_xml->manifest->label = htmlentities($label, ENT_QUOTES, 'UTF-8');
+        return $this;
+    }
+
+    /**
+     * Generate full file name for custome theme in media
+     *
+     * @return string
+     */
+    protected function _createThemeName()
+    {
+        /** @var $themesHelper Mage_XmlConnect_Helper_Theme */
+        $themesHelper = Mage::helper('xmlconnect/theme');
+        /** @var $coreHelper Mage_Core_Helper_Data */
+        $coreHelper = Mage::helper('core');
+
+        $themeFileName = $themesHelper->getMediaThemePath()
+            . DS
+            .$themesHelper->getCustomThemeName()
+            . '_'
+            . time()
+            . '_'
+            . $coreHelper->getRandomString(10, 'abcdefghijklmnopqrstuvwxyz0123456789')
+            . '.xml';
+        return $themeFileName;
+    }
+
+    /**
+     * Copy current theme to specified file
+     *
+     * @param  $filePath
+     * @return string new file
+     */
+    protected function _createCopy($filePath)
+    {
+        $currentThemeFileName = $this->_getThemeFile();
+
+        $io = new Varien_Io_File();
+        if (!$io->cp($currentThemeFileName, $filePath)) {
+            Mage::throwException(
+                Mage::helper('xmlconnect')->__('Can\'t copy file "%s" to "%s".', $currentThemeFileName, $filePath)
+            );
+        } else {
+            $io->chmod($filePath, 0755);
+        }
+
+        return $filePath;
+    }
+
+    /**
+     * Create a copy of current instance with specified data
+     *
+     * @param  $themeName new theme label
+     * @param  $data theme config array
+     * @return Mage_XmlConnect_Model_Theme
+     */
+    public function createNewTheme($themeName, $data)
+    {
+        $filePath = $this->_createThemeName();
+        $themeFileName = $this->_createCopy($filePath);
+
+        /** @var $themeFileName Mage_XmlConnect_Model_Theme */
+        $themeFileName = Mage::getModel('xmlconnect/theme', $filePath);
+        $themeFileName->setLabel($themeName);
+        $fileName = basename($filePath);
+        $themeFileName->setName(substr($fileName, 0, strlen($fileName)-4));
+        $themeFileName->importAndSaveData($data);
+        return $themeFileName;
     }
 
     /**
@@ -207,7 +325,9 @@ class Mage_XmlConnect_Model_Theme
         if (is_writeable($this->_file)) {
             file_put_contents($this->_file, $xml->asXML());
         } else {
-            Mage::throwException(Mage::helper('xmlconnect')->__('Can\'t write to file "%s".', $this->_file));
+            Mage::throwException(
+                Mage::helper('xmlconnect')->__('Can\'t write to file "%s".', $this->_file)
+            );
         }
     }
 }

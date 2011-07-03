@@ -1159,13 +1159,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 $fieldIndexType = 'Index_type';
 
                 if (strtolower($row[$fieldKeyName]) == Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY) {
-                    $indexType  = 'primary';
+                    $indexType  = Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY;
                 } elseif ($row[$fieldNonUnique] == 0) {
-                    $indexType  = 'unique';
+                    $indexType  = Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE;
                 } elseif (strtolower($row[$fieldIndexType]) == Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT) {
-                    $indexType  = 'fulltext';
+                    $indexType  = Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT;
                 } else {
-                    $indexType  = 'index';
+                    $indexType  = Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX;
                 }
 
                 $upperKeyName = strtoupper($row[$fieldKeyName]);
@@ -1178,7 +1178,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                         'TABLE_NAME'    => $tableName,
                         'KEY_NAME'      => $row[$fieldKeyName],
                         'COLUMNS_LIST'  => array($row[$fieldColumn]),
-                        'INDEX_TYPE'    => strtolower($indexType),
+                        'INDEX_TYPE'    => $indexType,
                         'INDEX_METHOD'  => $row[$fieldIndexType],
                         'type'          => strtolower($indexType), // for compatibility
                         'fields'        => array($row[$fieldColumn]) // for compatibility
@@ -1607,18 +1607,18 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         $indexes = $this->getIndexList($tableName);
         foreach ($indexes as $indexData) {
-            if ($indexData['KEY_NAME'] == 'PRIMARY') {
+            /**
+             * Do not create primary index - it is created with identity column.
+             * For reliability check both name and type, because these values can start to differ in future.
+             */
+            if (($indexData['KEY_NAME'] == 'PRIMARY')
+                || ($indexData['INDEX_TYPE'] == Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY)) {
                 continue;
             }
 
             $fields = $indexData['COLUMNS_LIST'];
-            $options = array();
-            $indexType = '';
-            if ($indexData['INDEX_TYPE'] == Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE) {
-                $options = array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE);
-                $indexType = Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE;
-            }
-            $table->addIndex($this->getIndexName($newTableName, $fields, $indexType), $fields, $options);
+            $options = array('type' => $indexData['INDEX_TYPE']);
+            $table->addIndex($this->getIndexName($newTableName, $fields, $indexData['INDEX_TYPE']), $fields, $options);
         }
 
         $foreignKeys = $this->getForeignKeys($tableName);
@@ -1634,6 +1634,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 $keyData['REF_COLUMN_NAME'], $onDelete, $onUpdate
             );
         }
+
+        // Set additional options
+        $tableData = $this->showTableStatus($tableName);
+        $table->setOption('type', $tableData['Engine']);
+
         return $table;
     }
 
@@ -2666,6 +2671,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         if ($value instanceof Zend_Db_Expr) {
             return $value;
         }
+        if ($value instanceof Varien_Db_Statement_Parameter) {
+            return $value;
+        }
 
         // return original value if invalid column describe data
         if (!isset($column['DATA_TYPE'])) {
@@ -2716,6 +2724,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 if ($column['NULLABLE'] && $value == '') {
                     $value = null;
                 }
+                break;
+
+            case 'varbinary':
+            case 'mediumblob':
+            case 'blob':
+            case 'longblob':
+                // No special processing for MySQL is needed
                 break;
         }
 

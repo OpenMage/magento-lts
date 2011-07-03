@@ -27,15 +27,14 @@
 /**
  * One page checkout payment methods xml renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Block_Form_Container
 {
-
     /**
-     * Prevent parent set childs
+     * Prevent parent set children
      *
      * @return Mage_XmlConnect_Block_Checkout_Payment_Method_List
      */
@@ -62,7 +61,8 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
      */
     protected function _toHtml()
     {
-        $methodsXmlObj = new Mage_XmlConnect_Model_Simplexml_Element('<payment_methods></payment_methods>');
+        /** @var $methodsXmlObj Mage_XmlConnect_Model_Simplexml_Element */
+        $methodsXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<payment_methods></payment_methods>');
 
         /**
          * Pre-defined array of methods that we are going to render
@@ -185,7 +185,7 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
             $methodItemXmlObj = $methodsXmlObj->addChild('method');
             $methodItemXmlObj->addAttribute('post_name', 'payment[method]');
             $methodItemXmlObj->addAttribute('code', $method->getCode());
-            $methodItemXmlObj->addAttribute('label', $methodsXmlObj->xmlentities(strip_tags($method->getTitle())));
+            $methodItemXmlObj->addAttribute('label', $methodsXmlObj->xmlentities($method->getTitle()));
             if ($this->getQuote()->getPayment()->getMethod() == $method->getCode()) {
                 $methodItemXmlObj->addAttribute('selected', 1);
             }

@@ -90,8 +90,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Cache extends Mage_Adminht
      */
     public function canShowTab()
     {
-        return false;
-//        return (bool) !Mage::getSingleton('adminhtml/session')->getNewApplication();
+        return (bool) !Mage::getSingleton('adminhtml/session')->getNewApplication();
     }
 
     /**

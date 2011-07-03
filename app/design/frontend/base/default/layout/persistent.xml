@@ -27,15 +27,6 @@
 
 -->
 <layout version="0.1.0">
-    <customer_logged_out_psc_handle>
-        <block type="persistent/header_additional" name="header.additional" />
-        <reference name="account.links">
-            <action method="addLink" translate="label title" module="persistent"><label helper="persistent/getPersistentName"/><url helper="persistent/getUnsetCookieUrl"/><title helper="persistent/getPersistentName"/><prepare/><urlParams/><position>110</position></action>
-            <action method="removeLinkByUrl"><url helper="customer/getRegisterUrl"/></action>
-            <action method="removeLinkByUrl"><url helper="customer/getLoginUrl"/></action>
-        </reference>
-    </customer_logged_out_psc_handle>
-
     <customer_account_login>
         <reference name="customer_form_login">
             <action method="setTemplate"><template>persistent/customer/form/login.phtml</template></action>

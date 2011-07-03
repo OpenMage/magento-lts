@@ -77,11 +77,12 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
                 /**
                  * PayPal MEP management
                  */
-                $isExpressCheckoutAvaliable = Mage::getModel('xmlconnect/payment_method_paypal_mep')->isAvailable(null);
+                $isExpressCheckoutAvailable = Mage::getModel('xmlconnect/payment_method_paypal_mep')
+                    ->isAvailable(null);
 
                 $paypalActive = 0;
                 if (isset($data['conf[native][paypal][isActive]'])) {
-                    $paypalActive = (int)($data['conf[native][paypal][isActive]'] && $isExpressCheckoutAvaliable);
+                    $paypalActive = (int)($data['conf[native][paypal][isActive]'] && $isExpressCheckoutAvailable);
                 }
                 $fieldsetPaypal = $form->addFieldset('paypal_mep_checkout', array(
                     'legend' => $this->__('PayPal Mobile Embedded Payment (MEP)')
@@ -93,15 +94,15 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
                     $this->getUrl('adminhtml/system_config/edit', array('section' => 'paypal'))
                 );
 
-                $businessAccountNote = $this->__('MEP is PayPal`s native checkout experience for the iPhone. You can choose to use MEP alongside standard checkout, or use it as your only checkout method for Magento mobile. PayPal MEP requires a <a href="%s">PayPal business account</a>', $paypalConfigurationUrl);
+                $businessAccountNote = $this->__('MEP is PayPal\'s native checkout experience for the iPhone. You can choose to use MEP alongside standard checkout, or use it as your only checkout method for Magento mobile. PayPal MEP requires a <a href="%s">PayPal business account</a>', $paypalConfigurationUrl);
 
                 $paypalActiveField = $fieldsetPaypal->addField('conf/native/paypal/isActive', 'select', array(
                     'label'     => $this->__('Activate PayPal Checkout'),
                     'name'      => 'conf[native][paypal][isActive]',
-                    'note'      => (!$isExpressCheckoutAvaliable ? $activateMepMethodNote : $businessAccountNote),
+                    'note'      => (!$isExpressCheckoutAvailable ? $activateMepMethodNote : $businessAccountNote),
                     'values'    => $yesNoValues,
                     'value'     => $paypalActive,
-                    'disabled'  => !$isExpressCheckoutAvaliable
+                    'disabled'  => !$isExpressCheckoutAvailable
                 ));
 
                 if (isset($data['conf[special][merchantLabel]'])) {
@@ -117,15 +118,69 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
                     'value'     => $merchantLabelValue
                 ));
 
+                if (isset($data['config_data[payment][paypalmep/allowspecific]'])) {
+                    $paypalMepAllow = (int) $data['config_data[payment][paypalmep/allowspecific]'];
+                } else {
+                    $paypalMepAllow = 0;
+                }
+                $paypalMepAllowSpecific = $fieldsetPaypal->addField(
+                    'config_data/paypalmep/allowspecific',
+                    'select',
+                    array(
+                        'name'      => 'config_data[payment:paypalmep/allowspecific]',
+                        'label'     => $this->__('Payment Applicable From'),
+                        'values' => array(
+                            array('value' => 0, 'label' => $this->__('All Allowed Countries')),
+                            array('value' => 1, 'label' => $this->__('Specific Countries'))
+                        ),
+                        'value' => $paypalMepAllow
+                ));
+
+                $countries = Mage::getModel('adminhtml/system_config_source_country')->toOptionArray(true);
+
+                if (empty($data['config_data[payment][paypalmep/allowspecific]'])) {
+                    $countrySelected = array();
+                } else {
+                    $countrySelected = explode(',', $data['config_data[payment][paypalmep/applicable]']);
+                }
+
+                $paypalMepApplicable = $fieldsetPaypal->addField(
+                    'config_data/paypalmep/applicable',
+                    'multiselect',
+                    array(
+                        'name'  => 'config_data[payment:paypalmep/applicable]',
+                        'label' => $this->__('Countries Payment Applicable From'),
+                        'values' => $countries,
+                        'value' => $countrySelected
+                ));
+
                 // field dependencies
                 $this->setChild('form_after', $this->getLayout()
                     ->createBlock('adminhtml/widget_form_element_dependence')
+                    ->addFieldMap($paypalMepAllowSpecific->getHtmlId(), $paypalMepAllowSpecific->getName())
+                    ->addFieldMap($paypalMepApplicable->getHtmlId(), $paypalMepApplicable->getName())
                     ->addFieldMap($merchantlabelField->getHtmlId(), $merchantlabelField->getName())
                     ->addFieldMap($paypalActiveField->getHtmlId(), $paypalActiveField->getName())
                     ->addFieldDependence(
+                        $paypalMepApplicable->getName(),
+                        $paypalMepAllowSpecific->getName(),
+                        1
+                    )
+                    ->addFieldDependence(
+                        $paypalMepAllowSpecific->getName(),
+                        $paypalActiveField->getName(),
+                        1
+                    )
+                    ->addFieldDependence(
+                        $paypalMepApplicable->getName(),
+                        $paypalActiveField->getName(),
+                        1
+                    )
+                    ->addFieldDependence(
                         $merchantlabelField->getName(),
                         $paypalActiveField->getName(),
-                        1)
+                        1
+                    )
                 );
                 break;
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_ANDROID:

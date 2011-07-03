@@ -27,7 +27,9 @@
 /**
  * XmlConnect customer controller
  *
- * @author  Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_CustomerController extends Mage_XmlConnect_Controller_Action
 {
@@ -60,7 +62,7 @@ class Mage_XmlConnect_CustomerController extends Mage_XmlConnect_Controller_Acti
             } catch (Mage_Core_Exception $e) {
                 switch ($e->getCode()) {
                     case Mage_Customer_Model_Customer::EXCEPTION_EMAIL_NOT_CONFIRMED:
-                        // TODO: resend configmation email message with action
+                        // TODO: resend confirmation email message with action
                         break;
                     case Mage_Customer_Model_Customer::EXCEPTION_INVALID_EMAIL_OR_PASSWORD:
                         $message = $e->getMessage();
@@ -106,7 +108,7 @@ class Mage_XmlConnect_CustomerController extends Mage_XmlConnect_Controller_Acti
         if ($editFlag == 1) {
             if (!$this->_getSession()->isLoggedIn()) {
                 $this->_message($this->__('Customer not logged in.'), self::MESSAGE_STATUS_ERROR);
-                return ;
+                return;
             }
             $customer  = $this->_getSession()->getCustomer();
         }
@@ -176,7 +178,8 @@ class Mage_XmlConnect_CustomerController extends Mage_XmlConnect_Controller_Acti
             }
 
             if (!empty($errors)) {
-                $message = new Mage_XmlConnect_Model_Simplexml_Element('<message></message>');
+                /** @var $message Mage_XmlConnect_Model_Simplexml_Element */
+                $message = Mage::getModel('xmlconnect/simplexml_element', '<message></message>');
                 $message->addChild('status', self::MESSAGE_STATUS_ERROR);
                 $message->addChild('text', implode(' ', $errors));
                 $this->getResponse()->setBody($message->asNiceXml());
@@ -263,7 +266,8 @@ class Mage_XmlConnect_CustomerController extends Mage_XmlConnect_Controller_Acti
                     if ($customer->isConfirmationRequired()) {
                         $customer->sendNewAccountEmail('confirmation', $session->getBeforeAuthUrl());
                         $message = $this->__('Account confirmation is required. Please check your email for the confirmation link.');
-                        $messageXmlObj = new Mage_XmlConnect_Model_Simplexml_Element('<message></message>');
+                        /** @var $messageXmlObj Mage_XmlConnect_Model_Simplexml_Element */
+                        $messageXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<message></message>');
                         $messageXmlObj->addChild('status', self::MESSAGE_STATUS_SUCCESS);
                         $messageXmlObj->addChild('text', $message);
                         $messageXmlObj->addChild('confirmation', 1);
@@ -320,16 +324,24 @@ class Mage_XmlConnect_CustomerController extends Mage_XmlConnect_Controller_Acti
                     $newPassword = $customer->generatePassword();
                     $customer->changePassword($newPassword, false);
                     $customer->sendPasswordReminderEmail();
-                    $this->_message($this->__('A new password has been sent.'), self::MESSAGE_STATUS_SUCCESS);
-
+                    $this->_message(
+                        $this->__('A new password has been sent.'),
+                        self::MESSAGE_STATUS_SUCCESS
+                    );
                     return;
                 } catch (Mage_Core_Exception $e) {
                     $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
                 } catch (Exception $e) {
-                    $this->_message($this->__('Problem changing or sending password.'), self::MESSAGE_STATUS_ERROR);
+                    $this->_message(
+                        $this->__('Problem changing or sending password.'),
+                        self::MESSAGE_STATUS_ERROR
+                    );
                 }
             } else {
-                $this->_message($this->__('This email address was not found in our records.'), self::MESSAGE_STATUS_ERROR);
+                $this->_message(
+                    $this->__('This email address was not found in our records.'),
+                    self::MESSAGE_STATUS_ERROR
+                );
             }
         } else {
             $this->_message($this->__('Customer email not specified.'), self::MESSAGE_STATUS_ERROR);
@@ -352,7 +364,8 @@ class Mage_XmlConnect_CustomerController extends Mage_XmlConnect_Controller_Acti
             $this->loadLayout(false);
             $this->renderLayout();
         } else {
-            $message = new Mage_XmlConnect_Model_Simplexml_Element('<message></message>');
+            /** @var $message Mage_XmlConnect_Model_Simplexml_Element */
+            $message = Mage::getModel('xmlconnect/simplexml_element', '<message></message>');
             $message->addChild('status', self::MESSAGE_STATUS_ERROR);
             $message->addChild('is_empty_address_book', 1);
             $this->getResponse()->setBody($message->asNiceXml());
@@ -431,7 +444,7 @@ class Mage_XmlConnect_CustomerController extends Mage_XmlConnect_Controller_Acti
     {
         if (!$this->_getSession()->isLoggedIn()) {
             $this->_message($this->__('Customer not logged in.'), self::MESSAGE_STATUS_ERROR);
-            return ;
+            return;
         }
 
         // Save data
@@ -475,7 +488,7 @@ class Mage_XmlConnect_CustomerController extends Mage_XmlConnect_Controller_Acti
                 if (true === $addressValidation) {
                     $address->save();
 
-                    $message = new Mage_XmlConnect_Model_Simplexml_Element('<message></message>');
+                    $message = Mage::getModel('xmlconnect/simplexml_element', '<message></message>');
                     $message->addChild('status', self::MESSAGE_STATUS_SUCCESS);
                     $message->addChild('text', $this->__('Address has been saved.'));
                     $message->addChild('address_id', $address->getId());
@@ -516,13 +529,72 @@ class Mage_XmlConnect_CustomerController extends Mage_XmlConnect_Controller_Acti
     }
 
     /**
+     * Customer order details
+     *
+     * @return void
+     */
+    public function orderDetailsAction()
+    {
+        try {
+            if (!$this->_getSession()->isLoggedIn()) {
+                $this->_message($this->__('Customer not logged in.'), self::MESSAGE_STATUS_ERROR);
+                return;
+            }
+
+            $orderId = (int) $this->getRequest()->getParam('order_id');
+            if (!$orderId) {
+                $this->_message($this->__('Order id not specified.'), self::MESSAGE_STATUS_ERROR);
+                return;
+            }
+
+            $order = Mage::getModel('sales/order')->load($orderId);
+
+            if ($this->_canViewOrder($order)) {
+                Mage::register('current_order', $order);
+            } else {
+                $this->_message($this->__('Order is not available.'), self::MESSAGE_STATUS_ERROR);
+                return;
+            }
+            $this->loadLayout(false);
+            $this->renderLayout();
+            return;
+        } catch (Mage_Core_Exception $e) {
+            $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
+        } catch (Exception $e) {
+            $this->_message($this->__('Unable to render an order.'), self::MESSAGE_STATUS_ERROR);
+            Mage::logException($e);
+        }
+    }
+
+    /**
+     * Check order view availability
+     *
+     * @param   Mage_Sales_Model_Order $order
+     * @return  bool
+     */
+    protected function _canViewOrder($order)
+    {
+        $customerId = Mage::getSingleton('customer/session')->getCustomerId();
+        $availableStates = Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates();
+        if ($order->getId()
+            && $order->getCustomerId()
+            && ($order->getCustomerId() == $customerId)
+            && in_array($order->getState(), $availableStates, true)
+        ) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Check if customer is loggined
      *
      * @return void
      */
     public function isLogginedAction()
     {
-        $message = new Mage_XmlConnect_Model_Simplexml_Element('<message></message>');
+        /** @var $message Mage_XmlConnect_Model_Simplexml_Element */
+        $message = Mage::getModel('xmlconnect/simplexml_element', '<message></message>');
         $message->addChild('is_loggined', (int)$this->_getSession()->isLoggedIn());
         $this->getResponse()->setBody($message->asNiceXml());
     }

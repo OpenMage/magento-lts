@@ -35,36 +35,26 @@ abstract class Mage_XmlConnect_Controller_Action extends Mage_Core_Controller_Fr
 {
     /**
      * Message status `error`
-     *
-     * @var string
      */
     const MESSAGE_STATUS_ERROR      = 'error';
 
     /**
      * Message status `warning`
-     *
-     * @var string
      */
     const MESSAGE_STATUS_WARNING    = 'warning';
 
     /**
      * Message status `success`
-     *
-     * @var string
      */
     const MESSAGE_STATUS_SUCCESS    = 'success';
 
     /**
      * Message type `alert`
-     *
-     * @var string
      */
     const MESSAGE_TYPE_ALERT        = 'alert';
 
     /**
      * Message type `prompt`
-     *
-     * @var string
      */
     const MESSAGE_TYPE_PROMPT       = 'prompt';
 
@@ -154,6 +144,7 @@ abstract class Mage_XmlConnect_Controller_Action extends Mage_Core_Controller_Fr
      */
     protected function _message($text, $status, $type='', $action='')
     {
+        /** @var $message Mage_XmlConnect_Model_Simplexml_Element */
         $message = Mage::getModel('xmlconnect/simplexml_element', '<message></message>');
         $message->addChild('status', $status);
         $message->addChild('text', $text);

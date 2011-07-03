@@ -79,8 +79,10 @@ foreach ($entities as $entity) {
 /**
  * Add 'gift_message_available' attributes for entities
  */
-$installer->addAttribute('order_item', 'gift_message_available', $options)
-    ->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'gift_message_available', array(
+$installer->addAttribute('order_item', 'gift_message_available', $options);
+Mage::getResourceModel('catalog/setup', 'catalog_setup')->addAttribute(
+    Mage_Catalog_Model_Product::ENTITY, 'gift_message_available',
+    array(
         'group'         => 'Gift Options',
         'backend'       => 'catalog/product_attribute_backend_boolean',
         'frontend'      => '',
@@ -97,6 +99,7 @@ $installer->addAttribute('order_item', 'gift_message_available', $options)
         'input_renderer'   => 'giftmessage/adminhtml_product_helper_form_config',
         'is_configurable'  => 0,
         'visible_on_front' => false
-    ));
+    )
+);
 
 $installer->endSetup();

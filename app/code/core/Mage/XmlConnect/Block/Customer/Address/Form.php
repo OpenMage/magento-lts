@@ -27,9 +27,9 @@
 /**
  * Customer address form xml renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Core_Block_Template
 {
@@ -41,7 +41,7 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Core_Block_Templa
     protected function _toHtml()
     {
         $address  = $this->getAddress();
-        $xmlModel = new Mage_XmlConnect_Model_Simplexml_Element('<node></node>');
+        $xmlModel = Mage::getModel('xmlconnect/simplexml_element', '<node></node>');
 
         /**
          * Init address object and save its data to variables
@@ -85,17 +85,19 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Core_Block_Templa
                 if ($data['value']) {
                     $regions = $this->_getRegionOptions($data['value']);
                 }
+                $region = is_array($regions) && !empty($regions) ? 'region_id' : 'region';
                 $countryOptionsXml .= '
-                <item relation="' . (is_array($regions) && !empty($regions) ? 'region_id' : 'region') . '"' . ($countryId == $data['value'] ? ' selected="1"' : '') . '>
+                <item relation="' . $region . '"' . ($countryId == $data['value'] ? ' selected="1"' : '') . '>
                     <label>' . $xmlModel->xmlentities((string)$data['label']) . '</label>
                     <value>' . $xmlModel->xmlentities($data['value']) . '</value>';
                 if (is_array($regions) && !empty($regions)) {
                     $countryOptionsXml .= '<regions>';
-                    foreach ($regions as $_key => $_data) {
-                        $countryOptionsXml .= '<region_item' . ($regionId == $_data['value'] ? ' selected="1"' : '') . '>';
+                    foreach ($regions as $_key => $regionData) {
+                        $region = $regionId == $regionData['value'] ? ' selected="1"' : '';
+                        $countryOptionsXml .= '<region_item' . $region . '>';
                         $countryOptionsXml .=
-                            '<label>' . $xmlModel->xmlentities((string)$_data['label']) . '</label>
-                             <value>' . $xmlModel->xmlentities($_data['value']) . '</value>';
+                            '<label>' . $xmlModel->xmlentities((string)$regionData['label']) . '</label>
+                             <value>' . $xmlModel->xmlentities($regionData['value']) . '</value>';
                         $countryOptionsXml .= '</region_item>';
                     }
                     $countryOptionsXml .= '</regions>';
@@ -121,7 +123,7 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Core_Block_Templa
         <field name="country_id" type="select" label="{$xmlModel->xmlentities($this->__('Country'))}" required="true">
             $countryOptionsXml
         </field>
-        <field name="region" type="text" label="{$xmlModel->xmlentities($this->__('State/Province'))}" value="$region" />
+        <field name="region" type="text" label="{$xmlModel->xmlentities($this->__('State/Province'))}" value="$countryId" />
         <field name="region_id" type="select" label="{$xmlModel->xmlentities($this->__('State/Province'))}" required="true" />
         <field name="postcode" type="text" label="{$xmlModel->xmlentities($this->__('Zip/Postal Code'))}" required="true" value="$postcode" />
         <field name="default_billing" type="checkbox" $billingChecked label="{$xmlModel->xmlentities($this->__('Use as my default billing address'))}"/>

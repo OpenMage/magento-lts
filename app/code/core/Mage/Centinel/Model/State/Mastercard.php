@@ -86,12 +86,9 @@ class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbst
 
             //Test case 10
             if ($paResStatus == '' && $signatureVerification == '' && $eciFlag == '01' &&
-                $xid == '' && $cavv == '' && $errorNo == '1050') {
-                if ($this->getIsModeStrict()) {
-                    return false;
-                } else {
-                    return true;
-                }
+                $xid == '' && $cavv == '' && $errorNo == '1050'
+            ) {
+                return false;
             }
 
         }

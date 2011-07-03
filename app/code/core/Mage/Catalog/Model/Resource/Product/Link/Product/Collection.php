@@ -264,6 +264,24 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     }
 
     /**
+     * Enable sorting products by its attribute set name
+     *
+     * @param string $dir sort type asc|desc
+     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     */
+    public function setAttributeSetIdOrder($dir = self::SORT_ORDER_ASC)
+    {
+        $this->getSelect()
+            ->joinLeft(
+                array('set' => $this->getTable('eav/attribute_set')),
+                'e.attribute_set_id = set.attribute_set_id',
+                array('attribute_set_name')
+            )
+            ->order('set.attribute_set_name ' . $dir);
+        return $this;
+    }
+
+    /**
      * Join attributes
      *
      * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
@@ -292,5 +310,24 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         }
 
         return $this;
+    }
+
+    /**
+     * Set sorting order
+     *
+     * $attribute can also be an array of attributes
+     *
+     * @param string|array $attribute
+     * @param string $dir
+     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     */
+    public function setOrder($attribute, $dir = self::SORT_ORDER_ASC)
+    {
+        if ($attribute == 'position') {
+            return $this->setPositionOrder($dir);
+        } elseif ($attribute == 'attribute_set_id') {
+            return $this->setAttributeSetIdOrder($dir);
+        }
+        return parent::setOrder($attribute, $dir);
     }
 }

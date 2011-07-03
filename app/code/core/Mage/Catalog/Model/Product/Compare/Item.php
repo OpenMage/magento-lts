@@ -172,7 +172,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->updateCustomerFromVisitor($this);
 
-        Mage::helper('catalog/product_compare')->calculate();
+        Mage::helper('catalog/product_compare')->setCustomerId($this->getCustomerId())->calculate();
         return $this;
     }
 

@@ -330,10 +330,17 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     {
         $this->_addDaysInWishlist = true;
 
-        $dateDiff = Mage::getResourceHelper('wishlist')
-            ->getDaysInWishlist();
-        $this->getSelect()->columns(array('days_in_wishlist' => $dateDiff));
+        $adapter = $this->getConnection();
+        $dateModel = Mage::getSingleton('core/date');
+        $resHelper = Mage::getResourceHelper('core');
 
+        $offsetFromDb = (int) $dateModel->getGmtOffset();
+        $startDate = $adapter->getDateAddSql('added_at', $offsetFromDb, Varien_Db_Adapter_Interface::INTERVAL_SECOND);
+
+        $nowDate = $dateModel->date();
+        $dateDiff = $resHelper->getDateDiff($startDate, $adapter->formatDate($nowDate));
+
+        $this->getSelect()->columns(array('days_in_wishlist' => $dateDiff));
         return $this;
     }
 

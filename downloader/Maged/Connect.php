@@ -288,7 +288,7 @@ class Maged_Connect
     }
 
     /**
-     * Run Mage_COnnect_Command with html output console style
+     * Run Mage_Connect_Command with html output console style
      *
      * @param array|Maged_Model $runParams command, options, params,
      *        comment, success_callback, failure_callback
@@ -336,12 +336,74 @@ if (typeof auto_scroll=='undefined') {
 }
 function console_scroll()
 {
-    if (typeof top.$!='function') {
+    if (typeof top.$ != 'function') {
         return;
     }
     if (top.$('connect_iframe_scroll').checked) {
         document.body.scrollTop+=3;
     }
+}
+function show_message(message, newline)
+{
+    var bodyElement = document.getElementsByTagName('body')[0];
+    if (typeof newline == 'undefined') {
+        newline = true
+    }
+    if (newline) {
+        bodyElement.innerHTML += '<br/>';
+    }
+    bodyElement.innerHTML += message;
+}
+function clear_cache(callbacks)
+{
+    if (typeof top.Ajax != 'object') {
+        return;
+    }
+    var message = 'Exception during cache and session cleaning';
+    var url = window.location.href.split('?')[0] + '?A=cleanCache';
+    var intervalID = setInterval(function() {show_message('.', false); }, 500);
+    var clean = window.location.href.indexOf('clean_sessions') + 1; //0 - is first position in string, -1 - not found
+
+    new top.Ajax.Request(url, {
+        method: 'post',
+        parameters: {clean_sessions:clean},
+        onCreate: function() {
+            show_message('Cleaning cache');
+            show_message('');
+        },
+        onSuccess: function(transport, json) {
+            var result = true;
+            try{
+                var response = eval('(' + transport.responseText + ')');
+                if (typeof response.result != 'undefined') {
+                    result = response.result;
+                } else {
+                    result = false;
+                }
+                if (typeof response.message != 'undefined') {
+                    if (response.message.length > 0) {
+                        message = response.message;
+                    } else {
+                        message = 'Cache cleaned successfully';
+                    }
+                }
+            } catch (ex){
+                result = false;
+            }
+            if (result) {
+                callbacks.success();
+            } else {
+                callbacks.fail();
+            }
+        },
+        onFailure: function() {
+            callbacks.fail();
+        },
+        onComplete: function(transport) {
+            clearInterval(intervalID);
+            show_message(message);
+        }
+    });
 }
 </script>
 <?php
