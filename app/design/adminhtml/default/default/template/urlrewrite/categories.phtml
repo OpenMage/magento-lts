@@ -69,6 +69,10 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
      */
     categoryClick : function(node, e)
     {
+        if (node.disabled === true) {
+            return false;
+        }
+
         window.location = window.location + '/' + node.id;
     }
 });

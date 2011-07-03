@@ -41,11 +41,18 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      */
     protected $_cookieCheckActions = array('add');
 
+    /**
+     * If true, authentication in this controller (wishlist) could be skipped
+     *
+     * @var bool
+     */
+    protected $_skipAuthentication = false;
+
     public function preDispatch()
     {
         parent::preDispatch();
 
-        if (!Mage::getSingleton('customer/session')->authenticate($this)) {
+        if (!$this->_skipAuthentication && !Mage::getSingleton('customer/session')->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
             if(!Mage::getSingleton('customer/session')->getBeforeWishlistUrl()) {
                 Mage::getSingleton('customer/session')->setBeforeWishlistUrl($this->_getRefererUrl());
@@ -58,12 +65,28 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     }
 
     /**
+     * Set skipping authentication in actions of this controller (wishlist)
+     *
+     * @return Mage_Wishlist_IndexController
+     */
+    public function skipAuthentication()
+    {
+        $this->_skipAuthentication = true;
+        return $this;
+    }
+
+    /**
      * Retrieve wishlist object
      *
-     * @return Mage_Wishlist_Model_Wishlist|false
+     * @return Mage_Wishlist_Model_Wishlist|bool
      */
     protected function _getWishlist()
     {
+        $wishlist = Mage::registry('wishlist');
+        if ($wishlist) {
+            return $wishlist;
+        }
+
         try {
             $wishlist = Mage::getModel('wishlist/wishlist')
                 ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer(), true);
@@ -76,6 +99,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             );
             return false;
         }
+
         return $wishlist;
     }
 
@@ -254,7 +278,9 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                 ->save();
 
             Mage::helper('wishlist')->calculate();
-            Mage::dispatchEvent('wishlist_update_item', array('wishlist' => $wishlist, 'product' => $product, 'item' => $wishlist->getItem($id)));
+            Mage::dispatchEvent('wishlist_update_item', array(
+                'wishlist' => $wishlist, 'product' => $product, 'item' => $wishlist->getItem($id))
+            );
 
             Mage::helper('wishlist')->calculate();
 

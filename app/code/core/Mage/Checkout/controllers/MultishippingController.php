@@ -108,7 +108,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
             if (!Mage::helper('checkout')->isMultishippingCheckoutAvailable()) {
                 $error = $this->_getCheckout()->getMinimumAmountError();
-                $this->_getCheckoutSession()->addError($this->__($error));
+                $this->_getCheckoutSession()->addError($error);
                 $this->_redirectUrl($this->_getHelper()->getCartUrl());
                 $this->setFlag('', self::FLAG_NO_DISPATCH, true);
                 return $this;

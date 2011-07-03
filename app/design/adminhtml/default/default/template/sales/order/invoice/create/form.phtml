@@ -71,9 +71,9 @@
                 <?php if ($this->canCreateShipment() && $this->canShipPartiallyItem()): ?>
                 <p class="nm">
                     <label for="invoice_do_shipment" class="normal"><?php echo Mage::helper('sales')->__('Create Shipment') ?></label>
-                    <input type="checkbox" name="invoice[do_shipment]" id="invoice_do_shipment" value="1" onclick="if ( this.checked==true ) { document.getElementById('tracking').style.display = 'block'} else { document.getElementById('tracking').style.display = 'none' }"<?php echo $this->hasInvoiceShipmentTypeMismatch()?' disabled="disabled"':'' ?> />
+                    <input type="checkbox" name="invoice[do_shipment]" id="invoice_do_shipment" value="1" <?php echo $this->hasInvoiceShipmentTypeMismatch()?' disabled="disabled"':'' ?> />
                 </p>
-                    <?php if ($this->hasInvoiceShipmentTypeMismatch()): ?>
+                <?php if ($this->hasInvoiceShipmentTypeMismatch()): ?>
                     <small><?php echo $this->__('Some items in this order have different invoice and shipment types. You can create shipment only after the invoice is created.') ?></small>
                     <?php endif; ?>
                 <?php endif; ?>
@@ -96,7 +96,17 @@
           <?php echo $this->getChildHtml('order_items') ?>
     </div>
 </form>
-<script>
+<script type="text/javascript">
+//<![CDATA[
+    var createShipment = $('invoice_do_shipment');
+    createShipment.observe('click', function(e){
+        if (createShipment.checked) {
+            document.getElementById('tracking').style.display = 'block';
+        } else {
+            document.getElementById('tracking').style.display = 'none'
+        }
+    })
+
     /*forced creating of shipment*/
     var forcedShipmentCreate = <?php echo $this->getForcedShipmentCreate() ?>;
     var shipmentElement = $('invoice_do_shipment');
@@ -105,4 +115,5 @@
         shipmentElement.disabled = true;
         document.getElementById('tracking').style.display = 'block';
     }
+//]]>
 </script>

@@ -32,7 +32,7 @@
  * @package     Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Customer_Model_Resource_Form_Attribute extends Mage_Core_Model_Resource_Db_Abstract
+class Mage_Customer_Model_Resource_Form_Attribute extends Mage_Eav_Model_Resource_Form_Attribute
 {
     /**
      * Initialize connection and define main table
@@ -41,21 +41,5 @@ class Mage_Customer_Model_Resource_Form_Attribute extends Mage_Core_Model_Resour
     protected function _construct()
     {
         $this->_init('customer/form_attribute', 'attribute_id');
-    }
-
-    /**
-     * Return form attribute IDs by form code
-     *
-     * @param string $formCode
-     * @return array
-     */
-    public function getFormAttributeIds($formCode)
-    {
-        $bind   = array('form_code' => $formCode);
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), 'attribute_id')
-            ->where('form_code = :form_code');
-
-        return $this->_getReadAdapter()->fetchCol($select, $bind);
     }
 }

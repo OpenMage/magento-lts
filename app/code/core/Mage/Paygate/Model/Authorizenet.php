@@ -27,7 +27,15 @@
 
 class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 {
+    /*
+     * AIM gateway url
+     */
     const CGI_URL = 'https://secure.authorize.net/gateway/transact.dll';
+
+    /*
+     * Transaction Details gateway url
+     */
+    const CGI_URL_TD = 'https://apitest.authorize.net/xml/v1/request.api';
 
     const REQUEST_METHOD_CC     = 'CC';
     const REQUEST_METHOD_ECHECK = 'ECHECK';
@@ -57,6 +65,9 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
     const RESPONSE_REASON_CODE_APPROVED = 1;
     const RESPONSE_REASON_CODE_PARTIAL_APPROVE = 295;
+    const RESPONSE_REASON_CODE_PENDING_REVIEW_AUTHORIZED = 252;
+    const RESPONSE_REASON_CODE_PENDING_REVIEW = 253;
+    const RESPONSE_REASON_CODE_PENDING_REVIEW_DECLINED = 254;
 
     const PARTIAL_AUTH_CARDS_LIMIT = 5;
 
@@ -94,6 +105,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     protected $_canUseCheckout          = true;
     protected $_canUseForMultishipping  = true;
     protected $_canSaveCc = false;
+    protected $_canFetchTransactionInfo = true;
 
     protected $_allowCurrencyCode = array('USD');
 
@@ -108,6 +120,12 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                                                     'x_bank_name', 'x_bank_acct_num',
                                                     'x_bank_acct_type','x_bank_acct_name',
                                                     'x_echeck_type');
+
+    /**
+     * Key for storing fraud transaction flag in additional information of payment model
+     * @var string
+     */
+    protected $_isTransactionFraud = 'is_transaction_fraud';
 
     /**
      * Key for storing transaction id in additional information of payment model
@@ -226,14 +244,16 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     public function canRefund()
     {
         if ($this->_isGatewayActionsLocked($this->getInfoInstance())
-            || $this->getCardsStorage()->getCardsCount() <= 0) {
+            || $this->getCardsStorage()->getCardsCount() <= 0
+        ) {
             return false;
         }
         foreach($this->getCardsStorage()->getCards() as $card) {
             $lastTransaction = $this->getInfoInstance()->getTransaction($card->getLastTransId());
             if ($lastTransaction
                 && $lastTransaction->getTxnType() == Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE
-                && !$lastTransaction->getIsClosed()) {
+                && !$lastTransaction->getIsClosed()
+            ) {
                 return true;
             }
         }
@@ -394,7 +414,10 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     {
         $cardsStorage = $this->getCardsStorage($payment);
 
-        if ($this->_formatAmount($cardsStorage->getCapturedAmount() - $cardsStorage->getRefundedAmount()) < $requestedAmount) {
+        if ($this->_formatAmount(
+                $cardsStorage->getCapturedAmount() - $cardsStorage->getRefundedAmount()
+            ) < $requestedAmount
+        ) {
             Mage::throwException(Mage::helper('paygate')->__('Invalid amount for refund.'));
         }
 
@@ -496,6 +519,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         switch ($result->getResponseCode()) {
             case self::RESPONSE_CODE_APPROVED:
+                $this->getCardsStorage($payment)->flushCards();
                 $card = $this->_registerCard($result, $payment);
                 $this->_addTransaction(
                     $payment,
@@ -509,14 +533,42 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 );
                 if ($requestType == self::REQUEST_TYPE_AUTH_CAPTURE) {
                     $card->setCapturedAmount($card->getProcessedAmount());
-                    $this->getCardsStorage()->updateCard($card);
+                    $this->getCardsStorage($payment)->updateCard($card);
                 }
                 return $this;
             case self::RESPONSE_CODE_HELD:
-                $checksum = $this->_generateChecksum($request, $this->_partialAuthorizationChecksumDataKeys);
-                $this->_getSession()->setData($this->_partialAuthorizationChecksumSessionKey, $checksum);
-                if ($this->_processPartialAuthorizationResponse($result, $payment)) {
+                if ($result->getResponseReasonCode() == self::RESPONSE_REASON_CODE_PENDING_REVIEW_AUTHORIZED
+                    || $result->getResponseReasonCode() == self::RESPONSE_REASON_CODE_PENDING_REVIEW
+                ) {
+                    $card = $this->_registerCard($result, $payment);
+                    $this->_addTransaction(
+                        $payment,
+                        $card->getLastTransId(),
+                        $newTransactionType,
+                        array('is_transaction_closed' => 0),
+                        array(
+                            $this->_realTransactionIdKey => $card->getLastTransId(),
+                            $this->_isTransactionFraud => true
+                        ),
+                        Mage::helper('paygate')->getTransactionMessage(
+                            $payment, $requestType, $card->getLastTransId(), $card, $amount
+                        )
+                    );
+                    if ($requestType == self::REQUEST_TYPE_AUTH_CAPTURE) {
+                        $card->setCapturedAmount($card->getProcessedAmount());
+                        $this->getCardsStorage()->updateCard($card);
+                    }
+                    $payment
+                        ->setIsTransactionPending(true)
+                        ->setIsFraudDetected(true);
                     return $this;
+                }
+                if ($result->getResponseReasonCode() == self::RESPONSE_REASON_CODE_PARTIAL_APPROVE) {
+                    $checksum = $this->_generateChecksum($request, $this->_partialAuthorizationChecksumDataKeys);
+                    $this->_getSession()->setData($this->_partialAuthorizationChecksumSessionKey, $checksum);
+                    if ($this->_processPartialAuthorizationResponse($result, $payment)) {
+                        return $this;
+                    }
                 }
                 Mage::throwException($defaultExceptionMessage);
             case self::RESPONSE_CODE_DECLINED:
@@ -541,7 +593,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         $payment->setAnetTransType($requestType);
 
         /*
-         * Try to build checksum of first request and compare with current checksum 
+         * Try to build checksum of first request and compare with current checksum
          */
         if ($this->getConfigData('partial_authorization_checksum_checking')) {
             $payment->setAmount($amount);
@@ -611,7 +663,9 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         }
         foreach($this->getCardsStorage()->getCards() as $card) {
             $lastTransaction = $payment->getTransaction($card->getLastTransId());
-            if (!$lastTransaction || $lastTransaction->getTxnType() != Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH) {
+            if (!$lastTransaction
+                || $lastTransaction->getTxnType() != Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH
+            ) {
                 return false;
             }
         }
@@ -629,7 +683,10 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     {
         $cardsStorage = $this->getCardsStorage($payment);
 
-        if ($this->_formatAmount($cardsStorage->getProcessedAmount() - $cardsStorage->getCapturedAmount()) < $requestedAmount) {
+        if ($this->_formatAmount(
+                $cardsStorage->getProcessedAmount() - $cardsStorage->getCapturedAmount()
+            ) < $requestedAmount
+        ) {
             Mage::throwException(Mage::helper('paygate')->__('Invalid amount for capture.'));
         }
 
@@ -643,7 +700,9 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                     $cardAmountForCapture = $requestedAmount;
                 }
                 try {
-                    $newTransaction = $this->_preauthorizeCaptureCardTransaction($payment, $cardAmountForCapture , $card);
+                    $newTransaction = $this->_preauthorizeCaptureCardTransaction(
+                        $payment, $cardAmountForCapture , $card
+                    );
                     $messages[] = $newTransaction->getMessage();
                     $isSuccessful = true;
                 } catch (Exception $e) {
@@ -916,6 +975,40 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     {
         $creditmemo->setTransactionId(1);
         return $this;
+    }
+
+    /**
+     * Fetch transaction details info
+     *
+     * Update transaction info if there is one placing transaction only
+     *
+     * @param Mage_Payment_Model_Info $payment
+     * @param string $transactionId
+     * @return array
+     */
+    public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
+    {
+        $cardsStorage = $this->getCardsStorage($payment);
+        if ($cardsStorage->getCardsCount() != 1) {
+            return parent::fetchTransactionInfo($payment, $transactionId);
+        }
+        $cards = $cardsStorage->getCards();
+        $card = array_shift($cards);
+        $transactionId = $card->getLastTransId();
+        $transaction = $payment->getTransaction($transactionId);
+
+        if (!$transaction->getAdditionalInformation($this->_isTransactionFraud)) {
+            return parent::fetchTransactionInfo($payment, $transactionId);
+        }
+
+        $response = $this->_getTransactionDetails($transactionId);
+        if ($response->getResponseCode() == self::RESPONSE_CODE_APPROVED) {
+            $transaction->setAdditionalInformation($this->_isTransactionFraud, false);
+            $payment->setIsTransactionApproved(true);
+        } elseif ($response->getResponseReasonCode() == self::RESPONSE_REASON_CODE_PENDING_REVIEW_DECLINED) {
+            $payment->setIsTransactionDenied(true);
+        }
+        return parent::fetchTransactionInfo($payment, $transactionId);
     }
 
     /**
@@ -1368,5 +1461,55 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             $data[] = $object->getData($dataKey);
         }
         return md5(implode($data, '_'));
+    }
+
+    /**
+     * This function returns full transaction details for a specified transaction ID.
+     *
+     * @link http://www.authorize.net/support/ReportingGuide_XML.pdf
+     * @link http://developer.authorize.net/api/transaction_details/
+     * @param string $transactionId
+     * @return Varien_Object
+     */
+    protected function _getTransactionDetails($transactionId)
+    {
+        $requestBody = sprintf(
+            '<?xml version="1.0" encoding="utf-8"?>'
+            . '<getTransactionDetailsRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">'
+            . '<merchantAuthentication><name>%s</name><transactionKey>%s</transactionKey></merchantAuthentication>'
+            . '<transId>%s</transId>'
+            . '</getTransactionDetailsRequest>',
+            $this->getConfigData('login'),
+            $this->getConfigData('trans_key'),
+            $transactionId
+        );
+
+        $client = new Varien_Http_Client();
+        $uri = $this->getConfigData('cgi_url_td');
+        $client->setUri($uri ? $uri : self::CGI_URL_TD);
+        $client->setConfig(array('timeout'=>45));
+        $client->setHeaders(array('Content-Type: text/xml'));
+        $client->setMethod(Zend_Http_Client::POST);
+        $client->setRawData($requestBody);
+
+        $debugData = array('request' => $requestBody);
+
+        try {
+            $responseBody = $client->request()->getBody();
+            $debugData['result'] = $responseBody;
+            $this->_debug($debugData);
+            libxml_use_internal_errors(true);
+            $responseXmlDocument = new Varien_Simplexml_Element($responseBody);
+            libxml_use_internal_errors(false);
+        } catch (Exception $e) {
+            Mage::throwException(Mage::helper('paygate')->__('Payment updating error.'));
+        }
+
+        $response = new Varien_Object;
+        $response
+            ->setResponseCode((string)$responseXmlDocument->transaction->responseCode)
+            ->setResponseReasonCode((string)$responseXmlDocument->transaction->responseReasonCode)
+        ;
+        return $response;
     }
 }

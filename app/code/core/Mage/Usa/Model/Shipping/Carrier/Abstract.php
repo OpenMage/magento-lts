@@ -39,6 +39,35 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
 
     protected static $_quotesCache = array();
 
+    /**
+     * Flag for check carriers for activity
+     *
+     * @var string
+     */
+    protected $_activeFlag = 'active';
+
+    /**
+     * Set flag for check carriers for activity
+     *
+     * @param string $code
+     * @return Mage_Usa_Model_Shipping_Carrier_Abstract
+     */
+    public function setActiveFlag($code = 'active')
+    {
+        $this->_activeFlag = $code;
+        return $this;
+    }
+
+    /**
+     * Return code of carrier
+     *
+     * @return string
+     */
+    public function getCarrierCode()
+    {
+        return isset($this->_code) ? $this->_code : null;
+    }
+
     public function getTrackingInfo($tracking)
     {
         $info = array();
@@ -68,12 +97,32 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         return true;
     }
 
+    /**
+     * Check if city option required
+     *
+     * @return boolean
+     */
     public function isCityRequired()
     {
         return true;
     }
 
+    /**
+     * Check if zip code option required
+     *
+     * @return boolean
+     */
     public function isZipCodeRequired()
+    {
+        return true;
+    }
+
+    /**
+     * Check if carrier has shipping label option available
+     *
+     * @return boolean
+     */
+    public function isShippingLabelsAvailable()
     {
         return true;
     }
@@ -131,7 +180,11 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     protected function _getQuotesCacheKey($requestParams)
     {
         if (is_array($requestParams)) {
-            $requestParams = implode(',', array_merge(array($this->getCarrierCode()), array_keys($requestParams), $requestParams));
+            $requestParams = implode(',', array_merge(
+                array($this->getCarrierCode()),
+                array_keys($requestParams),
+                $requestParams)
+            );
         }
         return crc32($requestParams);
     }
@@ -163,5 +216,180 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         $key = $this->_getQuotesCacheKey($requestParams);
         self::$_quotesCache[$key] = $response;
         return $this;
+    }
+
+    /**
+     * Prepare service name. Strip tags and entities from name
+     *
+     * @param string|object $name  service name or object with implemented __toString() method
+     * @return string              prepared service name
+     */
+    protected function _prepareServiceName($name)
+    {
+        $name = html_entity_decode((string)$name);
+        $name = strip_tags(preg_replace('#&\w+;#', '', $name));
+        return trim($name);
+    }
+
+    /**
+     * Prepare shipment request.
+     * Validate and correct request information
+     *
+     * @param Varien_Object $request
+     *
+     */
+    protected function _prepareShipmentRequest(Varien_Object $request)
+    {
+        $phonePattern = '/[\s\_\-\(\)]+/';
+        $phoneNumber = $request->getShipperContactPhoneNumber();
+        $phoneNumber = preg_replace($phonePattern, '', $phoneNumber);
+        $request->setShipperContactPhoneNumber($phoneNumber);
+        $phoneNumber = $request->getRecipientContactPhoneNumber();
+        $phoneNumber = preg_replace($phonePattern, '', $phoneNumber);
+        $request->setRecipientContactPhoneNumber($phoneNumber);
+    }
+
+    /**
+     * Do request to shipment
+     *
+     * @param Mage_Shipping_Model_Shipment_Request $request
+     * @return array
+     */
+    public function requestToShipment(Mage_Shipping_Model_Shipment_Request $request)
+    {
+        $packages = $request->getPackages();
+        if (!is_array($packages) || !$packages) {
+            Mage::throwException(Mage::helper('usa')->__('No packages for request'));
+        }
+        $data = array();
+        foreach ($packages as $packageId => $package) {
+            $request->setPackageId($packageId);
+            $request->setPackagingType($package['params']['container']);
+            $request->setPackageWeight($package['params']['weight']);
+            $request->setPackageParams(new Varien_Object($package['params']));
+            $request->setPackageItems($package['items']);
+            $result = $this->_doShipmentRequest($request);
+
+            if ($result->hasErrors()) {
+                $this->rollBack($data);
+                break;
+            } else {
+                $data[] = array(
+                    'tracking_number' => $result->getTrackingNumber(),
+                    'label_content'   => $result->getShippingLabelContent()
+                );
+            }
+            if (!isset($isFirstRequest)) {
+                $request->setMasterTrackingId($result->getTrackingNumber());
+                $isFirstRequest = false;
+            }
+        }
+
+        $response = new Varien_Object(array(
+            'info'   => $data
+        ));
+        if ($result->getErrors()) {
+            $response->setErrors($result->getErrors());
+        }
+        return $response;
+    }
+
+    /**
+     * Do request to RMA shipment
+     *
+     * @param $request
+     * @return array
+     */
+    public function returnOfShipment($request)
+    {
+        $request->setIsReturn(true);
+        $packages = $request->getPackages();
+        if (!is_array($packages) || !$packages) {
+            Mage::throwException(Mage::helper('usa')->__('No packages for request'));
+        }
+        $data = array();
+        foreach ($packages as $packageId => $package) {
+            $request->setPackageId($packageId);
+            $request->setPackagingType($package['params']['container']);
+            $request->setPackageWeight($package['params']['weight']);
+            $request->setPackageParams(new Varien_Object($package['params']));
+            $request->setPackageItems($package['items']);
+            $result = $this->_doShipmentRequest($request);
+
+            if ($result->hasErrors()) {
+                $this->rollBack($data);
+                break;
+            } else {
+                $data[] = array(
+                    'tracking_number' => $result->getTrackingNumber(),
+                    'label_content'   => $result->getShippingLabelContent()
+                );
+            }
+            if (!isset($isFirstRequest)) {
+                $request->setMasterTrackingId($result->getTrackingNumber());
+                $isFirstRequest = false;
+            }
+        }
+
+        $response = new Varien_Object(array(
+            'info'   => $data
+        ));
+        if ($result->getErrors()) {
+            $response->setErrors($result->getErrors());
+        }
+        return $response;
+    }
+
+    /**
+     * For multi package shipments. Delete requested shipments if the current shipment
+     * request is failed
+     *
+     * @todo implement rollback logic
+     * @param array $data
+     * @return bool
+     */
+    public function rollBack($data)
+    {
+        return true;
+    }
+
+    /**
+     * Do shipment request to carrier web service, obtain Print Shipping Labels and process errors in response
+     *
+     * @param Varien_Object $request
+     * @return Varien_Object
+     */
+    abstract protected function _doShipmentRequest(Varien_Object $request);
+
+    /**
+     * Check is Country U.S. Possessions and Trust Territories
+     *
+     * @param string $countyId
+     * @return boolean
+     */
+    protected function _isUSCountry($countyId)
+    {
+        switch ($countyId) {
+            case 'AS': // Samoa American
+            case 'GU': // Guam
+            case 'MP': // Northern Mariana Islands
+            case 'PW': // Palau
+            case 'PR': // Puerto Rico
+            case 'VI': // Virgin Islands US
+            case 'US'; // United States
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check whether girth is allowed for the carrier
+     *
+     * @param null|string $countyDest
+     * @return bool
+     */
+    public function isGirthAllowed($countyDest = null) {
+        return false;
     }
 }

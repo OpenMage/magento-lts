@@ -51,7 +51,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
             ->setSharedStoreIds($wishlist->getSharedStoreIds(false))
             ->getItemCollection()
             ->addDaysInWishlist(true)
-            ->addStoreData();
+            ->addStoreData()
+            ->setInStockFilter(true);
 
         $this->setCollection($collection);
 

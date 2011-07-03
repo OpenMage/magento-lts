@@ -34,16 +34,4 @@
  */
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_Resource_Product
 {
-
-    /**
-     * Retrieve product entities info
-     *
-     * @return array
-     */
-    public function getProductEntitiesInfo()
-    {
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('catalog/product'), array('entity_id', 'type_id', 'attribute_set_id', 'sku'));
-        return $this->_getReadAdapter()->fetchAll($select);
-    }
 }

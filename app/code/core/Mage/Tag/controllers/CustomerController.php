@@ -49,20 +49,22 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function indexAction()
     {
-        if( !Mage::getSingleton('customer/session')->getCustomerId() ) {
+        if( !Mage::getSingleton('customer/session')->isLoggedIn() ) {
             Mage::getSingleton('customer/session')->authenticate($this);
             return;
         }
 
         $this->loadLayout();
         $this->_initLayoutMessages('tag/session');
-         $this->_initLayoutMessages('catalog/session');
+        $this->_initLayoutMessages('catalog/session');
 
-        if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
+        $navigationBlock = $this->getLayout()->getBlock('customer_account_navigation');
+        if ($navigationBlock) {
             $navigationBlock->setActive('tag/customer');
         }
 
-        if ($block = $this->getLayout()->getBlock('customer_tags')) {
+        $block = $this->getLayout()->getBlock('customer_tags');
+        if ($block) {
             $block->setRefererUrl($this->_getRefererUrl());
         }
 
@@ -72,16 +74,19 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function viewAction()
     {
-        if( !Mage::getSingleton('customer/session')->getCustomerId() ) {
+        if( !Mage::getSingleton('customer/session')->isLoggedIn() ) {
             Mage::getSingleton('customer/session')->authenticate($this);
             return;
         }
-        if ($tagId = $this->_getTagId()) {
+
+        $tagId = $this->_getTagId();
+        if ($tagId) {
             Mage::register('tagId', $tagId);
             $this->loadLayout();
             $this->_initLayoutMessages('tag/session');
 
-            if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
+            $navigationBlock = $this->getLayout()->getBlock('customer_account_navigation');
+            if ($navigationBlock) {
                 $navigationBlock->setActive('tag/customer');
             }
 
@@ -106,12 +111,13 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function removeAction()
     {
-        if( !Mage::getSingleton('customer/session')->getCustomerId() ) {
+        if( !Mage::getSingleton('customer/session')->isLoggedIn() ) {
             Mage::getSingleton('customer/session')->authenticate($this);
             return;
         }
 
-        if ($tagId = $this->_getTagId()) {
+        $tagId = $this->_getTagId();
+        if ($tagId) {
             try {
                 $model = Mage::registry('tagModel');
                 $model->deactivate();

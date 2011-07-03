@@ -200,6 +200,10 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             Mage::throwException(
                 Mage::helper('catalog')->__('Category move operation is not possible: the current category was not found.')
             );
+        } elseif ($parent->getId() == $this->getId()) {
+            Mage::throwException(
+                Mage::helper('catalog')->__('Category move operation is not possible: parent category is equal to child category.')
+            );
         }
 
         /**

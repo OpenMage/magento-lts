@@ -89,7 +89,9 @@ Customer account home dashboard layout
         <label>Customer My Account Order View</label>
         <update handle="customer_account"/>
         <reference name="my.account.wrapper">
-            <block type="sales/order_info" as="info" name="sales.order.info"/>
+            <block type="sales/order_info" as="info" name="sales.order.info">
+                <block type="sales/order_info_buttons" as="buttons" name="sales.order.info.buttons" />
+            </block>
             <block type="sales/order_view" name="sales.order.view">
                 <block type="sales/order_items" name="order_items" template="sales/order/items.phtml">
                     <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
@@ -117,7 +119,9 @@ Customer account home dashboard layout
         <label>Customer My Account Order Invoice View</label>
         <update handle="customer_account"/>
         <reference name="my.account.wrapper">
-            <block type="sales/order_info" as="info" name="sales.order.info"/>
+            <block type="sales/order_info" as="info" name="sales.order.info">
+                <block type="sales/order_info_buttons" as="buttons" name="sales.order.info.buttons" />
+            </block>
             <block type="sales/order_invoice" name="sales.order.invoice">
                 <block type="sales/order_invoice_items" name="invoice_items" template="sales/order/invoice/items.phtml">
                     <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/invoice/items/renderer/default.phtml</template></action>
@@ -144,7 +148,9 @@ Customer account home dashboard layout
         <label>Customer My Account Order Shipment View</label>
         <update handle="customer_account"/>
         <reference name="my.account.wrapper">
-            <block type="sales/order_info" as="info" name="sales.order.info"/>
+            <block type="sales/order_info" as="info" name="sales.order.info">
+                <block type="sales/order_info_buttons" as="buttons" name="sales.order.info.buttons" />
+            </block>
             <block type="sales/order_shipment" name="sales.order.shipment">
                 <block type="sales/order_shipment_items" name="shipment_items" template="sales/order/shipment/items.phtml">
                     <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/shipment/items/renderer/default.phtml</template></action>
@@ -165,7 +171,9 @@ Customer account home dashboard layout
         <label>Customer My Account Order Creditmemo View</label>
         <update handle="customer_account"/>
         <reference name="my.account.wrapper">
-            <block type="sales/order_info" as="info" name="sales.order.info"/>
+            <block type="sales/order_info" as="info" name="sales.order.info">
+                <block type="sales/order_info_buttons" as="buttons" name="sales.order.info.buttons" />
+            </block>
             <block type="sales/order_creditmemo" name="sales.order.creditmemo">
                 <block type="sales/order_creditmemo_items" name="creditmemo_items" template="sales/order/creditmemo/items.phtml">
                     <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
@@ -304,4 +312,203 @@ Email layouts section
         </block>
         <block type="core/text_list" name="additional.product.info" />
     </sales_email_order_creditmemo_items>
+
+<!--
+Guest
+-->
+
+    <sales_guest_form translate="label">
+        <label>Returns</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="sales/widget_guest_form" name="guest.form" template="sales/guest/form.phtml"/>
+        </reference>
+    </sales_guest_form>
+
+
+    <sales_guest_view translate="label">
+        <label>Customer My Account Order View</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="sales/order_info" as="info" name="sales.order.info">
+                <block type="sales/order_info_buttons" as="buttons" name="sales.order.info.buttons" />
+            </block>
+            <block type="sales/order_view" name="sales.order.view">
+                <block type="sales/order_items" name="order_items" template="sales/order/items.phtml">
+                    <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
+                    <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/items/renderer/default.phtml</template></action>
+                    <block type="sales/order_totals" name="order_totals" template="sales/order/totals.phtml">
+                        <action method="setLabelProperties"><value>colspan="4" class="a-right"</value></action>
+                        <action method="setValueProperties"><value>class="last a-right"</value></action>
+                        <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml" />
+                    </block>
+                </block>
+            </block>
+        </reference>
+        <reference name="sales.order.info">
+            <action method="addLink" translate="label" module="sales"><name>view</name><path></path><label>Order Information</label></action>
+            <action method="addLink" translate="label" module="sales"><name>invoice</name><path>*/*/invoice</path><label>Invoices</label></action>
+            <action method="addLink" translate="label" module="sales"><name>shipment</name><path>*/*/shipment</path><label>Shipments</label></action>
+            <action method="addLink" translate="label" module="sales"><name>creditmemo</name><path>*/*/creditmemo</path><label>Refunds</label></action>
+        </reference>
+    </sales_guest_view>
+
+    <sales_guest_invoice translate="label">
+        <label>Customer My Account Order Invoice View</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="sales/order_info" as="info" name="sales.order.info">
+                <block type="sales/order_info_buttons" as="buttons" name="sales.order.info.buttons" />
+            </block>
+            <block type="sales/order_invoice" name="sales.order.invoice">
+                <block type="sales/order_invoice_items" name="invoice_items" template="sales/order/invoice/items.phtml">
+                    <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/invoice/items/renderer/default.phtml</template></action>
+                    <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/invoice/items/renderer/default.phtml</template></action>
+                    <block type="sales/order_invoice_totals" name="invoice_totals" template="sales/order/totals.phtml">
+                        <action method="setLabelProperties"><value>colspan="4" class="a-right"</value></action>
+                        <action method="setValueProperties"><value>class="last a-right"</value></action>
+                        <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml" />
+                    </block>
+                    <block type="sales/order_comments" name="invoice_comments" template="sales/order/comments.phtml" />
+                </block>
+            </block>
+        </reference>
+        <reference name="sales.order.info">
+            <action method="addLink" translate="label" module="sales"><name>view</name><path>*/*/view</path><label>Order Information</label></action>
+            <action method="addLink" translate="label" module="sales"><name>invoice</name><path></path><label>Invoices</label></action>
+            <action method="addLink" translate="label" module="sales"><name>shipment</name><path>*/*/shipment</path><label>Shipments</label></action>
+            <action method="addLink" translate="label" module="sales"><name>creditmemo</name><path>*/*/creditmemo</path><label>Refunds</label></action>
+        </reference>
+    </sales_guest_invoice>
+
+    <sales_guest_shipment translate="label">
+        <label>Customer My Account Order Shipment View</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="sales/order_info" as="info" name="sales.order.info">
+                <block type="sales/order_info_buttons" as="buttons" name="sales.order.info.buttons" />
+            </block>
+            <block type="sales/order_shipment" name="sales.order.shipment">
+                <block type="sales/order_shipment_items" name="shipment_items" template="sales/order/shipment/items.phtml">
+                    <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/shipment/items/renderer/default.phtml</template></action>
+                    <block type="sales/order_comments" name="shipment_comments" template="sales/order/comments.phtml" />
+                </block>
+            </block>
+        </reference>
+        <reference name="sales.order.info">
+            <action method="addLink" translate="label" module="sales"><name>view</name><path>*/*/view</path><label>Order Information</label></action>
+            <action method="addLink" translate="label" module="sales"><name>invoice</name><path>*/*/invoice</path><label>Invoices</label></action>
+            <action method="addLink" translate="label" module="sales"><name>shipment</name><path></path><label>Shipments</label></action>
+            <action method="addLink" translate="label" module="sales"><name>creditmemo</name><path>*/*/creditmemo</path><label>Refunds</label></action>
+        </reference>
+    </sales_guest_shipment>
+
+    <sales_guest_creditmemo translate="label">
+        <label>Customer My Account Order Creditmemo View</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="sales/order_info" as="info" name="sales.order.info">
+                <block type="sales/order_info_buttons" as="buttons" name="sales.order.info.buttons" />
+            </block>
+            <block type="sales/order_creditmemo" name="sales.order.creditmemo">
+                <block type="sales/order_creditmemo_items" name="creditmemo_items" template="sales/order/creditmemo/items.phtml">
+                    <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
+                    <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
+                    <block type="sales/order_creditmemo_totals" name="creditmemo_totals" template="sales/order/totals.phtml">
+                        <action method="setLabelProperties"><value>colspan="6" class="a-right"</value></action>
+                        <action method="setValueProperties"><value>class="a-right"</value></action>
+                        <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml"/>
+                    </block>
+                    <block type="sales/order_comments" name="creditmemo_comments" template="sales/order/comments.phtml" />
+                </block>
+            </block>
+        </reference>
+        <reference name="sales.order.info">
+            <action method="addLink" translate="label" module="sales"><name>view</name><path>*/*/view</path><label>Order Information</label></action>
+            <action method="addLink" translate="label" module="sales"><name>invoice</name><path>*/*/invoice</path><label>Invoices</label></action>
+            <action method="addLink" translate="label" module="sales"><name>shipment</name><path>*/*/shipment</path><label>Shipments</label></action>
+            <action method="addLink" translate="label" module="sales"><name>creditmemo</name><path></path><label>Refunds</label></action>
+        </reference>
+    </sales_guest_creditmemo>
+
+    <sales_guest_reorder>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="sales/order_view" name="sales.order.view"/>
+        </reference>
+    </sales_guest_reorder>
+
+    <sales_guest_print translate="label">
+        <label>Sales Order Print View</label>
+        <reference name="content">
+            <block type="sales/order_print" name="sales.order.print" template="sales/order/print.phtml">
+                <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/items/renderer/default.phtml</template></action>
+                <block type="sales/order_totals" name="order_totals" template="sales/order/totals.phtml">
+                    <action method="setLabelProperties"><value>colspan="4" class="a-right"</value></action>
+                    <action method="setValueProperties"><value>class="last a-right"</value></action>
+                    <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml">
+                        <action method="setIsPlaneMode"><value>1</value></action>
+                    </block>
+                </block>
+            </block>
+        </reference>
+    </sales_guest_print>
+
+    <sales_guest_printinvoice translate="label">
+        <label>Sales Invoice Print View</label>
+        <reference name="content">
+            <block type="sales/order_print_invoice" name="sales.order.print.invoice" template="sales/order/print/invoice.phtml">
+                <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/invoice/items/renderer/default.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/invoice/items/renderer/default.phtml</template></action>
+                <block type="sales/order_invoice_totals" name="invoice_totals" template="sales/order/totals.phtml">
+                    <action method="setLabelProperties"><value>colspan="4" class="a-right"</value></action>
+                    <action method="setValueProperties"><value>class="last a-right"</value></action>
+                    <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml" />
+                </block>
+            </block>
+        </reference>
+    </sales_guest_printinvoice>
+
+    <sales_guest_printshipment translate="label">
+        <label>Sales Shipment Print View</label>
+        <reference name="content">
+            <block type="sales/order_print_shipment" name="sales.order.print.shipment" template="sales/order/print/shipment.phtml">
+                <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/shipment/items/renderer/default.phtml</template></action>
+            </block>
+        </reference>
+    </sales_guest_printshipment>
+
+    <sales_guest_printcreditmemo>
+        <reference name="content">
+            <block type="sales/order_print_creditmemo" name="sales.order.print.creditmemo" template="sales/order/print/creditmemo.phtml">
+                <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
+                <block type="sales/order_creditmemo_totals" name="creditmemo_totals" template="sales/order/totals.phtml">
+                    <action method="setLabelProperties"><value>colspan="6" class="a-right"</value></action>
+                    <action method="setValueProperties"><value>class="a-right"</value></action>
+                    <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml"/>
+                </block>
+            </block>
+        </reference>
+    </sales_guest_printcreditmemo>
+
+     <default>
+        <reference name="footer_links">
+            <block type="sales/guest_links" name="return_link"/>
+            <action method="addLinkBlock"><blockName>return_link</blockName></action>
+        </reference>
+    </default>
 </layout>

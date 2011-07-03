@@ -49,8 +49,8 @@ class Mage_Paygate_Model_Authorizenet_Cards
     /**
      * Set payment instance for storing credit card information and partial authorizations
      *
-     * @param Mage_Payment_Model_Info
-     * @return Mage_Paygate_Model_Authorizenet_Cart
+     * @param Mage_Payment_Model_Info $payment
+     * @return Mage_Paygate_Model_Authorizenet_Cards
      */
     public function setPayment(Mage_Payment_Model_Info $payment)
     {
@@ -96,10 +96,10 @@ class Mage_Paygate_Model_Authorizenet_Cards
     }
 
     /**
-     * Return card for $cardId
+     * Retrieve card by ID
      *
-     * $param string $cardId
-     * @return Varien_Object
+     * @param string $cardId
+     * @return Varien_Object|bool
      */
     public function getCard($cardId)
     {
@@ -173,6 +173,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
      */
     public function flushCards()
     {
+        $this->_cards = array();
         $this->_payment->setAdditionalInformation(self::CARDS_NAMESPACE, null);
         return $this;
     }

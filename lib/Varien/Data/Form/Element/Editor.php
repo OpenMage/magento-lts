@@ -363,9 +363,14 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      */
     public function translate($string)
     {
-        if ($this->getConfig('translator') instanceof Varien_Object) {
-            return $this->getConfig('translator')->__($string);
+        $translator = $this->getConfig('translator');
+        if (is_object($translator) && is_callable(array($translator, '__'))) {
+            $result = $translator->__($string);
+            if (is_string($result)) {
+                return $result;
+            }
         }
+
         return $string;
     }
 

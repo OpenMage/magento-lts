@@ -27,6 +27,7 @@
 <?php
     $_item = $this->getItem();
     $isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
+    $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
 ?>
 <li class="item">
     <?php if ($this->hasProductUrl()): ?>
@@ -41,6 +42,12 @@
         <?php endif ?>
         <p class="product-name"><?php if ($this->hasProductUrl()): ?><a href="<?php echo $this->getProductUrl() ?>"><?php endif; ?><?php echo $this->htmlEscape($this->getProductName()) ?><?php if ($this->hasProductUrl()): ?></a><?php endif; ?></p>
         <strong><?php echo $this->getQty() ?></strong> x
+
+    <?php if ($canApplyMsrp): ?>
+
+        <span class="map-cart-sidebar-item"><?php echo $this->__('See price before order confirmation.'); ?></span>
+
+    <?php else: ?>
 
     <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
         <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
@@ -112,6 +119,9 @@
             <?php endif; ?>
         <?php endif; ?>
     <?php endif; ?>
+
+    <?php endif; //Can apply MSRP ?>
+
         <?php if ($_options = $this->getOptionList()):?>
         <div class="truncated">
           <div class="truncated_full_value">

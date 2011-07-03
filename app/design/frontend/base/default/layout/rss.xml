@@ -56,19 +56,23 @@ Default layout, loads most of the pages
 Catalog layout
 -->
     <rss_catalog_new>
-        <block type="rss/catalog_new" output="toHtml" name="rss.catalog.new"/>
+        <block type="rss/catalog_new" output="toHtml" name="rss.catalog.new">
+            <action method="addPriceBlockType"><type>msrp_rss</type><block>catalog/product_price</block><template>catalog/product/price_msrp_rss.phtml</template></action>
+        </block>
     </rss_catalog_new>
 
     <rss_catalog_special>
-        <block type="rss/catalog_special" output="toHtml" name="rss.catalog.special"/>
+        <block type="rss/catalog_special" output="toHtml" name="rss.catalog.special" />
     </rss_catalog_special>
 
     <rss_catalog_salesrule>
-        <block type="rss/catalog_salesrule" output="toHtml" name="rss.catalog.salesrule"/>
+        <block type="rss/catalog_salesrule" output="toHtml" name="rss.catalog.salesrule" />
     </rss_catalog_salesrule>
 
     <rss_catalog_tag>
-        <block type="rss/catalog_tag" output="toHtml" name="rss.catalog.tag" />
+        <block type="rss/catalog_tag" output="toHtml" name="rss.catalog.tag">
+            <action method="addPriceBlockType"><type>msrp_rss</type><block>catalog/product_price</block><template>catalog/product/price_msrp_rss.phtml</template></action>
+        </block>
     </rss_catalog_tag>
 
     <rss_catalog_notifystock>
@@ -80,7 +84,9 @@ Catalog layout
     </rss_catalog_review>
 
     <rss_catalog_category>
-        <block type="rss/catalog_category" output="toHtml" name="rss.catalog.category" />
+        <block type="rss/catalog_category" output="toHtml" name="rss.catalog.category">
+            <action method="addPriceBlockType"><type>msrp_rss</type><block>catalog/product_price</block><template>catalog/product/price_msrp_rss.phtml</template></action>
+        </block>
     </rss_catalog_category>
 <!--
 Order layout

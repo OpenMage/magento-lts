@@ -1,4 +1,4 @@
-<?php
+/<?php
 /**
  * Magento
  *
@@ -55,7 +55,8 @@ $table = $installer->getConnection()
     ->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         ), 'Last updated date')
     ->addIndex($installer->getIdxName('wishlist/wishlist', 'shared'), 'shared')
-    ->addIndex($installer->getIdxName('wishlist/wishlist', 'customer_id', Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex(
+        $installer->getIdxName('wishlist/wishlist', 'customer_id', Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         'customer_id',
         array('type'=>Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->addForeignKey($installer->getFkName('wishlist/wishlist', 'customer_id', 'customer/entity', 'entity_id'),
@@ -134,9 +135,10 @@ $table = $installer->getConnection()
         'nullable'  => false,
         ), 'Code')
     ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
-        'nullable'  => false,
+        'nullable'  => true,
         ), 'Value')
-    ->addForeignKey($installer->getFkName('wishlist/item_option', 'wishlist_item_id', 'wishlist/item', 'wishlist_item_id'),
+    ->addForeignKey(
+        $installer->getFkName('wishlist/item_option', 'wishlist_item_id', 'wishlist/item', 'wishlist_item_id'),
         'wishlist_item_id', $installer->getTable('wishlist/item'), 'wishlist_item_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Wishlist Item Option Table');

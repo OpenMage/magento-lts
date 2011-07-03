@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Sales>
-            <version>1.6.0.0</version>
+            <version>1.6.0.3</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -1219,6 +1219,9 @@
                         <class>sales/quote_address_total_grand</class>
                         <after>subtotal</after>
                     </grand_total>
+                    <msrp>
+                        <class>sales/quote_address_total_msrp</class>
+                    </msrp>
                 </totals>
                 <nominal_totals>
                     <recurring_initial_fee>
@@ -1259,6 +1262,9 @@
                         <is_recurring/>
                         <recurring_profile/>
                         <gift_message_available/>
+                        <msrp_enabled/>
+                        <msrp/>
+                        <msrp_display_actual_price_type/>
                     </product_attributes>
                 </item>
             </quote>
@@ -1494,6 +1500,16 @@
                 </sales_recurring_profile>
             </updates>
         </layout>
+        <events>
+            <sales_quote_collect_totals_after>
+                <observers>
+                    <catalog_msrp>
+                        <class>sales/observer</class>
+                        <method>setQuoteCanApplyMsrp</method>
+                    </catalog_msrp>
+                </observers>
+            </sales_quote_collect_totals_after>
+        </events>
     </frontend>
     <adminhtml>
         <translate>
@@ -1569,6 +1585,15 @@
                     </sales_billing_agreement>
                 </observers>
             </payment_method_is_active>
+
+            <customer_save_after>
+                <observers>
+                    <customer>
+                        <class>sales/observer</class>
+                        <method>customerSaveAfter</method>
+                    </customer>
+                </observers>
+            </customer_save_after>
         </events>
     </adminhtml>
     <default>

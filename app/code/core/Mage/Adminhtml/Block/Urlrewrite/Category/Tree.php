@@ -34,8 +34,14 @@
 class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block_Catalog_Category_Abstract
 {
     /**
-     * Set custom template for the block
+     * List of allowed category ids
      *
+     * @var array|null
+     */
+    protected $_allowedCategoryIds = null;
+
+    /**
+     * Set custom template for the block
      */
     public function __construct()
     {
@@ -53,6 +59,13 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
      */
     public function getTreeArray($parentId = null, $asJson = false, $recursionLevel = 3)
     {
+        $productId = Mage::app()->getRequest()->getParam('product');
+        if ($productId) {
+            $product = Mage::getModel('catalog/product')->setId($productId);
+            $this->_allowedCategoryIds = $product->getCategoryIds();
+            unset($product);
+        }
+
         $result = array();
         if ($parentId) {
             $category = Mage::getModel('catalog/category')->load($parentId);
@@ -62,13 +75,16 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
                     $result = $tree['children'];
                 }
             }
-        }
-        else {
+        } else {
             $result = $this->_getNodesArray($this->getRoot(null, $recursionLevel));
         }
+
         if ($asJson) {
             return Mage::helper('core')->jsonEncode($result);
         }
+
+        $this->_allowedCategoryIds = null;
+
         return $result;
     }
 
@@ -83,16 +99,17 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
         if (is_null($collection)) {
             $collection = Mage::getModel('catalog/category')->getCollection()
                 ->addAttributeToSelect(array('name', 'is_active'))
-                ->setLoadProductCount(true)
-            ;
+                ->setLoadProductCount(true);
             $this->setData('category_collection', $collection);
         }
+
         return $collection;
     }
 
     /**
      * Convert categories tree to array recursively
      *
+     * @param  Varien_Data_Tree_Node $node
      * @return array
      */
     protected function _getNodesArray($node)
@@ -104,19 +121,22 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
             'is_active'      => (bool)$node->getIsActive(),
             'name'           => $node->getName(),
             'level'          => (int)$node->getLevel(),
-            'product_count'  => (int)$node->getProductCount(),
+            'product_count'  => (int)$node->getProductCount()
         );
+
+        if (is_array($this->_allowedCategoryIds) && !in_array($result['id'], $this->_allowedCategoryIds)) {
+            $result['disabled'] = true;
+        }
+
         if ($node->hasChildren()) {
             $result['children'] = array();
             foreach ($node->getChildren() as $childNode) {
                 $result['children'][] = $this->_getNodesArray($childNode);
             }
         }
-        $result['cls'] = ($result['is_active'] ? '' : 'no-') . 'active-category';
-        $result['expanded'] = false;
-        if (!empty($result['children'])) {
-            $result['expanded'] = true;
-        }
+        $result['cls']      = ($result['is_active'] ? '' : 'no-') . 'active-category';
+        $result['expanded'] = (!empty($result['children']));
+
         return $result;
     }
 

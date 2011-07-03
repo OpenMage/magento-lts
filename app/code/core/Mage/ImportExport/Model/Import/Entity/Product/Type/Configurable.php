@@ -357,7 +357,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
         $oldSku          = $this->_entityModel->getOldSku();
         $productSuperData = array();
         $productData     = null;
-        $nextAttrId      = $this->_entityModel->getNextAutoincrement($mainTable);
+        $nextAttrId      = Mage::getResourceHelper('importexport')->getNextAutoincrement($mainTable);
 
         if ($this->_entityModel->getBehavior() == Mage_ImportExport_Model_Import::BEHAVIOR_APPEND) {
             $this->_loadSkuSuperData();

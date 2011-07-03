@@ -72,10 +72,23 @@ getFinalPrice() - used in shopping cart calculations
             ->addStoreFilter()
 
             ->addAttributeToFilter('news_from_date', array('date'=>true, 'to'=> $todayDate))
-            ->addAttributeToFilter(array(array('attribute'=>'news_to_date', 'date'=>true, 'from'=>$todayDate), array('attribute'=>'news_to_date', 'is' => new Zend_Db_Expr('null'))),'','left')
+            ->addAttributeToFilter(
+                array(
+                     array('attribute'=>'news_to_date', 'date'=>true, 'from'=>$todayDate),
+                     array('attribute'=>'news_to_date', 'is' => new Zend_Db_Expr('null'))
+                ),
+                '',
+                'left'
+            )
             ->addAttributeToSort('news_from_date','desc')
             ->addAttributeToSelect(array('name', 'short_description', 'description', 'thumbnail'), 'inner')
-            ->addAttributeToSelect(array('price', 'special_price', 'special_from_date', 'special_to_date'), 'left')
+            ->addAttributeToSelect(
+                array(
+                    'price', 'special_price', 'special_from_date', 'special_to_date',
+                    'msrp_enabled', 'msrp_display_actual_price_type', 'msrp'
+                ),
+                'left'
+            )
             ->applyFrontendPriceLimitations()
         ;
 
@@ -86,8 +99,11 @@ getFinalPrice() - used in shopping cart calculations
         instead of loading all at the same time. loading all data at the same time can cause the big memory allocation.
         */
 
-        Mage::getSingleton('core/resource_iterator')
-            ->walk($products->getSelect(), array(array($this, 'addNewItemXmlCallback')), array('rssObj'=> $rssObj, 'product'=>$product));
+        Mage::getSingleton('core/resource_iterator')->walk(
+                $products->getSelect(),
+                array(array($this, 'addNewItemXmlCallback')),
+                array('rssObj'=> $rssObj, 'product'=>$product)
+        );
 
         return $rssObj->createRssXml();
     }
@@ -102,6 +118,7 @@ getFinalPrice() - used in shopping cart calculations
         $product = $args['product'];
 
         $product->setAllowedInRss(true);
+        $product->setAllowedPriceInRss(true);
         Mage::dispatchEvent('rss_catalog_new_xml_callback', $args);
 
         if (!$product->getAllowedInRss()) {
@@ -113,8 +130,10 @@ getFinalPrice() - used in shopping cart calculations
 
         //$product->unsetData()->load($args['row']['entity_id']);
         $product->setData($args['row']);
-        $description = '<table><tr>'.
-            '<td><a href="'.$product->getProductUrl().'"><img src="'. $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75) .'" border="0" align="left" height="75" width="75"></a></td>'.
+        $description = '<table><tr>'
+            . '<td><a href="'.$product->getProductUrl().'"><img src="'
+            . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
+            .'" border="0" align="left" height="75" width="75"></a></td>'.
             '<td  style="text-decoration:none;">'.$product->getDescription();
 
         if ($allowedPriceInRss) {

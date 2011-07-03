@@ -175,9 +175,13 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     {
         $price = $this->getProduct()->getPriceModel()->getSelectionPreFinalPrice($this->getProduct(), $_selection);
         $this->setFormatProduct($_selection);
-        return $_selection->getSelectionQty()*1 . ' x ' . $_selection->getName() . ' &nbsp; ' .
-            ($includeContainer ? '<span class="price-notice">' : '') . '+' .
-            $this->formatPriceString($price, $includeContainer) . ($includeContainer ? '</span>' : '');
+        $priceTitle = $_selection->getSelectionQty()*1 . ' x ' . $_selection->getName();
+
+        $priceTitle .= ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '')
+            . '+' . $this->formatPriceString($price, $includeContainer)
+            . ($includeContainer ? '</span>' : '');
+
+        return  $priceTitle;
     }
 
     /**
@@ -199,12 +203,22 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
         return is_numeric($price) ? $price : 0;
     }
 
+    /**
+     * Get title price for selection product
+     *
+     * @param Mage_Catalog_Model_Product $_selection
+     * @param bool $includeContainer
+     * @return string
+     */
     public function getSelectionTitlePrice($_selection, $includeContainer = true)
     {
         $price = $this->getProduct()->getPriceModel()->getSelectionPreFinalPrice($this->getProduct(), $_selection, 1);
         $this->setFormatProduct($_selection);
-        return $_selection->getName() . ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '') . '+' .
-            $this->formatPriceString($price, $includeContainer) . ($includeContainer ? '</span>' : '');
+        $priceTitle = $_selection->getName();
+        $priceTitle .= ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '')
+            . '+' . $this->formatPriceString($price, $includeContainer)
+            . ($includeContainer ? '</span>' : '');
+        return $priceTitle;
     }
 
     /**

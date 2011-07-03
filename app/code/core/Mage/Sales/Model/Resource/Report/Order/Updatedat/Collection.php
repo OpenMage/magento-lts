@@ -128,19 +128,31 @@ class Mage_Sales_Model_Resource_Report_Order_Updatedat_Collection
         $totalIncomeAmount           = "SUM((e.base_grand_total - {$ifnullBaseTotalCanceled}) * e.base_to_global_rate)";
 
         $ifnullBaseTotalRefunded     = $adapter->getIfNullSql('e.base_total_refunded', 0);
-        $totalRevenueAmount          = "SUM((e.base_total_paid - {$ifnullBaseTotalRefunded}) * e.base_to_global_rate)";
-
-        $ifnullTotalRefunded         = $adapter->getIfNullSql('e.base_total_refunded', 0);
         $ifnullBaseTaxInvoiced       = $adapter->getIfNullSql('e.base_tax_invoiced', 0);
         $ifnullBaseShippingInvoiced  = $adapter->getIfNullSql('e.base_shipping_invoiced', 0);
+        $ifnullBaseTotalInvoiced     = $adapter->getIfNullSql('e.base_total_invoiced', 0);
+        $ifnullBaseTaxRefunded       = $adapter->getIfNullSql('e.base_tax_refunded', 0);
+        $ifnullBaseShippingRefunded  = $adapter->getIfNullSql('e.base_shipping_refunded', 0);
+
+        $totalRevenueAmount = new Zend_Db_Expr(
+            sprintf('SUM((%s - %s - %s - (%s - %s - %s)) * e.base_to_global_rate)',
+                $ifnullBaseTotalInvoiced,
+                $ifnullBaseTaxInvoiced,
+                $ifnullBaseShippingInvoiced,
+                $ifnullBaseTotalRefunded,
+                $ifnullBaseTaxRefunded,
+                $ifnullBaseShippingRefunded
+            )
+        );
+
         $ifnullBaseTotalInvoicedCost = $adapter->getIfNullSql('e.base_total_invoiced_cost', 0);
-        $totalProfitAmountSum        = new Zend_Db_Expr(
-            "SUM((e.base_total_paid - "
-            . $ifnullTotalRefunded . " - " 
-            . $ifnullBaseTaxInvoiced . " - " 
-            . $ifnullBaseShippingInvoiced ." - " 
-            . $ifnullBaseTotalInvoicedCost
-            . ") * e.base_to_global_rate)"
+        $totalProfitAmountSum = new Zend_Db_Expr(
+            sprintf('SUM((e.base_total_paid - %s - %s - %s - %s) *  e.base_to_global_rate)',
+                $ifnullBaseTotalRefunded,
+                $ifnullBaseTaxInvoiced,
+                $ifnullBaseShippingInvoiced,
+                $ifnullBaseTotalInvoicedCost
+            )
         );
 
         $ifnullBaseTaxCanceled      = $adapter->getIfNullSql('e.base_tax_canceled', 0);
@@ -148,7 +160,6 @@ class Mage_Sales_Model_Resource_Report_Order_Updatedat_Collection
             "SUM((e.base_tax_amount - {$ifnullBaseTaxCanceled}) * e.base_to_global_rate)"
         );
 
-        $ifnullBaseTaxRefunded      = $adapter->getIfNullSql('e.base_tax_refunded', 0);
         $sumTotalTaxAmountActual    = new Zend_Db_Expr(
             "SUM((e.base_tax_invoiced - {$ifnullBaseTaxRefunded}) * e.base_to_global_rate)"
         );
@@ -158,7 +169,6 @@ class Mage_Sales_Model_Resource_Report_Order_Updatedat_Collection
             "SUM((e.base_shipping_amount - {$ifnullBaseShippingCanceled}) * e.base_to_global_rate)"
         );
 
-        $ifnullBaseShippingRefunded = $adapter->getIfNullSql('e.base_shipping_refunded', 0);
         $sumTotalShippingAmountActual = new Zend_Db_Expr(
             "SUM((e.base_shipping_invoiced - {$ifnullBaseShippingRefunded}) * e.base_to_global_rate)"
         );
@@ -195,7 +205,7 @@ class Mage_Sales_Model_Resource_Report_Order_Updatedat_Collection
             'total_discount_amount'          => $adapter->getIfNullSql($sumTotalDiscountAmount, 0),
             'total_discount_amount_actual'   => $adapter->getIfNullSql($sumTotalDiscountAmountActual, 0),
         );
-        
+
         if (!$this->isTotals()) {
             if ('month' == $this->_period) {
                 $this->_periodFormat = $adapter->getDateFormatSql('e.updated_at', '%Y-%m');

@@ -969,7 +969,7 @@
                     <show_in_store>0</show_in_store>
                     <fields>
                         <use_custom translate="label">
-                            <label>Use Custom Admin URL</label>
+                            <label>Use Custom Admin Path</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <backend_model>adminhtml/system_config_backend_admin_usecustom</backend_model>
@@ -979,14 +979,16 @@
                             <show_in_store>0</show_in_store>
                         </use_custom>
                         <custom translate="label comment">
-                            <label>Custom Admin URL</label>
+                            <label>Custom Admin Path</label>
                             <frontend_type>text</frontend_type>
+                            <validate>required-entry validate-alphanum</validate>
                             <backend_model>adminhtml/system_config_backend_admin_custom</backend_model>
+                            <depends><use_custom>1</use_custom></depends>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Make sure that base URL ends with '/' (slash), e.g. http://yourdomain/magento/</comment>
+                            <comment>You will have to log in after you save your custom admin path.</comment>
                         </custom>
                     </fields>
                 </url>
@@ -1020,6 +1022,7 @@
                         <session_cookie_lifetime translate="label comment">
                             <label>Session Lifetime (seconds)</label>
                             <comment>Values less than 60 are ignored. Note that changes will apply after logout.</comment>
+                            <validate>validate-digits</validate>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>

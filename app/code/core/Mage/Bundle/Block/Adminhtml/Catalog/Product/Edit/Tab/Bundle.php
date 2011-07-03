@@ -31,7 +31,8 @@
  * @package     Mage_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_Adminhtml_Block_Widget
+    implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     protected $_product = null;
     public function __construct()
@@ -51,6 +52,11 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
         return 'ajax';
     }
 
+    /**
+     * Prepare layout
+     *
+     * @return Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle
+     */
     protected function _prepareLayout()
     {
         $this->setChild('add_button',
@@ -64,7 +70,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
         );
 
         $this->setChild('options_box',
-            $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option')
+            $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option',
+                'adminhtml.catalog.product.edit.tab.bundle.option')
         );
 
         return parent::_prepareLayout();

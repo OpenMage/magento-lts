@@ -31,5 +31,100 @@
  */
 class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    /**
+     * Convert weight in different measure types
+     *
+     * @param  mixed $value
+     * @param  string $sourceWeightMeasure
+     * @param  string $toWeightMeasure
+     * @return int|null|string
+     */
+    public function convertMeasureWeight($value, $sourceWeightMeasure, $toWeightMeasure)
+    {
+        if ($value) {
+            $locale = Mage::app()->getLocale()->getLocale();
+            $unitWeight = new Zend_Measure_Weight($value, $sourceWeightMeasure, $locale);
+            $unitWeight->setType($toWeightMeasure);
+            return $unitWeight->getValue();
+        }
+        return null;
+    }
 
+    /**
+     * Convert dimensions in different measure types
+     *
+     * @param  mixed $value
+     * @param  string $sourceDimensionMeasure
+     * @param  string $toDimensionMeasure
+     * @return int|null|string
+     */
+    public function convertMeasureDimension($value, $sourceDimensionMeasure, $toDimensionMeasure)
+    {
+        if ($value) {
+            $locale = Mage::app()->getLocale()->getLocale();
+            $unitDimension = new Zend_Measure_Length($value, $sourceDimensionMeasure, $locale);
+            $unitDimension->setType($toDimensionMeasure);
+            return $unitDimension->getValue();
+        }
+        return null;
+    }
+
+    /**
+     * Get name of measure by its type
+     *
+     * @param  $key
+     * @return string
+     */
+    public function getMeasureWeightName($key)
+    {
+        $weight = new Zend_Measure_Weight(0);
+        $conversionList = $weight->getConversionList();
+        if (!empty($conversionList[$key]) && !empty($conversionList[$key][1])) {
+            return $conversionList[$key][1];
+        }
+        return '';
+    }
+
+    /**
+     * Get name of measure by its type
+     *
+     * @param  $key
+     * @return string
+     */
+    public function getMeasureDimensionName($key)
+    {
+        $weight = new Zend_Measure_Length(0);
+        $conversionList = $weight->getConversionList();
+        if (!empty($conversionList[$key]) && !empty($conversionList[$key][1])) {
+            return $conversionList[$key][1];
+        }
+        return '';
+    }
+
+    /**
+     * Define if we need girth parameter in the package window
+     *
+     * @param string $shippingMethod
+     * @return bool
+     */
+    public function displayGirthValue($shippingMethod)
+    {
+        if (in_array($shippingMethod, array('usps_Priority Mail International',
+                                            'usps_Express Mail Hold For Pickup',
+                                            'usps_Express Mail International',
+                                            'usps_First-Class Mail International Package',
+                                            'usps_First-Class Mail International',
+                                            'usps_Global Express Guaranteed (GXG)',
+                                            'usps_Global Express Guaranteed Non-Document Non-Rectangular',
+                                            'usps_Media Mail',
+                                            'usps_Parcel Post',
+                                            'usps_Express Mail',
+                                            'usps_Priority Mail'
+                                            )
+        )) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

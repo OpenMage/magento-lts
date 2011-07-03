@@ -76,6 +76,20 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     }
 
     /**
+     * Add new tab after another
+     *
+     * @param   string $tabId new tab Id
+     * @param   array|Varien_Object $tab
+     * @param   string $afterTabId
+     * @return  Mage_Adminhtml_Block_Widget_Tabs
+     */
+    public function addTabAfter($tabId, $tab, $afterTabId)
+    {
+        $this->addTab($tabId, $tab);
+        $this->_tabs[$tabId]->setAfter($afterTabId);
+    }
+
+    /**
      * Add new tab
      *
      * @param   string $tabId

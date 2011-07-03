@@ -57,6 +57,7 @@
                     <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
                     <block type="checkout/cart_totals" name="paypal.express.review.details.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
                 </block>
+                <block type="checkout/agreements" name="paypal.express.review.details.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
             </block>
         </reference>
         <reference name="head">

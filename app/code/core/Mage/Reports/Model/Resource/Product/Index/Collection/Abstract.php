@@ -36,11 +36,17 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
     extends Mage_Catalog_Model_Resource_Product_Collection
 {
     /**
+     * Customer id
+     *
+     * @var null|int
+     */
+    protected $_customerId = null;
+
+    /**
      * Retrieve Product Index table name
      *
      */
-    abstract protected function _getTableName()
-;
+    abstract protected function _getTableName();
 
     /**
      * Join index table
@@ -106,11 +112,25 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
 
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             $condition['customer_id'] = Mage::getSingleton('customer/session')->getCustomerId();
+        } elseif ($this->_customerId) {
+            $condition['customer_id'] = $this->_customerId;
         } else {
             $condition['visitor_id'] = Mage::getSingleton('log/visitor')->getId();
         }
 
         return $condition;
+    }
+
+    /**
+     * Set customer id, that will be used in 'whereCondition'
+     *
+     * @param int $id
+     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
+     */
+    public function setCustomerId($id)
+    {
+        $this->_customerId = (int)$id;
+        return $this;
     }
 
     /**

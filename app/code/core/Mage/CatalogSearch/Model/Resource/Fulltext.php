@@ -108,19 +108,21 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     /**
      * Regenerate search index for store(s)
      *
-     * @param int $storeId Store View Id
-     * @param int|array $productIds Product Entity Id(s)
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext
+     * @param  int $storeId Store View Id
+     * @param  int|array $productIds Product Entity Id(s)
+     * @return Mage_CatalogSearch_Model_Mysql4_Fulltext
      */
     public function rebuildIndex($storeId = null, $productIds = null)
     {
         if (is_null($storeId)) {
-            foreach (Mage::app()->getStores(false) as $store) {
-                $this->_rebuildStoreIndex($store->getId(), $productIds);
+            $storeIds = array_keys(Mage::app()->getStores());
+            foreach ($storeIds as $storeId) {
+                $this->_rebuildStoreIndex($storeId, $productIds);
             }
         } else {
             $this->_rebuildStoreIndex($storeId, $productIds);
         }
+
         return $this;
     }
 
@@ -198,7 +200,9 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                 ) {
                     continue;
                 }
-                if (!isset($protductAttr[$status->getId()]) || !in_array($protductAttr[$status->getId()], $statusVals)) {
+                if (!isset($protductAttr[$status->getId()])
+                    || !in_array($protductAttr[$status->getId()], $statusVals)
+                ) {
                     continue;
                 }
 
@@ -247,12 +251,18 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                 array_merge(array('entity_id', 'type_id'), $staticFields))
             ->join(
                 array('website' => $this->getTable('catalog/product_website')),
-                $this->_getWriteAdapter()->quoteInto('website.product_id=e.entity_id AND website.website_id=?', $store->getWebsiteId()),
+                $this->_getWriteAdapter()->quoteInto(
+                    'website.product_id=e.entity_id AND website.website_id=?',
+                    $store->getWebsiteId()
+                ),
                 array()
             )
             ->join(
                 array('stock_status' => $this->getTable('cataloginventory/stock_status')),
-                $this->_getWriteAdapter()->quoteInto('stock_status.product_id=e.entity_id AND stock_status.website_id=?', $store->getWebsiteId()),
+                $this->_getWriteAdapter()->quoteInto(
+                    'stock_status.product_id=e.entity_id AND stock_status.website_id=?',
+                    $store->getWebsiteId()
+                ),
                 array('in_stock' => 'stock_status')
             );
 
@@ -493,7 +503,11 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                         array('entity_id', 'attribute_id'))
                     ->joinLeft(
                         array('t_store' => $tableName),
-                        $adapter->quoteInto('t_default.entity_id=t_store.entity_id AND t_default.attribute_id=t_store.attribute_id AND t_store.store_id=?', $storeId),
+                        $adapter->quoteInto(
+                            't_default.entity_id=t_store.entity_id' .
+                                ' AND t_default.attribute_id=t_store.attribute_id' .
+                                ' AND t_store.store_id=?',
+                            $storeId),
                         array('value' => $this->_unifyField($ifStoreValue, $backendType)))
                     ->where('t_default.store_id=?', 0)
                     ->where('t_default.attribute_id IN (?)', $attributeIds)
@@ -584,19 +598,21 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
         $index = array();
 
         foreach ($this->_getSearchableAttributes('static') as $attribute) {
-            if (isset($productData[$attribute->getAttributeCode()])) {
-                if ($value = $this->_getAttributeValue($attribute->getId(), $productData[$attribute->getAttributeCode()], $storeId)) {
+            $attributeCode = $attribute->getAttributeCode();
 
+            if (isset($productData[$attributeCode])) {
+                $value = $this->_getAttributeValue($attribute->getId(), $productData[$attributeCode], $storeId);
+                if ($value) {
                     //For grouped products
-                    if (isset($index[$attribute->getAttributeCode()])) {
-                        if (!is_array($index[$attribute->getAttributeCode()])) {
-                            $index[$attribute->getAttributeCode()] = array($index[$attribute->getAttributeCode()]);
+                    if (isset($index[$attributeCode])) {
+                        if (!is_array($index[$attributeCode])) {
+                            $index[$attributeCode] = array($index[$attributeCode]);
                         }
-                        $index[$attribute->getAttributeCode()][] = $value;
+                        $index[$attributeCode][] = $value;
                     }
                     //For other types of products
                     else {
-                        $index[$attribute->getAttributeCode()] = $value;
+                        $index[$attributeCode] = $value;
                     }
                 }
             }
@@ -663,6 +679,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             $attribute->getIsFilterableInSearch())) {
             return null;
         }
+
         if ($attribute->usesSource()) {
             $attribute->setStoreId($storeId);
             $value = $attribute->getSource()->getOptionText($value);
@@ -670,12 +687,16 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
         if ($attribute->getBackendType() == 'datetime') {
             $value = $this->_getStoreDate($storeId, $value);
         }
-        if ($attribute->getFrontend()->getInputType() == 'price') {
+
+        $inputType = $attribute->getFrontend()->getInputType();
+        if ($inputType == 'price') {
             $value = Mage::app()->getStore($storeId)->roundPrice($value);
         }
 
         if (is_array($value)) {
             $value = implode($this->_separator, $value);
+        } elseif (empty($value) && ($inputType == 'select' || $inputType == 'multiselect')) {
+            return null;
         }
 
         return preg_replace("#\s+#siu", ' ', trim(strip_tags($value)));

@@ -34,6 +34,8 @@
 class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstract
     implements Mage_Catalog_Helper_Product_Configuration_Interface
 {
+    const XML_PATH_CONFIGURABLE_ALLOWED_TYPES = 'global/catalog/product/type/configurable/allow_product_types';
+
     /**
      * Retrieves product configuration options
      *
@@ -250,5 +252,17 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         }
 
         return $result;
+    }
+
+    /**
+     * Get allowed product types for configurable product
+     *
+     * @return SimpleXMLElement
+     */
+    public function getConfigurableAllowedTypes()
+    {
+        return Mage::getConfig()
+                ->getNode(self::XML_PATH_CONFIGURABLE_ALLOWED_TYPES)
+                ->children();
     }
 }

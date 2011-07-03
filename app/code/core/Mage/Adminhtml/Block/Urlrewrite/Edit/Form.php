@@ -109,8 +109,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
                 $entityStores = $product->getStoreIds() ? $product->getStoreIds() : array();
                 if  (!$entityStores) {
                     $stores = array(); //reset the stores
-                    $noStoreError = $this->__('Chosen product does not associated with any website, ') .
-                        $this->__('so url rewrite is not possible.');
+                    $noStoreError = $this->__('Chosen product does not associated with any website, so url rewrite is not possible.');
                 }
                 //if category is chosen, reset stores which are not related with this category
                 if ($category && $category->getId()) {
@@ -123,8 +122,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
                 $entityStores = $category->getStoreIds() ? $category->getStoreIds() : array();
                 if  (!$entityStores) {
                     $stores = array(); //reset the stores
-                    $noStoreError = $this->__('Chosen category does not associated with any website, ') .
-                        $this->__('so url rewrite is not possible.');
+                    $noStoreError = $this->__('Chosen category does not associated with any website, so url rewrite is not possible.');
                 }
                 $isFilterAllowed = true;
             }

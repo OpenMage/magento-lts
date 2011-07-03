@@ -66,8 +66,37 @@
                     (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
                 <?php endif; ?>
             </div>
+            <?php if ($this->canCreateShippingLabel()): ?>
+            <div style="text-align: center; margin: 10px 0;">
+                <?php echo $this->getCreateLabelButton()?>
+                <?php if ($this->getShipment()->getShippingLabel()): ?>
+                    <?php echo $this->getPrintLabelButton() ?>
+                <?php endif ?>
+                <?php if ($this->getShipment()->getPackages()): ?>
+                    <?php echo $this->getShowPackagesButton() ?>
+                <?php endif ?>
+            </div>
+            <?php endif ?>
             <div><?php echo $this->getChildHtml('shipment_tracking') ?></div>
         </fieldset>
+    <?php echo $this->getChildHtml('shipment_packaging') ?>
+    <script type="text/javascript">
+    //<![CDATA[
+        document.observe("dom:loaded", function() {
+            setTimeout(function(){
+                packaging.setConfirmPackagingCallback(function(){
+                    packaging.sendCreateLabelRequest();
+                });
+                packaging.setLabelCreatedCallback(function(response){
+                    setLocation("<?php echo $this->getUrl(
+                        '*/sales_order_shipment/view',
+                        array('shipment_id' => $this->getShipment()->getId())
+                    ); ?>");
+                });
+            }, 500);
+        });
+    //]]>
+    </script>
     </div>
 </div>
 <div class="clear"></div>
@@ -79,6 +108,7 @@
 </div>
 
 <?php echo $this->getChildHtml('shipment_items') ?>
+<?php echo $this->getChildHtml('shipment_packed') ?>
 
 <div class="box-left entry-edit">
     <div class="entry-edit-head"><h4><?php echo $this->__('Shipment History') ?></h4></div>

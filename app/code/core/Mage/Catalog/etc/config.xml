@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Catalog>
-            <version>1.6.0.0</version>
+            <version>1.6.0.0.3</version>
         </Mage_Catalog>
     </modules>
     <admin>
@@ -683,6 +683,9 @@
                 <catalog>
                     <file>catalog.xml</file>
                 </catalog>
+                <map>
+                    <file>catalog_msrp.xml</file>
+                </map>
             </updates>
         </layout>
         <catalog>
@@ -774,6 +777,15 @@
                 </allowed_resources>
             </media_storage_configuration>
         </system>
+        <sales>
+            <map>
+                <enabled>0</enabled>
+                <apply_for_all>0</apply_for_all>
+                <display_price_type>1</display_price_type>
+                <explanation_message><![CDATA[Our price is lower than the manufacturer's "minimum advertised price."  As a result, we cannot show you the price in catalog or the product page. <br /><br /> You have no obligation to purchase the product once you know the price. You can simply remove the item from your cart.]]></explanation_message>
+                <explanation_message_whats_this><![CDATA[Our price is lower than the manufacturer's "minimum advertised price."  As a result, we cannot show you the price in catalog or the product page. <br /><br /> You have no obligation to purchase the product once you know the price. You can simply remove the item from your cart.]]></explanation_message_whats_this>
+            </map>
+        </sales>
     </default>
     <crontab>
         <jobs>

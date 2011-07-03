@@ -65,9 +65,30 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
         return Mage::registry('current_order');
     }
 
+    /**
+     * Return back url for logged in and guest users
+     *
+     * @return string
+     */
     public function getBackUrl()
     {
-        return Mage::getUrl('*/*/history');
+        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+            return Mage::getUrl('*/*/history');
+        }
+        return Mage::getUrl('*/*/form');
+    }
+
+    /**
+     * Return back title for logged in and guest users
+     *
+     * @return string
+     */
+    public function getBackTitle()
+    {
+        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+            return Mage::helper('sales')->__('Back to My Orders');
+        }
+        return Mage::helper('sales')->__('View Another Order');
     }
 
     public function getInvoiceUrl($order)

@@ -462,7 +462,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     }
 
     /**
-     * Chack is product available for sale
+     * Check whether the product is available for sale
      * is alias to isSalable for compatibility
      *
      * @return bool
@@ -568,7 +568,20 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 /**
                  * $attributes = array($attributeId=>$attributeValue)
                  */
-                $subProduct = $this->getProductByAttributes($attributes, $product);
+                $subProduct = true;
+                if ($this->_isStrictProcessMode($processMode)) {
+                    foreach($this->getConfigurableAttributes($product) as $attributeItem){
+                        $attrId = $attributeItem->getData('attribute_id');
+                        if(!isset($attributes[$attrId]) || empty($attributes[$attrId])) {
+                            $subProduct = null;
+                            break;
+                        }
+                    }
+                }
+                if( $subProduct ) {
+                    $subProduct = $this->getProductByAttributes($attributes, $product);
+                }
+
                 if ($subProduct) {
                     $product->addCustomOption('attributes', serialize($attributes));
                     $product->addCustomOption('product_qty_'.$subProduct->getId(), 1, $subProduct);
@@ -784,9 +797,14 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     public function getSku($product = null)
     {
         $sku = $this->getProduct($product)->getData('sku');
-        if ($simpleOption = $this->getProduct($product)->getCustomOption('simple_product')) {
-            $simple_sku = $simpleOption->getProduct($product)->getSku();
-            $sku = parent::getOptionSku($product, $simple_sku);
+        $simpleOption = $this->getProduct($product)->getCustomOption('simple_product');
+        if($simpleOption) {
+            $optionProduct = $simpleOption->getProduct($product);
+            $simpleSku = null;
+            if ($optionProduct) {
+                $simpleSku =  $simpleOption->getProduct($product)->getSku();
+            }
+            $sku = parent::getOptionSku($product, $simpleSku);
         } else {
             $sku = parent::getSku($product);
         }
@@ -809,5 +827,17 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         $options = array('super_attribute' => $superAttribute);
 
         return $options;
+    }
+
+    /**
+     * Check if Minimum Advertise Price is enabled at least in one option
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param int $visibility
+     * @return bool|null
+     */
+    public function isMapEnabledInOptions($product, $visibility = null)
+    {
+        return null;
     }
 }

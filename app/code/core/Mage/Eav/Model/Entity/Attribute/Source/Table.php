@@ -147,33 +147,48 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     public function getFlatColums()
     {
         $columns = array();
+        $attributeCode = $this->getAttribute()->getAttributeCode();
         $isMulti = $this->getAttribute()->getFrontend()->getInputType() == 'multiselect';
-        if ($isMulti) {
-            $type = Varien_Db_Ddl_Table::TYPE_TEXT;
-        } else {
-            $type = Varien_Db_Ddl_Table::TYPE_INTEGER;
-        }
 
-        $columns[$this->getAttribute()->getAttributeCode()] = array(
-            'type'      => $type,
-            'length'    => $isMulti ? '255' : null,
-            'unsigned'  => false,
-            'nullable'   => true,
-            'default'   => null,
-            'extra'     => null,
-            'comment'   => $this->getAttribute()->getAttributeCode() . ' column'
-        );
-
-        if (!$isMulti) {
-            $columns[$this->getAttribute()->getAttributeCode() . '_value'] = array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 255,
+        if (Mage::helper('core')->useDbCompatibleMode()) {
+            $columns[$attributeCode] = array(
+                'type'      => $isMulti ? 'varchar(255)' : 'int',
                 'unsigned'  => false,
-                'nullable'  => true,
+                'is_null'   => true,
+                'default'   => null,
+                'extra'     => null
+            );
+            if (!$isMulti) {
+                $columns[$attributeCode . '_value'] = array(
+                    'type'      => 'varchar(255)',
+                    'unsigned'  => false,
+                    'is_null'   => true,
+                    'default'   => null,
+                    'extra'     => null
+                );
+            }
+        } else {
+            $type = ($isMulti) ? Varien_Db_Ddl_Table::TYPE_TEXT : Varien_Db_Ddl_Table::TYPE_INTEGER;
+            $columns[$attributeCode] = array(
+                'type'      => $type,
+                'length'    => $isMulti ? '255' : null,
+                'unsigned'  => false,
+                'nullable'   => true,
                 'default'   => null,
                 'extra'     => null,
-                'comment'   => $this->getAttribute()->getAttributeCode() . ' column'
+                'comment'   => $attributeCode . ' column'
             );
+            if (!$isMulti) {
+                $columns[$attributeCode . '_value'] = array(
+                    'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
+                    'length'    => 255,
+                    'unsigned'  => false,
+                    'nullable'  => true,
+                    'default'   => null,
+                    'extra'     => null,
+                    'comment'   => $attributeCode . ' column'
+                );
+            }
         }
 
         return $columns;

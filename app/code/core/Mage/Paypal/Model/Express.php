@@ -58,7 +58,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     protected $_canUseForMultishipping      = false;
     protected $_canFetchTransactionInfo     = true;
     protected $_canCreateBillingAgreement   = true;
-    protected $_canReviewPayment        = true;
+    protected $_canReviewPayment            = true;
 
     /**
      * Website Payments Pro instance
@@ -235,6 +235,18 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      */
     public function void(Varien_Object $payment)
     {
+        //Switching to order transaction if needed
+        if ($payment->getAdditionalInformation($this->_isOrderPaymentActionKey)
+            && !$payment->getVoidOnlyAuthorization()
+        ) {
+            $orderTransaction = $payment->lookupTransaction(
+                false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER
+            );
+            if ($orderTransaction) {
+                $payment->setParentTransactionId($orderTransaction->getTxnId());
+                $payment->setTransactionId($orderTransaction->getTxnId() . '-void');
+            }
+        }
         $this->_pro->void($payment);
         return $this;
     }
@@ -252,29 +264,35 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         $authorizationPeriod = abs(intval($this->getConfigData('authorization_honor_period')));
         $maxAuthorizationNumber = abs(intval($this->getConfigData('child_authorization_number')));
         $order = $payment->getOrder();
+        $isAuthorizationCreated = false;
 
-        if ($authorizationTransaction) {
-            $transactionDate = new DateTime($authorizationTransaction->getCreatedAt());
-            $dateCompass = new DateTime('-' . $authorizationPeriod . ' days');
-
-            if ($dateCompass > $transactionDate || $authorizationPeriod == 0) {
-                if ($payment->getAdditionalInformation($this->_authorizationCountKey) > $maxAuthorizationNumber - 1) {
-                    Mage::throwException(Mage::helper('paypal')->__('The maximum number of child authorizations is reached.'));
-                }
-
+        if ($payment->getAdditionalInformation($this->_isOrderPaymentActionKey)) {
+            $voided = false;
+            if (!$authorizationTransaction->getIsClosed()
+                && $this->_isTransactionExpired($authorizationTransaction, $authorizationPeriod)
+            ) {
                 //Save payment state and configure payment object for voiding
                 $isCaptureFinal = $payment->getShouldCloseParentTransaction();
+                $captureTrxId = $payment->getTransactionId();
                 $payment->setShouldCloseParentTransaction(false);
                 $payment->setParentTransactionId($authorizationTransaction->getTxnId());
                 $payment->unsTransactionId();
+                $payment->setVoidOnlyAuthorization(true);
                 $payment->void(new Varien_Object());
 
                 //Revert payment state after voiding
                 $payment->unsAuthorizationTransaction();
+                $payment->unsTransactionId();
                 $payment->setShouldCloseParentTransaction($isCaptureFinal);
+                $voided = true;
+            }
 
+            if ($authorizationTransaction->getIsClosed() || $voided) {
+                if ($payment->getAdditionalInformation($this->_authorizationCountKey) > $maxAuthorizationNumber - 1) {
+                    Mage::throwException(Mage::helper('paypal')->__('The maximum number of child authorizations is reached.'));
+                }
                 $api = $this->_callDoAuthorize(
-                    $order->getBaseGrandTotal() - $order->getBaseTotalInvoiced(),
+                    $amount,
                     $payment,
                     $authorizationTransaction->getParentTxnId()
                 );
@@ -285,8 +303,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
                 $payment->setParentTransactionId($authorizationTransaction->getParentTxnId());
                 $payment->setIsTransactionClosed(false);
 
-                $formatedPrice = $order->getBaseCurrency()->
-                    formatTxt($order->getBaseGrandTotal() - $order->getBaseTotalInvoiced());
+                $formatedPrice = $order->getBaseCurrency()->formatTxt($amount);
 
                 if ($payment->getIsTransactionPending()) {
                     $message = Mage::helper('paypal')->__('Authorizing amount of %s is pending approval on gateway.', $formatedPrice);
@@ -298,12 +315,19 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
                     false, $message
                 );
 
-                 $payment->setParentTransactionId($api->getTransactionId());
+                $payment->setParentTransactionId($api->getTransactionId());
+                $isAuthorizationCreated = true;
             }
         }
+
         if (false === $this->_pro->capture($payment, $amount)) {
             $this->_placeOrder($payment, $amount);
         }
+
+        if ($isAuthorizationCreated && $transaction) {
+            $transaction->setIsClosed(true);
+        }
+
         return $this;
     }
 
@@ -544,6 +568,15 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         ) {
             return false;
         }
+        $info = $this->getInfoInstance();
+        if ($info->getAdditionalInformation($this->_isOrderPaymentActionKey)) {
+            $orderTransaction = $info->lookupTransaction(
+                false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER
+            );
+            if ($orderTransaction) {
+                $info->setParentTransactionId($orderTransaction->getTxnId());
+            }
+        }
 
         return $this->_canVoid;
     }
@@ -563,10 +596,12 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
                 Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER
             );
             $orderValidPeriod = abs(intval($this->getConfigData('order_valid_period')));
-            $transactionDate = new DateTime($orderTransaction->getCreatedAt());
-            $dateCompass = new DateTime('-' . $orderValidPeriod . ' days');
 
-            if ($dateCompass > $transactionDate || $orderValidPeriod == 0) {
+            $dateCompass = new DateTime($orderTransaction->getCreatedAt());
+            $dateCompass->modify('+' . $orderValidPeriod . ' days');
+            $currentDate = new DateTime();
+
+            if ($currentDate > $dateCompass || $orderValidPeriod == 0) {
                 return false;
             }
         }
@@ -594,5 +629,36 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         );
 
         return $api;
+    }
+
+    /**
+     * Check transaction for expiration in PST
+     *
+     * @param Mage_Sales_Model_Order_Payment_Transaction $transaction
+     * @param int $period
+     * @return boolean
+     */
+    protected function _isTransactionExpired(Mage_Sales_Model_Order_Payment_Transaction $transaction, $period)
+    {
+        $period = intval($period);
+        if (0 == $period) {
+            return true;
+        }
+
+        $transactionClosingDate = new DateTime($transaction->getCreatedAt(), new DateTimeZone('GMT'));
+        $transactionClosingDate->setTimezone(new DateTimeZone('US/Pacific'));
+        /**
+         * 11:49:00 PayPal transactions closing time
+         */
+        $transactionClosingDate->setTime(11, 49, 00);
+        $transactionClosingDate->modify('+' . $period . ' days');
+
+        $currentTime = new DateTime(null, new DateTimeZone('US/Pacific'));
+
+        if ($currentTime > $transactionClosingDate) {
+            return true;
+        }
+
+        return false;
     }
 }

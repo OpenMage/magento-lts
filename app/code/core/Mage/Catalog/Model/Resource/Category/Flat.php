@@ -251,7 +251,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Core_Model_Resource
                 array('url_rewrite'=>$this->getTable('core/url_rewrite')),
                 'url_rewrite.category_id=main_table.entity_id AND url_rewrite.is_system=1 AND ' .
                 $_conn->quoteInto(
-                'url_rewrite.product_id IS NULL AND url_rewrite.store_id=? AND ',//url_rewrite.id_path LIKE "category/%"',
+                'url_rewrite.product_id IS NULL AND url_rewrite.store_id=? AND ',
                 $storeId) .
                 $_conn->prepareSqlCondition('url_rewrite.id_path', array('like' => 'category/%')),
                 array('request_path' => 'url_rewrite.request_path'))
@@ -423,8 +423,14 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Core_Model_Resource
     public function isRebuilt()
     {
         if ($this->_isRebuilt === null) {
+            $defaultStoreView = Mage::app()->getDefaultStoreView();
+            if ($defaultStoreView === null) {
+                $defaultStoreId = Mage_Core_Model_App::ADMIN_STORE_ID;
+            } else {
+                $defaultStoreId = $defaultStoreView->getId();
+            }
             $select = $this->_getReadAdapter()->select()
-                ->from($this->getMainStoreTable(Mage::app()->getDefaultStoreView()->getId()), 'entity_id')
+                ->from($this->getMainStoreTable($defaultStoreId), 'entity_id')
                 ->limit(1);
             try {
                 $this->_isRebuilt = (bool) $this->_getReadAdapter()->fetchOne($select);
@@ -556,14 +562,24 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Core_Model_Resource
         }
 
         // Adding indexes
-        $table->addIndex($_writeAdapter->getIndexName($tableName, array('entity_id')), array('entity_id'), array('type' => 'primary'));
-        $table->addIndex($_writeAdapter->getIndexName($tableName, array('store_id')),  array('store_id'),  array('type' => 'index'));
-        $table->addIndex($_writeAdapter->getIndexName($tableName, array('path')),      array('path'),      array('type' => 'index'));
-        $table->addIndex($_writeAdapter->getIndexName($tableName, array('level')),     array('level'),     array('type' => 'index'));
+        $table->addIndex(
+            $_writeAdapter->getIndexName($tableName, array('entity_id')), array('entity_id'), array('type' => 'primary')
+        );
+        $table->addIndex(
+            $_writeAdapter->getIndexName($tableName, array('store_id')), array('store_id'), array('type' => 'index')
+        );
+        $table->addIndex(
+            $_writeAdapter->getIndexName($tableName, array('path')), array('path'), array('type' => 'index')
+        );
+        $table->addIndex(
+            $_writeAdapter->getIndexName($tableName, array('level')), array('level'), array('type' => 'index')
+        );
 
         // Adding foreign keys
         $table->addForeignKey(
-            $_writeAdapter->getForeignKeyName($tableName, 'entity_id', $this->getTable('catalog/category'), 'entity_id'),
+            $_writeAdapter->getForeignKeyName(
+                $tableName, 'entity_id', $this->getTable('catalog/category'), 'entity_id'
+            ),
             'entity_id', $this->getTable('catalog/category'), 'entity_id',
             Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE);
         $table->addForeignKey(
@@ -720,10 +736,13 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Core_Model_Resource
                 ->from($this->getTable('eav/entity_type'), array())
                 ->join(
                     $this->getTable('eav/attribute'),
-                    $this->getTable('eav/attribute').'.entity_type_id = ' . $this->getTable('eav/entity_type') . '.entity_type_id',
+                    $this->getTable('eav/attribute')
+                        . '.entity_type_id = ' . $this->getTable('eav/entity_type') . '.entity_type_id',
                     $this->getTable('eav/attribute').'.*'
                 )
-                ->where($this->getTable('eav/entity_type').'.entity_type_code = ?', Mage_Catalog_Model_Category::ENTITY);
+                ->where(
+                    $this->getTable('eav/entity_type') . '.entity_type_code = ?', Mage_Catalog_Model_Category::ENTITY
+                );
             $this->_attributeCodes = array();
             foreach ($this->_getWriteAdapter()->fetchAll($select) as $attribute) {
                 $this->_attributeCodes[$attribute['attribute_id']] = $attribute;
@@ -770,16 +789,19 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Core_Model_Resource
      *
      * @param string $type
      * @param array $entityIds
-     * @param integer $store_id
+     * @param integer $sid
      * @return array
      */
-    protected function _getAttributeTypeValues($type, $entityIds, $store_id)
+    protected function _getAttributeTypeValues($type, $entityIds, $sid)
     {
         $select = $this->_getWriteAdapter()->select()
-            ->from(array('def' => $this->getTable(array('catalog/category', $type))), array('entity_id', 'attribute_id'))
+            ->from(
+                array('def' => $this->getTable(array('catalog/category', $type))),
+                array('entity_id', 'attribute_id')
+            )
             ->joinLeft(
                 array('store' => $this->getTable(array('catalog/category', $type))),
-                'store.entity_id = def.entity_id AND store.attribute_id = def.attribute_id AND store.store_id = ' . $store_id,
+                'store.entity_id = def.entity_id AND store.attribute_id = def.attribute_id AND store.store_id = '.$sid,
                 array('value' => $this->_getWriteAdapter()->getCheckSql('store.value_id > 0',
                     $this->_getWriteAdapter()->quoteIdentifier('store.value'),
                     $this->_getWriteAdapter()->quoteIdentifier('def.value'))
@@ -1127,7 +1149,10 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Core_Model_Resource
     public function getProductCount($category)
     {
         $select =  $this->_getReadAdapter()->select()
-            ->from($this->getTable('catalog/category_product'), "COUNT({$this->getTable('catalog/category_product')}.product_id)")
+            ->from(
+                $this->getTable('catalog/category_product'),
+                "COUNT({$this->getTable('catalog/category_product')}.product_id)"
+            )
             ->where("{$this->getTable('catalog/category_product')}.category_id = ?", $category->getId())
             ->group("{$this->getTable('catalog/category_product')}.category_id");
         return (int) $this->_getReadAdapter()->fetchOne($select);
@@ -1145,7 +1170,10 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Core_Model_Resource
         $categories = array();
         $read = $this->_getReadAdapter();
         $select = $read->select()
-            ->from(array('main_table' => $this->getMainStoreTable($category->getStoreId())), array('main_table.entity_id', 'main_table.name'))
+            ->from(
+                array('main_table' => $this->getMainStoreTable($category->getStoreId())),
+                array('main_table.entity_id', 'main_table.name')
+            )
             ->joinLeft(
                 array('url_rewrite'=>$this->getTable('core/url_rewrite')),
                 'url_rewrite.category_id=main_table.entity_id AND url_rewrite.is_system=1 AND '.

@@ -161,6 +161,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     public function calculate()
     {
         $collection = $this->getCollection()
+            ->setCustomerId($this->getCustomerId())
             ->addIndexFilter();
 
         Mage::getSingleton('catalog/product_visibility')

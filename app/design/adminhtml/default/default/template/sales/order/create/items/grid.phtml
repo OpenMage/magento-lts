@@ -95,7 +95,10 @@
                     <td colspan="2" class="a-right"><?php echo $this->helper('sales')->__('Subtotal:') ?></td>
                     <td class="price"><strong><?php echo $this->formatPrice($this->getSubtotal()) ?></strong></td>
                     <td class="price"><strong><?php echo $this->formatPrice($this->getDiscountAmount()) ?></strong></td>
-                    <td class="price"><strong><?php echo $this->formatPrice($this->getSubtotalWithDiscount()) ?></strong></td>
+                    <td class="price"><strong>
+                    <?php
+                        echo $this->formatPrice($this->getSubtotal() + $this->getDiscountAmount());
+                    ?></strong></td>
                     <td colspan="2">&nbsp;</td>
                 </tr>
             </tfoot>
@@ -309,7 +312,7 @@
 
 
     <?php if ($this->helper('tax')->displayCartPriceExclTax($this->getStore()) || $this->helper('tax')->displayCartBothPrices($this->getStore())): ?>
-        <?php $_rowTotalWithoutDiscount = $_item->getRowTotal() - $_item->getDiscountAmount();?>
+        <?php $_rowTotalWithoutDiscount = $_item->getPriceInclTax() * $_item->getQty() - $_item->getDiscountAmount() - $_item->getTaxAmount(); ?>
         <?php if ($this->helper('tax')->displayCartBothPrices($this->getStore())): ?>
             <span class="label"><?php echo $this->__('Excl. Tax'); ?>:</span>
         <?php endif; ?>
@@ -352,7 +355,7 @@
         <?php if ($this->helper('tax')->displayCartBothPrices($this->getStore())): ?>
             <br /><span class="label"><?php echo $this->__('Incl. Tax'); ?>:</span>
         <?php endif; ?>
-        <?php $_incl = $_item->getRowTotal()-$_item->getDiscountAmount()+$_item->getTaxAmount(); ?>
+        <?php $_incl = $_item->getPriceInclTax() * $_item->getQty() - $_item->getDiscountAmount(); ?>
         <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales')): ?>
             <?php echo $this->formatPrice($_incl+$_item->getWeeeTaxAppliedRowAmount()); ?>
         <?php else: ?>

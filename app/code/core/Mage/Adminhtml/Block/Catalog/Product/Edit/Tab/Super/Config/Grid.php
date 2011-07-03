@@ -102,14 +102,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         return $products;
     }
 
+    /**
+     * Prepare collection
+     *
+     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid
+     */
     protected function _prepareCollection()
     {
         $allowProductTypes = array();
-        foreach (
-            Mage::getConfig()
-                ->getNode('global/catalog/product/type/configurable/allow_product_types')
-                ->children() as $type
-        ) {
+        foreach (Mage::helper('catalog/product_configuration')->getConfigurableAllowedTypes() as $type) {
             $allowProductTypes[] = $type->getName();
         }
 
@@ -160,7 +161,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
      */
     public function isReadonly()
     {
-         return $this->_getProduct()->getCompositeReadonly();
+        if ($this->hasData('is_readonly')) {
+            return $this->getData('is_readonly');
+        }
+        return $this->_getProduct()->getCompositeReadonly();
     }
 
     protected function _prepareColumns()
@@ -270,6 +274,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         );
     }
 
+    /**
+     * Retrieve Required attributes Ids (comma separated)
+     *
+     * @return string
+     */
     protected function _getRequiredAttributesIds()
     {
         $attributesIds = array();

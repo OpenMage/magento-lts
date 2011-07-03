@@ -71,7 +71,8 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Decimal extends Mage_Core_Model_R
 
         $collection->getSelect()
             ->where("{$tableAlias}.value >= ?", ($range * ($index - 1)))
-            ->where("{$tableAlias}.value < ?", ($range * $index));
+            ->where("{$tableAlias}.value < ?", ($range * $index))
+            ->group('e.entity_id');
 
         return $this;
     }
@@ -142,7 +143,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Decimal extends Mage_Core_Model_R
         $select     = $this->_getSelect($filter);
         $adapter    = $this->_getReadAdapter();
 
-        $countExpr  = new Zend_Db_Expr("COUNT(*)");
+        $countExpr  = new Zend_Db_Expr("COUNT(DISTINCT e.entity_id)");
         $rangeExpr  = new Zend_Db_Expr("FLOOR(decimal_index.value / {$range}) + 1");
 
         $select->columns(array(

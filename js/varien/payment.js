@@ -36,7 +36,9 @@ paymentForm.prototype = {
                     method = elements[i].value;
                 }
             } else {
-                elements[i].disabled = true;
+                if((elements[i].type) && ('submit' != elements[i].type.toLowerCase())) {
+                    elements[i].disabled = true;
+                }
             }
             elements[i].setAttribute('autocomplete','off');
         }

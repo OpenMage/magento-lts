@@ -35,10 +35,15 @@
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends
     Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Abstract
 {
+    /**
+     * Class constructor
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('catalog/product/edit/options/type/select.phtml');
+        $this->setCanEditPrice(true);
+        $this->setCanReadPrice(true);
     }
 
     protected function _prepareLayout()
@@ -48,7 +53,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends
                 ->setData(array(
                     'label' => Mage::helper('catalog')->__('Add New Row'),
                     'class' => 'add add-select-row',
-                    'id'    => 'add_select_row_button_{{option_id}}',
+                    'id'    => 'add_select_row_button_{{option_id}}'
                 ))
         );
 
@@ -57,6 +62,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends
                 ->setData(array(
                     'label' => Mage::helper('catalog')->__('Delete Row'),
                     'class' => 'delete delete-select-row icon-btn',
+                    'id'    => 'delete_select_row_button'
                 ))
         );
 

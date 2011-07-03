@@ -1893,4 +1893,36 @@ $connection = $installer->getConnection()->addForeignKey(
     'entity_type_id'
 );
 
+
+/**
+ * Update customer address attributes
+ */
+$installer->updateAttribute(
+    'customer_address',
+    'region',
+    'backend_model',
+    'customer/entity_address_attribute_backend_region'
+);
+
+$installer->updateAttribute(
+    'customer_address',
+    'street',
+    'backend_model',
+    'customer/entity_address_attribute_backend_street'
+);
+
+$installer->updateAttribute(
+    'customer_address',
+    'region_id',
+    'source_model',
+    'customer/entity_address_attribute_source_region'
+);
+
+$installer->updateAttribute(
+    'customer_address',
+    'country_id',
+    'source_model',
+    'customer/entity_address_attribute_source_country'
+);
+
 $installer->endSetup();

@@ -242,7 +242,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      */
 
     /**
-     * Retrieve Column(s) for Flat
+     * Retrieve flat column definition
      *
      * @return array
      */
@@ -304,35 +304,44 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      */
     public function addValueSortToCollection($collection, $dir = 'asc')
     {
+        $attributeCode  = $this->getAttribute()->getAttributeCode();
+        $attributeId    = $this->getAttribute()->getId();
+        $attributeTable = $this->getAttribute()->getBackend()->getTable();
+
         if ($this->getAttribute()->isScopeGlobal()) {
-            $tableName = $this->getAttribute()->getAttributeCode() . '_t';
+            $tableName = $attributeCode . '_t';
             $collection->getSelect()
                 ->joinLeft(
-                    array($tableName => $this->getAttribute()->getBackend()->getTable()),
-                    "`e`.`entity_id`=`{$tableName}`.`entity_id`"
-                        . " AND `{$tableName}`.`attribute_id`='{$this->getAttribute()->getId()}'"
-                        . " AND `{$tableName}`.`store_id`='0'",
+                    array($tableName => $attributeTable),
+                    "e.entity_id={$tableName}.entity_id"
+                        . " AND {$tableName}.attribute_id='{$attributeId}'"
+                        . " AND {$tableName}.store_id='0'",
                     array());
             $valueExpr = $tableName . '.value';
         }
         else {
-            $valueTable1    = $this->getAttribute()->getAttributeCode() . '_t1';
-            $valueTable2    = $this->getAttribute()->getAttributeCode() . '_t2';
+            $valueTable1 = $attributeCode . '_t1';
+            $valueTable2 = $attributeCode . '_t2';
             $collection->getSelect()
                 ->joinLeft(
-                    array($valueTable1 => $this->getAttribute()->getBackend()->getTable()),
-                    "`e`.`entity_id`=`{$valueTable1}`.`entity_id`"
-                        . " AND `{$valueTable1}`.`attribute_id`='{$this->getAttribute()->getId()}'"
-                        . " AND `{$valueTable1}`.`store_id`='0'",
+                    array($valueTable1 => $attributeTable),
+                    "e.entity_id={$valueTable1}.entity_id"
+                        . " AND {$valueTable1}.attribute_id='{$attributeId}'"
+                        . " AND {$valueTable1}.store_id='0'",
                     array())
                 ->joinLeft(
-                    array($valueTable2 => $this->getAttribute()->getBackend()->getTable()),
-                    "`e`.`entity_id`=`{$valueTable2}`.`entity_id`"
-                        . " AND `{$valueTable2}`.`attribute_id`='{$this->getAttribute()->getId()}'"
-                        . " AND `{$valueTable2}`.`store_id`='{$collection->getStoreId()}'",
+                    array($valueTable2 => $attributeTable),
+                    "e.entity_id={$valueTable2}.entity_id"
+                        . " AND {$valueTable2}.attribute_id='{$attributeId}'"
+                        . " AND {$valueTable2}.store_id='{$collection->getStoreId()}'",
                     array()
                 );
-            $valueExpr = new Zend_Db_Expr("IF(`{$valueTable2}`.`value_id`>0, `{$valueTable2}`.`value`, `{$valueTable1}`.`value`)");
+
+                $valueExpr = $collection->getConnection()->getCheckSql(
+                    $valueTable2 . '.value_id > 0',
+                    $valueTable2 . '.value',
+                    $valueTable1 . '.value'
+                );
         }
 
         $collection->getSelect()->order($valueExpr . ' ' . $dir);

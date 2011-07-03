@@ -285,6 +285,15 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         'PHONENUM' => 'telephone',
     );
 
+    /**
+     * Map for billing address to do request to PayPalUk
+     *
+     * @var array
+     */
+    protected $_billingAddressMapRequest = array(
+        'country_id' => 'COUNTRY',
+    );
+
     /**#@+
      * Line items export mapping settings
      *

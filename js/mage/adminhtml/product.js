@@ -690,14 +690,18 @@ Product.Configurable.prototype = {
         }
 
         container.attributeValues.appendChild(li);
+
         var priceField = li.down('.attribute-price');
         var priceTypeField = li.down('.attribute-price-type');
 
-        if (parseInt(value.is_percent)) {
-            priceTypeField.options[1].selected = !(priceTypeField.options[0].selected = false);
-        } else {
-            priceTypeField.options[1].selected = !(priceTypeField.options[0].selected = true);
+        if (priceTypeField != undefined && priceTypeField.options != undefined) {
+            if (parseInt(value.is_percent)) {
+                priceTypeField.options[1].selected = !(priceTypeField.options[0].selected = false);
+            } else {
+                priceTypeField.options[1].selected = !(priceTypeField.options[0].selected = true);
+            }
         }
+
         Event.observe(priceField, 'keyup', this.onValuePriceUpdate);
         Event.observe(priceField, 'change', this.onValuePriceUpdate);
         Event.observe(priceTypeField, 'change', this.onValueTypeUpdate);

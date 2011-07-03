@@ -49,9 +49,9 @@ class Mage_Shipping_Model_Info extends Varien_Object
             $this->setData($data['key'], $data['id']);
             $this->setProtectCode($data['hash']);
 
-            if ($this->getOrderId()>0) {
+            if ($this->getOrderId() > 0) {
                 $this->getTrackingInfoByOrder();
-            } elseif($this->getShipId()>0) {
+            } elseif($this->getShipId() > 0) {
                 $this->getTrackingInfoByShip();
             } else {
                 $this->getTrackingInfoByTrackId();
@@ -73,7 +73,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
     /**
      * Instantiate order model
      *
-     * @return Mage_Sales_Model_Order || false
+     * @return Mage_Sales_Model_Order|bool
      */
     protected function _initOrder()
     {
@@ -89,7 +89,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
     /**
      * Instantiate ship model
      *
-     * @return Mage_Sales_Model_Order_Shipment || false
+     * @return Mage_Sales_Model_Order_Shipment|bool
      */
     protected function _initShipment()
     {
@@ -111,7 +111,8 @@ class Mage_Shipping_Model_Info extends Varien_Object
     public function getTrackingInfoByOrder()
     {
         $shipTrack = array();
-        if ($order = $this->_initOrder()) {
+        $order = $this->_initOrder();
+        if ($order) {
             $shipments = $order->getShipmentsCollection();
             foreach ($shipments as $shipment){
                 $increment_id = $shipment->getIncrementId();
@@ -136,7 +137,8 @@ class Mage_Shipping_Model_Info extends Varien_Object
     public function getTrackingInfoByShip()
     {
         $shipTrack = array();
-        if ($shipment = $this->_initShipment()) {
+        $shipment = $this->_initShipment();
+        if ($shipment) {
             $increment_id = $shipment->getIncrementId();
             $tracks = $shipment->getTracksCollection();
 

@@ -84,6 +84,13 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
         if ($creditmemoId = $this->getRequest()->getParam('creditmemo_id')) {
             if ($creditmemo = Mage::getModel('sales/order_creditmemo')->load($creditmemoId)) {
                 $creditmemo->sendEmail();
+                $historyItem = Mage::getResourceModel('sales/order_status_history_collection')
+                    ->getUnnotifiedForInstance($creditmemo, Mage_Sales_Model_Order_Creditmemo::HISTORY_ENTITY_NAME);
+                if ($historyItem) {
+                    $historyItem->setIsCustomerNotified(1);
+                    $historyItem->save();
+                }
+
                 $this->_getSession()->addSuccess(Mage::helper('sales')->__('The message was sent.'));
                 $this->_redirect('*/sales_order_creditmemo/view', array(
                     'creditmemo_id' => $creditmemoId
@@ -106,7 +113,8 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
                 $pdf->pages = array_merge ($pdf->pages, $pages->pages);
             }
 
-            return $this->_prepareDownloadResponse('creditmemo'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(), 'application/pdf');
+            return $this->_prepareDownloadResponse('creditmemo'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').
+                '.pdf', $pdf->render(), 'application/pdf');
         }
         $this->_redirect('*/*/');
     }
@@ -117,7 +125,8 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
         if ($creditmemoId = $this->getRequest()->getParam('invoice_id')) { // invoice_id?!
             if ($creditmemo = Mage::getModel('sales/order_creditmemo')->load($creditmemoId)) {
                 $pdf = Mage::getModel('sales/order_pdf_creditmemo')->getPdf(array($creditmemo));
-                $this->_prepareDownloadResponse('creditmemo'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(), 'application/pdf');
+                $this->_prepareDownloadResponse('creditmemo'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').
+                    '.pdf', $pdf->render(), 'application/pdf');
             }
         }
         else {

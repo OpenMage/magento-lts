@@ -68,9 +68,13 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Abstract
             ->addPriceDataFieldFilter('%s < %s', $fields)
             ->addPriceData($customerGroupId, $websiteId)
             ->addAttributeToSelect(
-                    array('name', 'short_description', 'description', 'price', 'thumbnail',
-                    'special_price', 'special_to_date'), 
-                'left')
+                    array(
+                        'name', 'short_description', 'description', 'price', 'thumbnail',
+                        'special_price', 'special_to_date',
+                        'msrp_enabled', 'msrp_display_actual_price_type', 'msrp'
+                    ),
+                    'left'
+            )
             ->addAttributeToSort('name', 'asc')
         ;
 
@@ -92,8 +96,11 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Abstract
         using resource iterator to load the data one by one
         instead of loading all at the same time. loading all data at the same time can cause the big memory allocation.
         */
-        Mage::getSingleton('core/resource_iterator')
-            ->walk($specials->getSelect(), array(array($this, 'addSpecialXmlCallback')), array('rssObj'=> $rssObj, 'results'=> &$results));
+        Mage::getSingleton('core/resource_iterator')->walk(
+            $specials->getSelect(),
+            array(array($this, 'addSpecialXmlCallback')),
+            array('rssObj'=> $rssObj, 'results'=> &$results)
+        );
 
         if (sizeof($results)>0) {
             foreach($results as $result){
@@ -104,7 +111,11 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Abstract
                     <td style="text-decoration:none;">%s',
                     $product->getProductUrl(),
                     $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75),
-                    $this->helper('catalog/output')->productAttribute($product, $product->getDescription(), 'description')
+                    $this->helper('catalog/output')->productAttribute(
+                        $product,
+                        $product->getDescription(),
+                        'description'
+                    )
                 );
 
                 // add price data if needed
@@ -113,11 +124,27 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Abstract
                     if ($result['use_special']) {
                         $special = '<br />' . Mage::helper('catalog')->__('Special Expires On: %s', $this->formatDate($result['special_to_date'], Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM));
                     }
-                    $html .= sprintf('<p>%s %s%s</p>',
-                        Mage::helper('catalog')->__('Price: %s', Mage::helper('core')->currency($result['price'])),
-                        Mage::helper('catalog')->__('Special Price: %s', Mage::helper('core')->currency($result['final_price'])),
-                        $special
-                    );
+                    if (Mage::helper('catalog')->canApplyMsrp($product)) {
+                        $msrpPrice = $product->getMsrp();
+                        if ($msrpPrice) {
+                            $html .= '<p class="old-price">';
+                            $msrpPrice = $this->helper('core')->currency($msrpPrice, true, true);
+                            $html .= '<span class="price-label">' . $this->__('Regular Price:') . '</span>'
+                                . ' <span class="price">' . $msrpPrice . '</span> ';
+                        }
+                        if ($this->helper('catalog')->isShowPriceOnGesture($product)) {
+                            $html .= '<a href="' . $product->getProductUrl() . '">'
+                                . $this->__('Click for price') . '</a>';
+                        } else {
+                            $html .= $this->helper('catalog')->getMsrpPriceMessage($product);
+                        }
+                    } else {
+                        $html .= sprintf('<p>%s %s%s</p>',
+                            Mage::helper('catalog')->__('Price: %s', Mage::helper('core')->currency($result['price'])),
+                            Mage::helper('catalog')->__('Special Price: %s', Mage::helper('core')->currency($result['final_price'])),
+                            $special
+                        );
+                    }
                 }
 
                 $html .= '</td></tr></table>';

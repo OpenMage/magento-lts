@@ -74,30 +74,61 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
                 'label'     => Mage::helper('sales')->__('Submit Shipment'),
                 'class'     => 'save submit-button',
-                'onclick'   => 'if(editForm.submit()) disableElements(\'submit-button\');',
+                'onclick'   => 'submitShipment(this);',
             ))
         );
 
         return parent::_beforeToHtml();
     }
 
+    /**
+     * Format given price
+     *
+     * @param float $price
+     * @return string
+     */
     public function formatPrice($price)
     {
         return $this->getShipment()->getOrder()->formatPrice($price);
     }
 
+    /**
+     * Retrieve HTML of update button
+     *
+     * @return string
+     */
     public function getUpdateButtonHtml()
     {
         return $this->getChildHtml('update_button');
     }
 
+    /**
+     * Get url for update
+     *
+     * @return string
+     */
     public function getUpdateUrl()
     {
         return $this->getUrl('*/*/updateQty', array('order_id'=>$this->getShipment()->getOrderId()));
     }
 
+    /**
+     * Check possibility to send shipment email
+     *
+     * @return bool
+     */
     public function canSendShipmentEmail()
     {
         return Mage::helper('sales')->canSendNewShipmentEmail($this->getOrder()->getStore()->getId());
+    }
+
+    /**
+     * Checks the possibility of creating shipping label by current carrier
+     *
+     * @return bool
+     */
+    public function canCreateShippingLabel()
+    {
+        return $this->getOrder()->getShippingCarrier()->isShippingLabelsAvailable();
     }
 }

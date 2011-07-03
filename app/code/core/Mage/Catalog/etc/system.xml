@@ -482,5 +482,63 @@
                 </wysiwyg>
             </groups>
         </cms>
+        <sales>
+            <groups>
+                <msrp translate="label">
+                    <label>Minimum Advertised Price</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>110</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable MAP</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <apply_for_all translate="label comment">
+                            <label>Apply MAP (Default Value)</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[<strong style="color:red">Warning!</strong> Applying MAP by default will hide all product prices on the frontend.]]></comment>
+                        </apply_for_all>
+                        <display_price_type translate="label">
+                            <label>Display Actual Price</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>catalog/product_attribute_source_msrp_type</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </display_price_type>
+                        <explanation_message translate="label">
+                            <label>Default Popup Text Message</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </explanation_message>
+                        <explanation_message_whats_this translate="label">
+                            <label>Default "What's This" Text Message</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </explanation_message_whats_this>
+                    </fields>
+                </msrp>
+            </groups>
+        </sales>
     </sections>
 </config>

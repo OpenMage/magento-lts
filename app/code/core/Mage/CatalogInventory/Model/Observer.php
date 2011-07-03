@@ -79,6 +79,7 @@ class Mage_CatalogInventory_Model_Observer
         }
         return $this;
     }
+
     /**
      * Remove stock information from static variable
      *
@@ -276,17 +277,19 @@ class Mage_CatalogInventory_Model_Observer
             }
 
             foreach ($options as $option) {
+                $optionValue = $option->getValue();
                 /* @var $option Mage_Sales_Model_Quote_Item_Option */
-                $optionQty = $qty * $option->getValue();
-                $increaseOptionQty = ($quoteItem->getQtyToAdd() ? $quoteItem->getQtyToAdd() : $qty) * $option->getValue();
+                $optionQty = $qty * $optionValue;
+                $increaseOptionQty = ($quoteItem->getQtyToAdd() ? $quoteItem->getQtyToAdd() : $qty) * $optionValue;
 
                 $stockItem = $option->getProduct()->getStockItem();
                 /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
                 if (!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item) {
-                    Mage::throwException(Mage::helper('cataloginventory')->__('The stock item for Product in option is not valid.'));
+                    Mage::throwException(
+                        Mage::helper('cataloginventory')->__('The stock item for Product in option is not valid.')
+                    );
                 }
 
-                $stockItem->setOrderedItems(0);
                 /**
                  * define that stock item is child for composite product
                  */
@@ -302,7 +305,7 @@ class Mage_CatalogInventory_Model_Observer
                     $increaseOptionQty
                 );
 
-                $result = $stockItem->checkQuoteItemQty($optionQty, $qtyForCheck, $option->getValue());
+                $result = $stockItem->checkQuoteItemQty($optionQty, $qtyForCheck, $optionValue);
 
                 if (!is_null($result->getItemIsQtyDecimal())) {
                     $option->setIsQtyDecimal($result->getItemIsQtyDecimal());
@@ -334,8 +337,7 @@ class Mage_CatalogInventory_Model_Observer
 
                 $stockItem->unsIsChildItem();
             }
-        }
-        else {
+        } else {
             $stockItem = $quoteItem->getProduct()->getStockItem();
             /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
             if (!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item) {
@@ -355,8 +357,7 @@ class Mage_CatalogInventory_Model_Observer
                     $quoteItem->getId(),
                     0
                 );
-            }
-            else {
+            } else {
                 $increaseQty = $quoteItem->getQtyToAdd() ? $quoteItem->getQtyToAdd() : $qty;
                 $rowQty = $qty;
                 $qtyForCheck = $this->_getQuoteItemQtyForCheck(
@@ -395,7 +396,8 @@ class Mage_CatalogInventory_Model_Observer
             if ($result->getHasQtyOptionUpdate()
                 && (!$quoteItem->getParentItem()
                     || $quoteItem->getParentItem()->getProduct()->getTypeInstance(true)
-                        ->getForceChildItemQtyChanges($quoteItem->getParentItem()->getProduct()))
+                        ->getForceChildItemQtyChanges($quoteItem->getParentItem()->getProduct())
+                )
             ) {
                 $quoteItem->setData('qty', $result->getOrigQty());
             }

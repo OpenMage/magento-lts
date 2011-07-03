@@ -928,6 +928,46 @@ ul.tabs a.paypal-section:hover span { background:url(images/paypal_section.png) 
 .paypal-credentials caption { padding:5px; text-align:left; }
 .paypal-credentials .value { color:#ccc; }
 
+/* Packaging for Shipping Popup */
+#popup-window-mask,
+.popup-window-mask { background:url(images/bg_window_mask.png) repeat 0 0; background:rgba(239, 239, 239, 0.5); position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; z-index:399; }
+.packaging-window,
+.packed-window { background:#fafafa; border:1px solid #d6d6d6; left:50%; margin:-200px 0 0 -471px; position:fixed; top:50%; width:1100px; z-index:400; -webkit-box-shadow: 0px 3px 5px #ccc; -moz-box-shadow:0px 3px 5px #ccc; box-shadow:0px 3px 5px #ccc; z-index:400; }
+.packaging-window .entry-edit-head { padding:3px 5px; }
+.packaging-window .entry-edit-head button { float:right; }
+.packaging-window .messages { border:1px solid #f16048; color:#df280a; background:#faebe7 url(images/error_msg_icon.gif) no-repeat 10px 10px; font-weight:bold; margin-bottom:10px; padding:10px 10px 10px 35px; }
+.packaging-window .validation-failed { background:#fef0eD; border:1px dashed #D6340E; }
+.packaging-window .packaging-content { overflow:auto; height:400px; height:auto !important; max-height:400px; margin:0 0 10px; padding:10px 10px 0; }
+.packaging-window .package-block { background:#f6f6f6; border:2px solid #d4d4d4; margin:0 0 10px; padding:10px; }
+.packaging-window .package-options { width:100%; border-top:1px solid #ccc; padding:10px 0 0; margin:3px 0 0; }
+.packaging-window .package-options td { vertical-align:middle; }
+.packaging-window .package-options select { width:130px; }
+.packaging-window .package-options .input-text { width:50px; }
+.packaging-window .package_prapare { margin-bottom:15px; }
+.packaging-window .package-options .customs-value { width:80px; }
+.packaging-window .package-options .options-weight { width:75px; }
+.packaging-window .package-options .options-units-weight { width:45px; }
+.packaging-window .package-options .options-units-dimensions { width:45px; }
+.packaging-window .package-options input[type=text].disabled { background:#eee; }
+.packaging-window .package-add-products { border-top:1px solid #ccc; padding:10px 0 0; margin:10px 0 0; }
+.packaging-window .package-add-products .grid { padding:0; }
+.packaging-window .package-add-products .grid button { vertical-align:middle; }
+.packaging-window .package-number {font-weight: bold;}
+.packaging-window .package-number span {margin-left: 5px;}
+
+.packed-window .entry-edit-head { padding:3px 5px; }
+.packed-window .packed-content { padding:10px 10px 0; overflow:auto; max-height:400px; }
+.packed-window .package { background:#fefefe; border:7px solid #d5d5d5; margin-bottom:10px; padding:10px; }
+.packed-window .package h4 { background:#fefefe; border:solid #ccc; border-width:0 0 1px 1px; float:right; color:#222; font-size:12px; margin:-10px -10px 0 0; padding:5px 10px; position:relative; z-index:100; }
+.packed-window .package strong{ display:block; padding:0 0 3px; }
+.packed-window .package .grid { padding:0; }
+.packed-window .package-info { background:#f3f3f3; border-bottom:1px solid #ccc; margin:-10px -10px 10px; padding:5px 10px; position:relative; }
+.packed-window .package-options { width:60%; }
+.packed-window .package-options td,
+.packed-window .package-options th { padding:1px 0; }
+.packed-window .buttons-set { padding-right:5px; }
+
+
 /* CATALOG
 *******************************************************************************/
 
@@ -1010,6 +1050,8 @@ ul.tabs a.paypal-section:hover span { background:url(images/paypal_section.png) 
 .rule-tree .x-tree ul           { padding-left:0 !important; border-left:none !important; }
 .rule-param .label              { font-weight:bold; color:black; }
 .rule-param .label:hover        { font-weight:bold; color:blue; }
+.rule-param .label-disabled     { color:black; cursor:default; text-decoration:none; }
+.rule-param .label-disabled:hover { color:black;}
 .rule-param .element            { display:none; }
 .rule-param input,
 .rule-param select              { width:auto !important; min-width:170px; }

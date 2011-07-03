@@ -32,159 +32,30 @@
  * @package     Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Customer_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Entity_Attribute
+class Mage_Customer_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Attribute
 {
     /**
-     * Perform actions before object save
+     * Get EAV website table
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Customer_Model_Resource_Attribute
+     * Get table, where website-dependent attribute parameters are stored
+     * If realization doesn't demand this functionality, let this function just return null
+     *
+     * @return string|null
      */
-    protected function _beforeSave(Mage_Core_Model_Abstract $object)
+    protected function _getEavWebsiteTable()
     {
-        $validateRules = $object->getData('validate_rules');
-        if (is_array($validateRules)) {
-            $object->setData('validate_rules', serialize($validateRules));
-        }
-        return parent::_beforeSave($object);
+        return $this->getTable('customer/eav_attribute_website');
     }
 
     /**
-     * Retrieve select object for load object data
+     * Get Form attribute table
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Abstract $object
-     * @return Varien_Db_Select
-     */
-    protected function _getLoadSelect($field, $value, $object)
-    {
-        $select     = parent::_getLoadSelect($field, $value, $object);
-        $websiteId  = (int)$object->getWebsite()->getId();
-        if ($websiteId) {
-            $adapter    = $this->_getReadAdapter();
-            $columns    = array();
-            $scopeTable = $this->getTable('customer/eav_attribute_website');
-            $describe   = $adapter->describeTable($scopeTable);
-            unset($describe['attribute_id']);
-            foreach (array_keys($describe) as $columnName) {
-                $columns['scope_' . $columnName] = $columnName;
-            }
-            $conditionSql = $adapter->quoteInto(
-                $this->getMainTable() . '.attribute_id = scope_table.attribute_id AND scope_table.website_id =?',
-                $websiteId);
-            $select->joinLeft(
-                array('scope_table' => $scopeTable),
-                $conditionSql,
-                $columns
-            );
-        }
-
-        return $select;
-    }
-
-    /**
-     * Save attribute/form relations after attribute save
+     * Get table, where dependency between form name and attribute ids is stored
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Customer_Model_Resource_Attribute
+     * @return string|null
      */
-    protected function _afterSave(Mage_Core_Model_Abstract $object)
+    protected function _getFormAttributeTable()
     {
-        $forms      = $object->getData('used_in_forms');
-        $adapter    = $this->_getWriteAdapter();
-        if (is_array($forms)) {
-            $where = array('attribute_id=?' => $object->getId());
-            $adapter->delete($this->getTable('customer/form_attribute'), $where);
-
-            $data = array();
-            foreach ($forms as $formCode) {
-                $data[] = array(
-                    'form_code'     => $formCode,
-                    'attribute_id'  => (int)$object->getId()
-                );
-            }
-
-            if ($data) {
-                $adapter->insertMultiple($this->getTable('customer/form_attribute'), $data);
-            }
-        }
-
-        // update sort order
-        if (!$object->isObjectNew() && $object->dataHasChangedFor('sort_order')) {
-            $data  = array('sort_order' => $object->getSortOrder());
-            $where = array('attribute_id=?' => (int)$object->getId());
-            $adapter->update($this->getTable('eav/entity_attribute'), $data, $where);
-        }
-
-        // save scope attributes
-        $websiteId = (int)$object->getWebsite()->getId();
-        if ($websiteId) {
-            $table      = $this->getTable('customer/eav_attribute_website');
-            $describe   = $this->_getReadAdapter()->describeTable($table);
-            $data       = array();
-            if (!$object->getScopeWebsiteId() || $object->getScopeWebsiteId() != $websiteId) {
-                $data = $this->getScopeValues($object);
-            }
-
-            $data['attribute_id']   = (int)$object->getId();
-            $data['website_id']     = (int)$websiteId;
-            unset($describe['attribute_id']);
-            unset($describe['website_id']);
-
-            $updateColumns = array();
-            foreach (array_keys($describe) as $columnName) {
-                $data[$columnName] = $object->getData('scope_' . $columnName);
-                $updateColumns[]   = $columnName;
-            }
-
-            $adapter->insertOnDuplicate($table, $data, $updateColumns);
-        }
-
-        return parent::_afterSave($object);
-    }
-
-    /**
-     * Return scope values for attribute and website
-     *
-     * @param Mage_Customer_Model_Attribute $object
-     * @return array
-     */
-    public function getScopeValues(Mage_Customer_Model_Attribute $object)
-    {
-        $adapter = $this->_getReadAdapter();
-        $bind    = array(
-            'attribute_id' => (int)$object->getId(),
-            'website_id'   => (int)$object->getWebsite()->getId()
-        );
-        $select = $adapter->select()
-            ->from($this->getTable('customer/eav_attribute_website'))
-            ->where('attribute_id = :attribute_id')
-            ->where('website_id = :website_id')
-            ->limit(1);
-        $result = $adapter->fetchRow($select, $bind);
-
-        if (!$result) {
-            $result = array();
-        }
-
-        return $result;
-    }
-
-    /**
-     * Return forms in which the attribute
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return array
-     */
-    public function getUsedInForms(Mage_Core_Model_Abstract $object)
-    {
-        $adapter = $this->_getReadAdapter();
-        $bind    = array('attribute_id' => (int)$object->getId());
-        $select  = $adapter->select()
-            ->from($this->getTable('customer/form_attribute'), 'form_code')
-            ->where('attribute_id = :attribute_id');
-
-        return $adapter->fetchCol($select, $bind);
+        return $this->getTable('customer/form_attribute');
     }
 }

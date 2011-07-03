@@ -77,7 +77,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
     {
         if ($this->getRequest()->getPost(Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP)) {
             try {
-                /** @var $export Mage_ImportExport_Model_Export */
+                /** @var $model Mage_ImportExport_Model_Export */
                 $model = Mage::getModel('importexport/export');
                 $model->setData($this->getRequest()->getParams());
 

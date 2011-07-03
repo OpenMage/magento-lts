@@ -47,13 +47,15 @@ class Varien_Db_Ddl_Table
     const TYPE_DATE             = 'date';
     const TYPE_TIMESTAMP        = 'timestamp';
     const TYPE_TEXT             = 'text';
-    const TYPE_BLOB             = 'blob';
+    const TYPE_BLOB             = 'blob'; // Used for back compatibility, when query param can't use statement options
+    const TYPE_VARBINARY        = 'varbinary'; // A real blob, stored as binary inside DB
 
     /**
      * Default and maximal TEXT and BLOB columns sizes we can support for different DB systems.
      */
     const DEFAULT_TEXT_SIZE     = 1024;
     const MAX_TEXT_SIZE         = 2147483648;
+    const MAX_VARBINARY_SIZE    = 2147483648;
 
     /**
      * Default values for timestampses - fill with current timestamp on inserting record, on changing and both cases
@@ -329,6 +331,7 @@ class Varien_Db_Ddl_Table
                 break;
             case self::TYPE_TEXT:
             case self::TYPE_BLOB:
+            case self::TYPE_VARBINARY:
                 $length = $size;
                 break;
             default:

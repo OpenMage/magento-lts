@@ -346,7 +346,11 @@ var toolbarToggle = {
         var buttons = $$('.content-buttons')[0];
         if (buttons && buttons.oldParent && buttons.oldParent != buttons.parentNode) {
             buttons.remove();
-            buttons.oldParent.insertBefore(buttons, buttons.oldBefore);
+            if(buttons.oldBefore) {
+                buttons.oldParent.insertBefore(buttons, buttons.oldBefore);
+            } else {
+                buttons.oldParent.appendChild(buttons);
+            }
         }
 
         this.headerCopy.style.display = 'none';

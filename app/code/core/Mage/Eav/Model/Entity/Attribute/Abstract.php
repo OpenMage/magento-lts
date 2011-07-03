@@ -514,7 +514,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * Retrieve Flat Column(s) DDL definition
+     * Retrieve flat columns definition
      *
      * @return array
      */
@@ -522,29 +522,28 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     {
         // If source model exists - get definition from it
         if ($this->usesSource() && $this->getBackendType() != self::TYPE_STATIC) {
-            $columns = $this->getSource()->getFlatColums();
-            /**
-             * In MMDB flat columns are returned in DDL format. But non-updated extensions may still return them in
-             * older not-so-strict format. We detect such case and reformat result.
-             */
-            if ($columns) {
-                $testColumn = current($columns);
-                if (array_key_exists('is_null', $testColumn)) {
-                    foreach ($columns as $key => $column) {
-                        $columns[$key] = $this->_convertOldColumn2New($column);
-                    }
-                }
-                return $columns;
-            }
+            return $this->getSource()->getFlatColums();
         }
 
-        // Generate column definition by common rules
+        if (Mage::helper('core')->useDbCompatibleMode()) {
+            return $this->_getFlatColumnsOldDefinition();
+        } else {
+            return $this->_getFlatColumnsDdlDefinition();
+        }
+    }
+
+    /**
+     * Retrieve flat columns DDL definition
+     *
+     * @return array
+     */
+    public function _getFlatColumnsDdlDefinition()
+    {
         $helper  = Mage::getResourceHelper('eav');
         $columns = array();
         switch ($this->getBackendType()) {
             case 'static':
-                $describe = $this->_getResource()
-                    ->describeTable($this->getBackend()->getTable());
+                $describe = $this->_getResource()->describeTable($this->getBackend()->getTable());
                 if (!isset($describe[$this->getAttributeCode()])) {
                     break;
                 }
@@ -615,25 +614,79 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * Convert older format of flat columns to new MMDB format that uses DDL types and definitions.
+     * Retrieve flat columns definition in old format (before MMDB support)
+     * Used in database compatible mode
      *
-     * @param array $column
      * @return array
      */
-    protected function _convertOldColumn2New($column)
-    {
-        $result = Mage::getResourceHelper('eav')
-            ->convertOldColumnType2Ddl($column['type']);
-        $result['unsigned'] = $column['unsigned'];
-        $result['nullable'] = $column['is_null'];
-        $result['default'] = $column['default'];
-        $result['identity'] = stripos($column['extra'], 'auto_increment') !== false;
-
-        return $result;
+    protected function _getFlatColumnsOldDefinition() {
+        $columns = array();
+        switch ($this->getBackendType()) {
+            case 'static':
+                $describe = $this->_getResource()->describeTable($this->getBackend()->getTable());
+                if (!isset($describe[$this->getAttributeCode()])) {
+                    break;
+                }
+                $prop = $describe[$this->getAttributeCode()];
+                $columns[$this->getAttributeCode()] = array(
+                    'type'      => $prop['DATA_TYPE'] . ($prop['LENGTH'] ? "({$prop['LENGTH']})" : ""),
+                    'unsigned'  => $prop['UNSIGNED'] ? true: false,
+                    'is_null'   => $prop['NULLABLE'],
+                    'default'   => $prop['DEFAULT'],
+                    'extra'     => null
+                );
+                break;
+            case 'datetime':
+                $columns[$this->getAttributeCode()] = array(
+                    'type'      => 'datetime',
+                    'unsigned'  => false,
+                    'is_null'   => true,
+                    'default'   => null,
+                    'extra'     => null
+                );
+                break;
+            case 'decimal':
+                $columns[$this->getAttributeCode()] = array(
+                    'type'      => 'decimal(12,4)',
+                    'unsigned'  => false,
+                    'is_null'   => true,
+                    'default'   => null,
+                    'extra'     => null
+                );
+                break;
+            case 'int':
+                $columns[$this->getAttributeCode()] = array(
+                    'type'      => 'int',
+                    'unsigned'  => false,
+                    'is_null'   => true,
+                    'default'   => null,
+                    'extra'     => null
+                );
+                break;
+            case 'text':
+                $columns[$this->getAttributeCode()] = array(
+                    'type'      => 'text',
+                    'unsigned'  => false,
+                    'is_null'   => true,
+                    'default'   => null,
+                    'extra'     => null
+                );
+                break;
+            case 'varchar':
+                $columns[$this->getAttributeCode()] = array(
+                    'type'      => 'varchar(255)',
+                    'unsigned'  => false,
+                    'is_null'   => true,
+                    'default'   => null,
+                    'extra'     => null
+                );
+                break;
+        }
+        return $columns;
     }
 
     /**
-     * Retrieve index data for Flat table
+     * Retrieve index data for flat table
      *
      * @return array
      */

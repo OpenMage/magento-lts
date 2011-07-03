@@ -19,7 +19,7 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category    
- * @package     _home
+ * @package     _storage
  * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -44,6 +44,13 @@ class Find_Feed_Model_Import extends Mage_Core_Model_Abstract
     const XML_PATH_SETTINGS_FINDFEED_FILENAME    = 'feed/settings/findfeed_filename';
 
     const XML_NODE_FIND_FEED_ATTRIBUTES = 'find_feed_attributes';
+
+    /**
+     * Attribute sources
+     *
+     * @var array
+     */
+    protected $_attributeSources = array();
 
     /**
      * Cron action
@@ -108,7 +115,11 @@ class Find_Feed_Model_Import extends Mage_Core_Model_Abstract
             foreach ($productCollection as $product) {
                 $attributesRow = array();
                 foreach ($attributes as $key => $value) {
-                    $attributesRow[$key] = $product->getData($value);
+                    if ($this->_checkAttributeSource($product, $value)) {
+                        $attributesRow[$key] = $product->getAttributeText($value);
+                    } else {
+                        $attributesRow[$key] = $product->getData($value);
+                    }
                 }
                 $file->streamWriteCsv($attributesRow, self::SEPARATOR, self::ENCLOSURE);
             }
@@ -122,6 +133,21 @@ class Find_Feed_Model_Import extends Mage_Core_Model_Abstract
             return $fileName;
         }
         return false;
+    }
+
+    /**
+     * Check attribute source
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param string $value
+     * @return bool
+     */
+    protected function _checkAttributeSource($product, $value)
+    {
+        if (!array_key_exists($value, $this->_attributeSources)) {
+            $this->_attributeSources[$value] = $product->getResource()->getAttribute($value)->usesSource();
+        }
+        return $this->_attributeSources[$value];
     }
 
     /**

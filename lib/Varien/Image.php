@@ -118,7 +118,7 @@ class Varien_Image
      */
     public function crop($top=0, $left=0, $right=0, $bottom=0)
     {
-        $this->_getAdapter()->crop($left, $top, $right, $bottom);
+        $this->_getAdapter()->crop($top, $left, $right, $bottom);
     }
 
     /**

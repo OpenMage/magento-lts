@@ -35,6 +35,7 @@
 .block li.item,
 .block-poll li,
 .opc li.section { vertical-align:top; }
+* html .window-overlay { background:#ccc; filter:alpha(opacity=50); }
 
 /* Doubled Margin Fixes */
 .product-view .product-img-box .more-views li,

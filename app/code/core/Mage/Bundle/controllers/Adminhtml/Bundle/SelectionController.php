@@ -53,7 +53,8 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
     {
         return $this->getResponse()->setBody(
             $this->getLayout()
-                ->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option_search_grid')
+                ->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option_search_grid',
+                    'adminhtml.catalog.product.edit.tab.bundle.option.search.grid')
                 ->setIndex($this->getRequest()->getParam('index'))
                 ->toHtml()
            );

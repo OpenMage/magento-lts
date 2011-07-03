@@ -29,15 +29,20 @@
  * Shopping cart totals template
  *
  * @see Mage_Checkout_Block_Cart_Totals
+ * @var $this Mage_Checkout_Block_Cart_Totals
  */
 ?>
-<table id="shopping-cart-totals-table">
-    <col />
-    <col width="1" />
-    <tfoot>
-        <?php echo $this->renderTotals('footer'); ?>
-    </tfoot>
-    <tbody>
-        <?php echo $this->renderTotals(); ?>
-    </tbody>
-</table>
+<?php if ($this->canApplyMsrp()): ?>
+    <div class="cart-msrp-totals"><?php echo $this->__('Order Total will be displayed before you submit the order.'); ?></div>
+<?php else: ?>
+    <table id="shopping-cart-totals-table">
+        <col />
+        <col width="1" />
+        <tfoot>
+            <?php echo $this->renderTotals('footer'); ?>
+        </tfoot>
+        <tbody>
+            <?php echo $this->renderTotals(); ?>
+        </tbody>
+    </table>
+<?php endif; ?>

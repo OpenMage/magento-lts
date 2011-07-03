@@ -210,7 +210,7 @@ $tables = array(
             'value' => array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'nullable'  => false,
+                'nullable'  => true,
                 'comment'   => 'Value'
             )
         ),

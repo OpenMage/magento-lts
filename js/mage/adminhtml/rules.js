@@ -26,15 +26,52 @@
 var VarienRulesForm = new Class.create();
 VarienRulesForm.prototype = {
     initialize : function(parent, newChildUrl){
+        this.parent = $(parent);
         this.newChildUrl  = newChildUrl;
         this.shownElement = null;
         this.updateElement = null;
         this.chooserSelectedItems = $H({});
+        this.readOnly = false;
 
-        var elems = $(parent).getElementsByClassName('rule-param');
-
+        var elems = this.parent.getElementsByClassName('rule-param');
         for (var i=0; i<elems.length; i++) {
             this.initParam(elems[i]);
+        }
+    },
+
+    setReadonly: function (readonly){
+        this.readOnly = readonly;
+        var elems = this.parent.getElementsByClassName('rule-param-remove');
+        for (var i=0; i<elems.length; i++) {
+            var element = elems[i];
+                if (this.readOnly) {
+                    element.hide();
+                } else {
+                    element.show();
+                }
+        }
+
+        var elems = this.parent.getElementsByClassName('rule-param-new-child');
+        for (var i=0; i<elems.length; i++) {
+            var element = elems[i];
+            if (this.readOnly) {
+                element.hide();
+            } else {
+                element.show();
+            }
+        }
+
+        var elems = this.parent.getElementsByClassName('rule-param');
+        for (var i=0; i<elems.length; i++) {
+            var container = elems[i];
+            var label = Element.down(container, '.label');
+            if (label) {
+                if (this.readOnly) {
+                    label.addClassName('label-disabled');
+                } else {
+                    label.removeClassName('label-disabled');
+                }
+            }
         }
     },
 
@@ -126,6 +163,10 @@ VarienRulesForm.prototype = {
     },
 
     toggleChooser: function (container, event) {
+        if (this.readOnly) {
+            return false;
+        }
+
         var chooser = container.up('li').down('.rule-chooser');
         if (!chooser) {
             return;
@@ -147,6 +188,10 @@ VarienRulesForm.prototype = {
     },
 
     showParamInputField: function (container, event) {
+        if (this.readOnly) {
+            return false;
+        }
+
         if (this.shownElement) {
             this.hideParamInputField(this.shownElement, event);
         }
@@ -285,6 +330,10 @@ VarienRulesForm.prototype = {
     },
 
     onAddNewChildComplete: function (new_elem) {
+        if (this.readOnly) {
+            return false;
+        }
+
         $(new_elem).removeClassName('rule-param-wait');
         var elems = new_elem.getElementsByClassName('rule-param');
         for (var i=0; i<elems.length; i++) {

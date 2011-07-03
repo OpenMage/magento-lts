@@ -316,7 +316,9 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         $isConfirmNeed = (Mage::getStoreConfig(self::XML_PATH_CONFIRMATION_FLAG) == 1) ? true : false;
         $isOwnSubscribes = false;
 
-        if (!$this->getId() || $this->getStatus() == self::STATUS_UNSUBSCRIBED || $this->getStatus() == self::STATUS_NOT_ACTIVE) {
+        if (!$this->getId() || $this->getStatus() == self::STATUS_UNSUBSCRIBED
+            || $this->getStatus() == self::STATUS_NOT_ACTIVE
+        ) {
             if ($isConfirmNeed === true) {
                 // if user subscribes own login email - confirmation is not needed
                 $ownerId = Mage::getModel('customer/customer')
@@ -413,7 +415,9 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 
         $sendInformationEmail = false;
         if ($customer->hasIsSubscribed()) {
-            $status = $customer->getIsSubscribed() ? (!is_null($confirmation) ? self::STATUS_UNCONFIRMED : self::STATUS_SUBSCRIBED) : self::STATUS_UNSUBSCRIBED;
+            $status = $customer->getIsSubscribed()
+                ? (!is_null($confirmation) ? self::STATUS_UNCONFIRMED : self::STATUS_SUBSCRIBED)
+                : self::STATUS_UNSUBSCRIBED;
             /**
              * If subscription status has been changed then send email to the customer
              */
@@ -434,7 +438,11 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         $this->setStatus($status);
 
         if(!$this->getId()) {
-            $this->setStoreId($customer->getStoreId())
+            $storeId = $customer->getStoreId();
+            if ($customer->getStoreId() == 0) {
+                $storeId = Mage::app()->getWebsite($customer->getWebsiteId())->getDefaultStore()->getId();
+            }
+            $this->setStoreId($storeId)
                 ->setCustomerId($customer->getId())
                 ->setEmail($customer->getEmail());
         } else {
@@ -494,7 +502,9 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        if(!Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_TEMPLATE) || !Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_IDENTITY))  {
+        if(!Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_TEMPLATE)
+           || !Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_IDENTITY)
+        )  {
             return $this;
         }
 
@@ -528,7 +538,9 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        if(!Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_TEMPLATE) || !Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_IDENTITY))  {
+        if(!Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_TEMPLATE)
+           || !Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_IDENTITY)
+        ) {
             return $this;
         }
 
@@ -561,7 +573,9 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         if ($this->getImportMode()) {
             return $this;
         }
-        if(!Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_TEMPLATE) || !Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY))  {
+        if(!Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_TEMPLATE)
+           || !Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY)
+        ) {
             return $this;
         }
 

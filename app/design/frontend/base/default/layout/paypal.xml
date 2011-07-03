@@ -57,6 +57,7 @@
                     <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
                     <block type="checkout/cart_totals" name="paypal.express.review.details.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
                 </block>
+                <block type="checkout/agreements" name="paypal.express.review.details.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
             </block>
         </reference>
         <reference name="head">
@@ -94,6 +95,14 @@ Available logo types can be assigned with action="setLogoType":
                 </block>
             </block>
         </reference>
+        <reference name="product.tooltip">
+            <block type="page/html_wrapper" name="product.info.addtocart.paypal.wrapper" translate="label">
+                <block type="paypal/express_shortcut" name="product.info.addtocart.paypal" template="paypal/express/shortcut.phtml">
+                    <action method="setIsInCatalogProduct"><value>1</value></action>
+                    <action method="setShowOrPosition"><value>after</value></action>
+                </block>
+            </block>
+        </reference>
         <reference name="right">
             <block type="paypal/logo" name="paypal.partner.right.logo" template="paypal/partner/logo.phtml">
                 <!--action method="setLogoType"><value>wePrefer_150x60</value></action-->
@@ -102,16 +111,58 @@ Available logo types can be assigned with action="setLogoType":
     </catalog_product_view>
 
     <catalog_category_default>
+        <reference name="product.tooltip">
+            <block type="page/html_wrapper" name="product.info.addtocart.paypal.wrapper" translate="label">
+                <block type="paypal/express_shortcut" name="product.info.addtocart.paypal" template="paypal/express/shortcut.phtml">
+                    <action method="setIsInCatalogProduct"><value>1</value></action>
+                    <action method="setShowOrPosition"><value>after</value></action>
+                </block>
+            </block>
+        </reference>
         <reference name="right">
             <block type="paypal/logo" name="paypal.partner.right.logo" template="paypal/partner/logo.phtml"/>
         </reference>
     </catalog_category_default>
 
     <catalog_category_layered>
+        <reference name="product.tooltip">
+            <block type="page/html_wrapper" name="product.info.addtocart.paypal.wrapper" translate="label">
+                <block type="paypal/express_shortcut" name="product.info.addtocart.paypal" template="paypal/express/shortcut.phtml">
+                    <action method="setIsInCatalogProduct"><value>1</value></action>
+                    <action method="setShowOrPosition"><value>after</value></action>
+                </block>
+            </block>
+        </reference>
         <reference name="right">
             <block type="paypal/logo" name="paypal.partner.right.logo" template="paypal/partner/logo.phtml"/>
         </reference>
     </catalog_category_layered>
+
+    <catalog_product_compare_index>
+        <reference>
+            <reference name="product.tooltip">
+                <block type="page/html_wrapper" name="product.info.addtocart.paypal.wrapper" translate="label">
+                    <block type="paypal/express_shortcut" name="product.info.addtocart.paypal" template="paypal/express/shortcut.phtml">
+                        <action method="setIsInCatalogProduct"><value>1</value></action>
+                        <action method="setShowOrPosition"><value>after</value></action>
+                    </block>
+                </block>
+            </reference>
+        </reference>
+    </catalog_product_compare_index>
+
+    <wishlist_index_index>
+        <reference>
+            <reference name="product.tooltip">
+                <block type="page/html_wrapper" name="product.info.addtocart.paypal.wrapper" translate="label">
+                    <block type="paypal/express_shortcut" name="product.info.addtocart.paypal" template="paypal/express/shortcut.phtml">
+                        <action method="setIsInCatalogProduct"><value>1</value></action>
+                        <action method="setShowOrPosition"><value>after</value></action>
+                    </block>
+                </block>
+            </reference>
+        </reference>
+    </wishlist_index_index>
 
     <cms_index_index>
         <reference name="right">

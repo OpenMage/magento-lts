@@ -155,9 +155,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                 );
                 Mage::getSingleton('adminhtml/session')->setPageData(false);
                 if ($autoApply) {
-                    // save rule website IDs for validation in Enterprise_AdminGws_Model_Controllers
-                    // (see validatePromoCatalogApplyRules method)
-                    Mage::register('ruleWebsites', explode(',', $model->getWebsiteIds()));
+                    $this->getRequest()->setParam('rule_id', $model->getId());
                     $this->_forward('applyRules');
                 } else {
                     Mage::app()->saveCache(1, 'catalog_rules_dirty');

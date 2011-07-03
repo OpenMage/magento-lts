@@ -24,7 +24,10 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php $_item = $this->getItem()?>
+<?php
+    $_item = $this->getItem();
+    $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
+?>
 <tr>
     <td><a href="<?php echo $this->getProductUrl() ?>" class="product-image" title="<?php echo $this->htmlEscape($this->getProductName()) ?>"><img src="<?php echo $this->getProductThumbnail()->resize(75); ?>" alt="<?php echo $this->htmlEscape($this->getProductName()) ?>" /></a></td>
     <td>
@@ -74,6 +77,20 @@
         <input type="checkbox" value="1" name="cart[<?php echo $_item->getId() ?>][wishlist]" title="<?php echo $this->__('Move to Wishlist') ?>" class="checkbox" />
     </td>
     <?php endif ?>
+<?php if ($canApplyMsrp): ?>
+    <td class="a-right"<?php if ($this->helper('tax')->displayCartBothPrices()): ?> colspan="2"<?php endif; ?>>
+        <span class="cart-price">
+            <span class="cart-msrp-unit"><?php echo $this->__('See price before order confirmation.'); ?></span>
+            <?php $helpLinkId = 'cart-msrp-help-' . $_item->getId(); ?>
+            <a id="<?php echo $helpLinkId ?>" href="#" class="map-help-link"><?php echo $this->__("What's this?"); ?></a>
+            <script type="text/javascript">
+                Catalog.Map.addHelpLink($('<?php echo $helpLinkId ?>'), "<?php echo $this->__("What's this?") ?>");
+            </script>
+        </span>
+    </td>
+<?php else: ?>
+
+
     <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
     <td class="a-right">
         <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(1, 4), 'sales') && $_item->getWeeeTaxAppliedAmount()): ?>
@@ -159,6 +176,7 @@
         <?php endif; ?>
     </td>
     <?php endif; ?>
+<?php endif; ?>
     <td class="a-center">
         <input name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" size="4" title="<?php echo $this->__('Qty') ?>" class="input-text qty" maxlength="12" />
     </td>
@@ -170,11 +188,15 @@
             <div class="cart-price">
         <?php endif; ?>
 
+        <?php if ($canApplyMsrp): ?>
+            <span class="cart-msrp-subtotal">--</span>
+        <?php else: ?>
             <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales') && $_item->getWeeeTaxAppliedAmount()): ?>
                 <?php echo $this->helper('checkout')->formatPrice($_item->getRowTotal()+$_item->getWeeeTaxAppliedRowAmount()+$_item->getWeeeTaxRowDisposition()); ?>
             <?php else: ?>
                 <?php echo $this->helper('checkout')->formatPrice($_item->getRowTotal()) ?>
             <?php endif; ?>
+        <?php endif; ?>
 
         </div>
         <?php if (Mage::helper('weee')->getApplied($_item)): ?>
@@ -212,11 +234,15 @@
             <div class="cart-price">
         <?php endif; ?>
 
+        <?php if ($canApplyMsrp): ?>
+            <span class="cart-msrp-subtotal">--</span>
+        <?php else: ?>
             <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales') && $_item->getWeeeTaxAppliedAmount()): ?>
                 <?php echo $this->helper('checkout')->formatPrice($_incl+$_item->getWeeeTaxAppliedRowAmount()); ?>
             <?php else: ?>
                 <?php echo $this->helper('checkout')->formatPrice($_incl-$_item->getWeeeTaxRowDisposition()) ?>
             <?php endif; ?>
+        <?php endif; ?>
 
         </div>
 

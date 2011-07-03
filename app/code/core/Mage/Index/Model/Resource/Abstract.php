@@ -137,7 +137,8 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
         }
         $select = $this->_getIndexAdapter()->select()->from($sourceTable, $sourceColumns);
 
-        return $this->insertFromSelect($select, $destTable, $targetColumns, $readToIndex);
+        Mage::getResourceHelper('index')->insertData($this, $select, $destTable, $targetColumns, $readToIndex);
+        return $this;
     }
 
     /**

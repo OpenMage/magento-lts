@@ -410,7 +410,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
      */
     public function lastOrdersAction() {
         $this->_initCustomer();
-        $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/customer_edit_tab_view_orders')->toHtml());
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('adminhtml/customer_edit_tab_view_orders')->toHtml());
     }
 
     /**
@@ -424,7 +425,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             ->loadByCustomer(Mage::registry('current_customer'));
 
         Mage::register('subscriber', $subscriber);
-        $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter_grid')->toHtml());
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter_grid')->toHtml());
     }
 
     public function wishlistAction()
@@ -457,7 +459,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     public function viewWishlistAction()
     {
         $this->_initCustomer();
-        $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/customer_edit_tab_view_wishlist')->toHtml());
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('adminhtml/customer_edit_tab_view_wishlist')->toHtml());
     }
 
     /**
@@ -471,7 +474,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $websiteId = $this->getRequest()->getParam('website_id');
 
         // delete an item from cart
-        if ($deleteItemId = $this->getRequest()->getPost('delete')) {
+        $deleteItemId = $this->getRequest()->getPost('delete');
+        if ($deleteItemId) {
             $quote = Mage::getModel('sales/quote')
                 ->setWebsite(Mage::app()->getWebsite($websiteId))
                 ->loadByCustomer(Mage::registry('current_customer'));
@@ -483,8 +487,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         }
 
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/customer_edit_tab_cart', '', array('website_id'=>$websiteId))
-                ->toHtml()
+            $this->getLayout()->createBlock('adminhtml/customer_edit_tab_cart', 'admin.customer.view.cart',
+                array('website_id'=>$websiteId))->toHtml()
         );
     }
 
@@ -497,7 +501,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $this->_initCustomer();
 
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/customer_edit_tab_view_cart')
+            $this->getLayout()->createBlock('adminhtml/customer_edit_tab_view_cart', 'admin.customer.view.cart')
                 ->setWebsiteId($this->getRequest()->getParam('website_id'))
                 ->toHtml()
         );
@@ -512,7 +516,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     {
         $this->_initCustomer();
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/customer_edit_tab_carts')->toHtml()
+            $this->getLayout()->createBlock('adminhtml/customer_edit_tab_carts', 'admin.customer.carts')->toHtml()
         );
     }
 

@@ -28,7 +28,7 @@
 <?php if ($this->helper('wishlist')->isAllow()) : ?>
 <div class="block block-wishlist">
     <div class="block-title">
-        <strong><span><?php echo $this->__('My Wishlist <small>(%d)</small>', $this->helper('wishlist')->getItemCount()) ?></span></strong>
+        <strong><span><?php echo $this->__('My Wishlist <small>(%d)</small>', $this->getItemCount()) ?></span></strong>
     </div>
     <div class="block-content">
     <p class="block-subtitle"><?php echo $this->__('Last Added Items') ?></p>

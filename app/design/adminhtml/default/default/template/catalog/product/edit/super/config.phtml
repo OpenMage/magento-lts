@@ -83,22 +83,37 @@
     <div class="attribute-value-label-container left">
     <?php echo Mage::helper('catalog')->__('Option:') ?> <strong>'{{label}}'</strong>
 </div>
+<?php if ($this->getCanReadPrice() !== false) : ?>
 <div class="attribute-values-container-main">
     <div class="attribute-values-container left">
     <?php echo Mage::helper('catalog')->__('Price:') ?>
-    <input id="__id___pricing" type="text" <?php if ($this->isReadonly()):?> disabled="disabled" <?php endif;?> class="input-text attribute-price validate-number template no-display" value="'{{pricing_value}}'"/>
+    <input id="__id___pricing" type="text" <?php if ($this->isReadonly() || $this->getCanEditPrice() === false):?> disabled="disabled" <?php endif;?> class="input-text attribute-price validate-number template no-display" value="'{{pricing_value}}'"/>
 </div>
 <div class="attribute-values-container left">
-    &nbsp;<select class="attribute-price-type" <?php if ($this->isReadonly()):?> disabled="disabled" <?php endif;?>>
+    &nbsp;<select class="attribute-price-type" id="__id___price_type" <?php if ($this->isReadonly() || $this->getCanEditPrice() === false):?> disabled="disabled" <?php endif;?>>
         <option value="0"><?php echo Mage::helper('catalog')->__('Fixed') ?></option>
         <option value="1"><?php echo Mage::helper('catalog')->__('Percentage') ?></option>
     </select>
 </div>
 <?php if ($this->getShowUseDefaultPrice()):?>
 <div class="attribute-values-container">
-    &nbsp;<input id="__id___default" type="checkbox" <?php if ($this->isReadonly()):?> disabled="disabled" <?php endif;?> class="attribute-use-default-value"> <label for="__id___default" class="normal"><?php echo Mage::helper('catalog')->__('Use Default Value') ?></label>
+    &nbsp;<input id="__id___default" type="checkbox" <?php if ($this->isReadonly() || $this->getCanEditPrice() === false):?> disabled="disabled" <?php endif;?> class="attribute-use-default-value"> <label for="__id___default" class="normal"><?php echo Mage::helper('catalog')->__('Use Default Value') ?></label>
 </div>
 <?php endif;?>
+<?php else : ?>
+<div class="attribute-values-container-main">
+    <div class="attribute-values-container left">
+    <input id="__id___pricing" type="hidden"  class="attribute-price template no-display" value="0" />
+</div>
+<div class="attribute-values-container left">
+    <input type="hidden" class="attribute-price-type" id="__id___price_type" value="0" />
+</div>
+<?php if ($this->getShowUseDefaultPrice()) : ?>
+<div class="attribute-values-container no-display">
+    <input id="__id___default" type="checkbox" <?php if ($this->isReadonly() || $this->getCanEditPrice() === false):?> disabled="disabled" <?php endif;?> class="attribute-use-default-value">
+</div>
+<?php endif; ?>
+<?php endif; ?>
 </div>
 </div>
 <div class="template no-display" id="<?php echo $this->getHtmlId() ?>_simple_pricing">

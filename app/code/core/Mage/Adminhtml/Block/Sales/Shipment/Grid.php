@@ -32,6 +32,9 @@
 class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
 
+    /**
+     * Initialization
+     */
     public function __construct()
     {
         parent::__construct();
@@ -50,6 +53,11 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
         return 'sales/order_shipment_grid_collection';
     }
 
+    /**
+     * Prepare and set collection of grid
+     *
+     * @return Mage_Adminhtml_Block_Widget_Grid
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass());
@@ -57,6 +65,11 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
         return parent::_prepareCollection();
     }
 
+    /**
+     * Prepare and add columns to grid
+     *
+     * @return Mage_Adminhtml_Block_Widget_Grid
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('increment_id', array(
@@ -118,6 +131,12 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
         return parent::_prepareColumns();
     }
 
+    /**
+     * Get url for row
+     *
+     * @param string $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/shipment')) {
@@ -131,6 +150,11 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
         );
     }
 
+    /**
+     * Prepare and set options for massaction
+     *
+     * @return Mage_Adminhtml_Block_Sales_Shipment_Grid
+     */
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('entity_id');
@@ -142,9 +166,19 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
              'url'  => $this->getUrl('*/sales_shipment/pdfshipments'),
         ));
 
+        $this->getMassactionBlock()->addItem('print_shipping_label', array(
+             'label'=> Mage::helper('sales')->__('Print Shipping Labels'),
+             'url'  => $this->getUrl('*/sales_order_shipment/massPrintShippingLabel'),
+        ));
+
         return $this;
     }
 
+    /**
+     * Get url of grid
+     *
+     * @return string
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/*', array('_current' => true));

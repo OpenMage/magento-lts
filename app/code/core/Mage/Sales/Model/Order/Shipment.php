@@ -80,6 +80,11 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     const REPORT_DATE_TYPE_ORDER_CREATED        = 'order_created';
     const REPORT_DATE_TYPE_SHIPMENT_CREATED     = 'shipment_created';
 
+    /*
+     * Identifier for order history item
+     */
+    const HISTORY_ENTITY_NAME = 'shipment';
+
     protected $_items;
     protected $_tracks;
     protected $_order;
@@ -162,7 +167,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         if (!$this->_order instanceof Mage_Sales_Model_Order) {
             $this->_order = Mage::getModel('sales/order')->load($this->getOrderId());
         }
-        return $this->_order;
+        return $this->_order->setHistoryEntityName(self::HISTORY_ENTITY_NAME);
     }
 
     /**
@@ -555,6 +560,9 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
             $this->setOrderId($this->getOrder()->getId());
             $this->setShippingAddressId($this->getOrder()->getShippingAddress()->getId());
         }
+        if ($this->getPackages()) {
+            $this->setPackages(serialize($this->getPackages()));
+        }
 
         return parent::_beforeSave();
     }
@@ -601,5 +609,17 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     public function getStore()
     {
         return $this->getOrder()->getStore();
+    }
+
+    /**
+     * Set shipping label
+     *
+     * @param string $label   label representation (image or pdf file)
+     * @return Mage_Sales_Model_Order_Shipment
+     */
+    public function setShippingLabel($label)
+    {
+        $this->setData('shipping_label', $label);
+        return $this;
     }
 }

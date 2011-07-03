@@ -472,7 +472,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $this->refreshImageDimensions();
     }
 
-    public function crop($top=0, $bottom=0, $right=0, $left=0)
+    public function crop($top=0, $left=0, $right=0, $bottom=0)
     {
         if( $left == 0 && $top == 0 && $right == 0 && $bottom == 0 ) {
             return;
@@ -490,8 +490,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         imagecopyresampled(
             $canvas,
             $this->_imageHandler,
-            $top, $bottom, $right, $left,
-            $this->_imageSrcWidth, $this->_imageSrcHeight,
+            0, 0, $left, $top,
+            $newWidth, $newHeight,
             $newWidth, $newHeight
         );
 

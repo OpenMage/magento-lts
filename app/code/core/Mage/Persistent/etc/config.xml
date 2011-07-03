@@ -1,0 +1,267 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Persistent
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Persistent>
+            <version>1.0.0.0</version>
+        </Mage_Persistent>
+    </modules>
+
+    <global>
+        <models>
+            <persistent>
+                <class>Mage_Persistent_Model</class>
+                <resourceModel>persistent_resource</resourceModel>
+            </persistent>
+
+            <persistent_resource>
+                <class>Mage_Persistent_Model_Resource</class>
+                <entities>
+                    <session>
+                        <table>persistent_session</table>
+                    </session>
+                </entities>
+            </persistent_resource>
+        </models>
+
+        <resources>
+            <persistent_setup>
+                <setup>
+                    <module>Mage_Persistent</module>
+                </setup>
+            </persistent_setup>
+        </resources>
+    </global>
+
+    <frontend>
+        <routers>
+            <persistent>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Persistent</module>
+                    <frontName>persistent</frontName>
+                </args>
+            </persistent>
+        </routers>
+        <layout>
+            <updates>
+                <persistent>
+                    <file>persistent.xml</file>
+                </persistent>
+            </updates>
+        </layout>
+        <events>
+            <customer_login>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer_session</class>
+                        <method>synchronizePersistentOnLogin</method>
+                    </persistent>
+                </observers>
+            </customer_login>
+            <customer_logout>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer_session</class>
+                        <method>synchronizePersistentOnLogout</method>
+                    </persistent>
+                </observers>
+            </customer_logout>
+            <controller_front_send_response_after>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer_session</class>
+                        <method>synchronizePersistentInfo</method>
+                    </persistent>
+                </observers>
+            </controller_front_send_response_after>
+            <controller_action_layout_load_before>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer</class>
+                        <method>createPersistentHandleLayout</method>
+                    </persistent>
+                </observers>
+            </controller_action_layout_load_before>
+            <controller_action_predispatch_customer_account_loginPost>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer_session</class>
+                        <method>setRememberMeCheckedStatus</method>
+                    </persistent>
+                </observers>
+            </controller_action_predispatch_customer_account_loginPost>
+            <controller_action_predispatch_customer_account_createpost>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer_session</class>
+                        <method>setRememberMeCheckedStatus</method>
+                    </persistent>
+                </observers>
+            </controller_action_predispatch_customer_account_createpost>
+            <controller_action_layout_generate_blocks_after>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer</class>
+                        <method>applyPersistentData</method>
+                    </persistent>
+                </observers>
+            </controller_action_layout_generate_blocks_after>
+            <controller_action_predispatch>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer</class>
+                        <method>emulateQuote</method>
+                    </persistent>
+                    <persistent_session>
+                        <class>persistent/observer_session</class>
+                        <method>renewCookie</method>
+                    </persistent_session>
+                    <persistent_quote>
+                        <class>persistent/observer</class>
+                        <method>checkExpirePersistentQuote</method>
+                    </persistent_quote>
+                </observers>
+            </controller_action_predispatch>
+            <checkout_allow_guest>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer</class>
+                        <method>disableGuestCheckout</method>
+                    </persistent>
+                </observers>
+            </checkout_allow_guest>
+            <customer_customer_authenticated>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer</class>
+                        <method>customerAuthenticatedEvent</method>
+                    </persistent>
+                </observers>
+            </customer_customer_authenticated>
+            <controller_action_predispatch_persistent_index_unsetCookie>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer</class>
+                        <method>preventClearCheckoutSession</method>
+                    </persistent>
+                </observers>
+            </controller_action_predispatch_persistent_index_unsetCookie>
+            <controller_action_postdispatch_persistent_index_unsetCookie>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer</class>
+                        <method>makePersistentQuoteGuest</method>
+                    </persistent>
+                </observers>
+            </controller_action_postdispatch_persistent_index_unsetCookie>
+            <sales_quote_save_before>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer</class>
+                        <method>setQuotePersistentData</method>
+                    </persistent>
+                </observers>
+            </sales_quote_save_before>
+            <custom_quote_process>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer</class>
+                        <method>setLoadPersistentQuote</method>
+                    </persistent>
+                </observers>
+            </custom_quote_process>
+            <controller_action_postdispatch_checkout_onepage_saveMethod>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer</class>
+                        <method>removePersistentCookie</method>
+                    </persistent>
+                </observers>
+            </controller_action_postdispatch_checkout_onepage_saveMethod>
+            <controller_action_postdispatch_checkout_onepage_saveBilling>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer_session</class>
+                        <method>setRememberMeCheckedStatus</method>
+                    </persistent>
+                </observers>
+            </controller_action_postdispatch_checkout_onepage_saveBilling>
+            <customer_register_success>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer</class>
+                        <method>clearPersistent</method>
+                    </persistent>
+                </observers>
+            </customer_register_success>
+            <controller_action_predispatch_paypal_express_start>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer</class>
+                        <method>preventExpressCheckout</method>
+                    </persistent>
+                </observers>
+            </controller_action_predispatch_paypal_express_start>
+            <controller_action_predispatch_googlecheckout_redirect_checkout>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer</class>
+                        <method>preventExpressCheckout</method>
+                    </persistent>
+                </observers>
+            </controller_action_predispatch_googlecheckout_redirect_checkout>
+        </events>
+    </frontend>
+
+    <default>
+        <persistent>
+            <options>
+                <enabled>0</enabled>
+                <lifetime>31536000</lifetime>
+                <remember_enabled>1</remember_enabled>
+                <remember_default>1</remember_default>
+                <logout_clear>1</logout_clear>
+                <shopping_cart>1</shopping_cart>
+            </options>
+        </persistent>
+    </default>
+
+    <crontab>
+        <jobs>
+            <persistent_clear_expired>
+                <schedule>
+                    <cron_expr>0 0 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>persistent/observer::clearExpiredCronJob</model>
+                </run>
+            </persistent_clear_expired>
+        </jobs>
+    </crontab>
+</config>

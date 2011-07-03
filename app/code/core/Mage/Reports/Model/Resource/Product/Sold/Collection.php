@@ -35,6 +35,15 @@
 class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_Model_Resource_Product_Collection
 {
     /**
+     * Initialize resources
+     *
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_useAnalyticFunction = true;
+    }
+    /**
      * Set Date range to collection
      *
      * @param int $from
@@ -47,7 +56,6 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
             ->addAttributeToSelect('*')
             ->addOrderedQty($from, $to)
             ->setOrder('ordered_qty', self::SORT_ORDER_DESC);
-
         return $this;
     }
 

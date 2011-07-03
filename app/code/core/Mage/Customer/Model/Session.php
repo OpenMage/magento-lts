@@ -48,6 +48,13 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     protected $_isCustomerIdChecked = null;
 
     /**
+     * Persistent customer group id
+     *
+     * @var null|int
+     */
+    protected $_persistentCustomerGroupId = null;
+
+    /**
      * Retrieve customer sharing configuration model
      *
      * @return Mage_Customer_Model_Config_Share
@@ -116,31 +123,54 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
+     * Set customer id
+     *
+     * @param int|null $id
+     * @return Mage_Customer_Model_Session
+     */
+    public function setCustomerId($id)
+    {
+        $this->setData('customer_id', $id);
+        return $this;
+    }
+
+    /**
      * Retrieve customer id from current session
      *
-     * @return int || null
+     * @return int|null
      */
     public function getCustomerId()
     {
-        if ($this->isLoggedIn()) {
-            return $this->getId();
+        if ($this->getData('customer_id')) {
+            return $this->getData('customer_id');
         }
-        return null;
+        return ($this->isLoggedIn()) ? $this->getId() : null;
+    }
+
+    /**
+     * Set customer group id
+     *
+     * @param int|null $id
+     * @return Mage_Customer_Model_Session
+     */
+    public function setCustomerGroupId($id)
+    {
+        $this->setData('customer_group_id', $id);
+        return $this;
     }
 
     /**
      * Get customer group id
-     * If customer is not logged in system not logged in group id will be returned
+     * If customer is not logged in system, 'not logged in' group id will be returned
      *
      * @return int
      */
     public function getCustomerGroupId()
     {
-        if ($this->isLoggedIn()) {
-            return $this->getCustomer()->getGroupId();
-        } else {
-            return Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
+        if ($this->getData('customer_group_id')) {
+            return $this->getData('customer_group_id');
         }
+        return ($this->isLoggedIn()) ? $this->getCustomer()->getGroupId() : Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
     }
 
     /**

@@ -172,7 +172,8 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
      */
     protected function _getShippingTaxAmount()
     {
-        return $this->getQuote()->getShippingAddress()->getShippingTaxAmount();
+        $quote = $this->getCustomQuote() ? $this->getCustomQuote() : $this->getQuote();
+        return $quote->getShippingAddress()->getShippingTaxAmount();
     }
 
     /**
@@ -182,6 +183,9 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
      */
     public function getSummaryCount()
     {
+        if ($this->getData('summary_qty')) {
+            return $this->getData('summary_qty');
+        }
         return Mage::getSingleton('checkout/cart')->getSummaryQty();
     }
 
@@ -225,5 +229,33 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
     public function getIsNeedToDisplaySideBar()
     {
         return (bool) Mage::app()->getStore()->getConfig('checkout/sidebar/display');
+    }
+
+    /**
+     * Return customer quote items
+     *
+     * @return array
+     */
+    public function getItems()
+    {
+        if ($this->getCustomQuote()) {
+            return $this->getCustomQuote()->getAllVisibleItems();
+        }
+
+        return parent::getItems();
+    }
+
+    /*
+     * Return totals from custom quote if needed
+     *
+     * @return array
+     */
+    public function getTotalsCache()
+    {
+        if (empty($this->_totals)) {
+            $quote = $this->getCustomQuote() ? $this->getCustomQuote() : $this->getQuote();
+            $this->_totals = $quote->getTotals();
+        }
+        return $this->_totals;
     }
 }

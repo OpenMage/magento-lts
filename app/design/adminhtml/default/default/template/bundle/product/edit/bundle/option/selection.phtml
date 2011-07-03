@@ -31,8 +31,10 @@ var bundleTemplateBox = '<table class="border" cellpadding="0" cellspacing="0">'
     '    <thead>' +
     '        <tr class="headings">' +
     '            <th><?php echo Mage::helper('catalog')->__('Name') ?></th>' +
+    <?php if ($this->getCanReadPrice() !== false) : ?>
     '            <th class="type-price price-type-box"><?php echo Mage::helper('catalog')->__('Price') ?></th>' +
     '            <th class="type-type price-type-box"><?php echo Mage::helper('bundle')->__('Price Type') ?></th>' +
+    <?php endif; ?>
     '            <th class="type-price"><?php echo Mage::helper('bundle')->__('Default Qty') ?></th>' +
     '            <th class="type-uqty qty-box"><?php echo$this->jsQuoteEscape(Mage::helper('bundle')->__('User Defined Qty')) ?></th>' +
     '            <th class="type-order"><?php echo Mage::helper('bundle')->__('Position') ?></th>' +
@@ -54,8 +56,16 @@ var bundleTemplateRow ='<td>' +
                 '        <strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong> {{sku}}' +
                 '    </div>' +
                 '</td>' +
-                '<td class="price-type-box"><input id="<?php echo $this->getFieldId() ?>_{{index}}_price_value" class="input-text required-entry validate-zero-or-greater" type="text" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][selection_price_value]" value="{{selection_price_value}}"></td>' +
+                <?php if ($this->getCanReadPrice() !== false) : ?>
+                '<td class="price-type-box"><input id="<?php echo $this->getFieldId() ?>_{{index}}_price_value" class="input-text required-entry validate-zero-or-greater" type="text" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][selection_price_value]" value="{{selection_price_value}}"<?php if($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif; ?>></td>' +
                 '<td class="price-type-box"><?php echo $this->getPriceTypeSelectHtml() ?><div><?php echo $this->getCheckboxScopeHtml() ?></div></td>' +
+                <?php else : ?>
+                    '<input type="hidden" id="<?php echo $this->getFieldId(); ?>_{{index}}_price_value" name="<?php echo $this->getFieldName(); ?>[{{parentIndex}}][{{index}}][selection_price_value]" value="0" />' +
+                    '<input type="hidden" id="<?php echo $this->getFieldId(); ?>_{{index}}_price_type" name="<?php echo $this->getFieldName(); ?>[{{parentIndex}}][{{index}}][selection_price_type]" value="0" />' +
+                    <?php if ($this->isUsedWebsitePrice()): ?>
+                    '<input type="hidden" id="<?php echo $this->getFieldId(); ?>_{{index}}_price_scope" name="<?php echo $this->getFieldName(); ?>[{{parentIndex}}][{{index}}][default_price_scope]" value="1" />' +
+                    <?php endif; ?>
+                <?php endif; ?>
                 '<td><input class="input-text required-entry validate-zero-or-greater" type="text" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][selection_qty]" value="{{selection_qty}}"></td>' +
                 '<td class="qty-box"><?php echo $this->getQtyTypeSelectHtml() ?></td>' +
                 '<td><input class="input-text required-entry validate-zero-or-greater" type="text" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][position]" value="{{position}}"></td>' +
@@ -121,7 +131,11 @@ Bundle.Selection.prototype = {
             var data = {};
         }
 
-        data.selection_price_value = Number(data.selection_price_value).toFixed(2);
+        if (data.can_read_price != undefined && !data.can_read_price) {
+            data.selection_price_value = '';
+        } else {
+            data.selection_price_value = Number(data.selection_price_value).toFixed(2);
+        }
 
         data.index = this.itemsCount++;
         data.parentIndex = parentIndex;
@@ -177,7 +191,7 @@ Bundle.Selection.prototype = {
             );
         }
 
-        if ($('price_type').value != '1') {
+        if (!$('price_type') || $('price_type').value != '1') {
             /**
              * Hide not needed elements (price type select and price input)
              */

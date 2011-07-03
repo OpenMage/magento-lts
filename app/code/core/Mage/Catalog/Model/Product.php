@@ -103,6 +103,13 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     protected $_isDuplicable = true;
 
     /**
+     * Flag for get Price function
+     *
+     * @var boolean
+     */
+    protected $_calculatePrice = true;
+
+    /**
      * Initialize resources
      */
     protected function _construct()
@@ -200,7 +207,22 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getPrice()
     {
-        return $this->getPriceModel()->getPrice($this);
+        if ($this->_calculatePrice || !$this->getData('price')) {
+            return $this->getPriceModel()->getPrice($this);
+        } else {
+            return $this->getData('price');
+        }
+    }
+
+    /**
+     * Set Price calculation flag
+     *
+     * @param bool $calculate
+     * @return void
+     */
+    public function setPriceCalculation($calculate = true)
+    {
+        $this->_calculatePrice = $calculate;
     }
 
     /**
@@ -1248,7 +1270,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         $productType = $this->getTypeInstance(true);
         if (is_callable(array($productType, 'getIsSalable'))) {
-            return $this->getTypeInstance(true)->getIsSalable($this);
+            return $productType->getIsSalable($this);
         }
         if ($this->hasData('is_salable')) {
             return $this->getData('is_salable');
@@ -1894,8 +1916,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      *
      * @return array
      */
-    public function getProductEntitiesInfo()
+    public function getProductEntitiesInfo($columns = null)
     {
-        return $this->_getResource()->getProductEntitiesInfo();
+        return $this->_getResource()->getProductEntitiesInfo($columns);
     }
 }

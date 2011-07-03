@@ -31,6 +31,15 @@
 class Mage_CatalogSearch_Block_Layer extends Mage_Catalog_Block_Layer_View
 {
     /**
+     * Internal constructor
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        Mage::register('current_layer', $this->getLayer());
+    }
+
+    /**
      * Get attribute filter block name
      *
      * @deprecated after 1.4.1.0

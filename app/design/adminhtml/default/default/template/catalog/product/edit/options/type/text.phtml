@@ -28,14 +28,21 @@
 //<![CDATA[
 OptionTemplateText = '<table class="border" cellpadding="0" cellspacing="0">'+
         '<tr class="headings">'+
-            '<th class="type-price"><?php echo Mage::helper('catalog')->__('Price') ?></th>'+
-            '<th class="type-type"><?php echo Mage::helper('catalog')->__('Price Type') ?></th>'+
+            <?php if ($this->getCanReadPrice() !== false) : ?>
+            '<th class="type-price"><?php echo Mage::helper('catalog')->__('Price') ?></th>' +
+            '<th class="type-type"><?php echo Mage::helper('catalog')->__('Price Type') ?></th>' +
+            <?php endif; ?>
             '<th class="type-sku"><?php echo Mage::helper('catalog')->__('SKU') ?></th>'+
             '<th class="type-last last"><?php echo Mage::helper('catalog')->__('Max Characters') ?> </th>'+
         '</tr>'+
         '<tr>'+
-            '<td><input type="text" class="input-text validate-number product-option-price" id="product_option_{{option_id}}_price" name="product[options][{{option_id}}][price]" value="{{price}}"></td>'+
-            '<td><?php echo $this->getPriceTypeSelectHtml() ?>{{checkboxScopePrice}}</td>'+
+            <?php if ($this->getCanReadPrice() !== false) : ?>
+            '<td><input type="text" class="input-text validate-number product-option-price" id="product_option_{{option_id}}_price" name="product[options][{{option_id}}][price]" value="{{price}}"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif; ?>></td>' +
+            '<td><?php echo $this->getPriceTypeSelectHtml() ?>{{checkboxScopePrice}}</td>' +
+            <?php else : ?>
+            '<input type="hidden" name="product[options][{{option_id}}][price]">' +
+            '<input type="hidden" name="product[options][{{option_id}}][price_type]" id="product_option_{{option_id}}_price_type">' +
+            <?php endif; ?>
             '<td><input type="text" class="input-text" name="product[options][{{option_id}}][sku]" value="{{sku}}"></td>'+
             '<td class="type-last last"><input type="text" class="input-text validate-zero-or-greater" name="product[options][{{option_id}}][max_characters]" value="{{max_characters}}"></td>'+
         '</tr>'+

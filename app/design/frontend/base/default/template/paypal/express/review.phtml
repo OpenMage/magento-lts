@@ -118,6 +118,7 @@
     </div>
 </div>
 <form method="post" id="order_review_form" action="<?php echo $this->getPlaceOrderUrl() ?>">
+    <?php echo $this->getChildHtml('agreements'); ?>
     <div class="buttons-set buttons-set-order" id="review-buttons-container">
         <button id="review_button" value="<?php echo $this->__('Place Order') ?>" class="button btn-checkout"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
         <button type="submit" id="review_submit" value="<?php echo $this->__('Place Order') ?>" class="button btn-checkout"><span><span><?php echo $this->__('Place Order') ?></span></span></button>

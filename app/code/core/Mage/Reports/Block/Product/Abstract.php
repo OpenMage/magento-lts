@@ -97,6 +97,16 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     }
 
     /**
+     * Public method for retrieve Product Index model
+     *
+     * @return Mage_Reports_Model_Product_Index_Abstract
+     */
+    public function getModel()
+    {
+        return $this->_getModel();
+    }
+
+    /**
      * Retrieve Index Product Collection
      *
      * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
@@ -108,11 +118,16 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
 
             $this->_collection = $this->_getModel()
                 ->getCollection()
-                ->addAttributeToSelect($attributes)
-                ->excludeProductIds($this->_getModel()->getExcludeProductIds())
-                ->addUrlRewrite()
-                ->setPageSize($this->getPageSize())
-                ->setCurPage(1);
+                ->addAttributeToSelect($attributes);
+
+                if ($this->getCustomerId()) {
+                    $this->_collection->setCustomerId($this->getCustomerId());
+                }
+
+                $this->_collection->excludeProductIds($this->_getModel()->getExcludeProductIds())
+                    ->addUrlRewrite()
+                    ->setPageSize($this->getPageSize())
+                    ->setCurPage(1);
 
             /* Price data is added to consider item stock status using price index */
             $this->_collection->addPriceData();

@@ -89,6 +89,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
         $this->addOrder('dest_country', self::SORT_ORDER_ASC);
         $this->addOrder('dest_region', self::SORT_ORDER_ASC);
         $this->addOrder('dest_zip', self::SORT_ORDER_ASC);
+        $this->addOrder('condition_value', self::SORT_ORDER_ASC);
     }
 
     /**

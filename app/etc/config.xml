@@ -78,6 +78,7 @@
                     <pdo_mysql>
                         <adapter>Varien_Db_Adapter_Pdo_Mysql</adapter>
                         <class>Mage_Core_Model_Resource_Type_Db_Pdo_Mysql</class>
+                        <compatibleMode>1</compatibleMode>
                     </pdo_mysql>
                 </types>
             </connection>

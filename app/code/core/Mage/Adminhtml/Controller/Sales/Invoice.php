@@ -97,6 +97,12 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
         if ($invoiceId = $this->getRequest()->getParam('invoice_id')) {
             if ($invoice = Mage::getModel('sales/order_invoice')->load($invoiceId)) {
                 $invoice->sendEmail();
+                $historyItem = Mage::getResourceModel('sales/order_status_history_collection')
+                    ->getUnnotifiedForInstance($invoice, Mage_Sales_Model_Order_Invoice::HISTORY_ENTITY_NAME);
+                if ($historyItem) {
+                    $historyItem->setIsCustomerNotified(1);
+                    $historyItem->save();
+                }
                 $this->_getSession()->addSuccess(Mage::helper('sales')->__('The message has been sent.'));
                 $this->_redirect('*/sales_invoice/view', array(
                     'order_id'  => $invoice->getOrder()->getId(),
@@ -111,7 +117,8 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
         if ($invoiceId = $this->getRequest()->getParam('invoice_id')) {
             if ($invoice = Mage::getModel('sales/order_invoice')->load($invoiceId)) {
                 $pdf = Mage::getModel('sales/order_pdf_invoice')->getPdf(array($invoice));
-                $this->_prepareDownloadResponse('invoice'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(), 'application/pdf');
+                $this->_prepareDownloadResponse('invoice'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').
+                    '.pdf', $pdf->render(), 'application/pdf');
             }
         }
         else {
@@ -133,7 +140,8 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
                 $pdf->pages = array_merge ($pdf->pages, $pages->pages);
             }
 
-            return $this->_prepareDownloadResponse('invoice'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(), 'application/pdf');
+            return $this->_prepareDownloadResponse('invoice'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').
+                '.pdf', $pdf->render(), 'application/pdf');
         }
         $this->_redirect('*/*/');
     }

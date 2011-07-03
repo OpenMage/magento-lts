@@ -264,7 +264,7 @@ interface Varien_Db_Adapter_Interface
      * @param string|array $fields  the table column name or array of ones
      * @param string $indexType     the index type
      * @param string $schemaName
-     * @return Varien_Db_Adapter_Interface
+     * @return Zend_Db_Statement_Interface
      */
     public function addIndex($tableName, $indexName, $fields, $indexType = self::INDEX_TYPE_INDEX, $schemaName = null);
 
@@ -274,15 +274,15 @@ interface Varien_Db_Adapter_Interface
      * @param string $tableName
      * @param string $keyName
      * @param string $schemaName
-     * @return Varien_Db_Adapter_Interface
+     * @return bool|Zend_Db_Statement_Interface
      */
     public function dropIndex($tableName, $keyName, $schemaName = null);
 
     /**
      * Returns the table index information
      *
-     * The return value is an associative array keyed by the UPPERCASE index key,
-     * as returned by the RDBMS.
+     * The return value is an associative array keyed by the UPPERCASE index key (except for primary key,
+     * that is always stored under 'PRIMARY' key) as returned by the RDBMS.
      *
      * The value of each array element is an associative array
      * with the following keys:
@@ -291,7 +291,7 @@ interface Varien_Db_Adapter_Interface
      * TABLE_NAME       => string; name of the table
      * KEY_NAME         => string; the original index name
      * COLUMNS_LIST     => array; array of index column names
-     * INDEX_TYPE       => string; create index type
+     * INDEX_TYPE       => string; lowercase, create index type
      * INDEX_METHOD     => string; index method using
      * type             => string; see INDEX_TYPE
      * fields           => array; see COLUMNS_LIST
@@ -953,4 +953,13 @@ interface Varien_Db_Adapter_Interface
      * @return string Primary Key name
      */
     public function getPrimaryKeyName($tableName, $schemaName = null);
+
+    /**
+     * Converts fetched blob into raw binary PHP data.
+     * Some DB drivers return blobs as hex-coded strings, so we need to process them.
+     *
+     * @mixed $value
+     * @return mixed
+     */
+    public function decodeVarbinary($value);
 }

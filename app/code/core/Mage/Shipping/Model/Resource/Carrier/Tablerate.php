@@ -347,6 +347,12 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
                 $rowNumber);
             return false;
         }
+
+        // strip whitespace from the beginning and end of each row
+        foreach ($row as $k => $v) {
+            $row[$k] = trim($v);
+        }
+
         // validate country
         if (isset($this->_importIso2Countries[$row[0]])) {
             $countryId = $this->_importIso2Countries[$row[0]];

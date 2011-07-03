@@ -112,7 +112,8 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     {
         $form = new Varien_Data_Form();
         $form->setFieldsetRenderer($this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset'));
-        $form->setFieldsetElementRenderer($this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element'));
+        $form->setFieldsetElementRenderer($this->getLayout()
+            ->createBlock('adminhtml/widget_form_renderer_fieldset_element'));
 
         /**
          * if there is a parent element defined, it will be replaced by a hidden element with the same name
@@ -136,7 +137,8 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
             'name'    => 'start_date_is_editable',
             'label'   => Mage::helper('sales')->__('Customer Can Define Start Date'),
             'comment' => Mage::helper('sales')->__('Whether buyer can define the date when billing for the profile begins.'),
-            'options' => array('No', 'Yes')
+            'options' => $noYes,
+            'disabled' => $this->_isReadOnly
         ));
         $this->_addField($schedule, 'schedule_description');
         $this->_addField($schedule, 'suspension_threshold');
@@ -210,5 +212,27 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
         return array_merge(array('' => $emptyLabel),
             $this->_profile->getAllPeriodUnits()
         );
+    }
+
+    /**
+     * Set readonly flag
+     *
+     * @param boolean $isReadonly
+     * @return Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form
+     */
+    public function setIsReadonly($isReadonly)
+    {
+        $this->_isReadOnly = $isReadonly;
+        return $this;
+    }
+
+    /**
+     * Get readonly flag
+     *
+     * @return boolean
+     */
+    public function getIsReadonly()
+    {
+        return $this->_isReadOnly;
     }
 }

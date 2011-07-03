@@ -31,7 +31,8 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adminhtml_Block_Widget_Grid
+    implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     public function __construct()
     {
@@ -87,10 +88,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         return $this;
     }
 
+    /**
+     * Prepare collection
+     *
+     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group
+     */
     protected function _prepareCollection()
     {
         $allowProductTypes = array();
-        foreach (Mage::getConfig()->getNode('global/catalog/product/type/grouped/allow_product_types')->children() as $type) {
+        $allowProductTypeNodes = Mage::getConfig()
+            ->getNode('global/catalog/product/type/grouped/allow_product_types')->children();
+        foreach ($allowProductTypeNodes as $type) {
             $allowProductTypes[] = $type->getName();
         }
 
@@ -101,6 +109,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             ->addFilterByRequiredOptions()
             ->addAttributeToFilter('type_id', $allowProductTypes);
 
+        if ($this->getIsReadonly() === true) {
+            $collection->addFieldToFilter('entity_id', array('in' => $this->_getSelectedProducts()));
+        }
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -162,9 +173,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         return parent::_prepareColumns();
     }
 
+    /**
+     * Get Grid Url
+     *
+     * @return string
+     */
     public function getGridUrl()
     {
-        return $this->_getData('grid_url') ? $this->_getData('grid_url') : $this->getUrl('*/*/superGroupGridOnly', array('_current'=>true));
+        return $this->_getData('grid_url')
+            ? $this->_getData('grid_url') : $this->getUrl('*/*/superGroupGridOnly', array('_current'=>true));
     }
 
     /**

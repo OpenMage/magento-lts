@@ -1,3 +1,356 @@
+==== 1.6.0.0-beta1 ====
+
+=== Major Highlights ===
+Minimum Advertised Price
+Persistent Shopping Cart
+
+=== Improvements ===
+Order Payment Action for Express Checkout (PayPal)
+- Added settings Authorization Honor Period and Order Valid Period into EC tab in the backend
+- Automatically new authorize transaction created after order transaction
+- Automatically cancel order after the expiration of Order Valid Period
+- Automatically authorize transaction void\create after the expiration of Authorization Honor Period
+Implemented Authorize.Net 'hold for review' status shows up as 'declined' in Magento.
+
+=== Fixes ===
+Fixed Reindex Data works with errors
+Fixed Group product is exported incorrectly : associated product values are not included
+- reorganized counting of an array elements. Passing array items by link, broke scripts logic below.
+Fixed Sql install and upgrade issues
+- updated customer address attributes
+Fixed Apply dashboard reports fix
+Fixed The Find Feed is not reporting the correct values
+Fixed show free payment method is enabled
+Fixed Tax is not applied for products that are currently in the Wishlist
+Fixed Unable to import products
+- an collection was replaced with method which use less memory
+Fixed It is impossible apply for product any tax class for 'Storeview' scope
+- Added field is_global into the setup field map
+Fixed Increased import data field size for huge imports.
+Fixed Store view value for attribute fixed not to override global scope
+Fixed Sort-titles Visibility and Status in admin redirects to Dashboard on frontend and create exception.
+Fixed Configurable product uses setting from associated products
+Fixed Simple Product does not have a "PayPal Checkout" button when a Product is an item of Grouped Product
+Fixed Unable to import large Qty (several hundreds and more) of products using new import (tested with over 10,000 SKUs)
+Fixed Apply dashboard reports fix
+- fixed Reports-Sales-Orders revenue formula
+Fixed authorization number detection and order transaction voiding
+Fixed Session Lifetime (seconds) with value 9999999999999999 brakes all backend with warning
+Fixed Images not imported
+- added import/export for product media gallery
+Fixed Provide backwards compatibility for setting Foreign Keys on changed core columns
+- implemented auto-modifying foreign keys for column definitions
+Fixed "Number of Child Authorizations" does not working
+Fixed Database session storage doesn't work
+- receive session_data instead of session_id
+Fixed No ability to create Shipping Label after unsuccessful attempt (in a create shipment page)
+Fixed USPSs Domestic Shipping Methods unavailable
+Fixed Order Row Subtotal is incorrect (Order with Tax and Discount)
+- fixed row subtotal tax counting.
+Fixed Unable to use capture online/offline when creating invoice of edited/reordered Authorize.net orders
+Fixed There are no special titles for 'Site Map', 'Search Terms', 'Contact Us', 'Forgot Your Password' pages.
+Fixed Table Rate Shipping Method value column needs to be sorted in ascending order
+Fixed Incorrect titles in "Product Tax Classes" tab.
+Fixed Sending invoice email don`t change the status.
+Fixed Admin should be able to perform online invoice after void transaction
+- Added possibility to reauthorize orders with "order" payment action after void
+Fixed Admin should be able to perform online invoice after void transaction
+- Don't call for authorization if previous is alive
+Fixed Wrong customer group in order creation process in Admin panel
+- Set new customer group to all his quotes for all stores on customer save
+Fixed dot and tilde in base url during installation.
+Fixed: Magento allows admin to create category/product url rewrite for a store that doesn't have this category/product
+- on prepare for render js categories tree using extjs library, collecting allowed categories for product, if product selected and product id present at request params. Then disabling all categories that can't be selected.
+Fixed Incorrect dependencies between modules and code usage.
+Fixed Admin doesn't sees bundle products that was added to Wishlist in backend.
+Fixed Admin user interface: mistake in the label name, Id instead ID.
+Fixed Warning message in backend when trying to set condition for new Shopping cart price rule
+Fixed Wrong customer group in order creation process in Admin panel
+- Set new customer group to all his quotes for all stores on customer save
+Fixed dot and tilde in base url during installation.
+Implemented Order Payment Action for Express Checkout (PayPal) Upgrade
+- Added system menu changes
+Fixed Incorrect dependencies between modules and code usage.
+Fixed Flat attribute definition is not backward compatible
+- partly reverted previous changes;
+- added compatible mode for Db adapters;
+- small code style fixes
+Fixed Table Rate Shipping Method value column needs to be sorted in ascending order
+Fixed Column "Sales Total Amount" of Coupons Sales Reports calculates in wrong way
+- Changed the mathematical formula of counting Sales Total Amount
+- Changed the lines, that contains more than 120 characters
+Fixed Admin doesn't sees bundle products that was added to Wishlist in backend.
+Fixed Admin user interface: mistake in the label name, Id instead ID.
+Fixed Sending invoice email don`t change the status.
+Fixed Possibility of online invoice still exist when Order Valid Period = 0
+- Fixed store detection on capture
+Fixed Admin should be able to perform online invoice after void transaction
+- Added possibility to reauthorize orders with "order" payment action after void
+Fixed Grouped product imported without associated products
+- added $linksRows definition
+Fixed Admin should be able to perform online invoice after void transaction
+- Don't call for authorization if previous is alive
+Fixed There are no special titles for 'Site Map', 'Search Terms', 'Contact Us', 'Forgot Your Password' pages.
+Fixed Incorrect titles in "Product Tax Classes" tab.
+Fixed Categories moving provides Fatal error
+Fixed System - > Configuration - > inventory tab disappears when switching to Website/Store view scope
+Fixed Default store group with empty default store view causes fatal error on System>Configuration>Catalog>Catalog
+Fixed Limit of collection for Random Product Block
+Fixed Notification remove link in admin redirects to homepage on frontend in IE8
+Fixed translate function fixed to use translator (for editor labels and buttons)
+Fixed Admin should be able to perform online invoice after void transaction
+- Don't call for authorization if previous is alive
+Fixed There are no server-side validation for required options (attributes) of Configurable product.
+Fixed Full checkout "blocking" when delete product that was already added to the shopping cart.
+Fixed No ability to submit order in back-end(in case with selected "Same As Billing Address" check box).
+Fixed On the product view page action panel disappears after user manipulation on IE7/8.
+Fixed Product Flat Data is not reindexed in Mysql
+- default value must be unset for new column format
+Fixed Varien Image crop implementation fixed
+Fixed translation of quoted strings, added ability to move parameters on next line
+Fixed comment node in system.xml to be translated
+Fixed Default email "emaildomain.com" is a real domain.
+Fixed Non-active button "continue to review your order" in multiple address checkout.
+Fixed Ability to view another customer's Wishlist contents via RSS URL.
+Fixed Incorrect design of the Payment Method sub-menu with billing agreement information in default CE theme
+Fixed 'Term and Conditions' are not visible with PayPal Express Checkout in 'Review Order' page.
+Fixed Reports->Products does not work
+- Removed "order by" from count
+Fixed Fatal error during filtering products on frontend by Price (decimal) type attribute
+Fixed Tax rounding and calculation
+- $address->_store replaced with $address->getQuote()->getStore()
+Fixed Old column names are not fully mapped to new ones
+- Fixed wrong data, returned by helpers to init old fields map
+- Fixed @return phpDoc comments
+- Used array_merge() instead of "+" - for better readability
+Fixed Magento is not able to install on several versions of MySQL (5.041, Windows)
+Fixed There are no special titles for 'Site Map', 'Search Terms', 'Contact Us', 'Forgot Your Password' pages.
+Fixed Export: Error during export products
+- added checks for an empty array of $productIds
+Fixed Invalid language on import error
+Fixed No ability to print Shipping Label
+Fixed Enabled "Custom Admin URL" makes impossible access to backend
+Fixed Backordered Item Status on Orders
+- fixed problem when same product is an option of different composite (bundle, etc.) products
+Fixed Scheduled newsletter queues should be sent
+Fixed Export doesn't work when we have a lot of products in
+Fixed 'Term and Conditions' are not visible with PayPal Express Checkout in 'Review Order' page
+- Added block checkout/agreements into PayPal EC UK checkout order review page
+Fixed Wrong price calculation for bundle products during Customer's shopping cart managing (Just for new prototype version)
+- addProductAdvanced was replaced by addProduct
+Fixed Order Row Subtotal is incorrect (Order with Tax and Discount)
+- Product qty was not included during counting Subtotal amount.
+Fixed Enabled "Custom Admin URL" makes impossible access to backend
+- labels in System Configuration were changed
+Fixed Backordered Item Status on Orders
+- fixed problem when same product is an option of different composite (bundle, etc.) products
+Fixed Export doesn't work when we have a lot of products in
+Fixed 'Term and Conditions' are not visible with PayPal Express Checkout in 'Review Order' page
+- Added block checkout/agreements into PayPal EC UK checkout order review page
+Fixed Wrong price calculation for bundle products during Customer's shopping cart managing (Just for new prototype version)
+- addProductAdvanced was replaced by addProduct
+Fixed Order Row Subtotal is incorrect (Order with Tax and Discount)
+- Product qty was not included during counting Subtotal amount.
+Fixed WYSIWYG Editor - Unable to Create a Folder when Inserting a File.
+Fixed Mage_Adminhtml_Block_Widget_Grid_Container to translate default label strings
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed Flat attribute definition is not backward compatible
+- removed ability to setup compatibility mode in admin, because it is not supported in module init
+Fixed Flat attribute definition is not backward compatible
+Fixed Incorrect path format when Media Storage is set to Database, unable to upload file for import
+Fixed Unneeded popup window is opened through adding new product
+Fixed Sorting on Please Select products to Add does not work
+Added Admin can view and change products price with No Read Permission
+- Added dispatching event catalog_product_attribute_update_before
+- Added deleting attribute data in attribute updating model if the admin has not permissions
+- Added disabling attribute fields in the block if the admin has not permissions
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed Sorting on Please Select products to Add does not work
+Fixed There's no sql upgrade for media storage tables
+- also fixed issue with creating media storage tables on mysql 4.1.x
+Fixed Admin can change status of products with No Read Permission
+- Added massaction item deleting in massaction block combobox if the admin has not permissions
+Fixed Unable to place order with Authorize.net Direct Post payment method in IE 9
+Fixed No ability to create Shipping Label(in case with UPS International)
+- fixed Delivery confirmation for UPS using its API documentation
+Fixed No ability to create Shipping Label if pop-up contain Girth field (in case with USPS Domestic)
+- Fixed using girth field according to USPS API documentation
+Fixed Requested Qty, Authorized Qty, Returned Qty and Approved Qty must validate data to allow only digits
+Fixed Apply dashboard reports fix
+Fixed Email notifications do no show items with other than Authorize/Pending status
+- Fix itself plus some refactoring
+Fixed Special price is not displayed on the category page if "Special Price From Date" & "Special Price To Date" fields are filled.
+Fixed "Localhost" isn't a valid domain name for installation
+Fixed No ability to cancel Partial Authorization checkout with Authorize.net on frontend
+Fixed Persistent Shopping Cart should be disabled by default
+Fixed Lightbox 2.5 with IE7 returns JS error on the page
+Fixed Fatal error during filtering products on frontend by Price (decimal) type attribute
+- There was a problem with catalog_product_index_eav_decimal(_tmp) tables, a field 'value' should not be present in PRIMARY_KEY constraints
+Fixed Fatal error during filtering products on frontend by Price (decimal) type attribute
+- Update was fixed.
+Fixed Missing Capture transaction in backend when capture money from PayPal (PayPal UK Express)
+Fixed PayPal Website Payments Pro Payflow Edition Direct Payment does not work
+- Fixed COUNTRYCODE back to COUNTRY in outgoing request to PayPal Website Payments Pro Payflow
+Edition Direct Payment, but preserved COUNTRYCODE in parsing incoming request.*
+Fixed "NaN" instead of two dashes in Package pop-up (in case with disabled Length, Width and Height fields)
+Fixed Reports: Products Ordered report does not work
+- added function _construct for setting property useAnalyticFunction = true
+Fixed During creating order no warning message appears for non-configured Composite product and
+Authorize.net Direct Post payment method
+- The redirect patch for processing exception is changed from */*/ to */sales_order_create/
+Fixed Broken backwards compatibility in adapters addIndex/dropIndex, addKey/dropKey methods
+- fixed returned values to be backwards compatible
+Fixed Ability to input some value in dimensions field in case for package type with standard dimensions
+Fixed USPS is available Shipping Method from EU to EU
+Fixed Interface is blocked after user manipulation with Details link and Other reason link
+Fixed Reorder and "Create Order" in admin without Read, Edit permissions does not work and create exception.
+- Added a checking. removeColumn method will be called if a block is a grid only.
+Fixed In case Allow Reorder=No, Reorder still available
+- store dependency was added(patch was applied)
+Fixed No ability to login or register new customer in frontend (IE8)
+Fixed Enabled "Custom Admin URL" makes impossible access to backend
+- fixed config cache issue
+
+
+==== 1.6.x-devel-109807 ====
+
+=== Major Highlights ===
+Minimum Advertised Price
+Persistent Shopping Cart
+
+=== Improvements ===
+Order Payment Action for Express Checkout (PayPal)
+- Added settings Authorization Honor Period and Order Valid Period into EC tab in the backend
+- Automatically new authorize transaction created after order transaction
+- Automatically order cancel after the expiration of Order Valid Period
+- Automatically authorize transaction void\creat after the expiration of Authorization Honor Period
+Implemented Authorize.Net 'hold for review' status shows up as 'declined' in Magento.
+
+=== Fixes ===
+Fixed Reindex Data works with errors
+Fixed Group product is exported incorrectly : associated product values are not included
+- reorganized counting of an array elements. Passing array items by link, broke scripts logic below.
+Fixed Sql install and upgrade issues
+- updated customer address attributes
+Fixed Apply dashboard reports fix
+Fixed The Find Feed is not reporting the correct values
+Fixed Fixed show free payment method is enabled
+Fixed Tax is not applied for products that are currently in the Wishlist
+Fixed Unable to import products
+- an collection was replaced with method which use less memory
+Fixed It is impossible apply for product any tax class for 'Storeview' scope
+- Added field is_global into the setup field map
+Fixed Increased import data field size for huge imports.
+Fixed Store view value for attribute fixed not to override global scope
+Fixed Sort-titles Visibility and Status in admin redirects to Dashboard on frontend and create exception.
+Fixed Configurable product uses setting from associated products
+Fixed Simple Product does not have a "PayPal Checkout" button when a Product is an item of Grouped Product
+Fixed Unable to import large Qty (several hundreds and more) of products using new import
+Fixed Apply dashboard reports fix
+- fixed Reports-Sales-Orders revenue formula
+Fixed Fixed authorization number detection and order transaction voiding
+Fixed Session Lifetime (seconds) with value 9999999999999999 brakes all backend with warning
+Fixed Images not imported
+- added import/export for product media gallery
+Fixed Provide backwards compatibility for setting Foreign Keys on changed core columns
+- implemented auto-modifying foreign keys for column definitions
+Fixed "Number of Child Authorizations" does not working
+Fixed Database session storage doesn't work
+- receive session_data instead of session_id
+Fixed No ability to create Shipping Label after unsuccessful attempt (in a create shipment page)
+Fixed USPSs Domestic Shipping Methods unavailable
+Fixed Order Row Subtotal is incorrect (Order with Tax and Discount)
+- fixed row subtotal tax counting.
+Fixed Unable to use capture online/offline when creating invoice of edited/reordered Authorize.net orders
+
+
+
+==== 1.6.x-devel-109807 ====
+
+=== Fixes ===
+Fixed There are no special titles for 'Site Map', 'Search Terms', 'Contact Us', 'Forgot Your Password' pages.
+Fixed Table Rate Shipping Method value column needs to be sorted in ascending order
+Fixed Incorrect titles in "Product Tax Classes" tab.
+Fixed Sending invoice email don`t change the status.
+Fixed Admin should be able to perform online invoice after void transaction
+- Added possibility to reauthorize orders with "order" payment action after void
+Fixed Admin should be able to perform online invoice after void transaction
+- Don't call for authorization if previous is alive
+Fixed Wrong customer group in order creation process in Admin panel
+- Set new customer group to all his quotes for all stores on customer save
+Fixed Fixed dot and tilde in base url during installation.
+Fixed: Magento allows admin to create category/product url rewrite for a store that doesn't have this category/product
+- on prepare for render js categories tree using extjs library, collecting allowed categories for product, if product selected and product id present at request params. Then disabling all categories that can't be selected.
+Fixed Incorrect dependencies between modules and code usage.
+Fixed Admin doesn't sees bundle products that was added to Wishlist in backend.
+Fixed Admin user interface: mistake in the label name, Id instead ID.
+Fixed Warning message in backend when trying to set condition for new Shopping cart price rule
+Fixed Wrong customer group in order creation process in Admin panel
+- Set new customer group to all his quotes for all stores on customer save
+Fixed Fixed dot and tilde in base url during installation.
+Implemented Order Payment Action for Express Checkout (PayPal) Upgrade
+- Added system menu changes
+Fixed Incorrect dependencies between modules and code usage.
+Fixed Flat attribute definition is not backward compatible
+- partly reverted previous changes;
+- added compatible mode for Db adapters;
+- small code style fixes
+Fixed Table Rate Shipping Method value column needs to be sorted in ascending order
+Fixed Column "Sales Total Amount" of Coupons Sales Reports calculates in wrong way
+- Changed the mathematical formula of counting Sales Total Amount
+- Changed the lines, that contains more then 120 characters
+Fixed Admin doesn't sees bundle products that was added to Wishlist in backend.
+Fixed Admin user interface: mistake in the label name, Id instead ID.
+Fixed Sending invoice email don`t change the status.
+Fixed Possibility of online invoice still exist when Order Valid Period = 0
+- Fixed store detection on capture
+Fixed Admin should be able to perform online invoice after void transaction
+- Added possibility to reauthorize orders with "order" payment action after void
+Fixed Grouped product imported without associated products
+- added $linksRows definition
+Fixed Admin should be able to perform online invoice after void transaction
+- Don't call for authorization if previous is alive
+Fixed There are no special titles for 'Site Map', 'Search Terms', 'Contact Us', 'Forgot Your Password' pages.
+Fixed Incorrect titles in "Product Tax Classes" tab.
+Fixed Categories moving provides Fatal error
+Fixed System - > Configuration - > inventory tab disappears when switching to Website/Store view scope
+Fixed Default store group with empty default store view causes fatal error on System>Configuration>Catalog>Catalog
+Fixed Limit of collection for Random Product Block
+Fixed Notification remove link in admin redirects to homepage on frontend in IE8
+Fixed translate function fixed to use translator (for editor labels and buttons)
+Fixed Admin should be able to perform online invoice after void transaction
+- Don't call for authorization if previous is alive
+Fixed There are no server-side validation for required options (attributes) of Configurable product.
+Fixed Full checkout "blocking" when delete product that was already added to the shopping cart.
+Fixed No ability to submit order in back-end(in case with selected "Same As Billing Address" check box).
+Fixed On the product view page action panel disappears after user manipulation on IE7/8.
+Fixed Product Flat Data is not reindexed in Mysql
+- default value must be unset for new column format
+Fixed Varien Image crop implementation fixed
+Fixed Fixed translation of quoted strings, added ability to move parameters on next line
+Fixed Fixed comment node in system.xml to be translated
+Fixed Default email "emaildomain.com" is a real domain.
+Fixed Non-active button "continue to review your order" in multiple address checkout.
+Fixed Ability to view another customer's Wishlist contents via RSS URL.
+Fixed Incorrect design of the Payment Method sub-menu with billing agreement information in default CE theme
+Fixed 'Term and Conditions' are not visible with PayPal Express Checkout in 'Review Order' page.
+Fixed Reports->Products does not work
+- Removed "order by" from count
+Fixed Fatal error during filtering products on frontend by Price (decimal) type attribute
+Fixed Tax rounding and calculation
+- $address->_store replaced with $address->getQuote()->getStore()
+Fixed Old column names are not fully mapped to new ones
+- Fixed wrong data, returned by helpers to init old fields map
+- Fixed @return phpDoc comments
+- Used array_merge() instead of "+" - for better readability
+Fixed Magento is not able to install on several versions of MySQL (5.041, Windows)
+Fixed There are no special titles for 'Site Map', 'Search Terms', 'Contact Us', 'Forgot Your Password' pages.
+Fixed Export: Error during export products
+- added checks for an empty array of $productIds
+Fixed Invalid language on import error
+
+
+
 ==== 1.6.0.0-alpha1 ====
 
 === Improvements ===

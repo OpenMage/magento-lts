@@ -177,7 +177,9 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
     public function getSelectCountSql()
     {
         $this->_renderFilters();
-        return $this->getConnection()->select()->from($this->getSelect(), 'COUNT(*)');
+        $select = clone $this->getSelect();
+        $select->reset(Zend_Db_Select::ORDER);
+        return $this->getConnection()->select()->from($select, 'COUNT(*)');
     }
 
     /**

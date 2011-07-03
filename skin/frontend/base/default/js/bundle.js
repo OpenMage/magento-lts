@@ -77,7 +77,6 @@ Product.Bundle.prototype = {
             this.populateQty(parts[2], selection.value);
         }
         this.reloadPrice();
-
     },
 
     reloadPrice: function() {
@@ -95,11 +94,19 @@ Product.Bundle.prototype = {
             }
         }
 
-        optionsPrice.specialTaxPrice = 'true';
-        optionsPrice.changePrice('bundle', calculatedPrice);
-        optionsPrice.changePrice('nontaxable', dispositionPrice);
-        optionsPrice.changePrice('priceInclTax', includeTaxPrice);
-        optionsPrice.reload();
+        var event = $(document).fire('bundle:reload-price', {
+            price: calculatedPrice,
+            priceInclTax: includeTaxPrice,
+            dispositionPrice: dispositionPrice,
+            bundle: this
+        });
+        if (!event.noReloadPrice) {
+            optionsPrice.specialTaxPrice = 'true';
+            optionsPrice.changePrice('bundle', calculatedPrice);
+            optionsPrice.changePrice('nontaxable', dispositionPrice);
+            optionsPrice.changePrice('priceInclTax', includeTaxPrice);
+            optionsPrice.reload();
+        }
 
         return calculatedPrice;
     },

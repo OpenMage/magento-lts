@@ -56,7 +56,11 @@ class Mage_Adminhtml_Block_Notification_Grid_Renderer_Actions
         return sprintf('%s%s<a href="%s" onClick="deleteConfirm(\'%s\', this.href); return false;">%s</a>',
             $readDetailsHtml,
             $markAsReadHtml,
-            $this->getUrl('*/*/remove/', array('_current' => true, 'id' => $row->getId())),
+            $this->getUrl('*/*/remove/', array(
+                '_current'=>true,
+                'id' => $row->getId(),
+                Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl())
+            ),
             Mage::helper('adminnotification')->__('Are you sure?'),
             Mage::helper('adminnotification')->__('Remove')
         );

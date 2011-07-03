@@ -41,10 +41,13 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
     {
         $this->_title($this->__('Sales'))
              ->_title($this->__('Tax'))
-             ->_title($this->__('Customer Tax Classes'));
+             ->_title($this->__('Product Tax Classes'));
 
         $this->_initAction()
-            ->_addContent($this->getLayout()->createBlock('adminhtml/tax_class')->setClassType(Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT))
+            ->_addContent(
+                $this->getLayout()->createBlock('adminhtml/tax_class')
+                    ->setClassType(Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT)
+            )
             ->renderLayout();
     }
 
@@ -65,14 +68,16 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
     {
         $this->_title($this->__('Sales'))
              ->_title($this->__('Tax'))
-             ->_title($this->__('Customer Tax Classes'));
+             ->_title($this->__('Product Tax Classes'));
 
         $classId    = $this->getRequest()->getParam('id');
         $model      = Mage::getModel('tax/class');
         if ($classId) {
             $model->load($classId);
             if (!$model->getId() || $model->getClassType() != Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('This class no longer exists'));
+                Mage::getSingleton('adminhtml/session')->addError(
+                    Mage::helper('tax')->__('This class no longer exists')
+                );
                 $this->_redirect('*/*/');
                 return;
             }
@@ -88,8 +93,15 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
         Mage::register('tax_class', $model);
 
         $this->_initAction()
-            ->_addBreadcrumb($classId ? Mage::helper('tax')->__('Edit Class') :  Mage::helper('tax')->__('New Class'), $classId ?  Mage::helper('tax')->__('Edit Class') :  Mage::helper('tax')->__('New Class'))
-            ->_addContent($this->getLayout()->createBlock('adminhtml/tax_class_edit')->setData('action', $this->getUrl('*/tax_class/save'))->setClassType(Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT))
+            ->_addBreadcrumb(
+                $classId ? Mage::helper('tax')->__('Edit Class') :  Mage::helper('tax')->__('New Class'),
+                $classId ?  Mage::helper('tax')->__('Edit Class') :  Mage::helper('tax')->__('New Class')
+            )
+            ->_addContent(
+                $this->getLayout()->createBlock('adminhtml/tax_class_edit')
+                    ->setData('action', $this->getUrl('*/tax_class/save'))
+                    ->setClassType(Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT)
+            )
             ->renderLayout();
     }
 

@@ -84,6 +84,11 @@ class Varien_Object implements ArrayAccess
     protected $_oldFieldsMap = array();
 
     /**
+     * Map of fields to sync to other fields upon changing their data
+     */
+    protected $_syncFieldsMap = array();
+
+    /**
      * Constructor
      *
      * By default is looking for first argument as array and assignes it as object attributes
@@ -93,6 +98,10 @@ class Varien_Object implements ArrayAccess
     public function __construct()
     {
         $this->_initOldFieldsMap();
+        if ($this->_oldFieldsMap) {
+            $this->_prepareSyncFieldsMap();
+        }
+
         $args = func_get_args();
         if (empty($args[0])) {
             $args[0] = array();
@@ -105,24 +114,38 @@ class Varien_Object implements ArrayAccess
 
     protected function _addFullNames()
     {
-        $existedShortKeys = array_intersect($this->_oldFieldsMap, array_keys($this->_data));
+        $existedShortKeys = array_intersect($this->_syncFieldsMap, array_keys($this->_data));
         if (!empty($existedShortKeys)) {
             foreach ($existedShortKeys as $key) {
-                $fullFieldName = array_search($key, $this->_oldFieldsMap);
+                $fullFieldName = array_search($key, $this->_syncFieldsMap);
                 $this->_data[$fullFieldName] = $this->_data[$key];
             }
         }
     }
 
     /**
-     * Init mapping array of short fields to
-     * its full names
+     * Inits mapping array of object's previously used fields to new fields.
+     * Must be overloaded by descendants to set concrete fields map.
      *
-     * @resturn Varien_Object
+     * @return Varien_Object
      */
     protected function _initOldFieldsMap()
     {
 
+    }
+
+    /**
+     * Called after old fields are inited. Forms synchronization map to sync old fields and new fields
+     * between each other.
+     *
+     * @return Varien_Object
+     */
+    protected function _prepareSyncFieldsMap()
+    {
+        $old2New = $this->_oldFieldsMap;
+        $new2Old = array_flip($this->_oldFieldsMap);
+        $this->_syncFieldsMap = array_merge($old2New, $new2Old);
+        return $this;
     }
 
     /**
@@ -245,8 +268,8 @@ class Varien_Object implements ArrayAccess
             $this->_addFullNames();
         } else {
             $this->_data[$key] = $value;
-            if (isset($this->_oldFieldsMap[$key])) {
-                $fullFieldName = $this->_oldFieldsMap[$key];
+            if (isset($this->_syncFieldsMap[$key])) {
+                $fullFieldName = $this->_syncFieldsMap[$key];
                 $this->_data[$fullFieldName] = $value;
             }
         }
@@ -268,8 +291,8 @@ class Varien_Object implements ArrayAccess
             $this->_data = array();
         } else {
             unset($this->_data[$key]);
-            if (isset($this->_oldFieldsMap[$key])) {
-                $fullFieldName = $this->_oldFieldsMap[$key];
+            if (isset($this->_syncFieldsMap[$key])) {
+                $fullFieldName = $this->_syncFieldsMap[$key];
                 unset($this->_data[$fullFieldName]);
             }
         }
@@ -287,7 +310,7 @@ class Varien_Object implements ArrayAccess
     public function unsetOldData($key=null)
     {
         if (is_null($key)) {
-            foreach ($this->_oldFieldsMap as $key => $newFieldName) {
+            foreach ($this->_syncFieldsMap as $key => $newFieldName) {
                 unset($this->_data[$key]);
             }
         } else {

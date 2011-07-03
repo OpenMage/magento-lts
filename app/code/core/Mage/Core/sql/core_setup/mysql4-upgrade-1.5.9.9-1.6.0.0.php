@@ -29,6 +29,10 @@ $installer = $this;
 
 $installer->startSetup();
 
+$usedDatabaseStorage = $installer->getConnection()->isTableExists(
+    $installer->getTable('core/file_storage')
+);
+
 /**
  * Drop foreign keys
  */
@@ -101,6 +105,18 @@ $installer->getConnection()->dropForeignKey(
     $installer->getTable('core/design_change'),
     'FK_DESIGN_CHANGE_STORE'
 );
+
+if ($usedDatabaseStorage) {
+    $installer->getConnection()->dropForeignKey(
+        $installer->getTable('core/file_storage'),
+        'FK_FILE_DIRECTORY'
+    );
+
+    $installer->getConnection()->dropForeignKey(
+        $installer->getTable('core/directory_storage'),
+        'FK_DIRECTORY_PARENT_ID'
+    );
+}
 
 
 /**
@@ -280,6 +296,28 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('core/design_change'),
     'FK_DESIGN_CHANGE_STORE'
 );
+
+if ($usedDatabaseStorage) {
+    $installer->getConnection()->dropIndex(
+        $installer->getTable('core/file_storage'),
+        'IDX_FILENAME'
+    );
+
+    $installer->getConnection()->dropIndex(
+        $installer->getTable('core/file_storage'),
+        'directory_id'
+    );
+
+    $installer->getConnection()->dropIndex(
+        $installer->getTable('core/directory_storage'),
+        'IDX_DIRECTORY_PATH'
+    );
+
+    $installer->getConnection()->dropIndex(
+        $installer->getTable('core/directory_storage'),
+        'parent_id'
+    );
+}
 
 
 /*
@@ -931,6 +969,92 @@ $tables = array(
     )
 );
 
+if ($usedDatabaseStorage) {
+    $storageTables = array(
+        $installer->getTable('core/file_storage') => array(
+            'columns' => array(
+                'file_id' => array(
+                    'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                    'identity'  => true,
+                    'unsigned'  => true,
+                    'nullable'  => false,
+                    'primary'   => true,
+                    'comment'   => 'File Id'
+                ),
+                'content' => array(
+                    'type'      => Varien_Db_Ddl_Table::TYPE_VARBINARY,
+                    'length'    => Varien_Db_Ddl_Table::MAX_VARBINARY_SIZE,
+                    'nullable'  => false,
+                    'comment'   => 'File Content'
+                ),
+                'upload_time' => array(
+                    'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+                    'nullable'  => false,
+                    'default'   => Varien_Db_Ddl_Table::TIMESTAMP_INIT,
+                    'comment'   => 'Upload Timestamp'
+                ),
+                'filename' => array(
+                    'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
+                    'length'    => 100,
+                    'nullable'  => false,
+                    'comment'   => 'Filename'
+                ),
+                'directory_id' => array(
+                    'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                    'unsigned'  => true,
+                    'default'   => null,
+                    'comment'   => 'Identifier of Directory where File is Located'
+                ),
+                'directory' => array(
+                    'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
+                    'length'    => 255,
+                    'default'   => null,
+                    'comment'   => 'Directory Path'
+                )
+            ),
+            'comment' => 'File Storage'
+        ),
+        $installer->getTable('core/directory_storage') => array(
+            'columns' => array(
+                'directory_id' => array(
+                    'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                    'identity'  => true,
+                    'unsigned'  => true,
+                    'nullable'  => false,
+                    'primary'   => true,
+                    'comment'   => 'Directory Id'
+                ),
+                'name' => array(
+                    'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
+                    'length'    => 100,
+                    'nullable'  => false,
+                    'comment'   => 'Directory Name'
+                ),
+                'path' => array(
+                    'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
+                    'length'    => 255,
+                    'default'   => null,
+                    'comment'   => 'Path to the Directory'
+                ),
+                'upload_time' => array(
+                    'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+                    'nullable'  => false,
+                    'default'   => Varien_Db_Ddl_Table::TIMESTAMP_INIT,
+                    'comment'   => 'Upload Timestamp'
+                ),
+                'parent_id' => array(
+                    'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                    'unsigned'  => true,
+                    'default'   => null,
+                    'comment'   => 'Parent Directory Id'
+                )
+            ),
+            'comment' => 'Directory Storage'
+        )
+    );
+    $tables = array_merge($tables, $storageTables);
+}
+
 $installer->getConnection()->modifyTables($tables);
 
 $installer->getConnection()->dropColumn(
@@ -1178,6 +1302,43 @@ $installer->getConnection()->addIndex(
     array('store_id')
 );
 
+if ($usedDatabaseStorage) {
+    $installer->getConnection()->addIndex(
+        $installer->getTable('core/file_storage'),
+        $installer->getIdxName(
+            'core/file_storage',
+            array('filename', 'directory_id'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
+        array('filename', 'directory_id'),
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    );
+
+    $installer->getConnection()->addIndex(
+        $installer->getTable('core/file_storage'),
+        $installer->getIdxName('core/file_storage', array('directory_id')),
+        array('directory_id')
+    );
+
+    $installer->getConnection()->addIndex(
+        $installer->getTable('core/directory_storage'),
+        $installer->getIdxName(
+            'core/directory_storage',
+            array('name', 'parent_id'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
+        array('name', 'parent_id'),
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    );
+
+    $installer->getConnection()->addIndex(
+        $installer->getTable('core/directory_storage'),
+        $installer->getIdxName('core/directory_storage', array('parent_id')),
+        array('parent_id')
+    );
+}
+
+
 /**
  * Add foreign keys
  */
@@ -1284,5 +1445,23 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('core/store'),
     'store_id'
 );
+
+if ($usedDatabaseStorage) {
+    $installer->getConnection()->addForeignKey(
+        $installer->getFkName('core/file_storage', 'directory_id', 'core/directory_storage', 'directory_id'),
+        $installer->getTable('core/file_storage'),
+        'directory_id',
+        $installer->getTable('core/directory_storage'),
+        'directory_id'
+    );
+
+    $installer->getConnection()->addForeignKey(
+        $installer->getFkName('core/directory_storage', 'parent_id', 'core/directory_storage', 'directory_id'),
+        $installer->getTable('core/directory_storage'),
+        'parent_id',
+        $installer->getTable('core/directory_storage'),
+        'directory_id'
+    );
+}
 
 $installer->endSetup();

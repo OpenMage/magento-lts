@@ -74,7 +74,7 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
      */
     public function getItemRender($type)
     {
-        return $this->getItemRendererInfo();
+        return $this->getItemRendererInfo($type);
     }
 
     /**
@@ -185,5 +185,18 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
             $this->_totals = $this->getQuote()->getTotals();
         }
         return $this->_totals;
+    }
+
+    /**
+     * Check if can apply msrp to totals
+     *
+     * @return bool
+     */
+    public function canApplyMsrp()
+    {
+        if (!$this->getQuote()->hasCanApplyMsrp() && Mage::helper('catalog')->isMsrpEnabled()) {
+            $this->getQuote()->collectTotals();
+        }
+        return $this->getQuote()->getCanApplyMsrp();
     }
 }

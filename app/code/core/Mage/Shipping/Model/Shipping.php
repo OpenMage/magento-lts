@@ -28,6 +28,16 @@
 class Mage_Shipping_Model_Shipping
 {
     /**
+     * Store address
+     */
+    const XML_PATH_STORE_ADDRESS1     = 'shipping/origin/street_line1';
+    const XML_PATH_STORE_ADDRESS2     = 'shipping/origin/street_line2';
+    const XML_PATH_STORE_CITY         = 'shipping/origin/city';
+    const XML_PATH_STORE_REGION_ID    = 'shipping/origin/region_id';
+    const XML_PATH_STORE_ZIP          = 'shipping/origin/postcode';
+    const XML_PATH_STORE_COUNTRY_ID   = 'shipping/origin/country_id';
+
+    /**
      * Default shipping orig for requests
      *
      * @var array
@@ -41,6 +51,12 @@ class Mage_Shipping_Model_Shipping
      */
     protected $_result = null;
 
+    /**
+     * Part of carrier xml config path
+     *
+     * @var string
+     */
+    protected $_availabilityConfigField = 'active';
 
     /**
      * Get shipping rate result model
@@ -57,6 +73,9 @@ class Mage_Shipping_Model_Shipping
 
     /**
      * Set shipping orig data
+     *
+     * @param array $data
+     * @return null
      */
     public function setOrigData($data)
     {
@@ -65,6 +84,8 @@ class Mage_Shipping_Model_Shipping
 
     /**
      * Reset cached result
+     *
+     * @return Mage_Shipping_Model_Shipping
      */
     public function resetResult()
     {
@@ -94,10 +115,10 @@ class Mage_Shipping_Model_Shipping
         $storeId = $request->getStoreId();
         if (!$request->getOrig()) {
             $request
-                ->setCountryId(Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_COUNTRY_ID, $storeId))
-                ->setRegionId(Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_REGION_ID, $storeId))
-                ->setCity(Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_CITY, $storeId))
-                ->setPostcode(Mage::getStoreConfig(Mage_Shipping_Model_Config::XML_PATH_ORIGIN_POSTCODE, $storeId));
+                ->setCountryId(Mage::getStoreConfig(self::XML_PATH_STORE_COUNTRY_ID, $request->getStore()))
+                ->setRegionId(Mage::getStoreConfig(self::XML_PATH_STORE_REGION_ID, $request->getStore()))
+                ->setCity(Mage::getStoreConfig(self::XML_PATH_STORE_CITY, $request->getStore()))
+                ->setPostcode(Mage::getStoreConfig(self::XML_PATH_STORE_ZIP, $request->getStore()));
         }
 
         $limitCarrier = $request->getLimitCarrier();
@@ -123,12 +144,20 @@ class Mage_Shipping_Model_Shipping
         return $this;
     }
 
+    /**
+     * Collect rates of given carrier
+     *
+     * @param string $carrierCode
+     * @param Mage_Shipping_Model_Rate_Request $request
+     * @return Mage_Shipping_Model_Shipping
+     */
     public function collectCarrierRates($carrierCode, $request)
     {
         $carrier = $this->getCarrierByCode($carrierCode, $request->getStoreId());
         if (!$carrier) {
             return $this;
         }
+        $carrier->setActiveFlag($this->_availabilityConfigField);
         $result = $carrier->checkAvailableShipCountries($request);
         if (false !== $result && !($result instanceof Mage_Shipping_Model_Rate_Result_Error)) {
             $result = $carrier->proccessAdditionalValidation($request);
@@ -156,7 +185,14 @@ class Mage_Shipping_Model_Shipping
         return $this;
     }
 
-    public function collectRatesByAddress(Varien_Object $address, $limitCarrier=null)
+    /**
+     * Collect rates by address
+     *
+     * @param Varien_Object $address
+     * @param null|bool|array $limitCarrier
+     * @return Mage_Shipping_Model_Shipping
+     */
+    public function collectRatesByAddress(Varien_Object $address, $limitCarrier = null)
     {
         /** @var $request Mage_Shipping_Model_Rate_Request */
         $request = Mage::getModel('shipping/rate_request');
@@ -178,15 +214,33 @@ class Mage_Shipping_Model_Shipping
         return $this->collectRates($request);
     }
 
+    /**
+     * Set part of carrier xml config path
+     *
+     * @param string $code
+     * @return Mage_Shipping_Model_Shipping
+     */
+    public function setCarrierAvailabilityConfigField($code = 'active')
+    {
+        $this->_availabilityConfigField = $code;
+        return $this;
+    }
+
+    /**
+     * Get carrier by its code
+     *
+     * @param string $carrierCode
+     * @param null|int $storeId
+     * @return bool|Mage_Core_Model_Abstract
+     */
     public function getCarrierByCode($carrierCode, $storeId = null)
     {
-        if (!Mage::getStoreConfigFlag('carriers/'.$carrierCode.'/active', $storeId)) {
+        if (!Mage::getStoreConfigFlag('carriers/'.$carrierCode.'/'.$this->_availabilityConfigField, $storeId)) {
             return false;
         }
         $className = Mage::getStoreConfig('carriers/'.$carrierCode.'/model', $storeId);
         if (!$className) {
             return false;
-            #Mage::throwException('Invalid carrier: '.$carrierCode);
         }
         $obj = Mage::getModel($className);
         if ($storeId) {
@@ -195,4 +249,81 @@ class Mage_Shipping_Model_Shipping
         return $obj;
     }
 
+    /**
+     * Prepare and do request to shipment
+     *
+     * @param Mage_Sales_Model_Order_Shipment $orderShipment
+     * @return Varien_Object
+     */
+    public function requestToShipment(Mage_Sales_Model_Order_Shipment $orderShipment)
+    {
+        $admin = Mage::getSingleton('admin/session')->getUser();
+        $order = $orderShipment->getOrder();
+        $address = $order->getShippingAddress();
+        $shippingMethod = $order->getShippingMethod(true);
+        $shipmentStoreId = $orderShipment->getStoreId();
+        $shipmentCarrier = $order->getShippingCarrier();
+        $baseCurrencyCode = Mage::app()->getStore($shipmentStoreId)->getBaseCurrencyCode();
+        if (!$shipmentCarrier) {
+            Mage::throwException('Invalid carrier: ' . $shippingMethod->getCarrierCode());
+        }
+        $shipperRegionCode = Mage::getStoreConfig(self::XML_PATH_STORE_REGION_ID, $shipmentStoreId);
+        if (is_numeric($shipperRegionCode)) {
+            $shipperRegionCode = Mage::getModel('directory/region')->load($shipperRegionCode)->getCode();
+        }
+
+        $recipientRegionCode = Mage::getModel('directory/region')->load($address->getRegionId())->getCode();
+
+        $originStreet1 = Mage::getStoreConfig(self::XML_PATH_STORE_ADDRESS1, $shipmentStoreId);
+        $originStreet2 = Mage::getStoreConfig(self::XML_PATH_STORE_ADDRESS2, $shipmentStoreId);
+        $storeInfo = new Varien_Object(Mage::getStoreConfig('general/store_information', $shipmentStoreId));
+
+        if (!$admin->getFirstname() || !$admin->getLastname() || !$storeInfo->getName() || !$storeInfo->getPhone()
+            || !$originStreet1 || !Mage::getStoreConfig(self::XML_PATH_STORE_CITY, $shipmentStoreId)
+            || !$shipperRegionCode || !Mage::getStoreConfig(self::XML_PATH_STORE_ZIP, $shipmentStoreId)
+            || !Mage::getStoreConfig(self::XML_PATH_STORE_COUNTRY_ID, $shipmentStoreId)
+        ) {
+            Mage::throwException(
+                Mage::helper('sales')->__('The shipping label has not been created. Please configure your Store Information and Shipping Settings')
+            );
+        }
+
+        /** @var $request Mage_Shipping_Model_Shipment_Request */
+        $request = Mage::getModel('shipping/shipment_request');
+        $request->setOrderShipment($orderShipment);
+        $request->setShipperContactPersonName($admin->getName());
+        $request->setShipperContactPersonFirstName($admin->getFirstname());
+        $request->setShipperContactPersonLastName($admin->getLastname());
+        $request->setShipperContactCompanyName($storeInfo->getName());
+        $request->setShipperContactPhoneNumber($storeInfo->getPhone());
+        $request->setShipperEmail($admin->getEmail());
+        $request->setShipperAddressStreet($originStreet1 . ' ' . $originStreet2);
+        $request->setShipperAddressStreet1($originStreet1);
+        $request->setShipperAddressStreet2($originStreet2);
+        $request->setShipperAddressCity(Mage::getStoreConfig(self::XML_PATH_STORE_CITY, $shipmentStoreId));
+        $request->setShipperAddressStateOrProvinceCode($shipperRegionCode);
+        $request->setShipperAddressPostalCode(Mage::getStoreConfig(self::XML_PATH_STORE_ZIP, $shipmentStoreId));
+        $request->setShipperAddressCountryCode(Mage::getStoreConfig(self::XML_PATH_STORE_COUNTRY_ID, $shipmentStoreId));
+        $request->setRecipientContactPersonName($order->getCustomerName());
+        $request->setRecipientContactPersonFirstName($order->getCustomerFirstname());
+        $request->setRecipientContactPersonLastName($order->getCustomerLastname());
+        $request->setRecipientContactCompanyName($address->getCompany());
+        $request->setRecipientContactPhoneNumber($address->getTelephone());
+        $request->setRecipientEmail($address->getEmail());
+        $request->setRecipientAddressStreet($address->getStreetFull());
+        $request->setRecipientAddressStreet1($address->getStreet1());
+        $request->setRecipientAddressStreet2($address->getStreet2());
+        $request->setRecipientAddressCity($address->getCity());
+        $request->setRecipientAddressStateOrProvinceCode($address->getRegion());
+        $request->setRecipientAddressRegionCode($recipientRegionCode);
+        $request->setRecipientAddressPostalCode($address->getPostcode());
+        $request->setRecipientAddressCountryCode($address->getCountryId());
+        $request->setShippingMethod($shippingMethod->getMethod());
+        $request->setPackageWeight($order->getWeight());
+        $request->setPackages($orderShipment->getPackages());
+        $request->setBaseCurrencyCode($baseCurrencyCode);
+        $request->setStoreId($shipmentStoreId);
+
+        return $shipmentCarrier->requestToShipment($request);
+    }
 }

@@ -72,6 +72,12 @@
 <div class="box-right entry-edit">
     <div class="order-totals">
         <div class="order-totals-bottom">
+          <?php if ($this->canCreateShippingLabel()): ?>
+          <p>
+              <label class="normal" for="create_shipping_label"><?php echo Mage::helper('sales')->__('Create Shipping Label') ?></label>
+              <input id="create_shipping_label" name="shipment[create_shipping_label]" value="1" type="checkbox"  onclick="toggleCreateLabelCheckbox();" />
+          </p>
+          <?php endif ?>
           <p>
               <label class="normal" for="notify_customer"><?php echo Mage::helper('sales')->__('Append Comments') ?></label>
               <input id="notify_customer" name="shipment[comment_customer_notify]" value="1" type="checkbox" />
@@ -107,6 +113,23 @@ function bindSendEmail()
     else {
         notifyCustomerCheckbox.disabled = true;
         //shipmentCommentText.disabled = true;
+    }
+}
+function toggleCreateLabelCheckbox(){
+    var checkbox = $('create_shipping_label');
+    var submitButton = checkbox.up('.order-totals').select('.submit-button span')[0];
+    if (checkbox.checked) {
+        submitButton.innerText += '...';
+    } else {
+        submitButton.innerText = submitButton.innerText.replace(/\.\.\.$/, '');
+    }
+}
+function submitShipment(btn){
+    var checkbox = $(btn).up('.order-totals').select('#create_shipping_label')[0];
+    if (checkbox && checkbox.checked) {
+        packaging.showWindow();
+    } else if(editForm.submit()) {
+        disableElements('submit-button');
     }
 }
 //]]>

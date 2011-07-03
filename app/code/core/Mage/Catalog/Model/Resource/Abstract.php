@@ -286,15 +286,26 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         $storeId = (int)Mage::app()->getStore($object->getStoreId())->getId();
         if ($attribute->getIsRequired() && $this->getDefaultStoreId() != $storeId) {
             $table = $attribute->getBackend()->getTable();
-            $data  = new Varien_Object(array(
-                'entity_type_id'    => $attribute->getEntityTypeId(),
-                'attribute_id'      => $attribute->getAttributeId(),
-                'store_id'          => $this->getDefaultStoreId(),
-                'entity_id'         => $object->getEntityId(),
-                'value'             => $this->_prepareValueForSave($value, $attribute)
-            ));
-            $bind  = $this->_prepareDataForTable($data, $table);
-            $this->_getWriteAdapter()->select()->insertIgnoreFromSelect($table, $bind);
+
+            $select = $this->_getReadAdapter()->select()
+                ->from($table)
+                ->where('entity_type_id = ?', $attribute->getEntityTypeId())
+                ->where('attribute_id = ?', $attribute->getAttributeId())
+                ->where('store_id = ?', $this->getDefaultStoreId())
+                ->where('entity_id = ?',  $object->getEntityId());
+            $row = $this->_getReadAdapter()->fetchOne($select);
+
+            if (!$row) {
+                $data  = new Varien_Object(array(
+                    'entity_type_id'    => $attribute->getEntityTypeId(),
+                    'attribute_id'      => $attribute->getAttributeId(),
+                    'store_id'          => $this->getDefaultStoreId(),
+                    'entity_id'         => $object->getEntityId(),
+                    'value'             => $this->_prepareValueForSave($value, $attribute)
+                ));
+                $bind  = $this->_prepareDataForTable($data, $table);
+                $this->_getWriteAdapter()->insertOnDuplicate($table, $bind, array('value'));
+            }
         }
 
         return $this->_saveAttributeValue($object, $attribute, $value);

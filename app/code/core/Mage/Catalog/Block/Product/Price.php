@@ -87,8 +87,29 @@ class Mage_Catalog_Block_Product_Price extends Mage_Core_Block_Template
 
                 if ($price['price']<$productPrice) {
                     $price['savePercent'] = ceil(100 - (( 100/$productPrice ) * $price['price'] ));
-                    $price['formated_price'] = Mage::app()->getStore()->formatPrice(Mage::app()->getStore()->convertPrice(Mage::helper('tax')->getPrice($product, $price['website_price'])));
-                    $price['formated_price_incl_tax'] = Mage::app()->getStore()->formatPrice(Mage::app()->getStore()->convertPrice(Mage::helper('tax')->getPrice($product, $price['website_price'], true)));
+
+                    $tierPrice = Mage::app()->getStore()->convertPrice(
+                        Mage::helper('tax')->getPrice($product, $price['website_price'])
+                    );
+                    $price['formated_price'] = Mage::app()->getStore()->formatPrice($tierPrice);
+                    $price['formated_price_incl_tax'] = Mage::app()->getStore()->formatPrice(
+                        Mage::app()->getStore()->convertPrice(
+                            Mage::helper('tax')->getPrice($product, $price['website_price'], true)
+                        )
+                    );
+
+                    if (Mage::helper('catalog')->canApplyMsrp($product)) {
+                        $oldPrice = $product->getFinalPrice();
+                        $product->setPriceCalculation(false);
+                        $product->setPrice($tierPrice);
+                        $product->setFinalPrice($tierPrice);
+
+                        $this->getLayout()->getBlock('product.info')->getPriceHtml($product);
+                        $product->setPriceCalculation(true);
+
+                        $price['real_price_html'] = $product->getRealPriceHtml();
+                        $product->setFinalPrice($oldPrice);
+                    }
 
                     $res[] = $price;
                 }
@@ -96,6 +117,18 @@ class Mage_Catalog_Block_Product_Price extends Mage_Core_Block_Template
         }
 
         return $res;
+    }
+
+    /**
+     * Retrieve url for direct adding product to cart
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param array $additional
+     * @return string
+     */
+    public function getAddToCartUrl($product, $additional = array())
+    {
+        return $this->helper('checkout/cart')->getAddUrl($product, $additional);
     }
 
     /**
@@ -109,5 +142,17 @@ class Mage_Catalog_Block_Product_Price extends Mage_Core_Block_Template
             return '';
         }
         return parent::_toHtml();
+    }
+
+    /**
+     * Get Product Price valid JS string
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return string
+     */
+    public function getRealPriceJs($product)
+    {
+        $html = $this->hasRealPriceHtml() ? $this->getRealPriceHtml() : $product->getRealPriceHtml();
+        return Mage::helper('core')->jsonEncode($html);
     }
 }

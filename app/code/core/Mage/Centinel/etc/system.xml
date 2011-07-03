@@ -45,7 +45,7 @@
                     <show_in_store>0</show_in_store>
                     <fields>
                         <processor_id translate="label">
-                            <label>Processor Id</label>
+                            <label>Processor ID</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
@@ -53,7 +53,7 @@
                             <show_in_store>0</show_in_store>
                         </processor_id>
                         <merchant_id translate="label">
-                            <label>Merchant Id</label>
+                            <label>Merchant ID</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>

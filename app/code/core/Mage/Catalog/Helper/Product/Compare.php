@@ -56,6 +56,13 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     protected $_allowUsedFlat = true;
 
     /**
+     * Customer id
+     *
+     * @var null|int
+     */
+    protected $_customerId = null;
+
+    /**
      * Retrieve Catalog Session instance
      *
      * @return Mage_Catalog_Model_Session
@@ -187,6 +194,8 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
 
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $this->_itemCollection->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
+            } elseif ($this->_customerId) {
+                $this->_itemCollection->setCustomerId($this->_customerId);
             } else {
                 $this->_itemCollection->setVisitorId(Mage::getSingleton('log/visitor')->getId());
             }
@@ -200,7 +209,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
             $this->_itemCollection->addAttributeToSelect('name')
                 ->addUrlRewrite()
                 ->load();
-                
+
             /* update compare items count */
             $this->_getSession()->setCatalogCompareItemsCount(count($this->_itemCollection));
         }
@@ -217,14 +226,16 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     public function calculate($logout = false)
     {
         // first visit
-        if (!$this->_getSession()->hasCatalogCompareItemsCount()) {
+        if (!$this->_getSession()->hasCatalogCompareItemsCount() && !$this->_customerId) {
             $count = 0;
         } else {
-            /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection */
+            /** @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection */
             $collection = Mage::getResourceModel('catalog/product_compare_item_collection')
                 ->useProductItem(true);
             if (!$logout && Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $collection->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
+            } elseif ($this->_customerId) {
+                $collection->setCustomerId($this->_customerId);
             } else {
                 $collection->setVisitorId(Mage::getSingleton('log/visitor')->getId());
             }
@@ -287,5 +298,17 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     public function getAllowUsedFlat()
     {
         return $this->_allowUsedFlat;
+    }
+
+    /**
+     * Setter for customer id
+     *
+     * @param int $id
+     * @return Mage_Catalog_Helper_Product_Compare
+     */
+    public function setCustomerId($id)
+    {
+        $this->_customerId = $id;
+        return $this;
     }
 }

@@ -28,15 +28,7 @@
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <div class="page-title title-buttons">
     <h1><?php echo $this->__('Order #%s - %s', $_order->getRealOrderId(), $_order->getStatusLabel()) ?></h1>
-    <?php if($this->helper('rss/order')->isStatusNotificationAllow()): ?>
-        <a href="<?php echo $this->helper('rss/order')->getStatusHistoryRssUrl($_order) ?>" class="link-rss"><?php echo $this->__('Subscribe to Order Status') ?></a>
-        <span class="separator">|</span>
-    <?php endif; ?>
-    <?php if ($this->helper('sales/reorder')->canReorder($_order)) : ?>
-        <a href="<?php echo $this->getReorderUrl($_order) ?>" class="link-reorder"><?php echo $this->__('Reorder') ?></a>
-        <span class="separator">|</span>
-    <?php endif ?>
-    <a href="<?php echo $this->getPrintUrl($_order) ?>" class="link-print" onclick="this.target='_blank';"><?php echo $this->__('Print Order') ?></a>
+    <?php echo $this->getChildHtml('buttons') ?>
 </div>
 <?php echo $this->getStatusHistoryRssUrl($_order) ?>
 <dl class="order-info">

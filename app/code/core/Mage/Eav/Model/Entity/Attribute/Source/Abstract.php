@@ -30,9 +30,10 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_Eav_Model_Entity_Attribute_Source_Interface
+abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract
+    implements Mage_Eav_Model_Entity_Attribute_Source_Interface
 {
     /**
      * Reference to the attribute instance
@@ -113,7 +114,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     }
 
     /**
-     * Retrieve Column(s) for Flat
+     * Retrieve flat column definition
      *
      * @return array
      */

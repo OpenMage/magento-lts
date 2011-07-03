@@ -108,6 +108,14 @@
                     </bind_locale>
                 </observers>
             </core_locale_set_locale>
+            <admin_system_config_changed_section_admin>
+                <observers>
+                    <bind_locale>
+                        <class>adminhtml/system_config_backend_admin_observer</class>
+                        <method>afterCustomUrlChanged</method>
+                    </bind_locale>
+                </observers>
+            </admin_system_config_changed_section_admin>
         </events>
         <global_search>
             <products>

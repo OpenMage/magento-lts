@@ -156,6 +156,10 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
         $this->_productIds = array_merge($this->_productIds, array_keys($productIds));
         $attributes = Mage::getSingleton('wishlist/config')->getProductAttributes();
         $productCollection = Mage::getModel('catalog/product')->getCollection()
+            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+            ->addMinimalPrice()
+            ->addFinalPrice()
+            ->addTaxPercents()
             ->addIdFilter($this->_productIds)
             ->addAttributeToSelect($attributes)
             ->addOptionsToResult()

@@ -243,7 +243,10 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         // Check Authoriztion transaction state
         $authTransaction = $this->getAuthorizationTransaction();
         if ($authTransaction && $authTransaction->getIsClosed()) {
-            return false;
+            $orderTransaction = $this->_lookupTransaction(null, Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER);
+            if (!$orderTransaction) {
+                return false;
+            }
         }
         return true;
     }
@@ -875,9 +878,6 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         $order = $this->getOrder();
 
         $transactionId = $isOnline ? $this->getLastTransId() : $this->getTransactionId();
-        if (!$this->_lookupTransaction($transactionId)) {
-            Mage::throwException(Mage::helper('sales')->__('No valid transaction found for this payment review.'));
-        }
         $invoice = $this->_getInvoiceForTransactionId($transactionId);
 
         // invoke the payment method to determine what to do with the transaction
@@ -934,7 +934,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 throw new Exception('Not implemented.');
         }
         $message = $this->_prependMessage($message);
-        $message = $this->_appendTransactionToMessage($transactionId, $message);
+        if ($transactionId) {
+            $message = $this->_appendTransactionToMessage($transactionId, $message);
+        }
 
         // process payment in case of positive or negative result, or add a comment
         if (-1 === $result) { // switch won't work with such $result!

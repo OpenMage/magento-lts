@@ -372,6 +372,14 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     );
 
     /**
+     * Map for billing address to do request (not response)
+     * Merging with $_billingAddressMap
+     *
+     * @var array
+     */
+    protected $_billingAddressMapRequest = array ();
+
+    /**
      * Map for shipping address import/export (extends billing address mapper)
      * @var array
      */
@@ -1194,7 +1202,11 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $billingAddress  = ($this->getBillingAddress()) ? $this->getBillingAddress() : $this->getAddress();
         $shippingAddress = $this->getAddress();
 
-        $to = Varien_Object_Mapper::accumulateByMap($billingAddress, $to, array_flip($this->_billingAddressMap));
+        $to = Varien_Object_Mapper::accumulateByMap(
+            $billingAddress,
+            $to,
+            array_merge(array_flip($this->_billingAddressMap), $this->_billingAddressMapRequest)
+        );
         if ($regionCode = $this->_lookupRegionCodeFromAddress($billingAddress)) {
             $to['STATE'] = $regionCode;
         }

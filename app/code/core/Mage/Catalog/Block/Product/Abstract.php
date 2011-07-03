@@ -73,6 +73,13 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     protected $_columnCountLayoutDepend = array();
 
     /**
+     * Default MAP renderer type
+     *
+     * @var string
+     */
+    protected $_mapRenderer = 'msrp';
+
+    /**
      * Retrieve url for add product to cart
      * Will return product view page URL if product has required options
      *
@@ -196,7 +203,19 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix = '')
     {
-        return $this->_preparePriceRenderer($product->getTypeId())
+        $type_id = $product->getTypeId();
+        if (Mage::helper('catalog')->canApplyMsrp($product)) {
+            $realPriceHtml = $this->_preparePriceRenderer($type_id)
+                ->setProduct($product)
+                ->setDisplayMinimalPrice($displayMinimalPrice)
+                ->setIdSuffix($idSuffix)
+                ->toHtml();
+            $product->setAddToCartUrl($this->getAddToCartUrl($product));
+            $product->setRealPriceHtml($realPriceHtml);
+            $type_id = $this->_mapRenderer;
+        }
+
+        return $this->_preparePriceRenderer($type_id)
             ->setProduct($product)
             ->setDisplayMinimalPrice($displayMinimalPrice)
             ->setIdSuffix($idSuffix)
@@ -228,7 +247,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param bool $displayIfNoReviews
      * @return string
      */
-    public function getReviewsSummaryHtml(Mage_Catalog_Model_Product $product, $templateType = false, $displayIfNoReviews = false)
+    public function getReviewsSummaryHtml(Mage_Catalog_Model_Product $product, $templateType = false,
+        $displayIfNoReviews = false)
     {
         if ($this->_initReviewsHelperBlock()) {
             return $this->_reviewsHelperBlock->getSummaryHtml($product, $templateType, $displayIfNoReviews);
@@ -325,20 +345,37 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
             foreach ($prices as $price) {
                 $price['price_qty'] = $price['price_qty']*1;
                 if ($product->getPrice() != $product->getFinalPrice()) {
-                    if ($price['price']<$product->getFinalPrice()) {
-                        $price['savePercent'] = ceil(100 - (( 100/$product->getFinalPrice() ) * $price['price'] ));
-                        $price['formated_price'] = Mage::app()->getStore()->formatPrice(Mage::app()->getStore()->convertPrice(Mage::helper('tax')->getPrice($product, $price['website_price'])));
-                        $price['formated_price_incl_tax'] = Mage::app()->getStore()->formatPrice(Mage::app()->getStore()->convertPrice(Mage::helper('tax')->getPrice($product, $price['website_price'], true)));
-                        $res[] = $price;
-                    }
+                    $_productPrice = $product->getFinalPrice();
+                } else {
+                    $_productPrice = $product->getPrice();
                 }
-                else {
-                    if ($price['price']<$product->getPrice()) {
-                        $price['savePercent'] = ceil(100 - (( 100/$product->getPrice() ) * $price['price'] ));
-                        $price['formated_price'] = Mage::app()->getStore()->formatPrice(Mage::app()->getStore()->convertPrice(Mage::helper('tax')->getPrice($product, $price['website_price'])));
-                        $price['formated_price_incl_tax'] = Mage::app()->getStore()->formatPrice(Mage::app()->getStore()->convertPrice(Mage::helper('tax')->getPrice($product, $price['website_price'], true)));
-                        $res[] = $price;
+                if ($price['price'] < $_productPrice) {
+                    $price['savePercent'] = ceil(100 - ((100 / $_productPrice) * $price['price']));
+
+                    $tierPrice = Mage::app()->getStore()->convertPrice(
+                        Mage::helper('tax')->getPrice($product, $price['website_price'])
+                    );
+                    $price['formated_price'] = Mage::app()->getStore()->formatPrice($tierPrice);
+                    $price['formated_price_incl_tax'] = Mage::app()->getStore()->formatPrice(
+                        Mage::app()->getStore()->convertPrice(
+                            Mage::helper('tax')->getPrice($product, $price['website_price'], true)
+                        )
+                    );
+
+                    if (Mage::helper('catalog')->canApplyMsrp($product)) {
+                        $oldPrice = $product->getFinalPrice();
+                        $product->setPriceCalculation(false);
+                        $product->setPrice($tierPrice);
+                        $product->setFinalPrice($tierPrice);
+
+                        $this->getPriceHtml($product);
+                        $product->setPriceCalculation(true);
+
+                        $price['real_price_html'] = $product->getRealPriceHtml();
+                        $product->setFinalPrice($oldPrice);
                     }
+
+                    $res[] = $price;
                 }
             }
         }

@@ -35,10 +35,6 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
 {
     public function _prepareLayout()
     {
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
-            $headBlock->setTitle(Mage::helper('catalogsearch')->__('Catalog Advanced Search'));
-        }
-
         // add Home breadcrumb
         if ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs')) {
             $breadcrumbs->addCrumb('home', array(
@@ -137,7 +133,8 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
         return Mage::app()->getStore()->getCurrentCurrencyCode();
 
         $baseCurrency = Mage::app()->getStore()->getBaseCurrency()->getCurrencyCode();
-        return $this->getAttributeValue($attribute, 'currency') ? $this->getAttributeValue($attribute, 'currency') : $baseCurrency;
+        return $this->getAttributeValue($attribute, 'currency') ?
+            $this->getAttributeValue($attribute, 'currency') : $baseCurrency;
     }
 
     /**

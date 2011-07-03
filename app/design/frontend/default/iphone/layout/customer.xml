@@ -74,7 +74,6 @@ Load this update on every page when customer is logged out
         <reference name="account.links">
             <action method="addLink" translate="label title" module="customer"><label>Log In</label><url helper="customer/getLoginUrl"/><title>Log In</title><prepare/><urlParams/><position>100</position></action>
         </reference>
-        <remove name="wishlist_sidebar"></remove>
         <remove name="reorder"></remove>
     </customer_logged_out>
 

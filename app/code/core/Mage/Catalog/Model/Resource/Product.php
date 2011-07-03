@@ -634,4 +634,22 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     {
         return array();
     }
+
+    /**
+     * Retrieve product entities info
+     *
+     * @return array
+     */
+    public function getProductEntitiesInfo($columns = null)
+    {
+        if (!empty($columns) && is_string($columns)) {
+            $columns = array($columns);
+        }
+        if (empty($columns) || !is_array($columns)) {
+            $columns = $this->_getDefaultAttributes();
+        }
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getTable('catalog/product'), $columns);
+        return $this->_getReadAdapter()->fetchAll($select);
+    }
 }

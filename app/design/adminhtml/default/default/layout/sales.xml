@@ -289,6 +289,9 @@
     </adminhtml_sales_order_invoice_view>
 
     <adminhtml_sales_order_shipment_new>
+        <reference name="head">
+            <action method="addJs"><file>mage/adminhtml/sales/packaging.js</file></action>
+        </reference>
         <reference name="content">
             <block type="adminhtml/sales_order_shipment_create" name="sales_shipment_create">
                 <block type="adminhtml/sales_order_shipment_create_form" name="form" template="sales/order/shipment/create/form.phtml">
@@ -301,6 +304,7 @@
                         <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>sales/items/column/name.phtml</template></action>
                         <block type="core/text_list" name="order_item_extra_info"></block>
                     </block>
+                    <block type="adminhtml/sales_order_shipment_packaging" name="shipment_packaging" template="sales/order/shipment/packaging/popup.phtml" />
                 </block>
             </block>
         </reference>
@@ -321,6 +325,9 @@
     </adminhtml_sales_order_shipment_addcomment>
 
     <adminhtml_sales_order_shipment_view>
+        <reference name="head">
+            <action method="addJs"><file>mage/adminhtml/sales/packaging.js</file></action>
+        </reference>
         <reference name="content">
             <block type="adminhtml/sales_order_shipment_view" name="sales_shipment_view">
                 <block type="adminhtml/sales_order_shipment_view_form" name="form" template="sales/order/shipment/view/form.phtml">
@@ -337,6 +344,8 @@
                     <block type="adminhtml/sales_order_comments_view"  name="order_comments" template="sales/order/comments/view.phtml">
                         <action method="setParentType"><type>shipment</type></action>
                     </block>
+                    <block type="adminhtml/sales_order_shipment_packaging" name="shipment_packaging" template="sales/order/shipment/packaging/popup.phtml" />
+                    <block type="adminhtml/sales_order_shipment_packaging" name="shipment_packed" template="sales/order/shipment/packaging/packed.phtml"/>
                 </block>
             </block>
         </reference>

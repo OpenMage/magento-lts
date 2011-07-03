@@ -69,7 +69,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
             $params = Mage::helper('core')->urlDecode($this->getRequest()->getParam('data'));
             $data   = explode(',', $params);
             $cId    = abs(intval($data[0]));
-            if ($cId) {
+            if ($cId && ($cId == Mage::getSingleton('customer/session')->getCustomerId()) ) {
                 $this->_customer->load($cId);
             }
         }
@@ -105,11 +105,12 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
 
             /* @var $product Mage_Catalog_Model_Product */
             foreach ($this->getWishlistItems() as $product) {
-                $description = '<table><tr><td><a href="' . $this->getProductUrl($product)
-                    . '"><img src="' . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
+                $description = '<table><tr><td><a href="' . $this->getProductUrl($product) . '"><img src="'
+                    . $this->helper('catalog/image')->init($product->getProduct(), 'thumbnail')->resize(75, 75)
                     . '" border="0" align="left" height="75" width="75"></a></td>'
                     . '<td style="text-decoration:none;">'
-                    . $this->helper('catalog/output')->productAttribute($product, $product->getShortDescription(), 'short_description') 
+                    . $this->helper('catalog/output')
+                        ->productAttribute($product, $product->getShortDescription(), 'short_description')
                     . '<p>';
                 if ($product->getPrice() != $product->getFinalPrice()) {
                     $description .= Mage::helper('catalog')->__('Regular Price:') . ' <strike>'
@@ -124,13 +125,16 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 $description .= '</p>';
                 if ($this->hasDescription($product)) {
                     $description .= '<p>' . Mage::helper('wishlist')->__('Comment:')
-                        . ' ' . $this->helper('catalog/output')->productAttribute($product, $product->getDescription(), 'description') . '<p>';
+                        . ' ' . $this->helper('catalog/output')
+                            ->productAttribute($product, $product->getDescription(), 'description')
+                        . '<p>';
                 }
 
                 $description .= '</td></tr></table>';
 
                 $rssObj->_addEntry(array(
-                    'title'         => $this->helper('catalog/output')->productAttribute($product, $product->getName(), 'name'),
+                    'title'         => $this->helper('catalog/output')
+                        ->productAttribute($product, $product->getName(), 'name'),
                     'link'          => $this->getProductUrl($product),
                     'description'   => $description,
                 ));

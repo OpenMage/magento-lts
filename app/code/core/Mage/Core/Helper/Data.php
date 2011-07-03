@@ -34,6 +34,10 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_DEFAULT_COUNTRY              = 'general/country/default';
     const XML_PATH_PROTECTED_FILE_EXTENSIONS    = 'general/file/protected_extensions';
     const XML_PATH_PUBLIC_FILES_VALID_PATHS     = 'general/file/public_files_valid_paths';
+    const XML_PATH_ENCRYPTION_MODEL             = 'global/helpers/core/encryption_model';
+    const XML_PATH_DEV_ALLOW_IPS                = 'dev/restrict/allow_ips';
+    const XML_PATH_CACHE_BETA_TYPES             = 'global/cache/betatypes';
+    const XML_PATH_CONNECTION_TYPE              = 'global/resources/default_setup/connection/type';
 
     /**
      * @var Mage_Core_Model_Encryption
@@ -46,7 +50,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public function getEncryptor()
     {
         if ($this->_encryptor === null) {
-            $encryptionModel = (string)Mage::getConfig()->getNode('global/helpers/core/encryption_model');
+            $encryptionModel = (string)Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
             if ($encryptionModel) {
                 $this->_encryptor = new $encryptionModel;
             } else {
@@ -323,7 +327,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $allow = true;
 
-        $allowedIps = Mage::getStoreConfig('dev/restrict/allow_ips', $storeId);
+        $allowedIps = Mage::getStoreConfig(self::XML_PATH_DEV_ALLOW_IPS, $storeId);
         $remoteAddr = Mage::helper('core/http')->getRemoteAddr();
         if (!empty($allowedIps) && !empty($remoteAddr)) {
             $allowedIps = preg_split('#\s*,\s*#', $allowedIps, null, PREG_SPLIT_NO_EMPTY);
@@ -359,7 +363,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public function getCacheBetaTypes()
     {
         $types = array();
-        $config = Mage::getConfig()->getNode('global/cache/betatypes');
+        $config = Mage::getConfig()->getNode(self::XML_PATH_CACHE_BETA_TYPES);
         if ($config) {
             foreach ($config->children() as $type=>$node) {
                 $types[$type] = (string)$node->label;
@@ -645,7 +649,7 @@ XML;
      */
     public function uniqHash($prefix = '')
     {
-        return $prefix . md5(uniqid(microtime(), true));
+        return $prefix . md5(uniqid(microtime().mt_rand(), true));
     }
 
     /**
@@ -787,5 +791,18 @@ XML;
             throw new Mage_Core_Exception($this->__('Requested file may not include parent directory traversal ("../", "..\\" notation)'));
         }
         return true;
+    }
+
+    /**
+     * Check whether database compatible mode is used (configs enable it for MySQL by default).
+     *
+     * @return bool
+     */
+    public function useDbCompatibleMode()
+    {
+        $connType = (string) Mage::getConfig()->getNode(self::XML_PATH_CONNECTION_TYPE);
+        $path = 'global/resource/connection/types/' . $connType . '/compatibleMode';
+        $value = (string) Mage::getConfig()->getNode($path);
+        return (bool) $value;
     }
 }

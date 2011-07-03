@@ -31,7 +31,8 @@
  * @package     Mage_Downloadable
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links extends Mage_Adminhtml_Block_Template
+class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links
+    extends Mage_Adminhtml_Block_Template
 {
     /**
      * Purchased Separately Attribute cache
@@ -48,6 +49,8 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     {
         parent::__construct();
         $this->setTemplate('downloadable/product/edit/downloadable/links.phtml');
+        $this->setCanEditPrice(true);
+        $this->setCanReadPrice(true);
     }
 
     /**
@@ -103,8 +106,8 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
         $addButton = $this->getLayout()->createBlock('adminhtml/widget_button')
             ->setData(array(
                 'label' => Mage::helper('downloadable')->__('Add New Row'),
-                'id' => 'add_link_item',
-                'class' => 'add',
+                'id'    => 'add_link_item',
+                'class' => 'add'
             ));
         return $addButton->toHtml();
     }
@@ -157,7 +160,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
             $tmpLinkItem = array(
                 'link_id' => $item->getId(),
                 'title' => $item->getTitle(),
-                'price' => $this->getPriceValue($item->getPrice()),
+                'price' => $this->getCanReadPrice() ? $this->getPriceValue($item->getPrice()) : '',
                 'number_of_downloads' => $item->getNumberOfDownloads(),
                 'is_shareable' => $item->getIsShareable(),
                 'link_url' => $item->getLinkUrl(),
@@ -165,7 +168,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                 'sample_file' => $item->getSampleFile(),
                 'sample_url' => $item->getSampleUrl(),
                 'sample_type' => $item->getSampleType(),
-                'sort_order' => $item->getSortOrder()
+                'sort_order' => $item->getSortOrder(),
             );
             $file = Mage::helper('downloadable/file')->getFilePath(
                 Mage_Downloadable_Model_Link::getBasePath(), $item->getLinkFile()
@@ -176,9 +179,11 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
             }
 
             if ($item->getLinkFile() && is_file($file)) {
-                $name = '<a href="' . $this->getUrl('*/downloadable_product_edit/link', array('id' => $item->getId(), '_secure' => true)) . '">' .
-                    Mage::helper('downloadable/file')->getFileFromPathFile($item->getLinkFile()) .
-                    '</a>';
+                $name = '<a href="'
+                    . $this->getUrl('*/downloadable_product_edit/link', array(
+                        'id' => $item->getId(),
+                        '_secure' => true
+                    )) . '">' . Mage::helper('downloadable/file')->getFileFromPathFile($item->getLinkFile()) . '</a>';
                 $tmpLinkItem['file_save'] = array(
                     array(
                         'file' => $item->getLinkFile(),
@@ -242,13 +247,12 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     {
         $this->setChild(
             'upload_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData(array(
-                    'id'      => '',
-                    'label'   => Mage::helper('adminhtml')->__('Upload Files'),
-                    'type'    => 'button',
-                    'onclick' => 'Downloadable.massUploadByType(\'links\');Downloadable.massUploadByType(\'linkssample\')'
-                ))
+            $this->getLayout()->createBlock('adminhtml/widget_button')->addData(array(
+                'id'      => '',
+                'label'   => Mage::helper('adminhtml')->__('Upload Files'),
+                'type'    => 'button',
+                'onclick' => 'Downloadable.massUploadByType(\'links\');Downloadable.massUploadByType(\'linkssample\')'
+            ))
         );
     }
 
@@ -269,7 +273,8 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      */
     public function getConfigJson($type='links')
     {
-        $this->getConfig()->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/downloadable_file/upload', array('type' => $type, '_secure' => true)));
+        $this->getConfig()->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()
+            ->getUrl('*/downloadable_file/upload', array('type' => $type, '_secure' => true)));
         $this->getConfig()->setParams(array('form_key' => $this->getFormKey()));
         $this->getConfig()->setFileField($type);
         $this->getConfig()->setFilters(array(

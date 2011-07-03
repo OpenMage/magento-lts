@@ -184,11 +184,27 @@ varienGrid.prototype = {
                                 setLocation(response.ajaxRedirect);
                             }
                         } else {
-                            $(this.containerId).update(transport.responseText);
+                            /**
+                             * For IE <= 7.
+                             * If there are two elements, and first has name, that equals id of second.
+                             * In this case, IE will choose one that is above
+                             *
+                             * @see https://prototype.lighthouseapp.com/projects/8886/tickets/994-id-selector-finds-elements-by-name-attribute-in-ie7
+                             */
+                            var divId = $(this.containerId);
+                            if (divId.id == this.containerId) {
+                                divId.update(transport.responseText);
+                            } else {
+                                $$('div[id="'+this.containerId+'"]')[0].update(transport.responseText);
+                            }
                         }
-                    }
-                    catch (e) {
-                        $(this.containerId).update(transport.responseText);
+                    } catch (e) {
+                        var divId = $(this.containerId);
+                        if (divId.id == this.containerId) {
+                            divId.update(transport.responseText);
+                        } else {
+                            $$('div[id="'+this.containerId+'"]')[0].update(transport.responseText);
+                        }
                     }
                 }.bind(this)
             });
@@ -769,7 +785,7 @@ serializerController.prototype = {
         var isInput   = Event.element(event).tagName == 'INPUT';
         if(trElement){
             var checkbox = Element.select(trElement, 'input');
-            if(checkbox[0]){
+            if(checkbox[0] && !checkbox[0].disabled){
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                 this.grid.setCheckboxChecked(checkbox[0], checked);
             }

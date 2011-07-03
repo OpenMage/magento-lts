@@ -115,7 +115,7 @@ class Mage_Sales_Model_Service_Order
     /**
      * Prepare order shipment based on order items and requested items qty
      *
-     * @param array $data
+     * @param array $qtys
      * @return Mage_Sales_Model_Order_Shipment
      */
     public function prepareShipment($qtys = array())
@@ -128,8 +128,28 @@ class Mage_Sales_Model_Service_Order
             }
 
             $item = $this->_convertor->itemToShipmentItem($orderItem);
+
             if ($orderItem->isDummy(true)) {
-                $qty = 1;
+                $qty = 0;
+                if (isset($qtys[$orderItem->getParentItemId()])) {
+                    $productOptions = $orderItem->getProductOptions();
+                    if (isset($productOptions['bundle_selection_attributes'])) {
+                        $bundleSelectionAttributes = unserialize($productOptions['bundle_selection_attributes']);
+
+                        if ($bundleSelectionAttributes) {
+                            $qty = $bundleSelectionAttributes['qty'] * $qtys[$orderItem->getParentItemId()];
+                            $qty = min($qty, $orderItem->getSimpleQtyToShip());
+
+                            $item->setQty($qty);
+                            $shipment->addItem($item);
+                            continue;
+                        } else {
+                            $qty = 1;
+                        }
+                    }
+                } else {
+                    $qty = 1;
+                }
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = min($qtys[$orderItem->getId()], $orderItem->getQtyToShip());
@@ -139,11 +159,11 @@ class Mage_Sales_Model_Service_Order
                     continue;
                 }
             }
-
             $totalQty += $qty;
             $item->setQty($qty);
             $shipment->addItem($item);
         }
+
         $shipment->setTotalQty($totalQty);
         return $shipment;
     }

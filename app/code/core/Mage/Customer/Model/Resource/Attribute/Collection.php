@@ -32,27 +32,8 @@
  * @package     Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Customer_Model_Resource_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
+class Mage_Customer_Model_Resource_Attribute_Collection extends Mage_Eav_Model_Resource_Attribute_Collection
 {
-    /**
-     * code of password hash in customer's EAV tables
-     */
-    const EAV_CODE_PASSWORD_HASH = 'password_hash';
-
-    /**
-     * Current website scope instance
-     *
-     * @var Mage_Core_Model_Website
-     */
-    protected $_website;
-
-    /**
-     * Attribute Entity Type Filter
-     *
-     * @var Mage_Eav_Model_Entity_Type
-     */
-    protected $_entityType;
-
     /**
      * Default attribute entity type code
      *
@@ -61,172 +42,25 @@ class Mage_Customer_Model_Resource_Attribute_Collection extends Mage_Eav_Model_R
     protected $_entityTypeCode   = 'customer';
 
     /**
-     * Return customer entity type instance
+     * Default attribute entity type code
      *
-     * @return Mage_Eav_Model_Entity_Type
+     * @return string
      */
-    public function getEntityType()
+    protected function _getEntityTypeCode()
     {
-        if ($this->_entityType === null) {
-            $this->_entityType = Mage::getSingleton('eav/config')->getEntityType($this->_entityTypeCode);
-        }
-        return $this->_entityType;
+        return $this->_entityTypeCode;
     }
 
     /**
-     * Set Website scope
+     * Get EAV website table
      *
-     * @param Mage_Core_Model_Website|int $website
-     * @return Mage_Customer_Model_Resource_Attribute_Collection
-     */
-    public function setWebsite($website)
-    {
-        $this->_website = Mage::app()->getWebsite($website);
-        $this->addBindParam('scope_website_id', $this->_website->getId());
-        return $this;
-    }
-
-    /**
-     * Return current website scope instance
+     * Get table, where website-dependent attribute parameters are stored
+     * If realization doesn't demand this functionality, let this function just return null
      *
-     * @return Mage_Core_Model_Website
+     * @return string|null
      */
-    public function getWebsite()
+    protected function _getEavWebsiteTable()
     {
-        if ($this->_website === null) {
-            $this->_website = Mage::app()->getStore()->getWebsite();
-        }
-        return $this->_website;
-    }
-
-    /**
-     * Initialize collection select
-     *
-     * @return Mage_Customer_Model_Resource_Attribute_Collection
-     */
-    protected function _initSelect()
-    {
-        $select         = $this->getSelect();
-        $connection     = $this->getConnection();
-        $entityType     = $this->getEntityType();
-        $extraTable     = $entityType->getAdditionalAttributeTable();
-        $mainDescribe   = $this->getConnection()->describeTable($this->getResource()->getMainTable());
-        $mainColumns    = array();
-
-        foreach (array_keys($mainDescribe) as $columnName) {
-            $mainColumns[$columnName] = $columnName;
-        }
-
-        $select->from(array('main_table' => $this->getResource()->getMainTable()), $mainColumns);
-
-        // additional attribute data table
-        $extraDescribe  = $connection->describeTable($this->getTable($extraTable));
-        $extraColumns   = array();
-        foreach (array_keys($extraDescribe) as $columnName) {
-            if (isset($mainColumns[$columnName])) {
-                continue;
-            }
-            $extraColumns[$columnName] = $columnName;
-        }
-
-        $this->addBindParam('mt_entity_type_id', (int)$entityType->getId());
-        $select
-            ->join(
-                array('additional_table' => $this->getTable($extraTable)),
-                'additional_table.attribute_id = main_table.attribute_id',
-                $extraColumns)
-            ->where('main_table.entity_type_id = :mt_entity_type_id');
-
-        // scope values
-
-        $scopeDescribe  = $connection->describeTable($this->getTable('customer/eav_attribute_website'));
-        unset($scopeDescribe['attribute_id']);
-        $scopeColumns   = array();
-        foreach (array_keys($scopeDescribe) as $columnName) {
-            if ($columnName == 'website_id') {
-                $scopeColumns['scope_website_id'] = $columnName;
-            } else {
-                if (isset($mainColumns[$columnName])) {
-                    $alias = sprintf('scope_%s', $columnName);
-                    $expression = $connection->getCheckSql('main_table.%s IS NULL',
-                        'scope_table.%s', 'main_table.%s');
-                    $expression = sprintf($expression, $columnName, $columnName, $columnName);
-                    $this->addFilterToMap($columnName, $expression);
-                    $scopeColumns[$alias] = $columnName;
-                } elseif (isset($extraColumns[$columnName])) {
-                    $alias = sprintf('scope_%s', $columnName);
-                    $expression = $connection->getCheckSql('additional_table.%s IS NULL',
-                        'scope_table.%s', 'additional_table.%s');
-                    $expression = sprintf($expression, $columnName, $columnName, $columnName);
-                    $this->addFilterToMap($columnName, $expression);
-                    $scopeColumns[$alias] = $columnName;
-                }
-            }
-        }
-
-        $select->joinLeft(
-            array('scope_table' => $this->getTable('customer/eav_attribute_website')),
-            'scope_table.attribute_id = main_table.attribute_id AND scope_table.website_id = :scope_website_id',
-            $scopeColumns
-        );
-        $this->addBindParam('scope_website_id', (int)$this->getWebsite()->getId());
-
-        return $this;
-    }
-
-    /**
-     * Specify attribute entity type filter
-     * Entity type is defined
-     *
-     * @param mixed $type
-     * @return Mage_Customer_Model_Resource_Attribute_Collection
-     */
-    public function setEntityTypeFilter($type)
-    {
-        return $this;
-    }
-
-    /**
-     * Specify filter by "is_visible" field
-     *
-     * @return Mage_Customer_Model_Resource_Attribute_Collection
-     */
-    public function addVisibleFilter()
-    {
-        return $this->addFieldToFilter('is_visible', 1);
-    }
-
-    /**
-     * Exclude system hidden attributes
-     *
-     * @return Mage_Customer_Model_Resource_Attribute_Collection
-     */
-    public function addSystemHiddenFilter()
-    {
-        $field = '(CASE WHEN additional_table.is_system = 1 AND additional_table.is_visible = 0 THEN 1 ELSE 0 END)';
-        return $this->addFieldToFilter($field, 0);
-    }
-
-    /**
-     * Exclude system hidden attributes but include password hash
-     *
-     * @return Mage_Customer_Model_Entity_Attribute_Collection
-     */
-    public function addSystemHiddenFilterWithPasswordHash()
-    {
-        $field = '(CASE WHEN additional_table.is_system = 1 AND additional_table.is_visible = 0
-            AND main_table.attribute_code != "' . self::EAV_CODE_PASSWORD_HASH . '" THEN 1 ELSE 0 END)';
-        $this->addFieldToFilter($field, 0);
-        return $this;
-    }
-
-    /**
-     * Add exclude hidden frontend input attribute filter to collection
-     *
-     * @return Mage_Customer_Model_Resource_Attribute_Collection
-     */
-    public function addExcludeHiddenFrontendFilter()
-    {
-        return $this->addFieldToFilter('main_table.frontend_input', array('neq' => 'hidden'));
+        return $this->getTable('customer/eav_attribute_website');
     }
 }

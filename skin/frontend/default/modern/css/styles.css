@@ -466,6 +466,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 .quick-access { background:#444; color:#fff; padding:7px 13px; text-align:right; }
 .quick-access .welcome-msg { display:inline; margin:0; color:#fff; }
+.quick-access .welcome-msg a { color:#ddd; }
 .quick-access .form-language { float:left; }
 .quick-access .form-language label { font-weight:bold; padding-right:5px; color:#fff; vertical-align:middle; }
 .quick-access .form-language select { padding:0; }
@@ -1395,6 +1396,21 @@ f/********** Product Prices > */
 /* Account Login/Create Pages ============================================================ */
 
 
+/* Remember Me Popup ===================================================================== */
+.window-overlay { background:url(../images/window_overlay.png) repeat; background:rgba(0, 0, 0, 0.35); position:absolute; top:0; left:0; height:100%; width:100%; z-index:990; }
+
+.remember-me label { float:none; margin:0 6px; }
+.remember-me-popup { background:#fff; border:1px solid #888; border-bottom-color:#777; left:50%; top:50%; position:absolute; margin:-85px 0 0 -200px; width:400px; text-align:left; -moz-box-shadow:0 0 6px #999; -webkit-box-shadow:0 0 6px #999; box-shadow:0 0 6px #999; z-index:1000; }
+.remember-me-popup h3 { background:#dedede; border-bottom:1px solid #ccc; color:#444; font-size:14px; margin:0; padding:7px 10px 5px; }
+.remember-me-popup .remember-me-popup-head { position:relative; }
+.remember-me-popup .remember-me-popup-head .remember-me-popup-close { background:url(../images/btn_window_close.gif) no-repeat; display:block; position:absolute; top:9px; right:7px; height:15px; width:15px; text-indent:-9999em; }
+.remember-me-popup .remember-me-popup-body { border-top:1px solid #e6e6e6; padding:10px; }
+.remember-me-popup .remember-me-popup-body a,
+.remember-me-popup .remember-me-popup-body a span { display:inline-block; height:28px; background:transparent url(../images/bkg_btn.png) 0 0 no-repeat; padding:0 0 0 6px; font:bold 11px/25px Tahoma, Verdana, Arial, sans-serif; text-transform:uppercase; text-align:center; white-space:nowrap; color:#555; }
+.remember-me-popup .remember-me-popup-body a span { background-position:100% 0; padding:0 15px 0 9px; }
+/* Remember Me Popup ===================================================================== */
+
+
 /* My Account ============================================================================= */
 .my-account .title-buttons .link-rss { float:none; margin:0; }
 
@@ -1555,6 +1571,27 @@ f/********** Product Prices > */
 .billing-agreements .info-box p { margin:0 0 5px; }
 .billing-agreements .form-list li select { float:left; margin:3px 10px 0 0; }
 .billing-agreements .table-caption { font-weight:bold; font-size:13px; }
+/* ======================================================================================= */
+
+
+/* MAP Popup============================================================================== */
+.cart-msrp-totals { color:red; font-size:12px !important; font-weight:bold; padding:40px 0 10px; text-align:right; text-transform:uppercase;}
+.map-cart-sidebar-total { background:#f6f6f6; color:red; display:block; font-size:10px; line-height:14px; font-weight:bold; padding:5px; text-shadow:0 1px 0 #fff; box-shadow:0 0 3px #ccc; border-radius:5px; }
+
+.map-popup { background:#fff; border:1px solid #aaa; margin:12px 0 0; position:absolute; -moz-box-shadow:0 0 6px #ccc; -webkit-box-shadow:0 0 6px #ccc; box-shadow:0 0 6px #ccc; text-align:left; width:300px; z-index:100; }
+.map-popup-heading { background:#efefef ; border-bottom:1px solid #ccc; padding:5px 30px 5px 10px; width:260px; }
+.map-popup-heading h2 { font-size:16px; margin:0; text-shadow:0 1px 0 #f6f6f6; overflow:hidden; white-space:nowrap; word-wrap:break-word; text-align:left; text-overflow:ellipsis; }
+.map-popup-arrow { background:url(../images/map_popup_arrow.gif) no-repeat; position:absolute; left:50%; top:-10px; height:10px; width:19px; }
+.map-popup-close { background:url(../images/btn_window_close.gif) no-repeat; display:block; position:absolute; top:9px; right:10px; height:15px; width:15px; text-indent:-9999em; }
+.map-popup-content { border-top:1px solid #eee; padding:10px; overflow:hidden; text-align:left; width:280px; }
+.map-popup-checkout { display:inline; float:right; text-align:right; }
+.map-popup-checkout span { display:block; padding-right:30px; }
+.map-popup-checkout .paypal-logo { margin:0 0 5px; }
+.map-popup-price .price-box,
+.map-popup-price .price-box .special-price { margin:0; padding:0; }
+.map-popup-price { margin:5px 0 0; }
+.map-popup-text { clear:right; margin:0 10px; padding:10px 0; text-align:left; word-wrap:break-word; }
+.map-popup-only-text { border-top:1px solid #ddd; }
 /* ======================================================================================= */
 
 

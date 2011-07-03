@@ -45,7 +45,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * DB connection.
      *
-     * @var Varien_Adapter_Pdo_Mysql
+     * @var Varien_Adapter_Interface
      */
     protected $_connection;
 
@@ -239,6 +239,16 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      */
     protected function _prepareRowForDb(array $rowData)
     {
+        /**
+         * Convert all empty strings to null values, as
+         * a) we don't use empty string in DB
+         * b) empty strings instead of numeric values will product errors in Sql Server
+         */
+        foreach ($rowData as $key => $val) {
+            if ($val === '') {
+                $rowData[$key] = null;
+            }
+        }
         return $rowData;
     }
 
@@ -254,11 +264,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
         $bunchRows       = array();
         $startNewBunch   = false;
         $nextRowBackup   = array();
-        $maxPacketData   = $this->_connection->fetchRow('SHOW VARIABLES LIKE "max_allowed_packet"');
-        $maxPacket       = empty($maxPacketData['Value']) ? self::DB_MAX_PACKET_DATA : $maxPacketData['Value'];
-        // real-size to DB packet size coefficient
-        $coefficient     = self::DB_MAX_PACKET_COEFFICIENT / self::DB_MAX_PACKET_DATA;
-        $maxPacket       = $coefficient * $maxPacket;
+        $maxDataSize = Mage::getResourceHelper('importexport')->getMaxDataSize();
 
         $source->rewind();
         $this->_dataSourceModel->cleanBunches();
@@ -284,7 +290,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                     $rowData = $this->_prepareRowForDb($rowData);
                     $rowSize = strlen(serialize($rowData));
 
-                    if (($productDataSize + $rowSize) >= $maxPacket) { // check bunch size
+                    if (($productDataSize + $rowSize) >= $maxDataSize) { // check bunch size
                         $startNewBunch = true;
                         $nextRowBackup = array($source->key() => $rowData);
                     } else {
@@ -450,23 +456,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     public function getInvalidRowsCount()
     {
         return count($this->_invalidRows);
-    }
-
-    /**
-     * Find net value of autoincrement key for specified table.
-     *
-     * @param string $tableName
-     * @throws Exception
-     * @return string
-     */
-    public function getNextAutoincrement($tableName)
-    {
-        $entityStatus = $this->_connection->showTableStatus($tableName);
-
-        if (empty($entityStatus['Auto_increment'])) {
-            Mage::throwException(Mage::helper('importexport')->__('Can not get autoincrement value'));
-        }
-        return $entityStatus['Auto_increment'];
     }
 
     /**

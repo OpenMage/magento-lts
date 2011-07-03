@@ -82,6 +82,7 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
             ->where('product_id = :product_id'),
             array('product_id' => $productId)
         );
+
         if ($quoteItemIds) {
             $this->_getWriteAdapter()->delete(
                 $this->getTable('sales/quote_item'),

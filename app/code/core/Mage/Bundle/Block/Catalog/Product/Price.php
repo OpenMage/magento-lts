@@ -62,4 +62,36 @@ class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product
         }
         return $this->helper('tax')->displayBothPrices();
     }
+
+    /**
+     * Convert block to html string
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        $product = $this->getProduct();
+        if ($this->getMAPTemplate() && Mage::helper('catalog')->canApplyMsrp($product)
+                && $product->getPriceType() != Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC
+        ) {
+            if (Mage::helper('catalog')->isShowPriceOnGesture($product)) {
+                $this->setWithoutPrice(true);
+            }
+            $realPriceHtml = parent::_toHtml();
+            $this->unsWithoutPrice();
+            $addToCartUrl  = $this->getLayout()->getBlock('product.info.bundle')->getAddToCartUrl($product);
+            $product->setAddToCartUrl($addToCartUrl);
+            $html = $this->getLayout()
+                ->createBlock('catalog/product_price')
+                ->setTemplate($this->getMAPTemplate())
+                ->setRealPriceHtml($realPriceHtml)
+                ->setIdSuffix('_clone')
+                ->setProduct($product)
+                ->toHtml();
+
+            return $realPriceHtml . $html;
+        }
+
+        return parent::_toHtml();
+    }
 }

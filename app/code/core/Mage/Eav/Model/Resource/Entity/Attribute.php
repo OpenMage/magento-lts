@@ -431,11 +431,13 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     public function getFlatUpdateSelect(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $storeId)
     {
         $adapter = $this->_getReadAdapter();
-        $joinConditionTemplate = "e.entity_id=%s.entity_id"
+        $joinConditionTemplate = "%s.entity_id=%s.entity_id"
             ." AND %s.entity_type_id = ".$attribute->getEntityTypeId()
             ." AND %s.attribute_id = ".$attribute->getId()
             ." AND %s.store_id = %d";
-        $joinCondition = sprintf($joinConditionTemplate, 't1', 't1', 't1', 't1', Mage_Core_Model_App::ADMIN_STORE_ID);
+        $joinCondition = sprintf($joinConditionTemplate,
+            'e', 't1', 't1', 't1', 't1',
+            Mage_Core_Model_App::ADMIN_STORE_ID);
         if ($attribute->getFlatAddChildData()) {
             $joinCondition .= ' AND e.child_id = t1.entity_id';
         }
@@ -450,7 +452,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 array())
             ->joinLeft(
                 array('t2' => $attribute->getBackend()->getTable()),
-                sprintf($joinConditionTemplate, 't2', 't2', 't2', 't2', $storeId),
+                sprintf($joinConditionTemplate, 't1', 't2', 't2', 't2', 't2', $storeId),
                 array($attribute->getAttributeCode() => $valueExpr));
         if ($attribute->getFlatAddChildData()) {
             $select->where("e.is_child = ?", 0);

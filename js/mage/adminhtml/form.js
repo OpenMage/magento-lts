@@ -448,9 +448,11 @@ FormElementDependenceController.prototype = {
 
         // toggle target row
         if (shouldShowUp) {
+            var currentConfig = this._config;
             $(idTo).up(this._config.levels_up).select('input', 'select', 'td').each(function (item) {
                 // don't touch hidden inputs (and Use Default inputs too), bc they may have custom logic
-                if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)) {
+                if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)
+                    && !(currentConfig.can_edit_price != undefined && !currentConfig.can_edit_price)) {
                     item.disabled = false;
                 }
             });

@@ -1007,4 +1007,52 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             && parent::canConfigure();
     }
 
+    /**
+     * Check if Minimum Advertise Price is enabled at least in one option
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param int $visibility
+     * @return bool|null
+     */
+    public function isMapEnabledInOptions($product, $visibility = null)
+    {
+        /**
+         * @TODO: In order to clarify is MAP enabled for product we can check associated products.
+         * Commented for future improvements.
+         */
+        /*
+        $collection = $this->getUsedProductCollection($product);
+        $helper = Mage::helper('catalog');
+
+        $result = null;
+        $parentVisibility = $product->getMsrpDisplayActualPriceType();
+        if ($parentVisibility === null) {
+            $parentVisibility = $helper->getMsrpDisplayActualPriceType();
+        }
+        $visibilities = array($parentVisibility);
+        foreach ($collection as $item) {
+            if ($helper->canApplyMsrp($item)) {
+                $productVisibility = $item->getMsrpDisplayActualPriceType();
+                if ($productVisibility === null) {
+                    $productVisibility = $helper->getMsrpDisplayActualPriceType();
+                }
+                $visibilities[] = $productVisibility;
+                $result = true;
+            }
+        }
+
+        if ($result && $visibility !== null) {
+            if ($visibilities) {
+                $maxVisibility = max($visibilities);
+                $result = $result && $maxVisibility == $visibility;
+            } else {
+                $result = false;
+            }
+        }
+
+        return $result;
+        */
+
+        return null;
+    }
 }

@@ -39,9 +39,16 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
 
     protected $_oprions = null;
 
+    /**
+     * Bundle option renderer class constructor
+     *
+     * Sets block template and necessary data
+     */
     public function __construct()
     {
         $this->setTemplate('bundle/product/edit/bundle/option.phtml');
+        $this->setCanReadPrice(true);
+        $this->setCanEditPrice(true);
     }
 
     public function getFieldId()
@@ -140,10 +147,16 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
         return $this->getChildHtml('add_selection_button');
     }
 
+    /**
+     * Retrieve list of bundle product options
+     *
+     * @return array
+     */
     public function getOptions()
     {
         if (!$this->_options) {
-            $this->getProduct()->getTypeInstance(true)->setStoreFilter($this->getProduct()->getStoreId(), $this->getProduct());
+            $this->getProduct()->getTypeInstance(true)->setStoreFilter($this->getProduct()->getStoreId(),
+                $this->getProduct());
 
             $optionCollection = $this->getProduct()->getTypeInstance(true)->getOptionsCollection($this->getProduct());
 
@@ -153,6 +166,16 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
             );
 
             $this->_options = $optionCollection->appendSelections($selectionCollection);
+            if ($this->getCanReadPrice() === false) {
+                foreach ($this->_options as $option) {
+                    if ($option->getSelections()) {
+                        foreach ($option->getSelections() as $selection) {
+                            $selection->setCanReadPrice($this->getCanReadPrice());
+                            $selection->setCanEditPrice($this->getCanEditPrice());
+                        }
+                    }
+                }
+            }
         }
         return $this->_options;
     }

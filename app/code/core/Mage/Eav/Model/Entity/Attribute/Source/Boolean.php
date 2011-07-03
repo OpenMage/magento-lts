@@ -81,24 +81,30 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
     }
 
     /**
-     * Retrieve Column(s) for Flat
+     * Retrieve flat column definition
      *
      * @return array
      */
     public function getFlatColums()
     {
-        $columns = array();
-        $columns[$this->getAttribute()->getAttributeCode()] = array(
-            'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-            'length'    => 1,
+        $attributeCode = $this->getAttribute()->getAttributeCode();
+        $column = array(
             'unsigned'  => false,
-            'nullable'   => true,
             'default'   => null,
-            'extra'     => null,
-            'comment'   => $this->getAttribute()->getAttributeCode() . ' column'
+            'extra'     => null
         );
 
-        return $columns;
+        if (Mage::helper('core')->useDbCompatibleMode()) {
+            $column['type']     = 'tinyint(1)';
+            $column['is_null']  = true;
+        } else {
+            $column['type']     = Varien_Db_Ddl_Table::TYPE_SMALLINT;
+            $column['length']   = 1;
+            $column['nullable'] = true;
+            $column['comment']  = $attributeCode . ' column';
+        }
+
+        return array($attributeCode => $column);
     }
 
     /**

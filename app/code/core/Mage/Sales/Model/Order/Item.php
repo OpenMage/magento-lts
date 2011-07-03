@@ -193,7 +193,8 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     const STATUS_INVOICED       = 9; // When qty ordered - [qty canceled + qty returned] = qty invoiced
     const STATUS_BACKORDERED    = 3; // When qty ordered - [qty canceled + qty returned] = qty backordered
     const STATUS_CANCELED       = 5; // When qty ordered = qty canceled
-    const STATUS_PARTIAL        = 6; // If [qty shipped or(max of two) qty invoiced + qty canceled + qty returned] < qty ordered
+    const STATUS_PARTIAL        = 6; // If [qty shipped or(max of two) qty invoiced + qty canceled + qty returned]
+                                     // < qty ordered
     const STATUS_MIXED          = 7; // All other combinations
     const STATUS_REFUNDED       = 8; // When qty ordered = qty refunded
 
@@ -317,6 +318,16 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             return 0;
         }
 
+        return $this->getSimpleQtyToShip();
+    }
+
+    /**
+     * Retrieve item qty available for ship
+     *
+     * @return float|integer
+     */
+    public function getSimpleQtyToShip()
+    {
         $qty = $this->getQtyOrdered()
             - $this->getQtyShipped()
             - $this->getQtyRefunded()

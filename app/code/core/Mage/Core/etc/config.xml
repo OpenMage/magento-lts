@@ -267,7 +267,6 @@
                 <host>localhost</host>
                 <port>25</port>
             </smtp>
-
             <media_storage_configuration>
                 <media_storage>0</media_storage>
                 <media_database>default_setup</media_database>

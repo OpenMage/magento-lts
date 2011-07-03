@@ -74,7 +74,6 @@ Load this update on every page when customer is logged out
         <reference name="top.links">
             <action method="addLink" translate="label title" module="customer"><label>Log In</label><url helper="customer/getLoginUrl"/><title>Log In</title><prepare/><urlParams/><position>100</position></action>
         </reference>
-        <remove name="wishlist_sidebar"></remove>
         <remove name="reorder"></remove>
     </customer_logged_out>
 
@@ -144,6 +143,9 @@ New customer registration
         <remove name="right"/>
         <remove name="left"/>
 
+        <reference name="head">
+            <action method="setTitle" translate="title" module="customer"><title>Forgot Your Password</title></action>
+        </reference>
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
             <action method="setHeaderTitle" translate="title" module="customer"><title>Password forgotten</title></action>

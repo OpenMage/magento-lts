@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Usa>
-            <version>1.6.0.0</version>
+            <version>1.6.0.1</version>
         </Mage_Usa>
     </modules>
     <global>
@@ -121,16 +121,18 @@
             </dhl>
             <fedex>
                 <account backend_model="adminhtml/system_config_backend_encrypted"/>
+                <meter_number backend_model="adminhtml/system_config_backend_encrypted"/>
+                <key backend_model="adminhtml/system_config_backend_encrypted"/>
+                <password backend_model="adminhtml/system_config_backend_encrypted"/>
                 <active>0</active>
                 <sallowspecific>0</sallowspecific>
-                <allowed_methods>PRIORITYOVERNIGHT,STANDARDOVERNIGHT,FIRSTOVERNIGHT,FEDEX2DAY,FEDEXEXPRESSSAVER,INTERNATIONALPRIORITY,INTERNATIONALECONOMY,INTERNATIONALFIRST,FEDEX1DAYFREIGHT,FEDEX2DAYFREIGHT,FEDEX3DAYFREIGHT,FEDEXGROUND,GROUNDHOMEDELIVERY,INTERNATIONALPRIORITY FREIGHT,INTERNATIONALECONOMY FREIGHT,EUROPEFIRSTINTERNATIONALPRIORITY</allowed_methods>
+                <allowed_methods>EUROPE_FIRST_INTERNATIONAL_PRIORITY,FEDEX_1_DAY_FREIGHT,FEDEX_2_DAY_FREIGHT,FEDEX_2_DAY,FEDEX_3_DAY_FREIGHT,FEDEX_EXPRESS_SAVER,FEDEX_GROUND,FIRST_OVERNIGHT,GROUND_HOME_DELIVERY,INTERNATIONAL_ECONOMY,INTERNATIONAL_ECONOMY_FREIGHT,INTERNATIONAL_FIRST,INTERNATIONAL_GROUNDINTERNATIONAL_PRIORITY,INTERNATIONAL_PRIORITY_FREIGHT,PRIORITY_OVERNIGHT,SMART_POSTSTANDARD_OVERNIGHT</allowed_methods>
                 <cutoff_cost/>
-                <dropoff>REGULARPICKUP</dropoff>
-                <free_method>FEDEXGROUND</free_method>
-                <gateway_url>https://gateway.fedex.com/GatewayDC</gateway_url>
+                <dropoff>REGULAR_PICKUP</dropoff>
+                <free_method>FEDEX_GROUND</free_method>
                 <handling>0</handling>
                 <model>usa/shipping_carrier_fedex</model>
-                <packaging>YOURPACKAGING</packaging>
+                <packaging>YOUR_PACKAGING</packaging>
                 <title>Federal Express</title>
                 <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
                 <max_package_weight>150</max_package_weight>
@@ -174,6 +176,7 @@
                 <cutoff_cost/>
                 <free_method/>
                 <gateway_url>http://production.shippingapis.com/ShippingAPI.dll</gateway_url>
+                <gateway_secure_url>https://secure.shippingapis.com/ShippingAPI.dll</gateway_secure_url>
                 <handling/>
                 <machinable>true</machinable>
                 <methods>Bound Printed Matter,Express Mail,Express Mail Flat Rate Envelope,Express Mail Flat Rate Envelope Hold For Pickup,Express Mail Flat-Rate Envelope Sunday/Holiday Guarantee,Express Mail Hold For Pickup,Express Mail International,Express Mail International Flat Rate Envelope,Express Mail PO to PO,Express Mail Sunday/Holiday Guarantee,First-Class Mail International Large Envelope,First-Class Mail International Letters,First-Class Mail International Package,First-Class,First-Class Mail,First-Class Mail Flat,First-Class Mail Large Envelope,First-Class Mail International,First-Class Mail Letter,First-Class Mail Parcel,First-Class Mail Package,Global Express Guaranteed (GXG),Global Express Guaranteed Non-Document Non-Rectangular,Global Express Guaranteed Non-Document Rectangular,Library Mail,Media Mail,Parcel Post,Priority Mail,Priority Mail Small Flat Rate Box,Priority Mail Medium Flat Rate Box,Priority Mail Large Flat Rate Box,Priority Mail Flat Rate Box,Priority Mail Flat Rate Envelope,Priority Mail International,Priority Mail International Flat Rate Box,Priority Mail International Flat Rate Envelope,Priority Mail International Small Flat Rate Box,Priority Mail International Medium Flat Rate Box,Priority Mail International Large Flat Rate Box,USPS GXG Envelopes</methods>
@@ -181,6 +184,7 @@
                 <size>REGULAR</size>
                 <title>United States Postal Service</title>
                 <userid backend_model="adminhtml/system_config_backend_encrypted"/>
+                <password backend_model="adminhtml/system_config_backend_encrypted"/>
                 <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
                 <max_package_weight>70</max_package_weight>
                 <handling_type>F</handling_type>

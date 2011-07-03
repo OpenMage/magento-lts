@@ -56,14 +56,21 @@ class Mage_ImportExport_Model_Resource_Import_Data
     public function getIterator()
     {
         $adapter = $this->_getWriteAdapter();
-        $stmt = $adapter->query(
-            $adapter->select()
-                ->from($this->getMainTable(), array('data'))
-                ->order('id ASC')
-        );
-        $stmt->setFetchMode(PDO::FETCH_NUM);
+        $select = $adapter->select()
+            ->from($this->getMainTable(), array('data'))
+            ->order('id ASC');
+        $stmt = $adapter->query($select);
 
-        return $stmt->getIterator();
+        $stmt->setFetchMode(Zend_Db::FETCH_NUM);
+        if ($stmt instanceof IteratorAggregate) {
+            $iterator = $stmt->getIterator();
+        } else {
+            // Statement doesn't support iterating, so fetch all records and create iterator ourself
+            $rows = $stmt->fetchAll();
+            $iterator = new ArrayIterator($rows);
+        }
+
+        return $iterator;
     }
 
     /**
@@ -115,7 +122,7 @@ class Mage_ImportExport_Model_Resource_Import_Data
     }
 
     /**
-     * Get next bunch of validatetd rows.
+     * Get next bunch of validated rows.
      *
      * @return array|null
      */

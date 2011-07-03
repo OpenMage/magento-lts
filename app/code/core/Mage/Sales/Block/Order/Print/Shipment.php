@@ -36,8 +36,8 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
 {
     /**
      * Tracks for Shippings
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $_tracks = array();
 
@@ -133,7 +133,11 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
      */
     public function getShipmentTracks($shipment)
     {
-        return isset($this->_tracks[$shipment->getId()]) ? $this->_tracks[$shipment->getId()] : null;
+        $tracks = array();
+        if (!empty($this->_tracks[$shipment->getId()])) {
+            $tracks = $this->_tracks[$shipment->getId()];
+        }
+        return $tracks;
     }
 
     /**

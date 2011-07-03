@@ -70,13 +70,18 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * @param string|null $placement area, that button should be displayed in ('header', 'footer', null)
      * @return Mage_Adminhtml_Block_Widget_Container
      */
-    protected function _addButton($id, $data, $level = 0, $sortOrder = 100, $area = 'header')
+    protected function _addButton($id, $data, $level = 0, $sortOrder = 0, $area = 'header')
     {
         if (!isset($this->_buttons[$level])) {
             $this->_buttons[$level] = array();
         }
         $this->_buttons[$level][$id] = $data;
         $this->_buttons[$level][$id]['area'] = $area;
+        if ($sortOrder) {
+            $this->_buttons[$level][$id]['sort_order'] = $sortOrder;
+        } else {
+            $this->_buttons[$level][$id]['sort_order'] = count($this->_buttons[$level]) * 10;
+        }
         return $this;
     }
 
@@ -90,7 +95,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * @param string|null $placement area, that button should be displayed in ('header', 'footer', null)
      * @return Mage_Adminhtml_Block_Widget_Container
      */
-    public function addButton($id, $data, $level = 0, $sortOrder = 100, $area = 'header')
+    public function addButton($id, $data, $level = 0, $sortOrder = 0, $area = 'header')
     {
         return $this->_addButton($id, $data, $level, $sortOrder, $area);
     }
@@ -216,7 +221,15 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     {
         $out = '';
         foreach ($this->_buttons as $level => $buttons) {
+            $_buttons = array();
             foreach ($buttons as $id => $data) {
+                $_buttons[$data['sort_order']]['id'] = $id;
+                $_buttons[$data['sort_order']]['data'] = $data;
+            }
+            ksort($_buttons);
+            foreach ($_buttons as $button) {
+                $id = $button['id'];
+                $data = $button['data'];
                 if ($area && isset($data['area']) && ($area != $data['area'])) {
                     continue;
                 }

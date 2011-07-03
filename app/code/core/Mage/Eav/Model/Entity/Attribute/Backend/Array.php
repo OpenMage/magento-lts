@@ -41,16 +41,13 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Array extends Mage_Eav_Model_Entit
      */
     public function beforeSave($object)
     {
-        $data = $object->getData($this->getAttribute()->getAttributeCode());
+        $attributeCode = $this->getAttribute()->getAttributeCode();
+        $data = $object->getData($attributeCode);
         if (is_array($data)) {
-            foreach ($data as $key => $value) {
-                if ($value === '') {
-                    unset($data[$key]);
-                }
-            }
-
-            $object->setData($this->getAttribute()->getAttributeCode(), implode(',', $data));
+            $data = array_filter($data);
+            $object->setData($attributeCode, implode(',', $data));
         }
+
         return parent::beforeSave($object);
     }
 }

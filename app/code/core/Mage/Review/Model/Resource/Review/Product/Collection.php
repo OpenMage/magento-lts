@@ -162,7 +162,9 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             $select->join(array('store' => $this->_reviewStoreTable),
                 'rt.review_id=store.review_id AND ' . $inCond,
                 array())
-            ->distinct(true);
+            ->group('rt.review_id');
+
+            $this->_useAnalyticFunction = true;
         } else {
             $select->join(array('store' => $this->_reviewStoreTable),
                 $adapter->quoteInto('rt.review_id=store.review_id AND store.store_id = ?', (int)$storesIds),

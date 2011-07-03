@@ -146,6 +146,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
         $this->addColumn('dest_zip', array(
             'header'    => Mage::helper('adminhtml')->__('Zip/Postal Code'),
             'index'     => 'dest_zip',
+            'default'   => '*',
         ));
 
         $label = Mage::getSingleton('shipping/carrier_tablerate')

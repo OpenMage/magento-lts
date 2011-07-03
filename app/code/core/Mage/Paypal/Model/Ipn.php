@@ -97,23 +97,22 @@ class Mage_Paypal_Model_Ipn
      */
     public function processIpnRequest(array $request, Zend_Http_Client_Adapter_Interface $httpAdapter = null)
     {
-        $this->_request = $request;
-        $this->_config = Mage::getModel('paypal/config'); // empty config model, without specific payment method
-        if (isset($request['test_ipn']) && 1 == $request['test_ipn']) {
-            $this->_config->sandboxFlag = true;
-        }
-        $this->_config->debug = true;
-
+        $this->_request   = $request;
         $this->_debugData = array('ipn' => $request);
         ksort($this->_debugData['ipn']);
 
         try {
-            if ($httpAdapter) {
-                $this->_postBack($httpAdapter);
-            }
             if (isset($this->_request['txn_type']) && 'recurring_payment' == $this->_request['txn_type']) {
+                $this->_getRecurringProfile();
+                if ($httpAdapter) {
+                    $this->_postBack($httpAdapter);
+                }
                 $this->_processRecurringProfile();
             } else {
+                $this->_getOrder();
+                if ($httpAdapter) {
+                    $this->_postBack($httpAdapter);
+                }
                 $this->_processOrder();
             }
         } catch (Exception $e) {

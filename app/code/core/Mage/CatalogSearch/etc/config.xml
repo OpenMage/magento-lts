@@ -65,9 +65,6 @@
                 </setup>
             </catalogsearch_setup>
         </resources>
-        <events>
-            
-        </events>
         <blocks>
             <catalogsearch>
                 <class>Mage_CatalogSearch_Block</class>

@@ -225,6 +225,33 @@ $tables = array(
             )
         ),
         'comment' => 'Paypal Certificate Table'
+    ),
+    $installer->getTable('sales/quote_payment') => array(
+        'columns' => array(
+            'paypal_payer_id' => array(
+                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
+                'length'    => 255,
+                'comment'   => 'Paypal Payer Id'
+            ),
+            'paypal_payer_status' => array(
+                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
+                'length'    => 255,
+                'comment'   => 'Paypal Payer Status'
+            ),
+            'paypal_correlation_id' => array(
+                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
+                'length'    => 255,
+                'comment'   => 'Paypal Correlation Id'
+            )
+        )
+    ),
+    $installer->getTable('sales/order') => array(
+        'columns' => array(
+            'paypal_ipn_customer_notified' => array(
+                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
+                'comment'   => 'Paypal Ipn Customer Notified'
+            )
+        )
     )
 );
 

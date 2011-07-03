@@ -37,6 +37,13 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
     protected $_optionRenderers = array();
     protected $_options         = null;
 
+    /**
+     * Default MAP renderer type
+     *
+     * @var string
+     */
+    protected $_mapRenderer = 'msrp_item';
+
     public function getOptions()
     {
         if (!$this->_options) {
@@ -108,9 +115,13 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                 $taxClassId = $_selection->getTaxClassId();
                 if ($taxClassId) {
                     $request = Mage::getSingleton('tax/calculation')->getRateRequest();
-                    $taxPercent = Mage::getSingleton('tax/calculation')->getRate($request->setProductClassId($taxClassId));
+                    $taxPercent = Mage::getSingleton('tax/calculation')->getRate(
+                        $request->setProductClassId($taxClassId)
+                    );
                 }
-                
+
+                //$canApplyMAP = Mage::helper('catalog')->canApplyMsrp($_selection);
+                $canApplyMAP = false;
                 $selection = array (
                     'qty'       => $_qty,
                     'customQty' => $_selection->getSelectionCanChangeQty(),
@@ -121,7 +132,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                     'tierPrice' => $tierPrices,
                     'name'      => $_selection->getName(),
                     'plusDisposition' => 0,
-                    'minusDisposition' => 0
+                    'minusDisposition' => 0,
+                    'canApplyMAP'      => $canApplyMAP
                 );
 
                 $responseObject = new Varien_Object();
@@ -159,7 +171,9 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             'basePrice'     => $coreHelper->currency($currentProduct->getPrice(), false, false),
             'priceType'     => $currentProduct->getPriceType(),
             'specialPrice'  => $currentProduct->getSpecialPrice(),
-            'includeTax'    => Mage::helper('tax')->priceIncludesTax() ? 'true' : 'false'
+            'includeTax'    => Mage::helper('tax')->priceIncludesTax() ? 'true' : 'false',
+            'isFixedPrice'  => $this->getProduct()->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED,
+            'isMAPAppliedDirectly' => Mage::helper('catalog')->canApplyMsrp($this->getProduct(), null, false)
         );
 
         if ($preconfiguredFlag && !empty($defaultValues)) {
@@ -182,5 +196,4 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
         return $this->getLayout()->createBlock($this->_optionRenderers[$option->getType()])
             ->setOption($option)->toHtml();
     }
-
 }

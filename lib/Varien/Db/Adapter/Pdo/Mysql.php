@@ -48,6 +48,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     const LENGTH_FOREIGN_NAME   = 64;
 
     /**
+     * Default class name for a DB statement.
+     *
+     * @var string
+     */
+    protected $_defaultStmtClass = 'Varien_Db_Statement_Pdo_Mysql';
+
+    /**
      * Current Transaction Level
      *
      * @var int
@@ -87,7 +94,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @var bool
      */
-    protected $_debug               = true;
+    protected $_debug               = false;
 
     /**
      * Minimum query duration time to be logged
@@ -101,7 +108,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @var bool
      */
-    protected $_logAllQueries       = true;
+    protected $_logAllQueries       = false;
 
     /**
      * Add to log call stack data (backtrace)
@@ -161,6 +168,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         Varien_Db_Ddl_Table::TYPE_TIMESTAMP     => 'timestamp',
         Varien_Db_Ddl_Table::TYPE_TEXT          => 'text',
         Varien_Db_Ddl_Table::TYPE_BLOB          => 'blob',
+        Varien_Db_Ddl_Table::TYPE_VARBINARY     => 'blob'
     );
 
     /**
@@ -176,6 +184,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         self::INTERVAL_MINUTE   => 'MINUTE',
         self::INTERVAL_SECOND   => 'SECOND',
     );
+
+    /**
+     * Hook callback to modify queries. Mysql specific property, designed only for backwards compatibility.
+     *
+     * @var array|null
+     */
+    protected $_queryHook = null;
 
     /**
      * Begin new DB transaction for connection
@@ -423,6 +438,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             }
         }
 
+        // Special query hook
+        if ($this->_queryHook) {
+            $object = $this->_queryHook['object'];
+            $method = $this->_queryHook['method'];
+            $object->$method($sql, $bind);
+        }
+
         return $this;
     }
 
@@ -521,6 +543,22 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $sql = strtr($sql, $map);
 
         return $this;
+    }
+
+    /**
+     * Sets (removes) query hook.
+     *
+     * $hook must be either array with 'object' and 'method' entries, or null to remove hook.
+     * Previous hook is returned.
+     *
+     * @param array $hook
+     * @return mixed
+     */
+    public function setQueryHook($hook)
+    {
+        $prev = $this->_queryHook;
+        $this->_queryHook = $hook;
+        return $prev;
     }
 
     /**
@@ -649,7 +687,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string $tableName
      * @param string $keyName
      * @param string $schemaName
-     * @return Varien_Db_Adapter_Pdo_Mysql
+     * @return bool|Zend_Db_Statement_Interface
      */
     public function dropKey($tableName, $keyName, $schemaName = null)
     {
@@ -1086,8 +1124,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Retrieve table index information
      *
-     * The return value is an associative array keyed by the UPPERCASE index key,
-     * as returned by the RDBMS.
+     * The return value is an associative array keyed by the UPPERCASE index key (except for primary key,
+     * that is always stored under 'PRIMARY' key) as returned by the RDBMS.
      *
      * The value of each array element is an associative array
      * with the following keys:
@@ -1096,7 +1134,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * TABLE_NAME       => string; name of the table
      * KEY_NAME         => string; the original index name
      * COLUMNS_LIST     => array; array of index column names
-     * INDEX_TYPE       => string; create index type
+     * INDEX_TYPE       => string; lowercase, create index type
      * INDEX_METHOD     => string; index method using
      * type             => string; see INDEX_TYPE
      * fields           => array; see COLUMNS_LIST
@@ -1140,10 +1178,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                         'TABLE_NAME'    => $tableName,
                         'KEY_NAME'      => $row[$fieldKeyName],
                         'COLUMNS_LIST'  => array($row[$fieldColumn]),
-                        'INDEX_TYPE'    => strtoupper($indexType),
+                        'INDEX_TYPE'    => strtolower($indexType),
                         'INDEX_METHOD'  => $row[$fieldIndexType],
-                        'type'          => $indexType, // for compatible
-                        'fields'        => array($row[$fieldColumn]) // for compatible
+                        'type'          => strtolower($indexType), // for compatibility
+                        'fields'        => array($row[$fieldColumn]) // for compatibility
                     );
                 }
             }
@@ -1161,8 +1199,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string|array $fields
      * @param string $indexType
      * @param string $schemaName
-     * @return Varien_Db_Adapter_Pdo_Mysql
-
+     * @return Zend_Db_Statement_Interface
      */
     public function addKey($tableName, $indexName, $fields, $indexType = 'index', $schemaName = null)
     {
@@ -1508,6 +1545,16 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $ddl = $this->loadDdlCache($cacheKey, self::DDL_DESCRIBE);
         if ($ddl === false) {
             $ddl = parent::describeTable($tableName, $schemaName);
+            /**
+             * Remove bug in some MySQL versions, when int-column without default value is described as:
+             * having default empty string value
+             */
+            $affected = array('tinyint', 'smallint', 'mediumint', 'int', 'bigint');
+            foreach ($ddl as $key => $columnData) {
+                if (($columnData['DEFAULT'] === '') && (array_search($columnData['DATA_TYPE'], $affected) !== FALSE)) {
+                    $ddl[$key]['DEFAULT'] = null;
+                }
+            }
             $this->saveDdlCache($cacheKey, self::DDL_DESCRIBE, $ddl);
         }
 
@@ -1536,8 +1583,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 $options['unsigned']  = true;
             }
             if ($columnData['NULLABLE'] === false
-                && !($type == Varien_Db_Ddl_Table::TYPE_TEXT
-                && strlen($columnData['DEFAULT']) != 0)
+                && !($type == Varien_Db_Ddl_Table::TYPE_TEXT && strlen($columnData['DEFAULT']) != 0)
                 ) {
                 $options['nullable'] = false;
             }
@@ -1568,7 +1614,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $fields = $indexData['COLUMNS_LIST'];
             $options = array();
             $indexType = '';
-            if ($indexData['INDEX_TYPE'] == 'UNIQUE') {
+            if ($indexData['INDEX_TYPE'] == Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE) {
                 $options = array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE);
                 $indexType = Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE;
             }
@@ -2116,6 +2162,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 break;
             case Varien_Db_Ddl_Table::TYPE_TEXT:
             case Varien_Db_Ddl_Table::TYPE_BLOB:
+            case Varien_Db_Ddl_Table::TYPE_VARBINARY:
                 if (empty($options['LENGTH'])) {
                     $length = Varien_Db_Ddl_Table::DEFAULT_TEXT_SIZE;
                 } else {
@@ -2269,7 +2316,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string|array $fields  the table column name or array of ones
      * @param string $indexType     the index type
      * @param string $schemaName
-     * @return Varien_Db_Adapter_Pdo_Mysql
+     * @return Zend_Db_Statement_Interface
      * @throws Zend_Db_Exception|Exception
      */
     public function addIndex($tableName, $indexName, $fields,
@@ -2280,7 +2327,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         $query = sprintf('ALTER TABLE %s', $this->quoteIdentifier($this->_getTableName($tableName, $schemaName)));
         if (isset($keyList[strtoupper($indexName)])) {
-            if (strtolower($keyList[strtoupper($indexName)]['INDEX_TYPE']) == Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY) {
+            if ($keyList[strtoupper($indexName)]['INDEX_TYPE'] == Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY) {
                 $query .= ' DROP PRIMARY KEY,';
             } else {
                 $query .= sprintf(' DROP INDEX %s,', $this->quoteIdentifier($indexName));
@@ -2322,7 +2369,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $cycle = true;
         while ($cycle === true) {
             try {
-                $this->raw_query($query);
+                $result = $this->raw_query($query);
                 $cycle  = false;
             } catch (Exception $e) {
                 if (in_array(strtolower($indexType), array('primary', 'unique'))) {
@@ -2339,7 +2386,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         $this->resetDdlCache($tableName, $schemaName);
 
-        return $this;
+        return $result;
     }
 
     /**
@@ -2348,14 +2395,14 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string $tableName
      * @param string $keyName
      * @param string $schemaName
-     * @return Varien_Db_Adapter_Pdo_Mysql
+     * @return bool|Zend_Db_Statement_Interface
      */
     public function dropIndex($tableName, $keyName, $schemaName = null)
     {
         $indexList = $this->getIndexList($tableName, $schemaName);
         $keyName = strtoupper($keyName);
         if (!isset($indexList[$keyName])) {
-            return $this;
+            return true;
         }
 
         if ($keyName == 'PRIMARY') {
@@ -3400,5 +3447,17 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
         return intval($size);
+    }
+
+    /**
+     * Converts fetched blob into raw binary PHP data.
+     * The MySQL drivers do it nice, no processing required.
+     *
+     * @mixed $value
+     * @return mixed
+     */
+    public function decodeVarbinary($value)
+    {
+        return $value;
     }
 }

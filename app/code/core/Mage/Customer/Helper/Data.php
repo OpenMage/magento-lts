@@ -40,6 +40,11 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     const REFERER_QUERY_PARAM_NAME = 'referer';
 
     /**
+     * Config name for Redirect Customer to Account Dashboard after Logging in setting
+     */
+    const XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD = 'customer/startup/redirect_dashboard';
+
+    /**
      * Customer groups collection
      *
      * @var Mage_Customer_Model_Entity_Group_Collection
@@ -129,7 +134,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
 
         $referer = $this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME);
 
-        if (!$referer && !Mage::getStoreConfigFlag('customer/startup/redirect_dashboard')) {
+        if (!$referer && !Mage::getStoreConfigFlag(self::XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD)) {
             if (!Mage::getSingleton('customer/session')->getNoReferer()) {
                 $referer = Mage::getUrl('*/*/*', array('_current' => true, '_use_rewrite' => true));
                 $referer = Mage::helper('core')->urlEncode($referer);

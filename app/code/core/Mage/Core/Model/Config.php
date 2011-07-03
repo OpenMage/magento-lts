@@ -582,6 +582,33 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
+     * Getter for section configuration object
+     *
+     * @param array $path
+     * @return Mage_Core_Model_Config_Element
+     */
+    protected function _getSectionConfig($path)
+    {
+        $section = $path[0];
+        if (!isset($this->_cacheSections[$section])) {
+            return false;
+        }
+        $sectioPath = array_slice($path, 0, $this->_cacheSections[$section]+1);
+        $sectionKey = implode('_', $sectioPath);
+
+        if (!isset($this->_cacheLoadedSections[$sectionKey])) {
+            Varien_Profiler::start('init_config_section:' . $sectionKey);
+            $this->_cacheLoadedSections[$sectionKey] = $this->_loadSectionCache($sectionKey);
+            Varien_Profiler::stop('init_config_section:' . $sectionKey);
+        }
+
+        if ($this->_cacheLoadedSections[$sectionKey] === false) {
+            return false;
+        }
+        return $this->_cacheLoadedSections[$sectionKey];
+    }
+
+    /**
      * Get node value from cached section data
      *
      * @param   array $path
@@ -590,21 +617,12 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function getSectionNode($path)
     {
         $section    = $path[0];
-        $recursion  = $this->_cacheSections[$section];
-        $sectioPath = array_slice($path, 0, $recursion+1);
-        $path       = array_slice($path, $recursion+1);
-        $sectionKey = implode('_', $sectioPath);
-
-        if (!isset($this->_cacheLoadedSections[$sectionKey])) {
-            Varien_Profiler::start('mage::app::init::config::section::'.$sectionKey);
-            $this->_cacheLoadedSections[$sectionKey] = $this->_loadSectionCache($sectionKey);
-            Varien_Profiler::stop('mage::app::init::config::section::'.$sectionKey);
+        $config     = $this->_getSectionConfig($path);
+        $path       = array_slice($path, $this->_cacheSections[$section]+1);
+        if ($config) {
+            return $config->descend($path);
         }
-
-        if ($this->_cacheLoadedSections[$sectionKey] === false) {
-            return false;
-        }
-        return $this->_cacheLoadedSections[$sectionKey]->descend($path);
+        return false;
     }
 
     /**
@@ -648,6 +666,29 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
         return  parent::getNode($path);
     }
+
+    /**
+     * Create node by $path and set its value.
+     *
+     * @param string $path separated by slashes
+     * @param string $value
+     * @param bool $overwrite
+     * @return Varien_Simplexml_Config
+     */
+    public function setNode($path, $value, $overwrite = true)
+    {
+        if ($this->_useCache && ($path !== null)) {
+            $sectionPath = explode('/', $path);
+            $config = $this->_getSectionConfig($sectionPath);
+            if ($config) {
+                $sectionPath = array_slice($sectionPath, $this->_cacheSections[$sectionPath[0]]+1);
+                $sectionPath = implode('/', $sectionPath);
+                $config->setNode($sectionPath, $value, $overwrite);
+            }
+        }
+        return parent::setNode($path, $value, $overwrite);
+    }
+
 
     /**
      * Retrive Declared Module file list

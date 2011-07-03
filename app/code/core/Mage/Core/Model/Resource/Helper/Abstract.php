@@ -190,21 +190,24 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
     }
 
     /**
-     * Converts old pre-MMDB column type made for MySQL to new cross-db column DDL definition.
+     * Converts old pre-MMDB column definition for MySQL to new cross-db column DDL definition.
      * Used to convert data from 3rd party extensions that hasn't been updated to MMDB style yet.
      *
-     * E.g. Converts 'varchar(255)' to array('type' => Varien_Db_Ddl_Table::TYPE_TEXT, 'length' => 255)
+     * E.g. Converts type 'varchar(255)' to array('type' => Varien_Db_Ddl_Table::TYPE_TEXT, 'length' => 255)
      *
-     * @param string $definition
+     * @param array $column
      * @return array
      */
-    public function convertOldColumnType2Ddl($definition) 
+    public function convertOldColumnDefinition($column)
     {
         // Match type and size - e.g. varchar(100) or decimal(12,4) or int
-        $matches = array();
-        $definition = trim($definition);
+        $matches    = array();
+        $definition = trim($column['type']);
         if (!preg_match('/([^(]*)(\\((.*)\\))?/', $definition, $matches)) {
-            throw Mage::exception('Mage_Core', Mage::helper('core')->__("Wrong old style column type definition: {$definition}."));
+            throw Mage::exception(
+                'Mage_Core',
+                Mage::helper('core')->__("Wrong old style column type definition: {$definition}.")
+            );
         }
 
         $length = null;
@@ -226,42 +229,42 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
             case 'text':
                 $length = $proposedLength;
                 if (!$length) {
-                    $length = 65535;
+                    $length = '64k';
                 }
                 $type = Varien_Db_Ddl_Table::TYPE_TEXT;
                 break;
             case 'mediumtext':
                 $length = $proposedLength;
                 if (!$length) {
-                    $length = 16777215;
+                    $length = '16M';
                 }
                 $type = Varien_Db_Ddl_Table::TYPE_TEXT;
                 break;
             case 'longtext':
                 $length = $proposedLength;
                 if (!$length) {
-                    $length = 4294967295;
+                    $length = '4G';
                 }
                 $type = Varien_Db_Ddl_Table::TYPE_TEXT;
                 break;
             case 'blob':
                 $length = $proposedLength;
                 if (!$length) {
-                    $length = 65535;
+                    $length = '64k';
                 }
                 $type = Varien_Db_Ddl_Table::TYPE_BLOB;
                 break;
             case 'mediumblob':
                 $length = $proposedLength;
                 if (!$length) {
-                    $length = 16777215;
+                    $length = '16M';
                 }
                 $type = Varien_Db_Ddl_Table::TYPE_BLOB;
                 break;
             case 'longblob':
                 $length = $proposedLength;
                 if (!$length) {
-                    $length = 4294967295;
+                    $length = '4G';
                 }
                 $type = Varien_Db_Ddl_Table::TYPE_BLOB;
                 break;
@@ -293,13 +296,28 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 $type = Varien_Db_Ddl_Table::TYPE_DATE;
                 break;
             default:
-                throw Mage::exception('Mage_Core', Mage::helper('core')->__("Unknown old style column type definition: {$definition}."));
+                throw Mage::exception(
+                    'Mage_Core',
+                    Mage::helper('core')->__("Unknown old style column type definition: {$definition}.")
+                );
         }
 
-        return array(
-            'type' => $type,
-            'length' => $length
+        $result = array(
+            'type'     => $type,
+            'length'   => $length,
+            'unsigned' => $column['unsigned'],
+            'nullable' => $column['is_null'],
+            'default'  => $column['default'],
+            'identity' => stripos($column['extra'], 'auto_increment') !== false
         );
+
+        /**
+         * Process the case when 'is_null' prohibits null value, and 'default' proposed to be null.
+         * It just means that default value not specified, and we must remove it from column definition.
+         */
+        if (false === $column['is_null'] && null === $column['default']) {
+            unset($result['default']);
+        }
 
         return $result;
     }

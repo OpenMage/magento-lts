@@ -31,7 +31,8 @@
  * @package     Mage_Downloadable
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable
+    extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
 
     /**
@@ -146,13 +147,16 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable ex
 
         $accordion->addItem('samples', array(
             'title'   => Mage::helper('adminhtml')->__('Samples'),
-            'content' => $this->getLayout()->createBlock('downloadable/adminhtml_catalog_product_edit_tab_downloadable_samples')->toHtml(),
+            'content' => $this->getLayout()
+                ->createBlock('downloadable/adminhtml_catalog_product_edit_tab_downloadable_samples')->toHtml(),
             'open'    => false,
         ));
 
         $accordion->addItem('links', array(
             'title'   => Mage::helper('adminhtml')->__('Links'),
-            'content' => $this->getLayout()->createBlock('downloadable/adminhtml_catalog_product_edit_tab_downloadable_links')->toHtml(),
+            'content' => $this->getLayout()->createBlock(
+                'downloadable/adminhtml_catalog_product_edit_tab_downloadable_links',
+                'catalog.product.edit.tab.downloadable.links')->toHtml(),
             'open'    => true,
         ));
 

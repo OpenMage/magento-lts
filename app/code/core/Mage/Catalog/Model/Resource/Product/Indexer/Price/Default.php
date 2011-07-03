@@ -235,7 +235,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
         $currentDate    = $write->getDatePartSql('cwd.website_date');
 
         $specialFromDate    = $write->getDatePartSql($specialFrom);
-        $specialToDate      = $write->getDatePartSql($specialFrom);
+        $specialToDate      = $write->getDatePartSql($specialTo);
 
         $specialFromUse     = $write->getCheckSql("{$specialFromDate} <= {$currentDate}", '1', '0');
         $specialToUse       = $write->getCheckSql("{$specialToDate} >= {$currentDate}", '1', '0');

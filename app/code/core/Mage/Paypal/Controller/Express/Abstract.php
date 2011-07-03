@@ -254,6 +254,14 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     public function placeOrderAction()
     {
         try {
+            $requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds();
+            if ($requiredAgreements) {
+                $postedAgreements = array_keys($this->getRequest()->getPost('agreement', array()));
+                if (array_diff($requiredAgreements, $postedAgreements)) {
+                    Mage::throwException(Mage::helper('paypal')->__('Please agree to all the terms and conditions before placing the order.'));
+                }
+            }
+
             $this->_initCheckout();
             $this->_checkout->place($this->_initToken());
 

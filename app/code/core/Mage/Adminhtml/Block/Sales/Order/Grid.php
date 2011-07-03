@@ -195,6 +195,11 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
              'url'  => $this->getUrl('*/sales_order/pdfdocs'),
         ));
 
+        $this->getMassactionBlock()->addItem('print_shipping_label', array(
+             'label'=> Mage::helper('sales')->__('Print Shipping Labels'),
+             'url'  => $this->getUrl('*/sales_order_shipment/massPrintShippingLabel'),
+        ));
+
         return $this;
     }
 

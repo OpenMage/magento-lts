@@ -134,16 +134,24 @@ $table = $installer->getConnection()
         ), 'Store ID')
     ->addColumn('data_index', Varien_Db_Ddl_Table::TYPE_TEXT, '4g', array(
         ), 'Data index')
-    ->addIndex($installer->getIdxName('catalogsearch/fulltext', array('product_id', 'store_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex(
+        $installer->getIdxName(
+            'catalogsearch/fulltext',
+            array('product_id', 'store_id'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
         array('product_id', 'store_id'),
         array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
-    ->addIndex($installer->getIdxName('catalogsearch/fulltext', 'data_index', Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT),
+    ->addIndex(
+        $installer->getIdxName(
+            'catalogsearch/fulltext',
+            'data_index',
+            Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT
+         ),
         'data_index',
         array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT))
-    ->setOption('type', 'MyISAM')    
+    ->setOption('type', 'MyISAM')
     ->setComment('Catalog search result table');
 $installer->getConnection()->createTable($table);
 
-
 $installer->endSetup();
- 

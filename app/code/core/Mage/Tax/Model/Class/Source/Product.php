@@ -27,6 +27,11 @@
 
 class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+    /**
+     * Get all options
+     *
+     * @return array
+     */
     public function getAllOptions($withEmpty = false)
     {
         if (is_null($this->_options)) {
@@ -62,32 +67,44 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
         return false;
     }
 
+    /**
+     * Convert to options array
+     *
+     * @return array
+     */
     public function toOptionArray()
     {
         return $this->getAllOptions();
     }
 
     /**
-     * Get Column(s) names for flat data building
+     * Retrieve flat column definition
      *
      * @return array
      */
     public function getFlatColums()
     {
-        $columns = array();
-        $columns[$this->getAttribute()->getAttributeCode()] = array(
-            'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-            'unsigned'  => false,
-            'nullable'   => true,
+        $attributeCode = $this->getAttribute()->getAttributeCode();
+        $column = array(
+            'unsigned'  => true,
             'default'   => null,
-            'extra'     => null,
-            'comment'   => $this->getAttribute()->getAttributeCode() . ' tax column'
+            'extra'     => null
         );
-        return $columns;
+
+        if (Mage::helper('core')->useDbCompatibleMode()) {
+            $column['type']     = 'int';
+            $column['is_null']  = true;
+        } else {
+            $column['type']     = Varien_Db_Ddl_Table::TYPE_INTEGER;
+            $column['nullable'] = true;
+            $column['comment']  = $attributeCode . ' tax column';
+        }
+
+        return array($attributeCode => $column);
    }
 
     /**
-     * Retrieve Select for update Attribute value in flat table
+     * Retrieve Select for update attribute value in flat table
      *
      * @param   int $store
      * @return  Varien_Db_Select|null

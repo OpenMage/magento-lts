@@ -35,6 +35,13 @@
 class Mage_Sales_Model_Observer
 {
     /**
+     * Expire quotes additional fields to filter
+     *
+     * @var array
+     */
+    protected $_expireQuotesFilterFields = array();
+
+    /**
      * Clean expired quotes (cron process)
      *
      * @param Mage_Cron_Model_Schedule $schedule
@@ -42,18 +49,47 @@ class Mage_Sales_Model_Observer
      */
     public function cleanExpiredQuotes($schedule)
     {
+        Mage::dispatchEvent('clear_expired_quotes_before', array('sales_observer' => $this));
+
         $lifetimes = Mage::getConfig()->getStoresConfigByPath('checkout/cart/delete_quote_after');
         foreach ($lifetimes as $storeId=>$lifetime) {
             $lifetime *= 86400;
 
+            /** @var $quotes Mage_Sales_Model_Mysql4_Quote_Collection */
             $quotes = Mage::getModel('sales/quote')->getCollection();
-            /* @var $quotes Mage_Sales_Model_Mysql4_Quote_Collection */
 
             $quotes->addFieldToFilter('store_id', $storeId);
             $quotes->addFieldToFilter('updated_at', array('to'=>date("Y-m-d", time()-$lifetime)));
             $quotes->addFieldToFilter('is_active', 0);
+
+            foreach ($this->getExpireQuotesAdditionalFilterFields() as $field => $condition) {
+                $quotes->addFieldToFilter($field, $condition);
+            }
+
             $quotes->walk('delete');
         }
+        return $this;
+    }
+
+    /**
+     * Retrieve expire quotes additional fields to filter
+     *
+     * @return array
+     */
+    public function getExpireQuotesAdditionalFilterFields()
+    {
+        return $this->_expireQuotesFilterFields;
+    }
+
+    /**
+     * Set expire quotes additional fields to filter
+     *
+     * @param array $fields
+     * @return Mage_Sales_Model_Observer
+     */
+    public function setExpireQuotesAdditionalFilterFields(array $fields)
+    {
+        $this->_expireQuotesFilterFields = $fields;
         return $this;
     }
 
@@ -208,15 +244,14 @@ class Mage_Sales_Model_Observer
     {
         // replace the element of recurring payment profile field with a form
         $profileElement = $observer->getEvent()->getProductElement();
-        $block = Mage::app()->getLayout()->createBlock('sales/adminhtml_recurring_profile_edit_form')
-            ->setParentElement($profileElement)
-            ->setProductEntity($observer->getEvent()->getProduct())
-        ;
+        $block = Mage::app()->getLayout()->createBlock('sales/adminhtml_recurring_profile_edit_form',
+            'adminhtml_recurring_profile_edit_form')->setParentElement($profileElement)
+            ->setProductEntity($observer->getEvent()->getProduct());
         $observer->getEvent()->getResult()->output = $block->toHtml();
 
         // make the profile element dependent on is_recurring
-        $dependencies = Mage::app()->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
-            ->addFieldMap('is_recurring', 'product[is_recurring]')
+        $dependencies = Mage::app()->getLayout()->createBlock('adminhtml/widget_form_element_dependence',
+            'adminhtml_recurring_profile_edit_form_dependence')->addFieldMap('is_recurring', 'product[is_recurring]')
             ->addFieldMap($profileElement->getHtmlId(), $profileElement->getName())
             ->addFieldDependence($profileElement->getName(), 'product[is_recurring]', '1')
             ->addConfigOptions(array('levels_up' => 2));
@@ -237,6 +272,59 @@ class Mage_Sales_Model_Observer
         if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/use')) {
             $observer->getEvent()->getResult()->isAvailable = false;
         }
+    }
+
+    /**
+     * Set new customer group to all his quotes
+     *
+     * @param  Varien_Event_Observer $observer
+     * @return Mage_Sales_Model_Observer
+     */
+    public function customerSaveAfter(Varien_Event_Observer $observer)
+    {
+        /** @var $customer Mage_Customer_Model_Customer */
+        $customer = $observer->getEvent()->getCustomer();
+
+        if ($customer->getGroupId() !== $customer->getOrigData('group_id')) {
+            /** @var $quote Mage_Sales_Model_Quote */
+            $quote = Mage::getSingleton('sales/quote');
+
+            foreach (Mage::app()->getStores() as $store) {
+                $quote->setStore($store);
+                $quote->loadByCustomer($customer);
+
+                if ($quote->getId()) {
+                    $quote->setCustomerGroupId($customer->getGroupId());
+                    $quote->collectTotals();
+                    $quote->save();
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set Quote information about MSRP price enabled
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function setQuoteCanApplyMsrp(Varien_Event_Observer $observer)
+    {
+        /** @var $quote Mage_Sales_Model_Quote */
+        $quote = $observer->getEvent()->getQuote();
+
+        $canApplyMsrp = false;
+        if (Mage::helper('catalog')->isMsrpEnabled()) {
+            foreach ($quote->getAllAddresses() as $adddress) {
+                if ($adddress->getCanApplyMsrp()) {
+                    $canApplyMsrp = true;
+                    break;
+                }
+            }
+        }
+
+        $quote->setCanApplyMsrp($canApplyMsrp);
     }
 }
 

@@ -405,6 +405,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     {
         $entity    = $this->getEntity();
         $uploader  = new Mage_Core_Model_File_Uploader(self::FIELD_NAME_SOURCE_FILE);
+        $uploader->skipDbProcessing(true);
         $result    = $uploader->save(self::getWorkingDir());
         $extension = pathinfo($result['file'], PATHINFO_EXTENSION);
 
@@ -414,9 +415,6 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
         }
         $sourceFile = self::getWorkingDir() . $entity;
 
-        if (($tenantId = Mage::getConfig()->getOptions()->getTenantId())) {
-            $sourceFile .= '_' . $tenantId;
-        }
         $sourceFile .= '.' . $extension;
 
         if (file_exists($sourceFile)) {

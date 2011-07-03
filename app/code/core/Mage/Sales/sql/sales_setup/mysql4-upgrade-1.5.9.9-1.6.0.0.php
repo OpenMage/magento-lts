@@ -2325,26 +2325,6 @@ $tables = array(
                 'default'   => '0',
                 'comment'   => 'Cc Ss Start Year'
             ),
-            'cybersource_token' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 255,
-                'comment'   => 'Cybersource Token'
-            ),
-            'paypal_correlation_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 255,
-                'comment'   => 'Paypal Correlation Id'
-            ),
-            'paypal_payer_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 255,
-                'comment'   => 'Paypal Payer Id'
-            ),
-            'paypal_payer_status' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 255,
-                'comment'   => 'Paypal Payer Status'
-            ),
             'po_number' => array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
@@ -2364,16 +2344,6 @@ $tables = array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'Additional Information'
-            ),
-            'ideal_issuer_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 255,
-                'comment'   => 'Ideal Issuer Id'
-            ),
-            'ideal_issuer_list' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => '64K',
-                'comment'   => 'Ideal Issuer List'
             )
         ),
         'comment' => 'Sales Flat Quote Payment'
@@ -2878,10 +2848,6 @@ $tables = array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'comment'   => 'Email Sent'
-            ),
-            'paypal_ipn_customer_notified' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Paypal Ipn Customer Notified'
             ),
             'quote_address_id' => array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
@@ -3939,11 +3905,6 @@ $tables = array(
                 'precision' => 12,
                 'comment'   => 'Base Amount Canceled'
             ),
-            'ideal_transaction_checked' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'unsigned'  => true,
-                'comment'   => 'Ideal Transaction Checked'
-            ),
             'quote_payment_id' => array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'comment'   => 'Quote Payment Id'
@@ -3983,16 +3944,6 @@ $tables = array(
                 'length'    => 255,
                 'comment'   => 'Cc Secure Verify'
             ),
-            'cybersource_token' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 255,
-                'comment'   => 'Cybersource Token'
-            ),
-            'ideal_issuer_title' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 255,
-                'comment'   => 'Ideal Issuer Title'
-            ),
             'protection_eligibility' => array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
@@ -4017,11 +3968,6 @@ $tables = array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Echeck Type'
-            ),
-            'paybox_question_number' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 255,
-                'comment'   => 'Paybox Question Number'
             ),
             'cc_debug_response_serialized' => array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
@@ -4057,11 +4003,6 @@ $tables = array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Cc Type'
-            ),
-            'ideal_issuer_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 255,
-                'comment'   => 'Ideal Issuer Id'
             ),
             'po_number' => array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
@@ -4122,11 +4063,6 @@ $tables = array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Cc Trans Id'
-            ),
-            'flo2cash_account_id' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 255,
-                'comment'   => 'Flo2cash Account Id'
             ),
             'paybox_request_number' => array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
@@ -4418,11 +4354,6 @@ $tables = array(
             'shipping_address_id' => array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'comment'   => 'Shipping Address Id'
-            ),
-            'cybersource_token' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 255,
-                'comment'   => 'Cybersource Token'
             ),
             'store_currency_code' => array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
@@ -5257,11 +5188,6 @@ $tables = array(
             'invoice_id' => array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'comment'   => 'Invoice Id'
-            ),
-            'cybersource_token' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 255,
-                'comment'   => 'Cybersource Token'
             ),
             'store_currency_code' => array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,

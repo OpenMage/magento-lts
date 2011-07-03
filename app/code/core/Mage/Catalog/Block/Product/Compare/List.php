@@ -56,6 +56,13 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     protected $_useLinkForAsLowAs = false;
 
     /**
+     * Customer id
+     *
+     * @var null|int
+     */
+    protected $_customerId = null;
+
+    /**
      * Retrieve url for adding product to wishlist with params
      *
      * @param Mage_Catalog_Model_Product $product
@@ -103,8 +110,9 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
 
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $this->_items->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
-            }
-            else {
+            } elseif ($this->_customerId) {
+                $this->_items->setCustomerId($this->_customerId);
+            } else {
                 $this->_items->setVisitorId(Mage::getSingleton('log/visitor')->getId());
             }
 
@@ -148,7 +156,9 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
             return Mage::helper('catalog')->__('N/A');
         }
 
-        if ($attribute->getSourceModel() || in_array($attribute->getFrontendInput(), array('select','boolean','multiselect'))) {
+        if ($attribute->getSourceModel()
+            || in_array($attribute->getFrontendInput(), array('select','boolean','multiselect'))
+        ) {
             //$value = $attribute->getSource()->getOptionText($product->getData($attribute->getAttributeCode()));
             $value = $attribute->getFrontend()->getValue($product);
         } else {
@@ -165,5 +175,17 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     public function getPrintUrl()
     {
         return $this->getUrl('*/*/*', array('_current'=>true, 'print'=>1));
+    }
+
+    /**
+     * Setter for customer id
+     *
+     * @param int $id
+     * @return Mage_Catalog_Block_Product_Compare_List
+     */
+    public function setCustomerId($id)
+    {
+        $this->_customerId = $id;
+        return $this;
     }
 }

@@ -93,11 +93,13 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
         $attributeTable = $attribute->getBackend()->getTable();
         $attributeCode  = $attribute->getAttributeCode();
 
-        $joinConditionTemplate = "e.entity_id = %s.entity_id"
+        $joinConditionTemplate = "%s.entity_id = %s.entity_id"
             ." AND %s.entity_type_id = ".$attribute->getEntityTypeId()
             ." AND %s.attribute_id = ".$attribute->getId()
             ." AND %s.store_id = %d";
-        $joinCondition = sprintf($joinConditionTemplate, 't1', 't1', 't1', 't1', Mage_Core_Model_App::ADMIN_STORE_ID);
+        $joinCondition = sprintf($joinConditionTemplate,
+            'e', 't1', 't1', 't1', 't1',
+            Mage_Core_Model_App::ADMIN_STORE_ID);
         if ($attribute->getFlatAddChildData()) {
             $joinCondition .= ' AND e.child_id = t1.entity_id';
         }
@@ -111,7 +113,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
                 array())
             ->joinLeft(
                 array('t2' => $attributeTable),
-                sprintf($joinConditionTemplate, 't2', 't2', 't2', 't2', $store),
+                sprintf($joinConditionTemplate, 't1', 't2', 't2', 't2', 't2', $store),
                 array($attributeCode => $valueExpr));
         if (($attribute->getFrontend()->getInputType() != 'multiselect') && $hasValueField) {
             $valueIdExpr  = $adapter->getCheckSql('to2.value_id > 0', 'to1.value', 'to2.value');

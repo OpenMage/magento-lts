@@ -140,7 +140,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Init mapping array of short fields to
      * its full names
-     * 
+     *
      * @resturn Varien_Object
      */
     protected function _initOldFieldsMap()
@@ -150,7 +150,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             'use_config_enable_qty_increments'   => 'use_config_enable_qty_inc'
         );
     }
-    
+
     /**
      * Retrieve stock identifier
      *
@@ -319,7 +319,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
         }
         if (!array_key_exists($customerGroupId, $this->_minSaleQtyCache)) {
-            $minSaleQty = null;
             if ($this->getUseConfigMinSaleQty()) {
                 $minSaleQty = Mage::helper('cataloginventory/minsaleqty')->getConfigValue($customerGroupId);
             } else {
@@ -627,6 +626,10 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                             $_helper->__('The requested quantity for "%s" is not available.', $this->getProductName())
                         );
                     }
+                }
+            } else {
+                if (!$this->getIsChildItem()) {
+                    $this->setOrderedItems($qty + (int)$this->getOrderedItems());
                 }
             }
             // no return intentionally

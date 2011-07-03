@@ -436,6 +436,7 @@ tr.summary-details-excluded { font-style:italic; }
 .header .logo strong { position:absolute; top:-999em; left:-999em; width:0; height:0; font-size:0; line-height:0; text-indent:-999em; overflow:hidden; }
 .header h1.logo { margin:0; padding:0; }
 .header .welcome-msg { font-weight:bold; text-align:right; }
+.header .welcome-msg a {}
 .header .links { float:right; }
 .header .form-search { text-align:right; }
 .header .form-search .search-autocomplete { z-index:999; }
@@ -1055,6 +1056,19 @@ tr.summary-details-excluded { font-style:italic; }
 
 .account-create {}
 /* Account Login/Create Pages ============================================================ */
+
+
+/* Remember Me Popup ===================================================================== */
+.window-overlay { background:url(../images/window_overlay.png) repeat; background:rgba(0, 0, 0, 0.35); position:absolute; top:0; left:0; height:100%; width:100%; z-index:990; }
+
+.remember-me label {}
+.remember-me-popup {}
+.remember-me-popup h3 {}
+.remember-me-popup .remember-me-popup-head {}
+.remember-me-popup .remember-me-popup-head .remember-me-popup-close {}
+.remember-me-popup .remember-me-popup-body {}
+.remember-me-popup .remember-me-popup-body a {}
+/* Remember Me Popup ===================================================================== */
 
 
 /* My Account ============================================================================= */

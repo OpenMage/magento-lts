@@ -1,0 +1,59 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Template for displaying product price at rss feeds pages
+ *
+ * @var $this Mage_Catalog_Block_Product_Price
+ */
+
+/** @var $_coreHelper Mage_Core_Helper_Data */
+$_coreHelper = $this->helper('core');
+/** @var $_catalogHelper Mage_Catalog_Helper_Data */
+$_catalogHelper = $this->helper('catalog');
+/** @var $_product Mage_Catalog_Model_Product */
+$_product = $this->getProduct();
+?>
+<div class="price-box map-info">
+    <?php $_msrpPrice = $_product->getMsrp(); ?>
+    <?php if ($_msrpPrice): ?>
+        <p class="old-price">
+            <?php $_msrpPrice = $_coreHelper->currency($_msrpPrice, true, true) ?>
+            <span class="price-label"><?php echo $this->__('Regular Price:') ?></span>
+            <span class="price"><?php echo $_msrpPrice ?></span>
+        </p>
+    <?php endif;?>
+
+
+    <?php if ($_catalogHelper->isShowPriceOnGesture($_product)): ?>
+        <a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('Click for price'); ?></a>
+    <?php else: ?>
+        <span class="msrp-price-hide-message">
+            <?php echo $_catalogHelper->getMsrpPriceMessage($_product) ?>
+        </span>
+    <?php endif; ?>
+</div>

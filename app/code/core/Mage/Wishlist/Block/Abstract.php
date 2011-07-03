@@ -357,9 +357,20 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      */
     public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix = '')
     {
-        $productType = $product->getTypeId();
-        return $this->_getItemPriceBlock($productType)
-            ->setCleanRenderer($this->_preparePriceRenderer($productType))
+        $type_id = $product->getTypeId();
+        if (Mage::helper('catalog')->canApplyMsrp($product)) {
+            $realPriceHtml = $this->_preparePriceRenderer($type_id)
+                ->setProduct($product)
+                ->setDisplayMinimalPrice($displayMinimalPrice)
+                ->setIdSuffix($idSuffix)
+                ->setIsEmulateMode(true)
+                ->toHtml();
+            $product->setAddToCartUrl($this->getAddToCartUrl($product));
+            $product->setRealPriceHtml($realPriceHtml);
+            $type_id = $this->_mapRenderer;
+        }
+
+        return $this->_preparePriceRenderer($type_id)
             ->setProduct($product)
             ->setDisplayMinimalPrice($displayMinimalPrice)
             ->setIdSuffix($idSuffix)
@@ -369,17 +380,21 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Retrieve URL to item Product
      *
-     * @param  Mage_Wishlist_Model_Item $item
+     * @param  Mage_Wishlist_Model_Item|Mage_Catalog_Model_Product $item
      * @param  array $additional
      * @return string
      */
     public function getProductUrl($item, $additional = array())
     {
+        if ($item instanceof Mage_Catalog_Model_Product) {
+            $product = $item;
+        } else {
+            $product = $item->getProduct();
+        }
         $buyRequest = $item->getBuyRequest();
-        $product    = $item->getProduct();
         if (is_object($buyRequest)) {
             $config = $buyRequest->getSuperProductConfig();
-            if ($config && isset($config['product_id'])) {
+            if ($config && !empty($config['product_id'])) {
                 $product = Mage::getModel('catalog/product')
                     ->setStoreId(Mage::app()->getStore()->getStoreId())
                     ->load($config['product_id']);

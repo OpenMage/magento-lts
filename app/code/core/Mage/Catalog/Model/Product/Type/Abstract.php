@@ -984,4 +984,16 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
 
         return $errors;
     }
+
+    /**
+     * Check if Minimum advertise price is enabled at least in one option
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param int $visibility
+     * @return bool
+     */
+    public function isMapEnabledInOptions($product, $visibility = null)
+    {
+        return false;
+    }
 }

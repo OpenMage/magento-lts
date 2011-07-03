@@ -62,7 +62,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
                 'nullable'  => false,
                 'primary'   => true
                 ), 'Directory Id')
-            ->addColumn('name', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
+            ->addColumn('name', Varien_Db_Ddl_Table::TYPE_TEXT, 100, array(
                 'nullable' => false
             ), 'Directory Name')
             ->addColumn('path', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
@@ -76,9 +76,9 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
                 'default' => null,
                 'unsigned' => true
                 ), 'Parent Directory Id')
-            ->addIndex($adapter->getIndexName($table, array('name', 'path'),
+            ->addIndex($adapter->getIndexName($table, array('name', 'parent_id'),
                 Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-                array('name', 'path'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+                array('name', 'parent_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
             ->addIndex($adapter->getIndexName($table, array('parent_id')), array('parent_id'))
             ->addForeignKey($adapter->getForeignKeyName($table, 'parent_id', $table, 'directory_id'),
                 'parent_id', $table, 'directory_id',

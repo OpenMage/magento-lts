@@ -36,6 +36,7 @@
 * html .block button.button span,
 * html .product-view .box-tags .form-add button.button span,
 * html .footer .form-subscribe button.button span { background-image:url(../images/bkg_btn-small.gif); }
+* html .window-overlay { background:#ccc; filter:alpha(opacity=50); }
 
 /* Doubled Margin Fixes */
 .product-view .product-img-box .more-views li,

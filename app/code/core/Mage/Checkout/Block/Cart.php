@@ -40,8 +40,14 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
     public function __construct()
     {
         parent::__construct();
+        $this->prepareItemUrls();
+    }
 
-        // prepare cart items URLs
+    /**
+     * prepare cart items URLs
+     */
+    public function prepareItemUrls()
+    {
         $products = array();
         /* @var $item Mage_Sales_Model_Quote_Item */
         foreach ($this->getItems() as $item) {
@@ -79,7 +85,8 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 
     public function chooseTemplate()
     {
-        if ($this->getQuote()->getItemsCount()) {
+        $itemsCount = $this->getItemsCount() ? $this->getItemsCount() : $this->getQuote()->getItemsCount();
+        if ($itemsCount) {
             $this->setTemplate($this->getCartTemplate());
         } else {
             $this->setTemplate($this->getEmptyTemplate());
@@ -100,7 +107,8 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
     {
         $isActive = $this->_getData('is_wishlist_active');
         if ($isActive === null) {
-            $isActive = Mage::getStoreConfig('wishlist/general/active') && Mage::getSingleton('customer/session')->isLoggedIn();
+            $isActive = Mage::getStoreConfig('wishlist/general/active')
+                && Mage::getSingleton('customer/session')->isLoggedIn();
             $this->setIsWishlistActive($isActive);
         }
         return $isActive;
@@ -156,5 +164,19 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
             Mage::throwException(Mage::helper('checkout')->__('Invalid method: %s', $name));
         }
         return $block->toHtml();
+    }
+
+    /**
+     * Return customer quote items
+     *
+     * @return array
+     */
+    public function getItems()
+    {
+        if ($this->getCustomItems()) {
+            return $this->getCustomItems();
+        }
+
+        return parent::getItems();
     }
 }

@@ -384,7 +384,7 @@
             <create_account>
                 <confirm>0</confirm>
                 <default_group>1</default_group>
-                <email_domain>emaildomain.com</email_domain>
+                <email_domain>example.com</email_domain>
                 <email_identity>general</email_identity>
                 <email_template>customer_create_account_email_template</email_template>
                 <email_confirmation_template>customer_create_account_email_confirmation_template</email_confirmation_template>

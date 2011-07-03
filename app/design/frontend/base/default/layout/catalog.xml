@@ -368,6 +368,9 @@ SEO Site Map
 
     <catalog_seo_sitemap_category translate="label">
         <label>Catalog Seo Sitemap (Category List)</label>
+        <reference name="head">
+            <action method="setTitle" translate="title" module="catalog"><title>Site Map</title></action>
+        </reference>
         <update handle="catalog_seo_sitemap" />
         <reference name="seo.sitemap.container">
             <action method="setTitle" translate="title" module="catalog"><title>Categories</title></action>
@@ -399,6 +402,9 @@ SEO Site Map
 
     <catalog_seo_sitemap_product translate="label">
         <label>Catalog Seo Sitemap (Product List)</label>
+        <reference name="head">
+            <action method="setTitle" translate="title" module="catalog"><title>Site Map</title></action>
+        </reference>
         <update handle="catalog_seo_sitemap" />
         <reference name="seo.sitemap.container">
             <action method="setTitle" translate="title" module="catalog"><title>Products</title></action>
