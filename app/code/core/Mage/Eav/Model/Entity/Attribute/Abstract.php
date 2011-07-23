@@ -562,7 +562,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 break;
             case 'datetime':
                 $columns[$this->getAttributeCode()] = array(
-                    'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+                    'type'      => Varien_Db_Ddl_Table::TYPE_DATETIME,
                     'unsigned'  => false,
                     'nullable'  => true,
                     'default'   => null,

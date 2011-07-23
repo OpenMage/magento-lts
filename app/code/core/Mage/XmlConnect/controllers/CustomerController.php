@@ -53,7 +53,7 @@ class Mage_XmlConnect_CustomerController extends Mage_XmlConnect_Controller_Acti
             try {
                 if ($session->login($user, $pass)) {
                     if ($session->getCustomer()->getIsJustConfirmed()) {
-                        $session->getCustomer()->sendNewAccountEmail('confirmed');
+                        $session->getCustomer()->sendNewAccountEmail('confirmed', '', Mage::app()->getStore()->getId());
                     }
                     $this->_message($this->__('Authentication complete.'), self::MESSAGE_STATUS_SUCCESS);
                 } else {
@@ -264,7 +264,11 @@ class Mage_XmlConnect_CustomerController extends Mage_XmlConnect_Controller_Acti
                     $customer->save();
 
                     if ($customer->isConfirmationRequired()) {
-                        $customer->sendNewAccountEmail('confirmation', $session->getBeforeAuthUrl());
+                        $customer->sendNewAccountEmail(
+                            'confirmation',
+                            $session->getBeforeAuthUrl(),
+                            Mage::app()->getStore()->getId()
+                        );
                         $message = $this->__('Account confirmation is required. Please check your email for the confirmation link.');
                         /** @var $messageXmlObj Mage_XmlConnect_Model_Simplexml_Element */
                         $messageXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<message></message>');
@@ -275,7 +279,7 @@ class Mage_XmlConnect_CustomerController extends Mage_XmlConnect_Controller_Acti
                         return;
                     } else {
                         $session->setCustomerAsLoggedIn($customer);
-                        $customer->sendNewAccountEmail('registered');
+                        $customer->sendNewAccountEmail('registered', '', Mage::app()->getStore()->getId());
                         $this->_message($this->__('Thank you for registering!'), self::MESSAGE_STATUS_SUCCESS);
                         return;
                     }

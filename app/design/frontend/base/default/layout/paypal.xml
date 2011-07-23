@@ -151,6 +151,45 @@ Available logo types can be assigned with action="setLogoType":
         </reference>
     </catalog_product_compare_index>
 
+    <catalogsearch_result_index>
+        <reference>
+            <reference name="product.tooltip">
+                <block type="page/html_wrapper" name="product.info.addtocart.paypal.wrapper" translate="label">
+                    <block type="paypal/express_shortcut" name="product.info.addtocart.paypal" template="paypal/express/shortcut.phtml">
+                        <action method="setIsInCatalogProduct"><value>1</value></action>
+                        <action method="setShowOrPosition"><value>after</value></action>
+                    </block>
+                </block>
+            </reference>
+        </reference>
+    </catalogsearch_result_index>
+
+    <catalogsearch_advanced_result>
+        <reference>
+            <reference name="product.tooltip">
+                <block type="page/html_wrapper" name="product.info.addtocart.paypal.wrapper" translate="label">
+                    <block type="paypal/express_shortcut" name="product.info.addtocart.paypal" template="paypal/express/shortcut.phtml">
+                        <action method="setIsInCatalogProduct"><value>1</value></action>
+                        <action method="setShowOrPosition"><value>after</value></action>
+                    </block>
+                </block>
+            </reference>
+        </reference>
+    </catalogsearch_advanced_result>
+
+    <tag_product_list>
+        <reference>
+            <reference name="product.tooltip">
+                <block type="page/html_wrapper" name="product.info.addtocart.paypal.wrapper" translate="label">
+                    <block type="paypal/express_shortcut" name="product.info.addtocart.paypal" template="paypal/express/shortcut.phtml">
+                        <action method="setIsInCatalogProduct"><value>1</value></action>
+                        <action method="setShowOrPosition"><value>after</value></action>
+                    </block>
+                </block>
+            </reference>
+        </reference>
+    </tag_product_list>
+
     <wishlist_index_index>
         <reference>
             <reference name="product.tooltip">

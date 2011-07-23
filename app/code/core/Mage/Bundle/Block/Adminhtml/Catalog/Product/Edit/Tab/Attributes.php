@@ -112,31 +112,26 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes
             );
         }
 
-        $map_enabled = $this->getForm()->getElement('msrp_enabled');
-        if (Mage::helper('catalog')->isMsrpEnabled() && $map_enabled) {
-            $map_enabled->setAfterElementHtml(
+        $mapEnabled = $this->getForm()->getElement('msrp_enabled');
+        if ($mapEnabled) {
+            $mapEnabled->setAfterElementHtml(
                 '<script type="text/javascript">'
                 . "
                 function changePriceTypeMap() {
                     if ($('price_type').value == " . Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC . ") {
+                        $('msrp_enabled').setValue("
+                        . Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled::MSRP_ENABLE_NO
+                        . ");
                         $('msrp_enabled').disable();
-                        $('use_config_msrp_enabled').disable();
+                        $('msrp_display_actual_price_type').setValue("
+                        . Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price::TYPE_USE_CONFIG
+                        . ");
                         $('msrp_display_actual_price_type').disable();
-                        $('use_config_msrp_display_actual_price_type').disable();
+                        $('msrp').setValue('');
                         $('msrp').disable();
                     } else {
-                        $('use_config_msrp_enabled').enable();
-                        if ($('use_config_msrp_enabled').checked) {
-                            $('msrp_enabled').disable();
-                        } else {
-                            $('msrp_enabled').enable();
-                        }
-                        $('use_config_msrp_display_actual_price_type').enable();
-                        if ($('use_config_msrp_display_actual_price_type').checked) {
-                            $('msrp_display_actual_price_type').disable();
-                        } else {
-                            $('msrp_display_actual_price_type').enable();
-                        }
+                        $('msrp_enabled').enable();
+                        $('msrp_display_actual_price_type').enable();
                         $('msrp').enable();
                     }
                 }

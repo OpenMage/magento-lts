@@ -81,6 +81,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
      */
     protected function _cleanup()
     {
+        Mage::dispatchEvent('persistent_session_expired');
         $customerSession = Mage::getSingleton('customer/session');
         $customerSession
             ->setCustomerId(null)

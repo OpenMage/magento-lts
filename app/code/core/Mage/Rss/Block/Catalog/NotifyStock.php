@@ -68,18 +68,17 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         $stockItemWhere = "({{table}}.low_stock_date is not null) "
             . " AND ( ({{table}}.use_config_manage_stock=1 AND ".$_configManageStock."=1)"
             . "  OR ({{table}}.use_config_manage_stock=0 AND {{table}}.manage_stock=1) )";
-      
+
         $product = Mage::getModel('catalog/product');
         $collection = $product->getCollection()
             ->addAttributeToSelect('name', true)
             ->addAttributeToSelect('name', true)
             ->joinTable('cataloginventory/stock_item', 'product_id=entity_id',
-                array('qty'=>'qty', 'notify_stock_qty'=>'notify_stock_qty', 'use_config' => 'use_config_notify_stock_qty','low_stock_date' => 'low_stock_date'), 
+                array('qty'=>'qty', 'notify_stock_qty'=>'notify_stock_qty', 'use_config' => 'use_config_notify_stock_qty','low_stock_date' => 'low_stock_date'),
                 $stockItemWhere, 'inner')
             ->setOrder('low_stock_date')
         ;
         $collection->addAttributeToFilter('status', array('in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds()));
-        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
 
         $_globalNotifyStockQty = (float) Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY);
 
@@ -95,6 +94,12 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         return $rssObj->createRssXml();
     }
 
+    /**
+     * Adds single product to feed
+     *
+     * @param array $args
+     * @return void
+     */
     public function addNotifyItemXmlCallback($args)
     {
         $product = $args['product'];

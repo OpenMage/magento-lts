@@ -49,8 +49,10 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
         Varien_Db_Ddl_Table::TYPE_NUMERIC       => 'decimal',
         Varien_Db_Ddl_Table::TYPE_DATE          => 'date',
         Varien_Db_Ddl_Table::TYPE_TIMESTAMP     => 'timestamp',
+        Varien_Db_Ddl_Table::TYPE_DATETIME      => 'datetime',
         Varien_Db_Ddl_Table::TYPE_TEXT          => 'text',
         Varien_Db_Ddl_Table::TYPE_BLOB          => 'blob',
+        Varien_Db_Ddl_Table::TYPE_VARBINARY     => 'blob'
     );
 
     /**
@@ -74,6 +76,7 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
     public function getDdlTypeByColumnType($columnType)
     {
         switch ($columnType) {
+            case 'char':
             case 'varchar':
                 $columnType = 'text';
                 break;
@@ -81,7 +84,7 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
                 $columnType = 'smallint';
                 break;
         }
-        
+
         return array_search($columnType, $this->_ddlColumnTypes);
     }
 

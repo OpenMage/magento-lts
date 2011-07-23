@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
             $itemsGridUrl = $this->getUrl('*/sales_order_shipment/getShippingItemsGrid', $urlParams);
 
             foreach ($this->getShipment()->getAllItems() as $item) {
-                $itemsQty[$item->getOrderItemId()]      = $item->getOrderItem()->getQtyOrdered()*1;
+                $itemsQty[$item->getOrderItemId()]      = $item->getQty()*1;
                 $itemsPrice[$item->getOrderItemId()]    = $item->getPrice();
                 $itemsName[$item->getOrderItemId()]     = $item->getName();
                 $itemsWeight[$item->getOrderItemId()]   = $item->getWeight();
@@ -166,7 +166,8 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         $countryId = $this->getShipment()->getOrder()->getShippingAddress()->getCountryId();
         $carrier = $this->getShipment()->getOrder()->getShippingCarrier();
         if ($carrier) {
-            $confirmationTypes = $carrier->getDeliveryConfirmationTypes($countryId);
+            $params = new Varien_Object(array('country_recipient' => $countryId));
+            $confirmationTypes = $carrier->getDeliveryConfirmationTypes($params);
             $confirmationType = !empty($confirmationTypes[$code]) ? $confirmationTypes[$code] : '';
             return $confirmationType;
         }
@@ -218,18 +219,13 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     {
         $storeId = $this->getShipment()->getStoreId();
         $order = $this->getShipment()->getOrder();
-        $carrierCode = $order->getShippingCarrier()->getCarrierCode();
         $address = $order->getShippingAddress();
         $shipperAddressCountryCode = Mage::getStoreConfig(
             Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID,
             $storeId
         );
         $recipientAddressCountryCode = $address->getCountryId();
-
-        if (($carrierCode == Mage_Usa_Model_Shipping_Carrier_Fedex::CODE
-            || $carrierCode == Mage_Usa_Model_Shipping_Carrier_Dhl::CODE)
-            && $shipperAddressCountryCode != $recipientAddressCountryCode
-        ) {
+        if ($shipperAddressCountryCode != $recipientAddressCountryCode) {
             return true;
         }
         return false;
@@ -244,8 +240,9 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     {
         $countryId = $this->getShipment()->getOrder()->getShippingAddress()->getCountryId();
         $carrier = $this->getShipment()->getOrder()->getShippingCarrier();
-        if ($carrier && is_array($carrier->getDeliveryConfirmationTypes())) {
-            return $carrier->getDeliveryConfirmationTypes($countryId);
+        $params = new Varien_Object(array('country_recipient' => $countryId));
+        if ($carrier && is_array($carrier->getDeliveryConfirmationTypes($params))) {
+            return $carrier->getDeliveryConfirmationTypes($params);
         }
         return array();
     }
@@ -280,5 +277,28 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
             ->getOrder()
             ->getShippingCarrier()
             ->isGirthAllowed($this->getShipment()->getOrder()->getShippingAddress()->getCountryId());
+    }
+
+    /**
+     * Return content types of package
+     *
+     * @return array
+     */
+    public function getContentTypes()
+    {
+        $order = $this->getShipment()->getOrder();
+        $storeId = $this->getShipment()->getStoreId();
+        $address = $order->getShippingAddress();
+        $carrier = $order->getShippingCarrier();
+        $countryShipper = Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID, $storeId);
+        if ($carrier) {
+            $params = new Varien_Object(array(
+                'method' => $order->getShippingMethod(true)->getMethod(),
+                'country_shipper' => $countryShipper,
+                'country_recipient' => $address->getCountryId(),
+            ));
+            return $carrier->getContentTypes($params);
+        }
+        return array();
     }
 }

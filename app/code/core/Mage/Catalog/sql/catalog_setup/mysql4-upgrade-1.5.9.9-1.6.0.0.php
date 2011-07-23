@@ -3725,7 +3725,7 @@ $tables = array(
                 'comment'   => 'Entity ID'
             ),
             'value' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+                'type'      => Varien_Db_Ddl_Table::TYPE_DATETIME,
                 'comment'   => 'Value'
             )
         ),
@@ -3976,7 +3976,7 @@ $tables = array(
                 'comment'   => 'Entity ID'
             ),
             'value' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+                'type'      => Varien_Db_Ddl_Table::TYPE_DATETIME,
                 'comment'   => 'Value'
             )
         ),
@@ -6066,3 +6066,4 @@ $installer->getConnection()->addForeignKey(
 );
 
 $installer->endSetup();
+$installer->getConnection()->closeConnection();

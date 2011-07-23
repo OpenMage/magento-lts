@@ -78,7 +78,10 @@ document.observe("dom:loaded", function() {
                     </thead>
                     <tbody>
                         <td>
-                            <select name="package_container" onchange="packaging.changeContainerType(this);packaging.checkSizeAndGirthParameter(this, <?php echo  $girthEnabled ?>);">
+                            <?php $containers = $this->getContainers(); ?>
+                            <select name="package_container" onchange="packaging.changeContainerType(this);packaging.checkSizeAndGirthParameter(this, <?php echo  $girthEnabled ?>);"<?php if (empty($containers)):?>
+                                disabled="" class="disabled"
+                            <?php endif; ?>>
                                 <?php foreach ($this->getContainers() as $key => $value): ?>
                                     <option value="<?php echo $key ?>" >
                                         <?php echo $value ?>
@@ -104,8 +107,17 @@ document.observe("dom:loaded", function() {
                                 </select>
                             </td>
                         <?php endif; ?>
-                        <td <?php echo $this->displayCustomsValue() ? '' : 'style="display: none;"' ?>>
-                            <input type="text" class="customs-value input-text" name="package_customs_value" />
+                        <?php
+                            if ($this->displayCustomsValue()) {
+                                $customsValueDisplay = '';
+                                $customsValueValidation = ' required-entry validate-greater-than-zero ';
+                            } else {
+                                $customsValueDisplay = ' style="display: none;" ';
+                                $customsValueValidation = '';
+                            }
+                        ?>
+                        <td <?php echo $customsValueDisplay ?>>
+                            <input type="text" class="customs-value input-text <?php echo $customsValueValidation ?>" name="package_customs_value" />
                         </td>
                         <td>
                             <input type="text" class="options-weight input-text required-entry validate-greater-than-zero" name="container_weight" />
@@ -152,6 +164,34 @@ document.observe("dom:loaded", function() {
                         </td>
                     </tbody>
                 </table>
+
+                <?php if ($this->getContentTypes()): ?>
+                <table class="package-options package-options-contents" cellspacing="0">
+                    <colgroup>
+                        <col width="150">
+                        <col width="*">
+                    </colgroup>
+                    <thead>
+                        <th><?php echo Mage::helper('sales')->__('Contents') ?></th>
+                        <th><?php echo Mage::helper('sales')->__('Explanation') ?></th>
+                    </thead>
+                    <tbody>
+                        <td>
+                            <select name="content_type" onchange="packaging.changeContentTypes(this);">
+                                <?php foreach ($this->getContentTypes() as $key => $value): ?>
+                                    <option value="<?php echo $key ?>" >
+                                        <?php echo $value ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
+                        <td>
+                            <input name="content_type_other" type="text" disabled="disabled" />
+                        </td>
+                    </tbody>
+                </table>
+                <?php endif; ?>
+
                 <div class="package-add-products">
                     <div class="package_prapare" style="display:none">
                         <div class="entry-edit-head">

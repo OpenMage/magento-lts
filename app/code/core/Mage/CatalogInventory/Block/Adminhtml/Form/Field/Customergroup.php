@@ -87,7 +87,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
                 $this->addOption(Mage_Customer_Model_Group::CUST_GROUP_ALL, Mage::helper('customer')->__('ALL GROUPS'));
             }
             foreach ($this->_getCustomerGroups() as $groupId => $groupLabel) {
-                $this->addOption($groupId, $groupLabel);
+                $this->addOption($groupId, addslashes($groupLabel));
             }
         }
         return parent::_toHtml();

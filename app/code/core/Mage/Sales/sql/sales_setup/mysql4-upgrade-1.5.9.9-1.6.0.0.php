@@ -1244,7 +1244,7 @@ $tables = array(
                 'comment'   => 'Customer Suffix'
             ),
             'customer_dob' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+                'type'      => Varien_Db_Ddl_Table::TYPE_DATETIME,
                 'comment'   => 'Customer Dob'
             ),
             'customer_note' => array(
@@ -2934,7 +2934,7 @@ $tables = array(
                 'comment'   => 'Weight'
             ),
             'customer_dob' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+                'type'      => Varien_Db_Ddl_Table::TYPE_DATETIME,
                 'comment'   => 'Customer Dob'
             ),
             'increment_id' => array(

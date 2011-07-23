@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Find_Feed>
-            <active>false</active>
+            <active>true</active>
             <codePool>community</codePool>
         </Find_Feed>
     </modules>

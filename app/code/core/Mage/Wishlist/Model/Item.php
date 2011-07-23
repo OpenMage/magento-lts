@@ -426,6 +426,38 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Merge data to item info_buyRequest option
+     *
+     * @param array|Varien_Object $buyRequest
+     * @return Mage_Wishlist_Model_Item
+     */
+    public function mergeBuyRequest($buyRequest) {
+        if ($buyRequest instanceof Varien_Object) {
+            $buyRequest = $buyRequest->getData();
+        }
+
+        if (empty($buyRequest) || !is_array($buyRequest)) {
+            return $this;
+        }
+
+        $oldBuyRequest = $this->getBuyRequest()
+            ->getData();
+        $sBuyRequest = serialize($buyRequest + $oldBuyRequest);
+
+        $option = $this->getOptionByCode('info_buyRequest');
+        if ($option) {
+            $option->setValue($sBuyRequest);
+        } else {
+            $this->addOption(array(
+                'code'  => 'info_buyRequest',
+                'value' => $sBuyRequest
+            ));
+        }
+
+        return $this;
+    }
+
+    /**
      * Set buy request - object, holding request received from
      * product view page with keys and options for configured product
      * @param Varien_Object $buyRequest

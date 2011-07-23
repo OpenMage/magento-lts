@@ -32,7 +32,7 @@
  * @method Varien_Db_Select from($name, $cols, $schema = null)
  * @method Varien_Db_Select join($name, $cond, $cols, $schema = null)
  * @method Varien_Db_Select joinInner($name, $cond, $cols, $schema = null)
- * @method Varien_Db_Select joinLeft($name, $cond, $cols, $schema = null)
+ * @method Varien_Db_Select joinLeft($name, $cond, $cols = '*', $schema = null)
  * @method Varien_Db_Select joinNatural($name, $cond, $cols, $schema = null)
  * @method Varien_Db_Select joinFull($name, $cond, $cols, $schema = null)
  * @method Varien_Db_Select joinRight($name, $cond, $cols, $schema = null)

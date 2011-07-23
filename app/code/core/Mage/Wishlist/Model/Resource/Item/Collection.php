@@ -150,20 +150,31 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     {
         Varien_Profiler::start('WISHLIST:'.__METHOD__);
         $productIds = array();
+
+        $isStoreAdmin = Mage::app()->getStore()->isAdmin();
+
+        $storeIds = array();
         foreach ($this as $item) {
             $productIds[$item->getProductId()] = 1;
+            if ($isStoreAdmin && !in_array($item->getStoreId(), $storeIds)) {
+                $storeIds[] = $item->getStoreId();
+            }
         }
+        if (!$isStoreAdmin) {
+            $storeIds = $this->_storeIds;
+        }
+
         $this->_productIds = array_merge($this->_productIds, array_keys($productIds));
         $attributes = Mage::getSingleton('wishlist/config')->getProductAttributes();
-        $productCollection = Mage::getModel('catalog/product')->getCollection()
-            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            ->addMinimalPrice()
-            ->addFinalPrice()
+        $productCollection = Mage::getModel('catalog/product')->getCollection();
+        foreach ($storeIds as $id) {
+            $productCollection->addStoreFilter($id);
+        }
+        $productCollection->addPriceData()
             ->addTaxPercents()
             ->addIdFilter($this->_productIds)
             ->addAttributeToSelect($attributes)
             ->addOptionsToResult()
-            ->addPriceData()
             ->addUrlRewrite();
 
         if ($this->_productVisible) {
@@ -173,21 +184,17 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
             $productCollection = Mage::helper('adminhtml/sales')->applySalableProductTypesFilter($productCollection);
         }
 
-        foreach ($this->_storeIds as $id) {
-            $productCollection->addStoreFilter($id);
-        }
-
         Mage::dispatchEvent('wishlist_item_collection_products_after_load', array(
             'product_collection' => $productCollection
         ));
 
+        $checkInStock = $this->_productInStock && !Mage::helper('cataloginventory')->isShowOutOfStock();
+
         foreach ($this as $item) {
             $product = $productCollection->getItemById($item->getProductId());
             if ($product) {
-                if (!$this->_productInStock &&
-                    !$product->isSalable() &&
-                    !Mage::helper('cataloginventory')->isShowOutOfStock()) {
-                        $this->removeItemByKey($item->getId());
+                if ($checkInStock && !$product->isSalable()) {
+                    $this->removeItemByKey($item->getId());
                 } else {
                     $product->setCustomOptions(array());
                     $item->setProduct($product);

@@ -1285,8 +1285,9 @@ $tables = array(
                 'comment'   => 'Entity Id'
             ),
             'value' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+                'type'      => Varien_Db_Ddl_Table::TYPE_DATETIME,
                 'nullable'  => false,
+                'default' => '0000-00-00 00:00:00',
                 'comment'   => 'Attribute Value'
             )
         ),

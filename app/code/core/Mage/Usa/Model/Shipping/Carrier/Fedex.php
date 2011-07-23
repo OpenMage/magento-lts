@@ -1068,7 +1068,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                         'City' => $request->getRecipientAddressCity(),
                         'StateOrProvinceCode' => $request->getRecipientAddressStateOrProvinceCode(),
                         'PostalCode' => $request->getRecipientAddressPostalCode(),
-                        'CountryCode' => $request->getRecipientAddressCountryCode()
+                        'CountryCode' => $request->getRecipientAddressCountryCode(),
+                        'Residential' => (bool)$this->getConfigData('residence_delivery')
                     ),
                 ),
                 'ShippingChargesPayment' => array(
@@ -1245,12 +1246,25 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
         $countryShipper     = $params->getCountryShipper();
         $countryRecipient   = $params->getCountryRecipient();
 
-        if ($countryShipper == self::USA_COUNTRY_ID
-            && $countryRecipient == self::CANADA_COUNTRY_ID
+        if (($countryShipper == self::USA_COUNTRY_ID && $countryRecipient == self::CANADA_COUNTRY_ID
+            || $countryShipper == self::CANADA_COUNTRY_ID && $countryRecipient == self::USA_COUNTRY_ID)
             && $method == 'FEDEX_GROUND'
         ) {
             return array('YOUR_PACKAGING' => Mage::helper('usa')->__('Your Packaging'));
+        } else if ($method == 'INTERNATIONAL_ECONOMY' || $method == 'INTERNATIONAL_FIRST') {
+            $allTypes = $this->getContainerTypesAll();
+            $exclude = array('FEDEX_10KG_BOX' => '', 'FEDEX_25KG_BOX' => '');
+            return array_diff_key($allTypes, $exclude);
+        } else if ($method == 'EUROPE_FIRST_INTERNATIONAL_PRIORITY') {
+            $allTypes = $this->getContainerTypesAll();
+            $exclude = array('FEDEX_BOX' => '', 'FEDEX_TUBE' => '');
+            return array_diff_key($allTypes, $exclude);
+        } else if ($countryShipper == self::CANADA_COUNTRY_ID && $countryRecipient == self::CANADA_COUNTRY_ID) {
+            // hack for Canada domestic. Apply the same filter rules as for US domestic
+            $params->setCountryShipper(self::USA_COUNTRY_ID);
+            $params->setCountryRecipient(self::USA_COUNTRY_ID);
         }
+
         return $this->_getAllowedContainers($params);
     }
 
@@ -1277,10 +1291,10 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     /**
      * Return delivery confirmation types of carrier
      *
-     * @param null $countyDest
+     * @param Varien_Object|null $params
      * @return array
      */
-    public function getDeliveryConfirmationTypes($countyDest = null)
+    public function getDeliveryConfirmationTypes(Varien_Object $params = null)
     {
         return $this->getCode('delivery_confirmation_types');
     }

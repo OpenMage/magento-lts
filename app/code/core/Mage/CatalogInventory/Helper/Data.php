@@ -33,6 +33,12 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_ITEM_AUTO_RETURN     = 'cataloginventory/item_options/auto_return';
 
     /**
+     * Error codes, that Catalog Inventory module can set to quote or quote items
+     */
+    const ERROR_QTY =               1;
+    const ERROR_QTY_INCREMENTS =    2;
+
+    /**
      * All product types registry in scope of quantity availability
      *
      * @var array

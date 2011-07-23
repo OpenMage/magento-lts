@@ -168,6 +168,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     protected $_payments = null;
 
     /**
+     * Different groups of error infos
+     *
+     * @var array
+     */
+    protected $_errorInfoGroups = array();
+
+    /**
      * Init resource model
      */
     protected function _construct()
@@ -408,7 +415,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $defaultShippingAddress = $customer->getDefaultShippingAddress();
                 if ($defaultShippingAddress && $defaultShippingAddress->getId()) {
                     $shippingAddress = Mage::getModel('sales/quote_address')
-                    ->importCustomerAddress($defaultShippingAddress);
+                        ->importCustomerAddress($defaultShippingAddress);
                 } else {
                     $shippingAddress = Mage::getModel('sales/quote_address');
                 }
@@ -1201,7 +1208,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         Mage::dispatchEvent(
             $this->_eventPrefix . '_collect_totals_before',
             array(
-                $this->_eventObject=>$this
+                 $this->_eventObject=>$this
             )
         );
 
@@ -1319,7 +1326,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         return $sortedTotals;
     }
 
-    public function addMessage($message, $index='error')
+    public function addMessage($message, $index = 'error')
     {
         $messages = $this->getData('messages');
         if (is_null($messages)) {
@@ -1347,6 +1354,153 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->setData('messages', $messages);
         }
         return $messages;
+    }
+
+    /**
+     * Sets flag, whether this quote has some error associated with it.
+     *
+     * @param bool $flag
+     * @return Mage_Sales_Model_Quote
+     */
+    protected function _setHasError($flag)
+    {
+        return $this->setData('has_error', $flag);
+    }
+
+    /**
+     * Sets flag, whether this quote has some error associated with it.
+     * When TRUE - also adds 'unknown' error information to list of quote errors.
+     * When FALSE - clears whole list of quote errors.
+     * It's recommended to use addErrorInfo() instead - to be able to remove error statuses later.
+     *
+     * @param bool $flag
+     * @return Mage_Sales_Model_Quote
+     * @see addErrorInfo()
+     */
+    public function setHasError($flag)
+    {
+        if ($flag) {
+            $this->addErrorInfo();
+        } else {
+            $this->_clearErrorInfo();
+        }
+        return $this;
+    }
+
+    /**
+     * Clears list of errors, associated with this quote.
+     * Also automatically removes error-flag from oneself.
+     *
+     * @return Mage_Sales_Model_Quote
+     */
+    protected function _clearErrorInfo()
+    {
+        $this->_errorInfoGroups = array();
+        $this->_setHasError(false);
+        return $this;
+    }
+
+    /**
+     * Adds error information to the quote.
+     * Automatically sets error flag.
+     *
+     * @param string $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
+     * @param string|null $origin Usually a name of module, that embeds error
+     * @param int|null $code Error code, unique for origin, that sets it
+     * @param string|null $message Error message
+     * @param Varien_Object|null $additionalData Any additional data, that caller would like to store
+     * @return Mage_Sales_Model_Quote
+     */
+    public function addErrorInfo($type = 'error', $origin = null, $code = null, $message = null, $additionalData = null)
+    {
+        if (!isset($this->_errorInfoGroups[$type])) {
+            $this->_errorInfoGroups[$type] = Mage::getModel('sales/status_list');
+        }
+
+        $this->_errorInfoGroups[$type]->addItem($origin, $code, $message, $additionalData);
+
+        if ($message !== null) {
+            $this->addMessage($message, $type);
+        }
+        $this->_setHasError(true);
+
+        return $this;
+    }
+
+    /**
+     * Removes error infos, that have parameters equal to passed in $params.
+     * $params can have following keys (if not set - then any item is good for this key):
+     *   'origin', 'code', 'message'
+     *
+     * @param string $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
+     * @param array $params
+     * @return Mage_Sales_Model_Quote
+     */
+    public function removeErrorInfosByParams($type = 'error', $params)
+    {
+        if ($type && !isset($this->_errorInfoGroups[$type])) {
+            return $this;
+        }
+
+        $errorLists = array();
+        if ($type) {
+            $errorLists[] = $this->_errorInfoGroups[$type];
+        } else {
+            $errorLists = $this->_errorInfoGroups;
+        }
+
+        foreach ($errorLists as $type => $errorList) {
+            $removedItems = $errorList->removeItemsByParams($params);
+            foreach ($removedItems as $item) {
+                if ($item['message'] !== null) {
+                    $this->removeMessageByText($type, $item['message']);
+                }
+            }
+        }
+
+        $errorsExist = false;
+        foreach ($this->_errorInfoGroups as $errorListCheck) {
+            if ($errorListCheck->getItems()) {
+                $errorsExist = true;
+                break;
+            }
+        }
+        if (!$errorsExist) {
+            $this->_setHasError(false);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Removes message by text
+     *
+     * @param string $type
+     * @param string $text
+     * @return Mage_Sales_Model_Quote
+     */
+    public function removeMessageByText($type = 'error', $text)
+    {
+        $messages = $this->getData('messages');
+        if (is_null($messages)) {
+            $messages = array();
+        }
+
+        if (!isset($messages[$type])) {
+            return $this;
+        }
+
+        $message = $messages[$type];
+        if ($message instanceof Mage_Core_Model_Message_Abstract) {
+            $message = $message->getText();
+        } else if (!is_string($message)) {
+            return $this;
+        }
+        if ($message == $text) {
+            unset($messages[$type]);
+            $this->setData('messages', $messages);
+        }
+        return $this;
     }
 
     /**
@@ -1464,8 +1618,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         Mage::dispatchEvent(
             $this->_eventPrefix . '_merge_before',
             array(
-                $this->_eventObject=>$this,
-                'source'=>$quote
+                 $this->_eventObject=>$this,
+                 'source'=>$quote
             )
         );
 
@@ -1507,8 +1661,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         Mage::dispatchEvent(
             $this->_eventPrefix . '_merge_after',
             array(
-                $this->_eventObject=>$this,
-                'source'=>$quote
+                 $this->_eventObject=>$this,
+                 'source'=>$quote
             )
         );
 
@@ -1624,10 +1778,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         }
         return parent::_afterLoad();
     }
-
-
-
-
 
     /**
      * @deprecated after 1.4 beta1 - one page checkout responsibility

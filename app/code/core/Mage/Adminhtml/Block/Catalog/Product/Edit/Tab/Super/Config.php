@@ -92,7 +92,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
 
         if ($this->_getProduct()->getId()) {
             $this->setChild('simple',
-                $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_super_config_simple')
+                $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_super_config_simple',
+                    'catalog.product.edit.tab.super.config.simple')
             );
 
             $this->setChild('create_from_configurable',

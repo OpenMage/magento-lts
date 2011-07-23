@@ -148,6 +148,13 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
 
         $storeIds = $this->_getStoreIds();;
 
+        $orderStatuses = $filterData->getData('order_statuses');
+        if (is_array($orderStatuses)) {
+            if (count($orderStatuses) == 1 && strpos($orderStatuses[0],',')!== false) {
+                $filterData->setData('order_statuses', explode(',',$orderStatuses[0]));
+            }
+        }
+
         $resourceCollection = Mage::getResourceModel($this->getResourceCollectionName())
             ->setPeriod($filterData->getData('period_type'))
             ->setDateRange($filterData->getData('from', null), $filterData->getData('to', null))

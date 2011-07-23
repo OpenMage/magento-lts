@@ -153,12 +153,13 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     }
 
     /**
-     * Set messages for quote item
+     * Adds message(s) for quote item. Duplicated messages are not added.
      *
      * @param  mixed $messages
      * @return Mage_Sales_Model_Quote_Item_Abstract
      */
-    public function setMessage($messages) {
+    public function setMessage($messages)
+    {
         $messagesExists = $this->getMessage(false);
         if (!is_array($messages)) {
             $messages = array($messages);
@@ -198,6 +199,34 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     }
 
     /**
+     * Removes message by text
+     *
+     * @param string $text
+     * @return Mage_Sales_Model_Quote_Item_Abstract
+     */
+    public function removeMessageByText($text)
+    {
+        foreach ($this->_messages as $key => $message) {
+            if ($message == $text) {
+                unset($this->_messages[$key]);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Clears all messages
+     *
+     * @return Mage_Sales_Model_Quote_Item_Abstract
+     */
+    public function clearMessage()
+    {
+        $this->unsMessage(); // For older compatibility, when we kept message inside data array
+        $this->_messages = array();
+        return $this;
+    }
+
+    /**
      * Retrieve store model object
      *
      * @return Mage_Core_Model_Store
@@ -215,7 +244,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     public function checkData()
     {
         $this->setHasError(false);
-        $this->unsMessage();
+        $this->clearMessage();
 
         $qty = $this->_getData('qty');
 

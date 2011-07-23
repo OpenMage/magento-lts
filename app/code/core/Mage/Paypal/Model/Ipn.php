@@ -229,7 +229,7 @@ class Mage_Paypal_Model_Ipn
             if (!$receiverEmail) {
                 $receiverEmail = $this->getRequestData('receiver_email');
             }
-            if ($merchantEmail != $receiverEmail) {
+            if (strtolower($merchantEmail) != strtolower($receiverEmail)) {
                 throw new Exception(
                     sprintf(
                         'Requested %s and configured %s merchant emails do not match.', $receiverEmail, $merchantEmail

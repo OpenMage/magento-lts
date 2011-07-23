@@ -155,13 +155,12 @@ Product.Bundle.prototype = {
             price = Math.min(newPrice, price);
         }
 
-        taxPercent = this.config.options[optionId].selections[selectionId].taxPercent;
-        if (this.config.includeTax == 'true') {
+        selection = this.config.options[optionId].selections[selectionId];
+        if (selection.priceInclTax !== undefined) {
+            priceInclTax = selection.priceInclTax;
+            price = selection.priceExclTax !== undefined ? selection.priceExclTax : selection.price;
+        } else {
             priceInclTax = price;
-            price = price / ((100 + taxPercent) / 100);
-        }
-        else {
-            priceInclTax = price * ((100 + taxPercent) / 100);
         }
 
         var result = new Array(price*qty, disposition*qty, priceInclTax*qty);

@@ -92,6 +92,16 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address
     }
 
     /**
+     * Saving shipping address must be turned off, when it is the same as billing
+     *
+     * @return bool
+     */
+    public function getDontSaveInAddressBook()
+    {
+        return $this->getIsAsBilling();
+    }
+
+    /**
      * Return Form Elements values
      *
      * @return array

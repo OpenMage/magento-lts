@@ -286,11 +286,19 @@ class Mage_Sales_Model_Observer
         $customer = $observer->getEvent()->getCustomer();
 
         if ($customer->getGroupId() !== $customer->getOrigData('group_id')) {
+            /**
+             * It is needed to process customer's quotes for all websites
+             * if customer accounts are shared between all of them
+             */
+            $websites = (Mage::getSingleton('customer/config_share')->isWebsiteScope())
+                ? array($customer->getWebsite())
+                : Mage::app()->getWebsites();
+
             /** @var $quote Mage_Sales_Model_Quote */
             $quote = Mage::getSingleton('sales/quote');
 
-            foreach (Mage::app()->getStores() as $store) {
-                $quote->setStore($store);
+            foreach ($websites as $website) {
+                $quote->setWebsite($website);
                 $quote->loadByCustomer($customer);
 
                 if ($quote->getId()) {

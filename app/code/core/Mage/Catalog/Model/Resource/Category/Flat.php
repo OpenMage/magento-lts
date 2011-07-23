@@ -639,6 +639,9 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Core_Model_Resource
                     $options = null;
                     $_is_unsigned = null;
                     break;
+                case Varien_Db_Ddl_Table::TYPE_DATETIME:
+                    $_is_unsigned = null;
+                    break;
 
             }
             $columns[$column['COLUMN_NAME']] = array(
@@ -703,7 +706,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Core_Model_Resource
                     break;
                 case 'datetime':
                     $columns[$attribute['attribute_code']] = array(
-                        'type' => array(Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null),
+                        'type' => array(Varien_Db_Ddl_Table::TYPE_DATETIME, null),
                         'unsigned' => null,
                         'nullable' => true,
                         'default' => null,

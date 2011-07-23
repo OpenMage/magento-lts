@@ -557,8 +557,9 @@ Product.OptionsPrice.prototype = {
         this.productPrice       = config.productPrice;
         this.showIncludeTax     = config.showIncludeTax;
         this.showBothPrices     = config.showBothPrices;
-        this.productPrice       = config.productPrice;
         this.productOldPrice    = config.productOldPrice;
+        this.priceInclTax       = config.priceInclTax;
+        this.priceExclTax       = config.priceExclTax;
         this.skipCalculate      = config.skipCalculate;//@deprecated after 1.5.1.0
         this.duplicateIdSuffix  = config.idSuffix;
         this.specialTaxPrice    = config.specialTaxPrice;
@@ -642,9 +643,11 @@ Product.OptionsPrice.prototype = {
                     _minusDisposition = this.minusDisposition;
                 }
 
-                var price = 0;
                 if (pair.value == 'old-price-'+this.productId && optionOldPrice !== undefined) {
                     price = optionOldPrice+parseFloat(_productPrice);
+                } else if (this.specialTaxPrice == 'true' && this.priceInclTax !== undefined && this.priceExclTax !== undefined) {
+                    price = optionPrices+parseFloat(this.priceExclTax);
+                    priceInclTax += this.priceInclTax;
                 } else {
                     price = optionPrices+parseFloat(_productPrice);
                     priceInclTax += parseFloat(_productPrice) * (100 + this.currentTax) / 100;

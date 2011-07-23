@@ -537,6 +537,16 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     }
 
     /**
+     * Get filters applied to collection
+     *
+     * @return array
+     */
+    public function getLimitationFilters()
+    {
+        return $this->_productLimitationFilters;
+    }
+
+    /**
      * Specify category filter for product collection
      *
      * @param Mage_Catalog_Model_Category $category
@@ -1846,4 +1856,5 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $this->_itemsById = array();
         return parent::clear();
     }
+
 }

@@ -338,7 +338,8 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     public function getMsrpExplanationMessage()
     {
         return $this->escapeHtml(
-            Mage::getStoreConfig(self::XML_PATH_MSRP_EXPLANATION_MESSAGE, $this->_storeId)
+            Mage::getStoreConfig(self::XML_PATH_MSRP_EXPLANATION_MESSAGE, $this->_storeId),
+            array('b','br','strong','i','u', 'p', 'span')
         );
     }
 
@@ -350,7 +351,8 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     public function getMsrpExplanationMessageWhatsThis()
     {
         return $this->escapeHtml(
-            Mage::getStoreConfig(self::XML_PATH_MSRP_EXPLANATION_MESSAGE_WHATS_THIS, $this->_storeId)
+            Mage::getStoreConfig(self::XML_PATH_MSRP_EXPLANATION_MESSAGE_WHATS_THIS, $this->_storeId),
+            array('b','br','strong','i','u', 'p', 'span')
         );
     }
 

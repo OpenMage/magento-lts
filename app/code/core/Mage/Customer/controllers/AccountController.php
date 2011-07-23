@@ -324,7 +324,11 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     );
 
                     if ($customer->isConfirmationRequired()) {
-                        $customer->sendNewAccountEmail('confirmation', $session->getBeforeAuthUrl());
+                        $customer->sendNewAccountEmail(
+                            'confirmation',
+                            $session->getBeforeAuthUrl(),
+                            Mage::app()->getStore()->getId()
+                        );
                         $session->addSuccess($this->__('Account confirmation is required. Please, check your email for the confirmation link. To resend the confirmation email please <a href="%s">click here</a>.', Mage::helper('customer')->getEmailConfirmationUrl($customer->getEmail())));
                         $this->_redirectSuccess(Mage::getUrl('*/*/index', array('_secure'=>true)));
                         return;
@@ -377,7 +381,11 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $this->__('Thank you for registering with %s.', Mage::app()->getStore()->getFrontendName())
         );
 
-        $customer->sendNewAccountEmail($isJustConfirmed ? 'confirmed' : 'registered');
+        $customer->sendNewAccountEmail(
+            $isJustConfirmed ? 'confirmed' : 'registered',
+            '',
+            Mage::app()->getStore()->getId()
+        );
 
         $successUrl = Mage::getUrl('*/*/index', array('_secure'=>true));
         if ($this->_getSession()->getBeforeAuthUrl()) {
@@ -468,7 +476,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     throw new Exception('');
                 }
                 if ($customer->getConfirmation()) {
-                    $customer->sendNewAccountEmail('confirmation');
+                    $customer->sendNewAccountEmail('confirmation', '', Mage::app()->getStore()->getId());
                     $this->_getSession()->addSuccess($this->__('Please, check your email for confirmation key.'));
                 } else {
                     $this->_getSession()->addSuccess($this->__('This email does not require confirmation.'));

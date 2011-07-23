@@ -38,6 +38,21 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     implements Mage_Shipping_Model_Carrier_Interface
 {
     /**
+     * USPS containers
+     */
+    const CONTAINER_VARIABLE           = 'VARIABLE';
+    const CONTAINER_FLAT_RATE_BOX      = 'FLAT RATE BOX';
+    const CONTAINER_FLAT_RATE_ENVELOPE = 'FLAT RATE ENVELOPE';
+    const CONTAINER_RECTANGULAR        = 'RECTANGULAR';
+    const CONTAINER_NONRECTANGULAR     = 'NONRECTANGULAR';
+
+    /**
+     * USPS size
+     */
+    const SIZE_REGULAR = 'REGULAR';
+    const SIZE_LARGE   = 'LARGE';
+
+    /**
      * Destination Zip Code required flag
      *
      * @var int
@@ -374,7 +389,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             $package->addAttribute('ID', 0);
             $package->addChild('Pounds', $r->getWeightPounds());
             $package->addChild('Ounces', $r->getWeightOunces());
-            $package->addChild('MailType', 'Package');
+            $package->addChild('MailType', 'All');
             $package->addChild('ValueOfContents', $r->getValue());
             $package->addChild('Country', $r->getDestCountryName());
             $package->addChild('Container', $r->getContainer());
@@ -582,14 +597,17 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                 'Express Mail'                     => 'EXPRESS',
                 'Express Mail PO to PO'            => 'EXPRESS',
                 'Express Mail Flat Rate Envelope'  => 'EXPRESS',
+                'Express Mail Flat-Rate Envelope Sunday/Holiday Guarantee'  => 'EXPRESS',
+                'Express Mail Sunday/Holiday Guarantee'            => 'EXPRESS',
                 'Express Mail Flat Rate Envelope Hold For Pickup'  => 'EXPRESS',
+                'Express Mail Hold For Pickup'                     => 'EXPRESS',
                 'Global Express Guaranteed (GXG)'                  => 'EXPRESS',
                 'Global Express Guaranteed Non-Document Rectangular'     => 'EXPRESS',
                 'Global Express Guaranteed Non-Document Non-Rectangular' => 'EXPRESS',
                 'USPS GXG Envelopes'                               => 'EXPRESS',
                 'Express Mail International'                       => 'EXPRESS',
                 'Express Mail International Flat Rate Envelope'    => 'EXPRESS',
-                'Priority Mail'                        => 'EXPRESS',
+                'Priority Mail'                        => 'PRIORITY',
                 'Priority Mail Small Flat Rate Box'    => 'PRIORITY',
                 'Priority Mail Medium Flat Rate Box'   => 'PRIORITY',
                 'Priority Mail Large Flat Rate Box'    => 'PRIORITY',
@@ -738,7 +756,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             'size'=>array(
                 'REGULAR'     => Mage::helper('usa')->__('Regular'),
                 'LARGE'       => Mage::helper('usa')->__('Large'),
-                'OVERSIZE'    => Mage::helper('usa')->__('Oversize'),
             ),
 
             'machinable'=>array(
@@ -747,8 +764,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             ),
 
             'delivery_confirmation_types' => array(
-                'false' => Mage::helper('usa')->__('Not Required'),
-                'true'  => Mage::helper('usa')->__('Required'),
+                'True' => Mage::helper('usa')->__('Not Required'),
+                'False'  => Mage::helper('usa')->__('Required'),
             ),
         );
 
@@ -1213,18 +1230,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
      * @param Varien_Object $request
      * @return string
      */
-    protected function _formUsShipmentRequest(Varien_Object $request)
+    protected function _formUsExpressShipmentRequest(Varien_Object $request)
     {
         $packageParams = $request->getPackageParams();
-        $girth = $packageParams->getGirth();
-
-        if ($packageParams->getGirthDimensionUnits() != Zend_Measure_Length::INCH) {
-            $girth = round(Mage::helper('usa')->convertMeasureDimension(
-                $packageParams->getGirth(),
-                $packageParams->getGirthDimensionUnits(),
-                Zend_Measure_Length::INCH
-            ));
-        }
 
         $packageWeight = $request->getPackageWeight();
         if ($packageParams->getWeightUnits() != Zend_Measure_Weight::OUNCE) {
@@ -1280,6 +1288,88 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         $xml->addChild('WeightInOunces', $packageWeight);
         $xml->addChild('WaiverOfSignature', $packageParams->getDeliveryConfirmation());
         $xml->addChild('POZipCode');
+        $xml->addChild('ImageType', 'PDF');
+
+        $xml = $xmlWrap->{$rootNode}->asXML();
+        return $xml;
+    }
+
+    /**
+     * Form XML for US Signature Confirmation request
+     * As integration guide it is important to follow appropriate sequence for tags e.g.: <FromLastName /> must be
+     * after <FromFirstName />
+     *
+     * @param Varien_Object $request
+     * @param string $serviceType
+     * @return string
+     */
+    protected function _formUsSignatureConfirmationShipmentRequest(Varien_Object $request, $serviceType)
+    {
+        switch ($serviceType) {
+            case 'PRIORITY':
+                $serviceType = 'Priority';
+                break;
+            case 'FIRST CLASS':
+                $serviceType = 'First Class';
+                break;
+            case 'PARCEL':
+                $serviceType = 'Parcel Post';
+                break;
+            case 'MEDIA':
+                $serviceType = 'Media Mail';
+                break;
+            case 'LIBRARY':
+                $serviceType = 'Library Mail';
+                break;
+            default:
+                throw new Exception(Mage::helper('usa')->__('Service type does not match'));
+        }
+        $packageParams = $request->getPackageParams();
+        $packageWeight = $request->getPackageWeight();
+        if ($packageParams->getWeightUnits() != Zend_Measure_Weight::OUNCE) {
+            $packageWeight = round(Mage::helper('usa')->convertMeasureWeight(
+                $request->getPackageWeight(),
+                $packageParams->getWeightUnits(),
+                Zend_Measure_Weight::OUNCE
+            ));
+        }
+        if (strlen($request->getShipperAddressPostalCode()) == 5) {
+            $fromZip5 = $request->getShipperAddressPostalCode();
+        } else {
+            $fromZip5 = '';
+        }
+        if (strlen($request->getShipperAddressPostalCode()) == 4) {
+            $fromZip4 = $request->getShipperAddressPostalCode();
+        } else {
+            $fromZip4 = '';
+        }
+
+        $rootNode = 'SigConfirmCertifyV3.0Request';
+        // the wrap node needs for remove xml declaration above
+        $xmlWrap = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><wrap/>');
+        $xml = $xmlWrap->addChild($rootNode);
+        $xml->addAttribute('USERID', $this->getConfigData('userid'));
+        $xml->addChild('Option', 1);
+        $xml->addChild('ImageParameters');
+        $xml->addChild('FromName', $request->getShipperContactPersonName());
+        $xml->addChild('FromFirm', $request->getShipperContactCompanyName());
+        $xml->addChild('FromAddress1', $request->getShipperAddressStreet2());
+        $xml->addChild('FromAddress2', $request->getShipperAddressStreet1());
+        $xml->addChild('FromCity', $request->getShipperAddressCity());
+        $xml->addChild('FromState', $request->getShipperAddressStateOrProvinceCode());
+        $xml->addChild('FromZip5', $fromZip5);
+        $xml->addChild('FromZip4', $fromZip4);
+        $xml->addChild('ToName', $request->getRecipientContactPersonName());
+        $xml->addChild('ToFirm', $request->getRecipientContactCompanyName());
+        $xml->addChild('ToAddress1', $request->getRecipientAddressStreet2());
+        $xml->addChild('ToAddress2', $request->getRecipientAddressStreet1());
+        $xml->addChild('ToCity', $request->getRecipientAddressCity());
+        $xml->addChild('ToState', $request->getRecipientAddressStateOrProvinceCode());
+        $xml->addChild('ToZip5', $request->getRecipientAddressPostalCode());
+        $xml->addChild('ToZip4');
+        $xml->addChild('WeightInOunces', $packageWeight);
+        $xml->addChild('ServiceType', $serviceType);
+        $xml->addChild('WaiverOfSignature', $packageParams->getDeliveryConfirmation());
         $xml->addChild('ImageType', 'PDF');
 
         $xml = $xmlWrap->{$rootNode}->asXML();
@@ -1409,8 +1499,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         }
         $xml->addChild('ToName', $request->getRecipientContactPersonName());
         $xml->addChild('ToFirm', $request->getRecipientContactCompanyName());
-        $xml->addChild('ToAddress1', $request->getRecipientAddressStreet2());
-        $xml->addChild('ToAddress2', $request->getRecipientAddressStreet1());
+        $xml->addChild('ToAddress1', $request->getRecipientAddressStreet1());
+        $xml->addChild('ToAddress2', $request->getRecipientAddressStreet2());
         $xml->addChild('ToCity', $request->getRecipientAddressCity());
         $xml->addChild('ToProvince', $request->getRecipientAddressStateOrProvinceCode());
         $xml->addChild('ToCountry', $this->_getCountryName($request->getRecipientAddressCountryCode()));
@@ -1476,7 +1566,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             $itemDetail = $shippingContents->addChild('ItemDetail');
             $itemDetail->addChild('Description', $item->getName());
             $itemDetail->addChild('Quantity', $item->getQty());
-            $itemDetail->addChild('Value', $item->getPrice() * $item->getQty());
+            $itemDetail->addChild('Value', $item->getCustomsValue() * $item->getQty());
             $itemDetail->addChild('NetPounds', floor($itemWeight));
             $itemDetail->addChild('NetOunces', round(($itemWeight - floor($itemWeight)) * 16, 1));
             $itemDetail->addChild('HSTariffNumber', 0);
@@ -1485,7 +1575,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
 
         $xml->addChild('GrossPounds', floor($packageWeight));
         $xml->addChild('GrossOunces', round(($packageWeight - floor($packageWeight)) * 16, 1));
-        $xml->addChild('ContentType', 'MERCHANDISE');
+        if ($packageParams->getContentType() == 'OTHER' && $packageParams->getContentTypeOther() != null) {
+            $xml->addChild('ContentType', $packageParams->getContentType());
+            $xml->addChild('ContentTypeOther ', $packageParams->getContentTypeOther());
+        } else {
+            $xml->addChild('ContentType', $packageParams->getContentType());
+        }
+
         $xml->addChild('Agreement', 'y');
         $xml->addChild('ImageType', 'PDF');
         $xml->addChild('ImageLayout', 'ALLINONEFILE');
@@ -1521,9 +1617,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         $service = $this->getCode('service_to_code', $request->getShippingMethod());
         $recipientUSCountry = $this->_isUSCountry($request->getRecipientAddressCountryCode());
 
-        if ($recipientUSCountry) {
-            $requestXml = $this->_formUsShipmentRequest($request);
+        if ($recipientUSCountry && $service == 'EXPRESS') {
+            $requestXml = $this->_formUsExpressShipmentRequest($request);
             $api = 'ExpressMailLabel';
+        } else if ($recipientUSCountry) {
+            $requestXml = $this->_formUsSignatureConfirmationShipmentRequest($request, $service);
+            $api = 'SignatureConfirmationCertifyV3';
         } else if ($service == 'FIRST CLASS') {
             $requestXml = $this->_formIntlShipmentRequest($request);
             $api = 'FirstClassMailIntl';
@@ -1557,9 +1656,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             $this->_debug($debugData);
             $result->setErrors($debugData['result']['error']);
         } else {
-            if ($recipientUSCountry) {
+            if ($recipientUSCountry && $service == 'EXPRESS') {
                 $labelContent = base64_decode((string) $response->EMLabel);
                 $trackingNumber = (string) $response->EMConfirmationNumber;
+            } else if ($recipientUSCountry) {
+                $labelContent = base64_decode((string) $response->SignatureConfirmationLabel);
+                $trackingNumber = (string) $response->SignatureConfirmationNumber;
             } else  {
                 $labelContent = base64_decode((string) $response->LabelImage);
                 $trackingNumber = (string) $response->BarcodeNumber;
@@ -1582,7 +1684,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
      */
     public function getContainerTypes(Varien_Object $params = null)
     {
-        return $this->_getAllowedContainers($params);
+        if (is_null($params)) {
+            return $this->_getAllowedContainers();
+        }
+        return $this->_isUSCountry($params->getCountryRecipient()) ? array() : $this->_getAllowedContainers($params);
     }
 
     /**
@@ -1608,12 +1713,16 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     /**
      * Return delivery confirmation types of carrier
      *
-     * @param null $countyDest
+     * @param Varien_Object|null $params
      * @return array
      */
-    public function getDeliveryConfirmationTypes($countyDest = null)
+    public function getDeliveryConfirmationTypes(Varien_Object $params = null)
     {
-        if ($this->_isUSCountry($countyDest)) {
+        if ($params == null) {
+            return array();
+        }
+        $countryRecipient = $params->getCountryRecipient();
+        if ($this->_isUSCountry($countryRecipient)) {
             return $this->getCode('delivery_confirmation_types');
         } else {
             return array();
@@ -1630,4 +1739,31 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     {
         return $this->_isUSCountry($countyDest) ? false : true;
     }
+
+    /**
+     * Return content types of package
+     *
+     * @param Varien_Object $params
+     * @return array
+     */
+    public function getContentTypes(Varien_Object $params)
+    {
+        $countryShipper     = $params->getCountryShipper();
+        $countryRecipient   = $params->getCountryRecipient();
+
+        if ($countryShipper == self::USA_COUNTRY_ID
+            && $countryRecipient != self::USA_COUNTRY_ID
+        ) {
+            return array(
+                'MERCHANDISE' => Mage::helper('usa')->__('Merchandise'),
+                'SAMPLE' => Mage::helper('usa')->__('Sample'),
+                'GIFT' => Mage::helper('usa')->__('Gift'),
+                'DOCUMENTS' => Mage::helper('usa')->__('Documents'),
+                'RETURN' => Mage::helper('usa')->__('Return'),
+                'OTHER' => Mage::helper('usa')->__('Other'),
+            );
+        }
+        return array();
+    }
+
 }

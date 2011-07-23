@@ -120,13 +120,30 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                     );
                 }
 
-                //$canApplyMAP = Mage::helper('catalog')->canApplyMsrp($_selection);
+                $itemPrice = $_selection->getFinalPrice();
+                if ($_selection->getSelectionPriceValue() != 0) {
+                    $itemPrice = $_selection->getSelectionPriceValue();
+                }
+
                 $canApplyMAP = false;
+
+                /* @var $taxHelper Mage_Tax_Helper_Data */
+                $taxHelper = Mage::helper('tax');
+
+                $_priceInclTax = $taxHelper->getPrice($_selection, $itemPrice, true);
+                $_priceExclTax = $taxHelper->getPrice($_selection, $itemPrice);
+
+                if ($currentProduct->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
+                    $_priceInclTax = $taxHelper->getPrice($currentProduct, $itemPrice, true);
+                    $_priceExclTax = $taxHelper->getPrice($currentProduct, $itemPrice);
+                }
+
                 $selection = array (
                     'qty'       => $_qty,
                     'customQty' => $_selection->getSelectionCanChangeQty(),
                     'price'     => $coreHelper->currency($_selection->getFinalPrice(), false, false),
-                    'taxPercent'=> $taxPercent,
+                    'priceInclTax'  => $coreHelper->currency($_priceInclTax, false, false),
+                    'priceExclTax'  => $coreHelper->currency($_priceExclTax, false, false),
                     'priceValue' => $coreHelper->currency($_selection->getSelectionPriceValue(), false, false),
                     'priceType' => $_selection->getSelectionPriceType(),
                     'tierPrice' => $tierPrices,

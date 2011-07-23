@@ -76,7 +76,7 @@ endif; ?>
             <?php echo $this->getForm()->toHtml() ?>
         </div>
         <div class="order-save-in-address-book">
-            <input name="<?php echo $this->getForm()->getHtmlNamePrefix()?>[save_in_address_book]" type="checkbox" id="<?php echo $this->getForm()->getHtmlIdPrefix()?>save_in_address_book" value="1" <?php if ($this->getAddress()->getSaveInAddressBook()):?> checked="checked"<?php endif;?>/>
+            <input name="<?php echo $this->getForm()->getHtmlNamePrefix()?>[save_in_address_book]" type="checkbox" id="<?php echo $this->getForm()->getHtmlIdPrefix()?>save_in_address_book" value="1" <?php if (!$this->getDontSaveInAddressBook() && $this->getAddress()->getSaveInAddressBook()):?> checked="checked"<?php endif;?>/>
             <label for="<?php echo $this->getForm()->getHtmlIdPrefix()?>save_in_address_book"><?php echo Mage::helper('sales')->__('Save in address book') ?></label>
         </div>
     </div>

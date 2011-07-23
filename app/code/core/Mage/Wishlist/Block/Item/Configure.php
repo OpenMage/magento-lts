@@ -53,4 +53,21 @@ class Mage_Wishlist_Block_Item_Configure extends Mage_Core_Block_Template
     {
         return Mage::registry('wishlist_item');
     }
+
+    /**
+     * Configure product view blocks
+     *
+     * @return Mage_Wishlist_Block_Item_Configure
+     */
+    protected function _prepareLayout()
+    {
+        // Set custom add to cart url
+        $block = $this->getLayout()->getBlock('product.info');
+        if ($block) {
+            $url = Mage::helper('wishlist')->getAddToCartUrl($this->getWishlistItem());
+            $block->setCustomAddToCartUrl($url);
+        }
+
+        return parent::_prepareLayout();
+    }
 }

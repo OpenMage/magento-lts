@@ -228,7 +228,7 @@ $table = $installer->getConnection()
         ), 'Total Due')
     ->addColumn('weight', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
         ), 'Weight')
-    ->addColumn('customer_dob', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ->addColumn('customer_dob', Varien_Db_Ddl_Table::TYPE_DATETIME, null, array(
         ), 'Customer Dob')
     ->addColumn('increment_id', Varien_Db_Ddl_Table::TYPE_TEXT, 50, array(
         ), 'Increment Id')
@@ -1861,7 +1861,7 @@ $table = $installer->getConnection()
         ), 'Customer Lastname')
     ->addColumn('customer_suffix', Varien_Db_Ddl_Table::TYPE_TEXT, 40, array(
         ), 'Customer Suffix')
-    ->addColumn('customer_dob', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ->addColumn('customer_dob', Varien_Db_Ddl_Table::TYPE_DATETIME, null, array(
         ), 'Customer Dob')
     ->addColumn('customer_note', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         ), 'Customer Note')

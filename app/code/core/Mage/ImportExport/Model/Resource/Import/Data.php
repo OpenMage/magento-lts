@@ -134,7 +134,7 @@ class Mage_ImportExport_Model_Resource_Import_Data
         }
         if ($this->_iterator->valid()) {
             $dataRow = $this->_iterator->current();
-            $dataRow = unserialize($dataRow[0]);
+            $dataRow = Mage::helper('core')->jsonDecode($dataRow[0]);
             $this->_iterator->next();
         } else {
             $this->_iterator = null;
@@ -155,7 +155,7 @@ class Mage_ImportExport_Model_Resource_Import_Data
     {
         return $this->_getWriteAdapter()->insert(
             $this->getMainTable(),
-            array('behavior' => $behavior, 'entity' => $entity, 'data' => serialize($data))
+            array('behavior' => $behavior, 'entity' => $entity, 'data' => Mage::helper('core')->jsonEncode($data))
         );
     }
 }

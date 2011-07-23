@@ -177,7 +177,10 @@
 <script type="text/javascript">
 //<![CDATA[
     function showPackedWindow() {
-        $('packed_window').show();
+        var window = $('packed_window');
+        window.show().setStyle({
+            'marginLeft': -window.getDimensions().width/2 + 'px'
+        });
         $('popup-window-mask').setStyle({
             height: $('html-body').getHeight() + 'px'
         }).show();

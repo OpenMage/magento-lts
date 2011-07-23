@@ -203,9 +203,9 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     {
         $customer = $quote->getCustomer();
         if ($customer->isConfirmationRequired()) {
-            $customer->sendNewAccountEmail('confirmation');
+            $customer->sendNewAccountEmail('confirmation', '', $quote->getStoreId());
         } else {
-            $customer->sendNewAccountEmail();
+            $customer->sendNewAccountEmail('registered' , '', $quote->getStoreId());
         }
 
         return $this;

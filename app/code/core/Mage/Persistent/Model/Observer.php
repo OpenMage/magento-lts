@@ -73,9 +73,8 @@ class Mage_Persistent_Model_Observer
 
         /** @var $block Mage_Core_Block_Abstract */
         $block = $observer->getEvent()->getBlock();
-        $placeholder = $observer->getEvent()->getPlaceholder();
 
-        if (!$block || !$placeholder) {
+        if (!$block) {
             return $this;
         }
 
@@ -479,6 +478,7 @@ class Mage_Persistent_Model_Observer
             && !$customerSession->isLoggedIn()
             && $checkoutSession->getQuoteId()
         ) {
+            Mage::dispatchEvent('persistent_session_expired');
             $quote = $checkoutSession->setLoadInactive()->getQuote();
             if ($quote->getIsActive() && $quote->getCustomerId()) {
                 $checkoutSession->unsetAll();

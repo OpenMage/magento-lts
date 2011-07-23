@@ -191,6 +191,11 @@ class Mage_Sales_Model_Service_Quote
             Mage::dispatchEvent('sales_model_service_quote_submit_success', array('order'=>$order, 'quote'=>$quote));
         } catch (Exception $e) {
 
+            if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
+                // reset customer ID's on exception, because customer not saved
+                $quote->getCustomer()->setId(null);
+            }
+
             //reset order ID's on exception, because order not saved
             $order->setId(null);
             /** @var $item Mage_Sales_Model_Order_Item */

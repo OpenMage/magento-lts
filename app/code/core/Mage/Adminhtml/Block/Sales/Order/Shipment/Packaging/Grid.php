@@ -68,4 +68,35 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging_Grid extends Mage_Admi
         return Mage::registry('current_shipment');
     }
 
+    /**
+     * Can display customs value
+     *
+     * @return bool
+     */
+    public function displayCustomsValue()
+    {
+        $storeId = $this->getShipment()->getStoreId();
+        $order = $this->getShipment()->getOrder();
+        $address = $order->getShippingAddress();
+        $shipperAddressCountryCode = Mage::getStoreConfig(
+            Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID,
+            $storeId
+        );
+        $recipientAddressCountryCode = $address->getCountryId();
+        if ($shipperAddressCountryCode != $recipientAddressCountryCode) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Format price
+     *
+     * @param   decimal $value
+     * @return  double
+     */
+    public function formatPrice($value)
+    {
+        return sprintf('%.2F', $value);
+    }
 }

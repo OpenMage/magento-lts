@@ -24,12 +24,53 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Address Total Collector model
+ *
+ * @category    Mage
+ * @package     Mage_Core
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Sales_Model_Quote_Address_Total_Collector
 {
-    protected $_models      = array();
-    protected $_modelsConfig= array();
-    protected $_collectors  = array();
-    protected $_retrievers  = array();
+    /**
+     * Path to sort order values of checkout totals
+     */
+    const XML_PATH_SALES_TOTALS_SORT = 'sales/totals_sort';
+
+    /**
+     * Total models array
+     *
+     * @var array
+     */
+    protected $_models = array();
+
+    /**
+     * Total models configuration
+     *
+     * @var array
+     */
+    protected $_modelsConfig = array();
+
+    /**
+     * Total models array ordered for right calculation logic
+     *
+     * @var array
+     */
+    protected $_collectors = array();
+
+    /**
+     * Total models array ordered for right display sequence
+     *
+     * @var array
+     */
+    protected $_retrievers = array();
+
+    /**
+     * Corresponding store object
+     *
+     * @var Mage_Core_Model_Store
+     */
     protected $_store;
 
     /**
@@ -46,7 +87,11 @@ class Mage_Sales_Model_Quote_Address_Total_Collector
      */
     protected $_collectorsCacheKey = 'sorted_quote_collectors';
 
-
+    /**
+     * Init corresponding total models
+     *
+     * @param array $options
+     */
     public function __construct($options)
     {
         if (isset($options['store'])) {
@@ -256,10 +301,16 @@ class Mage_Sales_Model_Quote_Address_Total_Collector
      */
     protected function _initRetrievers()
     {
-        $sorts = Mage::getStoreConfig('sales/totals_sort', $this->_store);
+        $sorts = Mage::getStoreConfig(self::XML_PATH_SALES_TOTALS_SORT, $this->_store);
         foreach ($sorts as $code => $sortOrder) {
             if (isset($this->_models[$code])) {
-                $this->_retrievers[$sortOrder] = $this->_models[$code];
+                // Reserve enough space for collisions
+                $retrieverId = 100 * (int) $sortOrder;
+                // Check if there is a retriever with such id and find next available position if needed
+                while (isset($this->_retrievers[$retrieverId])) {
+                    $retrieverId++;
+                }
+                $this->_retrievers[$retrieverId] = $this->_models[$code];
             }
         }
         ksort($this->_retrievers);

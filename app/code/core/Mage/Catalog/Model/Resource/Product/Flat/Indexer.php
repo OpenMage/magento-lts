@@ -177,6 +177,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Core_Model_R
                 ->where('main_table.entity_type_id = :entity_type_id');
             $whereCondition = array(
                 'main_table.backend_type = :backend_type',
+                $adapter->quoteInto('additional_table.is_used_for_promo_rules = ?', 1),
                 $adapter->quoteInto('additional_table.used_in_product_listing = ?', 1),
                 $adapter->quoteInto('additional_table.used_for_sort_by = ?', 1),
                 $adapter->quoteInto('main_table.attribute_code IN(?)', $this->_systemAttributes)

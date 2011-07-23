@@ -309,7 +309,6 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             ->where('type_id IN(?)', $this->_configTypeIds);
 
         $where = sprintf('stock_id = %1$d'
-            . ' AND is_in_stock = 0'
             . ' AND ((use_config_manage_stock = 1 AND 1 = %2$d) OR (use_config_manage_stock = 0 AND manage_stock = 1))'
             . ' AND product_id IN (%3$s)',
             $this->_stock->getId(),

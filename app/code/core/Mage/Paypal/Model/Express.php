@@ -606,6 +606,10 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
             $orderTransaction = $payment->lookupTransaction(false,
                 Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER
             );
+            if ($orderTransaction->getIsClosed()) {
+                return false;
+            }
+
             $orderValidPeriod = abs(intval($this->getConfigData('order_valid_period')));
 
             $dateCompass = new DateTime($orderTransaction->getCreatedAt());

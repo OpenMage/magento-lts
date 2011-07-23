@@ -64,27 +64,6 @@
     </ul>
 </td>
 <td>
-<!-- Addresses forms -->
-    <div class="entry-edit" id="address_form_container">
-        <?php if(count($addressCollection)): ?>
-            <?php foreach ($addressCollection as $_address): ?>
-            <div id="form_address_item_<?php echo $_address->getId() ?>" style="display:none">
-            <?php
-                    $this->getForm()->setValues($_address->getData())
-                            ->setHtmlIdPrefix("_item{$_address->getId()}")
-                            ->setFieldNameSuffix('address['.$_address->getId().']');
-                    $this->addValuesToNamePrefixElement($_address->getPrefix())
-                        ->addValuesToNameSuffixElement($_address->getSuffix());
-            ?>
-            <?php echo $this->getForm()->getHtml() ?>
-            <input type="hidden" name="address[<?php echo $_address->getId() ?>][_deleted]" id="deleted_address_item_<?php echo $_address->getId() ?>" />
-            </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <div id="no_address_message"><?php echo Mage::helper('customer')->__('This customer has no saved addresses.') ?></div>
-        <?php endif; ?>
-    </div>
-
     <!-- Template for adding address item to list -->
     <?php $_templatePrefix = $this->getTemplatePrefix() ?>
     <div id="address_item_template" class="no-display template">
@@ -113,15 +92,35 @@
     <div id="address_form_template" class="no-display template">
     <?php
         // Set form template elements prefix
-        $this->getFormObject()->setHtmlIdPrefix($_templatePrefix)
+        $this->getForm()->setHtmlIdPrefix($_templatePrefix)
                 ->setFieldNameSuffix('address['.$_templatePrefix.']');
     ?>
-    <?php echo $this->getFormObject()->getHtml() ?>
+    <?php echo $this->getForm()->getHtml() ?>
     <?php echo $this->getCancelButtonHtml() ?>
     </div>
-
-
 <!-- -->
+
+<!-- Addresses forms -->
+    <div class="entry-edit" id="address_form_container">
+        <?php if(count($addressCollection)): ?>
+            <?php foreach ($addressCollection as $_address): ?>
+            <div id="form_address_item_<?php echo $_address->getId() ?>" style="display:none">
+            <?php
+                    $this->getForm()->setValues($_address->getData())
+                            ->setHtmlIdPrefix("_item{$_address->getId()}")
+                            ->setFieldNameSuffix('address['.$_address->getId().']');
+                    $this->addValuesToNamePrefixElement($_address->getPrefix())
+                        ->addValuesToNameSuffixElement($_address->getSuffix());
+            ?>
+            <?php echo $this->getForm()->getHtml() ?>
+            <input type="hidden" name="address[<?php echo $_address->getId() ?>][_deleted]" id="deleted_address_item_<?php echo $_address->getId() ?>" />
+            </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div id="no_address_message"><?php echo Mage::helper('customer')->__('This customer has no saved addresses.') ?></div>
+        <?php endif; ?>
+    </div>
+
 <script type="text/javascript">
 //<![CDATA[
 var deleteButtonId = <?php echo $_iterator ?>;

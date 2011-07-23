@@ -949,6 +949,7 @@ ul.tabs a.paypal-section:hover span { background:url(images/paypal_section.png) 
 .packaging-window .package-options .options-units-weight { width:45px; }
 .packaging-window .package-options .options-units-dimensions { width:45px; }
 .packaging-window .package-options input[type=text].disabled { background:#eee; }
+.packaging-window .package-options-contents { border-top:0; }
 .packaging-window .package-add-products { border-top:1px solid #ccc; padding:10px 0 0; margin:10px 0 0; }
 .packaging-window .package-add-products .grid { padding:0; }
 .packaging-window .package-add-products .grid button { vertical-align:middle; }

@@ -129,11 +129,14 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             }
         }
 
+        // Compose array of messages to add
+        $messages = array();
         foreach ($cart->getQuote()->getMessages() as $message) {
             if ($message) {
-                $cart->getCheckoutSession()->addMessage($message);
+                $messages[] = $message;
             }
         }
+        $cart->getCheckoutSession()->addUniqueMessages($messages);
 
         /**
          * if customer enteres shopping cart we should mark quote

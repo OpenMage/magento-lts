@@ -450,7 +450,6 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
             ->setSource($this->_getSourceAdapter($sourceFile))
             ->isDataValid();
 
-        @unlink($sourceFile);
         $messages = $this->getOperationResultMessages($result);
         $this->addLogComment($messages);
         if ($result) {

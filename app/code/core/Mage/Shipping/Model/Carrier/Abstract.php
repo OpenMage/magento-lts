@@ -202,10 +202,10 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Return delivery confirmation types of carrier
      *
-     * @param null $countyDest
+     * @param Varien_Object|null $params
      * @return array
      */
-    public function getDeliveryConfirmationTypes($countyDest = null)
+    public function getDeliveryConfirmationTypes(Varien_Object $params = null)
     {
         return array();
     }
@@ -527,5 +527,16 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     public function getCarrierCode()
     {
         return $this->_code;
+    }
+
+    /**
+     * Return content types of package
+     *
+     * @param Varien_Object $params
+     * @return array
+     */
+    public function getContentTypes(Varien_Object $params)
+    {
+        return array();
     }
 }

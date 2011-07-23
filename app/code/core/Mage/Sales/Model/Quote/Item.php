@@ -184,12 +184,20 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     protected $_flagOptionsSaved = null;
 
     /**
+     * Array of errors associated with this quote item
+     *
+     * @var Mage_Sales_Model_Status_List
+     */
+    protected $_errorInfos = null;
+
+    /**
      * Initialize resource model
      *
      */
     protected function _construct()
     {
         $this->_init('sales/quote_item');
+        $this->_errorInfos = Mage::getModel('sales/status_list');
     }
 
     /**
@@ -789,5 +797,104 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             ->setQty($this->getQty() * 1);
 
         return $buyRequest;
+    }
+
+    /**
+     * Sets flag, whether this quote item has some error associated with it.
+     *
+     * @param bool $flag
+     * @return Mage_Sales_Model_Quote_Item
+     */
+    protected function _setHasError($flag)
+    {
+        return $this->setData('has_error', $flag);
+    }
+
+    /**
+     * Sets flag, whether this quote item has some error associated with it.
+     * When TRUE - also adds 'unknown' error information to list of quote item errors.
+     * When FALSE - clears whole list of quote item errors.
+     * It's recommended to use addErrorInfo() instead - to be able to remove error statuses later.
+     *
+     * @param bool $flag
+     * @return Mage_Sales_Model_Quote_Item
+     * @see addErrorInfo()
+     */
+    public function setHasError($flag)
+    {
+        if ($flag) {
+            $this->addErrorInfo();
+        } else {
+            $this->_clearErrorInfo();
+        }
+        return $this;
+    }
+
+    /**
+     * Clears list of errors, associated with this quote item.
+     * Also automatically removes error-flag from oneself.
+     *
+     * @return Mage_Sales_Model_Quote_Item
+     */
+    protected function _clearErrorInfo()
+    {
+        $this->_errorInfos->clear();
+        $this->_setHasError(false);
+        return $this;
+    }
+
+    /**
+     * Adds error information to the quote item.
+     * Automatically sets error flag.
+     *
+     * @param string|null $origin Usually a name of module, that embeds error
+     * @param int|null $code Error code, unique for origin, that sets it
+     * @param string|null $message Error message
+     * @param Varien_Object|null $additionalData Any additional data, that caller would like to store
+     * @return Mage_Sales_Model_Quote_Item
+     */
+    public function addErrorInfo($origin = null, $code = null, $message = null, $additionalData = null)
+    {
+        $this->_errorInfos->addItem($origin, $code, $message, $additionalData);
+        if ($message !== null) {
+            $this->setMessage($message);
+        }
+        $this->_setHasError(true);
+
+        return $this;
+    }
+
+    /**
+     * Retrieves all error infos, associated with this item
+     *
+     * @return array
+     */
+    public function getErrorInfos()
+    {
+        return $this->_errorInfos->getItems();
+    }
+
+    /**
+     * Removes error infos, that have parameters equal to passed in $params.
+     * $params can have following keys (if not set - then any item is good for this key):
+     *   'origin', 'code', 'message'
+     *
+     * @param array $params
+     * @return Mage_Sales_Model_Quote_Item
+     */
+    public function removeErrorInfosByParams($params)
+    {
+        $removedItems = $this->_errorInfos->removeItemsByParams($params);
+        foreach ($removedItems as $item) {
+            if ($item['message'] !== null) {
+                $this->removeMessageByText($item['message']);
+            }
+        }
+
+        if (!$this->_errorInfos->getItems()) {
+            $this->_setHasError(false);
+        }
+
+        return $this;
     }
 }

@@ -976,6 +976,11 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
             $payment->setParentTransactionId($parentTransactionId)
                 ->setTransactionId($googleOrderId . '-' . $typeTarget)
                 ->addTransaction($typeTarget);
+
+            if ($this->getOrder()->getTotalDue() < .0001) {
+                $parentTransaction->setIsClosed(true)
+                    ->save();
+            }
         }
 
         return $this;

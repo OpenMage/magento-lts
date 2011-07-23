@@ -1341,19 +1341,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
      */
     protected function _mapRequestToShipment(Varien_Object $request)
     {
-        $price = 0;
-        foreach ($request->getPackageItems() as $itemShipment) {
-            if (array_key_exists('price', $itemShipment)) {
-                $price += $itemShipment['price'];
-            }
-        }
-        $request->setPackageValue($price);
-        $request->setValueWithDiscount($price);
-        $request->setFreeMethodWeight(0);
-
-        $packageParams = $request->getPackageParams();
-        $customsValue = !empty($packageParams['customs_value']) ? $packageParams['customs_value'] : 0;
-
+        $customsValue = $request->getPackageParams()->getCustomsValue();
         $request->setOrigPersonName($request->getShipperContactPersonName());
         $request->setOrigPostal($request->getShipperAddressPostalCode());
         $request->setOrigPhoneNumber($request->getShipperContactPhoneNumber());
@@ -1375,7 +1363,10 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         $request->setDestStreetLine2($request->getRecipientAddressStreet2());
 
         $request->setLimitMethod($request->getShippingMethod());
+        $request->setPackageValue($customsValue);
+        $request->setValueWithDiscount($customsValue);
         $request->setPackageCustomsValue($customsValue);
+        $request->setFreeMethodWeight(0);
         $request->setDhlShipmentType($request->getPackagingType());
     }
 

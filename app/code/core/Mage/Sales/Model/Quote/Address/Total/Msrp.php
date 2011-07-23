@@ -54,9 +54,10 @@ class Mage_Sales_Model_Quote_Address_Total_Msrp extends Mage_Sales_Model_Quote_A
 
         $canApplyMsrp = false;
         foreach ($items as $item) {
-            if (Mage::helper('catalog')->canApplyMsrp(
+            if (!$item->getParentItemId() && Mage::helper('catalog')->canApplyMsrp(
                 $item->getProductId(),
-                Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM
+                Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM,
+                true
             )) {
                 $canApplyMsrp = true;
                 break;

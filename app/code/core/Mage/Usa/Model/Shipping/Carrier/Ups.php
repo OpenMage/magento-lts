@@ -687,17 +687,21 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
                                 '54', // Worldwide Express Plus
                                 '08', // Worldwide Expedited
                                 '65', // Worldwide Saver
+                                '11', // Standard
                             )
                         )
                     )
                 ),
                 array(
-                    'containers' => array('21', '03'), // UPS Express Box, UPS Tube
+                    'containers' => array('2a', '2b', '2c', '03'), // Small Express Box, Medium Express Box, Large Express Box, UPS Tube
                     'filters'    => array(
                         'within_us' => array(
                             'method' => array(
+                                '01', // Next Day Air
+                                '13', // Next Day Air Saver
                                 '14', // Next Day Air Early AM
                                 '02', // 2nd Day Air
+                                '59', // 2nd Day Air AM
                             )
                         ),
                         'from_us' => array(
@@ -720,8 +724,40 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
                             'method' => array(
                                 '07', // Worldwide Express
                                 '54', // Worldwide Express Plus
-                                '08', // Worldwide Expedited
                                 '65', // Worldwide Saver
+                            )
+                        )
+                    )
+                ),
+                array(
+                    'containers' => array('01', '04'), // UPS Letter, UPS PAK
+                    'filters'    => array(
+                        'within_us' => array(
+                            'method' => array(
+                                '01', // Next Day Air
+                                '14', // Next Day Air Early AM
+                                '02', // 2nd Day Air
+                                '59', // 2nd Day Air AM
+                            )
+                        ),
+                        'from_us' => array(
+                            'method' => array(
+                                '07', // Worldwide Express
+                                '54', // Worldwide Express Plus
+                                '65', // Worldwide Saver
+                            )
+                        )
+                    )
+                ),
+                array(
+                    'containers' => array('04'), // UPS PAK
+                    'filters'    => array(
+                        'within_us' => array(
+                            'method' => array()
+                        ),
+                        'from_us' => array(
+                            'method' => array(
+                                '08', // Worldwide Expedited
                             )
                         )
                     )
@@ -1492,15 +1528,7 @@ XMLAuth;
         )) {
             $invoiceLineTotalPart = $shipmentPart->addChild('InvoiceLineTotal');
             $invoiceLineTotalPart->addChild('CurrencyCode', $request->getBaseCurrencyCode());
-            $monetaryValue = 0;
-            if ($request->getPackageItems()) {
-                foreach ($request->getPackageItems() as $packageItem) {
-                    if (array_key_exists('price', $packageItem) && array_key_exists('qty', $packageItem)) {
-                        $monetaryValue += $packageItem['price'] * $packageItem['qty'];
-                    }
-                }
-            }
-            $invoiceLineTotalPart->addChild('MonetaryValue', ceil($monetaryValue));
+            $invoiceLineTotalPart->addChild('MonetaryValue', ceil($packageParams->getCustomsValue()));
         }
 
         $labelPart = $xmlRequest->addChild('LabelSpecification');
@@ -1650,7 +1678,27 @@ XMLAuth;
             && $countryRecipient == self::USA_COUNTRY_ID)
             && $method == '11' // UPS Standard
         ) {
-            return array('00' => Mage::helper('usa')->__('Customer Packaging'));
+            $containerTypes = array();
+            if ($method == '07' // Worldwide Express
+                || $method == '08' // Worldwide Expedited
+                || $method == '65' // Worldwide Saver
+
+            ) {
+                // Worldwide Expedited
+                if ($method != '08') {
+                    $containerTypes = array(
+                        '01'   => Mage::helper('usa')->__('UPS Letter Envelope'),
+                        '24'   => Mage::helper('usa')->__('UPS Worldwide 25 kilo'),
+                        '25'   => Mage::helper('usa')->__('UPS Worldwide 10 kilo'),
+                    );
+                }
+                $containerTypes = $containerTypes + array(
+                    '03'     => Mage::helper('usa')->__('UPS Tube'),
+                    '04'    => Mage::helper('usa')->__('PAK'),
+                    '21'    => Mage::helper('usa')->__('UPS Express Box'),
+                );
+            }
+            return array('00' => Mage::helper('usa')->__('Customer Packaging')) + $containerTypes;
         }
         return $this->_getAllowedContainers($params);
     }
@@ -1685,13 +1733,14 @@ XMLAuth;
     /**
      * Return delivery confirmation types of carrier
      *
-     * @param string|null $countyDest
+     * @param Varien_Object|null $params
      * @return array|bool
      */
-    public function getDeliveryConfirmationTypes($countyDest = null)
+    public function getDeliveryConfirmationTypes(Varien_Object $params = null)
     {
-        $deliveryConfirmationTypes = array();
-        switch ($this->_getDeliveryConfirmationLevel($countyDest)) {
+        $countryRecipient           = $params != null ? $params->getCountryRecipient() : null;
+        $deliveryConfirmationTypes  = array();
+        switch ($this->_getDeliveryConfirmationLevel($countryRecipient)) {
             case self::DELIVERY_CONFIRMATION_PACKAGE:
                 $deliveryConfirmationTypes = array(
                     1 => Mage::helper('usa')->__('Delivery Confirmation'),

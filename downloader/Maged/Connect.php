@@ -362,11 +362,18 @@ function clear_cache(callbacks)
     var message = 'Exception during cache and session cleaning';
     var url = window.location.href.split('?')[0] + '?A=cleanCache';
     var intervalID = setInterval(function() {show_message('.', false); }, 500);
-    var clean = window.location.href.indexOf('clean_sessions') + 1; //0 - is first position in string, -1 - not found
+    var clean = 0;
+    var maintenance = 0;
+    if (window.location.href.indexOf('clean_sessions') >= 0) {
+        clean = 1;
+    }
+    if (window.location.href.indexOf('maintenance') >= 0) {
+        maintenance = 1;
+    }
 
     new top.Ajax.Request(url, {
         method: 'post',
-        parameters: {clean_sessions:clean},
+        parameters: {clean_sessions:clean, maintenance:maintenance},
         onCreate: function() {
             show_message('Cleaning cache');
             show_message('');

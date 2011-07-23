@@ -292,27 +292,34 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 ->where('rate.tax_country_id = ?', $countryId)
                 ->where("rate.tax_region_id IN(?)", array(0, (int)$regionId));
 
-            $selectClone = clone $select;
-
-            $select
-                ->where("rate.zip_is_range IS NULL");
-
-            $selectClone
-                ->where("rate.zip_is_range IS NOT NULL");
+            $postcodeIsNumeric = is_numeric($postcode);
+            if ($postcodeIsNumeric) {
+                $selectClone = clone $select;
+                $selectClone->where('rate.zip_is_range IS NOT NULL');
+            }
+            $select->where('rate.zip_is_range IS NULL');
 
             if ($request->getPostcode() != '*') {
                 $select
                     ->where("rate.tax_postcode IS NULL OR rate.tax_postcode IN('*', '', ?)",
                         $this->_createSearchPostCodeTemplates($postcode));
-                /* Wrong expresion for mssql string to int comparison */
-                //$selectClone
-                //    ->where('? BETWEEN rate.zip_from AND rate.zip_to', $postcode);
+                if ($postcodeIsNumeric) {
+                    $selectClone
+                        ->where('? BETWEEN rate.zip_from AND rate.zip_to', $postcode);
+                }
             }
 
             /**
              * @see ZF-7592 issue http://framework.zend.com/issues/browse/ZF-7592
              */
-            $select = $this->_getReadAdapter()->select()->union(array('(' . $select . ')', '(' . $selectClone . ')'));
+            if ($postcodeIsNumeric) {
+                $select = $this->_getReadAdapter()->select()->union(
+                    array(
+                        '(' . $select . ')',
+                        '(' . $selectClone . ')'
+                    )
+                );
+            }
 
             $select->order('priority ' . Varien_Db_Select::SQL_ASC)
                    ->order('tax_calculation_rule_id ' . Varien_Db_Select::SQL_ASC)

@@ -164,8 +164,9 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0',
         ), 'Entity Id')
-    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_DATETIME, null, array(
         'nullable'  => false,
+        'default' => '0000-00-00 00:00:00'
         ), 'Value')
     ->addIndex($installer->getIdxName('customer_address_entity_datetime', array('entity_id', 'attribute_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         array('entity_id', 'attribute_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
@@ -413,8 +414,9 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0',
         ), 'Entity Id')
-    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_DATETIME, null, array(
         'nullable'  => false,
+        'default' => '0000-00-00 00:00:00'
         ), 'Value')
     ->addIndex($installer->getIdxName('customer_entity_datetime', array('entity_id', 'attribute_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         array('entity_id', 'attribute_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))

@@ -155,12 +155,15 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     protected function _getAttributeColumnDefinition($code, $data)
     {
         // Convert attribute type to column info
-        $data['type'] = isset($data['type']) ? $data['type'] : Varien_Db_Ddl_Table::TYPE_TEXT;
+        $data['type'] = isset($data['type']) ? $data['type'] : 'varchar';
         $type = null;
         $length = null;
         switch ($data['type']) {
-            case 'datetime':
+            case 'timestamp':
                 $type = Varien_Db_Ddl_Table::TYPE_TIMESTAMP;
+                break;
+            case 'datetime':
+                $type = Varien_Db_Ddl_Table::TYPE_DATETIME;
                 break;
             case 'decimal':
                 $type = Varien_Db_Ddl_Table::TYPE_DECIMAL;
@@ -173,6 +176,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 $type = Varien_Db_Ddl_Table::TYPE_TEXT;
                 $length = 65536;
                 break;
+            case 'char':
             case 'varchar':
                 $type = Varien_Db_Ddl_Table::TYPE_TEXT;
                 $length = 255;

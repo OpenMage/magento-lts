@@ -57,6 +57,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             if(!Mage::getSingleton('customer/session')->getBeforeWishlistUrl()) {
                 Mage::getSingleton('customer/session')->setBeforeWishlistUrl($this->_getRefererUrl());
             }
+            Mage::getSingleton('customer/session')->setBeforeWishlistRequest($this->getRequest()->getParams());
         }
         if (!Mage::getStoreConfigFlag('wishlist/general/active')) {
             $this->norouteAction();
@@ -156,7 +157,12 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         }
 
         try {
-            $buyRequest = new Varien_Object($this->getRequest()->getParams());
+            $requestParams = $this->getRequest()->getParams();
+            if ($session->getBeforeWishlistRequest()) {
+                $requestParams = $session->getBeforeWishlistRequest();
+                $session->unsBeforeWishlistRequest();
+            }
+            $buyRequest = new Varien_Object($requestParams);
 
             $result = $wishlist->addNewItem($product, $buyRequest);
             if (is_string($result)) {
@@ -430,12 +436,17 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         }
 
         // Set qty
-        $qtys = $this->getRequest()->getParam('qty');
-        if (isset($qtys[$itemId])) {
-            $qty = $this->_processLocalizedQty($qtys[$itemId]);
-            if ($qty) {
-                $item->setQty($qty);
+        $qty = $this->getRequest()->getParam('qty');
+        if (is_array($qty)) {
+            if (isset($qty[$itemId])) {
+                $qty = $qty[$itemId];
+            } else {
+                $qty = 1;
             }
+        }
+        $qty = $this->_processLocalizedQty($qty);
+        if ($qty) {
+            $item->setQty($qty);
         }
 
         /* @var $session Mage_Wishlist_Model_Session */
@@ -449,6 +460,12 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                     ->addItemFilter(array($itemId));
             $item->setOptions($options->getOptionsByItem($itemId));
 
+            $buyRequest = Mage::helper('catalog/product')->addParamsToBuyRequest(
+                $this->getRequest()->getParams(),
+                array('current_config' => $item->getBuyRequest())
+            );
+
+            $item->mergeBuyRequest($buyRequest);
             $item->addToCart($cart, true);
             $cart->save()->getQuote()->collectTotals();
             $wishlist->save();

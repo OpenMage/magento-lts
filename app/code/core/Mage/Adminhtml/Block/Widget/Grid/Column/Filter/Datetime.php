@@ -51,8 +51,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
         }
         if (!empty($value['to']) && !$this->getColumn()->getFilterTime()) {
             $datetimeTo = $value['to'];
-            //set end of the day
-            $datetimeTo->addSecond(self::END_OF_DAY_IN_SECONDS);
+
+            //calculate end date considering timezone specification
+            $datetimeTo->setTimezone(
+                Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE)
+            );
+            $datetimeTo->addDay(1)->subSecond(1);
+            $datetimeTo->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
         }
         return $value;
     }

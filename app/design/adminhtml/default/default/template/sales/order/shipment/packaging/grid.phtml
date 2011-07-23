@@ -33,12 +33,16 @@
                     <col>
                     <col width="100">
                     <col width="100">
+                    <col width="100">
                     <col width="*">
                 </colgroup>
                 <thead>
                 <tr class="headings">
                     <th class=" no-link"><span class="nobr"><?php echo Mage::helper('sales')->__('Product Name') ?></span></th>
                     <th class=" no-link"><span class="nobr"><?php echo Mage::helper('sales')->__('Weight') ?></span></th>
+                    <th class=" no-link" <?php echo $this->displayCustomsValue() ? '' : 'style="display: none;"' ?>>
+                        <span class="nobr"><?php echo Mage::helper('sales')->__('Customs Value') ?></span>
+                    </th>
                     <th class="a-center no-link">
                         <span class="nobr"><input type="checkbox" name="" onclick="packaging.checkAllItems(this);" class="checkbox" title="<?php echo Mage::helper('sales')->__('Select All') ?>"></span>
                     </th>
@@ -62,6 +66,9 @@
                         </td>
                         <td class="a-center weight ">
                             <?php echo $item->getWeight(); ?>
+                        </td>
+                        <td <?php echo $this->displayCustomsValue() ? '' : 'style="display: none;"' ?> >
+                            <input type="text" name="customs_value" value="<?php echo $this->formatPrice($item->getPrice()); ?>" size="10" onblur="packaging.recalcContainerWeightAndCustomsValue(this);">
                         </td>
                         <td class="a-center ">
                             <input type="checkbox" name="" value="<?php echo $item->getId() ? $item->getId() : $item->getOrderItemId(); ?>" class="checkbox">

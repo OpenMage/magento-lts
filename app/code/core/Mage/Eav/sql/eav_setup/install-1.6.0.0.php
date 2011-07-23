@@ -188,8 +188,9 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0',
         ), 'Entity Id')
-    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_DATETIME, null, array(
         'nullable'  => false,
+        'default' => '0000-00-00 00:00:00'
         ), 'Attribute Value')
     ->addIndex($installer->getIdxName(array('eav/entity_value_prefix', 'datetime'), array('entity_type_id')),
         array('entity_type_id'))

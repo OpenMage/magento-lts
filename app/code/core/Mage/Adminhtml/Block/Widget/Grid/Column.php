@@ -293,8 +293,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         return $this->_renderer;
     }
 
-    public function setFilter($column)
+    public function setFilter($filterClass)
     {
+        $this->_filter = $this->getLayout()->createBlock($filterClass)
+                ->setColumn($this);
     }
 
     protected function _getFilterByType()

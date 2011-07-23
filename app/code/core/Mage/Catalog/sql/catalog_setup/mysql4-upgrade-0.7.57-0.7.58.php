@@ -28,12 +28,6 @@ $installer = $this;
 /* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 
 $installer->startSetup();
-
-/*
- * Fix unknown issue on MySQL 4.1.x,
- * After removing foreign key on some table and try to insert data to other table with auto increment on primary key
- * DB engine generates "Duplicate entry '1' for key 1" error
- */
 $installer->getConnection()->closeConnection();
 
 // Add listing and sort attribute properties

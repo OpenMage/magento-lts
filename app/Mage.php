@@ -155,7 +155,7 @@ final class Mage
             'revision'  => '0',
             'patch'     => '0',
             'stability' => 'rc',
-            'number'    => '1',
+            'number'    => '2',
         );
     }
 

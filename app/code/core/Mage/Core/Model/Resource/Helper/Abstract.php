@@ -288,6 +288,8 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 $type = Varien_Db_Ddl_Table::TYPE_DECIMAL;
                 break;
             case 'datetime':
+                $type = Varien_Db_Ddl_Table::TYPE_DATETIME;
+                break;
             case 'timestamp':
             case 'time':
                 $type = Varien_Db_Ddl_Table::TYPE_TIMESTAMP;

@@ -122,7 +122,7 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0',
         ), 'Entity ID')
-    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_DATETIME, null, array(
         ), 'Value')
     ->addIndex(
         $installer->getIdxName(
@@ -581,7 +581,7 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0',
         ), 'Entity ID')
-    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_DATETIME, null, array(
         ), 'Value')
     ->addIndex(
         $installer->getIdxName(
