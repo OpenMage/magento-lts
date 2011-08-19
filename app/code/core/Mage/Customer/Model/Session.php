@@ -274,4 +274,40 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         }
         return true;
     }
+
+    /**
+     * Set auth url
+     *
+     * @param string $key
+     * @param string $url
+     * @return Mage_Customer_Model_Session
+     */
+    protected function _setAuthUrl($key, $url)
+    {
+        $url = Mage::helper('core/url')
+            ->removeRequestParam($url, Mage::getSingleton('core/session')->getSessionIdQueryParam());
+        return $this->setData($key, $url);
+    }
+
+    /**
+     * Set Before auth url
+     *
+     * @param string $url
+     * @return Mage_Customer_Model_Session
+     */
+    public function setBeforeAuthUrl($url)
+    {
+        return $this->_setAuthUrl('before_auth_url', $url);
+    }
+
+    /**
+     * Set After auth url
+     *
+     * @param string $url
+     * @return Mage_Customer_Model_Session
+     */
+    public function setAfterAuthUrl($url)
+    {
+        return $this->_setAuthUrl('after_auth_url', $url);
+    }
 }

@@ -112,6 +112,7 @@
 "The page URL key contains capital letters or disallowed symbols.","The page URL key contains capital letters or disallowed symbols."
 "The page has been deleted.","The page has been deleted."
 "The page has been saved.","The page has been saved."
+"The static block content cannot contain  directive with its self.","The static block content cannot contain  directive with its self."
 "This block no longer exists.","This block no longer exists."
 "This page no longer exists.","This page no longer exists."
 "Title","Title"

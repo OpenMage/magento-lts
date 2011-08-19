@@ -201,6 +201,11 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                     ->addError($e->getMessage());
             }
             $this->renderLayout();
+        } elseif ($this->getRequest()->isPost() && empty($_FILES)) {
+            $this->loadLayout(false);
+            $resultBlock = $this->getLayout()->getBlock('import.frame.result');
+            $resultBlock->addError($this->__('File was not uploaded'));
+            $this->renderLayout();
         } else {
             $this->_getSession()->addError($this->__('Data is invalid or file is not uploaded'));
             $this->_redirect('*/*/index');

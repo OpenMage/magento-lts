@@ -245,7 +245,7 @@ class Varien_Io_File extends Varien_Io_Abstract
             $this->streamUnlock();
         }
         @fclose($this->_streamHandler);
-        @chmod($this->_streamFileName, $this->_streamChmod);
+        $this->chmod($this->_streamFileName, $this->_streamChmod);
         return true;
     }
 

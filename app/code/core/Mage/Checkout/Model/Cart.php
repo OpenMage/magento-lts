@@ -422,6 +422,8 @@ class Mage_Checkout_Model_Cart extends Varien_Object
      */
     public function save()
     {
+        Mage::dispatchEvent('checkout_cart_save_before', array('cart'=>$this));
+
         $this->getQuote()->getBillingAddress();
         $this->getQuote()->getShippingAddress()->setCollectShippingRates(true);
         $this->getQuote()->collectTotals();

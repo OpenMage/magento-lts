@@ -123,6 +123,16 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
         $this->_productsFilter = $productIds;
     }
 
+    /**
+     * Returns products filter
+     *
+     * @return array|int|null
+     */
+    public function getProductsFilter()
+    {
+        return $this->_productsFilter;
+    }
+
     public function getConditionsInstance()
     {
         return Mage::getModel('catalogrule/rule_condition_combine');

@@ -320,8 +320,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
             /*
             * DHL only accepts weight as a whole number. Maximum length is 3 digits.
             */
-            $weight = $this->getTotalNumOfBoxes($request->getPackageWeight());
-            $shippingWeight = round(max(1, $weight), 0);
+            $shippingWeight = $request->getPackageWeight();
+            if ($shipmentType != 'L') {
+                $weight = $this->getTotalNumOfBoxes($shippingWeight);
+                $shippingWeight = round(max(1, $weight), 0);
+            }
         }
 
         $r->setValue(round($request->getPackageValue(), 2));
@@ -725,7 +728,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         $sender->addChild('Email', $r->getOrigEmail());
 
         $senderAddress = $sender->addChild('Address');
-        $senderAddress->addChild('Street', htmlspecialchars($r->getOrigStreet() ? $r->getOrigStreet() : 'NA'));
+        $senderAddress->addChild('Street', htmlspecialchars($r->getOrigStreet() ? $r->getOrigStreet() : 'N/A'));
         $senderAddress->addChild('City', htmlspecialchars($r->getOrigCity()));
         $senderAddress->addChild('State', htmlspecialchars($r->getOrigState()));
         $senderAddress->addChild('CompanyName', htmlspecialchars($r->getOrigCompanyName()));
@@ -740,14 +743,14 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         $receiver->addChild('PhoneNbr', $r->getDestPhoneNumber());
 
         $receiverAddress = $receiver->addChild('Address');
-        $receiverAddress->addChild('Street', htmlspecialchars($r->getDestStreet() ? $r->getDestStreet() : 'NA'));
+        $receiverAddress->addChild('Street', htmlspecialchars($r->getDestStreet() ? $r->getDestStreet() : 'N/A'));
         $receiverAddress->addChild('StreetLine2',
-                                   htmlspecialchars($r->getDestStreetLine2() ? $r->getDestStreetLine2() : 'NA')
+                                   htmlspecialchars($r->getDestStreetLine2() ? $r->getDestStreetLine2() : 'N/A')
         );
         $receiverAddress->addChild('City', htmlspecialchars($r->getDestCity()));
         $receiverAddress->addChild('State', htmlspecialchars($r->getDestState()));
         $receiverAddress->addChild('CompanyName',
-                                   htmlspecialchars($r->getDestCompanyName() ? $r->getDestCompanyName() : 'NA')
+                                   htmlspecialchars($r->getDestCompanyName() ? $r->getDestCompanyName() : 'N/A')
         );
 
         /*

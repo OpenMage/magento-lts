@@ -66,7 +66,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
                 $children = array();
 
                 if(isset($menu['children'])) {
-                    $this->_createOptions($optionArray, $menu['children']);
+                    $this->_createOptions($children, $menu['children']);
                 }
 
                 $optionArray[] = array(

@@ -636,7 +636,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
          * We can have problem with float in php (on some server $a=762.73;$b=762.73; $a-$b!=0)
          * for this we have additional diapason for 0
          */
-        if (abs($this->getTotalPaid() - $this->getTotalRefunded() - $this->getAdjustmentNegative()) < .0001) {
+        if (abs($this->getTotalPaid() - $this->getTotalRefunded()) < .0001) {
             return false;
         }
 

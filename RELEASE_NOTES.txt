@@ -1,3 +1,472 @@
+==== 1.6.0.0 ====
+
+=== Major Highlights ===
+Minimum Advertised Price
+Persistent Shopping Cart
+Shipping Integration with Label printing support
+
+=== Improvements ===
+XmlConnect package release v21
+Order Payment Action for Express Checkout (PayPal)
+- Added settings Authorization Honor Period and Order Valid Period into EC tab in the backend
+- Automatically new authorize transaction created after order transaction
+- Automatically cancel order after the expiration of Order Valid Period
+- Automatically authorize transaction void\create after the expiration of Authorization Honor Period
+Implemented Authorize.Net 'hold for review' status shows up as 'declined' in Magento
+Add Dynamic sku option for configurable products
+Moneybookers Multistore System Configuration
+Moneybookers OBT Defaults
+PrototypeJS upgraded to 1.7
+
+=== Changes ===
+Removed deprecation.js because its not compatible with prototype 1.7
+Relations between models and resource models were revised for better support of multiple databases
+- Varien_Db_Adapter_Pdo_Mysql revised
+- Introduced Varien_Db_Adapter_Interface,  Varien_Db_Ddl_Table
+- Introduced new classes named resource helpers
+- Backwards comatibility and known issues
+-- Error appears after Customer Group saving with name length more than 32
+Deprecated GoogleBase module (http://googlemerchantblog.blogspot.com/2010/12/new-shopping-apis-and-deprecation-of.html)
+- Google Shopping Extension is available for the replacement
+
+=== Fixes ===
+Fixed Google checkout shipping (merchant and carrier calculated) returns only default prices
+Fixed Custom option prices for simple products are GLOBAL
+- fixed website price scope for simple products when product is linked to few websites with separate store views
+Fixed Custom Price for Bundled Product should be disabled in Admin Panel
+Fixed Configurable products. Incorrect pricing with super attributes price in percents
+- percentage of price is taken from final product price
+Fixed Label of system Customer Attribute, that was changed, is not displayed
+Fixed Taxes are not correctly calculated if bundle with dynamic price is about to partially return
+Fixed No ability to create Shipping Labels with several packages (in case with decimals Qty of products)
+Fixed Special symbols as search keywords return error page
+Fixed Changes in URL rewrite suffix cannot be reverted
+Fixed Taxes are not correctly calculated if bundle with dynamic price is about to partially return
+Fixed Product is deleted from shopping cart by editing grouped product
+Fixed Product view page doesn't reflect last visited category
+Fixed Customer is linked in order even if it is deleted from Magento
+Fixed Exception is shown when Email to a Friend page is opened using URL in case when this feature is disabled
+Fixed Missing "?" placeholders in class Varien_Cache_Backend_Database
+Fixed There are no server side validation of first character of Attribute Code (it should be letter)
+Fixed Edit cart item return unnecessary error message
+Fixed Product Custom Option values titles are not saved
+Fixed Newsletters are not sent
+Fixed Preview URL for CMS Pages template contain two question mark
+Fixed Partial refund orders with downloadable products affect status of all downloadable links
+Fixed AddToCart takes forever if a configurable has massive count of child products
+Fixed Mage_Tag_IndexController::saveAction() contains business logic of creating tag relation
+Fixed Frontend: If second customer logs in and does not select the "Remember Me" then the previous long-term cookie does not removes
+Fixed Frontend: After new customer registration with "Remember Me" and pressing "Logout" the long-term cookie session doesn't apply if in configuration on backend ""Remember Me" Default Value" - No
+Fixed Currency problems. Back office TAX calculation on the product edit page
+Fixed UPS shipping quotes are incorrect
+Fixed Quote CollectTotals performance issue
+Fixed PayPal Checkout Error Duplicate Order ID
+- added additional exception handling which sets transaction to pending
+Fixed In report Products Ordered configurable and its associated simple product appear and are counted
+Fixed Multi select attributes not importing/exporting correctly
+Fixed Google Bot User Agent and compare product issue
+Fixed Bundle price display issue with tier pricing
+Fixed No validation of Customs Value field
+Fixed Form for adding new customer is shown instead customer's information page
+- correct customer ID passed to URL generator
+Fixed With IE9 impossible to do drag and drop actions in Admin
+- added support of Range.createContextualFragment for IE9
+Fixed Countries with no Zip code still have it as required field in address
+Fixed Anchor category does not display products from subcategories
+Fixed Place of "Options Details" is wrong in wishlist for composite products
+Fixed 3D Secure + PayPal Website Payments Pro in UK prevents non-3D secure cards from working
+Fixed When creating new order for customer registered on multiple websites, account/website mismatch causes issues
+Fixed Shipping method is calculating based on default shipping address instead of 'Same as billing' setting in backend
+Fixed Global variables in js.js
+Fixed Observers from adminhtml are do not work when use Soap
+Fixed Item quantity changed to 1 if added space
+Fixed Row total is incorrectly calculated as negative number
+Fixed HTML validation fails for pages with multiple grids
+Fixed Can not log in to MCM if connect.cfg is incorrect
+Fixed Incorrect use of chmod in Varien_Io_File::streamClose()
+Fixed Unable to return full amount on PayPal if partial credit memo is done and customer applied Store Credit
+Fixed Import Issue when attribute values not unique
+Fixed Wrong customer group in order creation process in Admin panel
+Fixed "Unable to save invoice" message appears when admin captures money when authorization transaction is no longer valid
+Fixed Wishlist doesn't save configured composite products if MAP is enabled
+Fixed Empty items grid is present, after deleting last item
+Fixed Incorrect Tax Calculation when "Apply Tax On:Original price only" but custom price is not entered
+Fixed Unable to place order with Authorize.net Direct Post payment method in IE 9
+Fixed Ability to bypass configuration setting for the Admin area URL route
+Fixed Ability to create package with decimals Qty of products, for which "Qty Uses Decimals" set to "No"
+Fixed Excess semicolon in warning message, during creating Shipping Labels (in case with invalid Packaging Type)
+Fixed msrp_display_actual_price_type (MAP:Display Actual Price) field is not exported
+Fixed Incorrect Customs Value in Create Packages in case when price value contains decimals
+Fixed Incorrect warning message, after Additions products with Qty that exceeds maximum available quantity
+Fixed Catalog price rule doesn't work with contains condition and value which contains only cents
+Fixed No store base currency beside Customs Value
+Fixed Catalog Price Rule not applying to imported products
+Fixed Incorrect "Shipper" and "Ship to" information in Shipping Label (in case with UPS)
+Fixed Images are not imported via new Import functionality
+Fixed Packages Print looks incorrectly
+Fixed MAP. In the JS pop-up link "Checkout with PayPal" displayed only under FF
+Fixed Extra double-quote in transactional email template app/locale/en_US/template/email/password_new.html
+Fixed No ability to create Shipping Label for product with non-integer weight in Ounces (USPS - First-Class Mail International Package)
+Fixed Layout issue if RSS is On
+Fixed Previous customer information stays on the page header while one page checkout in process
+Fixed Out of Stock Configurable product is displayed as In Stock
+Fixed In the up-sell products "click to see price" link displayed, when settings "In cart", "Before Order Confirmation" is used
+Fixed MAP. On the onepage, in the Wishlist block, link "Click for Price" is not active
+Fixed Frontend: the products in Shopping Cart is transferred to other customer, if this customer is logged in in "My Account" page
+Fixed Wrong prices are displayed for placed order with downloadable product
+Fixed Shipping amount display issue when placing an order on the backend
+Fixed Length, Width, Height are not passed to shipping carrier, during package creation (in case with DHL)
+Fixed Disabled fields in Create Packages Pop-up with Girth field looks incorrectly
+Fixed Customer address that affect tax calculation does not affect persistent customer
+Fixed Ability to create more products in Shipping Labels than products in the order/shipment (in case with decimals Qty of products)
+Fixed No ability to create Shipping Labels with several packages (in case with decimals Qty of products)
+Fixed Formed items grid looks incorrectly, during package creation
+Fixed Incorrect total weight of bundle product
+Fixed Shopping Cart Rule Not Working Properly
+Fixed Javascript error on "forgot your password" validation
+Fixed When custom price is applied on an order in the admin, Price Incl tax on the order is the same as Excl tax
+Fixed Edit cart item return unnecessary error message
+Fixed Unable to save HTML code in attribute options
+Fixed In the Wishlist text message appears in 2 rows, when MAP is applied for product that is in the wishlist
+Fixed Unable to apply coupon code to order with zero subtotal
+Fixed Nonexistent blank option in multiple select form attribute
+Fixed Cannot add widget to packages or themes containing underscore in name
+Fixed Product's sort order by position works incorrect with negative numbers
+- allowed negative numbers
+- corrected sorting by position
+Fixed Incorrect Grand Total calculation when "Buy X get Y free" discount applied
+Fixed Wrong product's quantity in the Wishlist after updating 'Shopping Cart'
+Fixed Unneeded URL translation in admin template
+Fixed Incorrect subtotal on invoice creation page (Order with Tax and Discount)
+- hidden tax amount was added to collect process
+Fixed When we add new address to address book during onepage checkout, not shown customer address attributes are taken from saved address attribute value
+Fixed Street Address input box missing on create order form in admin
+Fixed MAP enabled. In the wishlist block product price displayed when it should not
+Fixed Qty field is not disabled if even check-box unselected
+Fixed No ability to create Shipping Label with decimals Qty of products (in case with FedEx International)
+Fixed FedEx Shipping Method unavailable (in case with Request Courier drop off type)
+Fixed Unable to upgrade Magento when installed extension without max version
+Fixed Wrong calculation price of Bundle product
+- fixed sub item prices calculation
+Fixed Incorrect products weight in Shipping Label (in case with USPS Int.,FedEx Int. and decimal Qty)
+Fixed Gateway URL Absent in FedEx Shipping Module
+Fixed Google checkout shipping (merchant and carrier calculated) returns only default prices
+Fixed Frontend: the products in the Shopping Cart is not transferred to other customer, if this customer is logged in or register after clicks on "Checkout with Multiple Addresses", "Google Checkout" or "PayPal"
+Fixed Unable to login to site after adding SID to URL
+Fixed Image in description doesn't shown in compare grid
+Fixed Missed validation for space charter in begin of unique fields
+Fixed Impossible to sort blocks
+Fixed Incorrect behavior of Offline Refunds for an Order when Adjustment fee is specified
+Fixed Order saving error on backend
+Fixed Customer logged out by wrong SID cached in blocks
+Fixed System->Configuration->Advanced->Admin->Startup page->"Startup Page" drop-down - Optgroups are displayed after child elements
+Fixed Removed unused code from Varien_File_Uploader
+Fixed DHL Shipping Methods unavailable (in case with package type letter)
+Fixed Error via using Global Search [Search in Admin]
+Fixed Error is presented by saving address, creating order with created attributes type Image File or file(attachment)
+Fixed Package contents should be specified dynamically while creating shipping labels for the USPS International shipping methods
+Fixed Product option with file type input is not being transferred from wishlist to the cart
+- add mergeBuyRequest method to Mage_Wishlist_Model_Item
+- add checking of custom add to cart URL in Mage_Catalog_Block_Product_View
+Fixed Import: Imported file is not saved to var/importexport
+Fixed Reports for Sales do not work except PayPal Settlement if several order statutes were selected
+Fixed No disabling of package type and dimensions fields (in case with USPS Domestic)
+Fixed Wrong behavior of composite configurable product during adding to the Shopping Cart via backend
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+- added/removed several methods/packages for UPS shipping according to SRS
+Fixed "Notify for Quantity Below" does not work
+Fixed Frontend: Tier price not always applied to Mini Shopping Cart
+Fixed Void button is present on Order page, Authorization transaction is not closed when payment action is set to "authorize and charge" - Google Checkout
+Fixed MAP is applied to a Bundle product with dynamic price
+Fixed No ability to create Shipping Label with package size "Oversize"
+Fixed Button "Add to Cart" located in JS-popup (with Display Actual Price = On Gesture) doesn't work
+Fixed Incorrect Shipping Label for USPS Library Mail Shipping Methods
+Fixed Duplicating customer's addresses through placing order (backend)
+Fixed Updating the qty of products from backend does not allow checkout on Frontend
+- added ability to Quote and Quote items to track errors and remove them, when fixed, so whole 'error' status from Quote/Quote Item can be removed
+- removed duplicating messages on Cart View page
+Fixed No ability to create Shipping Label even if "Residential Delivery" set to "Yes" (in case with FedEx Home Delivery)
+Fixed Button "Add new address" for customer works incorrect (backend)
+Fixed It should be possible to set Minimum Qty Allowed in Shopping Cart setting via backend
+Fixed Cart Subtotal is shown incorrect in sidebar shopping cart
+Fixed Grid/list view settings do not save
+Fixed Cannot assign custom filter to the grid column
+Fixed Wishlist - product custom options are lost after customer login
+Fixed Saved products will be matched each target rule
+Fixed Taxes are not displayed in the catalog from frontend for Bundle products
+- re-factored work with taxes for bundle product
+Fixed Unable to save year less than 1970 in DOB customer attribute
+- added DATETIME type to DDL
+- fixed customer attributes to have same as pre-MMDB default values
+Fixed "Grand Total" is not displayed for a configurable product that contains product where DAP = display before order confirmation
+Fixed 'Click for price' not clickable after pressing 'Review' link in category
+Fixed Bundle price display issue with tier pricing
+- not considering tier price at bundle product's view page in price range
+Fixed Frontend: In the block "Recently Viewed Products" the products of two customers are mixed
+Fixed Error with Advanced Search (in case with Date Attribute)
+Fixed Tax Rate ignores set values of Post/Zip codes Range From-To and applies it to Address with any Zip codes
+Fixed Wishlist - Comment lost on config update
+Fixed Import cannot handle UTF-8 characters
+Fixed Welcome email template for store view scope is being ignored
+Fixed Incorrect behavior of bundle product during creating Shipping Label with Customs value (in case when Price: Fixed, Ship Bundle Items" set to Separately)
+Fixed Order status isn't changed when payed via PayPal if registered email differs characters cases (upper and lower)
+Fixed Unwanted orders are shown in Sales->Orders list when the date filter affects to the day when DST changes apply
+Fixed Payment method "Credit Card (saved)" does not display fields for fill in card information when product price is 0.00
+Fixed Available to create online invoice after performing void for order
+Fixed MAP configuration must contain default text for "Default Popup Text Message" and "Default "What's This" Text Message"
+Fixed Backwards compatibility loss results in fatal error in Google Shopping module
+- added all previous DDL constants to DDL Table, they are deprecated and being converted to new supported types
+- added support for 'char' attributes
+- fixed several incompatibilities in DDL Table
+Fixed No ability to create Shipping Label with package type "Flat-Rate Box" (in case with USPS International)
+Fixed Frontend: The block "Compare Products" with product is present on catalog page after adding the product to this block and clicking on "Not..?"
+Fixed Fatal error when trying to open configurable product with super attribute not in the appropriate attribute set
+Fixed Unable to return full amount on PayPal if partial credit memo is done and customer applied Store Credit
+Fixed When creating new order for customer registered on multiple websites, account/website mismatch causes issues
+Fixed Import Issue when attribute values not unique
+Fixed After upgrading Magento website left in the maintenance mode
+Fixed Ability to create more Shipping Labels than products in the order(shipment)
+Fixed Street Address and Street Address 2 are mixed up in request to shipping carrier (in case with USPS International)
+Fixed PayflowLink doesn't work (error "Payment has been declined. Please try again." is shown, Order is canceled)
+Fixed Shopping cart price rule with attribute does not work when "Use Flat Catalog Product" enabled
+Fixed Upgrade checking after cache flushed
+Fixed Frontend: Tier price not always applied to Mini Shopping Cart
+Fixed A message for the case when shipping label is created from the order should be modified
+Fixed Spelling mistake in abbreviations unit of mass measurement (lbs, kgs)
+Fixed FedEx Ground Shipping Method unavailable (if others FedEx Shipping Methods unavailable)
+Fixed Incorrect Signature Confirmation options in the drop-down (in case with UPS)
+Fixed Frontend: Catalog Price Rule does not apply to Mini Shopping Cart after login current customer
+- add recollect total prices for quote on customer register
+Fixed Fatal error when requesting non-existent file from Media directory
+Fixed Button "Add to Cart" located in JS-popup (with Display Actual Price = On Gesture) doesn't work
+Fixed Headers sent twice or three times when file downloading
+Fixed Shipping method is calculating based on default shipping address instead of 'Same as billing' setting in backend
+Fixed No ability to create more that one online Partial Invoice with Google Checkout
+- parent transaction will be closed on payment model level;
+- fixed exception error in Mage_Tax_Model_Resource_Calculation
+Fixed Cross Sell Sorting Not Working
+Fixed No ability to create Shipping Label for USPS - First-Class Mail International Package
+Fixed Notification remove link in admin redirects to homepage on frontend in IE8
+Fixed Incorrect behavior of image gallery
+Fixed 'On Gesture' option is not applied on products' level
+Fixed The message that appears instead or totals in the shopping cart and mini shopping cart should be modified
+Fixed Void button present when order is fully invoiced
+Fixed No ability to create Shipping Label with package type "Flat-Rate Box" (in case with USPS International)
+Fixed MAP behavior for RSS feed pages should be changed (only "Click for price" link should be present)
+Fixed PayflowLink doesn't work (error "Payment has been declined. Please try again." is shown, Order is canceled)
+Fixed Incorrect Online Refund amount in Magento, when Adjustment Fee is specified (Google Checkout)
+Fixed Brazil PayPal requirements upgrade
+Fixed No ability to create Shipping Label with package type "Flat-Rate Box" (in case with USPS International)
+Fixed Issue with add to cart action, possible to add to cart a quantity of N+1 for a product
+Fixed No ability to create Shipping Label if "ship to" in Canada (in case with UPS)
+Fixed Wrong content in export file (all export types)
+Fixed "Mysql" must be renamed to "MySQL" in installer
+Fixed File overwriting during Import/Export
+Fixed Reuse of adapter utilities in helper
+Fixed MAP behavior for RSS feed pages should be changed (only "Click for price" link should be present)
+Fixed When changing locale that has Unicode characters, the countries are not sorting correctly
+Fixed Importing customers via CSV
+Fixed Two void transactions created when using Payment Action = Order in PayPal Express
+Fixed Issue with newsletter subscriptions and logged in customers
+Fixed Frontend: Long-term cookie session is not over after click on "(Not..?)" link
+Fixed Mismatch counts of products for different scope
+Fixed Wrong config setting are implemented for MAP functionality in admin on product's level
+Fixed Street Address and Street Address 2 are mixed up in request to shipping carrier (in case with USPS International)
+Fixed No ability to create Shipping Label if "ship to" in Canada (in case with UPS)
+- fixed MonetaryValue to be whole number
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed Add verification into predispatch observers used in persistent shopping cart
+Fixed Canceled orders should be excluded from Tax Reports
+Fixed No ability to create Shipping Label with package type "Flat-Rate Box" (in case with USPS International)
+Fixed Import/Export: Append Complex Data works incorrect with grouped products
+- check behavior was added
+Fixed Fatal error appears on get shipping rates for UPS if system base currency <> merchant country currency
+Fixed Map in the frontend link has "Click to see price" name, but must be "Click for price"
+Fixed Taxes are not displayed in the catalog from frontend for Bundle products
+Fixed Available to delete drop down attribute which used in configurable product
+Fixed MySQL error with "max_allowed_packet" during check data step for a huge .csv file
+- Changed value for constant DB_MAX_PACKET_COEFFICIENT in Mage_ImportExport_Model_Resource_Helper_Mysql4
+Fixed Invalid requests to USPS API
+Fixed No ability to input some value in dimensions field in case for package type with non-standard dimensions
+Fixed Packages Pop-up looks incorrectly
+Fixed Caching config in Database results in endless recursion
+Fixed No Signature Confirmation in Packages pop-up
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed "NaN" instead of two dashes in Package pop-up (in case with disabled Length, Width and Height fields)
+Fixed Prefix and suffix aren't visible in Register Form
+- Modified persistent customer templates
+Fixed Unable to Checkout with Multiple Addresses with Registration
+Fixed Not work shipping methods Fedex & DHL
+- Re-factored DHL, FedEx, Ups, USPS
+- Fixed minor bugs for frontend(package.phtml, view.phtml) and backend (popup.phtml, shippingmethod.phtml)
+Fixed When we do reindex from console, folder var/log changes permissions from 0777 to 0775
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed Orders placed through PayPal marked as "Suspected Fraud"
+- Added formatting amount  into comparing
+Fixed Enable Log Cleaning option is not working properly
+Fixed Incorrect transparency of PNG image in indexed non-alpha mode
+Fixed Value from Total Weight field is not passed to shipping carrier (in case with DHL and UPS)
+Fixed After enabling dashboard chart admin user is unable to login to admin panel
+Fixed Sorting on Please Select products to Add doesn't work
+Fixed Catalog Price Rules - the rule is saved but not applied
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed Cross Sell Sorting Not Working
+Fixed Error when obtaining missed file over get.php
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed Unable to save Poll for more than one Store
+Fixed Mage_Directory_Helper_Data::getRegionJson doesn't translate region names
+Fixed Static block in the Main Content Area overlaps border of the catalog of products
+Fixed 3D secure with Saved CC works incorrectly
+Fixed Unable add Gift Options for Individual Items
+Fixed Customer Reports
+- avoid selections group by null customer id
+Fixed Mysql4 install error
+Fixed "What's this?" link is absent, "Click for price" link doesn't work for shared Wishlist page
+Fixed Incorrect Row Total Calculation in Refund
+- changed tax counting algorithm(now it counts tax for single item)
+Fixed Incorrect recipient name of Shipping Label
+Fixed Missing "Street Address Line 2" in Shipping Label (in case with DHL)
+Fixed After upgrading Magento website left in the maintenance mode
+Fixed Frontend: JavaScript error appears if user registered on Checkout Page
+Fixed Added items to the Wishlist in the "Manage Shopping Cart" are not shown
+Fixed Information is not saved in DB after placing order during checkout
+Fixed Reports data wrong even after refreshing lifetime statistics
+Fixed Frontend can be broken by recursion
+Fixed Sub items are not displayed for the order for bundles, if user use Return and Orders link
+- added renderers for non-simple product types
+Fixed Error message for the case when store information is incomplete should be changed
+Fixed MAP behavior for RSS feed pages should be changed accordingly to SRS (only "Click for price" link should be present)
+Fixed Exception after upgrade Magento via diff files
+Fixed Frontend: The block "Compare Products" is empty after relogin
+Fixed Frontend: Catalog Price Rule does not apply to Mini Shopping Cart after login current customer
+- remove checking if customerGroupId exists because quote is loaded with existed customerGroupId as guest
+Fixed Unable to delete product with tag in pending status
+Fixed Images not imported using new Import/Export
+
+=== Known issues ===
+If you see the Service Temporarily Unavailable page after refreshing the frontend, open the Magento installation directory on the server and remove the maintenance.flag file. Then go to Magento var directory and remove the cache directory
+- this issue only exists immediately after upgrading correct
+Incorrect address in request to shipping carrier (DHL International) in case when address contains letter with diacritic
+No ability to save created package when origin address in Germany (in case with UPS Express)
+Two products are in the same row in Shipping Label (in case with FedEx International Priority)
+Incorrect tracking number in the Shipping Label (in case with "Federal Express - Ground" shipping method)
+No ability to save created package when origin and destination in Europe (in case with UPS Standard)
+
+
+
+==== 1.6.x-devel-115929 ====
+
+=== Fixes ===
+Fixed Currency problems. Back office TAX calculation on the product edit page
+Fixed UPS shipping quotes are incorrect
+Fixed Quote CollectTotals performance issue
+Fixed PayPal Checkout Error Duplicate Order ID
+- added additional exception handling which sets transaction to pending
+Fixed In report Products Ordered configurable and its associated simple product appear and are counted
+Fixed Multi select attributes not importing/exporting correctly
+Fixed Google Bot User Agent and compare product issue
+Fixed Bundle price display issue with tier pricing
+Fixed No validation of Customs Value field
+Fixed Form for adding new customer is shown instead customer's information page
+- correct customer ID passed to URL generator
+Fixed With IE9 impossible to do drag and drop actions in Admin
+- added support of Range.createContextualFragment for IE9
+Fixed Countries with no Zip code still have it as required field in address
+Fixed Anchor category does not display products from subcategories
+Fixed Place of "Options Details" is wrong in wishlist for composite products
+Fixed 3D Secure + PayPal Website Payments Pro in UK prevents non-3D secure cards from working
+Fixed When creating new order for customer registered on multiple websites, account/website mismatch causes issues
+Fixed Shipping method is calculating based on default shipping address instead of 'Same as billing' setting in backend
+Fixed Global variables in js.js
+Fixed Observers from adminhtml are do not work when use Soap
+Fixed Item quantity changed to 1 if added space
+Fixed Row total is incorrectly calculated as negative number
+Fixed HTML validation fails for pages with multiple grids
+Fixed Can not log in to MCM if connect.cfg is incorrect
+Fixed Incorrect use of chmod in Varien_Io_File::streamClose()
+Fixed Unable to return full amount on PayPal if partial credit memo is done and customer applied Store Credit
+Fixed Import Issue when attribute values not unique
+Fixed Wrong customer group in order creation process in Admin panel
+Fixed "Unable to save invoice" message appears when admin captures money when authorization transaction is no longer valid
+Fixed Whishlist doesn't save configured composite products if MAP is enabled
+Fixed Empty items grid is present, after deleting last item
+Fixed Incorrect Tax Calculation when "Apply Tax On:Original price only" but custom price is not entered
+Fixed Unable to place order with Authorize.net Direct Post payment method in IE 9
+Fixed Ability to bypass configuration setting for the Admin area URL route
+Fixed Ability to create package with decimals Qty of products, for which "Qty Uses Decimals" set to "No"
+Fixed Excess semicolon in warning message, during creating Shipping Labels (in case with invalid Packaging Type)
+Fixed msrp_display_actual_price_type (MAP:Display Actual Price) field is not exported
+Fixed Incorrect Customs Value in Create Packages in case when price value contains decimals
+Fixed Incorrect warning message, after Additions products with Qty that exceeds maximum available quantity
+Fixed Catalog price rule doesn't work with contains condition and value which contains only cents
+Fixed No store base currency beside Customs Value
+Fixed Catalog Price Rule not applying to imported products
+Fixed Incorrect "Shipper" and "Ship to" information in Shipping Label (in case with UPS)
+Fixed Images are not imported via new Import functionality
+Fixed Packages Print looks incorrectly
+Fixed MAP. In the JS pop-up link "Checkout with PayPal" displayed only under FF
+Fixed Extra double-quote in transactional email template app/locale/en_US/template/email/password_new.html
+Fixed No ability to create Shipping Label for product with non-integer weight in Ounces (USPS - First-Class Mail International Package)
+Fixed Layout issue if RSS is On
+Fixed Previous customer information stays on the page header while one page checkout in process
+Fixed Out of Stock Configurable product is displayed as In Stock
+Fixed In the up-sell products "click to see price" link displayed, when settings "In cart", "Before Order Confirmation" is used
+Fixed MAP. On the onepage, in the Wishlist block, link "Click for Price" is not active
+Fixed Frontend: the products in Shopping Cart is transferred to other customer, if this customer is logged in in "My Account" page
+Fixed Wrong prices are displayed for placed order with downloadable product
+Fixed Shipping amount display issue when placing an order on the backend
+Fixed Length, Width, Height are not passed to shipping carrier, during package creation (in case with DHL)
+Fixed Disabled fields in Create Packages Pop-up with Girth field looks incorrectly
+Fixed Customer address that affect tax calculation does not affect persistent customer
+Fixed Ability to create more products in Shipping Labels than products in the order/shipment (in case with decimals Qty of products)
+Fixed No ability to create Shipping Labels with several packages (in case with decimals Qty of products)
+Fixed Formed items grid looks incorrectly, during package creation
+Fixed Incorrect total weight of bundle product
+Fixed Shopping Cart Rule Not Working Properly
+Fixed Javascript error on "forgot your password" validation
+Fixed When custom price is applied on an order in the admin, Price Incl tax on the order is the same as Excl tax
+Fixed Edit cart item return unnecessary error message
+Fixed Unable to save HTML code in attribute options
+Fixed In the Wishlist text message appears in 2 rows, when MAP is applied for product that is in the wishlist
+Fixed Unable to apply coupon code to order with zero subtotal
+Fixed Nonexistent blank option in multiple select form attribute
+Fixed Cannot add widget to packages or themes containing underscore in name
+Fixed Product's sort order by position works incorrect with negative numbers
+- allowed negative numbers
+- corrected sorting by position
+Fixed Incorrect Grand Total calculation when "Buy X get Y free" discount applied
+Fixed Wrong product's quantity in the Wishlist after updating 'Shopping Cart'
+Fixed Unneeded URL translation in admin template
+Fixed Incorrect subtotal on invoice creation page (Order with Tax and Discount)
+- hidden tax amount was added to collect process
+Fixed When we add new address to address book during onepage checkout, not shown customer address attributes are taken from saved address attribute value.
+Fixed Street Address input box missing on create order form in admin
+Fixed MAP enabled. In the wishlist block product price displayed when it should not
+Fixed Qty field is not disabled if even check-box unselected
+Fixed No ability to create Shipping Label with decimals Qty of products (in case with FedEx International)
+Fixed FedEx Shipping Method unavailable (in case with Request Courier drop off type)
+Fixed Unable to upgrade Magento when installed extension without max version
+Fixed Wrong calculation price of Bundle product
+- fixed sub item prices calculation
+Fixed Incorrect products weight in Shipping Label (in case with USPS Int.,FedEx Int. and decimal Qty)
+Fixed Gateway URL Absent in Fedex Shipping Module
+Fixed Google checkout shipping (merchant and carrier calculated) returns only default prices
+Fixed Frontend: the products in the Shopping Cart is not transferred to other customer, if this customer is logged in or register after clicks on "Checkout with Multiple Addresses", "Google Checkout" or "PayPal"
+Fixed Unable to login to site after adding SID to URL
+Fixed Image in description doesn't shown in compare grid
+Fixed Missed validation for space charter in begin of unique fields
+Fixed Impossible to sort blocks
+Fixed Incorrect behavior of Offline Refunds for an Order when Adjustment fee is specified
+Fixed Order saving error on backend
+Fixed Customer logged out by wrong SID cached in blocks
+Fixed System->Configuration->Advanced->Admin->Startup page->"Startup Page" drop-down - Optgroups are displayed after child elements
+Fixed Removed unused code from Varien_File_Uploader
+Fixed DHL Shipping Methods unavailable (in case with package type letter)
+Fixed Error via using Global Search [Search in Admin]
+Fixed Error is presented by saving address, creating order with created attributes type Image File or file(attachment)
+
+
+
 ==== 1.6.0.0-rc2 ====
 
 === Major Highlights ===

@@ -34,7 +34,7 @@
             <block type="reports/product_compared" before="right.permanent.callout" name="right.reports.product.compared" template="reports/product_compared.phtml" />
         </reference>
     </default>
-    
+
     <catalog_category_layered_nochildren translate="label">
         <label>Catalog Category (Without Subcategories)</label>
         <remove name="right.reports.product.viewed" />

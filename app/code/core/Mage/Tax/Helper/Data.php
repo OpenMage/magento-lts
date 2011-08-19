@@ -340,7 +340,13 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getPriceFormat($store = null)
     {
-        return Mage::helper('core')->jsonEncode(Mage::app()->getLocale()->getJsPriceFormat());
+        Mage::app()->getLocale()->emulate($store);
+        $priceFormat = Mage::app()->getLocale()->getJsPriceFormat();
+        Mage::app()->getLocale()->revert();
+        if ($store) {
+            $priceFormat['pattern'] = Mage::app()->getStore($store)->getCurrentCurrency()->getOutputFormat();
+        }
+        return Mage::helper('core')->jsonEncode($priceFormat);
     }
 
     /**
@@ -543,10 +549,13 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     protected function _calculatePrice($price, $percent, $type)
     {
+        $calculator = Mage::getSingleton('tax/calculation');
         if ($type) {
-            return $price * (1+($percent/100));
+            $taxAmount = $calculator->calcTaxAmount($price, $percent, false);
+            return $price + $taxAmount;
         } else {
-            return $price/(1+$percent/100);
+            $taxAmount = $calculator->calcTaxAmount($price, $percent, true);
+            return $price - $taxAmount;
         }
     }
 

@@ -34,6 +34,13 @@
 
 class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_Abstract
 {
+    /**
+     * Default MAP renderer type
+     *
+     * @var string
+     */
+    protected $_mapRenderer = 'msrp_noform';
+
     protected $_columnCount = 4;
 
     protected $_items;

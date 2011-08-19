@@ -70,4 +70,15 @@ class Mage_GoogleCheckout_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_SHIPPING_PICKUP_ACTIVE            = 'google/checkout_shipping_pickup/active';
     const XML_PATH_SHIPPING_PICKUP_TITLE             = 'google/checkout_shipping_pickup/title';
     const XML_PATH_SHIPPING_PICKUP_PRICE             = 'google/checkout_shipping_pickup/price';
+
+    /**
+     * Check if option googlecheckout shipping carrier is enabled
+     *
+     * @param  $storeId
+     * @return bool
+     */
+    public function isShippingCarrierActive($storeId)
+    {
+        return (true == Mage::getStoreConfig(self::XML_PATH_SHIPPING_CARRIER_ACTIVE, $storeId));
+    }
 }

@@ -41,7 +41,7 @@
 <script type="text/javascript">
 <!--
  function connectPrepare(form) {
-    new Ajax.Request(form.action, { 
+    new Ajax.Request(form.action, {
       method:'post',
       parameters: {install_package_id: form.install_package_id.value},
       onCreate: function() {
@@ -197,7 +197,7 @@
     </div>
 </form>
 <script type="text/javascript">
-$$('#connect_packages_'+<?php echo $i?>+' select').each(function(el){el.value=''});
+$$('#connect_packages_' + <?php echo $i?> + ' select').each(function(el){el.value=''});
 </script>
 <?php if (++$i != $cnt): ?><div class="divider"></div><?php endif ?>
 <br/>
@@ -210,12 +210,12 @@ $$('#connect_packages_'+<?php echo $i?>+' select').each(function(el){el.value=''
 <div id="connect_iframe_success" style="display:none">
     <?php $this->set('messages', array('success'=>array('Procedure completed. Please check the output frame for useful information and refresh the page to see changes.'))) ?>
     <?php echo $this->template('messages.phtml') ?>
-    <button onclick="location.reload()">Refresh</button>
+    <button onclick="location.href='<?php echo $this->baseUrl() ?>'">Refresh</button>
 </div>
 <div id="connect_iframe_failure" style="display:none">
     <?php $this->set('messages', array('error'=>array('Please check the output frame for errors and refresh the page to retry changes.'))) ?>
     <?php echo $this->template('messages.phtml') ?>
-    <button onclick="location.reload()">Refresh</button>
+    <button onclick="location.href='<?php echo $this->baseUrl() ?>'">Refresh</button>
 </div>
 
 <?php echo $this->template('footer.phtml') ?>

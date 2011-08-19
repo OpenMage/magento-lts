@@ -503,33 +503,6 @@ class Varien_File_Uploader
             throw new Exception("Unable to create directory '{$destinationFolder}'.");
         }
         return $this;
-
-        $destinationFolder = str_replace('/', DIRECTORY_SEPARATOR, $destinationFolder);
-        $path = explode(DIRECTORY_SEPARATOR, $destinationFolder);
-        $newPath = null;
-        $oldPath = null;
-        foreach ($path as $key => $directory) {
-            if (trim($directory) == '') {
-                continue;
-            }
-            if (strlen($directory) === 2 && $directory{1} === ':') {
-                $newPath = $directory;
-                continue;
-            }
-            $newPath .= ($newPath != DIRECTORY_SEPARATOR) ? DIRECTORY_SEPARATOR . $directory : $directory;
-            if(is_dir($newPath)) {
-                $oldPath = $newPath;
-                continue;
-            } else {
-                if(is_writable($oldPath)) {
-                    mkdir($newPath, 0777);
-                } else {
-                    throw new Exception("Unable to create directory '{$newPath}'. Access forbidden.");
-                }
-            }
-            $oldPath = $newPath;
-        }
-        return $this;
     }
 
     static public function getNewFileName($destFile)

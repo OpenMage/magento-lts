@@ -171,4 +171,19 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
 
         return Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);
     }
+
+    /**
+     * Retrieve store attribute label
+     *
+     * @param string $attributeCode
+     * @return string
+     */
+    public function getStoreLabel($attributeCode)
+    {
+        $attribute = $this->_getAttribute($attributeCode);
+        if ($attribute) {
+            return $attribute->getStoreLabel();
+        }
+        return '';
+    }
 }

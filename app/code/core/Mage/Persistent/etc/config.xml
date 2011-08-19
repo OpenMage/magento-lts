@@ -59,6 +59,9 @@
     </global>
 
     <frontend>
+        <secure_url>
+            <persistent_onepage_register>/persistent/index/saveMethod</persistent_onepage_register>
+        </secure_url>
         <routers>
             <persistent>
                 <use>standard</use>
@@ -122,6 +125,10 @@
                         <class>persistent/observer_session</class>
                         <method>setRememberMeCheckedStatus</method>
                     </persistent>
+                    <persistent_authenticate>
+                        <class>persistent/observer</class>
+                        <method>customerAuthenticatedEvent</method>
+                    </persistent_authenticate>
                 </observers>
             </controller_action_predispatch_customer_account_createpost>
             <controller_action_layout_generate_blocks_after>
@@ -146,6 +153,10 @@
                         <class>persistent/observer</class>
                         <method>checkExpirePersistentQuote</method>
                     </persistent_quote>
+                    <persistent_customer>
+                        <class>persistent/observer</class>
+                        <method>emulateCustomer</method>
+                    </persistent_customer>
                 </observers>
             </controller_action_predispatch>
             <checkout_allow_guest>
@@ -196,14 +207,6 @@
                     </persistent>
                 </observers>
             </custom_quote_process>
-            <controller_action_postdispatch_checkout_onepage_saveMethod>
-                <observers>
-                    <persistent>
-                        <class>persistent/observer</class>
-                        <method>removePersistentCookie</method>
-                    </persistent>
-                </observers>
-            </controller_action_postdispatch_checkout_onepage_saveMethod>
             <controller_action_postdispatch_checkout_onepage_saveBilling>
                 <observers>
                     <persistent>
@@ -236,6 +239,14 @@
                     </persistent>
                 </observers>
             </controller_action_predispatch_googlecheckout_redirect_checkout>
+            <controller_action_predispatch_checkout_multishipping_index>
+                <observers>
+                    <persistent>
+                        <class>persistent/observer</class>
+                        <method>preventExpressCheckout</method>
+                    </persistent>
+                </observers>
+            </controller_action_predispatch_checkout_multishipping_index>
             <render_block>
                 <observers>
                     <persistent>
@@ -253,7 +264,27 @@
                 </observers>
             </update_customer_cookies>
         </events>
+        <translate>
+            <modules>
+                <Mage_Persistent>
+                    <files>
+                        <default>Mage_Persistent.csv</default>
+                    </files>
+                </Mage_Persistent>
+            </modules>
+        </translate>
     </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_Persistent>
+                    <files>
+                        <default>Mage_Persistent.csv</default>
+                    </files>
+                </Mage_Persistent>
+            </modules>
+        </translate>
+    </adminhtml>
 
     <default>
         <persistent>

@@ -123,6 +123,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
             ->initDefaultValues();
 
         $attributes = $addressForm->getAttributes();
+        if(isset($attributes['street'])) {
+            Mage::helper('adminhtml/addresses')
+                ->processStreetAttribute($attributes['street']);
+        }
         foreach ($attributes as $attribute) {
             $attribute->unsIsVisible();
         }

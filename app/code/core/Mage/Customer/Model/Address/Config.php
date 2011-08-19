@@ -102,10 +102,13 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
             foreach ($this->getNode('formats')->children() as $typeCode => $typeConfig) {
                 $path = sprintf('%s%s', self::XML_PATH_ADDRESS_TEMPLATE, $typeCode);
                 $type = new Varien_Object();
+                $htmlEscape = strtolower($typeConfig->htmlEscape);
+                $htmlEscape = $htmlEscape == 'false' || $htmlEscape == '0' || $htmlEscape == 'no'
+                        || !strlen($typeConfig->htmlEscape) ? false : true;
                 $type->setCode($typeCode)
                     ->setTitle((string)$typeConfig->title)
                     ->setDefaultFormat(Mage::getStoreConfig($path, $store))
-                    ->setHtmlEscape((bool)$typeConfig->htmlEscape);
+                    ->setHtmlEscape($htmlEscape);
 
                 $renderer = (string)$typeConfig->renderer;
                 if (!$renderer) {
@@ -135,7 +138,9 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
         if(!isset($this->_defaultType[$storeId])) {
             $this->_defaultType[$storeId] = new Varien_Object();
             $this->_defaultType[$storeId]->setCode('default')
-                ->setDefaultFormat('{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}, {{var street}}, {{var city}}, {{var region}} {{var postcode}}, {{var country}}');
+                ->setDefaultFormat('{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}'
+                        . '{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}, '
+                        . '{{var street}}, {{var city}}, {{var region}} {{var postcode}}, {{var country}}');
 
             $this->_defaultType[$storeId]->setRenderer(
                 Mage::helper('customer/address')

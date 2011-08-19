@@ -245,7 +245,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
                         $findSet = $this->getConnection()
                             ->prepareSqlCondition('value', array($condition => $option['option_id']));
                         $whereCond = "(attribute_id=%d AND store_id=%d AND {$findSet})";
-                        $where[] = sprintf($whereConf, $option['attribute_id'], $option['store_id']);
+                        $where[] = sprintf($whereCond, $option['attribute_id'], $option['store_id']);
                     }
                 }
                 if ($where) {

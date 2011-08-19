@@ -96,7 +96,7 @@ class Mage_Connect_Singleconfig
     }
 
     public function formatUri($uri)
-    {        
+    {
         $uri = rtrim($uri, "/");
         $uri = str_replace("http://", '', $uri);
         $uri = str_replace("https://", '', $uri);
@@ -247,7 +247,7 @@ class Mage_Connect_Singleconfig
         } elseif($chanName) {
             $uri = $config->protocol.'://'.$chanName;
         } else {
-            throw new Exception("'{$channel}' is not existant channel name / valid uri");
+            throw new Exception("'{$chanName}' is not existant channel name / valid uri");
         }
 
         if ($uri && !$this->isChannel($uri)) {
@@ -429,6 +429,7 @@ class Mage_Connect_Singleconfig
 
     /**
      * Get package record
+     *
      * @param string $chanName
      * @param string $packageName
      * @return array
@@ -675,7 +676,7 @@ class Mage_Connect_Singleconfig
 
     /**
      * Check whether package installed or not. Return package if it installed
-     * 
+     *
      * @param string $package package name
      * @return array
      */
@@ -691,15 +692,22 @@ class Mage_Connect_Singleconfig
         return false;
     }
 
-
+    /**
+     * Checks whether the version in in the specified range of versionMin to versionMax
+     *
+     * @param string $version
+     * @param string $versionMin
+     * @param string $versionMax
+     * @return bool
+     */
     public function versionInRange($version, $versionMin = false, $versionMax = false)
     {
-        if(false === $versionMin) {
+        if(false === $versionMin || empty($versionMin)) {
             $minOk = true;
         } else {
             $minOk = version_compare($version, $versionMin, ">=");
         }
-        if(false === $versionMax) {
+        if(false === $versionMax || empty($versionMax)) {
             $maxOk = true;
         } else {
             $maxOk = version_compare($version, $versionMax, "<=");
@@ -716,9 +724,9 @@ class Mage_Connect_Singleconfig
         } elseif(version_compare($min1, $min2, ">=") && version_compare($max1, $max2, "<=")) {
             return true;
         } elseif(version_compare($min1, $min2, "<=") && version_compare($max1, $max2, ">=")) {
-           return true;            
+           return true;
         }
-        return false;        
+        return false;
     }
 
     /**
@@ -756,7 +764,8 @@ class Mage_Connect_Singleconfig
 
 
 
-    public function detectVersionFromRestArray($restData, $argVersionMin = false, $argVersionMax = false, $preferredStability = 'devel')
+    public function detectVersionFromRestArray($restData, $argVersionMin = false, $argVersionMax = false,
+        $preferredStability = 'devel')
     {
 
         if(!is_array($restData)) {
@@ -817,8 +826,6 @@ class Mage_Connect_Singleconfig
         return false;
     }
 
-
-
     public function getChannelNames()
     {
         return array_keys($this->_data[self::K_CHAN]);
@@ -856,15 +863,12 @@ class Mage_Connect_Singleconfig
                 }
                 $deps = $package[self::K_PACK_DEPS];
                 if($this->specifiedInDependencyList($deps, $chanName, $packageName)) {
-                    $out[] = array('channel'=>$channel, 'name' =>$package['name'], 'version'=>$package['version']); 
-                }               
+                    $out[] = array('channel'=>$channel, 'name' =>$package['name'], 'version'=>$package['version']);
+                }
             }
         }
         return $out;
     }
-
-
-
 
     public function getInstalledPackages($chanName = false)
     {
@@ -888,8 +892,6 @@ class Mage_Connect_Singleconfig
         return $out;
     }
 
-
-    
     /**
      * Check if package conflicts with installed packages
      * Returns:
@@ -907,7 +909,7 @@ class Mage_Connect_Singleconfig
         foreach($this->_data[self::K_CHAN] as $channel=>$data) {
             foreach($data[self::K_PACK] as $package) {
                 /**
-                 * @todo When we are building dependencies tree we should base this calculations not on full key as on 
+                 * @todo When we are building dependencies tree we should base this calculations not on full key as on
                  * a unique value but check it by parts. First part which should be checked is EXTENSION_NAME also this
                  * part should be unique globally not per channel.
                  */
@@ -929,8 +931,4 @@ class Mage_Connect_Singleconfig
         }
         return count($conflicts) ? $conflicts : false;
     }
-
-
-
-
 }

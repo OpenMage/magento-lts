@@ -227,8 +227,8 @@
     <td class="a-right"><?php echo $this->displayPriceAttribute('discount_amount') ?></td>
     <td class="a-right last">
         <?php echo $this->displayPrices(
-            $_item->getBaseRowTotal()+$_item->getBaseTaxAmount()-$_item->getBaseDiscountAmount()+$_item->getBaseWeeeTaxAppliedRowAmount(),
-            $_item->getRowTotal()+$_item->getTaxAmount()-$_item->getDiscountAmount()+$_item->getWeeeTaxAppliedRowAmount()
+            $_item->getBaseRowTotal() + $_item->getBaseTaxAmount() + $_item->getBaseHiddenTaxAmount() + $_item->getBaseWeeeTaxAppliedRowAmount() - $_item->getBaseDiscountAmount(),
+            $_item->getRowTotal() + $_item->getTaxAmount() + $_item->getHiddenTaxAmount() + $_item->getWeeeTaxAppliedRowAmount() - $_item->getDiscountAmount()
         ) ?>
     </td>
 </tr>

@@ -546,8 +546,8 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     {
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('catalog/category_product_index'), 'product_id')
-            ->where('product_id = ?', (int)$categoryId)
-            ->where('category_id = ?', (int)$product->getId());
+            ->where('product_id = ?', (int)$product->getId())
+            ->where('category_id = ?', (int)$categoryId);
 
         return $this->_getReadAdapter()->fetchOne($select);
     }

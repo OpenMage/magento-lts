@@ -412,7 +412,6 @@
 "Your server PHP settings allow you to upload files not more than %s at a time. Please modify post_max_size (currently is %s) and upload_max_filesize (currently is %s) values in php.ini if you want to upload larger files.","Your server PHP settings allow you to upload files not more than %s at a time. Please modify post_max_size (currently is %s) and upload_max_filesize (currently is %s) values in php.ini if you want to upload larger files."
 "Zip/Postal Code:","Zip/Postal Code:"
 "critical","critical"
-"images/logo.gif","images/logo.gif"
 "items selected","items selected"
 "major","major"
 "minor","minor"

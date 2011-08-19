@@ -693,7 +693,8 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
                     )
                 ),
                 array(
-                    'containers' => array('2a', '2b', '2c', '03'), // Small Express Box, Medium Express Box, Large Express Box, UPS Tube
+                    // Small Express Box, Medium Express Box, Large Express Box, UPS Tube
+                    'containers' => array('2a', '2b', '2c', '03'),
                     'filters'    => array(
                         'within_us' => array(
                             'method' => array(
@@ -1002,7 +1003,7 @@ XMLRequest;
                         $responseCurrencyCode = (string) $shipElement->TotalCharges->CurrencyCode;
                         if ($responseCurrencyCode) {
                             if (in_array($responseCurrencyCode, $allowedCurrencies)) {
-                                $cost *= $this->_getBaseCurrencyRate($responseCurrencyCode);
+                                $cost = (float) $cost * $this->_getBaseCurrencyRate($responseCurrencyCode);
                             } else {
                                 $errorTitle = Mage::helper('directory')
                                     ->__('Can\'t convert rate from "%s-%s".',
@@ -1386,7 +1387,7 @@ XMLAuth;
             $shipperPart->addChild('PhoneNumber', $request->getRecipientContactPhoneNumber());
 
             $addressPart = $shipperPart->addChild('Address');
-            $addressPart->addChild('AddressLine1', $request->getRecipientAddressStreet1());
+            $addressPart->addChild('AddressLine1', $request->getRecipientAddressStreet());
             $addressPart->addChild('AddressLine2', $request->getRecipientAddressStreet2());
             $addressPart->addChild('City', $request->getRecipientAddressCity());
             $addressPart->addChild('CountryCode', $request->getRecipientAddressCountryCode());
@@ -1401,7 +1402,7 @@ XMLAuth;
             $shipperPart->addChild('PhoneNumber', $request->getShipperContactPhoneNumber());
 
             $addressPart = $shipperPart->addChild('Address');
-            $addressPart->addChild('AddressLine1', $request->getShipperAddressStreet1());
+            $addressPart->addChild('AddressLine1', $request->getShipperAddressStreet());
             $addressPart->addChild('AddressLine2', $request->getShipperAddressStreet2());
             $addressPart->addChild('City', $request->getShipperAddressCity());
             $addressPart->addChild('CountryCode', $request->getShipperAddressCountryCode());
@@ -1415,7 +1416,7 @@ XMLAuth;
         $shipToPart->addChild('AttentionName', $request->getRecipientContactPersonName());
         $shipToPart->addChild('CompanyName', $request->getRecipientContactCompanyName()
             ? $request->getRecipientContactCompanyName()
-            : $request->getRecipientContactPersonName());
+            : 'N/A');
         $shipToPart->addChild('PhoneNumber', $request->getRecipientContactPhoneNumber());
 
         $addressPart = $shipToPart->addChild('Address');

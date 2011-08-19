@@ -152,7 +152,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings
         return $this->getUrl('*/*/*', array(
             '_current' => true,
             'type' => '{{type}}',
-            'package_theme' => '{{package_theme}}'
+            'package' => '{{mpackage}}',
+            'theme' => '{{mtheme}}'
         ));
     }
 

@@ -214,13 +214,13 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
 
                             $selectionMinimalPrices[] = Mage::helper('tax')->getPrice(
                                 $item,
-                                $this->getSelectionFinalTotalPrice($product, $selection, 1, $qty, $takeTierPrice),
+                                $this->getSelectionFinalTotalPrice($product, $selection, 1, $qty, true, $takeTierPrice),
                                 $includeTax,
                                 $takeTierPrice
                             );
                             $selectionMaximalPrices[] = Mage::helper('tax')->getPrice(
                                 $item,
-                                $this->getSelectionFinalTotalPrice($product, $selection, 1, null, $takeTierPrice),
+                                $this->getSelectionFinalTotalPrice($product, $selection, 1, null, true, $takeTierPrice),
                                 $includeTax,
                                 $takeTierPrice
                             );
@@ -366,11 +366,10 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
 
         if ($bundleProduct->getPriceType() == self::PRICE_TYPE_DYNAMIC) {
             if ($multiplyQty) {
-                $selectionPrice = $selectionProduct->getFinalPrice($selectionQty) * $selectionQty;
+                return $selectionProduct->getFinalPrice($selectionQty) * $selectionQty;
             } else {
-                $selectionPrice = $selectionProduct->getFinalPrice($selectionQty);
+                return $selectionProduct->getFinalPrice($selectionQty);
             }
-            return $selectionPrice;
         } else {
             if ($selectionProduct->getSelectionPriceType()) { // percent
                 return $bundleProduct->getPrice() * ($selectionProduct->getSelectionPriceValue() / 100) * $selectionQty;
@@ -572,7 +571,10 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
     {
         $resource = Mage::getResourceSingleton('bundle/bundle');
         $selectionResource = Mage::getResourceSingleton('bundle/selection');
-        $productPriceTypeId = Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'price_type');
+        $productPriceTypeId = Mage::getSingleton('eav/entity_attribute')->getIdByCode(
+            Mage_Catalog_Model_Product::ENTITY,
+            'price_type'
+        );
 
         if ($wId instanceof Mage_Core_Model_Store) {
             $store = $wId->getId();

@@ -95,7 +95,7 @@ Wishlist pages
             <action method="unsetChild"><name>wishlist_customer_sidebar</name></action>
         </reference>
     </wishlist_index_share>
-    
+
     <wishlist_index_configure translate="label">
         <label>Configure Wishlist Item</label>
         <update handle="catalog_product_view"/>

@@ -162,7 +162,7 @@ class Mage_Persistent_Model_Observer
     public function emulateQuote($observer)
     {
         $stopActions = array(
-            'checkout_onepage_saveMethod',
+            'persistent_index_saveMethod',
             'customer_account_createpost'
         );
 
@@ -255,7 +255,7 @@ class Mage_Persistent_Model_Observer
             return;
         }
 
-        $this->_setQuoteGuest(true);
+        $this->setQuoteGuest(true);
     }
 
     /**
@@ -291,7 +291,12 @@ class Mage_Persistent_Model_Observer
         $customerSession->setCustomerId(null)
             ->setCustomerGroupId(null);
 
-        $this->_setQuoteGuest();
+        if (Mage::app()->getRequest()->getParam('context') != 'checkout') {
+            $this->_expirePersistentSession();
+            return;
+        }
+
+        $this->setQuoteGuest();
     }
 
     /**
@@ -313,7 +318,7 @@ class Mage_Persistent_Model_Observer
                 ->setCustomerGroupId(null);
         }
 
-        $this->_setQuoteGuest();
+        $this->setQuoteGuest();
     }
 
     /**
@@ -425,7 +430,7 @@ class Mage_Persistent_Model_Observer
      *
      * @param bool $checkQuote Check quote to be persistent (not stolen)
      */
-    protected function _setQuoteGuest($checkQuote = false)
+    public function setQuoteGuest($checkQuote = false)
     {
         /** @var $quote Mage_Sales_Model_Quote */
         $quote = Mage::getSingleton('checkout/session')->getQuote();
@@ -467,29 +472,34 @@ class Mage_Persistent_Model_Observer
             return;
         }
 
-        /** @var $checkoutSession Mage_Checkout_Model_Session */
-        $checkoutSession = Mage::getSingleton('checkout/session');
-
         /** @var $customerSession Mage_Customer_Model_Session */
         $customerSession = Mage::getSingleton('customer/session');
 
         if (Mage::helper('persistent')->isEnabled()
             && !$this->_isPersistent()
             && !$customerSession->isLoggedIn()
-            && $checkoutSession->getQuoteId()
+            && Mage::getSingleton('checkout/session')->getQuoteId()
         ) {
             Mage::dispatchEvent('persistent_session_expired');
-            $quote = $checkoutSession->setLoadInactive()->getQuote();
-            if ($quote->getIsActive() && $quote->getCustomerId()) {
-                $checkoutSession->unsetAll();
-            } else {
-                $quote
-                    ->setIsActive(true)
-                    ->setIsPersistent(false)
-                    ->setCustomerId(null)
-                    ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
-            }
+            $this->_expirePersistentSession();
             $customerSession->setCustomerId(null)->setCustomerGroupId(null);
+        }
+    }
+
+    protected function _expirePersistentSession()
+    {
+        /** @var $checkoutSession Mage_Checkout_Model_Session */
+        $checkoutSession = Mage::getSingleton('checkout/session');
+
+        $quote = $checkoutSession->setLoadInactive()->getQuote();
+        if ($quote->getIsActive() && $quote->getCustomerId()) {
+            $checkoutSession->setCustomer(null)->unsetAll();
+        } else {
+            $quote
+                ->setIsActive(true)
+                ->setIsPersistent(false)
+                ->setCustomerId(null)
+                ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
         }
     }
 
@@ -549,5 +559,31 @@ class Mage_Persistent_Model_Observer
             $customerCookies->setCustomerId($persistentCustomer->getId());
             $customerCookies->setCustomerGroupId($persistentCustomer->getGroupId());
         }
+    }
+
+    /**
+     * Set persistent data to customer session
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Persistent_Model_Observer
+     */
+    public function emulateCustomer($observer)
+    {
+        if (!Mage::helper('persistent')->canProcess($observer)
+            || !$this->_isShoppingCartPersist()
+        ) {
+            return $this;
+        }
+
+        if ($this->_isLoggedOut()) {
+            /** @var $customer Mage_Customer_Model_Customer */
+            $customer = Mage::getModel('customer/customer')->load(
+                $this->_getPersistentHelper()->getSession()->getCustomerId()
+            );
+            Mage::getSingleton('customer/session')
+                ->setCustomerId($customer->getId())
+                ->setCustomerGroupId($customer->getGroupId());
+        }
+        return $this;
     }
 }

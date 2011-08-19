@@ -291,7 +291,7 @@ class Mage_Sales_Model_Observer
              * if customer accounts are shared between all of them
              */
             $websites = (Mage::getSingleton('customer/config_share')->isWebsiteScope())
-                ? array($customer->getWebsite())
+                ? array(Mage::app()->getWebsite($customer->getWebsiteId()))
                 : Mage::app()->getWebsites();
 
             /** @var $quote Mage_Sales_Model_Quote */

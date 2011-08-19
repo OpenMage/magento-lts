@@ -102,7 +102,7 @@ $tables = array(
             ),
             'password' => array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 40,
+                'length'    => 100,
                 'comment'   => 'User Password'
             ),
             'created' => array(

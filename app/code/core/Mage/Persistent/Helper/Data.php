@@ -166,4 +166,19 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
         }
         return true;
     }
+
+    /**
+     * Get create account url depends on checkout
+     *
+     * @param  $url string
+     * @return string
+     */
+    public function getCreateAccountUrl($url)
+    {
+        if (Mage::helper('checkout')->isContextCheckout()) {
+            $url = Mage::helper('core/url')->addRequestParam($url, array('context' => 'checkout'));
+        }
+        return $url;
+    }
+
 }

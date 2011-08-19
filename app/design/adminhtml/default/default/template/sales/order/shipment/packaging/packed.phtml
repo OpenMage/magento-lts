@@ -43,7 +43,7 @@
                                 <col width="*" />
                                 <col width="60" />
                                 <col width="70" />
-                                <col width="150" />
+                                <col width="70" />
                                 <col width="*" />
                             </colgroup>
                             <tbody>
@@ -69,7 +69,7 @@
                                 <tr>
                                     <?php if ($this->displayCustomsValue()): ?>
                                         <th><?php echo Mage::helper('sales')->__('Customs Value') ?></th>
-                                        <td><?php echo $params->getCustomsValue() ?></td>
+                                        <td><?php echo $this->displayPrice($params->getCustomsValue()) ?></td>
                                     <?php else: ?>
                                         <th><?php echo Mage::helper('sales')->__('Total Weight') ?></th>
                                         <td><?php echo $params->getWeight() .' '. Mage::helper('usa')->getMeasureWeightName($params->getWeightUnits()) ?></td>
@@ -82,8 +82,17 @@
                                             --
                                         <?php endif; ?>
                                     </td>
-                                    <th>&nbsp;</th>
-                                    <td>&nbsp;</td>
+                                    <?php if ($params->getContentType() != null): ?>
+                                        <th><?php echo Mage::helper('sales')->__('Contents') ?></th>
+                                        <?php if ($params->getContentType() == 'OTHER'): ?>
+                                            <td><?php echo $params->getContentTypeOther() ?></td>
+                                        <?php else: ?>
+                                            <td><?php echo $this->getContentTypeByCode($params->getContentType()) ?></td>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <th>&nbsp;</th>
+                                        <td>&nbsp;</td>
+                                    <?php endif; ?>
                                 </tr>
                                 <tr>
                                     <?php if ($this->displayCustomsValue()): ?>
@@ -107,7 +116,7 @@
                                 <tr>
                                     <?php if ($params->getSize()): ?>
                                         <th><?php echo Mage::helper('sales')->__('Size') ?></th>
-                                        <td><?php echo $params->getSize() ?></td>
+                                        <td><?php echo ucfirst(strtolower($params->getSize())) ?></td>
                                     <?php else: ?>
                                         <th>&nbsp;</th>
                                         <td>&nbsp;</td>
@@ -131,14 +140,21 @@
                             <table cellspacing="0" class="data">
                                 <colgroup>
                                     <col>
-                                    <col>
                                     <col width="100">
-                                    <col width="*">
+                                    <?php if ($this->displayCustomsValue()): ?>
+                                        <col width="100">
+                                    <?php endif; ?>
+                                    <col width="100">
+                                    <col width="100">
                                 </colgroup>
                                 <thead>
                                 <tr class="headings">
                                     <th class=" no-link"><span class="nobr"><?php echo Mage::helper('sales')->__('Product') ?></span></th>
                                     <th class=" no-link"><span class="nobr"><?php echo Mage::helper('sales')->__('Weight') ?></span></th>
+                                    <?php if ($this->displayCustomsValue()): ?>
+                                        <th class=" no-link"><span class="nobr"><?php echo Mage::helper('sales')->__('Customs Value') ?></span></th>
+                                    <?php endif; ?>
+                                    <th class=" no-link"><span class="nobr"><?php echo Mage::helper('sales')->__('Qty Ordered') ?></span></th>
                                     <th class=" no-link last"><span class="nobr"><?php echo Mage::helper('sales')->__('Qty') ?></span></th>
                                 </tr>
                                 </thead>
@@ -152,6 +168,12 @@
                                         </td>
                                         <td class="a-center weight ">
                                             <?php echo $item->getWeight(); ?>
+                                        </td>
+                                        <?php if ($this->displayCustomsValue()): ?>
+                                            <td class="a-right"><?php echo $this->displayPrice($item->getCustomsValue()) ?></td>
+                                        <?php endif; ?>
+                                        <td class="a-right">
+                                            <?php echo $this->getQtyOrderedItem($item->getOrderItemId()); ?>
                                         </td>
                                         <td class="a-right last">
                                             <?php echo $item->getQty()*1; ?>

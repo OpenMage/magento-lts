@@ -86,69 +86,69 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
     protected function _prepareColumns()
     {
         $this->addColumn('agreement_id', array(
-            'header'    => Mage::helper('sales')->__('ID'),
-            'index'     => 'agreement_id',
-            'type'      => 'text'
+            'header'            => Mage::helper('sales')->__('ID'),
+            'index'             => 'agreement_id',
+            'type'              => 'text'
         ));
 
         $this->addColumn('customer_email', array(
-            'header'    => Mage::helper('sales')->__('Customer Email'),
-            'index'     => 'customer_email',
-            'type'      => 'text'
+            'header'            => Mage::helper('sales')->__('Customer Email'),
+            'index'             => 'customer_email',
+            'type'              => 'text'
         ));
 
         $this->addColumn('customer_firstname', array(
-            'header'    => Mage::helper('sales')->__('Customer Name'),
-            'index'     => 'customer_firstname',
-            'type'      => 'text',
-            'escape'    => true
+            'header'            => Mage::helper('sales')->__('Customer Name'),
+            'index'             => 'customer_firstname',
+            'type'              => 'text',
+            'escape'            => true
         ));
 
         $this->addColumn('customer_lastname', array(
-            'header'    => Mage::helper('sales')->__('Customer Last Name'),
-            'index'     => 'customer_lastname',
-            'type'      => 'text',
-            'escape'    => true
+            'header'            => Mage::helper('sales')->__('Customer Last Name'),
+            'index'             => 'customer_lastname',
+            'type'              => 'text',
+            'escape'            => true
         ));
 
         $this->addColumn('method_code', array(
-            'header'    => Mage::helper('sales')->__('Payment Method'),
-            'index'     => 'method_code',
-            'type'      => 'options',
-            'options'   => Mage::helper('payment')->getAllBillingAgreementMethods()
+            'header'            => Mage::helper('sales')->__('Payment Method'),
+            'index'             => 'method_code',
+            'type'              => 'options',
+            'options'           => Mage::helper('payment')->getAllBillingAgreementMethods()
         ));
 
         $this->addColumn('reference_id', array(
-            'header'    => Mage::helper('sales')->__('Reference ID'),
-            'index'     => 'reference_id',
-            'type'      => 'text'
+            'header'            => Mage::helper('sales')->__('Reference ID'),
+            'index'             => 'reference_id',
+            'type'              => 'text'
         ));
 
         $this->addColumn('status', array(
-            'header'    => Mage::helper('sales')->__('Status'),
-            'index'     => 'status',
-            'type'      => 'options',
-            'options'   => Mage::getSingleton('sales/billing_agreement')->getStatusesArray()
+            'header'            => Mage::helper('sales')->__('Status'),
+            'index'             => 'status',
+            'type'              => 'options',
+            'options'           => Mage::getSingleton('sales/billing_agreement')->getStatusesArray()
         ));
 
         $this->addColumn('created_at', array(
-            'header'    => Mage::helper('sales')->__('Created At'),
-            'index'     => 'created_at',
-            'width'     => 1,
-            'type'      => 'datetime',
-            'align'     => 'center',
-            'default'   => $this->__('N/A'),
-            'html_decorators' => array('nobr')
+            'header'            => Mage::helper('sales')->__('Created At'),
+            'index'             => 'created_at',
+            'width'             => 1,
+            'type'              => 'datetime',
+            'align'             => 'center',
+            'default'           => $this->__('N/A'),
+            'html_decorators'   => array('nobr')
         ));
 
         $this->addColumn('updated_at', array(
-            'header'    => Mage::helper('sales')->__('Updated At'),
-            'index'     => 'updated_at',
-            'width'     => 1,
-            'type'      => 'datetime',
-            'align'     => 'center',
-            'default'   => $this->__('N/A'),
-            'html_decorators' => array('nobr')
+            'header'            => Mage::helper('sales')->__('Updated At'),
+            'index'             => 'updated_at',
+            'width'             => 1,
+            'type'              => 'datetime',
+            'align'             => 'center',
+            'default'           => $this->__('N/A'),
+            'html_decorators'   => array('nobr')
         ));
 
         return parent::_prepareColumns();

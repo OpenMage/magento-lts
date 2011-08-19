@@ -113,8 +113,11 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
         $websiteId = Mage::app()->getStore($store)->getWebsiteId();
         if (!isset($this->_streetLines[$websiteId])) {
             $attribute = Mage::getSingleton('eav/config')->getAttribute('customer_address', 'street');
-            $lines = $attribute->getMultilineCount();
-            $this->_streetLines[$websiteId] = min(4, max(1, (int)$lines));
+            $lines = (int)$attribute->getMultilineCount();
+            if($lines <= 0) {
+                $lines = 2;
+            }
+            $this->_streetLines[$websiteId] = min(4, $lines);
         }
 
         return $this->_streetLines[$websiteId];

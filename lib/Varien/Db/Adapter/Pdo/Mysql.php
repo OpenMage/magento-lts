@@ -1078,7 +1078,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $foreignKeys = $this->getForeignKeysTree();
         foreach ($tables as $table => $tableData) {
+            if (!$this->isTableExists($table)) {
+                continue;
+            }
             foreach ($tableData['columns'] as $column =>$columnDefinition) {
+                if (!$this->tableColumnExists($table, $column)) {
+                    continue;
+                }
                 $droppedKeys = array();
                 foreach($foreignKeys as $keyTable => $columns) {
                     foreach($columns as $columnName => $keyOptions) {

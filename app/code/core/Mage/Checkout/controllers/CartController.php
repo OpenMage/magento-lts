@@ -380,7 +380,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 );
                 foreach ($cartData as $index => $data) {
                     if (isset($data['qty'])) {
-                        $cartData[$index]['qty'] = $filter->filter($data['qty']);
+                        $cartData[$index]['qty'] = $filter->filter(trim($data['qty']));
                     }
                 }
                 $cart = $this->_getCart();

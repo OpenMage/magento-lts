@@ -208,7 +208,7 @@ class Mage_Connect_Ftp
         if(empty($data[1])) {
             return false;
         }
-        if(intval($data[0]) != 257) {            
+        if(intval($data[0]) != 257) {
             return false;
         }
         $out = trim($data[1], '"');
@@ -240,20 +240,20 @@ class Mage_Connect_Ftp
      * @param string $local
      * @param int $dirMode
      * @param int $fileMode
-     * @return unknown_type
+     * @return bool
      */
     public function upload($remote, $local, $dirMode = 0777, $fileMode=0)
     {
         $this->checkConnected();
 
         if(!file_exists($local)) {
-            throw new Exception("Local file doesn't exist: {$localFile}");
+            throw new Exception("Local file doesn't exist: {$local}");
         }
         if(!is_readable($local)) {
-            throw new Exception("Local file is not readable: {$localFile}");
+            throw new Exception("Local file is not readable: {$local}");
         }
         if(is_dir($local)) {
-            throw new Exception("Directory given instead of file: {$localFile}");
+            throw new Exception("Directory given instead of file: {$local}");
         }
 
         $globalPathMode = substr($remote, 0, 1) == "/";
@@ -282,7 +282,7 @@ class Mage_Connect_Ftp
         if($fileMode){
             $res=$this->chmod($fileMode, $remote);
         }
-        return $res;
+        return (bool)$res;
     }
 
     /**
@@ -420,7 +420,13 @@ class Mage_Connect_Ftp
         return array_sum(str_split($array[0])) . array_sum(str_split($array[1])) . array_sum(str_split($array[2]));
     }
 
-    
+    /**
+     * Checks file exists
+     *
+     * @param string $path
+     * @param bool $excludeIfIsDir
+     * @return bool
+     */
     public function fileExists($path, $excludeIfIsDir = true)
     {
         $path = $this->correctFilePath($path);
@@ -428,18 +434,17 @@ class Mage_Connect_Ftp
 
         $file = basename($path);
         $dir = $globalPathMode ? dirname($path) : $this->getcwd()."/".($path==basename($path)?'':$path);
-        $data = $this->ls($dir);                
+        $data = $this->ls($dir);
         foreach($data as $row) {
             if($file == basename($row['name'])) {
                 if($excludeIfIsDir && $row['dir']) {
                     continue;
-                }                
+                }
                 return true;
             }
         }
         return false;
     }
-    
 
     /**
      * Get directory contents in PHP array
@@ -479,8 +484,7 @@ class Mage_Connect_Ftp
         }
         return $structure;
     }
-    
-    
+
     /**
      * Correct file path
      * @param $str
@@ -492,7 +496,7 @@ class Mage_Connect_Ftp
         $str = preg_replace("/^.\//", "", $str);
         return $str;
     }
-    
+
     /**
      * Delete file
      * @param string $file
@@ -502,7 +506,7 @@ class Mage_Connect_Ftp
     {
         $this->checkConnected();
         $file = $this->correctFilePath($file);
-        return @ftp_delete($this->_conn, $file);        
+        return @ftp_delete($this->_conn, $file);
     }
 
     /**
@@ -516,5 +520,4 @@ class Mage_Connect_Ftp
         $dir = $this->correctFilePath($dir);
         return @ftp_rmdir($this->_conn, $dir);
     }
-
 }

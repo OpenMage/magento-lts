@@ -383,7 +383,10 @@ directPost.prototype = {
     createHiddenElement : function(name, value) {
         var field;
         if (isIE) {
-            field = document.createElement('<input type="hidden" name="' + name + '" value="' + value + '" />');
+            field = document.createElement('input');
+            field.setAttribute('type', 'hidden');
+            field.setAttribute('name', name);
+            field.setAttribute('value', value);
         } else {
             field = document.createElement('input');
             field.type = 'hidden';

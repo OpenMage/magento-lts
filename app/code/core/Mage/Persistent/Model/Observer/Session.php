@@ -43,8 +43,9 @@ class Mage_Persistent_Model_Observer_Session
     {
         /** @var $customer Mage_Customer_Model_Customer */
         $customer = $observer->getEvent()->getCustomer();
-        // Check if customer is valid (can do nothing for invalid customer)
+        // Check if customer is valid (remove persistent cookie for invalid customer)
         if (!$customer || !$customer->getId() || !Mage::helper('persistent/session')->isRememberMeChecked()) {
+            Mage::getModel('persistent/session')->removePersistentCookie();
             return;
         }
 
@@ -152,6 +153,7 @@ class Mage_Persistent_Model_Observer_Session
             Mage::helper('persistent/session')->setRememberMeChecked((bool)$rememberMeCheckbox);
             if (
                 $controllerAction->getFullActionName() == 'checkout_onepage_saveBilling'
+                    || $controllerAction->getFullActionName() == 'customer_account_createpost'
             ) {
                 Mage::getSingleton('checkout/session')->setRememberMeChecked((bool)$rememberMeCheckbox);
             }

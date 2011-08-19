@@ -180,7 +180,8 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection
             'scope_table.attribute_id = main_table.attribute_id AND scope_table.website_id = :scope_website_id',
             $scopeColumns
         );
-        $this->addBindParam('scope_website_id', (int)$this->getWebsite()->getId());
+        $websiteId = $this->getWebsite() ? (int)$this->getWebsite()->getId() : 0;
+        $this->addBindParam('scope_website_id', $websiteId);
 
         return $this;
     }

@@ -71,7 +71,9 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         $widgetInstance = Mage::getModel('widget/widget_instance');
         $instanceId = $this->getRequest()->getParam('instance_id', null);
         $type = $this->getRequest()->getParam('type', null);
-        $packageTheme = $this->getRequest()->getParam('package_theme', null);
+        $packageTheme = $this->getRequest()->getParam('package', null) . '/'
+                . $this->getRequest()->getParam('theme', null);
+        $packageTheme = $packageTheme === '/' ? null : $packageTheme;
         if ($instanceId) {
             $widgetInstance->load($instanceId);
             if (!$widgetInstance->getId()) {

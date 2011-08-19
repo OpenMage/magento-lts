@@ -74,7 +74,8 @@ extends Mage_Connect_Command
                 $config->magento_root=dirname(dirname($_SERVER['SCRIPT_FILENAME']));
             }
             chdir($config->magento_root);
-            $dirCache = DIRECTORY_SEPARATOR . $config->downloader_path . DIRECTORY_SEPARATOR . Mage_Connect_Config::DEFAULT_CACHE_PATH;
+            $dirCache = DIRECTORY_SEPARATOR . $config->downloader_path . DIRECTORY_SEPARATOR
+                . Mage_Connect_Config::DEFAULT_CACHE_PATH;
             $dirTmp = DIRECTORY_SEPARATOR . Mage_Connect_Package_Reader::PATH_TO_TEMPORARY_DIRECTORY;
             $dirMedia = DIRECTORY_SEPARATOR . 'media';
             $isWritable = true;
@@ -103,7 +104,9 @@ extends Mage_Connect_Command
                           && is_writable($config->magento_root . $dirTmp);
             if(!$isWritable){
                 $this->doError($command, $err);
-                throw new Exception('Your Magento folder does not have sufficient write permissions, which downloader requires.');
+                throw new Exception(
+                    'Your Magento folder does not have sufficient write permissions, which downloader requires.'
+                );
             }
             if(!empty($channelAuth)){
                 $rest->getLoader()->setCredentials($channelAuth['username'], $channelAuth['password']);
@@ -135,7 +138,8 @@ extends Mage_Connect_Command
 
 
                 if (!($cache->isChannelName($pChan) || $cache->isChannelAlias($pChan))) {
-                    throw new Exception("The '{$pChan}' channel is not installed. Please use the MAGE shell script to install the '{$pChan}' channel.");
+                    throw new Exception("The '{$pChan}' channel is not installed. Please use the MAGE shell "
+                        . "script to install the '{$pChan}' channel.");
                 }
 
                 $conflicts = $cache->hasConflicts($pChan, $pName, $pVer);
@@ -205,19 +209,27 @@ extends Mage_Connect_Command
                 $channel = $params[0];
                 $package = $params[1];
                 $argVersionMax = isset($params[2]) ? $params[2]: false;
-                $argVersionMin = false;
-                
+                $argVersionMin = isset($params[3]) ? $params[3]: false;
+
                 $cache->checkChannel($channel, $config, $rest);
                 $channelName = $cache->chanName($channel);
                 $this->ui()->output("Checking dependencies of packages");
-                $packagesToInstall = $packager->getDependenciesList( $channelName, $package, $cache, $config, $argVersionMax, $argVersionMin, $withDepsMode, false, $rest);
+                $packagesToInstall = $packager->getDependenciesList($channelName, $package, $cache, $config,
+                    $argVersionMax, $argVersionMin, $withDepsMode, false, $rest
+                );
                 /*
-                 * @TODO: process 'failed' results
+                 * process 'failed' results
                  */
                 if(count($packagesToInstall['failed'])) {
                     $showError=!count($packagesToInstall['result']);
                     foreach($packagesToInstall['failed'] as $failed){
-                        //$failed = array('name'=>$package, 'channel'=>$chanName, 'max'=>$versionMax, 'min'=>$versionMin, 'reason'=>$e->getMessage());
+                        //$failed = array(
+                        //    'name'=>$package,
+                        //    'channel'=>$chanName,
+                        //    'max'=>$versionMax,
+                        //    'min'=>$versionMin,
+                        //    'reason'=>$e->getMessage()
+                        //);
                         $msg="Package {$failed['channel']}/{$failed['name']} failed: ".$failed['reason'];
                         if($showError){
                             $this->doError($command, $msg);
@@ -242,7 +254,9 @@ extends Mage_Connect_Command
                 foreach($neededToUpgrade as $chan=>$packages) {
                     foreach($packages as $name=>$data) {
                         $versionTo = $data['to'];
-                        $tmp = $packager->getDependenciesList( $chan, $name, $cache, $config, $versionTo, $versionTo, $withDepsMode, false, $rest);
+                        $tmp = $packager->getDependenciesList($chan, $name, $cache, $config, $versionTo, $versionTo,
+                            $withDepsMode, false, $rest
+                        );
                         if(count($tmp['result'])) {
                             $packagesToInstall = array_merge($packagesToInstall, $tmp['result']);
                         }
@@ -268,13 +282,17 @@ extends Mage_Connect_Command
                     /**
                      * Skip existing packages
                      */
-                    if ($upgradeMode && $cache->hasPackage($pChan, $pName, $pVer, $pVer) || ('already_installed' == $pInstallState && !$forceMode)) {
+                    if ($upgradeMode && $cache->hasPackage($pChan, $pName, $pVer, $pVer)
+                        || ('already_installed' == $pInstallState && !$forceMode)
+                    ) {
                         $this->ui()->output("Already installed: {$pChan}/{$pName} {$pVer}, skipping");
                         continue;
                     }
 
                     if('incompartible' == $pInstallState) {
-                        $this->ui()->output("Package incompartible with installed Magento: {$pChan}/{$pName} {$pVer}, skipping");
+                        $this->ui()->output(
+                            "Package incompartible with installed Magento: {$pChan}/{$pName} {$pVer}, skipping"
+                        );
                         continue;
                     }
 
@@ -314,7 +332,8 @@ extends Mage_Connect_Command
 
                     if($ftp) {
                         $cwd=$ftpObj->getcwd();
-                        $dir=$cwd . DIRECTORY_SEPARATOR .$config->downloader_path . DIRECTORY_SEPARATOR . Mage_Connect_Config::DEFAULT_CACHE_PATH . DIRECTORY_SEPARATOR . trim( $pChan, "\\/");
+                        $dir=$cwd . DIRECTORY_SEPARATOR .$config->downloader_path . DIRECTORY_SEPARATOR
+                             . Mage_Connect_Config::DEFAULT_CACHE_PATH . DIRECTORY_SEPARATOR . trim( $pChan, "\\/");
                         $ftpObj->mkdirRecursive($dir,0777);
                         $ftpObj->chdir($cwd);
                     } else {
@@ -371,7 +390,7 @@ extends Mage_Connect_Command
                             throw new Exception($err);
                         }
                     }
-                    
+
                     /**
                      * @todo: make "Use custom permissions" functionality working
                      */
@@ -483,9 +502,14 @@ extends Mage_Connect_Command
             $list = $packager->getUninstallList($channel, $package, $cache, $config, $withDepsMode);
             foreach($list['list'] as $packageData) {
                 try {
-                    $reqd = $cache->requiredByOtherPackages($packageData['channel'], $packageData['name'], $list['list']);
+                    $reqd = $cache->requiredByOtherPackages(
+                        $packageData['channel'],
+                        $packageData['name'],
+                        $list['list']
+                    );
                     if(count($reqd)) {
-                        $errMessage = "{$packageData['channel']}/{$packageData['name']} {$packageData['version']} is required by: ";
+                        $errMessage = "{$packageData['channel']}/{$packageData['name']} "
+                            . "{$packageData['version']} is required by: ";
                         $t = array();
                         foreach($reqd as $r) {
                             $t[] = $r['channel']."/".$r['name']. " ".$r['version'];

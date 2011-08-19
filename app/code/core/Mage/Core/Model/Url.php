@@ -260,10 +260,10 @@ class Mage_Core_Model_Url extends Varien_Object
 
         $store = $this->getStore();
 
-        if ($store->isAdmin() && !$store->isAdminUrlSecure()) { //!Mage::getStoreConfigFlag(self::XML_PATH_SECURE_IN_ADMIN, $this->getStore()->getId())
+        if ($store->isAdmin() && !$store->isAdminUrlSecure()) {
             return false;
         }
-        if (!$store->isAdmin() && !$store->isFrontUrlSecure()) {//!Mage::getStoreConfigFlag(self::XML_PATH_SECURE_IN_FRONT
+        if (!$store->isAdmin() && !$store->isFrontUrlSecure()) {
             return false;
         }
 
@@ -942,7 +942,10 @@ class Mage_Core_Model_Url extends Varien_Object
         $key = 'use_session_id_for_url_' . (int)$secure;
         if (is_null($this->getData($key))) {
             $httpHost = Mage::app()->getFrontController()->getRequest()->getHttpHost();
-            $urlHost = parse_url(Mage::app()->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, $secure), PHP_URL_HOST);
+            $urlHost = parse_url(
+                Mage::app()->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, $secure),
+                PHP_URL_HOST
+            );
 
             if ($httpHost != $urlHost) {
                 $this->setData($key, true);
@@ -998,6 +1001,7 @@ class Mage_Core_Model_Url extends Varien_Object
         $referer = parse_url(Mage::app()->getFrontController()->getRequest()->getServer('HTTP_REFERER'), PHP_URL_HOST);
         foreach (Mage::app()->getStores() as $store) {
             $storeDomains[] = parse_url($store->getBaseUrl(), PHP_URL_HOST);
+            $storeDomains[] = parse_url($store->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true), PHP_URL_HOST);
         }
         $storeDomains = array_unique($storeDomains);
         if (empty($referer) || in_array($referer, $storeDomains)) {

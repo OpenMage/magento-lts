@@ -1105,7 +1105,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         }
 
         // update transactions, order state and add comments
-        $transaction = $this->_addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID);
+        $transaction = $this->_addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID, null, true);
         $message = $this->hasMessage() ? $this->getMessage() : Mage::helper('sales')->__('Voided authorization.');
         $message = $this->_prependMessage($message);
         if ($amount) {
@@ -1198,7 +1198,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 if ($this->getShouldCloseParentTransaction()) {
                     $parentTransaction = $this->_lookupTransaction($parentTransactionId);
                     if ($parentTransaction) {
-                        $parentTransaction->isFailsafe($failsafe)->close(false);
+                        if (!$parentTransaction->getIsClosed()) {
+                            $parentTransaction->isFailsafe($failsafe)->close(false);
+                        }
                         $this->getOrder()->addRelatedObject($parentTransaction);
                     }
                 }

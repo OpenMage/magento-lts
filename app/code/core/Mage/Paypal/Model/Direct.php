@@ -342,7 +342,13 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
         // call api and import transaction and other payment information
         $api->callDoDirectPayment();
         $this->_importResultToPayment($api, $payment);
-        $api->callGetTransactionDetails();
+
+        try {
+            $api->callGetTransactionDetails();
+        } catch (Mage_Core_Exception $e) {
+            // if we recieve errors, but DoDirectPayment response is Success, then set Pending status for transaction
+            $payment->setIsTransactionPending(true);
+        }
         $this->_importResultToPayment($api, $payment);
         return $this;
     }

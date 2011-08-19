@@ -319,6 +319,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                     'created_at' => 'e.created_at',
                     'updated_at' => 'e.updated_at'
                 ))
+            ->where('parent_item_id IS NULL')
             ->group('order_items.product_id')
             ->having('SUM(order_items.qty_ordered) > ?', 0);
         return $this;

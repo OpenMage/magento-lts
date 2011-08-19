@@ -213,10 +213,12 @@
                                 <div style="display:none" id="item_tier_<?php echo $_item->getId() ?>"><?php echo $_tier ?></div>
                             </div>
                             <?php endif; ?>
+                            <?php if ($this->canApplyCustomPrice($_item)): ?>
                             <div class="nobr">
                             <input type="checkbox" id="item_use_custom_price_<?php echo $_item->getId() ?>"<?php if ($_isCustomPrice): ?> checked="checked"<?php endif; ?> onclick="order.toggleCustomPrice(this, 'item_custom_price_<?php echo $_item->getId() ?>', 'item_tier_block_<?php echo $_item->getId() ?>');"/>
                             <label class="normal" for="item_use_custom_price_<?php echo $_item->getId() ?>"><?php echo $this->helper('sales')->__('Custom Price') ?>*</label>
                             </div>
+                            <?php endif; ?>
                             <input id="item_custom_price_<?php echo $_item->getId() ?>" name="item[<?php echo $_item->getId() ?>][custom_price]" value="<?php echo sprintf("%.2f", $this->getOriginalEditablePrice($_item))?>"<?php if (!$_isCustomPrice): ?> style="display:none" disabled="disabled"<?php endif; ?> class="input-text item-price"/>
                         </td>
                         <td><input name="item[<?php echo $_item->getId() ?>][qty]" class="input-text item-qty" value="<?php echo $_item->getQty()*1 ?>" maxlength="12" /></td>

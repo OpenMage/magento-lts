@@ -179,7 +179,13 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $selectionIds = unserialize($customOption->getValue());
                 $selections = $this->getSelectionsByIds($selectionIds, $product);
                 foreach ($selections->getItems() as $selection) {
-                    $weight += $selection->getWeight();
+                    $qtyOption = $this->getProduct($product)
+                        ->getCustomOption('selection_qty_' . $selection->getSelectionId());
+                    if ($qtyOption) {
+                        $weight += $selection->getWeight() * $qtyOption->getValue();
+                    } else {
+                        $weight += $selection->getWeight();
+                    }
                 }
             }
             return $weight;

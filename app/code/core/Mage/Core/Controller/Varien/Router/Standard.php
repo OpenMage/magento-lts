@@ -101,7 +101,12 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         return true;
     }
 
-
+    /**
+     * Match the request
+     *
+     * @param Zend_Controller_Request_Http $request
+     * @return boolean
+     */
     public function match(Zend_Controller_Request_Http $request)
     {
         //checking before even try to find out that current module
@@ -129,7 +134,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                 $module = $p[0];
             } else {
                 $module = $this->getFront()->getDefault('module');
-                $request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,	'');
+                $request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, '');
             }
         }
         if (!$module) {
@@ -145,17 +150,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
          */
         $modules = $this->getModuleByFrontName($module);
 
-        /**
-         * If we did not found anything  we searching exact this module
-         * name in array values
-         */
         if ($modules === false) {
-            if ($moduleFrontName = $this->getModuleByName($module, $this->_modules)) {
-                $modules = array($module);
-                $module = $moduleFrontName;
-            } else {
-                return false;
-            }
+            return false;
         }
 
         //checkings after we foundout that this router should be used for current module
@@ -227,7 +223,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                 }
 
                 // instantiate controller class
-                $controllerInstance = Mage::getControllerInstance($controllerClassName, $request, $front->getResponse());
+                $controllerInstance = Mage::getControllerInstance($controllerClassName, $request,
+                    $front->getResponse());
 
                 if (!$controllerInstance->hasAction($action)) {
                     return false;
@@ -244,7 +241,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         $request->setControllerModule($realModule);
 
         // set parameters from pathinfo
-        for ($i=3, $l=sizeof($p); $i<$l; $i+=2) {
+        for ($i = 3, $l = sizeof($p); $i < $l; $i += 2) {
             $request->setParam($p[$i], isset($p[$i+1]) ? urldecode($p[$i+1]) : '');
         }
 

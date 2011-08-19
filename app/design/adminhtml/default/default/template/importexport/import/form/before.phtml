@@ -64,6 +64,8 @@
             if (newActionUrl) {
                 formElem.action = newActionUrl;
             }
+            formElem.action += (formElem.action.lastIndexOf('?') != -1 ? '&' : '?')
+                + 'form_key=' + encodeURIComponent(formElem.form_key.value);
             this._submit();
             formElem.target = oldTarget;
             formElem.action = oldAction;

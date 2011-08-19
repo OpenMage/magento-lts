@@ -58,9 +58,18 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type
     {
         if (!$this->_options) {
             $this->_options = array(
-                self::TYPE_IN_CART              => Mage::helper('catalog')->__('In Cart'),
-                self::TYPE_BEFORE_ORDER_CONFIRM => Mage::helper('catalog')->__('Before Order Confirmation'),
-                self::TYPE_ON_GESTURE           => Mage::helper('catalog')->__('On Gesture')
+                array(
+                    'label' => Mage::helper('catalog')->__('In Cart'),
+                    'value' => self::TYPE_IN_CART
+                ),
+                array(
+                    'label' => Mage::helper('catalog')->__('Before Order Confirmation'),
+                    'value' => self::TYPE_BEFORE_ORDER_CONFIRM
+                ),
+                array(
+                    'label' => Mage::helper('catalog')->__('On Gesture'),
+                    'value' => self::TYPE_ON_GESTURE
+                ),
             );
         }
         return $this->_options;

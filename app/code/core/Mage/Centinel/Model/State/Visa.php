@@ -111,6 +111,9 @@ class Mage_Centinel_Model_State_Visa extends Mage_Centinel_Model_StateAbstract
             if ($paResStatus == '' && $signatureVerification == '' && $eciFlag == '' &&
                 $xid == '' && $cavv == '' && $errorNo == '0') {
                 return true;
+            } elseif ($paResStatus == false && $signatureVerification == false && $eciFlag == false &&
+                $xid == false && $cavv == false && $errorNo == false) {
+                return true;
             }
         }
 

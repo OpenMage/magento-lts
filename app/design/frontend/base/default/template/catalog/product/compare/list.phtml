@@ -98,7 +98,7 @@
                               echo substr($this->getProductAttributeValue($_item, $_attribute),0,10);
                               break;
                         default: ?>
-                            <?php echo $this->helper('catalog/output')->productAttribute($_item, $this->getProductAttributeValue($_item, $_attribute), $_attribute->getCode()) ?>
+                            <?php echo $this->helper('catalog/output')->productAttribute($_item, $this->getProductAttributeValue($_item, $_attribute), $_attribute->getAttributeCode()) ?>
                             <?php break;
                     } ?>
                 </td>
