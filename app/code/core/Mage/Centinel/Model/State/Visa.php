@@ -95,7 +95,7 @@ class Mage_Centinel_Model_State_Visa extends Mage_Centinel_Model_StateAbstract
             }
 
             //Test case 11
-            if ($paResStatus == '' && $signatureVerification == '' && $eciFlag == '07' &&
+            if ($paResStatus == 'U' && $signatureVerification == '' && $eciFlag == '07' &&
                 $xid == '' && $cavv == '' && $errorNo == '1050') {
                 if ($this->getIsModeStrict()) {
                     return false;

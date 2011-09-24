@@ -102,11 +102,14 @@ class Mage_Tax_Model_Observer
                 $result = Mage::getModel('tax/sales_order_tax')->setData($data)->save();
                 if (isset($ratesIdQuoteItemId[$id])) {
                     foreach ($ratesIdQuoteItemId[$id] as $quoteItemId) {
-                        $data = array(
-                            'item_id'   => $order->getItemByQuoteItemId($quoteItemId)->getId(),
-                            'tax_id'    => $result->getTaxId()
-                        );
-                        Mage::getModel('tax/sales_order_tax_item')->setData($data)->save();
+                        $item = $order->getItemByQuoteItemId($quoteItemId);
+                        if ($item) {
+                            $data = array(
+                                'item_id'   => $item->getId(),
+                                'tax_id'    => $result->getTaxId()
+                            );
+                            Mage::getModel('tax/sales_order_tax_item')->setData($data)->save();
+                        }
                     }
                 }
             }

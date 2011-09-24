@@ -111,43 +111,49 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      * Return table rate array or false by rate request
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return array
+     * @return array|boolean
      */
     public function getRate(Mage_Shipping_Model_Rate_Request $request)
     {
         $adapter = $this->_getReadAdapter();
-        $bind    = array(
-            ':website_id'   => (int)$request->getWebsiteId(),
-            ':country_id'   => $request->getDestCountryId(),
-            ':region_id'    => (int)$request->getDestRegionId(),
-            ':postcode'     => $request->getDestPostcode()
+        $bind = array(
+            ':website_id' => (int) $request->getWebsiteId(),
+            ':country_id' => $request->getDestCountryId(),
+            ':region_id' => (int) $request->getDestRegionId(),
+            ':postcode' => $request->getDestPostcode()
         );
-        $select  = $adapter->select()
+        $select = $adapter->select()
             ->from($this->getMainTable())
             ->where('website_id = :website_id')
             ->order(array('dest_country_id DESC', 'dest_region_id DESC', 'dest_zip DESC'))
             ->limit(1);
 
-        // render destination condition
+        // Render destination condition
         $orWhere = '(' . implode(') OR (', array(
             "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = :postcode",
             "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = ''",
+
+            // Handle asterix in dest_zip field
+            "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = '*'",
+            "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = '*'",
+            "dest_country_id = '0' AND dest_region_id = :region_id AND dest_zip = '*'",
+            "dest_country_id = '0' AND dest_region_id = 0 AND dest_zip = '*'",
+
             "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = ''",
             "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = :postcode",
             "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = '*'",
-            "dest_country_id = '0' AND dest_region_id = 0 AND dest_zip = '*'",
         )) . ')';
         $select->where($orWhere);
 
-        // render condition by condition name
+        // Render condition by condition name
         if (is_array($request->getConditionName())) {
             $orWhere = array();
-            $i       = 0;
+            $i = 0;
             foreach ($request->getConditionName() as $conditionName) {
                 $bindNameKey  = sprintf(':condition_name_%d', $i);
                 $bindValueKey = sprintf(':condition_value_%d', $i);
                 $orWhere[] = "(condition_name = {$bindNameKey} AND condition_value <= {$bindValueKey})";
-                $bind[$bindNameKey]  = $conditionName;
+                $bind[$bindNameKey] = $conditionName;
                 $bind[$bindValueKey] = $request->getData($conditionName);
                 $i++;
             }
@@ -164,7 +170,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         }
 
         $result = $adapter->fetchRow($select, $bind);
-        // normalize destination zip code
+        // Normalize destination zip code
         if ($result && $result['dest_zip'] == '*') {
             $result['dest_zip'] = '';
         }

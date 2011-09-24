@@ -841,6 +841,16 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Returns product instance
+     *
+     * @return Mage_Catalog_Model_Product|null
+     */
+    public function getProduct()
+    {
+        return $this->_productInstance ? $this->_productInstance : $this->_getData('product');
+    }
+
+    /**
      * Retrieve stock qty whether product is composite or no
      *
      * @return float

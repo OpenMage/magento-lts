@@ -47,18 +47,21 @@
             }
         }
     }
+var window_name = '<?php echo Mage::getBaseUrl(); ?>';
+var window_top = window.top;
+var allowed_domain = false;
+try{
+    allowed_domain = window_name == window_top.name
+}catch(e){
+    allowed_domain = false;
+}
 <?php if ($this->getErrorMsg()): ?>
     alert('<?php echo $this->getErrorMsg() ?>');
+    if (allowed_domain) {
+        window_top.payflowLink.showLoading();
+    }
     window.location = "<?php echo $this->getUrl('paypal/payflow/form') ?>";
 <?php else: ?>
-    var window_name = '<?php echo Mage::getBaseUrl(); ?>';
-    var window_top = window.top;
-    var allowed_domain = false;
-    try{
-        allowed_domain = window_name == window_top.name
-    }catch(e){
-        allowed_domain = false;
-    }
     if (allowed_domain) {
         <?php if ($this->getGotoSection()): ?>
             allowCheckoutSteps(true);

@@ -146,6 +146,20 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     }
 
     /**
+     * Add transaction with correct transaction Id
+     *
+     * @param Varien_Object $payment
+     * @param string $txnId
+     * @return void
+     */
+    protected function _addTransaction($payment, $txnId)
+    {
+        $previousTxnId = $payment->getTransactionId();
+        $payment->setTransactionId($txnId);
+        $payment->addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH);
+        $payment->setTransactionId($previousTxnId);
+    }
+    /**
      * Initialize request
      *
      * @param Varien_Object $payment
@@ -181,6 +195,12 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             $payment->setIsFraudDetected(true);
         }
 
+        if ($transaction->getId() && $payment->getAdditionalInformation('authorization_amount') !=
+            Mage_Paypal_Model_Config::AUTHORIZATION_AMOUNT_FULL
+        ) {
+            $this->_addTransaction($payment, $txnId);
+        }
+
         $this->_authorize($payment, $amount, $transaction, $txnId);
         if ($payment->getAdditionalInformation('authorization_amount') !=
             Mage_Paypal_Model_Config::AUTHORIZATION_AMOUNT_FULL
@@ -190,7 +210,6 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             if ($payment->getTransactionId()) {
                 $payment->setAdditionalInformation('authorization_id', $payment->getTransactionId());
             }
-
         }
 
         $transaction->delete();
@@ -237,6 +256,9 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             $payment->setTransactionId($txnId);
             $payment->addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH);
             $this->_authorize($payment, $amount, $transaction, $txnId);
+
+            $this->_addTransaction($payment, $txnId);
+
             $payment->setReferenceTransactionId($payment->getAdditionalInformation('authorization_id'));
         }
 

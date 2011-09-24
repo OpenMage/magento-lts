@@ -568,7 +568,11 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
             }
         }
 
+        if ($address->getQuote()->getTaxesForItems()) {
+            $itemTaxGroups += $address->getQuote()->getTaxesForItems();
+        }
         $address->getQuote()->setTaxesForItems($itemTaxGroups);
+
         foreach ($taxGroups as $rateKey => $data) {
             $rate = (float) $rateKey;
             $totalTax = $this->_calculator->calcTaxAmount(array_sum($data['totals']), $rate, $inclTax);

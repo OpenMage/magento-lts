@@ -94,38 +94,31 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
         $attributeCode  = $attribute->getAttributeCode();
 
         $joinConditionTemplate = "%s.entity_id = %s.entity_id"
-            ." AND %s.entity_type_id = ".$attribute->getEntityTypeId()
-            ." AND %s.attribute_id = ".$attribute->getId()
-            ." AND %s.store_id = %d";
-        $joinCondition = sprintf($joinConditionTemplate,
-            'e', 't1', 't1', 't1', 't1',
+            . " AND %s.entity_type_id = " . $attribute->getEntityTypeId()
+            . " AND %s.attribute_id = " . $attribute->getId()
+            . " AND %s.store_id = %d";
+        $joinCondition = sprintf($joinConditionTemplate, 'e', 't1', 't1', 't1', 't1',
             Mage_Core_Model_App::ADMIN_STORE_ID);
         if ($attribute->getFlatAddChildData()) {
             $joinCondition .= ' AND e.child_id = t1.entity_id';
         }
 
-        $valueExpr  = $adapter->getCheckSql('t2.value_id > 0', 't2.value', 't1.value');
+        $valueExpr = $adapter->getCheckSql('t2.value_id > 0', 't2.value', 't1.value');
         /** @var $select Varien_Db_Select */
-        $select     = $adapter->select()
-            ->joinLeft(
-                array('t1' => $attributeTable),
-                $joinCondition,
-                array())
-            ->joinLeft(
-                array('t2' => $attributeTable),
+        $select = $adapter->select()
+            ->joinLeft(array('t1' => $attributeTable), $joinCondition, array())
+            ->joinLeft(array('t2' => $attributeTable),
                 sprintf($joinConditionTemplate, 't1', 't2', 't2', 't2', 't2', $store),
                 array($attributeCode => $valueExpr));
+
         if (($attribute->getFrontend()->getInputType() != 'multiselect') && $hasValueField) {
-            $valueIdExpr  = $adapter->getCheckSql('to2.value_id > 0', 'to1.value', 'to2.value');
-            $select->joinLeft(
-                array('to1' => $this->getTable('eav/attribute_option_value')),
-                "to1.option_id = {$valueExpr} AND to1.store_id = 0",
-                array())
-            ->joinLeft(
-                array('to2' => $this->getTable('eav/attribute_option_value')),
-                $adapter->quoteInto("to2.option_id = {$valueExpr} AND to2.store_id = ?", $store),
-                array($attributeCode . '_value' => $valueIdExpr)
-            );
+            $valueIdExpr = $adapter->getCheckSql('to2.value_id > 0', 'to2.value', 'to1.value');
+            $select
+                ->joinLeft(array('to1' => $this->getTable('eav/attribute_option_value')),
+                    "to1.option_id = {$valueExpr} AND to1.store_id = 0", array())
+                ->joinLeft(array('to2' => $this->getTable('eav/attribute_option_value')),
+                    $adapter->quoteInto("to2.option_id = {$valueExpr} AND to2.store_id = ?", $store),
+                    array($attributeCode . '_value' => $valueIdExpr));
         }
 
         if ($attribute->getFlatAddChildData()) {

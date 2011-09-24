@@ -50,6 +50,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
         $order->setIncrementId($quote->getReservedOrderId())
             ->setStoreId($quote->getStoreId())
             ->setQuoteId($quote->getId())
+            ->setQuote($quote)
             ->setCustomer($quote->getCustomer());
 
         Mage::helper('core')->copyFieldset('sales_convert_quote', 'to_order', $quote, $order);

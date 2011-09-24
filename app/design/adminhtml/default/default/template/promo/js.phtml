@@ -33,9 +33,11 @@ function hideShowSubproductOptions(enabler)
     if (enabler.value == 1) {
         $('rule_sub_simple_action').parentNode.parentNode.show();
         $('rule_sub_discount_amount').parentNode.parentNode.show();
+        $('rule_sub_discount_amount').addClassName('required-entry validate-not-negative-number');
     } else {
         $('rule_sub_simple_action').parentNode.parentNode.hide();
         $('rule_sub_discount_amount').parentNode.parentNode.hide();
+        $('rule_sub_discount_amount').removeClassName('required-entry').removeClassName('validate-not-negative-number');
     }
 }
 //]]>

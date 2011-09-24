@@ -113,6 +113,12 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
         $orderItemInfo = $recurringProfile->getData('order_item_info');
         try {
             $request = unserialize($orderItemInfo['info_buyRequest']);
+
+            if ($request['product'] != $orderItemInfo['product_id']) {
+                $this->_forward('noRoute');
+                return;
+            }
+
             $optionId = $this->getRequest()->getParam('option_id');
             if (!isset($request['options'][$optionId])) {
                 $this->_forward('noRoute');
