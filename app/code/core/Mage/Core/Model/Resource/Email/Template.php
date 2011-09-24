@@ -73,13 +73,17 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
         if ($template->getTemplateActual() != 0 || is_null($template->getTemplateActual())) {
             $select = $this->_getReadAdapter()->select()
                 ->from($this->getMainTable(), 'COUNT(*)')
-                ->where('template_id != :template_id')
                 ->where('template_code = :template_code');
-
             $bind = array(
-                'template_id'   => $template->getId(),
                 'template_code' => $template->getTemplateCode()
             );
+
+            $templateId = $template->getId();
+            if ($templateId) {
+                $select->where('template_id != :template_id');
+                $bind['template_id'] = $templateId;
+            }
+
             $result = $this->_getReadAdapter()->fetchOne($select, $bind);
             if ($result) {
                 return true;

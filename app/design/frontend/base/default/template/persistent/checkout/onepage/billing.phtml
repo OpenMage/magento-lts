@@ -199,16 +199,18 @@
     $('billing-address-select') && billing.newAddress(!$('billing-address-select').value);
 
     var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', countryRegions, undefined, 'billing:postcode');
-    Event.observe($('onepage-guest-register-button'), 'click', function(event) {
-        var billingRememberMe = $$('#billing-new-address-form li #remember-me-box');
-        if(billingRememberMe.length > 0) {
-            billingRememberMe = $(billingRememberMe[0].parentNode);
-            if ($('login:guest') && $('login:guest').checked) {
-                billingRememberMe.hide();
-            } else if ($('login:register') && ($('login:register').checked || $('login:register').type == 'hidden')) {
-                billingRememberMe.show();
+    if ($('onepage-guest-register-button')) {
+        Event.observe($('onepage-guest-register-button'), 'click', function(event) {
+            var billingRememberMe = $$('#billing-new-address-form li #remember-me-box');
+            if(billingRememberMe.length > 0) {
+                billingRememberMe = $(billingRememberMe[0].parentNode);
+                if ($('login:guest') && $('login:guest').checked) {
+                    billingRememberMe.hide();
+                } else if ($('login:register') && ($('login:register').checked || $('login:register').type == 'hidden')) {
+                    billingRememberMe.show();
+                }
             }
-        }
-    })
+        });
+    }
 //]]>
 </script>

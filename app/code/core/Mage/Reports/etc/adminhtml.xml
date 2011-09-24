@@ -181,9 +181,9 @@
                             <products translate="title">
                                 <title>Products</title>
                                 <children>
-                                    <ordered translate="title">
+                                    <bestsellers translate="title">
                                         <title>Bestsellers</title>
-                                    </ordered>
+                                    </bestsellers>
                                     <sold translate="title">
                                         <title>Products Ordered</title>
                                     </sold>

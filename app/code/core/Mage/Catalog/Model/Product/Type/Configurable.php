@@ -851,4 +851,16 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     {
         return null;
     }
+
+    /**
+     * Prepare and retrieve options values with product data
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return array
+     */
+    public function getConfigurableOptions($product)
+    {
+        return Mage::getResourceSingleton('catalog/product_type_configurable')
+            ->getConfigurableOptions($product, $this->getUsedProductAttributes($product));
+    }
 }

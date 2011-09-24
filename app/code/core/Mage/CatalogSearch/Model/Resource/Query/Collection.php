@@ -109,17 +109,15 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
     public function setPopularQueryFilter($storeIds = null)
     {
         $ifSynonymFor = new Zend_Db_Expr($this->getConnection()
-            ->getIfNullSql('synonym_for', 'query_text'));
+            ->getCheckSql("synonym_for IS NOT NULL AND synonym_for != ''", 'synonym_for', 'query_text'));
+
         $this->getSelect()
             ->reset(Zend_Db_Select::FROM)
             ->reset(Zend_Db_Select::COLUMNS)
             ->distinct(true)
             ->from(
-                array('main_table'=>$this->getTable('catalogsearch/search_query')),
-                array('name'=>$ifSynonymFor,
-                      'num_results',
-                      'popularity',
-                )
+                array('main_table' => $this->getTable('catalogsearch/search_query')),
+                array('name' => $ifSynonymFor, 'num_results', 'popularity')
             );
         if ($storeIds) {
             $this->addStoreFilter($storeIds);

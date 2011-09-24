@@ -49,6 +49,8 @@ class Mage_CatalogRule_Helper_Data extends Mage_Core_Helper_Abstract
                 break;
             case 'by_fixed':
                 $priceRule = $price - $ruleAmount;
+                // Price can not be negative
+                $priceRule = ($priceRule < 0) ? 0 : $priceRule;
                 break;
             case 'by_percent':
                 $priceRule = $price * (1 - $ruleAmount / 100);

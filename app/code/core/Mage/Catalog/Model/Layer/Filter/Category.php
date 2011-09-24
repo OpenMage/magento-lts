@@ -91,8 +91,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
         }
         $this->_categoryId = $filter;
 
-        $category   = $this->getCategory();
-        Mage::register('current_category_filter', $category);
+        Mage::register('current_category_filter', $this->getCategory(), true);
 
         $this->_appliedCategory = Mage::getModel('catalog/category')
             ->setStoreId(Mage::app()->getStore()->getId())

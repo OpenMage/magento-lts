@@ -743,17 +743,21 @@ EOT;
                     foreach ($taxRates as $rate) {
                         $xml .= <<<EOT
                                     <{$type}-tax-rule>
-                                        <tax-area>
+                                        <tax-areas>
 
 EOT;
                         if ($rate['country'] === Mage_Usa_Model_Shipping_Carrier_Abstract::USA_COUNTRY_ID) {
                             if (!empty($rate['postcode']) && $rate['postcode'] !== '*') {
-                                $xml .= <<<EOT
-                                            <us-zip-area>
-                                                <zip-pattern>{$rate['postcode']}</zip-pattern>
-                                            </us-zip-area>
+                                $rate['postcode'] = Mage::helper('googlecheckout')
+                                    ->zipRangeToZipPattern($rate['postcode']);
+                                foreach ($rate['postcode'] as $postcode) {
+                                    $xml .= <<<EOT
+                                                <us-zip-area>
+                                                    <zip-pattern>$postcode</zip-pattern>
+                                                </us-zip-area>
 
 EOT;
+                                }
                             } else if (!empty($rate['state'])) {
                                 $xml .= <<<EOT
                                             <us-state-area>
@@ -788,7 +792,7 @@ EOT;
                             }
                         }
                         $xml .= <<<EOT
-                                        </tax-area>
+                                        </tax-areas>
                                         <rate>{$rate['value']}</rate>
 EOT;
                         if ($shippingTaxed) {

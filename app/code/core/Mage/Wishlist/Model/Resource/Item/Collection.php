@@ -130,8 +130,11 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     protected function _assignOptions()
     {
         $itemIds = array_keys($this->_items);
-        $optionCollection = Mage::getModel('wishlist/item_option')->getCollection()
-            ->addItemFilter($itemIds);
+        /* @var $optionCollection Mage_Wishlist_Model_Resource_Item_Option_Collection */
+        $optionCollection = Mage::getModel('wishlist/item_option')->getCollection();
+        $optionCollection->addItemFilter($itemIds);
+
+        /* @var $item Mage_Wishlist_Model_Item */
         foreach ($this as $item) {
             $item->setOptions($optionCollection->getOptionsByItem($item));
         }
@@ -227,21 +230,18 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     /**
      * Add filter by shared stores
      *
-     * @param int|array $store
+     * @param array $storeIds
+     *
      * @return Mage_Wishlist_Model_Resource_Item_Collection
      */
-    public function addStoreFilter($store = null)
+    public function addStoreFilter($storeIds = array())
     {
-        if (is_null($store)) {
-            $store = Mage::app()->getStore()->getId();
+        if (!is_array($storeIds)) {
+            $storeIds = array($storeIds);
         }
+        $this->_storeIds = $storeIds;
+        $this->addFieldToFilter('store_id', array('in' => $this->_storeIds));
 
-        if (!is_array($store)) {
-            $store = array($store);
-        }
-        $this->_storeIds = $store;
-
-        $this->addFieldToFilter('store_id', $store);
         return $this;
     }
 
@@ -262,6 +262,9 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
 
     /**
      * Add wishlist sort order
+     *
+     * @deprecated after 1.6.0.0-rc2
+     * @see Varien_Data_Collection_Db::setOrder() is used instead
      *
      * @param string $attribute
      * @param string $dir

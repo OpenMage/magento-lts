@@ -27,6 +27,9 @@
 /**
  * Adminhtml menu block
  *
+ * @method Mage_Adminhtml_Block_Page_Menu setAdditionalCacheKeyInfo(array $cacheKeyInfo)
+ * @method array getAdditionalCacheKeyInfo()
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
@@ -71,12 +74,18 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     public function getCacheKeyInfo()
     {
-        return array(
+        $cacheKeyInfo = array(
             'admin_top_nav',
             $this->getActive(),
             Mage::getSingleton('admin/session')->getUser()->getId(),
             Mage::app()->getLocale()->getLocaleCode()
         );
+        // Add additional key parameters if needed
+        $additionalCacheKeyInfo = $this->getAdditionalCacheKeyInfo();
+        if (is_array($additionalCacheKeyInfo) && !empty($additionalCacheKeyInfo)) {
+            $cacheKeyInfo = array_merge($cacheKeyInfo, $additionalCacheKeyInfo);
+        }
+        return $cacheKeyInfo;
     }
 
     /**

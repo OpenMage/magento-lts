@@ -96,6 +96,14 @@ class Mage_Paypal_Model_Config
     const PAYMENT_ACTION_AUTH  = 'Authorization';
 
     /**
+     * Authorization amounts for Account Verification
+     * @var int
+     */
+    const AUTHORIZATION_AMOUNT_ZERO = 0;
+    const AUTHORIZATION_AMOUNT_ONE = 1;
+    const AUTHORIZATION_AMOUNT_FULL = 2;
+
+    /**
      * Fraud management actions
      * @var string
      */
@@ -851,6 +859,21 @@ class Mage_Paypal_Model_Config
             case self::PAYMENT_ACTION_ORDER:
                 return Mage_Payment_Model_Method_Abstract::ACTION_ORDER;
         }
+    }
+
+    /**
+     * Returns array of possible Authorization Amounts for Account Verification
+     *
+     * @return array
+     */
+    public function getAuthorizationAmounts()
+    {
+        $authorizationAmount = array(
+            self::AUTHORIZATION_AMOUNT_ZERO => Mage::helper('paypal')->__('$0 Auth'),
+            self::AUTHORIZATION_AMOUNT_ONE  => Mage::helper('paypal')->__('$1 Auth'),
+            self::AUTHORIZATION_AMOUNT_FULL => Mage::helper('paypal')->__('Full Auth'),
+        );
+        return $authorizationAmount;
     }
 
     /**

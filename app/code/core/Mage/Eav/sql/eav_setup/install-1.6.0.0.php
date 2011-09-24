@@ -190,7 +190,7 @@ $table = $installer->getConnection()
         ), 'Entity Id')
     ->addColumn('value', Varien_Db_Ddl_Table::TYPE_DATETIME, null, array(
         'nullable'  => false,
-        'default' => '0000-00-00 00:00:00'
+        'default' => $installer->getConnection()->getSuggestedZeroDate()
         ), 'Attribute Value')
     ->addIndex($installer->getIdxName(array('eav/entity_value_prefix', 'datetime'), array('entity_type_id')),
         array('entity_type_id'))

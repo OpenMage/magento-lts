@@ -60,8 +60,8 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
      */
     protected $_code = Mage_Paypal_Model_Config::METHOD_HOSTEDPRO;
 
-    protected $_formBlockType = 'paypal/payflow_link_form';
-    protected $_infoBlockType = 'paypal/payflow_link_info';
+    protected $_formBlockType = 'paypal/hosted_pro_form';
+    protected $_infoBlockType = 'paypal/hosted_pro_info';
 
     /**
      * Availability options
@@ -240,7 +240,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     {
         $store = Mage::app()->getStore($storeId);
         return Mage::getUrl($path, array(
-            "_store"   => $store, 
+            "_store"   => $store,
             "_secure"  => is_null($secure) ? $store->isCurrentlySecure() : $secure
         ));
     }

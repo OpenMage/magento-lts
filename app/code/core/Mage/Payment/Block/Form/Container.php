@@ -116,7 +116,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
             $quote = $this->getQuote();
             $store = $quote ? $quote->getStoreId() : null;
             $methods = $this->helper('payment')->getStoreMethods($store, $quote);
-            $total = $quote->getGrandTotal();
+            $total = $quote->getBaseSubtotal();
             foreach ($methods as $key => $method) {
                 if ($this->_canUseMethod($method)
                     && ($total != 0

@@ -67,14 +67,16 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Core_Model_Reso
             ->addFieldToFilter('is_active', 1);
 
         if ($couponCode) {
-            $this->getSelect()->where('main_table.coupon_type <> ?', Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON);
             $this->getSelect()
-                ->join(
+                ->joinLeft(
                     array('rule_coupons' => $this->getTable('salesrule/coupon')),
-                    'main_table.rule_id = rule_coupons.rule_id '.
-                        $this->getSelect()->getAdapter()->quoteInto('AND rule_coupons.code = ?', $couponCode),
+                    'main_table.rule_id = rule_coupons.rule_id ',
                     array('code')
                 );
+            $this->getSelect()->where(
+                '(main_table.coupon_type = ? ',  Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON
+            );
+            $this->getSelect()->orWhere('rule_coupons.code = ?)', $couponCode);
         } else {
             $this->addFieldToFilter('main_table.coupon_type', Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON);
         }

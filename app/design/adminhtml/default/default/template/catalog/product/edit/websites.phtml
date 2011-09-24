@@ -42,16 +42,16 @@
     <div>
         <div class="website-name">
             <input name="product[website_ids][]" value="<?php echo $_website->getId() ?>" <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif;?> class="checkbox website-checkbox" id="product_website_<?php echo $_website->getId() ?>" type="checkbox"<?php if($this->hasWebsite($_website->getId())): ?> checked="checked"<?php endif; ?> />
-            <big><strong><label for="product_website_<?php echo $_website->getId() ?>"><?php echo $_website->getName() ?></label></strong></big>
+            <big><strong><label for="product_website_<?php echo $_website->getId() ?>"><?php echo $this->escapeHtml($_website->getName()) ?></label></strong></big>
         </div>
         <div class="webiste-groups" id="product_website_<?php echo $_website->getId() ?>_data">
         <?php foreach ($this->getGroupCollection($_website) as $_group): ?>
-            <h4><?php echo $_group->getName() ?></h4>
+            <h4><?php echo $this->escapeHtml($_group->getName()) ?></h4>
             <div class="group-stores">
             <table>
             <?php foreach ($this->getStoreCollection($_group) as $_store): ?>
                 <tr>
-                    <td><?php echo $_store->getName() ?></td>
+                    <td><?php echo $this->escapeHtml($_store->getName()) ?></td>
                     <td>
                     <?php if($this->getWebsites() && !$this->hasWebsite($_website->getId())): ?>
                         <span class="website-<?php echo $_website->getId() ?>-select" style="display:none">

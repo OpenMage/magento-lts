@@ -112,7 +112,12 @@ $mageRunType = isset($_SERVER['MAGE_RUN_TYPE']) ? $_SERVER['MAGE_RUN_TYPE'] : 's
 if (empty($mediaDirectory)) {
     Mage::init($mageRunCode, $mageRunType);
 } else {
-    Mage::init($mageRunCode, $mageRunType, array(), array('Mage_Core'));
+    Mage::init(
+        $mageRunCode,
+        $mageRunType,
+        array('cache' => array('disallow_save' => true)),
+        array('Mage_Core')
+    );
 }
 
 if (!$mediaDirectory) {

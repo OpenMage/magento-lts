@@ -37,9 +37,9 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile
      * Disable filters and paging
      *
      */
-    public function _construct()
+    public function __construct()
     {
-        parent::_construct();
+        parent::__construct();
         $this->setId('customer_edit_tab_recurring_profile');
     }
 
@@ -108,5 +108,15 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile
     public function getAfter()
     {
         return 'orders';
+    }
+
+    /**
+     * Return grid url
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/sales_recurring_profile/customerGrid', array('_current' => true));
     }
 }

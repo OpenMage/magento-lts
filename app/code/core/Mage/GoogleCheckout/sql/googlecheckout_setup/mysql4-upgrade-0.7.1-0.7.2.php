@@ -31,7 +31,7 @@ $installer->startSetup();
 
 $installer->updateAttribute('catalog_product', 'disable_googlecheckout', array(
     'attribute_code'    => 'enable_googlecheckout',
-    'frontend_label'    => 'Is product available for purchase with Google Checkout',
+    'frontend_label'    => 'Is Product Available for Purchase with Google Checkout',
 ));
 
 $attribute = $installer->getAttribute('catalog_product', 'enable_googlecheckout');

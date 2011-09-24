@@ -160,6 +160,35 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
     }
 
     /**
+     * Cutomer billing agreements ajax action
+     *
+     */
+    public function customerGridAction()
+    {
+        $this->_initCustomer();
+        $this->loadLayout(false)
+            ->renderLayout();
+    }
+
+    /**
+     * Initialize customer by ID specified in request
+     *
+     * @return Mage_Adminhtml_Sales_Billing_AgreementController
+     */
+    protected function _initCustomer()
+    {
+        $customerId = (int) $this->getRequest()->getParam('id');
+        $customer = Mage::getModel('customer/customer');
+
+        if ($customerId) {
+            $customer->load($customerId);
+        }
+
+        Mage::register('current_customer', $customer);
+        return $this;
+    }
+
+    /**
      * Load/set profile
      *
      * @return Mage_Sales_Model_Recurring_Profile

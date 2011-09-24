@@ -602,7 +602,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $option   = Mage::getModel('wishlist/item_option')->load($optionId);
             $hasError = false;
 
-            if ($option->getId()) {
+            if ($option->getId() && $option->getCode() !== 'info_buyRequest') {
                 $info      = unserialize($option->getValue());
                 $filePath  = Mage::getBaseDir() . $info['quote_path'];
                 $secretKey = $this->getRequest()->getParam('key');
@@ -615,7 +615,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                 }
             }
         } catch(Exception $e) {
+            $this->_forward('noRoute');
         }
-        $this->_forward('noRoute');
+        exit(0);
     }
 }

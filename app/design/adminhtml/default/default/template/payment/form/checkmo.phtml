@@ -28,12 +28,12 @@
     <li>
         <div class="input-box">
             <?php if ($this->getMethod()->getPayableTo()): ?>
-                <?php echo Mage::helper('payment')->__('<label>Make Check payable to:</label> %s', $this->getMethod()->getPayableTo()) ?><br />
+                <?php echo Mage::helper('payment')->__('<label>Make Check payable to:</label> %s', $this->escapeHtml($this->getMethod()->getPayableTo())) ?><br />
             <?php endif; ?>
             <?php if ($this->getMethod()->getMailingAddress()): ?>
                 <label><?php echo Mage::helper('payment')->__('Send Check to:') ?></label>
                 <div class="checkmo-mailing-address">
-                    <?php echo nl2br($this->getMethod()->getMailingAddress()) ?>
+                    <?php echo nl2br($this->escapeHtml($this->getMethod()->getMailingAddress())) ?>
                 </div>
             <?php endif; ?>
         </div>

@@ -142,7 +142,8 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             if ($this->_isAllowedAttribute($attribute, $allAttributes)) {
                 if (in_array($attribute->getAttributeCode(), $_additionalAttributeCodes)) {
                     $result['additional_attributes'][$_additionalAttribute]['key'] = $attribute->getAttributeCode();
-                    $result['additional_attributes'][$_additionalAttribute]['value'] = $product->getData($attribute->getAttributeCode());
+                    $result['additional_attributes'][$_additionalAttribute]['value'] = $product
+                        ->getData($attribute->getAttributeCode());
                     $_additionalAttribute++;
                 } else {
                     $result[$attribute->getAttributeCode()] = $product->getData($attribute->getAttributeCode());
@@ -208,8 +209,11 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
              */
             if (is_array($errors = $product->validate())) {
                 $strErrors = array();
-                foreach($errors as $code=>$error) {
-                    $strErrors[] = ($error === true)? Mage::helper('catalog')->__('Attribute "%s" is invalid.', $code) : $error;
+                foreach($errors as $code => $error) {
+                    if ($error === true) {
+                        $error = Mage::helper('catalog')->__('Attribute "%s" is invalid.', $code);
+                    }
+                    $strErrors[] = $error;
                 }
                 $this->_fault('data_invalid', implode("\n", $strErrors));
             }
@@ -253,7 +257,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             $_attrCode = $attribute->getAttributeCode();
             if ($this->_isAllowedAttribute($attribute)
-                && isset($productData->$_attrCode)) {
+                && property_exists($productData, $_attrCode)) {
                 $product->setData(
                     $attribute->getAttributeCode(),
                     $productData->$_attrCode
@@ -270,8 +274,13 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
              */
             if (is_array($errors = $product->validate())) {
                 $strErrors = array();
-                foreach($errors as $code=>$error) {
-                    $strErrors[] = ($error === true)? Mage::helper('catalog')->__('Value for "%s" is invalid.', $code) : Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $code, $error);
+                foreach($errors as $code => $error) {
+                    if ($error === true) {
+                        $error = Mage::helper('catalog')->__('Value for "%s" is invalid.', $code);
+                    } else {
+                        $error = Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $code, $error);
+                    }
+                    $strErrors[] = $error;
                 }
                 $this->_fault('data_invalid', implode("\n", $strErrors));
             }
@@ -289,7 +298,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      *
      *  @param    Mage_Catalog_Model_Product $product
      *  @param    array $productData
-     *  @return	  object
+     *  @return   object
      */
     protected function _prepareDataForSave ($product, $productData)
     {
@@ -323,7 +332,8 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         $product->setStockData($_stockData);
 
         if (property_exists($productData, 'tier_price')) {
-             $tierPrices = Mage::getModel('catalog/product_attribute_tierprice_api_V2')->prepareTierPrices($product, $productData->tier_price);
+             $tierPrices = Mage::getModel('catalog/product_attribute_tierprice_api_V2')
+                 ->prepareTierPrices($product, $productData->tier_price);
              $product->setData(Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2::ATTRIBUTE_CODE, $tierPrices);
         }
     }

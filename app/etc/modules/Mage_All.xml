@@ -389,20 +389,6 @@
                 <Mage_Customer/>
             </depends>
         </Mage_ProductAlert>
-        <Mage_GoogleOptimizer>
-            <active>true</active>
-            <codePool>core</codePool>
-            <depends>
-                <Mage_Catalog/>
-            </depends>
-        </Mage_GoogleOptimizer>
-        <Mage_GoogleBase>
-            <active>true</active>
-            <codePool>core</codePool>
-            <depends>
-                <Mage_Catalog/>
-            </depends>
-        </Mage_GoogleBase>
         <Mage_Index>
             <active>true</active>
             <codePool>core</codePool>

@@ -105,6 +105,15 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     protected $_useAnalyticFunction         = false;
 
     /**
+     * Cast map for attribute order
+     *
+     * @var array
+     */
+    protected $_castToIntMap = array(
+        'validate-digits'
+    );
+
+    /**
      * Collection constructor
      *
      * @param Mage_Core_Model_Resource_Abstract $resource
@@ -356,19 +365,48 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             $attrInstance = $this->getEntity()->getAttribute($attribute);
             $entityField = 'e.' . $attribute;
         }
+
         if ($attrInstance) {
             if ($attrInstance->getBackend()->isStatic()) {
-                $this->getSelect()->order($entityField . ' ' . $dir);
+                $orderExpr = $entityField;
             } else {
                 $this->_addAttributeJoin($attribute, 'left');
                 if (isset($this->_joinAttributes[$attribute])||isset($this->_joinFields[$attribute])) {
-                    $this->getSelect()->order($attribute . ' ' . $dir);
+                    $orderExpr = $attribute;
                 } else {
-                    $this->getSelect()->order($this->_getAttributeTableAlias($attribute) . '.value ' . $dir);
+                    $orderExpr = $this->_getAttributeTableAlias($attribute).'.value';
                 }
             }
+
+            if (in_array($attrInstance->getFrontendClass(), $this->_castToIntMap)) {
+                $orderExpr = Mage::getResourceHelper('eav')->getCastToIntExpression(
+                    $this->_prepareOrderExpression($orderExpr)
+                );
+            }
+
+            $orderExpr .= ' ' . $dir;
+            $this->getSelect()->order($orderExpr);
         }
         return $this;
+    }
+
+    /**
+     * Retrieve attribute expression by specified column
+     *
+     * @param string $field
+     * @return string|Zend_Db_Expr
+     */
+    protected function _prepareOrderExpression($field)
+    {
+        foreach ($this->getSelect()->getPart(Zend_Db_Select::COLUMNS) as $columnEntry) {
+            if ($columnEntry[2] != $field) {
+                continue;
+            }
+            if ($columnEntry[1] instanceof Zend_Db_Expr) {
+                return $columnEntry[1];
+            }
+        }
+        return $field;
     }
 
     /**
@@ -1057,7 +1095,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         $selects = array();
         foreach ($tableAttributes as $table=>$attributes) {
             $select = $this->_getLoadAttributesSelect($table, $attributes);
-            $selects[$attributeTypes[$table]][] = $this->_addLoadAttributesSelectValues($select, $table, $attributeTypes[$table]);
+            $selects[$attributeTypes[$table]][] = $this->_addLoadAttributesSelectValues(
+                $select,
+                $table,
+                $attributeTypes[$table]
+            );
         }
         $selectGroups = Mage::getResourceHelper('eav')->getLoadAttributesSelectGroups($selects);
         foreach ($selectGroups as $selects) {
@@ -1333,7 +1375,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         if ($entity->isAttributeStatic($attribute)) {
-            $conditionSql = $this->_getConditionSql($this->getConnection()->quoteIdentifier('e.' . $attribute), $condition);
+            $conditionSql = $this->_getConditionSql(
+                $this->getConnection()->quoteIdentifier('e.' . $attribute),
+                $condition
+            );
         } else {
             $this->_addAttributeJoin($attribute, $joinType);
             if (isset($this->_joinAttributes[$attribute]['condition_alias'])) {

@@ -371,12 +371,28 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
             $rulesData = $this->_getResource()->getRulesFromProduct($dateTs, $websiteId, $customerGroupId, $productId);
             if ($rulesData) {
                 foreach ($rulesData as $ruleData) {
-                    $priceRules = Mage::helper('catalogrule')->calcPriceRule(
-                        $ruleData['simple_action'],
-                        $ruleData['discount_amount'],
-                        $priceRules ? $priceRules :$price);
-                    if ($ruleData['stop_rules_processing']) {
-                        break;
+                    if ($product->getParentId()) {
+                        if ($ruleData['sub_is_enable']) {
+                            $priceRules = Mage::helper('catalogrule')->calcPriceRule(
+                                $ruleData['sub_simple_action'],
+                                $ruleData['sub_discount_amount'],
+                                $priceRules ? $priceRules : $price
+                            );
+                        } else {
+                            $priceRules = $price;
+                        }
+                        if ($ruleData['stop_rules_processing']) {
+                            break;
+                        }
+                    } else {
+                        $priceRules = Mage::helper('catalogrule')->calcPriceRule(
+                            $ruleData['simple_action'],
+                            $ruleData['discount_amount'],
+                            $priceRules ? $priceRules :$price
+                        );
+                        if ($ruleData['stop_rules_processing']) {
+                            break;
+                        }
                     }
                 }
                 return self::$_priceRulesData[$cacheKey] = $priceRules;

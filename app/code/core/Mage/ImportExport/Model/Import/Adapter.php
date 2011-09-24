@@ -48,14 +48,8 @@ class Mage_ImportExport_Model_Import_Adapter
         }
         $adapterClass = __CLASS__ . '_' . ucfirst(strtolower($type));
 
-        if (!class_exists($adapterClass, false)) {
-            $adapterFile = str_replace('_', '/', $adapterClass) . '.php';
-            if (!@include_once($adapterFile)) {
-                Mage::throwException("'{$type}' file extension is not supported");
-            }
-            if (!class_exists($adapterClass, false)) {
-                Mage::throwException("Can not find adapter class {$adapterClass} in adapter file {$adapterFile}");
-            }
+        if (!class_exists($adapterClass)) {
+            Mage::throwException("'{$type}' file extension is not supported");
         }
         $adapter = new $adapterClass($options);
 

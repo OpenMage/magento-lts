@@ -42,6 +42,13 @@ class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resourc
     protected $_periodFormat;
 
     /**
+     * Aggregated Data Table
+     *
+     * @var string
+     */
+    protected $_aggregationTable = 'tax/tax_order_aggregated_created';
+
+    /**
      * Enter description here ...
      *
      * @var unknown
@@ -56,7 +63,7 @@ class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resourc
     {
         parent::_construct();
         $this->setModel('adminhtml/report_item');
-        $this->_resource = Mage::getResourceModel('sales/report')->init('tax/tax_order_aggregated_created');
+        $this->_resource = Mage::getResourceModel('sales/report')->init($this->_aggregationTable);
         $this->setConnection($this->getResource()->getReadConnection());
     }
 

@@ -112,7 +112,7 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
         return $this->_pollModel
             ->setExcludeFilter($this->getVotedPollsIds())
             ->setStoreFilter(Mage::app()->getStore()->getId())
-            ->getCollection()->getAllIds();
+            ->getAllIds();
     }
 
     /**
@@ -209,7 +209,7 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
         $this->assign($data);
 
         Mage::getSingleton('core/session')->setJustVotedPoll(false);
-        
+
         if ($this->_pollModel->isVoted($pollId) === true) {
             $this->setTemplate($this->_templates['results']);
         } else {

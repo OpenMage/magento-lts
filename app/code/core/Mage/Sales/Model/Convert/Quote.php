@@ -132,7 +132,8 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
             ->setProductType($item->getProductType())
             ->setQtyBackordered($item->getBackorders())
             ->setProduct($item->getProduct())
-            ->setBaseOriginalPrice($item->getBaseOriginalPrice());
+            ->setBaseOriginalPrice($item->getBaseOriginalPrice())
+        ;
 
         $options = $item->getProductOrderOptions();
         if (!$options) {

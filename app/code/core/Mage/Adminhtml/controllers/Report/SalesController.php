@@ -458,7 +458,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
                 return $this->_getSession()->isAllowed('report/salesroot/shipping');
                 break;
             case 'bestsellers':
-                return $this->_getSession()->isAllowed('report/products/ordered');
+                return $this->_getSession()->isAllowed('report/products/bestsellers');
                 break;
             default:
                 return $this->_getSession()->isAllowed('report/salesroot');

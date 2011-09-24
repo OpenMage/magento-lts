@@ -45,7 +45,8 @@ class Mage_Tax_Model_Sales_Pdf_Grandtotal extends Mage_Sales_Model_Order_Pdf_Tot
             return parent::getTotalsForDisplay();
         }
         $amount = $this->getOrder()->formatPriceTxt($this->getAmount());
-        $amountExclTax = $this->getAmount()-$this->getSource()->getTaxAmount();
+        $amountExclTax = $this->getAmount() - $this->getSource()->getTaxAmount();
+        $amountExclTax = ($amountExclTax > 0) ? $amountExclTax : 0;
         $amountExclTax = $this->getOrder()->formatPriceTxt($amountExclTax);
         $tax = $this->getOrder()->formatPriceTxt($this->getSource()->getTaxAmount());
         $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;

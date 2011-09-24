@@ -99,6 +99,24 @@ function imagePreview(element){
     }
 }
 
+function checkByProductPriceType(elem) {
+    if (elem.id == 'price_type') {
+        this.productPriceType = elem.value;
+        return false;
+    } else {
+        if (elem.id == 'price' && this.productPriceType == 0) {
+            return false;
+        }
+        return true;
+    }
+}
+
+Event.observe(window, 'load', function() {
+    if ($('price_default') && $('price_default').checked) {
+        $('price').disabled = 'disabled';
+    }
+});
+
 function toggleValueElements(checkbox, container, excludedElements, checked){
     if(container && checkbox){
         var ignoredElements = [checkbox];
@@ -114,24 +132,26 @@ function toggleValueElements(checkbox, container, excludedElements, checked){
         var elems = Element.select(container, ['select', 'input', 'textarea', 'button', 'img']);
         var isDisabled = (checked != undefined ? checked : checkbox.checked);
         elems.each(function (elem) {
-            var isIgnored = false;
-            for (var i = 0; i < ignoredElements.length; i++) {
-                if (elem == ignoredElements[i]) {
-                    isIgnored = true;
-                    break;
+            if (checkByProductPriceType(elem)) {
+                var isIgnored = false;
+                for (var i = 0; i < ignoredElements.length; i++) {
+                    if (elem == ignoredElements[i]) {
+                        isIgnored = true;
+                        break;
+                    }
                 }
-            }
-            if (isIgnored) {
-                return;
-            }
-            elem.disabled=isDisabled;
-            if (isDisabled) {
-                elem.addClassName('disabled');
-            } else {
-                elem.removeClassName('disabled');
-            }
-            if(elem.tagName == 'IMG') {
-                isDisabled ? elem.hide() : elem.show();
+                if (isIgnored) {
+                    return;
+                }
+                elem.disabled=isDisabled;
+                if (isDisabled) {
+                    elem.addClassName('disabled');
+                } else {
+                    elem.removeClassName('disabled');
+                }
+                if(elem.tagName == 'IMG') {
+                    isDisabled ? elem.hide() : elem.show();
+                }
             }
         })
     }

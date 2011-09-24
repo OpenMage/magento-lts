@@ -156,6 +156,16 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Get all ids for not closed polls
+     *
+     * @return array
+     */
+    public function getAllIds()
+    {
+        return $this->_getResource()->getAllIds($this);
+    }
+
+    /**
      * Add vote to poll
      *
      * @return unknown

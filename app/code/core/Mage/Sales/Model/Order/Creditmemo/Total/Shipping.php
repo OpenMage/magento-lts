@@ -33,6 +33,12 @@
  */
 class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_Order_Creditmemo_Total_Abstract
 {
+    /**
+     * Collects information about shipping charges
+     *
+     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo Credit Memo object
+     * @return Mage_Sales_Model_Order_Creditmemo_Total_Shipping
+     */
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
         $order = $creditmemo->getOrder();
@@ -45,6 +51,12 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
         $baseShippingInclTax    = $order->getBaseShippingInclTax();
 
         $isShippingInclTax = Mage::getSingleton('tax/config')->displaySalesShippingInclTax($order->getStoreId());
+
+        if ($baseShipping != 0) {
+            $baseAllowedTaxAmount = $order->getBaseShippingTaxAmount() - $order->getBaseShippingTaxRefunded();
+            $baseShippingInclTax = Mage::app()->getStore()->roundPrice($baseAllowedAmount + $baseAllowedTaxAmount);
+        }
+        $baseAllowedAmount      = $baseShippingInclTax - $order->getBaseShippingRefunded();
 
         /**
          * Check if shipping amount was specified (from invoice or another source).
@@ -88,10 +100,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
         } else {
             if ($baseShipping != 0) {
                 $allowedTaxAmount = $order->getShippingTaxAmount() - $order->getShippingTaxRefunded();
-                $baseAllowedTaxAmount = $order->getBaseShippingTaxAmount() - $order->getBaseShippingTaxRefunded();
-
                 $shippingInclTax = Mage::app()->getStore()->roundPrice($allowedAmount + $allowedTaxAmount);
-                $baseShippingInclTax = Mage::app()->getStore()->roundPrice($baseAllowedAmount + $baseAllowedTaxAmount);
             }
             $shipping           = $allowedAmount;
             $baseShipping       = $baseAllowedAmount;

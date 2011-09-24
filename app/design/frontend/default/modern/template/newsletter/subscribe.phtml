@@ -26,6 +26,7 @@
 ?>
 <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
     <div class="form-subscribe">
+    <div class="form-subscribe-header"><?php echo $this->__('Sign up for our newsletter') ?></div>
         <label for="newsletter"><?php echo $this->__('Newsletter Sign-up:') ?></label>
         <div class="input-box">
            <input type="text" name="email" id="newsletter" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry validate-email" />

@@ -199,9 +199,9 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => 'general',
         ), 'Config Path')
-    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
-    ), 'Config Value')
-    ->addIndex($installer->getIdxName('core/config_data', array('scope', 'scope_id', 'path'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(), 'Config Value')
+    ->addIndex($installer->getIdxName('core/config_data', array('scope', 'scope_id', 'path'),
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         array('scope', 'scope_id', 'path'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->setComment('Config Data');
 $installer->getConnection()->createTable($table);
@@ -243,7 +243,8 @@ $table = $installer->getConnection()
         ), 'Original Template Code')
     ->addColumn('orig_template_variables', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
         ), 'Original Template Variables')
-    ->addIndex($installer->getIdxName('core/email_template', array('template_code'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex($installer->getIdxName('core/email_template', array('template_code'),
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         array('template_code'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->addIndex($installer->getIdxName('core/email_template', array('added_at')),
         array('added_at'))
@@ -303,16 +304,20 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0',
         ), 'Layout Update Id')
-    ->addIndex($installer->getIdxName('core/layout_link', array('store_id', 'package', 'theme', 'layout_update_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('store_id', 'package', 'theme', 'layout_update_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+    ->addIndex($installer->getIdxName('core/layout_link', array('store_id', 'package', 'theme', 'layout_update_id'),
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+        array('store_id', 'package', 'theme', 'layout_update_id'),
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->addIndex($installer->getIdxName('core/layout_link', array('layout_update_id')),
         array('layout_update_id'))
     ->addForeignKey($installer->getFkName('core/layout_link', 'store_id', 'core/store', 'store_id'),
         'store_id', $installer->getTable('core/store'), 'store_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('core/layout_link', 'layout_update_id', 'core/layout_update', 'layout_update_id'),
+    ->addForeignKey(
+        $installer->getFkName('core/layout_link', 'layout_update_id', 'core/layout_update', 'layout_update_id'),
         'layout_update_id', $installer->getTable('core/layout_update'), 'layout_update_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Layout Link');
 $installer->getConnection()->createTable($table);
 
@@ -362,7 +367,8 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => 'en_US',
         ), 'Locale')
-    ->addIndex($installer->getIdxName('core/translate', array('store_id', 'locale', 'string'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex($installer->getIdxName('core/translate', array('store_id', 'locale', 'string'),
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         array('store_id', 'locale', 'string'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->addIndex($installer->getIdxName('core/translate', array('store_id')),
         array('store_id'))
@@ -403,9 +409,11 @@ $table = $installer->getConnection()
         ), 'Options')
     ->addColumn('description', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         ), 'Deascription')
-    ->addIndex($installer->getIdxName('core/url_rewrite', array('request_path', 'store_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex($installer->getIdxName('core/url_rewrite', array('request_path', 'store_id'),
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         array('request_path', 'store_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
-    ->addIndex($installer->getIdxName('core/url_rewrite', array('id_path', 'is_system', 'store_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex($installer->getIdxName('core/url_rewrite', array('id_path', 'is_system', 'store_id'),
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         array('id_path', 'is_system', 'store_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->addIndex($installer->getIdxName('core/url_rewrite', array('target_path', 'store_id')),
         array('target_path', 'store_id'))
@@ -493,7 +501,8 @@ $table = $installer->getConnection()
         ), 'Plain Text Value')
     ->addColumn('html_value', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
         ), 'Html Value')
-    ->addIndex($installer->getIdxName('core/variable_value', array('variable_id', 'store_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex($installer->getIdxName('core/variable_value', array('variable_id', 'store_id'),
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         array('variable_id', 'store_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->addIndex($installer->getIdxName('core/variable_value', array('variable_id')),
         array('variable_id'))
@@ -545,9 +554,6 @@ $table = $installer->getConnection()
         ), 'Cache Id')
     ->addIndex($installer->getIdxName('core/cache_tag', array('cache_id')),
         array('cache_id'))
-    ->addForeignKey($installer->getFkName('core/cache_tag', 'cache_id', 'core/cache', 'id'),
-        'cache_id', $installer->getTable('core/cache'), 'id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Tag Caches');
 $installer->getConnection()->createTable($table);
 

@@ -480,4 +480,13 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
         }
     }
 
+    /**
+     * Create pdf for current invoice
+     */
+    public function printAction()
+    {
+        $this->_initInvoice();
+        parent::printAction();
+    }
+
 }

@@ -675,6 +675,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         if ($method) {
             Mage::getSingleton('tax/config')->setShippingPriceIncludeTax(false);
             $rate = $this->_createShippingRate($method)
+                ->setMethodTitle($shipping['shipping-name']['VALUE'])
                 ->setPrice($shipping['shipping-cost']['VALUE']);
             $qAddress->addShippingRate($rate)
                 ->setShippingMethod($method)

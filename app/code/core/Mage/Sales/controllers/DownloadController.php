@@ -113,7 +113,20 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
         $orderItemInfo = $recurringProfile->getData('order_item_info');
         try {
             $request = unserialize($orderItemInfo['info_buyRequest']);
-            if (!isset($request['options'][$this->getRequest()->getParam('option_id')])) {
+            $optionId = $this->getRequest()->getParam('option_id');
+            if (!isset($request['options'][$optionId])) {
+                $this->_forward('noRoute');
+                return;
+            }
+            // Check if the product exists
+            $product = Mage::getModel('catalog/product')->load($request['product']);
+            if (!$product || !$product->getId()) {
+                $this->_forward('noRoute');
+                return;
+            }
+            // Try to load the option
+            $option = $product->getOptionById($optionId);
+            if (!$option || !$option->getId() || $option->getType() != 'file') {
                 $this->_forward('noRoute');
                 return;
             }
@@ -121,9 +134,6 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
         } catch (Exception $e) {
             $this->_forward('noRoute');
         }
-        $info = array(
-            ''
-        );
     }
 
     /**
@@ -134,8 +144,9 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
         $quoteItemOptionId = $this->getRequest()->getParam('id');
         $option = Mage::getModel('sales/quote_item_option')->load($quoteItemOptionId);
 
-        if (!$option->getId()) {
+        if (!$option->getId() || $option->getCode() == 'info_buyRequest') {
             $this->_forward('noRoute');
+            return;
         }
         try {
             $info = unserialize($option->getValue());

@@ -36,6 +36,13 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         IMAGETYPE_WBMP => array('output' => 'imagewbmp', 'create' => 'imagecreatefromxbm'),
     );
 
+    /**
+     * Whether image was resized or not
+     *
+     * @var bool
+     */
+    protected $_resized = false;
+
     public function open($filename)
     {
         $this->_fileName = $filename;
@@ -71,11 +78,27 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             }
         }
 
-        // keep alpha transparency
-        $isAlpha     = false;
-        $this->_getTransparency($this->_imageHandler, $this->_fileType, $isAlpha);
-        if ($isAlpha) {
-            $this->_fillBackgroundColor($this->_imageHandler);
+        if (!$this->_resized) {
+            // keep alpha transparency
+            $isAlpha     = false;
+            $isTrueColor = false;
+            $this->_getTransparency($this->_imageHandler, $this->_fileType, $isAlpha, $isTrueColor);
+            if ($isAlpha) {
+                if ($isTrueColor) {
+                    $newImage = imagecreatetruecolor($this->_imageSrcWidth, $this->_imageSrcHeight);
+                } else {
+                    $newImage = imagecreate($this->_imageSrcWidth, $this->_imageSrcHeight);
+                }
+                $this->_fillBackgroundColor($newImage);
+                imagecopy(
+                    $newImage,
+                    $this->_imageHandler,
+                    0, 0,
+                    0, 0,
+                    $this->_imageSrcWidth, $this->_imageSrcHeight
+                );
+                $this->_imageHandler = $newImage;
+            }
         }
 
         $functionParameters = array();
@@ -138,12 +161,6 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         if ($this->_keepTransparency) {
             $isAlpha = false;
             $transparentIndex = $this->_getTransparency($this->_imageHandler, $this->_fileType, $isAlpha);
-
-            if ($isAlpha || false === $transparentIndex || $transparentIndex < 0) {
-               $transparencyCondition = false;
-            } else {
-               $transparencyCondition = $transparentIndex < imagecolorstotal($this->_imageHandler);
-            }
             try {
                 // fill truecolor png with alpha transparency
                 if ($isAlpha) {
@@ -165,7 +182,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     return $transparentAlphaColor;
                 }
                 // fill image with indexed non-alpha transparency
-                elseif ($transparentIndex) {
+                elseif (false !== $transparentIndex) {
                     $transparentColor = false;
                     if ($transparentIndex >=0 && $transparentIndex <= imagecolorstotal($this->_imageHandler)) {
                         list($r, $g, $b)  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
@@ -319,6 +336,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         );
         $this->_imageHandler = $newImage;
         $this->refreshImageDimensions();
+        $this->_resized = true;
     }
 
     public function rotate($angle)

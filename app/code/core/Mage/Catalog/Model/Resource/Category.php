@@ -369,11 +369,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
 
         if (!empty($insert) || !empty($update) || !empty($delete)) {
             $category->setIsChangedProductList(true);
-            /**
-             * Moved to index
-             */
-            //$categoryIds = explode('/', $category->getPath());
-            //$this->refreshProductIndex($categoryIds);
 
             /**
              * Setting affected products to category for third party engine index refresh

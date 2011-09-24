@@ -411,8 +411,9 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * @param   bool $priceIncludesTax flag what price parameter contain tax
      * @return  float
      */
-    public function getPrice($product, $price, $includingTax = null, $shippingAddress = null, $billingAddress = null, $ctc = null, $store = null, $priceIncludesTax = null)
-    {
+    public function getPrice($product, $price, $includingTax = null, $shippingAddress = null, $billingAddress = null,
+        $ctc = null, $store = null, $priceIncludesTax = null
+    ) {
         if (!$price) {
             return $price;
         }
@@ -430,13 +431,16 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         $taxClassId = $product->getTaxClassId();
         if (is_null($percent)) {
             if ($taxClassId) {
-                $request = Mage::getSingleton('tax/calculation')->getRateRequest($shippingAddress, $billingAddress, $ctc, $store);
-                $percent = Mage::getSingleton('tax/calculation')->getRate($request->setProductClassId($taxClassId));
+                $request = Mage::getSingleton('tax/calculation')
+                    ->getRateRequest($shippingAddress, $billingAddress, $ctc, $store);
+                $percent = Mage::getSingleton('tax/calculation')
+                    ->getRate($request->setProductClassId($taxClassId));
             }
         }
         if ($taxClassId && $priceIncludesTax) {
             $request = Mage::getSingleton('tax/calculation')->getRateRequest(false, false, false, $store);
-            $includingPercent = Mage::getSingleton('tax/calculation')->getRate($request->setProductClassId($taxClassId));
+            $includingPercent = Mage::getSingleton('tax/calculation')
+                ->getRate($request->setProductClassId($taxClassId));
         }
 
         if ($percent === false || is_null($percent)) {
@@ -683,7 +687,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function joinTaxClass($select, $storeId, $priceTable = 'main_table')
     {
-        $taxClassAttribute = Mage::getModel('eav/entity_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'tax_class_id');
+        $taxClassAttribute = Mage::getModel('eav/entity_attribute')
+            ->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'tax_class_id');
         $joinConditionD = implode(' AND ',array(
             "tax_class_d.entity_id = {$priceTable}.entity_id",
             $select->getAdapter()->quoteInto('tax_class_d.attribute_id = ?', (int)$taxClassAttribute->getId()),
@@ -774,5 +779,80 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->_config->getAlgorithm($store);
     }
-}
 
+    /**
+     * Get calculated taxes for each tax class
+     *
+     * @param Mage_Sales_Model_Order $source
+     *
+     * array(
+     *  $index => array(
+     *      'tax_amount'        => $taxAmount,
+     *      'base_tax_amount'   => $baseTaxAmount,
+     *      'hidden_tax_amount' => $hiddenTaxAmount
+     *  )
+     * )
+     * @return array
+     */
+    public function getCalculatedTaxes($source)
+    {
+        if (Mage::registry('current_invoice')) {
+            $current = Mage::registry('current_invoice');
+        } elseif (Mage::registry('current_creditmemo')) {
+            $current = Mage::registry('current_creditmemo');
+        } else {
+            $current = $source;
+        }
+
+        $taxClassAmount = array();
+        if ($current && $source) {
+            $shippingTaxAmount          = $current->getShippingTaxAmount();
+            $baseShippingTaxAmount      = $current->getBaseShippingTaxAmount();
+            $shippingHiddenTaxAmount    = $current->getShippingHiddenTaxAmount();
+
+            $i = 0;
+            foreach($current->getItemsCollection() as $item) {
+                $taxCollection = Mage::getResourceModel('tax/sales_order_tax_item')
+                    ->getTaxItemsByItemId(
+                        $item->getOrderItemId() ? $item->getOrderItemId() : $item->getItemId()
+                    );
+
+                foreach ($taxCollection as $tax) {
+                    $taxClassId = $tax['tax_id'];
+                    $percent    = $tax['percent'];
+                    if (isset($taxClassAmount[$taxClassId])) {
+                        $taxClassAmount[$taxClassId]['tax_amount']          += $item->getRowTotal() * $percent / 100;
+                        $taxClassAmount[$taxClassId]['base_tax_amount'] += $item->getBaseRowTotal() * $percent / 100;
+                        $taxClassAmount[$taxClassId]['hidden_tax_amount']   += $item->getHiddenTaxAmount();
+                    } else {
+                        if ($i == 0) {
+                            $i = 1;
+                            $taxClassAmount[$taxClassId]['tax_amount']          = $shippingTaxAmount;
+                            $taxClassAmount[$taxClassId]['base_tax_amount']     = $baseShippingTaxAmount;
+                            $taxClassAmount[$taxClassId]['hidden_tax_amount']   = $shippingHiddenTaxAmount;
+                        } else {
+                            $taxClassAmount[$taxClassId]['tax_amount']          = 0;
+                            $taxClassAmount[$taxClassId]['base_tax_amount']     = 0;
+                            $taxClassAmount[$taxClassId]['hidden_tax_amount']   = 0;
+                        }
+                        $taxClassAmount[$taxClassId]['tax_amount']          += $item->getRowTotal() * $percent / 100;
+                        $taxClassAmount[$taxClassId]['base_tax_amount'] += $item->getBaseRowTotal() * $percent / 100;
+                        $taxClassAmount[$taxClassId]['hidden_tax_amount']   += $item->getHiddenTaxAmount();
+                        $taxClassAmount[$taxClassId]['title']               = $tax['title'];
+                        $taxClassAmount[$taxClassId]['percent']             = $tax['percent'];
+                    }
+                }
+            }
+
+            foreach ($taxClassAmount as $key=>$tax) {
+                 if ($tax['tax_amount'] == 0 && $tax['base_tax_amount'] == 0 && $tax['hidden_tax_amount'] == 0) {
+                     unset($taxClassAmount[$key]);
+                 }
+            }
+
+            $taxClassAmount = array_values($taxClassAmount);
+        }
+
+        return $taxClassAmount;
+    }
+}

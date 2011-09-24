@@ -1342,13 +1342,6 @@ if ($usedDatabaseStorage) {
 /**
  * Add foreign keys
  */
-$installer->getConnection()->addForeignKey(
-    $installer->getFkName('core/cache_tag', 'cache_id', 'core/cache', 'id'),
-    $installer->getTable('core/cache_tag'),
-    'cache_id',
-    $installer->getTable('core/cache'),
-    'id'
-);
 
 $installer->getConnection()->addForeignKey(
     $installer->getFkName('core/layout_link', 'store_id', 'core/store', 'store_id'),

@@ -280,7 +280,10 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         }
 
         // Init and load product
-        Mage::dispatchEvent('catalog_controller_product_init_before', array('controller_action' => $controller));
+        Mage::dispatchEvent('catalog_controller_product_init_before', array(
+            'controller_action' => $controller,
+            'params' => $params,
+        ));
 
         if (!$productId) {
             return false;

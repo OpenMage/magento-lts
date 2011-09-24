@@ -58,7 +58,12 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             ));
             // see if order has non-editable products as items
             $nonEditableTypes = array_keys($this->getOrder()->getResource()->aggregateProductsByTypes(
-                $order->getId(), array_keys(Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()), false
+                $order->getId(),
+                array_keys(Mage::getConfig()
+                    ->getNode('adminhtml/sales/order/create/available_product_types')
+                    ->asArray()
+                ),
+                false
             ));
             if ($nonEditableTypes) {
                 $this->_updateButton('order_edit', 'onclick',
@@ -161,7 +166,10 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             ));
         }
 
-        if ($this->_isAllowedAction('reorder') && $this->helper('sales/reorder')->canReorder($order)) {
+        if ($this->_isAllowedAction('reorder')
+            && $this->helper('sales/reorder')->isAllowed($order->getStore())
+            && $order->canReorder()
+        ) {
             $this->_addButton('order_reorder', array(
                 'label'     => Mage::helper('sales')->__('Reorder'),
                 'onclick'   => 'setLocation(\'' . $this->getReorderUrl() . '\')',

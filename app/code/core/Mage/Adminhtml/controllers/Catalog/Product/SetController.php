@@ -123,7 +123,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
             if ($isNewSet) {
                 //filter html tags
                 $name = $helper->stripTags($this->getRequest()->getParam('attribute_set_name'));
-                $model->setAttributeSetName($name);
+                $model->setAttributeSetName(trim($name));
             } else {
                 if ($attributeSetId) {
                     $model->load($attributeSetId);

@@ -35,7 +35,6 @@ class Mage_Paypal_Helper_Hss extends Mage_Core_Helper_Abstract
      * @var array
      */
     protected $_hssMethods = array(
-        Mage_Paypal_Model_Config::METHOD_PAYFLOWLINK,
         Mage_Paypal_Model_Config::METHOD_HOSTEDPRO
     );
 

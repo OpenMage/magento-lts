@@ -211,7 +211,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
                     '0'
                 )
             )
-            . " > 0 AND {$specialPrice} > 0 ",
+            . " > 0 AND {$specialPrice} > 0 AND {$specialPrice} < 100 ",
             $specialPrice,
             '0'
         );

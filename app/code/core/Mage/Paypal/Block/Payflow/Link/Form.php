@@ -25,7 +25,7 @@
  */
 
 /**
- * Payflow link form
+ * Payflow link iframe block
  *
  * @category   Mage
  * @package    Mage_Paypal
@@ -35,12 +35,22 @@ class Mage_Paypal_Block_Payflow_Link_Form extends Mage_Payment_Block_Form
 {
     /**
      * Internal constructor
-     * Set info template for payment step
+     * Set payment method code
      *
-    */
+     */
     protected function _construct()
     {
         parent::_construct();
-        $this->setTemplate('paypal/hss/info.phtml');
+        $this->setTemplate('paypal/payflowlink/iframe.phtml');
+    }
+
+    /**
+     * Get frame action URL
+     *
+     * @return string
+     */
+    public function getFrameActionUrl()
+    {
+        return $this->getUrl('paypal/payflow/form', array('_secure' => true));
     }
 }

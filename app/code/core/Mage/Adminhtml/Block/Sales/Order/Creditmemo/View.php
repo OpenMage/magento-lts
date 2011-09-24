@@ -188,7 +188,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
     public function getPrintUrl()
     {
         return $this->getUrl('*/*/print', array(
-            'invoice_id' => $this->getCreditmemo()->getId()
+            'creditmemo_id' => $this->getCreditmemo()->getId()
         ));
     }
 
@@ -201,10 +201,18 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
     {
         if ($flag) {
             if ($this->getCreditmemo()->getBackUrl()) {
-                return $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getCreditmemo()->getBackUrl() . '\')');
+                return $this->_updateButton(
+                    'back',
+                    'onclick',
+                    'setLocation(\'' . $this->getCreditmemo()->getBackUrl() . '\')'
+                );
             }
 
-            return $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getUrl('*/sales_creditmemo/') . '\')');
+            return $this->_updateButton(
+                'back',
+                'onclick',
+                'setLocation(\'' . $this->getUrl('*/sales_creditmemo/') . '\')'
+            );
         }
         return $this;
     }

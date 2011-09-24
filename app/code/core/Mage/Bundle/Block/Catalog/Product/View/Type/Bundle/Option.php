@@ -248,12 +248,12 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
         $taxHelper  = Mage::helper('tax');
         $coreHelper = $this->helper('core');
         $currentProduct = $this->getProduct();
-        if (!$currentProduct->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED
+        if ($currentProduct->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC
                 && $this->getFormatProduct()
         ) {
             $product = $this->getFormatProduct();
         } else {
-            $product = $this->getProduct();
+            $product = $currentProduct;
         }
 
         $priceTax    = $taxHelper->getPrice($product, $price);

@@ -845,17 +845,33 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         return $optionArr;
     }
 
+    /**
+     * Sort selections method for usort function
+     * Sort selections by option position, selection position and selection id
+     *
+     * @param  Mage_Catalog_Model_Product $a
+     * @param  Mage_Catalog_Model_Product $b
+     * @return int
+     */
     public function shakeSelections($a, $b)
     {
-        $aPosition = ($a->getOption()->getPosition()+1)*($a->getPosition()+1);
-        $bPosition = ($b->getOption()->getPosition()+1)*($b->getPosition()+1);
+        $aPosition = array(
+            $a->getOption()->getPosition(),
+            $a->getOptionId(),
+            $a->getPosition(),
+            $a->getSelectionId()
+        );
+        $bPosition = array(
+            $b->getOption()->getPosition(),
+            $b->getOptionId(),
+            $b->getPosition(),
+            $b->getSelectionId()
+        );
         if ($aPosition == $bPosition) {
-            if ($a->getSelectionId() == $b->getSelectionId()) {
-                return 0;
-            }
-            return ($a->getSelectionId() < $b->getSelectionId()) ? -1 : 1;
+            return 0;
+        } else {
+            return $aPosition < $bPosition ? -1 : 1;
         }
-        return ($aPosition < $bPosition) ? -1 : 1;
     }
 
     /**

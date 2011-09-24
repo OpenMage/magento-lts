@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Admin>
-            <version>1.6.0.0</version>
+            <version>1.6.1.0</version>
         </Mage_Admin>
     </modules>
     <global>
@@ -56,6 +56,11 @@
                 </entities>
             </admin_resource>
         </models>
+        <helpers>
+            <admin>
+                <class>Mage_Admin_Helper</class>
+            </admin>
+        </helpers>
         <resources>
             <admin_setup>
                 <setup>
@@ -74,6 +79,7 @@
             <emails>
                 <forgot_email_template>admin_emails_forgot_email_template</forgot_email_template>
                 <forgot_email_identity>general</forgot_email_identity>
+                <password_reset_link_expiration_period>3</password_reset_link_expiration_period>
             </emails>
         </admin>
     </default>

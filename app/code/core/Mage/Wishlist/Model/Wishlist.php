@@ -66,7 +66,6 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
@@ -86,6 +85,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             $customer = $customer->getId();
         }
 
+        $customer = (int) $customer;
         $customerIdFieldName = $this->_getResource()->getCustomerIdFieldName();
         $this->_getResource()->load($this, $customer, $customerIdFieldName);
         if (!$this->getId() && $create) {
@@ -151,11 +151,12 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Adding catalog product object data to wishlist
+     * Add catalog product object data to wishlist
      *
      * @param   Mage_Catalog_Model_Product $product
      * @param   int $qty
      * @param   bool $forciblySetQty
+     *
      * @return  Mage_Wishlist_Model_Item
      */
     protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1, $forciblySetQty = false)
@@ -199,7 +200,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     {
         if (is_null($this->_itemCollection)) {
             $this->_itemCollection =  Mage::getResourceModel('wishlist/item_collection')
-                ->addWishlistFilter($this);
+                ->addWishlistFilter($this)
+                ->addStoreFilter($this->getSharedStoreIds())
+                ->setVisibilityFilter();
         }
 
         return $this->_itemCollection;
@@ -381,7 +384,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      */
     public function getSharedStoreIds($current = true)
     {
-        if (is_null($this->_storeIds)) {
+        if (is_null($this->_storeIds) || !is_array($this->_storeIds)) {
             if ($current) {
                 $this->_storeIds = $this->getStore()->getWebsite()->getStoreIds();
             } else {
@@ -403,7 +406,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      */
     public function setSharedStoreIds($storeIds)
     {
-        $this->_storeIds = $storeIds;
+        $this->_storeIds = (array) $storeIds;
         return $this;
     }
 
@@ -439,7 +442,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      */
     public function getItemsCount()
     {
-        return $this->_getResource()->fetchItemsCount($this);
+        return $this->getItemCollection()->getSize();
     }
 
     /**

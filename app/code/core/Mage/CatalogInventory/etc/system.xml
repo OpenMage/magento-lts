@@ -118,7 +118,7 @@
                             <show_in_store>0</show_in_store>
                         </max_sale_qty>
                         <min_qty translate="label">
-                            <label>Qty for Items' Status to Become Out of Stock</label>
+                            <label>Qty for Item's Status to Become Out of Stock</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>

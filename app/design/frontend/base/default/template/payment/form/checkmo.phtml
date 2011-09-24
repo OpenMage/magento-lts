@@ -29,14 +29,14 @@
         <?php if ($this->getMethod()->getPayableTo()): ?>
         <li>
             <label><?php echo $this->__('Make Check payable to:') ?></label>
-            <?php echo $this->getMethod()->getPayableTo() ?>
+            <?php echo $this->escapeHtml($this->getMethod()->getPayableTo()) ?>
         </li>
         <?php endif; ?>
         <?php if ($this->getMethod()->getMailingAddress()): ?>
         <li>
             <label><?php echo Mage::helper('payment')->__('Send Check to:') ?></label>
             <address class="checkmo-mailing-address">
-                <?php echo nl2br($this->getMethod()->getMailingAddress()) ?>
+                <?php echo nl2br($this->escapeHtml($this->getMethod()->getMailingAddress())) ?>
             </address>
         </li>
         <?php endif; ?>

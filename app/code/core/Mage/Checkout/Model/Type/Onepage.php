@@ -572,8 +572,6 @@ class Mage_Checkout_Model_Type_Onepage
         }
         $this->getQuote()->getShippingAddress()
             ->setShippingMethod($shippingMethod);
-        $this->getQuote()->collectTotals()
-            ->save();
 
         $this->getCheckout()
             ->setStepData('shipping_method', 'complete', true)
