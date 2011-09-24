@@ -102,6 +102,36 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     }
 
     /**
+     * Create rate soap client
+     *
+     * @return SoapClient
+     */
+    protected function _createRateSoapClient()
+    {
+        $client = new SoapClient($this->_rateServiceWsdl);
+        $client->__setLocation($this->getConfigFlag('sandbox_mode')
+            ? 'https://wsbeta.fedex.com:443/web-services/rate'
+            : 'https://ws.fedex.com:443/web-services/rate'
+        );
+        return $client;
+    }
+
+    /**
+     * Create ship soap client
+     *
+     * @return SoapClient
+     */
+    protected function _createShipSoapClient()
+    {
+        $client = new SoapClient($this->_shipServiceWsdl, array('trace' => 1));
+        $client->__setLocation($this->getConfigFlag('sandbox_mode')
+            ? 'https://wsbeta.fedex.com:443/web-services/ship'
+            : 'https://ws.fedex.com:443/web-services/ship'
+        );
+        return $client;
+    }
+
+    /**
      * Collect and get rates
      *
      * @param Mage_Shipping_Model_Rate_Request $request
@@ -302,7 +332,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
         $debugData = array('request' => $ratesRequest);
         if ($response === null) {
             try {
-                $client = new SoapClient($this->_rateServiceWsdl);
+                $client = $this->_createRateSoapClient();
                 $response = $client->getRates($ratesRequest);
                 $this->_setCachedQuotes($requestString, serialize($response));
                 $debugData['result'] = $response;
@@ -340,7 +370,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                     foreach ($response->RateReplyDetails as $rate) {
                         $serviceName = (string)$rate->ServiceType;
                         if (in_array($serviceName, $allowedMethods)) {
-                            $amount = (string)$rate->RatedShipmentDetails[0]->ShipmentRateDetail->TotalNetCharge->Amount;
+                            $amount = (string)$rate->RatedShipmentDetails[0]
+                                ->ShipmentRateDetail->TotalNetCharge->Amount;
                             $costArr[$serviceName]  = $amount;
                             $priceArr[$serviceName] = $this->getMethodPrice($amount, $serviceName);
                         }
@@ -597,7 +628,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
             ),
             'dropoff' => array(
                 'REGULAR_PICKUP'          => Mage::helper('usa')->__('Regular Pickup'),
-                'REQUEST_COURIER '        => Mage::helper('usa')->__('Request Courier'),
+                'REQUEST_COURIER'         => Mage::helper('usa')->__('Request Courier'),
                 'DROP_BOX'                => Mage::helper('usa')->__('Drop Box'),
                 'BUSINESS_SERVICE_CENTER' => Mage::helper('usa')->__('Business Service Center'),
                 'STATION'                 => Mage::helper('usa')->__('Station')
@@ -1134,7 +1165,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                         'NumberOfPieces' => 1,
                         'CountryOfManufacture' => implode(',', array_unique($countriesOfManufacture)),
                         'Description' => implode(', ', $itemsDesc),
-                        'Quantity' => $itemsQty,
+                        'Quantity' => ceil($itemsQty),
                         'QuantityUnits' => 'pcs',
                         'UnitPrice' => array(
                             'Currency' => $request->getBaseCurrencyCode(),
@@ -1175,7 +1206,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     {
         $this->_prepareShipmentRequest($request);
         $result = new Varien_Object();
-        $client = new SoapClient($this->_shipServiceWsdl, array('trace' => 1));
+        $client = $this->_createShipSoapClient();
         $requestClient = $this->_formShipmentRequest($request);
         $response = $client->processShipment($requestClient);
 
@@ -1201,8 +1232,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                     $debugData['result']['error'] .= $notification->Message . '; ';
                 }
             } else {
-                $debugData['result']['code'] = $response->Notifications->Code . '; ';
-                $debugData['result']['error'] = $response->Notifications->Message . '; ';
+                $debugData['result']['code'] = $response->Notifications->Code . ' ';
+                $debugData['result']['error'] = $response->Notifications->Message . ' ';
             }
             $this->_debug($debugData);
             $result->setErrors($debugData['result']['error']);
@@ -1225,8 +1256,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
         $requestData['DeletionControl'] = 'DELETE_ONE_PACKAGE';
         foreach ($data as &$item) {
             $requestData['TrackingId'] = $item['tracking_number'];
-            $client = new SoapClient($this->_shipServiceWsdl, array('trace' => 1));
-            $response = $client->deleteShipment($requestData);
+            $client = $this->_createShipSoapClient();
+            $client->deleteShipment($requestData);
         }
         return true;
     }

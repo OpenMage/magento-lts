@@ -296,7 +296,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
             $salable = null;
         }
 
-        return $salable;
+        return (boolean) (int) $salable;
     }
 
     /**

@@ -378,7 +378,8 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         $this->setAttribute(isset($arr['attribute']) ? $arr['attribute'] : false);
         $attribute = $this->getAttributeObject();
 
-        if ($attribute && $attribute->getBackendType() == 'decimal') {
+        $isContainsOperator = !empty($arr['operator']) && in_array($arr['operator'], array('{}', '!{}'));
+        if ($attribute && $attribute->getBackendType() == 'decimal' && !$isContainsOperator) {
             if (isset($arr['value'])) {
                 if (!empty($arr['operator'])
                     && in_array($arr['operator'], array('!()', '()'))

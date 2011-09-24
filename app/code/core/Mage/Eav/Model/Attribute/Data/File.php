@@ -215,14 +215,13 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             }
         }
 
-        $ioFile = new Varien_Io_File();
         $path   = Mage::getBaseDir('media') . DS . $attribute->getEntity()->getEntityTypeCode();
-        $ioFile->open(array('path' => $path));
 
         // unlink entity file
         if ($toDelete) {
             $this->getEntity()->setData($attribute->getAttributeCode(), '');
             $file = $path . $original;
+            $ioFile = new Varien_Io_File();
             if ($ioFile->fileExists($file)) {
                 $ioFile->rm($file);
             }

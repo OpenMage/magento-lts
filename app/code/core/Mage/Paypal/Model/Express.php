@@ -312,7 +312,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
                 }
 
                 $transaction = $payment->addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH, null,
-                    false, $message
+                    true, $message
                 );
 
                 $payment->setParentTransactionId($api->getTransactionId());

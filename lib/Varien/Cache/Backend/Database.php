@@ -262,8 +262,8 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             case Zend_Cache::CLEANING_MODE_OLD:
                 if ($this->_options['store_data']) {
                     $result = $adapter->delete($this->_getDataTable(), array(
-                        'expire_time>' => 0,
-                        'expire_time<=' => time()
+                        'expire_time> ?' => 0,
+                        'expire_time<= ?' => time()
                     ));
                 } else {
                     $result = true;

@@ -67,6 +67,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     const CODE = 'usps';
 
     /**
+     * Ounces in one pound for conversion
+     */
+    const OUNCES_POUND = 16;
+
+    /**
      * Code of the carrier
      *
      * @var string
@@ -274,7 +279,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
 
         $weight = $this->getTotalNumOfBoxes($request->getPackageWeight());
         $r->setWeightPounds(floor($weight));
-        $r->setWeightOunces(round(($weight-floor($weight)) * 16, 1));
+        $r->setWeightOunces(round(($weight-floor($weight)) * self::OUNCES_POUND, 1));
         if ($request->getFreeMethodWeight()!=$request->getPackageWeight()) {
             $r->setFreeMethodWeight($request->getFreeMethodWeight());
         }
@@ -319,7 +324,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
 
         $weight = $this->getTotalNumOfBoxes($r->getFreeMethodWeight());
         $r->setWeightPounds(floor($weight));
-        $r->setWeightOunces(round(($weight-floor($weight)) * 16, 1));
+        $r->setWeightOunces(round(($weight-floor($weight)) * self::OUNCES_POUND, 1));
         $r->setService($freeMethod);
     }
 
@@ -1377,6 +1382,20 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     }
 
     /**
+     * Convert decimal weight into pound-ounces format
+     *
+     * @param float $weightInPounds
+     * @return array
+     */
+    protected function _convertPoundOunces($weightInPounds)
+    {
+        $weightInOunces = ceil($weightInPounds * self::OUNCES_POUND);
+        $pounds = floor($weightInOunces / self::OUNCES_POUND);
+        $ounces = $weightInOunces % self::OUNCES_POUND;
+        return array($pounds, $ounces);
+    }
+
+    /**
      * Form XML for international shipment request
      * As integration guide it is important to follow appropriate sequence for tags e.g.: <FromLastName /> must be
      * after <FromFirstName />
@@ -1543,12 +1562,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             $countriesOfManufacture[$product->getId()] = $product->getCountryOfManufacture();
         }
 
+        $packagePoundsWeight = $packageOuncesWeight = 0;
         // for ItemDetail
         foreach ($packageItems as $itemShipment) {
             $item = new Varien_Object();
             $item->setData($itemShipment);
 
-            $itemWeight = $item->getWeight();
+            $itemWeight = $item->getWeight() * $item->getQty();
             if ($packageParams->getWeightUnits() != Zend_Measure_Weight::POUND) {
                 $itemWeight = Mage::helper('usa')->convertMeasureWeight(
                     $itemWeight,
@@ -1565,16 +1585,32 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             }
             $itemDetail = $shippingContents->addChild('ItemDetail');
             $itemDetail->addChild('Description', $item->getName());
-            $itemDetail->addChild('Quantity', $item->getQty());
+            $ceiledQty = ceil($item->getQty());
+            if ($ceiledQty < 1) {
+                $ceiledQty = 1;
+            }
+            $individualItemWeight = $itemWeight / $ceiledQty;
+            $itemDetail->addChild('Quantity', $ceiledQty);
             $itemDetail->addChild('Value', $item->getCustomsValue() * $item->getQty());
-            $itemDetail->addChild('NetPounds', floor($itemWeight));
-            $itemDetail->addChild('NetOunces', round(($itemWeight - floor($itemWeight)) * 16, 1));
+            list($individualPoundsWeight, $individualOuncesWeight) = $this->_convertPoundOunces($individualItemWeight);
+            $itemDetail->addChild('NetPounds', $individualPoundsWeight);
+            $itemDetail->addChild('NetOunces', $individualOuncesWeight);
             $itemDetail->addChild('HSTariffNumber', 0);
             $itemDetail->addChild('CountryOfOrigin', $countryOfManufacture);
+
+            list($itemPoundsWeight, $itemOuncesWeight) = $this->_convertPoundOunces($itemWeight);
+            $packagePoundsWeight += $itemPoundsWeight;
+            $packageOuncesWeight += $itemOuncesWeight;
+        }
+        $additionalPackagePoundsWeight = floor($packageOuncesWeight / self::OUNCES_POUND);
+        $packagePoundsWeight += $additionalPackagePoundsWeight;
+        $packageOuncesWeight -= $additionalPackagePoundsWeight * self::OUNCES_POUND;
+        if ($packagePoundsWeight + $packageOuncesWeight / self::OUNCES_POUND < $packageWeight) {
+            list($packagePoundsWeight, $packageOuncesWeight) = $this->_convertPoundOunces($packageWeight);
         }
 
-        $xml->addChild('GrossPounds', floor($packageWeight));
-        $xml->addChild('GrossOunces', round(($packageWeight - floor($packageWeight)) * 16, 1));
+        $xml->addChild('GrossPounds', $packagePoundsWeight);
+        $xml->addChild('GrossOunces', $packageOuncesWeight);
         if ($packageParams->getContentType() == 'OTHER' && $packageParams->getContentTypeOther() != null) {
             $xml->addChild('ContentType', $packageParams->getContentType());
             $xml->addChild('ContentTypeOther ', $packageParams->getContentTypeOther());

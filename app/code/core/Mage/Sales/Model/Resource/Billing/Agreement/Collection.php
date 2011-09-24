@@ -35,6 +35,17 @@
 class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
+     * Mapping for fields
+     *
+     * @var array
+     */
+    protected $_map = array('fields' => array(
+        'customer_email'     => 'ce.email',
+        'customer_firstname' => 'firstname.value',
+        'customer_lastname'  => 'lastname.value'
+    ));
+
+    /**
      * Collection initialization
      *
      */

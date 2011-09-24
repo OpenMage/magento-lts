@@ -89,9 +89,9 @@ final class Maged_Controller
     private $_view;
 
     /**
-     * Config instance
+     * Connect config instance
      *
-     * @var Maged_Model_Config
+     * @var Mage_Connect_Config
      */
     private $_config;
 
@@ -441,6 +441,11 @@ final class Maged_Controller
     {
         if ($_POST) {
             $ftp = $this->getFtpPost($_POST);
+
+            /* clear startup messages */
+            $this->config();
+            $this->session()->getMessages();
+
             $errors = $this->model('connect', true)->validateConfigPost($_POST);
             if ($errors) {
                 foreach ($errors as $err) {
@@ -450,7 +455,7 @@ final class Maged_Controller
                 return;
             }
             try {
-                if('ftp' == $_POST['deployment_type'] && !empty($_POST['ftp_host'])) {
+                if ('ftp' == $_POST['deployment_type'] && !empty($_POST['ftp_host'])) {
                     $this->model('connect', true)->connect()->setRemoteConfig($ftp);
                 } else {
                     $this->model('connect', true)->connect()->setRemoteConfig('');
@@ -615,8 +620,13 @@ final class Maged_Controller
     public function config()
     {
         if (!$this->_config) {
-            //$this->_config = $this->model('config')->load();
             $this->_config = $this->model('connect', true)->connect()->getConfig();
+            if (!$this->_config->isLoaded()) {
+                $this->session()->addMessage('error', "Settings has not been loaded. Used default settings");
+                if ($this->_config->getError()) {
+                    $this->session()->addMessage('error', $this->_config->getError());
+                }
+            }
         }
         return $this->_config;
     }

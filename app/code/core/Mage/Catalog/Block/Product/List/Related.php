@@ -34,6 +34,13 @@
  */
 class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product_Abstract
 {
+    /**
+     * Default MAP renderer type
+     *
+     * @var string
+     */
+    protected $_mapRenderer = 'msrp_noform';
+
     protected $_itemCollection;
 
     protected function _prepareData()

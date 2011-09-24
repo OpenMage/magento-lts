@@ -122,7 +122,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     {
         if ($item instanceof Mage_Sales_Model_Quote_Address_Item) {
             $address = $item->getAddress();
-        } elseif ($item->getQuote()->isVirtual()) {
+        } elseif ($item->getQuote()->getItemVirtualQty() > 0) {
             $address = $item->getQuote()->getBillingAddress();
         } else {
             $address = $item->getQuote()->getShippingAddress();
@@ -276,10 +276,10 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
 
         $itemPrice              = $this->_getItemPrice($item);
         $baseItemPrice          = $this->_getItemBasePrice($item);
-        $itemOriginalPrice      = $item->getOriginalPrice();
-        $baseItemOriginalPrice  = $item->getBaseOriginalPrice();
+        $itemOriginalPrice      = $this->_getItemOriginalPrice($item);
+        $baseItemOriginalPrice  = $this->_getItemBaseOriginalPrice($item);
 
-        if ($itemPrice <= 0) {
+        if ($itemPrice < 0) {
             return $this;
         }
 
@@ -738,8 +738,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      */
     protected function _getItemOriginalPrice($item)
     {
-        $price = $item->getDiscountCalculationPrice();
-        return ($price !== null) ? $price : $item->getCalculationPrice();
+        return Mage::helper('tax')->getPrice($item, $item->getOriginalPrice(), true);
     }
 
     /**
@@ -752,6 +751,17 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     {
         $price = $item->getDiscountCalculationPrice();
         return ($price !== null) ? $item->getBaseDiscountCalculationPrice() : $item->getBaseCalculationPrice();
+    }
+
+    /**
+     * Return item base original price
+     *
+     * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @return float
+     */
+    protected function _getItemBaseOriginalPrice($item)
+    {
+        return Mage::helper('tax')->getPrice($item, $item->getBaseOriginalPrice(), true);
     }
 
     /**

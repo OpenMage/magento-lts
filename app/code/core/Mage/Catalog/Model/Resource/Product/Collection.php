@@ -636,7 +636,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $condition,
                 array(
                     'count_' . $attributeCode => new Zend_Db_Expr('COUNT(DISTINCT e.entity_id)'),
-                    'range_' . $attributeCode => new Zend_Db_Expr('CEIL((' . $tableAlias . '.value+0.01)/' . $range . ')')
+                    'range_' . $attributeCode => new Zend_Db_Expr(
+                        'CEIL((' . $tableAlias . '.value+0.01)/' . $range . ')')
                  )
             )
             ->group('range_' . $attributeCode);
@@ -1340,7 +1341,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             // optimize if using cat index
             $filters = $this->_productLimitationFilters;
             if (isset($filters['category_id']) || isset($filters['visibility'])) {
-                $this->getSelect()->order('cat_index.product_id ' . $dir);
+                $this->getSelect()->order('cat_index.position ' . $dir);
             } else {
                 $this->getSelect()->order('e.entity_id ' . $dir);
             }
@@ -1554,7 +1555,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $fromPart = $select->getPart(Zend_Db_Select::FROM);
         if (!isset($fromPart['price_index'])) {
             $least       = $connection->getLeastSql(array('price_index.min_price', 'price_index.tier_price'));
-            $minimalExpr = $connection->getCheckSql('price_index.tier_price IS NOT NULL', $least, 'price_index.min_price');
+            $minimalExpr = $connection->getCheckSql('price_index.tier_price IS NOT NULL',
+                $least, 'price_index.min_price');
             $colls       = array('price', 'tax_class_id', 'final_price',
                 'minimal_price' => $minimalExpr , 'min_price', 'max_price', 'tier_price');
             $select->join(

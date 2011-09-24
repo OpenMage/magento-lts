@@ -130,8 +130,10 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
          * Check for maximum attribute_code length
          */
         if(isset($this->_data['attribute_code']) &&
-           !Zend_Validate::is($this->_data['attribute_code'], 'StringLength', array('max' => self::ATTRIBUTE_CODE_MAX_LENGTH)))
-        {
+           !Zend_Validate::is($this->_data['attribute_code'],
+                              'StringLength',
+                              array('max' => self::ATTRIBUTE_CODE_MAX_LENGTH))
+        ) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', self::ATTRIBUTE_CODE_MAX_LENGTH));
         }
 
@@ -139,7 +141,9 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
         $hasDefaultValue = ((string)$defaultValue != '');
 
         if ($this->getBackendType() == 'decimal' && $hasDefaultValue) {
-            if (!Zend_Locale_Format::isNumber($defaultValue, array('locale' => Mage::app()->getLocale()->getLocaleCode()))) {
+            if (!Zend_Locale_Format::isNumber($defaultValue,
+                                              array('locale' => Mage::app()->getLocale()->getLocaleCode()))
+            ) {
                  throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default decimal value'));
             }
 
@@ -303,8 +307,19 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      *
      * @return string
      */
-    public function getStoreLabel()
+    public function getStoreLabel($storeId = null)
     {
-        return $this->getData('store_label');
+        if ($this->hasData('store_label')) {
+            return $this->getData('store_label');
+        }
+        $store = Mage::app()->getStore($storeId);
+        $label = false;
+        if (!$store->isAdmin()) {
+            $labels = $this->getStoreLabels();
+            if (isset($labels[$store->getId()])) {
+                return $labels[$store->getId()];
+            }
+        }
+        return $this->getFrontendLabel();
     }
 }

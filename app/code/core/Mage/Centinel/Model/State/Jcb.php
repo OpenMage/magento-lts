@@ -48,7 +48,7 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
     public function isAuthenticateSuccessful()
     {
         //Test cases 5-9
-        if ($this->_isLookupSoftSuccessful()) {
+        if (!$this->getIsModeStrict() && $this->_isLookupSoftSuccessful()) {
             return true;
         }
 

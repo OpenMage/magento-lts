@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Catalog>
-            <version>1.6.0.0.4</version>
+            <version>1.6.0.0.5</version>
         </Mage_Catalog>
     </modules>
     <admin>
@@ -220,7 +220,7 @@
             </catalog>
             <catalog_resource>
                 <class>Mage_Catalog_Model_Resource</class>
-                <deprecatedNode>catalog_mysql4</deprecatedNode>
+                <deprecatedNode>catalog_resource_eav_mysql4</deprecatedNode>
                 <entities>
                     <product>
                         <table>catalog_product_entity</table>

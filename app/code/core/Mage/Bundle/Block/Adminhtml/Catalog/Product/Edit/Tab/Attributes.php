@@ -113,7 +113,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes
         }
 
         $mapEnabled = $this->getForm()->getElement('msrp_enabled');
-        if ($mapEnabled) {
+        if ($mapEnabled && $this->getCanEditPrice() !== false) {
             $mapEnabled->setAfterElementHtml(
                 '<script type="text/javascript">'
                 . "

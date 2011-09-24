@@ -105,7 +105,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
         $addressForm = $this->_getAddressForm()
             ->setEntity($addressModel);
 
-        $this->_addAttributesToForm($addressForm->getAttributes(), $fieldset);
+        $attributes = $addressForm->getAttributes();
+        if(isset($attributes['street'])) {
+            Mage::helper('adminhtml/addresses')
+                ->processStreetAttribute($attributes['street']);
+        }
+        $this->_addAttributesToForm($attributes, $fieldset);
 
         $prefixElement = $this->_form->getElement('prefix');
         if ($prefixElement) {

@@ -82,6 +82,10 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
     {
         parent::preDispatch();
 
+        if ($this->getFlag('', 'redirectLogin')) {
+            return $this;
+        }
+
         $action = $this->getRequest()->getActionName();
 
         $checkoutSessionQuote = $this->_getCheckoutSession()->getQuote();
@@ -542,4 +546,22 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         $this->renderLayout();
     }
 
+    /**
+     * Redirect to login page
+     *
+     */
+    public function redirectLogin()
+    {
+        $this->setFlag('', 'no-dispatch', true);
+        Mage::getSingleton('customer/session')->setBeforeAuthUrl($this->_getRefererUrl());
+
+        $this->getResponse()->setRedirect(
+            Mage::helper('core/url')->addRequestParam(
+                $this->_getHelper()->getMSLoginUrl(),
+                array('context' => 'checkout')
+            )
+        );
+
+        $this->setFlag('', 'redirectLogin', true);
+    }
 }

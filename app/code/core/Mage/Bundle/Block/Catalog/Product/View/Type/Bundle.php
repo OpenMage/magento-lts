@@ -122,7 +122,11 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
 
                 $itemPrice = $_selection->getFinalPrice();
                 if ($_selection->getSelectionPriceValue() != 0) {
-                    $itemPrice = $_selection->getSelectionPriceValue();
+                    if ($_selection->getSelectionPriceType()) { // percent
+                        $itemPrice = $currentProduct->getFinalPrice() * $_selection->getSelectionPriceValue() / 100;
+                    } else { // fixed
+                        $itemPrice = $_selection->getSelectionPriceValue();
+                    }
                 }
 
                 $canApplyMAP = false;

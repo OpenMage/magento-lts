@@ -1172,11 +1172,12 @@ f/********** Product Prices > */
 .truncated a.dots { cursor:help; text-decoration:none !important; }
 .truncated a.details { cursor:help; text-decoration:none !important; display:inline-block; border-bottom:1px dotted #4f8100; }
 .truncated .truncated_full_value { position:relative; z-index:999; }
-.truncated .truncated_full_value dl { position:absolute; top:-99999em; z-index:999; width:250px; padding:8px; border:2px solid #ddd; border-bottom-color:#666; background-color:#f6f6f6; }
-.truncated .truncated_full_value dt { margin-top:0; }
-.truncated .show dl { top:-20px; left:50%; }
-.col-left .truncated .show dl { left:30px; top:10px; }
-.col-right .truncated .show dl { left:-240px; top:10px; }
+.truncated .truncated_full_value .item-options { position:absolute; top:-99999em; z-index:999; width:250px; padding:8px; border:2px solid #ddd; border-bottom-color:#666; background-color:#f6f6f6; }
+.truncated .truncated_full_value .item-options dt { margin-top:0; }
+.truncated .truncated_full_value .item-options > p { font-weight:bold; text-transform:uppercase; }
+.truncated .show .item-options { top:-20px; left:50%; }
+.col-left .truncated .show .item-options { left:30px; top:10px; }
+.col-right .truncated .show .item-options { left:-240px; top:10px; }
 /* ======================================================================================= */
 
 

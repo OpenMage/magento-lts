@@ -171,7 +171,12 @@ class Mage_GoogleCheckout_RedirectController extends Mage_Core_Controller_Front_
     {
         $this->setFlag('', 'no-dispatch', true);
         Mage::getSingleton('customer/session')->setBeforeAuthUrl($this->_getRefererUrl());
-        $this->getResponse()->setRedirect(Mage::helper('customer')->getLoginUrl());
+        $this->getResponse()->setRedirect(
+            Mage::helper('core/url')->addRequestParam(
+                Mage::helper('customer')->getLoginUrl(),
+                array('context' => 'checkout')
+            )
+        );
     }
 
 }

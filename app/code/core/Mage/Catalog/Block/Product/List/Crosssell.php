@@ -36,6 +36,13 @@
 class Mage_Catalog_Block_Product_List_Crosssell extends Mage_Catalog_Block_Product_Abstract
 {
     /**
+     * Default MAP renderer type
+     *
+     * @var string
+     */
+    protected $_mapRenderer = 'msrp_item';
+
+    /**
      * Crosssell item collection
      *
      * @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection

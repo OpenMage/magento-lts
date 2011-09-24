@@ -402,7 +402,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
 
         if (empty($attributeInstance)
             || !($attributeInstance instanceof Mage_Eav_Model_Entity_Attribute_Abstract)
-            || (!$attributeInstance->getId() && !in_array($attributeInstance->getAttributeCode(), $this->getDefaultAttributes()))
+            || (!$attributeInstance->getId()
+            && !in_array($attributeInstance->getAttributeCode(), $this->getDefaultAttributes()))
         ) {
             return false;
         }
@@ -875,9 +876,10 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select();
         if ($attribute->getBackend()->getType() === 'static') {
+            $value = $object->getData($attribute->getAttributeCode());
             $bind = array(
                 'entity_type_id' => $this->getTypeId(),
-                'attribute_code' => $object->getData($attribute->getAttributeCode())
+                'attribute_code' => trim($value)
             );
 
             $select
@@ -893,7 +895,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             $bind = array(
                 'entity_type_id' => $this->getTypeId(),
                 'attribute_id'   => $attribute->getId(),
-                'value'          => $value
+                'value'          => trim($value)
             );
             $select
                 ->from($attribute->getBackend()->getTable(), $attribute->getBackend()->getEntityIdField())
@@ -1249,7 +1251,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param array $origData
      * @return bool
      */
-    protected function _canUpdateAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $value, array &$origData)
+    protected function _canUpdateAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $v, array &$origData)
     {
         return array_key_exists($attribute->getAttributeCode(), $origData);
     }
@@ -1263,7 +1265,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     protected function _getStaticFieldProperties($field)
     {
         if (empty($this->_describeTable[$this->getEntityTable()])) {
-            $this->_describeTable[$this->getEntityTable()] = $this->_getWriteAdapter()->describeTable($this->getEntityTable());
+            $this->_describeTable[$this->getEntityTable()] = $this->_getWriteAdapter()
+                ->describeTable($this->getEntityTable());
         }
 
         if (isset($this->_describeTable[$this->getEntityTable()][$field])) {

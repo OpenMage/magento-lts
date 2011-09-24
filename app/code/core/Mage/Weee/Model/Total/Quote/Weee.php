@@ -60,7 +60,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     }
 
     /**
-     * Collect Weee taxes amount ant prepare items prices for taxation and discount
+     * Collect Weee taxes amount and prepare items prices for taxation and discount
      *
      * @param   Mage_Sales_Model_Quote_Address $address
      * @return  Mage_Weee_Model_Total_Quote_Weee

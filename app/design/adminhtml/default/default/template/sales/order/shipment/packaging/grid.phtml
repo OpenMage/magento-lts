@@ -28,26 +28,18 @@
     <div class="grid">
         <div class="hor-scroll">
             <table cellspacing="0" class="data">
-                <colgroup>
-                    <col>
-                    <col>
-                    <col width="100">
-                    <col width="100">
-                    <col width="100">
-                    <col width="*">
-                </colgroup>
                 <thead>
                 <tr class="headings">
                     <th class=" no-link"><span class="nobr"><?php echo Mage::helper('sales')->__('Product Name') ?></span></th>
                     <th class=" no-link"><span class="nobr"><?php echo Mage::helper('sales')->__('Weight') ?></span></th>
-                    <th class=" no-link" <?php echo $this->displayCustomsValue() ? '' : 'style="display: none;"' ?>>
+                    <th class=" no-link" <?php echo $this->displayCustomsValue() ? '' : 'style="display: none;"' ?> width="100">
                         <span class="nobr"><?php echo Mage::helper('sales')->__('Customs Value') ?></span>
                     </th>
-                    <th class="a-center no-link">
+                    <th class="a-center no-link" width="100">
                         <span class="nobr"><input type="checkbox" name="" onclick="packaging.checkAllItems(this);" class="checkbox" title="<?php echo Mage::helper('sales')->__('Select All') ?>"></span>
                     </th>
-                    <th class=" no-link"><span class="nobr"><?php echo Mage::helper('sales')->__('Qty Ordered') ?></span></th>
-                    <th class=" no-link last"><span class="nobr"><?php echo Mage::helper('sales')->__('Qty') ?></span></th>
+                    <th class=" no-link" width="100"><span class="nobr"><?php echo Mage::helper('sales')->__('Qty Ordered') ?></span></th>
+                    <th class=" no-link last" width="100"><span class="nobr"><?php echo Mage::helper('sales')->__('Qty') ?></span></th>
                 </tr>
                 </thead>
 
@@ -67,8 +59,17 @@
                         <td class="a-center weight ">
                             <?php echo $item->getWeight(); ?>
                         </td>
-                        <td <?php echo $this->displayCustomsValue() ? '' : 'style="display: none;"' ?> >
-                            <input type="text" name="customs_value" value="<?php echo $this->formatPrice($item->getPrice()); ?>" size="10" onblur="packaging.recalcContainerWeightAndCustomsValue(this);">
+                        <?php
+                            if ($this->displayCustomsValue()) {
+                                $customsValueDisplay = '';
+                                $customsValueValidation = ' validate-zero-or-greater ';
+                            } else {
+                                $customsValueDisplay = ' style="display: none;" ';
+                                $customsValueValidation = '';
+                            }
+                        ?>
+                        <td <?php echo $customsValueDisplay ?>>
+                            <input type="text" name="customs_value" class="input-text <?php echo $customsValueValidation ?>" value="<?php echo $this->formatPrice($item->getPrice()); ?>" size="10" onblur="packaging.recalcContainerWeightAndCustomsValue(this);">
                         </td>
                         <td class="a-center ">
                             <input type="checkbox" name="" value="<?php echo $item->getId() ? $item->getId() : $item->getOrderItemId(); ?>" class="checkbox">
@@ -78,7 +79,7 @@
                         </td>
                         <td class="a-right last">
                             <input type="hidden" name="price" value="<?php echo $item->getPrice(); ?>">
-                            <input type="text" name="qty" value="<?php echo $item->getQty()*1; ?>" class="input-text qty">&nbsp;
+                            <input type="text" name="qty" value="<?php echo $item->getQty()*1; ?>" class="input-text qty<?php if ($item->getOrderItem()->getIsQtyDecimal()): ?> qty-decimal<?php endif ?>">&nbsp;
                             <button type="button" class="scalable delete icon-btn" onclick="packaging.deleteItem(this);" style="display:none;">
                                 <span><?php echo Mage::helper('sales')->__('Delete') ?></span>
                             </button>

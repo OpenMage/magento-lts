@@ -38,15 +38,14 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
 
         $order = $creditmemo->getOrder();
 
-        /* @var $item Mage_Sales_Model_Order_Creditmemo_Item */
         foreach ($creditmemo->getAllItems() as $item) {
             if ($item->getOrderItem()->isDummy()) {
                 continue;
             }
             $orderItem        = $item->getOrderItem();
-            $orderItemTax     = $orderItem->getTaxAmount();
-            $baseOrderItemTax = $orderItem->getBaseTaxAmount();
-            $orderItemQty     = $orderItem->getQtyOrdered();
+            $orderItemTax     = $item->getOrderItem()->getTaxAmount();
+            $baseOrderItemTax = $item->getOrderItem()->getBaseTaxAmount();
+            $orderItemQty     = $item->getOrderItem()->getQtyOrdered();
 
             if ($orderItemTax && $orderItemQty) {
                 /**
@@ -55,16 +54,19 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
 
 
                 if ($item->isLast()) {
-                    $tax            = $orderItemTax - $orderItem->getTaxRefunded() - $orderItem->getTaxCanceled();
-                    $baseTax        = $baseOrderItemTax - $orderItem->getTaxRefunded() - $orderItem->getTaxCanceled();
+                    $tax            = $orderItemTax - $item->getOrderItem()->getTaxRefunded()
+                        - $item->getOrderItem()->getTaxCanceled();
+                    $baseTax        = $baseOrderItemTax - $item->getOrderItem()->getTaxRefunded()
+                        - $item->getOrderItem()->getTaxCanceled();
                     $hiddenTax      = $orderItem->getHiddenTaxAmount() - $orderItem->getHiddenTaxRefunded()
-                        - $orderItem->getHiddenTaxCanceled();
+                        - $item->getOrderItem()->getHiddenTaxCanceled();
                     $baseHiddenTax  = $orderItem->getBaseHiddenTaxAmount() - $orderItem->getBaseHiddenTaxRefunded()
-                        - $orderItem->getHiddenTaxCanceled();
+                        - $item->getOrderItem()->getHiddenTaxCanceled();
 
-                } else {
-                    $tax        = ($orderItem->getPriceInclTax() - $orderItem->getPrice()) * $item->getQty();
-                    $baseTax    = ($orderItem->getBasePriceInclTax() - $orderItem->getBasePrice()) * $item->getQty();
+                }
+                else {
+                    $tax            = $orderItemTax*$item->getQty()/$orderItemQty;
+                    $baseTax        = $baseOrderItemTax*$item->getQty()/$orderItemQty;
                     $hiddenTax      = $orderItem->getHiddenTaxAmount()*$item->getQty()/$orderItemQty;
                     $baseHiddenTax  = $orderItem->getBaseHiddenTaxAmount()*$item->getQty()/$orderItemQty;
 
@@ -119,7 +121,9 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
             $shippingHiddenTaxAmount = 0;
             $baseShippingHiddenTaxAmount = 0;
 
-            if (($baseOrderShippingAmount - $baseOrderShippingRefundedAmount) > $creditmemo->getBaseShippingAmount()) {
+            $shippingDelta = $baseOrderShippingAmount - $baseOrderShippingRefundedAmount;
+
+            if ($shippingDelta > $creditmemo->getBaseShippingAmount()) {
                 $part       = $creditmemo->getShippingAmount()/$orderShippingAmount;
                 $basePart   = $creditmemo->getBaseShippingAmount()/$baseOrderShippingAmount;
                 $shippingTaxAmount          = $order->getShippingTaxAmount()*$part;
@@ -130,11 +134,13 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
                 $baseShippingTaxAmount      = $creditmemo->getStore()->roundPrice($baseShippingTaxAmount);
                 $shippingHiddenTaxAmount    = $creditmemo->getStore()->roundPrice($shippingHiddenTaxAmount);
                 $baseShippingHiddenTaxAmount= $creditmemo->getStore()->roundPrice($baseShippingHiddenTaxAmount);
-            } elseif (($baseOrderShippingAmount - $baseOrderShippingRefundedAmount) == $creditmemo->getBaseShippingAmount()) {
+            } elseif ($shippingDelta == $creditmemo->getBaseShippingAmount()) {
                 $shippingTaxAmount          = $order->getShippingTaxAmount() - $order->getShippingTaxRefunded();
                 $baseShippingTaxAmount      = $order->getBaseShippingTaxAmount() - $order->getBaseShippingTaxRefunded();
-                $shippingHiddenTaxAmount    = $order->getShippingHiddenTaxAmount() - $order->getShippingHiddenTaxRefunded();
-                $baseShippingHiddenTaxAmount= $order->getBaseShippingHiddenTaxAmount() - $order->getBaseShippingHiddenTaxRefunded();
+                $shippingHiddenTaxAmount    = $order->getShippingHiddenTaxAmount()
+                        - $order->getShippingHiddenTaxRefunded();
+                $baseShippingHiddenTaxAmount= $order->getBaseShippingHiddenTaxAmount()
+                        - $order->getBaseShippingHiddenTaxRefunded();
             }
             $totalTax           += $shippingTaxAmount;
             $baseTotalTax       += $baseShippingTaxAmount;

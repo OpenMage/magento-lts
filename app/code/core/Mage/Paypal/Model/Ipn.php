@@ -536,13 +536,14 @@ class Mage_Paypal_Model_Ipn
     {
         $this->_importPaymentInformation();
 
-        $parentTrxId = $this->getRequestData('parent_txn_id') ? $this->getRequestData('parent_txn_id')
-            : $this->getRequestData('txn_id');
+        $parentTxnId = $this->getRequestData('transaction_entity') == 'auth'
+            ? $this->getRequestData('txn_id') : $this->getRequestData('parent_txn_id');
 
         $this->_order->getPayment()
             ->setPreparedMessage($this->_createIpnComment(''))
-            ->setParentTransactionId($parentTrxId)
+            ->setParentTransactionId($parentTxnId)
             ->registerVoidNotification();
+
         $this->_order->save();
     }
 

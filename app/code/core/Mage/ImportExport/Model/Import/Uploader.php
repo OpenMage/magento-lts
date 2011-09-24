@@ -208,13 +208,11 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
      * @param string $destPath
      * @return bool
      */
-    protected function _moveFile($tmpPath, $destPath = null)
+    protected function _moveFile($tmpPath, $destPath)
     {
         $sourceFile = realpath($tmpPath);
-        $destPath = is_null($destPath) ? $tmpPath : $destPath;
-        $destinationFile  = $destPath;
         if ($sourceFile !== false) {
-            return copy($sourceFile, $destinationFile);
+            return copy($sourceFile, $destPath);
         } else {
             return false;
         }

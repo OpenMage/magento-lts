@@ -370,7 +370,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
                     $selectionPriceType . ' = 1',
                     'ROUND(i.price * (' . $selectionPriceValue . ' / 100),4)',
                     $write->getCheckSql(
-                        'i.special_price > 0',
+                        'i.special_price > 0 AND i.special_price < 100',
                         'ROUND(' . $selectionPriceValue . ' * (i.special_price / 100),4)',
                         $selectionPriceValue
                     )
@@ -395,7 +395,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         } else {
             $priceExpr = new Zend_Db_Expr(
                 $write->getCheckSql(
-                    'i.special_price > 0',
+                    'i.special_price > 0 AND i.special_price < 100',
                     'ROUND(idx.min_price * (i.special_price / 100), 4)',
                     'idx.min_price'
                 ) . ' * bs.selection_qty'

@@ -46,13 +46,19 @@ Default layout, loads most of the pages
     <checkout_cart_index>
         <update handle="MAP_popup" />
     </checkout_cart_index>
+    <checkout_onepage_success>
+        <update handle="MAP_popup" />
+    </checkout_onepage_success>
+    <checkout_onepage_failure>
+        <update handle="MAP_popup" />
+    </checkout_onepage_failure>
     <wishlist_index_index>
         <update handle="MAP_popup" />
-        <update handle="MAP_price_msrp_item" />
+        <update handle="MAP_price_msrp_wishlist_item" />
     </wishlist_index_index>
     <wishlist_shared_index>
         <update handle="MAP_popup" />
-        <update handle="MAP_price_msrp_item" />
+        <update handle="MAP_price_msrp_wishlist_item" />
     </wishlist_shared_index>
     <review_product_list>
         <update handle="MAP_popup" />
@@ -67,7 +73,7 @@ Default layout, loads most of the pages
     <tag_product_list>
         <update handle="MAP_popup" />
     </tag_product_list>
-    
+
     <MAP_popup>
         <reference name="head">
             <action method="addItem" ifconfig="sales/msrp/enabled"><type>skin_js</type><name>js/msrp.js</name></action>
@@ -84,10 +90,16 @@ Default layout, loads most of the pages
             <action method="addPriceBlockType"><type>msrp</type><block>catalog/product_price</block><template>catalog/product/price_msrp_item.phtml</template></action>
         </reference>
     </MAP_price_msrp_item>
+    <MAP_price_msrp_wishlist_item>
+        <reference name="catalog_product_price_template">
+            <action method="addPriceBlockType"><type>msrp</type><block>catalog/product_price</block><template>wishlist/render/item/price_msrp_item.phtml</template></action>
+        </reference>
+    </MAP_price_msrp_wishlist_item>
     <default>
         <reference name="catalog_product_price_template">
             <action method="addPriceBlockType"><type>msrp</type><block>catalog/product_price</block><template>catalog/product/price_msrp.phtml</template></action>
             <action method="addPriceBlockType"><type>msrp_item</type><block>catalog/product_price</block><template>catalog/product/price_msrp_item.phtml</template></action>
+            <action method="addPriceBlockType"><type>msrp_noform</type><block>catalog/product_price</block><template>catalog/product/price_msrp_noform.phtml</template></action>
         </reference>
     </default>
 </layout>

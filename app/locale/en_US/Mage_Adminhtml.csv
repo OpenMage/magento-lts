@@ -1208,7 +1208,6 @@
 "example: ""sitemap/"" or ""/"" for base path (path must be writeable)","example: ""sitemap/"" or ""/"" for base path (path must be writeable)"
 "example: sitemap.xml","example: sitemap.xml"
 "from","from"
-"images/logo.gif","images/logo.gif"
 "items selected","items selected"
 "major","major"
 "minor","minor"

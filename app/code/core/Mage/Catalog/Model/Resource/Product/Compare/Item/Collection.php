@@ -32,7 +32,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection 
+class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
     extends Mage_Catalog_Model_Resource_Product_Collection
 {
     /**
@@ -114,7 +114,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
     /**
      * Retrieve condition for join filters
      *
-     * @return array|null
+     * @return array
      */
     public function getConditionForJoin()
     {
@@ -126,7 +126,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
             return array('visitor_id' => $this->getVisitorId());
         }
 
-        return null;
+        return array('customer_id' => array('null' => true),'visitor_id' => '0');
     }
 
     /**

@@ -98,7 +98,8 @@ class Maged_Model_Connect extends Maged_Model
      */
     public function prepareToInstall($id)
     {
-        if (!preg_match('#^([^ ]+)\/([^-]+)(-[^-]+)?$#', $id, $match)) {
+        $match = array();
+        if (!$this->checkExtensionKey($id, $match)) {
             echo('Invalid package identifier provided: '.$id);
             exit;
         }
@@ -111,7 +112,7 @@ class Maged_Model_Connect extends Maged_Model
         $sconfig = $connect->getSingleConfig();
 
         $options = array();
-        $params = array($channel, $package, $version);
+        $params = array($channel, $package, $version, $version);
         $this->controller()->channelConfig()->setCommandOptions($this->controller()->session(), $options);
 
         $connect->run('package-prepare', $options, $params);
@@ -324,9 +325,7 @@ class Maged_Model_Connect extends Maged_Model
     public function installPackage($id, $force=false)
     {
         $match = array();
-        //if (!preg_match('#^([^ ]+) ([^-]+)(-[^-]+)?$#', $id, $match)) {// there is bug? space not used as separator "/" must be there. Version number part (-[^-]+) may be optional?
-        //if (!preg_match('#^([^\/]+)\/([^-]+)?$#', $id, $match)&&!preg_match('#^([^ ]+)\/([^-]+)(-[^-]+)?$#', $id, $match)&&!preg_match('#^([^ ]+) ([^-]+)(-[^-]+)?$#', $id, $match)) {
-        if (!preg_match('#^([^ ]+)\/([^-]+)(-[^-]+)?$#', $id, $match)) {
+        if (!$this->checkExtensionKey($id, $match)) {
             $this->connect()->runHtmlConsole('Invalid package identifier provided: '.$id);
             exit;
         }
@@ -470,8 +469,23 @@ class Maged_Model_Connect extends Maged_Model
             $configObj->global_dir_mode = octdec(intval($p['mkdir_mode']));
             $configObj->global_file_mode = octdec(intval($p['chmod_file_mode']));
         }
-        $this->controller()->session()->addMessage('success', 'Settings has been successfully saved');
+        if ($configObj->save()) {
+            $this->controller()->session()->addMessage('success', 'Settings has been successfully saved');
+        } else {
+            $this->controller()->session()->addMessage('error', 'Settings cannot be saved');
+        }
         return $this;
     }
 
+    /**
+     * Check Extension Key
+     *
+     * @param string $id
+     * @param array $match
+     * @return int
+     */
+    public function checkExtensionKey($id, &$match)
+    {
+        return preg_match('#^([^ ]+)\/([^-]+)(-.+)?$#', $id, $match);
+    }
 }

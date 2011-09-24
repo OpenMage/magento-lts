@@ -362,7 +362,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                     array())
                 ->joinLeft(
                     array('ie' => $this->getMainTable()),
-                    'ie.category_id = ' . (int)$rootId . ' AND ie.product_id=i.product_id AND ie.store_id = ' . (int)$storeId,
+                    'ie.category_id = ' . (int)$rootId
+                        . ' AND ie.product_id=i.product_id AND ie.store_id = ' . (int)$storeId,
                     array())
                 ->where('cc.path LIKE ?', $rootPath . '/%')
                 ->where('ie.category_id IS NULL')
@@ -384,7 +385,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                 ->from(array('pw' => $this->_productWebsiteTable), array())
                 ->joinLeft(
                     array('i' => $this->getMainTable()),
-                    'i.product_id = pw.product_id AND i.category_id = ' . (int)$rootId . ' AND i.store_id = ' . (int) $storeId,
+                    'i.product_id = pw.product_id AND i.category_id = ' . (int)$rootId
+                        . ' AND i.store_id = ' . (int) $storeId,
                     array())
                 ->join(
                     array('dv' => $visibilityInfo['table']),
@@ -392,7 +394,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                     array())
                 ->joinLeft(
                     array('sv' => $visibilityInfo['table']),
-                    "sv.entity_id = pw.product_id AND sv.attribute_id = {$visibilityInfo['id']} AND sv.store_id = " . (int)$storeId,
+                    "sv.entity_id = pw.product_id AND sv.attribute_id = {$visibilityInfo['id']}"
+                        . " AND sv.store_id = " . (int)$storeId,
                     array())
                 ->join(
                     array('ds' => $statusInfo['table']),
@@ -400,7 +403,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                     array())
                 ->joinLeft(
                     array('ss' => $statusInfo['table']),
-                    "ss.entity_id = pw.product_id AND ss.attribute_id = {$statusInfo['id']} AND ss.store_id = " . (int)$storeId,
+                    "ss.entity_id = pw.product_id AND ss.attribute_id = {$statusInfo['id']}"
+                        . " AND ss.store_id = " . (int)$storeId,
                     array())
                 ->where('i.product_id IS NULL')
                 ->where('pw.website_id=?', $websiteId)
@@ -528,7 +532,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
          * Insert anchor categories relations
          */
         $adapter = $this->_getReadAdapter();
-        $isParent = $adapter->getCheckSql('MIN(cp.category_id)=ce.entity_id', 1, 0); // new Zend_Db_Expr('IF (, 1, 0) AS is_parent');
+        $isParent = $adapter->getCheckSql('MIN(cp.category_id)=ce.entity_id', 1, 0);
         $position = $adapter->getCheckSql(
             'MIN(cp.category_id)=ce.entity_id',
             'MIN(cp.position)',
@@ -568,7 +572,10 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             ->joinLeft(
                 array('sv'=>$visibilityInfo['table']),
                 "sv.entity_id=pw.product_id AND sv.attribute_id={$visibilityInfo['id']} AND sv.store_id=s.store_id",
-                array('visibility' => $adapter->getCheckSql('MIN(sv.value_id) IS NOT NULL', 'MIN(sv.value)', 'MIN(dv.value)'))
+                array('visibility' => $adapter->getCheckSql(
+                    'MIN(sv.value_id) IS NOT NULL',
+                    'MIN(sv.value)', 'MIN(dv.value)'
+                ))
             )
             ->joinLeft(
                 array('ds'=>$statusInfo['table']),
@@ -668,14 +675,17 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             ->from(array('pw' => $this->_productWebsiteTable), array())
             ->joinInner(array('g' => $this->_groupTable), 'g.website_id = pw.website_id', array())
             ->joinInner(array('s' => $this->_storeTable), 's.group_id = g.group_id', array())
-            ->joinLeft(array('i'  => $this->getMainTable()), 'i.product_id = pw.product_id AND i.category_id = g.root_category_id', array())
+            ->joinLeft(
+                array('i'  => $this->getMainTable()),
+                'i.product_id = pw.product_id AND i.category_id = g.root_category_id', array())
             ->joinLeft(
                 array('dv' => $visibilityInfo['table']),
                 "dv.entity_id = pw.product_id AND dv.attribute_id = {$visibilityInfo['id']} AND dv.store_id = 0",
                 array())
             ->joinLeft(
                 array('sv' => $visibilityInfo['table']),
-                "sv.entity_id = pw.product_id AND sv.attribute_id = {$visibilityInfo['id']} AND sv.store_id = s.store_id",
+                "sv.entity_id = pw.product_id AND sv.attribute_id = {$visibilityInfo['id']}"
+                    . " AND sv.store_id = s.store_id",
                 array())
             ->join(
                 array('ds' => $statusInfo['table']),
@@ -686,7 +696,9 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                 "ss.entity_id = pw.product_id AND ss.attribute_id = {$statusInfo['id']} AND ss.store_id = s.store_id",
                 array())
             ->where('i.product_id IS NULL')
-            ->where($adapter->getCheckSql('ss.value_id IS NOT NULL', 'ss.value', 'ds.value') . '=?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
+            ->where(
+                $adapter->getCheckSql('ss.value_id IS NOT NULL', 'ss.value', 'ds.value') . '=?',
+                Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
             ->where('pw.product_id IN(?)', $productIds)
             ->columns(array(
                 'category_id'   => 'g.root_category_id',
@@ -710,7 +722,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
      */
     protected function _getAnchorAttributeInfo()
     {
-        $isAnchorAttribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_anchor');
+        $isAnchorAttribute = Mage::getSingleton('eav/config')
+            ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_anchor');
         $info = array(
             'id'    => $isAnchorAttribute->getId() ,
             'table' => $isAnchorAttribute->getBackend()->getTable()
@@ -725,7 +738,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
      */
     protected function _getVisibilityAttributeInfo()
     {
-        $visibilityAttribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'visibility');
+        $visibilityAttribute = Mage::getSingleton('eav/config')
+            ->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'visibility');
         $info = array(
             'id'    => $visibilityAttribute->getId() ,
             'table' => $visibilityAttribute->getBackend()->getTable()
@@ -928,7 +942,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     protected function _prepareEnabledProductsVisibility($websiteId, $storeId)
     {
         $statusAttribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'status');
-        $visibilityAttribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'visibility');
+        $visibilityAttribute = Mage::getSingleton('eav/config')
+            ->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'visibility');
         $statusAttributeId = $statusAttribute->getId();
         $visibilityAttributeId = $visibilityAttribute->getId();
         $statusTable = $statusAttribute->getBackend()->getTable();
@@ -1025,7 +1040,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
      */
     protected function _prepareAnchorCategories($storeId, $rootPath)
     {
-        $isAnchorAttribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_anchor');
+        $isAnchorAttribute = Mage::getSingleton('eav/config')
+            ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_anchor');
         $anchorAttributeId = $isAnchorAttribute->getId();
         $anchorTable = $isAnchorAttribute->getBackend()->getTable();
         $adapter = $this->_getIndexAdapter();
@@ -1049,7 +1065,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                 $adapter->quoteInto("cas.entity_id=ce.entity_id AND cas.attribute_id=? AND ", $anchorAttributeId)
                     . $adapter->quoteInto('cas.store_id=?', $storeId),
                 array())
-            ->where("{$anchorExpr} = 1 AND {$adapter->quoteIdentifier('ce.path')} LIKE ?", $rootPath . '%1')
+            ->where("{$anchorExpr} = 1 AND {$adapter->quoteIdentifier('ce.path')} LIKE ?", $rootPath . '%')
             ->orWhere('ce.path = ?', $rootPath);
 
         $query = $select->insertFromSelect($tmpTable, array('category_id' , 'path'), false);

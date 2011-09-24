@@ -57,86 +57,31 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                     $customerId = $customerSession->getCustomerId();
                     $storeId = Mage::app()->getStore()->getId();
 
-                    $tagNamesArr = $this->_cleanTags($this->_extractTags($tagName));
+                    $tagModel = Mage::getModel('tag/tag');
 
-                    $counter = new Varien_Object(array(
-                        "new" => 0,
-                        "exist" => array(),
-                        "success" => array(),
-                        "recurrence" => array())
+                    // added tag relation statuses
+                    $counter = array(
+                        Mage_Tag_Model_Tag::ADD_STATUS_NEW => array(),
+                        Mage_Tag_Model_Tag::ADD_STATUS_EXIST => array(),
+                        Mage_Tag_Model_Tag::ADD_STATUS_SUCCESS => array(),
+                        Mage_Tag_Model_Tag::ADD_STATUS_REJECTED => array()
                     );
 
-                    $tagModel = Mage::getModel('tag/tag');
-                    $tagRelationModel = Mage::getModel('tag/tag_relation');
-
+                    $tagNamesArr = $this->_cleanTags($this->_extractTags($tagName));
                     foreach ($tagNamesArr as $tagName) {
+                        // unset previously added tag data
                         $tagModel->unsetData()
-                            ->loadByName($tagName)
-                            ->setStoreId($storeId)
-                            ->setName($tagName);
-
-                        $tagRelationModel->unsetData()
-                            ->setStoreId($storeId)
-                            ->setProductId($productId)
-                            ->setCustomerId($customerId)
-                            ->setActive(Mage_Tag_Model_Tag_Relation::STATUS_ACTIVE)
-                            ->setCreatedAt( $tagRelationModel->getResource()->formatDate(time()) );
+                            ->loadByName($tagName);
 
                         if (!$tagModel->getId()) {
-                            $tagModel->setFirstCustomerId($customerId)
+                            $tagModel->setName($tagName)
+                                ->setFirstCustomerId($customerId)
                                 ->setFirstStoreId($storeId)
                                 ->setStatus($tagModel->getPendingStatus())
                                 ->save();
-
-                            $tagRelationModel->setTagId($tagModel->getId())->save();
-                            $counter->setNew($counter->getNew() + 1);
-                        } else {
-                            $tagStatus = $tagModel->getStatus();
-                            $tagRelationModel->setTagId($tagModel->getId());
-
-                            switch($tagStatus) {
-                                case $tagModel->getApprovedStatus():
-                                    if($this->_checkLinkBetweenTagProduct($tagRelationModel)) {
-                                        $relation = $this->_getLinkBetweenTagCustomerProduct($tagRelationModel, $tagModel);
-                                        if ($relation->getId()) {
-                                            if (!$relation->getActive()) {
-                                                $tagRelationModel
-                                                    ->setId($relation->getId())
-                                                    ->save();
-                                            }
-                                        } else {
-                                            $tagRelationModel->save();
-                                        }
-                                        $counter->setExist(array_merge($counter->getExist(), array($tagName)));
-                                    } else {
-                                        $tagRelationModel->save();
-                                        $counter->setSuccess(array_merge($counter->getSuccess(), array($tagName)));
-                                    }
-                                    break;
-                                case $tagModel->getPendingStatus():
-                                    $relation = $this->_getLinkBetweenTagCustomerProduct($tagRelationModel, $tagModel);
-                                    if ($relation->getId()) {
-                                        if (!$relation->getActive()) {
-                                            $tagRelationModel
-                                                ->setId($relation->getId())
-                                                ->save();
-                                        }
-                                    } else {
-                                        $tagRelationModel->save();
-                                    }
-                                    $counter->setNew($counter->getNew() + 1);
-                                    break;
-                                case $tagModel->getDisabledStatus():
-                                    if($this->_checkLinkBetweenTagCustomerProduct($tagRelationModel, $tagModel)) {
-                                        $counter->setRecurrence(array_merge($counter->getRecurrence(), array($tagName)));
-                                    } else {
-                                        $tagModel->setStatus($tagModel->getPendingStatus())->save();
-                                        $tagRelationModel->save();
-                                        $counter->setNew($counter->getNew() + 1);
-                                    }
-                                    break;
-                            }
                         }
+                        $relationStatus = $tagModel->saveRelation($productId, $customerId, $storeId);
+                        $counter[$relationStatus][] = $tagName;
                     }
                     $this->_fillMessageBox($counter);
                 } catch (Exception $e) {
@@ -178,79 +123,36 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Checks whether the already marked this product in this store by this tag.
-     *
-     * @param Mage_Tag_Model_Tag_Relation $tagRelationModel
-     * @return boolean
-     */
-    protected function _checkLinkBetweenTagProduct($tagRelationModel)
-    {
-        $customerId = $tagRelationModel->getCustomerId();
-        $tagRelationModel->setCustomerId(null);
-        $res = in_array($tagRelationModel->getProductId(), $tagRelationModel->getProductIds());
-        $tagRelationModel->setCustomerId($customerId);
-        return $res;
-    }
-
-    /**
-     * Checks whether the already marked this product in this store by this tag and by this customer.
-     *
-     * @param Mage_Tag_Model_Tag_Relation $tagRelationModel
-     * @param Mage_Tag_Model_Tag $tagModel
-     * @return boolean
-     */
-    protected function _checkLinkBetweenTagCustomerProduct($tagRelationModel, $tagModel)
-    {
-        return (count($this->_getLinkBetweenTagCustomerProduct($tagRelationModel, $tagModel)
-            ->getProductIds()) > 0);
-    }
-
-    /**
-     * Get relation model for marked product in this store by this tag and by this customer.
-     *
-     * @param Mage_Tag_Model_Tag_Relation $tagRelationModel
-     * @param Mage_Tag_Model_Tag $tagModel
-     * @return Mage_Tag_Model_Tag_Relation
-     */
-    protected function _getLinkBetweenTagCustomerProduct($tagRelationModel, $tagModel)
-    {
-        return Mage::getModel('tag/tag_relation')->loadByTagCustomer(
-            $tagRelationModel->getProductId(),
-            $tagModel->getId(),
-            $tagRelationModel->getCustomerId(),
-            $tagRelationModel->getStoreId()
-        );
-    }
-
-    /**
      * Fill Message Box by success and notice messages about results of user actions.
      *
-     * @param Varien_Object $counter
+     * @param array $counter
      * @return void
      */
     protected function _fillMessageBox($counter)
     {
         $session = Mage::getSingleton('catalog/session');
 
-        if ($counter->getNew()) {
-            $session->addSuccess($this->__('%s tag(s) have been accepted for moderation.', $counter->getNew()));
+        if (count($counter[Mage_Tag_Model_Tag::ADD_STATUS_NEW])) {
+            $session->addSuccess($this->__('%s tag(s) have been accepted for moderation.',
+                count($counter[Mage_Tag_Model_Tag::ADD_STATUS_NEW]))
+            );
         }
 
-        if (count($counter->getExist())) {
-            foreach ($counter->getExist() as $tagName) {
+        if (count($counter[Mage_Tag_Model_Tag::ADD_STATUS_EXIST])) {
+            foreach ($counter[Mage_Tag_Model_Tag::ADD_STATUS_EXIST] as $tagName) {
                 $session->addNotice($this->__('Tag "%s" has already been added to the product.' ,$tagName));
             }
         }
 
-        if (count($counter->getSuccess())) {
-            foreach ($counter->getSuccess() as $tagName) {
+        if (count($counter[Mage_Tag_Model_Tag::ADD_STATUS_SUCCESS])) {
+            foreach ($counter[Mage_Tag_Model_Tag::ADD_STATUS_SUCCESS] as $tagName) {
                 $session->addSuccess($this->__('Tag "%s" has been added to the product.' ,$tagName));
             }
         }
 
-        if (count($counter->getRecurrence())) {
-            foreach ($counter->getRecurrence() as $tagName) {
-                $session->addSuccess($this->__('Tag "%s" has been rejected by administrator.' ,$tagName));
+        if (count($counter[Mage_Tag_Model_Tag::ADD_STATUS_REJECTED])) {
+            foreach ($counter[Mage_Tag_Model_Tag::ADD_STATUS_REJECTED] as $tagName) {
+                $session->addNotice($this->__('Tag "%s" has been rejected by administrator.' ,$tagName));
             }
         }
     }

@@ -366,16 +366,16 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
             case Mage_Tax_Model_Calculation::CALC_TAX_AFTER_DISCOUNT_ON_INCL:
                 $discountAmount     = $item->getDiscountAmount() / $qty;
                 $baseDiscountAmount = $item->getBaseDiscountAmount() / $qty;
-                $unitTax = $this->_calculator->calcTaxAmount(
-                    max($price - $discountAmount, 0),
-                    $rate,
-                    $inclTax
-                );
-                $baseUnitTax = $this->_calculator->calcTaxAmount(
-                    max($basePrice - $baseDiscountAmount, 0),
-                    $rate,
-                    $inclTax
-                );
+
+                $unitTax = $this->_calculator->calcTaxAmount($price, $rate, $inclTax);
+                $discountRate = ($unitTax/$price) * 100;
+                $unitTaxDiscount = $this->_calculator->calcTaxAmount($discountAmount, $discountRate, $inclTax, false);
+                $unitTax = max($unitTax - $unitTaxDiscount, 0);
+                $baseUnitTax = $this->_calculator->calcTaxAmount($basePrice, $rate, $inclTax);
+                $baseDiscountRate = ($baseUnitTax/$basePrice) * 100;
+                $baseUnitTaxDiscount = $this->_calculator->calcTaxAmount($baseDiscountAmount, $baseDiscountRate, $inclTax, false);
+                $baseUnitTax = max($baseUnitTax - $baseUnitTaxDiscount, 0);
+
                 if ($inclTax && $discountAmount > 0) {
                     $hiddenTax      = $this->_calculator->calcTaxAmount($discountAmount, $rate, $inclTax, false);
                     $baseHiddenTax  = $this->_calculator->calcTaxAmount($baseDiscountAmount, $rate, $inclTax, false);

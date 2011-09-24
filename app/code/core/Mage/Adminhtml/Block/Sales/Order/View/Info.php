@@ -79,7 +79,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
 
     public function getCustomerViewUrl()
     {
-        if ($this->getOrder()->getCustomerIsGuest()) {
+        if ($this->getOrder()->getCustomerIsGuest() || !$this->getOrder()->getCustomerId()) {
             return false;
         }
         return $this->getUrl('*/customer/edit', array('id' => $this->getOrder()->getCustomerId()));

@@ -79,7 +79,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Get customer object
      *
-     * @return  Mage_Tax_Model_Calculation | false
+     * @return  Mage_Customer_Model_Customer | false
      */
     public function getCustomer()
     {
@@ -87,6 +87,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
             $session = Mage::getSingleton('customer/session');
             if ($session->isLoggedIn()) {
                 $this->_customer = $session->getCustomer();
+            } elseif ($session->getCustomerId()) {
+                $this->_customer = Mage::getModel('customer/customer')->load($session->getCustomerId());
             } else {
                 $this->_customer = false;
             }
@@ -261,7 +263,11 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * @param   null|int $store
      * @return  Varien_Object
      */
-    public function getRateRequest($shippingAddress = null, $billingAddress = null, $customerTaxClass = null, $store = null)
+    public function getRateRequest(
+        $shippingAddress = null,
+        $billingAddress = null,
+        $customerTaxClass = null,
+        $store = null)
     {
         if ($shippingAddress === false && $billingAddress === false && $customerTaxClass === false) {
             return $this->getRateOriginRequest($store);
@@ -274,8 +280,11 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
             || ($billingAddress === false && $basedOn == 'billing')) {
             $basedOn = 'default';
         } else {
-            if ((($billingAddress === false || is_null($billingAddress) || !$billingAddress->getCountryId()) && $basedOn == 'billing')
-                || (($shippingAddress === false || is_null($shippingAddress) || !$shippingAddress->getCountryId()) && $basedOn == 'shipping')){
+            if ((($billingAddress === false || is_null($billingAddress) || !$billingAddress->getCountryId())
+                && $basedOn == 'billing')
+                || (($shippingAddress === false || is_null($shippingAddress) || !$shippingAddress->getCountryId())
+                && $basedOn == 'shipping')
+            ){
                 if ($customer) {
                     $defBilling = $customer->getDefaultBillingAddress();
                     $defShipping = $customer->getDefaultShippingAddress();
@@ -304,9 +313,14 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
                 $address = $this->getRateOriginRequest($store);
                 break;
             case 'default':
-                $address->setCountryId(Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_COUNTRY, $store))
+                $address
+                    ->setCountryId(Mage::getStoreConfig(
+                        Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_COUNTRY,
+                        $store))
                     ->setRegionId(Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_REGION, $store))
-                    ->setPostcode(Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_POSTCODE, $store));
+                    ->setPostcode(Mage::getStoreConfig(
+                        Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_POSTCODE,
+                        $store));
                 break;
         }
 
@@ -341,7 +355,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     public function compareRequests($first, $second)
     {
         $country = $first->getCountryId() == $second->getCountryId();
-        $region  = (int)$first->getRegionId() == (int)$second->getRegionId(); // "0" support for admin dropdown with --please select--
+        // "0" support for admin dropdown with --please select--
+        $region  = (int)$first->getRegionId() == (int)$second->getRegionId();
         $postcode= $first->getPostcode() == $second->getPostcode();
         $taxClass= $first->getCustomerClassId() == $second->getCustomerClassId();
 
@@ -364,7 +379,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         $productClassId1 = $first->getProductClassId(); // Save to set it back later
         $productClassId2 = $second->getProductClassId(); // Save to set it back later
 
-        $ids = is_array($productClassId1) ? $productClassId1 : array($productClassId1); // Ids are equal for both requests, so take any of them to process
+        // Ids are equal for both requests, so take any of them to process
+        $ids = is_array($productClassId1) ? $productClassId1 : array($productClassId1);
         $identical = true;
         foreach ($ids as $productClassId) {
             $first->setProductClassId($productClassId);

@@ -337,8 +337,9 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             if ($searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE
                 || $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE) {
                 $helper = Mage::getResourceHelper('core');
-                foreach ($preparedTerms[1] as $term) {
-                    $like[] = $helper->getCILike('s.data_index', $term, array('position' => 'any'));
+                $words = Mage::helper('core/string')->splitWords($queryText, true, $query->getMaxQueryWords());
+                foreach ($words as $word) {
+                    $like[] = $helper->getCILike('s.data_index', $word, array('position' => 'any'));
                 }
                 if ($like) {
                     $likeCond = '(' . join(' OR ', $like) . ')';

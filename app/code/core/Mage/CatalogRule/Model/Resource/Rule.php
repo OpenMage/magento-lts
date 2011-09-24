@@ -85,7 +85,15 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Core_Model_Resource_Db_A
         $write = $this->_getWriteAdapter();
         $write->beginTransaction();
 
-        $write->delete($this->getTable('catalogrule/rule_product'), $write->quoteInto('rule_id=?', $ruleId));
+        if ($rule->getProductsFilter()) {
+            $write->delete(
+                $this->getTable('catalogrule/rule_product'),
+                $write->quoteInto('rule_id=?', $ruleId)
+                . $write->quoteInto('and product_id in (?)', implode(',' , $rule->getProductsFilter()))
+            );
+        } else {
+            $write->delete($this->getTable('catalogrule/rule_product'), $write->quoteInto('rule_id=?', $ruleId));
+        }
 
         if (!$rule->getIsActive()) {
             $write->commit();
@@ -194,8 +202,13 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Core_Model_Resource_Db_A
             ->from($this->getTable('catalogrule/rule_product_price'), 'product_id')
             ->where(implode(' AND ', $conds))
             ->group('product_id');
-        
-        $replace = $write->insertFromSelect($select, $this->getTable('catalogrule/affected_product'), array('product_id'), true);
+
+        $replace = $write->insertFromSelect(
+            $select,
+            $this->getTable('catalogrule/affected_product'),
+            array('product_id'),
+            true
+        );
         $write->query($replace);
         $write->delete($this->getTable('catalogrule/rule_product_price'), $conds);
         return $this;

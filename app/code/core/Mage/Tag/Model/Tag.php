@@ -48,6 +48,12 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     const STATUS_PENDING = 0;
     const STATUS_APPROVED = 1;
 
+    // statuses for tag relation add
+    const ADD_STATUS_SUCCESS = 'success';
+    const ADD_STATUS_NEW = 'new';
+    const ADD_STATUS_EXIST = 'exist';
+    const ADD_STATUS_REJECTED = 'rejected';
+
     /**
      * Entity code.
      * Can be used as part of method name for entity processing
@@ -285,4 +291,115 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
         $this->_protectFromNonAdmin();
         return parent::_beforeDelete();
     }
+
+    /**
+     * Save tag relation with product, customer and store
+     *
+     * @param int $productId
+     * @param int $customerId
+     * @param int $storeId
+     * @return string - relation add status
+     */
+    public function saveRelation($productId, $customerId, $storeId)
+    {
+        /** @var $relationModel Mage_Tag_Model_Tag_Relation */
+        $relationModel = Mage::getModel('tag/tag_relation');
+        $relationModel->setTagId($this->getId())
+            ->setStoreId($storeId)
+            ->setProductId($productId)
+            ->setCustomerId($customerId)
+            ->setActive(Mage_Tag_Model_Tag_Relation::STATUS_ACTIVE)
+            ->setCreatedAt($relationModel->getResource()->formatDate(time()));
+
+        $relationModelSaveNeed = false;
+        switch($this->getStatus()) {
+            case $this->getApprovedStatus():
+                if($this->_checkLinkBetweenTagProduct($relationModel)) {
+                    $relation = $this->_getLinkBetweenTagCustomerProduct($relationModel);
+                    if ($relation->getId()) {
+                        if (!$relation->getActive()) {
+                            // activate relation if it was inactive
+                            $relationModel->setId($relation->getId());
+                            $relationModelSaveNeed = true;
+                        }
+                    } else {
+                        $relationModelSaveNeed = true;
+                    }
+                    $result = self::ADD_STATUS_EXIST;
+                } else {
+                    $relationModelSaveNeed = true;
+                    $result = self::ADD_STATUS_SUCCESS;
+                }
+                break;
+            case $this->getPendingStatus():
+                $relation = $this->_getLinkBetweenTagCustomerProduct($relationModel);
+                if ($relation->getId()) {
+                    if (!$relation->getActive()) {
+                        $relationModel->setId($relation->getId());
+                        $relationModelSaveNeed = true;
+                    }
+                } else {
+                    $relationModelSaveNeed = true;
+                }
+                $result = self::ADD_STATUS_NEW;
+                break;
+            case $this->getDisabledStatus():
+                if($this->_checkLinkBetweenTagCustomerProduct($relationModel)) {
+                    $result = self::ADD_STATUS_REJECTED;
+                } else {
+                    $this->setStatus($this->getPendingStatus())->save();
+                    $relationModelSaveNeed = true;
+                    $result = self::ADD_STATUS_NEW;
+                }
+                break;
+        }
+        if ($relationModelSaveNeed) {
+            $relationModel->save();
+        }
+
+        return $result;
+    }
+
+    /**
+     * Check whether product is already marked in store with tag
+     *
+     * @param Mage_Tag_Model_Tag_Relation $relationModel
+     * @return boolean
+     */
+    protected function _checkLinkBetweenTagProduct($relationModel)
+    {
+        $customerId = $relationModel->getCustomerId();
+        $relationModel->setCustomerId(null);
+        $result = in_array($relationModel->getProductId(), $relationModel->getProductIds());
+        $relationModel->setCustomerId($customerId);
+        return $result;
+    }
+
+    /**
+     * Check whether product is already marked in store with tag by customer
+     *
+     * @param Mage_Tag_Model_Tag_Relation $relationModel
+     * @return bool
+     */
+    protected function _checkLinkBetweenTagCustomerProduct($relationModel)
+    {
+        return (count($this->_getLinkBetweenTagCustomerProduct($relationModel)->getProductIds()) > 0);
+    }
+
+    /**
+     * Get relation model for product marked in store with tag by customer
+     *
+     * @param Mage_Tag_Model_Tag_Relation $relationModel
+     * @return Mage_Tag_Model_Tag_Relation
+     */
+    protected function _getLinkBetweenTagCustomerProduct($relationModel)
+    {
+        return Mage::getModel('tag/tag_relation')->loadByTagCustomer(
+            $relationModel->getProductId(),
+            $this->getId(),
+            $relationModel->getCustomerId(),
+            $relationModel->getStoreId()
+        );
+    }
+
 }

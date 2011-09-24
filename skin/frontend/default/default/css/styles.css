@@ -1219,10 +1219,11 @@ tr.summary-details-excluded { font-style:italic; }
 .truncated a.dots { cursor:help; }
 .truncated a.details { cursor:help; }
 .truncated .truncated_full_value { position:relative; z-index:999; }
-.truncated .truncated_full_value dl { position:absolute; top:-99999em; left:-99999em; z-index:999; width:250px; padding:8px; border:1px solid #ddd; background-color:#f6f6f6; }
-.truncated .show dl { top:-20px; left:50%; }
-.col-left .truncated .show dl { left:15px; top:7px; }
-.col-right .truncated .show dl  { left:-240px; top:7px; }
+.truncated .truncated_full_value .item-options { position:absolute; top:-99999em; left:-99999em; z-index:999; width:250px; padding:8px; border:1px solid #ddd; background-color:#f6f6f6; }
+.truncated .truncated_full_value .item-options > p { font-weight:bold; text-transform:uppercase; }
+.truncated .show .item-options { top:-20px; left:50%; }
+.col-left .truncated .show .item-options { left:15px; top:7px; }
+.col-right .truncated .show .item-options { left:-240px; top:7px; }
 /* ======================================================================================= */
 
 

@@ -212,4 +212,33 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
             'order_item', $this->getItem(), $this->getItem()->getOrder()->getStoreId()
         );
     }
+
+    /**
+     * Display susbtotal price including tax
+     *
+     * @param Mage_Sales_Model_Order_Item $item
+     * @return string
+     */
+    public function displaySubtotalInclTax($item)
+    {
+        return $this->displayPrices(
+            $this->helper('checkout')->getBaseSubtotalInclTax($item),
+            $this->helper('checkout')->getSubtotalInclTax($item)
+        );
+    }
+
+    /**
+     * Display item price including tax
+     *
+     * @param Mage_Sales_Model_Order_Item $item
+     * @return string
+     */
+    public function displayPriceInclTax(Varien_Object $item)
+    {
+        return $this->displayPrices(
+            $this->helper('checkout')->getBasePriceInclTax($item),
+            $this->helper('checkout')->getPriceInclTax($item)
+        );
+    }
+
 }

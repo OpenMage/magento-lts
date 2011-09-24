@@ -676,7 +676,20 @@ class Mage_Connect_Packager
                 throw new Exception("No releases for '{$package}', skipping");
             }
             $state = $config->preferred_state ? $config->preferred_state : 'stable';
-            $version = $cache->detectVersionFromRestArray($releases, $versionMin, $versionMax, $state);
+            /**
+             * Check current package version first
+             */
+            $installedPackage = $cache->getPackage($chanName, $package);
+            if ($installedPackage && is_array($installedPackage)) {
+                $installedRelease = array(array(
+                    'v' => $installedPackage['version'],
+                    's' => $installedPackage['stability'],
+                ));
+                $version = $cache->detectVersionFromRestArray($installedRelease, $versionMin, $versionMax, $state);
+            }
+            if (!$version) {
+                $version = $cache->detectVersionFromRestArray($releases, $versionMin, $versionMax, $state);
+            }
             if (!$version) {
                 $versionState = $cache->detectVersionFromRestArray($releases, $versionMin, $versionMax);
                 if ($versionState) {

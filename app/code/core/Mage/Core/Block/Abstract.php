@@ -156,6 +156,12 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     private static $_transportObject;
 
+    /**
+     * Array of block sort priority instructions
+     *
+     * @var array
+     */
+    protected $_sortInstructions = array();
 
     /**
      * Internal constructor, that is called from real constructor
@@ -337,8 +343,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         return $this;
     }
 
+    /**
+     * Retrieve sorted list of children.
+     *
+     * @return array
+     */
     public function getSortedChildren()
     {
+        $this->sortChildren();
         return $this->_sortedChildren;
     }
 
@@ -359,7 +371,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Set child block
      *
-     * @param   string $name
+     * @param   string $alias
      * @param   Mage_Core_Block_Abstract $block
      * @return  Mage_Core_Block_Abstract
      */
@@ -401,8 +413,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Unset child block
      *
-     * @param   string $name
-     * @return  Mage_Core_Block_Abstract
+     * @param  string $alias
+     * @return Mage_Core_Block_Abstract
      */
     public function unsetChild($alias)
     {
@@ -654,6 +666,54 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                     array_unshift($this->_sortedChildren, $name);
                 }
             }
+
+            $this->_sortInstructions[$name] = array($siblingName, (bool)$after, false !== $key);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sort block's children
+     *
+     * @param boolean $force force re-sort all children
+     * @return Mage_Core_Block_Abstract
+     */
+    public function sortChildren($force = false)
+    {
+        foreach ($this->_sortInstructions as $name => $list) {
+            list($siblingName, $after, $exists) = $list;
+            if ($exists && !$force) {
+                continue;
+            }
+            $this->_sortInstructions[$name][2] = true;
+
+            $index      = array_search($name, $this->_sortedChildren);
+            $siblingKey = array_search($siblingName, $this->_sortedChildren);
+
+            if ($index === false || $siblingKey === false) {
+                continue;
+            }
+
+            if ($after) {
+                // insert after block
+                if ($index == $siblingKey + 1) {
+                    continue;
+                }
+                // remove sibling from array
+                array_splice($this->_sortedChildren, $index, 1, array());
+                // insert sibling after
+                array_splice($this->_sortedChildren, $siblingKey + 1, 0, array($name));
+            } else {
+                // insert before block
+                if ($index == $siblingKey - 1) {
+                    continue;
+                }
+                // remove sibling from array
+                array_splice($this->_sortedChildren, $index, 1, array());
+                // insert sibling after
+                array_splice($this->_sortedChildren, $siblingKey, 0, array($name));
+            }
         }
 
         return $this;
@@ -823,7 +883,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             self::$_transportObject = new Varien_Object;
         }
         self::$_transportObject->setHtml($html);
-        Mage::dispatchEvent('core_block_abstract_to_html_after', array('block' => $this, 'transport' => self::$_transportObject));
+        Mage::dispatchEvent('core_block_abstract_to_html_after',
+                array('block' => $this, 'transport' => self::$_transportObject));
         $html = self::$_transportObject->getHtml();
 
         return $html;
@@ -1212,7 +1273,18 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (is_null($this->getCacheLifetime()) || !Mage::app()->useCache(self::CACHE_GROUP)) {
             return false;
         }
-        return Mage::app()->loadCache($this->getCacheKey());
+        $cacheKey = $this->getCacheKey();
+        /** @var $session Mage_Core_Model_Session */
+        $session = Mage::getSingleton('core/session');
+        $cacheData = Mage::app()->loadCache($cacheKey);
+        if ($cacheData) {
+            $cacheData = str_replace(
+                $this->_getSidPlaceholder($cacheKey),
+                $session->getSessionIdQueryParam() . '=' . $session->getEncryptedSessionId(),
+                $cacheData
+            );
+        }
+        return $cacheData;
     }
 
     /**
@@ -1226,7 +1298,31 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (is_null($this->getCacheLifetime()) || !Mage::app()->useCache(self::CACHE_GROUP)) {
             return false;
         }
-        Mage::app()->saveCache($data, $this->getCacheKey(), $this->getCacheTags(), $this->getCacheLifetime());
+        $cacheKey = $this->getCacheKey();
+        /** @var $session Mage_Core_Model_Session */
+        $session = Mage::getSingleton('core/session');
+        $data = str_replace(
+            $session->getSessionIdQueryParam() . '=' . $session->getEncryptedSessionId(),
+            $this->_getSidPlaceholder($cacheKey),
+            $data
+        );
+
+        Mage::app()->saveCache($data, $cacheKey, $this->getCacheTags(), $this->getCacheLifetime());
         return $this;
+    }
+
+    /**
+     * Get SID placeholder for cache
+     *
+     * @param null|string $cacheKey
+     * @return string
+     */
+    protected function _getSidPlaceholder($cacheKey = null)
+    {
+        if (is_null($cacheKey)) {
+            $cacheKey = $this->getCacheKey();
+        }
+
+        return '<!--SID=' . $cacheKey . '-->';
     }
 }

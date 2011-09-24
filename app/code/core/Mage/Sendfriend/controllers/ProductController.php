@@ -49,7 +49,7 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
         $session = Mage::getSingleton('customer/session');
 
         if (!$helper->isEnabled()) {
-            $this->_forward('noRoute');
+            $this->norouteAction();
             return $this;
         }
 

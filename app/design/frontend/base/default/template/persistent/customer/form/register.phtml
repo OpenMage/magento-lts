@@ -174,6 +174,9 @@
             <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>" class="back-link"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
             <button type="submit" title="<?php echo $this->__('Submit') ?>" class="button"><span><span><?php echo $this->__('Submit') ?></span></span></button>
         </div>
+        <?php if (Mage::helper('checkout')->isContextCheckout()): ?>
+            <input name="context" type="hidden" value="checkout" />
+        <?php endif; ?>
     </form>
     <script type="text/javascript">
     //<![CDATA[

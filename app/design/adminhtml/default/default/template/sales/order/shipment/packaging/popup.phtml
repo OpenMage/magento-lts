@@ -110,7 +110,7 @@ document.observe("dom:loaded", function() {
                         <?php
                             if ($this->displayCustomsValue()) {
                                 $customsValueDisplay = '';
-                                $customsValueValidation = ' required-entry validate-greater-than-zero ';
+                                $customsValueValidation = ' validate-zero-or-greater ';
                             } else {
                                 $customsValueDisplay = ' style="display: none;" ';
                                 $customsValueValidation = '';
@@ -118,6 +118,7 @@ document.observe("dom:loaded", function() {
                         ?>
                         <td <?php echo $customsValueDisplay ?>>
                             <input type="text" class="customs-value input-text <?php echo $customsValueValidation ?>" name="package_customs_value" />
+                            <span class="customs-value-currency">[<?php echo $this->getCustomValueCurrencyCode(); ?>]</span>
                         </td>
                         <td>
                             <input type="text" class="options-weight input-text required-entry validate-greater-than-zero" name="container_weight" />
@@ -186,7 +187,7 @@ document.observe("dom:loaded", function() {
                             </select>
                         </td>
                         <td>
-                            <input name="content_type_other" type="text" disabled="disabled" />
+                            <input name="content_type_other" type="text" class="input-text options-content-type disabled" disabled="disabled" />
                         </td>
                     </tbody>
                 </table>

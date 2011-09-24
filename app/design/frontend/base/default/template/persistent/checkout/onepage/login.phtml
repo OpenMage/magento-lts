@@ -89,6 +89,7 @@
                 </li>
                 <?php echo $this->getChildHtml('persistent.remember.me'); ?>
             </ul>
+            <input name="context" type="hidden" value="checkout" />
         </fieldset>
         </form>
     </div>
@@ -97,7 +98,13 @@
     <div class="col-1">
         <div class="buttons-set">
             <p class="required">&nbsp;</p>
-            <button id="onepage-guest-register-button" type="button" class="button" onclick="checkout.setMethod();"><span><span><?php echo ($this->getQuote()->isAllowedGuestCheckout() ? $this->__('Continue') : $this->__('Register')) ?></span></span></button>
+            <?php if ($this->getQuote()->isAllowedGuestCheckout()): ?>
+                <button id="onepage-guest-register-button" type="button" class="button" onclick="checkout.setMethod();"><span><span><?php echo $this->__('Continue') ?></span></span></button>
+            <?php else: ?>
+                <form action="<?php echo $this->getUrl('persistent/index/saveMethod'); ?>">
+                    <button id="onepage-guest-register-button" type="submit" class="button"><span><span><?php echo $this->__('Register') ?></span></span></button>
+                </form>
+            <?php endif; ?>
         </div>
     </div>
     <div class="col-2">
@@ -127,3 +134,18 @@
     }
 //]]>
 </script>
+<?php
+    $registerParam = $this->getRequest()->getParam('register');
+    if ($registerParam || $registerParam === ''):
+?>
+    <script type="text/javascript">
+    //<![CDATA[
+        document.observe("dom:loaded", function() {
+            if($('login:register')) {
+                $('login:register').checked = true;
+                checkout.setMethod();
+            }
+        })
+    //]]>
+    </script>
+<?php endif; ?>

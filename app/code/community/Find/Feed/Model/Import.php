@@ -116,7 +116,11 @@ class Find_Feed_Model_Import extends Mage_Core_Model_Abstract
                 $attributesRow = array();
                 foreach ($attributes as $key => $value) {
                     if ($this->_checkAttributeSource($product, $value)) {
-                        $attributesRow[$key] = $product->getAttributeText($value);
+                        if (is_array($product->getAttributeText($value))) {
+                            $attributesRow[$key] = implode(', ', $product->getAttributeText($value));
+                        } else {
+                            $attributesRow[$key] = $product->getAttributeText($value);
+                        }
                     } else {
                         $attributesRow[$key] = $product->getData($value);
                     }

@@ -663,7 +663,8 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      */
     protected function _getCategories($categoryIds, $storeId = null, $path = null)
     {
-        $isActiveAttribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_active');
+        $isActiveAttribute = Mage::getSingleton('eav/config')
+            ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_active');
         $categories        = array();
         $adapter           = $this->_getReadAdapter();
 
@@ -737,7 +738,8 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         if ($storeId !== null && $categories) {
             foreach (array('name', 'url_key', 'url_path') as $attributeCode) {
-                $attributes = $this->_getCategoryAttribute($attributeCode, array_keys($categories), $category->getStoreId());
+                $attributes = $this->_getCategoryAttribute($attributeCode, array_keys($categories),
+                    $category->getStoreId());
                 foreach ($attributes as $categoryId => $attributeValue) {
                     $categories[$categoryId]->setData($attributeCode, $attributeValue);
                 }
@@ -1066,7 +1068,8 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         if (!empty($excludeCategoryIds)) {
             $where['category_id NOT IN (?)'] = $excludeCategoryIds;
-            $where[] = 'category_id IS NOT NULL'; // If there's at least one category to skip, also skip root category, because product belongs to website
+            // If there's at least one category to skip, also skip root category, because product belongs to website
+            $where[] = 'category_id IS NOT NULL';
         }
 
         $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
@@ -1310,7 +1313,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         $this->_getWriteAdapter()->delete(
             $this->getMainTable(),
             array(
-                'store_id = ?' => $store_id,
+                'store_id = ?' => $storeId,
                 'request_path = ?' => $requestPath
             )
         );

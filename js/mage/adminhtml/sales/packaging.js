@@ -43,15 +43,18 @@ Packaging.prototype = {
         this.paramsCreateLabelRequest = {};
         this.validationErrorMsg = params.validationErrorMsg;
 
-        this.defaultItemsQty        = params.shipmentItemsQty ? params.shipmentItemsQty : null;
-        this.defaultItemsPrice      = params.shipmentItemsPrice ? params.shipmentItemsPrice : null;
-        this.defaultItemsName       = params.shipmentItemsName ? params.shipmentItemsName : null;
-        this.defaultItemsWeight     = params.shipmentItemsWeight ? params.shipmentItemsWeight : null;
-        this.defaultItemsProductId  = params.shipmentItemsProductId ? params.shipmentItemsProductId : null;
+        this.defaultItemsQty            = params.shipmentItemsQty ? params.shipmentItemsQty : null;
+        this.defaultItemsPrice          = params.shipmentItemsPrice ? params.shipmentItemsPrice : null;
+        this.defaultItemsName           = params.shipmentItemsName ? params.shipmentItemsName : null;
+        this.defaultItemsWeight         = params.shipmentItemsWeight ? params.shipmentItemsWeight : null;
+        this.defaultItemsProductId      = params.shipmentItemsProductId ? params.shipmentItemsProductId : null;
+        this.defaultItemsOrderItemId    = params.shipmentItemsOrderItemId ? params.shipmentItemsOrderItemId : null;
 
         this.shippingInformation= params.shippingInformation ? params.shippingInformation : null;
         this.thisPage           = params.thisPage ? params.thisPage : null;
         this.customizableContainers = params.customizable ? params.customizable : [];
+
+        this.eps = .000001;
     },
 
 //******************** Setters **********************************//
@@ -102,12 +105,9 @@ Packaging.prototype = {
     },
 
     checkAllItems: function(headCheckbox) {
-        $(headCheckbox).up('.grid_prepare').select('[type="checkbox"]').each(function(checkbox){
-            if (headCheckbox.checked) {
-                checkbox.checked = true;
-            } else {
-                checkbox.checked = false;
-            }
+        $(headCheckbox).up('table').select('tbody input[type="checkbox"]').each(function(checkbox){
+            checkbox.checked = headCheckbox.checked;
+            this._observeQty.call(checkbox);
         }.bind(this));
     },
 
@@ -126,7 +126,7 @@ Packaging.prototype = {
             this.messages.show().update(this.validationErrorMsg);
             return;
         } else {
-            this.messages.hide();
+            this.messages.hide().update();
         }
         if (this.createLabelUrl) {
             var weight, length, width, height = null;
@@ -206,6 +206,7 @@ Packaging.prototype = {
                              this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][name]']          = package.defaultItemsName[packedItemId];
                              this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][weight]']        = package.defaultItemsWeight[packedItemId];
                              this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][product_id]']    = package.defaultItemsProductId[packedItemId];
+                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][order_item_id]'] = package.defaultItemsOrderItemId[packedItemId];
                          }
                      }
                  }
@@ -266,6 +267,38 @@ Packaging.prototype = {
         });
     },
 
+    validateCustomsValue: function() {
+        var items = [];
+        var isValid = true;
+        var itemsPrepare = [];
+        var itemsPacked = [];
+
+        this.packagesContent.childElements().each(function(pack) {
+            itemsPrepare = pack.select('.package_prapare')[0];
+            if (itemsPrepare) {
+                items = items.concat(itemsPrepare.select('.grid tbody tr'));
+            }
+            itemsPacked = pack.select('.package_items')[0];
+            if (itemsPacked) {
+                items = items.concat(itemsPacked.select('.grid tbody tr'));
+            }
+        }.bind(this));
+
+        items.each(function(item) {
+            var itemCustomsValue = item.select('[name="customs_value"]')[0];
+            if (!this.validateElement(itemCustomsValue)) {
+                isValid = false;
+            }
+        }.bind(this));
+
+        if (isValid) {
+            this.messages.hide().update();
+        } else {
+            this.messages.show().update(this.validationErrorMsg);
+        }
+        return isValid;
+    },
+
     newPackage: function() {
         var pack = this.template.cloneNode(true);
         pack.id = 'package_block_' + ++this.packageIncrement;
@@ -295,6 +328,9 @@ Packaging.prototype = {
         var packageId = pack.id.match(/\d$/)[0];
 
         delete this.packages[packageId]['items'][itemId];
+        if (item.offsetParent.rows.length <= 2) { /* head + this last row */
+            $(packItems).hide();
+        }
         item.remove();
         this.messages.hide().update();
         this._recalcContainerWeightAndCustomsValue(packItems);
@@ -305,6 +341,9 @@ Packaging.prototype = {
         var pack = $(obj).up('div[id^="package_block"]');
         var packItems = pack.select('.package_items')[0];
         if (packItems) {
+            if (!this.validateCustomsValue()) {
+                return;
+            }
             this._recalcContainerWeightAndCustomsValue(packItems);
         }
     },
@@ -353,6 +392,14 @@ Packaging.prototype = {
         return items;
     },
 
+    _parseQty: function(obj) {
+        var qty = $(obj).hasClassName('qty-decimal') ? parseFloat(obj.value) : parseInt(obj.value);
+        if (isNaN(qty) || qty <= 0) {
+            qty = 1;
+        }
+        return qty;
+    },
+
     packItems: function(obj) {
         var anySelected = false;
         var packageBlock = $(obj).up('[id^="package_block"]');
@@ -364,30 +411,29 @@ Packaging.prototype = {
         var checkExceedsQty = false;
         this.messages.hide().update();
         packagePrepareGrid.select('.grid tbody tr').each(function(item) {
-            if (!checkExceedsQty) {
-                var checkbox = item.select('[type="checkbox"]')[0];
-                var itemId = checkbox.value;
-                var itemName = this._getElementText(item.select('.name')[0]);
-                var qtyValue  = parseFloat(item.select('[name="qty"]')[0].value);
-                if (checkbox.checked && !isNaN(qtyValue) && this._checkExceedsQty(itemId, qtyValue)) {
-                    this.messages.show().update(this.errorQtyOverLimit + ' ' + itemName);
-                    checkExceedsQty = true;
-                }
+            var checkbox = item.select('[type="checkbox"]')[0];
+            var itemId = checkbox.value;
+            var qtyValue  = this._parseQty(item.select('[name="qty"]')[0]);
+            item.select('[name="qty"]')[0].value = qtyValue;
+            if (checkbox.checked && this._checkExceedsQty(itemId, qtyValue)) {
+                this.messages.show().update(this.errorQtyOverLimit);
+                checkExceedsQty = true;
             }
         }.bind(this));
         if (checkExceedsQty) {
             return;
         }
 
+        if (!this.validateCustomsValue()) {
+            return;
+        }
+
         // prepare items for packing
         packagePrepareGrid.select('.grid tbody tr').each(function(item) {
             var checkbox = item.select('[type="checkbox"]')[0];
-            var itemId = checkbox.value;
-            var itemName = this._getElementText(item.select('.name')[0]);
-            var qty  = item.select('[name="qty"]')[0];
-            var qtyValue  = parseFloat(item.select('[name="qty"]')[0].value);
             if (checkbox.checked) {
-                qtyValue = (isNaN(qtyValue)) ? 1 : qtyValue;
+                var qty  = item.select('[name="qty"]')[0];
+                var qtyValue  = this._parseQty(qty);
                 item.select('[name="qty"]')[0].value = qtyValue;
                 anySelected = true;
                 qty.disabled = 'disabled';
@@ -439,6 +485,7 @@ Packaging.prototype = {
                 }.bind(this));
                 packagePrepareGrid.update();
             }
+            $(packItems).show();
             this._recalcContainerWeightAndCustomsValue(packItems);
         } else {
             packagePrepareGrid.update();
@@ -511,10 +558,12 @@ Packaging.prototype = {
             packageGirth[0].disable();
             packageGirth[0].addClassName('disabled');
             packageGirthDimensionUnits[0].disable();
+            packageGirthDimensionUnits[0].addClassName('disabled');
         } else {
             packageGirth[0].enable();
             packageGirth[0].removeClassName('disabled');
             packageGirthDimensionUnits[0].enable();
+            packageGirthDimensionUnits[0].removeClassName('disabled');
         }
 
         var sizeEnabled = (packageContainer[0].value == 'NONRECTANGULAR' || packageContainer[0].value == 'RECTANGULAR'
@@ -561,12 +610,14 @@ Packaging.prototype = {
         }
 
         currentNode.select(
-            'input[name=container_length],input[name=container_width],input[name=container_height]'
+            'input[name=container_length],input[name=container_width],input[name=container_height],select[name=container_dimension_units]'
         ).each(function(inputElement) {
             if (disable) {
                 Form.Element.disable(inputElement);
                 inputElement.addClassName('disabled');
-                $(inputElement).value = ''
+                if (inputElement.nodeName == 'INPUT') {
+                    $(inputElement).value = ''
+                }
             } else {
                 Form.Element.enable(inputElement);
                 inputElement.removeClassName('disabled');
@@ -580,8 +631,10 @@ Packaging.prototype = {
         var contentTypeOther = packageBlock.select('[name=content_type_other]')[0];
         if (contentType.value == 'OTHER') {
             Form.Element.enable(contentTypeOther);
+            contentTypeOther.removeClassName('disabled');
         } else {
             Form.Element.disable(contentTypeOther);
+            contentTypeOther.addClassName('disabled');
         }
 
     },
@@ -604,8 +657,7 @@ Packaging.prototype = {
         var addPackageBtn = this.window.select('.AddPackageBtn')[0];
         var savePackagesBtn = this.window.select('.SavePackagesBtn')[0];
         if (this._getItemsCount(this.itemsAll) > 0
-            && (this._getItemsCount(this.getPackedItemsQty()) === this._getItemsCount(this.itemsAll)
-            || this._getItemsCount(this.getPackedItemsQty()) >= this._getItemsCount(this.itemsAll))
+                && (this._checkExceedsQtyFinal(this._getItemsCount(this.getPackedItemsQty()),this._getItemsCount(this.itemsAll)))
         ) {
             this.packagesContent.select('.AddItemsBtn').each(function(button){
                 button.disabled = 'disabled';
@@ -682,7 +734,8 @@ Packaging.prototype = {
                         if (qtyValue == packedQty || qtyValue <= packedQty) {
                             item.remove();
                         } else if (qtyValue > packedQty) {
-                            qty.value = qtyValue - packedQty;
+                            /* fix float number precision */
+                            qty.value = Number((qtyValue - packedQty).toFixed(4));
                         }
                     }
                 }
@@ -691,12 +744,33 @@ Packaging.prototype = {
         if (!this.itemsAll.length) {
             this.itemsAll = itemsAll;
         }
+
+        packagePrapare.select('tbody input[type="checkbox"]').each(function(item){
+            $(item).observe('change', this._observeQty);
+            this._observeQty.call(item);
+        }.bind(this))
+    },
+
+    _observeQty: function() {
+        /** this = input[type="checkbox"] */
+        var tr  = this.parentNode.parentNode,
+            qty = $(tr.cells[tr.cells.length - 1]).select('input[name="qty"]')[0];
+
+        if (qty.disabled = !this.checked) {
+            $(qty).addClassName('disabled');
+        } else {
+            $(qty).removeClassName('disabled');
+        }
     },
 
     _checkExceedsQty: function(itemId, qty) {
         var packedItemQty = this.getPackedItemsQty()[itemId] ? this.getPackedItemsQty()[itemId] : 0;
         var allItemQty = this.itemsAll[itemId];
-        return (qty > (allItemQty - packedItemQty));
+        return (qty * (1 - this.eps) > (allItemQty *  (1 + this.eps)  - packedItemQty * (1 - this.eps)));
+    },
+
+    _checkExceedsQtyFinal: function(checkOne, defQty) {
+        return checkOne * (1 + this.eps) >= defQty * (1 - this.eps);
     },
 
     _recalcContainerWeightAndCustomsValue: function(container) {
@@ -715,11 +789,15 @@ Packaging.prototype = {
             }
             var itemWeight = parseFloat(this._getElementText(item.select('.weight')[0]));
             containerWeight.value = parseFloat(containerWeight.value) + (itemWeight * qtyValue);
-            var itemCustomsValue = parseFloat(item.select('[name="customs_value"]')[0].value);
-            containerCustomsValue.value = parseFloat(containerCustomsValue.value) + (itemCustomsValue * qtyValue);
+            var itemCustomsValue = parseFloat(item.select('[name="customs_value"]')[0].value) || 0;
+            containerCustomsValue.value = parseFloat(containerCustomsValue.value) + itemCustomsValue * qtyValue;
             this.packages[packageId]['items'][itemId]['customs_value'] = itemCustomsValue;
         }.bind(this));
-        containerWeight.value = Math.round(containerWeight.value * 1000) / 1000;
+        containerWeight.value = parseFloat(parseFloat(containerWeight.value).toFixed(4));
+        containerCustomsValue.value = parseFloat(containerCustomsValue.value).toFixed(2);
+        if (containerCustomsValue.value == 0) {
+            containerCustomsValue.value = '';
+        }
     },
 
     _getElementText: function(el) {

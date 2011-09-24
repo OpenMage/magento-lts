@@ -340,6 +340,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 $productTypeModel->saveData();
             }
         }
+        Mage::dispatchEvent('catalog_product_import_finish_before', array('adapter'=>$this));
         return true;
     }
 
@@ -1053,6 +1054,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $tierPrices   = array();
             $mediaGallery = array();
             $uploadedGalleryFiles = array();
+            $previousType = null;
+            $previousAttributeSet = null;
 
             foreach ($bunch as $rowNum => $rowData) {
                 if (!$this->validateRow($rowData, $rowNum)) {
@@ -1129,15 +1132,35 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                     );
                 }
                 // 6. Attributes phase
-                if (self::SCOPE_NULL == $rowScope) {
-                    continue; // skip attribute processing for SCOPE_NULL rows
+                $rowStore     = self::SCOPE_STORE == $rowScope ? $this->_storeCodeToId[$rowData[self::COL_STORE]] : 0;
+                $productType  = $rowData[self::COL_TYPE];
+                if(!is_null($rowData[self::COL_TYPE])) {
+                    $previousType = $rowData[self::COL_TYPE];
                 }
-                $rowStore = self::SCOPE_STORE == $rowScope ? $this->_storeCodeToId[$rowData[self::COL_STORE]] : 0;
-                $rowData  = $this->_productTypeModels[$rowData[self::COL_TYPE]]->prepareAttributesForSave($rowData);
-                $product  = Mage::getModel('importexport/import_proxy_product', $rowData);
+                if(!is_null($rowData[self::COL_ATTR_SET])) {
+                    $previousAttributeSet = $rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_ATTR_SET];
+                }
+                if (self::SCOPE_NULL == $rowScope) {
+                    // for multiselect attributes only
+                    if(!is_null($previousAttributeSet)) {
+                        $rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_ATTR_SET] = $previousAttributeSet;
+                    }
+                    if(is_null($productType) && !is_null($previousType)) {
+                        $productType = $previousType;
+                    }
+                    if(is_null($productType)) {
+                        continue;
+                    }
+                }
+                $rowData      = $this->_productTypeModels[$productType]->prepareAttributesForSave($rowData);
+                $product      = Mage::getModel('importexport/import_proxy_product', $rowData);
 
                 foreach ($rowData as $attrCode => $attrValue) {
                     $attribute = $resource->getAttribute($attrCode);
+                    if('multiselect' != $attribute->getFrontendInput()
+                        && self::SCOPE_NULL == $rowScope) {
+                        continue; // skip attribute processing for SCOPE_NULL rows
+                    }
                     $attrId    = $attribute->getId();
                     $backModel = $attribute->getBackendModel();
                     $attrTable = $attribute->getBackend()->getTable();
@@ -1160,7 +1183,16 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                         }
                     }
                     foreach ($storeIds as $storeId) {
-                        $attributes[$attrTable][$rowSku][$attrId][$storeId] = $attrValue;
+                        if('multiselect' == $attribute->getFrontendInput()) {
+                            if(!isset($attributes[$attrTable][$rowSku][$attrId][$storeId])) {
+                                $attributes[$attrTable][$rowSku][$attrId][$storeId] = '';
+                            } else {
+                                $attributes[$attrTable][$rowSku][$attrId][$storeId] .= ',';
+                            }
+                            $attributes[$attrTable][$rowSku][$attrId][$storeId] .= $attrValue;
+                        } else {
+                            $attributes[$attrTable][$rowSku][$attrId][$storeId] = $attrValue;
+                        }
                     }
                     $attribute->setBackendModel($backModel); // restore 'backend_model' to avoid 'default' setting
                 }
@@ -1227,6 +1259,9 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
 
             $tmpDir     = Mage::getConfig()->getOptions()->getMediaDir() . '/import';
             $destDir    = Mage::getConfig()->getOptions()->getMediaDir() . '/catalog/product';
+            if (!is_writable($destDir)) {
+                @mkdir($destDir, 0777, true);
+            }
             if (!$this->_fileUploader->setTmpDir($tmpDir)) {
                 Mage::throwException("File directory '{$tmpDir}' is not readable.");
             }
@@ -1640,5 +1675,27 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             }
         }
         return !isset($this->_invalidRows[$rowNum]);
+    }
+
+    /**
+     * Get array of affected products
+     *
+     * @return array
+     */
+    public function getAffectedEntityIds()
+    {
+        $productIds = array();
+        while ($bunch = $this->_dataSourceModel->getNextBunch()) {
+            foreach ($bunch as $rowNum => $rowData) {
+                if (!$this->isRowAllowedToImport($rowData, $rowNum)) {
+                    continue;
+                }
+                if (!isset($this->_newSku[$rowData[self::COL_SKU]]['entity_id'])) {
+                    continue;
+                }
+                $productIds[] = $this->_newSku[$rowData[self::COL_SKU]]['entity_id'];
+            }
+        }
+        return $productIds;
     }
 }

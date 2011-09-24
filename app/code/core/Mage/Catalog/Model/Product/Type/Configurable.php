@@ -226,9 +226,11 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
             $usedProductAttributes = array();
             $usedAttributes        = array();
             foreach ($this->getConfigurableAttributes($product) as $attribute) {
-                $id = $attribute->getProductAttribute()->getId();
-                $usedProductAttributes[$id] = $attribute->getProductAttribute();
-                $usedAttributes[$id]        = $attribute;
+                if (!is_null($attribute->getProductAttribute())) {
+                    $id = $attribute->getProductAttribute()->getId();
+                    $usedProductAttributes[$id] = $attribute->getProductAttribute();
+                    $usedAttributes[$id]        = $attribute;
+                }
             }
             $this->getProduct($product)->setData($this->_usedAttributes, $usedAttributes);
             $this->getProduct($product)->setData($this->_usedProductAttributes, $usedProductAttributes);
@@ -485,6 +487,15 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     public function getProductByAttributes($attributesInfo, $product = null)
     {
         if (is_array($attributesInfo) && !empty($attributesInfo)) {
+            $productCollection = $this->getUsedProductCollection($product);
+            foreach ($attributesInfo as $attributeId => $attributeValue) {
+                $productCollection->addAttributeToFilter($attributeId, $attributeValue);
+            }
+            $productObject = $productCollection->getFirstItem();
+            if ($productObject->getId()) {
+                return $productObject;
+            }
+
             foreach ($this->getUsedProducts(null, $product) as $productObject) {
                 $checkRes = true;
                 foreach ($attributesInfo as $attributeId => $attributeValue) {
