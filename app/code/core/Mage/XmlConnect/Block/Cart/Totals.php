@@ -28,7 +28,7 @@
  * Shopping cart totals xml renderer
  *
  * @category    Mage
- * @package     Mage_Checkout
+ * @package     Mage_Xmlconnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
@@ -36,30 +36,30 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
     /**
      * Render cart totals xml
      *
-     * @return string
+     * @return string|Mage_XmlConnect_Model_Simplexml_Element
      */
     protected function _toHtml()
     {
         /** @var $totalsXmlObj Mage_XmlConnect_Model_Simplexml_Element */
         $totalsXmlObj   = Mage::getModel('xmlconnect/simplexml_element', '<totals></totals>');
-//        $taxConfig      = Mage::getSingleton('tax/config');
 
         foreach ($this->getQuote()->getTotals() as $total) {
             $code  = $total->getCode();
-            if ($code == 'giftcardaccount' || $code == 'giftwrapping') {
+            if ($code == 'giftwrapping') {
                 continue;
             }
+
             $title = '';
             $value = null;
             $renderer = $this->_getTotalRenderer($code)->setTotal($total);
+
             switch ($code) {
                 case 'subtotal':
                     if ($renderer->displayBoth()) {
                         $title = $this->__('Subtotal (Excl. Tax)');
                         $this->_addTotalDataToXmlObj(
                             $totalsXmlObj,
-                            $code .
-                            '_excl_tax',
+                            $code . '_excl_tax',
                             $title,
                             $total->getValueExclTax()
                         );
@@ -73,11 +73,7 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
                     if ($renderer->displayBoth()) {
                         $title = $renderer->getExcludeTaxLabel();
                         $this->_addTotalDataToXmlObj(
-                            $totalsXmlObj,
-                            $code .
-                            '_excl_tax',
-                            $title,
-                            $renderer->getShippingExcludeTax()
+                            $totalsXmlObj, $code . '_excl_tax', $title, $renderer->getShippingExcludeTax()
                         );
 
                         $code  = $code . '_incl_tax';
@@ -95,28 +91,50 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
                     if ($displayBoth) {
                         $title = $this->__('Grand Total (Excl. Tax)');
                         $this->_addTotalDataToXmlObj(
-                            $totalsXmlObj,
-                            $code . '_excl_tax',
-                            $title,
-                            $grandTotalExlTax
+                            $totalsXmlObj, $code . '_excl_tax', $title, $grandTotalExlTax
                         );
                         $code  = $code . '_incl_tax';
                         $title = $this->__('Grand Total (Incl. Tax)');
                     }
                     break;
+                case 'giftwrapping':
+                    foreach ($renderer->getValues() as $title => $value) {
+                        $this->_addTotalDataToXmlObj($totalsXmlObj, $code, $title, $value);
+                    }
+                    continue 2;
+                case 'giftcardaccount':
+                    $_cards = $renderer->getTotal()->getGiftCards();
+                    if (!$_cards) {
+                        $_cards = $renderer->getQuoteGiftCards();
+                    }
+                    if ($renderer->getTotal()->getValue()) {
+                        foreach ($_cards as $cardCode) {
+                            $title = $this->__('Gift Card (%s)', $cardCode['c']);
+                            $value = $cardCode['c'];
+                            $totalXmlObj = $totalsXmlObj->addChild($code);
+                            $totalXmlObj->addChild('title', $totalsXmlObj->xmlentities($title));
+                            $totalXmlObj->addChild('value', $value);
+                            $value = Mage::helper('xmlconnect')->formatPriceForXml($cardCode['a']);
+                            $formattedValue = $this->getQuote()->getStore()->formatPrice($value, false);
+                            $totalXmlObj->addChild('formated_value', '-' . $formattedValue);
+                        }
+                    }
+                    continue 2;
                 default:
                     break;
             }
             if (empty($title)) {
                 $title = $total->getTitle();
             }
-            if (is_null($value)) {
+            if (null === $value) {
                 $value = $total->getValue();
             }
-            $this->_addTotalDataToXmlObj($totalsXmlObj, $code, $title, $value);
+            if (null !== $value) {
+                $this->_addTotalDataToXmlObj($totalsXmlObj, $code, $title, $value);
+            }
         }
 
-        return $totalsXmlObj->asNiceXml();
+        return $this->getReturnObjectFlag() ? $totalsXmlObj : $totalsXmlObj->asNiceXml();
     }
 
     /**

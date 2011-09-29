@@ -25,10 +25,10 @@
  */
 
 /**
- * XmlConnect Model Queue
+ * XmlConnect Queue model
  *
  * @category    Mage
- * @package     Mage_XmlConnect
+ * @package     Mage_Xmlconnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Model_Queue extends Mage_Core_Model_Template
@@ -84,7 +84,7 @@ class Mage_XmlConnect_Model_Queue extends Mage_Core_Model_Template
     /**
      * Initialize queue message
      *
-     * @return void
+     * @return null
      */
     protected function _construct()
     {
@@ -94,17 +94,16 @@ class Mage_XmlConnect_Model_Queue extends Mage_Core_Model_Template
     /**
      * Load object data
      *
-     * @param   integer $id
-     * @return  Mage_Core_Model_Abstract
+     * @param int $id
+     * @param string $field
+     * @return Mage_XmlConnect_Model_Queue
      */
-    public function load($id, $field=null)
+    public function load($id, $field = null)
     {
         parent::load($id, $field);
 
         if ($this->getTemplateId()) {
-            $this->setName(
-                Mage::getModel('xmlconnect/template')->load($this->getTemplateId())->getName()
-            );
+            $this->setName(Mage::getModel('xmlconnect/template')->load($this->getTemplateId())->getName());
         }
         return $this;
     }
@@ -187,16 +186,16 @@ EOT;
         switch ($this->getData('type')) {
             case Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL:
                 $html  = sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Push title'))
-                            . $this->getPushTitle();
-                $html .= sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Message title'))
-                            . $this->getMessageTitle();
-                $html .= sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Message content'))
-                            . $processor->filter($this->getContent());
+                    . $this->getPushTitle()
+                    . sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Message title'))
+                    . $this->getMessageTitle()
+                    . sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Message content'))
+                    . $processor->filter($this->getContent());
                 break;
             case Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_PUSH:
             default:
                 $html  = sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Push title'))
-                            . $this->getPushTitle();
+                    . $this->getPushTitle();
                 break;
         }
         return $html;
@@ -241,11 +240,7 @@ EOT;
         );
 
         $payload = array(
-            'push' => array(
-                $notificationType => array(
-                    'alert' => $this->getPushTitle(),
-                )
-            ),
+            'push' => array($notificationType => array('alert' => $this->getPushTitle())),
             'title' => $this->getMessageTitle(),
             'message' => $this->getContent(),
         );

@@ -28,7 +28,7 @@
  * Shopping cart summary information xml renderer
  *
  * @category    Mage
- * @package     Mage_Checkout
+ * @package     Mage_Xmlconnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Cart_Info extends Mage_XmlConnect_Block_Cart
@@ -45,18 +45,11 @@ class Mage_XmlConnect_Block_Cart_Info extends Mage_XmlConnect_Block_Cart
         /** @var $xmlObject Mage_XmlConnect_Model_Simplexml_Element */
         $xmlObject  = Mage::getModel('xmlconnect/simplexml_element', '<cart></cart>');
 
-        $xmlObject->addChild(
-            'is_virtual',
-            (int)$this->helper('checkout/cart')->getIsVirtualQuote()
-        );
-        $xmlObject->addChild(
-            'summary_qty',
-            (int)$this->helper('checkout/cart')->getSummaryCount()
-        );
-        $xmlObject->addChild(
-            'virtual_qty',
-            (int)$quote->getItemVirtualQty()
-        );
+        $xmlObject->addChild('is_virtual', (int)$this->helper('checkout/cart')->getIsVirtualQuote());
+
+        $xmlObject->addChild('summary_qty', (int)$this->helper('checkout/cart')->getSummaryCount());
+
+        $xmlObject->addChild('virtual_qty', (int)$quote->getItemVirtualQty());
 
         if (strlen($quote->getCouponCode())) {
             $xmlObject->addChild('has_coupon_code', 1);
@@ -68,7 +61,6 @@ class Mage_XmlConnect_Block_Cart_Info extends Mage_XmlConnect_Block_Cart
             $totalsXmlObj = Mage::getModel('xmlconnect/simplexml_element', $totalsXml);
             $xmlObject->appendChild($totalsXmlObj);
         }
-
         return $xmlObject->asNiceXml();
     }
 }

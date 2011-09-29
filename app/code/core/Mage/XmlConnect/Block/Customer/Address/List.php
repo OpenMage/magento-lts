@@ -92,9 +92,7 @@ class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Templa
 
         $attributes = Mage::helper('customer/address')->getAttributes();
 
-        $data = array(
-            'entity_id' => $address->getId()
-        );
+        $data = array('entity_id' => $address->getId());
 
         foreach ($attributes as $attribute) {
             /* @var $attribute Mage_Customer_Model_Attribute */
@@ -110,7 +108,7 @@ class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Templa
                 $dataModel = Mage_Customer_Model_Attribute_Data::factory($attribute, $address);
                 $value     = $dataModel->outputValue(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ONELINE);
                 if ($attribute->getFrontendInput() == 'multiline') {
-                    $values    = $dataModel->outputValue(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY);
+                    $values = $dataModel->outputValue(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY);
                     // explode lines
                     foreach ($values as $k => $v) {
                         $key = sprintf('%s%d', $attribute->getAttributeCode(), $k + 1);
@@ -122,9 +120,10 @@ class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Templa
         }
 
         foreach ($data as $key => $value) {
-            if (!empty($value)) {
-                $item->addChild($key, $item->xmlentities($value));
+            if (empty($value)) {
+                continue;
             }
+            $item->addChild($key, $item->xmlentities($value));
         }
     }
 }

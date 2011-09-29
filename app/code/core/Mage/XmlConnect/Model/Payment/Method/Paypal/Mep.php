@@ -81,8 +81,7 @@ class Mage_XmlConnect_Model_Payment_Method_Paypal_Mep extends Mage_Paypal_Model_
             $storeId = $quote ? $quote->getStoreId() : Mage::app()->getStore()->getId();
         }
 
-        return Mage::getModel('paypal/config')
-            ->setStoreId($storeId)
+        return (bool) Mage::getModel('paypal/config')->setStoreId($storeId)
             ->isMethodAvailable(Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS);
     }
 

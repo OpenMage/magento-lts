@@ -28,7 +28,7 @@
  * PayPal MEP Shopping cart totals xml renderer
  *
  * @category    Mage
- * @package     Mage_Cart
+ * @package     Mage_Xmlconnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Cart_Paypal_Mep_Totals extends Mage_Checkout_Block_Cart_Totals
@@ -48,6 +48,39 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mep_Totals extends Mage_Checkout_Block_C
             $currencyAmount = $this->helper('core')->currency($amount, false, false);
             $totalsXmlObj->addChild($code, sprintf('%01.2F', $currencyAmount));
         }
+
+        $paypalTotals = $totalsXmlObj->addChild('paypal_totals');
+        foreach ($this->getQuote()->getTotals() as $total) {
+            $code  = $total->getCode();
+            if ($code == 'giftcardaccount' || $code == 'giftwrapping') {
+                continue;
+            }
+            $renderer = $this->_getTotalRenderer($code)->setTotal($total);
+            switch ($code) {
+                case 'subtotal':
+                    $subtotal = intval($total->getValueExclTax()) ? $total->getValueExclTax() : $total->getValue();
+                    $paypalTotals->addAttribute(
+                        $code,
+                        Mage::helper('xmlconnect')->formatPriceForXml($subtotal)
+                    );
+                    break;
+                case 'tax':
+                    $paypalTotals->addAttribute(
+                        $code,
+                        Mage::helper('xmlconnect')->formatPriceForXml($total->getValue())
+                    );
+                    break;
+                case 'shipping':
+                    $paypalTotals->addAttribute(
+                        $code,
+                        Mage::helper('xmlconnect')->formatPriceForXml($renderer->getShippingExcludeTax())
+                    );
+                    break;
+                default:
+                    break;
+            }
+        }
+
         return $totalsXmlObj->asNiceXml();
     }
 }

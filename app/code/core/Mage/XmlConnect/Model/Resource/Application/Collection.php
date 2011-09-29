@@ -36,7 +36,7 @@ class Mage_XmlConnect_Model_Resource_Application_Collection extends Mage_Core_Mo
     /**
      * Constructor, setting table
      *
-     * @return void
+     * @return null
      */
     protected function _construct()
     {

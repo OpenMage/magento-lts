@@ -59,13 +59,7 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
      * @var array
      */
     protected $_imageIds = array(
-        'icon',
-        'loader_image',
-        'loader_image_i4',
-        'logo',
-        'logo_i4',
-        'big_logo',
-        'big_logo_i4'
+        'icon', 'loader_image', 'loader_image_i4', 'logo', 'logo_i4', 'big_logo', 'big_logo_i4'
     );
 
     /**
@@ -190,7 +184,6 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
     /**
      * Get default application tabs
      *
-     * @param string
      * @return array
      */
     public function getDefaultDesignTabs()
@@ -244,74 +237,74 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
      */
      public function getDefaultConfiguration()
      {
-        return array(
-            'native' => array(
-                'body' => array(
-                    'backgroundColor' => '#ABABAB',
-                    'scrollBackgroundColor' => '#EDEDED',
-                ),
-                'itemActions' => array(
-                    'relatedProductBackgroundColor' => '#404040',
-                ),
-                'fonts' => array(
-                    'Title1' => array(
-                        'name' => 'HelveticaNeue-Bold',
-                        'size' => '14',
-                        'color' => '#FEFEFE',
-                    ),
-                    'Title2' => array(
-                        'name' => 'HelveticaNeue-Bold',
-                        'size' => '12',
-                        'color' => '#222222',
-                    ),
-                    'Title3' => array(
-                        'name' => 'HelveticaNeue',
-                        'size' => '13',
-                        'color' => '#000000',
-                    ),
-                    'Title4' => array(
-                        'name' => 'HelveticaNeue',
-                        'size' => '12',
-                        'color' => '#FFFFFF',
-                    ),
-                    'Title5' => array(
-                        'name' => 'HelveticaNeue-Bold',
-                        'size' => '13',
-                        'color' => '#dc5f02',
-                    ),
-                    'Title6' => array(
-                        'name' => 'HelveticaNeue-Bold',
-                        'size' => '16',
-                        'color' => '#222222',
-                    ),
-                    'Title7' => array(
-                        'name' => 'HelveticaNeue-Bold',
-                        'size' => '13',
-                        'color' => '#000000',
-                    ),
-                    'Title8' => array(
-                        'name' => 'HelveticaNeue-Bold',
-                        'size' => '11',
-                        'color' => '#FFFFFF',
-                    ),
-                    'Title9' => array(
-                        'name' => 'HelveticaNeue-Bold',
-                        'size' => '12',
-                        'color' => '#FFFFFF',
-                    ),
-                    'Text1' => array(
-                        'name' => 'HelveticaNeue-Bold',
-                        'size' => '12',
-                        'color' => '#777777',
-                    ),
-                    'Text2' => array(
-                        'name' => 'HelveticaNeue',
-                        'size' => '10',
-                        'color' => '#555555',
-                    ),
-                ),
-            ),
-        );
+         return array(
+             'native' => array(
+                 'body' => array(
+                     'backgroundColor' => '#ABABAB',
+                     'scrollBackgroundColor' => '#EDEDED',
+                 ),
+                 'itemActions' => array(
+                     'relatedProductBackgroundColor' => '#404040',
+                 ),
+                 'fonts' => array(
+                     'Title1' => array(
+                         'name' => 'HelveticaNeue-Bold',
+                         'size' => '14',
+                         'color' => '#FEFEFE',
+                     ),
+                     'Title2' => array(
+                         'name' => 'HelveticaNeue-Bold',
+                         'size' => '12',
+                         'color' => '#222222',
+                     ),
+                     'Title3' => array(
+                         'name' => 'HelveticaNeue',
+                         'size' => '13',
+                         'color' => '#000000',
+                     ),
+                     'Title4' => array(
+                         'name' => 'HelveticaNeue',
+                         'size' => '12',
+                         'color' => '#FFFFFF',
+                     ),
+                     'Title5' => array(
+                         'name' => 'HelveticaNeue-Bold',
+                         'size' => '13',
+                         'color' => '#dc5f02',
+                     ),
+                     'Title6' => array(
+                         'name' => 'HelveticaNeue-Bold',
+                         'size' => '16',
+                         'color' => '#222222',
+                     ),
+                     'Title7' => array(
+                         'name' => 'HelveticaNeue-Bold',
+                         'size' => '13',
+                         'color' => '#000000',
+                     ),
+                     'Title8' => array(
+                         'name' => 'HelveticaNeue-Bold',
+                         'size' => '11',
+                         'color' => '#FFFFFF',
+                     ),
+                     'Title9' => array(
+                         'name' => 'HelveticaNeue-Bold',
+                         'size' => '12',
+                         'color' => '#FFFFFF',
+                     ),
+                     'Text1' => array(
+                         'name' => 'HelveticaNeue-Bold',
+                         'size' => '12',
+                         'color' => '#777777',
+                     ),
+                     'Text2' => array(
+                         'name' => 'HelveticaNeue',
+                         'size' => '10',
+                         'color' => '#555555',
+                     ),
+                 ),
+             ),
+         );
      }
 
     /**
@@ -540,7 +533,7 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
      */
     public function getFontSizes()
     {
-        $result = array( );
+        $result = array();
         for ($i = 6; $i < 32; $i++) {
             $result[] = array(
                 'value' => $i,
@@ -618,14 +611,14 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
 
             if (!Zend_Validate::is($resubmissionKey, 'NotEmpty')) {
                 $errors[] = Mage::helper('xmlconnect')->__('Please enter the Resubmission Key.');
-            } else if (!Zend_Validate::is($resubmissionKey, 'StringLength', array(1, $keyLenght))) {
+            } elseif (!Zend_Validate::is($resubmissionKey, 'StringLength', array(1, $keyLenght))) {
                 $errors[] = Mage::helper('xmlconnect')->__('Submit App failure. Invalid activation key provided');
             }
         } else {
             $key = isset($params['key']) ? $params['key'] : null;
             if (!Zend_Validate::is($key, 'NotEmpty')) {
                 $errors[] = Mage::helper('xmlconnect')->__('Please enter the Activation Key.');
-            } else if (!Zend_Validate::is($key, 'StringLength', array(1, $keyLenght))) {
+            } elseif (!Zend_Validate::is($key, 'StringLength', array(1, $keyLenght))) {
                 $errors[] = Mage::helper('xmlconnect')->__('Submit App failure. Invalid activation key provided');
             }
         }
@@ -642,10 +635,9 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
     {
         $errors = array();
 
-        if ( ($native === false)
-            || (!isset($native['navigationBar']) || !is_array($native['navigationBar'])
-            || !isset($native['navigationBar']['icon'])
-            || !Zend_Validate::is($native['navigationBar']['icon'], 'NotEmpty'))) {
+        if ($native === false || (!isset($native['navigationBar']['icon'])
+            || !Zend_Validate::is($native['navigationBar']['icon'], 'NotEmpty'))
+        ) {
             $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "Logo in Header" field from Design Tab.');
         }
 
@@ -725,23 +717,27 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
      */
     public function checkImages(array $data)
     {
-        if (isset($data['conf']['native']['navigationBar']['icon']) &&
-            !file_exists($data['conf']['native']['navigationBar']['icon'])
-        ) {
-            $data['conf']['native']['navigationBar']['icon'] = '';
+        /** @var $helper Mage_XmlConnect_Helper_Image */
+        $helper = Mage::helper('xmlconnect/image');
+
+        $icon =& $data['conf']['native']['navigationBar']['icon'];
+
+        if (!empty($icon) && !$helper->checkAndGetImagePath($icon)) {
+            $icon = '';
         }
 
-        if (isset($data['conf']['native']['body']['bannerImage']) &&
-            !file_exists($data['conf']['native']['body']['bannerImage'])
-        ) {
-            $data['conf']['native']['body']['bannerImage'] = '';
+        $banner =& $data['conf']['native']['body']['bannerImage'];
+
+        if (!empty($banner) && !$helper->checkAndGetImagePath($banner)) {
+            $banner = '';
         }
 
-        if (isset($data['conf']['native']['body']['backgroundImage']) &&
-            !file_exists($data['conf']['native']['body']['backgroundImage'])
-        ) {
-            $data['conf']['native']['body']['backgroundImage'] = '';
+        $background =& $data['conf']['native']['body']['backgroundImage'];
+
+        if (!empty($background) && !$helper->checkAndGetImagePath($background)) {
+            $background = '';
         }
+
         return $data;
     }
 
@@ -750,7 +746,7 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
      *
      * @throws Mage_Core_Exception
      * @param array $data
-     * @return void
+     * @return null
      */
     public function checkRequiredConfigFields($data)
     {
@@ -758,26 +754,24 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
             return;
         }
 
-        if (isset($data['navigationBar']['icon'])
-            && empty($data['navigationBar']['icon'])
-        ) {
-            Mage::throwException(
-                Mage::helper('xmlconnect')->__('Logo in Header image missing.')
-            );
+        if (isset($data['navigationBar']['icon']) && empty($data['navigationBar']['icon'])) {
+            Mage::throwException(Mage::helper('xmlconnect')->__('Logo in Header image missing.'));
         }
-        if (isset($data['body']['bannerImage']) &&
-            empty($data['body']['bannerImage'])
-        ) {
-            Mage::throwException(
-                Mage::helper('xmlconnect')->__('Banner on Home Screen image missing.')
-            );
+        if (isset($data['body']['bannerImage']) && empty($data['body']['bannerImage'])) {
+            Mage::throwException(Mage::helper('xmlconnect')->__('Banner on Home Screen image missing.'));
         }
-        if (isset($data['body']['backgroundImage'])
-            && empty($data['body']['backgroundImage'])
-        ) {
-            Mage::throwException(
-                Mage::helper('xmlconnect')->__('App Background image missing.')
-            );
+        if (isset($data['body']['backgroundImage']) && empty($data['body']['backgroundImage'])) {
+            Mage::throwException(Mage::helper('xmlconnect')->__('App Background image missing.'));
         }
+    }
+
+    /**
+     * Check the notifications are allowed for current type of application
+     *
+     * @return bool
+     */
+    public function isNotificationsAllowed()
+    {
+        return true;
     }
 }

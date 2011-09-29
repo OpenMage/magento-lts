@@ -325,7 +325,7 @@ class Mage_Core_Model_Url extends Varien_Object
                 $pathSecure = Mage::getConfig()->shouldUrlBeSecure('/' . $this->getActionPath());
                 $this->setData('secure', $pathSecure);
             } else {
-                $this->setData('secure', $store->isCurrentlySecure());
+                $this->setData('secure', true);
             }
         }
         return $this->getData('secure');

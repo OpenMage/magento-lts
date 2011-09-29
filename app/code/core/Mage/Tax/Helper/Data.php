@@ -783,15 +783,18 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get calculated taxes for each tax class
      *
-     * @param Mage_Sales_Model_Order $source
-     *
+     * This method returns array with format:
      * array(
      *  $index => array(
      *      'tax_amount'        => $taxAmount,
      *      'base_tax_amount'   => $baseTaxAmount,
      *      'hidden_tax_amount' => $hiddenTaxAmount
+     *      'title'             => $title
+     *      'percent'           => $percent
      *  )
      * )
+     *
+     * @param Mage_Sales_Model_Order $source
      * @return array
      */
     public function getCalculatedTaxes($source)
@@ -806,11 +809,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
 
         $taxClassAmount = array();
         if ($current && $source) {
-            $shippingTaxAmount          = $current->getShippingTaxAmount();
-            $baseShippingTaxAmount      = $current->getBaseShippingTaxAmount();
-            $shippingHiddenTaxAmount    = $current->getShippingHiddenTaxAmount();
-
-            $i = 0;
             foreach($current->getItemsCollection() as $item) {
                 $taxCollection = Mage::getResourceModel('tax/sales_order_tax_item')
                     ->getTaxItemsByItemId(
@@ -819,25 +817,15 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
 
                 foreach ($taxCollection as $tax) {
                     $taxClassId = $tax['tax_id'];
-                    $percent    = $tax['percent'];
+                    $percent    = $tax['tax_percent'];
                     if (isset($taxClassAmount[$taxClassId])) {
                         $taxClassAmount[$taxClassId]['tax_amount']          += $item->getRowTotal() * $percent / 100;
                         $taxClassAmount[$taxClassId]['base_tax_amount'] += $item->getBaseRowTotal() * $percent / 100;
                         $taxClassAmount[$taxClassId]['hidden_tax_amount']   += $item->getHiddenTaxAmount();
                     } else {
-                        if ($i == 0) {
-                            $i = 1;
-                            $taxClassAmount[$taxClassId]['tax_amount']          = $shippingTaxAmount;
-                            $taxClassAmount[$taxClassId]['base_tax_amount']     = $baseShippingTaxAmount;
-                            $taxClassAmount[$taxClassId]['hidden_tax_amount']   = $shippingHiddenTaxAmount;
-                        } else {
-                            $taxClassAmount[$taxClassId]['tax_amount']          = 0;
-                            $taxClassAmount[$taxClassId]['base_tax_amount']     = 0;
-                            $taxClassAmount[$taxClassId]['hidden_tax_amount']   = 0;
-                        }
-                        $taxClassAmount[$taxClassId]['tax_amount']          += $item->getRowTotal() * $percent / 100;
-                        $taxClassAmount[$taxClassId]['base_tax_amount'] += $item->getBaseRowTotal() * $percent / 100;
-                        $taxClassAmount[$taxClassId]['hidden_tax_amount']   += $item->getHiddenTaxAmount();
+                        $taxClassAmount[$taxClassId]['tax_amount']          = $item->getRowTotal() * $percent / 100;
+                        $taxClassAmount[$taxClassId]['base_tax_amount'] = $item->getBaseRowTotal() * $percent / 100;
+                        $taxClassAmount[$taxClassId]['hidden_tax_amount']   = $item->getHiddenTaxAmount();
                         $taxClassAmount[$taxClassId]['title']               = $tax['title'];
                         $taxClassAmount[$taxClassId]['percent']             = $tax['percent'];
                     }
@@ -845,12 +833,55 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             foreach ($taxClassAmount as $key=>$tax) {
-                 if ($tax['tax_amount'] == 0 && $tax['base_tax_amount'] == 0 && $tax['hidden_tax_amount'] == 0) {
+                 if ($tax['tax_amount'] == 0 && $tax['base_tax_amount'] == 0) {
                      unset($taxClassAmount[$key]);
                  }
             }
 
             $taxClassAmount = array_values($taxClassAmount);
+        }
+
+        return $taxClassAmount;
+    }
+
+    /**
+     * Get calculated Shipping & Handling Tax
+     *
+     * This method returns array with format:
+     * array(
+     *  $index => array(
+     *      'tax_amount'        => $taxAmount,
+     *      'base_tax_amount'   => $baseTaxAmount,
+     *      'hidden_tax_amount' => $hiddenTaxAmount
+     *      'title'             => $title
+     *      'percent'           => $percent
+     *  )
+     * )
+     *
+     * @param Mage_Sales_Model_Order $source
+     * @return array
+     */
+    public function getShippingTax($source)
+    {
+        if (Mage::registry('current_invoice')) {
+            $current = Mage::registry('current_invoice');
+        } elseif (Mage::registry('current_creditmemo')) {
+            $current = Mage::registry('current_creditmemo');
+        } else {
+            $current = $source;
+        }
+
+        $taxClassAmount = array();
+        if ($current && $source) {
+            if ($current->getShippingTaxAmount() != 0 && $current->getBaseShippingTaxAmount() != 0) {
+                $taxClassAmount[0]['tax_amount']        = $current->getShippingTaxAmount();
+                $taxClassAmount[0]['base_tax_amount']   = $current->getBaseShippingTaxAmount();
+                if ($current->getShippingHiddenTaxAmount() > 0) {
+                    $taxClassAmount[0]['hidden_tax_amount'] = $current->getShippingHiddenTaxAmount();
+                }
+                $taxClassAmount[0]['title']             = $this->__('Shipping & Handling Tax');
+                $taxClassAmount[0]['percent']           = NULL;
+            }
         }
 
         return $taxClassAmount;

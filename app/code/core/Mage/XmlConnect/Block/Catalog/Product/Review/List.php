@@ -48,7 +48,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Review_List extends Mage_XmlConnect_
     public function getReviewsXmlObject()
     {
         $reviewsXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<reviews></reviews>');
-        $collection     = $this->_getReviewCollection();
+        $collection    = $this->_getReviewCollection();
 
         if (!$collection) {
             return $reviewsXmlObj;
@@ -78,10 +78,8 @@ class Mage_XmlConnect_Block_Catalog_Product_Review_List extends Mage_XmlConnect_
             }
             /** @var $collection Mage_Review_Model_Mysql4_Review_Collection */
             $collection = Mage::getResourceModel('review/review_collection')
-                ->addEntityFilter('product', $product->getId())
-                ->addStoreFilter(Mage::app()->getStore()->getId())
-                ->addStatusFilter('approved')
-                ->setDateOrder();
+                ->addEntityFilter('product', $product->getId())->addStoreFilter(Mage::app()->getStore()->getId())
+                ->addStatusFilter('approved')->setDateOrder();
 
             /**
              * Apply offset and count
@@ -110,5 +108,4 @@ class Mage_XmlConnect_Block_Catalog_Product_Review_List extends Mage_XmlConnect_
 
         return $this->getReviewsXmlObject()->asNiceXml();
     }
-
 }

@@ -404,7 +404,6 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
     {
         $request = $this->_buildBasicRequest($payment);
         $request->setAmt(round($amount,2));
-        $request->setCurrency($payment->getOrder()->getBaseCurrencyCode());
         $request->setAcct($payment->getCcNumber());
         $request->setExpdate(sprintf('%02d',$payment->getCcExpMonth()) . substr($payment->getCcExpYear(),-2,2));
         $request->setCvv2($payment->getCcCid());
@@ -417,6 +416,9 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
 
         $order = $payment->getOrder();
         if(!empty($order)){
+            $request->setCurrency($order->getBaseCurrencyCode())
+                    ->setCustref($order->getIncrementId());
+
             $billing = $order->getBillingAddress();
             if (!empty($billing)) {
                 $request->setFirstname($billing->getFirstname())

@@ -27,12 +27,12 @@
 /**
  * Adminhtml airmail queue grid block action item renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_XmlConnect_Block_Adminhtml_Queue_Grid_Renderer_Template extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_XmlConnect_Block_Adminhtml_Queue_Grid_Renderer_Template
+    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
      * Render grid row
@@ -42,10 +42,10 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Grid_Renderer_Template extends Mage_
      */
     public function render(Varien_Object $row)
     {
-        $str = htmlspecialchars($row->getTplName());
+        $str = $this->escapeHtml($row->getTplName());
         if ($str == '') {
             $str .= '---';
         }
         return $str;
-     }
+    }
 }

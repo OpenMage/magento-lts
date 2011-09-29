@@ -24,7 +24,15 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_XmlConnect_Block_Adminhtml_Queue_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
+/**
+ * Xmlconnect queue edit block
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_XmlConnect_Block_Adminhtml_Queue_Edit
+    extends Mage_Adminhtml_Block_Widget_Form_Container
 {
     /**
      * Constructor
@@ -72,7 +80,7 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Edit extends Mage_Adminhtml_Block_Wi
     {
         $message = Mage::registry('current_message');
         if ($message && $message->getId()) {
-            return $this->__('Edit AirMail Message Queue #%s', $this->htmlEscape($message->getId()));
+            return $this->__('Edit AirMail Message Queue #%s', $this->escapeHtml($message->getId()));
         } else {
             return $this->__('New AirMail Message Queue');
         }

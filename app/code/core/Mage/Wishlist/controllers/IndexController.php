@@ -200,7 +200,6 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $session->addError($this->__('An error occurred while adding item to wishlist: %s', $e->getMessage()));
         }
         catch (Exception $e) {
-            mage::log($e->getMessage());
             $session->addError($this->__('An error occurred while adding item to wishlist.'));
         }
 

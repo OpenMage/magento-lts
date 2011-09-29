@@ -134,6 +134,11 @@ AdminOrder.prototype = {
         var field = Event.element(event);
         var re = /[^\[]*\[([^\]]*)_address\]\[([^\]]*)\](\[(\d)\])?/;
         var matchRes = field.name.match(re);
+
+        if (!matchRes) {
+            return;
+        }
+
         var type = matchRes[1];
         var name = matchRes[2];
         var data;

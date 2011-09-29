@@ -34,8 +34,6 @@
 class Mage_XmlConnect_Block_Adminhtml_Queue_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
-     * Constructor
-     *
      * Setting grid_id, sort order and sort direction
      */
     public function __construct()

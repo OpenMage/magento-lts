@@ -122,6 +122,9 @@
     <tag_product_list>
         <update handle="SHORTCUT_uk_popup" />
     </tag_product_list>
+    <tag_customer_view>
+        <update handle="SHORTCUT_uk_popup" />
+    </tag_customer_view>
 
     <wishlist_index_index>
         <update handle="SHORTCUT_uk_popup" />

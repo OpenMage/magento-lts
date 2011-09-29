@@ -1382,7 +1382,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                     ->setOrderFilter($this->getOrder())
                     ->addPaymentIdFilter($this->getId())
                     ->addTxnTypeFilter($txnType)
-                    ->setOrder('created_at', Varien_Data_Collection::SORT_ORDER_DESC);
+                    ->setOrder('created_at', Varien_Data_Collection::SORT_ORDER_DESC)
+                    ->setOrder('transaction_id', Varien_Data_Collection::SORT_ORDER_DESC);
                 foreach ($collection as $txn) {
                     $txn->setOrderPaymentObject($this);
                     $this->_transactionsLookup[$txn->getTxnId()] = $txn;

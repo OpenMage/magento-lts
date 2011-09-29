@@ -57,13 +57,12 @@ class Mage_XmlConnect_Model_Preview_Iphone extends Mage_XmlConnect_Model_Preview
      */
     public function getBackgroundImage()
     {
-        $backgroundImage = '';
         $configPath = 'conf/body/backgroundImage';
         $imageUrlOrig = $this->getData($configPath);
         if ($imageUrlOrig) {
             $backgroundImage = $imageUrlOrig;
         } else {
-            $backgroundImage = $this->getPreviewImagesUrl('banner.png');
+            $backgroundImage = $this->getPreviewImagesUrl('background.png');
         }
         return $backgroundImage;
     }

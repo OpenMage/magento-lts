@@ -68,19 +68,22 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     {
         $this->_title($this->__('CMS'))->_title($this->__('Widgets'));
 
+        /** @var $widgetInstance Mage_Widget_Model_Widget_Instance */
         $widgetInstance = Mage::getModel('widget/widget_instance');
+
         $instanceId = $this->getRequest()->getParam('instance_id', null);
-        $type = $this->getRequest()->getParam('type', null);
-        $packageTheme = $this->getRequest()->getParam('package', null) . '/'
-                . $this->getRequest()->getParam('theme', null);
-        $packageTheme = $packageTheme === '/' ? null : $packageTheme;
+        $type       = $this->getRequest()->getParam('type', null);
+        $package    = $this->getRequest()->getParam('package', null);
+        $theme      = $this->getRequest()->getParam('theme', null);
+
         if ($instanceId) {
             $widgetInstance->load($instanceId);
             if (!$widgetInstance->getId()) {
-                $this->_getSession()->addError(Mage::helper('widget')->__('Wrong wigdet instance specified.'));
+                $this->_getSession()->addError(Mage::helper('widget')->__('Wrong widget instance specified.'));
                 return false;
             }
         } else {
+            $packageTheme = $package . '/' . $theme == '/' ? null : $package . '/' . $theme;
             $widgetInstance->setType($type)
                 ->setPackageTheme($packageTheme);
         }

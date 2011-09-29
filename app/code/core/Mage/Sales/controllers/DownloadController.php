@@ -148,12 +148,33 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
     public function downloadCustomOptionAction()
     {
         $quoteItemOptionId = $this->getRequest()->getParam('id');
+        /** @var $option Mage_Sales_Model_Quote_Item_Option */
         $option = Mage::getModel('sales/quote_item_option')->load($quoteItemOptionId);
 
-        if (!$option->getId() || $option->getCode() == 'info_buyRequest') {
+        if (!$option->getId()) {
             $this->_forward('noRoute');
             return;
         }
+
+        $optionId = null;
+        if (strpos($option->getCode(), Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX) === 0) {
+            $optionId = str_replace(Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX, '', $option->getCode());
+            if ((int)$optionId != $optionId) {
+                $optionId = null;
+            }
+        }
+        $productOption = null;
+        if ($optionId) {
+            /** @var $productOption Mage_Catalog_Model_Product_Option */
+            $productOption = Mage::getModel('catalog/product_option')->load($optionId);
+        }
+        if (!$productOption || !$productOption->getId()
+            || $productOption->getProductId() != $option->getProductId() || $productOption->getType() != 'file'
+        ) {
+            $this->_forward('noRoute');
+            return;
+        }
+
         try {
             $info = unserialize($option->getValue());
             $this->_downloadFileAction($info);

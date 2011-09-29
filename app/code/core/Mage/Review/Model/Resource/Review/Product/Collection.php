@@ -380,7 +380,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             case 'type':
                 if ($condition == 1) {
                     $conditionParts = array(
-                        $this->_getConditionSql('rdt.customer_id', array('is' => 'NULL')),
+                        $this->_getConditionSql('rdt.customer_id', array('is' => new Zend_Db_Expr('NULL'))),
                         $this->_getConditionSql('rdt.store_id', array('eq' => Mage_Core_Model_App::ADMIN_STORE_ID))
                     );
                     $conditionSql = implode(' AND ', $conditionParts);
@@ -388,7 +388,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
                     $conditionSql = $this->_getConditionSql('rdt.customer_id', array('gt' => 0));
                 } else {
                     $conditionParts = array(
-                        $this->_getConditionSql('rdt.customer_id', array('is' => 'NULL')),
+                        $this->_getConditionSql('rdt.customer_id', array('is' => new Zend_Db_Expr('NULL'))),
                         $this->_getConditionSql('rdt.store_id', array('neq' => Mage_Core_Model_App::ADMIN_STORE_ID))
                     );
                     $conditionSql = implode(' AND ', $conditionParts);

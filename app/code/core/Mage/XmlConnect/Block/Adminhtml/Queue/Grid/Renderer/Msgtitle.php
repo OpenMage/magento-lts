@@ -27,11 +27,12 @@
 /**
  * Adminhtml airmail queue grid block action item renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Queue_Grid_Renderer_Msgtitle extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_XmlConnect_Block_Adminhtml_Queue_Grid_Renderer_Msgtitle
+    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
      * Render grid row
@@ -45,6 +46,6 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Grid_Renderer_Msgtitle extends Mage_
         if (strlen($msgTitle) > 50) {
             $msgTitle = substr($msgTitle, 0, 50) . '...';
         }
-        return htmlspecialchars($msgTitle);
+        return $this->escapeHtml($msgTitle);
     }
 }

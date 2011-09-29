@@ -70,6 +70,9 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
         $fontSize       = $this->getFontSize() ? $this->getFontSize() : 7;
 
         if (!empty($taxClassAmount)) {
+            $shippingTax    = Mage::helper('tax')->getShippingTax($this->getOrder());
+            $taxClassAmount = array_merge($shippingTax, $taxClassAmount);
+
             foreach ($taxClassAmount as &$tax) {
                 $percent          = $tax['percent'] ? ' (' . $tax['percent']. '%)' : '';
                 $tax['amount']    = $this->getAmountPrefix().$this->getOrder()->formatPriceTxt($tax['tax_amount']);

@@ -54,7 +54,9 @@ class Mage_XmlConnect_Block_Checkout_Address_Billing extends Mage_Checkout_Block
                 $item->addAttribute('selected', 1);
             }
             $this->getChild('address_list')->prepareAddressData($address, $item);
-            $item->addChild('address_line', $billingXmlObj->xmlentities($address->format('oneline')));
+            $item->addChild(
+                'address_line', $billingXmlObj->xmlentities($address->format('oneline'))
+            );
         }
 
         return $billingXmlObj->asNiceXml();

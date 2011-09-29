@@ -31,8 +31,8 @@
  * @package    Mage_XmlConnect
  * @author     Magento Core Team <core@magentocommerce.com>
  */
- class Mage_XmlConnect_Block_Adminhtml_Template extends Mage_Adminhtml_Block_Widget_Grid_Container
- {
+class Mage_XmlConnect_Block_Adminhtml_Template extends Mage_Adminhtml_Block_Widget_Grid_Container
+{
     /**
      * Class constructor
      */
@@ -45,11 +45,11 @@
         parent::__construct();
         $this->removeButton('add');
     }
-    
+
     /**
      * Prepare layout
      * Add new button
-     * 
+     *
      * @return Mage_Adminhtml_Block_Widget_Grid_Container
      */
     protected function _prepareLayout()
@@ -59,7 +59,7 @@
             'onclick' => "setLocation('{$this->getUrl('*/*/newTemplate')}')",
             'class'   => 'add'
         ));
-        
+
         return parent::_prepareLayout();
     }
- }
+}

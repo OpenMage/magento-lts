@@ -150,10 +150,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings
     public function getContinueUrl()
     {
         return $this->getUrl('*/*/*', array(
-            '_current' => true,
-            'type' => '{{type}}',
-            'package' => '{{mpackage}}',
-            'theme' => '{{mtheme}}'
+            '_current'  => true,
+            'type'      => '{{type}}',
+            'package'   => '{{package}}',
+            'theme'     => '{{theme}}'
         ));
     }
 

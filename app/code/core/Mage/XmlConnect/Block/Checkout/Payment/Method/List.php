@@ -34,6 +34,32 @@
 class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Block_Form_Container
 {
     /**
+     * Pre-defined array of methods that we are going to render
+     *
+     * @var array
+     */
+    protected $_methodArray = array(
+        'payment_ccsave'            => 'Mage_Payment_Model_Method_Cc',
+        'payment_checkmo'           => 'Mage_Payment_Model_Method_Checkmo',
+        'payment_purchaseorder'     => 'Mage_Payment_Model_Method_Purchaseorder',
+    );
+
+    /**
+     * Payment bridge methods array
+     *
+     * Core block renderer by method code
+     * - 'pbridge_authorizenet'  => 'Enterprise_Pbridge_Model_Payment_Method_Authorizenet',
+     * - 'pbridge_paypal'        => 'Enterprise_Pbridge_Model_Payment_Method_Paypal',
+     * - 'pbridge_verisign'      => 'Enterprise_Pbridge_Model_Payment_Method_Payflow_Pro',
+     * - 'pbridge_paypaluk'      => 'Enterprise_Pbridge_Model_Payment_Method_Paypaluk',
+     *
+     * @var array
+     */
+    protected $_pbridgeMethodArray = array(
+        'pbridge_authorizenet', 'pbridge_paypal', 'pbridge_verisign', 'pbridge_paypaluk'
+    );
+
+    /**
      * Prevent parent set children
      *
      * @return Mage_XmlConnect_Block_Checkout_Payment_Method_List
@@ -54,6 +80,98 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
     }
 
     /**
+     * Add customer balance details to XML object
+     *
+     * @param Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj
+     */
+    public function addCustomerBalanceToXmlObj(Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj)
+    {
+        /** @var $customerBalanceBlock Enterprise_CustomerBalance_Block_Checkout_Onepage_Payment_Additional */
+        $customerBalanceBlock = $this->getLayout()
+            ->addBlock('enterprise_customerbalance/checkout_onepage_payment_additional', 'customer_balance');
+        $storeCreditFlag = (int) Mage::getStoreConfig(Enterprise_CustomerBalance_Helper_Data::XML_PATH_ENABLED);
+        if ($storeCreditFlag && $customerBalanceBlock->isDisplayContainer()) {
+            $balance = $this->getQuote()->getStore()->formatPrice($customerBalanceBlock->getBalance(), false);
+            $methodsXmlObj->addCustomChild('customer_balance', null, array(
+                'post_name' => 'payment[use_customer_balance]',
+                'code'      => 1,
+                'label'     => $this->__('Use Store Credit (%s available)', $balance),
+                'is_cover_a_quote' => intval($customerBalanceBlock->isFullyPaidAfterApplication()),
+                'selected'  => intval($customerBalanceBlock->isCustomerBalanceUsed())
+            ));
+        }
+    }
+
+    /**
+     * Add gift card details to XML object
+     *
+     * @param Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj
+     */
+    public function addGiftcardToXmlObj(Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj)
+    {
+        $giftcardInfoBlock = $this->getLayout()->addBlock(
+            'enterprise_giftcardaccount/checkout_onepage_payment_additional', 'giftcard_info'
+        );
+
+        if (intval($giftcardInfoBlock->getAppliedGiftCardAmount())) {
+            $amount = $this->getQuote()->getStore()->formatPrice($giftcardInfoBlock->getAppliedGiftCardAmount(), false);
+            $amount = $this->__('Gift Card amount applied to order: %s', $amount);
+
+            $methodsXmlObj->addCustomChild('information', null, array('label' => $amount, 'disabled' => '1'));
+
+            if ($this->_isPaymentRequired()) {
+                $methodsXmlObj->addCustomChild('method', null, array(
+                    'post_name' => 'payment[method]',
+                    'code' => 'free',
+                    'label' => $this->__('No Payment Information Required'),
+                    'selected' => '1',
+                    'disabled' => '1'
+                ));
+            }
+            $this->setIsUsedGiftCard(true);
+        }
+    }
+
+    /**
+     * Check is payment required for a quote
+     *
+     * @return bool
+     */
+    protected function _isPaymentRequired()
+    {
+        $this->getQuote()->collectTotals();
+        return !intval($this->getQuote()->getGrandTotal()) && !$this->getQuote()->hasNominalItems();
+    }
+
+    /**
+     * Get payment methods array as code => renderer and set payment blocks to layout
+     *
+     * @return array
+     */
+    protected function _getPaymentMethodArray()
+    {
+        $methodArray = $this->_methodArray;
+
+        /**
+         * Check is available Payment Bridge and add methods for rendering
+         */
+        if (is_object(Mage::getConfig()->getNode('modules/Enterprise_Pbridge'))) {
+
+            $pbBlockRenderer = 'xmlconnect/checkout_payment_method_';
+            $pbBlockName = 'xmlconnect.checkout.payment.method.';
+
+            foreach ($this->_pbridgeMethodArray as $block) {
+                $currentBlockRenderer = $pbBlockRenderer . $block;
+                $currentBlockName = $pbBlockName . $block;
+                $this->getLayout()->addBlock($currentBlockRenderer, $currentBlockName);
+                $this->setChild($block, $currentBlockName);
+            }
+            $methodArray = $methodArray + $this->_pbridgeMethodArray;
+        }
+        return $methodArray;
+    }
+
+    /**
      * Render payment methods xml
      *
      * @return string
@@ -64,44 +182,26 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
         /** @var $methodsXmlObj Mage_XmlConnect_Model_Simplexml_Element */
         $methodsXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<payment_methods></payment_methods>');
 
-        /**
-         * Pre-defined array of methods that we are going to render
-         */
-        $methodArray = array(
-            'payment_ccsave'            => 'Mage_Payment_Model_Method_Cc',
-            'payment_checkmo'           => 'Mage_Payment_Model_Method_Checkmo',
-            'payment_purchaseorder'     => 'Mage_Payment_Model_Method_Purchaseorder',
-        );
-
-        /**
-         * Check is available Payment Bridge and add methods for rendering
-         */
-        if (is_object(Mage::getConfig()->getNode('modules/Enterprise_Pbridge'))) {
-            $pbridgeMethodArray = array(
-                'pbridge_authorizenet'  => 'Enterprise_Pbridge_Model_Payment_Method_Authorizenet',
-                'pbridge_paypal'        => 'Enterprise_Pbridge_Model_Payment_Method_Paypal',
-                'pbridge_verisign'      => 'Enterprise_Pbridge_Model_Payment_Method_Payflow_Pro',
-                'pbridge_paypaluk'      => 'Enterprise_Pbridge_Model_Payment_Method_Paypaluk',
-            );
-
-            $pbBlockRenderer = 'xmlconnect/checkout_payment_method_';
-            $pbBlockName = 'xmlconnect.checkout.payment.method.';
-
-            foreach ($pbridgeMethodArray as $block => $class) {
-                $currentBlockRenderer = $pbBlockRenderer . $block;
-                $currentBlockName = $pbBlockName . $block;
-                $this->getLayout()->addBlock($currentBlockRenderer, $currentBlockName);
-                $this->setChild($block, $currentBlockName);
+        if (is_object(Mage::getConfig()->getNode('modules/Enterprise_GiftCardAccount'))) {
+            $this->addGiftcardToXmlObj($methodsXmlObj);
+            if ($this->getIsUsedGiftCard() && $this->_isPaymentRequired()) {
+                return $methodsXmlObj->asNiceXml();
             }
-            $methodArray = $methodArray + $pbridgeMethodArray;
         }
 
+        if (is_object(Mage::getConfig()->getNode('modules/Enterprise_CustomerBalance'))) {
+            $this->addCustomerBalanceToXmlObj($methodsXmlObj);
+        }
+
+        $methodArray = $this->_getPaymentMethodArray();
         $usedMethods = $sortedAvailableMethodCodes = $usedCodes = array();
 
         /**
          * Receive available methods for checkout
          */
-        $allAvailableMethods  = Mage::helper('payment')->getStoreMethods(Mage::app()->getStore(), $this->getQuote());
+        $allAvailableMethods  = Mage::helper('payment')->getStoreMethods(
+            Mage::app()->getStore(), $this->getQuote()
+        );
 
         /**
          * Get sorted codes of available methods

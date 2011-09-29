@@ -307,6 +307,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
             ->setNotifyUrl(Mage::getUrl('paypal/ipn/'))
             ->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
             ->setIsLineItemsEnabled($this->_pro->getConfig()->lineItemsEnabled)
+            ->setInvNum($order->getIncrementId())
         ;
 
         // call api and import transaction and other payment information

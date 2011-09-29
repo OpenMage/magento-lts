@@ -236,7 +236,6 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     public function setPackageTheme($packageTheme)
     {
         $this->setData('package_theme', $packageTheme);
-        $this->_preparePackageTheme();
         return $this;
     }
 
@@ -248,20 +247,18 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     public function getPackageTheme()
     {
-        $this->_preparePackageTheme();
         return $this->_getData('package_theme');
     }
 
     /**
      * Replace '_' to '/', if was set from request(GET request)
      *
+     * @deprecated after 1.6.1.0-alpha1
+     *
      * @return Mage_Widget_Model_Widget_Instance
      */
     protected function _preparePackageTheme()
     {
-        if (strpos($this->_getData('package_theme'), '_') >= 0) {
-            $this->setData('package_theme', str_replace('_', '/', $this->_getData('package_theme')));
-        }
         return $this;
     }
 

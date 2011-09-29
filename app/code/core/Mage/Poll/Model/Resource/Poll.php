@@ -169,16 +169,15 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
      */
     public function resetVotesCount($object)
     {
-        $read = $this->_getReadAdapter();
-        $select = $read->select();
-        $select->from($this->getTable('poll_answer'), new Zend_Db_Expr("SUM(votes_count)"))
-            ->where('poll_id = :poll_id');
-
-        $count = $read->fetchOne($select, array(':poll_id' => $object->getPollId()));
-
-        $write = $this->_getWriteAdapter();
-        $condition = $write->quoteInto("{$this->getIdFieldName()} = ?", $object->getPollId());
-        $write->update($this->getMainTable(), array('votes_count' => $count), $condition);
+        $adapter = $this->_getWriteAdapter();
+        $select = $adapter->select()
+            ->from($this->getTable('poll_answer'), new Zend_Db_Expr("SUM(votes_count)"))
+            ->where('poll_id = ?', $object->getPollId());
+        $adapter->update(
+            $this->getMainTable(),
+            array('votes_count' => new Zend_Db_Expr("($select)")),
+            array('poll_id = ' . $adapter->quote($object->getPollId()))
+        );
         return $object;
     }
 

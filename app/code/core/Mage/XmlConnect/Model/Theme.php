@@ -25,10 +25,10 @@
  */
 
 /**
- * XmlConnect Model Theme
+ * XmlConnect Theme model
  *
  * @category    Mage
- * @package     Mage_XmlConnect
+ * @package     Mage_Xmlconnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Model_Theme
@@ -172,14 +172,8 @@ class Mage_XmlConnect_Model_Theme
         /** @var $coreHelper Mage_Core_Helper_Data */
         $coreHelper = Mage::helper('core');
 
-        $themeFileName = $themesHelper->getMediaThemePath()
-            . DS
-            .$themesHelper->getCustomThemeName()
-            . '_'
-            . time()
-            . '_'
-            . $coreHelper->getRandomString(10, 'abcdefghijklmnopqrstuvwxyz0123456789')
-            . '.xml';
+        $themeFileName = $themesHelper->getMediaThemePath() . DS .$themesHelper->getCustomThemeName() . '_' . time()
+            . '_' . $coreHelper->getRandomString(10, 'abcdefghijklmnopqrstuvwxyz0123456789') . '.xml';
         return $themeFileName;
     }
 
@@ -193,13 +187,13 @@ class Mage_XmlConnect_Model_Theme
     {
         $currentThemeFileName = $this->_getThemeFile();
 
-        $io = new Varien_Io_File();
-        if (!$io->cp($currentThemeFileName, $filePath)) {
+        $ioFile = new Varien_Io_File();
+        if (!$ioFile->cp($currentThemeFileName, $filePath)) {
             Mage::throwException(
                 Mage::helper('xmlconnect')->__('Can\'t copy file "%s" to "%s".', $currentThemeFileName, $filePath)
             );
         } else {
-            $io->chmod($filePath, 0755);
+            $ioFile->chmod($filePath, 0755);
         }
 
         return $filePath;
@@ -221,7 +215,7 @@ class Mage_XmlConnect_Model_Theme
         $themeFileName = Mage::getModel('xmlconnect/theme', $filePath);
         $themeFileName->setLabel($themeName);
         $fileName = basename($filePath);
-        $themeFileName->setName(substr($fileName, 0, strlen($fileName)-4));
+        $themeFileName->setName(substr($fileName, 0, -4));
         $themeFileName->importAndSaveData($data);
         return $themeFileName;
     }
@@ -243,7 +237,7 @@ class Mage_XmlConnect_Model_Theme
      * @param string $prefix
      * @return array
      */
-    protected function _flatArray($subtree, $prefix=null)
+    protected function _flatArray($subtree, $prefix = null)
     {
         $result = array();
         foreach ($subtree as $key => $value) {
@@ -269,7 +263,7 @@ class Mage_XmlConnect_Model_Theme
      * @param array $xml
      * @return array
      */
-    protected function _validateFormInput($data, $xml=NULL)
+    protected function _validateFormInput($data, $xml = null)
     {
         $root = false;
         $result = array();
@@ -298,7 +292,7 @@ class Mage_XmlConnect_Model_Theme
      *
      * @param SimpleXMLElement $parent
      * @param array $data
-     * @return void
+     * @return null
      */
     protected function _buildRecursive($parent, $data)
     {
@@ -315,7 +309,7 @@ class Mage_XmlConnect_Model_Theme
      * Import data into theme form $data array, and save XML to file
      *
      * @param array $data
-     * @return void
+     * @return null
      */
     public function importAndSaveData($data)
     {
@@ -325,9 +319,7 @@ class Mage_XmlConnect_Model_Theme
         if (is_writeable($this->_file)) {
             file_put_contents($this->_file, $xml->asXML());
         } else {
-            Mage::throwException(
-                Mage::helper('xmlconnect')->__('Can\'t write to file "%s".', $this->_file)
-            );
+            Mage::throwException(Mage::helper('xmlconnect')->__('Can\'t write to file "%s".', $this->_file));
         }
     }
 }

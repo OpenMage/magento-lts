@@ -304,8 +304,8 @@ class Mage_Paypal_Model_Config
     public function isMethodActive($method)
     {
         if ($this->isMethodSupportedForCountry($method)
-            && Mage::getStoreConfigFlag("payment/{$method}/active", $this->_storeId))
-        {
+            && Mage::getStoreConfigFlag("payment/{$method}/active", $this->_storeId)
+        ) {
             return true;
         }
         return false;
@@ -476,6 +476,7 @@ class Mage_Paypal_Model_Config
                 self::METHOD_WPS,
                 self::METHOD_WPP_DIRECT,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_WPP_PE_DIRECT,
                 self::METHOD_WPP_PE_EXPRESS,
                 self::METHOD_PAYFLOWPRO,
@@ -485,6 +486,7 @@ class Mage_Paypal_Model_Config
                 self::METHOD_WPS,
                 self::METHOD_WPP_DIRECT,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_PAYFLOWPRO,
                 self::METHOD_PAYFLOWLINK,
             ),
@@ -492,6 +494,7 @@ class Mage_Paypal_Model_Config
                 self::METHOD_WPS,
                 self::METHOD_WPP_DIRECT,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_WPP_PE_DIRECT,
                 self::METHOD_WPP_PE_EXPRESS,
                 self::METHOD_HOSTEDPRO,
@@ -499,23 +502,27 @@ class Mage_Paypal_Model_Config
             'AU' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_PAYFLOWPRO,
                 self::METHOD_HOSTEDPRO,
             ),
             'NZ' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_PAYFLOWPRO,
                 self::METHOD_HOSTEDPRO,
             ),
             'DE' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_HOSTEDPRO,
             ),
             'other' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_HOSTEDPRO,
             )
         );

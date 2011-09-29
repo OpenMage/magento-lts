@@ -27,13 +27,13 @@
 /**
  * Admin form widget
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Template_Preview_Form extends Mage_Adminhtml_Block_Widget_Form
+class Mage_XmlConnect_Block_Adminhtml_Template_Preview_Form
+    extends Mage_Adminhtml_Block_Widget_Form
 {
-
     /**
      * Preparing from for revision page
      *
@@ -42,17 +42,16 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Preview_Form extends Mage_Adminht
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(array(
-                'id' => 'preview_form',
-                'action' => $this->getUrl('*/*/drop', array('_current' => true)),
-                'method' => 'post'
-            ));
+                'id'        => 'preview_form',
+                'action'    => $this->getUrl('*/*/drop', array('_current' => true)),
+                'method'    => 'post'
+        ));
 
-        if ($data = $this->getFormData()) {
-
+        if ($data = $this->getTemplateFormData()) {
             $mapper = array('preview_store_id' => 'store_id');
 
             foreach ($data as $key => $value) {
-                if(array_key_exists($key, $mapper)) {
+                if (array_key_exists($key, $mapper)) {
                     $name = $mapper[$key];
                 } else {
                     $name = $key;

@@ -91,6 +91,7 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
                 implode(' AND ', $lastnameCondition),
                 array())
             ->columns(array(
+                'customer_id' => 'detail.customer_id',
                 'customer_name' => $customerFullname,
                 'review_cnt'    => 'COUNT(main_table.review_id)'))
             ->group('detail.customer_id');

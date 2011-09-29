@@ -31,8 +31,8 @@
  * @package    Mage_XmlConnect
  * @author     Magento Core Team <core@magentocommerce.com>
  */
- class Mage_XmlConnect_Block_Adminhtml_Queue extends Mage_Adminhtml_Block_Widget_Grid_Container
- {
+class Mage_XmlConnect_Block_Adminhtml_Queue extends Mage_Adminhtml_Block_Widget_Grid_Container
+{
     /**
      * Class constructor
      */
@@ -45,4 +45,4 @@
         parent::__construct();
         $this->removeButton('add');
     }
- }
+}

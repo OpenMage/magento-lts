@@ -332,6 +332,11 @@ class Mage_Checkout_Model_Type_Onepage
         $this->getQuote()->collectTotals();
         $this->getQuote()->save();
 
+        if (!$this->getQuote()->isVirtual() && $this->getCheckout()->getStepData('shipping', 'complete') == true) {
+            //Recollect Shipping rates for shipping methods
+            $this->getQuote()->getShippingAddress()->setCollectShippingRates(true);
+        }
+
         $this->getCheckout()
             ->setStepData('billing', 'allow', true)
             ->setStepData('billing', 'complete', true)

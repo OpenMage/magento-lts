@@ -23,7 +23,16 @@
  * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_General extends Mage_Adminhtml_Block_Widget_Form
+
+/**
+ * Tab for General Info Management
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_General
+    extends Mage_Adminhtml_Block_Widget_Form
     implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
@@ -57,7 +66,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_General extends Mage_Admin
         ));
 
         if ($model->getId()) {
-            $field = $fieldset->addField('code', 'label', array(
+            $fieldset->addField('code', 'label', array(
                 'label' => $this->__('App Code'),
                 'title' => $this->__('App Code'),
                 'value' => $model->getCode(),

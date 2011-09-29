@@ -36,7 +36,7 @@ class Mage_XmlConnect_Model_Resource_History extends Mage_Core_Model_Resource_Db
     /**
      * Constructor, setting table and index field
      *
-     * @return void
+     * @return null
      */
     protected function _construct()
     {
@@ -77,10 +77,8 @@ class Mage_XmlConnect_Model_Resource_History extends Mage_Core_Model_Resource_Db
     {
         $paramArray = array();
         $idFieldName = Mage::getModel('xmlconnect/application')->getIdFieldName();
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), 'params')
-            ->where($idFieldName . '=?', $id)
-            ->order(array('created_at ' . Zend_Db_Select::SQL_DESC));
+        $select = $this->_getReadAdapter()->select()->from($this->getMainTable(), 'params')
+            ->where($idFieldName . '=?', $id)->order(array('created_at ' . Zend_Db_Select::SQL_DESC));
 
         $params = $this->_getReadAdapter()->fetchOne($select);
 

@@ -31,7 +31,6 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Template
 {
     /**
@@ -100,7 +99,7 @@ class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Template
             } else {
                 $value = (string)$value;
                 if ($value != '') {
-                    $section->addChild($key, Mage::helper('core')->htmlEscape($value));
+                    $section->addChild($key, Mage::helper('core')->escapeHtml($value));
                 }
             }
         }

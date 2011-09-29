@@ -45,7 +45,7 @@ class Mage_XmlConnect_Model_Catalog_Category_Media_Config extends Mage_Catalog_M
 
     /**
      * Getter, return catalog baseMediaUrl
-     * 
+     *
      * @return string
      */
     public function getBaseMediaUrl()

@@ -25,10 +25,10 @@
  */
 
 /**
- * XmlConnect Model Tabs
+ * XmlConnect Tabs model
  *
  * @category    Mage
- * @package     Mage_XmlConnect
+ * @package     Mage_Xmlconnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Model_Tabs
@@ -69,8 +69,8 @@ class Mage_XmlConnect_Model_Tabs
     /**
      * Translate Label fields
      *
-     * @param &array $tabItems
-     * @return this
+     * @param array &$tabItems
+     * @return Mage_XmlConnect_Model_Tabs
      */
     protected function _translateLabel(&$tabItems)
     {

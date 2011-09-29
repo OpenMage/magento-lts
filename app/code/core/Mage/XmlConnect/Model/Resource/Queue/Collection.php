@@ -31,13 +31,12 @@
  * @package    Mage_XmlConnect
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Resource_Queue_Collection
-    extends Mage_Core_Model_Resource_Db_Collection_Abstract
+class Mage_XmlConnect_Model_Resource_Queue_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
      * Internal constructor
      *
-     * @return void
+     * @return null
      */
     protected function _construct()
     {
@@ -75,11 +74,10 @@ class Mage_XmlConnect_Model_Resource_Queue_Collection
     */
     protected function _joinTemplateName()
     {
-        $this->getSelect()
-            ->joinLeft(
-                array('t' => $this->getTable('xmlconnect/template')),
-                't.template_id = main_table.template_id',
-                array('template_name' => 't.name')
+        $this->getSelect()->joinLeft(
+            array('t' => $this->getTable('xmlconnect/template')),
+            't.template_id = main_table.template_id',
+            array('template_name' => 't.name')
         );
         return $this;
     }
@@ -91,11 +89,10 @@ class Mage_XmlConnect_Model_Resource_Queue_Collection
      */
     protected function _joinApplicationName()
     {
-        $this->getSelect()
-            ->joinLeft(
-                array('app' => $this->getTable('xmlconnect/application')),
-                'app.application_id = t.application_id',
-                array('application_name' => 'app.name')
+        $this->getSelect()->joinLeft(
+            array('app' => $this->getTable('xmlconnect/application')),
+            'app.application_id = t.application_id',
+            array('application_name' => 'app.name')
         );
         return $this;
     }
@@ -107,8 +104,7 @@ class Mage_XmlConnect_Model_Resource_Queue_Collection
      */
     public function addOnlyForSendingFilter()
     {
-        $this->getSelect()
-             ->where('main_table.status in (?)', array(Mage_XmlConnect_Model_Queue::STATUS_IN_QUEUE))
+        $this->getSelect()->where('main_table.status in (?)', array(Mage_XmlConnect_Model_Queue::STATUS_IN_QUEUE))
              ->where('main_table.exec_time < ?', Mage::getSingleton('core/date')->gmtDate())
              ->order(new Zend_Db_Expr('main_table.exec_time ' . Zend_Db_Select::SQL_ASC)
         );

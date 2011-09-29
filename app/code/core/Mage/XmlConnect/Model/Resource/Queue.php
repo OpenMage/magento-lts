@@ -36,7 +36,7 @@ class Mage_XmlConnect_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
     /**
      * Constructor, setting table and index field
      *
-     * @return void
+     * @return null
      */
     protected function _construct()
     {

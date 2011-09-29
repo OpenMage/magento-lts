@@ -27,9 +27,9 @@
 /**
  * Catalog category link model
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Product_Image
 {
@@ -58,21 +58,26 @@ class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Pr
         }
         if (!$file) {
             // check if placeholder defined in config
-            $isConfigPlaceholder = Mage::getStoreConfig("catalog/placeholder/{$this->getDestinationSubdir()}_placeholder");
+            $isConfigPlaceholder = Mage::getStoreConfig(
+                'catalog/placeholder/' . $this->getDestinationSubdir() . '_placeholder'
+            );
             $configPlaceholder   = '/placeholder/' . $isConfigPlaceholder;
             if ($isConfigPlaceholder && file_exists($baseDir . $configPlaceholder)) {
                 $file = $configPlaceholder;
             } else {
                 // replace file with skin or default skin placeholder
                 $skinBaseDir     = Mage::getDesign()->getSkinBaseDir();
-                $skinPlaceholder = "/images/xmlconnect/catalog/category/placeholder/{$this->getDestinationSubdir()}.jpg";
+                $skinPlaceholder = '/images/xmlconnect/catalog/category/placeholder/' . $this->getDestinationSubdir()
+                    . '.jpg';
+
                 $file = $skinPlaceholder;
                 if (file_exists($skinBaseDir . $file)) {
                     $baseDir = $skinBaseDir;
                 } else {
                     $baseDir = Mage::getDesign()->getSkinBaseDir(array('_theme' => 'default'));
                     if (!file_exists($baseDir . $file)) {
-                        $baseDir = Mage::getDesign()->getSkinBaseDir(array('_theme' => 'default', '_package' => 'base'));
+                        $baseDir = Mage::getDesign()
+                            ->getSkinBaseDir(array('_theme' => 'default', '_package' => 'base'));
                     }
                 }
             }
@@ -82,30 +87,24 @@ class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Pr
         $baseFile = $baseDir . $file;
 
         if ((!$file) || (!file_exists($baseFile))) {
-            throw new Exception(Mage::helper('xmlconnect')->__('Image file was not found.'));
+            Mage::throwException(Mage::helper('xmlconnect')->__('Image file was not found.'));
         }
 
         $this->_baseFile = $baseFile;
 
         // build new filename (most important params)
-        $path = array(
-            Mage::getSingleton('xmlconnect/catalog_category_media_config')->getBaseMediaPath(),
-            'cache',
-            Mage::app()->getStore()->getId(),
-            $path[] = $this->getDestinationSubdir()
+        $path = array(Mage::getSingleton('xmlconnect/catalog_category_media_config')->getBaseMediaPath(), 'cache',
+            Mage::app()->getStore()->getId(), $path[] = $this->getDestinationSubdir()
         );
-        if ((!empty($this->_width)) || (!empty($this->_height)))
+        if ((!empty($this->_width)) || (!empty($this->_height))) {
             $path[] = "{$this->_width}x{$this->_height}";
+        }
 
         // add misk params as a hash
-        $miscParams = array(
-                ($this->_keepAspectRatio  ? '' : 'non') . 'proportional',
-                ($this->_keepFrame        ? '' : 'no')  . 'frame',
-                ($this->_keepTransparency ? '' : 'no')  . 'transparency',
-                ($this->_constrainOnly ? 'do' : 'not')  . 'constrainonly',
-                $this->_rgbToString($this->_backgroundColor),
-                'angle' . $this->_angle,
-                'quality' . $this->_quality
+        $miscParams = array(($this->_keepAspectRatio  ? '' : 'non') . 'proportional',
+            ($this->_keepFrame ? '' : 'no') . 'frame', ($this->_keepTransparency ? '' : 'no') . 'transparency',
+            ($this->_constrainOnly ? 'do' : 'not')  . 'constrainonly', $this->_rgbToString($this->_backgroundColor),
+            'angle' . $this->_angle, 'quality' . $this->_quality
         );
 
         // if has watermark add watermark params to hash
@@ -141,17 +140,17 @@ class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Pr
 
         $baseDir = Mage::getSingleton('xmlconnect/catalog_category_media_config')->getBaseMediaPath();
 
-        if ( file_exists($baseDir . '/watermark/stores/' . Mage::app()->getStore()->getId() . $file) ) {
+        if (file_exists($baseDir . '/watermark/stores/' . Mage::app()->getStore()->getId() . $file)) {
             $filePath = $baseDir . '/watermark/stores/' . Mage::app()->getStore()->getId() . $file;
-        } elseif ( file_exists($baseDir . '/watermark/websites/' . Mage::app()->getWebsite()->getId() . $file) ) {
+        } elseif (file_exists($baseDir . '/watermark/websites/' . Mage::app()->getWebsite()->getId() . $file)) {
             $filePath = $baseDir . '/watermark/websites/' . Mage::app()->getWebsite()->getId() . $file;
-        } elseif ( file_exists($baseDir . '/watermark/default/' . $file) ) {
+        } elseif (file_exists($baseDir . '/watermark/default/' . $file)) {
             $filePath = $baseDir . '/watermark/default/' . $file;
-        } elseif ( file_exists($baseDir . '/watermark/' . $file) ) {
+        } elseif (file_exists($baseDir . '/watermark/' . $file)) {
             $filePath = $baseDir . '/watermark/' . $file;
         } else {
             $baseDir = Mage::getDesign()->getSkinBaseDir();
-            if ( file_exists($baseDir . $file) ) {
+            if (file_exists($baseDir . $file)) {
                 $filePath = $baseDir . $file;
             }
         }
@@ -162,13 +161,13 @@ class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Pr
     /**
      * Clear catalog cache
      *
-     * @return void
+     * @return null
      */
     public function clearCache()
     {
-        $directory = Mage::getBaseDir('media') . DS.'catalog'.DS.'category'.DS.'cache'.DS;
-        $io = new Varien_Io_File();
-        $io->rmdir($directory, true);
+        $directory = Mage::getBaseDir('media') . DS . 'catalog' . DS . 'category' . DS . 'cache' . DS;
+        $ioFile = new Varien_Io_File();
+        $ioFile->rmdir($directory, true);
     }
 
     /**

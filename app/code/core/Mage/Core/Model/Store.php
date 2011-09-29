@@ -683,7 +683,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Check if store is currently secure
+     * Check if request was secure
      *
      * @return boolean
      */
@@ -711,15 +711,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
             $uri = Zend_Uri::factory($secureBaseUrl);
             $port = $uri->getPort();
-            $isSecure = false;
-            if (!empty($port)) {
-                $isSecure = ($uri->getScheme() == 'https')
-                    && isset($_SERVER['SERVER_PORT'])
-                    && ($port == $_SERVER['SERVER_PORT']);
-            } else {
-                $isSecure = ($uri->getScheme() == 'https');
-            }
-
+            $isSecure = ($uri->getScheme() == 'https')
+                && isset($_SERVER['SERVER_PORT'])
+                && ($port == $_SERVER['SERVER_PORT']);
             return $isSecure;
         } else {
             $isSecure = isset($_SERVER['SERVER_PORT']) && (443 == $_SERVER['SERVER_PORT']);

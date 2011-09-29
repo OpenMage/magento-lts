@@ -23,6 +23,14 @@
  * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+/**
+ * Tab for Flurry Analytics Management
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Flurryanalytics
     extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
     implements Mage_Adminhtml_Block_Widget_Tab_Interface
@@ -30,7 +38,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Flurryanalytics
     protected $_pages;
 
     /**
-     * Construnctor
+     * Constructor
      * Setting view options
      */
     public function __construct()
@@ -74,7 +82,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Flurryanalytics
             Mage::getStoreConfig('xmlconnect/flurry_analytics/statistics_url')
         );
 
-        $flurryLink = $fieldset->addField('flurry_analytics_link', 'link', array(
+        $fieldset->addField('flurry_analytics_link', 'link', array(
             'title'     => $this->__('Flurry Analytics Site'),
             'label'     => $this->__('Flurry Analytics Site'),
             'value'     => $flurryAnalyticsUrl,

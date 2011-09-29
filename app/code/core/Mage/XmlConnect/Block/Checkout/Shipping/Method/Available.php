@@ -27,9 +27,9 @@
 /**
  * One page checkout shipping methods xml renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Checkout_Shipping_Method_Available
     extends Mage_Checkout_Block_Onepage_Shipping_Method_Available
@@ -49,24 +49,16 @@ class Mage_XmlConnect_Block_Checkout_Shipping_Method_Available
             $_sole = count($_shippingRateGroups) == 1;
             foreach ($_shippingRateGroups as $code => $_rates) {
                 $methodXmlObj = $methodsXmlObj->addChild('method');
-                $methodXmlObj->addAttribute(
-                    'label',
-                    $methodsXmlObj->xmlentities($this->getCarrierName($code))
-                );
+                $methodXmlObj->addAttribute('label', $methodsXmlObj->xmlentities($this->getCarrierName($code)));
                 $ratesXmlObj = $methodXmlObj->addChild('rates');
 
                 $_sole = $_sole && count($_rates) == 1;
                 foreach ($_rates as $_rate) {
                     $rateXmlObj = $ratesXmlObj->addChild('rate');
-                    $rateXmlObj->addAttribute(
-                        'label',
-                        $methodsXmlObj->xmlentities($_rate->getMethodTitle())
-                    );
+                    $rateXmlObj->addAttribute('label', $methodsXmlObj->xmlentities($_rate->getMethodTitle()));
                     $rateXmlObj->addAttribute('code', $_rate->getCode());
                     if ($_rate->getErrorMessage()) {
-                        $rateXmlObj->addChild(
-                            'error_message',
-                            $methodsXmlObj->xmlentities($_rate->getErrorMessage()));
+                        $rateXmlObj->addChild('error_message', $methodsXmlObj->xmlentities($_rate->getErrorMessage()));
                     } else {
                         $price = Mage::helper('tax')->getShippingPrice(
                             $_rate->getPrice(),
@@ -74,12 +66,9 @@ class Mage_XmlConnect_Block_Checkout_Shipping_Method_Available
                             $this->getAddress()
                         );
                         $formattedPrice = $store->convertPrice($price, true, false);
-                        $rateXmlObj->addAttribute(
-                            'price',
-                            Mage::helper('xmlconnect')->formatPriceForXml(
-                                $store->convertPrice($price, false, false)
-                            )
-                        );
+                        $rateXmlObj->addAttribute('price', Mage::helper('xmlconnect')->formatPriceForXml(
+                            $store->convertPrice($price, false, false)
+                        ));
                         $rateXmlObj->addAttribute('formated_price', $formattedPrice);
                     }
                 }

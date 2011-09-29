@@ -72,7 +72,7 @@ class Mage_XmlConnect_PbridgeController extends Mage_Core_Controller_Front_Actio
      * Index Action.
      * Forward to result action
      *
-     * @return void
+     * @return null
      */
     public function indexAction()
     {
@@ -82,7 +82,7 @@ class Mage_XmlConnect_PbridgeController extends Mage_Core_Controller_Front_Actio
     /**
      * Result Action
      *
-     * @return void
+     * @return null
      */
     public function resultAction()
     {
@@ -131,8 +131,6 @@ EOT;
 EOT;
         }
 
-        $this->getResponse()->setBody(
-            html_entity_decode(Mage::helper('xmlconnect')->htmlize($body))
-        );
+        $this->getResponse()->setBody(html_entity_decode(Mage::helper('xmlconnect')->htmlize($body)));
     }
 }

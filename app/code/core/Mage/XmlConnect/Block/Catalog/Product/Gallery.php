@@ -41,9 +41,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Gallery extends Mage_XmlConnect_Bloc
     protected function _toHtml()
     {
         $productId = $this->getRequest()->getParam('id', null);
-        $product = Mage::getModel('catalog/product')
-            ->setStoreId(Mage::app()->getStore()->getId())
-            ->load($productId);
+        $product = Mage::getModel('catalog/product')->setStoreId(Mage::app()->getStore()->getId())->load($productId);
         $collection = $product->getMediaGalleryImages();
 
         $imagesNode = Mage::getModel('xmlconnect/simplexml_element', '<images></images>');
@@ -55,9 +53,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Gallery extends Mage_XmlConnect_Bloc
             /**
              * Big image
              */
-            $bigImage = $helper->init($product, 'image', $item->getFile())
-                ->constrainOnly(true)
-                ->keepFrame(false)
+            $bigImage = $helper->init($product, 'image', $item->getFile())->constrainOnly(true)->keepFrame(false)
                 ->resize(Mage::helper('xmlconnect/image')->getImageSizeForContent('product_gallery_big'));
 
             $fileNode = $imageNode->addChild('file');
@@ -72,9 +68,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Gallery extends Mage_XmlConnect_Bloc
             /**
              * Small image
              */
-            $smallImage = $helper->init($product, 'thumbnail', $item->getFile())
-                ->constrainOnly(true)
-                ->keepFrame(false)
+            $smallImage = $helper->init($product, 'thumbnail', $item->getFile())->constrainOnly(true)->keepFrame(false)
                 ->resize(Mage::helper('xmlconnect/image')->getImageSizeForContent('product_gallery_small'));
 
             $fileNode = $imageNode->addChild('file');

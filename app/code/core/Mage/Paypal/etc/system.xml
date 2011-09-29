@@ -1626,7 +1626,7 @@
                             <show_in_website>1</show_in_website>
                         </partner>
                         <vendor translate="label">
-                            <label>Vendor</label>
+                            <label>Vendor / Merchant Login</label>
                             <config_path>payment/payflow_link/vendor</config_path>
                             <frontend_type>text</frontend_type>
                             <sort_order>45</sort_order>

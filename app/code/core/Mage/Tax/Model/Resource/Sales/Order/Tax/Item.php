@@ -52,11 +52,11 @@ class Mage_Tax_Model_Resource_Sales_Order_Tax_Item extends Mage_Core_Model_Resou
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from(array('item' => $this->getTable('tax/sales_order_tax_item')), array('tax_id'))
+            ->from(array('item' => $this->getTable('tax/sales_order_tax_item')), array('tax_id', 'tax_percent'))
             ->join(
                 array('tax' => $this->getTable('tax/sales_order_tax')),
                 'item.tax_id = tax.tax_id',
-                array('percent', 'title', 'percent')
+                array('title', 'percent', 'base_amount')
             )
             ->where('item_id = ?', $item_id);
 

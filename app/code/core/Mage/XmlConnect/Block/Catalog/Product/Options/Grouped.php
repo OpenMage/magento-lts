@@ -59,6 +59,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Grouped extends Mage_XmlConn
         if (!sizeof($_associatedProducts)) {
             return $isObject ? $xmlModel : $xmlModel->asNiceXml();
         }
+
         foreach ($_associatedProducts as $_item) {
             if (!$_item->isSaleable()) {
                 continue;
@@ -67,10 +68,9 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Grouped extends Mage_XmlConn
 
             $optionNode->addAttribute('code', 'super_group[' . $_item->getId() . ']');
             $optionNode->addAttribute('type', 'product');
-            $optionNode->addAttribute('label', $xmlModel->xmlentities(strip_tags($_item->getName())));
+            $optionNode->addAttribute('label', $xmlModel->xmlentities($_item->getName()));
             $optionNode->addAttribute('is_qty_editable', 1);
             $optionNode->addAttribute('qty', $_item->getQty()*1);
-
 
             /**
              * Process product price
@@ -80,8 +80,9 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Grouped extends Mage_XmlConn
             } else {
                 $productPrice = $_item->getPrice();
             }
-            $productPrice = Mage::helper('xmlconnect')->formatPriceForXml($productPrice);
-            if ($productPrice != 0.00) {
+
+            if ($productPrice != 0) {
+                $productPrice = Mage::helper('xmlconnect')->formatPriceForXml($productPrice);
                 $optionNode->addAttribute('price', Mage::helper('xmlconnect')->formatPriceForXml(
                     Mage::helper('core')->currency($productPrice, false, false)
                 ));

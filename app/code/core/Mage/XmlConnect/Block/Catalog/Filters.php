@@ -50,7 +50,7 @@ class Mage_XmlConnect_Block_Catalog_Filters extends Mage_XmlConnect_Block_Catalo
                 continue;
             }
             $itemXmlObj = $filtersXmlObj->addChild('item');
-            $itemXmlObj->addChild('name', $categoryXmlObj->xmlentities(strip_tags($item->getName())));
+            $itemXmlObj->addChild('name', $categoryXmlObj->xmlentities($item->getName()));
             $itemXmlObj->addChild('code', $categoryXmlObj->xmlentities($item->getCode()));
 
             $valuesXmlObj = $itemXmlObj->addChild('values');

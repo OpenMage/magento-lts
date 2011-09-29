@@ -27,11 +27,12 @@
 /**
  * XmlConnect Country selector form element
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Country extends Varien_Data_Form_Element_Checkboxes
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Country
+    extends Varien_Data_Form_Element_Checkboxes
 {
     /**
      * Flag of using the border in the table's TD
@@ -90,7 +91,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Country extends Varien
         $id = $this->getData('id');
         $id = empty($id) ? '' : ' id="' . $id . '-table"';
         $class = $this->getData('class');
-        $html = "\n<table class=\"countries {$class}\"{$id}>\n";
+        $html = PHP_EOL . "<table class=\"countries {$class}\"{$id}>" . PHP_EOL;
 
         $zebrine = '';
         $stripy = false;
@@ -100,7 +101,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Country extends Varien
 
         $columns--;
         foreach ($options as $row) {
-            $html .= "  <tr{$zebrine}>\n    ";
+            $html .= "<tr{$zebrine}>" . PHP_EOL;
 
             if ($stripy) {
                 $zebrine = empty($zebrine) ? ' class="odd"' : '';
@@ -123,11 +124,10 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Country extends Varien
                 }
             }
 
-            $html .= "\n  </tr>\n";
+            $html .= PHP_EOL . '</tr>' . PHP_EOL;
         }
 
-        $html .= "</table>\n"
-            . $this->getAfterElementHtml();
+        $html .= '</table>' . PHP_EOL . $this->getAfterElementHtml();
 
         return $html;
     }
@@ -149,7 +149,8 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Country extends Varien
             $border = $this->_useBorderClass ? ' class="border"' : '';
             $html = '<td' . $border . '><input id="' . $id . '"';
             foreach ($this->getHtmlAttributes() as $attribute) {
-                if ($value = $this->getDataUsingMethod($attribute, $option['value'])) {
+                $value = $this->getDataUsingMethod($attribute, $option['value']);
+                if ($value) {
                     $html .= ' ' . $attribute . '="' . $value . '"';
                 }
             }

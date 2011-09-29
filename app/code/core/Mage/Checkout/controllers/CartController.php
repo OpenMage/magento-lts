@@ -272,7 +272,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
         if (!$quoteItem) {
             $this->_getSession()->addError($this->__('Quote item is not found.'));
-            $this->_goBack();
+            $this->_redirect('checkout/cart');
             return;
         }
 

@@ -25,7 +25,7 @@
  */
 
 /**
- * Device tabs accourdion block
+ * Device tabs accordion block
  *
  * @category    Mage
  * @package     Mage_XmlConnect

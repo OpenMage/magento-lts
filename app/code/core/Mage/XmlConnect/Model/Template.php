@@ -25,10 +25,10 @@
  */
 
 /**
- * XmlConnect Model Template
+ * XmlConnect Template model
  *
  * @category    Mage
- * @package     Mage_XmlConnect
+ * @package     Mage_Xmlconnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Model_Template extends Mage_Core_Model_Template
@@ -36,7 +36,7 @@ class Mage_XmlConnect_Model_Template extends Mage_Core_Model_Template
     /**
      * Model constructor
      *
-     * @return void
+     * @return null
      */
     protected function _construct()
     {
@@ -94,8 +94,6 @@ class Mage_XmlConnect_Model_Template extends Mage_Core_Model_Template
         $htmlDescription = <<<EOT
 <div style="font-size: 0.8em; text-decoration: underline; margin-top: 1.5em; line-height: 2em;">%s:</div>
 EOT;
-        /** @var $coreHelper Mage_Core_Helper_Data */
-        $coreHelper = Mage::helper('core');
         $html  = sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Push title'))
                     . $this->getPushTitle();
         $html .= sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Message title'))

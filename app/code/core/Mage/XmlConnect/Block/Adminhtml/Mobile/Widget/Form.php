@@ -23,6 +23,14 @@
  * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+/**
+ * Xmlconnect widget form block
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
@@ -56,7 +64,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form extends Mage_Adminhtml_
             'name'      => $fieldName,
             'label'     => $title,
             'note'      => $note,
-            'default_value'   => $default,
+            'default_value' => $default,
             'required'  => $required,
         ));
     }
@@ -70,12 +78,12 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form extends Mage_Adminhtml_
      */
     public function addFont($fieldset, $fieldPrefix, $title)
     {
-        $el = $fieldset->addField($fieldPrefix, 'font', array(
+        $element = $fieldset->addField($fieldPrefix, 'font', array(
             'name'      => $fieldPrefix,
             'label'     => $title,
         ));
 
-        $el->initFields(array(
+        $element->initFields(array(
             'name'      => $fieldPrefix,
             'fontNames' => Mage::helper('xmlconnect')->getDeviceHelper()->getFontList(),
             'fontSizes' => Mage::helper('xmlconnect')->getDeviceHelper()->getFontSizes(),

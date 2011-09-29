@@ -48,7 +48,7 @@ class Mage_XmlConnect_Block_Checkout_Agreements extends Mage_Checkout_Block_Agre
                 if (!$agreement->getIsHtml()) {
                     $content = nl2br(strip_tags($content));
                 }
-                $agreementText = $agreementsXmlObj->xmlentities(strip_tags($agreement->getCheckboxText()));
+                $agreementText = $agreementsXmlObj->xmlentities($agreement->getCheckboxText());
                 $itemXmlObj->addChild('label', $agreementText);
                 $itemXmlObj->addChild('content', $content);
                 $itemXmlObj->addChild('code', 'agreement[' . $agreement->getId() . ']');

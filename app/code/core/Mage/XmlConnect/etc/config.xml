@@ -29,6 +29,7 @@
     <modules>
         <Mage_XmlConnect>
             <version>1.6.0.0</version>
+            <innerVersion>22.0</innerVersion>
         </Mage_XmlConnect>
     </modules>
     <global>
@@ -167,6 +168,13 @@
                 <allowspecific>0</allowspecific>
                 <group>paypal</group>
             </paypal_mep>
+            <paypal_mecl>
+                <active>1</active>
+                <model>xmlconnect/payment_method_paypal_mecl</model>
+                <title>PayPal Mobile Express Checkout Library</title>
+                <allowspecific>0</allowspecific>
+                <group>paypal</group>
+            </paypal_mecl>
         </payment>
         <screen_size>
             <!-- WARNING !!!!!  ALL IMAGE NODES MUST END ON "icon"|"Icon"|"Image"  !!!!!  -->

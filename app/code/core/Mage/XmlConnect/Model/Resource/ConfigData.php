@@ -36,7 +36,7 @@ class Mage_XmlConnect_Model_Resource_ConfigData extends Mage_Core_Model_Mysql4_A
     /**
      * Initialize configuration data
      *
-     * @return void
+     * @return null
      */
     protected function _construct()
     {
@@ -61,11 +61,7 @@ class Mage_XmlConnect_Model_Resource_ConfigData extends Mage_Core_Model_Mysql4_A
             'value'     => $value
         );
 
-        $this->_getWriteAdapter()->insertOnDuplicate(
-            $this->getMainTable(),
-            $newData,
-            array('value')
-        );
+        $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), $newData, array('value'));
         return $this;
     }
 
@@ -88,8 +84,7 @@ class Mage_XmlConnect_Model_Resource_ConfigData extends Mage_Core_Model_Mysql4_A
                 $deleteWhere[] = $writeAdapter->quoteInto('category=?', $category);
             }
             if ($path) {
-                $deleteWhere[] = $pathLike
-                    ? $writeAdapter->quoteInto('path like ?', $path . '/%')
+                $deleteWhere[] = $pathLike ? $writeAdapter->quoteInto('path like ?', $path . '/%')
                     : $writeAdapter->quoteInto('path=?', $path);
             }
             $writeAdapter->delete($this->getMainTable(), $deleteWhere);

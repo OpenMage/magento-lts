@@ -199,9 +199,11 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     public function getItemCollection()
     {
         if (is_null($this->_itemCollection)) {
+            /** @var $currentWebsiteOnly boolean */
+            $currentWebsiteOnly = !Mage::app()->getStore()->isAdmin();
             $this->_itemCollection =  Mage::getResourceModel('wishlist/item_collection')
                 ->addWishlistFilter($this)
-                ->addStoreFilter($this->getSharedStoreIds())
+                ->addStoreFilter($this->getSharedStoreIds($currentWebsiteOnly))
                 ->setVisibilityFilter();
         }
 
@@ -389,7 +391,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
                 $this->_storeIds = $this->getStore()->getWebsite()->getStoreIds();
             } else {
                 $_storeIds = array();
-                foreach (Mage::app()->getStores() as $store) {
+                $stores = Mage::app()->getStores();
+                foreach ($stores as $store) {
                     $_storeIds[] = $store->getId();
                 }
                 $this->_storeIds = $_storeIds;
@@ -512,7 +515,16 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             $buyRequest = Mage::helper('catalog/product')->addParamsToBuyRequest($buyRequest, $params);
 
             $product->setWishlistStoreId($item->getStoreId());
-            $resultItem = $this->addNewItem($product, $buyRequest, true);
+            $items = $this->getItemCollection();
+            $isForceSetQuantity = true;
+            foreach ($items as $_item) {
+                /* @var $_item Mage_Wishlist_Model_Item */
+                if (($_item->getProductId() == $product->getId()) && $_item->representProduct($product)) {
+                    // We do not add new wishlist item, but updating the existing one
+                    $isForceSetQuantity = false;
+                }
+            }
+            $resultItem = $this->addNewItem($product, $buyRequest, $isForceSetQuantity);
             /**
              * Error message
              */
@@ -526,18 +538,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
                 }
                 $item->isDeleted(true);
                 $this->setDataChanges(true);
-
-                $items = $this->getItemCollection();
-                foreach ($items as $_item) {
-                    if ($_item->getProductId() == $productId && $_item->getId() != $resultItem->getId()) {
-                        if ($resultItem->compareOptions($resultItem->getOptions(), $_item->getOptions())) {
-                            $resultItem->setQty($resultItem->getQty() + $_item->getQty());
-                            $_item->isDeleted(true);
-                        }
-                    }
-                }
             } else {
-                $resultItem->setQty($buyRequest->getQty()*1);
+                $resultItem->setQty($buyRequest->getQty() * 1);
+                $resultItem->setOrigData('qty', 0);
             }
         } else {
             Mage::throwException(Mage::helper('checkout')->__('The product does not exist.'));

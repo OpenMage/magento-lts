@@ -31,8 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Grouped
-    extends Mage_Sales_Block_Order_Item_Renderer_Grouped
+class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Grouped extends Mage_Sales_Block_Order_Item_Renderer_Grouped
 {
     /**
      * Default product type
@@ -41,9 +40,10 @@ class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Grouped
 
     /**
      * Add item to XML object
+     * (get from template: sales/order/items/renderer/default.phtml)
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $orderItemXmlObj
-     * @return void
+     * @return null
      */
     public function addItemToXmlObject(Mage_XmlConnect_Model_Simplexml_Element $orderItemXmlObj)
     {
@@ -55,7 +55,6 @@ class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Grouped
         }
         $renderer = $this->getRenderedBlock()->getItemRenderer($productType);
         $renderer->setItem($this->getItem());
-
         $renderer->addItemToXmlObject($orderItemXmlObj);
     }
 }

@@ -76,6 +76,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
             'name'      => $fieldName,
             'label'     => $title,
             'note'      => !empty($note) ? $note : null,
+            'default_value' => $default,
             'required'  => $required,
         ));
     }
@@ -344,7 +345,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
     }
 
     /**
-     * Returns status flag about this tab can be showen or not
+     * Returns status flag about this tab can be shown or not
      *
      * @return true
      */

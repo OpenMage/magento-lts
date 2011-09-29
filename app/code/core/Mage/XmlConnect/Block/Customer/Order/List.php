@@ -47,19 +47,13 @@ class Mage_XmlConnect_Block_Customer_Order_List extends Mage_Core_Block_Template
     {
         $ordersXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<orders></orders>');
 
-        $orders = Mage::getResourceModel('sales/order_collection')
-            ->addFieldToSelect('*')
-            ->addFieldToFilter(
-                'customer_id',
-                Mage::getSingleton('customer/session')->getCustomer()->getId()
-            )
-            ->addFieldToFilter(
-                'state',
-                array(
-                    'in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()
-                )
-            )
-            ->setOrder('created_at', 'desc');
+        $orders = Mage::getResourceModel('sales/order_collection')->addFieldToSelect('*')->addFieldToFilter(
+            'customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId()
+        )
+        ->addFieldToFilter(
+            'state', array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates())
+        )
+        ->setOrder('created_at', 'desc');
 
         $orders->getSelect()->limit(self::ORDERS_LIST_LIMIT, 0);
         $orders->load();
@@ -71,21 +65,11 @@ class Mage_XmlConnect_Block_Customer_Order_List extends Mage_Core_Block_Template
                 $item->addChild('number', $_order->getRealOrderId());
                 $item->addChild('date', $this->formatDate($_order->getCreatedAtStoreDate()));
                 if ($_order->getShippingAddress()) {
-                    $item->addChild(
-                        'ship_to',
-                        $ordersXmlObj->xmlentities($_order->getShippingAddress()->getName())
-                    );
+                    $item->addChild('ship_to', $ordersXmlObj->xmlentities($_order->getShippingAddress()->getName()));
                 }
-                $item->addChild(
-                    'total',
-                    $_order->getOrderCurrency()->formatPrecision(
-                        $_order->getGrandTotal(),
-                        2,
-                        array(),
-                        false,
-                        false
-                    )
-                );
+                $item->addChild('total', $_order->getOrderCurrency()->formatPrecision(
+                    $_order->getGrandTotal(), 2, array(), false, false
+                ));
                 $item->addChild('status', $_order->getStatusLabel());
             }
         }

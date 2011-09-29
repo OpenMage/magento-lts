@@ -28,7 +28,7 @@
  * Shopping cart xml renderer
  *
  * @category    Mage
- * @package     Mage_Checkout
+ * @package     Mage_Xmlconnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
@@ -40,179 +40,180 @@ class Mage_XmlConnect_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      */
     protected function _toHtml()
     {
-         $cartMessages   = $this->getMessages();
-         $quote          = $this->getQuote();
-         $xmlObject      = Mage::getModel('xmlconnect/simplexml_element', '<cart></cart>');
-         $xmlObject->addAttribute('is_virtual', (int)$this->helper('checkout/cart')->getIsVirtualQuote());
-         $xmlObject->addAttribute('summary_qty', (int)$this->helper('checkout/cart')->getSummaryCount());
-         if (strlen($quote->getCouponCode())) {
-             $xmlObject->addAttribute('has_coupon_code', 1);
-         }
-         $products = $xmlObject->addChild('products');
-
+        $cartMessages   = $this->getMessages();
+        $quote          = $this->getQuote();
+        /** @var $xmlObject Mage_XmlConnect_Model_Simplexml_Element */
+        $xmlObject      = Mage::getModel('xmlconnect/simplexml_element', '<cart></cart>');
+        $xmlObject->addAttribute('is_virtual', (int)$this->helper('checkout/cart')->getIsVirtualQuote());
+        $xmlObject->addAttribute('summary_qty', (int)$this->helper('checkout/cart')->getSummaryCount());
+        if (strlen($quote->getCouponCode())) {
+            $xmlObject->addAttribute('has_coupon_code', 1);
+        }
+        $products = $xmlObject->addChild('products');
          /* @var $item Mage_Sales_Model_Quote_Item */
-         foreach ($this->getItems() as $item) {
-             $type = $item->getProductType();
-             $renderer = $this->getItemRenderer($type)->setItem($item);
-
-             /**
-              * General information
-              */
-             $itemXml = $products->addChild('item');
-             $itemXml->addChild('entity_id', $item->getProduct()->getId());
-             $itemXml->addChild('entity_type', $type);
-             $itemXml->addChild('item_id', $item->getId());
-             $itemXml->addChild('name', $xmlObject->xmlentities(strip_tags($renderer->getProductName())));
-             $itemXml->addChild('code', 'cart[' . $item->getId() . '][qty]');
-             $itemXml->addChild('qty', $renderer->getQty());
-             $icon = $renderer->getProductThumbnail()->resize(
-                 Mage::helper('xmlconnect/image')->getImageSizeForContent('product_small')
-             );
-
-             $iconXml = $itemXml->addChild('icon', $icon);
-
-             $file = Mage::helper('xmlconnect')->urlToPath($icon);
-
-             $iconXml->addAttribute('modification_time', filemtime($file));
-
-             /**
-              * Price
-              */
-             $exclPrice = $inclPrice = 0.00;
-             if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()) {
-                 if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales')
-                     && $item->getWeeeTaxAppliedAmount()
-                 ) {
-                     $exclPrice = $item->getCalculationPrice()
-                                  + $item->getWeeeTaxAppliedAmount()
-                                  + $item->getWeeeTaxDisposition();
-                 } else {
-                     $exclPrice = $item->getCalculationPrice();
-                 }
-             }
-
-             if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()) {
-                 $_incl = $this->helper('checkout')->getPriceInclTax($item);
-                 if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales')
-                     && $item->getWeeeTaxAppliedAmount()
-                 ) {
-                     $inclPrice = $_incl + $item->getWeeeTaxAppliedAmount();
-                 } else {
+        foreach ($this->getItems() as $item) {
+            $type = $item->getProductType();
+            $renderer = $this->getItemRenderer($type)->setItem($item);
+            /**
+             * General information
+             */
+            $itemXml = $products->addChild('item');
+            $itemXml->addChild('entity_id', $item->getProduct()->getId());
+            $itemXml->addChild('entity_type', $type);
+            $itemXml->addChild('item_id', $item->getId());
+            $itemXml->addChild('name', $xmlObject->xmlentities($renderer->getProductName()));
+            $itemXml->addChild('code', 'cart[' . $item->getId() . '][qty]');
+            $itemXml->addChild('qty', $renderer->getQty());
+            $icon = $renderer->getProductThumbnail()->resize(
+                Mage::helper('xmlconnect/image')->getImageSizeForContent('product_small')
+            );
+            $iconXml = $itemXml->addChild('icon', $icon);
+            $file = Mage::helper('xmlconnect')->urlToPath($icon);
+            $iconXml->addAttribute('modification_time', filemtime($file));
+            /**
+             * Price
+             */
+            $exclPrice = $inclPrice = 0;
+            if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()) {
+                if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales')
+                    && $item->getWeeeTaxAppliedAmount()
+                ) {
+                    $exclPrice = $item->getCalculationPrice() + $item->getWeeeTaxAppliedAmount()
+                        + $item->getWeeeTaxDisposition();
+                } else {
+                    $exclPrice = $item->getCalculationPrice();
+                }
+            }
+            if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()) {
+                $_incl = $this->helper('checkout')->getPriceInclTax($item);
+                if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales')
+                    && $item->getWeeeTaxAppliedAmount()
+                ) {
+                    $inclPrice = $_incl + $item->getWeeeTaxAppliedAmount();
+                } else {
                     $inclPrice = $_incl - $item->getWeeeTaxDisposition();
-                 }
-             }
+                }
+            }
+            $exclPrice = Mage::helper('xmlconnect')->formatPriceForXml($exclPrice);
+            $paypalPrice = Mage::helper('xmlconnect')->formatPriceForXml($item->getCalculationPrice());
+            $formattedExclPrice = $quote->getStore()->formatPrice($exclPrice, false);
+            $inclPrice = Mage::helper('xmlconnect')->formatPriceForXml($inclPrice);
+            $formattedInclPrice = $quote->getStore()->formatPrice($inclPrice, false);
 
-             $exclPrice = Mage::helper('xmlconnect')->formatPriceForXml($exclPrice);
-             $formatedExclPrice = $quote->getStore()->formatPrice($exclPrice, false);
+            $priceXmlObj = $itemXml->addChild('price');
+            $formattedPriceXmlObj = $itemXml->addChild('formated_price');
 
-             $inclPrice = Mage::helper('xmlconnect')->formatPriceForXml($inclPrice);
-             $formatedInclPrice = $quote->getStore()->formatPrice($inclPrice, false);
-
-             $priceXmlObj = $itemXml->addChild('price');
-             $formatedPriceXmlObj = $itemXml->addChild('formated_price');
-
-             if ($this->helper('tax')->displayCartBothPrices()) {
+            if ($this->helper('tax')->displayCartBothPrices()) {
                 $priceXmlObj->addAttribute('excluding_tax', $exclPrice);
                 $priceXmlObj->addAttribute('including_tax', $inclPrice);
 
-                $formatedPriceXmlObj->addAttribute('excluding_tax', $formatedExclPrice);
-                $formatedPriceXmlObj->addAttribute('including_tax', $formatedInclPrice);
-             } else {
-                 if ($this->helper('tax')->displayCartPriceExclTax()) {
-                     $priceXmlObj->addAttribute('regular', $exclPrice);
-                     $formatedPriceXmlObj->addAttribute('regular', $formatedExclPrice);
-                 }
-                 if ($this->helper('tax')->displayCartPriceInclTax()) {
-                     $priceXmlObj->addAttribute('regular', $inclPrice);
-                     $formatedPriceXmlObj->addAttribute('regular', $formatedInclPrice);
-                 }
-             }
+                $formattedPriceXmlObj->addAttribute('excluding_tax', $formattedExclPrice);
+                $formattedPriceXmlObj->addAttribute('including_tax', $formattedInclPrice);
+            } else {
+                if ($this->helper('tax')->displayCartPriceExclTax()) {
+                    $priceXmlObj->addAttribute('regular', $exclPrice);
+                    $formattedPriceXmlObj->addAttribute('regular', $formattedExclPrice);
+                }
+                if ($this->helper('tax')->displayCartPriceInclTax()) {
+                    $priceXmlObj->addAttribute('regular', $inclPrice);
+                    $formattedPriceXmlObj->addAttribute('regular', $formattedInclPrice);
+                }
+            }
 
+            /**
+             * Info for paypal MEP if it's enabled
+             */
+            $appConfig = Mage::helper('xmlconnect')->getApplication()->loadConfiguration()->getRenderConf();
 
-             /**
+            $isMepActive = $appConfig['paypal']['isActive'];
+
+            $paypalMepIsAvailable = Mage::getModel('xmlconnect/payment_method_paypal_mep')->isAvailable(null);
+            if ($paypalMepIsAvailable && $isMepActive) {
+                $paypalPriceXmlObj = $itemXml->addChild('paypal_price');
+                $paypalPriceXmlObj->addAttribute('regular', $paypalPrice);
+                $paypalPriceXmlObj->addAttribute(
+                    'subtotal', Mage::helper('xmlconnect')->formatPriceForXml($item->getRowTotal())
+                );
+            }
+
+            /**
              * Subtotal
              */
-             $exclPrice = $inclPrice = 0.00;
-             if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()) {
-                 if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales')
-                     && $item->getWeeeTaxAppliedAmount()
-                 ) {
-                     $exclPrice = $item->getRowTotal()
-                                  + $item->getWeeeTaxAppliedRowAmount()
-                                  + $item->getWeeeTaxRowDisposition();
-                 } else {
+            $exclPrice = $inclPrice = 0;
+            if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()) {
+                if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales')
+                    && $item->getWeeeTaxAppliedAmount()
+                ) {
+                    $exclPrice = $item->getRowTotal() + $item->getWeeeTaxAppliedRowAmount()
+                        + $item->getWeeeTaxRowDisposition();
+                } else {
                      $exclPrice = $item->getRowTotal();
-                 }
-             }
-             if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()) {
-                 $_incl = $this->helper('checkout')->getSubtotalInclTax($item);
-                 if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales')
-                     && $item->getWeeeTaxAppliedAmount()
-                 ) {
-                     $inclPrice = $_incl + $item->getWeeeTaxAppliedRowAmount();
-                 } else {
-                     $inclPrice = $_incl - $item->getWeeeTaxRowDisposition();
-                 }
-             }
+                }
+            }
+            if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()) {
+                $_incl = $this->helper('checkout')->getSubtotalInclTax($item);
+                if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales')
+                    && $item->getWeeeTaxAppliedAmount()
+                ) {
+                    $inclPrice = $_incl + $item->getWeeeTaxAppliedRowAmount();
+                } else {
+                    $inclPrice = $_incl - $item->getWeeeTaxRowDisposition();
+                }
+            }
 
-             $exclPrice = Mage::helper('xmlconnect')->formatPriceForXml($exclPrice);
-             $formatedExclPrice = $quote->getStore()->formatPrice($exclPrice, false);
+            $exclPrice = Mage::helper('xmlconnect')->formatPriceForXml($exclPrice);
+            $formattedExclPrice = $quote->getStore()->formatPrice($exclPrice, false);
 
-             $inclPrice = Mage::helper('xmlconnect')->formatPriceForXml($inclPrice);
-             $formatedInclPrice = $quote->getStore()->formatPrice($inclPrice, false);
+            $inclPrice = Mage::helper('xmlconnect')->formatPriceForXml($inclPrice);
+            $formattedInclPrice = $quote->getStore()->formatPrice($inclPrice, false);
 
-             $subtotalPriceXmlObj = $itemXml->addChild('subtotal');
-             $subtotalFormatedPriceXmlObj = $itemXml->addChild('formated_subtotal');
+            $subtotalPriceXmlObj = $itemXml->addChild('subtotal');
+            $subtotalFormattedPriceXmlObj = $itemXml->addChild('formated_subtotal');
 
-             if ($this->helper('tax')->displayCartBothPrices()) {
-                 $subtotalPriceXmlObj->addAttribute('excluding_tax', $exclPrice);
-                 $subtotalPriceXmlObj->addAttribute('including_tax', $inclPrice);
+            if ($this->helper('tax')->displayCartBothPrices()) {
+                $subtotalPriceXmlObj->addAttribute('excluding_tax', $exclPrice);
+                $subtotalPriceXmlObj->addAttribute('including_tax', $inclPrice);
 
-                 $subtotalFormatedPriceXmlObj->addAttribute('excluding_tax', $formatedExclPrice);
-                 $subtotalFormatedPriceXmlObj->addAttribute('including_tax', $formatedInclPrice);
-             } else {
-                 if ($this->helper('tax')->displayCartPriceExclTax()) {
-                     $subtotalPriceXmlObj->addAttribute('regular', $exclPrice);
-                     $subtotalFormatedPriceXmlObj->addAttribute('regular', $formatedExclPrice);
-                 }
-                 if ($this->helper('tax')->displayCartPriceInclTax()) {
-                     $subtotalPriceXmlObj->addAttribute('regular', $inclPrice);
-                     $subtotalFormatedPriceXmlObj->addAttribute('regular', $formatedInclPrice);
-                 }
-             }
+                $subtotalFormattedPriceXmlObj->addAttribute('excluding_tax', $formattedExclPrice);
+                $subtotalFormattedPriceXmlObj->addAttribute('including_tax', $formattedInclPrice);
+            } else {
+                if ($this->helper('tax')->displayCartPriceExclTax()) {
+                    $subtotalPriceXmlObj->addAttribute('regular', $exclPrice);
+                    $subtotalFormattedPriceXmlObj->addAttribute('regular', $formattedExclPrice);
+                }
+                if ($this->helper('tax')->displayCartPriceInclTax()) {
+                    $subtotalPriceXmlObj->addAttribute('regular', $inclPrice);
+                    $subtotalFormattedPriceXmlObj->addAttribute('regular', $formattedInclPrice);
+                }
+            }
 
-             /**
+            /**
              * Options list
              */
-             if ($_options = $renderer->getOptionList()) {
-                 $itemOptionsXml = $itemXml->addChild('options');
-                 foreach ($_options as $_option) {
-                     $_formatedOptionValue = $renderer->getFormatedOptionValue($_option);
-                     $optionXml = $itemOptionsXml->addChild('option');
-                     $optionXml->addAttribute('label', $xmlObject->xmlentities(strip_tags($_option['label'])));
-                     $optionXml->addAttribute(
-                         'text',
-                         $xmlObject->xmlentities(strip_tags($_formatedOptionValue['value']))
-                     );
-//                     if (isset($_formatedOptionValue['full_view'])) {
-//                         $label = strip_tags($_option['label']);
-//                         $value = strip_tags($_formatedOptionValue['full_view']);
-//                     }
-                 }
-             }
+            if ($_options = $renderer->getOptionList()) {
+                $itemOptionsXml = $itemXml->addChild('options');
+                foreach ($_options as $_option) {
+                    $_formattedOptionValue = $renderer->getFormatedOptionValue($_option);
+                    $optionXml = $itemOptionsXml->addChild('option');
+                    $optionXml->addAttribute('label', $xmlObject->xmlAttribute($_option['label']));
+                    $optionXml->addAttribute(
+                        'text', $xmlObject->xmlAttribute(strip_tags($_formattedOptionValue['value']))
+                    );
+                }
+            }
 
-             /**
+            /**
              * Item messages
              */
-             if ($messages = $renderer->getMessages()) {
-                 $itemMessagesXml = $itemXml->addChild('messages');
-                 foreach ($messages as $message) {
-                     $messageXml = $itemMessagesXml->addChild('option');
-                     $messageXml->addChild('type', $message['type']);
-                    $messageXml->addChild('text', $xmlObject->xmlentities(strip_tags($message['text'])));
-                 }
-             }
-         }
+            if ($messages = $renderer->getMessages()) {
+                $itemMessagesXml = $itemXml->addChild('messages');
+                foreach ($messages as $message) {
+                    $messageXml = $itemMessagesXml->addChild('option');
+                    $messageXml->addChild('type', $message['type']);
+                    $messageXml->addChild('text', $xmlObject->xmlentities($message['text']));
+                }
+            }
+        }
 
         /**
          * Cart messages

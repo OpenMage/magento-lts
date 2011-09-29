@@ -40,8 +40,8 @@ class Mage_XmlConnect_Block_Wishlist extends Mage_Wishlist_Block_Customer_Wishli
      */
     protected function _toHtml()
     {
+        /** @var Mage_XmlConnect_Model_Simplexml_Element $wishlistXmlObj */
         $wishlistXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<wishlist></wishlist>');
-        $hasMoreItems = 0;
         /**
          * Apply offset and count
          */
@@ -50,6 +50,7 @@ class Mage_XmlConnect_Block_Wishlist extends Mage_Wishlist_Block_Customer_Wishli
         $count  = (int)$request->getParam('count', 0);
         $offset = $offset < 0 ? 0 : $offset;
         $count  = $count <= 0 ? 1 : $count;
+        $hasMoreItems = 0;
         if ($offset + $count < $this->getWishlistItems()->getSize()) {
             $hasMoreItems = 1;
         }
@@ -67,12 +68,11 @@ class Mage_XmlConnect_Block_Wishlist extends Mage_Wishlist_Block_Customer_Wishli
                 $itemXmlObj = $wishlistXmlObj->addChild('item');
 
                 $itemXmlObj->addChild('item_id', $item->getWishlistItemId());
-
                 $itemXmlObj->addChild('entity_id', $item->getProductId());
                 $itemXmlObj->addChild('entity_type_id', $item->getProduct()->getTypeId());
-                $itemXmlObj->addChild('name', $wishlistXmlObj->xmlentities(strip_tags($item->getName())));
-                $itemXmlObj->addChild('in_stock', (int)$item->getProduct()->isInStock());
-                $itemXmlObj->addChild('is_salable', (int)$item->getProduct()->getIsSalable());
+                $itemXmlObj->addChild('name', $wishlistXmlObj->xmlentities($item->getName()));
+                $itemXmlObj->addChild('in_stock', (int)$item->getProduct()->getIsInStock());
+                $itemXmlObj->addChild('is_salable', (int)$item->getProduct()->isSalable());
                 /**
                  * If product type is grouped than it has options as its grouped items
                  */
@@ -96,8 +96,7 @@ class Mage_XmlConnect_Block_Wishlist extends Mage_Wishlist_Block_Customer_Wishli
                 $itemXmlObj->addChild('added_date', $addedDate);
 
                 if ($this->getChild('product_price')) {
-                    $this->getChild('product_price')->setProduct($item->getProduct())
-                        ->setProductXmlObj($itemXmlObj)
+                    $this->getChild('product_price')->setProduct($item->getProduct())->setProductXmlObj($itemXmlObj)
                         ->collectProductPrices();
                 }
 

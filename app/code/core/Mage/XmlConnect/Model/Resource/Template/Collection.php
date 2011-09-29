@@ -31,13 +31,12 @@
  * @package    Mage_XmlConnect
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Resource_Template_Collection
-    extends Mage_Core_Model_Resource_Db_Collection_Abstract
+class Mage_XmlConnect_Model_Resource_Template_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
      * Internal constructor
      *
-     * @return void
+     * @return null
      */
     protected function _construct()
     {
@@ -63,11 +62,10 @@ class Mage_XmlConnect_Model_Resource_Template_Collection
      */
     protected function _joinApplicationName()
     {
-        $this->getSelect()
-            ->joinLeft(
-                array('app' => $this->getTable('xmlconnect/application')),
-                'app.application_id = main_table.application_id',
-                array('app_name' => 'app.name', 'app_code' => 'app.code')
+        $this->getSelect()->joinLeft(
+            array('app' => $this->getTable('xmlconnect/application')),
+            'app.application_id = main_table.application_id',
+            array('app_name' => 'app.name', 'app_code' => 'app.code')
         );
         return $this;
     }
