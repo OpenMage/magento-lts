@@ -1132,7 +1132,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 break;
             case self::REQUEST_TYPE_CREDIT:
                 /**
-                 * need to send last 4 digit credit card number to authorize.net
+                 * Send last 4 digits of credit card number to authorize.net
                  * otherwise it will give an error
                  */
                 $request->setXCardNum($payment->getCcLast4());
@@ -1167,7 +1167,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                     ->setXCountry($billing->getCountry())
                     ->setXPhone($billing->getTelephone())
                     ->setXFax($billing->getFax())
-                    ->setXCustId($billing->getCustomerId())
+                    ->setXCustId($order->getCustomerId())
                     ->setXCustomerIp($order->getRemoteIp())
                     ->setXCustomerTaxId($billing->getTaxId())
                     ->setXEmail($order->getCustomerEmail())

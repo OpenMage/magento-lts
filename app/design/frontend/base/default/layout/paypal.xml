@@ -141,6 +141,9 @@ Available logo types can be assigned with action="setLogoType":
     <wishlist_index_index>
         <update handle="SHORTCUT_popup" />
     </wishlist_index_index>
+    <review_product_list>
+        <update handle="SHORTCUT_popup" />
+    </review_product_list>
 
     <checkout_onepage_success>
         <update handle="SHORTCUT_popup" />

@@ -154,8 +154,8 @@ final class Mage
             'minor'     => '6',
             'revision'  => '1',
             'patch'     => '0',
-            'stability' => 'rc',
-            'number'    => '1',
+            'stability' => '',
+            'number'    => '',
         );
     }
 

@@ -518,9 +518,11 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      */
     public function getAvailableInCategories($object)
     {
-        $select = $this->_getReadAdapter()->select()
+        // is_parent=1 ensures that we'll get only category IDs those are direct parents of the product, instead of
+        // fetching all parent IDs, including those are higher on the tree
+        $select = $this->_getReadAdapter()->select()->distinct()
             ->from($this->getTable('catalog/category_product_index'), array('category_id'))
-            ->where('product_id = ?', (int)$object->getEntityId());
+            ->where('product_id = ? AND is_parent = 1', (int)$object->getEntityId());
 
         return $this->_getReadAdapter()->fetchCol($select);
     }

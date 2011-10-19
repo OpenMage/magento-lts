@@ -880,4 +880,15 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
 
         return $this;
     }
+
+    /**
+     * Get creditmemos collection filtered by $filter
+     *
+     * @param array|null $filter
+     * @return Mage_Sales_Model_Resource_Order_Creditmemo_Collection
+     */
+    public function getFilteredCollectionItems($filter = null)
+    {
+        return $this->getResourceCollection()->getFiltered($filter);
+    }
 }

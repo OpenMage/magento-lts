@@ -158,21 +158,25 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             $value = $values[$attribute->getAttributeCode()];
 
             if ($attribute->getAttributeCode() == 'price') {
-                if ((isset($value['from']) && strlen(trim($value['from']))) ||
-                    (isset($value['to']) && strlen(trim($value['to'])))) {
-                    if (isset($value['currency']) && !empty($value['currency'])) {
+                $value['from'] = isset($value['from']) ? trim($value['from']) : '';
+                $value['to'] = isset($value['to']) ? trim($value['to']) : '';
+                if (is_numeric($value['from']) || is_numeric($value['to'])) {
+                    if (!empty($value['currency'])) {
                         $rate = Mage::app()->getStore()->getBaseCurrency()->getRate($value['currency']);
                     } else {
                         $rate = 1;
                     }
-                    if ($this->_getResource()->addRatedPriceFilter($this->getProductCollection(), $attribute, $value, $rate)) {
+                    if ($this->_getResource()->addRatedPriceFilter(
+                        $this->getProductCollection(), $attribute, $value, $rate)
+                    ) {
                         $hasConditions = true;
                         $this->_addSearchCriteria($attribute, $value);
                     }
                 }
             } else if ($attribute->isIndexable()) {
                 if (!is_string($value) || strlen($value) != 0) {
-                    if ($this->_getResource()->addIndexableAttributeModifiedFilter($this->getProductCollection(), $attribute, $value)) {
+                    if ($this->_getResource()->addIndexableAttributeModifiedFilter(
+                        $this->getProductCollection(), $attribute, $value)) {
                         $hasConditions = true;
                         $this->_addSearchCriteria($attribute, $value);
                     }
@@ -227,7 +231,8 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
 
                     if (strlen($value['from']) > 0 && strlen($value['to']) > 0) {
                         // -
-                        $value = sprintf('%s - %s', ($currencyModel ? $from : $value['from']), ($currencyModel ? $to : $value['to']));
+                        $value = sprintf('%s - %s',
+                            ($currencyModel ? $from : $value['from']), ($currencyModel ? $to : $value['to']));
                     } elseif (strlen($value['from']) > 0) {
                         // and more
                         $value = Mage::helper('catalogsearch')->__('%s and greater', ($currencyModel ? $from : $value['from']));
@@ -241,7 +246,9 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             }
         }
 
-        if (($attribute->getFrontendInput() == 'select' || $attribute->getFrontendInput() == 'multiselect') && is_array($value)) {
+        if (($attribute->getFrontendInput() == 'select' || $attribute->getFrontendInput() == 'multiselect')
+            && is_array($value)
+        ) {
             foreach ($value as $key => $val){
                 $value[$key] = $attribute->getSource()->getOptionText($val);
 

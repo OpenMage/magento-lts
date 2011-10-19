@@ -208,7 +208,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
         $query = $select->crossUpdateFromSelect($table);
         $write->query($query);
 
-        if ($this->useIdxTable()) {
+        if ($this->useIdxTable() && $this->_allowTableChanges) {
             $write->truncateTable($coaTable);
             $write->truncateTable($copTable);
         } else {

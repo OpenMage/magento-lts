@@ -130,6 +130,10 @@
         <update handle="SHORTCUT_uk_popup" />
     </wishlist_index_index>
 
+    <review_product_list>
+        <update handle="SHORTCUT_uk_popup" />
+    </review_product_list>
+
     <checkout_onepage_success>
         <update handle="SHORTCUT_uk_popup" />
     </checkout_onepage_success>

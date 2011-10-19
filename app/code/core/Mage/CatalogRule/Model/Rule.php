@@ -316,6 +316,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
      */
     public function applyAll()
     {
+        $this->getResourceCollection()->walk(array($this->_getResource(), 'updateRuleProductData'));
         $this->_getResource()->applyAllRulesForDateRange();
         $this->_invalidateCache();
         $indexProcess = Mage::getSingleton('index/indexer')->getProcessByCode('catalog_product_price');

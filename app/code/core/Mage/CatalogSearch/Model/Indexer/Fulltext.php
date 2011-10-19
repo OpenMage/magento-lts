@@ -314,6 +314,9 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
      */
     protected function _processEvent(Mage_Index_Model_Event $event)
     {
+        if (!$this->_allowTableChanges && is_callable(array($this->_getIndexer(), 'setAllowTableChanges'))) {
+            $this->_getIndexer()->setAllowTableChanges(false);
+        }
         $data = $event->getNewData();
 
         if (!empty($data['catalogsearch_fulltext_reindex_all'])) {
@@ -383,6 +386,9 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
 
             $this->_getIndexer()
                 ->updateCategoryIndex($productIds, $categoryIds);
+        }
+        if (!$this->_allowTableChanges && is_callable(array($this->_getIndexer(), 'setAllowTableChanges'))) {
+            $this->_getIndexer()->setAllowTableChanges(true);
         }
     }
 

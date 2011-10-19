@@ -74,4 +74,20 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Collection extends Mage_Sales_M
         $this->walk('afterLoad');
         return $this;
     }
+
+    /**
+     * Add filtration conditions
+     *
+     * @param array|null $filter
+     * @return Mage_Sales_Model_Resource_Order_Creditmemo_Collection
+     */
+    public function getFiltered($filter = null)
+    {
+        if (is_array($filter)) {
+            foreach ($filter as $field => $value) {
+                $this->addFieldToFilter($field, $value);
+            }
+        }
+        return $this;
+    }
 }

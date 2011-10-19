@@ -67,9 +67,24 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
         }
 
         try {
-            $link->getResource()->saveProductLinks($product, $links, $typeId);
+            if ($type == 'grouped') {
+                $link->getResource()->saveGroupedLinks($product, $links, $typeId);
+            } else {
+                $link->getResource()->saveProductLinks($product, $links, $typeId);
+            }
+
+            $_linkInstance = Mage::getSingleton('catalog/product_link');
+            $_linkInstance->saveProductRelations($product);
+
+            $indexerStock = Mage::getModel('cataloginventory/stock_status');
+            $indexerStock->updateStatus($productId);
+
+            $indexerPrice = Mage::getResourceModel('catalog/product_indexer_price');
+            $indexerPrice->reindexProductIds($productId);
+
         } catch (Exception $e) {
-            $this->_fault('data_invalid', Mage::helper('catalog')->__('Link product does not exist.'));
+            $this->_fault('data_invalid', $e->getMessage());
+            //$this->_fault('data_invalid', Mage::helper('catalog')->__('Link product does not exist.'));
         }
 
         return true;
@@ -109,7 +124,21 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
         }
 
         try {
-            $link->getResource()->saveProductLinks($product, $links, $typeId);
+            if ($type == 'grouped') {
+                $link->getResource()->saveGroupedLinks($product, $links, $typeId);
+            } else {
+                $link->getResource()->saveProductLinks($product, $links, $typeId);
+            }
+
+            $_linkInstance = Mage::getSingleton('catalog/product_link');
+            $_linkInstance->saveProductRelations($product);
+
+            $indexerStock = Mage::getModel('cataloginventory/stock_status');
+            $indexerStock->updateStatus($productId);
+
+            $indexerPrice = Mage::getResourceModel('catalog/product_indexer_price');
+            $indexerPrice->reindexProductIds($productId);
+
         } catch (Exception $e) {
             $this->_fault('data_invalid', Mage::helper('catalog')->__('Link product does not exist.'));
         }

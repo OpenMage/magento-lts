@@ -70,6 +70,13 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     protected $_engine                   = null;
 
     /**
+     * Whether table changes are allowed
+     *
+     * @var bool
+     */
+    protected $_allowTableChanges = true;
+
+    /**
      * Init resource model
      *
      */
@@ -294,7 +301,11 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     {
         $adapter = $this->_getWriteAdapter();
         $adapter->update($this->getTable('catalogsearch/search_query'), array('is_processed' => 0));
-        $adapter->truncateTable($this->getTable('catalogsearch/result'));
+        if ($this->_allowTableChanges) {
+            $adapter->truncateTable($this->getTable('catalogsearch/result'));
+        } else {
+            $adapter->delete($this->getTable('catalogsearch/result'));
+        }
 
         Mage::dispatchEvent('catalogsearch_reset_search_result');
 
@@ -763,5 +774,17 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
         }
 
         return null;
+    }
+
+    /**
+     * Set whether table changes are allowed
+     *
+     * @param bool $value
+     * @return Mage_CatalogSearch_Model_Resource_Fulltext
+     */
+    public function setAllowTableChanges($value = true)
+    {
+        $this->_allowTableChanges = $value;
+        return $this;
     }
 }

@@ -87,7 +87,7 @@ class Mage_Sales_Model_Service_Order
         $invoice = $this->_convertor->toInvoice($this->_order);
         $totalQty = 0;
         foreach ($this->_order->getAllItems() as $orderItem) {
-            if (!$this->_canInvoiceItem($orderItem, $qtys)) {
+            if (!$this->_canInvoiceItem($orderItem, array())) {
                 continue;
             }
             $item = $this->_convertor->itemToInvoiceItem($orderItem);

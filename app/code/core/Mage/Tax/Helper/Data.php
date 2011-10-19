@@ -818,16 +818,22 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                 foreach ($taxCollection as $tax) {
                     $taxClassId = $tax['tax_id'];
                     $percent    = $tax['tax_percent'];
+
+                    $price     = $item->getRowTotal();
+                    $basePrice = $item->getBaseRowTotal();
+                    if ($this->applyTaxAfterDiscount($item->getStoreId())) {
+                        $price     = $price - $item->getDiscountAmount() + $item->getHiddenTaxAmount();
+                        $basePrice = $basePrice - $item->getBaseDiscountAmount() + $item->getBaseHiddenTaxAmount();
+                    }
+
                     if (isset($taxClassAmount[$taxClassId])) {
-                        $taxClassAmount[$taxClassId]['tax_amount']          += $item->getRowTotal() * $percent / 100;
-                        $taxClassAmount[$taxClassId]['base_tax_amount'] += $item->getBaseRowTotal() * $percent / 100;
-                        $taxClassAmount[$taxClassId]['hidden_tax_amount']   += $item->getHiddenTaxAmount();
+                        $taxClassAmount[$taxClassId]['tax_amount']      += $price * $percent / 100;
+                        $taxClassAmount[$taxClassId]['base_tax_amount'] += $basePrice * $percent / 100;
                     } else {
-                        $taxClassAmount[$taxClassId]['tax_amount']          = $item->getRowTotal() * $percent / 100;
-                        $taxClassAmount[$taxClassId]['base_tax_amount'] = $item->getBaseRowTotal() * $percent / 100;
-                        $taxClassAmount[$taxClassId]['hidden_tax_amount']   = $item->getHiddenTaxAmount();
-                        $taxClassAmount[$taxClassId]['title']               = $tax['title'];
-                        $taxClassAmount[$taxClassId]['percent']             = $tax['percent'];
+                        $taxClassAmount[$taxClassId]['tax_amount']      = $price * $percent / 100;
+                        $taxClassAmount[$taxClassId]['base_tax_amount'] = $basePrice * $percent / 100;
+                        $taxClassAmount[$taxClassId]['title']           = $tax['title'];
+                        $taxClassAmount[$taxClassId]['percent']         = $tax['percent'];
                     }
                 }
             }

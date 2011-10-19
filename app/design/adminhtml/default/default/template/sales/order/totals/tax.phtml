@@ -64,7 +64,6 @@ $_fullInfo  = $this->getFullTaxInfo();
         <?php endforeach; ?>
     <?php else: ?>
         <?php foreach ($_fullInfo as $info): ?>
-            <?php if (isset($info['hidden_tax_amount']) && $info['hidden_tax_amount']) continue; ?>
             <?php
                 $percent    = $info['percent'];
                 $amount     = $info['tax_amount'];

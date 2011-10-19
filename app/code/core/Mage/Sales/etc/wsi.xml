@@ -584,6 +584,152 @@
                     <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:salesOrderInvoiceCommentEntity" />
                 </xsd:sequence>
             </xsd:complexType>
+            <xsd:complexType name="salesOrderCreditmemoEntity">
+                <xsd:sequence>
+                    <xsd:element name="updated_at" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="created_at" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="increment_id" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="transaction_id" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="global_currency_code" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_currency_code" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="order_currency_code" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="store_currency_code" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="cybersource_token" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="invoice_id" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="billing_address_id" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="shipping_address_id" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="state" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="creditmemo_status" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="email_sent" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="order_id" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="shipping_tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_adjustment_positive" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_grand_total" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="adjustment" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="subtotal" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="discount_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_subtotal" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_adjustment" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_to_global_rate" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="store_to_base_rate" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_shipping_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="adjustment_negative" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="subtotal_incl_tax" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="shipping_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_subtotal_incl_tax" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_adjustment_negative" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="grand_total" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_discount_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_to_order_rate" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="store_to_order_rate" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_shipping_tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="adjustment_positive" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="store_id" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="hidden_tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_hidden_tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="shipping_hidden_tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_shipping_hidden_tax_amnt" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="shipping_incl_tax" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_shipping_incl_tax" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_customer_balance_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="customer_balance_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="bs_customer_bal_total_refunded" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="customer_bal_total_refunded" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_gift_cards_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="gift_cards_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="gw_base_price" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="gw_price" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="gw_items_base_price" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="gw_items_price" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="gw_card_base_price" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="gw_card_price" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="gw_base_tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="gw_tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="gw_items_base_tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="gw_items_tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="gw_card_base_tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="gw_card_tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_reward_currency_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="reward_currency_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="reward_points_balance" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="reward_points_balance_refund" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="creditmemo_id" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="items" type="typens:salesOrderCreditmemoItemEntityArray" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="comments" type="typens:salesOrderCreditmemoCommentEntityArray" minOccurs="0" maxOccurs="1" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="salesOrderCreditmemoEntityArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:salesOrderCreditmemoEntity" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="salesOrderCreditmemoItemEntity">
+                <xsd:sequence>
+                    <xsd:element name="item_id" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="parent_id" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="weee_tax_applied_row_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_price" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_weee_tax_row_disposition" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_weee_tax_applied_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="weee_tax_row_disposition" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_row_total" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="discount_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="row_total" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="weee_tax_applied_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_discount_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_weee_tax_disposition" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="price_incl_tax" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="weee_tax_disposition" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_price_incl_tax" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="qty" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_cost" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_weee_tax_applied_row_amount" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="price" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="base_row_total_incl_tax" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="row_total_incl_tax" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="product_id" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="order_item_id" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="additional_data" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="description" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="weee_tax_applied" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="sku" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="name" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="hidden_tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="base_hidden_tax_amount" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="salesOrderCreditmemoItemEntityArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:salesOrderCreditmemoItemEntity" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="salesOrderCreditmemoCommentEntity">
+                <xsd:sequence>
+                    <xsd:element name="parent_id" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="created_at" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="comment" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="is_customer_notified" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="comment_id" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="is_visible_on_front" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="salesOrderCreditmemoCommentEntityArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:salesOrderCreditmemoCommentEntity" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="salesOrderCreditmemoData">
+                <xsd:sequence>
+                    <xsd:element name="qtys" type="typens:orderItemIdQtyArray" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="shipping_amount" type="xsd:double" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="adjustment_positive" type="xsd:double" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="adjustment_negative" type="xsd:double" minOccurs="0" maxOccurs="1"/>
+                </xsd:sequence>
+            </xsd:complexType>
 
             <xsd:element name="salesOrderListRequestParam">
                 <xsd:complexType>
@@ -906,6 +1052,89 @@
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
+            <xsd:element name="salesOrderCreditmemoListRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="0" maxOccurs="1" name="filters" type="typens:filters" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="salesOrderCreditmemoListResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="typens:salesOrderCreditmemoEntityArray" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="salesOrderCreditmemoInfoRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="creditmemoIncrementId" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="salesOrderCreditmemoInfoResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="typens:salesOrderCreditmemoEntity" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="salesOrderCreditmemoCreateRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="creditmemoIncrementId" type="xsd:string" />
+                        <xsd:element minOccurs="0" maxOccurs="1" name="creditmemoData" type="typens:salesOrderCreditmemoData" />
+                        <xsd:element minOccurs="0" maxOccurs="1" name="comment" type="xsd:string" />
+                        <xsd:element minOccurs="0" maxOccurs="1" name="notifyCustomer" type="xsd:int" />
+                        <xsd:element minOccurs="0" maxOccurs="1" name="includeComment" type="xsd:int" />
+                        <xsd:element minOccurs="0" maxOccurs="1" name="refundToStoreCreditAmount" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="salesOrderCreditmemoCreateResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="salesOrderCreditmemoAddCommentRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="creditmemoIncrementId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="comment" type="xsd:string" />
+                        <xsd:element minOccurs="0" maxOccurs="1" name="notifyCustomer" type="xsd:int" />
+                        <xsd:element minOccurs="0" maxOccurs="1" name="includeComment" type="xsd:int" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="salesOrderCreditmemoAddCommentResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:int" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="salesOrderCreditmemoCancelRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="creditmemoIncrementId" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="salesOrderCreditmemoCancelResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
         </xsd:schema>
     </wsdl:types>
     <wsdl:message name="salesOrderListRequest">
@@ -1028,6 +1257,36 @@
     <wsdl:message name="salesOrderInvoiceCancelResponse">
         <wsdl:part name="parameters" element="typens:salesOrderInvoiceCancelResponseParam" />
     </wsdl:message>
+    <wsdl:message name="salesOrderCreditmemoListRequest">
+        <wsdl:part name="parameters" element="typens:salesOrderCreditmemoListRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="salesOrderCreditmemoListResponse">
+        <wsdl:part name="parameters" element="typens:salesOrderCreditmemoListResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="salesOrderCreditmemoInfoRequest">
+        <wsdl:part name="parameters" element="typens:salesOrderCreditmemoInfoRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="salesOrderCreditmemoInfoResponse">
+        <wsdl:part name="parameters" element="typens:salesOrderCreditmemoInfoResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="salesOrderCreditmemoCreateRequest">
+        <wsdl:part name="parameters" element="typens:salesOrderCreditmemoCreateRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="salesOrderCreditmemoCreateResponse">
+        <wsdl:part name="parameters" element="typens:salesOrderCreditmemoCreateResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="salesOrderCreditmemoAddCommentRequest">
+        <wsdl:part name="parameters" element="typens:salesOrderCreditmemoAddCommentRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="salesOrderCreditmemoAddCommentResponse">
+        <wsdl:part name="parameters" element="typens:salesOrderCreditmemoAddCommentResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="salesOrderCreditmemoCancelRequest">
+        <wsdl:part name="parameters" element="typens:salesOrderCreditmemoCancelRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="salesOrderCreditmemoCancelResponse">
+        <wsdl:part name="parameters" element="typens:salesOrderCreditmemoCancelResponseParam" />
+    </wsdl:message>
     <wsdl:portType name="{{var wsdl.handler}}PortType">
         <wsdl:operation name="salesOrderList">
             <wsdl:documentation>Retrieve list of orders by filters</wsdl:documentation>
@@ -1128,6 +1387,31 @@
             <wsdl:documentation>Cancel invoice</wsdl:documentation>
             <wsdl:input message="typens:salesOrderInvoiceCancelRequest" />
             <wsdl:output message="typens:salesOrderInvoiceCancelResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="salesOrderCreditmemoList">
+            <wsdl:documentation>Retrieve list of creditmemos by filters</wsdl:documentation>
+            <wsdl:input message="typens:salesOrderCreditmemoListRequest" />
+            <wsdl:output message="typens:salesOrderCreditmemoListResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="salesOrderCreditmemoInfo">
+            <wsdl:documentation>Retrieve creditmemo information</wsdl:documentation>
+            <wsdl:input message="typens:salesOrderCreditmemoInfoRequest" />
+            <wsdl:output message="typens:salesOrderCreditmemoInfoResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="salesOrderCreditmemoCreate">
+            <wsdl:documentation>Create new creditmemo for order</wsdl:documentation>
+            <wsdl:input message="typens:salesOrderCreditmemoCreateRequest" />
+            <wsdl:output message="typens:salesOrderCreditmemoCreateResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="salesOrderCreditmemoAddComment">
+            <wsdl:documentation>Add new comment to creditmemo</wsdl:documentation>
+            <wsdl:input message="typens:salesOrderCreditmemoAddCommentRequest" />
+            <wsdl:output message="typens:salesOrderCreditmemoAddCommentResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="salesOrderCreditmemoCancel">
+            <wsdl:documentation>Cancel creditmemo</wsdl:documentation>
+            <wsdl:input message="typens:salesOrderCreditmemoCancelRequest" />
+            <wsdl:output message="typens:salesOrderCreditmemoCancelResponse" />
         </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
@@ -1304,6 +1588,51 @@
             </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="salesOrderInvoiceCancel">
+            <soap:operation soapAction="" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="salesOrderCreditmemoList">
+            <soap:operation soapAction="" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="salesOrderCreditmemoInfo">
+            <soap:operation soapAction="" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="salesOrderCreditmemoCreate">
+            <soap:operation soapAction="" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="salesOrderCreditmemoAddComment">
+            <soap:operation soapAction="" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="salesOrderCreditmemoCancel">
             <soap:operation soapAction="" />
             <wsdl:input>
                 <soap:body use="literal" />

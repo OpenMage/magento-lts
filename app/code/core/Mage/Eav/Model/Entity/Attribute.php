@@ -113,6 +113,25 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     }
 
     /**
+     * Load entity_attribute_id into $this by $this->attribute_set_id
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    public function loadEntityAttributeIdBySet()
+    {
+        // load attributes collection filtered by attribute_id and attribute_set_id
+        $filteredAttributes = $this->getResourceCollection()
+            ->setAttributeSetFilter($this->getAttributeSetId())
+            ->addFieldToFilter('entity_attribute.attribute_id', $this->getId())
+            ->load();
+        if (count($filteredAttributes) > 0) {
+            // getFirstItem() can be used as we can have one or zero records in the collection
+            $this->setEntityAttributeId($filteredAttributes->getFirstItem()->getEntityAttributeId());
+        }
+        return $this;
+    }
+
+    /**
      * Prepare data for save
      *
      * @return Mage_Eav_Model_Entity_Attribute
@@ -129,10 +148,12 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
         /**
          * Check for maximum attribute_code length
          */
-        if(isset($this->_data['attribute_code']) &&
-           !Zend_Validate::is($this->_data['attribute_code'],
-                              'StringLength',
-                              array('max' => self::ATTRIBUTE_CODE_MAX_LENGTH))
+        if (isset($this->_data['attribute_code']) &&
+            !Zend_Validate::is(
+                $this->_data['attribute_code'],
+                'StringLength',
+                array('max' => self::ATTRIBUTE_CODE_MAX_LENGTH)
+            )
         ) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', self::ATTRIBUTE_CODE_MAX_LENGTH));
         }
@@ -141,9 +162,8 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
         $hasDefaultValue = ((string)$defaultValue != '');
 
         if ($this->getBackendType() == 'decimal' && $hasDefaultValue) {
-            if (!Zend_Locale_Format::isNumber($defaultValue,
-                                              array('locale' => Mage::app()->getLocale()->getLocaleCode()))
-            ) {
+            $locale = Mage::app()->getLocale()->getLocaleCode();
+            if (!Zend_Locale_Format::isNumber($defaultValue, array('locale' => $locale))) {
                  throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default decimal value'));
             }
 

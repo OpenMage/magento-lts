@@ -81,6 +81,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
         $selected     = array();
         $currentProduct = $this->getProduct();
         $coreHelper   = Mage::helper('core');
+        $bundlePriceModel = Mage::getModel('bundle/product_price');
 
         if ($preconfiguredFlag = $currentProduct->hasPreconfiguredValues()) {
             $preconfiguredValues = $currentProduct->getPreconfiguredValues();
@@ -120,14 +121,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                     );
                 }
 
-                $itemPrice = $_selection->getFinalPrice();
-                if ($_selection->getSelectionPriceValue() != 0) {
-                    if ($_selection->getSelectionPriceType()) { // percent
-                        $itemPrice = $currentProduct->getFinalPrice() * $_selection->getSelectionPriceValue() / 100;
-                    } else { // fixed
-                        $itemPrice = $_selection->getSelectionPriceValue();
-                    }
-                }
+                $itemPrice = $bundlePriceModel->getSelectionFinalTotalPrice($currentProduct, $_selection,
+                        $currentProduct->getQty(), $_selection->getQty());
 
                 $canApplyMAP = false;
 

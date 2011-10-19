@@ -19,6 +19,17 @@
                     <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:associativeEntity" />
                 </xsd:sequence>
             </xsd:complexType>
+            <xsd:complexType name="associativeMultiEntity">
+                <xsd:sequence>
+                    <xsd:element name="key" type="xsd:string" />
+                    <xsd:element name="value" type="typens:ArrayOfString" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="associativeMultiArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:associativeMultiEntity" />
+                </xsd:sequence>
+            </xsd:complexType>
             <xsd:complexType name="complexFilter">
                 <xsd:sequence>
                     <xsd:element name="key" type="xsd:string" />

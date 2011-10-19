@@ -452,6 +452,9 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
 
         if ($salable !== false) {
             $salable = false;
+            if (!is_null($product)) {
+                $this->setStoreFilter($product->getStoreId(), $product);
+            }
             foreach ($this->getUsedProducts(null, $product) as $child) {
                 if ($child->isSalable()) {
                     $salable = true;

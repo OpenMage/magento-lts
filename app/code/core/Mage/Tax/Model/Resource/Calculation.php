@@ -314,7 +314,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                     $selectClone
                         ->where('? BETWEEN rate.zip_from AND rate.zip_to', $postcode);
                 } else if ($postcodeIsRange) {
-                    $selectClone->where("rate.zip_from >= {$zipFrom} AND rate.zip_to <= {$zipTo}");
+                    $selectClone->where('rate.zip_from >= ?', $zipFrom)
+                        ->where('rate.zip_to <= ?', $zipTo);
                 }
             }
 

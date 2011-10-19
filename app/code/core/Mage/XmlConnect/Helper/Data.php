@@ -568,7 +568,7 @@ EOT;
         $options = array();
         /** @var $app Mage_XmlConnect_Model_Application */
         foreach (Mage::getModel('xmlconnect/application')->getCollection() as $app) {
-            $options[] = array('value' => $app->getCode(), 'label' => $app->getName());
+            $options[] = array('value' => $app->getId(), 'label' => $app->getName());
         }
         if (count($options) > 1) {
             array_unshift($options, array(

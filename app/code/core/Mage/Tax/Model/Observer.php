@@ -68,12 +68,16 @@ class Mage_Tax_Model_Observer
         $taxes              = $order->getAppliedTaxes();
 
         $ratesIdQuoteItemId = array();
+        if (!is_array($getTaxesForItems)) {
+            $getTaxesForItems = array();
+        }
         foreach ($getTaxesForItems as $quoteItemId => $taxesArray) {
             foreach ($taxesArray as $rates) {
                 if (count($rates['rates']) == 1) {
                     $ratesIdQuoteItemId[$rates['id']][] = array(
                         'id'        => $quoteItemId,
-                        'percent'   => $rates['percent']
+                        'percent'   => $rates['percent'],
+                        'code'      => $rates['rates'][0]['code']
                     );
                 } else {
                     $percentDelta   = $rates['percent'];
@@ -81,25 +85,25 @@ class Mage_Tax_Model_Observer
                     foreach ($rates['rates'] as $rate) {
                         $ratesIdQuoteItemId[$rates['id']][] = array(
                             'id'        => $quoteItemId,
-                            'percent'   => $rate['percent']
+                            'percent'   => $rate['percent'],
+                            'code'      => $rate['code']
                         );
                         $percentSum += $rate['percent'];
                     }
 
                     if ($percentDelta != $percentSum) {
                         $delta = $percentDelta - $percentSum;
-                        foreach ($ratesIdQuoteItemId[$rates['id']] as &$rate) {
-                            $rate = array(
-                                'id'        => $rate['id'],
-                                'percent'   => (($rate['percent'] / $percentSum) * $delta) + $rate['percent']
-                            );
+                        foreach ($ratesIdQuoteItemId[$rates['id']] as &$rateTax) {
+                            if ($rateTax['id'] == $quoteItemId) {
+                                $rateTax['percent'] = (($rateTax['percent'] / $percentSum) * $delta)
+                                        + $rateTax['percent'];
+                            }
                         }
                     }
                 }
             }
         }
 
-        $a = array();
         foreach ($taxes as $id => $row) {
             foreach ($row['rates'] as $tax) {
                 if (is_null($row['percent'])) {
@@ -127,22 +131,19 @@ class Mage_Tax_Model_Observer
 
                 $result = Mage::getModel('tax/sales_order_tax')->setData($data)->save();
 
-                if (isset($a[$id])) {
-                    $a[$id] = $a[$id]+1;
-                } else {
-                    $a[$id] = 0;
-                }
-
-                if (isset($ratesIdQuoteItemId[$id]) && isset($ratesIdQuoteItemId[$id][$a[$id]])) {
-                    $quoteItemId = $ratesIdQuoteItemId[$id][$a[$id]];
-                    $item = $order->getItemByQuoteItemId($quoteItemId['id']);
-                    if ($item) {
-                        $data = array(
-                            'item_id'       => $item->getId(),
-                            'tax_id'        => $result->getTaxId(),
-                            'tax_percent'   => $quoteItemId['percent']
-                        );
-                        Mage::getModel('tax/sales_order_tax_item')->setData($data)->save();
+                if (isset($ratesIdQuoteItemId[$id])) {
+                    foreach ($ratesIdQuoteItemId[$id] as $quoteItemId) {
+                        if ($quoteItemId['code'] == $tax['code']) {
+                            $item = $order->getItemByQuoteItemId($quoteItemId['id']);
+                            if ($item) {
+                                $data = array(
+                                    'item_id'       => $item->getId(),
+                                    'tax_id'        => $result->getTaxId(),
+                                    'tax_percent'   => $quoteItemId['percent']
+                                );
+                                Mage::getModel('tax/sales_order_tax_item')->setData($data)->save();
+                            }
+                        }
                     }
                 }
             }

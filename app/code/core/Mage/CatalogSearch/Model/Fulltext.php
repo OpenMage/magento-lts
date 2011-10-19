@@ -47,6 +47,13 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     const SEARCH_TYPE_COMBINE           = 3;
     const XML_PATH_CATALOG_SEARCH_TYPE  = 'catalog/search/search_type';
 
+    /**
+     * Whether table changes are allowed
+     *
+     * @var bool
+     */
+    protected $_allowTableChanges = true;
+
     protected function _construct()
     {
         $this->_init('catalogsearch/fulltext');
@@ -72,7 +79,14 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
             'product_ids'   => $productIds
         ));
 
-        $this->getResource()->rebuildIndex($storeId, $productIds);
+        $resourceModel = $this->getResource();
+        if (!$this->_allowTableChanges && is_callable(array($resourceModel, 'setAllowTableChanges'))) {
+            $resourceModel->setAllowTableChanges(false);
+        }
+        $resourceModel->rebuildIndex($storeId, $productIds);
+        if (!$this->_allowTableChanges && is_callable(array($resourceModel, 'setAllowTableChanges'))) {
+            $resourceModel->setAllowTableChanges(true);
+        }
 
         Mage::dispatchEvent('catalogsearch_index_process_complete', array());
 
@@ -105,7 +119,15 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      */
     public function resetSearchResults()
     {
-        $this->getResource()->resetSearchResults();
+        $resourceModel = $this->getResource();
+        if (!$this->_allowTableChanges && is_callable(array($resourceModel, 'setAllowTableChanges'))) {
+            $resourceModel->setAllowTableChanges(false);
+        }
+        $resourceModel->resetSearchResults();
+        if (!$this->_allowTableChanges && is_callable(array($resourceModel, 'setAllowTableChanges'))) {
+            $resourceModel->setAllowTableChanges(true);
+        }
+
         return $this;
     }
 
@@ -149,6 +171,18 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     public function updateCategoryIndex($productIds, $categoryIds)
     {
         $this->getResource()->updateCategoryIndex($productIds, $categoryIds);
+        return $this;
+    }
+
+    /**
+     * Set whether table changes are allowed
+     *
+     * @param bool $value
+     * @return Mage_CatalogSearch_Model_Fulltext
+     */
+    public function setAllowTableChanges($value = true)
+    {
+        $this->_allowTableChanges = $value;
         return $this;
     }
 }

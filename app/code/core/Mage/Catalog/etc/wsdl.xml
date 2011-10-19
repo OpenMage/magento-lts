@@ -15,6 +15,12 @@
                     </restriction>
                 </complexContent>
             </complexType>
+            <complexType name="catalogProductAdditionalAttributesEntity">
+                <all>
+                    <element name="multi_data" type="typens:associativeMultiArray" minOccurs="0" />
+                    <element name="single_data" type="typens:associativeArray" minOccurs="0" />
+                </all>
+            </complexType>
             <complexType name="catalogProductEntity">
                 <all>
                     <element name="product_id" type="xsd:string"/>
@@ -98,7 +104,7 @@
                     <element name="custom_design" type="xsd:string" minOccurs="0"/>
                     <element name="custom_layout_update" type="xsd:string" minOccurs="0"/>
                     <element name="options_container" type="xsd:string" minOccurs="0"/>
-                    <element name="additional_attributes" type="typens:associativeArray" minOccurs="0"/>
+                    <element name="additional_attributes" type="typens:catalogProductAdditionalAttributesEntity" minOccurs="0"/>
                 </all>
             </complexType>
             <complexType name="catalogProductAttributeSetEntity">
@@ -367,6 +373,235 @@
                     </restriction>
                 </complexContent>
             </complexType>
+            <complexType name="catalogProductAttributeFrontendLabelEntity">
+                <all>
+                    <element name="store_id" type="xsd:string" />
+                    <element name="label" type="xsd:string" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductAttributeFrontendLabelArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogProductAttributeFrontendLabelEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogProductAttributeEntityToCreate">
+                <all>
+                    <element name="attribute_code" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="frontend_input" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="scope" type="xsd:string" minOccurs="0" />
+                    <element name="default_value" type="xsd:string" minOccurs="0" />
+                    <element name="is_unique" type="xsd:int" minOccurs="0" />
+                    <element name="is_required" type="xsd:int" minOccurs="0" />
+                    <element name="apply_to" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="is_configurable" type="xsd:int" minOccurs="0" />
+                    <element name="is_searchable" type="xsd:int" minOccurs="0" />
+                    <element name="is_visible_in_advanced_search" type="xsd:int" minOccurs="0" />
+                    <element name="is_comparable" type="xsd:int" minOccurs="0" />
+                    <element name="is_used_for_promo_rules" type="xsd:int" minOccurs="0" />
+                    <element name="is_visible_on_front" type="xsd:int" minOccurs="0" />
+                    <element name="used_in_product_listing" type="xsd:int" minOccurs="0" />
+                    <element name="additional_fields" type="typens:associativeArray" minOccurs="0"/>
+                    <element name="frontend_label" type="typens:catalogProductAttributeFrontendLabelArray" minOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductAttributeEntityToUpdate">
+                <all>
+                    <element name="scope" type="xsd:string" minOccurs="0" />
+                    <element name="default_value" type="xsd:string" minOccurs="0" />
+                    <element name="is_unique" type="xsd:int" minOccurs="0" />
+                    <element name="is_required" type="xsd:int" minOccurs="0" />
+                    <element name="apply_to" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="is_configurable" type="xsd:int" minOccurs="0" />
+                    <element name="is_searchable" type="xsd:int" minOccurs="0" />
+                    <element name="is_visible_in_advanced_search" type="xsd:int" minOccurs="0" />
+                    <element name="is_comparable" type="xsd:int" minOccurs="0" />
+                    <element name="is_used_for_promo_rules" type="xsd:int" minOccurs="0" />
+                    <element name="is_visible_on_front" type="xsd:int" minOccurs="0" />
+                    <element name="used_in_product_listing" type="xsd:int" minOccurs="0" />
+                    <element name="additional_fields" type="typens:associativeArray" minOccurs="0"/>
+                    <element name="frontend_label" type="typens:catalogProductAttributeFrontendLabelArray" minOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductAttributeEntity">
+                <all>
+                    <element name="attribute_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="attribute_code" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="frontend_input" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="scope" type="xsd:string" minOccurs="0" />
+                    <element name="default_value" type="xsd:string" minOccurs="0" />
+                    <element name="is_unique" type="xsd:int" minOccurs="0" />
+                    <element name="is_required" type="xsd:int" minOccurs="0" />
+                    <element name="apply_to" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="is_configurable" type="xsd:int" minOccurs="0" />
+                    <element name="is_searchable" type="xsd:int" minOccurs="0" />
+                    <element name="is_visible_in_advanced_search" type="xsd:int" minOccurs="0" />
+                    <element name="is_comparable" type="xsd:int" minOccurs="0" />
+                    <element name="is_used_for_promo_rules" type="xsd:int" minOccurs="0" />
+                    <element name="is_visible_on_front" type="xsd:int" minOccurs="0" />
+                    <element name="used_in_product_listing" type="xsd:int" minOccurs="0" />
+                    <element name="additional_fields" type="typens:associativeArray" minOccurs="0"/>
+                    <element name="options" type="typens:catalogAttributeOptionEntityArray" minOccurs="0"/>
+                    <element name="frontend_label" type="typens:catalogProductAttributeFrontendLabelArray" minOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductAttributeOptionLabelEntity">
+                <all>
+                    <element name="store_id" type="typens:ArrayOfString" />
+                    <element name="value" type="xsd:string" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductAttributeOptionLabelArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogProductAttributeOptionLabelEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogProductAttributeOptionEntityToAdd">
+                <all>
+                    <element name="label" type="typens:catalogProductAttributeOptionLabelArray" />
+                    <element name="order" type="xsd:int" />
+                    <element name="is_default" type="xsd:int" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductCustomOptionAdditionalFieldsEntity">
+                <all>
+                    <element name="title" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="price" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="price_type" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="sku" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="max_characters" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="file_extension" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="image_size_x" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="image_size_y" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="value_id" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductCustomOptionAdditionalFieldsArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogProductCustomOptionAdditionalFieldsEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogProductCustomOptionToAdd">
+                <all>
+                    <element name="title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="is_require" type="xsd:int" minOccurs="0" maxOccurs="1" />
+                    <element name="additional_fields" type="typens:catalogProductCustomOptionAdditionalFieldsArray" minOccurs="1" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductCustomOptionToUpdate">
+                <all>
+                    <element name="title" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="type" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="is_require" type="xsd:int" minOccurs="0" maxOccurs="1" />
+                    <element name="additional_fields" type="typens:catalogProductCustomOptionAdditionalFieldsArray" minOccurs="0" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductCustomOptionInfoEntity">
+                <all>
+                    <element name="title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="is_require" type="xsd:int" minOccurs="1" maxOccurs="1" />
+                    <element name="additional_fields" type="typens:catalogProductCustomOptionAdditionalFieldsArray" minOccurs="1" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductCustomOptionListEntity">
+                <all>
+                    <element name="option_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="is_require" type="xsd:int" minOccurs="1" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductCustomOptionListArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogProductCustomOptionListEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogProductCustomOptionTypesEntity">
+                <all>
+                    <element name="label" type="xsd:string"/>
+                    <element name="value" type="xsd:string"/>
+                </all>
+            </complexType>
+            <complexType name="catalogProductCustomOptionTypesArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogProductCustomOptionTypesEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogProductCustomOptionValueInfoEntity">
+                <all>
+                    <element name="value_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="option_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sku" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="default_price" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="default_price_type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="store_price" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="store_price_type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="price" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="price_type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="default_title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="store_title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductCustomOptionValueListEntity">
+                <all>
+                    <element name="value_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="price" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="price_type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sku" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductCustomOptionValueListArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogProductCustomOptionValueListEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogProductCustomOptionValueAddEntity">
+                <all>
+                    <element name="title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="price" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="price_type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sku" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductCustomOptionValueAddArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogProductCustomOptionValueAddEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogProductCustomOptionValueUpdateEntity">
+                <all>
+                    <element name="title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="price" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="price_type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sku" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                </all>
+            </complexType>
         </schema>
     </types>
     <message name="catalogProductCurrentStoreRequest">
@@ -451,6 +686,14 @@
     <message name="catalogProductAttributeCurrentStoreResponse">
         <part name="storeView" type="xsd:int"/>
     </message>
+    <message name="catalogProductListOfAdditionalAttributesRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="productType" type="xsd:string" />
+        <part name="attributeSetId" type="xsd:string" />
+    </message>
+    <message name="catalogProductListOfAdditionalAttributesResponse">
+        <part name="result" type="typens:catalogAttributeEntityArray" />
+    </message>
     <message name="catalogProductAttributeListRequest">
         <part name="sessionId" type="xsd:string"/>
         <part name="setId" type="xsd:int"/>
@@ -466,11 +709,119 @@
     <message name="catalogProductAttributeOptionsResponse">
         <part name="result" type="typens:catalogAttributeOptionEntityArray"/>
     </message>
+    <message name="catalogProductAttributeSetCreateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attributeSetName" type="xsd:string"/>
+        <part name="skeletonSetId" type="xsd:string"/>
+    </message>
+    <message name="catalogProductAttributeSetCreateResponse">
+        <part name="setId" type="xsd:int"/>
+    </message>
+    <message name="catalogProductAttributeSetRemoveRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attributeSetId" type="xsd:string"/>
+        <part name="forceProductsRemove" type="xsd:string"/>
+    </message>
+    <message name="catalogProductAttributeSetRemoveResponse">
+        <part name="isRemoved" type="xsd:boolean"/>
+    </message>
     <message name="catalogProductAttributeSetListRequest">
         <part name="sessionId" type="xsd:string"/>
     </message>
     <message name="catalogProductAttributeSetListResponse">
         <part name="result" type="typens:catalogProductAttributeSetEntityArray"/>
+    </message>
+    <message name="catalogProductAttributeSetAttributeAddRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="attributeId" type="xsd:string" />
+        <part name="attributeSetId" type="xsd:string" />
+        <part name="attributeGroupId" type="xsd:string"/>
+        <part name="sortOrder" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeSetAttributeAddResponse">
+        <part name="isAdded" type="xsd:boolean" />
+    </message>
+    <message name="catalogProductAttributeSetAttributeRemoveRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="attributeId" type="xsd:string" />
+        <part name="attributeSetId" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeSetAttributeRemoveResponse">
+        <part name="isRemoved" type="xsd:boolean" />
+    </message>
+    <message name="catalogProductAttributeSetGroupAddRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="attributeSetId" type="xsd:string" />
+        <part name="groupName" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeSetGroupAddResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="catalogProductAttributeSetGroupRenameRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="groupId" type="xsd:string" />
+        <part name="groupName" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeSetGroupRenameResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="catalogProductAttributeSetGroupRemoveRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="attributeGroupId" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeSetGroupRemoveResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="catalogProductAttributeTypesRequest">
+        <part name="sessionId" type="xsd:string"/>
+    </message>
+    <message name="catalogProductAttributeTypesResponse">
+        <part name="result" type="typens:catalogAttributeOptionEntityArray" />
+    </message>
+    <message name="catalogProductAttributeCreateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="data" type="typens:catalogProductAttributeEntityToCreate"/>
+    </message>
+    <message name="catalogProductAttributeCreateResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="catalogProductAttributeRemoveRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attribute" type="xsd:string"/>
+    </message>
+    <message name="catalogProductAttributeRemoveResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="catalogProductAttributeInfoRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attribute" type="xsd:string"/>
+    </message>
+    <message name="catalogProductAttributeInfoResponse">
+        <part name="result" type="typens:catalogProductAttributeEntity" />
+    </message>
+    <message name="catalogProductAttributeUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attribute" type="xsd:string"/>
+        <part name="data" type="typens:catalogProductAttributeEntityToUpdate"/>
+    </message>
+    <message name="catalogProductAttributeUpdateResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="catalogProductAttributeAddOptionRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attribute" type="xsd:string"/>
+        <part name="data" type="typens:catalogProductAttributeOptionEntityToAdd"/>
+    </message>
+    <message name="catalogProductAttributeAddOptionResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="catalogProductAttributeRemoveOptionRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attribute" type="xsd:string"/>
+        <part name="optionId" type="xsd:string"/>
+    </message>
+    <message name="catalogProductAttributeRemoveOptionResponse">
+        <part name="result" type="xsd:boolean" />
     </message>
     <message name="catalogProductTypeListRequest">
         <part name="sessionId" type="xsd:string"/>
@@ -547,7 +898,7 @@
         <part name="productIdentifierType" type="xsd:string"/>
     </message>
     <message name="catalogProductAttributeMediaUpdateResponse">
-        <part name="result" type="xsd:int"/>
+        <part name="result" type="xsd:boolean"/>
     </message>
     <message name="catalogProductAttributeMediaRemoveRequest">
         <part name="sessionId" type="xsd:string"/>
@@ -556,7 +907,7 @@
         <part name="productIdentifierType" type="xsd:string"/>
     </message>
     <message name="catalogProductAttributeMediaRemoveResponse">
-        <part name="result" type="xsd:int"/>
+        <part name="result" type="xsd:boolean"/>
     </message>
     <message name="catalogProductLinkListRequest">
         <part name="sessionId" type="xsd:string"/>
@@ -576,7 +927,7 @@
         <part name="productIdentifierType" type="xsd:string"/>
     </message>
     <message name="catalogProductLinkAssignResponse">
-        <part name="result" type="xsd:string"/>
+        <part name="result" type="xsd:boolean"/>
     </message>
     <message name="catalogProductLinkUpdateRequest">
         <part name="sessionId" type="xsd:string"/>
@@ -587,7 +938,7 @@
         <part name="productIdentifierType" type="xsd:string"/>
     </message>
     <message name="catalogProductLinkUpdateResponse">
-        <part name="result" type="xsd:string"/>
+        <part name="result" type="xsd:boolean"/>
     </message>
     <message name="catalogProductLinkRemoveRequest">
         <part name="sessionId" type="xsd:string"/>
@@ -597,7 +948,7 @@
         <part name="productIdentifierType" type="xsd:string"/>
     </message>
     <message name="catalogProductLinkRemoveResponse">
-        <part name="result" type="xsd:string"/>
+        <part name="result" type="xsd:boolean"/>
     </message>
     <message name="catalogProductLinkTypesRequest">
         <part name="sessionId" type="xsd:string"/>
@@ -618,6 +969,94 @@
     </message>
     <message name="catalogCategoryCurrentStoreResponse">
         <part name="storeView" type="xsd:int"/>
+    </message>
+    <message name="catalogProductCustomOptionAddRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="productId" type="xsd:string"/>
+        <part name="data" type="typens:catalogProductCustomOptionToAdd"/>
+        <part name="store" type="xsd:string"/>
+    </message>
+    <message name="catalogProductCustomOptionAddResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="catalogProductCustomOptionUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="optionId" type="xsd:string"/>
+        <part name="data" type="typens:catalogProductCustomOptionToUpdate"/>
+        <part name="store" type="xsd:string"/>
+    </message>
+    <message name="catalogProductCustomOptionUpdateResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="catalogProductCustomOptionListRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="productId" type="xsd:string"/>
+        <part name="store" type="xsd:string"/>
+    </message>
+    <message name="catalogProductCustomOptionListResponse">
+        <part name="result" type="typens:catalogProductCustomOptionListArray"/>
+    </message>
+    <message name="catalogProductCustomOptionTypesRequest">
+        <part name="sessionId" type="xsd:string"/>
+    </message>
+    <message name="catalogProductCustomOptionTypesResponse">
+        <part name="result" type="typens:catalogProductCustomOptionTypesArray"/>
+    </message>
+    <message name="catalogProductCustomOptionInfoRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="optionId" type="xsd:string"/>
+        <part name="store" type="xsd:string"/>
+    </message>
+    <message name="catalogProductCustomOptionInfoResponse">
+        <part name="result" type="typens:catalogProductCustomOptionInfoEntity"/>
+    </message>
+    <message name="catalogProductCustomOptionRemoveRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="optionId" type="xsd:string"/>
+    </message>
+    <message name="catalogProductCustomOptionRemoveResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="catalogProductCustomOptionValueListRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="optionId" type="xsd:string"/>
+        <part name="store" type="xsd:string"/>
+    </message>
+    <message name="catalogProductCustomOptionValueListResponse">
+        <part name="result" type="typens:catalogProductCustomOptionValueListArray"/>
+    </message>
+    <message name="catalogProductCustomOptionValueInfoRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="valueId" type="xsd:string"/>
+        <part name="store" type="xsd:string"/>
+    </message>
+    <message name="catalogProductCustomOptionValueInfoResponse">
+        <part name="result" type="typens:catalogProductCustomOptionValueInfoEntity"/>
+    </message>
+    <message name="catalogProductCustomOptionValueAddRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="optionId" type="xsd:string"/>
+        <part name="data" type="typens:catalogProductCustomOptionValueAddArray"/>
+        <part name="store" type="xsd:string"/>
+    </message>
+    <message name="catalogProductCustomOptionValueAddResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="catalogProductCustomOptionValueUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="valueId" type="xsd:string"/>
+        <part name="data" type="typens:catalogProductCustomOptionValueUpdateEntity"/>
+        <part name="storeId" type="xsd:string"/>
+    </message>
+    <message name="catalogProductCustomOptionValueUpdateResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="catalogProductCustomOptionValueRemoveRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="valueId" type="xsd:string"/>
+    </message>
+    <message name="catalogProductCustomOptionValueRemoveResponse">
+        <part name="result" type="xsd:boolean"/>
     </message>
     <message name="catalogCategoryTreeRequest">
         <part name="sessionId" type="xsd:string"/>
@@ -652,7 +1091,7 @@
         <part name="storeView" type="xsd:string"/>
     </message>
     <message name="catalogCategoryCreateResponse">
-        <part name="id" type="xsd:int"/>
+        <part name="attribute_id" type="xsd:int"/>
     </message>
     <message name="catalogCategoryUpdateRequest">
         <part name="sessionId" type="xsd:string"/>
@@ -857,6 +1296,11 @@
             <input message="typens:catalogProductAttributeCurrentStoreRequest"/>
             <output message="typens:catalogProductAttributeCurrentStoreResponse"/>
         </operation>
+        <operation name="catalogProductListOfAdditionalAttributes">
+            <documentation>Get list of additional attributes which are not in default create/update list</documentation>
+            <input message="typens:catalogProductListOfAdditionalAttributesRequest"/>
+            <output message="typens:catalogProductListOfAdditionalAttributesResponse"/>
+        </operation>
         <operation name="catalogProductAttributeList">
             <documentation>Retrieve attribute list</documentation>
             <input message="typens:catalogProductAttributeListRequest"/>
@@ -867,10 +1311,80 @@
             <input message="typens:catalogProductAttributeOptionsRequest"/>
             <output message="typens:catalogProductAttributeOptionsResponse"/>
         </operation>
+        <operation name="catalogProductAttributeSetCreate">
+            <documentation>Create product attribute set based on another set</documentation>
+            <input message="typens:catalogProductAttributeSetCreateRequest"/>
+            <output message="typens:catalogProductAttributeSetCreateResponse"/>
+        </operation>
+        <operation name="catalogProductAttributeSetRemove">
+            <documentation>Remove product attribute set</documentation>
+            <input message="typens:catalogProductAttributeSetRemoveRequest"/>
+            <output message="typens:catalogProductAttributeSetRemoveResponse"/>
+        </operation>
         <operation name="catalogProductAttributeSetList">
             <documentation>Retrieve product attribute sets</documentation>
             <input message="typens:catalogProductAttributeSetListRequest"/>
             <output message="typens:catalogProductAttributeSetListResponse"/>
+        </operation>
+        <operation name="catalogProductAttributeSetAttributeAdd">
+            <documentation>Add attribute into attribute set</documentation>
+            <input message="typens:catalogProductAttributeSetAttributeAddRequest"/>
+            <output message="typens:catalogProductAttributeSetAttributeAddResponse"/>
+        </operation>
+        <operation name="catalogProductAttributeSetAttributeRemove">
+            <documentation>Remove attribute from attribute set</documentation>
+            <input message="typens:catalogProductAttributeSetAttributeRemoveRequest"/>
+            <output message="typens:catalogProductAttributeSetAttributeRemoveResponse"/>
+        </operation>
+        <operation name="catalogProductAttributeSetGroupAdd">
+            <documentation>Create group within existing attribute set</documentation>
+            <input message="typens:catalogProductAttributeSetGroupAddRequest"/>
+            <output message="typens:catalogProductAttributeSetGroupAddResponse"/>
+        </operation>
+        <operation name="catalogProductAttributeSetGroupRename">
+            <documentation>Rename existing group</documentation>
+            <input message="typens:catalogProductAttributeSetGroupRenameRequest"/>
+            <output message="typens:catalogProductAttributeSetGroupRenameResponse"/>
+        </operation>
+        <operation name="catalogProductAttributeSetGroupRemove">
+            <documentation>Remove group from attribute set</documentation>
+            <input message="typens:catalogProductAttributeSetGroupRemoveRequest"/>
+            <output message="typens:catalogProductAttributeSetGroupRemoveResponse"/>
+        </operation>
+        <operation name="catalogProductAttributeTypes">
+            <documentation>Get list of possible attribute types</documentation>
+            <input message="typens:catalogProductAttributeTypesRequest"/>
+            <output message="typens:catalogProductAttributeTypesResponse"/>
+        </operation>
+        <operation name="catalogProductAttributeCreate">
+            <documentation>Create new attribute</documentation>
+            <input message="typens:catalogProductAttributeCreateRequest"/>
+            <output message="typens:catalogProductAttributeCreateResponse"/>
+        </operation>
+        <operation name="catalogProductAttributeRemove">
+            <documentation>Delete attribute</documentation>
+            <input message="typens:catalogProductAttributeRemoveRequest"/>
+            <output message="typens:catalogProductAttributeRemoveResponse"/>
+        </operation>
+        <operation name="catalogProductAttributeInfo">
+            <documentation>Get full information about attribute with list of options</documentation>
+            <input message="typens:catalogProductAttributeInfoRequest"/>
+            <output message="typens:catalogProductAttributeInfoResponse"/>
+        </operation>
+        <operation name="catalogProductAttributeUpdate">
+            <documentation>Update attribute</documentation>
+            <input message="typens:catalogProductAttributeUpdateRequest"/>
+            <output message="typens:catalogProductAttributeUpdateResponse"/>
+        </operation>
+        <operation name="catalogProductAttributeAddOption">
+            <documentation>Add option to attribute</documentation>
+            <input message="typens:catalogProductAttributeAddOptionRequest"/>
+            <output message="typens:catalogProductAttributeAddOptionResponse"/>
+        </operation>
+        <operation name="catalogProductAttributeRemoveOption">
+            <documentation>Remove option from attribute</documentation>
+            <input message="typens:catalogProductAttributeRemoveOptionRequest"/>
+            <output message="typens:catalogProductAttributeRemoveOptionResponse"/>
         </operation>
         <operation name="catalogProductTypeList">
             <documentation>Retrieve product types</documentation>
@@ -951,6 +1465,61 @@
             <documentation>Retrieve product link type attributes</documentation>
             <input message="typens:catalogProductLinkAttributesRequest"/>
             <output message="typens:catalogProductLinkAttributesResponse"/>
+        </operation>
+        <operation name="catalogProductCustomOptionAdd">
+            <documentation>Add new custom option into product</documentation>
+            <input message="typens:catalogProductCustomOptionAddRequest"/>
+            <output message="typens:catalogProductCustomOptionAddResponse"/>
+        </operation>
+        <operation name="catalogProductCustomOptionUpdate">
+            <documentation>Update product custom option</documentation>
+            <input message="typens:catalogProductCustomOptionUpdateRequest"/>
+            <output message="typens:catalogProductCustomOptionUpdateResponse"/>
+        </operation>
+        <operation name="catalogProductCustomOptionTypes">
+            <documentation>Get list of available custom option types</documentation>
+            <input message="typens:catalogProductCustomOptionTypesRequest"/>
+            <output message="typens:catalogProductCustomOptionTypesResponse"/>
+        </operation>
+        <operation name="catalogProductCustomOptionInfo">
+            <documentation>Get full information about custom option in product</documentation>
+            <input message="typens:catalogProductCustomOptionInfoRequest"/>
+            <output message="typens:catalogProductCustomOptionInfoResponse"/>
+        </operation>
+        <operation name="catalogProductCustomOptionList">
+            <documentation>Retrieve list of product custom options</documentation>
+            <input message="typens:catalogProductCustomOptionListRequest"/>
+            <output message="typens:catalogProductCustomOptionListResponse"/>
+        </operation>
+        <operation name="catalogProductCustomOptionRemove">
+            <documentation>Remove custom option</documentation>
+            <input message="typens:catalogProductCustomOptionRemoveRequest"/>
+            <output message="typens:catalogProductCustomOptionRemoveResponse"/>
+        </operation>
+        <operation name="catalogProductCustomOptionValueInfo">
+            <documentation>Retrieve custom option value info</documentation>
+            <input message="typens:catalogProductCustomOptionValueInfoRequest"/>
+            <output message="typens:catalogProductCustomOptionValueInfoResponse"/>
+        </operation>
+        <operation name="catalogProductCustomOptionValueList">
+            <documentation>Retrieve custom option values list</documentation>
+            <input message="typens:catalogProductCustomOptionValueListRequest"/>
+            <output message="typens:catalogProductCustomOptionValueListResponse"/>
+        </operation>
+        <operation name="catalogProductCustomOptionValueAdd">
+            <documentation>Add new custom option values</documentation>
+            <input message="typens:catalogProductCustomOptionValueAddRequest"/>
+            <output message="typens:catalogProductCustomOptionValueAddResponse"/>
+        </operation>
+        <operation name="catalogProductCustomOptionValueUpdate">
+            <documentation>Update custom option value</documentation>
+            <input message="typens:catalogProductCustomOptionValueUpdateRequest"/>
+            <output message="typens:catalogProductCustomOptionValueUpdateResponse"/>
+        </operation>
+        <operation name="catalogProductCustomOptionValueRemove">
+            <documentation>Remove value from custom option</documentation>
+            <input message="typens:catalogProductCustomOptionValueRemoveRequest"/>
+            <output message="typens:catalogProductCustomOptionValueRemoveResponse"/>
         </operation>
     </portType>
     <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
@@ -1098,6 +1667,17 @@
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
+        <operation name="catalogProductListOfAdditionalAttributes">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
         <operation name="catalogProductList">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
@@ -1186,6 +1766,17 @@
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
+        <operation name="catalogProductAttributeSetCreate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
         <operation name="catalogProductAttributeList">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
@@ -1208,7 +1799,172 @@
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
+        <operation name="catalogProductAttributeSetRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
         <operation name="catalogProductAttributeSetList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeSetAttributeAdd">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeSetAttributeRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeSetGroupAdd">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeSetGroupRename">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeSetGroupRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeTypes">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeCreate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogCategoryAttributeCurrentStore">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeMediaCurrentStore">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeAddOption">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeRemoveOption">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
                 <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
@@ -1252,17 +2008,6 @@
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
-        <operation name="catalogCategoryAttributeCurrentStore">
-            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
-            <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
-                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
-            </input>
-            <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
-                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
-            </output>
-        </operation>
         <operation name="catalogCategoryAttributeList">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
@@ -1275,17 +2020,6 @@
             </output>
         </operation>
         <operation name="catalogCategoryAttributeOptions">
-            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
-            <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
-                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
-            </input>
-            <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
-                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
-            </output>
-        </operation>
-        <operation name="catalogProductAttributeMediaCurrentStore">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
                 <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
@@ -1418,6 +2152,127 @@
             </output>
         </operation>
         <operation name="catalogProductLinkAttributes">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductCustomOptionAdd">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductCustomOptionUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductCustomOptionInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductCustomOptionTypes">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductCustomOptionValueInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductCustomOptionValueList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductCustomOptionValueAdd">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductCustomOptionValueUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductCustomOptionValueRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductCustomOptionList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="catalogProductCustomOptionRemove">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
                 <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"

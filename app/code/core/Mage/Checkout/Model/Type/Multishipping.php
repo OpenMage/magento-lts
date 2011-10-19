@@ -470,6 +470,12 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
             Mage::throwException($helper->__('Invalid checkout type.'));
         }
 
+        /** @var $paymentMethod Mage_Payment_Model_Method_Abstract */
+        $paymentMethod = $quote->getPayment()->getMethodInstance();
+        if (!empty($paymentMethod) && !$paymentMethod->isAvailable($quote)) {
+            Mage::throwException($helper->__('Please specify payment method.'));
+        }
+
         $addresses = $quote->getAllShippingAddresses();
         foreach ($addresses as $address) {
             $addressValidation = $address->validate();

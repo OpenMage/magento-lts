@@ -841,9 +841,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
                     $conf['submit_restore'] = array();
                 }
                 foreach ($params as $id => $value) {
-                    $deviceImages = Mage::helper('xmlconnect')
-                        ->getDeviceHelper()
-                        ->getSubmitImages();
+                    $deviceImages = Mage::helper('xmlconnect')->getDeviceHelper()->getSubmitImages();
 
                     if (!in_array($id, $deviceImages)) {
                         $conf['submit_text'][$id] = $value;
@@ -1055,7 +1053,8 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
 
             foreach ($deviceImages as $id) {
                 if (isset($submit[$id])) {
-                    $params[$id] = '@' . $submit[$id];
+                    $params[$id] = '@' . Mage::helper('xmlconnect/image')->getDefaultSizeUploadDir() . DS
+                        . $submit[$id];
                 } elseif (isset($submitRestore[$id])) {
                     $params[$id] = $submitRestore[$id];
                 }

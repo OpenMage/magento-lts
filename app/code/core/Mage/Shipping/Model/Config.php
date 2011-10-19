@@ -103,13 +103,8 @@ class Mage_Shipping_Model_Config extends Varien_Object
      */
     protected function _getCarrier($code, $config, $store = null)
     {
-/*
-        if (isset(self::$_carriers[$code])) {
-            return self::$_carriers[$code];
-        }
-*/
         if (!isset($config['model'])) {
-            throw Mage::exception('Mage_Shipping', 'Invalid model for shipping method: '.$code);
+            return false;
         }
         $modelName = $config['model'];
 

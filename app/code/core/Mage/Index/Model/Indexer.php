@@ -44,6 +44,13 @@ class Mage_Index_Model_Indexer
     protected $_lockFlag = false;
 
     /**
+     * Whether table changes are allowed
+     *
+     * @var bool
+     */
+    protected $_allowTableChanges = true;
+
+    /**
      * Class constructor. Initialize index processes based on configuration
      */
     public function __construct()
@@ -216,7 +223,22 @@ class Mage_Index_Model_Indexer
          * Index and save event just in case if some process matched it
          */
         if ($event->getProcessIds()) {
-            $this->indexEvent($event);
+            $this->_changeKeyStatus(false);
+            /** @var $resourceModel Mage_Index_Model_Resource_Abstract */
+            $resourceModel = Mage::getResourceModel('index/process');
+            $resourceModel->beginTransaction();
+            $this->_allowTableChanges = false;
+            try {
+                $this->indexEvent($event);
+                $resourceModel->commit();
+                $this->_allowTableChanges = true;
+                $this->_changeKeyStatus();
+            } catch (Exception $e) {
+                $resourceModel->rollBack();
+                $this->_allowTableChanges = true;
+                $this->_changeKeyStatus();
+                throw $e;
+            }
             $event->save();
         }
         return $this;
@@ -239,18 +261,75 @@ class Mage_Index_Model_Indexer
             if (in_array($code, $processed)) {
                 continue;
             }
+
+            if (!$this->_allowTableChanges && is_callable(array($process, 'setAllowTableChanges'))) {
+                $process->setAllowTableChanges(false);
+            }
             if ($process->getDepends()) {
                 foreach ($process->getDepends() as $processCode) {
                     $dependProcess = $this->getProcessByCode($processCode);
                     if ($dependProcess && !in_array($processCode, $processed)) {
+                        if (!$this->_allowTableChanges && is_callable(array($dependProcess, 'setAllowTableChanges'))) {
+                            $dependProcess->setAllowTableChanges(false);
+                        }
                         call_user_func_array(array($dependProcess, $method), $args);
+                        if (!$this->_allowTableChanges && is_callable(array($dependProcess, 'setAllowTableChanges'))) {
+                            $dependProcess->setAllowTableChanges(true);
+                        }
                         $processed[] = $processCode;
                     }
                 }
             }
 
             call_user_func_array(array($process, $method), $args);
+            if (!$this->_allowTableChanges && is_callable(array($process, 'setAllowTableChanges'))) {
+                $process->setAllowTableChanges(true);
+            }
+
             $processed[] = $code;
         }
+    }
+
+    /**
+     * Enable/Disable keys in index tables
+     *
+     * @return Mage_Index_Model_Indexer
+     */
+    protected function _changeKeyStatus($enable = true)
+    {
+        $processed = array();
+        foreach ($this->_processesCollection as $process) {
+            $code = $process->getIndexerCode();
+            if (in_array($code, $processed)) {
+                continue;
+            }
+
+            if ($process->getDepends()) {
+                foreach ($process->getDepends() as $processCode) {
+                    $dependProcess = $this->getProcessByCode($processCode);
+                    if ($dependProcess && !in_array($processCode, $processed)) {
+                        if ($dependProcess instanceof Mage_Index_Model_Process) {
+                            if ($enable) {
+                                $dependProcess->enableIndexerKeys();
+                            } else {
+                                $dependProcess->disableIndexerKeys();
+                            }
+                            $processed[] = $processCode;
+                        }
+                    }
+                }
+            }
+
+            if ($process instanceof Mage_Index_Model_Process) {
+                if ($enable) {
+                    $process->enableIndexerKeys();
+                } else {
+                    $process->disableIndexerKeys();
+                }
+                $processed[] = $code;
+            }
+        }
+
+        return $this;
     }
 }

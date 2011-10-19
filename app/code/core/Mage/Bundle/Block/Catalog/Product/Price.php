@@ -74,6 +74,7 @@ class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product
         if ($this->getMAPTemplate() && Mage::helper('catalog')->canApplyMsrp($product)
                 && $product->getPriceType() != Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC
         ) {
+            $hiddenPriceHtml = parent::_toHtml();
             if (Mage::helper('catalog')->isShowPriceOnGesture($product)) {
                 $this->setWithoutPrice(true);
             }
@@ -84,8 +85,9 @@ class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product
             $html = $this->getLayout()
                 ->createBlock('catalog/product_price')
                 ->setTemplate($this->getMAPTemplate())
-                ->setRealPriceHtml($realPriceHtml)
-                ->setIdSuffix('_clone')
+                ->setRealPriceHtml($hiddenPriceHtml)
+                ->setPriceElementIdPrefix('bundle-price-')
+                ->setIdSuffix($this->getIdSuffix())
                 ->setProduct($product)
                 ->toHtml();
 

@@ -33,6 +33,13 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     protected $_matchedEntities = array();
 
     /**
+     * Whether table changes are allowed
+     *
+     * @var bool
+     */
+    protected $_allowTableChanges = true;
+
+    /**
      * Get Indexer name
      *
      * @return string
@@ -140,9 +147,68 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
             $method = $this->_camelize($event->getType());
         }
 
-        if (method_exists($this->_getResource(), $method)) {
-            $this->_getResource()->$method($event);
+        $resourceModel = $this->_getResource();
+        if (method_exists($resourceModel, $method)) {
+            if (!$this->_allowTableChanges && is_callable(array($resourceModel, 'setAllowTableChanges'))) {
+                $resourceModel->setAllowTableChanges(false);
+            }
+            $resourceModel->$method($event);
+            if (!$this->_allowTableChanges && is_callable(array($resourceModel, 'setAllowTableChanges'))) {
+                $resourceModel->setAllowTableChanges(true);
+            }
         }
+        return $this;
+    }
+
+    /**
+     * Set whether table changes are allowed
+     *
+     * @param bool $value
+     * @return Mage_Index_Model_Indexer_Abstract
+     */
+    public function setAllowTableChanges($value = true)
+    {
+        $this->_allowTableChanges = $value;
+        return $this;
+    }
+
+    /**
+     * Disable resource table keys
+     *
+     * @return Mage_Index_Model_Indexer_Abstract
+     */
+    public function disableKeys()
+    {
+        if (empty($this->_resourceName)) {
+            return $this;
+        }
+
+        $resourceModel = $this->getResource();
+        if ($resourceModel instanceof Mage_Index_Model_Resource_Abstract) {
+            $resourceModel->useDisableKeys(true);
+            $resourceModel->disableTableKeys();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Enable resource table keys
+     *
+     * @return Mage_Index_Model_Indexer_Abstract
+     */
+    public function enableKeys()
+    {
+        if (empty($this->_resourceName)) {
+            return $this;
+        }
+
+        $resourceModel = $this->getResource();
+        if ($resourceModel instanceof Mage_Index_Model_Resource_Abstract) {
+            $resourceModel->useDisableKeys(true);
+            $resourceModel->enableTableKeys();
+        }
+
         return $this;
     }
 }
