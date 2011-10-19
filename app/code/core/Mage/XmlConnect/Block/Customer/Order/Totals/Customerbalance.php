@@ -38,15 +38,13 @@ class Mage_XmlConnect_Block_Customer_Order_Totals_Customerbalance
      * Add order total rendered to XML object
      *
      * @param $totalsXml Mage_XmlConnect_Model_Simplexml_Element
-     * @return void
+     * @return null
      */
     public function addToXmlObject(Mage_XmlConnect_Model_Simplexml_Element $totalsXml)
     {
         $balance = $this->getSource()->getCustomerBalanceAmount();
         if ($balance) {
-            $totalsXml->addCustomChild(
-                $this->getTotal()->getCode(),
-                '-' . $this->_formatPrice($balance),
+            $totalsXml->addCustomChild($this->getTotal()->getCode(), '-' . $this->_formatPrice($balance),
                 array('label' => Mage::helper('enterprise_giftcardaccount')->__('Store Credit'))
             );
         }
@@ -60,6 +58,6 @@ class Mage_XmlConnect_Block_Customer_Order_Totals_Customerbalance
      */
     protected function _formatPrice($amount)
     {
-        return $this->getOrder()->getOrderCurrency()->formatPrecision($amount, 2, array(), false);
+        return Mage::helper('xmlconnect/customer_order')->formatPrice($this, $amount);
     }
 }

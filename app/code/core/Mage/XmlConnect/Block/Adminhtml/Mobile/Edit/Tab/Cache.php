@@ -31,7 +31,8 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Cache extends Mage_Adminhtml_Block_Widget_Form
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Cache
+    extends Mage_Adminhtml_Block_Widget_Form
     implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**

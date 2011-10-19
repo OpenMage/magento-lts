@@ -86,6 +86,13 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     protected $_shipServiceWsdl = null;
 
     /**
+     * Path to wsdl file of track service
+     *
+     * @var string
+     */
+    protected $_trackServiceWsdl = null;
+
+    /**
      * Container types that could be customized for FedEx carrier
      *
      * @var array
@@ -95,10 +102,28 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     public function __construct()
     {
         parent::__construct();
-        $this->_shipServiceWsdl = Mage::getModuleDir('etc', 'Mage_Usa')  . DS . 'wsdl' . DS . 'FedEx'
-              . DS . 'ShipService_v9.wsdl';
-        $this->_rateServiceWsdl = Mage::getModuleDir('etc', 'Mage_Usa')  . DS . 'wsdl' . DS . 'FedEx'
-              . DS . 'RateService_v9.wsdl';
+        $wsdlBasePath = Mage::getModuleDir('etc', 'Mage_Usa')  . DS . 'wsdl' . DS . 'FedEx' . DS;
+        $this->_shipServiceWsdl = $wsdlBasePath . 'ShipService_v9.wsdl';
+        $this->_rateServiceWsdl = $wsdlBasePath . 'RateService_v9.wsdl';
+        $this->_trackServiceWsdl = $wsdlBasePath . 'TrackService_v5.wsdl';
+    }
+
+    /**
+     * Create soap client with selected wsdl
+     *
+     * @param string $wsdl
+     * @param bool|int $trace
+     * @return SoapClient
+     */
+    protected function _createSoapClient($wsdl, $trace = false)
+    {
+        $client = new SoapClient($wsdl, array('trace' => $trace));
+        $client->__setLocation($this->getConfigFlag('sandbox_mode')
+            ? 'https://wsbeta.fedex.com:443/web-services/rate'
+            : 'https://ws.fedex.com:443/web-services/rate'
+        );
+
+        return $client;
     }
 
     /**
@@ -108,12 +133,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
      */
     protected function _createRateSoapClient()
     {
-        $client = new SoapClient($this->_rateServiceWsdl);
-        $client->__setLocation($this->getConfigFlag('sandbox_mode')
-            ? 'https://wsbeta.fedex.com:443/web-services/rate'
-            : 'https://ws.fedex.com:443/web-services/rate'
-        );
-        return $client;
+        return $this->_createSoapClient($this->_rateServiceWsdl);
     }
 
     /**
@@ -123,12 +143,17 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
      */
     protected function _createShipSoapClient()
     {
-        $client = new SoapClient($this->_shipServiceWsdl, array('trace' => 1));
-        $client->__setLocation($this->getConfigFlag('sandbox_mode')
-            ? 'https://wsbeta.fedex.com:443/web-services/ship'
-            : 'https://ws.fedex.com:443/web-services/ship'
-        );
-        return $client;
+        return $this->_createSoapClient($this->_shipServiceWsdl, 1);
+    }
+
+    /**
+     * Create track soap client
+     *
+     * @return SoapClient
+     */
+    protected function _createTrackSoapClient()
+    {
+        return $this->_createSoapClient($this->_trackServiceWsdl, 1);
     }
 
     /**
@@ -704,6 +729,11 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                                 'STANDARD_OVERNIGHT',
                                 'PRIORITY_OVERNIGHT',
                                 'FIRST_OVERNIGHT',
+                                'FEDEX_FREIGHT',
+                                'FEDEX_1_DAY_FREIGHT',
+                                'FEDEX_2_DAY_FREIGHT',
+                                'FEDEX_3_DAY_FREIGHT',
+                                'FEDEX_NATIONAL_FREIGHT',
                             )
                         ),
                         'from_us' => array(
@@ -712,6 +742,13 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                                 'INTERNATIONAL_ECONOMY',
                                 'INTERNATIONAL_PRIORITY',
                                 'INTERNATIONAL_GROUND',
+                                'FEDEX_FREIGHT',
+                                'FEDEX_1_DAY_FREIGHT',
+                                'FEDEX_2_DAY_FREIGHT',
+                                'FEDEX_3_DAY_FREIGHT',
+                                'FEDEX_NATIONAL_FREIGHT',
+                                'INTERNATIONAL_ECONOMY_FREIGHT',
+                                'INTERNATIONAL_PRIORITY_FREIGHT',
                             )
                         )
                     )
@@ -811,58 +848,165 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
      */
     protected function _getXMLTracking($tracking)
     {
-        $r = $this->_rawTrackingRequest;
-
-        $xml = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><FDXTrack2Request/>');
-        $xml->addAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
-        $xml->addAttribute('xsi:noNamespaceSchemaLocation', 'FDXTrack2Request.xsd');
-
-        $requestHeader = $xml->addChild('RequestHeader');
-        $requestHeader->addChild('AccountNumber', $r->getAccount());
-
-        /*
-        * for tracking result, actual meter number is not needed
-        */
-        $requestHeader->addChild('MeterNumber', '0');
-
-        $packageIdentifier = $xml->addChild('PackageIdentifier');
-        $packageIdentifier->addChild('Value', $tracking);
-
-        /*
-        * 0 = summary data, one signle scan structure with the most recent scan
-        * 1 = multiple sacn activity for each package
-        */
-        $xml->addChild('DetailScans', '1');
-
-        $request = $xml->asXML();
-        $debugData = array('request' => $request);
-
-        try {
-            $url = $this->getConfigData('gateway_url');
-            if (!$url) {
-                $url = $this->_defaultGatewayUrl;
+        $trackRequest = array(
+            'WebAuthenticationDetail' => array(
+                'UserCredential' => array(
+                    'Key'      => $this->getConfigData('key'),
+                    'Password' => $this->getConfigData('password')
+                )
+            ),
+            'ClientDetail' => array(
+                'AccountNumber' => $this->getConfigData('account'),
+                'MeterNumber'   => $this->getConfigData('meter_number')
+            ),
+            'Version' => array(
+                'ServiceId'    => 'trck',
+                'Major'        => '5',
+                'Intermediate' => '0',
+                'Minor'        => '0'
+            ),
+            'PackageIdentifier' => array(
+                'Type'  => 'TRACKING_NUMBER_OR_DOORTAG',
+                'Value' => $tracking,
+            ),
+            /*
+             * 0 = summary data, one signle scan structure with the most recent scan
+             * 1 = multiple sacn activity for each package
+             */
+            'IncludeDetailedScans' => 1,
+        );
+        $requestString = serialize($trackRequest);
+        $response = $this->_getCachedQuotes($requestString);
+        $debugData = array('request' => $trackRequest);
+        if ($response === null) {
+            try {
+                $client = $this->_createTrackSoapClient();
+                $response = $client->track($trackRequest);
+                $this->_setCachedQuotes($requestString, serialize($response));
+                $debugData['result'] = $response;
+            } catch (Exception $e) {
+                $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
+                Mage::logException($e);
             }
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
-            $responseBody = curl_exec($ch);
-            $debugData['result'] = $responseBody;
-            curl_close ($ch);
-        }
-        catch (Exception $e) {
-            $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
-            $responseBody = '';
+        } else {
+            $response = unserialize($response);
+            $debugData['result'] = $response;
         }
         $this->_debug($debugData);
-        $this->_parseXmlTrackingResponse($tracking, $responseBody);
+
+        $this->_parseTrackingResponse($tracking, $response);
+    }
+
+    /**
+     * Parse tracking response
+     *
+     * @param array $trackingValue
+     * @param stdClass $response
+     */
+    protected function _parseTrackingResponse($trackingValue, $response)
+    {
+        if (is_object($response)) {
+            if ($response->HighestSeverity == 'FAILURE' || $response->HighestSeverity == 'ERROR') {
+                $errorTitle = (string)$response->Notifications->Message;
+            } elseif (isset($response->TrackDetails)) {
+                $trackInfo = $response->TrackDetails;
+                $resultArray['status'] = (string)$trackInfo->StatusDescription;
+                $resultArray['service'] = (string)$trackInfo->ServiceInfo;
+                $timestamp = isset($trackInfo->EstimatedDeliveryTimestamp) ?
+                    $trackInfo->EstimatedDeliveryTimestamp : $trackInfo->ActualDeliveryTimestamp;
+                $timestamp = strtotime((string)$timestamp);
+                if ($timestamp) {
+                    $resultArray['deliverydate'] = date('Y-m-d', $timestamp);
+                    $resultArray['deliverytime'] = date('H:i:s', $timestamp);
+                }
+
+                $deliveryLocation = isset($trackInfo->EstimatedDeliveryAddress) ?
+                    $trackInfo->EstimatedDeliveryAddress : $trackInfo->ActualDeliveryAddress;
+                $deliveryLocationArray = array();
+                if (isset($deliveryLocation->City)) {
+                    $deliveryLocationArray[] = (string)$deliveryLocation->City;
+                }
+                if (isset($deliveryLocation->StateOrProvinceCode)) {
+                    $deliveryLocationArray[] = (string)$deliveryLocation->StateOrProvinceCode;
+                }
+                if (isset($deliveryLocation->CountryCode)) {
+                    $deliveryLocationArray[] = (string)$deliveryLocation->CountryCode;
+                }
+                if ($deliveryLocationArray) {
+                    $resultArray['deliverylocation'] = implode(', ', $deliveryLocationArray);
+                }
+
+                $resultArray['signedby'] = (string)$trackInfo->DeliverySignatureName;
+                $resultArray['shippeddate'] = date('Y-m-d', (int)$trackInfo->ShipTimestamp);
+                if (isset($trackInfo->PackageWeight) && isset($trackInfo->Units)) {
+                    $weight = (string)$trackInfo->PackageWeight;
+                    $unit = (string)$trackInfo->Units;
+                    $resultArray['weight'] = "{$weight} {$unit}";
+                }
+
+                $packageProgress = array();
+                if (isset($trackInfo->Events)) {
+                    $events = $trackInfo->Events;
+                    if (isset($events->Address)) {
+                        $events = array($events);
+                    }
+                    foreach ($events as $event) {
+                        $tempArray = array();
+                        $tempArray['activity'] = (string)$event->EventDescription;
+                        $timestamp = strtotime((string)$event->Timestamp);
+                        if ($timestamp) {
+                            $tempArray['deliverydate'] = date('Y-m-d', $timestamp);
+                            $tempArray['deliverytime'] = date('H:i:s', $timestamp);
+                        }
+                        if (isset($event->Address)) {
+                            $addressArray = array();
+                            $address = $event->Address;
+                            if (isset($address->City)) {
+                                $addressArray[] = (string)$address->City;
+                            }
+                            if (isset($address->StateOrProvinceCode)) {
+                                $addressArray[] = (string)$address->StateOrProvinceCode;
+                            }
+                            if (isset($address->CountryCode)) {
+                                $addressArray[] = (string)$address->CountryCode;
+                            }
+                            if ($addressArray) {
+                                $tempArray['deliverylocation'] = implode(', ', $addressArray);
+                            }
+                        }
+                        $packageProgress[] = $tempArray;
+                    }
+                }
+
+                $resultArray['progressdetail'] = $packageProgress;
+            }
+        }
+
+        if(!$this->_result){
+            $this->_result = Mage::getModel('shipping/tracking_result');
+        }
+
+        if(isset($resultArray)) {
+            $tracking = Mage::getModel('shipping/tracking_result_status');
+            $tracking->setCarrier('fedex');
+            $tracking->setCarrierTitle($this->getConfigData('title'));
+            $tracking->setTracking($trackingValue);
+            $tracking->addData($resultArray);
+            $this->_result->append($tracking);
+        } else {
+           $error = Mage::getModel('shipping/tracking_result_error');
+           $error->setCarrier('fedex');
+           $error->setCarrierTitle($this->getConfigData('title'));
+           $error->setTracking($trackingValue);
+           $error->setErrorMessage($errorTitle ? $errorTitle : Mage::helper('usa')->__('Unable to retrieve tracking'));
+           $this->_result->append($error);
+        }
     }
 
     /**
      * Parse xml tracking response
      *
+     * @deprecated after 1.6.0.0 see _parseTrackingResponse()
      * @param array $trackingvalue
      * @param string $response
      * @return void

@@ -140,6 +140,17 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Perform actions after object delete
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _afterDeleteCommit()
+    {
+        $this->getResource()->afterDeleteCommit($this);
+        return parent::_afterDeleteCommit();
+    }
+
+    /**
      * Append review summary to product collection
      *
      * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection

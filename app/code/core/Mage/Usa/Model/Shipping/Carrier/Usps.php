@@ -1248,16 +1248,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             ));
         }
 
-        if (strlen($request->getShipperAddressPostalCode()) == 5) {
-            $fromZip5 = $request->getShipperAddressPostalCode();
-        } else {
-            $fromZip5 = '';
-        }
-        if (strlen($request->getShipperAddressPostalCode()) == 4) {
-            $fromZip4 = $request->getShipperAddressPostalCode();
-        } else {
-            $fromZip4 = '';
-        }
+        list($fromZip5, $fromZip4) = $this->_parseZip($request->getShipperAddressPostalCode());
+        list($toZip5, $toZip4) = $this->_parseZip($request->getRecipientAddressPostalCode(), true);
 
         $rootNode = 'ExpressMailLabelRequest';
         // the wrap node needs for remove xml declaration above
@@ -1287,8 +1279,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         $xml->addChild('ToAddress2', $request->getRecipientAddressStreet1());
         $xml->addChild('ToCity', $request->getRecipientAddressCity());
         $xml->addChild('ToState', $request->getRecipientAddressStateOrProvinceCode());
-        $xml->addChild('ToZip5', $request->getRecipientAddressPostalCode());
-        $xml->addChild('ToZip4');
+        $xml->addChild('ToZip5', $toZip5);
+        $xml->addChild('ToZip4', $toZip4);
         $xml->addChild('ToPhone', $request->getRecipientContactPhoneNumber());
         $xml->addChild('WeightInOunces', $packageWeight);
         $xml->addChild('WaiverOfSignature', $packageParams->getDeliveryConfirmation());
@@ -1338,16 +1330,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                 Zend_Measure_Weight::OUNCE
             ));
         }
-        if (strlen($request->getShipperAddressPostalCode()) == 5) {
-            $fromZip5 = $request->getShipperAddressPostalCode();
-        } else {
-            $fromZip5 = '';
-        }
-        if (strlen($request->getShipperAddressPostalCode()) == 4) {
-            $fromZip4 = $request->getShipperAddressPostalCode();
-        } else {
-            $fromZip4 = '';
-        }
+
+        list($fromZip5, $fromZip4) = $this->_parseZip($request->getShipperAddressPostalCode());
+        list($toZip5, $toZip4) = $this->_parseZip($request->getRecipientAddressPostalCode(), true);
 
         $rootNode = 'SigConfirmCertifyV3.0Request';
         // the wrap node needs for remove xml declaration above
@@ -1370,8 +1355,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         $xml->addChild('ToAddress2', $request->getRecipientAddressStreet1());
         $xml->addChild('ToCity', $request->getRecipientAddressCity());
         $xml->addChild('ToState', $request->getRecipientAddressStateOrProvinceCode());
-        $xml->addChild('ToZip5', $request->getRecipientAddressPostalCode());
-        $xml->addChild('ToZip4');
+        $xml->addChild('ToZip5', $toZip5);
+        $xml->addChild('ToZip4', $toZip4);
         $xml->addChild('WeightInOunces', $packageWeight);
         $xml->addChild('ServiceType', $serviceType);
         $xml->addChild('WaiverOfSignature', $packageParams->getDeliveryConfirmation());
@@ -1464,16 +1449,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                 $container = 'VARIABLE';
         }
         $shippingMethod = $request->getShippingMethod();
-        if (strlen($request->getShipperAddressPostalCode()) == 5) {
-            $fromZip5 = $request->getShipperAddressPostalCode();
-        } else {
-            $fromZip5 = '';
-        }
-        if (strlen($request->getShipperAddressPostalCode()) == 4) {
-            $fromZip4 = $request->getShipperAddressPostalCode();
-        } else {
-            $fromZip4 = '';
-        }
+        list($fromZip5, $fromZip4) = $this->_parseZip($request->getShipperAddressPostalCode());
+
         // the wrap node needs for remove xml declaration above
         $xmlWrap = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><wrap/>');
         $method = '';
@@ -1802,4 +1779,32 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         return array();
     }
 
+    /**
+     * Parse zip from string to zip5-zip4
+     *
+     * @param string $zipString
+     * @param bool $returnFull
+     * @return array
+     */
+    protected function _parseZip($zipString, $returnFull = false)
+    {
+        $zip4 = '';
+        $zip5 = '';
+        $zip = array($zipString);
+        if (preg_match('/[\\d\\w]{5}\\-[\\d\\w]{4}/', $zipString) != 0) {
+            $zip = explode('-', $zipString);
+        }
+        for ($i = 0; $i < count($zip); ++$i) {
+            if (strlen($zip[$i]) == 5) {
+                $zip5 = $zip[$i];
+            } elseif (strlen($zip[$i]) == 4) {
+                $zip4 = $zip[$i];
+            }
+        }
+        if (empty($zip5) && empty($zip4) && $returnFull) {
+            $zip5 = $zipString;
+        }
+
+        return array($zip5, $zip4);
+    }
 }

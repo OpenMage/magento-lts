@@ -84,6 +84,13 @@ class Mage_Core_Model_Cache
     protected $_requestProcessors = array();
 
     /**
+     * Disallow cache saving
+     *
+     * @var bool
+     */
+    protected $_disallowSave = false;
+
+    /**
      * List of allowed cache options
      *
      * @var array
@@ -119,6 +126,10 @@ class Mage_Core_Model_Cache
         if (isset($options['request_processors'])) {
             $this->_requestProcessors = $options['request_processors'];
         }
+
+        if (isset($options['disallow_save'])) {
+            $this->_disallowSave = $options['disallow_save'];
+        }
     }
 
     /**
@@ -150,7 +161,7 @@ class Mage_Core_Model_Cache
                         $options = $cacheOptions['memcached'];
                     }
                     $enable2levels = true;
-                    $backendType = 'Memcached';
+                    $backendType = 'Varien_Cache_Backend_Memcached';
                 }
                 break;
             case 'apc':
@@ -281,7 +292,8 @@ class Mage_Core_Model_Cache
             $options['caching'] = true;
         }
         if (!array_key_exists('lifetime', $options)) {
-            $options['lifetime'] = isset($cacheOptions['lifetime']) ? $cacheOptions['lifetime'] : self::DEFAULT_LIFETIME;
+            $options['lifetime'] = isset($cacheOptions['lifetime']) ? $cacheOptions['lifetime']
+                : self::DEFAULT_LIFETIME;
         }
         if (!array_key_exists('automatic_cleaning_factor', $options)) {
             $options['automatic_cleaning_factor'] = 0;
@@ -355,6 +367,9 @@ class Mage_Core_Model_Cache
          */
         if (!in_array(Mage_Core_Model_Config::CACHE_TAG, $tags)) {
             $tags[] = Mage_Core_Model_App::CACHE_TAG;
+        }
+        if ($this->_disallowSave) {
+            return true;
         }
         return $this->_frontend->save((string)$data, $this->_id($id), $this->_tags($tags), $lifeTime);
     }

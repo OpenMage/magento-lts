@@ -27,9 +27,9 @@
 /**
  * PayPal Direct Payment method xml renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Checkout_Payment_Method_Paypal_Direct
     extends Mage_XmlConnect_Block_Checkout_Payment_Method_Paypal_Payflow

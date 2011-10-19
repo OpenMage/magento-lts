@@ -166,10 +166,16 @@ $table = $installer->getConnection()
         ), 'Entity Id')
     ->addColumn('value', Varien_Db_Ddl_Table::TYPE_DATETIME, null, array(
         'nullable'  => false,
-        'default' => '0000-00-00 00:00:00'
+        'default' => $installer->getConnection()->getSuggestedZeroDate()
         ), 'Value')
-    ->addIndex($installer->getIdxName('customer_address_entity_datetime', array('entity_id', 'attribute_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('entity_id', 'attribute_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+    ->addIndex(
+        $installer->getIdxName(
+            'customer_address_entity_datetime',
+            array('entity_id', 'attribute_id'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
+        array('entity_id', 'attribute_id'),
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->addIndex($installer->getIdxName('customer_address_entity_datetime', array('entity_type_id')),
         array('entity_type_id'))
     ->addIndex($installer->getIdxName('customer_address_entity_datetime', array('attribute_id')),
@@ -178,13 +184,21 @@ $table = $installer->getConnection()
         array('entity_id'))
     ->addIndex($installer->getIdxName('customer_address_entity_datetime', array('entity_id', 'attribute_id', 'value')),
         array('entity_id', 'attribute_id', 'value'))
-    ->addForeignKey($installer->getFkName('customer_address_entity_datetime', 'attribute_id', 'eav/attribute', 'attribute_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_address_entity_datetime', 'attribute_id', 'eav/attribute', 'attribute_id'),
         'attribute_id', $installer->getTable('eav/attribute'), 'attribute_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('customer_address_entity_datetime', 'entity_id', 'customer/address_entity', 'entity_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_address_entity_datetime', 'entity_id', 'customer/address_entity', 'entity_id'),
         'entity_id', $installer->getTable('customer/address_entity'), 'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('customer_address_entity_datetime', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
+    ->addForeignKey(
+        $installer->getFkName(
+            'customer_address_entity_datetime',
+            'entity_type_id',
+            'eav/entity_type',
+            'entity_type_id'
+        ),
         'entity_type_id', $installer->getTable('eav/entity_type'), 'entity_type_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Customer Address Entity Datetime');
@@ -219,7 +233,12 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0.0000',
         ), 'Value')
-    ->addIndex($installer->getIdxName('customer_address_entity_decimal', array('entity_id', 'attribute_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex(
+        $installer->getIdxName(
+            'customer_address_entity_decimal',
+            array('entity_id', 'attribute_id'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
         array('entity_id', 'attribute_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->addIndex($installer->getIdxName('customer_address_entity_decimal', array('entity_type_id')),
         array('entity_type_id'))
@@ -229,13 +248,16 @@ $table = $installer->getConnection()
         array('entity_id'))
     ->addIndex($installer->getIdxName('customer_address_entity_decimal', array('entity_id', 'attribute_id', 'value')),
         array('entity_id', 'attribute_id', 'value'))
-    ->addForeignKey($installer->getFkName('customer_address_entity_decimal', 'attribute_id', 'eav/attribute', 'attribute_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_address_entity_decimal', 'attribute_id', 'eav/attribute', 'attribute_id'),
         'attribute_id', $installer->getTable('eav/attribute'), 'attribute_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('customer_address_entity_decimal', 'entity_id', 'customer/address_entity', 'entity_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_address_entity_decimal', 'entity_id', 'customer/address_entity', 'entity_id'),
         'entity_id', $installer->getTable('customer/address_entity'), 'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('customer_address_entity_decimal', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_address_entity_decimal', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
         'entity_type_id', $installer->getTable('eav/entity_type'), 'entity_type_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Customer Address Entity Decimal');
@@ -270,7 +292,12 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0',
         ), 'Value')
-    ->addIndex($installer->getIdxName('customer_address_entity_int', array('entity_id', 'attribute_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex(
+        $installer->getIdxName(
+            'customer_address_entity_int',
+            array('entity_id', 'attribute_id'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
         array('entity_id', 'attribute_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->addIndex($installer->getIdxName('customer_address_entity_int', array('entity_type_id')),
         array('entity_type_id'))
@@ -280,13 +307,16 @@ $table = $installer->getConnection()
         array('entity_id'))
     ->addIndex($installer->getIdxName('customer_address_entity_int', array('entity_id', 'attribute_id', 'value')),
         array('entity_id', 'attribute_id', 'value'))
-    ->addForeignKey($installer->getFkName('customer_address_entity_int', 'attribute_id', 'eav/attribute', 'attribute_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_address_entity_int', 'attribute_id', 'eav/attribute', 'attribute_id'),
         'attribute_id', $installer->getTable('eav/attribute'), 'attribute_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('customer_address_entity_int', 'entity_id', 'customer/address_entity', 'entity_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_address_entity_int', 'entity_id', 'customer/address_entity', 'entity_id'),
         'entity_id', $installer->getTable('customer/address_entity'), 'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('customer_address_entity_int', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_address_entity_int', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
         'entity_type_id', $installer->getTable('eav/entity_type'), 'entity_type_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Customer Address Entity Int');
@@ -320,7 +350,12 @@ $table = $installer->getConnection()
     ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
         'nullable'  => false,
         ), 'Value')
-    ->addIndex($installer->getIdxName('customer_address_entity_text', array('entity_id', 'attribute_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex(
+        $installer->getIdxName(
+            'customer_address_entity_text',
+            array('entity_id', 'attribute_id'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
         array('entity_id', 'attribute_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->addIndex($installer->getIdxName('customer_address_entity_text', array('entity_type_id')),
         array('entity_type_id'))
@@ -328,13 +363,16 @@ $table = $installer->getConnection()
         array('attribute_id'))
     ->addIndex($installer->getIdxName('customer_address_entity_text', array('entity_id')),
         array('entity_id'))
-    ->addForeignKey($installer->getFkName('customer_address_entity_text', 'attribute_id', 'eav/attribute', 'attribute_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_address_entity_text', 'attribute_id', 'eav/attribute', 'attribute_id'),
         'attribute_id', $installer->getTable('eav/attribute'), 'attribute_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('customer_address_entity_text', 'entity_id', 'customer/address_entity', 'entity_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_address_entity_text', 'entity_id', 'customer/address_entity', 'entity_id'),
         'entity_id', $installer->getTable('customer/address_entity'), 'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('customer_address_entity_text', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_address_entity_text', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
         'entity_type_id', $installer->getTable('eav/entity_type'), 'entity_type_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Customer Address Entity Text');
@@ -367,7 +405,12 @@ $table = $installer->getConnection()
         ), 'Entity Id')
     ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         ), 'Value')
-    ->addIndex($installer->getIdxName('customer_address_entity_varchar', array('entity_id', 'attribute_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex(
+        $installer->getIdxName(
+            'customer_address_entity_varchar',
+            array('entity_id', 'attribute_id'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
         array('entity_id', 'attribute_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->addIndex($installer->getIdxName('customer_address_entity_varchar', array('entity_type_id')),
         array('entity_type_id'))
@@ -377,13 +420,16 @@ $table = $installer->getConnection()
         array('entity_id'))
     ->addIndex($installer->getIdxName('customer_address_entity_varchar', array('entity_id', 'attribute_id', 'value')),
         array('entity_id', 'attribute_id', 'value'))
-    ->addForeignKey($installer->getFkName('customer_address_entity_varchar', 'attribute_id', 'eav/attribute', 'attribute_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_address_entity_varchar', 'attribute_id', 'eav/attribute', 'attribute_id'),
         'attribute_id', $installer->getTable('eav/attribute'), 'attribute_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('customer_address_entity_varchar', 'entity_id', 'customer/address_entity', 'entity_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_address_entity_varchar', 'entity_id', 'customer/address_entity', 'entity_id'),
         'entity_id', $installer->getTable('customer/address_entity'), 'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('customer_address_entity_varchar', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_address_entity_varchar', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
         'entity_type_id', $installer->getTable('eav/entity_type'), 'entity_type_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Customer Address Entity Varchar');
@@ -416,9 +462,14 @@ $table = $installer->getConnection()
         ), 'Entity Id')
     ->addColumn('value', Varien_Db_Ddl_Table::TYPE_DATETIME, null, array(
         'nullable'  => false,
-        'default' => '0000-00-00 00:00:00'
+        'default' => $installer->getConnection()->getSuggestedZeroDate()
         ), 'Value')
-    ->addIndex($installer->getIdxName('customer_entity_datetime', array('entity_id', 'attribute_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex(
+        $installer->getIdxName(
+            'customer_entity_datetime',
+            array('entity_id', 'attribute_id'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
         array('entity_id', 'attribute_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->addIndex($installer->getIdxName('customer_entity_datetime', array('entity_type_id')),
         array('entity_type_id'))
@@ -434,7 +485,8 @@ $table = $installer->getConnection()
     ->addForeignKey($installer->getFkName('customer_entity_datetime', 'entity_id', 'customer/entity', 'entity_id'),
         'entity_id', $installer->getTable('customer/entity'), 'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('customer_entity_datetime', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_entity_datetime', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
         'entity_type_id', $installer->getTable('eav/entity_type'), 'entity_type_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Customer Entity Datetime');
@@ -469,7 +521,12 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0.0000',
         ), 'Value')
-    ->addIndex($installer->getIdxName('customer_entity_decimal', array('entity_id', 'attribute_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex(
+        $installer->getIdxName(
+            'customer_entity_decimal',
+            array('entity_id', 'attribute_id'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
         array('entity_id', 'attribute_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->addIndex($installer->getIdxName('customer_entity_decimal', array('entity_type_id')),
         array('entity_type_id'))
@@ -485,7 +542,8 @@ $table = $installer->getConnection()
     ->addForeignKey($installer->getFkName('customer_entity_decimal', 'entity_id', 'customer/entity', 'entity_id'),
         'entity_id', $installer->getTable('customer/entity'), 'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('customer_entity_decimal', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_entity_decimal', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
         'entity_type_id', $installer->getTable('eav/entity_type'), 'entity_type_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Customer Entity Decimal');
@@ -520,7 +578,12 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0',
         ), 'Value')
-    ->addIndex($installer->getIdxName('customer_entity_int', array('entity_id', 'attribute_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex(
+        $installer->getIdxName(
+            'customer_entity_int',
+            array('entity_id', 'attribute_id'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
         array('entity_id', 'attribute_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->addIndex($installer->getIdxName('customer_entity_int', array('entity_type_id')),
         array('entity_type_id'))
@@ -570,7 +633,12 @@ $table = $installer->getConnection()
     ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
         'nullable'  => false,
         ), 'Value')
-    ->addIndex($installer->getIdxName('customer_entity_text', array('entity_id', 'attribute_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex(
+        $installer->getIdxName(
+            'customer_entity_text',
+            array('entity_id', 'attribute_id'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
         array('entity_id', 'attribute_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->addIndex($installer->getIdxName('customer_entity_text', array('entity_type_id')),
         array('entity_type_id'))
@@ -584,7 +652,8 @@ $table = $installer->getConnection()
     ->addForeignKey($installer->getFkName('customer_entity_text', 'entity_id', 'customer/entity', 'entity_id'),
         'entity_id', $installer->getTable('customer/entity'), 'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('customer_entity_text', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_entity_text', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
         'entity_type_id', $installer->getTable('eav/entity_type'), 'entity_type_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Customer Entity Text');
@@ -617,7 +686,12 @@ $table = $installer->getConnection()
         ), 'Entity Id')
     ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         ), 'Value')
-    ->addIndex($installer->getIdxName('customer_entity_varchar', array('entity_id', 'attribute_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex(
+        $installer->getIdxName(
+            'customer_entity_varchar',
+            array('entity_id', 'attribute_id'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
         array('entity_id', 'attribute_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->addIndex($installer->getIdxName('customer_entity_varchar', array('entity_type_id')),
         array('entity_type_id'))
@@ -633,7 +707,8 @@ $table = $installer->getConnection()
     ->addForeignKey($installer->getFkName('customer_entity_varchar', 'entity_id', 'customer/entity', 'entity_id'),
         'entity_id', $installer->getTable('customer/entity'), 'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('customer_entity_varchar', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer_entity_varchar', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
         'entity_type_id', $installer->getTable('eav/entity_type'), 'entity_type_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Customer Entity Varchar');
@@ -754,7 +829,8 @@ $table = $installer->getConnection()
         ), 'Multiline Count')
     ->addIndex($installer->getIdxName('customer/eav_attribute_website', array('website_id')),
         array('website_id'))
-    ->addForeignKey($installer->getFkName('customer/eav_attribute_website', 'attribute_id', 'eav/attribute', 'attribute_id'),
+    ->addForeignKey(
+        $installer->getFkName('customer/eav_attribute_website', 'attribute_id', 'eav/attribute', 'attribute_id'),
         'attribute_id', $installer->getTable('eav/attribute'), 'attribute_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->addForeignKey($installer->getFkName('customer/eav_attribute_website', 'website_id', 'core/website', 'website_id'),

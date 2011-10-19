@@ -408,7 +408,7 @@ class Mage_Connect_Validator
         }
         $maxAccepted = true;
         if($max) {
-            $maxAccepted = version_compate($ver, $max, "<=");
+            $maxAccepted = version_compare($ver, $max, "<=");
         }
         return (bool) $minAccepted && $maxAccepted;
     }

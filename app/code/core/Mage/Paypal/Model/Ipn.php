@@ -680,7 +680,7 @@ class Mage_Paypal_Model_Ipn
      */
     protected function _debug()
     {
-        if ($this->_config->debug) {
+        if ($this->_config && $this->_config->debug) {
             $file = $this->_config->getMethodCode() ? "payment_{$this->_config->getMethodCode()}.log"
                 : self::DEFAULT_LOG_FILE;
             Mage::getModel('core/log_adapter', $file)->log($this->_debugData);

@@ -286,7 +286,8 @@ class Mage_Core_Model_App
         $this->_config->setOptions($options);
 
         $this->_initBaseConfig();
-        $this->_initCache();
+        $cacheInitOptions = is_array($options) && array_key_exists('cache', $options) ? $options['cache'] : array();
+        $this->_initCache($cacheInitOptions);
 
         return $this;
     }
@@ -329,6 +330,7 @@ class Mage_Core_Model_App
     {
         $options = isset($params['options']) ? $params['options'] : array();
         $this->baseInit($options);
+        Mage::register('application_params', $params);
 
         if ($this->_cache->processRequest()) {
             $this->getResponse()->sendResponse();
@@ -378,9 +380,10 @@ class Mage_Core_Model_App
     /**
      * Initialize application cache instance
      *
+     * @param array $cacheInitOptions
      * @return Mage_Core_Model_App
      */
-    protected function _initCache()
+    protected function _initCache(array $cacheInitOptions = array())
     {
         $this->_isCacheLocked = true;
         $options = $this->_config->getNode('global/cache');
@@ -389,6 +392,7 @@ class Mage_Core_Model_App
         } else {
             $options = array();
         }
+        $options = array_merge($options, $cacheInitOptions);
         $this->_cache = Mage::getModel('core/cache', $options);
         $this->_isCacheLocked = false;
         return $this;

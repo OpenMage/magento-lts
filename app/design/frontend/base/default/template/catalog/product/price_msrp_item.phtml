@@ -42,6 +42,7 @@
     $_product = $this->getProduct();
     $_id = $_product->getId();
     $_msrpPrice = '';
+    $priceElementIdPrefix = $this->getPriceElementIdPrefix() ? $this->getPriceElementIdPrefix() : 'product-price-';
 ?>
     <div class="price-box map-info">
     <?php $_price = $this->helper('tax')->getPrice($_product, $_product->getMsrp()) ?>
@@ -51,7 +52,7 @@
         <?php endif; ?>
 
         <?php if ($_catalogHelper->isShowPriceOnGesture($_product)): ?>
-            <?php $priceElementId = 'product-price-' . $_id . $this->getIdSuffix(); ?>
+            <?php $priceElementId = $priceElementIdPrefix . $_id . $this->getIdSuffix(); ?>
             <span id="<?php echo $priceElementId ?>" style="display:none"></span>
             <?php $popupId = 'msrp-popup-' . $_id . $_coreHelper->getRandomString(20); ?>
             <a href="#" id="<?php echo($popupId);?>"><?php echo $this->__('Click for price'); ?></a>

@@ -27,11 +27,10 @@
 /**
  * Bundle product options xml renderer
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConnect_Block_Catalog_Product_Options
 {
     /**
@@ -43,7 +42,6 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConne
      */
     public function getProductOptionsXml(Mage_Catalog_Model_Product $product, $isObject = false)
     {
-
         $xmlModel = $this->getProductCustomOptionsXmlObject($product);
         $optionsXmlObj = $xmlModel->options;
 
@@ -57,8 +55,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConne
         $product->getTypeInstance(true)->setStoreFilter($product->getStoreId(), $product);
         $optionCollection = $product->getTypeInstance(true)->getOptionsCollection($product);
         $selectionCollection = $product->getTypeInstance(true)->getSelectionsCollection(
-            $product->getTypeInstance(true)->getOptionsIds($product),
-            $product
+            $product->getTypeInstance(true)->getOptionsIds($product), $product
         );
         $bundleOptions = $optionCollection->appendSelections($selectionCollection, false, false);
         if (!sizeof($bundleOptions)) {
@@ -83,12 +80,10 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConne
             }
             $optionNode->addAttribute('code', $code);
             $optionNode->addAttribute('type', $type);
-            $optionNode->addAttribute('label', $optionsXmlObj->xmlentities(strip_tags($_option->getTitle())));
+            $optionNode->addAttribute('label', $optionsXmlObj->xmlentities($_option->getTitle()));
             if ($_option->getRequired()) {
                 $optionNode->addAttribute('is_required', 1);
             }
-
-//            $_default = $_option->getDefaultSelection();
 
             foreach ($selections as $_selection) {
                 if (!$_selection->isSaleable()) {
@@ -98,7 +93,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConne
 
                 $valueNode = $optionNode->addChild('value');
                 $valueNode->addAttribute('code', $_selection->getSelectionId());
-                $valueNode->addAttribute('label', $optionsXmlObj->xmlentities(strip_tags($_selection->getName())));
+                $valueNode->addAttribute('label', $optionsXmlObj->xmlentities($_selection->getName()));
                 if (!$_option->isMultiSelection()) {
                     if ($_selection->getSelectionCanChangeQty()) {
                         $valueNode->addAttribute('is_qty_editable', 1);
@@ -114,8 +109,6 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConne
                     ));
                     $valueNode->addAttribute('formated_price', $this->_formatPriceString($price, $product));
                 }
-
-//              $_selection->getIsDefault();
             }
         }
 

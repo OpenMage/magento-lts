@@ -106,7 +106,7 @@
             <?php foreach ($addressCollection as $_address): ?>
             <div id="form_address_item_<?php echo $_address->getId() ?>" style="display:none">
             <?php
-                    $this->getForm()->setValues($_address->getData())
+                    $this->getForm()->addValues($_address->getData())
                             ->setHtmlIdPrefix("_item{$_address->getId()}")
                             ->setFieldNameSuffix('address['.$_address->getId().']');
                     $this->addValuesToNamePrefixElement($_address->getPrefix())

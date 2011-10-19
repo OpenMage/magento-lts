@@ -36,14 +36,16 @@ class Mage_XmlConnect_WishlistController extends Mage_XmlConnect_Controller_Acti
     /**
      * Check if customer is logged in
      *
-     * @return void
+     * @return null
      */
     public function preDispatch()
     {
         parent::preDispatch();
         if (!$this->_getCustomerSession()->isLoggedIn()) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
-            $this->_message($this->__('Customer not logged in.'), self::MESSAGE_STATUS_ERROR);
+            $this->_message(
+                $this->__('Customer not logged in.'), self::MESSAGE_STATUS_ERROR, array('logged_in' => '0')
+            );
             return ;
         }
     }
@@ -82,23 +84,32 @@ class Mage_XmlConnect_WishlistController extends Mage_XmlConnect_Controller_Acti
     /**
      * Display customer wishlist
      *
-     * @return void
+     * @return null
      */
     public function indexAction()
     {
         $this->_getWishlist();
-        $this->loadLayout(false);
-        $this->renderLayout();
+        try {
+            $this->loadLayout(false);
+            $this->renderLayout();
+        } catch (Mage_Core_Exception $e) {
+            $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
+        } catch (Exception $e) {
+            Mage::logException($e);
+            $this->_message(
+                $this->__('An error occurred while loading wishlist.'),
+                self::MESSAGE_STATUS_ERROR
+            );
+        }
     }
 
     /**
      * Adding new item
      *
-     * @return void
+     * @return null
      */
     public function addAction()
     {
-        $session = $this->_getCustomerSession();
         $wishlist = $this->_getWishlist();
         if (!$wishlist) {
             return;
@@ -118,30 +129,39 @@ class Mage_XmlConnect_WishlistController extends Mage_XmlConnect_Controller_Acti
         }
 
         try {
-            $item = $wishlist->addNewItem($product);
+            $buyRequest = new Varien_Object($this->getRequest()->getParams());
+            $result = $wishlist->addNewItem($product, $buyRequest);
             if (strlen(trim((string)$request->getParam('description')))) {
-                $item->setDescription($request->getParam('description'))
-                   ->save();
+                $result->setDescription($request->getParam('description'))->save();
             }
             $wishlist->save();
 
-            Mage::dispatchEvent('wishlist_add_product', array('wishlist'=>$wishlist, 'product'=>$product));
+            Mage::dispatchEvent('wishlist_add_product', array(
+                'wishlist'  => $wishlist,
+                'product'   => $product,
+                'item'      => $result
+            ));
 
             Mage::helper('wishlist')->calculate();
 
-            $message = $this->__('%1$s has been added to your wishlist.', $product->getName());
-            $this->_message($message, self::MESSAGE_STATUS_SUCCESS);
+            $this->_message(
+                $this->__('%1$s has been added to your wishlist.', $product->getName()),
+                self::MESSAGE_STATUS_SUCCESS
+            );
         } catch (Mage_Core_Exception $e) {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
         } catch (Exception $e) {
-            $this->_message($this->__('An error occurred while adding item to wishlist.'), self::MESSAGE_STATUS_ERROR);
+            Mage::logException($e);
+            $this->_message(
+                $this->__('An error occurred while adding item to wishlist.'), self::MESSAGE_STATUS_ERROR
+            );
         }
     }
 
     /**
      * Remove item
      *
-     * @return void
+     * @return null
      */
     public function removeAction()
     {
@@ -169,7 +189,7 @@ class Mage_XmlConnect_WishlistController extends Mage_XmlConnect_Controller_Acti
     /**
      * Clear wishlist action
      *
-     * @return void
+     * @return null
      */
     public function clearAction()
     {
@@ -185,7 +205,9 @@ class Mage_XmlConnect_WishlistController extends Mage_XmlConnect_Controller_Acti
         } catch (Mage_Core_Exception $e) {
             $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
         } catch(Exception $e) {
-            $this->_message($this->__('An error occurred while removing items from wishlist.'), self::MESSAGE_STATUS_ERROR);
+            $this->_message(
+                $this->__('An error occurred while removing items from wishlist.'), self::MESSAGE_STATUS_ERROR
+            );
         }
 
         Mage::helper('wishlist')->calculate();
@@ -194,7 +216,7 @@ class Mage_XmlConnect_WishlistController extends Mage_XmlConnect_Controller_Acti
     /**
      * Update wishlist item comments
      *
-     * @return void
+     * @return null
      */
     public function updateAction()
     {
@@ -234,7 +256,10 @@ class Mage_XmlConnect_WishlistController extends Mage_XmlConnect_Controller_Acti
                     $this->_message($message, self::MESSAGE_STATUS_SUCCESS);
                 }
                 catch (Exception $e) {
-                    $this->_message($this->__('Items were updated. But can\'t update wishlist.'), self::MESSAGE_STATUS_SUCCESS);
+                    $this->_message(
+                        $this->__('Items were updated. But can\'t update wishlist.'),
+                        self::MESSAGE_STATUS_SUCCESS
+                    );
                 }
             } else {
                 $this->_message($this->__('No items were updated.'), self::MESSAGE_STATUS_ERROR);
@@ -250,7 +275,7 @@ class Mage_XmlConnect_WishlistController extends Mage_XmlConnect_Controller_Acti
      * If Product has required options - item removed from wishlist and redirect
      * to product view page with message about needed defined required options
      *
-     * @return void
+     * @return null
      */
     public function cartAction()
     {
@@ -268,23 +293,20 @@ class Mage_XmlConnect_WishlistController extends Mage_XmlConnect_Controller_Acti
             return;
         }
 
-        /* @var $session Mage_Wishlist_Model_Session */
-        $session    = Mage::getSingleton('wishlist/session');
-        $cart       = Mage::getSingleton('checkout/cart');
-
         try {
+            $cart = Mage::getSingleton('checkout/cart');
             $item->addToCart($cart, true);
             $cart->save()->getQuote()->collectTotals();
             $wishlist->save();
-
             Mage::helper('wishlist')->calculate();
-
             $this->_message($this->__('Item has been added to cart.'), self::MESSAGE_STATUS_SUCCESS);
+
         } catch (Mage_Core_Exception $e) {
             if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SALABLE) {
                 $this->_message($this->__('Product(s) currently out of stock.'), self::MESSAGE_STATUS_ERROR);
-            } else if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS ||
-                     $e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_IS_GROUPED_PRODUCT) {
+            } else if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS
+                || $e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_IS_GROUPED_PRODUCT
+            ) {
                 $item->delete();
 
                 $message = Mage::getModel('xmlconnect/simplexml_element', '<message></message>');

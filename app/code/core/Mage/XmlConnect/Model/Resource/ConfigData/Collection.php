@@ -31,8 +31,7 @@
  * @package     Mage_Xmlconnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Resource_ConfigData_Collection
-    extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_XmlConnect_Model_Resource_ConfigData_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
     /**
      * Is application filter applied
@@ -58,8 +57,7 @@ class Mage_XmlConnect_Model_Resource_ConfigData_Collection
     public function addApplicationIdFilter($applicationId)
     {
         $this->_applicationFilter = true;
-        $this->getSelect()
-            ->where('application_id=?', $applicationId);
+        $this->getSelect()->where('application_id=?', $applicationId);
         return $this;
     }
 
@@ -73,11 +71,9 @@ class Mage_XmlConnect_Model_Resource_ConfigData_Collection
     public function addPathFilter($path, $like = true)
     {
         if ($like) {
-            $this->getSelect()
-                ->where('path like ?', $path . '/%');
+            $this->getSelect()->where('path like ?', $path . '/%');
         } else {
-            $this->getSelect()
-                ->where('path=?', $path);
+            $this->getSelect()->where('path=?', $path);
         }
         return $this;
     }

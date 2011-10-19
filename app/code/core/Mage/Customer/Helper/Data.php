@@ -45,6 +45,12 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD = 'customer/startup/redirect_dashboard';
 
     /**
+     * Configuration path to expiration period of reset password link
+     */
+    const XML_PATH_CUSTOMER_RESET_PASSWORD_LINK_EXPIRATION_PERIOD
+        = 'default/customer/password/reset_link_expiration_period';
+
+    /**
      * Customer groups collection
      *
      * @var Mage_Customer_Model_Entity_Group_Collection
@@ -319,5 +325,25 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             $result[$value] = $value;
         }
         return $result;
+    }
+
+    /**
+     * Generate unique token for reset password confirmation link
+     *
+     * @return string
+     */
+    public function generateResetPasswordLinkToken()
+    {
+        return Mage::helper('core')->uniqHash();
+    }
+
+    /**
+     * Retrieve customer reset password link expiration period in days
+     *
+     * @return int
+     */
+    public function getResetPasswordLinkExpirationPeriod()
+    {
+        return (int) Mage::getConfig()->getNode(self::XML_PATH_CUSTOMER_RESET_PASSWORD_LINK_EXPIRATION_PERIOD);
     }
 }

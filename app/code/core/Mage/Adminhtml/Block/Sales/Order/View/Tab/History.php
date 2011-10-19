@@ -220,4 +220,15 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
     {
         return false;
     }
+
+    /**
+     * Customer Notification Applicable check method
+     *
+     * @param array $history
+     * @return boolean
+     */
+    public function isCustomerNotificationNotApplicable($historyItem)
+    {
+        return $historyItem['notified'] == Mage_Sales_Model_Order_Status_History::CUSTOMER_NOTIFICATION_NOT_APPLICABLE;
+    }
 }

@@ -24,7 +24,15 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Image extends Varien_Data_Form_Element_Image
+/**
+ * XmlConnect image form element
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Image
+    extends Varien_Data_Form_Element_Image
 {
     /**
      * Function fetches image Url actual or default
@@ -33,9 +41,8 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Image extends Varien_D
      */
     protected function _getUrl()
     {
-        $url = false;
         if ($this->getValue()) {
-            if (strpos($this->getValue(), '://') === FALSE ) {
+            if (strpos($this->getValue(), '://') === false) {
                 $url = Mage::helper('xmlconnect/image')->getFileDefaultSizeSuffixAsUrl($this->getValue());
                 $url = Mage::helper('xmlconnect/image')->getMediaUrl($url);
             } else {
@@ -82,7 +89,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Image extends Varien_D
         $this->setClass('input-file');
         $html .= '<input id="' . $this->getHtmlId() . '" name="' . $this->getUploadName();
         $attr = $this->serialize($this->getHtmlAttributes());
-        $html .= '" value="' . $this->getEscapedValue() . '" ' . $attr . '/>' . "\n";
+        $html .= '" value="' . $this->getEscapedValue() . '" ' . $attr . '/>' . PHP_EOL;
         $html .= $this->getAfterElementHtml();
 
         $html .= '</div>';

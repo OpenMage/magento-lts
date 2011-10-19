@@ -333,7 +333,8 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
      */
     public function cancelAction()
     {
-        if ($creditmemo = $this->_initCreditmemo()) {
+        $creditmemo = $this->_initCreditmemo();
+        if ($creditmemo) {
             try {
                 $creditmemo->cancel();
                 $this->_saveCreditmemo($creditmemo);
@@ -354,7 +355,8 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
      */
     public function voidAction()
     {
-        if ($invoice = $this->_initCreditmemo()) {
+        $creditmemo = $this->_initCreditmemo();
+        if ($creditmemo) {
             try {
                 $creditmemo->void();
                 $this->_saveCreditmemo($creditmemo);
@@ -441,5 +443,14 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             }
             return false;
         }
+    }
+
+    /**
+     * Create pdf for current creditmemo
+     */
+    public function printAction()
+    {
+        $this->_initCreditmemo();
+        parent::printAction();
     }
 }

@@ -26,7 +26,7 @@
 
 
 /**
- * Wishlist model resource
+ * Wishlist resource model
  *
  * @category    Mage
  * @package     Mage_Wishlist
@@ -35,22 +35,21 @@
 class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Items count
+     * Store wishlist items count
      *
-     * @var int
+     * @var null|int
      */
-    protected $_itemsCount             = null;
+    protected $_itemsCount = null;
 
     /**
-     * CustomerId field name
+     * Store customer ID field name
      *
      * @var string
      */
-    protected $_customerIdFieldName    = 'customer_id';
+    protected $_customerIdFieldName = 'customer_id';
 
     /**
-     * Wishlist constructor
-     *
+     * Set main entity table name and primary key field name
      */
     protected function _construct()
     {
@@ -58,7 +57,7 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
     }
 
     /**
-     * CustomerId field name getter
+     * Getter for customer ID field name
      *
      * @return string
      */
@@ -68,9 +67,10 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
     }
 
     /**
-     * CustomerId field name setter
+     * Setter for customer ID field name
      *
-     * @param string $fieldName
+     * @param $fieldName
+     *
      * @return Mage_Wishlist_Model_Resource_Wishlist
      */
     public function setCustomerIdFieldName($fieldName)
@@ -80,21 +80,22 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
     }
 
     /**
-     * Fetch items count
+     * Retrieve wishlist items count
+     *
+     * @deprecated after 1.6.0.0-rc2
+     * @see Mage_Wishlist_Model_Wishlist::getItemsCount()
      *
      * @param Mage_Wishlist_Model_Wishlist $wishlist
+     *
      * @return int
      */
     public function fetchItemsCount(Mage_Wishlist_Model_Wishlist $wishlist)
     {
         if (is_null($this->_itemsCount)) {
-            $collection = $wishlist->getItemCollection()
-                ->addStoreFilter()
-                ->setVisibilityFilter();
-
-            $this->_itemsCount = $collection->getSize();
+            $this->_itemsCount = $wishlist->getItemsCount();
         }
 
         return $this->_itemsCount;
     }
+
 }

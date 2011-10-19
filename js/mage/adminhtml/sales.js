@@ -134,6 +134,11 @@ AdminOrder.prototype = {
         var field = Event.element(event);
         var re = /[^\[]*\[([^\]]*)_address\]\[([^\]]*)\](\[(\d)\])?/;
         var matchRes = field.name.match(re);
+
+        if (!matchRes) {
+            return;
+        }
+
         var type = matchRes[1];
         var name = matchRes[2];
         var data;
@@ -422,7 +427,7 @@ AdminOrder.prototype = {
                     var listType = confLink.readAttribute('list_type');
                     var productId = confLink.readAttribute('product_id');
                     if (typeof this.productPriceBase[productId] == 'undefined') {
-                        var priceBase = priceColl.innerHTML.match(/.*?([0-9\.,]+)/);
+                        var priceBase = priceColl.innerHTML.match(/.*?([\d,]+\.?\d*)/);
                         if (!priceBase) {
                             this.productPriceBase[productId] = 0;
                         } else {

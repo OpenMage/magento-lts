@@ -35,7 +35,9 @@
                 <?php if ($this->isItemNotified($_item, false)): ?>
                     <span class="separator">|</span><small><?php echo $this->helper('sales')->__('Customer') ?>
                     <strong class="subdue">
-                    <?php if ($this->isItemNotified($_item)): ?>
+                    <?php if ($this->isCustomerNotificationNotApplicable($_item)): ?>
+                        <?php echo $this->helper('sales')->__('Notification Not Applicable') ?>
+                    <?php elseif ($this->isItemNotified($_item)): ?>
                         <?php echo $this->helper('sales')->__('Notified') ?>
                         <img src="<?php echo $this->getSkinUrl('images/ico_success.gif') ?>" width="16px" height="16px" alt="" />
                     <?php else: ?>

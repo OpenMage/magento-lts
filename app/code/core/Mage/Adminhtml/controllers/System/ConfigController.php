@@ -24,9 +24,8 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- * config controller
+ * Configuration controller
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -59,7 +58,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     }
 
     /**
-     * Enter description here...
+     * Index action
      *
      */
     public function indexAction()
@@ -68,7 +67,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     }
 
     /**
-     * Enter description here...
+     * Edit configuration section
      *
      */
     public function editAction()
@@ -91,8 +90,10 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $this->loadLayout();
 
         $this->_setActiveMenu('system/config');
+        $this->getLayout()->getBlock('menu')->setAdditionalCacheKeyInfo(array($current));
 
-        $this->_addBreadcrumb(Mage::helper('adminhtml')->__('System'), Mage::helper('adminhtml')->__('System'), $this->getUrl('*/system'));
+        $this->_addBreadcrumb(Mage::helper('adminhtml')->__('System'), Mage::helper('adminhtml')->__('System'),
+            $this->getUrl('*/system'));
 
         $this->getLayout()->getBlock('left')
             ->append($this->getLayout()->createBlock('adminhtml/system_config_tabs')->initTabs());
@@ -100,16 +101,22 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         if ($this->_isSectionAllowedFlag) {
             $this->_addContent($this->getLayout()->createBlock('adminhtml/system_config_edit')->initForm());
 
-            $this->_addJs($this->getLayout()->createBlock('adminhtml/template')->setTemplate('system/shipping/ups.phtml'));
-            $this->_addJs($this->getLayout()->createBlock('adminhtml/template')->setTemplate('system/config/js.phtml'));
-            $this->_addJs($this->getLayout()->createBlock('adminhtml/template')->setTemplate('system/shipping/applicable_country.phtml'));
+            $this->_addJs($this->getLayout()
+                ->createBlock('adminhtml/template')
+                ->setTemplate('system/shipping/ups.phtml'));
+            $this->_addJs($this->getLayout()
+                ->createBlock('adminhtml/template')
+                ->setTemplate('system/config/js.phtml'));
+            $this->_addJs($this->getLayout()
+                ->createBlock('adminhtml/template')
+                ->setTemplate('system/shipping/applicable_country.phtml'));
 
             $this->renderLayout();
         }
     }
 
     /**
-     * Enter description here...
+     * Save configuration
      *
      */
     public function saveAction()
@@ -168,7 +175,9 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             }
         }
         catch (Exception $e) {
-            $session->addException($e, Mage::helper('adminhtml')->__('An error occurred while saving this configuration:').' '.$e->getMessage());
+            $session->addException($e,
+                Mage::helper('adminhtml')->__('An error occurred while saving this configuration:') . ' '
+                . $e->getMessage());
         }
 
         $this->_saveState($this->getRequest()->getPost('config_state'));
@@ -188,20 +197,19 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     }
 
     /**
-     *  Description goes here...
+     *  Advanced save procedure
      */
-    protected function _saveAdvanced ()
+    protected function _saveAdvanced()
     {
         Mage::app()->cleanCache(
             array(
                 'layout',
                 Mage_Core_Model_Layout_Update::LAYOUT_GENERAL_CACHE_TAG
-            )
-        );
+            ));
     }
 
     /**
-     * action for ajax saving of fieldset state
+     * Save fieldset state through AJAX
      *
      */
     public function stateAction()
@@ -282,7 +290,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     }
 
     /**
-     * saving state of config field sets
+     * Save state of configuration field sets
      *
      * @param array $configState
      * @return bool

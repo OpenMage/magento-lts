@@ -393,6 +393,19 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         return $this->_qtyIncrements;
     }
 
+     /**
+     * Retrieve Default Quantity Increments data wraper
+     *
+     * @return int|false
+     */
+    public function getDefaultQtyIncrements()
+    {
+        if (Mage::getStoreConfigFlag(self::XML_PATH_ENABLE_QTY_INCREMENTS)) {
+            return (int) Mage::getStoreConfig(self::XML_PATH_QTY_INCREMENTS);
+        }
+        return false;
+    }
+
     /**
      * Retrieve backorders status
      *
@@ -564,6 +577,12 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             return $result;
         }
 
+        $result->addData($this->checkQtyIncrements($qty)->getData());
+
+        if ($result->getHasError()) {
+            return $result;
+        }
+
         if (!$this->getManageStock()) {
             return $result;
         }
@@ -574,12 +593,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                 ->setQuoteMessage($_helper->__('Some of the products are currently out of stock'))
                 ->setQuoteMessageIndex('stock');
             $result->setItemUseOldQty(true);
-            return $result;
-        }
-
-        $result->addData($this->checkQtyIncrements($qty)->getData());
-
-        if ($result->getHasError()) {
             return $result;
         }
 
@@ -647,11 +660,15 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     public function checkQtyIncrements($qty)
     {
         $result = new Varien_Object();
-        if (!$this->getManageStock() || $this->getSuppressCheckQtyIncrements()) {
+        if ($this->getSuppressCheckQtyIncrements()) {
             return $result;
         }
 
         $qtyIncrements = $this->getQtyIncrements();
+        if (!$qtyIncrements){
+            $qtyIncrements = $this->getDefaultQtyIncrements();
+        }
+
         if ($qtyIncrements && ($qty % $qtyIncrements != 0)) {
             $result->setHasError(true)
                 ->setQuoteMessage(
@@ -821,6 +838,16 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         $this->_productInstance = $product;
 
         return $this;
+    }
+
+    /**
+     * Returns product instance
+     *
+     * @return Mage_Catalog_Model_Product|null
+     */
+    public function getProduct()
+    {
+        return $this->_productInstance ? $this->_productInstance : $this->_getData('product');
     }
 
     /**

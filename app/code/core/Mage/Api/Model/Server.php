@@ -33,6 +33,13 @@
  */
 class Mage_Api_Model_Server
 {
+
+    /**
+     * Api Name by Adapter
+     * @var string
+     */
+    protected $_api = "";
+
     /**
      * Web service adapter
      *
@@ -44,6 +51,7 @@ class Mage_Api_Model_Server
     {
         $adapters = Mage::getSingleton('api/config')->getActiveAdapters();
         $handlers = Mage::getSingleton('api/config')->getHandlers();
+        $this->_api = $adapter;
         if (isset($adapters[$adapter])) {
             $adapterModel = Mage::getModel((string) $adapters[$adapter]->model);
             /* @var $adapterModel Mage_Api_Model_Server_Adapter_Interface */
@@ -74,6 +82,15 @@ class Mage_Api_Model_Server
     public function run()
     {
         $this->getAdapter()->run();
+    }
+
+    /**
+     * Get Api name by Adapter
+     * @return string
+     */
+    public function getApiName()
+    {
+        return $this->_api;
     }
 
     /**

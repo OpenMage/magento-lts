@@ -41,17 +41,17 @@
             <?php if (isset($_option['custom_view']) && $_option['custom_view']): ?>
                 <?php echo $this->getCustomizedOptionValue($_option); ?>
             <?php else: ?>
-                <?php echo nl2br($this->escapeHtml($_option['value'])); ?>
-                <?php Mage::helper('core/string')->truncate($_option['value'], 55, '', $_remainder);?>
-                <?php if ($_remainder):?>
-                    ... <span id="<?php echo $_id = 'id' . uniqid()?>"><?php echo $_remainder ?></span>
+                <?php $_option = $this->getFormattedOption($_option['value']); ?>
+                <?php echo $_option['value']; ?><?php if (isset($_option['remainder']) && $_option['remainder']): ?><span id="<?php echo $_dots = 'dots' . uniqid()?>"> ...</span><span id="<?php echo $_id = 'id' . uniqid()?>"><?php echo $_option['remainder'] ?></span>
                     <script type="text/javascript">
                     $('<?php echo $_id ?>').hide();
                     $('<?php echo $_id ?>').up().observe('mouseover', function(){$('<?php echo $_id ?>').show();});
+                    $('<?php echo $_id ?>').up().observe('mouseover', function(){$('<?php echo $_dots?>').hide();});
                     $('<?php echo $_id ?>').up().observe('mouseout',  function(){$('<?php echo $_id ?>').hide();});
+                    $('<?php echo $_id ?>').up().observe('mouseout',  function(){$('<?php echo $_dots ?>').show();});
                     </script>
-                <?php endif;?>
-            <?php endif;?>
+                <?php endif; ?>
+            <?php endif; ?>
             </dd>
         <?php endforeach; ?>
         </dl>

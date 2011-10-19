@@ -46,11 +46,12 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
     /**
      * Load allowed countries for current store
      *
+     * @param mixed $store
      * @return Mage_Directory_Model_Resource_Country_Collection
      */
-    public function loadByStore()
+    public function loadByStore($store = null)
     {
-        $allowCountries = explode(',', (string)Mage::getStoreConfig('general/country/allow'));
+        $allowCountries = explode(',', (string)Mage::getStoreConfig('general/country/allow', $store));
         if (!empty($allowCountries)) {
             $this->addFieldToFilter("country_id", array('in' => $allowCountries));
         }

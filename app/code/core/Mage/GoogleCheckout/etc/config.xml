@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_GoogleCheckout>
-            <version>1.6.0.0</version>
+            <version>1.6.0.1</version>
         </Mage_GoogleCheckout>
     </modules>
     <global>

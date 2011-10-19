@@ -369,11 +369,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
 
         if (!empty($insert) || !empty($update) || !empty($delete)) {
             $category->setIsChangedProductList(true);
-            /**
-             * Moved to index
-             */
-            //$categoryIds = explode('/', $category->getPath());
-            //$this->refreshProductIndex($categoryIds);
 
             /**
              * Setting affected products to category for third party engine index refresh
@@ -886,7 +881,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             $select = $adapter->select()
                 ->from($table,array('position' => new Zend_Db_Expr('MIN(' . $positionField. ')')))
                 ->where('parent_id = :parent_id');
-            $position = $adapter->fetchOne($select, array('patent_id' => $newParent->getId()));
+            $position = $adapter->fetchOne($select, array('parent_id' => $newParent->getId()));
         }
         $position += 1;
 

@@ -59,7 +59,7 @@ $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'enable_googlecheck
     'type'              => 'int',
     'backend'           => '',
     'frontend'          => '',
-    'label'             => 'Is product available for purchase with Google Checkout',
+    'label'             => 'Is Product Available for Purchase with Google Checkout',
     'input'             => 'select',
     'class'             => '',
     'source'            => 'eav/entity_attribute_source_boolean',

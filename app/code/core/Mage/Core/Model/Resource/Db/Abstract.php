@@ -618,7 +618,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
 
     /**
      * Check for unique values existence
-
+     *
      * @param Varien_Object $object
      * @return Mage_Core_Model_Resource_Db_Abstract
      * @throws Mage_Core_Exception
@@ -645,17 +645,18 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
 
                 if (is_array($unique['field'])) {
                     foreach ($unique['field'] as $field) {
-                        $select->where($field.'=?', $data->getData($field));
+                        $select->where($field . '=?', trim($data->getData($field)));
                     }
                 } else {
-                    $select->where( $unique['field'] . ' = ?', $data->getData($unique['field']) );
+                    $select->where($unique['field'] . '=?', trim($data->getData($unique['field'])));
                 }
 
                 if ($object->getId()) {
-                    $select->where($this->getIdFieldName().' != ?', $object->getId());
+                    $select->where($this->getIdFieldName() . '!=?', $object->getId());
                 }
 
-                if ( $test = $this->_getWriteAdapter()->fetchRow($select) ) {
+                $test = $this->_getWriteAdapter()->fetchRow($select);
+                if ($test) {
                     $existent[] = $unique['title'];
                 }
             }

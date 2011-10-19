@@ -49,6 +49,8 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
 
     const ENTITY                    = 'customer_group';
 
+    const GROUP_CODE_MAX_LENGTH     = 32;
+
     /**
      * Prefix of model events names
      *
@@ -127,4 +129,29 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
         );
         return $this;
     }
+
+    /**
+     * Prepare data before save
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _beforeSave()
+    {
+        $this->_prepareData();
+        return parent::_beforeSave();
+    }
+
+    /**
+     * Prepare customer group data
+     *
+     * @return Mage_Customer_Model_Group
+     */
+    protected function _prepareData()
+    {
+        $this->setCode(
+            substr($this->getCode(), 0, self::GROUP_CODE_MAX_LENGTH)
+        );
+        return $this;
+    }
+
 }

@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Tax>
-            <version>1.6.0.0</version>
+            <version>1.6.0.3</version>
         </Mage_Tax>
     </modules>
     <global>
@@ -65,6 +65,9 @@
                     <sales_order_tax>
                         <table>sales_order_tax</table>
                     </sales_order_tax>
+                    <sales_order_tax_item>
+                        <table>sales_order_tax_item</table>
+                    </sales_order_tax_item>
                 </entities>
             </tax_resource>
         </models>

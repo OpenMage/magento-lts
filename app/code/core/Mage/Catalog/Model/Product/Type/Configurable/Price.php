@@ -64,6 +64,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
                 $attribute->getPrices() ? $attribute->getPrices() : array(),
                 isset($selectedAttributes[$attributeId]) ? $selectedAttributes[$attributeId] : null
             );
+            $product->setParentId(true);
             if($value) {
                 if($value['pricing_value'] != 0) {
                     $product->setConfigurablePrice($this->_calcSelectionPrice($value, $basePrice));

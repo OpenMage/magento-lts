@@ -416,19 +416,28 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         return $p;
     }
 
-    protected function _checkShouldBeSecure($request, $path='')
+    /**
+     * Check if request URL should be secure
+     *
+     * Function redirects user to correct URL if needed
+     *
+     * @param Mage_Core_Controller_Request_Http $request
+     * @param string $path
+     * @return null
+     */
+    protected function _checkShouldBeSecure($request, $path = '')
     {
         if (!Mage::isInstalled() || $request->getPost()) {
             return;
         }
 
-        if ($this->_shouldBeSecure($path) && !Mage::app()->getStore()->isCurrentlySecure()) {
+        if ($this->_shouldBeSecure($path) && !$request->isSecure()) {
             $url = $this->_getCurrentSecureUrl($request);
 
             Mage::app()->getFrontController()->getResponse()
                 ->setRedirect($url)
                 ->sendResponse();
-            exit;
+            exit();
         }
     }
 

@@ -51,6 +51,13 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     protected $_isDisableKeys = true;
 
     /**
+     * Whether table changes are allowed
+     *
+     * @var bool
+     */
+    protected $_allowTableChanges = true;
+
+    /**
      * Reindex all
      *
      * @return Mage_Index_Model_Resource_Abstract
@@ -161,7 +168,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
             $to     = $this->_getWriteAdapter();
         }
 
-        if ($this->useDisableKeys()) {
+        if ($this->useDisableKeys() && $this->_allowTableChanges) {
             $to->disableTableKeys($destTable);
         }
         if ($from === $to) {
@@ -184,7 +191,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
                 $to->insertArray($destTable, $columns, $data);
             }
         }
-        if ($this->useDisableKeys()) {
+        if ($this->useDisableKeys() && $this->_allowTableChanges) {
             $to->enableTableKeys($destTable);
         }
         return $this;
@@ -225,5 +232,43 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     public function clearTemporaryIndexTable()
     {
         $this->_getWriteAdapter()->delete($this->getIdxTable());
+    }
+
+    /**
+     * Set whether table changes are allowed
+     *
+     * @param bool $value
+     * @return Mage_Index_Model_Resource_Abstract
+     */
+    public function setAllowTableChanges($value = true)
+    {
+        $this->_allowTableChanges = $value;
+        return $this;
+    }
+
+    /**
+     * Disable Main Table keys
+     *
+     * @return Mage_Index_Model_Resource_Abstract
+     */
+    public function disableTableKeys()
+    {
+        if ($this->useDisableKeys()) {
+            $this->_getWriteAdapter()->disableTableKeys($this->getMainTable());
+        }
+        return $this;
+    }
+
+    /**
+     * Enable Main Table keys
+     *
+     * @return Mage_Index_Model_Resource_Abstract
+     */
+    public function enableTableKeys()
+    {
+        if ($this->useDisableKeys()) {
+            $this->_getWriteAdapter()->enableTableKeys($this->getMainTable());
+        }
+        return $this;
     }
 }

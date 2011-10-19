@@ -51,6 +51,9 @@
         <reference name="content">
             <block type="adminhtml/promo_catalog_edit" name="promo_catalog_edit"/>
         </reference>
+        <reference name="js">
+            <block type="adminhtml/promo_catalog_edit_js" template="promo/js.phtml" />
+        </reference>
     </adminhtml_promo_catalog_edit>
 
     <!-- Shopping Cart Price Rule -->

@@ -80,6 +80,7 @@ document.observe("dom:loaded", function() {
                         <td>
                             <?php $containers = $this->getContainers(); ?>
                             <select name="package_container" onchange="packaging.changeContainerType(this);packaging.checkSizeAndGirthParameter(this, <?php echo  $girthEnabled ?>);"<?php if (empty($containers)):?>
+                                title="<?php echo Mage::helper('sales')->__('Package types are disregarded for USPS domestic shipments.') ?>"
                                 disabled="" class="disabled"
                             <?php endif; ?>>
                                 <?php foreach ($this->getContainers() as $key => $value): ?>

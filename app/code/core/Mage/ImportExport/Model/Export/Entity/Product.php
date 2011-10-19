@@ -396,6 +396,8 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Prepare configurable product data
      *
+     * @deprecated since 1.6.1.0
+     * @see Mage_Catalog_Model_Resource_Product_Type_Configurable::getConfigurableOptions()
      * @param  array $productIds
      * @return array
      */
@@ -428,6 +430,8 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Prepare configurable product price
      *
+     * @deprecated since 1.6.1.0
+     * @see Mage_Catalog_Model_Resource_Product_Type_Configurable::getConfigurableOptions()
      * @param  array $productIds
      * @return array
      */
@@ -556,9 +560,12 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         $attrValue = $item->getData($attrCode);
 
                         if (!empty($this->_attributeValues[$attrCode])) {
-                        if ($this->_attributeTypes[$attrCode] == 'multiselect') {
+                            if ($this->_attributeTypes[$attrCode] == 'multiselect') {
                                 $attrValue = explode(',', $attrValue);
-                                $attrValue = array_intersect_key($this->_attributeValues[$attrCode], array_flip($attrValue));
+                                $attrValue = array_intersect_key(
+                                    $this->_attributeValues[$attrCode],
+                                    array_flip($attrValue)
+                                );
                                 $rowMultiselects[$itemId][$attrCode] = $attrValue;
                             } else if (isset($this->_attributeValues[$attrCode][$attrValue])) {
                                 $attrValue = $this->_attributeValues[$attrCode][$attrValue];
@@ -617,29 +624,33 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 Mage_Catalog_Model_Product_Link::LINK_TYPE_CROSSSELL => '_links_crosssell_',
                 Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED   => '_associated_'
             );
+            $configurableProductsCollection = Mage::getResourceModel('catalog/product_collection');
+            $configurableProductsCollection->addAttributeToFilter(
+                'entity_id',
+                array(
+                    'in'    => $productIds
+                )
+            )->addAttributeToFilter(
+                'type_id',
+                array(
+                    'eq'    => Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE
+                )
+            );
+            $configurableData = array();
+            while ($product = $configurableProductsCollection->fetchItem()) {
+                $productAttributesOptions = $product->getTypeInstance(true)->getConfigurableOptions($product);
 
-            // prepare configurable products data
-            $configurableData  = $this->_prepareConfigurableProductData($productIds);
-            if ($configurableData) {
-                $configurablePrice = $this->_prepareConfigurableProductPrice($productIds);
-                foreach ($configurableData as $productId => &$rows) {
-                    if (isset($configurablePrice[$productId])) {
-                        $largest = max(count($rows), count($configurablePrice[$productId]));
-
-                        for ($i = 0; $i < $largest; $i++) {
-                            if (!isset($configurableData[$productId][$i])) {
-                                $configurableData[$productId][$i] = array();
-                            }
-                            if (isset($configurablePrice[$productId][$i])) {
-                                $configurableData[$productId][$i] = array_merge(
-                                    $configurableData[$productId][$i],
-                                    $configurablePrice[$productId][$i]
-                                );
-                            }
-                        }
+                foreach ($productAttributesOptions as $productAttributeOption) {
+                    $configurableData[$product->getId()] = array();
+                    foreach ($productAttributeOption as $optionValues) {
+                        $configurableData[$product->getId()][] = array(
+                            '_super_products_sku'           => $optionValues['sku'],
+                            '_super_attribute_code'         => $optionValues['attribute_code'],
+                            '_super_attribute_option'       => $optionValues['option_title'],
+                            '_super_attribute_price_corr'   => $optionValues['pricing_value']
+                        );
                     }
                 }
-                unset($configurablePrice);
             }
 
             // prepare custom options information
@@ -683,7 +694,8 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     } elseif ($option['title'] != $customOptions[0]['_custom_option_title']) {
                         $row['_custom_option_title'] = $option['title'];
                     }
-                    if ($values = $option->getValues()) {
+                    $values = $option->getValues();
+                    if ($values) {
                         $firstValue = array_shift($values);
                         $priceType  = $firstValue['price_type'] == 'percent' ? '%' : '';
 
@@ -818,8 +830,8 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         $dataRow = array_merge($dataRow, array_shift($configurableData[$productId]));
                     }
                     if(!empty($rowMultiselects[$productId])) {
-                        foreach($rowMultiselects[$productId] as $attrKey=>$attrVal) {
-                            if(!empty($rowMultiselects[$productId][$attrKey])) {
+                        foreach ($rowMultiselects[$productId] as $attrKey => $attrVal) {
+                            if (!empty($rowMultiselects[$productId][$attrKey])) {
                                 $dataRow[$attrKey] = array_shift($rowMultiselects[$productId][$attrKey]);
                             }
                         }
@@ -853,8 +865,10 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 if (!empty($configurableData[$productId])) {
                     $additionalRowsCount = max($additionalRowsCount, count($configurableData[$productId]));
                 }
-                foreach($rowMultiselects[$productId] as $attributes) {
-                    $additionalRowsCount = max($additionalRowsCount, count($attributes));
+                if (!empty($rowMultiselects[$productId])) {
+                    foreach($rowMultiselects[$productId] as $attributes) {
+                        $additionalRowsCount = max($additionalRowsCount, count($attributes));
+                    }
                 }
 
                 if ($additionalRowsCount) {

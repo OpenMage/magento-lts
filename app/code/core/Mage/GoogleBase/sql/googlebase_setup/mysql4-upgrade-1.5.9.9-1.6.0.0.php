@@ -33,7 +33,7 @@ $installer->startSetup();
  */
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('googlebase/attributes'),
-    'FK_GOOGLEBASE_ATTRIBUTES_ATTRIBUTE_ID'
+    'GOOGLEBASE_ATTRIBUTES_ATTRIBUTE_ID'
 );
 
 $installer->getConnection()->dropForeignKey(
@@ -43,17 +43,17 @@ $installer->getConnection()->dropForeignKey(
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('googlebase/items'),
-    'FK_GOOGLEBASE_ITEMS_PRODUCT_ID'
+    'GOOGLEBASE_ITEMS_PRODUCT_ID'
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('googlebase/items'),
-    'FK_GOOGLEBASE_ITEMS_STORE_ID'
+    'GOOGLEBASE_ITEMS_STORE_ID'
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('googlebase/types'),
-    'FK_GOOGLEBASE_TYPES_ATTRIBUTE_SET_ID'
+    'GOOGLEBASE_TYPES_ATTRIBUTE_SET_ID'
 );
 
 

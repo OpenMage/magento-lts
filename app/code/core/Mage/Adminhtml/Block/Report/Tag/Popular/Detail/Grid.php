@@ -40,24 +40,30 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
         $this->setId('tag_grid');
     }
 
+    /**
+     * Prepare collection for grid
+     *
+     * @return Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid
+     */
     protected function _prepareCollection()
     {
-
-        $collection = Mage::getResourceModel('reports/tag_customer_collection')
-                ->addStatusFilter(Mage::getModel('tag/tag')->getApprovedStatus())
+        /* @var $collection Mage_Reports_Model_Resource_Tag_Customer_Collection */
+        $collection = Mage::getResourceModel('reports/tag_customer_collection');
+        $collection->addStatusFilter(Mage::getModel('tag/tag')->getApprovedStatus())
                 ->addTagFilter($this->getRequest()->getParam('id'))
-                ->addDescOrder();
+                ->addDescOrder()
+                ->addProductName();
 
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
     }
 
-    protected function _afterLoadCollection()
-    {
-        $this->getCollection()->addProductName();
-    }
-
+    /**
+     * Form columns for the grid
+     *
+     * @return Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid
+     */
     protected function _prepareColumns()
     {
 

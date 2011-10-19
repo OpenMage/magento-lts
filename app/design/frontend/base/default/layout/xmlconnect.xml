@@ -50,7 +50,7 @@
                 </block>
             </block>
 
-            <block type="xmlconnect/catalog_category_info" name="xmlconnect.catalog.category.nfo" as="category_info" output=""/>
+            <block type="xmlconnect/catalog_category_info" name="xmlconnect.catalog.category.info" as="category_info" output=""/>
         </block>
     </xmlconnect_catalog_category>
 
@@ -171,22 +171,27 @@
 
     <xmlconnect_customer_orderdetails>
         <block type="xmlconnect/customer_order_details" name="xmlconnect.customer.order.details" output="toHtml">
-            <block type="xmlconnect/customer_order_items" name="xmlconnect.customer.order.items" as="order_items" template="sales/order/items.phtml" output="">
-                <action method="addItemRender"><type>default</type><block>xmlconnect/customer_order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
-                <action method="addItemRender"><type>grouped</type><block>xmlconnect/customer_order_item_renderer_grouped</block><template>sales/order/items/renderer/default.phtml</template></action>
-                <action method="addItemRender"><type>bundle</type><block>xmlconnect/customer_order_item_renderer_bundle</block><template>bundle/sales/order/items/renderer.phtml</template></action>
-                <action method="addItemRender"><type>downloadable</type><block>xmlconnect/customer_order_item_renderer_downloadable</block><template>downloadable/sales/order/items/renderer/downloadable.phtml</template></action>
-                <action method="addItemRender"><type>giftcard</type><block>xmlconnect/customer_order_item_renderer_giftcard</block><template>sales/order/items/renderer/default.phtml</template></action>
+            <block type="xmlconnect/customer_order_items" name="xmlconnect.customer.order.items" as="order_items" output="">
+                <action method="addItemRender"><type>default</type><block>xmlconnect/customer_order_item_renderer_default</block><template></template></action>
+                <action method="addItemRender"><type>grouped</type><block>xmlconnect/customer_order_item_renderer_grouped</block><template></template></action>
+                <action method="addItemRender"><type>bundle</type><block>xmlconnect/customer_order_item_renderer_bundle</block><template></template></action>
+                <action method="addItemRender"><type>downloadable</type><block>xmlconnect/customer_order_item_renderer_downloadable</block><template></template></action>
+                <action method="addItemRender"><type>giftcard</type><block>xmlconnect/customer_order_item_renderer_giftcard</block><template></template></action>
 
-                <block type="xmlconnect/customer_order_totals" name="xmlconnect.customer.order.totals" template="sales/order/totals.phtml" output="">
-                    <block type="xmlconnect/customer_order_totals_tax" name="xmlconnect.customer.order.tax" template="tax/order/tax.phtml" output=""/>
+                <block type="xmlconnect/customer_order_totals" name="xmlconnect.customer.order.totals" output="">
+                    <block type="xmlconnect/customer_order_totals_tax" name="xmlconnect.customer.order.tax" output=""/>
                 </block>
-            </block>
-            <block type="core/text_list" name="additional.product.info" translate="label" output="">
-                <label>Additional Product Info</label>
             </block>
         </block>
     </xmlconnect_customer_orderdetails>
+
+    <xmlconnect_customer_storecredit>
+        <block type="xmlconnect/customer_storecredit" name="xmlconnect.customer.storecredit" output="toHtml"/>
+    </xmlconnect_customer_storecredit>
+
+    <xmlconnect_customer_giftcardcheck>
+        <block type="xmlconnect/customer_giftcardCheck" name="xmlconnect.customer.giftcardCheck" output="toHtml"/>
+    </xmlconnect_customer_giftcardcheck>
 
     <!-- Configuration -->
 
@@ -265,6 +270,23 @@
     <xmlconnect_paypal_mep_carttotals>
         <block type="xmlconnect/cart_paypal_mep_totals" name="xmlconnect.cart.paypal.mep.totals" output="toHtml"/>
     </xmlconnect_paypal_mep_carttotals>
+
+    <!-- Checkout with PayPal MECL -->
+
+    <xmlconnect_paypal_mecl_review>
+        <block type="xmlconnect/cart_paypal_mecl_review" name="xmlconnect.cart.paypal.mecl.review" output="toHtml">
+            <block type="xmlconnect/cart_paypal_mecl_details" name="xmlconnect.cart.paypal.mecl.details" as="details">
+                <action method="addItemRender"><type>default</type><block>xmlconnect/cart_item_renderer</block><template></template></action>
+                <action method="addItemRender"><type>grouped</type><block>xmlconnect/cart_item_renderer_grouped</block><template></template></action>
+                <action method="addItemRender"><type>configurable</type><block>xmlconnect/cart_item_renderer_configurable</block><template></template></action>
+                <block type="xmlconnect/cart_totals" name="xmlconnect.cart.totals" as="totals"/>
+            </block>
+        </block>
+    </xmlconnect_paypal_mecl_review>
+
+    <xmlconnect_paypal_mecl_shippingmethods>
+        <block type="xmlconnect/cart_paypal_mecl_shippingmethods" name="xmlconnect.cart.paypal.mecl.shippingmethods" output="toHtml"></block>
+    </xmlconnect_paypal_mecl_shippingmethods>
 
     <!-- Cms -->
 

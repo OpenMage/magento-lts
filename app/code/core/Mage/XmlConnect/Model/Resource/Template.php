@@ -36,7 +36,7 @@ class Mage_XmlConnect_Model_Resource_Template extends Mage_Core_Model_Resource_D
     /**
      * Constructor, setting table and index field
      *
-     * @return void
+     * @return null
      */
     protected function _construct()
     {

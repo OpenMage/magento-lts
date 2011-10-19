@@ -27,11 +27,12 @@
 /**
  * XmlConnect application history grid
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Submission_History extends Mage_Adminhtml_Block_Widget_Grid
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Submission_History
+    extends Mage_Adminhtml_Block_Widget_Grid
     implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
@@ -92,8 +93,8 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Submission_History extends
     }
 
     /**
-     * Initialize history colelction
-     * Set aaplication filter
+     * Initialize history collection
+     * Set application filter
      *
      * @return Mage_Adminhtml_Block_Widget_Grid
      */

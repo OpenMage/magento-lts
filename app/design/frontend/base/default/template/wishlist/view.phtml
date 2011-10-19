@@ -25,6 +25,7 @@
  */
 /* @var $this Mage_Wishlist_Block_Customer_Wishlist */
 ?>
+<?php if ($this->helper('wishlist')->isAllow()) : ?>
 <div class="my-wishlist">
     <div class="page-title title-buttons">
         <?php if ($this->helper('wishlist')->isRssAllow() && $this->hasWishlistItems()): ?>
@@ -60,8 +61,8 @@
                     ?>
                     <tr>
                         <td>
-                            <a class="product-image" href="<?php echo $this->getProductUrl($item) ?>" title="<?php echo $this->htmlEscape($product->getName()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($product, 'small_image')->resize(113, 113); ?>" width="113" height="113" alt="<?php echo $this->htmlEscape($product->getName()) ?>" /></a>
-                            <h2 class="product-name"><a href="<?php echo $this->getProductUrl($item) ?>"><?php echo $this->htmlEscape($product->getName()) ?></a></h2>
+                            <a class="product-image" href="<?php echo $this->getProductUrl($item) ?>" title="<?php echo $this->escapeHtml($product->getName()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($product, 'small_image')->resize(113, 113); ?>" width="113" height="113" alt="<?php echo $this->escapeHtml($product->getName()) ?>" /></a>
+                            <h2 class="product-name"><a href="<?php echo $this->getProductUrl($item) ?>"><?php echo $this->escapeHtml($product->getName()) ?></a></h2>
                             <?php echo $this->getPriceHtml($product) ?>
                             <?php echo $this->getDetailsHtml($item) ?>
                         </td>
@@ -151,3 +152,4 @@
 <div class="buttons-set">
     <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
 </div>
+<?php endif ?>

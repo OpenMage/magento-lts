@@ -114,4 +114,15 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
         }
         return array($mainGroup);
     }
+
+    /**
+     * Retrieve 'cast to int' expression
+     *
+     * @param string|Zend_Db_Expr $expression
+     * @return Zend_Db_Expr
+     */
+    public function getCastToIntExpression($expression)
+    {
+        return new Zend_Db_Expr("CAST($expression AS SIGNED)");
+    }
 }

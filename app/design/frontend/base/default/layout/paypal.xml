@@ -134,10 +134,16 @@ Available logo types can be assigned with action="setLogoType":
     <tag_product_list>
         <update handle="SHORTCUT_popup" />
     </tag_product_list>
+    <tag_customer_view>
+        <update handle="SHORTCUT_popup" />
+    </tag_customer_view>
 
     <wishlist_index_index>
         <update handle="SHORTCUT_popup" />
     </wishlist_index_index>
+    <review_product_list>
+        <update handle="SHORTCUT_popup" />
+    </review_product_list>
 
     <checkout_onepage_success>
         <update handle="SHORTCUT_popup" />
@@ -171,11 +177,12 @@ Available logo types can be assigned with action="setLogoType":
     </checkout_onepage_review>
 
     <paypal_payflow_link_iframe>
-        <block type="paypal/payflow_link_iframe" name="payflow.link.iframe" template="paypal/hss/form.phtml" />
+        <block type="paypal/payflow_link_iframe" name="payflow.link.iframe" template="paypal/payflowlink/form.phtml" />
+        <block type="paypal/payflow_link_info" name="payflow.link.info" template="paypal/payflowlink/info.phtml" />
     </paypal_payflow_link_iframe>
 
     <paypal_hosted_pro_iframe>
-        <block type="paypal/hosted_pro_iframe" name="hosted.pro.iframe" />
+        <block type="paypal/hosted_pro_iframe" name="hosted.pro.iframe" template="paypal/hss/form.phtml"/>
     </paypal_hosted_pro_iframe>
 
     <SHORTCUT_popup>

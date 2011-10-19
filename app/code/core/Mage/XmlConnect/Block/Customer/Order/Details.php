@@ -34,6 +34,27 @@
 class Mage_XmlConnect_Block_Customer_Order_Details extends Mage_Payment_Block_Info
 {
     /**
+     * Pre-defined array of methods that we are going to render
+     *
+     * Core renderer list:
+     * - 'ccsave' => Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Ccsave
+     * - 'checkmo' => Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Checkmo
+     * - 'purchaseorder' => Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Purchaseorder
+     * - 'authorizenet' => Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Authorizenet
+     * - 'pbridge_authorizenet' => Mage_Paygate_Block_Authorizenet_Info_Cc
+     * - 'pbridge_verisign' => Mage_Payment_Block_Info_Cc
+     * - 'paypal_express' => Mage_Paypal_Block_Payment_Info
+     * - 'paypal_mecl' => Mage_Paypal_Block_Payment_Info
+     * - 'pbridge_paypal_direct' => Mage_Paypal_Block_Payment_Info
+     * - 'pbridge_paypaluk_direct' => Mage_Paypal_Block_Payment_Info
+     * - 'free' => Mage_Payment_Block_Info
+     */
+    protected $_methodArray = array(
+        'ccsave', 'checkmo', 'purchaseorder', 'authorizenet', 'pbridge_authorizenet', 'pbridge_verisign',
+        'paypal_express', 'paypal_mecl', 'pbridge_paypal_direct', 'pbridge_paypaluk_direct', 'free'
+    );
+
+    /**
      * Render customer orders list xml
      *
      * @return string
@@ -42,31 +63,18 @@ class Mage_XmlConnect_Block_Customer_Order_Details extends Mage_Payment_Block_In
     {
         /** @var $orderXmlObj Mage_XmlConnect_Model_Simplexml_Element */
         $orderXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<order_details></order_details>');
-        /** @var $order Mage_Sales_Model_Order */
-        $order = Mage::registry('current_order');
-        if (!($order instanceof Mage_Sales_Model_Order)) {
-            Mage::throwException($this->__('Model of order is not loaded.'));
-        }
+
+        $order = $this->_getOrder();
+
         $orderDate = $this->formatDate($order->getCreatedAtStoreDate(), 'long');
-        $orderXmlObj->addCustomChild(
-            'order',
-            null,
-            array(
-                 'label' => Mage::helper('sales')->__('Order #%s - %s', $order->getRealOrderId(), $order->getStatusLabel()),
-                 'order_date' => Mage::helper('sales')->__('Order Date: %s', $orderDate)
-            )
-        );
+        $orderXmlObj->addCustomChild('order', null, array(
+             'label' => $this->__('Order #%s - %s', $order->getRealOrderId(), $order->getStatusLabel()),
+             'order_date' => $this->__('Order Date: %s', $orderDate)
+        ));
         if (!$order->getIsVirtual()) {
-            $shipping = preg_replace(
-                array('@\r@', '@\n+@'),
-                array('', "\n"),
-                $order->getShippingAddress()->format('text')
-            );
-            $billing = preg_replace(
-                array('@\r@', '@\n+@'),
-                array('', "\n"),
-                $order->getBillingAddress()->format('text')
-            );
+            $shipping = Mage::helper('xmlconnect')->trimLineBreaks($order->getShippingAddress()->format('text'));
+            $billing  = Mage::helper('xmlconnect')->trimLineBreaks($order->getBillingAddress()->format('text'));
+
             $orderXmlObj->addCustomChild('shipping_address', $shipping);
             $orderXmlObj->addCustomChild('billing_address', $billing);
 
@@ -77,36 +85,43 @@ class Mage_XmlConnect_Block_Customer_Order_Details extends Mage_Payment_Block_In
             }
             $orderXmlObj->addCustomChild('shipping_method', $shippingMethodDescription);
         }
-        /**
-         * Pre-defined array of methods that we are going to render
-         */
-        $methodArray = array(
-            'ccsave' => 'Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Ccsave',
-            'checkmo' => 'Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Checkmo',
-            'purchaseorder' => 'Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Purchaseorder',
-            'authorizenet' => 'Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Authorizenet',
-        );
-        // TODO: create info blocks for Payment Bridge methods
-//        /**
-//         * Check if the Payment Bridge module is available and add methods for rendering
-//         */
-//        if (is_object(Mage::getConfig()->getNode('modules/Enterprise_Pbridge'))) {
-//            $pbridgeMethodArray = array(
-//                'pbridge_authorizenet'  => 'Enterprise_Pbridge_Model_Payment_Method_Authorizenet',
-//                'pbridge_paypal'        => 'Enterprise_Pbridge_Model_Payment_Method_Paypal',
-//                'pbridge_verisign'      => 'Enterprise_Pbridge_Model_Payment_Method_Payflow_Pro',
-//                'pbridge_paypaluk'      => 'Enterprise_Pbridge_Model_Payment_Method_Paypaluk',
-//            );
-//            $methodArray = $methodArray + $pbridgeMethodArray;
-//        }
+
+        $this->_addPaymentMethodInfoToXmlObj($orderXmlObj);
+
+        $itemsBlock = $this->getLayout()->getBlock('xmlconnect.customer.order.items');
+        if ($itemsBlock) {
+            /** @var $itemsBlock Mage_XmlConnect_Block_Customer_Order_Items */
+            $itemsBlock->setItems($order->getItemsCollection());
+            $itemsBlock->addItemsToXmlObject($orderXmlObj);
+            $totalsBlock = $this->getLayout()->getBlock('xmlconnect.customer.order.totals');
+            if ($totalsBlock) {
+                $totalsBlock->setOrder($order);
+                $totalsBlock->addTotalsToXmlObject($orderXmlObj);
+            }
+        } else {
+            $orderXmlObj->addChild('ordered_items');
+        }
+
+        return $orderXmlObj->asNiceXml();
+    }
+
+    /**
+     * Add payment method info to order xml object
+     *
+     * @param Mage_XmlConnect_Model_Simplexml_Element $orderXmlObj
+     * @return Mage_XmlConnect_Model_Simplexml_Element
+     */
+    protected function _addPaymentMethodInfoToXmlObj(Mage_XmlConnect_Model_Simplexml_Element $orderXmlObj)
+    {
+        $order = $this->_getOrder();
 
         // TODO: it's need to create an info blocks for other payment methods (including Enterprise)
-
         $method = $this->helper('payment')->getInfoBlock($order->getPayment())->getMethod();
         $methodCode = $method->getCode();
 
         $paymentNode = $orderXmlObj->addChild('payment_method');
-        if (array_key_exists($methodCode, $methodArray)) {
+
+        if (in_array($methodCode, $this->_methodArray, true)) {
             $currentBlockRenderer = 'xmlconnect/checkout_payment_method_info_' . $methodCode;
             $currentBlockName = 'xmlconnect.checkout.payment.method.info.' . $methodCode;
             $this->getLayout()->addBlock($currentBlockRenderer, $currentBlockName);
@@ -126,9 +141,7 @@ class Mage_XmlConnect_Block_Customer_Order_Details extends Mage_Payment_Block_In
             if (!empty($specificInfo)) {
                 foreach ($specificInfo as $label => $value) {
                     if ($value) {
-                        $paymentNode->addCustomChild(
-                            'item',
-                            implode($this->getValueAsArray($value, true), PHP_EOL),
+                        $paymentNode->addCustomChild('item', implode($this->getValueAsArray($value, true), '\n'),
                             array('label' => $label)
                         );
                     }
@@ -136,20 +149,37 @@ class Mage_XmlConnect_Block_Customer_Order_Details extends Mage_Payment_Block_In
             }
         }
 
-        $itemsBlock = $this->getLayout()->getBlock('xmlconnect.customer.order.items');
-        if ($itemsBlock) {
-            /** @var $itemsBlock Mage_XmlConnect_Block_Customer_Order_Items */
-            $itemsBlock->setItems($order->getItemsCollection());
-            $itemsBlock->addItemsToXmlObject($orderXmlObj);
-            $totalsBlock = $this->getLayout()->getBlock('xmlconnect.customer.order.totals');
-            if ($totalsBlock) {
-                $totalsBlock->setOrder($order);
-                $totalsBlock->addTotalsToXmlObject($orderXmlObj);
-            }
-        } else {
-            $orderXmlObj->addChild('ordered_items');
-        }
+        return $orderXmlObj;
+    }
 
-        return $orderXmlObj->asNiceXml();
+    /**
+     * Get order model
+     *
+     * @through Mage_Core_Exception
+     * @return Mage_Sales_Model_Order
+     */
+    protected function _getOrder()
+    {
+        $order = Mage::registry('current_order');
+        if (!($order instanceof Mage_Sales_Model_Order)) {
+            Mage::throwException($this->__('Order is not available.'));
+        }
+        return $order;
+    }
+
+    /**
+     * Format address string
+     *
+     * @deprecated after 1.6.0.0
+     * @param string $address
+     * @return string
+     */
+    protected function _formatAddress($address)
+    {
+        return preg_replace(
+            array('@\r@', '@\n+@'),
+            array('', '\n'),
+            $address
+        );
     }
 }

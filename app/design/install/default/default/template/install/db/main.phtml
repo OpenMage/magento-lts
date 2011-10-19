@@ -63,13 +63,18 @@ function showContent(select)
         <?php endif ?>
 
         <?php foreach ($dbTypeOptions as $block): ?>
-        <script type="text/javascript">
-        //<![CDATA[
-            dbTypeIds[dbTypeIds.length] = "<?php echo $block->getIdPrefix(); ?>";
-        //]]>
-        </script>
-        <?php $block = $this->getDatabaseBlock($block->getIdPrefix()) ?>
-            <div id="<?php echo $block->getIdPrefix() ?>_conn_form" <?php if($this->getFormData()->getDbModel() != $block->getIdPrefix()):?>style="display:none;"<?php endif;?>><?php echo $block->toHtml(); ?></div>
+            <script type="text/javascript">
+            //<![CDATA[
+                dbTypeIds[dbTypeIds.length] = "<?php echo $block->getIdPrefix(); ?>";
+            //]]>
+            </script>
+            <?php $block = $this->getDatabaseBlock($block->getIdPrefix()) ?>
+
+            <div id="<?php echo $block->getIdPrefix() ?>_conn_form" <?php if($this->getFormData()->getDbModel() != $block->getIdPrefix()):?>style="display:none;"<?php endif;?>>
+                <ul>
+                    <?php echo $block->toHtml(); ?>
+                </ul>
+            </div>
         <?php endforeach; ?>
     </ul>
 </fieldset>

@@ -58,6 +58,36 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
+     * Get select object for not closed poll ids
+     *
+     * @param Mage_Poll_Model_Poll $object
+     * @return
+     */
+    protected function _getSelectIds($object)
+    {
+        $read = $this->_getReadAdapter();
+        $select = $read->select()
+            ->from(array('main_table'=>$this->getMainTable()), $this->getIdFieldName())
+            ->where('closed = ?', 0);
+
+        $excludeIds = $object->getExcludeFilter();
+        if ($excludeIds) {
+            $select->where('main_table.poll_id NOT IN(?)', $excludeIds);
+        }
+
+        $storeId = $object->getStoreFilter();
+        if ($storeId) {
+            $select->join(
+                array('store' => $this->getTable('poll/poll_store')),
+                'main_table.poll_id=store.poll_id AND store.store_id = ' . $read->quote($storeId),
+                array()
+            );
+        }
+
+        return $select;
+    }
+
+    /**
      * Get random identifier not closed poll
      *
      * @param Mage_Poll_Model_Poll $object
@@ -65,28 +95,20 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
      */
     public function getRandomId($object)
     {
-        $read = $this->_getReadAdapter();
-        $select = $read->select();
+        $select = $this->_getSelectIds($object)->orderRand()->limit(1);
+        return $this->_getReadAdapter()->fetchOne($select);
+    }
 
-        if ($object->getExcludeFilter()) {
-            $select->where('main_table.poll_id NOT IN(?)', $object->getExcludeFilter());
-        }
-
-        $select->from(array('main_table'=>$this->getMainTable()), $this->getIdFieldName())
-            ->where('closed = :is_closed')
-            ->orderRand()
-            ->limit(1);
-        $bind = array(':is_closed' => 0);
-        if (($storeId = $object->getStoreFilter())) {
-            $select->join(
-                array('store' => $this->getTable('poll/poll_store')),
-                'main_table.poll_id=store.poll_id AND store.store_id = :store_id',
-                array()
-            );
-            $bind[':store_id'] = $storeId;
-        }
-
-        return $read->fetchOne($select, $bind);
+    /**
+     * Get all ids for not closed polls
+     *
+     * @param Mage_Poll_Model_Poll $object
+     * @return array
+     */
+    public function getAllIds($object)
+    {
+        $select = $this->_getSelectIds($object);
+        return $this->_getReadAdapter()->fetchCol($select);
     }
 
     /**
@@ -147,16 +169,15 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
      */
     public function resetVotesCount($object)
     {
-        $read = $this->_getReadAdapter();
-        $select = $read->select();
-        $select->from($this->getTable('poll_answer'), new Zend_Db_Expr("SUM(votes_count)"))
-            ->where('poll_id = :poll_id');
-
-        $count = $read->fetchOne($select, array(':poll_id' => $object->getPollId()));
-
-        $write = $this->_getWriteAdapter();
-        $condition = $write->quoteInto("{$this->getIdFieldName()} = ?", $object->getPollId());
-        $write->update($this->getMainTable(), array('votes_count' => $count), $condition);
+        $adapter = $this->_getWriteAdapter();
+        $select = $adapter->select()
+            ->from($this->getTable('poll_answer'), new Zend_Db_Expr("SUM(votes_count)"))
+            ->where('poll_id = ?', $object->getPollId());
+        $adapter->update(
+            $this->getMainTable(),
+            array('votes_count' => new Zend_Db_Expr("($select)")),
+            array('poll_id = ' . $adapter->quote($object->getPollId()))
+        );
         return $object;
     }
 

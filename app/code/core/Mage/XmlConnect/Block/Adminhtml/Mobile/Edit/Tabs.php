@@ -23,13 +23,20 @@
  * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
+
+/**
+ * Application Tabs block
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tabs
+    extends Mage_Adminhtml_Block_Widget_Tabs
 {
     /**
      * Constructor
-     *
      * Setting grid_id, DOM destination element id, Title
-     *
      */
     public function __construct()
     {
@@ -49,7 +56,9 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tabs extends Mage_Adminhtml_Bl
         if (Mage::getSingleton('adminhtml/session')->getNewApplication()) {
             $this->addTab('set', array(
                 'label'     => $this->__('Settings'),
-                'content'   => $this->getLayout()->createBlock('xmlconnect/adminhtml_mobile_edit_tab_settings')->toHtml(),
+                'content'   => $this->getLayout()
+                    ->createBlock('xmlconnect/adminhtml_mobile_edit_tab_settings')
+                    ->toHtml(),
                 'active'    => true
             ));
         }

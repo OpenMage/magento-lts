@@ -55,6 +55,40 @@ class Mage_Paypal_Model_Observer
     }
 
     /**
+     * Clean unfinished transaction
+     *
+     * @return Mage_Paypal_Model_Observer
+     */
+    public function cleanTransactions()
+    {
+        /** @var $date Mage_Core_Model_Date */
+        $date = Mage::getModel('core/date');
+        $createdBefore = strtotime('-1 hour', $date->timestamp());
+
+        /** @var $collection Mage_Paypal_Model_Resource_Payment_Transaction_Collection */
+        $collection = Mage::getModel('paypal/payment_transaction')->getCollection();
+        $collection->addCreatedBeforeFilter($date->gmtDate(null, $createdBefore));
+
+        /** @var $method Mage_Paypal_Model_Payflowlink */
+        $method = Mage::helper('payment')->getMethodInstance(Mage_Paypal_Model_Config::METHOD_PAYFLOWLINK);
+
+        /** @var $item Mage_Paypal_Model_Payment_Transaction */
+        foreach ($collection as $item) {
+            try {
+                $method->void(new Varien_Object(array(
+                    'transaction_id' => $item->getTxnId(),
+                    'store' => $item->getAdditionalInformation('store_id')
+                )));
+                $item->delete();
+            } catch (Mage_Paypal_Exception $e) {
+                $item->delete();
+            } catch (Exception $e) {
+                Mage::logException($e);
+            }
+        }
+    }
+
+    /**
      * Save order into registry to use it in the overloaded controller.
      *
      * @param Varien_Event_Observer $observer
@@ -64,7 +98,7 @@ class Mage_Paypal_Model_Observer
     {
         /* @var $order Mage_Sales_Model_Order */
         $order = $observer->getEvent()->getData('order');
-        Mage::register('payflowlink_order', $order, true);
+        Mage::register('hss_order', $order, true);
 
         return $this;
     }
@@ -78,7 +112,7 @@ class Mage_Paypal_Model_Observer
     public function setResponseAfterSaveOrder(Varien_Event_Observer $observer)
     {
         /* @var $order Mage_Sales_Model_Order */
-        $order = Mage::registry('payflowlink_order');
+        $order = Mage::registry('hss_order');
 
         if ($order && $order->getId()) {
             $payment = $order->getPayment();

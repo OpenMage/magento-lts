@@ -539,7 +539,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     }
 
     /**
-     * Get sesssion save path
+     * Get session save path
      *
      * @return string
      */

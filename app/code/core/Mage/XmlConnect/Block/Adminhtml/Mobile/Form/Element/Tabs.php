@@ -24,7 +24,15 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Tabs extends Varien_Data_Form_Element_Text
+/**
+ * XmlConnect tabs form element
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Tabs
+    extends Varien_Data_Form_Element_Text
 {
     /**
      * Generate application tabs html
@@ -43,7 +51,9 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Tabs extends Varien_Da
         if (array_key_exists($device, Mage::helper('xmlconnect')->getSupportedDevices())) {
             $template = 'xmlconnect/form/element/app_tabs_' . strtolower($device) . '.phtml';
         } else {
-            Mage::throwException($this->__('Device doesn\'t recognized. Unable to load a template.'));
+            Mage::throwException(
+                $this->__('Device doesn\'t recognized. Unable to load a template.')
+            );
         }
 
         $block->setTemplate($template);

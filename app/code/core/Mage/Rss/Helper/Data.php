@@ -96,4 +96,23 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     {
         Mage::helper('core/http')->authFailed();
     }
+
+    /**
+     * Disable using of flat catalog and/or product model to prevent limiting results to single store. Probably won't
+     * work inside a controller.
+     *
+     * @return null
+     */
+    public function disableFlat()
+    {
+        /* @var $flatHelper Mage_Catalog_Helper_Product_Flat */
+        $flatHelper = Mage::helper('catalog/product_flat');
+        if ($flatHelper->isEnabled()) {
+            /* @var $emulationModel Mage_Core_Model_App_Emulation */
+            $emulationModel = Mage::getModel('core/app_emulation');
+            // Emulate admin environment to disable using flat model - otherwise we won't get global stats
+            // for all stores
+            $emulationModel->startEnvironmentEmulation(0, Mage_Core_Model_App_Area::AREA_ADMINHTML);
+        }
+    }
 }

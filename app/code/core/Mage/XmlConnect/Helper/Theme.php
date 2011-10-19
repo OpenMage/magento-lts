@@ -81,7 +81,7 @@ class Mage_XmlConnect_Helper_Theme extends Mage_Adminhtml_Helper_Data
     /**
      * Returns JSON ready Themes array
      *
-     * @param bool $flushCache -    load defaults
+     * @param bool $flushCache load defaults
      * @return array
      */
     public function getAllThemesArray($flushCache = false)
@@ -128,6 +128,12 @@ class Mage_XmlConnect_Helper_Theme extends Mage_Adminhtml_Helper_Data
             $currentTheme = $this->getThemeByName($themeId);
         }
 
+        if (!($currentTheme instanceof Mage_XmlConnect_Model_Theme)) {
+            Mage::throwException(
+                Mage::helper('xmlconnect')->__('Can\'t load selected theme. Please check your media folder permissions.')
+            );
+        }
+
         $themeList = '';
         foreach ($this->getAllThemes(true) as $theme) {
             $themeList .= '<li id="' . $theme->getName() . '">';
@@ -168,11 +174,11 @@ EOT;
             $saveLibxmlErrors   = libxml_use_internal_errors(true);
             $this->_themeArray  = array();
             $themeDir = $this->getMediaThemePath();
-            $io = new Varien_Io_File();
-            $io->checkAndCreateFolder($themeDir);
-            $io->open(array('path' => $themeDir));
+            $ioFile = new Varien_Io_File();
+            $ioFile->checkAndCreateFolder($themeDir);
+            $ioFile->open(array('path' => $themeDir));
             try {
-                $fileList = $io->ls(Varien_Io_File::GREP_FILES);
+                $fileList = $ioFile->ls(Varien_Io_File::GREP_FILES);
                 if (!count($fileList)) {
                     $this->resetTheme();
                     $this->getAllThemes(true);
@@ -204,10 +210,10 @@ EOT;
         $saveLibxmlErrors   = libxml_use_internal_errors(true);
         $defaultThemeArray  = array();
         $themeDir = $this->_getDefaultThemePath();
-        $io = new Varien_Io_File();
-        $io->open(array('path' => $themeDir));
+        $ioFile = new Varien_Io_File();
+        $ioFile->open(array('path' => $themeDir));
         try {
-            $fileList = $io->ls(Varien_Io_File::GREP_FILES);
+            $fileList = $ioFile->ls(Varien_Io_File::GREP_FILES);
             foreach ($fileList as $file) {
                 $src = $themeDir . DS . $file['text'];
                 if (is_readable($src)) {
@@ -220,9 +226,7 @@ EOT;
             Mage::logException($e);
         }
         if (!count($defaultThemeArray)) {
-            Mage::throwException(
-                Mage::helper('xmlconnect')->__('Can\'t load default themes.')
-            );
+            Mage::throwException(Mage::helper('xmlconnect')->__('Can\'t load default themes.'));
         }
         return $defaultThemeArray;
     }
@@ -267,16 +271,16 @@ EOT;
      *
      * @throws Mage_Core_Exception
      * @param null $theme
-     * @return void
+     * @return null
      */
     public function resetTheme($theme = null)
     {
         $themeDir = $this->getMediaThemePath();
         $defaultThemeDir = $this->_getDefaultThemePath();
 
-        $io = new Varien_Io_File();
-        $io->open(array('path' => $defaultThemeDir));
-        $fileList = $io->ls(Varien_Io_File::GREP_FILES);
+        $ioFile = new Varien_Io_File();
+        $ioFile->open(array('path' => $defaultThemeDir));
+        $fileList = $ioFile->ls(Varien_Io_File::GREP_FILES);
         foreach ($fileList as $file) {
             $f = $file['text'];
             $src = $defaultThemeDir . DS . $f;
@@ -286,12 +290,10 @@ EOT;
                 continue;
             }
 
-            if (!$io->cp($src, $dst)) {
-                Mage::throwException(
-                    Mage::helper('xmlconnect')->__('Can\'t copy file "%s" to "%s".', $src, $dst)
-                );
+            if (!$ioFile->cp($src, $dst)) {
+                Mage::throwException(Mage::helper('xmlconnect')->__('Can\'t copy file "%s" to "%s".', $src, $dst));
             } else {
-                $io->chmod($dst, 0755);
+                $ioFile->chmod($dst, 0755);
             }
         }
     }
@@ -378,11 +380,11 @@ EOT;
     public function deleteTheme($themeId)
     {
         $result = false;
-        $io = new Varien_Io_File();
-        $io->cd($this->getMediaThemePath());
+        $ioFile = new Varien_Io_File();
+        $ioFile->cd($this->getMediaThemePath());
         $themeFile = $themeId . '.xml';
-        if ($io->fileExists($themeFile)) {
-            $result = $io->rm($themeFile);
+        if ($ioFile->fileExists($themeFile)) {
+            $result = $ioFile->rm($themeFile);
         }
         return $result;
     }

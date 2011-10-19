@@ -83,6 +83,13 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     protected $_lockFile = null;
 
     /**
+     * Whether table changes are allowed
+     *
+     * @var bool
+     */
+    protected $_allowTableChanges = true;
+
+    /**
      * Initialize resource
      */
     protected function _construct()
@@ -203,7 +210,16 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
             return $this;
         }
         $this->_setEventNamespace($event);
+
+        $indexer = $this->getIndexer();
+        if (!$this->_allowTableChanges && is_callable(array($indexer, 'setAllowTableChanges'))) {
+            $indexer->setAllowTableChanges(false);
+        }
         $this->getIndexer()->processEvent($event);
+        if (!$this->_allowTableChanges && is_callable(array($indexer, 'setAllowTableChanges'))) {
+            $indexer->setAllowTableChanges(true);
+        }
+
         $event->resetData();
         $this->_resetEventNamespace($event);
         $event->addProcessId($this->getId(), self::EVENT_STATUS_DONE);
@@ -458,5 +474,45 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         }
 
         return $depends;
+    }
+
+    /**
+     * Set whether table changes are allowed
+     *
+     * @param bool $value
+     * @return Mage_Index_Model_Process
+     */
+    public function setAllowTableChanges($value = true)
+    {
+        $this->_allowTableChanges = $value;
+        return $this;
+    }
+
+    /**
+     * Disable keys in index table
+     *
+     * @return Mage_Index_Model_Process
+     */
+    public function disableIndexerKeys()
+    {
+        $indexer = $this->getIndexer();
+        if ($indexer) {
+            $indexer->disableKeys();
+        }
+        return $this;
+    }
+
+    /**
+     * Enable keys in index table
+     *
+     * @return Mage_Index_Model_Process
+     */
+    public function enableIndexerKeys()
+    {
+        $indexer = $this->getIndexer();
+        if ($indexer) {
+            $indexer->enableKeys();
+        }
+        return $this;
     }
 }

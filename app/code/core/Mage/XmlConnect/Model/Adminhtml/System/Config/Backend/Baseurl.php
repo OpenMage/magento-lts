@@ -24,12 +24,20 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_XmlConnect_Model_Adminhtml_System_Config_Backend_Baseurl extends Mage_Adminhtml_Model_System_Config_Backend_Baseurl
+/**
+ * Xmlconnect system config base url model
+ *
+ * @category    Mage
+ * @package     Mage_Xmlconnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_XmlConnect_Model_Adminhtml_System_Config_Backend_Baseurl
+    extends Mage_Adminhtml_Model_System_Config_Backend_Baseurl
 {
     /**
      * Update all applications "updated at" parameter with current date
      *
-     * @return this 
+     * @return Mage_XmlConnect_Model_Adminhtml_System_Config_Backend_Baseurl
      */
     protected function _afterSave()
     {

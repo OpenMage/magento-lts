@@ -96,6 +96,14 @@ class Mage_Paypal_Model_Config
     const PAYMENT_ACTION_AUTH  = 'Authorization';
 
     /**
+     * Authorization amounts for Account Verification
+     * @var int
+     */
+    const AUTHORIZATION_AMOUNT_ZERO = 0;
+    const AUTHORIZATION_AMOUNT_ONE = 1;
+    const AUTHORIZATION_AMOUNT_FULL = 2;
+
+    /**
      * Fraud management actions
      * @var string
      */
@@ -296,8 +304,8 @@ class Mage_Paypal_Model_Config
     public function isMethodActive($method)
     {
         if ($this->isMethodSupportedForCountry($method)
-            && Mage::getStoreConfigFlag("payment/{$method}/active", $this->_storeId))
-        {
+            && Mage::getStoreConfigFlag("payment/{$method}/active", $this->_storeId)
+        ) {
             return true;
         }
         return false;
@@ -468,6 +476,7 @@ class Mage_Paypal_Model_Config
                 self::METHOD_WPS,
                 self::METHOD_WPP_DIRECT,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_WPP_PE_DIRECT,
                 self::METHOD_WPP_PE_EXPRESS,
                 self::METHOD_PAYFLOWPRO,
@@ -477,6 +486,7 @@ class Mage_Paypal_Model_Config
                 self::METHOD_WPS,
                 self::METHOD_WPP_DIRECT,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_PAYFLOWPRO,
                 self::METHOD_PAYFLOWLINK,
             ),
@@ -484,6 +494,7 @@ class Mage_Paypal_Model_Config
                 self::METHOD_WPS,
                 self::METHOD_WPP_DIRECT,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_WPP_PE_DIRECT,
                 self::METHOD_WPP_PE_EXPRESS,
                 self::METHOD_HOSTEDPRO,
@@ -491,23 +502,27 @@ class Mage_Paypal_Model_Config
             'AU' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_PAYFLOWPRO,
                 self::METHOD_HOSTEDPRO,
             ),
             'NZ' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_PAYFLOWPRO,
                 self::METHOD_HOSTEDPRO,
             ),
             'DE' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_HOSTEDPRO,
             ),
             'other' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_HOSTEDPRO,
             )
         );
@@ -851,6 +866,21 @@ class Mage_Paypal_Model_Config
             case self::PAYMENT_ACTION_ORDER:
                 return Mage_Payment_Model_Method_Abstract::ACTION_ORDER;
         }
+    }
+
+    /**
+     * Returns array of possible Authorization Amounts for Account Verification
+     *
+     * @return array
+     */
+    public function getAuthorizationAmounts()
+    {
+        $authorizationAmount = array(
+            self::AUTHORIZATION_AMOUNT_ZERO => Mage::helper('paypal')->__('$0 Auth'),
+            self::AUTHORIZATION_AMOUNT_ONE  => Mage::helper('paypal')->__('$1 Auth'),
+            self::AUTHORIZATION_AMOUNT_FULL => Mage::helper('paypal')->__('Full Auth'),
+        );
+        return $authorizationAmount;
     }
 
     /**

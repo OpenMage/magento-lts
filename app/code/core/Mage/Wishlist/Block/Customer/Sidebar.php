@@ -45,7 +45,7 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
         $collection->setCurPage(1)
             ->setPageSize(3)
             ->setInStockFilter(true)
-            ->addWishListSortOrder('added_at', 'desc');
+            ->setOrder('added_at');
 
         return $this;
     }
@@ -57,7 +57,7 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
      */
     protected function _toHtml()
     {
-        if (($this->getCustomWishlist() && $this->getItemCount()) || $this->_getHelper()->hasItems()) {
+        if (($this->getCustomWishlist() && $this->getItemCount()) || $this->hasWishlistItems()) {
             return parent::_toHtml();
         }
 
@@ -125,6 +125,6 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
             return $this->getCustomWishlist()->getItemsCount();
         }
 
-        return $this->helper('wishlist')->getItemCount();
+        return $this->getWishlistItemsCount();
     }
 }

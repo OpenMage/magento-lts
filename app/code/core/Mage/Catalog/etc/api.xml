@@ -174,16 +174,21 @@
                         <title>Set special price</title>
                         <acl>catalog/product/update</acl>
                     </setSpecialPrice>
+                    <listOfAdditionalAttributes translate="title" module="catalog">
+                        <title>Get list of non-default attributes by product type and attributes set</title>
+                        <method>getAdditionalAttributes</method>
+                        <acl>catalog/product/listOfAdditionalAttributes</acl>
+                    </listOfAdditionalAttributes>
                 </methods>
                 <faults module="catalog">
                     <store_not_exists>
                         <code>100</code>
                         <message>Requested store view not found.</message>
                     </store_not_exists>
-                    <not_exists>
+                    <product_not_exists>
                         <code>101</code>
                         <message>Product not exists.</message>
-                    </not_exists>
+                    </product_not_exists>
                     <data_invalid>
                         <code>102</code>
                         <message>Invalid data given. Details in error message.</message>
@@ -192,6 +197,18 @@
                         <code>103</code>
                         <message>Product not deleted. Details in error message.</message>
                     </not_deleted>
+                    <product_type_not_exists>
+                        <code>104</code>
+                        <message>Product type is not in allowed types.</message>
+                    </product_type_not_exists>
+                    <product_attribute_set_not_exists>
+                        <code>105</code>
+                        <message>Product attribute set is not existed</message>
+                    </product_attribute_set_not_exists>
+                    <product_attribute_set_not_valid>
+                        <code>106</code>
+                        <message>Product attribute set is not belong catalog product entity type</message>
+                    </product_attribute_set_not_valid>
                 </faults>
             </catalog_product>
             <catalog_product_attribute translate="title" module="catalog">
@@ -212,6 +229,34 @@
                         <title>Retrieve attribute options</title>
                         <acl>catalog/product/attribute/read</acl>
                     </options>
+                    <types translate="title" module="catalog">
+                        <title>Get list of possible attribute types</title>
+                        <acl>catalog/product/attribute/types</acl>
+                    </types>
+                    <create translate="title" module="catalog">
+                        <title>Create new attribute</title>
+                        <acl>catalog/product/attribute/create</acl>
+                    </create>
+                    <update translate="title" module="catalog">
+                        <title>Update attribute</title>
+                        <acl>catalog/product/attribute/update</acl>
+                    </update>
+                    <remove translate="title" module="catalog">
+                        <title>Delete attribute</title>
+                        <acl>catalog/product/attribute/remove</acl>
+                    </remove>
+                    <info translate="title" module="catalog">
+                        <title>Get full information about attribute with list of options</title>
+                        <acl>catalog/product/attribute/info</acl>
+                    </info>
+                    <addOption translate="title" module="catalog">
+                        <title>Add option</title>
+                        <acl>catalog/product/attribute/option/add</acl>
+                    </addOption>
+                    <removeOption translate="title" module="catalog">
+                        <title>Remove option</title>
+                        <acl>catalog/product/attribute/option/remove</acl>
+                    </removeOption>
                 </methods>
                 <faults module="catalog">
                     <store_not_exists>
@@ -222,19 +267,152 @@
                         <code>101</code>
                         <message>Requested attribute not found.</message>
                     </not_exists>
+                    <invalid_parameters>
+                        <code>102</code>
+                        <message>Invalid request parameters.</message>
+                    </invalid_parameters>
+                    <invalid_code>
+                        <code>103</code>
+                        <message>Attribute code is invalid. Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter.</message>
+                    </invalid_code>
+                    <invalid_frontend_input>
+                        <code>104</code>
+                        <message>Incorrect attribute type.</message>
+                    </invalid_frontend_input>
+                    <unable_to_save>
+                        <code>105</code>
+                        <message>Unable to save attribute.</message>
+                    </unable_to_save>
+                    <can_not_delete>
+                        <code>106</code>
+                        <message>This attribute cannot be deleted.</message>
+                    </can_not_delete>
+                    <can_not_edit>
+                        <code>107</code>
+                        <message>This attribute cannot be edited.</message>
+                    </can_not_edit>
+                    <unable_to_add_option>
+                        <code>108</code>
+                        <message>Unable to add option.</message>
+                    </unable_to_add_option>
+                    <unable_to_remove_option>
+                        <code>109</code>
+                        <message>Unable to remove option.</message>
+                    </unable_to_remove_option>
                 </faults>
             </catalog_product_attribute>
             <catalog_product_attribute_set translate="title" module="catalog">
                 <title>Product attribute sets API</title>
                 <model>catalog/product_attribute_set_api</model>
-                <acl>catalog/product</acl>
+                <acl>catalog/product/attribute/set</acl>
                 <methods>
+                    <create translate="title" module="catalog">
+                        <title>Create attribute set based on another set</title>
+                        <acl>catalog/product/attribute/set/create</acl>
+                    </create>
+                    <remove translate="title" module="catalog">
+                        <title>Remove attribute set</title>
+                        <acl>catalog/product/attribute/set/remove</acl>
+                    </remove>
                     <list translate="title" module="catalog">
                         <title>Retrieve product attribute sets</title>
                         <method>items</method>
+                        <acl>catalog/product/attribute/set/list</acl>
                     </list>
+                    <attributeAdd translate="title" module="catalog">
+                        <title>Add attribute into attribute set</title>
+                        <acl>catalog/product/attribute/set/attribute_add</acl>
+                    </attributeAdd>
+                    <attributeRemove translate="title" module="catalog">
+                        <title>Remove attribute from attribute set</title>
+                        <acl>catalog/product/attribute/set/attribute_remove</acl>
+                    </attributeRemove>
+                    <groupAdd translate="title" module="catalog">
+                        <title>Add group into attribute set</title>
+                        <acl>catalog/product/attribute/set/group_add</acl>
+                    </groupAdd>
+                    <groupRename translate="title" module="catalog">
+                        <title>Rename existing group</title>
+                        <acl>catalog/product/attribute/set/group_rename</acl>
+                    </groupRename>
+                    <groupRemove translate="title" module="catalog">
+                        <title>Remove group from attribute set</title>
+                        <acl>catalog/product/attribute/set/group_remove</acl>
+                    </groupRemove>
                 </methods>
                 <faults module="catalog">
+                    <invalid_skeleton_set_id>
+                        <code>100</code>
+                        <message>Attribute set with requested id does not exist.</message>
+                    </invalid_skeleton_set_id>
+                    <invalid_data>
+                        <code>101</code>
+                        <message>Invalid data given.</message>
+                    </invalid_data>
+                    <create_attribute_set_error>
+                        <code>102</code>
+                        <message>Error while creating attribute set. Details in error message.</message>
+                    </create_attribute_set_error>
+                    <remove_attribute_set_error>
+                        <code>103</code>
+                        <message>Error while removing attribute set. Details in error message.</message>
+                    </remove_attribute_set_error>
+                    <invalid_attribute_set_id>
+                        <code>104</code>
+                        <message>Attribute set with requested id does not exist.</message>
+                    </invalid_attribute_set_id>
+                    <attribute_set_has_related_products>
+                        <code>105</code>
+                        <message>Unable to remove attribute set as it has related goods. Use forceProductsRemove parameter to remove attribute set with all goods.</message>
+                    </attribute_set_has_related_products>
+                    <invalid_attribute_id>
+                        <code>106</code>
+                        <message>Attribute with requested id does not exist.</message>
+                    </invalid_attribute_id>
+                    <add_attribute_error>
+                        <code>107</code>
+                        <message>Error while adding attribute to attribute set. Details in error message.</message>
+                    </add_attribute_error>
+                    <invalid_attribute_group_id>
+                        <code>108</code>
+                        <message>Attribute group with requested id does not exist.</message>
+                    </invalid_attribute_group_id>
+                    <attribute_is_already_in_set>
+                        <code>109</code>
+                        <message>Requested attribute is already in requested attribute set.</message>
+                    </attribute_is_already_in_set>
+                    <remove_attribute_error>
+                        <code>110</code>
+                        <message>Error while removing attribute from attribute set. Details in error message.</message>
+                    </remove_attribute_error>
+                    <attribute_is_not_in_set>
+                        <code>111</code>
+                        <message>Requested attribute is not in requested attribute set.</message>
+                    </attribute_is_not_in_set>
+                    <group_already_exists>
+                        <code>112</code>
+                        <message>Requested group exist already in requested attribute set.</message>
+                    </group_already_exists>
+                    <group_add_error>
+                        <code>113</code>
+                        <message>Error while adding group to attribute set. Details in error message.</message>
+                    </group_add_error>
+                    <group_rename_error>
+                        <code>114</code>
+                        <message>Error while renaming group. Details in error message.</message>
+                    </group_rename_error>
+                    <group_remove_error>
+                        <code>115</code>
+                        <message>Error while removing group from attribute set. Details in error message.</message>
+                    </group_remove_error>
+                    <group_has_system_attributes>
+                        <code>116</code>
+                        <message>Group can not be removed as it contains system attributes.</message>
+                    </group_has_system_attributes>
+                    <group_has_configurable_attributes>
+                        <code>117</code>
+                        <message>Group can not be removed as it contains attributes, used in configurable products.</message>
+                    </group_has_configurable_attributes>
                 </faults>
             </catalog_product_attribute_set>
             <catalog_product_type translate="title" module="catalog">
@@ -391,6 +569,134 @@
                     </not_removed>
                 </faults>
             </catalog_product_link>
+            <catalog_product_custom_option translate="title" module="catalog">
+                <title>Catalog product custom options API</title>
+                <model>catalog/product_option_api</model>
+                <acl>catalog/product/option</acl>
+                <methods>
+                    <add translate="title" module="catalog">
+                        <title>Add new custom option into product</title>
+                        <acl>catalog/product/option/add</acl>
+                    </add>
+                    <update translate="title" module="catalog">
+                        <title>Update custom option of product</title>
+                        <acl>catalog/product/option/update</acl>
+                    </update>
+                    <types translate="title" module="catalog">
+                        <title>Get list of available custom option types</title>
+                        <acl>catalog/product/option/types</acl>
+                    </types>
+                    <info translate="title" module="catalog">
+                        <title>Get full information about custom option in product</title>
+                        <acl>catalog/product/option/info</acl>
+                    </info>
+                    <list translate="title" module="catalog">
+                        <title>Retrieve list of product custom options</title>
+                        <acl>catalog/product/option/list</acl>
+                        <method>items</method>
+                    </list>
+                    <remove translate="title" module="catalog">
+                        <title>Remove custom option</title>
+                        <acl>catalog/product/option/remove</acl>
+                    </remove>
+                </methods>
+                <faults module="catalog">
+                    <product_not_exists>
+                        <code>101</code>
+                        <message>Product with requested id does not exist.</message>
+                    </product_not_exists>
+                    <invalid_data>
+                        <code>102</code>
+                        <message>Provided data is invalid.</message>
+                    </invalid_data>
+                    <save_option_error>
+                        <code>103</code>
+                        <message>Error while saving an option. Details are in the error message.</message>
+                    </save_option_error>
+                    <store_not_exists>
+                        <code>104</code>
+                        <message>Store with requested code/id does not exist.</message>
+                    </store_not_exists>
+                    <option_not_exists>
+                        <code>105</code>
+                        <message>Option with requested id does not exist.</message>
+                    </option_not_exists>
+                    <invalid_type>
+                        <code>106</code>
+                        <message>Invalid option type provided. Call 'types' to get list of allowed option types.</message>
+                    </invalid_type>
+                    <delete_option_error>
+                        <code>107</code>
+                        <message>Error while deleting an option. Details are in the error message.</message>
+                    </delete_option_error>
+                </faults>
+            </catalog_product_custom_option>
+            <catalog_product_custom_option_value translate="title" module="catalog">
+                <title>Catalog product custom option values API</title>
+                <model>catalog/product_option_value_api</model>
+                <acl>catalog/product/option/value</acl>
+                <methods>
+                    <list translate="title" module="catalog">
+                        <title>Retrieve list of option values</title>
+                        <method>items</method>
+                        <acl>catalog/product/option/value/list</acl>
+                    </list>
+                    <info translate="title" module="catalog">
+                        <title>Retrieve option value info</title>
+                        <acl>catalog/product/option/value/info</acl>
+                    </info>
+                    <add translate="title" module="catalog">
+                        <title>Add new values into custom option</title>
+                        <acl>catalog/product/option/value/add</acl>
+                    </add>
+                    <update translate="title" module="catalog">
+                        <title>Update value of custom option</title>
+                        <acl>catalog/product/option/value/update</acl>
+                    </update>
+                    <remove translate="title" module="catalog">
+                        <title>Remove value from custom option</title>
+                        <acl>catalog/product/option/value/remove</acl>
+                    </remove>
+                </methods>
+                <faults module="catalog">
+                    <value_not_exists>
+                        <code>101</code>
+                        <message>Option value with requested id does not exist.</message>
+                    </value_not_exists>
+                    <add_option_value_error>
+                        <code>102</code>
+                        <message>Error while adding an option value. Details are in the error message.</message>
+                    </add_option_value_error>
+                    <option_not_exists>
+                        <code>103</code>
+                        <message>Option with requested id does not exist.</message>
+                    </option_not_exists>
+                    <invalid_option_type>
+                        <code>104</code>
+                        <message>Invalid option type.</message>
+                    </invalid_option_type>
+                    <store_not_exists>
+                        <code>105</code>
+                        <message>Store with requested code/id does not exist.</message>
+                    </store_not_exists>
+                    <can_not_delete>
+                        <code>106</code>
+                        <message>Can not delete option.</message>
+                    </can_not_delete>
+                    <update_option_value_error>
+                        <code>107</code>
+                        <message>Error while updating an option value. Details are in the error message.</message>
+                    </update_option_value_error>
+                    <option_value_title_required>
+                        <code>108</code>
+                        <message>Title field is required.</message>
+                    </option_value_title_required>
+                    <cant_delete_last_value>
+                        <code>109</code>
+                        <message>Option should have at least one value. Can not delete last value.</message>
+                    </cant_delete_last_value>
+                </faults>
+            </catalog_product_custom_option_value>
         </resources>
         <resources_alias>
             <category>catalog_category</category>
@@ -404,6 +710,8 @@
             <product_media>catalog_product_attribute_media</product_media>
             <product_attribute_tier_price>catalog_product_attribute_tier_price</product_attribute_tier_price>
             <product_tier_price>catalog_product_attribute_tier_price</product_tier_price>
+            <product_custom_option>catalog_product_custom_option</product_custom_option>
+            <product_custom_option_value>catalog_product_custom_option_value</product_custom_option_value>
         </resources_alias>
         <v2>
             <resources_function_prefix>
@@ -416,8 +724,32 @@
                 <product_tier_price>catalogProductAttributeTierPrice</product_tier_price>
                 <product_attribute_media>catalogProductAttributeMedia</product_attribute_media>
                 <product_link>catalogProductLink</product_link>
+                <product_custom_option>catalogProductCustomOption</product_custom_option>
+                <product_custom_option_value>catalogProductCustomOptionValue</product_custom_option_value>
             </resources_function_prefix>
         </v2>
+        <rest>
+            <mapping>
+                <catalog_category>
+                    <get_list>
+                        <method>tree</method>
+                    </get_list>
+                </catalog_category>
+                <catalog_product_attribute_media>
+                    <delete>
+                        <method>remove</method>
+                    </delete>
+                </catalog_product_attribute_media>
+                <catalog_product_link>
+                    <post>
+                        <method>assign</method>
+                    </post>
+                    <delete>
+                        <method>remove</method>
+                    </delete>
+                </catalog_product_link>
+            </mapping>
+        </rest>
         <acl>
             <resources>
                 <catalog translate="title" module="catalog">
@@ -443,6 +775,10 @@
                         <info translate="title" module="catalog">
                             <title>Retrieve category data</title>
                         </info>
+                        <attributes module="catalog" model="catalog/category">
+                            <title>Allowed Attributes (REST Only)</title>
+                            <sort_order>0</sort_order>
+                        </attributes>
                         <product translate="title" module="catalog">
                             <title>Assigned Products</title>
                             <sort_order>100</sort_order>
@@ -474,6 +810,13 @@
                         <info translate="title" module="catalog">
                             <title>Retrieve products data</title>
                         </info>
+                        <listOfAdditionalAttributes>
+                            <title>Get list of non-default attributes by product type and attributes set</title>
+                        </listOfAdditionalAttributes>
+                        <attributes module="catalog" model="catalog/product">
+                            <title>Allowed Attributes (REST Only)</title>
+                            <sort_order>0</sort_order>
+                        </attributes>
                         <attribute translate="title" module="catalog">
                             <title>Product Attributes</title>
                             <sort_order>100</sort_order>
@@ -483,6 +826,57 @@
                             <write translate="title" module="catalog">
                                 <title>Change or Retrieve attribute store view</title>
                             </write>
+                            <types translate="title" module="catalog">
+                                <title>Get list of possible attribute types</title>
+                            </types>
+                            <create translate="title" module="catalog">
+                                <title>Create</title>
+                            </create>
+                            <update translate="title" module="catalog">
+                                <title>Update</title>
+                            </update>
+                            <remove translate="title" module="catalog">
+                                <title>Remove</title>
+                            </remove>
+                            <info translate="title" module="catalog">
+                                <title>Get full information about attribute with list of options</title>
+                            </info>
+                            <option translate="title" module="catalog">
+                                <title>Options</title>
+                                <add translate="title" module="catalog">
+                                    <title>Add</title>
+                                </add>
+                                <remove translate="title" module="catalog">
+                                    <title>Remove</title>
+                                </remove>
+                            </option>
+                            <set translate="title" module="catalog">
+                                <title>Attribute Sets</title>
+                                <list translate="title" module="catalog">
+                                    <title>List</title>
+                                </list>
+                                <create translate="title" module="catalog">
+                                    <title>Create</title>
+                                </create>
+                                <remove translate="title" module="catalog">
+                                    <title>Remove</title>
+                                </remove>
+                                <attribute_add translate="title" module="catalog">
+                                    <title>Attribute add</title>
+                                </attribute_add>
+                                <attribute_remove translate="title" module="catalog">
+                                    <title>Attribute remove</title>
+                                </attribute_remove>
+                                <group_add translate="title" module="catalog">
+                                    <title>Group add</title>
+                                </group_add>
+                                <group_rename translate="title" module="catalog">
+                                    <title>Rename group</title>
+                                </group_rename>
+                                <group_remove translate="title" module="catalog">
+                                    <title>Group remove</title>
+                                </group_remove>
+                            </set>
                         </attribute>
                         <link translate="title" module="catalog">
                             <title>Link (Related, Up sell, Cross sell)</title>
@@ -510,6 +904,47 @@
                                 <title>Remove</title>
                             </remove>
                         </media>
+                        <option translate="title" module="catalog">
+                            <title>Custom options</title>
+                            <sort_order>105</sort_order>
+                            <add translate="title" module="catalog">
+                                <title>Add</title>
+                            </add>
+                            <update translate="title" module="catalog">
+                                <title>Update</title>
+                            </update>
+                            <types translate="title" module="catalog">
+                                <title>List of types</title>
+                            </types>
+                            <info translate="title" module="catalog">
+                                <title>Info</title>
+                            </info>
+                            <list translate="title" module="catalog">
+                                <title>List</title>
+                            </list>
+                            <remove translate="title" module="catalog">
+                                <title>Remove</title>
+                            </remove>
+                            <value translate="title" module="catalog">
+                                <title>Option values</title>
+                                <sort_order>107</sort_order>
+                                <list translate="title" module="catalog">
+                                    <title>List</title>
+                                </list>
+                                <info translate="title" module="catalog">
+                                    <title>Info</title>
+                                </info>
+                                <add translate="title" module="catalog">
+                                    <title>Add</title>
+                                </add>
+                                <update translate="title" module="catalog">
+                                    <title>Update</title>
+                                </update>
+                                <remove translate="title" module="catalog">
+                                    <title>Remove</title>
+                                </remove>
+                            </value>
+                        </option>
                     </product>
                 </catalog>
             </resources>

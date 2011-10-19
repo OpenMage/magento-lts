@@ -31,8 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Authorizenet
-    extends Mage_Paygate_Block_Authorizenet_Info_Cc
+class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Authorizenet extends Mage_Paygate_Block_Authorizenet_Info_Cc
 {
     /**
      * Add Authorizenet info to order XML object
@@ -44,31 +43,20 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Authorizenet
     {
         $orderItemXmlObj->addAttribute('type', $this->getMethod()->getCode());
         if (!$this->getHideTitle()) {
-            $orderItemXmlObj->addAttribute(
-                'title',
-                $orderItemXmlObj->xmlAttribute($this->getMethod()->getTitle())
-            );
+            $orderItemXmlObj->addAttribute('title', $orderItemXmlObj->xmlAttribute($this->getMethod()->getTitle()));
         }
 
         $cards = $this->getCards();
         $showCount = count($cards) > 1;
 
         foreach ($cards as $key => $card) {
-            $creditCard = $orderItemXmlObj->addCustomChild(
-                'item',
-                null,
-                array(
-                    'label' => $showCount ? $this->__('Credit Card %s', $key + 1) : $this->__('Credit Card')
-                )
-            );
+            $creditCard = $orderItemXmlObj->addCustomChild('item', null, array(
+                'label' => $showCount ? $this->__('Credit Card %s', $key + 1) : $this->__('Credit Card')
+            ));
             foreach ($card as $label => $value) {
-                $creditCard->addCustomChild(
-                    'item',
-                    implode($this->getValueAsArray($value, true), PHP_EOL),
-                    array(
-                        'label' => $label
-                    )
-                );
+                $creditCard->addCustomChild('item', implode($this->getValueAsArray($value, true), '\n'), array(
+                    'label' => $label
+                ));
             }
         }
     }

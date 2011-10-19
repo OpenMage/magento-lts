@@ -34,6 +34,10 @@
  */
 class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    protected $_map = array('fields' => array(
+        'agreement_id' => 'main_table.agreement_id',
+    ));
+
     /**
      * Is store filter with admin store
      *

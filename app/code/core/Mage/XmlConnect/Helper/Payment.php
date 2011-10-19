@@ -31,7 +31,7 @@ class Mage_XmlConnect_Helper_Payment extends Mage_Core_Helper_Abstract
 {
     /**
      * Return paymentMethod => methodCode array
-     * 
+     *
      * @deprecated after 1.4.2.0
      * @return array
      */

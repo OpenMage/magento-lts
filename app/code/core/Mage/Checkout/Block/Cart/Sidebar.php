@@ -258,4 +258,56 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
         }
         return $this->_totals;
     }
+
+    /**
+     * Get cache key informative items
+     *
+     * @return array
+     */
+    public function getCacheKeyInfo()
+    {
+        $cacheKeyInfo = parent::getCacheKeyInfo();
+        $cacheKeyInfo['item_renders'] = $this->_serializeRenders();
+        return $cacheKeyInfo;
+    }
+
+    /**
+     * Serialize renders
+     *
+     * @return string
+     */
+    protected function _serializeRenders()
+    {
+        $result = array();
+        foreach ($this->_itemRenders as $type => $renderer) {
+            $result[] = implode('|', array($type, $renderer['block'], $renderer['template']));
+        }
+        return implode('|', $result);
+    }
+
+    /**
+     * Deserialize renders from string
+     *
+     * @param string $renders
+     * @return Mage_Checkout_Block_Cart_Sidebar
+     */
+    public function deserializeRenders($renders)
+    {
+        if (!is_string($renders)) {
+            return $this;
+        }
+
+        $renders = explode('|', $renders);
+        while (!empty($renders)) {
+            $template = array_pop($renders);
+            $block = array_pop($renders);
+            $type = array_pop($renders);
+            if (!$template || !$block || !$type) {
+                continue;
+            }
+            $this->addItemRender($type, $block, $template);
+        }
+
+        return $this;
+    }
 }

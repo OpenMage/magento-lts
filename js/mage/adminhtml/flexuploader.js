@@ -65,8 +65,8 @@ if(!window.Flex) {
                 top: 300,
                 width:  flexWidth,
                 height: 20,
-                src:    uploaderSrc
-                // wmode: 'transparent'
+                src:    uploaderSrc,
+                wmode: 'transparent'
             });
             // this.getInnerElement('browse').disabled = true;
             // this.getInnerElement('upload').disabled = true;

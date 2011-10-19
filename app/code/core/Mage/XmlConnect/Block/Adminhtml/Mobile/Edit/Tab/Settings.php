@@ -23,7 +23,16 @@
  * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Settings extends Mage_Adminhtml_Block_Widget_Form
+
+/**
+ * Tab for Settings Management
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Settings
+    extends Mage_Adminhtml_Block_Widget_Form
     implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     protected function _prepareLayout()
@@ -34,8 +43,9 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Settings extends Mage_Admi
                     'label'     => Mage::helper('catalog')->__('Continue'),
                     'onclick'   => "if (editForm.submit()) { return false }",
                     'class'     => 'save'
-                    ))
-                );
+                )
+            )
+        );
         return parent::_prepareLayout();
     }
 

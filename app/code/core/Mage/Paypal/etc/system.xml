@@ -1572,6 +1572,16 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                         </payment_action>
+                        <authorization_amount translate="label">
+                            <label>Verification Authorization Amount</label>
+                            <comment><![CDATA[<a id="PayFlowLinkLearnMore" href="#">Learn More</a>]]></comment>
+                            <config_path>payment/payflow_link/authorization_amount</config_path>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paypal/system_config_source_authorizationAmounts</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </authorization_amount>
                         <allowspecific translate="label">
                             <label>Payment Applicable From</label>
                             <config_path>payment/payflow_link/allowspecific</config_path>
@@ -1615,22 +1625,23 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                         </partner>
-                        <user translate="label">
-                            <label>User</label>
+                        <vendor translate="label">
+                            <label>Vendor / Merchant Login</label>
+                            <config_path>payment/payflow_link/vendor</config_path>
                             <frontend_type>text</frontend_type>
-                            <config_path>payment/payflow_link/user</config_path>
                             <sort_order>45</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                        </user>
-                        <vendor translate="label">
-                            <label>Vendor</label>
-                            <config_path>payment/payflow_link/vendor</config_path>
+                        </vendor>
+                        <user translate="label">
+                            <label>User</label>
+                            <comment>If you do not have multiple users set up on your account, please re-enter your Vendor/Merchant Login here.</comment>
                             <frontend_type>text</frontend_type>
+                            <config_path>payment/payflow_link/user</config_path>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                        </vendor>
+                        </user>
                         <pwd translate="label">
                             <label>Password</label>
                             <config_path>payment/payflow_link/pwd</config_path>

@@ -35,9 +35,10 @@ class Mage_XmlConnect_Block_Customer_Order_Totals extends Mage_Sales_Block_Order
 {
     /**
      * Add order totals rendered to XML object
+     * (get from template: sales/order/totals.phtml)
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $orderXmlObj
-     * @return void
+     * @return null
      */
     public function addTotalsToXmlObject(Mage_XmlConnect_Model_Simplexml_Element $orderXmlObj)
     {
@@ -112,20 +113,13 @@ class Mage_XmlConnect_Block_Customer_Order_Totals extends Mage_Sales_Block_Order
      *
      * @param Varien_Object $total
      * @param Mage_XmlConnect_Model_Simplexml_Element $totalsXml
-     * @return void
+     * @return null
      */
     private function _addTotalToXml($total, Mage_XmlConnect_Model_Simplexml_Element $totalsXml)
     {
-        if (
-            $total instanceof Varien_Object
-            && $total->getCode()
-            && $total->getLabel()
-            && $total->hasData('value')
-        ) {
-            $totalsXml->addCustomChild(
-                preg_replace('@[\W]+@', '_', trim($total->getCode())),
-                $this->_formatPrice($total),
-                array('label' => strip_tags($total->getLabel()))
+        if ($total instanceof Varien_Object && $total->getCode() && $total->getLabel() && $total->hasData('value')) {
+            $totalsXml->addCustomChild(preg_replace('@[\W]+@', '_', trim($total->getCode())),
+                $this->_formatPrice($total), array('label' => strip_tags($total->getLabel()))
             );
         }
     }
@@ -139,7 +133,7 @@ class Mage_XmlConnect_Block_Customer_Order_Totals extends Mage_Sales_Block_Order
     protected function _formatPrice($total)
     {
         if (!$total->getIsFormated()) {
-            return $this->getOrder()->getOrderCurrency()->formatPrecision($total->getValue(), 2, array(), false);
+            return Mage::helper('xmlconnect/customer_order')->formatPrice($this, $total->getValue());
         }
         return $total->getValue();
     }

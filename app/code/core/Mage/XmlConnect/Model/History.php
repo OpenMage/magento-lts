@@ -24,9 +24,8 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- * XmlConnect Model History
+ * Xmlconnect history model
  *
  * @method Mage_XmlConnect_Model_Resource_History _getResource()
  * @method Mage_XmlConnect_Model_Resource_History getResource()
@@ -54,7 +53,7 @@ class Mage_XmlConnect_Model_History extends Mage_Core_Model_Abstract
     /**
      * Initialize application
      *
-     * @return void
+     * @return null
      */
     protected function _construct()
     {
@@ -64,7 +63,7 @@ class Mage_XmlConnect_Model_History extends Mage_Core_Model_Abstract
     /**
      * Get array of existing images
      *
-     * @param int $id application instance Id
+     * @param int $id Application instance Id
      * @return array
      */
     public function getLastParams($id)

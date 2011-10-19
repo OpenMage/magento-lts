@@ -312,4 +312,24 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         }
         return $this;
     }
+
+    /**
+     * Change reset password link token
+     *
+     * Stores new reset password link token and its creation time
+     *
+     * @param Mage_Customer_Model_Customer $newResetPasswordLinkToken
+     * @param string $newResetPasswordLinkToken
+     * @return Mage_Customer_Model_Resource_Customer
+     */
+    public function changeResetPasswordLinkToken(Mage_Customer_Model_Customer $customer, $newResetPasswordLinkToken) {
+        if (is_string($newResetPasswordLinkToken) && !empty($newResetPasswordLinkToken)) {
+            $customer->setRpToken($newResetPasswordLinkToken);
+            $currentDate = Varien_Date::now(true);
+            $customer->setRpTokenCreatedAt($currentDate);
+            $this->saveAttribute($customer, 'rp_token');
+            $this->saveAttribute($customer, 'rp_token_created_at');
+        }
+        return $this;
+    }
 }

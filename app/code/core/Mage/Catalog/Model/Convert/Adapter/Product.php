@@ -742,7 +742,13 @@ class Mage_Catalog_Model_Convert_Adapter_Product
                 } else {
                     $setValue = false;
                     foreach ($options as $item) {
-                        if ($item['label'] == $value) {
+                        if (is_array($item['value'])) {
+                            foreach ($item['value'] as $subValue) {
+                                if (isset($subValue['value']) && $subValue['value'] == $value) {
+                                    $setValue = $value;
+                                }
+                            }
+                        } else if ($item['label'] == $value) {
                             $setValue = $item['value'];
                         }
                     }

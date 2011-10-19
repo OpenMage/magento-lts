@@ -262,6 +262,8 @@ Catalog.Map = {
             productAddToCartForm.submitLight = productAddToCartFormOld.submitLight;
         }else if(!$('product_addtocart_form_from_popup')) {
             return false;
+        } else if ('undefined' == typeof productAddToCartForm) {
+            productAddToCartForm = new VarienForm('product_addtocart_form_from_popup');
         }
         productAddToCartForm.submit = function(button, url) {
             if (('undefined' != typeof productAddToCartFormOld) && productAddToCartFormOld) {

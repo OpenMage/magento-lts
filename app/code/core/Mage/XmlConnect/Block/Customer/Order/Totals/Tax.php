@@ -37,7 +37,7 @@ class Mage_XmlConnect_Block_Customer_Order_Totals_Tax extends Mage_Tax_Block_Sal
      * Add order taxes rendered to XML object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $totalsXmlObj
-     * @return void
+     * @return null
      */
     public function addToXmlObject(Mage_XmlConnect_Model_Simplexml_Element $totalsXmlObj)
     {
@@ -54,16 +54,12 @@ class Mage_XmlConnect_Block_Customer_Order_Totals_Tax extends Mage_Tax_Block_Sal
 
                 foreach ((array)$info['rates'] as $rate) {
                     if (isset($info['amount'])) {
-                        $config = array(
-                            'label' => $rate['title']
-                        );
+                        $config = array('label' => $rate['title']);
                         if (!is_null($rate['percent'])) {
-                            $config['percent'] = '(' . (float)$rate['percent'] . '%)';
+                            $config['percent'] = sprintf('(%0.2f%%)', $rate['percent']);
                         }
                         $taxesXmlObj->addCustomChild(
-                            'item',
-                            is_null($rate['percent']) ? '' : $this->_formatPrice($info['amount']),
-                            $config
+                            'item', is_null($rate['percent']) ? '' : $this->_formatPrice($info['amount']), $config
                         );
                     }
                 }
@@ -71,11 +67,7 @@ class Mage_XmlConnect_Block_Customer_Order_Totals_Tax extends Mage_Tax_Block_Sal
         }
 
         $taxesXmlObj->addCustomChild(
-            'summary',
-            $this->_formatPrice($this->getSource()->getTaxAmount()),
-            array(
-                'label' => $this->__('Tax')
-            )
+            'summary', $this->_formatPrice($this->getSource()->getTaxAmount()), array('label' => $this->__('Tax'))
         );
     }
 
@@ -87,6 +79,6 @@ class Mage_XmlConnect_Block_Customer_Order_Totals_Tax extends Mage_Tax_Block_Sal
      */
     protected function _formatPrice($amount)
     {
-        return $this->getOrder()->getOrderCurrency()->formatPrecision($amount, 2, array(), false);
+        return Mage::helper('xmlconnect/customer_order')->formatPrice($this, $amount);
     }
 }

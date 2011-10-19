@@ -23,7 +23,16 @@
  * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form extends Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form
+
+/**
+ * Xmlconnect queue edit form block
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form
+    extends Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form
 {
     /**
      * Prepare form before rendering HTML
@@ -34,7 +43,12 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form extends Mage_XmlConnect_Bl
     protected function _prepareForm()
     {
         $model = Mage::registry('current_message');
-        $this->_fieldsEnabled = $model->getStatus() == Mage_XmlConnect_Model_Queue::STATUS_IN_QUEUE ? true : false;
+
+        if ($model->getStatus() == Mage_XmlConnect_Model_Queue::STATUS_IN_QUEUE) {
+            $this->_fieldsEnabled = true;
+        } else {
+            $this->_fieldsEnabled = false;
+        }
 
         parent::_prepareForm();
 
@@ -44,7 +58,11 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form extends Mage_XmlConnect_Bl
             $templateModel = Mage::getModel('xmlconnect/template')->load($model->getTemplateId());
         }
 
-        $fieldset = $this->getForm()->addFieldset("message_settings", array('legend' => $this->__('Message Settings')), '^');
+        $fieldset = $this->getForm()->addFieldset(
+            "message_settings",
+            array('legend' => $this->__('Message Settings')),
+            '^'
+        );
 
         if ($model->getId()) {
             $fieldset->addField('message_id', 'hidden', array(
@@ -55,7 +73,7 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form extends Mage_XmlConnect_Bl
         // set exec_time for showing accordingly to locale datetime settings
         $model->setExecTime(Mage::getSingleton('core/date')->date(null, $model->getExecTime()));
 
-        /*@var $sovereignField Varien_Data_Form_Element_Abstract */
+        /** @var $sovereignField Varien_Data_Form_Element_Abstract */
         $sovereignField = $fieldset->addField('type', 'select', array(
             'name'      => 'type',
             'values'    => Mage::helper('xmlconnect')->getMessageTypeOptions(),
@@ -80,30 +98,40 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form extends Mage_XmlConnect_Bl
         $this->_addElementTypes($fieldset);
 
         // field dependencies
-        // i don't know how to not hardcoded this dependence (I mean 'airmail' message type is now used for set these dependences)
         if (isset($this->_dependentFields['message_title']) || isset($this->_dependentFields['content'])) {
             $dependenceBlock = $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence');
 
-            $dependenceBlock->addFieldMap($this->_dependentFields['message_title']->getHtmlId(), $this->_dependentFields['message_title']->getName())
-                ->addFieldMap($this->_dependentFields['content']->getHtmlId(), $this->_dependentFields['content']->getName())
-                ->addFieldMap($sovereignField->getHtmlId(), $sovereignField->getName());
+            $dependenceBlock->addFieldMap(
+                $this->_dependentFields['message_title']->getHtmlId(),
+                $this->_dependentFields['message_title']->getName()
+            )
+            ->addFieldMap(
+                $this->_dependentFields['content']->getHtmlId(),
+                $this->_dependentFields['content']->getName()
+            )
+            ->addFieldMap(
+                $sovereignField->getHtmlId(),
+                $sovereignField->getName()
+            );
 
-            if (isset($this->_dependentFields['message_title']) && $this->_dependentFields['message_title']) {
+            if (!empty($this->_dependentFields['message_title'])) {
                 $dependenceBlock->addFieldDependence(
                     $this->_dependentFields['message_title']->getName(),
                     $sovereignField->getName(),
-                    Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL);
+                    Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL
+                );
 
                 if (!$this->_fieldsEnabled) {
                     $this->_dependentFields['message_title']->setReadonly(true, true);
                 }
             }
 
-            if (isset($this->_dependentFields['content']) && $this->_dependentFields['content']) {
+            if (!empty($this->_dependentFields['content'])) {
                 $dependenceBlock->addFieldDependence(
                     $this->_dependentFields['content']->getName(),
                     $sovereignField->getName(),
-                    Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL);
+                    Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL
+                );
 
                 if (!$this->_fieldsEnabled) {
                     $this->_dependentFields['content']->setReadonly(true, true);
@@ -128,6 +156,7 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form extends Mage_XmlConnect_Bl
             $model->setTemplateId($templateModel->getId());
         }
         $model->setMessageId($model->getId());
+        $model->setData('app_code', $templateModel->getData('app_code'));
 
         $this->getForm()->setAction($this->getUrl('*/*/saveMessage'));
         $this->getForm()->setValues($model->getData());

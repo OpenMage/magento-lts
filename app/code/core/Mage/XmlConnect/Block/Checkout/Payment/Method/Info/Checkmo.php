@@ -43,28 +43,19 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Checkmo extends Mage_Pa
     {
         $orderItemXmlObj->addAttribute('type', $this->getMethod()->getCode());
         $orderItemXmlObj->addAttribute(
-            'title',
-            $orderItemXmlObj->xmlAttribute($this->getMethod()->getTitle())
+            'title', $orderItemXmlObj->xmlAttribute($this->getMethod()->getTitle())
         );
 
         if ($this->getInfo()->getAdditionalData()) {
             if ($this->getPayableTo()) {
-                $orderItemXmlObj->addCustomChild(
-                    'item',
-                    $this->getPayableTo(),
-                    array(
-                        'label' => Mage::helper('sales')->__('Make Check payable to:')
-                    )
-                );
+                $orderItemXmlObj->addCustomChild('item', $this->getPayableTo(), array(
+                    'label' => Mage::helper('sales')->__('Make Check payable to:')
+                ));
             }
             if ($this->getMailingAddress()) {
-                $orderItemXmlObj->addCustomChild(
-                    'item',
-                    $this->getMailingAddress(),
-                    array(
-                        'label' => Mage::helper('payment')->__('Send Check to:')
-                    )
-                );
+                $orderItemXmlObj->addCustomChild('item', $this->getMailingAddress(), array(
+                    'label' => Mage::helper('payment')->__('Send Check to:')
+                ));
             }
         }
     }

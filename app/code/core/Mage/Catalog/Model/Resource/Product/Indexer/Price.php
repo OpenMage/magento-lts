@@ -376,7 +376,13 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         $indexers = $this->getTypeIndexers();
         foreach ($indexers as $indexer) {
             /** @var $indexer Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface */
+            if (!$this->_allowTableChanges && is_callable(array($indexer, 'setAllowTableChanges'))) {
+                $indexer->setAllowTableChanges(false);
+            }
             $indexer->reindexAll();
+            if (!$this->_allowTableChanges && is_callable(array($indexer, 'setAllowTableChanges'))) {
+                $indexer->setAllowTableChanges(true);
+            }
         }
 
         $this->syncData();

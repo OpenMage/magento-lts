@@ -97,7 +97,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
         $session    = Mage::getSingleton('wishlist/session');
         $cart       = Mage::getSingleton('checkout/cart');
 
-        $redirectUrl = Mage::getUrl('*/*');
+        $redirectUrl = $this->_getRefererUrl();
 
         try {
             $options = Mage::getModel('wishlist/item_option')->getCollection()
@@ -109,18 +109,13 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
 
             if (Mage::helper('checkout/cart')->getShouldRedirectToCart()) {
                 $redirectUrl = Mage::helper('checkout/cart')->getCartUrl();
-            } else if ($this->_getRefererUrl()) {
-                $redirectUrl = $this->_getRefererUrl();
             }
         } catch (Mage_Core_Exception $e) {
             if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SALABLE) {
                 $session->addError(Mage::helper('wishlist')->__('This product(s) is currently out of stock'));
-            } else if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS) {
-                Mage::getSingleton('catalog/session')->addNotice($e->getMessage());
-                $redirectUrl = Mage::getUrl('*/*/configure/', array('id' => $item->getId()));
             } else {
                 Mage::getSingleton('catalog/session')->addNotice($e->getMessage());
-                $redirectUrl = Mage::getUrl('*/*/configure/', array('id' => $item->getId()));
+                $redirectUrl = $item->getProductUrl();
             }
         } catch (Exception $e) {
             $session->addException($e, Mage::helper('wishlist')->__('Cannot add item to shopping cart'));

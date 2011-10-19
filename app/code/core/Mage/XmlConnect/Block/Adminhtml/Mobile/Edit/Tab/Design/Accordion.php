@@ -23,7 +23,16 @@
  * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion extends Mage_Adminhtml_Block_Widget_Accordion
+
+/**
+ * Tab design accordion xml renderer
+ *
+ * @category     Mage
+ * @package      Mage_Xmlconnect
+ * @author       Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Accordion
+    extends Mage_Adminhtml_Block_Widget_Accordion
 {
     /**
      * Add accordion item by specified block

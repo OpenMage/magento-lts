@@ -1,3 +1,751 @@
+==== 1.6.1.0 ====
+
+=== Major Highlights ===
+Added two-step password reset flow
+
+=== Improvements ===
+XmlConnect package release v22.0
+Added support for using Shift-Click to select a range of grid rows when clicking check boxes
+Added ability to register during checkout when using PayPal Express
+Updated PayflowLink HSS user interface in checkout
+"Add to Wishlist", "Add to Compare" were added on the Product Details Page for configurable, bundled and downloadable products
+Updated webservices API
+
+=== Changes ===
+TheFind integration was removed
+Google Optimizer was removed (it will be supported as a core extension)
+Improved how discounts are applied to sub products
+
+=== Fixes ===
+Fixed Incorrect tax summary if taxes applied has different priorities
+Fixed Shipping method extension after disable module returns error
+Fixed Approved Review of a product is not displayed in the catalog
+Fixed Special price is not considered for bundle dynamic products in "Your Customization" block
+Fixed Incorrect behavior of changing quantity for composite products in Wishlist tab of customer's page in backend
+Fixed MAP: Exc. Tax. amount is not shown on product's page when set apply map = 'On Gesture'
+Fixed There has been an error processing your request is displayed by searching in Manage Checkout Terms and Conditions
+Fixed Button Reorder is absent when Order contains Configurable product
+Fixed Unable to place order if several tax rates with different priorities applied to bundle product
+Fixed Incorrect Tracking Request to shipping carrier (in case with FedEx)
+Fixed 'Click for price' not clickable after pressing 'Review' link in category
+Fixed XML Connect: Impossible to submit application
+Fixed MAP: with IE8 JS error appears in catalog
+Fixed Error message appears after successful checkout with PayPal Express Checkout on IE9
+Fixed Incorrect invoice document creation behaviour for bundle dynamic product
+Fixed XML Connect: Impossible to save template
+Fixed Wrong focusing in WYSIWYG on IE9, impossible to save data after inserting content
+Fixed Unable to set zero price for item in bundle product
+Fixed Incorrect tax summary if several tax rates with different priorities applied to bundle product
+Fixed Unable to create order from backend if Tax Calculation Method Based On = Unit Price/Row Total
+Fixed Incorrect Tracking Request to shipping carrier (in case with FedEx)
+Fixed Incorrect tax summary for partial documents if Tax Calculation Method Based On = Row Total/Unit Price
+Fixed Problems with partial authorization process (Authorize.net) during Admin Order creation
+Fixed Incorrect HTML markup of Installer page in IE7 and IE9
+Fixed "Apply Rules" button works incorrect in some cases
+Fixed Incorrect behavior of changing quantity for composite products in Wishlist tab of customer's page in backend
+Fixed Incorrect tax summary if product prices exclude tax
+Fixed Redirect to blank page, when click Add Wishlist on the Bundle product page
+Fixed Reviews not showing in category list page
+Fixed QTY is wrong calculated for Bundle, Virtual, Simple, Configurable, Downloadable products after editing them in wishlist
+Fixed Customer is redirected to shopping cart page instead to the "Ship to Multiple Addresses" page after login or register as a new customer
+Fixed Configurable product with selected option is deleted from wishlist after updating another configurable product
+Fixed After redirecting to product using tag 'click for price' doesn't work
+Fixed "Notify for Quantity Below" doesn't work
+Fixed Pending Reviews RSS doesn't show reviews, created for products, that are assigned not to Main Website
+Fixed Authorize Direct Post: no successful notification about place order if do 'Edit' or 'Reorder'
+Fixed Impossible to place Order with Payfowlink when Payment Action = Sale
+Fixed Poll shows incorrect percentage
+Fixed Message 'Cannot specify wishlist item.' is displayed by configuring products in wishlist in back-end
+Fixed Billing Agreements: Order status is not updated if do actions from sandbox PayPal account
+Fixed Additional authorization transaction is not displayed in Order's Transactions tab
+Fixed Unable to update already created role by Admin
+Fixed CDN Secure URL is used instead of non-secure
+Fixed Attributes name disappeared during sorting
+Fixed Typo in app/design/adminhtml/default/default/template/paypal/system/config/payflowlink/info.phtml
+Fixed Report of Reviews shows all customer reviews when select certain user
+Fixed Address Line Formats Incorrectly on PDF Invoices
+Fixed Can't search transactions by order_id in manager.paypal.com
+Fixed Wishlist Index Controller does unneeded logging of exception
+Fixed Incorrect SQL generated in review product collection resource
+Fixed Added shipping address rates collecting schedule for shipping method when shipping information step bypassed
+Fixed Customer marked as guest in "Newsletter Subscribers" grid, after subscribing to newsletters in Google Checkout
+Fixed Error is displayed by unchecking "Same As Billing Address" by creating order in admin
+Fixed Tooltip doesn't appear if you put mouse pointer in to disabled package type field (in case with USPS Domestic)
+Fixed Unable to select custom theme with underscores in name when creating a widget instance
+Fixed When Redirect to Shopping Cart = No, choosing Remove item from shopping cart sidebar while editing an item leads to endless redirect loop
+Fixed Saved CC form is not displayed, when there are no other available payment methods except Saved CC
+Fixed It's impossible to create Catalog Price Rule
+Fixed Fatal error on Multiple Addresses Checkout
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed Stock item product getter not correspond to product setter
+- added method getProduct()
+Fixed Admin user interface: mistakes in labels names
+Fixed Typo in Mage_Eav_Model_Resource_Entity_Attribute_Option model
+Fixed Billing Agreement error
+Fixed Payflow Link UI Changes
+Fixed 'Website Payments Pro' impossible to place order during onepage checkout
+Fixed Table rates works incorrect with asterisk
+Fixed Typo in Category Resource Model
+Fixed 3D secure with Saved CC works incorrectly
+- removed unrelated message which told validation failed (even if it has actually succeeded) when trying to re-validate a card
+Fixed Bug in Role Permission
+Fixed Orders placed via Google Checkout were not created on the Magento side
+Fixed When using direct Export, the _super_product_sku and _super_product_option on the configurable product does not match
+Fixed Composite product price in grid is displayed incorrectly with some currencies due to JS regexp problem
+Fixed No error message on Payflow link iframe
+Fixed Flex uploader elements overlaps hovering menu items in backend
+Fixed Unable to upload images in Magento installed on local server
+Fixed Configurable Products - Use Default (attribute name) does not work correctly on IE9
+Fixed Capture failed when Verification Authorization Amount is set to Zero
+Fixed Attribute is sorted like a string even when Input Validation for Store Owner is an Integer Number
+Fixed Void and Cancel Order doesn't work (PayflowLink HSS)
+Fixed Grand Total (Excl Tax) with negative value displays in the printed Credit Memo
+Fixed Resource model of Media module is wrongly declared
+Fixed Constraint violation with core_cache_tag table
+Fixed Misprint in \downloader\lib\Mage\Connect\Validator.php
+Fixed XMLRPC API attribute status changing
+Fixed Typo in Mage_Rss_Block_Catalog_Category::_toHtml() method
+Fixed Incorrect tax summary for partial credit memos/invoices
+Fixed SSL is not used for links in email templates when admin area is configured to use HTTPS
+Fixed Incorrect style on product page
+Fixed Error is displayed by editing product or by creating product on back-end in IE8
+Fixed Catalog price rules for composite products changes
+Fixed Moving modules to the correct place
+Fixed Wishlist shows items per store scope, not website
+Fixed Products in Wishlist disappears, when Store View is changed
+Fixed Wrong Comments History in notification of order creation/cancellation 
+Fixed In AJAX popup fields "From" and "To" have behavior as mandatory fields
+Fixed Filter by Allow Countries not working for Customer Address Form in the Backend
+Fixed Product price lower than 0 (after catalog price rule applying)
+Fixed Google Checkout throws error if Zip Range is used for Tax Rate
+- changed part of XML request to Google responsible for postal codes
+- made changes to correctly fetch tax rules for postal code ranges
+Fixed Website config object is not being cached
+Fixed Select groups in grid view doesn't work under IE7
+Fixed No products name in Popular tags report file .csv
+Fixed Qty Increments should work when it was defined in the default scope configuration
+Fixed Products in catalog displays as "out of stock"
+Fixed "Get help for this page" in each tab under System->Configuration links to the same help page
+Fixed Unable to translate submenu
+Fixed Redirect to main page of front-end during deleting Product Tax Class which is used in Tax Rule
+Fixed Redirect to base URL should consider full request URI string
+Fixed Incorrect transparency of PNG image in indexed non-alpha mode
+Fixed Problem of generation URL between different domains
+Fixed There are no server side validation of first character of Attribute Code (it should be letter)
+Fixed Edit Order without creating new one functionality saves invalid changes in non-default customer address attributes
+Fixed Frontend: If second customer logs in and does not select the "Remember Me" then the previous long-term cookie does not removes
+Fixed Admin can Reorder order with status On Hold
+Fixed Frontend: After new customer registration with "Remember Me" and pressing "Logout" the long-term cookie session doesn't apply if in configuration on backend ""Remember Me" Default Value" - No
+Fixed Tax not displaying on PayPal side for Express orders
+Fixed Wishlist: Not configured grouped product has unneeded link "Show Details"
+Fixed Removed the ability to work with customise admin url through the parameter base_url
+Fixed Roles not displaying selected resources
+Fixed Unable to use Import when compiler is enabled
+Fixed Missing Translation Capability in Transactional Email Variable
+Fixed productConfigure is undefined error is occurred during creation Order in Backend in IE8 browser
+Fixed Zend Full Page Cache. Lifetime of the cookie is not equal to specified on "Cookie Lifetime" field
+Fixed Incorrect price values for Bundle Product
+Fixed Link does not pass validation if ends with .html
+Fixed Incorrect Customs Value in Create Packages in case when price value contains decimals
+Fixed Incorrect reports with updated_at filter
+Fixed paypal_payment_transaction_clean job takes credentials form default config instead of website for Payflow Link
+Fixed Wrong schedule time setup for paypal_payment_transaction_clean job for Payflow Link
+Fixed Backend Error message "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'qwe' for key 2" appears after saving new Email Template with existing name
+Fixed Rule Conditions logic
+Fixed Error appears after Customer Group saving with name length more than 32
+Fixed Category product index run time
+Fixed Sidebar cart is missing composite product options on category page
+Fixed Missed validation for space character at the begin of unique fields
+- improved validation of Attribute Set Name and validation of unique fields in Mage_Core_Model_Resource_Db_Abstract class
+Fixed Ability to input uppercase, space, specials symbols in Order Status Code
+Fixed Filter by Allow Countries not working for Customer Address Form in the Backend
+Fixed No ability to create Shipping Label with "plus-four codes" Zip Code (in case with USPS Domestic)
+Fixed Changing language twice -> Error 404
+Fixed The sort order in products page doesn't work
+Fixed When a grouped product with configured price=0 is added to the wishlist and shared, adding the product to the cart leads to 404 error
+Fixed Media Saves Incorrect Cached Config
+- added options that disallow saving cache
+Fixed Bundle Product items shows randomly instead of according to option
+Fixed Ajax loader does not appears after click on Verify Card on Payflow Link
+Fixed "Google Checkout - Carrier" in Magento backend as shipping method rather than the actual shipping method chosen
+Fixed JavaScript error appears in checkout because of PSC after press 'Proceed to Checkout'
+Fixed Admin user interface: mistakes in labels names
+Fixed Problems with grid sorting on edit customer backend page
+Fixed It is possible to change the price of the Bundle product from fixed to the dynamic at my store
+Fixed Set special price via Catalog Product API is not working
+Fixed Price is wrong calculated for bundle product with a zero price for its items on product details page
+- subitem price calculation were fixed
+Fixed Layout issue appears in IE9 on the grids (example Customers)
+Fixed Impossible to press 'Continue' button to place in onepage
+Fixed "Add to Wishlist", "Add to Compare" aren't presented for Configurable, bundle, downloadable, simple products on Product Details Page
+Fixed Register during checkout with PayPal Express Checkout
+Fixed Extension Packager does not read recursive directory if include expression use file mask
+Fixed Newsletter Subscription Confirmation Message
+Fixed Discount is wrong calculated for Shopping Cart Price Rules when some of them created with Coupon and another without Coupon
+Fixed Subtotal (Incl.Tax) on invoices must not include tax applied to shipping amount
+- shippingTax amount were excluded from subTotal value
+Fixed "Maximum shipping amount allowed to refund" message shows amount excl. tax if Display Shipping Amount set to Including Tax
+- adjusted function to include tax into allowed amount for shipping refund
+Fixed Display Out of Stock Products must not be considered during admin order creation
+Fixed Check box is not working correctly under "prices" of the Bundle products
+Fixed CSS class missing
+Fixed Frontend: JavaScript error appears if user registered on Checkout Page
+Fixed Website config object is not being cached
+- added functionality for memcache backend to split down data that is larger than slab size into chunks
+Fixed Removed the ability to work with base_url
+Fixed Custom design should be updated via import functionality
+Fixed JS error during onepage checkout
+Fixed Unable to translate "First name" and "Last name" fields on "Create an Account" page
+Fixed After upgrading  dashboard "Top 5 Search Terms" grid doesn't show search terms
+
+
+
+==== 1.6.1.0-rc1 ====
+
+=== Major Highlights ===
+Added two-step password reset flow
+
+=== Improvements ===
+XmlConnect package release v22.0
+Added support for using Shift-Click to select a range of grid rows when clicking check boxes
+Added ability to register during checkout when using PayPal Express
+Updated PayflowLink HSS user interface in checkout
+"Add to Wishlist", "Add to Compare" were added on the Product Details Page for configurable, bundled and downloadable products
+
+=== Changes ===
+TheFind integration was removed
+Google Optimizer was removed (it will be supported as a core extension)
+Improved how discounts are applied to sub products
+
+=== Fixes ===
+Fixed Incorrect behavior of changing quantity for composite products in Wishlist tab of customer's page in backend
+Fixed Incorrect tax summary if product prices exclude tax
+Fixed Redirect to blank page, when click Add Wishlist on the Bundle product page
+Fixed Reviews not showing in category list page
+Fixed QTY is wrong calculated for Bundle, Virtual, Simple, Configurable, Downloadable products after editing them in wishlist
+Fixed Customer is redirected to shopping cart page instead to the "Ship to Multiple Addresses" page after login or register as a new customer
+Fixed Configurable product with selected option is deleted from wishlist after updating another configurable product
+Fixed After redirecting to product using tag 'click for price' doesn't work
+Fixed "Notify for Quantity Below" doesn't work
+Fixed Pending Reviews RSS doesn't show reviews, created for products, that are assigned not to Main Website
+Fixed Authorize Direct Post: no successful notification about place order if do 'Edit' or 'Reorder'
+Fixed Impossible to place Order with Payfowlink when Payment Action = Sale
+Fixed Poll shows incorrect percentage
+Fixed Message 'Cannot specify wishlist item.' is displayed by configuring products in wishlist in back-end
+Fixed Billing Agreements: Order status is not updated if do actions from sandbox PayPal account
+Fixed Additional authorization transaction is not displayed in Order's Transactions tab
+Fixed Unable to update already created role by Admin
+Fixed CDN Secure URL is used instead of non-secure
+Fixed Attributes name disappeared during sorting
+Fixed Typo in app/design/adminhtml/default/default/template/paypal/system/config/payflowlink/info.phtml
+Fixed Report of Reviews shows all customer reviews when select certain user
+Fixed Address Line Formats Incorrectly on PDF Invoices
+Fixed Can't search transactions by order_id in manager.paypal.com
+Fixed Wishlist Index Controller does unneeded logging of exception
+Fixed Incorrect SQL generated in review product collection resource
+Fixed Added shipping address rates collecting schedule for shipping method when shipping information step bypassed
+Fixed Customer marked as guest in "Newsletter Subscribers" grid, after subscribing to newsletters in Google Checkout
+Fixed Error is displayed by unchecking "Same As Billing Address" by creating order in admin
+Fixed Tooltip doesn't appear if you put mouse pointer in to disabled package type field (in case with USPS Domestic)
+Fixed Unable to select custom theme with underscores in name when creating a widget instance
+Fixed When Redirect to Shopping Cart = No, choosing Remove item from shopping cart sidebar while editing an item leads to endless redirect loop
+Fixed Saved CC form is not displayed, when there are no other available payment methods except Saved CC
+Fixed It's impossible to create Catalog Price Rule
+Fixed Fatal error on Multiple Addresses Checkout
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed Stock item product getter not correspond to product setter
+- added method getProduct()
+Fixed Admin user interface: mistakes in labels names
+Fixed Typo in Mage_Eav_Model_Resource_Entity_Attribute_Option model
+Fixed Billing Agreement error
+Fixed Payflow Link UI Changes
+Fixed 'Website Payments Pro' impossible to place order during onepage checkout
+Fixed Table rates works incorrect with asterisk
+Fixed Typo in Category Resource Model
+Fixed 3D secure with Saved CC works incorrectly
+- removed unrelated message which told validation failed (even if it has actually succeeded) when trying to re-validate a card
+Fixed Bug in Role Permission
+Fixed Orders placed via Google Checkout were not created on the Magento side
+Fixed When using direct Export, the _super_product_sku and _super_product_option on the configurable product does not match
+Fixed Composite product price in grid is displayed incorrectly with some currencies due to JS regexp problem
+Fixed No error message on Payflow link iframe
+Fixed Flex uploader elements overlaps hovering menu items in backend
+Fixed Unable to upload images in Magento installed on local server
+Fixed Configurable Products - Use Default (attribute name) does not work correctly on IE9
+Fixed Capture failed when Verification Authorization Amount is set to Zero
+Fixed Attribute is sorted like a string even when Input Validation for Store Owner is an Integer Number
+Fixed Void and Cancel Order doesn't work (PayflowLink HSS)
+Fixed Grand Total (Excl Tax) with negative value displays in the printed Credit Memo
+Fixed Resource model of Media module is wrongly declared
+Fixed Constraint violation with core_cache_tag table
+Fixed Misprint in \downloader\lib\Mage\Connect\Validator.php
+Fixed XMLRPC API attribute status changing
+Fixed Typo in Mage_Rss_Block_Catalog_Category::_toHtml() method
+Fixed Incorrect tax summary for partial credit memos/invoices
+Fixed SSL is not used for links in email templates when admin area is configured to use HTTPS
+Fixed Incorrect style on product page
+Fixed Error is displayed by editing product or by creating product on back-end in IE8
+Fixed Catalog price rules for composite products changes
+Fixed Moving modules to the correct place
+Fixed Wishlist shows items per store scope, not website
+Fixed Products in Wishlist disappears, when Store View is changed
+Fixed Wrong Comments History in notification of order creation/cancellation 
+Fixed In AJAX popup fields "From" and "To" have behavior as mandatory fields
+Fixed Filter by Allow Countries not working for Customer Address Form in the Backend
+Fixed Product price lower than 0 (after catalog price rule applying)
+Fixed Google Checkout throws error if Zip Range is used for Tax Rate
+- changed part of XML request to Google responsible for postal codes
+- made changes to correctly fetch tax rules for postal code ranges
+Fixed Website config object is not being cached
+Fixed Select groups in grid view doesn't work under IE7
+Fixed No products name in Popular tags report file .csv
+Fixed Qty Increments should work when it was defined in the default scope configuration
+Fixed Products in catalog displays as "out of stock"
+Fixed "Get help for this page" in each tab under System->Configuration links to the same help page
+Fixed Unable to translate submenu
+Fixed Redirect to main page of front-end during deleting Product Tax Class which is used in Tax Rule
+Fixed Redirect to base URL should consider full request URI string
+Fixed Incorrect transparency of PNG image in indexed non-alpha mode
+Fixed Problem of generation URL between different domains
+Fixed There are no server side validation of first character of Attribute Code (it should be letter)
+Fixed Edit Order without creating new one functionality saves invalid changes in non-default customer address attributes
+Fixed Frontend: If second customer logs in and does not select the "Remember Me" then the previous long-term cookie does not removes
+Fixed Admin can Reorder order with status On Hold
+Fixed Frontend: After new customer registration with "Remember Me" and pressing "Logout" the long-term cookie session doesn't apply if in configuration on backend ""Remember Me" Default Value" - No
+Fixed Tax not displaying on PayPal side for Express orders
+Fixed Wishlist: Not configured grouped product has unneeded link "Show Details"
+Fixed Removed the ability to work with customise admin url through the parameter base_url
+Fixed Roles not displaying selected resources
+Fixed Unable to use Import when compiler is enabled
+Fixed Missing Translation Capability in Transactional Email Variable
+Fixed productConfigure is undefined error is occurred during creation Order in Backend in IE8 browser
+Fixed Zend Full Page Cache. Lifetime of the cookie is not equal to specified on "Cookie Lifetime" field
+Fixed Incorrect price values for Bundle Product
+Fixed Link does not pass validation if ends with .html
+Fixed Incorrect Customs Value in Create Packages in case when price value contains decimals
+Fixed Incorrect reports with updated_at filter
+Fixed paypal_payment_transaction_clean job takes credentials form default config instead of website for Payflow Link
+Fixed Wrong schedule time setup for paypal_payment_transaction_clean job for Payflow Link
+Fixed Backend Error message "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'qwe' for key 2" appears after saving new Email Template with existing name
+Fixed Rule Conditions logic
+Fixed Error appears after Customer Group saving with name length more than 32
+Fixed Category product index run time
+Fixed Sidebar cart is missing composite product options on category page
+Fixed Missed validation for space character at the begin of unique fields
+- improved validation of Attribute Set Name and validation of unique fields in Mage_Core_Model_Resource_Db_Abstract class
+Fixed Ability to input uppercase, space, specials symbols in Order Status Code
+Fixed Filter by Allow Countries not working for Customer Address Form in the Backend
+Fixed No ability to create Shipping Label with "plus-four codes" Zip Code (in case with USPS Domestic)
+Fixed Changing language twice -> Error 404
+Fixed The sort order in products page doesn't work
+Fixed When a grouped product with configured price=0 is added to the wishlist and shared, adding the product to the cart leads to 404 error
+Fixed Media Saves Incorrect Cached Config
+- added options that disallow saving cache
+Fixed Bundle Product items shows randomly instead of according to option
+Fixed Ajax loader does not appears after click on Verify Card on Payflow Link
+Fixed "Google Checkout - Carrier" in Magento backend as shipping method rather than the actual shipping method chosen
+Fixed JavaScript error appears in checkout because of PSC after press 'Proceed to Checkout'
+Fixed Admin user interface: mistakes in labels names
+Fixed Problems with grid sorting on edit customer backend page
+Fixed It is possible to change the price of the Bundle product from fixed to the dynamic at my store
+Fixed Set special price via Catalog Product API is not working
+Fixed Price is wrong calculated for bundle product with a zero price for its items on product details page
+- subitem price calculation were fixed
+Fixed Layout issue appears in IE9 on the grids (example Customers)
+Fixed Impossible to press 'Continue' button to place in onepage
+Fixed "Add to Wishlist", "Add to Compare" aren't presented for Configurable, bundle, downloadable, simple products on Product Details Page
+Fixed Register during checkout with PayPal Express Checkout
+Fixed Extension Packager does not read recursive directory if include expression use file mask
+Fixed Newsletter Subscription Confirmation Message
+Fixed Discount is wrong calculated for Shopping Cart Price Rules when some of them created with Coupon and another without Coupon
+Fixed Subtotal (Incl.Tax) on invoices must not include tax applied to shipping amount
+- shippingTax amount were excluded from subTotal value
+Fixed "Maximum shipping amount allowed to refund" message shows amount excl. tax if Display Shipping Amount set to Including Tax
+- adjusted function to include tax into allowed amount for shipping refund
+Fixed Display Out of Stock Products must not be considered during admin order creation
+Fixed Check box is not working correctly under "prices" of the Bundle products
+Fixed CSS class missing
+Fixed Frontend: JavaScript error appears if user registered on Checkout Page
+Fixed Website config object is not being cached
+- added functionality for memcache backend to split down data that is larger than slab size into chunks
+Fixed Removed the ability to work with base_url
+Fixed Custom design should be updated via import functionality
+Fixed JS error during onepage checkout
+Fixed Unable to translate "First name" and "Last name" fields on "Create an Account" page
+Fixed After upgrading  dashboard "Top 5 Search Terms" grid doesn't show search terms
+
+
+
+==== 1.6.1.0-beta1 ====
+
+=== Major Highlights ===
+Added two-step password reset flow
+
+=== Improvements ===
+Added support for using Shift-Click to select a range of grid rows when clicking check boxes
+Added ability to register during checkout when using PayPal Express
+Updated PayflowLink HSS user interface in checkout
+"Add to Wishlist", "Add to Compare" were added on the Product Details Page for configurable, bundled and downloadable products
+
+=== Changes ===
+TheFind integration was removed
+Google Optimizer was removed (it will be supported as a core extension)
+Improved how discounts are applied to sub products 
+
+=== Fixes ===
+Fixed Saved CC form is not displayed, when there are no other available payment methods except Saved CC
+Fixed It's impossible to create Catalog Price Rule
+Fixed Fatal error on Multiple Addresses Checkout
+Fixed Package Types that not available for current Shipping Method displayed in Create Packages pop-up
+Fixed Stock item product getter not correspond to product setter
+- added method getProduct()
+Fixed Admin user interface: mistakes in labels names
+Fixed Typo in Mage_Eav_Model_Resource_Entity_Attribute_Option model
+Fixed Billing Agreement error
+Fixed Payflow Link UI Changes
+Fixed 'Website Payments Pro' impossible to place order during onepage checkout
+Fixed Table rates works incorrect with asterisk
+Fixed Typo in Category Resource Model
+Fixed 3D secure with Saved CC works incorrectly
+- removed unrelated message which told validation failed (even if it has actually succeeded) when trying to re-validate a card
+Fixed Bug in Role Permission
+Fixed Orders placed via Google Checkout were not created on the Magento side
+Fixed When using direct Export, the _super_product_sku and _super_product_option on the configurable product does not match
+Fixed Composite product price in grid is displayed incorrectly with some currencies due to JS regexp problem
+Fixed No error message on Payflow link iframe
+Fixed Flex uploader elements overlaps hovering menu items in backend
+Fixed Unable to upload images in Magento installed on local server
+Fixed Configurable Products - Use Default (attribute name) does not work correctly on IE9
+Fixed Capture failed when Verification Authorization Amount is set to Zero
+Fixed Attribute is sorted like a string even when Input Validation for Store Owner is an Integer Number
+Fixed Void and Cancel Order doesn't work (PayflowLink HSS)
+Fixed Grand Total (Excl Tax) with negative value displays in the printed Credit Memo
+Fixed Resource model of Media module is wrongly declared
+Fixed Constraint violation with core_cache_tag table
+Fixed Misprint in \downloader\lib\Mage\Connect\Validator.php
+Fixed XMLRPC API attribute status changing
+Fixed Typo in Mage_Rss_Block_Catalog_Category::_toHtml() method
+Fixed Incorrect tax summary for partial credit memos/invoices
+Fixed SSL is not used for links in email templates when admin area is configured to use HTTPS
+Fixed Incorrect style on product page
+Fixed Error is displayed by editing product or by creating product on back-end in IE8
+Fixed Catalog price rules for composite products changes
+Fixed Moving modules to the correct place
+Fixed Wishlist shows items per store scope, not website
+Fixed Products in Wishlist disappears, when Store View is changed
+Fixed Wrong Comments History in notification of order creation/cancellation 
+Fixed In AJAX popup fields "From" and "To" have behavior as mandatory fields
+Fixed Filter by Allow Countries not working for Customer Address Form in the Backend
+Fixed Product price lower than 0 (after catalog price rule applying)
+Fixed Google Checkout throws error if Zip Range is used for Tax Rate
+- changed part of XML request to Google responsible for postal codes
+- made changes to correctly fetch tax rules for postal code ranges
+Fixed Website config object is not being cached
+Fixed Select groups in grid view doesn't work under IE7
+Fixed No products name in Popular tags report file .csv
+Fixed Qty Increments should work when it was defined in the default scope configuration
+Fixed Products in catalog displays as "out of stock"
+Fixed "Get help for this page" in each tab under System->Configuration links to the same help page
+Fixed Unable to translate submenu
+Fixed Redirect to main page of front-end during deleting Product Tax Class which is used in Tax Rule
+Fixed Redirect to base URL should consider full request URI string
+Fixed Incorrect transparency of PNG image in indexed non-alpha mode
+Fixed Problem of generation URL between different domains
+Fixed There are no server side validation of first character of Attribute Code (it should be letter)
+Fixed Edit Order without creating new one functionality saves invalid changes in non-default customer address attributes
+Fixed Frontend: If second customer logs in and does not select the "Remember Me" then the previous long-term cookie does not removes
+Fixed Admin can Reorder order with status On Hold
+Fixed Frontend: After new customer registration with "Remember Me" and pressing "Logout" the long-term cookie session doesn't apply if in configuration on backend ""Remember Me" Default Value" - No
+Fixed Tax not displaying on PayPal side for Express orders
+Fixed Wishlist: Not configured grouped product has unneeded link "Show Details"
+Fixed Removed the ability to work with customise admin url through the parameter base_url
+Fixed Roles not displaying selected resources
+Fixed Unable to use Import when compiler is enabled
+Fixed Missing Translation Capability in Transactional Email Variable
+Fixed productConfigure is undefined error is occurred during creation Order in Backend in IE8 browser
+Fixed Zend Full Page Cache. Lifetime of the cookie is not equal to specified on "Cookie Lifetime" field
+Fixed Incorrect price values for Bundle Product
+Fixed Link does not pass validation if ends with .html
+Fixed Incorrect Customs Value in Create Packages in case when price value contains decimals
+Fixed Incorrect reports with updated_at filter
+Fixed paypal_payment_transaction_clean job takes credentials form default config instead of website for Payflow Link
+Fixed Wrong schedule time setup for paypal_payment_transaction_clean job for Payflow Link
+Fixed Backend Error message "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'qwe' for key 2" appears after saving new Email Template with existing name
+Fixed Rule Conditions logic
+Fixed Error appears after Customer Group saving with name length more than 32
+Fixed Category product index run time
+Fixed Sidebar cart is missing composite product options on category page
+Fixed Missed validation for space character at the begin of unique fields
+- improved validation of Attribute Set Name and validation of unique fields in Mage_Core_Model_Resource_Db_Abstract class
+Fixed Ability to input uppercase, space, specials symbols in Order Status Code
+Fixed Filter by Allow Countries not working for Customer Address Form in the Backend
+Fixed No ability to create Shipping Label with "plus-four codes" Zip Code (in case with USPS Domestic)
+Fixed Changing language twice -> Error 404
+Fixed The sort order in products page doesn't work
+Fixed When a grouped product with configured price=0 is added to the wishlist and shared, adding the product to the cart leads to 404 error
+Fixed Media Saves Incorrect Cached Config
+- added options that disallow saving cache
+Fixed Bundle Product items shows randomly instead of according to option
+Fixed Unable to place order with Payflow Link if store credit or reward point applied
+Fixed Ajax loader does not appears after click on Verify Card on Payflow Link
+Fixed "Google Checkout - Carrier" in Magento backend as shipping method rather than the actual shipping method chosen
+Fixed JavaScript error appears in checkout because of PSC after press 'Proceed to Checkout'
+Fixed Admin user interface: mistakes in labels names
+Fixed Problems with grid sorting on edit customer backend page
+Fixed It is possible to change the price of the Bundle product from fixed to the dynamic at my store
+Fixed Set special price via Catalog Product API is not working
+Fixed Price is wrong calculated for bundle product with a zero price for its items on product details page
+- subitem price calculation were fixed
+Fixed Layout issue appears in IE9 on the grids (example Customers)
+Fixed Impossible to press 'Continue' button to place in onepage
+Fixed "Add to Wishlist", "Add to Compare" aren't presented for Configurable, bundle, downloadable, simple products on Product Details Page
+Fixed Register during checkout with PayPal Express Checkout
+Fixed Extension Packager does not read recursive directory if include expression use file mask
+Fixed Newsletter Subscription Confirmation Message
+Fixed Discount is wrong calculated for Shopping Cart Price Rules when some of them created with Coupon and another without Coupon
+Fixed Subtotal (Incl.Tax) on invoices must not include tax applied to shipping amount
+- shippingTax amount were excluded from subTotal value
+Fixed "Maximum shipping amount allowed to refund" message shows amount excl. tax if Display Shipping Amount set to Including Tax
+- adjusted function to include tax into allowed amount for shipping refund
+Fixed Display Out of Stock Products must not be considered during admin order creation
+Fixed Check box is not working correctly under "prices" of the Bundle products.
+Fixed CSS class missing
+Fixed Frontend: JavaScript error appears if user registered on Checkout Page
+Fixed Website config object is not being cached
+- added functionality for memcache backend to split down data that is larger than slab size into chunks
+Fixed Removed the ability to work with base_url
+Fixed Custom design should be updated via import functionality
+Fixed JS error during onepage checkout
+Fixed Unable to translate "First name" and "Last name" fields on "Create an Account" page
+Fixed After upgrading  dashboard "Top 5 Search Terms" grid doesn't show search terms
+
+
+
+==== 1.6.1.0-alpha1 ====
+
+=== Major Highlights ===
+Added two-step password reset flow
+
+=== Improvements ===
+Added support for using Shift-Click to select a range of grid rows when clicking check boxes
+Added ability to register during checkout when using PayPal Express
+Updated PayflowLink HSS user interface in checkout
+"Add to Wishlist", "Add to Compare" were added on the Product Details Page for configurable, bundled and downloadable products
+
+=== Changes ===
+TheFind integration was removed
+Google Optimizer was removed (it will be supported as a core extension)
+Improved how discounts are applied to sub products 
+
+=== Fixes ===
+Fixed When using direct Export, the _super_product_sku and _super_product_option on the configurable product does not match
+Fixed Composite product price in grid is displayed incorrectly with some currencies due to JS regexp problem
+Fixed No error message on Payflow link iframe
+Fixed Flex uploader elements overlaps hovering menu items in backend
+Fixed Unable to upload images in Magento installed on local server
+Fixed Configurable Products - Use Default (attribute name) does not work correctly on IE9
+Fixed Capture failed when Verification Authorization Amount is set to Zero
+Fixed Attribute is sorted like a string even when Input Validation for Store Owner is an Integer Number
+Fixed Void and Cancel Order doesn't work (PayflowLink HSS)
+Fixed Grand Total (Excl Tax) with negative value displays in the printed Credit Memo
+Fixed Resource model of Media module is wrongly declared
+Fixed Constraint violation with core_cache_tag table
+Fixed Misprint in \downloader\lib\Mage\Connect\Validator.php
+Fixed XMLRPC API attribute status changing
+Fixed Typo in Mage_Rss_Block_Catalog_Category::_toHtml() method
+Fixed Incorrect tax summary for partial credit memos/invoices
+Fixed SSL is not used for links in email templates when admin area is configured to use HTTPS
+Fixed Incorrect style on product page
+Fixed Error is displayed by editing product or by creating product on back-end in IE8
+Fixed Catalog price rules for composite products changes
+Fixed Moving modules to the correct place
+Fixed Wishlist shows items per store scope, not website
+Fixed Products in Wishlist disappears, when Store View is changed
+Fixed Wrong Comments History in notification of order creation/cancellation 
+Fixed In AJAX popup fields "From" and "To" have behavior as mandatory fields
+Fixed Filter by Allow Countries not working for Customer Address Form in the Backend
+Fixed Product price lower than 0 (after catalog price rule applying)
+Fixed Google Checkout throws error if Zip Range is used for Tax Rate
+- changed part of XML request to Google responsible for postal codes
+- made changes to correctly fetch tax rules for postal code ranges
+Fixed Website config object is not being cached
+Fixed Select groups in grid view doesn't work under IE7
+Fixed No products name in Popular tags report file .csv
+Fixed Qty Increments should work when it was defined in the default scope configuration
+Fixed Products in catalog displays as "out of stock"
+Fixed "Get help for this page" in each tab under System->Configuration links to the same help page
+Fixed Unable to translate submenu
+Fixed Redirect to main page of front-end during deleting Product Tax Class which is used in Tax Rule
+Fixed Redirect to base URL should consider full request URI string
+Fixed Incorrect transparency of PNG image in indexed non-alpha mode
+Fixed Problem of generation URL between different domains
+Fixed There are no server side validation of first character of Attribute Code (it should be letter)
+Fixed Edit Order without creating new one functionality saves invalid changes in non-default customer address attributes
+Fixed Frontend: If second customer logs in and does not select the "Remember Me" then the previous long-term cookie does not removes
+Fixed Admin can Reorder order with status On Hold
+Fixed Frontend: After new customer registration with "Remember Me" and pressing "Logout" the long-term cookie session doesn't apply if in configuration on backend ""Remember Me" Default Value" - No
+Fixed Tax not displaying on PayPal side for Express orders
+Fixed Wishlist: Not configured grouped product has unneeded link "Show Details"
+Fixed Removed the ability to work with customise admin url through the parameter base_url
+Fixed Roles not displaying selected resources
+Fixed Unable to use Import when compiler is enabled
+Fixed Missing Translation Capability in Transactional Email Variable
+Fixed productConfigure is undefined error is occurred during creation Order in Backend in IE8 browser
+Fixed Zend Full Page Cache. Lifetime of the cookie is not equal to specified on "Cookie Lifetime" field
+Fixed Incorrect price values for Bundle Product
+Fixed Link does not pass validation if ends with .html
+Fixed Incorrect Customs Value in Create Packages in case when price value contains decimals
+Fixed Incorrect reports with updated_at filter
+Fixed paypal_payment_transaction_clean job takes credentials form default config instead of website for Payflow Link
+Fixed Wrong schedule time setup for paypal_payment_transaction_clean job for Payflow Link
+Fixed Backend Error message "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'qwe' for key 2" appears after saving new Email Template with existing name
+Fixed Rule Conditions logic
+Fixed Error appears after Customer Group saving with name length more than 32
+Fixed Category product index run time
+Fixed Sidebar cart is missing composite product options on category page
+Fixed Missed validation for space character at the begin of unique fields
+- improved validation of Attribute Set Name and validation of unique fields in Mage_Core_Model_Resource_Db_Abstract class
+Fixed Ability to input uppercase, space, specials symbols in Order Status Code
+Fixed Filter by Allow Countries not working for Customer Address Form in the Backend
+Fixed No ability to create Shipping Label with "plus-four codes" Zip Code (in case with USPS Domestic)
+Fixed Changing language twice -> Error 404
+Fixed The sort order in products page doesn't work
+Fixed When a grouped product with configured price=0 is added to the wishlist and shared, adding the product to the cart leads to 404 error
+Fixed Media Saves Incorrect Cached Config
+- added options that disallow saving cache
+Fixed Bundle Product items shows randomly instead of according to option
+Fixed Unable to place order with Payflow Link if store credit or reward point applied
+Fixed Ajax loader does not appears after click on Verify Card on Payflow Link
+Fixed "Google Checkout - Carrier" in Magento backend as shipping method rather than the actual shipping method chosen
+Fixed JavaScript error appears in checkout because of PSC after press 'Proceed to Checkout'
+Fixed Admin user interface: mistakes in labels names
+Fixed Problems with grid sorting on edit customer backend page
+Fixed It is possible to change the price of the Bundle product from fixed to the dynamic at my store
+Fixed Set special price via Catalog Product API is not working
+Fixed Price is wrong calculated for bundle product with a zero price for its items on product details page
+- subitem price calculation were fixed
+Fixed Layout issue appears in IE9 on the grids (example Customers)
+Fixed Impossible to press 'Continue' button to place in onepage
+Fixed "Add to Wishlist", "Add to Compare" aren't presented for Configurable, bundle, downloadable, simple products on Product Details Page
+Fixed Register during checkout with PayPal Express Checkout
+Fixed Extension Packager does not read recursive directory if include expression use file mask
+Fixed Newsletter Subscription Confirmation Message
+Fixed Discount is wrong calculated for Shopping Cart Price Rules when some of them created with Coupon and another without Coupon
+Fixed Subtotal (Incl.Tax) on invoices must not include tax applied to shipping amount
+- shippingTax amount were excluded from subTotal value
+Fixed "Maximum shipping amount allowed to refund" message shows amount excl. tax if Display Shipping Amount set to Including Tax
+- adjusted function to include tax into allowed amount for shipping refund
+Fixed Display Out of Stock Products must not be considered during admin order creation
+Fixed Check box is not working correctly under "prices" of the Bundle products.
+Fixed CSS class missing
+Fixed Frontend: JavaScript error appears if user registered on Checkout Page
+Fixed Website config object is not being cached
+- added functionality for memcache backend to split down data that is larger than slab size into chunks
+Fixed Removed the ability to work with base_url
+Fixed Custom design should be updated via import functionality
+Fixed JS error during onepage checkout
+Fixed Unable to translate "First name" and "Last name" fields on "Create an Account" page
+Fixed After upgrading  dashboard "Top 5 Search Terms" grid doesn't show search terms
+
+
+
+==== 1.6.x-devel-119961 ====
+
+=== Fixes ===
+Fixed Wrong Comments History in notification of order creation/cancellation 
+Fixed In AJAX popup fields "From" and "To" have behavior as mandatory fields
+Fixed Filter by Allow Countries not working for Customer Address Form in the Backend
+Fixed Product price lower than 0 (after catalog price rule applying)
+Fixed Google Checkout throws error if Zip Range is used for Tax Rate
+- changed part of XML request to Google responsible for postal codes
+- made changes to correctly fetch tax rules for postal code ranges
+Fixed Website config object is not being cached
+Fixed Select groups in grid view doesn't work under IE7
+Fixed No products name in Popular tags report file .csv
+Fixed Qty Increments should work when it was defined in the default scope configuration
+Fixed Products in catalog displays as "out of stock"
+Fixed "Get help for this page" in each tab under System->Configuration links to the same help page
+Fixed Unable to translate submenu
+Fixed Redirect to main page of front-end during deleting Product Tax Class which is used in Tax Rule
+Fixed Redirect to base URL should consider full request URI string
+
+
+
+==== 1.6.x-devel-119217 ====
+
+=== Fixes ===
+Fixed Incorrect transparency of PNG image in indexed non-alpha mode
+Fixed Problem of generation URL between different domains
+Fixed There are no server side validation of first character of Attribute Code (it should be letter)
+Fixed Edit Order without creating new one functionality saves invalid changes in non-default customer address attributes
+Fixed Frontend: If second customer logs in and does not select the "Remember Me" then the previous long-term cookie does not removes
+Fixed Admin can Reorder order with status On Hold
+Fixed Frontend: After new customer registration with "Remember Me" and pressing "Logout" the long-term cookie session doesn't apply if in configuration on backend ""Remember Me" Default Value" - No
+Fixed Tax not displaying on PayPal side for Express orders
+Fixed Wishlist: Not configured grouped product has unneeded link "Show Details"
+Fixed Removed the ability to work with customise admin url through the parameter base_url
+Fixed Roles not displaying selected resources
+Fixed Unable to use Import when compiler is enabled
+Fixed Missing Translation Capability in Transactional Email Variable
+Fixed productConfigure is undefined error is occurred during creation Order in Backend in IE8 browser
+Fixed Zend Full Page Cache. Lifetime of the cookie is not equal to specified on "Cookie Lifetime" field
+Fixed Incorrect price values for Bundle Product
+Fixed Link does not pass validation if ends with .html
+Fixed Incorrect Customs Value in Create Packages in case when price value contains decimals
+Fixed Incorrect reports with updated_at filter
+Fixed paypal_payment_transaction_clean job takes credentials form default config instead of website for Payflow Link
+Fixed Wrong schedule time setup for paypal_payment_transaction_clean job for Payflow Link
+Fixed Backend Error message "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'qwe' for key 2" appears after saving new Email Template with existing name
+Fixed Rule Conditions logic
+Fixed Error appears after Customer Group saving with name length more than 32
+Fixed Category product index run time
+Fixed Sidebar cart is missing composite product options on category page
+Fixed Missed validation for space character at the begin of unique fields
+- improved validation of Attribute Set Name and validation of unique fields in Mage_Core_Model_Resource_Db_Abstract class
+Fixed Ability to input uppercase, space, specials symbols in Order Status Code
+Fixed Filter by Allow Countries not working for Customer Address Form in the Backend
+Fixed No ability to create Shipping Label with "plus-four codes" Zip Code (in case with USPS Domestic)
+Fixed Changing language twice -> Error 404
+Fixed The sort order in products page doesn't work
+Fixed When a grouped product with configured price=0 is added to the wishlist and shared, adding the product to the cart leads to 404 error
+Fixed Media Saves Incorrect Cached Config
+- added options that disallow saving cache
+Fixed Bundle Product items shows randomly instead of according to option
+Fixed Unable to place order with Payflow Link if store credit or reward point applied
+Fixed Ajax loader does not appears after click on Verify Card on Payflow Link
+Fixed "Google Checkout - Carrier" in Magento backend as shipping method rather than the actual shipping method chosen
+Fixed JavaScript error appears in checkout because of PSC after press 'Proceed to Checkout'
+Fixed Admin user interface: mistakes in labels names
+Fixed Problems with grid sorting on edit customer backend page
+Fixed It is possible to change the price of the Bundle product from fixed to the dynamic at my store
+Fixed Set special price via Catalog Product API is not working
+Fixed Price is wrong calculated for bundle product with a zero price for its items on product details page
+- subitem price calculation were fixed
+Fixed Layout issue appears in IE9 on the grids (example Customers)
+Fixed Impossible to press 'Continue' button to place in onepage
+Fixed "Add to Wishlist", "Add to Compare" aren't presented for Configurable, bundle, downloadable, simple products on Product Details Page
+Fixed Register during checkout with PayPal Express Checkout
+Fixed Extension Packager does not read recursive directory if include expression use file mask
+Fixed Newsletter Subscription Confirmation Message
+Fixed Discount is wrong calculated for Shopping Cart Price Rules when some of them created with Coupon and another without Coupon
+Fixed Subtotal (Incl.Tax) on invoices must not include tax applied to shipping amount
+- shippingTax amount were excluded from subTotal value
+Fixed "Maximum shipping amount allowed to refund" message shows amount excl. tax if Display Shipping Amount set to Including Tax
+- adjusted function to include tax into allowed amount for shipping refund
+Fixed Display Out of Stock Products must not be considered during admin order creation
+Fixed Check box is not working correctly under "prices" of the Bundle products.
+Fixed CSS class missing
+Fixed Frontend: JavaScript error appears if user registered on Checkout Page
+Fixed Website config object is not being cached
+- added functionality for memcache backend to split down data that is larger than slab size into chunks
+Fixed Removed the ability to work with base_url
+Fixed Custom design should be updated via import functionality
+Fixed JS error during onepage checkout
+Fixed Unable to translate "First name" and "Last name" fields on "Create an Account" page
+Fixed After upgrading  dashboard "Top 5 Search Terms" grid doesn't show search terms
+
+
+
 ==== 1.6.0.0 ====
 
 === Major Highlights ===

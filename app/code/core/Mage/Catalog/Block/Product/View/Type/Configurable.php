@@ -154,6 +154,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                     $currentProduct->setConfigurablePrice(
                         $this->_preparePrice($value['pricing_value'], $value['is_percent'])
                     );
+                    $currentProduct->setParentId(true);
                     Mage::dispatchEvent(
                         'catalog_product_type_configurable_price',
                         array('product' => $currentProduct)

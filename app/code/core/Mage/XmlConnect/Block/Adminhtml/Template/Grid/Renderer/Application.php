@@ -47,5 +47,5 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Grid_Renderer_Application
             $str = ' --- ';
         }
         return $str;
-     }
+    }
 }

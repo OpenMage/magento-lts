@@ -25,7 +25,7 @@
  */
 
 /**
- * Product Options xml renderer
+ * Product price xml renderer
  *
  * @category    Mage
  * @package     Mage_XmlConnect

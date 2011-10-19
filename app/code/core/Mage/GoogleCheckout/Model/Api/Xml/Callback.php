@@ -351,6 +351,16 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         /* @var $quote Mage_Sales_Model_Quote */
         $quote = $this->_loadQuote();
         $quote->setIsActive(true)->reserveOrderId();
+
+        Mage::dispatchEvent('googlecheckout_create_order_before', array('quote' => $quote));
+        if ($quote->getErrorMessage()) {
+            $this->getGRequest()->SendCancelOrder($this->getGoogleOrderNumber(),
+                $this->__('Order creation error'),
+                $quote->getErrorMessage()
+            );
+            return;
+        }
+
         $storeId = $quote->getStoreId();
 
         Mage::app()->setCurrentStore(Mage::app()->getStore($storeId));
@@ -436,11 +446,18 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         $order->place();
         $order->save();
         $order->sendNewOrderEmail();
+        Mage::dispatchEvent('googlecheckout_save_order_after', array('order' => $order));
 
         $quote->setIsActive(false)->save();
 
         if ($emailAllowed) {
-            Mage::getModel('newsletter/subscriber')->subscribe($order->getCustomerEmail());
+            $customer = $quote->getCustomer();
+            if ($customer && $customer->getId()) {
+                $customer->setIsSubscribed(true);
+                Mage::getModel('newsletter/subscriber')->subscribeCustomer($customer);
+            } else {
+                Mage::getModel('newsletter/subscriber')->subscribe($order->getCustomerEmail());
+            }
         }
 
         Mage::dispatchEvent('checkout_submit_all_after', array('order' => $order, 'quote' => $quote));
@@ -675,6 +692,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         if ($method) {
             Mage::getSingleton('tax/config')->setShippingPriceIncludeTax(false);
             $rate = $this->_createShippingRate($method)
+                ->setMethodTitle($shipping['shipping-name']['VALUE'])
                 ->setPrice($shipping['shipping-cost']['VALUE']);
             $qAddress->addShippingRate($rate)
                 ->setShippingMethod($method)

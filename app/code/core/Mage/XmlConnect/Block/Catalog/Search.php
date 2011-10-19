@@ -35,8 +35,8 @@ class Mage_XmlConnect_Block_Catalog_Search extends Mage_XmlConnect_Block_Catalog
 {
     /**
      * Search results xml renderer
-     * XML also contains filters that can be apply (accorfingly already applyed filters and search query)
-     * and sort fields
+     * XML also contains filters that can be apply (accorfingly already applyed filters
+     * and search query) and sort fields
      *
      * @return string
      */
@@ -48,15 +48,15 @@ class Mage_XmlConnect_Block_Catalog_Search extends Mage_XmlConnect_Block_Catalog
         $helper = Mage::helper('catalogsearch');
         if (method_exists($helper, 'getEngine')) {
             $engine = Mage::helper('catalogsearch')->getEngine();
-            $isLayeredNavigationAllowed = ($engine instanceof Varien_Object)
-                ? $engine->isLeyeredNavigationAllowed()
-                : true;
+            if ($engine instanceof Varien_Object) {
+                $isLayeredNavigationAllowed = $engine->isLeyeredNavigationAllowed();
+            } else {
+                $isLayeredNavigationAllowed = true;
+            }
         } else {
             $isLayeredNavigationAllowed = true;
         }
 
-        $request        = $this->getRequest();
-        $requestParams  = $request->getParams();
         $hasMoreProductItems = 0;
 
         /**
@@ -66,8 +66,7 @@ class Mage_XmlConnect_Block_Catalog_Search extends Mage_XmlConnect_Block_Catalog
         if ($productListBlock) {
             $layer = Mage::getSingleton('catalogsearch/layer');
             $productsXmlObj = $productListBlock->setLayer($layer)
-                ->setNeedBlockApplyingFilters(!$isLayeredNavigationAllowed)
-                ->getProductsXmlObject();
+                ->setNeedBlockApplyingFilters(!$isLayeredNavigationAllowed)->getProductsXmlObject();
             $searchXmlObject->appendChild($productsXmlObj);
             $hasMoreProductItems = (int)$productListBlock->getHasProductItems();
         }
@@ -78,10 +77,11 @@ class Mage_XmlConnect_Block_Catalog_Search extends Mage_XmlConnect_Block_Catalog
          * Filters
          */
         $showFiltersAndOrders = (bool) count($productsXmlObj);
-        $reguest = $this->getRequest();
-        foreach ($reguest->getParams() as $key => $value) {
-            if (0 === strpos($key, parent::REQUEST_SORT_ORDER_PARAM_REFIX) ||
-                0 === strpos($key, parent::REQUEST_FILTER_PARAM_REFIX)) {
+        $requestParams = $this->getRequest()->getParams();
+        foreach ($requestParams as $key => $value) {
+            if (0 === strpos($key, parent::REQUEST_SORT_ORDER_PARAM_REFIX)
+                || 0 === strpos($key, parent::REQUEST_FILTER_PARAM_REFIX)
+            ) {
                 $showFiltersAndOrders = false;
                 break;
             }
@@ -107,7 +107,9 @@ class Mage_XmlConnect_Block_Catalog_Search extends Mage_XmlConnect_Block_Catalog
                     }
                     $value = $values->addChild('value');
                     $value->addChild('id', $valueItem->getValueString());
-                    $value->addChild('label', $searchXmlObject->xmlentities(strip_tags($valueItem->getLabel())));
+                    $value->addChild(
+                        'label', $searchXmlObject->xmlentities(strip_tags($valueItem->getLabel()))
+                    );
                     $value->addChild('count', $count);
                 }
             }

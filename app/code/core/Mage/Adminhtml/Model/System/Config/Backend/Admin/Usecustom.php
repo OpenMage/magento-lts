@@ -26,7 +26,7 @@
 
 
 /**
- * Adminhtml backend model for "Use Secure URLs in Admin" option
+ * Adminhtml backend model for "Use Custom Admin URL" option
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -35,7 +35,7 @@
 class Mage_Adminhtml_Model_System_Config_Backend_Admin_Usecustom extends Mage_Core_Model_Config_Data
 {
     /**
-     * Validate custom url and check whether redirect should be set
+     * Validate custom url
      *
      * @return Mage_Adminhtml_Model_System_Config_Backend_Admin_Usecustom
      */
@@ -47,10 +47,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Usecustom extends Mage_Co
             if (empty($customUrl)) {
                 Mage::throwException(Mage::helper('adminhtml')->__('Please specify the admin custom URL.'));
             }
-        }
-
-        if ($this->getOldValue() != $value) {
-            Mage::register('custom_admin_url_redirect', true, true);
         }
 
         return $this;

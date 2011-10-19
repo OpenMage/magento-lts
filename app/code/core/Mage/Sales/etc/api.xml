@@ -179,10 +179,10 @@
                         <code>100</code>
                         <message>Requested invoice does not exist.</message>
                     </not_exists>
-                    <filters_invalid>
+                    <invalid_filter>
                         <code>101</code>
-                        <message>Invalid filters given. Details in error message.</message>
-                    </filters_invalid>
+                        <message>Invalid filter given. Details in error message.</message>
+                    </invalid_filter>
                     <data_invalid>
                         <code>102</code>
                         <message>Invalid data given. Details in error message.</message>
@@ -196,20 +196,103 @@
                         <message>Invoice status not changed</message>
                     </status_not_changed>
                 </faults>
-            </sales_order_invoice>
+           </sales_order_invoice>
+            <sales_order_creditmemo>
+                <title>Credit memo API</title>
+                <model>sales/order_creditmemo_api</model>
+                <acl>sales/order/creditmemo</acl>
+                <methods>
+                    <list translate="title" module="sales">
+                        <title>Retrieve list of credit memos by filters</title>
+                        <method>items</method>
+                        <acl>sales/order/creditmemo/list</acl>
+                    </list>
+                    <info translate="title" module="sales">
+                        <title>Retrieve credit memo information</title>
+                        <acl>sales/order/creditmemo/info</acl>
+                    </info>
+                    <create translate="title" module="sales">
+                        <title>Create new credit memo for order</title>
+                        <acl>sales/order/creditmemo/create</acl>
+                    </create>
+                    <addComment translate="title" module="sales">
+                        <title>Add new comment to credit memo</title>
+                        <acl>sales/order/creditmemo/comment</acl>
+                    </addComment>
+                    <cancel translate="title" module="sales">
+                        <title>Cancel credit memo</title>
+                        <acl>sales/order/creditmemo/cancel</acl>
+                    </cancel>
+                </methods>
+                <faults module="sales">
+                    <not_exists>
+                        <code>100</code>
+                        <message>Requested credit memo does not exist</message>
+                    </not_exists>
+                    <invalid_filter>
+                        <code>101</code>
+                        <message>Invalid filter given. Details in error message</message>
+                    </invalid_filter>
+                    <data_invalid>
+                        <code>102</code>
+                        <message>Invalid data given. Details in error message</message>
+                    </data_invalid>
+                    <order_not_exists>
+                        <code>103</code>
+                        <message>Requested order does not exist</message>
+                    </order_not_exists>
+                    <status_not_changed>
+                        <code>104</code>
+                        <message>Credit memo status not changed</message>
+                    </status_not_changed>
+                    <cannot_refund_to_storecredit>
+                        <code>105</code>
+                        <message>Money can not be refunded to the store credit account as order was created by guest</message>
+                    </cannot_refund_to_storecredit>
+                    <cannot_create_creditmemo>
+                        <code>106</code>
+                        <message>Credit memo for requested order can not be created.</message>
+                    </cannot_create_creditmemo>
+                </faults>
+            </sales_order_creditmemo>
         </resources>
         <resources_alias>
             <order>sales_order</order>
             <order_shipment>sales_order_shipment</order_shipment>
             <order_invoice>sales_order_invoice</order_invoice>
+            <order_creditmemo>sales_order_creditmemo</order_creditmemo>
         </resources_alias>
         <v2>
             <resources_function_prefix>
                 <order>salesOrder</order>
                 <order_shipment>salesOrderShipment</order_shipment>
                 <order_invoice>salesOrderInvoice</order_invoice>
+                <order_creditmemo>salesOrderCreditmemo</order_creditmemo>
             </resources_function_prefix>
         </v2>
+        <rest>
+            <mapping>
+                <sales_order>
+                    <delete>
+                        <method>cancel</method>
+                    </delete>
+                    <post>
+                        <resource>cart</resource>
+                        <method>order</method>
+                    </post>
+                </sales_order>
+               <sales_order_invoice>
+                   <delete>
+                       <method>cancel</method>
+                   </delete>
+               </sales_order_invoice>
+                <sales_order_creditmemo>
+                    <delete>
+                        <method>cancel</method>
+                    </delete>
+                </sales_order_creditmemo>
+            </mapping>
+        </rest>
         <acl>
             <resources>
                 <sales translate="title" module="sales">
@@ -259,6 +342,24 @@
                                 <title>Retrieve invoice info</title>
                             </info>
                         </invoice>
+                        <creditmemo translate="title" module="sales">
+                            <title>Order credit memo</title>
+                            <create translate="title" module="sales">
+                                <title>Create</title>
+                            </create>
+                            <comment translate="title" module="sales">
+                                <title>Comments</title>
+                            </comment>
+                            <cancel translate="title" module="sales">
+                                <title>Cancel</title>
+                            </cancel>
+                            <info translate="title" module="sales">
+                                <title>Retrieve credit memo info</title>
+                            </info>
+                            <list translate="title" module="sales">
+                                <title>Retrieve credit memo list</title>
+                            </list>
+                        </creditmemo>
                     </order>
                 </sales>
             </resources>

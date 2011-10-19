@@ -34,6 +34,11 @@
  */
 class Mage_Core_Model_Source_Email_Variables
 {
+    /**
+     * Assoc array of configuration variables
+     *
+     * @var array
+     */
     protected $_configVariables = array();
 
     /**
@@ -42,20 +47,61 @@ class Mage_Core_Model_Source_Email_Variables
      */
     public function __construct()
     {
+        $helper = Mage::helper('core');
         $this->_configVariables = array(
-            array('value' => Mage_Core_Model_Url::XML_PATH_UNSECURE_URL, 'label' => 'Base Unsecure URL'),
-            array('value' => Mage_Core_Model_Url::XML_PATH_SECURE_URL, 'label' => 'Base Secure URL'),
-            array('value' => 'trans_email/ident_general/name', 'label' => 'General Contact Name'),
-            array('value' => 'trans_email/ident_general/email', 'label' => 'General Contact Email'),
-            array('value' => 'trans_email/ident_sales/name', 'label' => 'Sales Representative Contact Name'),
-            array('value' => 'trans_email/ident_sales/email', 'label' => 'Sales Representative Contact Email'),
-            array('value' => 'trans_email/ident_custom1/name', 'label' => 'Custom1 Contact Name'),
-            array('value' => 'trans_email/ident_custom1/email', 'label' => 'Custom1 Contact Email'),
-            array('value' => 'trans_email/ident_custom2/name', 'label' => 'Custom2 Contact Name'),
-            array('value' => 'trans_email/ident_custom2/email', 'label' => 'Custom2 Contact Email'),
-            array('value' => 'general/store_information/name', 'label' => 'Store Name'),
-            array('value' => 'general/store_information/phone', 'label' => 'Store Contact Telephone'),
-            array('value' => 'general/store_information/address', 'label' => 'Store Contact Address'));
+            array(
+                'value' => Mage_Core_Model_Url::XML_PATH_UNSECURE_URL,
+                'label' => $helper->__('Base Unsecure URL')
+            ),
+            array(
+                'value' => Mage_Core_Model_Url::XML_PATH_SECURE_URL,
+                'label' => $helper->__('Base Secure URL')
+            ),
+            array(
+                'value' => 'trans_email/ident_general/name',
+                'label' => $helper->__('General Contact Name')
+            ),
+            array(
+                'value' => 'trans_email/ident_general/email',
+                'label' => $helper->__('General Contact Email')
+            ),
+            array(
+                'value' => 'trans_email/ident_sales/name',
+                'label' => $helper->__('Sales Representative Contact Name')
+            ),
+            array(
+                'value' => 'trans_email/ident_sales/email',
+                'label' => $helper->__('Sales Representative Contact Email')
+            ),
+            array(
+                'value' => 'trans_email/ident_custom1/name',
+                'label' => $helper->__('Custom1 Contact Name')
+            ),
+            array(
+                'value' => 'trans_email/ident_custom1/email',
+                'label' => $helper->__('Custom1 Contact Email')
+            ),
+            array(
+                'value' => 'trans_email/ident_custom2/name',
+                'label' => $helper->__('Custom2 Contact Name')
+            ),
+            array(
+                'value' => 'trans_email/ident_custom2/email',
+                'label' => $helper->__('Custom2 Contact Email')
+            ),
+            array(
+                'value' => 'general/store_information/name',
+                'label' => $helper->__('Store Name')
+            ),
+            array(
+                'value' => 'general/store_information/phone',
+                'label' => $helper->__('Store Contact Telephone')
+            ),
+            array(
+                'value' => 'general/store_information/address',
+                'label' => $helper->__('Store Contact Address')
+            )
+        );
     }
 
     /**

@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Customer>
-            <version>1.6.0.0</version>
+            <version>1.6.1.0</version>
         </Mage_Customer>
     </modules>
     <admin>
@@ -334,10 +334,15 @@
                     <type>html</type>
                 </customer_create_account_email_confirmed_template>
                 <customer_password_forgot_email_template translate="label" module="customer">
-                    <label>New password</label>
-                    <file>password_new.html</file>
+                    <label>Forgot Password</label>
+                    <file>account_password_reset_confirmation.html</file>
                     <type>html</type>
                 </customer_password_forgot_email_template>
+                <customer_password_remind_email_template translate="label" module="customer">
+                    <label>Remind Password</label>
+                    <file>password_new.html</file>
+                    <type>html</type>
+                </customer_password_remind_email_template>
             </email>
         </template>
     </global>
@@ -412,6 +417,8 @@
             <password>
                 <forgot_email_identity>support</forgot_email_identity>
                 <forgot_email_template>customer_password_forgot_email_template</forgot_email_template>
+                <remind_email_template>customer_password_remind_email_template</remind_email_template>
+                <reset_link_expiration_period>3</reset_link_expiration_period>
             </password>
             <address>
                 <street_lines>2</street_lines>
@@ -456,7 +463,8 @@ T: {{var telephone}}
 {{depend street2}}{{var street2}}|{{/depend}}
 {{depend street3}}{{var street3}}|{{/depend}}
 {{depend street4}}{{var street4}}|{{/depend}}
-{{if city}}{{var city}},  {{/if}}{{if region}}{{var region}}, {{/if}}{{if postcode}}{{var postcode}}{{/if}}|
+{{if city}}{{var city}},|{{/if}}
+{{if region}}{{var region}}, {{/if}}{{if postcode}}{{var postcode}}{{/if}}|
 {{var country}}|
 {{depend telephone}}T: {{var telephone}}{{/depend}}|
 {{depend fax}}&lt;br/&gt;F: {{var fax}}{{/depend}}|</pdf>

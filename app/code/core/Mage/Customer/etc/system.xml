@@ -170,24 +170,42 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <forgot_email_identity translate="label">
-                            <label>Forgot Email Sender</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_email_identity</source_model>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </forgot_email_identity>
                         <forgot_email_template translate="label">
                             <label>Forgot Email Template</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_email_template</source_model>
-                            <sort_order>1</sort_order>
+                            <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </forgot_email_template>
+                        <remind_email_template translate="label">
+                            <label>Remind Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </remind_email_template>
+                        <forgot_email_identity translate="label">
+                            <label>Forgot and Remind Email Sender</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_identity</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </forgot_email_identity>
+                        <reset_link_expiration_period translate="label comment">
+                            <label>Recovery Link Expiration Period (days)</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_customer_password_link_expirationperiod</backend_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </reset_link_expiration_period>
                     </fields>
                 </password>
                 <address translate="label">
@@ -315,7 +333,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <text>
-                            <label>Text</label>    
+                            <label>Text</label>
                             <frontend_type>textarea</frontend_type>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
@@ -323,7 +341,7 @@
                             <show_in_store>1</show_in_store>
                         </text>
                         <oneline>
-                            <label>Text One Line</label>    
+                            <label>Text One Line</label>
                             <frontend_type>textarea</frontend_type>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
@@ -331,7 +349,7 @@
                             <show_in_store>1</show_in_store>
                         </oneline>
                         <html>
-                            <label>HTML</label>    
+                            <label>HTML</label>
                             <frontend_type>textarea</frontend_type>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
@@ -339,7 +357,7 @@
                             <show_in_store>1</show_in_store>
                         </html>
                         <pdf>
-                            <label>PDF</label>    
+                            <label>PDF</label>
                             <frontend_type>textarea</frontend_type>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
@@ -347,7 +365,7 @@
                             <show_in_store>1</show_in_store>
                         </pdf>
                         <js_template>
-                            <label>JavaScript Template</label>    
+                            <label>JavaScript Template</label>
                             <frontend_type>textarea</frontend_type>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>

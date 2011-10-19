@@ -52,8 +52,8 @@ class Mage_XmlConnect_Block_Catalog_Product_Review extends Mage_XmlConnect_Block
         if ($review->getId()) {
             $item->addChild('review_id', $review->getId());
             $item->addChild('created_at', $this->formatDate($review->getCreatedAt()));
-            $item->addChild('title', $item->xmlentities(strip_tags($review->getTitle())));
-            $item->addChild('nickname', $item->xmlentities(strip_tags($review->getNickname())));
+            $item->addChild('title', $item->xmlentities($review->getTitle()));
+            $item->addChild('nickname', $item->xmlentities($review->getNickname()));
             $detail = $item->xmlentities($review->getDetail());
             if ($itemNodeName == 'item') {
                 $remainder = '';
@@ -72,7 +72,6 @@ class Mage_XmlConnect_Block_Catalog_Product_Review extends Mage_XmlConnect_Block
             if ($rating) {
                 $item->addChild('rating_votes', $rating);
             }
-
         }
         return $item;
     }
@@ -87,5 +86,4 @@ class Mage_XmlConnect_Block_Catalog_Product_Review extends Mage_XmlConnect_Block
         $review = Mage::getModel('review/review')->load((int)$this->getRequest()->getParam('id', 0));
         return $this->reviewToXmlObject($review, 'review')->asNiceXml();
     }
-
 }

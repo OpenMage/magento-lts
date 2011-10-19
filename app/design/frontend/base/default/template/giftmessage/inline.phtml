@@ -36,33 +36,31 @@ if(!window.toogleVisibilityOnObjects) {
                     item.removeClassName('validation-passed');
                 });
             });
-
-
         } else {
             objects.each(function(item){
-                $(item).hide();
-                $$('#' + item + ' .input-text').each(function(sitem) {
-                    sitem.addClassName('validation-passed');
-                });
-
-                $$('#' + item + ' .giftmessage-area').each(function(sitem) {
-                    sitem.value = '';
-                });
-                $$('#' + item + ' .checkbox').each(function(sitem) {
-                    sitem.checked = false;
-                });
-                $$('#' + item + ' .select').each(function(sitem) {
-                    sitem.value = '';
-                });
-                $$('#' + item + ' .price-box').each(function(sitem) {
-                    sitem.addClassName('no-display');
-                });
+                if ($(item)) {
+                    $(item).hide();
+                    $$('#' + item + ' .input-text').each(function(sitem) {
+                        sitem.addClassName('validation-passed');
+                    });
+                    $$('#' + item + ' .giftmessage-area').each(function(sitem) {
+                        sitem.value = '';
+                    });
+                    $$('#' + item + ' .checkbox').each(function(sitem) {
+                        sitem.checked = false;
+                    });
+                    $$('#' + item + ' .select').each(function(sitem) {
+                        sitem.value = '';
+                    });
+                    $$('#' + item + ' .price-box').each(function(sitem) {
+                        sitem.addClassName('no-display');
+                    });
+                }
             });
-
         }
-
     }
 }
+
 if(!window.toogleRequired) {
     var toogleRequired = function (source, objects)
     {

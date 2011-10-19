@@ -60,7 +60,7 @@ class Mage_XmlConnect_Model_ConfigData extends Mage_Core_Model_Abstract
     /**
      * Initialize configuration data
      *
-     * @return void
+     * @return null
      */
     protected function _construct()
     {
@@ -154,11 +154,7 @@ class Mage_XmlConnect_Model_ConfigData extends Mage_Core_Model_Abstract
             $applicationId = str_ireplace(self::CONFIG_PREFIX, '', $application);
             $this->_deleteOnUpdate($applicationId);
             foreach ($data as $category => $config) {
-                $this->saveConfig(
-                    $applicationId,
-                    $config,
-                    $category
-                );
+                $this->saveConfig($applicationId, $config, $category);
             }
         }
         return $this;
@@ -176,9 +172,7 @@ class Mage_XmlConnect_Model_ConfigData extends Mage_Core_Model_Abstract
     {
         foreach ($configData as $path => $value) {
             if (!is_scalar($value)) {
-                Mage::throwException(
-                    Mage::helper('xmlconnect')->__('Unsupported value type received')
-                );
+                Mage::throwException(Mage::helper('xmlconnect')->__('Unsupported value type received'));
             }
             $this->getResource()->saveConfig($applicationId, $category, $path, $value);
         }

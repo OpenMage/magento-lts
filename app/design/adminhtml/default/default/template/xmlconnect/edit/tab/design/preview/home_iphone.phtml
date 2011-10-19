@@ -42,11 +42,10 @@ $title9color = $previewModel->getConfigFontInfo('Title9/color');
 $backgroundColor = $previewModel->getData('conf/body/backgroundColor');
 $menImage = $previewModel->getPreviewImagesUrl('men.png');
 $bannerImage = $previewModel->getBannerImage();
-$backgroundImage = $previewModel->getBackgroundImage();
 ?>
 <div class="iphone-home">
     <div class="main-frame">
-        <div class="main-block" style="background: url('<?php echo $backgroundImage; ?>') no-repeat 0 63px <?php echo $backgroundColor; ?>;">
+        <div class="main-block" style="background: <?php echo $backgroundColor; ?>;">
             <div class="top-header" style="background:#000;">
                 <div class="volume" style="background:url('<?php echo $previewModel->getPreviewImagesUrl('1.gif'); ?>') bottom left no-repeat;"></div>
                 <div class="header-sign-1"><?php echo $this->__("Carrier"); ?></div>

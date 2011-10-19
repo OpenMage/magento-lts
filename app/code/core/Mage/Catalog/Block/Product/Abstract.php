@@ -280,13 +280,14 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     protected function _initReviewsHelperBlock()
     {
         if (!$this->_reviewsHelperBlock) {
-            if (Mage::helper('catalog')->isModuleEnabled('Mage_Review')) {
+            if (!Mage::helper('catalog')->isModuleEnabled('Mage_Review')) {
+                return false;
+            } else {
                 $this->_reviewsHelperBlock = $this->getLayout()->createBlock('review/helper');
-                return true;
             }
         }
 
-        return false;
+        return true;
     }
 
     /**

@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_New_Form extends Mage_Adminhtml_Bl
             array(
                 'name'      => 'status',
                 'label'     => Mage::helper('sales')->__('Status Code'),
-                'class'     => 'required-entry',
+                'class'     => 'required-entry validate-code',
                 'required'  => true,
             )
         );

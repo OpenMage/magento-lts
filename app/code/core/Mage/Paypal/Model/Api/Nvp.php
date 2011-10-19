@@ -445,6 +445,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'amount'     => 'L_SHIPPINGOPTIONAMOUNT%d',
         'code'       => 'L_SHIPPINGOPTIONNAME%d',
         'name'       => 'L_SHIPPINGOPTIONLABEL%d',
+        'tax_amount' => 'L_TAXAMT%d',
     );
 
     /**
@@ -487,7 +488,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * @var array
      */
     protected $_doReferenceTransactionRequest = array('REFERENCEID', 'PAYMENTACTION', 'AMT', 'ITEMAMT', 'SHIPPINGAMT',
-        'TAXAMT'
+        'TAXAMT', 'INVNUM', 'NOTIFYURL'
     );
 
     protected $_doReferenceTransactionResponse = array('BILLINGAGREEMENTID', 'TRANSACTIONID');

@@ -552,7 +552,6 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 return Mage::helper('bundle')->__('Please select options for product.');
             }
 
-            //$optionsCollection = $this->getOptionsByIds($optionIds, $product);
             $product->getTypeInstance(true)->setStoreFilter($product->getStoreId(), $product);
             $optionsCollection = $this->getOptionsCollection($product);
             if (!$this->getProduct($product)->getSkipCheckRequiredOption() && $isStrictProcessMode) {
@@ -577,31 +576,33 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     }
                 }
             }
+            // If product has not been configured yet then $selections array should be empty
+            if (!empty($selectionIds)) {
+                $selections = $this->getSelectionsByIds($selectionIds, $product);
 
-            $selections = $this->getSelectionsByIds($selectionIds, $product);
-
-            /**
-             * checking if selections that where added are still on sale
-             */
-            foreach ($selections->getItems() as $key => $selection) {
-                if (!$selection->isSalable()) {
-                    $_option = $optionsCollection->getItemById($selection->getOptionId());
-                    if (is_array($options[$_option->getId()]) && count($options[$_option->getId()]) > 1){
-                        $moreSelections = true;
-                    } else {
-                        $moreSelections = false;
-                    }
-                    if ($_option->getRequired() &&
-                        (!$_option->isMultiSelection() || ($_option->isMultiSelection() && !$moreSelections))
-                    ) {
-                        return Mage::helper('bundle')->__('Selected required options are not available.');
+                // Check if added selections are still on sale
+                foreach ($selections->getItems() as $key => $selection) {
+                    if (!$selection->isSalable()) {
+                        $_option = $optionsCollection->getItemById($selection->getOptionId());
+                        if (is_array($options[$_option->getId()]) && count($options[$_option->getId()]) > 1) {
+                            $moreSelections = true;
+                        } else {
+                            $moreSelections = false;
+                        }
+                        if ($_option->getRequired()
+                            && (!$_option->isMultiSelection() || ($_option->isMultiSelection() && !$moreSelections))
+                        ) {
+                            return Mage::helper('bundle')->__('Selected required options are not available.');
+                        }
                     }
                 }
+
+                $optionsCollection->appendSelections($selections, false, $_appendAllSelections);
+
+                $selections = $selections->getItems();
+            } else {
+                $selections = array();
             }
-
-            $optionsCollection->appendSelections($selections, false, $_appendAllSelections);
-
-            $selections = $selections->getItems();
         } else {
             $product->setOptionsValidationFail(true);
             $product->getTypeInstance(true)->setStoreFilter($product->getStoreId(), $product);
@@ -632,9 +633,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $uniqueKey = array($product->getId());
             $selectionIds = array();
 
-            /*
-             * shaking selection array :) by option position
-             */
+            // Shuffle selection array by option position
             usort($selections, array($this, 'shakeSelections'));
 
             foreach ($selections as $selection) {
@@ -649,14 +648,14 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $selection->addCustomOption('selection_id', $selection->getSelectionId());
 
                 $beforeQty = 0;
-                if ($customOption = $product->getCustomOption('product_qty_' . $selection->getId())) {
+                $customOption = $product->getCustomOption('product_qty_' . $selection->getId());
+                if ($customOption) {
                     $beforeQty = (float)$customOption->getValue();
                 }
                 $product->addCustomOption('product_qty_' . $selection->getId(), $qty + $beforeQty, $selection);
 
                 /*
-                 * creating extra attributes that will be converted
-                 * to product options in order item
+                 * Create extra attributes that will be converted to product options in order item
                  * for selection (not for all bundle)
                  */
                 $price = $product->getPriceModel()->getSelectionPrice($product, $selection, $qty);
@@ -667,7 +666,6 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     'option_id'     => $selection->getOption()->getId()
                 );
 
-                //if (!$product->getPriceType()) {
                 $_result = $selection->getTypeInstance(true)->prepareForCart($buyRequest, $selection);
                 if (is_string($_result) && !is_array($_result)) {
                     return $_result;
@@ -680,7 +678,6 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $result[] = $_result[0]->setParentProductId($product->getId())
                     ->addCustomOption('bundle_option_ids', serialize(array_map('intval', $optionIds)))
                     ->addCustomOption('bundle_selection_attributes', serialize($attributes));
-                //}
 
                 if ($isStrictProcessMode) {
                     $_result[0]->setCartQty($qty);
@@ -690,14 +687,13 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $uniqueKey[] = $_result[0]->getSelectionId();
                 $uniqueKey[] = $qty;
             }
-            /**
-             * "unique" key for bundle selection and add it to selections and bundle for selections
-             */
+
+            // "unique" key for bundle selection and add it to selections and bundle for selections
             $uniqueKey = implode('_', $uniqueKey);
             foreach ($result as $item) {
                 $item->addCustomOption('bundle_identity', $uniqueKey);
             }
-            $product->addCustomOption('bundle_option_ids', serialize(array_map('intval',$optionIds)));
+            $product->addCustomOption('bundle_option_ids', serialize(array_map('intval', $optionIds)));
             $product->addCustomOption('bundle_selection_ids', serialize($selectionIds));
 
             return $result;
@@ -845,17 +841,33 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         return $optionArr;
     }
 
+    /**
+     * Sort selections method for usort function
+     * Sort selections by option position, selection position and selection id
+     *
+     * @param  Mage_Catalog_Model_Product $a
+     * @param  Mage_Catalog_Model_Product $b
+     * @return int
+     */
     public function shakeSelections($a, $b)
     {
-        $aPosition = ($a->getOption()->getPosition()+1)*($a->getPosition()+1);
-        $bPosition = ($b->getOption()->getPosition()+1)*($b->getPosition()+1);
+        $aPosition = array(
+            $a->getOption()->getPosition(),
+            $a->getOptionId(),
+            $a->getPosition(),
+            $a->getSelectionId()
+        );
+        $bPosition = array(
+            $b->getOption()->getPosition(),
+            $b->getOptionId(),
+            $b->getPosition(),
+            $b->getSelectionId()
+        );
         if ($aPosition == $bPosition) {
-            if ($a->getSelectionId() == $b->getSelectionId()) {
-                return 0;
-            }
-            return ($a->getSelectionId() < $b->getSelectionId()) ? -1 : 1;
+            return 0;
+        } else {
+            return $aPosition < $bPosition ? -1 : 1;
         }
-        return ($aPosition < $bPosition) ? -1 : 1;
     }
 
     /**

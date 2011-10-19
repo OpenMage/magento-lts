@@ -374,6 +374,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method',
                         array('request'=>$this->getRequest(),
                             'quote'=>$this->getOnepage()->getQuote()));
+                $this->getOnepage()->getQuote()->collectTotals();
                 $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
 
                 $result['goto_section'] = 'payment';
@@ -382,6 +383,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                     'html' => $this->_getPaymentMethodsHtml()
                 );
             }
+            $this->getOnepage()->getQuote()->collectTotals()->save();
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
@@ -461,12 +463,12 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     protected function _initInvoice()
     {
         $items = array();
-        foreach ($this->getOnepage()->getQuote()->getAllItems() as $item) {
-            $items[$item->getId()] = $item->getQty();
+        foreach ($this->_getOrder()->getAllItems() as $item) {
+            $items[$item->getId()] = $item->getQtyOrdered();
         }
         /* @var $invoice Mage_Sales_Model_Service_Order */
         $invoice = Mage::getModel('sales/service_order', $this->_getOrder())->prepareInvoice($items);
-        $invoice->setEmailSent(true);
+        $invoice->setEmailSent(true)->register();
 
         Mage::register('current_invoice', $invoice);
         return $invoice;
@@ -507,7 +509,10 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                     && $paymentHelper->getZeroSubTotalOrderStatus($storeId) == 'pending') {
                 $invoice = $this->_initInvoice();
                 $invoice->getOrder()->setIsInProcess(true);
-                $invoice->save();
+                $transactionSave = Mage::getModel('core/resource_transaction')
+                    ->addObject($invoice)
+                    ->addObject($invoice->getOrder());
+                $transactionSave->save();
             }
 
             $redirectUrl = $this->getOnepage()->getCheckout()->getRedirectUrl();

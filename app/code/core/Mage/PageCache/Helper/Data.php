@@ -109,4 +109,14 @@ class Mage_PageCache_Helper_Data extends Mage_Core_Helper_Abstract
             $cookie->set(self::NO_CACHE_COOKIE, 1, $lifetime);
         }
     }
+
+    /**
+     * Returns a lifetime of cookie for external cache
+     *
+     * @return string Time in seconds
+     */
+    public function getNoCacheCookieLifetime()
+    {
+        return Mage::getStoreConfig(self::XML_PATH_EXTERNAL_CACHE_LIFETIME);
+    }
 }

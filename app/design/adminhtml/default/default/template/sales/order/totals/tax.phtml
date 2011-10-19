@@ -34,33 +34,57 @@ $_fullInfo  = $this->getFullTaxInfo();
 
 <?php if ($this->displayFullSummary()): ?>
     <?php $isTop = 1; ?>
-    <?php foreach ($_fullInfo as $info): ?>
-        <?php if (isset($info['hidden']) && $info['hidden']) continue; ?>
-        <?php
-            $percent      = $info['percent'];
-            $amount       = $info['amount'];
-            $baseAmount   = $info['base_amount'];
-            $rates        = $info['rates'];
-            $isFirst      = 1;
-        ?>
+    <?php if (isset($_fullInfo[0]['rates'])): ?>
+        <?php foreach ($_fullInfo as $info): ?>
+            <?php if (isset($info['hidden']) && $info['hidden']) continue; ?>
+            <?php
+                $percent    = $info['percent'];
+                $amount     = $info['amount'];
+                $baseAmount = $info['base_amount'];
+                $rates      = $info['rates'];
+                $isFirst    = 1;
+            ?>
 
-        <?php foreach ($rates as $rate): ?>
-        <tr class="summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>" style="display:none;">
-            <?php if (!is_null($rate['percent'])): ?>
-                <td class="label"><?php echo $rate['title']; ?> (<?php echo (float)$rate['percent']; ?>%)<br /></td>
-            <?php else: ?>
-                <td class="label"><?php echo $rate['title']; ?><br /></td>
-            <?php endif; ?>
-            <?php if ($isFirst): ?>
-                <td rowspan="<?php echo count($rates); ?>"><?php echo $this->displayAmount($amount, $baseAmount); ?></td>
-            <?php endif; ?>
-        </tr>
-        <?php
-            $isFirst = 0;
-            $isTop = 0;
-        ?>
+            <?php foreach ($rates as $rate): ?>
+            <tr class="summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>" style="display:none;">
+                <?php if (!is_null($rate['percent'])): ?>
+                    <td class="label"><?php echo $rate['title']; ?> (<?php echo (float)$rate['percent']; ?>%)<br /></td>
+                <?php else: ?>
+                    <td class="label"><?php echo $rate['title']; ?><br /></td>
+                <?php endif; ?>
+                <?php if ($isFirst): ?>
+                    <td rowspan="<?php echo count($rates); ?>"><?php echo $this->displayAmount($amount, $baseAmount); ?></td>
+                <?php endif; ?>
+            </tr>
+            <?php
+                $isFirst = 0;
+                $isTop = 0;
+            ?>
+            <?php endforeach; ?>
         <?php endforeach; ?>
-    <?php endforeach; ?>
+    <?php else: ?>
+        <?php foreach ($_fullInfo as $info): ?>
+            <?php
+                $percent    = $info['percent'];
+                $amount     = $info['tax_amount'];
+                $baseAmount = $info['base_tax_amount'];
+                $isFirst    = 1;
+            ?>
+
+            <tr class="summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>" style="display:none;">
+                <?php if (!is_null($info['percent'])): ?>
+                    <td class="label"><?php echo $info['title']; ?> (<?php echo (float)$info['percent']; ?>%)<br /></td>
+                <?php else: ?>
+                    <td class="label"><?php echo $info['title']; ?><br /></td>
+                <?php endif; ?>
+                    <td><?php echo $this->displayAmount($amount, $baseAmount); ?></td>
+            </tr>
+            <?php
+                $isFirst = 0;
+                $isTop = 0;
+            ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
 <?php endif;?>
 <?php if ($this->displayFullSummary() && $_fullInfo): ?>
 <tr class="summary-total" onclick="expandDetails(this, '.summary-details')">

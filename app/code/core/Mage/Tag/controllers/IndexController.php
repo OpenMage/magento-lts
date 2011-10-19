@@ -112,9 +112,11 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
      */
     protected function _cleanTags(array $tagNamesArr)
     {
+        $helper = Mage::helper('core');
         foreach( $tagNamesArr as $key => $tagName ) {
             $tagNamesArr[$key] = trim($tagNamesArr[$key], '\'');
             $tagNamesArr[$key] = trim($tagNamesArr[$key]);
+            $tagNamesArr[$key] = $helper->escapeHtml($tagNamesArr[$key]);
             if( $tagNamesArr[$key] == '' ) {
                 unset($tagNamesArr[$key]);
             }

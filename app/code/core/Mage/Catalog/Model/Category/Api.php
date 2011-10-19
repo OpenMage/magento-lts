@@ -39,10 +39,11 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     }
 
     /**
-     * Retrive level of categories for category/store view/website
+     * Retrieve level of categories for category/store view/website
      *
-     * @param string|int $website
-     * @param string|int $store
+     * @param string|int|null $website
+     * @param string|int|null $store
+     * @param int|null $categoryId
      * @return array
      */
     public function level($website = null, $store = null, $categoryId = null)
@@ -240,30 +241,49 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      *
      * @param int $parentId
      * @param array $categoryData
+     * @param int|null|string $store
      * @return int
      */
     public function create($parentId, $categoryData, $store = null)
     {
         $parent_category = $this->_initCategory($parentId, $store);
+
+        /** @var $category Mage_Catalog_Model_Category */
         $category = Mage::getModel('catalog/category')
             ->setStoreId($this->_getStoreId($store));
 
-        $category->addData(array('path'=>implode('/',$parent_category->getPathIds())));
+        $category->addData(array('path'=>implode('/', $parent_category->getPathIds())));
+        $category->setAttributeSetId($category->getDefaultAttributeSetId());
 
-        $category ->setAttributeSetId($category->getDefaultAttributeSetId());
-        /* @var $category Mage_Catalog_Model_Category */
-
+        $useConfig = array();
         foreach ($category->getAttributes() as $attribute) {
             if ($this->_isAllowedAttribute($attribute)
-                && isset($categoryData[$attribute->getAttributeCode()])) {
-                $category->setData(
-                    $attribute->getAttributeCode(),
-                    $categoryData[$attribute->getAttributeCode()]
-                );
+                && isset($categoryData[$attribute->getAttributeCode()])
+            ) {
+                // check whether value is 'use_config'
+                $attrCode = $attribute->getAttributeCode();
+                $categoryDataValue = $categoryData[$attrCode];
+                if ('use_config' === $categoryDataValue ||
+                    (is_array($categoryDataValue) &&
+                    count($categoryDataValue) == 1 &&
+                    'use_config' === $categoryDataValue[0])
+                ) {
+                    $useConfig[] = $attrCode;
+                    $category->setData($attrCode, null);
+                } else {
+                    $category->setData($attrCode, $categoryDataValue);
+                }
             }
         }
 
         $category->setParentId($parent_category->getId());
+
+        /**
+         * Proceed with $useConfig set into category model for processing through validation
+         */
+        if (count($useConfig) > 0) {
+            $category->setData("use_post_data_config", $useConfig);
+        }
 
         try {
             $validate = $category->validate();
@@ -271,8 +291,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 foreach ($validate as $code => $error) {
                     if ($error === true) {
                         Mage::throwException(Mage::helper('catalog')->__('Attribute "%s" is required.', $code));
-                    }
-                    else {
+                    } else {
                         Mage::throwException($error);
                     }
                 }
@@ -281,6 +300,9 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             $category->save();
         }
         catch (Mage_Core_Exception $e) {
+            $this->_fault('data_invalid', $e->getMessage());
+        }
+        catch (Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
 

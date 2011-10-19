@@ -65,7 +65,7 @@
         </tr>
 
         <tr>
-            <td class="label"><label for="inventory_min_qty"><?php echo Mage::helper('catalog')->__('Qty for Item\'s Status to become Out of Stock') ?></label></td>
+            <td class="label"><label for="inventory_min_qty"><?php echo Mage::helper('catalog')->__('Qty for Item\'s Status to Become Out of Stock') ?></label></td>
             <td class="value"><input type="text" class="input-text validate-number" id="inventory_min_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][min_qty]" value="<?php echo $this->getFieldValue('min_qty')*1 ?>" <?php echo $_readonly;?>/>
 
             <?php $_checked = ($this->getFieldValue('use_config_min_qty') || $this->IsNew()) ? 'checked="checked"' : '' ?>
@@ -175,7 +175,8 @@
     //<![CDATA[
     var cataloginventoryNotManagestockFields = {
         inventory_min_sale_qty: true,
-        inventory_max_sale_qty: true
+        inventory_max_sale_qty: true,
+        inventory_qty_increments: true
     };
     function changeManageStockOption()
     {

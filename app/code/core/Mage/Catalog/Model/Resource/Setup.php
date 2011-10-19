@@ -45,7 +45,11 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         $data = parent::_prepareValues($attr);
         $data = array_merge($data, array(
             'frontend_input_renderer'       => $this->_getValue($attr, 'input_renderer'),
-            'is_global'                     => $this->_getValue($attr, 'global', Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL),
+            'is_global'                     => $this->_getValue(
+                $attr,
+                'global',
+                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL
+            ),
             'is_visible'                    => $this->_getValue($attr, 'visible', 1),
             'is_searchable'                 => $this->_getValue($attr, 'searchable', 0),
             'is_filterable'                 => $this->_getValue($attr, 'filterable', 0),
@@ -100,7 +104,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                     ),
                     'url_key'            => array(
                         'type'                       => 'varchar',
-                        'label'                      => 'URL key',
+                        'label'                      => 'URL Key',
                         'input'                      => 'text',
                         'backend'                    => 'catalog/category_attribute_backend_urlkey',
                         'required'                   => false,
@@ -635,7 +639,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                     ),
                     'url_key'            => array(
                         'type'                       => 'varchar',
-                        'label'                      => 'URL key',
+                        'label'                      => 'URL Key',
                         'input'                      => 'text',
                         'backend'                    => 'catalog/product_attribute_backend_urlkey',
                         'required'                   => false,
@@ -667,7 +671,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'input'                      => 'select',
                         'source'                     => 'eav/entity_attribute_source_boolean',
                         'required'                   => false,
-                        'note'                       => 'Products with recurring profile participate in catalog as nominal items.',
+                        'note'                       =>
+                            'Products with recurring profile participate in catalog as nominal items.',
                         'sort_order'                 => 1,
                         'apply_to'                   => 'simple,virtual',
                         'is_configurable'            => false,
@@ -752,7 +757,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                     ),
                     'options_container'  => array(
                         'type'                       => 'varchar',
-                        'label'                      => 'Display product options in',
+                        'label'                      => 'Display Product Options In',
                         'input'                      => 'select',
                         'source'                     => 'catalog/entity_product_attribute_design_options_container',
                         'required'                   => false,

@@ -962,4 +962,16 @@ interface Varien_Db_Adapter_Interface
      * @return mixed
      */
     public function decodeVarbinary($value);
+
+    /**
+     * Returns date that fits into TYPE_DATETIME range and is suggested to act as default 'zero' value
+     * for a column for current RDBMS. Deprecated and left for compatibility only.
+     * In Magento at MySQL there was zero date used for datetime columns. However, zero date it is not supported across
+     * different RDBMS. Thus now it is recommended to use same default value equal for all RDBMS - either NULL
+     * or specific date supported by all RDBMS.
+     *
+     * @deprecated after 1.5.1.0
+     * @return string
+     */
+    public function getSuggestedZeroDate();
 }

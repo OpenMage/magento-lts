@@ -381,6 +381,46 @@
                 </faults>
             </cart_coupon>
         </resources>
+        <resources_alias>
+            <cart_customer_address>cart_customer</cart_customer_address>
+        </resources_alias>
+        <rest>
+            <mapping>
+                <cart_product>
+                    <post>
+                        <method>add</method>
+                    </post>
+                    <delete>
+                        <method>remove</method>
+                    </delete>
+                </cart_product>
+                <cart_shipping>
+                    <post>
+                        <method>method</method>
+                    </post>
+                </cart_shipping>
+                <cart_payment>
+                    <post>
+                        <method>method</method>
+                    </post>
+                </cart_payment>
+                <cart_customer>
+                    <post>
+                        <method>set</method>
+                    </post>
+                </cart_customer>
+                <cart_customer_address>
+                    <post>
+                        <method>addresses</method>
+                    </post>
+                </cart_customer_address>
+                <cart_payment>
+                    <post>
+                        <method>method</method>
+                    </post>
+                </cart_payment>
+            </mapping>
+        </rest>
         <acl>
             <resources>
                 <cart translate="title" module="checkout">

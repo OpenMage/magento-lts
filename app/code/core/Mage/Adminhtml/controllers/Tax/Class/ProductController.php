@@ -112,11 +112,12 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
     public function deleteAction()
     {
         $classId    = $this->getRequest()->getParam('id');
+        $session    = Mage::getSingleton('adminhtml/session');
         $classModel = Mage::getModel('tax/class')
             ->load($classId);
 
         if (!$classModel->getId() || $classModel->getClassType() != Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('This class no longer exists'));
+            $session->addError(Mage::helper('tax')->__('This class no longer exists'));
             $this->_redirect('*/*/');
             return;
         }
@@ -126,8 +127,8 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
             ->setClassTypeFilter(Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT, $classId);
 
         if ($ruleCollection->getSize() > 0) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('You cannot delete this tax class as it is used in Tax Rules. You have to delete the rules it is used in first.'));
-            $this->_redirectReferer();
+            $session->addError(Mage::helper('tax')->__('You cannot delete this tax class as it is used in Tax Rules. You have to delete the rules it is used in first.'));
+            $this->_redirect('*/*/edit/', array('id' => $classId));
             return;
         }
 
@@ -137,26 +138,24 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
         $productCount = $productCollection->getSize();
 
         if ($productCount > 0) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('You cannot delete this tax class as it is used for %d products.', $productCount));
-            $this->_redirectReferer();
+            $session->addError(Mage::helper('tax')->__('You cannot delete this tax class as it is used for %d products.', $productCount));
+            $this->_redirect('*/*/edit/', array('id' => $classId));
             return;
         }
 
         try {
             $classModel->delete();
 
-            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax class has been deleted.'));
+            $session->addSuccess(Mage::helper('tax')->__('The tax class has been deleted.'));
             $this->getResponse()->setRedirect($this->getUrl("*/*/"));
             return;
-        }
-        catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        }
-        catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while deleting this tax class.'));
+        } catch (Mage_Core_Exception $e) {
+            $session->addError($e->getMessage());
+        } catch (Exception $e) {
+            $session->addException($e, Mage::helper('tax')->__('An error occurred while deleting this tax class.'));
         }
 
-        $this->_redirectReferer();
+        $this->_redirect('*/*/edit/', array('id' => $classId));
     }
 
     /**

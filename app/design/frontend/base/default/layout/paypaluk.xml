@@ -122,10 +122,17 @@
     <tag_product_list>
         <update handle="SHORTCUT_uk_popup" />
     </tag_product_list>
+    <tag_customer_view>
+        <update handle="SHORTCUT_uk_popup" />
+    </tag_customer_view>
 
     <wishlist_index_index>
         <update handle="SHORTCUT_uk_popup" />
     </wishlist_index_index>
+
+    <review_product_list>
+        <update handle="SHORTCUT_uk_popup" />
+    </review_product_list>
 
     <checkout_onepage_success>
         <update handle="SHORTCUT_uk_popup" />

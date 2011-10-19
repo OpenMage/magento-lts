@@ -75,7 +75,7 @@ class Mage_XmlConnect_Block_Cart_Crosssell extends Mage_Checkout_Block_Cart_Cros
             }
 
             $itemXmlObj->addChild('has_options', (int)$product->getHasOptions());
-            $itemXmlObj->addChild('in_stock', (int)$product->isInStock());
+            $itemXmlObj->addChild('in_stock', (int)$product->getIsInStock());
             if ($product->getTypeId() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE) {
                 $itemXmlObj->addChild('is_salable', 0);
             } else {
@@ -83,14 +83,12 @@ class Mage_XmlConnect_Block_Cart_Crosssell extends Mage_Checkout_Block_Cart_Cros
             }
 
             if ($this->getChild('product_price')) {
-                $this->getChild('product_price')->setProduct($product)
-                    ->setProductXmlObj($itemXmlObj)
+                $this->getChild('product_price')->setProduct($product)->setProductXmlObj($itemXmlObj)
                     ->collectProductPrices();
             }
 
             if (!$product->getRatingSummary()) {
-                Mage::getModel('review/review')
-                    ->getEntitySummary($product, Mage::app()->getStore()->getId());
+                Mage::getModel('review/review')->getEntitySummary($product, Mage::app()->getStore()->getId());
             }
 
             $itemXmlObj->addChild('rating_summary', round((int)$product->getRatingSummary()->getRatingSummary() / 10));

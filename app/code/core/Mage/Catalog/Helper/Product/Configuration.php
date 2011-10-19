@@ -143,7 +143,15 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
             }
         }
 
-        return array_merge($options, $this->getCustomOptions($item));
+        $options = array_merge($options, $this->getCustomOptions($item));
+        $isUnConfigured = true;
+        foreach ($options as &$option) {
+            if ($option['value']) {
+                $isUnConfigured = false;
+                break;
+            }
+        }
+        return $isUnConfigured ? array() : $options;
     }
 
     /**

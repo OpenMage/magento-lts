@@ -332,9 +332,10 @@ class Mage_Core_Model_Resource
      */
     public function cleanDbRow(&$row)
     {
+        $zeroDate = $this->getConnection(self::DEFAULT_READ_RESOURCE)->getSuggestedZeroDate();
         if (!empty($row) && is_array($row)) {
             foreach ($row as $key=>&$value) {
-                if (is_string($value) && $value === '0000-00-00 00:00:00') {
+                if (is_string($value) && $value === $zeroDate) {
                     $value = '';
                 }
             }
