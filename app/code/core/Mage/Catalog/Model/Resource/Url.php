@@ -153,7 +153,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function getRewriteByRequestPath($requestPath, $storeId)
     {
-        $adapter = $this->_getReadAdapter();
+        $adapter = $this->_getWriteAdapter();
         $select = $adapter->select()
             ->from($this->getMainTable())
             ->where('store_id = :store_id')
@@ -182,7 +182,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function checkRequestPaths($paths, $storeId)
     {
-        $adapter = $this->_getReadAdapter();
+        $adapter = $this->_getWriteAdapter();
         $select = $adapter->select()
             ->from($this->getMainTable(), 'request_path')
             ->where('store_id = :store_id')

@@ -42,7 +42,15 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     public function reindexAll()
     {
         $this->useIdxTable(true);
-        $this->_prepareBundlePrice();
+
+        $this->beginTransaction();
+        try {
+            $this->_prepareBundlePrice();
+            $this->commit();
+        } catch (Exception $e) {
+            $this->rollBack();
+            throw $e;
+        }
 
         return $this;
     }

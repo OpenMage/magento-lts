@@ -120,7 +120,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
             $fieldAlias = sprintf('weee_%s_table.value', $attribute);
             $checkAdditionalCalculation = $select->getAdapter()->getCheckSql("{$fieldAlias} IS NULL", 0, $fieldAlias);
             if (Mage::helper('weee')->isDiscounted()) {
-                $additionalCalculations[] = sprintf('+(%s*(1-(%s/100))', $checkAdditionalCalculation, $checkDiscountField);
+                $additionalCalculations[] = sprintf('+(%s*(1-(%s/100)))', $checkAdditionalCalculation, $checkDiscountField);
             } else {
                 $additionalCalculations[] = "+($checkAdditionalCalculation)";
             }

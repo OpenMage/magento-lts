@@ -27,6 +27,7 @@
 /**
  * Paypal transaction resource model
  *
+ * @deprecated since 1.6.2.0
  * @category    Mage
  * @package     Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>

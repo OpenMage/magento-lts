@@ -98,6 +98,11 @@
                             <more_url><![CDATA[https://www.paypal.com/cgi-bin/webscr?cmd=_simple-referral-flow&partner_id=NB9WWHYEMVUMS&product_id=ECA]]></more_url>
                             <backend_congif>
                                 <enable_for_countries>all</enable_for_countries>
+                                <urls>
+                                    <JP translate="switcher fieldset">
+                                        <more_url><![CDATA[https://cms.paypal.com/jp/cgi-bin/marketingweb?cmd=_render-content&content_ID=marketing_jp/ExpressCheckout&nav=3.1.1]]></more_url>
+                                    </JP>
+                                </urls>
                             </backend_congif>
                             <config_path>payment/paypal_express/active</config_path>
                             <frontend_type>checkbox</frontend_type>
@@ -112,6 +117,11 @@
                             <more_url><![CDATA[https://www.paypal.com/cgi-bin/webscr?cmd=_simple-referral-flow&partner_id=NB9WWHYEMVUMS&product_id=WPSA]]></more_url>
                             <backend_congif>
                                 <enable_for_countries>all</enable_for_countries>
+                                <urls>
+                                    <JP translate="switcher fieldset">
+                                        <more_url><![CDATA[https://cms.paypal.com/jp/cgi-bin/marketingweb?cmd=_render-content&content_ID=marketing_jp/WebsitePaymentsStandard&nav=3.1.2]]></more_url>
+                                    </JP>
+                                </urls>
                             </backend_congif>
                             <config_path>payment/paypal_standard/active</config_path>
                             <frontend_type>checkbox</frontend_type>
@@ -173,7 +183,7 @@
                         </express_pe>
                         <payflow_link translate="label comment">
                             <label>Payflow Link (for USA and Canada)</label>
-                            <comment>Quick set-up service lets your customers securely complete transactions.</comment>
+                            <comment>Accept payments with a PCI-compliant checkout that keeps customers on your site. For use with your own merchant account.</comment>
                             <more_url><![CDATA[https://www.paypal.com/cgi-bin/webscr?cmd=_payflow-link-overview-outside]]></more_url>
                             <backend_congif>
                                 <enable_for_countries>US, CA</enable_for_countries>
@@ -184,6 +194,18 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                         </payflow_link>
+                        <payflow_advanced translate="label comment">
+                            <label>PayPal Payments Advanced</label>
+                            <comment>Accept payments with a PCI-compliant checkout that keeps customers on your site.  Includes a merchant account from PayPal.</comment>
+                            <backend_congif>
+                                <enable_for_countries>US</enable_for_countries>
+                            </backend_congif>
+                            <config_path>payment/payflow_advanced/active</config_path>
+                            <frontend_type>checkbox</frontend_type>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </payflow_advanced>
                         <hosted_pro translate="label comment">
                             <label>Website Payments Pro Hosted Solution</label>
                             <comment><![CDATA[Payments by cards + seller protection - <strong style="color:red">Contact PayPal before activating</strong>]]></comment>
@@ -209,6 +231,11 @@
                                         <fieldset>Pasarela integral Settings</fieldset>
                                     </ES>
                                 </labels>
+                                <urls>
+                                    <JP translate="switcher fieldset">
+                                        <more_url><![CDATA[https://www.paypal-japan.com/wpp/]]></more_url>
+                                    </JP>
+                                </urls>
                             </backend_congif>
                             <config_path>payment/hosted_pro/active</config_path>
                             <frontend_type>checkbox</frontend_type>
@@ -1572,16 +1599,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                         </payment_action>
-                        <authorization_amount translate="label">
-                            <label>Verification Authorization Amount</label>
-                            <comment><![CDATA[<a id="PayFlowLinkLearnMore" href="#">Learn More</a>]]></comment>
-                            <config_path>payment/payflow_link/authorization_amount</config_path>
-                            <frontend_type>select</frontend_type>
-                            <source_model>paypal/system_config_source_authorizationAmounts</source_model>
-                            <sort_order>15</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                        </authorization_amount>
                         <allowspecific translate="label">
                             <label>Payment Applicable From</label>
                             <config_path>payment/payflow_link/allowspecific</config_path>
@@ -1689,6 +1706,157 @@
                         </proxy_port>
                     </fields>
                 </payflow_link>
+
+                <payflow_advanced translate="label">
+                    <label>PayPal Payments Advanced</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>90</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <payflowlink_info>
+                            <frontend_model>paypal/adminhtml_system_config_payflowlink_advanced</frontend_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>22</sort_order>
+                        </payflowlink_info>
+                        <title translate="label comment">
+                            <label>Title</label>
+                            <comment>It is recommended to set this value to "Debit or Credit Card" per store views.</comment>
+                            <config_path>payment/payflow_advanced/title</config_path>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title>
+                        <sort_order translate="label">
+                            <label>Sort Order</label>
+                            <config_path>payment/payflow_advanced/sort_order</config_path>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sort_order>
+                        <payment_action translate="label">
+                            <label>Payment Action</label>
+                            <config_path>payment/payflow_advanced/payment_action</config_path>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paypal/system_config_source_paymentActions</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </payment_action>
+                        <allowspecific translate="label">
+                            <label>Payment Applicable From</label>
+                            <config_path>payment/payflow_advanced/allowspecific</config_path>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </allowspecific>
+                        <specificcountry translate="label">
+                            <label>Countries Payment Applicable From</label>
+                            <config_path>payment/payflow_advanced/specificcountry</config_path>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>paypal/system_config_source_buyerCountry</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><allowspecific>1</allowspecific></depends>
+                        </specificcountry>
+                        <debug translate="label">
+                            <label>Debug Mode</label>
+                            <config_path>payment/payflow_advanced/debug</config_path>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </debug>
+                        <heading_payflowlink translate="label">
+                            <label>API/Integration</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_payflowlink>
+                        <partner translate="label">
+                            <label>Partner</label>
+                            <config_path>payment/payflow_advanced/partner</config_path>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </partner>
+                        <vendor translate="label">
+                            <label>Vendor / Merchant Login</label>
+                            <config_path>payment/payflow_advanced/vendor</config_path>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </vendor>
+                        <user translate="label">
+                            <label>User</label>
+                            <comment>If you do not have multiple users set up on your account, please re-enter your Vendor/Merchant Login here.</comment>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/payflow_advanced/user</config_path>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </user>
+                        <pwd translate="label">
+                            <label>Password</label>
+                            <config_path>payment/payflow_advanced/pwd</config_path>
+                            <frontend_type>obscure</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </pwd>
+                        <sandbox_flag translate="label">
+                            <label>Test Mode</label>
+                            <config_path>payment/payflow_advanced/sandbox_flag</config_path>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </sandbox_flag>
+                        <use_proxy translate="label">
+                            <label>Use Proxy</label>
+                            <config_path>payment/payflow_advanced/use_proxy</config_path>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </use_proxy>
+                        <proxy_host translate="label">
+                            <label>Proxy Host</label>
+                            <config_path>payment/payflow_advanced/proxy_host</config_path>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><use_proxy>1</use_proxy></depends>
+                        </proxy_host>
+                        <proxy_port translate="label">
+                            <label>Proxy Port</label>
+                            <config_path>payment/payflow_advanced/proxy_port</config_path>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>75</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><use_proxy>1</use_proxy></depends>
+                        </proxy_port>
+                    </fields>
+                </payflow_advanced>
 
                 <hosted_pro translate="label">
                     <label>Website Payments Pro Hosted Solution Settings</label>

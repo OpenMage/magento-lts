@@ -79,7 +79,7 @@
             <emails>
                 <forgot_email_template>admin_emails_forgot_email_template</forgot_email_template>
                 <forgot_email_identity>general</forgot_email_identity>
-                <password_reset_link_expiration_period>3</password_reset_link_expiration_period>
+                <password_reset_link_expiration_period>1</password_reset_link_expiration_period>
             </emails>
         </admin>
     </default>

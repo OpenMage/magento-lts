@@ -54,18 +54,52 @@ class Mage_Paypal_PayflowController extends Mage_Core_Controller_Front_Action
             ->setTemplate('paypal/payflowlink/redirect.phtml');
 
         $session = $this->_getCheckout();
-        $quote = $session->getQuote();
-        /** @var $payment Mage_Sales_Model_Quote_Payment */
-        $payment = $quote->getPayment();
-        $gotoSection = 'payment';
-        if ($payment->getAdditionalInformation('authorization_id')) {
-            $gotoSection = 'review';
-        } else {
-            $gotoSection = 'payment';
-            $redirectBlock->setErrorMsg($this->__('Payment has been declined. Please try again.'));
+        if ($session->getLastRealOrderId()) {
+            $order = Mage::getModel('sales/order')->loadByIncrementId($session->getLastRealOrderId());
+
+            if ($order && $order->getIncrementId() == $session->getLastRealOrderId()) {
+                $allowedOrderStates = array(
+                    Mage_Sales_Model_Order::STATE_PROCESSING,
+                    Mage_Sales_Model_Order::STATE_COMPLETE
+                );
+                if (in_array($order->getState(), $allowedOrderStates)) {
+                    $session->unsLastRealOrderId();
+                    $redirectBlock->setGotoSuccessPage(true);
+                } else {
+                    $gotoSection = $this->_cancelPayment(strval($this->getRequest()->getParam('RESPMSG')));
+                    $redirectBlock->setGotoSection($gotoSection);
+                    $redirectBlock->setErrorMsg($this->__('Payment has been declined. Please try again.'));
+                }
+            }
         }
-        $redirectBlock->setGotoSection($gotoSection);
+
         $this->getResponse()->setBody($redirectBlock->toHtml());
+    }
+
+    /**
+     * Submit transaction to Payflow getaway into iframe
+     */
+    public function formAction()
+    {
+        $this->getResponse()
+            ->setBody($this->_getIframeBlock()->toHtml());
+    }
+
+    /**
+     * Get response from PayPal by silent post method
+     */
+    public function silentPostAction()
+    {
+        $data = $this->getRequest()->getPost();
+        if (isset($data['INVNUM'])) {
+            /** @var $paymentModel Mage_Paypal_Model_Payflowlink */
+            $paymentModel = Mage::getModel('paypal/payflowlink');
+            try {
+                $paymentModel->process($data);
+            } catch (Exception $e) {
+                Mage::logException($e);
+            }
+        }
     }
 
     /**
@@ -102,53 +136,6 @@ class Mage_Paypal_PayflowController extends Mage_Core_Controller_Front_Action
         }
 
         return $gotoSection;
-    }
-
-    /**
-     * Submit transaction to Payflow getaway into iframe
-     */
-    public function formAction()
-    {
-        $quote = $this->_getCheckout()->getQuote();
-        $payment = $quote->getPayment();
-
-        try {
-            $method = Mage::helper('payment')->getMethodInstance(Mage_Paypal_Model_Config::METHOD_PAYFLOWLINK);
-            $method->setData('info_instance', $payment);
-            $method->initialize($method->getConfigData('payment_action'), new Varien_Object());
-
-            $quote->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->loadLayout('paypal_payflow_link_iframe');
-
-            $block = $this->getLayout()->getBlock('payflow.link.info');
-            $block->setErrorMessage($e->getMessage());
-
-            $this->getResponse()->setBody(
-                $block->toHtml()
-            );
-            return;
-        } catch (Exception $e) {
-            Mage::logException($e);
-        }
-        $this->getResponse()
-            ->setBody($this->_getIframeBlock()->toHtml());
-    }
-
-    /**
-     * Get response from PayPal by silent post method
-     */
-    public function silentPostAction()
-    {
-        $data = $this->getRequest()->getPost();
-        if (isset($data['INVNUM'])) {
-            $paymentModel = Mage::getModel('paypal/payflowlink');
-            try {
-                $paymentModel->process($data);
-            } catch (Exception $e) {
-                Mage::logException($e);
-            }
-        }
     }
 
     /**

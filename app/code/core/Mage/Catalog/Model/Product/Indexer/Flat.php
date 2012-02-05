@@ -26,6 +26,11 @@
 class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_Abstract
 {
     /**
+     * Data key for matching result to be saved in
+     */
+    const EVENT_MATCH_RESULT_KEY = 'catalog_product_flat_match_result';
+
+    /**
      * Index math Entities array
      *
      * @var array
@@ -48,7 +53,10 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
         ),
         Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => array(
             Mage_Index_Model_Event::TYPE_SAVE
-        )
+        ),
+        Mage_Catalog_Model_Product_Flat_Indexer::ENTITY => array(
+            Mage_Catalog_Model_Product_Flat_Indexer::EVENT_TYPE_REBUILD,
+        ),
     );
 
     /**
@@ -95,34 +103,32 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
             return false;
         }
 
-        $data       = $event->getNewData();
-        $resultKey = 'catalog_product_flat_match_result';
-        if (isset($data[$resultKey])) {
-            return $data[$resultKey];
+        $data = $event->getNewData();
+        if (isset($data[self::EVENT_MATCH_RESULT_KEY])) {
+            return $data[self::EVENT_MATCH_RESULT_KEY];
         }
 
-        $result = null;
         $entity = $event->getEntity();
         if ($entity == Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY) {
             /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
             $attribute      = $event->getDataObject();
             $addFilterable  = Mage::helper('catalog/product_flat')->isAddFilterableAttributes();
 
-            $enableBefore   = ($attribute->getOrigData('backend_type') == 'static')
+            $enableBefore   = $attribute && (($attribute->getOrigData('backend_type') == 'static')
                 || ($addFilterable && $attribute->getOrigData('is_filterable') > 0)
                 || ($attribute->getOrigData('used_in_product_listing') == 1)
                 || ($attribute->getOrigData('is_used_for_promo_rules') == 1)
-                || ($attribute->getOrigData('used_for_sort_by') == 1);
+                || ($attribute->getOrigData('used_for_sort_by') == 1));
 
-            $enableAfter    = ($attribute->getData('backend_type') == 'static')
+            $enableAfter    = $attribute && (($attribute->getData('backend_type') == 'static')
                 || ($addFilterable && $attribute->getData('is_filterable') > 0)
                 || ($attribute->getData('used_in_product_listing') == 1)
                 || ($attribute->getData('is_used_for_promo_rules') == 1)
-                || ($attribute->getData('used_for_sort_by') == 1);
+                || ($attribute->getData('used_for_sort_by') == 1));
 
-            if ($event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
+            if ($attribute && $event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
                 $result = $enableBefore;
-            } else if ($event->getType() == Mage_Index_Model_Event::TYPE_SAVE) {
+            } elseif ($attribute && $event->getType() == Mage_Index_Model_Event::TYPE_SAVE) {
                 if ($enableAfter || $enableBefore) {
                     $result = true;
                 } else {
@@ -137,7 +143,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
             } else {
                 /* @var $store Mage_Core_Model_Store */
                 $store = $event->getDataObject();
-                if ($store->isObjectNew()) {
+                if ($store && $store->isObjectNew()) {
                     $result = true;
                 } else {
                     $result = false;
@@ -146,7 +152,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
         } else if ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             /* @var $storeGroup Mage_Core_Model_Store_Group */
             $storeGroup = $event->getDataObject();
-            if ($storeGroup->dataHasChangedFor('website_id')) {
+            if ($storeGroup && $storeGroup->dataHasChangedFor('website_id')) {
                 $result = true;
             } else {
                 $result = false;
@@ -155,7 +161,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
             $result = parent::matchEvent($event);
         }
 
-        $event->addNewData($resultKey, $result);
+        $event->addNewData(self::EVENT_MATCH_RESULT_KEY, $result);
 
         return $result;
     }
@@ -167,6 +173,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
      */
     protected function _registerEvent(Mage_Index_Model_Event $event)
     {
+        $event->addNewData(self::EVENT_MATCH_RESULT_KEY, true);
         switch ($event->getEntity()) {
             case Mage_Catalog_Model_Product::ENTITY:
                 $this->_registerCatalogProductEvent($event);
@@ -184,6 +191,12 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                 $event->addNewData('catalog_product_flat_skip_call_event_handler', true);
                 $process = $event->getProcess();
                 $process->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
+                break;
+            case Mage_Catalog_Model_Product_Flat_Indexer::ENTITY:
+                switch ($event->getType()) {
+                    case Mage_Catalog_Model_Product_Flat_Indexer::EVENT_TYPE_REBUILD:
+                        $event->addNewData('id', $event->getDataObject()->getId());
+                }
                 break;
         }
     }
@@ -224,6 +237,16 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                     $reindexData['catalog_product_flat_action_type'] = $actionObject->getActionType();
                 }
 
+                $flatAttributes = array();
+                if (is_array($attrData)) {
+                    $flatAttributes = array_intersect($this->_getFlatAttributes(), array_keys($attrData));
+                }
+
+                if (count($flatAttributes) > 0) {
+                    $reindexFlat = true;
+                    $reindexData['catalog_product_flat_force_update'] = true;
+                }
+
                 // register affected products
                 if ($reindexFlat) {
                     $reindexData['catalog_product_flat_product_ids'] = $actionObject->getProductIds();
@@ -261,6 +284,12 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
     protected function _processEvent(Mage_Index_Model_Event $event)
     {
         $data = $event->getNewData();
+        if ($event->getType() == Mage_Catalog_Model_Product_Flat_Indexer::EVENT_TYPE_REBUILD) {
+            $this->_getIndexer()->getResource()->rebuild($data['id']);
+            return;
+        }
+
+
         if (!empty($data['catalog_product_flat_reindex_all'])) {
             $this->reindexAll();
         } else if (!empty($data['catalog_product_flat_product_id'])) {
@@ -289,6 +318,10 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                 $status = $data['catalog_product_flat_status'];
                 $this->_getIndexer()->updateProductStatus($productIds, $status);
             }
+
+            if (isset($data['catalog_product_flat_force_update'])) {
+                $this->_getIndexer()->updateProduct($productIds);
+            }
         } else if (!empty($data['catalog_product_flat_delete_store_id'])) {
             $this->_getIndexer()->deleteStore($data['catalog_product_flat_delete_store_id']);
         }
@@ -300,6 +333,16 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
      */
     public function reindexAll()
     {
-        $this->_getIndexer()->rebuild();
+        $this->_getIndexer()->reindexAll();
+    }
+
+    /**
+     * Retrieve list of attribute codes, that are used in flat
+     *
+     * @return array
+     */
+    protected function _getFlatAttributes()
+    {
+        return Mage::getModel('catalog/product_flat_indexer')->getAttributeCodes();
     }
 }

@@ -120,7 +120,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     protected function _copyIndexDataToMainTable($processIds)
     {
         $write = $this->_getWriteAdapter();
-        $write->beginTransaction();
+        $this->beginTransaction();
         try {
             // remove old index
             $where = $write->quoteInto('entity_id IN(?)', $processIds);
@@ -369,23 +369,24 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     public function reindexAll()
     {
         $this->useIdxTable(true);
-        $this->clearTemporaryIndexTable();
-        $this->_prepareWebsiteDateTable();
-        $this->_prepareTierPriceIndex();
+        $this->beginTransaction();
+        try {
+            $this->clearTemporaryIndexTable();
+            $this->_prepareWebsiteDateTable();
+            $this->_prepareTierPriceIndex();
 
-        $indexers = $this->getTypeIndexers();
-        foreach ($indexers as $indexer) {
-            /** @var $indexer Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface */
-            if (!$this->_allowTableChanges && is_callable(array($indexer, 'setAllowTableChanges'))) {
-                $indexer->setAllowTableChanges(false);
+            $indexers = $this->getTypeIndexers();
+            foreach ($indexers as $indexer) {
+                /** @var $indexer Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface */
+                $indexer->reindexAll();
             }
-            $indexer->reindexAll();
-            if (!$this->_allowTableChanges && is_callable(array($indexer, 'setAllowTableChanges'))) {
-                $indexer->setAllowTableChanges(true);
-            }
+
+            $this->syncData();
+            $this->commit();
+        } catch (Exception $e) {
+            $this->rollBack();
+            throw $e;
         }
-
-        $this->syncData();
         return $this;
     }
 

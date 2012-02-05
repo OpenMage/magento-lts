@@ -213,7 +213,7 @@ class Mage_Paypal_Model_Cart
 
     /**
      * Remove item from cart by identifier
-     * 
+     *
      * @param string $identifier
      * @return bool
      */
@@ -335,17 +335,17 @@ class Mage_Paypal_Model_Cart
             );
         }
 
-        $this->_validate();
-        // if cart items are invalid, prepare cart for transfer without line items
-        if (!$this->_areItemsValid) {
-            $this->removeItem($shippingItemId);
-        }
-
         // compound non-regular items into subtotal
         foreach ($this->_items as $key => $item) {
             if ($key > $lastRegularItemKey && $item->getAmount() != 0) {
                 $this->_totals[self::TOTAL_SUBTOTAL] += $item->getAmount();
             }
+        }
+
+        $this->_validate();
+        // if cart items are invalid, prepare cart for transfer without line items
+        if (!$this->_areItemsValid) {
+            $this->removeItem($shippingItemId);
         }
 
         $this->_shouldRender = false;

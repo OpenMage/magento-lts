@@ -74,7 +74,8 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
         'catalog_product' => array (
             'catalog_product_price',
             'catalog_category_product',
-            'catalogsearch_fulltext'
+            'catalogsearch_fulltext',
+            'catalog_product_flat',
         )
     );
 

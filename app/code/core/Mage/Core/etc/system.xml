@@ -932,6 +932,7 @@
                         </forgot_email_identity>
                         <password_reset_link_expiration_period translate="label comment">
                             <label>Recovery Link Expiration Period (days)</label>
+                            <comment>This value must be greater than 0.</comment>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_admin_password_link_expirationperiod</backend_model>
                             <sort_order>30</sort_order>

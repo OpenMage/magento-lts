@@ -107,7 +107,10 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                     ->updateAttributes($this->_getHelper()->getProductIds(), $attributesData, $storeId);
             }
             if ($inventoryData) {
+                /** @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
                 $stockItem = Mage::getModel('cataloginventory/stock_item');
+                $stockItem->setProcessIndexEvents(false);
+                $stockItemSaved = false;
 
                 foreach ($this->_getHelper()->getProductIds() as $productId) {
                     $stockItem->setData(array());
@@ -123,7 +126,15 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                     }
                     if ($stockDataChanged) {
                         $stockItem->save();
+                        $stockItemSaved = true;
                     }
+                }
+
+                if ($stockItemSaved) {
+                    Mage::getSingleton('index/indexer')->indexEvents(
+                        Mage_CatalogInventory_Model_Stock_Item::ENTITY,
+                        Mage_Index_Model_Event::TYPE_SAVE
+                    );
                 }
             }
 

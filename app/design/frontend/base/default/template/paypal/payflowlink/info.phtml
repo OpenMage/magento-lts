@@ -25,17 +25,11 @@
  */
 
 /**
- * @var $this Mage_Paypal_Block_Payflow_Link_Info
+ * @var $this Mage_Paypal_Block_Payflow_Link_Form
  */
 ?>
-<html>
-<head></head>
-<body>
-<script type="text/javascript">
-    var errorMessage = '<?php echo $this->getErrorMessage() ?>';
-    if (errorMessage) {
-        alert(errorMessage);
-    }
-</script>
-</body>
-</html>
+<ul id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none" class="form-list">
+    <li>
+    <?php echo $this->__('You will be required to enter your payment details after you place an order.') ?>
+    </li>
+</ul>

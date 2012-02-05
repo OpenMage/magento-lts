@@ -32,7 +32,7 @@ function setSettings(urlTemplate, typeElement, packageThemeElement) {
     typeElement = $F(typeElement).replace(/\//g, "-");
     packageThemeElement = $F(packageThemeElement).split(/\//g);
     if(typeof packageThemeElement[0] == 'undefined' || typeof packageThemeElement[1] == 'undefined') {
-        alert('<?php echo Mage::helper('widget')->__('Undefined Design Package or Theme.'); ?>');
+        alert('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Undefined Design Package or Theme.')); ?>');
         return false;
     }
     setLocation(template.evaluate({

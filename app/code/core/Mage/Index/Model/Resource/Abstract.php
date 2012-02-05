@@ -53,6 +53,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Whether table changes are allowed
      *
+     * @deprecated after 1.6.1.0
      * @var bool
      */
     protected $_allowTableChanges = true;
@@ -104,12 +105,17 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     public function syncData()
     {
         $this->beginTransaction();
-        /**
-         * Can't use truncate because of transaction
-         */
-        $this->_getWriteAdapter()->delete($this->getMainTable());
-        $this->insertFromTable($this->getIdxTable(), $this->getMainTable(), false);
-        $this->commit();
+        try {
+            /**
+             * Can't use truncate because of transaction
+             */
+            $this->_getWriteAdapter()->delete($this->getMainTable());
+            $this->insertFromTable($this->getIdxTable(), $this->getMainTable(), false);
+            $this->commit();
+        } catch (Exception $e) {
+            $this->rollBack();
+            throw $e;
+        }
         return $this;
     }
 
@@ -168,9 +174,6 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
             $to     = $this->_getWriteAdapter();
         }
 
-        if ($this->useDisableKeys() && $this->_allowTableChanges) {
-            $to->disableTableKeys($destTable);
-        }
         if ($from === $to) {
             $query = $select->insertFromSelect($destTable, $columns);
             $to->query($query);
@@ -191,9 +194,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
                 $to->insertArray($destTable, $columns, $data);
             }
         }
-        if ($this->useDisableKeys() && $this->_allowTableChanges) {
-            $to->enableTableKeys($destTable);
-        }
+
         return $this;
     }
 
@@ -237,6 +238,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Set whether table changes are allowed
      *
+     * @deprecated after 1.6.1.0
      * @param bool $value
      * @return Mage_Index_Model_Resource_Abstract
      */

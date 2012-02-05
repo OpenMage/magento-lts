@@ -35,7 +35,7 @@ class Mage_Index_Model_Observer
 
     public function __construct()
     {
-        $this->_indexer = Mage::getModel('index/indexer');
+        $this->_indexer = Mage::getSingleton('index/indexer');
     }
 
     /**

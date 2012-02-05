@@ -1,3 +1,35 @@
+==== 1.6.2.0 ====
+
+=== Improvements ===
+Refactored indexing process:
+- Changed logic around reindexing to prevent conflicts between partial and full reindexing 
+- Prevented situations where concurrent indexing processes run at the same time and overwrite each other's data
+
+=== Changes ===
+Implemented localized PayPal settings for Japan
+Added PayPal Payments Advanced
+
+=== Fixes ===
+Fixed Automatic reindexing based on matched events doesn't change "Status" and "Last Run" columns at process list grid
+Fixed Bundle product totals are incorrect in Customization block
+Fixed Product option title is absent in backend order page
+Fixed SQL error on category view with enabled and configured FPT
+Fixed Special price isn't considered for bundle dynamic products in "Your Customization" block
+Fixed Cannot place order with downloadable product and discount code using Paypal Express payment method
+Fixed Payflow Link Express Checkout ("Pay with PayPal" button) payment
+Fixed Char set encoding is out-of-date in Settlement reports
+Fixed Settlement reports can not be downloaded if in merchant's account "Settlement file" is set to 6.0 version
+Fixed Updates for Payflow Link texts
+Fixed Impossible to place Order using "Pay with PayPal" button from Payflow Link iframe, when Payment Action is Sale
+Fixed Remove hint about $1 authorization amount from informational message text (Payflow Link configuration)
+Fixed Missing column "position" at table catalog_category_anc_products_index_tmp
+Fixed Translation with single quotes breaks JS
+Fixed Two-step password reset
+Fixed Unable to change root category for the store
+Fixed Exception while products mass update attributes in backend
+
+
+
 ==== 1.6.1.0 ====
 
 === Major Highlights ===

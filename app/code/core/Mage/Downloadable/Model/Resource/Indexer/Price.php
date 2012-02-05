@@ -42,11 +42,17 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
     public function reindexAll()
     {
         $this->useIdxTable(true);
-        $this->_prepareFinalPriceData();
-        $this->_applyCustomOption();
-        $this->_applyDownloadableLink();
-        $this->_movePriceDataToIndexTable();
-
+        $this->beginTransaction();
+        try {
+            $this->_prepareFinalPriceData();
+            $this->_applyCustomOption();
+            $this->_applyDownloadableLink();
+            $this->_movePriceDataToIndexTable();
+            $this->commit();
+        } catch (Exception $e) {
+            $this->rollBack();
+            throw $e;
+        }
         return $this;
     }
 
@@ -156,11 +162,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
         $query = $select->crossUpdateFromSelect(array('i' => $this->_getDefaultFinalPriceTable()));
         $write->query($query);
 
-        if ($this->useIdxTable() && $this->_allowTableChanges) {
-            $write->truncateTable($table);
-        } else {
-            $write->delete($table);
-        }
+        $write->delete($table);
 
         return $this;
     }

@@ -589,7 +589,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $this->renderLayout();
         } catch (Exception $exception) {
             $this->_getSession()->addError(Mage::helper('customer')->__('Your password reset link has expired.'));
-            $this->_redirect('*/*/');
+            $this->_redirect('*/*/forgotpassword');
         }
     }
 

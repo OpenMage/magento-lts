@@ -144,7 +144,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
     public function aggregate($tagIds = null)
     {
         $writeAdapter = $this->_getWriteAdapter();
-        $writeAdapter->beginTransaction();
+        $this->beginTransaction();
 
         try {
             if (!empty($tagIds)) {
@@ -254,12 +254,12 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
             $writeAdapter->query(
                 $agregateSelect->insertFromSelect($this->getTable('tag/summary'), array_keys($selectedFields))
             );
+            $this->commit();
         } catch (Exception $e) {
-            $writeAdapter->rollBack();
+            $this->rollBack();
             throw $e;
         }
 
-        $writeAdapter->commit();
         return $this;
     }
 }

@@ -229,9 +229,16 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      */
     public function forgotpasswordAction()
     {
-        $email = $this->getRequest()->getParam('email');
+        $email = (string) $this->getRequest()->getParam('email');
         $params = $this->getRequest()->getParams();
+
         if (!empty($email) && !empty($params)) {
+            // Validate received data to be an email address
+            if (!Zend_Validate::is($email, 'EmailAddress')) {
+                $this->_getSession()->addError($this->__('Invalid email address.'));
+                $this->_outTemplate('forgotpassword');
+                return;
+            }
             $collection = Mage::getResourceModel('admin/user_collection');
             /** @var $collection Mage_Admin_Model_Mysql4_User_Collection */
             $collection->addFieldToFilter('email', $email);
@@ -251,6 +258,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             }
             $this->_getSession()
                 ->addSuccess(Mage::helper('adminhtml')->__('If there is an account associated with %s you will receive an email with a link to reset your password.', Mage::helper('adminhtml')->htmlEscape($email)));
+            $this->_redirect('*/*/login');
+            return;
         } elseif (!empty($params)) {
             $this->_getSession()->addError(Mage::helper('adminhtml')->__('The email address is empty.'));
         }
@@ -279,7 +288,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $this->_outTemplate('resetforgottenpassword', $data);
         } catch (Exception $exception) {
             $this->_getSession()->addError(Mage::helper('adminhtml')->__('Your password reset link has expired.'));
-            $this->_redirect('*/*/');
+            $this->_redirect('*/*/forgotpassword', array('_nosecret' => true));
         }
     }
 
@@ -334,13 +343,11 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $user->setRpToken(null);
             $user->setRpTokenCreatedAt(null);
             $user->setPasswordConfirmation(null);
-            // Force password change
-            $user->setForceNewPassword(true);
             $user->save();
             $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Your password has been updated.'));
             $this->_redirect('*/*/login');
         } catch (Exception $exception) {
-            $this->_getSession()->addException($exception, $this->__('Cannot save a new password.'));
+            $this->_getSession()->addError($exception->getMessage());
             $data = array(
                 'userId' => $userId,
                 'resetPasswordLinkToken' => $resetPasswordLinkToken

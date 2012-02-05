@@ -418,7 +418,7 @@
                 <forgot_email_identity>support</forgot_email_identity>
                 <forgot_email_template>customer_password_forgot_email_template</forgot_email_template>
                 <remind_email_template>customer_password_remind_email_template</remind_email_template>
-                <reset_link_expiration_period>3</reset_link_expiration_period>
+                <reset_link_expiration_period>1</reset_link_expiration_period>
             </password>
             <address>
                 <street_lines>2</street_lines>

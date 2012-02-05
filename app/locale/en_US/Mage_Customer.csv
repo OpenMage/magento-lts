@@ -361,6 +361,7 @@
 "This email does not require confirmation.","This email does not require confirmation."
 "This email will be sent instead of default welcome email, after account confirmation.","This email will be sent instead of default welcome email, after account confirmation."
 "This is My Default %s Address","This is My Default %s Address"
+"This value must be greater than 0.","This value must be greater than 0."
 "To Cart","To Cart"
 "Total","Total"
 "Type","Type"

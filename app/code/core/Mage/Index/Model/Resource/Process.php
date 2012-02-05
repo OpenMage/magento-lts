@@ -95,6 +95,22 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     }
 
     /**
+     * Register process fail
+     *
+     * @param Mage_Index_Model_Process $process
+     * @return Mage_Index_Model_Resource_Process
+     */
+    public function failProcess(Mage_Index_Model_Process $process)
+    {
+        $data = array(
+            'status'   => Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX,
+            'ended_at' => $this->formatDate(time()),
+        );
+        $this->_updateProcessData($process->getId(), $data);
+        return $this;
+    }
+
+    /**
      * Update process status field
      *
      *
@@ -115,11 +131,35 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
      * @param array $data
      * @return Mage_Index_Model_Resource_Process
      */
-    protected function _updateProcessData($processId,$data)
+    protected function _updateProcessData($processId, $data)
     {
         $bind = array('process_id=?' => $processId);
         $this->_getWriteAdapter()->update($this->getMainTable(), $data, $bind);
 
+        return $this;
+    }
+
+    /**
+     * Update process start date
+     *
+     * @param Mage_Index_Model_Process $process
+     * @return Mage_Index_Model_Resource_Process
+     */
+    public function updateProcessStartDate(Mage_Index_Model_Process $process)
+    {
+        $this->_updateProcessData($process->getId(), array('started_at' => $this->formatDate(time())));
+        return $this;
+    }
+
+    /**
+     * Update process end date
+     *
+     * @param Mage_Index_Model_Process $process
+     * @return Mage_Index_Model_Resource_Process
+     */
+    public function updateProcessEndDate(Mage_Index_Model_Process $process)
+    {
+        $this->_updateProcessData($process->getId(), array('ended_at' => $this->formatDate(time())));
         return $this;
     }
 }

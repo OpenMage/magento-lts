@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Catalog>
-            <version>1.6.0.0.6</version>
+            <version>1.6.0.0.8</version>
         </Mage_Catalog>
     </modules>
     <admin>
@@ -794,7 +794,7 @@
                     <cron_expr>0 2 * * *</cron_expr>
                 </schedule>
                 <run>
-                    <model>catalog/product_indexer_price::reindexAll</model>
+                    <model>catalog/observer::reindexProductPrices</model>
                 </run>
             </catalog_product_index_price_reindex_all>
         </jobs>

@@ -230,7 +230,7 @@ Validation.addAllThese([
                 newFileContainer = element.up(0).down('div.new-file');
                 if (!alertAlreadyDisplayed && (newFileContainer.empty() || newFileContainer.style.display != 'none')) {
                     alertAlreadyDisplayed = true;
-                    alert('There are files that were selected but not uploaded yet. Please upload or remove them first');
+                    alert('<?php echo $this->jsQuoteEscape($this->__('There are files that were selected but not uploaded yet. Please upload or remove them first'));?>');
                 }
                 return false;
             }

@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Paypal>
-            <version>1.6.0.1</version>
+            <version>1.6.0.2</version>
         </Mage_Paypal>
     </modules>
     <global>
@@ -254,12 +254,23 @@
             </paypal_billing_agreement>
             <payflow_link>
                 <model>paypal/payflowlink</model>
-                <title>Payflow Link</title>
                 <payment_action>Authorization</payment_action>
                 <verbosity>HIGH</verbosity>
                 <pwd backend_model="adminhtml/system_config_backend_encrypted"/>
                 <group>paypal</group>
+                <title>Credit Card</title>
             </payflow_link>
+            <payflow_advanced>
+                <model>paypal/payflowadvanced</model>
+                <payment_action>Authorization</payment_action>
+                <verbosity>HIGH</verbosity>
+                <pwd backend_model="adminhtml/system_config_backend_encrypted"/>
+                <group>paypal</group>
+                <title>Credit Card</title>
+                <partner>PayPal</partner>
+                <vendor>PayPal</vendor>
+                <user>PayPal</user>
+            </payflow_advanced>
             <hosted_pro>
                 <model>paypal/hostedpro</model>
                 <title>Payment by cards or by PayPal account</title>
@@ -275,14 +286,6 @@
                     <model>paypal/observer::fetchReports</model>
                 </run>
             </paypal_fetch_settlement_reports>
-            <paypal_payment_transaction_clean>
-                <schedule>
-                    <cron_expr>*/15 * * * *</cron_expr>
-                </schedule>
-                <run>
-                    <model>paypal/observer::cleanTransactions</model>
-                </run>
-            </paypal_payment_transaction_clean>
         </jobs>
     </crontab>
     <admin>

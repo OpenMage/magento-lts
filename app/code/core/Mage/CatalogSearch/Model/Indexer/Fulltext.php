@@ -35,6 +35,18 @@
 class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer_Abstract
 {
     /**
+     * Data key for matching result to be saved in
+     */
+    const EVENT_MATCH_RESULT_KEY = 'catalogsearch_fulltext_match_result';
+
+    /**
+     * List of searchable attributes
+     *
+     * @var null|array
+     */
+    protected $_searchableAttributes = null;
+
+    /**
      * Retrieve resource instance
      *
      * @return Mage_CatalogSearch_Model_Resource_Indexer_Fulltext
@@ -127,20 +139,20 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
     public function matchEvent(Mage_Index_Model_Event $event)
     {
         $data       = $event->getNewData();
-        $resultKey  = 'catalogsearch_fulltext_match_result';
-        if (isset($data[$resultKey])) {
-            return $data[$resultKey];
+        if (isset($data[self::EVENT_MATCH_RESULT_KEY])) {
+            return $data[self::EVENT_MATCH_RESULT_KEY];
         }
 
-        $result = null;
         $entity = $event->getEntity();
         if ($entity == Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY) {
             /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
             $attribute      = $event->getDataObject();
 
-            if ($event->getType() == Mage_Index_Model_Event::TYPE_SAVE) {
+            if (!$attribute) {
+                $result = false;
+            } elseif ($event->getType() == Mage_Index_Model_Event::TYPE_SAVE) {
                 $result = $attribute->dataHasChangedFor('is_searchable');
-            } else if ($event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
+            } elseif ($event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
                 $result = $attribute->getIsSearchable();
             } else {
                 $result = false;
@@ -151,7 +163,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
             } else {
                 /* @var $store Mage_Core_Model_Store */
                 $store = $event->getDataObject();
-                if ($store->isObjectNew()) {
+                if ($store && $store->isObjectNew()) {
                     $result = true;
                 } else {
                     $result = false;
@@ -160,14 +172,14 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
         } else if ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             /* @var $storeGroup Mage_Core_Model_Store_Group */
             $storeGroup = $event->getDataObject();
-            if ($storeGroup->dataHasChangedFor('website_id')) {
+            if ($storeGroup && $storeGroup->dataHasChangedFor('website_id')) {
                 $result = true;
             } else {
                 $result = false;
             }
         } else if ($entity == Mage_Core_Model_Config_Data::ENTITY) {
             $data = $event->getDataObject();
-            if (in_array($data->getPath(), $this->_relatedConfigSettings)) {
+            if ($data && in_array($data->getPath(), $this->_relatedConfigSettings)) {
                 $result = $data->isValueChanged();
             } else {
                 $result = false;
@@ -176,7 +188,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
             $result = parent::matchEvent($event);
         }
 
-        $event->addNewData($resultKey, $result);
+        $event->addNewData(self::EVENT_MATCH_RESULT_KEY, $result);
 
         return $result;
     }
@@ -188,6 +200,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
      */
     protected function _registerEvent(Mage_Index_Model_Event $event)
     {
+        $event->addNewData(self::EVENT_MATCH_RESULT_KEY, true);
         switch ($event->getEntity()) {
             case Mage_Catalog_Model_Product::ENTITY:
                 $this->_registerCatalogProductEvent($event);
@@ -282,6 +295,16 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                     $reindexData['catalogsearch_action_type'] = $actionObject->getActionType();
                 }
 
+                $searchableAttributes = array();
+                if (is_array($attrData)) {
+                    $searchableAttributes = array_intersect($this->_getSearchableAttributes(), array_keys($attrData));
+                }
+
+                if (count($searchableAttributes) > 0) {
+                    $rebuildIndex = true;
+                    $reindexData['catalogsearch_force_reindex'] = true;
+                }
+
                 // register affected products
                 if ($rebuildIndex) {
                     $reindexData['catalogsearch_product_ids'] = $actionObject->getProductIds();
@@ -293,6 +316,26 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
         }
 
         return $this;
+    }
+
+    /**
+     * Retrieve searchable attributes list
+     *
+     * @return array
+     */
+    protected function _getSearchableAttributes()
+    {
+        if (is_null($this->_searchableAttributes)) {
+            /** @var $attributeCollection Mage_Catalog_Model_Resource_Product_Attribute_Collection */
+            $attributeCollection = Mage::getResourceModel('catalog/product_attribute_collection');
+            $attributeCollection->addIsSearchableFilter();
+
+            foreach ($attributeCollection as $attribute) {
+                $this->_searchableAttributes[] = $attribute->getAttributeCode();
+            }
+        }
+
+        return $this->_searchableAttributes;
     }
 
     /**
@@ -314,9 +357,6 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
      */
     protected function _processEvent(Mage_Index_Model_Event $event)
     {
-        if (!$this->_allowTableChanges && is_callable(array($this->_getIndexer(), 'setAllowTableChanges'))) {
-            $this->_getIndexer()->setAllowTableChanges(false);
-        }
         $data = $event->getNewData();
 
         if (!empty($data['catalogsearch_fulltext_reindex_all'])) {
@@ -380,15 +420,17 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                         ->resetSearchResults();
                 }
             }
+            if (isset($data['catalogsearch_force_reindex'])) {
+                $this->_getIndexer()
+                    ->rebuildIndex(null, $productIds)
+                    ->resetSearchResults();
+            }
         } else if (isset($data['catalogsearch_category_update_product_ids'])) {
             $productIds = $data['catalogsearch_category_update_product_ids'];
             $categoryIds = $data['catalogsearch_category_update_category_ids'];
 
             $this->_getIndexer()
                 ->updateCategoryIndex($productIds, $categoryIds);
-        }
-        if (!$this->_allowTableChanges && is_callable(array($this->_getIndexer(), 'setAllowTableChanges'))) {
-            $this->_getIndexer()->setAllowTableChanges(true);
         }
     }
 
@@ -398,6 +440,14 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
      */
     public function reindexAll()
     {
-        $this->_getIndexer()->rebuildIndex();
+        $resourceModel = $this->_getIndexer()->getResource();
+        $resourceModel->beginTransaction();
+        try {
+            $this->_getIndexer()->rebuildIndex();
+            $resourceModel->commit();
+        } catch (Exception $e) {
+            $resourceModel->rollBack();
+            throw $e;
+        }
     }
 }

@@ -43,11 +43,17 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
     public function reindexAll()
     {
         $this->useIdxTable(true);
-        $this->_prepareFinalPriceData();
-        $this->_applyCustomOption();
-        $this->_applyConfigurableOption();
-        $this->_movePriceDataToIndexTable();
-
+        $this->beginTransaction();
+        try {
+            $this->_prepareFinalPriceData();
+            $this->_applyCustomOption();
+            $this->_applyConfigurableOption();
+            $this->_movePriceDataToIndexTable();
+            $this->commit();
+        } catch (Exception $e) {
+            $this->rollBack();
+            throw $e;
+        }
         return $this;
     }
 
@@ -208,13 +214,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
         $query = $select->crossUpdateFromSelect($table);
         $write->query($query);
 
-        if ($this->useIdxTable() && $this->_allowTableChanges) {
-            $write->truncateTable($coaTable);
-            $write->truncateTable($copTable);
-        } else {
-            $write->delete($coaTable);
-            $write->delete($copTable);
-        }
+        $write->delete($coaTable);
+        $write->delete($copTable);
 
         return $this;
     }

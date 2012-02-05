@@ -318,6 +318,7 @@
 "This is a required field.","This is a required field."
 "This store cannot be deleted.","This store cannot be deleted."
 "This store view cannot be deleted.","This store view cannot be deleted."
+"This value must be greater than 0.","This value must be greater than 0."
 "This website cannot be deleted.","This website cannot be deleted."
 "This will be displayed just before body closing tag.","This will be displayed just before body closing tag."
 "This will be included before head closing tag in page HTML.","This will be included before head closing tag in page HTML."

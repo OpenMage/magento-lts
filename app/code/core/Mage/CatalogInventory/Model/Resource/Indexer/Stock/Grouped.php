@@ -36,18 +36,6 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Grouped
     extends Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
 {
     /**
-     * Reindex all stock status data for configurable products
-     *
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Grouped
-     */
-    public function reindexAll()
-    {
-        $this->useIdxTable(true);
-        $this->_prepareIndexTable();
-        return $this;
-    }
-
-    /**
      * Reindex stock data for defined configurable product ids
      *
      * @param int|array $entityIds
