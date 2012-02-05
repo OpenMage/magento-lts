@@ -70,7 +70,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     const REPORTS_PATH = "/ppreports/outgoing";
 
     /**
-     * Original charset of report files
+     * Original charset of old report files
      * @var string
      */
     const FILES_IN_CHARSET = "UTF-16";
@@ -87,6 +87,84 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      */
     protected $_rows = array();
 
+    protected $_csvColumns = array(
+        'old' => array(
+            'section_columns' => array(
+                '' => 0,
+                'TransactionID' => 1,
+                'InvoiceID' => 2,
+                'PayPalReferenceID' => 3,
+                'PayPalReferenceIDType' => 4,
+                'TransactionEventCode' => 5,
+                'TransactionInitiationDate' => 6,
+                'TransactionCompletionDate' => 7,
+                'TransactionDebitOrCredit' => 8,
+                'GrossTransactionAmount' => 9,
+                'GrossTransactionCurrency' => 10,
+                'FeeDebitOrCredit' => 11,
+                'FeeAmount' => 12,
+                'FeeCurrency' => 13,
+                'CustomField' => 14,
+                'ConsumerID' => 15
+            ),
+            'rowmap' => array(
+                'TransactionID' => 'transaction_id',
+                'InvoiceID' => 'invoice_id',
+                'PayPalReferenceID' => 'paypal_reference_id',
+                'PayPalReferenceIDType' => 'paypal_reference_id_type',
+                'TransactionEventCode' => 'transaction_event_code',
+                'TransactionInitiationDate' => 'transaction_initiation_date',
+                'TransactionCompletionDate' => 'transaction_completion_date',
+                'TransactionDebitOrCredit' => 'transaction_debit_or_credit',
+                'GrossTransactionAmount' => 'gross_transaction_amount',
+                'GrossTransactionCurrency' => 'gross_transaction_currency',
+                'FeeDebitOrCredit' => 'fee_debit_or_credit',
+                'FeeAmount' => 'fee_amount',
+                'FeeCurrency' => 'fee_currency',
+                'CustomField' => 'custom_field',
+                'ConsumerID' => 'consumer_id'
+            )
+        ),
+        'new' => array(
+            'section_columns' => array(
+                '' => 0,
+                'Transaction ID' => 1,
+                'Invoice ID' => 2,
+                'PayPal Reference ID' => 3,
+                'PayPal Reference ID Type' => 4,
+                'Transaction Event Code' => 5,
+                'Transaction Initiation Date' => 6,
+                'Transaction Completion Date' => 7,
+                'Transaction  Debit or Credit' => 8,
+                'Gross Transaction Amount' => 9,
+                'Gross Transaction Currency' => 10,
+                'Fee Debit or Credit' => 11,
+                'Fee Amount' => 12,
+                'Fee Currency' => 13,
+                'Custom Field' => 14,
+                'Consumer ID' => 15,
+                'Payment Tracking ID' => 16
+            ),
+            'rowmap' => array(
+                'Transaction ID' => 'transaction_id',
+                'Invoice ID' => 'invoice_id',
+                'PayPal Reference ID' => 'paypal_reference_id',
+                'PayPal Reference ID Type' => 'paypal_reference_id_type',
+                'Transaction Event Code' => 'transaction_event_code',
+                'Transaction Initiation Date' => 'transaction_initiation_date',
+                'Transaction Completion Date' => 'transaction_completion_date',
+                'Transaction  Debit or Credit' => 'transaction_debit_or_credit',
+                'Gross Transaction Amount' => 'gross_transaction_amount',
+                'Gross Transaction Currency' => 'gross_transaction_currency',
+                'Fee Debit or Credit' => 'fee_debit_or_credit',
+                'Fee Amount' => 'fee_amount',
+                'Fee Currency' => 'fee_currency',
+                'Custom Field' => 'custom_field',
+                'Consumer ID' => 'consumer_id',
+                'Payment Tracking ID' => 'payment_tracking_id'
+            )
+        )
+    );
     /**
      * Initialize resource model
      */
@@ -138,8 +216,12 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 }
 
                 $encoded = file_get_contents($localCsv);
-                $decoded = @iconv(self::FILES_IN_CHARSET, self::FILES_OUT_CHARSET.'//IGNORE', $encoded);
-                file_put_contents($localCsv, $decoded);
+                $csvFormat = 'new';
+                if (self::FILES_OUT_CHARSET != mb_detect_encoding(($encoded))) {
+                    $decoded = @iconv(self::FILES_IN_CHARSET, self::FILES_OUT_CHARSET.'//IGNORE', $encoded);
+                    file_put_contents($localCsv, $decoded);
+                    $csvFormat = 'old';
+                }
 
                 // Set last modified date, this value will be overwritten during parsing
                 if (isset($attributes['mtime'])) {
@@ -149,7 +231,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
 
                 $this->setReportDate($this->_fileNameToDate($filename))
                     ->setFilename($filename)
-                    ->parseCsv($localCsv);
+                    ->parseCsv($localCsv, $csvFormat);
 
                 if ($this->getAccountId()) {
                     $this->save();
@@ -170,47 +252,17 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      * Parse CSV file and collect report rows
      *
      * @param string $localCsv Path to CSV file
+     * @param string $format CSV format(column names)
      * @return Mage_Paypal_Model_Report_Settlement
      */
-    public function parseCsv($localCsv)
+    public function parseCsv($localCsv, $format = 'new')
     {
         $this->_rows = array();
 
-        $section_columns = array('' => 0,
-            'TransactionID' => 1,
-            'InvoiceID' => 2,
-            'PayPalReferenceID' => 3,
-            'PayPalReferenceIDType' => 4,
-            'TransactionEventCode' => 5,
-            'TransactionInitiationDate' => 6,
-            'TransactionCompletionDate' => 7,
-            'TransactionDebitOrCredit' => 8,
-            'GrossTransactionAmount' => 9,
-            'GrossTransactionCurrency' => 10,
-            'FeeDebitOrCredit' => 11,
-            'FeeAmount' => 12,
-            'FeeCurrency' => 13,
-            'CustomField' => 14,
-            'ConsumerID' => 15,
-            );
-        $rowmap = array(
-            'TransactionID' => 'transaction_id',
-            'InvoiceID' => 'invoice_id',
-            'PayPalReferenceID' => 'paypal_reference_id',
-            'PayPalReferenceIDType' => 'paypal_reference_id_type',
-            'TransactionEventCode' => 'transaction_event_code',
-            'TransactionInitiationDate' => 'transaction_initiation_date',
-            'TransactionCompletionDate' => 'transaction_completion_date',
-            'TransactionDebitOrCredit' => 'transaction_debit_or_credit',
-            'GrossTransactionAmount' => 'gross_transaction_amount',
-            'GrossTransactionCurrency' => 'gross_transaction_currency',
-            'FeeDebitOrCredit' => 'fee_debit_or_credit',
-            'FeeAmount' => 'fee_amount',
-            'FeeCurrency' => 'fee_currency',
-            'CustomField' => 'custom_field',
-            'ConsumerID' => 'consumer_id',
-        );
-        $flipped_section_columns = array_flip($section_columns);
+        $sectionColumns = $this->_csvColumns[$format]['section_columns'];
+        $rowMap = $this->_csvColumns[$format]['rowmap'];
+
+        $flippedSectionColumns = array_flip($sectionColumns);
         $fp = fopen($localCsv, 'r');
         while($line = fgetcsv($fp)) {
             if (empty($line)) { // The line was empty, so skip it.
@@ -234,16 +286,16 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                     // In case ever the column order is changed, we will have the items recorded properly
                     // anyway. We have named, not numbered columns.
                     for ($i = 1; $i < count($line); $i++) {
-                        $section_columns[$line[$i]] = $i;
+                        $sectionColumns[$line[$i]] = $i;
                     }
-                    $flipped_section_columns = array_flip($section_columns);
+                    $flippedSectionColumns = array_flip($sectionColumns);
                     break;
                 case 'SB': // Section body.
-                    $bodyitem = array();
+                    $bodyItem = array();
                     for($i = 1; $i < count($line); $i++) {
-                        $bodyitem[$rowmap[$flipped_section_columns[$i]]] = $line[$i];
+                        $bodyItem[$rowMap[$flippedSectionColumns[$i]]] = $line[$i];
                     }
-                    $this->_rows[] = $bodyitem;
+                    $this->_rows[] = $bodyItem;
                     break;
                 case 'SC': // Section records count.
                 case 'RC': // Report records count.

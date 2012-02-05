@@ -43,7 +43,6 @@ class Mage_Connect_Adminhtml_Extension_CustomController extends Mage_Adminhtml_C
              ->_title($this->__('Magento Connect'))
              ->_title($this->__('Package Extensions'));
 
-        Mage::app()->getStore()->setStoreId(1);
         $this->_forward('edit');
     }
 
@@ -131,7 +130,6 @@ class Mage_Connect_Adminhtml_Extension_CustomController extends Mage_Adminhtml_C
             if (empty($create)) {
                 $this->_redirect('*/*/edit');
             } else {
-                Mage::app()->getStore()->setStoreId(1);
                 $this->_forward('create');
             }
         } catch (Mage_Core_Exception $e){

@@ -91,7 +91,7 @@ Layout for customer login page
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         <reference name="content">
-            <block type="customer/form_login" name="customer_form_login" template="customer/form/login.phtml"/>
+            <block type="customer/form_login" name="customer_form_login" template="customer/form/login.phtml" />
         </reference>
     </customer_account_login>
 
@@ -152,7 +152,7 @@ New customer registration
         </reference>
         <reference name="content">
             <!--<block type="core/template" name="forgotPassword" template="customer/form/forgotpassword.phtml"/>-->
-            <block type="customer/account_forgotpassword" name="forgotPassword" template="customer/form/forgotpassword.phtml"/>
+            <block type="customer/account_forgotpassword" name="forgotPassword" template="customer/form/forgotpassword.phtml" />
         </reference>
     </customer_account_forgotpassword>
 
@@ -190,7 +190,7 @@ Customer account pages, rendered for all tabs in dashboard
         <reference name="root">
             <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
         </reference>
-        
+
         <reference name="content">
             <block type="page/html_wrapper" name="my.account.wrapper" translate="label">
                 <label>My Account Wrapper</label>

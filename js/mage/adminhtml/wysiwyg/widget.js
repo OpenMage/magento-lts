@@ -88,6 +88,9 @@ WysiwygWidget.Widget.prototype = {
         this.optionsUrl = optionsSourceUrl;
         this.optionValues = new Hash({});
         this.widgetTargetId = widgetTargetId;
+        if (typeof(tinyMCE) != "undefined" && tinyMCE.activeEditor) {
+            this.bMark = tinyMCE.activeEditor.selection.getBookmark();
+        }
 
         Event.observe(this.widgetEl, "change", this.loadOptions.bind(this));
 
@@ -231,6 +234,14 @@ WysiwygWidget.Widget.prototype = {
                     try {
                         widgetTools.onAjaxSuccess(transport);
                         Windows.close("widget_window");
+
+                        if (typeof(tinyMCE) != "undefined" && tinyMCE.activeEditor) {
+                            tinyMCE.activeEditor.focus();
+                            if (this.bMark) {
+                                tinyMCE.activeEditor.selection.moveToBookmark(this.bMark);
+                            }
+                        }
+
                         this.updateContent(transport.responseText);
                     } catch(e) {
                         alert(e.message);

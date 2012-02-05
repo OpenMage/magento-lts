@@ -70,7 +70,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     public function getDefaultCustomerTaxClass($store = null)
     {
         if ($this->_defaultCustomerTaxClass === null) {
-            $defaultCustomerGroup = Mage::getStoreConfig(Mage_Customer_Model_Group::XML_PATH_DEFAULT_ID, $store);
+            $defaultCustomerGroup = Mage::helper('customer')->getDefaultCustomerGroupId($store);
             $this->_defaultCustomerTaxClass = Mage::getModel('customer/group')->getTaxClassId($defaultCustomerGroup);
         }
         return $this->_defaultCustomerTaxClass;

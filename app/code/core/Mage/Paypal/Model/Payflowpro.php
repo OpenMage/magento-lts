@@ -416,8 +416,11 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
 
         $order = $payment->getOrder();
         if(!empty($order)){
-            $request->setCurrency($order->getBaseCurrencyCode())
-                    ->setCustref($order->getIncrementId());
+            $request->setCurrency($order->getBaseCurrencyCode());
+
+            $orderIncrementId = $order->getIncrementId();
+            $request->setCustref($orderIncrementId)
+                ->setComment1($orderIncrementId);
 
             $billing = $order->getBillingAddress();
             if (!empty($billing)) {

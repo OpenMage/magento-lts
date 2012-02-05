@@ -68,6 +68,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
             'main_table.subscriber_id = subscriber.subscriber_id',
             array('subscriber_email','customer_id','subscriber_status')
         );
+        $this->addFilterToMap('subscriber_id', 'main_table.subscriber_id');
         $this->_subscribersInfoJoinedFlag = true;
 
         return $this;

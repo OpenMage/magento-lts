@@ -44,12 +44,19 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
     public function reindexAll()
     {
         $this->useIdxTable(true);
-        $this->clearTemporaryIndexTable();
-        $this->_prepareIndex();
-        $this->_prepareRelationIndex();
-        $this->_removeNotVisibleEntityFromIndex();
+        $this->beginTransaction();
+        try {
+            $this->clearTemporaryIndexTable();
+            $this->_prepareIndex();
+            $this->_prepareRelationIndex();
+            $this->_removeNotVisibleEntityFromIndex();
 
-        $this->syncData();
+            $this->syncData();
+            $this->commit();
+        } catch (Exception $e) {
+            $this->rollBack();
+            throw $e;
+        }
 
         return $this;
     }
@@ -153,7 +160,13 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
             ->from($idxTable, null);
 
         $condition = $write->quoteInto('=?',Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE);
-        $this->_addAttributeToSelect($select, 'visibility', $idxTable . '.entity_id', $idxTable . '.store_id', $condition);
+        $this->_addAttributeToSelect(
+            $select,
+            'visibility',
+            $idxTable . '.entity_id',
+            $idxTable . '.store_id',
+            $condition
+        );
 
         $query = $select->deleteFromSelect($idxTable);
         $write->query($query);

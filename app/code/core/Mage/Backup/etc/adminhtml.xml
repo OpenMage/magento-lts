@@ -50,6 +50,11 @@
                                 <children>
                                     <backup translate="title" module="backup">
                                         <title>Backups</title>
+                                            <children>
+                                                <rollback translate="title" module="backup">
+                                                    <title>Rollback</title>
+                                                </rollback>
+                                            </children>
                                     </backup>
                                 </children>
                             </tools>

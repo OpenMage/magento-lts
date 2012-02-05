@@ -58,10 +58,17 @@ class Mage_Backup_Model_Fs_Collection extends Varien_Data_Collection_Filesystem
         }
 
         // set collection specific params
+        $extensions = Mage::helper('backup')->getExtensions();
+
+        foreach ($extensions as $key => $value) {
+            $extensions[] = '(' . preg_quote($value, '/') . ')';
+        }
+        $extensions = implode('|', $extensions);
+
         $this
             ->setOrder('time', self::SORT_ORDER_DESC)
             ->addTargetDir($this->_baseDir)
-            ->setFilesFilter('/^[a-z0-9\-\_]+\.' . preg_quote(Mage_Backup_Model_Backup::BACKUP_EXTENSION, '/') . '$/')
+            ->setFilesFilter('/^[a-z0-9\-\_]+\.' . $extensions . '$/')
             ->setCollectRecursively(false)
         ;
     }
@@ -80,6 +87,7 @@ class Mage_Backup_Model_Fs_Collection extends Varien_Data_Collection_Filesystem
             $row[$key] = $value;
         }
         $row['size'] = filesize($filename);
+        $row['id'] = $row['time'] . '_' . $row['type'];
         return $row;
     }
 }

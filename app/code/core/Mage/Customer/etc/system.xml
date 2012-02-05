@@ -88,19 +88,88 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
+                        <auto_group_assign translate="label">
+                            <label>Enable Automatic Assignment to Customer Group</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </auto_group_assign>
                         <default_group translate="label">
                             <label>Default Group</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_customer_group</source_model>
-                            <sort_order>1</sort_order>
+                            <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </default_group>
+                        <viv_domestic_group translate="label">
+                            <label>Group for Valid VAT ID - Domestic</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_customer_group</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><auto_group_assign>1</auto_group_assign></depends>
+                        </viv_domestic_group>
+                        <viv_intra_union_group translate="label">
+                            <label>Group for Valid VAT ID - Intra-Union</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_customer_group</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><auto_group_assign>1</auto_group_assign></depends>
+                        </viv_intra_union_group>
+                        <viv_invalid_group translate="label">
+                            <label>Group for Invalid VAT ID</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_customer_group</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><auto_group_assign>1</auto_group_assign></depends>
+                        </viv_invalid_group>
+                        <viv_error_group translate="label">
+                            <label>Validation Error Group</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_customer_group</source_model>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><auto_group_assign>1</auto_group_assign></depends>
+                        </viv_error_group>
+                        <viv_on_each_transaction translate="label">
+                            <label>Validate on Each Transaction</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>56</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><auto_group_assign>1</auto_group_assign></depends>
+                        </viv_on_each_transaction>
+                        <viv_disable_auto_group_assign_default translate="label">
+                            <label>Disable Automatic Group Changes Based on VAT ID Default Value</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>57</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><auto_group_assign>1</auto_group_assign></depends>
+                        </viv_disable_auto_group_assign_default>
                         <email_domain translate="label">
                             <label>Default Email Domain</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>2</sort_order>
+                            <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -109,7 +178,7 @@
                             <label>Default Welcome Email</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_email_template</source_model>
-                            <sort_order>3</sort_order>
+                            <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -118,7 +187,7 @@
                             <label>Email Sender</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_email_identity</source_model>
-                            <sort_order>4</sort_order>
+                            <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -127,7 +196,7 @@
                             <label>Require Emails Confirmation</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>5</sort_order>
+                            <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -136,7 +205,7 @@
                             <label>Confirmation Link Email</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_email_template</source_model>
-                            <sort_order>6</sort_order>
+                            <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -146,7 +215,7 @@
                             <comment>This email will be sent instead of default welcome email, after account confirmation.</comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_email_template</source_model>
-                            <sort_order>7</sort_order>
+                            <sort_order>110</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -155,7 +224,7 @@
                             <label>Generate Human-Friendly Customer ID</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>8</sort_order>
+                            <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -199,6 +268,7 @@
                         </forgot_email_identity>
                         <reset_link_expiration_period translate="label comment">
                             <label>Recovery Link Expiration Period (days)</label>
+                            <comment>This value must be greater than 0.</comment>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_customer_password_link_expirationperiod</backend_model>
                             <sort_order>40</sort_order>
@@ -376,5 +446,32 @@
                 </address_templates>
             </groups>
         </customer>
+        <general>
+            <groups>
+                <country>
+                    <fields>
+                        <eu_countries>
+                            <backend_model>adminhtml/system_config_backend_customer_groupAutoAssign</backend_model>
+                        </eu_countries>
+                    </fields>
+                </country>
+                <store_information>
+                    <fields>
+                        <merchant_country>
+                            <backend_model>adminhtml/system_config_backend_customer_groupAutoAssign</backend_model>
+                        </merchant_country>
+                        <validate_vat_number translate="button_label">
+                            <label></label>
+                            <button_label>Validate VAT Number</button_label>
+                            <frontend_model>adminhtml/customer_system_config_validatevat</frontend_model>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </validate_vat_number>
+                    </fields>
+                </store_information>
+            </groups>
+        </general>
     </sections>
 </config>

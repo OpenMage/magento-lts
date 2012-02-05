@@ -30,17 +30,33 @@
     <h4>Settings</h4>
 </div>
 <ul class="bare-list">
-<li><input type="checkbox" id="maintenance" value="1" checked="checked" /> &nbsp;
-<label for="maintenance">Put store on the maintenance mode while installing/upgrading</label>
-</li>
+    <li>
+        <input type="checkbox" id="maintenance" value="1" checked="checked" /> &nbsp;
+        <label for="maintenance">Put store on the maintenance mode while installing/upgrading/backup creating</label>
+    </li>
+    <li>
+        <input type="checkbox" id="is_backup" value="1"  /> &nbsp;
+        <label for="is_backup">Create Backup</label>
+            <select id="archive_type">
+                <option value="1">Database only</option>
+                <option value="2">Full system snapshot</option>
+                <option value="3">Database and Media Backup</option>
+            </select>
+    </li>
 </ul>
-
 <div class="bar-head">
     <h4>Install New Extensions</h4>
 </div>
 <script type="text/javascript">
 <!--
- function connectPrepare(form) {
+changeAvailableArchiveStatus = function (){
+    $('archive_type').disabled = !$('is_backup').checked;
+}
+
+Event.observe('is_backup', 'change', changeAvailableArchiveStatus);
+Event.observe(window, 'load', changeAvailableArchiveStatus);
+
+function connectPrepare(form) {
     new Ajax.Request(form.action, {
       method:'post',
       parameters: {install_package_id: form.install_package_id.value},

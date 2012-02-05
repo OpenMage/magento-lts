@@ -35,7 +35,7 @@
         <table cellspacing="0" class="form-list">
             <tr>
                 <td class="label"><label for="answer_<?php echo $_item->getId() ?>"><?php echo Mage::helper('poll')->__('Answer Title:') ?> <span class="required">*</span></label></td>
-                <td class="value"><input type="text" id="answer_<?php echo $_item->getId() ?>" name="answer[<?php echo $_item->getId() ?>][title]" value="<?php echo $_item->getAnswerTitle() ?>" class="input-text required-entry" /></td>
+                <td class="value"><input type="text" id="answer_<?php echo $_item->getId() ?>" name="answer[<?php echo $_item->getId() ?>][title]" value="<?php echo $this->escapeHtml($_item->getAnswerTitle()) ?>" class="input-text required-entry" /></td>
             </tr>
             <tr>
                 <td class="label"><label for="answer_votes_<?php echo $_item->getId() ?>"><?php echo Mage::helper('poll')->__('Votes Count:') ?> <span class="required">*</span></label></td>

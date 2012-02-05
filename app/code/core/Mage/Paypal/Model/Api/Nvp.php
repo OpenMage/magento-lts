@@ -950,8 +950,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             throw $e;
         }
 
-        $http->close();
-
         $response = preg_split('/^\r?$/m', $response, 2);
         $response = trim($response[1]);
         $response = $this->_deformatNVP($response);
@@ -964,9 +962,13 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             Mage::logException(new Exception(
                 sprintf('PayPal NVP CURL connection error #%s: %s', $http->getErrno(), $http->getError())
             ));
+            $http->close();
+
             Mage::throwException(Mage::helper('paypal')->__('Unable to communicate with the PayPal gateway.'));
         }
 
+        // cUrl resource must be closed after checking it for errors
+        $http->close();
 
         if (!$this->_validateResponse($methodName, $response)) {
             Mage::logException(new Exception(
@@ -1036,6 +1038,10 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected function _isCallSuccessful($response)
     {
+        if (!isset($response['ACK'])) {
+            return false;
+        }
+
         $ack = strtoupper($response['ACK']);
         $this->_callWarnings = array();
         if ($ack == 'SUCCESS' || $ack == 'SUCCESSWITHWARNING') {

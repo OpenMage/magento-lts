@@ -81,6 +81,7 @@ class Mage_Adminhtml_Block_Report_Sales_Invoiced_Grid extends Mage_Adminhtml_Blo
             $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
         }
         $currencyCode = $this->getCurrentCurrencyCode();
+        $rate = $this->getRate($currencyCode);
 
         $this->addColumn('invoiced', array(
             'header'        => Mage::helper('sales')->__('Total Invoiced'),
@@ -88,7 +89,8 @@ class Mage_Adminhtml_Block_Report_Sales_Invoiced_Grid extends Mage_Adminhtml_Blo
             'currency_code' => $currencyCode,
             'index'         => 'invoiced',
             'total'         => 'sum',
-            'sortable'      => false
+            'sortable'      => false,
+            'rate'          => $rate,
         ));
 
         $this->addColumn('invoiced_captured', array(
@@ -97,7 +99,8 @@ class Mage_Adminhtml_Block_Report_Sales_Invoiced_Grid extends Mage_Adminhtml_Blo
             'currency_code' => $currencyCode,
             'index'         => 'invoiced_captured',
             'total'         => 'sum',
-            'sortable'      => false
+            'sortable'      => false,
+            'rate'          => $rate,
         ));
 
         $this->addColumn('invoiced_not_captured', array(
@@ -106,7 +109,8 @@ class Mage_Adminhtml_Block_Report_Sales_Invoiced_Grid extends Mage_Adminhtml_Blo
             'currency_code' => $currencyCode,
             'index'         => 'invoiced_not_captured',
             'total'         => 'sum',
-            'sortable'      => false
+            'sortable'      => false,
+            'rate'          => $rate,
         ));
 
         $this->addExportType('*/*/exportInvoicedCsv', Mage::helper('adminhtml')->__('CSV'));

@@ -56,7 +56,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
         $this->_title($this->__('System'))->_title($this->__('Custom Variables'));
 
         $variableId = $this->getRequest()->getParam('variable_id', null);
-        $storeId = $this->getRequest()->getParam('store', 0);
+        $storeId = (int)$this->getRequest()->getParam('store', 0);
         /* @var $emailVariable Mage_Core_Model_Variable */
         $variable = Mage::getModel('core/variable');
         if ($variableId) {
@@ -101,7 +101,9 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
         $this->_initLayout()
             ->_addContent($this->getLayout()->createBlock('adminhtml/system_variable_edit'))
-            ->_addJs($this->getLayout()->createBlock('core/template', '', array('template' => 'system/variable/js.phtml')))
+            ->_addJs($this->getLayout()->createBlock('core/template', '', array(
+                'template' => 'system/variable/js.phtml'
+            )))
             ->renderLayout();
     }
 

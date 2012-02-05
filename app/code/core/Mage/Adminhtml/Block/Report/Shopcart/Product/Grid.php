@@ -31,7 +31,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
+class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_Block_Report_Grid_Shopcart
 {
 
     public function __construct()
@@ -64,13 +64,16 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_B
             'index'     =>'name'
         ));
 
+        $currencyCode = $this->getCurrentCurrencyCode();
+
         $this->addColumn('price', array(
             'header'    =>Mage::helper('reports')->__('Price'),
             'width'     =>'80px',
             'type'      =>'currency',
-            'currency_code' => $this->getCurrentCurrencyCode(),
+            'currency_code' => $currencyCode,
             'index'     =>'price',
-            'renderer'  =>'adminhtml/report_grid_column_renderer_currency'
+            'renderer'  =>'adminhtml/report_grid_column_renderer_currency',
+            'rate'          => $this->getRate($currencyCode),
         ));
 
         $this->addColumn('carts', array(

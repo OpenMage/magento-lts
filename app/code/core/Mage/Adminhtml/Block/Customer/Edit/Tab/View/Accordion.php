@@ -58,9 +58,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Accordion extends Mage_Adminht
             // prepare title for cart
             $title = Mage::helper('customer')->__('Shopping Cart - %d item(s)', $cartItemsCount);
             if (count($customer->getSharedWebsiteIds()) > 1) {
-                $title = Mage::helper('customer')->__('Shopping Cart of %1$s - %2$d item(s)',
-                    $website->getName(), $cartItemsCount
-                );
+                $title = Mage::helper('customer')->__('Shopping Cart of %1$s - %2$d item(s)', $website->getName(), $cartItemsCount);
             }
 
             // add cart ajax accordion

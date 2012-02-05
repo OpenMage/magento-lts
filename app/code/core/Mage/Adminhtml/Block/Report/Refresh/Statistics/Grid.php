@@ -97,7 +97,13 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
                 'report'        => Mage::helper('sales')->__('Bestsellers'),
                 'comment'       => Mage::helper('sales')->__('Products Bestsellers Report'),
                 'updated_at'    => $this->_getUpdatedAt(Mage_Reports_Model_Flag::REPORT_BESTSELLERS_FLAG_CODE)
-            )
+            ),
+            array(
+                'id'            => 'viewed',
+                'report'        => Mage::helper('sales')->__('Most Viewed'),
+                'comment'       => Mage::helper('sales')->__('Most Viewed Products Report'),
+                'updated_at'    => $this->_getUpdatedAt(Mage_Reports_Model_Flag::REPORT_PRODUCT_VIEWED_FLAG_CODE)
+            ),
         );
 
         foreach ($data as $value) {

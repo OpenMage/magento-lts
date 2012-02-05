@@ -32,6 +32,13 @@
 class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
 {
     /**
+     * VAT Validation parameters XML paths
+     */
+    const XML_PATH_VIV_DISABLE_AUTO_ASSIGN_DEFAULT = 'customer/create_account/viv_disable_auto_group_assign_default';
+    const XML_PATH_VIV_ON_EACH_TRANSACTION         = 'customer/create_account/viv_on_each_transaction';
+    const XML_PATH_VAT_VALIDATION_ENABLED          = 'customer/create_account/auto_group_assign';
+
+    /**
      * Array of Customer Address Attributes
      *
      * @var array
@@ -199,5 +206,37 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
         }
 
         return $lines;
+    }
+
+    /**
+     * Check whether VAT ID validation is enabled
+     *
+     * @param Mage_Core_Model_Store|string|int $store
+     * @return bool
+     */
+    public function isVatValidationEnabled($store = null)
+    {
+        return (bool)Mage::getStoreConfig(self::XML_PATH_VAT_VALIDATION_ENABLED, $store);
+    }
+
+    /**
+     * Retrieve disable auto group assign default value
+     *
+     * @return bool
+     */
+    public function getDisableAutoGroupAssignDefaultValue()
+    {
+        return (bool)Mage::getStoreConfig(self::XML_PATH_VIV_DISABLE_AUTO_ASSIGN_DEFAULT);
+    }
+
+    /**
+     * Retrieve 'validate on each transaction' value
+     *
+     * @param Mage_Core_Model_Store|string|int $store
+     * @return bool
+     */
+    public function getValidateOnEachTransaction($store = null)
+    {
+        return (bool)Mage::getStoreConfig(self::XML_PATH_VIV_ON_EACH_TRANSACTION, $store);
     }
 }

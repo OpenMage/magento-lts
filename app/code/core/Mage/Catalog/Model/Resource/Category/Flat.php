@@ -32,7 +32,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Core_Model_Resource_Db_Abstract
+class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resource_Abstract
 {
     /**
      * Store id
@@ -96,6 +96,13 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Core_Model_Resource
      * @var array
      */
     protected $_storesRootCategories;
+
+    /**
+     * Whether table changes are allowed
+     *
+     * @var bool
+     */
+    protected $_allowTableChanges        = true;
 
     /**
      * Resource initializations
@@ -462,7 +469,9 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Core_Model_Resource
         $categoriesIds = array();
         /* @var $store Mage_Core_Model_Store */
         foreach ($stores as $store) {
-            $this->_createTable($store->getId());
+            if ($this->_allowTableChanges) {
+                $this->_createTable($store->getId());
+            }
 
             if (!isset($categories[$store->getRootCategoryId()])) {
                 $select = $this->_getWriteAdapter()->select()
@@ -1388,5 +1397,49 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Core_Model_Resource
         }
 
         return $this->_storesRootCategories;
+    }
+
+    /**
+     * Creating table and adding attributes as fields to table for all stores
+     *
+     * @return Mage_Catalog_Model_Resource_Category_Flat
+     */
+    protected function _createTables()
+    {
+        if ($this->_allowTableChanges) {
+            foreach (Mage::app()->getStores() as $store) {
+                $this->_createTable($store->getId());
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Transactional rebuild flat data from eav
+     *
+     * @return Mage_Catalog_Model_Resource_Category_Flat
+     */
+    public function reindexAll()
+    {
+        $this->_createTables();
+        $allowTableChanges = $this->_allowTableChanges;
+        if ($allowTableChanges) {
+            $this->_allowTableChanges = false;
+        }
+        $this->beginTransaction();
+        try {
+            $this->rebuild();
+            $this->commit();
+            if ($allowTableChanges) {
+                $this->_allowTableChanges = true;
+            }
+        } catch (Exception $e) {
+            $this->rollBack();
+            if ($allowTableChanges) {
+                $this->_allowTableChanges = true;
+            }
+            throw $e;
+        }
+        return $this;
     }
 }

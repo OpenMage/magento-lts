@@ -563,6 +563,8 @@ Product.OptionsPrice.prototype = {
         this.skipCalculate      = config.skipCalculate;//@deprecated after 1.5.1.0
         this.duplicateIdSuffix  = config.idSuffix;
         this.specialTaxPrice    = config.specialTaxPrice;
+        this.tierPrices         = config.tierPrices;
+        this.tierPricesInclTax  = config.tierPricesInclTax;
 
         this.oldPlusDisposition = config.oldPlusDisposition;
         this.plusDisposition    = config.plusDisposition;
@@ -717,6 +719,30 @@ Product.OptionsPrice.prototype = {
                 }
             };
         }.bind(this));
+
+        for (var i = 0; i < this.tierPrices.length; i++) {
+            $$('.price.tier-' + i).each(function (el) {
+                var price = this.tierPrices[i] + parseFloat(optionPrices);
+                el.innerHTML = this.formatPrice(price);
+            }, this);
+            $$('.price.tier-' + i + '-incl-tax').each(function (el) {
+                var price = this.tierPricesInclTax[i] + parseFloat(optionPrices);
+                el.innerHTML = this.formatPrice(price);
+            }, this);
+            $$('.benefit').each(function (el) {
+                var parsePrice = function (html) {
+                    return parseFloat(/\d+\.?\d*/.exec(html));
+                };
+                var container = $(this.containers[3]) ? this.containers[3] : this.containers[0];
+                var price = parsePrice($(container).innerHTML);
+                var tierPrice = parsePrice($$('.price.tier-' + i)[0].innerHTML);
+                var $percent = Selector.findChildElements(el, ['.percent.tier-' + i]);
+                $percent.each(function (el) {
+                    el.innerHTML = Math.ceil(100 - ((100 / price) * tierPrice));
+                });
+            }, this);
+        }
+
     },
     formatPrice: function(price) {
         return formatCurrency(price, this.priceFormat);

@@ -14,28 +14,21 @@
 		is = tinymce.is,
 		isWebKit = tinymce.isWebKit,
 		isIE = tinymce.isIE,
-		blockRe = /^(H[1-6R]|P|DIV|ADDRESS|PRE|FORM|T(ABLE|BODY|HEAD|FOOT|H|R|D)|LI|OL|UL|CAPTION|BLOCKQUOTE|CENTER|DL|DT|DD|DIR|FIELDSET|NOSCRIPT|MENU|ISINDEX|SAMP)$/,
-		boolAttrs = makeMap('checked,compact,declare,defer,disabled,ismap,multiple,nohref,noresize,noshade,nowrap,readonly,selected'),
-		mceAttribs = makeMap('src,href,style,coords,shape'),
-		encodedChars = {'&' : '&amp;', '"' : '&quot;', '<' : '&lt;', '>' : '&gt;'},
-		encodeCharsRe = /[<>&\"]/g,
+		Entities = tinymce.html.Entities,
 		simpleSelectorRe = /^([a-z0-9],?)+$/i,
-		tagRegExp = /<(\w+)((?:\s+\w+(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)(\s*\/?)>/g,
-		attrRegExp = /(\w+)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
-
-	function makeMap(str) {
-		var map = {}, i;
-
-		str = str.split(',');
-		for (i = str.length; i >= 0; i--)
-			map[str[i]] = 1;
-
-		return map;
-	};
+		blockElementsMap = tinymce.html.Schema.blockElementsMap,
+		whiteSpaceRegExp = /^[ \t\r\n]*$/;
 
 	/**
 	 * Utility class for various DOM manipulation and retrival functions.
+	 *
 	 * @class tinymce.dom.DOMUtils
+	 * @example
+	 * // Add a class to an element by id in the page
+	 * tinymce.DOM.addClass('someid', 'someclass');
+	 *
+	 * // Add a class to an element by id inside the editor
+	 * tinyMCE.activeEditor.dom.addClass('someid', 'someclass');
 	 */
 	tinymce.create('tinymce.dom.DOMUtils', {
 		doc : null,
@@ -66,21 +59,27 @@
 		 * @param {settings} s Optional settings collection.
 		 */
 		DOMUtils : function(d, s) {
-			var t = this, globalStyle;
+			var t = this, globalStyle, name;
 
 			t.doc = d;
 			t.win = window;
 			t.files = {};
 			t.cssFlicker = false;
 			t.counter = 0;
-			t.boxModel = !tinymce.isIE || d.compatMode == "CSS1Compat"; 
-			t.stdMode = d.documentMode === 8;
+			t.stdMode = !tinymce.isIE || d.documentMode >= 8;
+			t.boxModel = !tinymce.isIE || d.compatMode == "CSS1Compat" || t.stdMode;
+			t.hasOuterHTML = "outerHTML" in d.createElement("a");
 
 			t.settings = s = tinymce.extend({
 				keep_values : false,
-				hex_colors : 1,
-				process_html : 1
+				hex_colors : 1
 			}, s);
+			
+			t.schema = s.schema;
+			t.styles = new tinymce.html.Styles({
+				url_converter : s.url_converter,
+				url_converter_scope : s.url_converter_scope
+			}, s.schema);
 
 			// Fix IE6SP2 flicker and check it failed for pre SP2
 			if (tinymce.isIE6) {
@@ -91,14 +90,20 @@
 				}
 			}
 
-			// Build styles list
-			if (s.valid_styles) {
-				t._styles = {};
-
-				// Convert styles into a rule list
-				each(s.valid_styles, function(value, key) {
-					t._styles[key] = tinymce.explode(value);
+			if (isIE && s.schema) {
+				// Add missing HTML 4/5 elements to IE
+				('abbr article aside audio canvas ' +
+				'details figcaption figure footer ' +
+				'header hgroup mark menu meter nav ' +
+				'output progress section summary ' +
+				'time video').replace(/\w+/g, function(name) {
+					d.createElement(name);
 				});
+
+				// Create all custom elements
+				for (name in s.schema.getCustomElements()) {
+					d.createElement(name);
+				}
 			}
 
 			tinymce.addUnload(t.destroy, t);
@@ -280,6 +285,7 @@
 		/**
 		 * Returns the next node that matches selector or function
 		 *
+		 * @method getNext
 		 * @param {Node} node Node to find siblings from.
 		 * @param {String/function} selector Selector CSS expression or function.
 		 * @return {Node} Next node item matching the selector or null if it wasn't found.
@@ -291,6 +297,7 @@
 		/**
 		 * Returns the previous node that matches selector or function
 		 *
+		 * @method getPrev
 		 * @param {Node} node Node to find siblings from.
 		 * @param {String/function} selector Selector CSS expression or function.
 		 * @return {Node} Previous node item matching the selector or null if it wasn't found.
@@ -310,6 +317,12 @@
 		 * @param {String} p CSS level 1 pattern to select/find elements by.
 		 * @param {Object} s Optional root element/scope element to search in.
 		 * @return {Array} Array with all matched elements.
+		 * @example
+		 * // Adds a class to all paragraphs in the currently active editor
+		 * tinyMCE.activeEditor.dom.addClass(tinyMCE.activeEditor.dom.select('p'), 'someclass');
+		 * 
+		 * // Adds a class to all spans that has the test class in the currently active editor
+		 * tinyMCE.activeEditor.dom.addClass(tinyMCE.activeEditor.dom.select('span.test'), 'someclass')
 		 */
 		select : function(pa, s) {
 			var t = this;
@@ -362,6 +375,9 @@
 		 * @param {String} h Optional inner HTML contents to add for each element.
 		 * @param {Boolean} c Optional internal state to indicate if it should create or add.
 		 * @return {Element/Array} Element that got created or array with elements if multiple elements where passed.
+		 * @example
+		 * // Adds a new paragraph to the end of the active editor
+		 * tinyMCE.activeEditor.dom.add(tinyMCE.activeEditor.getBody(), 'p', {title : 'my title'}, 'Some content');
 		 */
 		add : function(p, n, a, h, c) {
 			var t = this;
@@ -391,19 +407,26 @@
 		 * @param {Object} a Optional object name/value collection with element attributes.
 		 * @param {String} h Optional HTML string to set as inner HTML of the element.
 		 * @return {Element} HTML DOM node element that got created.
+		 * @example
+		 * // Adds an element where the caret/selection is in the active editor
+		 * var el = tinyMCE.activeEditor.dom.create('div', {id : 'test', 'class' : 'myclass'}, 'some content');
+		 * tinyMCE.activeEditor.selection.setNode(el);
 		 */
 		create : function(n, a, h) {
 			return this.add(this.doc.createElement(n), n, a, h, 1);
 		},
 
 		/**
-		 * Create HTML string for element. The elemtn will be closed unless an empty inner HTML string is passed.
+		 * Create HTML string for element. The element will be closed unless an empty inner HTML string is passed.
 		 *
 		 * @method createHTML
 		 * @param {String} n Name of new element.
 		 * @param {Object} a Optional object name/value collection with element attributes.
 		 * @param {String} h Optional HTML string to set as inner HTML of the element.
 		 * @return {String} String with new HTML element like for example: <a href="#">test</a>.
+		 * @example
+		 * // Creates a html chunk and inserts it at the current selection/caret location
+		 * tinyMCE.activeEditor.selection.setContent(tinyMCE.activeEditor.dom.createHTML('a', {href : 'test.html'}, 'some line'));
 		 */
 		createHTML : function(n, a, h) {
 			var o = '', t = this, k;
@@ -415,7 +438,8 @@
 					o += ' ' + k + '="' + t.encode(a[k]) + '"';
 			}
 
-			if (tinymce.is(h))
+			// A call to tinymce.is doesn't work for some odd reason on IE9 possible bug inside their JS runtime
+			if (typeof(h) != "undefined")
 				return o + '>' + h + '</' + n + '>';
 
 			return o + ' />';
@@ -428,12 +452,16 @@
 		 * @param {String/Element/Array} node ID of element or DOM element object or array containing multiple elements/ids.
 		 * @param {Boolean} keep_children Optional state to keep children or not. If set to true all children will be placed at the location of the removed element.
 		 * @return {Element/Array} HTML DOM element that got removed or array of elements depending on input.
+		 * @example
+		 * // Removes all paragraphs in the active editor
+		 * tinyMCE.activeEditor.dom.remove(tinyMCE.activeEditor.dom.select('p'));
+		 * 
+		 * // Removes a element by id in the document
+		 * tinyMCE.DOM.remove('mydiv');
 		 */
 		remove : function(node, keep_children) {
 			return this.run(node, function(node) {
-				var parent, child;
-
-				parent = node.parentNode;
+				var child, parent = node.parentNode;
 
 				if (!parent)
 					return null;
@@ -460,6 +488,12 @@
 		 * @param {String/Element/Array} n HTML element/Element ID or Array of elements/ids to set CSS style value on.
 		 * @param {String} na Name of the style value to set.
 		 * @param {String} v Value to set on the style.
+		 * @example
+		 * // Sets a style value on all paragraphs in the currently active editor
+		 * tinyMCE.activeEditor.dom.setStyle(tinyMCE.activeEditor.dom.select('p'), 'background-color', 'red');
+		 * 
+		 * // Sets a style value to an element by id in the current document
+		 * tinyMCE.DOM.setStyle('mydiv', 'background-color', 'red');
 		 */
 		setStyle : function(n, na, v) {
 			var t = this;
@@ -502,7 +536,7 @@
 
 				// Force update of the style data
 				if (t.settings.update_styles)
-					t.setAttrib(e, '_mce_style');
+					t.setAttrib(e, 'data-mce-style');
 			});
 		},
 
@@ -519,7 +553,7 @@
 			n = this.get(n);
 
 			if (!n)
-				return false;
+				return;
 
 			// Gecko
 			if (this.doc.defaultView && c) {
@@ -548,7 +582,7 @@
 			if (n.currentStyle && c)
 				return n.currentStyle[na];
 
-			return n.style[na];
+			return n.style ? n.style[na] : undefined;
 		},
 
 		/**
@@ -557,6 +591,12 @@
 		 * @method setStyles
 		 * @param {Element/String/Array} e DOM element, element id string or array of elements/ids to set styles on.
 		 * @param {Object} o Name/Value collection of style items to add to the element(s).
+		 * @example
+		 * // Sets styles on all paragraphs in the currently active editor
+		 * tinyMCE.activeEditor.dom.setStyles(tinyMCE.activeEditor.dom.select('p'), {'background-color' : 'red', 'color' : 'green'});
+		 * 
+		 * // Sets styles to an element by id in the current document
+		 * tinyMCE.DOM.setStyles('mydiv', {'background-color' : 'red', 'color' : 'green'});
 		 */
 		setStyles : function(e, o) {
 			var t = this, s = t.settings, ol;
@@ -575,12 +615,32 @@
 		},
 
 		/**
+		 * Removes all attributes from an element or elements.
+		 * 
+		 * @param {Element/String/Array} e DOM element, element id string or array of elements/ids to remove attributes from.
+		 */
+		removeAllAttribs: function(e) {
+			return this.run(e, function(e) {
+				var i, attrs = e.attributes;
+				for (i = attrs.length - 1; i >= 0; i--) {
+					e.removeAttributeNode(attrs.item(i));
+				}
+			});
+		},
+
+		/**
 		 * Sets the specified attributes value of a element or elements.
 		 *
 		 * @method setAttrib
 		 * @param {Element/String/Array} e DOM element, element id string or array of elements/ids to set attribute on.
 		 * @param {String} n Name of attribute to set.
 		 * @param {String} v Value to set on the attribute of this value is falsy like null 0 or '' it will remove the attribute instead.
+		 * @example
+		 * // Sets an attribute to all paragraphs in the active editor
+		 * tinyMCE.activeEditor.dom.setAttrib(tinyMCE.activeEditor.dom.select('p'), 'class', 'myclass');
+		 * 
+		 * // Sets an attribute to a specific element in the current page
+		 * tinyMCE.dom.setAttrib('mydiv', 'class', 'myclass');
 		 */
 		setAttrib : function(e, n, v) {
 			var t = this;
@@ -595,48 +655,48 @@
 
 			return this.run(e, function(e) {
 				var s = t.settings;
+				if (v !== null) {
+					switch (n) {
+						case "style":
+							if (!is(v, 'string')) {
+								each(v, function(v, n) {
+									t.setStyle(e, n, v);
+								});
 
-				switch (n) {
-					case "style":
-						if (!is(v, 'string')) {
-							each(v, function(v, n) {
-								t.setStyle(e, n, v);
-							});
+								return;
+							}
 
-							return;
-						}
+							// No mce_style for elements with these since they might get resized by the user
+							if (s.keep_values) {
+								if (v && !t._isRes(v))
+									e.setAttribute('data-mce-style', v, 2);
+								else
+									e.removeAttribute('data-mce-style', 2);
+							}
 
-						// No mce_style for elements with these since they might get resized by the user
-						if (s.keep_values) {
-							if (v && !t._isRes(v))
-								e.setAttribute('_mce_style', v, 2);
-							else
-								e.removeAttribute('_mce_style', 2);
-						}
+							e.style.cssText = v;
+							break;
 
-						e.style.cssText = v;
-						break;
+						case "class":
+							e.className = v || ''; // Fix IE null bug
+							break;
 
-					case "class":
-						e.className = v || ''; // Fix IE null bug
-						break;
+						case "src":
+						case "href":
+							if (s.keep_values) {
+								if (s.url_converter)
+									v = s.url_converter.call(s.url_converter_scope || t, v, n, e);
 
-					case "src":
-					case "href":
-						if (s.keep_values) {
-							if (s.url_converter)
-								v = s.url_converter.call(s.url_converter_scope || t, v, n, e);
+								t.setAttrib(e, 'data-mce-' + n, v, 2);
+							}
 
-							t.setAttrib(e, '_mce_' + n, v, 2);
-						}
+							break;
 
-						break;
-					
-					case "shape":
-						e.setAttribute('_mce_style', v);
-						break;
+						case "shape":
+							e.setAttribute('data-mce-style', v);
+							break;
+					}
 				}
-
 				if (is(v) && v !== null && v.length !== 0)
 					e.setAttribute(n, '' + v, 2);
 				else
@@ -650,6 +710,12 @@
 		 * @method setAttribs
 		 * @param {Element/String/Array} e DOM element, element id string or array of elements/ids to set attributes on.
 		 * @param {Object} o Name/Value collection of attribute items to add to the element(s).
+		 * @example
+		 * // Sets some attributes to all paragraphs in the active editor
+		 * tinyMCE.activeEditor.dom.setAttribs(tinyMCE.activeEditor.dom.select('p'), {'class' : 'myclass', title : 'some title'});
+		 * 
+		 * // Sets some attributes to a specific element in the current page
+		 * tinyMCE.DOM.setAttribs('mydiv', {'class' : 'myclass', title : 'some title'});
 		 */
 		setAttribs : function(e, o) {
 			var t = this;
@@ -671,19 +737,19 @@
 		 * @return {String} Attribute value string, default value or null if the attribute wasn't found.
 		 */
 		getAttrib : function(e, n, dv) {
-			var v, t = this;
+			var v, t = this, undef;
 
 			e = t.get(e);
 
 			if (!e || e.nodeType !== 1)
-				return false;
+				return dv === undef ? false : dv;
 
 			if (!is(dv))
 				dv = '';
 
 			// Try the mce variant for these
 			if (/^(src|href|style|coords|shape)$/.test(n)) {
-				v = e.getAttribute("_mce_" + n);
+				v = e.getAttribute("data-mce-" + n);
 
 				if (v)
 					return v;
@@ -716,7 +782,7 @@
 					v = t.serializeStyle(t.parseStyle(v), e.nodeName);
 
 					if (t.settings.keep_values && !t._isRes(v))
-						e.setAttribute('_mce_style', v);
+						e.setAttribute('data-mce-style', v);
 				}
 			}
 
@@ -784,11 +850,11 @@
 					default:
 						// IE has odd anonymous function for event attributes
 						if (n.indexOf('on') === 0 && v)
-							v = ('' + v).replace(/^function\s+\w+\(\)\s+\{\s+(.*)\s+\}$/, '$1');
+							v = tinymce._replace(/^function\s+\w+\(\)\s+\{\s+(.*)\s+\}$/, '$1', '' + v);
 				}
 			}
 
-			return (v !== undefined && v !== null && v !== '') ? '' + v : dv;
+			return (v !== undef && v !== null && v !== '') ? '' + v : dv;
 		},
 
 		/**
@@ -806,15 +872,17 @@
 			ro = ro || d.body;
 
 			if (n) {
-				// Use getBoundingClientRect on IE, Opera has it but it's not perfect
-				if (isIE && !t.stdMode) {
+				// Use getBoundingClientRect if it exists since it's faster than looping offset nodes
+				if (n.getBoundingClientRect) {
 					n = n.getBoundingClientRect();
 					e = t.boxModel ? d.documentElement : d.body;
-					x = t.getStyle(t.select('html')[0], 'borderWidth'); // Remove border
-					x = (x == 'medium' || t.boxModel && !t.isIE6) && 2 || x;
-					n.top += t.win.self != t.win.top ? 2 : 0; // IE adds some strange extra cord if used in a frameset
 
-					return {x : n.left + e.scrollLeft - x, y : n.top + e.scrollTop - x};
+					// Add scroll offsets from documentElement or body since IE with the wrong box model will use d.body and so do WebKit
+					// Also remove the body/documentelement clientTop/clientLeft on IE 6, 7 since they offset the position
+					x = n.left + (d.documentElement.scrollLeft || d.body.scrollLeft) - e.clientTop;
+					y = n.top + (d.documentElement.scrollTop || d.body.scrollTop) - e.clientLeft;
+
+					return {x : x, y : y};
 				}
 
 				r = n;
@@ -845,102 +913,7 @@
 		 * @return {Object} Object representation of that style like {border : '1px solid red'}
 		 */
 		parseStyle : function(st) {
-			var t = this, s = t.settings, o = {};
-
-			if (!st)
-				return o;
-
-			function compress(p, s, ot) {
-				var t, r, b, l;
-
-				// Get values and check it it needs compressing
-				t = o[p + '-top' + s];
-				if (!t)
-					return;
-
-				r = o[p + '-right' + s];
-				if (t != r)
-					return;
-
-				b = o[p + '-bottom' + s];
-				if (r != b)
-					return;
-
-				l = o[p + '-left' + s];
-				if (b != l)
-					return;
-
-				// Compress
-				o[ot] = l;
-				delete o[p + '-top' + s];
-				delete o[p + '-right' + s];
-				delete o[p + '-bottom' + s];
-				delete o[p + '-left' + s];
-			};
-
-			function compress2(ta, a, b, c) {
-				var t;
-
-				t = o[a];
-				if (!t)
-					return;
-
-				t = o[b];
-				if (!t)
-					return;
-
-				t = o[c];
-				if (!t)
-					return;
-
-				// Compress
-				o[ta] = o[a] + ' ' + o[b] + ' ' + o[c];
-				delete o[a];
-				delete o[b];
-				delete o[c];
-			};
-
-			st = st.replace(/&(#?[a-z0-9]+);/g, '&$1_MCE_SEMI_'); // Protect entities
-
-			each(st.split(';'), function(v) {
-				var sv, ur = [];
-
-				if (v) {
-					v = v.replace(/_MCE_SEMI_/g, ';'); // Restore entities
-					v = v.replace(/url\([^\)]+\)/g, function(v) {ur.push(v);return 'url(' + ur.length + ')';});
-					v = v.split(':');
-					sv = tinymce.trim(v[1]);
-					sv = sv.replace(/url\(([^\)]+)\)/g, function(a, b) {return ur[parseInt(b) - 1];});
-
-					sv = sv.replace(/rgb\([^\)]+\)/g, function(v) {
-						return t.toHex(v);
-					});
-
-					if (s.url_converter) {
-						sv = sv.replace(/url\([\'\"]?([^\)\'\"]+)[\'\"]?\)/g, function(x, c) {
-							return 'url(' + s.url_converter.call(s.url_converter_scope || t, t.decode(c), 'style', null) + ')';
-						});
-					}
-
-					o[tinymce.trim(v[0]).toLowerCase()] = sv;
-				}
-			});
-
-			compress("border", "", "border");
-			compress("border", "-width", "border-width");
-			compress("border", "-color", "border-color");
-			compress("border", "-style", "border-style");
-			compress("padding", "", "padding");
-			compress("margin", "", "margin");
-			compress2('border', 'border-width', 'border-style', 'border-color');
-
-			if (isIE) {
-				// Remove pointless border
-				if (o.border == 'medium none')
-					o.border = '';
-			}
-
-			return o;
+			return this.styles.parse(st);
 		},
 
 		/**
@@ -952,45 +925,7 @@
 		 * @return {String} String representation of the style object for example: border: 1px solid red.
 		 */
 		serializeStyle : function(o, name) {
-			var t = this, s = '';
-
-			function add(v, k) {
-				if (k && v) {
-					// Remove browser specific styles like -moz- or -webkit-
-					if (k.indexOf('-') === 0)
-						return;
-
-					switch (k) {
-						case 'font-weight':
-							// Opera will output bold as 700
-							if (v == 700)
-								v = 'bold';
-
-							break;
-
-						case 'color':
-						case 'background-color':
-							v = v.toLowerCase();
-							break;
-					}
-
-					s += (s ? ' ' : '') + k + ': ' + v + ';';
-				}
-			};
-
-			// Validate style output
-			if (name && t._styles) {
-				each(t._styles['*'], function(name) {
-					add(o[name], name);
-				});
-
-				each(t._styles[name.toLowerCase()], function(name) {
-					add(o[name], name);
-				});
-			} else
-				each(o, add);
-
-			return s;
+			return this.styles.serialize(o, name);
 		},
 
 		/**
@@ -998,6 +933,18 @@
 		 *
 		 * @method loadCSS
 		 * @param {String} u URL to CSS file to load.
+		 * @example
+		 * // Loads a CSS file dynamically into the current document
+		 * tinymce.DOM.loadCSS('somepath/some.css');
+		 * 
+		 * // Loads a CSS file into the currently active editor instance
+		 * tinyMCE.activeEditor.dom.loadCSS('somepath/some.css');
+		 * 
+		 * // Loads a CSS file into an editor instance by id
+		 * tinyMCE.get('someid').dom.loadCSS('somepath/some.css');
+		 * 
+		 * // Loads multiple CSS files into the current document
+		 * tinymce.DOM.loadCSS('somepath/some.css,somepath/someother.css');
 		 */
 		loadCSS : function(u) {
 			var t = this, d = t.doc, head;
@@ -1019,9 +966,11 @@
 				// IE 8 has a bug where dynamically loading stylesheets would produce a 1 item remaining bug
 				// This fix seems to resolve that issue by realcing the document ones a stylesheet finishes loading
 				// It's ugly but it seems to work fine.
-				if (isIE && d.documentMode) {
+				if (isIE && d.documentMode && d.recalc) {
 					link.onload = function() {
-						d.recalc();
+						if (d.recalc)
+							d.recalc();
+
 						link.onload = null;
 					};
 				}
@@ -1037,6 +986,12 @@
 		 * @param {String/Element/Array} Element ID string or DOM element or array with elements or IDs.
 		 * @param {String} c Class name to add to each element.
 		 * @return {String/Array} String with new class value or array with new class values for all elements.
+		 * @example
+		 * // Adds a class to all paragraphs in the active editor
+		 * tinyMCE.activeEditor.dom.addClass(tinyMCE.activeEditor.dom.select('p'), 'myclass');
+		 * 
+		 * // Adds a class to a specific element in the current page
+		 * tinyMCE.DOM.addClass('mydiv', 'myclass');
 		 */
 		addClass : function(e, c) {
 			return this.run(e, function(e) {
@@ -1061,6 +1016,12 @@
 		 * @param {String/Element/Array} Element ID string or DOM element or array with elements or IDs.
 		 * @param {String} c Class name to remove to each element.
 		 * @return {String/Array} String with new class value or array with new class values for all elements.
+		 * @example
+		 * // Removes a class from all paragraphs in the active editor
+		 * tinyMCE.activeEditor.dom.removeClass(tinyMCE.activeEditor.dom.select('p'), 'myclass');
+		 * 
+		 * // Removes a class from a specific element in the current page
+		 * tinyMCE.DOM.removeClass('mydiv', 'myclass');
 		 */
 		removeClass : function(e, c) {
 			var t = this, re;
@@ -1122,6 +1083,9 @@
 		 *
 		 * @method hide
 		 * @param {String/Element/Array} e ID of DOM element or DOM element or array with elements or IDs to hide.
+		 * @example
+		 * // Hides a element by id in the document
+		 * tinymce.DOM.hide('myid');
 		 */
 		hide : function(e) {
 			return this.setStyle(e, 'display', 'none');
@@ -1159,273 +1123,74 @@
 		 * @method setHTML
 		 * @param {Element/String/Array} e DOM element, element id string or array of elements/ids to set HTML inside.
 		 * @param {String} h HTML content to set as inner HTML of the element.
+		 * @example
+		 * // Sets the inner HTML of all paragraphs in the active editor
+		 * tinyMCE.activeEditor.dom.setHTML(tinyMCE.activeEditor.dom.select('p'), 'some inner html');
+		 * 
+		 * // Sets the inner HTML of a element by id in the document
+		 * tinyMCE.DOM.setHTML('mydiv', 'some inner html');
 		 */
-		setHTML : function(e, h) {
-			var t = this;
+		setHTML : function(element, html) {
+			var self = this;
 
-			return this.run(e, function(e) {
-				var x, i, nl, n, p, x;
-
-				h = t.processHTML(h);
-
+			return self.run(element, function(element) {
 				if (isIE) {
-					function set() {
-						// Remove all child nodes
-						while (e.firstChild)
-							e.firstChild.removeNode();
+					// Remove all child nodes, IE keeps empty text nodes in DOM
+					while (element.firstChild)
+						element.removeChild(element.firstChild);
 
-						try {
-							// IE will remove comments from the beginning
-							// unless you padd the contents with something
-							e.innerHTML = '<br />' + h;
-							e.removeChild(e.firstChild);
-						} catch (ex) {
-							// IE sometimes produces an unknown runtime error on innerHTML if it's an block element within a block element for example a div inside a p
-							// This seems to fix this problem
+					try {
+						// IE will remove comments from the beginning
+						// unless you padd the contents with something
+						element.innerHTML = '<br />' + html;
+						element.removeChild(element.firstChild);
+					} catch (ex) {
+						// IE sometimes produces an unknown runtime error on innerHTML if it's an block element within a block element for example a div inside a p
+						// This seems to fix this problem
 
-							// Create new div with HTML contents and a BR infront to keep comments
-							x = t.create('div');
-							x.innerHTML = '<br />' + h;
+						// Create new div with HTML contents and a BR infront to keep comments
+						element = self.create('div');
+						element.innerHTML = '<br />' + html;
 
-							// Add all children from div to target
-							each (x.childNodes, function(n, i) {
-								// Skip br element
-								if (i)
-									e.appendChild(n);
-							});
-						}
-					};
-
-					// IE has a serious bug when it comes to paragraphs it can produce an invalid
-					// DOM tree if contents like this <p><ul><li>Item 1</li></ul></p> is inserted
-					// It seems to be that IE doesn't like a root block element placed inside another root block element
-					if (t.settings.fix_ie_paragraphs)
-						h = h.replace(/<p><\/p>|<p([^>]+)><\/p>|<p[^\/+]\/>/gi, '<p$1 _mce_keep="true">&nbsp;</p>');
-
-					set();
-
-					if (t.settings.fix_ie_paragraphs) {
-						// Check for odd paragraphs this is a sign of a broken DOM
-						nl = e.getElementsByTagName("p");
-						for (i = nl.length - 1, x = 0; i >= 0; i--) {
-							n = nl[i];
-
-							if (!n.hasChildNodes()) {
-								if (!n._mce_keep) {
-									x = 1; // Is broken
-									break;
-								}
-
-								n.removeAttribute('_mce_keep');
-							}
-						}
-					}
-
-					// Time to fix the madness IE left us
-					if (x) {
-						// So if we replace the p elements with divs and mark them and then replace them back to paragraphs
-						// after we use innerHTML we can fix the DOM tree
-						h = h.replace(/<p ([^>]+)>|<p>/ig, '<div $1 _mce_tmp="1">');
-						h = h.replace(/<\/p>/gi, '</div>');
-
-						// Set the new HTML with DIVs
-						set();
-
-						// Replace all DIV elements with the _mce_tmp attibute back to paragraphs
-						// This is needed since IE has a annoying bug see above for details
-						// This is a slow process but it has to be done. :(
-						if (t.settings.fix_ie_paragraphs) {
-							nl = e.getElementsByTagName("DIV");
-							for (i = nl.length - 1; i >= 0; i--) {
-								n = nl[i];
-
-								// Is it a temp div
-								if (n._mce_tmp) {
-									// Create new paragraph
-									p = t.doc.createElement('p');
-
-									// Copy all attributes
-									n.cloneNode(false).outerHTML.replace(/([a-z0-9\-_]+)=/gi, function(a, b) {
-										var v;
-
-										if (b !== '_mce_tmp') {
-											v = n.getAttribute(b);
-
-											if (!v && b === 'class')
-												v = n.className;
-
-											p.setAttribute(b, v);
-										}
-									});
-
-									// Append all children to new paragraph
-									for (x = 0; x<n.childNodes.length; x++)
-										p.appendChild(n.childNodes[x].cloneNode(true));
-
-									// Replace div with new paragraph
-									n.swapNode(p);
-								}
-							}
-						}
+						// Add all children from div to target
+						each (element.childNodes, function(node, i) {
+							// Skip br element
+							if (i)
+								element.appendChild(node);
+						});
 					}
 				} else
-					e.innerHTML = h;
+					element.innerHTML = html;
 
-				return h;
+				return html;
 			});
-		},
-
-		/**
-		 * Processes the HTML by replacing strong, em, del in gecko since it doesn't support them
-		 * properly in a RTE environment. It also converts any URLs in links and images and places
-		 * a converted value into a separate attribute with the mce prefix like _mce_src or _mce_href.
-		 *
-		 * @method processHTML
-		 * @param {String} h HTML to process.
-		 * @return {String} Processed HTML code.
-		 */
-		processHTML : function(h) {
-			var t = this, s = t.settings, codeBlocks = [];
-
-			if (!s.process_html)
-				return h;
-
-			if (isIE) {
-				h = h.replace(/&apos;/g, '&#39;'); // IE can't handle apos
-				h = h.replace(/\s+(disabled|checked|readonly|selected)\s*=\s*[\"\']?(false|0)[\"\']?/gi, ''); // IE doesn't handle default values correct
-			}
-
-			// Fix some issues
-			h = h.replace(/<a( )([^>]+)\/>|<a\/>/gi, '<a$1$2></a>'); // Force open
-
-			// Store away src and href in _mce_src and mce_href since browsers mess them up
-			if (s.keep_values) {
-				// Wrap scripts and styles in comments for serialization purposes
-				if (/<script|noscript|style/i.test(h)) {
-					function trim(s) {
-						// Remove prefix and suffix code for element
-						s = s.replace(/(<!--\[CDATA\[|\]\]-->)/g, '\n');
-						s = s.replace(/^[\r\n]*|[\r\n]*$/g, '');
-						s = s.replace(/^\s*(\/\/\s*<!--|\/\/\s*<!\[CDATA\[|<!--|<!\[CDATA\[)[\r\n]*/g, '');
-						s = s.replace(/\s*(\/\/\s*\]\]>|\/\/\s*-->|\]\]>|-->|\]\]-->)\s*$/g, '');
-
-						return s;
-					};
-
-					// Wrap the script contents in CDATA and keep them from executing
-					h = h.replace(/<script([^>]+|)>([\s\S]*?)<\/script>/gi, function(v, attribs, text) {
-						// Force type attribute
-						if (!attribs)
-							attribs = ' type="text/javascript"';
-
-						// Convert the src attribute of the scripts
-						attribs = attribs.replace(/src=\"([^\"]+)\"?/i, function(a, url) {
-							if (s.url_converter)
-								url = t.encode(s.url_converter.call(s.url_converter_scope || t, t.decode(url), 'src', 'script'));
-
-							return '_mce_src="' + url + '"';
-						});
-
-						// Wrap text contents
-						if (tinymce.trim(text)) {
-							codeBlocks.push(trim(text));
-							text = '<!--\nMCE_SCRIPT:' + (codeBlocks.length - 1) + '\n// -->';
-						}
-
-						return '<mce:script' + attribs + '>' + text + '</mce:script>';
-					});
-
-					// Wrap style elements
-					h = h.replace(/<style([^>]+|)>([\s\S]*?)<\/style>/gi, function(v, attribs, text) {
-						// Wrap text contents
-						if (text) {
-							codeBlocks.push(trim(text));
-							text = '<!--\nMCE_SCRIPT:' + (codeBlocks.length - 1) + '\n-->';
-						}
-
-						return '<mce:style' + attribs + '>' + text + '</mce:style><style ' + attribs + ' _mce_bogus="1">' + text + '</style>';
-					});
-
-					// Wrap noscript elements
-					h = h.replace(/<noscript([^>]+|)>([\s\S]*?)<\/noscript>/g, function(v, attribs, text) {
-						return '<mce:noscript' + attribs + '><!--' + t.encode(text).replace(/--/g, '&#45;&#45;') + '--></mce:noscript>';
-					});
-				}
-
-				h = h.replace(/<!\[CDATA\[([\s\S]+)\]\]>/g, '<!--[CDATA[$1]]-->');
-
-				// This function processes the attributes in the HTML string to force boolean
-				// attributes to the attr="attr" format and convert style, src and href to _mce_ versions
-				function processTags(html) {
-					return html.replace(tagRegExp, function(match, elm_name, attrs, end) {
-						return '<' + elm_name + attrs.replace(attrRegExp, function(match, name, value, val2, val3) {
-							var mceValue;
-
-							name = name.toLowerCase();
-							value = value || val2 || val3 || "";
-
-							// Treat boolean attributes
-							if (boolAttrs[name]) {
-								// false or 0 is treated as a missing attribute
-								if (value === 'false' || value === '0')
-									return;
-
-								return name + '="' + name + '"';
-							}
-
-							// Is attribute one that needs special treatment
-							if (mceAttribs[name] && attrs.indexOf('_mce_' + name) == -1) {
-								mceValue = t.decode(value);
-
-								// Convert URLs to relative/absolute ones
-								if (s.url_converter && (name == "src" || name == "href"))
-									mceValue = s.url_converter.call(s.url_converter_scope || t, mceValue, name, elm_name);
-
-								// Process styles lowercases them and compresses them
-								if (name == 'style')
-									mceValue = t.serializeStyle(t.parseStyle(mceValue), name);
-
-								return name + '="' + value + '"' + ' _mce_' + name + '="' + t.encode(mceValue) + '"';
-							}
-
-							return match;
-						}) + end + '>';
-					});
-				};
-
-				h = processTags(h);
-
-				// Restore script blocks
-				h = h.replace(/MCE_SCRIPT:([0-9]+)/g, function(val, idx) {
-					return codeBlocks[idx];
-				});
-			}
-
-			return h;
 		},
 
 		/**
 		 * Returns the outer HTML of an element.
 		 *
 		 * @method getOuterHTML
-		 * @param {String/Element} e Element ID or element object to get outer HTML from.
+		 * @param {String/Element} elm Element ID or element object to get outer HTML from.
 		 * @return {String} Outer HTML string.
+		 * @example
+		 * tinymce.DOM.getOuterHTML(editorElement);
+		 * tinyMCE.activeEditor.getOuterHTML(tinyMCE.activeEditor.getBody());
 		 */
-		getOuterHTML : function(e) {
-			var d;
+		getOuterHTML : function(elm) {
+			var doc, self = this;
 
-			e = this.get(e);
+			elm = self.get(elm);
 
-			if (!e)
+			if (!elm)
 				return null;
 
-			if (e.outerHTML !== undefined)
-				return e.outerHTML;
+			if (elm.nodeType === 1 && self.hasOuterHTML)
+				return elm.outerHTML;
 
-			d = (e.ownerDocument || this.doc).createElement("body");
-			d.appendChild(e.cloneNode(true));
+			doc = (elm.ownerDocument || self.doc).createElement("body");
+			doc.appendChild(elm.cloneNode(true));
 
-			return d.innerHTML;
+			return doc.innerHTML;
 		},
 
 		/**
@@ -1435,6 +1200,12 @@
 		 * @param {Element/String/Array} e DOM element, element id string or array of elements/ids to set outer HTML on.
 		 * @param {Object} h HTML code to set as outer value for the element.
 		 * @param {Document} d Optional document scope to use in this process defaults to the document of the DOM class.
+		 * @example
+		 * // Sets the outer HTML of all paragraphs in the active editor
+		 * tinyMCE.activeEditor.dom.setOuterHTML(tinyMCE.activeEditor.dom.select('p'), '<div>some html</div>');
+		 * 
+		 * // Sets the outer HTML of a element by id in the document
+		 * tinyMCE.DOM.setOuterHTML('mydiv', '<div>some html</div>');
 		 */
 		setOuterHTML : function(e, h, d) {
 			var t = this;
@@ -1485,41 +1256,16 @@
 		 * @param {String} s String to decode entities on.
 		 * @return {String} Entity decoded string.
 		 */
-		decode : function(s) {
-			var e, n, v;
-
-			// Look for entities to decode
-			if (/&[\w#]+;/.test(s)) {
-				// Decode the entities using a div element not super efficient but less code
-				e = this.doc.createElement("div");
-				e.innerHTML = s;
-				n = e.firstChild;
-				v = '';
-
-				if (n) {
-					do {
-						v += n.nodeValue;
-					} while (n = n.nextSibling);
-				}
-
-				return v || s;
-			}
-
-			return s;
-		},
+		decode : Entities.decode,
 
 		/**
 		 * Entity encodes a string, encodes the most common entities <>"& into entities.
 		 *
 		 * @method encode
-		 * @param {String} s String to encode with entities.
+		 * @param {String} text String to encode with entities.
 		 * @return {String} Entity encoded string.
 		 */
-		encode : function(str) {
-			return ('' + str).replace(encodeCharsRe, function(chr) {
-				return encodedChars[chr];
-			});
-		},
+		encode : Entities.encodeAllRaw,
 
 		/**
 		 * Inserts a element after the reference element.
@@ -1551,16 +1297,17 @@
 		 * Returns true/false if the specified element is a block element or not.
 		 *
 		 * @method isBlock
-		 * @param {Node} n Element/Node to check.
+		 * @param {Node/String} node Element/Node to check.
 		 * @return {Boolean} True/False state if the node is a block element or not.
 		 */
-		isBlock : function(n) {
-			if (n.nodeType && n.nodeType !== 1)
-				return false;
+		isBlock : function(node) {
+			var type = node.nodeType;
 
-			n = n.nodeName || n;
+			// If it's a node then check the type and use the nodeName
+			if (type)
+				return !!(type === 1 && blockElementsMap[node.nodeName]);
 
-			return blockRe.test(n);
+			return !!blockElementsMap[node];
 		},
 
 		/**
@@ -1704,7 +1451,7 @@
 
 									// Remove everything but class name
 									ov = v;
-									v = v.replace(/.*\.([a-z0-9_\-]+).*/i, '$1');
+									v = tinymce._replace(/.*\.([a-z0-9_\-]+).*/i, '$1', v);
 
 									// Filter classes
 									if (f && !(v = f(v, ov)))
@@ -1813,6 +1560,62 @@
 		},
 
 		/**
+		 * Returns true/false if the specified node is to be considered empty or not.
+		 *
+		 * @example
+		 * tinymce.DOM.isEmpty(node, {img : true});
+		 * @method isEmpty
+		 * @param {Object} elements Optional name/value object with elements that are automatically treated as non empty elements.
+		 * @return {Boolean} true/false if the node is empty or not.
+		 */
+		isEmpty : function(node, elements) {
+			var self = this, i, attributes, type, walker, name, parentNode;
+
+			node = node.firstChild;
+			if (node) {
+				walker = new tinymce.dom.TreeWalker(node);
+				elements = elements || self.schema ? self.schema.getNonEmptyElements() : null;
+
+				do {
+					type = node.nodeType;
+
+					if (type === 1) {
+						// Ignore bogus elements
+						if (node.getAttribute('data-mce-bogus'))
+							continue;
+
+						// Keep empty elements like <img />
+						name = node.nodeName.toLowerCase();
+						if (elements && elements[name]) {
+							// Ignore single BR elements in blocks like <p><br /></p>
+							parentNode = node.parentNode;
+							if (name === 'br' && self.isBlock(parentNode) && parentNode.firstChild === node && parentNode.lastChild === node) {
+								continue;
+							}
+
+							return false;
+						}
+
+						// Keep elements with data-bookmark attributes or name attribute like <a name="1"></a>
+						attributes = self.getAttribs(node);
+						i = node.attributes.length;
+						while (i--) {
+							name = node.attributes[i].nodeName;
+							if (name === "name" || name === 'data-mce-bookmark')
+								return false;
+						}
+					}
+
+					// Keep non whitespace text nodes
+					if ((type === 3 && !whiteSpaceRegExp.test(node.nodeValue)))
+						return false;
+				} while (node = walker.next());
+			}
+
+			return true;
+		},
+
+		/**
 		 * Destroys all internal references to the DOM to solve IE leak issues.
 		 *
 		 * @method destroy
@@ -1836,6 +1639,9 @@
 		 *
 		 * @method createRng
 		 * @return {DOMRange} DOM Range object.
+		 * @example
+		 * var rng = tinymce.DOM.createRng();
+		 * alert(rng.startContainer + "," + rng.startOffset);
 		 */
 		createRng : function() {
 			var d = this.doc;
@@ -1862,7 +1668,6 @@
 						if (nodeType == lastNodeType || !node.nodeValue.length)
 							continue;
 					}
-
 					idx++;
 					lastNodeType = nodeType;
 				}
@@ -1894,23 +1699,24 @@
 			// this function will then trim of empty edges and produce:
 			//   <p>text 1</p><b>CHOP</b><p>text 2</p>
 			function trim(node) {
-				var i, children = node.childNodes;
+				var i, children = node.childNodes, type = node.nodeType;
 
-				if (node.nodeType == 1 && node.getAttribute('_mce_type') == 'bookmark')
+				if (type == 1 && node.getAttribute('data-mce-type') == 'bookmark')
 					return;
 
 				for (i = children.length - 1; i >= 0; i--)
 					trim(children[i]);
 
-				if (node.nodeType != 9) {
+				if (type != 9) {
 					// Keep non whitespace text nodes
-					if (node.nodeType == 3 && node.nodeValue.length > 0)
-						return;
-
-					if (node.nodeType == 1) {
+					if (type == 3 && node.nodeValue.length > 0) {
+						// If parent element isn't a block or there isn't any useful contents for example "<p>   </p>"
+						if (!t.isBlock(node.parentNode) || tinymce.trim(node.nodeValue).length > 0)
+							return;
+					} else if (type == 1) {
 						// If the only child is a bookmark then move it up
 						children = node.childNodes;
-						if (children.length == 1 && children[0] && children[0].nodeType == 1 && children[0].getAttribute('_mce_type') == 'bookmark')
+						if (children.length == 1 && children[0] && children[0].nodeType == 1 && children[0].getAttribute('data-mce-type') == 'bookmark')
 							node.parentNode.insertBefore(children[0], node);
 
 						// Keep non empty elements or img, hr etc
@@ -2062,6 +1868,9 @@
 	 * @property DOM
 	 * @member tinymce
 	 * @type tinymce.dom.DOMUtils
+	 * @example
+	 * // Example of how to add a class to some element by id
+	 * tinymce.DOM.addClass('someid', 'someclass');
 	 */
 	tinymce.DOM = new tinymce.dom.DOMUtils(document, {process_html : 0});
 })(tinymce);

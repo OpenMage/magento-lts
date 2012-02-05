@@ -206,13 +206,13 @@
                 <p class="special-price">
                     <span class="price-label"><?php echo $this->__('Special Price:') ?></span>
                     <span class="price-excluding-tax">
-                        <span class="label"><?php echo $_taxHelper->__('Excl. Tax:') ?></span>
+                        <span class="label"><?php echo $this->helper('tax')->__('Excl. Tax:') ?></span>
                         <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                             <?php echo $_coreHelper->currency($_finalPrice+$_weeeTaxAmount,true,false) ?>
                         </span>
                     </span>
                 <span class="price-including-tax">
-                    <span class="label"><?php echo $_taxHelper->__('Incl. Tax:') ?></span>
+                    <span class="label"><?php echo $this->helper('tax')->__('Incl. Tax:') ?></span>
                     <span class="price" id="price-including-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                         <?php echo $_coreHelper->currency($_finalPriceInclTax+$_weeeTaxAmount,true,false) ?>
                     </span>
@@ -238,7 +238,7 @@
             <p class="special-price">
                 <span class="price-label"><?php echo $this->__('Special Price:') ?></span>
                 <span class="price-excluding-tax">
-                    <span class="label"><?php echo $_taxHelper->__('Excl. Tax:') ?></span>
+                    <span class="label"><?php echo $this->helper('tax')->__('Excl. Tax:') ?></span>
                     <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                         <?php echo $_coreHelper->currency($_finalPrice+$_weeeTaxAmount,true,false) ?>
                     </span>
@@ -251,7 +251,7 @@
                 <?php endforeach; ?>
                 )</span>
             <span class="price-including-tax">
-                <span class="label"><?php echo $_taxHelper->__('Incl. Tax:') ?></span>
+                <span class="label"><?php echo $this->helper('tax')->__('Incl. Tax:') ?></span>
                 <span class="price" id="price-including-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                     <?php echo $_coreHelper->currency($_finalPriceInclTax+$_weeeTaxAmount,true,false) ?>
                 </span>
@@ -268,7 +268,7 @@
             <p class="special-price">
                 <span class="price-label"><?php echo $this->__('Special Price:') ?></span>
                 <span class="price-excluding-tax">
-                    <span class="label"><?php echo $_taxHelper->__('Excl. Tax:') ?></span>
+                    <span class="label"><?php echo $this->helper('tax')->__('Excl. Tax:') ?></span>
                     <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                         <?php echo $_coreHelper->currency($_finalPrice+$_weeeTaxAmount,true,false) ?>
                     </span>
@@ -298,7 +298,7 @@
             <p class="special-price">
                 <span class="price-label"><?php echo $this->__('Special Price:') ?></span>
                 <span class="price-excluding-tax">
-                    <span class="label"><?php echo $_taxHelper->__('Excl. Tax:') ?></span>
+                    <span class="label"><?php echo $this->helper('tax')->__('Excl. Tax:') ?></span>
                     <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                         <?php echo $_coreHelper->currency($_finalPrice,true,false) ?>
                     </span>
@@ -327,7 +327,7 @@
                 <p class="special-price">
                     <span class="price-label"><?php echo $this->__('Special Price:') ?></span>
                     <span class="price-excluding-tax">
-                        <span class="label"><?php echo $_taxHelper->__('Excl. Tax:') ?></span>
+                        <span class="label"><?php echo $this->helper('tax')->__('Excl. Tax:') ?></span>
                         <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                             <?php echo $_coreHelper->currency($_finalPrice,true,false) ?>
                         </span>

@@ -26,7 +26,19 @@
 
 class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    /**
+     * Process model
+     *
+     * @var Mage_Index_Model_Process
+     */
     protected $_processModel;
+
+    /**
+     * Mass-action block
+     *
+     * @var string
+     */
+    protected $_massactionBlockName = 'index/adminhtml_process_grid_massaction';
 
     /**
      * Class constructor
@@ -34,7 +46,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
     public function __construct()
     {
         parent::__construct();
-        $this->_processModel = Mage::getModel('index/process');
+        $this->_processModel = Mage::getSingleton('index/process');
         $this->setId('indexer_processes_grid');
         $this->_filterVisibility = false;
         $this->_pagerVisibility  = false;
@@ -55,9 +67,18 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
      */
     protected function _afterLoadCollection()
     {
-        foreach ($this->_collection as $item) {
+        /** @var $item Mage_Index_Model_Process */
+        foreach ($this->_collection as $key => $item) {
+            if (!$item->getIndexer()->isVisible()) {
+                $this->_collection->removeItemByKey($key);
+                continue;
+            }
             $item->setName($item->getIndexer()->getName());
             $item->setDescription($item->getIndexer()->getDescription());
+            $item->setUpdateRequired($item->getUnprocessedEventsCollection()->count() > 0 ? 1 : 0);
+            if ($item->isLocked()) {
+                $item->setStatus(Mage_Index_Model_Process::STATUS_RUNNING);
+            }
         }
         return $this;
     }
@@ -102,8 +123,19 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
             'frame_callback' => array($this, 'decorateStatus')
         ));
 
+        $this->addColumn('update_required', array(
+            'header'    => Mage::helper('index')->__('Update Required'),
+            'sortable'  => false,
+            'width'     => '120',
+            'align'     => 'left',
+            'index'     => 'update_required',
+            'type'      => 'options',
+            'options'   => $this->_processModel->getUpdateRequiredOptions(),
+            'frame_callback' => array($this, 'decorateUpdateRequired')
+        ));
+
         $this->addColumn('ended_at', array(
-            'header'    => Mage::helper('index')->__('Last Run'),
+            'header'    => Mage::helper('index')->__('Updated At'),
             'type'      => 'datetime',
             'width'     => '180',
             'align'     => 'left',
@@ -123,11 +155,6 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                         'url'       => array('base'=> '*/*/reindexProcess'),
                         'field'     => 'process'
                     ),
-//                    array(
-//                        'caption'   => Mage::helper('index')->__('Pending Events'),
-//                        'url'       => array('base'=> '*/*/reindexEvents'),
-//                        'field'     => 'process'
-//                    )
                 ),
                 'filter'    => false,
                 'sortable'  => false,
@@ -140,6 +167,10 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * Decorate status column values
      *
+     * @param string $value
+     * @param Mage_Index_Model_Process $row
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param bool $isExport
      * @return string
      */
     public function decorateStatus($value, $row, $column, $isExport)
@@ -153,6 +184,29 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                 $class = 'grid-severity-major';
                 break;
             case Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX :
+                $class = 'grid-severity-critical';
+                break;
+        }
+        return '<span class="'.$class.'"><span>'.$value.'</span></span>';
+    }
+
+    /**
+     * Decorate "Update Required" column values
+     *
+     * @param string $value
+     * @param Mage_Index_Model_Process $row
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param bool $isExport
+     * @return string
+     */
+    public function decorateUpdateRequired($value, $row, $column, $isExport)
+    {
+        $class = '';
+        switch ($row->getUpdateRequired()) {
+            case 0:
+                $class = 'grid-severity-notice';
+                break;
+            case 1:
                 $class = 'grid-severity-critical';
                 break;
         }

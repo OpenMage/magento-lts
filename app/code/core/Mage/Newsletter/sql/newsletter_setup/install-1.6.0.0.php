@@ -60,8 +60,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Customer Id')
     ->addColumn('subscriber_email', Varien_Db_Ddl_Table::TYPE_TEXT, 150, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Subscriber Email')
     ->addColumn('subscriber_status', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'nullable'  => false,
@@ -202,7 +202,8 @@ $table = $installer->getConnection()
     ->addForeignKey($installer->getFkName('newsletter/queue_link', 'queue_id', 'newsletter/queue', 'queue_id'),
         'queue_id', $installer->getTable('newsletter/queue'), 'queue_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('newsletter/queue_link', 'subscriber_id', 'newsletter/subscriber', 'subscriber_id'),
+    ->addForeignKey(
+        $installer->getFkName('newsletter/queue_link', 'subscriber_id', 'newsletter/subscriber', 'subscriber_id'),
         'subscriber_id', $installer->getTable('newsletter/subscriber'), 'subscriber_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Newsletter Queue Link');
@@ -268,7 +269,8 @@ $table = $installer->getConnection()
     ->addForeignKey($installer->getFkName('newsletter/problem', 'queue_id', 'newsletter/queue', 'queue_id'),
         'queue_id', $installer->getTable('newsletter/queue'), 'queue_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('newsletter/problem', 'subscriber_id', 'newsletter/subscriber', 'subscriber_id'),
+    ->addForeignKey(
+        $installer->getFkName('newsletter/problem', 'subscriber_id', 'newsletter/subscriber', 'subscriber_id'),
         'subscriber_id', $installer->getTable('newsletter/subscriber'), 'subscriber_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Newsletter Problems');

@@ -83,21 +83,11 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
             || (!empty($validateRules['date_range_max']) && (strtotime($value) > $validateRules['date_range_max']))
         ) {
             if (!empty($validateRules['date_range_min']) && !empty($validateRules['date_range_max'])) {
-                $errors[] = Mage::helper('customer')->__('Please enter a valid date between %s and %s at %s.',
-                    date('d/m/Y', $validateRules['date_range_min']),
-                    date('d/m/Y', $validateRules['date_range_max']),
-                    $label
-                );
+                $errors[] = Mage::helper('customer')->__('Please enter a valid date between %s and %s at %s.', date('d/m/Y', $validateRules['date_range_min']), date('d/m/Y', $validateRules['date_range_max']), $label);
             } elseif (!empty($validateRules['date_range_min'])) {
-                $errors[] = Mage::helper('customer')->__('Please enter a valid date equal to or greater than %s at %s.',
-                    date('d/m/Y', $validateRules['date_range_min']),
-                    $label
-                );
+                $errors[] = Mage::helper('customer')->__('Please enter a valid date equal to or greater than %s at %s.', date('d/m/Y', $validateRules['date_range_min']), $label);
             } elseif (!empty($validateRules['date_range_max'])) {
-                $errors[] = Mage::helper('customer')->__('Please enter a valid date less than or equal to %s at %s.',
-                    date('d/m/Y', $validateRules['date_range_max']),
-                    $label
-                );
+                $errors[] = Mage::helper('customer')->__('Please enter a valid date less than or equal to %s at %s.', date('d/m/Y', $validateRules['date_range_max']), $label);
             }
         }
 

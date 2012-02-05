@@ -295,14 +295,7 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
         $model->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
 
         Mage::register('send_to_friend_model', $model);
-/*
-        if ($model->getMaxSendsToFriend()) {
-            $this->_message($this->__('Messages cannot be sent more than %d times in an hour.',
-                    $model->getMaxSendsToFriend()),
-                    self::MESSAGE_STATUS_WARNING);
-            return $this;
-        }
-*/
+
         $data = $this->getRequest()->getPost();
 
         if (!$data) {

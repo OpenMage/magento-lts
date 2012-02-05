@@ -50,6 +50,8 @@ class Mage_AdminNotification_Model_Survey
         $curl->setConfig(array('timeout'   => 5))
             ->write(Zend_Http_Client::GET, self::getSurveyUrl(), '1.0');
         $response = $curl->read();
+        $curl->close();
+
         if (Zend_Http_Response::extractCode($response) == 200) {
             return true;
         }

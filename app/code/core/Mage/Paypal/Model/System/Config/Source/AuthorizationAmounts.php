@@ -26,6 +26,11 @@
 
 /**
  * Source model for available Authorization Amounts for Account Verification
+ *
+ * @deprecated since 1.6.2.0
+ * @category    Mage
+ * @package     Mage_Paypal
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_System_Config_Source_AuthorizationAmounts
 {
@@ -36,8 +41,6 @@ class Mage_Paypal_Model_System_Config_Source_AuthorizationAmounts
      */
     public function toOptionArray()
     {
-        /** @var $configModel Mage_Paypal_Model_Config */
-        $configModel = Mage::getModel('paypal/config');
-        return $configModel->getAuthorizationAmounts();
+        return array();
     }
 }

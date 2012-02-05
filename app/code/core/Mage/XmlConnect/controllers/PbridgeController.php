@@ -60,9 +60,7 @@ class Mage_XmlConnect_PbridgeController extends Mage_Core_Controller_Front_Actio
     protected function _checkPbridge()
     {
         if (!is_object(Mage::getConfig()->getNode('modules/Enterprise_Pbridge'))) {
-            $this->getResponse()->setBody(
-                $this->__('Payment Bridge module unavailable.')
-            );
+            $this->getResponse()->setBody($this->__('Payment Bridge module unavailable.'));
             return false;
         }
         return true;

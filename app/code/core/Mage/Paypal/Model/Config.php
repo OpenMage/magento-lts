@@ -64,13 +64,14 @@ class Mage_Paypal_Model_Config
      * Payflow Pro Gateway
      * @var string
      */
-    const METHOD_PAYFLOWPRO   = 'verisign';
+    const METHOD_PAYFLOWPRO         = 'verisign';
 
-    const METHOD_PAYFLOWLINK  = 'payflow_link';
+    const METHOD_PAYFLOWLINK        = 'payflow_link';
+    const METHOD_PAYFLOWADVANCED    = 'payflow_advanced';
 
-    const METHOD_HOSTEDPRO  = 'hosted_pro';
+    const METHOD_HOSTEDPRO          = 'hosted_pro';
 
-    const METHOD_BILLING_AGREEMENT = 'paypal_billing_agreement';
+    const METHOD_BILLING_AGREEMENT  = 'paypal_billing_agreement';
 
     /**
      * Buttons and images
@@ -97,6 +98,8 @@ class Mage_Paypal_Model_Config
 
     /**
      * Authorization amounts for Account Verification
+     *
+     * @deprecated since 1.6.2.0
      * @var int
      */
     const AUTHORIZATION_AMOUNT_ZERO = 0;
@@ -481,6 +484,7 @@ class Mage_Paypal_Model_Config
                 self::METHOD_WPP_PE_EXPRESS,
                 self::METHOD_PAYFLOWPRO,
                 self::METHOD_PAYFLOWLINK,
+                self::METHOD_PAYFLOWADVANCED,
             ),
             'CA' => array(
                 self::METHOD_WPS,
@@ -871,16 +875,12 @@ class Mage_Paypal_Model_Config
     /**
      * Returns array of possible Authorization Amounts for Account Verification
      *
+     * @deprecated since 1.6.2.0
      * @return array
      */
     public function getAuthorizationAmounts()
     {
-        $authorizationAmount = array(
-            self::AUTHORIZATION_AMOUNT_ZERO => Mage::helper('paypal')->__('$0 Auth'),
-            self::AUTHORIZATION_AMOUNT_ONE  => Mage::helper('paypal')->__('$1 Auth'),
-            self::AUTHORIZATION_AMOUNT_FULL => Mage::helper('paypal')->__('Full Auth'),
-        );
-        return $authorizationAmount;
+        return array();
     }
 
     /**
@@ -1004,6 +1004,7 @@ class Mage_Paypal_Model_Config
             case self::METHOD_WPP_PE_DIRECT:
             case self::METHOD_PAYFLOWPRO:
             case self::METHOD_PAYFLOWLINK:
+            case self::METHOD_PAYFLOWADVANCED:
             case self::METHOD_HOSTEDPRO:
                 return true;
         }

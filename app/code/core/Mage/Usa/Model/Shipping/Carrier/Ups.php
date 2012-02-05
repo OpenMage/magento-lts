@@ -272,6 +272,8 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
 
         $r->setIsReturn($request->getIsReturn());
 
+        $r->setBaseSubtotalInclTax($request->getBaseSubtotalInclTax());
+
         $this->_rawRequest = $r;
 
         return $this;
@@ -703,6 +705,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
                                 '14', // Next Day Air Early AM
                                 '02', // 2nd Day Air
                                 '59', // 2nd Day Air AM
+                                '13', // Next Day Air Saver
                             )
                         ),
                         'from_us' => array(
@@ -1006,10 +1009,7 @@ XMLRequest;
                             if (in_array($responseCurrencyCode, $allowedCurrencies)) {
                                 $cost = (float) $cost * $this->_getBaseCurrencyRate($responseCurrencyCode);
                             } else {
-                                $errorTitle = Mage::helper('directory')
-                                    ->__('Can\'t convert rate from "%s-%s".',
-                                        $responseCurrencyCode,
-                                        $this->_request->getPackageCurrency()->getCode());
+                                $errorTitle = Mage::helper('directory')->__('Can\'t convert rate from "%s-%s".', $responseCurrencyCode, $this->_request->getPackageCurrency()->getCode());
                                 $error = Mage::getModel('shipping/rate_result_error');
                                 $error->setCarrier('ups');
                                 $error->setCarrierTitle($this->getConfigData('title'));
@@ -1805,5 +1805,39 @@ XMLAuth;
         }
 
         return self::DELIVERY_CONFIRMATION_SHIPMENT;
+    }
+
+    /**
+     * Return items for further shipment rate evaluation. We need to pass children of a bundle instead passing the
+     * bundle itself, otherwise we may not get a rate at all (e.g. when total weight of a bundle exceeds max weight
+     * despite each item by itself is not)
+     *
+     * @param Mage_Shipping_Model_Rate_Request $request
+     * @return array
+     */
+    public function getAllItems(Mage_Shipping_Model_Rate_Request $request)
+    {
+        $items = array();
+        if ($request->getAllItems()) {
+            foreach ($request->getAllItems() as $item) {
+                /* @var $item Mage_Sales_Model_Quote_Item */
+                if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
+                    // Don't process children here - we will process (or already have processed) them below
+                    continue;
+                }
+
+                if ($item->getHasChildren() && $item->isShipSeparately()) {
+                    foreach ($item->getChildren() as $child) {
+                        if (!$child->getFreeShipping() && !$child->getProduct()->isVirtual()) {
+                            $items[] = $child;
+                        }
+                    }
+                } else {
+                    // Ship together - count compound item as one solid
+                    $items[] = $item;
+                }
+            }
+        }
+        return $items;
     }
 }

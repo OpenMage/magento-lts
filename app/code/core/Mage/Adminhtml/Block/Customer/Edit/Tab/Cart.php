@@ -37,10 +37,20 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
-        $this->setId('customer_cart_grid'.$this->getWebsiteId());
         $this->setUseAjax(true);
         $this->_parentTemplate = $this->getTemplate();
         $this->setTemplate('customer/tab/cart.phtml');
+    }
+
+    /**
+     * Prepare grid
+     *
+     * @return void
+     */
+    protected function _prepareGrid()
+    {
+        $this->setId('customer_cart_grid' . $this->getWebsiteId());
+        parent::_prepareGrid();
     }
 
     protected function _prepareCollection()

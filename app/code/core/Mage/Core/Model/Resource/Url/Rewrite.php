@@ -155,6 +155,9 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
         $currentPenalty = null;
         $foundItem = null;
         foreach ($items as $item) {
+            if (!array_key_exists($item['request_path'], $mapPenalty)) {
+                continue;
+            }
             $penalty = $mapPenalty[$item['request_path']] << 1 + ($item['store_id'] ? 0 : 1);
             if (!$foundItem || $currentPenalty > $penalty) {
                 $foundItem = $item;

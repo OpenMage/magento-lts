@@ -112,7 +112,6 @@ class Mage_XmlConnect_Model_Observer
         foreach ($collection as $message) {
             if ($message->getId()) {
                 Mage::helper('xmlconnect')->sendBroadcastMessage($message);
-                $message->save();
             }
         }
     }

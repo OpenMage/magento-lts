@@ -47,13 +47,15 @@ class Mage_Dataflow_Model_Convert_Adapter_Http_Curl extends Mage_Dataflow_Model_
         }
 
         // use Varien curl adapter
-        $http = new Varien_Http_Adapter_Curl;
+        $http = new Varien_Http_Adapter_Curl();
 
         // send GET request
         $http->write('GET', $uri);
 
         // read the remote file
         $data = $http->read();
+
+        $http->close();
 
         $data = preg_split('/^\r?$/m', $data, 2);
         $data = trim($data[1]);

@@ -31,7 +31,8 @@
  */
 class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_GUEST_CHECKOUT           = 'checkout/options/guest_checkout';
+    const XML_PATH_GUEST_CHECKOUT = 'checkout/options/guest_checkout';
+    const XML_PATH_CUSTOMER_MUST_BE_LOGGED = 'checkout/options/customer_must_be_logged';
 
     protected $_agreements = null;
 
@@ -293,5 +294,15 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     public function isContextCheckout()
     {
         return (Mage::app()->getRequest()->getParam('context') == 'checkout');
+    }
+
+    /**
+     * Check if user must be logged during checkout process
+     *
+     * @return boolean
+     */
+    public function isCustomerMustBeLogged()
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_CUSTOMER_MUST_BE_LOGGED);
     }
 }

@@ -45,9 +45,9 @@
         <tr class="<?php echo $_code?>">
             <td <?php echo $this->getLabelProperties()?> class="label">
                 <?php if ($_total->getStrong()):?>
-                <strong><?php echo $_total->getLabel()?></strong>
+                <strong><?php echo $this->escapeHtml($_total->getLabel()); ?></strong>
                 <?php else:?>
-                <?php echo $_total->getLabel()?>
+                <?php echo $this->escapeHtml($_total->getLabel()); ?>
                 <?php endif?>
             </td>
             <?php if ($_total->getStrong()):?>
@@ -73,7 +73,7 @@
         <?php else:?>
         <tr class="<?php echo $_code?>">
             <td <?php echo $this->getLabelProperties()?> class="label">
-                <strong><?php echo $_total->getLabel()?></strong>
+                <strong><?php echo $this->escapeHtml($_total->getLabel()); ?></strong>
             </td>
             <td <?php echo $this->getValueProperties()?> class="emph">
                 <strong><?php echo $this->formatValue($_total) ?></strong>

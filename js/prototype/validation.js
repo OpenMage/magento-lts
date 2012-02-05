@@ -412,7 +412,10 @@ Validation.add('IsEmpty', '', function(v) {
 });
 
 Validation.addAllThese([
-    ['validate-select', 'Please select an option.', function(v) {
+    ['validate-no-html-tags', 'HTML tags are not allowed', function(v) {
+				return !/<(\/)?\w+/.test(v);
+			}],
+	['validate-select', 'Please select an option.', function(v) {
                 return ((v != "none") && (v != null) && (v.length != 0));
             }],
     ['required-entry', 'This is a required field.', function(v) {
@@ -420,6 +423,23 @@ Validation.addAllThese([
             }],
     ['validate-number', 'Please enter a valid number in this field.', function(v) {
                 return Validation.get('IsEmpty').test(v) || (!isNaN(parseNumber(v)) && !/^\s+$/.test(parseNumber(v)));
+            }],
+    ['validate-number-range', 'The value is not within the specified range.', function(v, elm) {
+                var result = Validation.get('IsEmpty').test(v)
+                    || (!isNaN(parseNumber(v)) && !/^\s+$/.test(parseNumber(v)));
+                var reRange = new RegExp(/^number\-range\-[^-]+\-[^-]+$/);
+                $w(elm.className).each(function(name, index) {
+                    if (name.match(reRange) && result) {
+                        var nameParts = name.split('-');
+                        var min = parseNumber(nameParts[2]);
+                        var max = parseNumber(nameParts[3]);
+                        if (!isNaN(min) && !isNaN(max)) {
+                            var val = parseNumber(v);
+                            result = (v >= min) && (v <= max);
+                        }
+                    }
+                });
+                return result;
             }],
     ['validate-digits', 'Please use numbers only in this field. Please avoid spaces or other characters such as dots or commas.', function(v) {
                 return Validation.get('IsEmpty').test(v) ||  !/[^\d]/.test(v);
@@ -504,7 +524,7 @@ Validation.addAllThese([
             }],
     ['validate-url', 'Please enter a valid URL. Protocol is required (http://, https:// or ftp://)', function (v) {
                 v = (v || '').replace(/^\s+/, '').replace(/\s+$/, '');
-                return Validation.get('IsEmpty').test(v) || /^(http|https|ftp):\/\/(([A-Z0-9]([A-Z0-9_-]*[A-Z0-9]|))(\.[A-Z0-9]([A-Z0-9_-]*[A-Z0-9]|))*)(:(\d+))?(\/[A-Z0-9~](([A-Z0-9_~-]|\.)*[A-Z0-9~]|))*\/?$/i.test(v)
+                return Validation.get('IsEmpty').test(v) || /^(http|https|ftp):\/\/(([A-Z0-9]([A-Z0-9_-]*[A-Z0-9]|))(\.[A-Z0-9]([A-Z0-9_-]*[A-Z0-9]|))*)(:(\d+))?(\/[A-Z0-9~](([A-Z0-9_~-]|\.)*[A-Z0-9~]|))*\/?(.*)?$/i.test(v)
             }],
     ['validate-clean-url', 'Please enter a valid URL. For example http://www.example.com or www.example.com', function (v) {
                 return Validation.get('IsEmpty').test(v) || /^(http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+.(com|org|net|dk|at|us|tv|info|uk|co.uk|biz|se)$)(:(\d+))?\/?/i.test(v) || /^(www)((\.[A-Z0-9][A-Z0-9_-]*)+.(com|org|net|dk|at|us|tv|info|uk|co.uk|biz|se)$)(:(\d+))?\/?/i.test(v)
@@ -568,7 +588,8 @@ Validation.addAllThese([
                     return false;
                 }
             }],
-    ['validate-not-negative-number', 'Please enter a valid number in this field.', function(v) {
+    ['validate-not-negative-number', 'Please enter a valid number in this field.', function(v, elm) {
+                if (elm.hasClassName('required-entry') && !Validation.get('required-entry').test(v)) return true;
                 v = parseNumber(v);
                 return (!isNaN(v) && v>=0);
             }],

@@ -124,7 +124,9 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
                 ->setRoleInfo($role)
                 ->setTemplate('permissions/roleinfo.phtml')
         );
-        $this->_addJs($this->getLayout()->createBlock('adminhtml/template')->setTemplate('permissions/role_users_grid_js.phtml'));
+        $this->_addJs(
+            $this->getLayout()->createBlock('adminhtml/template')->setTemplate('permissions/role_users_grid_js.phtml')
+        );
         $this->renderLayout();
     }
 
@@ -183,10 +185,15 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         }
 
         try {
-            $role->setName($this->getRequest()->getParam('rolename', false))
+            $roleName = Mage::helper('adminhtml')->stripTags($this->getRequest()->getParam('rolename', false));
+
+            $role->setName($roleName)
                  ->setPid($this->getRequest()->getParam('parent_id', false))
                  ->setRoleType('G');
-            Mage::dispatchEvent('admin_permissions_role_prepare_save', array('object' => $role, 'request' => $this->getRequest()));
+            Mage::dispatchEvent(
+                'admin_permissions_role_prepare_save',
+                array('object' => $role, 'request' => $this->getRequest())
+            );
             $role->save();
 
             Mage::getModel("admin/rules")
@@ -221,7 +228,9 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
      */
     public function editrolegridAction()
     {
-        $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/permissions_role_grid_user')->toHtml());
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('adminhtml/permissions_role_grid_user')->toHtml()
+        );
     }
 
     /**

@@ -445,7 +445,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             } elseif (strpos($sValue, '{{secure_base_url}}') !== false) {
                 $secureBaseUrl = $this->getConfig(self::XML_PATH_SECURE_BASE_URL);
                 $sValue = str_replace('{{secure_base_url}}', $secureBaseUrl, $sValue);
-            } elseif (strpos($sValue, '{{base_url}}') === false) {
+            } elseif (strpos($sValue, '{{base_url}}') !== false) {
                 $sValue = Mage::getConfig()->substDistroServerVars($sValue);
             }
         }
@@ -697,13 +697,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         }
 
         if (Mage::isInstalled()) {
-            $secureBaseUrl = '';
-            if (!$this->isAdmin()) {
-                $secureBaseUrl = Mage::getStoreConfig(Mage_Core_Model_Url::XML_PATH_SECURE_URL);
-            } else {
-                $secureBaseUrl = (string) Mage::getConfig()
-                    ->getNode(Mage_Core_Model_Url::XML_PATH_SECURE_URL, 'default');
-            }
+            $secureBaseUrl = Mage::getStoreConfig(Mage_Core_Model_Url::XML_PATH_SECURE_URL);
 
             if (!$secureBaseUrl) {
                 return false;

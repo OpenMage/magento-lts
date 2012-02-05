@@ -35,6 +35,14 @@
 class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
+     * Fields map for corellation names & real selected fields
+     *
+     * @var array
+     */
+    protected $_map = array('fields' => array('type' => 'instance_type'));
+
+
+    /**
      * Constructor
      *
      */

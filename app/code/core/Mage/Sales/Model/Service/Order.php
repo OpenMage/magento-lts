@@ -77,9 +77,10 @@ class Mage_Sales_Model_Service_Order
     }
 
     /**
-     * Prepare order invoice based on order data and requested items qtys
+     * Prepare order invoice based on order data and requested items qtys. If $qtys is not empty - the function will
+     * prepare only specified items, otherwise all containing in the order.
      *
-     * @param array $data
+     * @param array $qtys
      * @return Mage_Sales_Model_Order_Invoice
      */
     public function prepareInvoice($qtys = array())
@@ -93,14 +94,12 @@ class Mage_Sales_Model_Service_Order
             $item = $this->_convertor->itemToInvoiceItem($orderItem);
             if ($orderItem->isDummy()) {
                 $qty = $orderItem->getQtyOrdered() ? $orderItem->getQtyOrdered() : 1;
-            } else {
+            } else if (!empty($qtys)) {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = (float) $qtys[$orderItem->getId()];
-                } elseif (!count($qtys)) {
-                    $qty = $orderItem->getQtyToInvoice();
-                } else {
-                    continue;
                 }
+            } else {
+                $qty = $orderItem->getQtyToInvoice();
             }
             $totalQty += $qty;
             $item->setQty($qty);

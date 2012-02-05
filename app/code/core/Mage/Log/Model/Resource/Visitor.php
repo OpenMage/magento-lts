@@ -120,6 +120,26 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     }
 
     /**
+     * Perform actions after object load
+     *
+     * @param Varien_Object $object
+     * @return Mage_Core_Model_Resource_Db_Abstract
+     */
+    protected function _afterLoad(Mage_Core_Model_Abstract $object)
+    {
+        parent::_afterLoad($object);
+        // Add information about quote to visitor
+        $adapter = $this->_getReadAdapter();
+        $select = $adapter->select()->from($this->getTable('log/quote_table'), 'quote_id')
+            ->where('visitor_id = ?', $object->getId())->limit(1);
+        $result = $adapter->query($select)->fetch();
+        if (isset($result['quote_id'])) {
+            $object->setQuoteId((int) $result['quote_id']);
+        }
+        return $this;
+    }
+
+    /**
      * Saving visitor information
      *
      * @param   Mage_Log_Model_Visitor $visitor

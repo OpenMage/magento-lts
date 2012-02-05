@@ -60,6 +60,35 @@ class Mage_SalesRule_Model_Resource_Report_Rule extends Mage_Reports_Model_Resou
     }
 
     /**
+     * Get all unique Rule Names from aggregated coupons usage data
+     *
+     * @return array
+     */
+    public function getUniqRulesNamesList()
+    {
+        $adapter = $this->_getReadAdapter();
+        $tableName = $this->getTable('salesrule/coupon_aggregated');
+        $select = $adapter->select()
+            ->from(
+                $tableName,
+                new Zend_Db_Expr('DISTINCT rule_name')
+            )
+            ->where('rule_name IS NOT NULL')
+            ->where('rule_name <> ""')
+            ->order('rule_name ASC');
+
+        $rulesNames = $adapter->fetchAll($select);
+
+        $result = array();
+
+        foreach ($rulesNames as $row) {
+            $result[] = $row['rule_name'];
+        }
+
+        return $result;
+    }
+
+    /**
      * Aggregate coupons reports by order created at as range
      *
      * @deprecated after 1.6.0.0-rc2

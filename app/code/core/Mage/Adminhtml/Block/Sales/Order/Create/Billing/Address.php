@@ -68,6 +68,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address
         $this->_form->setHtmlNamePrefix('order[billing_address]');
         $this->_form->setHtmlIdPrefix('order-billing_address_');
 
+        Mage::dispatchEvent('adminhtml_sales_order_billing_address_prepare_form_after', array('form' => $this));
         return $this;
     }
 

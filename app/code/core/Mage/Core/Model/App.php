@@ -1214,6 +1214,18 @@ class Mage_Core_Model_App
     }
 
     /**
+     * Request setter
+     *
+     * @param Mage_Core_Controller_Request_Http $request
+     * @return Mage_Core_Model_App
+     */
+    public function setRequest(Mage_Core_Controller_Request_Http $request)
+    {
+        $this->_request = $request;
+        return $this;
+    }
+
+    /**
      * Retrieve response object
      *
      * @return Zend_Controller_Response_Http
@@ -1226,6 +1238,18 @@ class Mage_Core_Model_App
             $this->_response->setHeader("Content-Type", "text/html; charset=UTF-8");
         }
         return $this->_response;
+    }
+
+    /**
+     * Response setter
+     *
+     * @param Mage_Core_Controller_Response_Http $response
+     * @return Mage_Core_Model_App
+     */
+    public function setResponse(Mage_Core_Controller_Response_Http $response)
+    {
+        $this->_response = $response;
+        return $this;
     }
 
     public function addEventArea($area)

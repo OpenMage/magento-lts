@@ -35,18 +35,6 @@
 class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
 {
     /**
-     * Reindex temporary (price result data) for all products
-     *
-     * @return Mage_Bundle_Model_Resource_Indexer_Stock
-     */
-    public function reindexAll()
-    {
-        $this->useIdxTable(true);
-        $this->_prepareIndexTable();
-        return $this;
-    }
-
-    /**
      * Reindex temporary (price result data) for defined product(s)
      *
      * @param int|array $entityIds

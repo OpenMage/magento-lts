@@ -53,14 +53,12 @@ class Mage_Shipping_Model_Carrier_Freeshipping
         }
 
         $result = Mage::getModel('shipping/rate_result');
-        $packageValue = $request->getPackageValue();
 
         $this->_updateFreeMethodQuote($request);
 
-        $allow = ($request->getFreeShipping())
-            || ($packageValue >= $this->getConfigData('free_shipping_subtotal'));
-
-        if ($allow) {
+        if (($request->getFreeShipping())
+            || ($request->getBaseSubtotalInclTax() >= $this->getConfigData('free_shipping_subtotal'))
+        ) {
             $method = Mage::getModel('shipping/rate_result_method');
 
             $method->setCarrier('freeshipping');

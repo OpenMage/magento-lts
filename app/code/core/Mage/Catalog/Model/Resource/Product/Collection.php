@@ -1332,7 +1332,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     {
         if ($attribute == 'position') {
             if (isset($this->_joinFields[$attribute])) {
-                $this->getSelect()->order("{$attribute} {$dir}");
+                $this->getSelect()->order($this->_getAttributeFieldName($attribute) . ' ' . $dir);
                 return $this;
             }
             if ($this->isEnabledFlat()) {
@@ -1685,6 +1685,10 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 array('cat_index_position' => 'position')
             );
         }
+        $this->_joinFields['position'] = array(
+            'table' => 'cat_pro',
+            'field' => 'position',
+        );
 
         return $this;
     }

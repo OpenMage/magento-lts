@@ -76,7 +76,8 @@ class Mage_Adminhtml_Block_Report_Sales_Bestsellers_Grid extends Mage_Adminhtml_
             'type'          => 'currency',
             'currency_code' => $currencyCode,
             'index'         => 'product_price',
-            'sortable'      => false
+            'sortable'      => false,
+            'rate'          => $this->getRate($currencyCode),
         ));
 
         $this->addColumn('qty_ordered', array(

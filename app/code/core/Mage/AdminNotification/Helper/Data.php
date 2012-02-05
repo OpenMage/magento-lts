@@ -129,6 +129,8 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
                     $this->_popupReadable = true;
                 }
             }
+
+            $curl->close();
         }
         return $this->_popupReadable;
     }

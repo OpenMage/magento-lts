@@ -328,6 +328,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $result = false;
 
         try {
+            Mage::dispatchEvent('admin_user_authenticate_before', array(
+                'username' => $username,
+                'user'     => $this
+            ));
             $this->loadByUsername($username);
             $sensitive = ($config) ? $username == $this->getUsername() : true;
 
@@ -556,7 +560,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__('Invalid password reset token.'));
         }
         $this->setRpToken($newResetPasswordLinkToken);
-        $currentDate = Varien_Date::now(true);
+        $currentDate = Varien_Date::now();
         $this->setRpTokenCreatedAt($currentDate);
 
         return $this;
@@ -578,7 +582,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 
         $tokenExpirationPeriod = Mage::helper('admin')->getResetPasswordLinkExpirationPeriod();
 
-        $currentDate = Varien_Date::now(true);
+        $currentDate = Varien_Date::now();
         $currentTimestamp = Varien_Date::toTimestamp($currentDate);
         $tokenTimestamp = Varien_Date::toTimestamp($resetPasswordLinkTokenCreatedAt);
         if ($tokenTimestamp > $currentTimestamp) {

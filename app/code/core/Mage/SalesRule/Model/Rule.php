@@ -40,6 +40,8 @@
  * @method Mage_SalesRule_Model_Rule setToDate(string $value)
  * @method int getUsesPerCustomer()
  * @method Mage_SalesRule_Model_Rule setUsesPerCustomer(int $value)
+ * @method int getUsesPerCoupon()
+ * @method Mage_SalesRule_Model_Rule setUsesPerCoupon(int $value)
  * @method string getCustomerGroupIds()
  * @method Mage_SalesRule_Model_Rule setCustomerGroupIds(string $value)
  * @method int getIsActive()
@@ -76,6 +78,10 @@
  * @method Mage_SalesRule_Model_Rule setWebsiteIds(string $value)
  * @method int getCouponType()
  * @method Mage_SalesRule_Model_Rule setCouponType(int $value)
+ * @method int getUseAutoGeneration()
+ * @method Mage_SalesRule_Model_Rule setUseAutoGeneration(int $value)
+ * @method string getCouponCode()
+ * @method Mage_SalesRule_Model_Rule setCouponCode(string $value)
  *
  * @category    Mage
  * @package     Mage_SalesRule
@@ -83,9 +89,15 @@
  */
 class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
 {
+    /**
+     * Free shipping for Item and Address constants
+     */
     const FREE_SHIPPING_ITEM = 1;
     const FREE_SHIPPING_ADDRESS = 2;
 
+    /**
+     * Coupon types
+     */
     const COUPON_TYPE_NO_COUPON = 1;
     const COUPON_TYPE_SPECIFIC  = 2;
     const COUPON_TYPE_AUTO      = 3;
@@ -99,7 +111,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
     const BY_FIXED_ACTION   = 'by_fixed';
     const CART_FIXED_ACTION = 'cart_fixed';
     const BUY_X_GET_Y_ACTION = 'buy_x_get_y';
-
 
     /**
      * @var Mage_SalesRule_Model_Coupon_CodegeneratorInterface
@@ -122,6 +133,11 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
      */
     protected $_eventObject = 'rule';
 
+    /**
+     * Rule labels for stores
+     *
+     * @var array
+     */
     protected $_labels = array();
 
     /**
@@ -152,6 +168,9 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
      */
     protected $_validatedAddresses = array();
 
+    /**
+     * Initializes resource and sets ID field name
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -160,7 +179,17 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
     }
 
     /**
-     * Set code generator instance for auto generated coupons
+     * Returns code mass generator instance for auto generated specific coupons
+     *
+     * @return Mage_SalesRule_Model_Coupon_MassgneratorInterface
+     */
+    public static function getCouponMassGenerator()
+    {
+        return Mage::getSingleton('salesrule/coupon_massgenerator');
+    }
+
+    /**
+     * Returns code generator instance for auto generated coupons
      *
      * @return Mage_SalesRule_Model_Coupon_CodegeneratorInterface
      */
@@ -205,35 +234,35 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
     protected function _afterLoad()
     {
         $this->setCouponCode($this->getPrimaryCoupon()->getCode());
-        $this->setUsesPerCoupon($this->getPrimaryCoupon()->getUsageLimit());
+        if ($this->getUsesPerCoupon() !== null && !$this->getUseAutoGeneration()) {
+            $this->setUsesPerCoupon($this->getPrimaryCoupon()->getUsageLimit());
+        }
         return parent::_afterLoad();
     }
 
+    /**
+     * Get rule condition combine model instance
+     *
+     * @return Mage_SalesRule_Model_Rule_Condition_Combine
+     */
     public function getConditionsInstance()
     {
         return Mage::getModel('salesrule/rule_condition_combine');
     }
 
+    /**
+     * Get rule condition product combine model instance
+     *
+     * @return Mage_SalesRule_Model_Rule_Condition_Product_Combine
+     */
     public function getActionsInstance()
     {
         return Mage::getModel('salesrule/rule_condition_product_combine');
     }
 
-    public function toString($format='')
-    {
-        $str = Mage::helper('salesrule')->__("Name: %s", $this->getName()) ."\n"
-             . Mage::helper('salesrule')->__("Start at: %s", $this->getStartAt()) ."\n"
-             . Mage::helper('salesrule')->__("Expire at: %s", $this->getExpireAt()) ."\n"
-             . Mage::helper('salesrule')->__("Customer registered: %s", $this->getCustomerRegistered()) ."\n"
-             . Mage::helper('salesrule')->__("Customer is new buyer: %s", $this->getCustomerNewBuyer()) ."\n"
-             . Mage::helper('salesrule')->__("Description: %s", $this->getDescription()) ."\n\n"
-             . $this->getConditions()->toStringRecursive() ."\n\n"
-             . $this->getActions()->toStringRecursive() ."\n\n";
-        return $str;
-    }
-
     /**
      * Initialize rule model data from array
+     *
      *
      * @param   array $rule
      * @return  Mage_SalesRule_Model_Rule
@@ -254,26 +283,10 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
     }
 
     /**
-     * Returns rule as an array for admin interface
+     * Get resource collection
      *
-     * Output example:
-     * array(
-     *   'name'=>'Example rule',
-     *   'conditions'=>{condition_combine::toArray}
-     *   'actions'=>{action_collection::toArray}
-     * )
-     *
-     * @return array
+     * @return Mage_SalesRule_Model_Resource_Rule_Collection
      */
-    public function toArray(array $arrAttributes = array())
-    {
-        $out = parent::toArray($arrAttributes);
-        $out['customer_registered'] = $this->getCustomerRegistered();
-        $out['customer_new_buyer'] = $this->getCustomerNewBuyer();
-
-        return $out;
-    }
-
     public function getResourceCollection()
     {
         return Mage::getResourceModel('salesrule/rule_collection');
@@ -290,7 +303,10 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
             $this->_getResource()->saveStoreLabels($this->getId(), $this->getStoreLabels());
         }
         $couponCode = trim($this->getCouponCode());
-        if ($couponCode && $this->getCouponType() == self::COUPON_TYPE_SPECIFIC) {
+        if (strlen($couponCode)
+            && $this->getCouponType() == self::COUPON_TYPE_SPECIFIC
+            && !$this->getUseAutoGeneration()
+        ) {
             $this->getPrimaryCoupon()
                 ->setCode($couponCode)
                 ->setUsageLimit($this->getUsesPerCoupon() ? $this->getUsesPerCoupon() : null)
@@ -308,6 +324,11 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
         );
         if (count($ruleProductAttributes)) {
             $this->getResource()->setActualProductAttributes($this, $ruleProductAttributes);
+        }
+
+        //Update auto geterated specific coupons if exists
+        if ($this->getUseAutoGeneration() && $this->hasDataChanges()) {
+            Mage::getResourceModel('salesrule/coupon')->updateSpecificCoupons($this);
         }
         return parent::_afterSave();
     }
@@ -454,7 +475,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
         $result = array();
         if (preg_match_all('~s:32:"salesrule/rule_condition_product";s:9:"attribute";s:\d+:"(.*?)"~s',
             $serializedString, $matches)){
-            foreach ($matches[1] as $offset => $attributeCode) {
+            foreach ($matches[1] as $attributeCode) {
                 $result[] = $attributeCode;
             }
         }

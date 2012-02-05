@@ -92,5 +92,8 @@
             <p class="center"><?php echo Mage::helper('sales')->__('No items') ?></p>
         <?php endif ?>
         </div>
+        <?php if ($this->getItemCount() && $this->canRemoveItems()): ?>
+        <?php echo $this->getChildHtml('empty_customer_cart_button'); ?>
+        <?php endif; ?>
     </div>
 </div>

@@ -41,11 +41,11 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Subtotal extends Mage_Sales_Model_
         $baseSubtotalInclTax = 0;
 
         foreach ($creditmemo->getAllItems() as $item) {
-            $item->calcRowTotal();
-
             if ($item->getOrderItem()->isDummy()) {
                 continue;
             }
+
+            $item->calcRowTotal();
 
             $subtotal       += $item->getRowTotal();
             $baseSubtotal   += $item->getBaseRowTotal();

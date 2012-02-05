@@ -35,6 +35,13 @@
 class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports_Model_Resource_Product_Collection
 {
     /**
+     * List of store ids for the current collection will be filtered by
+     *
+     * @var array
+     */
+    protected $_storeIds = array();
+
+    /**
      * Join fields
      *
      * @param string $from
@@ -73,6 +80,45 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
         $storeId = array_pop($storeIds);
         $this->setStoreId($storeId);
         $this->addStoreFilter($storeId);
+        $this->addStoreIds($storeId);
         return $this;
+    }
+
+    /**
+     * Add store ids to filter 'report_event' data by store
+     *
+     * @param array|int $storeIds
+     * @return Mage_Reports_Model_Resource_Product_Viewed_Collection
+     */
+    public function addStoreIds($storeIds)
+    {
+        if (is_array($storeIds)) {
+            $this->_storeIds = array_merge($this->_storeIds, $storeIds);
+        } else {
+            $this->_storeIds[] = $storeIds;
+        }
+        return $this;
+    }
+
+    /**
+     * Apply store filter
+     *
+     * @return Mage_Reports_Model_Resource_Product_Viewed_Collection
+     */
+    protected function _applyStoreIds()
+    {
+        $this->getSelect()->where('store_id IN(?)', $this->_storeIds);
+        return $this;
+    }
+
+    /**
+     * Apply filters
+     *
+     * @return Mage_Catalog_Model_Resource_Product_Collection
+     */
+    protected function _beforeLoad()
+    {
+        $this->_applyStoreIds();
+        return parent::_beforeLoad();
     }
 }

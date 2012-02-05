@@ -55,7 +55,7 @@ class Mage_XmlConnect_Block_Review_Form extends Mage_Core_Block_Template
 
         $nickname = '';
         if ($customer->getId()) {
-            $nickname = $xmlReview->xmlentities($customer->getFirstname());
+            $nickname = $xmlReview->escapeXml($customer->getFirstname());
         }
 
         if ($this->getRatings()) {

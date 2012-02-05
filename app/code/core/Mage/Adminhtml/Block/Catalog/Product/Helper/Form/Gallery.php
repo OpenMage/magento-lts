@@ -92,7 +92,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
 
         if (!$this->getDataObject()->getExistsStoreValueFlag($attributeCode)) {
             return true;
-        } else if ($this->getValue() == $defaultValue && 
+        } else if ($this->getValue() == $defaultValue &&
                    $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()) {
             return false;
         }
@@ -118,13 +118,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
         }
 
         if ($attribute->isScopeGlobal()) {
-            $html.= '<br/>[GLOBAL]';
-        }
-        elseif ($attribute->isScopeWebsite()) {
-            $html.= '<br/>[WEBSITE]';
-        }
-        elseif ($attribute->isScopeStore()) {
-            $html.= '<br/>[STORE VIEW]';
+            $html .= '<br/>' . Mage::helper('adminhtml')->__('[GLOBAL]');
+        } elseif ($attribute->isScopeWebsite()) {
+            $html .= '<br/>' . Mage::helper('adminhtml')->__('[WEBSITE]');
+        } elseif ($attribute->isScopeStore()) {
+            $html .= '<br/>' . Mage::helper('adminhtml')->__('[STORE VIEW]');
         }
         return $html;
     }

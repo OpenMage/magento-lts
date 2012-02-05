@@ -178,8 +178,11 @@ Available logo types can be assigned with action="setLogoType":
 
     <paypal_payflow_link_iframe>
         <block type="paypal/payflow_link_iframe" name="payflow.link.iframe" template="paypal/payflowlink/form.phtml" />
-        <block type="paypal/payflow_link_info" name="payflow.link.info" template="paypal/payflowlink/info.phtml" />
     </paypal_payflow_link_iframe>
+
+    <paypal_payflow_advanced_iframe>
+        <block type="paypal/payflow_advanced_iframe" name="payflow.advanced.iframe" template="paypal/payflowadvanced/form.phtml" />
+    </paypal_payflow_advanced_iframe>
 
     <paypal_hosted_pro_iframe>
         <block type="paypal/hosted_pro_iframe" name="hosted.pro.iframe" template="paypal/hss/form.phtml"/>

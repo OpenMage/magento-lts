@@ -73,6 +73,7 @@ class Mage_Adminhtml_Block_Report_Sales_Refunded_Grid extends Mage_Adminhtml_Blo
             $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
         }
         $currencyCode = $this->getCurrentCurrencyCode();
+        $rate = $this->getRate($currencyCode);
 
         $this->addColumn('refunded', array(
             'header'        => Mage::helper('sales')->__('Total Refunded'),
@@ -80,7 +81,8 @@ class Mage_Adminhtml_Block_Report_Sales_Refunded_Grid extends Mage_Adminhtml_Blo
             'currency_code' => $currencyCode,
             'index'         => 'refunded',
             'total'         => 'sum',
-            'sortable'      => false
+            'sortable'      => false,
+            'rate'          => $rate,
         ));
 
         $this->addColumn('online_refunded', array(
@@ -89,7 +91,8 @@ class Mage_Adminhtml_Block_Report_Sales_Refunded_Grid extends Mage_Adminhtml_Blo
             'currency_code' => $currencyCode,
             'index'         => 'online_refunded',
             'total'         => 'sum',
-            'sortable'      => false
+            'sortable'      => false,
+            'rate'          => $rate,
         ));
 
         $this->addColumn('offline_refunded', array(
@@ -98,7 +101,8 @@ class Mage_Adminhtml_Block_Report_Sales_Refunded_Grid extends Mage_Adminhtml_Blo
             'currency_code' => $currencyCode,
             'index'         => 'offline_refunded',
             'total'         => 'sum',
-            'sortable'      => false
+            'sortable'      => false,
+            'rate'          => $rate,
         ));
 
         $this->addExportType('*/*/exportRefundedCsv', Mage::helper('adminhtml')->__('CSV'));

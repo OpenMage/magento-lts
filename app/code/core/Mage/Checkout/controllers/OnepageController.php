@@ -47,6 +47,12 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $checkoutSessionQuote->removeAllAddresses();
         }
 
+        if(!$this->_canShowForUnregisteredUsers()){
+            $this->norouteAction();
+            $this->setFlag('',self::FLAG_NO_DISPATCH,true);
+            return;
+        }
+
         return $this;
     }
 
@@ -579,5 +585,18 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     {
         $data = $this->_filterDates($data, array('dob'));
         return $data;
+    }
+
+    /**
+     * Check can page show for unregistered users
+     *
+     * @return boolean
+     */
+    protected function _canShowForUnregisteredUsers()
+    {
+        return Mage::getSingleton('customer/session')->isLoggedIn()
+            || $this->getRequest()->getActionName() == 'index'
+            || Mage::helper('checkout')->isAllowedGuestCheckout($this->getOnepage()->getQuote())
+            || !Mage::helper('checkout')->isCustomerMustBeLogged();
     }
 }

@@ -436,11 +436,15 @@ class Mage_Checkout_Model_Cart extends Varien_Object
         return $this;
     }
 
+    /**
+     * Mark all quote items as deleted (empty shopping cart)
+     *
+     * @return Mage_Checkout_Model_Cart
+     */
     public function truncate()
     {
-        foreach ($this->getQuote()->getItemsCollection() as $item) {
-            $item->isDeleted(true);
-        }
+        $this->getQuote()->removeAllItems();
+        return $this;
     }
 
     public function getProductIds()

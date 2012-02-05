@@ -42,7 +42,15 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     public function reindexAll()
     {
         $this->useIdxTable(true);
-        $this->_prepareBundlePrice();
+
+        $this->beginTransaction();
+        try {
+            $this->_prepareBundlePrice();
+            $this->commit();
+        } catch (Exception $e) {
+            $this->rollBack();
+            throw $e;
+        }
 
         return $this;
     }
@@ -162,7 +170,13 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
             ->joinLeft(
                 array('tp' => $this->_getTierPriceIndexTable()),
                 'tp.entity_id = e.entity_id AND tp.website_id = cw.website_id'
-                . ' AND tp.customer_group_id = cg.customer_group_id',
+                    . ' AND tp.customer_group_id = cg.customer_group_id',
+                array()
+            )
+            ->joinLeft(
+                array('gp' => $this->_getGroupPriceIndexTable()),
+                'gp.entity_id = e.entity_id AND gp.website_id = cw.website_id'
+                    . ' AND gp.customer_group_id = cg.customer_group_id',
                 array()
             )
             ->where('e.type_id=?', $this->getTypeId());
@@ -179,7 +193,9 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC) {
             $select->columns(array('tax_class_id' => new Zend_Db_Expr('0')));
         } else {
-            $select->columns(array('tax_class_id' => $write->getCheckSql($taxClassId . ' IS NOT NULL', $taxClassId, 0)));
+            $select->columns(
+                array('tax_class_id' => $write->getCheckSql($taxClassId . ' IS NOT NULL', $taxClassId, 0))
+            );
         }
 
         $priceTypeCond = $write->quoteInto('=?', $priceType);
@@ -190,7 +206,6 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         $specialFrom    = $this->_addAttributeToSelect($select, 'special_from_date', 'e.entity_id', 'cs.store_id');
         $specialTo      = $this->_addAttributeToSelect($select, 'special_to_date', 'e.entity_id', 'cs.store_id');
         $curentDate     = new Zend_Db_Expr('cwd.website_date');
-
 
         $specialExpr    = $write->getCheckSql(
             $write->getCheckSql(
@@ -215,6 +230,13 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
             $specialPrice,
             '0'
         );
+
+        $groupPriceExpr = $write->getCheckSql(
+            'gp.price IS NOT NULL AND gp.price > 0 AND gp.price < 100',
+            'gp.price',
+            '0'
+        );
+
         $tierExpr       = new Zend_Db_Expr("tp.min_price");
 
         if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
@@ -225,24 +247,38 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
             );
             $tierPrice = $write->getCheckSql(
                 $tierExpr . ' IS NOT NULL',
-                'ROUND(' . $price .' - ' . '(' . $price . ' * (' . $tierExpr . ' / 100)), 4)',
+                'ROUND(' . $price . ' - ' . '(' . $price . ' * (' . $tierExpr . ' / 100)), 4)',
                 'NULL'
+            );
+            $groupPrice = $write->getCheckSql(
+                $groupPriceExpr . ' > 0',
+                'ROUND(' . $price . ' - ' . '(' . $price . ' * (' . $groupPriceExpr . ' / 100)), 4)',
+                'NULL'
+            );
+            $finalPrice = $write->getCheckSql(
+                "{$groupPrice} IS NOT NULL AND {$groupPrice} < {$finalPrice}",
+                $groupPrice,
+                $finalPrice
             );
         } else {
             $finalPrice     = new Zend_Db_Expr("0");
             $tierPrice      = $write->getCheckSql($tierExpr . ' IS NOT NULL', '0', 'NULL');
+            $groupPrice     = $write->getCheckSql($groupPriceExpr . ' > 0', $groupPriceExpr, 'NULL');
         }
 
         $select->columns(array(
-            'price_type'    => new Zend_Db_Expr($priceType),
-            'special_price' => $specialExpr,
-            'tier_percent'  => $tierExpr,
-            'orig_price'    => $write->getCheckSql($price . ' IS NULL', '0', $price),
-            'price'         => $finalPrice,
-            'min_price'     => $finalPrice,
-            'max_price'     => $finalPrice,
-            'tier_price'    => $tierPrice,
-            'base_tier'     => $tierPrice,
+            'price_type'          => new Zend_Db_Expr($priceType),
+            'special_price'       => $specialExpr,
+            'tier_percent'        => $tierExpr,
+            'orig_price'          => $write->getCheckSql($price . ' IS NULL', '0', $price),
+            'price'               => $finalPrice,
+            'min_price'           => $finalPrice,
+            'max_price'           => $finalPrice,
+            'tier_price'          => $tierPrice,
+            'base_tier'           => $tierPrice,
+            'group_price'         => $groupPrice,
+            'base_group_price'    => $groupPrice,
+            'group_price_percent' => new Zend_Db_Expr('gp.price'),
         ));
 
         if (!is_null($entityIds)) {
@@ -292,6 +328,8 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
                 'max_price' => $write->getCheckSql('i.group_type = 1', 'SUM(i.price)', 'MAX(i.price)'),
                 'tier_price' => $write->getCheckSql('i.is_required = 1', 'MIN(i.tier_price)', '0'),
                 'alt_tier_price' => $write->getCheckSql('i.is_required = 0', 'MIN(i.tier_price)', '0'),
+                'group_price' => $write->getCheckSql('i.is_required = 1', 'MIN(i.group_price)', '0'),
+                'alt_group_price' => $write->getCheckSql('i.is_required = 0', 'MIN(i.group_price)', '0'),
             ));
 
         $query = $select->insertFromSelect($this->_getBundleOptionTable());
@@ -314,6 +352,15 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
             ) . ' + MIN(i.tier_price)',
             'NULL'
         );
+        $groupPrice = $write->getCheckSql(
+            'MIN(i.group_price_percent) IS NOT NULL',
+            $write->getCheckSql(
+                'SUM(io.group_price) = 0',
+                'SUM(io.alt_group_price)',
+                'SUM(io.group_price)'
+            ) . ' + MIN(i.group_price)',
+            'NULL'
+        );
 
         $select = $write->select()
             ->from(
@@ -329,12 +376,14 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
             ->group(array('io.entity_id', 'io.customer_group_id', 'io.website_id',
                 'i.tax_class_id', 'i.orig_price', 'i.price'))
             ->columns(array('i.tax_class_id',
-                'orig_price'    => 'i.orig_price',
-                'price'         => 'i.price',
-                'min_price'     => $minPrice,
-                'max_price'     => $maxPrice,
-                'tier_price'    => $tierPrice,
-                'base_tier'     => 'MIN(i.base_tier)'
+                'orig_price'       => 'i.orig_price',
+                'price'            => 'i.price',
+                'min_price'        => $minPrice,
+                'max_price'        => $maxPrice,
+                'tier_price'       => $tierPrice,
+                'base_tier'        => 'MIN(i.base_tier)',
+                'group_price'      => $groupPrice,
+                'base_group_price' => 'MIN(i.base_group_price)',
             ));
 
         $query = $select->insertFromSelect($this->_getDefaultFinalPriceTable());
@@ -377,7 +426,6 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
                 ) . '* bs.selection_qty'
             );
 
-
             $tierExpr = $write->getCheckSql(
                 'i.base_tier IS NOT NULL',
                 $write->getCheckSql(
@@ -392,6 +440,24 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
                 ) . ' * bs.selection_qty',
                 'NULL'
             );
+
+            $groupExpr = $write->getCheckSql(
+                'i.base_group_price IS NOT NULL',
+                $write->getCheckSql(
+                    $selectionPriceType .' = 1',
+                    $priceExpr,
+                    $write->getCheckSql(
+                        'i.group_price_percent > 0',
+                        'ROUND(' . $selectionPriceValue
+                        . ' - (' . $selectionPriceValue . ' * (i.group_price_percent / 100)),4)',
+                        $selectionPriceValue
+                    )
+                ) . ' * bs.selection_qty',
+                'NULL'
+            );
+            $priceExpr = new Zend_Db_Expr(
+                $write->getCheckSql("{$groupExpr} < {$priceExpr}", $groupExpr, $priceExpr)
+            );
         } else {
             $priceExpr = new Zend_Db_Expr(
                 $write->getCheckSql(
@@ -405,7 +471,21 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
                 'ROUND(idx.min_price * (i.base_tier / 100), 4)* bs.selection_qty',
                 'NULL'
             );
-
+            $groupExpr = $write->getCheckSql(
+                'i.base_group_price IS NOT NULL',
+                'ROUND(idx.min_price * (i.base_group_price / 100), 4)* bs.selection_qty',
+                'NULL'
+            );
+            $groupPriceExpr = new Zend_Db_Expr(
+                $write->getCheckSql(
+                    'i.base_group_price IS NOT NULL AND i.base_group_price > 0 AND i.base_group_price < 100',
+                    'ROUND(idx.min_price - idx.min_price * (i.base_group_price / 100), 4)',
+                    'idx.min_price'
+                ) . ' * bs.selection_qty'
+            );
+            $priceExpr = new Zend_Db_Expr(
+                $write->getCheckSql("{$groupPriceExpr} < {$priceExpr}", $groupPriceExpr, $priceExpr)
+            );
         }
 
         $select = $write->select()
@@ -449,6 +529,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
                 'is_required'   => 'bo.required',
                 'price'         => $priceExpr,
                 'tier_price'    => $tierExpr,
+                'group_price'   => $groupExpr,
             ));
 
         $query = $select->insertFromSelect($this->_getBundleSelectionTable());
@@ -466,6 +547,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     protected function _prepareBundlePrice($entityIds = null)
     {
         $this->_prepareTierPriceIndex($entityIds);
+        $this->_prepareGroupPriceIndex($entityIds);
         $this->_prepareBundlePriceTable();
         $this->_prepareBundlePriceByType(Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED, $entityIds);
         $this->_prepareBundlePriceByType(Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC, $entityIds);
@@ -550,6 +632,65 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         }
 
         $query   = $select->insertFromSelect($this->_getTierPriceIndexTable());
+        $adapter->query($query);
+
+        return $this;
+    }
+
+    /**
+     * Prepare percentage group price for bundle products
+     *
+     * @see Mage_Catalog_Model_Resource_Product_Indexer_Price::_prepareGroupPriceIndex
+     *
+     * @param int|array $entityIds
+     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     */
+    protected function _prepareGroupPriceIndex($entityIds = null)
+    {
+        $adapter = $this->_getWriteAdapter();
+
+        // remove index by bundle products
+        $select  = $adapter->select()
+            ->from(array('i' => $this->_getGroupPriceIndexTable()), null)
+            ->join(
+                array('e' => $this->getTable('catalog/product')),
+                'i.entity_id=e.entity_id',
+                array()
+            )
+            ->where('e.type_id=?', $this->getTypeId());
+        $query   = $select->deleteFromSelect('i');
+        $adapter->query($query);
+
+        $select  = $adapter->select()
+            ->from(
+                array('gp' => $this->getValueTable('catalog/product', 'group_price')),
+                array('entity_id')
+            )
+            ->join(
+                array('e' => $this->getTable('catalog/product')),
+                'gp.entity_id=e.entity_id',
+                array()
+            )
+            ->join(
+                array('cg' => $this->getTable('customer/customer_group')),
+                'gp.all_groups = 1 OR (gp.all_groups = 0 AND gp.customer_group_id = cg.customer_group_id)',
+                array('customer_group_id')
+            )
+            ->join(
+                array('cw' => $this->getTable('core/website')),
+                'gp.website_id = 0 OR gp.website_id = cw.website_id',
+                array('website_id')
+            )
+            ->where('cw.website_id != 0')
+            ->where('e.type_id=?', $this->getTypeId())
+            ->columns(new Zend_Db_Expr('MIN(gp.value)'))
+            ->group(array('gp.entity_id', 'cg.customer_group_id', 'cw.website_id'));
+
+        if (!empty($entityIds)) {
+            $select->where('gp.entity_id IN(?)', $entityIds);
+        }
+
+        $query   = $select->insertFromSelect($this->_getGroupPriceIndexTable());
         $adapter->query($query);
 
         return $this;

@@ -700,9 +700,11 @@ class Mage_CatalogInventory_Model_Observer
      */
     public function refundOrderInventory($observer)
     {
+        /* @var $creditmemo Mage_Sales_Model_Order_Creditmemo */
         $creditmemo = $observer->getEvent()->getCreditmemo();
         $items = array();
         foreach ($creditmemo->getAllItems() as $item) {
+            /* @var $item Mage_Sales_Model_Order_Creditmemo_Item */
             $return = false;
             if ($item->hasBackToStock()) {
                 if ($item->getBackToStock() && $item->getQty()) {
@@ -712,11 +714,15 @@ class Mage_CatalogInventory_Model_Observer
                 $return = true;
             }
             if ($return) {
+                $parentOrderId = $item->getOrderItem()->getParentItemId();
+                /* @var $parentItem Mage_Sales_Model_Order_Creditmemo_Item */
+                $parentItem = $parentOrderId ? $creditmemo->getItemByOrderId($parentOrderId) : false;
+                $qty = $parentItem ? ($parentItem->getQty() * $item->getQty()) : $item->getQty();
                 if (isset($items[$item->getProductId()])) {
-                    $items[$item->getProductId()]['qty'] += $item->getQty();
+                    $items[$item->getProductId()]['qty'] += $qty;
                 } else {
                     $items[$item->getProductId()] = array(
-                        'qty' => $item->getQty(),
+                        'qty' => $qty,
                         'item'=> null,
                     );
                 }
@@ -904,4 +910,15 @@ class Mage_CatalogInventory_Model_Observer
         return $this;
     }
 
+    /**
+     * Reindex all events of product-massAction type
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function reindexProductsMassAction($observer)
+    {
+        Mage::getSingleton('index/indexer')->indexEvents(
+            Mage_Catalog_Model_Product::ENTITY, Mage_Index_Model_Event::TYPE_MASS_ACTION
+        );
+    }
 }

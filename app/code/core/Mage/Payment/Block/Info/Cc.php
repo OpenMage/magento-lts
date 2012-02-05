@@ -45,6 +45,16 @@ class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
     }
 
     /**
+     * Whether current payment method has credit card expiration info
+     *
+     * @return bool
+     */
+    public function hasCcExpDate()
+    {
+        return (int)$this->getInfo()->getCcExpMonth() || (int)$this->getInfo()->getCcExpYear();
+    }
+
+    /**
      * Retrieve CC expiration month
      *
      * @return string

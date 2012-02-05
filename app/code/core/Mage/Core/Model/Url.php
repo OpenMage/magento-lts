@@ -1036,6 +1036,38 @@ class Mage_Core_Model_Url extends Varien_Object
     }
 
     /**
+     * Rebuild URL to handle the case when session ID was changed
+     *
+     * @param string $url
+     * @return string
+     */
+    public function getRebuiltUrl($url)
+    {
+        $this->parseUrl($url);
+        $port = $this->getPort();
+        if ($port) {
+            $port = ':' . $port;
+        } else {
+            $port = '';
+        }
+        $url = $this->getScheme() . '://' . $this->getHost() . $port . $this->getPath();
+
+        $this->_prepareSessionUrl($url);
+
+        $query = $this->getQuery();
+        if ($query) {
+            $url .= '?' . $query;
+        }
+
+        $fragment = $this->getFragment();
+        if ($fragment) {
+            $url .= '#' . $fragment;
+        }
+
+        return $this->escape($url);
+    }
+
+    /**
      * Escape (enclosure) URL string
      *
      * @param string $value

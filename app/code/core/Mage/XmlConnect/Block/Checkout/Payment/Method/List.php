@@ -285,7 +285,7 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
             $methodItemXmlObj = $methodsXmlObj->addChild('method');
             $methodItemXmlObj->addAttribute('post_name', 'payment[method]');
             $methodItemXmlObj->addAttribute('code', $method->getCode());
-            $methodItemXmlObj->addAttribute('label', $methodsXmlObj->xmlentities($method->getTitle()));
+            $methodItemXmlObj->addAttribute('label', $methodsXmlObj->escapeXml($method->getTitle()));
             if ($this->getQuote()->getPayment()->getMethod() == $method->getCode()) {
                 $methodItemXmlObj->addAttribute('selected', 1);
             }

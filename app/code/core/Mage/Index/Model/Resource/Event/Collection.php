@@ -88,13 +88,17 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
         if ($process instanceof Mage_Index_Model_Process) {
             $this->addFieldToFilter('process_event.process_id', $process->getId());
         } elseif (is_array($process) && !empty($process)) {
-            $this->addFieldToFilter('process_event.process_id', array('in'=>$process));
+            $this->addFieldToFilter('process_event.process_id', array('in' => $process));
         } else {
             $this->addFieldToFilter('process_event.process_id', $process);
         }
 
         if ($status !== null) {
-            $this->addFieldToFilter('process_event.status', $status);
+            if (is_array($status) && !empty($status)) {
+                $this->addFieldToFilter('process_event.status', array('in' => $status));
+            } else {
+                $this->addFieldToFilter('process_event.status', $status);
+            }
         }
         return $this;
     }
@@ -126,6 +130,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
         $this->_totalRecords = null;
         $this->_data = null;
         $this->_isCollectionLoaded = false;
+        $this->_items = array();
         return $this;
     }
 }

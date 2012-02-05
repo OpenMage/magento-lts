@@ -43,7 +43,14 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped
     public function reindexAll()
     {
         $this->useIdxTable(true);
-        $this->_prepareGroupedProductPriceData();
+        $this->beginTransaction();
+        try {
+            $this->_prepareGroupedProductPriceData();
+            $this->commit();
+        } catch (Exception $e) {
+            $this->rollBack();
+            throw $e;
+        }
         return $this;
     }
 
@@ -96,12 +103,14 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped
                 'i.entity_id = l.linked_product_id AND i.website_id = cw.website_id'
                     . ' AND i.customer_group_id = cg.customer_group_id',
                 array(
-                    'tax_class_id'=> $this->_getReadAdapter()->getCheckSql('MIN(i.tax_class_id) IS NULL', '0', 'MIN(i.tax_class_id)'),
-                    'price'       => new Zend_Db_Expr('NULL'),
-                    'final_price' => new Zend_Db_Expr('NULL'),
-                    'min_price'   => new Zend_Db_Expr('MIN(' . $minCheckSql . ')'),
-                    'max_price'   => new Zend_Db_Expr('MAX(' . $maxCheckSql . ')'),
-                    'tier_price'  => new Zend_Db_Expr('NULL')
+                    'tax_class_id' => $this->_getReadAdapter()
+                        ->getCheckSql('MIN(i.tax_class_id) IS NULL', '0', 'MIN(i.tax_class_id)'),
+                    'price'        => new Zend_Db_Expr('NULL'),
+                    'final_price'  => new Zend_Db_Expr('NULL'),
+                    'min_price'    => new Zend_Db_Expr('MIN(' . $minCheckSql . ')'),
+                    'max_price'    => new Zend_Db_Expr('MAX(' . $maxCheckSql . ')'),
+                    'tier_price'   => new Zend_Db_Expr('NULL'),
+                    'group_price'  => new Zend_Db_Expr('NULL'),
                 ))
             ->group(array('e.entity_id', 'cg.customer_group_id', 'cw.website_id'))
             ->where('e.type_id=?', $this->getTypeId());

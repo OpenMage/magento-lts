@@ -201,6 +201,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
                     $element->setValues($attribute->getSource()->getAllOptions(true, true));
                 } else if ($inputType == 'multiselect') {
                     $element->setValues($attribute->getSource()->getAllOptions(false, true));
+                    $element->setCanBeEmpty(true);
                 } else if ($inputType == 'date') {
                     $element->setImage($this->getSkinUrl('images/grid-cal.gif'));
                     $element->setFormat(

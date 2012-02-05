@@ -241,5 +241,43 @@ class Mage_SalesRule_Model_Observer
         $attributesTransfer->addData($result);
         return $this;
     }
+
+    /**
+     * Add coupon's rule name to order data
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_SalesRule_Model_Observer
+     */
+    public function addSalesRuleNameToOrder($observer)
+    {
+        $order = $observer->getOrder();
+        $couponCode = $order->getCouponCode();
+
+        if (empty($couponCode)) {
+            return $this;
+        }
+
+        /**
+         * @var Mage_SalesRule_Model_Coupon $couponModel
+         */
+        $couponModel = Mage::getModel('salesrule/coupon');
+        $couponModel->loadByCode($couponCode);
+
+        $ruleId = $couponModel->getRuleId();
+
+        if (empty($ruleId)) {
+            return $this;
+        }
+
+        /**
+         * @var Mage_SalesRule_Model_Rule $ruleModel
+         */
+        $ruleModel = Mage::getModel('salesrule/rule');
+        $ruleModel->load($ruleId);
+
+        $order->setCouponRuleName($ruleModel->getName());
+
+        return $this;
+    }
 }
 

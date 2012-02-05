@@ -308,8 +308,9 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     public function calcRowTotal()
     {
         $qty        = $this->getTotalQty();
-        $total      = $this->getCalculationPriceOriginal()*$qty;
-        $baseTotal  = $this->getBaseCalculationPriceOriginal()*$qty;
+        // Round unit price before multiplying to prevent losing 1 cent on subtotal
+        $total      = $this->getStore()->roundPrice($this->getCalculationPriceOriginal()) * $qty;
+        $baseTotal  = $this->getBaseCalculationPriceOriginal() * $qty;
 
         $this->setRowTotal($this->getStore()->roundPrice($total));
         $this->setBaseRowTotal($this->getStore()->roundPrice($baseTotal));

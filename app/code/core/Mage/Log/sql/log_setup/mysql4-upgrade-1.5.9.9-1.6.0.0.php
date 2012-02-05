@@ -218,8 +218,8 @@ $tables = array(
             'url' => array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'nullable'  => false,
-                'default'   => '',
+                'nullable'  => true,
+                'default'   => null,
                 'comment'   => 'URL'
             ),
             'referer' => array(

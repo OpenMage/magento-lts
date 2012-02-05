@@ -28,8 +28,13 @@
 <table cellspacing="0">
     <tr>
         <td style="width:50%;"><h3 class="icon-head head-backups-control"><?php echo Mage::helper('backup')->__('Backups') ?></h3></td>
-        <td class="form-buttons"><?php echo $this->getCreateButtonHtml(); ?></td>
+        <td class="form-buttons">
+            <?php echo $this->getCreateSnapshotButtonHtml(); ?>
+            <?php echo $this->getCreateMediaBackupButtonHtml(); ?>
+            <?php echo $this->getCreateButtonHtml(); ?>
+        </td>
     </tr>
 </table>
 </div>
 <?php echo $this->getGridHtml() ?>
+<?php echo $this->getDialogsHtml() ?>

@@ -32,6 +32,9 @@
 <head>
 <script type="text/javascript">
 //<![CDATA[
+if (window.top == window.self) {
+    window.location = "<?php echo $this->getUrl('checkout/cart') ?>";
+}
 <?php if ($this->getGotoSection()): ?>
     for (var s = 0; s < window.top.checkout.steps.length; s++) {
         if (window.top.checkout.steps[s] == '<?php echo $this->getGotoSection() ?>') {

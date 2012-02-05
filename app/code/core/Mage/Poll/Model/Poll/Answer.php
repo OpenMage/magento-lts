@@ -52,7 +52,9 @@ class Mage_Poll_Model_Poll_Answer extends Mage_Core_Model_Abstract
 
     public function countPercent($poll)
     {
-        $this->setPercent(round(( $poll->getVotesCount() > 0 ) ? ($this->getVotesCount() * 100 / $poll->getVotesCount()) : 0));
+        $this->setPercent(
+            round(($poll->getVotesCount() > 0 ) ? ($this->getVotesCount() * 100 / $poll->getVotesCount()) : 0, 2)
+        );
         return $this;
     }
 

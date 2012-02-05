@@ -368,9 +368,30 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Update shoping cart data action
+     * Update shopping cart data action
      */
     public function updatePostAction()
+    {
+        $updateAction = (string)$this->getRequest()->getParam('update_cart_action');
+
+        switch ($updateAction) {
+            case 'empty_cart':
+                $this->_emptyShoppingCart();
+                break;
+            case 'update_qty':
+                $this->_updateShoppingCart();
+                break;
+            default:
+                $this->_updateShoppingCart();
+        }
+
+        $this->_goBack();
+    }
+
+    /**
+     * Update customer's shopping cart
+     */
+    protected function _updateShoppingCart()
     {
         try {
             $cartData = $this->getRequest()->getParam('cart');
@@ -399,7 +420,21 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             $this->_getSession()->addException($e, $this->__('Cannot update shopping cart.'));
             Mage::logException($e);
         }
-        $this->_goBack();
+    }
+
+    /**
+     * Empty customer's shopping cart
+     */
+    protected function _emptyShoppingCart()
+    {
+        try {
+            $this->_getCart()->truncate()->save();
+            $this->_getSession()->setCartWasUpdated(true);
+        } catch (Mage_Core_Exception $exception) {
+            $this->_getSession()->addError($exception->getMessage());
+        } catch (Exception $exception) {
+            $this->_getSession()->addException($exception, $this->__('Cannot update shopping cart.'));
+        }
     }
 
     /**
@@ -481,7 +516,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 ->collectTotals()
                 ->save();
 
-            if ($couponCode) {
+            if (strlen($couponCode)) {
                 if ($couponCode == $this->_getQuote()->getCouponCode()) {
                     $this->_getSession()->addSuccess(
                         $this->__('Coupon code "%s" was applied.', Mage::helper('core')->htmlEscape($couponCode))

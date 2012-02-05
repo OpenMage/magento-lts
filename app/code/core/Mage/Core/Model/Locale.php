@@ -463,25 +463,28 @@ class Mage_Core_Model_Locale
     /**
      * Create Zend_Date object for current locale
      *
-     * @param   mixed $date
-     * @param   string $part
-     * @return  Zend_Date
-     * @exception Zend_Date_Exception
+     * @param mixed              $date
+     * @param string             $part
+     * @param string|Zend_Locale $locale
+     * @param bool               $useTimezone
+     * @return Zend_Date
      */
-    public function date($date=null, $part=null, $locale=null, $useTimezone=true)
+    public function date($date = null, $part = null, $locale = null, $useTimezone = true)
     {
         if (is_null($locale)) {
             $locale = $this->getLocale();
         }
 
-        // try-catch block was here
+        if (empty($date)) {
+            // $date may be false, but Zend_Date uses strict compare
+            $date = null;
+        }
         $date = new Zend_Date($date, $part, $locale);
         if ($useTimezone) {
             if ($timezone = Mage::app()->getStore()->getConfig(self::XML_PATH_DEFAULT_TIMEZONE)) {
                 $date->setTimezone($timezone);
             }
         }
-        //$date->add(-(substr($date->get(Zend_Date::GMT_DIFF), 0,3)), Zend_Date::HOUR);
 
         return $date;
     }

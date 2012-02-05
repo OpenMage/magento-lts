@@ -100,8 +100,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
     public function getCheckboxCheckCallback()
     {
         if ($this->getUseMassaction()) {
-            return "function (grid, event) {
-                $(grid.containerId).fire('product:changed', {});
+            return "function (grid, element) {
+                $(grid.containerId).fire('product:changed', {element: element});
             }";
         }
     }

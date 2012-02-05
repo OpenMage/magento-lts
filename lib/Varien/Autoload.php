@@ -84,7 +84,7 @@ class Varien_Autoload
             $this->_arrLoadedClasses[self::$_scope][] = $class;
         }
         if ($this->_isIncludePathDefined) {
-            $classFile = $class;
+            $classFile =  COMPILER_INCLUDE_PATH . DIRECTORY_SEPARATOR . $class;
         } else {
             $classFile = str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $class)));
         }
@@ -104,7 +104,7 @@ class Varien_Autoload
     {
         self::$_scope = $code;
         if (defined('COMPILER_INCLUDE_PATH')) {
-            @include_once self::SCOPE_FILE_PREFIX.$code.'.php';
+            @include COMPILER_INCLUDE_PATH . DIRECTORY_SEPARATOR . self::SCOPE_FILE_PREFIX.$code.'.php';
         }
     }
 

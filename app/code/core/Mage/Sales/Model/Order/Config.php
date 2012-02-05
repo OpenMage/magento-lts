@@ -142,7 +142,11 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     public function getStateStatuses($state, $addLabels = true)
     {
-        $key = $state . $addLabels;
+        if (is_array($state)) {
+            $key = implode("|", $state) . $addLabels;
+        } else {
+            $key = $state . $addLabels;
+        }
         if (isset($this->_stateStatuses[$key])) {
             return $this->_stateStatuses[$key];
         }

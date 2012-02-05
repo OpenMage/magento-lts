@@ -10,7 +10,7 @@
 "An error occurred while deleting this tax rule.","An error occurred while deleting this tax rule."
 "An error occurred while saving this rate.","An error occurred while saving this rate."
 "An error occurred while saving this tax class.","An error occurred while saving this tax class."
-"An error occurred while saving this tax class. A class with the same name already exists.","An error occurred while saving this tax class. A class with the same name already exists."
+"An error occurred while saving this tax class. A class with the same name","An error occurred while saving this tax class. A class with the same name"
 "An error occurred while saving this tax rule.","An error occurred while saving this tax rule."
 "Apply Customer Tax","Apply Customer Tax"
 "Apply Discount On Prices","Apply Discount On Prices"

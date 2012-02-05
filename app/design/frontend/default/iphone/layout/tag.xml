@@ -98,7 +98,6 @@ All tags page
                 <block type="catalog/product_list" name="search_result_list" template="catalog/product/list.phtml">
                     <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
                         <block type="page/html_pager" name="product_list_toolbar_pager"/>
-                        <action method="addPagerLimit"><mode>list</mode><limit>5</limit></action>
                     </block>
                     <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
                 </block>
@@ -131,13 +130,4 @@ All tags page
         </reference>
     </tag_customer_view>
 
-    <tag_customer_edit>
-        <update handle="customer_account"/>
-        <reference name="root">
-            <action method="setHeaderTitle" translate="title" module="customer"><title>My Account</title></action>
-        </reference>
-        <reference name="content">
-            <block type="tag/customer_edit" name="customer_edit" template="tag/customer/edit.phtml"/>
-        </reference>
-    </tag_customer_edit>
 </layout>

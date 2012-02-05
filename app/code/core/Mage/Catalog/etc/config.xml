@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Catalog>
-            <version>1.6.0.0.6</version>
+            <version>1.6.0.0.10</version>
         </Mage_Catalog>
     </modules>
     <admin>
@@ -276,6 +276,9 @@
                     <product_attribute_tier_price>
                         <table>catalog_product_entity_tier_price</table>
                     </product_attribute_tier_price>
+                    <product_attribute_group_price>
+                        <table>catalog_product_entity_group_price</table>
+                    </product_attribute_group_price>
                     <product_attribute_media_gallery>
                         <table>catalog_product_entity_media_gallery</table>
                     </product_attribute_media_gallery>
@@ -324,6 +327,9 @@
                     <product_index_tier_price>
                         <table>catalog_product_index_tier_price</table>
                     </product_index_tier_price>
+                    <product_index_group_price>
+                        <table>catalog_product_index_group_price</table>
+                    </product_index_group_price>
                     <product_index_website>
                         <table>catalog_product_index_website</table>
                     </product_index_website>
@@ -767,6 +773,7 @@
             <layered_navigation>
                 <price_range_calculation>auto</price_range_calculation>
                 <price_range_step>100</price_range_step>
+                <price_range_max_intervals>10</price_range_max_intervals>
             </layered_navigation>
         </catalog>
         <system>
@@ -794,7 +801,7 @@
                     <cron_expr>0 2 * * *</cron_expr>
                 </schedule>
                 <run>
-                    <model>catalog/product_indexer_price::reindexAll</model>
+                    <model>catalog/observer::reindexProductPrices</model>
                 </run>
             </catalog_product_index_price_reindex_all>
         </jobs>

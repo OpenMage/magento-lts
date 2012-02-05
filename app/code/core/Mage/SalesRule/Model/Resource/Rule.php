@@ -58,7 +58,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Core_Model_Resource_Db_Abs
         }
 
         if (!$object->getToDate()) {
-            $object->setToDate(new Zend_Db_Expr('NULL'));
+            $object->setToDate(null);
         } else {
             if ($object->getToDate() instanceof Zend_Date) {
                 $object->setToDate($object->getToDate()->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
@@ -66,7 +66,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Core_Model_Resource_Db_Abs
         }
 
         if (!$object->getDiscountQty()) {
-            $object->setDiscountQty(new Zend_Db_Expr('NULL'));
+            $object->setDiscountQty(null);
         }
 
         parent::_beforeSave($object);

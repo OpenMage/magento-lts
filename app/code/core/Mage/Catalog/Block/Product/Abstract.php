@@ -344,12 +344,19 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         $res = array();
         if (is_array($prices)) {
             foreach ($prices as $price) {
-                $price['price_qty'] = $price['price_qty']*1;
-                if ($product->getPrice() != $product->getFinalPrice()) {
+                $price['price_qty'] = $price['price_qty'] * 1;
+
+                $_productPrice = $product->getPrice();
+                if ($_productPrice != $product->getFinalPrice()) {
                     $_productPrice = $product->getFinalPrice();
-                } else {
-                    $_productPrice = $product->getPrice();
                 }
+
+                // Group price must be used for percent calculation if it is lower
+                $groupPrice = $product->getGroupPrice();
+                if ($_productPrice > $groupPrice) {
+                    $_productPrice = $groupPrice;
+                }
+
                 if ($price['price'] < $_productPrice) {
                     $price['savePercent'] = ceil(100 - ((100 / $_productPrice) * $price['price']));
 

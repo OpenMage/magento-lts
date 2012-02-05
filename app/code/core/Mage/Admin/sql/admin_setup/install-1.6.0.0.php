@@ -41,8 +41,8 @@ $table = $installer->getConnection()
         'primary'   => true,
         ), 'Assert ID')
     ->addColumn('assert_type', Varien_Db_Ddl_Table::TYPE_TEXT, 20, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Assert Type')
     ->addColumn('assert_data', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
         ), 'Assert Data')
@@ -85,8 +85,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'User ID')
     ->addColumn('role_name', Varien_Db_Ddl_Table::TYPE_TEXT, 50, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Role Name')
     ->addIndex($installer->getIdxName('admin/role', array('parent_id', 'sort_order')),
         array('parent_id', 'sort_order'))
@@ -112,8 +112,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Role ID')
     ->addColumn('resource_id', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Resource ID')
     ->addColumn('privileges', Varien_Db_Ddl_Table::TYPE_TEXT, 20, array(
         'nullable'  => true,

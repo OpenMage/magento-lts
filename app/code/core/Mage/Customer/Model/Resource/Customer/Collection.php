@@ -80,26 +80,29 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
         if (isset($fields['prefix'])) {
             $concatenate[] = $adapter->getCheckSql(
                 '{{prefix}} IS NOT NULL AND {{prefix}} != \'\'',
-                'LTRIM(RTRIM({{prefix}}))',
+                $adapter->getConcatSql(array('LTRIM(RTRIM({{prefix}}))', '\' \'')),
                 '\'\'');
         }
         $concatenate[] = 'LTRIM(RTRIM({{firstname}}))';
+        $concatenate[] = '\' \'';
         if (isset($fields['middlename'])) {
             $concatenate[] = $adapter->getCheckSql(
                 '{{middlename}} IS NOT NULL AND {{middlename}} != \'\'',
-                'LTRIM(RTRIM({{middlename}}))',
+                $adapter->getConcatSql(array('LTRIM(RTRIM({{middlename}}))', '\' \'')),
                 '\'\'');
         }
         $concatenate[] = 'LTRIM(RTRIM({{lastname}}))';
         if (isset($fields['suffix'])) {
             $concatenate[] = $adapter
-                ->getCheckSql('{{suffix}} IS NOT NULL AND {{suffix}} != \'\'', "LTRIM(RTRIM({{suffix}}))", "''");
+                    ->getCheckSql('{{suffix}} IS NOT NULL AND {{suffix}} != \'\'',
+                $adapter->getConcatSql(array('\' \'', 'LTRIM(RTRIM({{suffix}}))')),
+                '\'\'');
         }
 
-        $nameExpr = $adapter->getConcatSql($concatenate, ' ');
+        $nameExpr = $adapter->getConcatSql($concatenate);
 
         $this->addExpressionAttributeToSelect('name', $nameExpr, $fields);
-        
+
         return $this;
     }
 

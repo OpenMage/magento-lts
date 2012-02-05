@@ -31,7 +31,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_Block_Widget_Grid
+class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_Block_Report_Grid_Shopcart
 {
 
     public function __construct()
@@ -83,15 +83,18 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_
             'index'     =>'items'
         ));
 
+        $currencyCode = $this->getCurrentCurrencyCode();
+
         $this->addColumn('total', array(
             'header'    =>Mage::helper('reports')->__('Total'),
             'width'     =>'70px',
             'sortable'  =>false,
             'type'      =>'currency',
             'align'     =>'right',
-            'currency_code' => $this->getCurrentCurrencyCode(),
+            'currency_code' => $currencyCode,
             'index'     =>'total',
-            'renderer'  =>'adminhtml/report_grid_column_renderer_currency'
+            'renderer'  =>'adminhtml/report_grid_column_renderer_currency',
+            'rate'          => $this->getRate($currencyCode),
         ));
 
         $this->setFilterVisibility(false);
@@ -103,4 +106,3 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_
     }
 
 }
-

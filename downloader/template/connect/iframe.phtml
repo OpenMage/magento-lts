@@ -51,7 +51,10 @@ function confirmExit()
 
 function onSubmit(formObj)
 {
-    if(formObj)formObj.action = addParamToUrl(formObj.action, 'maintenance', (top.$('maintenance').checked === true ? '1' : '0'));
+    if(formObj){
+        formObj.action = addParamToUrl(formObj.action, 'maintenance', (top.$('maintenance').checked === true ? '1' : '0'));
+        formObj.action = addParamToUrl(formObj.action, 'archive_type', top.$('is_backup').checked === true ? top.$('archive_type').value:0);
+    }
     top.$('connect_iframe_success').style.display = 'none';
     top.$('connect_iframe_failure').style.display = 'none';
     top.$('connect_iframe_container').style.display = '';

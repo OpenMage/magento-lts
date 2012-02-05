@@ -555,10 +555,10 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $calculator = Mage::getSingleton('tax/calculation');
         if ($type) {
-            $taxAmount = $calculator->calcTaxAmount($price, $percent, false);
+            $taxAmount = $calculator->calcTaxAmount($price, $percent, false, false);
             return $price + $taxAmount;
         } else {
-            $taxAmount = $calculator->calcTaxAmount($price, $percent, true);
+            $taxAmount = $calculator->calcTaxAmount($price, $percent, true, false);
             return $price - $taxAmount;
         }
     }

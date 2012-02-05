@@ -31,7 +31,8 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
+class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart
+    extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
 {
     /**
      * Storage action on selected item
@@ -92,5 +93,24 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
     public function getProductId($item)
     {
         return $item->getProduct()->getId();
+    }
+
+    /**
+     * Prepare layout
+     *
+     * Add button that clears customer's shopping cart
+     *
+     * @return Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart
+     */
+    protected function _prepareLayout()
+    {
+        $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+            'label' => Mage::helper('sales')->__('Clear Shopping Cart'),
+            'onclick' => 'order.sidebarApplyChanges({\'sidebar[empty_customer_cart]\': 1})',
+            'style' => 'float: right;'
+        ));
+        $this->setChild('empty_customer_cart_button', $button);
+
+        return parent::_prepareLayout();
     }
 }

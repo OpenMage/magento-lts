@@ -283,16 +283,16 @@ if(!window.Flex) {
             };
         },
         formatSize: function(size) {
-            if (size > 1024*1024*1024*1024) {
-                return this.round(size/(1024*1024*1024*1024)) + ' ' + this.translate('Tb');
-            } else if (size > 1024*1024*1024) {
-                return this.round(size/(1024*1024*1024))  + ' ' + this.translate('Gb');
-            } else if (size > 1024*1024) {
-                return this.round(size/(1024*1024))  + ' ' + this.translate('Mb');
+            if (size > 1024 * 1024 * 1024 * 1024) {
+                return this.round(size / (1024 * 1024 * 1024 * 1024)) + ' ' + this.translate('TB');
+            } else if (size > 1024 * 1024 * 1024) {
+                return this.round(size / (1024 * 1024 * 1024)) + ' ' + this.translate('GB');
+            } else if (size > 1024 * 1024) {
+                return this.round(size / (1024 * 1024)) + ' ' + this.translate('MB');
             } else if (size > 1024) {
-                return this.round(size/(1024))  + ' ' + this.translate('Kb');
+                return this.round(size / (1024)) + ' ' + this.translate('kB');
             }
-            return size  + ' ' + this.translate('b');
+            return size + ' ' + this.translate('B');
         },
         round: function(number) {
             return Math.round(number*100)/100;

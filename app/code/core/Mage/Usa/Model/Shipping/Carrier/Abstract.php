@@ -128,7 +128,18 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     }
 
     /**
-     * Processing additional validation to check is carrier applicable.
+     * Some carriers need to override this method to get the correct quote
+     *
+     * @param Mage_Shipping_Model_Rate_Request $request
+     * @return array
+     */
+    public function getAllItems(Mage_Shipping_Model_Rate_Request $request)
+    {
+        return $request->getAllItems();
+    }
+
+    /**
+     * Processing additional validation to check if carrier applicable.
      *
      * @param Mage_Shipping_Model_Rate_Request $request
      * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|boolean
@@ -136,7 +147,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
         //Skip by item validation if there is no items in request
-        if(!count($request->getAllItems())) {
+        if(!count($this->getAllItems($request))) {
             return $this;
         }
 
@@ -146,9 +157,9 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         $defaultErrorMsg = Mage::helper('shipping')->__('The shipping module is not available.');
         $showMethod = $this->getConfigData('showmethod');
 
-        foreach ($request->getAllItems() as $item) {
+        foreach ($this->getAllItems($request) as $item) {
             if ($item->getProduct() && $item->getProduct()->getId()) {
-                if ($item->getProduct()->getWeight() > $maxAllowedWeight) {
+                if ($item->getProduct()->getWeight() * $item->getProduct()->getQty() > $maxAllowedWeight) {
                     $errorMsg = ($configErrorMsg) ? $configErrorMsg : $defaultErrorMsg;
                     break;
                 }

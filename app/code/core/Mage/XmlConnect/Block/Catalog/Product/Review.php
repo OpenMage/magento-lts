@@ -52,9 +52,9 @@ class Mage_XmlConnect_Block_Catalog_Product_Review extends Mage_XmlConnect_Block
         if ($review->getId()) {
             $item->addChild('review_id', $review->getId());
             $item->addChild('created_at', $this->formatDate($review->getCreatedAt()));
-            $item->addChild('title', $item->xmlentities($review->getTitle()));
-            $item->addChild('nickname', $item->xmlentities($review->getNickname()));
-            $detail = $item->xmlentities($review->getDetail());
+            $item->addChild('title', $item->escapeXml($review->getTitle()));
+            $item->addChild('nickname', $item->escapeXml($review->getNickname()));
+            $detail = $item->escapeXml($review->getDetail());
             if ($itemNodeName == 'item') {
                 $remainder = '';
                 $deviceType = Mage::helper('xmlconnect')->getDeviceType();

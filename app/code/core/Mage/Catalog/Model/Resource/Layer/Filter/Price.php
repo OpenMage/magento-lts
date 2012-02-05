@@ -164,9 +164,31 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
             'range' => $rangeExpr,
             'count' => $countExpr
         ));
-        $select->group($rangeExpr);
+        $select->group($rangeExpr)->order("$rangeExpr ASC");
 
         return $connection->fetchPairs($select);
+    }
+
+    /**
+     * Prepare filter apply
+     *
+     * @param Mage_Catalog_Model_Layer_Filter_Price $filter
+     * @return array
+     */
+    protected function _prepareApply($filter)
+    {
+        $collection = $filter->getLayer()->getProductCollection();
+        $collection->addPriceData($filter->getCustomerGroupId(), $filter->getWebsiteId());
+
+        $select     = $collection->getSelect();
+        $response   = $this->_dispatchPreparePriceEvent($filter, $select);
+
+        $table      = $this->_getIndexTableAlias();
+        $additional = join('', $response->getAdditionalCalculations());
+        $rate       = $filter->getCurrencyRate();
+        $priceExpr  = new Zend_Db_Expr("ROUND(({$table}.min_price {$additional}) * {$rate}, 2)");
+
+        return array($select, $priceExpr);
     }
 
     /**
@@ -179,21 +201,74 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      */
     public function applyFilterToCollection($filter, $range, $index)
     {
-        $collection = $filter->getLayer()->getProductCollection();
-        $collection->addPriceData($filter->getCustomerGroupId(), $filter->getWebsiteId());
-
-        $select     = $collection->getSelect();
-        $response   = $this->_dispatchPreparePriceEvent($filter, $select);
-
-        $table      = $this->_getIndexTableAlias();
-        $additional = join('', $response->getAdditionalCalculations());
-        $rate       = $filter->getCurrencyRate();
-        $priceExpr  = new Zend_Db_Expr("(({$table}.min_price {$additional}) * {$rate})");
-
+        list($select, $priceExpr) = $this->_prepareApply($filter);
         $select
             ->where($priceExpr . ' >= ?', ($range * ($index - 1)))
             ->where($priceExpr . ' < ?', ($range * $index));
 
         return $this;
+    }
+
+    /**
+     * Load all product prices to algorithm model
+     *
+     * @param Mage_Catalog_Model_Layer_Filter_Price_Algorithm $algorithm
+     * @param Mage_Catalog_Model_Layer_Filter_Price $filter
+     * @return array
+     */
+    public function loadAllPrices($algorithm, $filter)
+    {
+        $select     = $this->_getSelect($filter);
+        $connection = $this->_getReadAdapter();
+        $response   = $this->_dispatchPreparePriceEvent($filter, $select);
+
+        $table = $this->_getIndexTableAlias();
+
+        $additional   = join('', $response->getAdditionalCalculations());
+        $maxPriceExpr = new Zend_Db_Expr(
+            "ROUND(({$table}.min_price {$additional}) * " . $connection->quote($filter->getCurrencyRate()) . ", 2)"
+        );
+
+        $select->columns(array($maxPriceExpr));
+
+        $prices = $connection->fetchCol($select);
+        $algorithm->setPrices($prices);
+
+        return $prices;
+    }
+
+    /**
+     * Apply price range filter to product collection
+     *
+     * @param Mage_Catalog_Model_Layer_Filter_Price $filter
+     * @return Mage_Catalog_Model_Resource_Layer_Filter_Price
+     */
+    public function applyPriceRange($filter)
+    {
+        $interval = $filter->getInterval();
+        if (!$interval) {
+            return $this;
+        }
+
+        list($from, $to) = $interval;
+        if ($from === '' && $to === '') {
+            return $this;
+        }
+
+        list($select, $priceExpr) = $this->_prepareApply($filter);
+
+        if ($from == $to && !empty($to)) {
+            $select->where($priceExpr . ' = ?', $from);
+        } else {
+            if ($from !== '') {
+                $select->where($priceExpr . ' >= ?', $from);
+            }
+            if ($to !== '') {
+                $select->where($priceExpr . ' < ?', $to);
+            }
+        }
+
+        return $this;
+
     }
 }

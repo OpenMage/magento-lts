@@ -33,6 +33,7 @@
  */
 class Mage_Admin_Model_Observer
 {
+    const FLAG_NO_LOGIN = 'no-login';
     /**
      * Handler for controller_action_predispatch event
      *
@@ -51,7 +52,8 @@ class Mage_Admin_Model_Observer
             'forgotpassword',
             'resetpassword',
             'resetpasswordpost',
-            'logout'
+            'logout',
+            'refresh' // captcha refresh
         );
         if (in_array($requestedActionName, $openActions)) {
             $request->setDispatched(true);
@@ -64,7 +66,7 @@ class Mage_Admin_Model_Observer
                     $postLogin  = $request->getPost('login');
                     $username   = isset($postLogin['username']) ? $postLogin['username'] : '';
                     $password   = isset($postLogin['password']) ? $postLogin['password'] : '';
-                    $user = $session->login($username, $password, $request);
+                    $session->login($username, $password, $request);
                     $request->setPost('login', null);
                 }
                 if (!$request->getParam('forwarded')) {

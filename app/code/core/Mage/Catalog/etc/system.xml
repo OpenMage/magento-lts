@@ -64,6 +64,7 @@
                             <label>Products per Page on Grid Allowed Values</label>
                             <comment>Comma-separated.</comment>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-per-page-value-list</validate>
                             <!--<source_model>adminhtml/system_config_source_catalog_gridPerPage</source_model>-->
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
@@ -74,6 +75,7 @@
                             <label>Products per Page on Grid Default Value</label>
                             <comment>Must be in the allowed values list.</comment>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-per-page-value</validate>
                             <!--<source_model>adminhtml/system_config_source_catalog_gridPerPage</source_model>-->
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
@@ -84,6 +86,7 @@
                             <label>Products per Page on List Allowed Values</label>
                             <comment>Comma-separated.</comment>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-per-page-value-list</validate>
                             <!--<source_model>adminhtml/system_config_source_catalog_gridPerPage</source_model>-->
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
@@ -94,6 +97,7 @@
                             <label>Products per Page on List Default Value</label>
                             <comment>Must be in the allowed values list.</comment>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-per-page-value</validate>
                             <!--<source_model>adminhtml/system_config_source_catalog_listPerPage</source_model>-->
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
@@ -320,12 +324,24 @@
                         <price_range_step translate="label">
                             <label>Default Price Navigation Step</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-number-range number-range-0.01-1000000000</validate>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><price_range_calculation>manual</price_range_calculation></depends>
                         </price_range_step>
+                        <price_range_max_intervals translate="label comment">
+                            <label>Maximum Number of Price Intervals</label>
+                            <comment>Maximum number of price intervals is 100</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-digits validate-digits-range digits-range-2-100</validate>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><price_range_calculation>manual</price_range_calculation></depends>
+                        </price_range_max_intervals>
                     </fields>
                 </layered_navigation>
                 <navigation translate="label">

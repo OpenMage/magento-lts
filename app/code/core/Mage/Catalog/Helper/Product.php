@@ -407,35 +407,30 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * @param  string $identifierType
      * @return Mage_Catalog_Model_Product
      */
-    public function getProduct($productId, $store, $identifierType = null) {
-        $loadByIdOnFalse = false;
-        if ($identifierType == null) {
+    public function getProduct($productId, $store, $identifierType = null)
+    {
+        /** @var $product Mage_Catalog_Model_Product */
+        $product = Mage::getModel('catalog/product')->setStoreId(Mage::app()->getStore($store)->getId());
+
+        $expectedIdType = false;
+        if ($identifierType === null) {
             if (is_string($productId) && !preg_match("/^[+-]?[1-9][0-9]*$|^0$/", $productId)) {
-                $identifierType = 'sku';
-                $loadByIdOnFalse = true;
-            } else {
-                $identifierType = 'id';
+                $expectedIdType = 'sku';
             }
         }
 
-        /** @var $product Mage_Catalog_Model_Product */
-        $product = Mage::getModel('catalog/product');
-        if ($store !== null) {
-            $product->setStoreId($store);
-        }
-        if ($identifierType == 'sku') {
+        if ($identifierType == 'sku' || $expectedIdType == 'sku') {
             $idBySku = $product->getIdBySku($productId);
             if ($idBySku) {
                 $productId = $idBySku;
-            }
-            if ($loadByIdOnFalse) {
-                $identifierType = 'id';
+            } else if ($identifierType == 'sku') {
+                // Return empty product because it was not found by originally specified SKU identifier
+                return $product;
             }
         }
 
-        if ($identifierType == 'id' && is_numeric($productId)) {
-            $productId = !is_float($productId) ? (int) $productId : 0;
-            $product->load($productId);
+        if ($productId && is_numeric($productId)) {
+            $product->load((int) $productId);
         }
 
         return $product;

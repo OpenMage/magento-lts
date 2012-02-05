@@ -65,7 +65,7 @@ class Mage_XmlConnect_Block_Customer_Order_List extends Mage_Core_Block_Template
                 $item->addChild('number', $_order->getRealOrderId());
                 $item->addChild('date', $this->formatDate($_order->getCreatedAtStoreDate()));
                 if ($_order->getShippingAddress()) {
-                    $item->addChild('ship_to', $ordersXmlObj->xmlentities($_order->getShippingAddress()->getName()));
+                    $item->addChild('ship_to', $ordersXmlObj->escapeXml($_order->getShippingAddress()->getName()));
                 }
                 $item->addChild('total', $_order->getOrderCurrency()->formatPrecision(
                     $_order->getGrandTotal(), 2, array(), false, false

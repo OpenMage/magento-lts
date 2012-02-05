@@ -492,7 +492,6 @@ final class Maged_Controller
             self::singleton()->dispatch();
         } catch (Exception $e) {
             echo $e->getMessage();
-            //echo self::singleton()->view()->set('exception', $e)->template("exception.phtml");
         }
     }
 
@@ -884,6 +883,18 @@ final class Maged_Controller
                 @file_put_contents($this->_getMaintenanceFilePath(), 'maintenance');
             }
         }
+
+        if (!empty($_GET['archive_type'])) {
+            $isSuccess = $this->_createBackup($_GET['archive_type']);
+
+            if (!$isSuccess) {
+                $this->endInstall();
+                $this->cleanCache();
+                throw new Mage_Exception(
+                    'The installation process has been canceled because of the backup creation error'
+                );
+            }
+        }
     }
 
     /**
@@ -973,5 +984,93 @@ final class Maged_Controller
             'stability' => '',
             'number'    => '',
         );
+    }
+
+    /**
+     * Create Backup
+     *
+     * @param string $archiveType
+     * @return bool
+     */
+    protected function _createBackup($archiveType){
+        /** @var $connect Maged_Connect */
+        $connect = $this->model('connect', true)->connect();
+        $connect->runHtmlConsole('Creating data backup...');
+
+        $isSuccess = false;
+
+        try {
+            $type = $this->_getBackupTypeByCode($archiveType);
+
+            $backupManager = Mage_Backup::getBackupInstance($type)
+                ->setBackupExtension(Mage::helper('backup')->getExtensionByType($type))
+                ->setTime(time())
+                ->setBackupsDir(Mage::helper('backup')->getBackupsDir());
+
+            Mage::register('backup_manager', $backupManager);
+
+            if ($type != Mage_Backup_Helper_Data::TYPE_DB) {
+                $backupManager->setRootDir(Mage::getBaseDir())
+                    ->addIgnorePaths(Mage::helper('backup')->getBackupIgnorePaths());
+            }
+            $backupManager->create();
+            $connect->runHtmlConsole(
+                $this->_getCreateBackupSuccessMessageByType($type)
+            );
+            $isSuccess = true;
+        } catch (Mage_Backup_Exception_NotEnoughFreeSpace $e) {
+            $connect->runHtmlConsole('Not enough free space to create backup.');
+            Mage::logException($e);
+        } catch (Mage_Backup_Exception_NotEnoughPermissions $e) {
+            $connect->runHtmlConsole('Not enough permissions to create backup.');
+            Mage::logException($e);
+        } catch (Exception  $e) {
+            $connect->runHtmlConsole('An error occurred while creating the backup.');
+            Mage::logException($e);
+        }
+
+        return $isSuccess;
+    }
+
+    /**
+     * Retrieve Backup Type by Code
+     *
+     * @param int $code
+     * @return string
+     */
+    protected function _getBackupTypeByCode($code)
+    {
+        $typeMap = array(
+            1 => Mage_Backup_Helper_Data::TYPE_DB,
+            2 => Mage_Backup_Helper_Data::TYPE_SYSTEM_SNAPSHOT,
+            3 => Mage_Backup_Helper_Data::TYPE_MEDIA
+        );
+
+        if (!isset($typeMap[$code])) {
+            Mage::throwException("Unknown backup type");
+        }
+
+        return $typeMap[$code];
+    }
+
+    /**
+     * Get backup create success message by backup type
+     *
+     * @param string $type
+     * @return string
+     */
+    protected function _getCreateBackupSuccessMessageByType($type)
+    {
+        $messagesMap = array(
+            Mage_Backup_Helper_Data::TYPE_SYSTEM_SNAPSHOT => 'System backup has been created',
+            Mage_Backup_Helper_Data::TYPE_MEDIA => 'Database and media backup has been created',
+            Mage_Backup_Helper_Data::TYPE_DB => 'Database backup has been created'
+        );
+
+        if (!isset($messagesMap[$type])) {
+            return '';
+        }
+
+        return $messagesMap[$type];
     }
 }

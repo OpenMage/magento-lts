@@ -27,24 +27,35 @@
  * @var Mage_Page_Block_Html_Header $this
  */
 ?>
-<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/search.js') ?>"></script>
-<?php echo $this->getChildHtml('topSearch') ?>
-<div class="header-top">
-    <div class="col2-alt-set">
-        <div class="col-1">
-            <h1 id="logo"><a href="<?php echo $this->getUrl('') ?>"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
-        </div>
-        <div class="col-2">
-            <div class="switch-language">
-                <?php echo $this->getChildHtml('store_language') ?>
-            </div>
-            <div class="clear"></div>
-            
-            <p class="welcome-msg"><?php echo $this->getWelcome()?></p>
-            <?php echo $this->getChildHtml('accountLinks') ?>
-        </div>
+<?php $_cartItems = $this->helper('checkout/cart')->getSummaryCount(); ?>
+<header>
+    <div class="store-logo">
+        <a href="<?php echo $this->getUrl('') ?>" id="home-link">
+            <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" />
+        </a>
     </div>
-</div>
-<div class="shop-access">
-    <?php echo $this->getChildHtml('topLinks') ?>
-</div><div class="clear"></div>
+    <div class="menu-wrapper">
+        <dl id="menu">
+            <dt class="search dropdown"><a href="#">Search</a></dt>
+            <dd class="search-box">
+               <?php echo $this->getChildHtml('topSearch') ?>
+            </dd>
+            <dt class="cart">
+                <span>Cart</span>
+                <?php echo $_cartItems > 0 ? '<span>'.$_cartItems.'</span>' : ''; ?>
+            </dt>
+            <dt class="menu dropdown"><a href="#">Menu</a></dt>
+            <dd class="menu-box">
+                <ul>
+                    <li class="welcome-msg"><?php echo $this->getWelcome() ?> <?php echo $this->getAdditionalHtml() ?></li>
+                    <?php echo $this->getChildHtml('topLinks') ?>
+                    <?php echo $this->getChildHtml('store_switcher') ?>
+                    <?php echo $this->getChildHtml('store_language') ?>
+                    <?php echo $this->getChildHtml('catalogCompareLink') ?>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+    <?php echo $this->getChildHtml('accountLinks') ?>
+</header>
+<?php echo $this->getChildHtml('topCart') ?>

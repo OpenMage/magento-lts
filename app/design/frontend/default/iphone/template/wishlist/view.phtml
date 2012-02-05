@@ -27,74 +27,60 @@
 ?>
 <?php if ($this->helper('wishlist')->isAllow()) : ?>
 <div class="my-wishlist">
-    <div class="page-title title-buttons">
-        <?php if ($this->helper('wishlist')->isRssAllow() && $this->hasWishlistItems()): ?>
-            <a href="<?php echo $this->helper('wishlist')->getRssUrl(); ?>" class="link-rss"><?php echo $this->__('RSS Feed') ?></a>
-        <?php endif; ?>
-        <h1><?php echo $this->__('My Wishlist') ?></h1>
-    </div>
+    <h1><?php echo $this->__('My Wishlist') ?></h1>
+
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
     <?php if ($this->hasWishlistItems()): ?>
-    <form id="wishlist-view-form" action="<?php echo $this->getUrl('*/*/update') ?>" method="post">
-        <fieldset>
+    <div class="wishlist-wrap">
+        <form id="wishlist-view-form" action="<?php echo $this->getUrl('*/*/update') ?>" method="post">
+            <span id="remove-all-wishlist" class="remove-all item-remove"><img src="<?php echo $this->getSkinUrl('images/btn_trash.png') ?>" width="10" height="10" alt="<?php echo $this->__('Remove All')?>" /></span>
             <?php echo $this->getBlockHtml('formkey')?>
-            <table class="data-table" id="wishlist-table">
-            <col width="1" />
-            <col width="1" />
-            <col width="1" />
-            <col width="1" />
-                <thead>
-                    <tr>
-                        <th><?php echo $this->__('Product') ?></th>
-                        <th class="a-center"><span class="nobr"><?php echo $this->__('Added On') ?></span></th>
-                        <th class="a-center"><span class="nobr"><?php echo $this->__('Add to Cart') ?></span></th>
-                    </tr>
-                </thead>
-                <tbody>
+            <ul id="wishlist-list">
                 <?php foreach ($this->getWishlistItems() as $item): ?>
-                    <tr>
-                        <td>
-                            <a class="product-image" href="<?php echo $this->getProductUrl($item) ?>" title="<?php echo $this->escapeHtml($item->getName()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($item, 'small_image')->resize(113, 113); ?>" width="113" height="113" alt="<?php echo $this->escapeHtml($item->getName()) ?>" /></a>
-                            <h2 class="product-name"><a href="<?php echo $this->getProductUrl($item) ?>"><?php echo $this->escapeHtml($item->getName()) ?></a></h2>
-                            <?php echo $this->getPriceHtml($item) ?>
-                        </td>
-                        <td>
-                            <span class="nobr"><?php echo $this->getFormatedDate($item->getAddedAt()) ?></span>
-                        </td>
-                        <td class="a-center">
-                        <?php if ($item->canHaveQty()): ?>
-                            <p><input type="text" class="input-text qty" name="qty[<?php echo $item->getId() ?>]" value="<?php echo $this->getAddToCartQty($item) * 1 ?>" /></p>
-                        <?php endif; ?>
-                        <?php if($item->isSaleable()): ?>
-                            <button type="button" title="<?php echo $this->__('Add to Cart') ?>" onclick="addWItemToCart(<?php echo $item->getId(); ?>)" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
-                        <?php else: ?>
-                            <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-                        <?php endif; ?>
-                            <p><a href="<?php echo $this->getItemConfigureUrl($item) ?>"><?php echo $this->__('Edit') ?></a></p>
-                            <a href="<?php echo $this->getItemRemoveUrl($item) ?>" title="<?php echo $this->__('Remove Item') ?>" onclick="return confirmRemoveWishlistItem();" class="btn-remove2"><?php echo $this->__('Remove item')?></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <span><?php echo $this->__('Comment:') ?></span>
-                            <textarea name="description[<?php echo $item->getWishlistItemId() ?>]" rows="3" cols="5" onfocus="focusComment(this)" onblur="focusComment(this)" title="<?php echo $this->__('Comment') ?>"><?php echo $this->getCommentValue($item); ?></textarea>
-                        </td>
-                    </tr>
+                    <?php
+                        $product = $item->getProduct();
+                        $isVisibleProduct = $product->isVisibleInSiteVisibility();
+                    ?>
+                    <li>
+                        <a href="<?php echo $this->getProductUrl($item) ?>" title="<?php echo $this->escapeHtml($product->getName()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($product, 'small_image')->resize(90, 90); ?>" width="45" height="45" alt="<?php echo $this->escapeHtml($product->getName()) ?>" /></a>
+                         <div class="wishlist-item">
+                            <h2>
+                                <a href="<?php echo $this->getItemRemoveUrl($item) ?>" title="<?php echo $this->__('Remove') ?>" onclick="return confirmRemoveWishlistItem();" class="btn-remove"><img src="<?php echo $this->getSkinUrl('images/btn_trash.png') ?>" width="10" height="10" alt="<?php echo $this->__('Remove item')?>" /></a>
+                                <?php if ($isVisibleProduct): ?>
+                                    <a class="btn-edit" href="<?php echo $this->getItemConfigureUrl($item) ?>"><?php echo $this->__('E') ?></a>
+                                <?php endif ?>
+                                <a href="<?php echo $this->getProductUrl($item) ?>"><?php echo $this->escapeHtml($product->getName()) ?></a>
+                            </h2>
+                            <?php echo $this->getPriceHtml($product) ?>
+                            <?php echo $this->getDetailsHtml($item) ?>
+                            <?php if ($item->canHaveQty() && $isVisibleProduct): ?>
+                                <b><?php echo $this->__('Qty') ?>:</b>
+                                <input type="text" class="input-text qty" name="qty[<?php echo $item->getId() ?>]" value="<?php echo $this->getAddToCartQty($item) * 1 ?>" />
+                            <?php endif; ?>
+                            <?php if ($product->isSaleable()): ?>
+                                <?php if ($isVisibleProduct): ?>
+                                <button type="button" title="<?php echo $this->__('Add to Cart') ?>" onclick="addWItemToCart(<?php echo $item->getId(); ?>)" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                                <?php endif ?>
+                            <?php else: ?>
+                                <span><?php echo $this->__('Out of stock') ?></span>
+                            <?php endif; ?>
+                            <textarea style="display:none;" name="description[<?php echo $item->getWishlistItemId() ?>]" rows="3" cols="5" onfocus="focusComment(this)" onblur="focusComment(this)" title="<?php echo $this->__('Comment') ?>"><?php echo $this->getCommentValue($item); ?></textarea>
+                        </div>
+                    </li>
                 <?php endforeach ?>
-                </tbody>
-            </table>
-            <script type="text/javascript">decorateTable('wishlist-table')</script>
-            <div class="buttons-set buttons-set2">
-                <button type="submit" onclick="this.name='save_and_share'" title="<?php echo $this->__('Share Wishlist') ?>" class="button btn-share"><span><span><?php echo $this->__('Share Wishlist') ?></span></span></button>
+            </ul>
+            <ul class="buttons-set">
+                <li>
+                    <button type="submit" class="update-wishlist" title="<?php echo $this->__('Update Wishlist') ?>" name="do"><?php echo $this->__('Update Wishlist') ?></button>
+                </li>
                 <?php if($this->isSaleable()):?>
-                    <button type="button" title="<?php echo $this->__('Add All to Cart') ?>" onclick="addAllWItemsToCart()" class="button btn-add"><span><span><?php echo $this->__('Add All to Cart') ?></span></span></button>
+                    <li><span class="add-all-to-cart" title="<?php echo $this->__('Add All to Cart') ?>" onclick="addAllWItemsToCart()"><?php echo $this->__('Add All to Cart') ?></span></li>
                 <?php endif;?>
-                <button type="submit" onclick="this.name='do'" title="<?php echo $this->__('Update Wishlist') ?>" class="button btn-update"><span><span><?php echo $this->__('Update Wishlist') ?></span></span></button>
-            </div>
-        </fieldset>
-    </form>
+            </ul>
+        </form>
+    </div>
     <?php else: ?>
-        <p><?php echo $this->__('You have no items in your wishlist.') ?></p>
+        <p style="padding:0 10px;"><?php echo $this->__('You have no items in your wishlist.') ?></p>
     <?php endif ?>
     <script type="text/javascript">
     //<![CDATA[
@@ -138,7 +124,5 @@
     //]]>
     </script>
 </div>
-<div class="buttons-set">
-    <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
-</div>
+<a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a>
 <?php endif ?>

@@ -58,6 +58,20 @@ to app/etc/local.xml manually.
                 <file_name_prefix><![CDATA[]]></file_name_prefix>
             </memcached>
         </cache>
+
+        <!-- example of two level cache setup with slow backend at files. -->
+        <full_page_cache>
+            <backend_options>
+                 <cache_dir>full_page_cache</cache_dir>
+             </backend_options>
+             <slow_backend_options>
+                 <hashed_directory_level>1</hashed_directory_level>
+                 <hashed_directory_umask>0777</hashed_directory_umask>
+                 <file_name_prefix>fpc</file_name_prefix>
+                 <cache_dir><![CDATA[full_page_cache]]></cache_dir>
+             </slow_backend_options>
+         </full_page_cache>
+
         <remote_addr_headers><!-- list headers that contain real client IP if webserver is behind a reverse proxy -->
             <header1>HTTP_X_REAL_IP</header1>
             <header2>HTTP_X_FORWARDED_FOR</header2>

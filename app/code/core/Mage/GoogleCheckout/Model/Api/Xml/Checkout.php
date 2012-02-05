@@ -896,10 +896,7 @@ EOT;
     {
         $customerGroup = $this->getQuote()->getCustomerGroupId();
         if (!$customerGroup) {
-            $customerGroup = Mage::getStoreConfig(
-                Mage_Customer_Model_Group::XML_PATH_DEFAULT_ID,
-                $this->getQuote()->getStoreId()
-            );
+            $customerGroup = Mage::helper('customer')->getDefaultCustomerGroupId($this->getQuote()->getStoreId());
         }
         return Mage::getModel('customer/group')->load($customerGroup)->getTaxClassId();
     }

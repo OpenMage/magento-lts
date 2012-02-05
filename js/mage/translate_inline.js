@@ -59,16 +59,18 @@ TranslateInline.prototype = {
         $$('*[translate]').each(this.initializeElement.bind(this));
     },
 
-    trigShow: function (el) {
-        this.trigHideClear();
+    trigShow: function (el, event) {
+        if (this.trigContentEl != el) {
+            this.trigHideClear();
+            this.trigContentEl = el;
 
-        var p = Element.cumulativeOffset(el);
+            var p = Element.cumulativeOffset(el);
 
-        this.trigEl.style.left = p[0]+'px';
-        this.trigEl.style.top = p[1]+'px';
-        this.trigEl.style.display = 'block';
-
-        this.trigContentEl = el;
+            this.trigEl.style.left = p[0]+'px';
+            this.trigEl.style.top = p[1]+'px';
+            this.trigEl.style.display = 'block';
+            Event.stop(event);
+        };
     },
 
     trigHide: function() {

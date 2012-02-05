@@ -37,11 +37,11 @@ class Mage_XmlConnect_Helper_Customer_Form_Renderer extends Mage_Core_Helper_Abs
      * Get title and required attributes for a field
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Abstract $fieldsetXmlObj
-     * @param Enterprise_Customer_Block_Form_Renderer_Abstract $blockObject
+     * @param Enterprise_Eav_Block_Form_Renderer_Abstract $blockObject
      * @return array
      */
     public function addTitleAndRequiredAttr(Mage_XmlConnect_Model_Simplexml_Form_Abstract $fieldsetXmlObj,
-        Enterprise_Customer_Block_Form_Renderer_Abstract $blockObject
+        Enterprise_Eav_Block_Form_Renderer_Abstract $blockObject
     ) {
         $attributes = array();
 

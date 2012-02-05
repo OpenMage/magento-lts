@@ -33,8 +33,8 @@ Mage::register('original_include_path', get_include_path());
 if (defined('COMPILER_INCLUDE_PATH')) {
     $appPath = COMPILER_INCLUDE_PATH;
     set_include_path($appPath . PS . Mage::registry('original_include_path'));
-    include_once "Mage_Core_functions.php";
-    include_once "Varien_Autoload.php";
+    include_once COMPILER_INCLUDE_PATH . DS . "Mage_Core_functions.php";
+    include_once COMPILER_INCLUDE_PATH . DS . "Varien_Autoload.php";
 } else {
     /**
      * Set include path
@@ -138,7 +138,8 @@ final class Mage
     public static function getVersion()
     {
         $i = self::getVersionInfo();
-        return trim("{$i['major']}.{$i['minor']}.{$i['revision']}" . ($i['patch'] != '' ? ".{$i['patch']}" : "") . "-{$i['stability']}{$i['number']}", '.-');
+        return trim("{$i['major']}.{$i['minor']}.{$i['revision']}" . ($i['patch'] != '' ? ".{$i['patch']}" : "")
+                        . "-{$i['stability']}{$i['number']}", '.-');
     }
 
     /**
@@ -151,11 +152,11 @@ final class Mage
     {
         return array(
             'major'     => '1',
-            'minor'     => '6',
-            'revision'  => '1',
+            'minor'     => '7',
+            'revision'  => '0',
             'patch'     => '0',
-            'stability' => '',
-            'number'    => '',
+            'stability' => 'alpha',
+            'number'    => '1',
         );
     }
 
@@ -166,12 +167,14 @@ final class Mage
     public static function reset()
     {
         self::$_registry        = array();
+        self::$_appRoot         = null;
         self::$_app             = null;
         self::$_config          = null;
         self::$_events          = null;
         self::$_objects         = null;
         self::$_isDownloader    = false;
         self::$_isDeveloperMode = false;
+        self::$_isInstalled     = null;
         // do not reset $headersSentThrowsException
     }
 
@@ -424,7 +427,7 @@ final class Mage
      *
      * @link    Mage_Core_Model_Config::getModelInstance
      * @param   string $modelClass
-     * @param   array $arguments
+     * @param   array|object $arguments
      * @return  Mage_Core_Model_Abstract
      */
     public static function getModel($modelClass = '', $arguments = array())
@@ -631,6 +634,12 @@ final class Mage
             Varien_Profiler::start('mage');
             self::setRoot();
             self::$_app    = new Mage_Core_Model_App();
+            if (isset($options['request'])) {
+                self::$_app->setRequest($options['request']);
+            }
+            if (isset($options['response'])) {
+                self::$_app->setResponse($options['response']);
+            }
             self::$_events = new Varien_Event_Collection();
             self::$_config = new Mage_Core_Model_Config($options);
             self::$_app->run(array(

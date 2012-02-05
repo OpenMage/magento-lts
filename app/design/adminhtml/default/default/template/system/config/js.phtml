@@ -199,8 +199,8 @@ perPageModel.prototype = {
 
             this.refreshPerPageSelect();
             this.bindListModeChange();
-            this.addValidate();
         }
+        this.addValidate();
     },
     bindListModeChange : function()
     {
@@ -251,11 +251,6 @@ perPageModel.prototype = {
             var values = $(elm.id + '_values').value.split(',');
             return values.indexOf(v) != -1;
         });
-
-        this.gridValuesElement.addClassName('validate-per-page-value-list');
-        this.listValuesElement.addClassName('validate-per-page-value-list');
-        this.gridElement.addClassName('validate-per-page-value');
-        this.listElement.addClassName('validate-per-page-value');
     }
 }
 

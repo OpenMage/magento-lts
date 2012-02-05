@@ -454,6 +454,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                         $child->getBaseTaxAmount(),
                         $rate
                     );
+                    $child->setTaxRates($applied);
                 }
                 $this->_recalculateParent($item);
             }
@@ -474,6 +475,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                     $item->getBaseTaxAmount(),
                     $rate
                 );
+                $item->setTaxRates($applied);
             }
         }
 
@@ -693,12 +695,12 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     protected function _deltaRound($price, $rate, $direction, $type='regular')
     {
         if ($price) {
-            $rate   = (string) $rate;
-            $type   = $type.$direction;
-            $delta  = isset($this->_roundingDeltas[$type][$rate]) ? $this->_roundingDeltas[$type][$rate] : 0;
-            $price  += $delta;
+            $rate  = (string) $rate;
+            $type  = $type . $direction;
+            $delta = isset($this->_roundingDeltas[$type][$rate]) ? $this->_roundingDeltas[$type][$rate] : 0;
+            $price += $delta;
             $this->_roundingDeltas[$type][$rate] = $price - $this->_calculator->round($price);
-            $price  = $this->_calculator->round($price);
+            $price = $this->_calculator->round($price);
         }
         return $price;
     }

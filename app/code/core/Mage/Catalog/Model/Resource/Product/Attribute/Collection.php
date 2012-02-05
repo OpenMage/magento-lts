@@ -173,11 +173,13 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
             'additional_table.is_searchable = 1',
             'additional_table.is_visible_in_advanced_search = 1',
             'additional_table.is_filterable > 0',
-            'additional_table.is_filterable_in_search = 1'
+            'additional_table.is_filterable_in_search = 1',
+            'used_for_sort_by = 1'
         );
 
         if ($addRequiredCodes) {
-            $conditions[] = $this->getConnection()->quoteInto('main_table.attribute_code IN (?)', array('status', 'visibility'));
+            $conditions[] = $this->getConnection()->quoteInto('main_table.attribute_code IN (?)',
+                array('status', 'visibility'));
         }
 
         $this->getSelect()->where(sprintf('(%s)', implode(' OR ', $conditions)));

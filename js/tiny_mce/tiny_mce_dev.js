@@ -55,8 +55,9 @@
 	};
 
 	// Firebug
-	if (query.debug)
+	if (query.debug && !("console" in window)) {
 		include('firebug/firebug-lite.js');
+	}
 
 	// Core ns
 	include('tinymce.js');
@@ -65,7 +66,7 @@
 	if (query.api)
 		include('adapter/' + query.api + '/adapter.js');
 
-	// Core API
+	// tinymce.util.*
 	include('util/Dispatcher.js');
 	include('util/URI.js');
 	include('util/Cookie.js');
@@ -73,6 +74,20 @@
 	include('util/JSONP.js');
 	include('util/XHR.js');
 	include('util/JSONRequest.js');
+	include('util/VK.js');
+	include('util/Quirks.js');
+
+	// tinymce.html.*
+	include('html/Entities.js');
+	include('html/Styles.js');
+	include('html/Schema.js');
+	include('html/SaxParser.js');
+	include('html/Node.js');
+	include('html/DomParser.js');
+	include('html/Serializer.js');
+	include('html/Writer.js');
+
+	// tinymce.dom.*
 	include('dom/DOMUtils.js');
 	include('dom/Range.js');
 	include('dom/TridentSelection.js');
@@ -80,13 +95,13 @@
 	include('dom/EventUtils.js');
 	include('dom/Element.js');
 	include('dom/Selection.js');
-	include('dom/XMLWriter.js');
-	include('dom/Schema.js');
-	include('dom/StringWriter.js');
 	include('dom/Serializer.js');
 	include('dom/ScriptLoader.js');
 	include('dom/TreeWalker.js');
 	include('dom/RangeUtils.js');
+
+	// tinymce.ui.*
+	include('ui/KeyboardNavigation.js');
 	include('ui/Control.js');
 	include('ui/Container.js');
 	include('ui/Separator.js');
@@ -99,7 +114,10 @@
 	include('ui/MenuButton.js');
 	include('ui/SplitButton.js');
 	include('ui/ColorSplitButton.js');
+	include('ui/ToolbarGroup.js');
 	include('ui/Toolbar.js');
+
+	// tinymce.*
 	include('AddOnManager.js');
 	include('EditorManager.js');
 	include('Editor.js');
@@ -109,12 +127,7 @@
 	include('ControlManager.js');
 	include('WindowManager.js');
 	include('Formatter.js');
-	include('CommandManager.js');
 	include('LegacyInput.js');
-
-	// Developer API
-	include('xml/Parser.js');
-	include('Developer.js');
 
 	load();
 }());

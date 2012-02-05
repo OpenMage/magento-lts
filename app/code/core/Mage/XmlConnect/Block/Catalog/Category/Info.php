@@ -50,7 +50,7 @@ class Mage_XmlConnect_Block_Catalog_Category_Info extends Mage_XmlConnect_Block_
              */
             $title = $this->__('Shop');
             if ($category->getParentCategory()->getLevel() > 1) {
-                $title = $infoXmlObj->xmlentities($category->getParentCategory()->getName());
+                $title = $infoXmlObj->escapeXml($category->getParentCategory()->getName());
             }
 
             $infoXmlObj->addChild('parent_title', $title);

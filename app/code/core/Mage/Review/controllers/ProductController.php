@@ -75,6 +75,9 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         $productId  = (int) $this->getRequest()->getParam('id');
 
         $product = $this->_loadProduct($productId);
+        if (!$product) {
+            return false;
+        }
 
         if ($categoryId) {
             $category = Mage::getModel('catalog/category')->load($categoryId);
@@ -83,7 +86,10 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
         try {
             Mage::dispatchEvent('review_controller_product_init', array('product'=>$product));
-            Mage::dispatchEvent('review_controller_product_init_after', array('product'=>$product, 'controller_action' => $this));
+            Mage::dispatchEvent('review_controller_product_init_after', array(
+                'product'           => $product,
+                'controller_action' => $this
+            ));
         } catch (Mage_Core_Exception $e) {
             Mage::logException($e);
             return false;

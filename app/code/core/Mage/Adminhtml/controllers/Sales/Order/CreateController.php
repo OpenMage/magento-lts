@@ -279,7 +279,8 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         $data = $this->getRequest()->getPost('order');
         if (!empty($data['coupon']['code'])) {
             if ($this->_getQuote()->getCouponCode() !== $data['coupon']['code']) {
-                $this->_getSession()->addError($this->__('"%s" coupon code is not valid.', $data['coupon']['code']));
+                $this->_getSession()->addError(
+                    $this->__('"%s" coupon code is not valid.', $this->_getHelper()->escapeHtml($data['coupon']['code'])));
             } else {
                 $this->_getSession()->addSuccess($this->__('The coupon code has been accepted.'));
             }

@@ -107,7 +107,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         $_prevStoreId = Mage::getSingleton('admin/session')
             ->getLastViewedStore(true);
 
-        if ($_prevStoreId != null && !$this->getRequest()->getQuery('isAjax')) {
+        if (!empty($_prevStoreId) && !$this->getRequest()->getQuery('isAjax')) {
             $params['store'] = $_prevStoreId;
             $redirect = true;
         }

@@ -68,27 +68,28 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Error codes.
      */
-    const ERROR_INVALID_SCOPE            = 'invalidScope';
-    const ERROR_INVALID_WEBSITE          = 'invalidWebsite';
-    const ERROR_INVALID_STORE            = 'invalidStore';
-    const ERROR_INVALID_ATTR_SET         = 'invalidAttrSet';
-    const ERROR_INVALID_TYPE             = 'invalidType';
-    const ERROR_INVALID_CATEGORY         = 'invalidCategory';
-    const ERROR_VALUE_IS_REQUIRED        = 'isRequired';
-    const ERROR_TYPE_CHANGED             = 'typeChanged';
-    const ERROR_SKU_IS_EMPTY             = 'skuEmpty';
-    const ERROR_NO_DEFAULT_ROW           = 'noDefaultRow';
-    const ERROR_CHANGE_TYPE              = 'changeProductType';
-    const ERROR_DUPLICATE_SCOPE          = 'duplicateScope';
-    const ERROR_DUPLICATE_SKU            = 'duplicateSKU';
-    const ERROR_CHANGE_ATTR_SET          = 'changeAttrSet';
-    const ERROR_TYPE_UNSUPPORTED         = 'productTypeUnsupported';
-    const ERROR_ROW_IS_ORPHAN            = 'rowIsOrphan';
-    const ERROR_INVALID_TIER_PRICE_QTY   = 'invalidTierPriceOrQty';
-    const ERROR_INVALID_TIER_PRICE_SITE  = 'tierPriceWebsiteInvalid';
-    const ERROR_INVALID_TIER_PRICE_GROUP = 'tierPriceGroupInvalid';
-    const ERROR_TIER_DATA_INCOMPLETE     = 'tierPriceDataIsIncomplete';
-    const ERROR_SKU_NOT_FOUND_FOR_DELETE = 'skuNotFoundToDelete';
+    const ERROR_INVALID_SCOPE                = 'invalidScope';
+    const ERROR_INVALID_WEBSITE              = 'invalidWebsite';
+    const ERROR_INVALID_STORE                = 'invalidStore';
+    const ERROR_INVALID_ATTR_SET             = 'invalidAttrSet';
+    const ERROR_INVALID_TYPE                 = 'invalidType';
+    const ERROR_INVALID_CATEGORY             = 'invalidCategory';
+    const ERROR_VALUE_IS_REQUIRED            = 'isRequired';
+    const ERROR_TYPE_CHANGED                 = 'typeChanged';
+    const ERROR_SKU_IS_EMPTY                 = 'skuEmpty';
+    const ERROR_NO_DEFAULT_ROW               = 'noDefaultRow';
+    const ERROR_CHANGE_TYPE                  = 'changeProductType';
+    const ERROR_DUPLICATE_SCOPE              = 'duplicateScope';
+    const ERROR_DUPLICATE_SKU                = 'duplicateSKU';
+    const ERROR_CHANGE_ATTR_SET              = 'changeAttrSet';
+    const ERROR_TYPE_UNSUPPORTED             = 'productTypeUnsupported';
+    const ERROR_ROW_IS_ORPHAN                = 'rowIsOrphan';
+    const ERROR_INVALID_TIER_PRICE_QTY       = 'invalidTierPriceOrQty';
+    const ERROR_INVALID_TIER_PRICE_SITE      = 'tierPriceWebsiteInvalid';
+    const ERROR_INVALID_TIER_PRICE_GROUP     = 'tierPriceGroupInvalid';
+    const ERROR_TIER_DATA_INCOMPLETE         = 'tierPriceDataIsIncomplete';
+    const ERROR_SKU_NOT_FOUND_FOR_DELETE     = 'skuNotFoundToDelete';
+    const ERROR_SUPER_PRODUCTS_SKU_NOT_FOUND = 'superProductsSkuNotFound';
 
     /**
      * Pairs of attribute set ID-to-name.
@@ -149,27 +150,28 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * @var array
      */
     protected $_messageTemplates = array(
-        self::ERROR_INVALID_SCOPE            => 'Invalid value in Scope column',
-        self::ERROR_INVALID_WEBSITE          => 'Invalid value in Website column (website does not exists?)',
-        self::ERROR_INVALID_STORE            => 'Invalid value in Store column (store does not exists?)',
-        self::ERROR_INVALID_ATTR_SET         => 'Invalid value for Attribute Set column (set does not exists?)',
-        self::ERROR_INVALID_TYPE             => 'Product Type is invalid or not supported',
-        self::ERROR_INVALID_CATEGORY         => 'Category does not exists',
-        self::ERROR_VALUE_IS_REQUIRED        => "Required attribute '%s' has an empty value",
-        self::ERROR_TYPE_CHANGED             => 'Trying to change type of existing products',
-        self::ERROR_SKU_IS_EMPTY             => 'SKU is empty',
-        self::ERROR_NO_DEFAULT_ROW           => 'Default values row does not exists',
-        self::ERROR_CHANGE_TYPE              => 'Product type change is not allowed',
-        self::ERROR_DUPLICATE_SCOPE          => 'Duplicate scope',
-        self::ERROR_DUPLICATE_SKU            => 'Duplicate SKU',
-        self::ERROR_CHANGE_ATTR_SET          => 'Product attribute set change is not allowed',
-        self::ERROR_TYPE_UNSUPPORTED         => 'Product type is not supported',
-        self::ERROR_ROW_IS_ORPHAN            => 'Orphan rows that will be skipped due default row errors',
-        self::ERROR_INVALID_TIER_PRICE_QTY   => 'Tier Price data price or quantity value is invalid',
-        self::ERROR_INVALID_TIER_PRICE_SITE  => 'Tier Price data website is invalid',
-        self::ERROR_INVALID_TIER_PRICE_GROUP => 'Tier Price customer group ID is invalid',
-        self::ERROR_TIER_DATA_INCOMPLETE     => 'Tier Price data is incomplete',
-        self::ERROR_SKU_NOT_FOUND_FOR_DELETE => 'Product with specified SKU not found'
+        self::ERROR_INVALID_SCOPE                => 'Invalid value in Scope column',
+        self::ERROR_INVALID_WEBSITE              => 'Invalid value in Website column (website does not exists?)',
+        self::ERROR_INVALID_STORE                => 'Invalid value in Store column (store does not exists?)',
+        self::ERROR_INVALID_ATTR_SET             => 'Invalid value for Attribute Set column (set does not exists?)',
+        self::ERROR_INVALID_TYPE                 => 'Product Type is invalid or not supported',
+        self::ERROR_INVALID_CATEGORY             => 'Category does not exists',
+        self::ERROR_VALUE_IS_REQUIRED            => "Required attribute '%s' has an empty value",
+        self::ERROR_TYPE_CHANGED                 => 'Trying to change type of existing products',
+        self::ERROR_SKU_IS_EMPTY                 => 'SKU is empty',
+        self::ERROR_NO_DEFAULT_ROW               => 'Default values row does not exists',
+        self::ERROR_CHANGE_TYPE                  => 'Product type change is not allowed',
+        self::ERROR_DUPLICATE_SCOPE              => 'Duplicate scope',
+        self::ERROR_DUPLICATE_SKU                => 'Duplicate SKU',
+        self::ERROR_CHANGE_ATTR_SET              => 'Product attribute set change is not allowed',
+        self::ERROR_TYPE_UNSUPPORTED             => 'Product type is not supported',
+        self::ERROR_ROW_IS_ORPHAN                => 'Orphan rows that will be skipped due default row errors',
+        self::ERROR_INVALID_TIER_PRICE_QTY       => 'Tier Price data price or quantity value is invalid',
+        self::ERROR_INVALID_TIER_PRICE_SITE      => 'Tier Price data website is invalid',
+        self::ERROR_INVALID_TIER_PRICE_GROUP     => 'Tier Price customer group ID is invalid',
+        self::ERROR_TIER_DATA_INCOMPLETE         => 'Tier Price data is incomplete',
+        self::ERROR_SKU_NOT_FOUND_FOR_DELETE     => 'Product with specified SKU not found',
+        self::ERROR_SUPER_PRODUCTS_SKU_NOT_FOUND => 'Product with specified super products SKU not found'
     );
 
     /**
@@ -569,6 +571,26 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 $this->addRowError(self::ERROR_INVALID_TIER_PRICE_QTY, $rowNum);
                 return false;
             }
+        }
+        return true;
+    }
+
+    /**
+     * Check super products SKU
+     *
+     * @param array $rowData
+     * @param int $rowNum
+     * @return bool
+     */
+    protected function _isSuperProductsSkuValid($rowData, $rowNum)
+    {
+        if (!empty($rowData['_super_products_sku'])
+            && (!isset($this->_oldSku[$rowData['_super_products_sku']])
+                && !isset($this->_newSku[$rowData['_super_products_sku']])
+            )
+        ) {
+            $this->addRowError(self::ERROR_SUPER_PRODUCTS_SKU_NOT_FOUND, $rowNum);
+            return false;
         }
         return true;
     }
@@ -1166,7 +1188,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                     $attrTable = $attribute->getBackend()->getTable();
                     $storeIds  = array(0);
 
-                    if ('datetime' == $attribute->getBackendType()) {
+                    if ('datetime' == $attribute->getBackendType() && strtotime($attrValue)) {
                         $attrValue = gmstrftime($strftimeFormat, strtotime($attrValue));
                     } elseif ($backModel) {
                         $attribute->getBackend()->beforeSave($product);
@@ -1613,6 +1635,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         $this->_isProductWebsiteValid($rowData, $rowNum);
         $this->_isProductCategoryValid($rowData, $rowNum);
         $this->_isTierPriceValid($rowData, $rowNum);
+        $this->_isSuperProductsSkuValid($rowData, $rowNum);
 
         if (self::SCOPE_DEFAULT == $rowScope) { // SKU is specified, row is SCOPE_DEFAULT, new product block begins
             $this->_processedEntitiesCount ++;

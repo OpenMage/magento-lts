@@ -561,6 +561,17 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         $this->getCookie()->delete($this->getSessionName());
         $this->regenerateSessionId();
 
+        $sessionHosts = $this->getSessionHosts();
+        $currentCookieDomain = $this->getCookie()->getDomain();
+        if (is_array($sessionHosts)) {
+            foreach (array_keys($sessionHosts) as $host) {
+                // Delete cookies with the same name for parent domains
+                if (strpos($currentCookieDomain, $host) > 0) {
+                    $this->getCookie()->delete($this->getSessionName(), null, $host);
+                }
+            }
+        }
+
         return $this;
     }
 

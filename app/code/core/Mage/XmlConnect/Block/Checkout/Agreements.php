@@ -40,15 +40,18 @@ class Mage_XmlConnect_Block_Checkout_Agreements extends Mage_Checkout_Block_Agre
      */
     protected function _toHtml()
     {
+        /** @var $agreementsXmlObj Mage_XmlConnect_Model_Simplexml_Element */
         $agreementsXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<agreements></agreements>');
         if ($this->getAgreements()) {
             foreach ($this->getAgreements() as $agreement) {
                 $itemXmlObj = $agreementsXmlObj->addChild('item');
-                $content = $agreementsXmlObj->xmlentities($agreement->getContent());
+                $content = $agreement->getContent();
                 if (!$agreement->getIsHtml()) {
-                    $content = nl2br(strip_tags($content));
+                    $content = nl2br($agreementsXmlObj->escapeXml($content));
+                } else {
+                    $agreementsXmlObj->xmlentities($content);
                 }
-                $agreementText = $agreementsXmlObj->xmlentities($agreement->getCheckboxText());
+                $agreementText = $agreementsXmlObj->escapeXml($agreement->getCheckboxText());
                 $itemXmlObj->addChild('label', $agreementText);
                 $itemXmlObj->addChild('content', $content);
                 $itemXmlObj->addChild('code', 'agreement[' . $agreement->getId() . ']');

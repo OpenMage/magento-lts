@@ -154,6 +154,15 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
 
         $this->_form->setValues($this->getFormValues());
 
+        if ($this->_form->getElement('country_id')->getValue()) {
+            $countryId = $this->_form->getElement('country_id')->getValue();
+            $this->_form->getElement('country_id')->setValue(null);
+            foreach ($this->_form->getElement('country_id')->getValues() as $country) {
+                if ($country['value'] == $countryId) {
+                    $this->_form->getElement('country_id')->setValue($countryId);
+                }
+            }
+        }
         if (!$this->_form->getElement('country_id')->getValue()) {
             $this->_form->getElement('country_id')->setValue(
                 Mage::helper('core')->getDefaultCountry($this->getStore())

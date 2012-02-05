@@ -66,7 +66,28 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      */
     public function isReadonly()
     {
-         return $this->_getProduct()->getCompositeReadonly();
+        return (bool) $this->_getProduct()->getCompositeReadonly();
+    }
+
+    /**
+     * Check whether attributes of configurable products can be editable
+     *
+     * @return boolean
+     */
+    public function isAttributesConfigurationReadonly()
+    {
+        return (bool) $this->_getProduct()->getAttributesConfigurationReadonly();
+    }
+
+    /**
+     * Check whether prices of configurable products can be editable
+     *
+     * @return boolean
+     */
+    public function isAttributesPricesReadonly()
+    {
+        return $this->_getProduct()->getAttributesConfigurationReadonly() ||
+            (Mage::helper('catalog')->isPriceGlobal() && $this->isReadonly());
     }
 
     /**

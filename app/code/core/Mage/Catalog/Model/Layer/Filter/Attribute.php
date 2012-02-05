@@ -69,7 +69,7 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
      * Get option text from frontend model by option id
      *
      * @param   int $optionId
-     * @return  unknown
+     * @return  string|bool
      */
     protected function _getOptionText($optionId)
     {
@@ -90,7 +90,7 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
             return $this;
         }
         $text = $this->_getOptionText($filter);
-        if ($filter && $text) {
+        if ($filter && strlen($text)) {
             $this->_getResource()->applyFilterToCollection($this, $filter);
             $this->getLayer()->getState()->addFilter($this->_createItem($text, $filter));
             $this->_items = array();

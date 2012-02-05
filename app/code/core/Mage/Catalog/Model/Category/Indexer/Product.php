@@ -54,6 +54,11 @@
 class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Indexer_Abstract
 {
     /**
+     * Data key for matching result to be saved in
+     */
+    const EVENT_MATCH_RESULT_KEY = 'catalog_category_product_match_result';
+
+    /**
      * @var array
      */
     protected $_matchedEntities = array(
@@ -113,25 +118,23 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
     public function matchEvent(Mage_Index_Model_Event $event)
     {
         $data      = $event->getNewData();
-        $resultKey = 'catalog_category_product_match_result';
-        if (isset($data[$resultKey])) {
-            return $data[$resultKey];
+        if (isset($data[self::EVENT_MATCH_RESULT_KEY])) {
+            return $data[self::EVENT_MATCH_RESULT_KEY];
         }
 
-        $result = null;
         $entity = $event->getEntity();
         if ($entity == Mage_Core_Model_Store::ENTITY) {
             $store = $event->getDataObject();
-            if ($store->isObjectNew() || $store->dataHasChangedFor('group_id')) {
+            if ($store && ($store->isObjectNew() || $store->dataHasChangedFor('group_id'))) {
                 $result = true;
             } else {
                 $result = false;
             }
         } elseif ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             $storeGroup = $event->getDataObject();
-            $hasDataChanges = $storeGroup->dataHasChangedFor('root_category_id')
-                || $storeGroup->dataHasChangedFor('website_id');
-            if (!$storeGroup->isObjectNew() && $hasDataChanges) {
+            $hasDataChanges = $storeGroup && ($storeGroup->dataHasChangedFor('root_category_id')
+                || $storeGroup->dataHasChangedFor('website_id'));
+            if ($storeGroup && !$storeGroup->isObjectNew() && $hasDataChanges) {
                 $result = true;
             } else {
                 $result = false;
@@ -140,7 +143,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
             $result = parent::matchEvent($event);
         }
 
-        $event->addNewData($resultKey, $result);
+        $event->addNewData(self::EVENT_MATCH_RESULT_KEY, $result);
 
         return $result;
     }
@@ -154,6 +157,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
      */
     protected function _registerEvent(Mage_Index_Model_Event $event)
     {
+        $event->addNewData(self::EVENT_MATCH_RESULT_KEY, true);
         $entity = $event->getEntity();
         switch ($entity) {
             case Mage_Catalog_Model_Product::ENTITY:

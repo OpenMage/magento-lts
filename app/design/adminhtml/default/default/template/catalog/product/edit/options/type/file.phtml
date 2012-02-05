@@ -38,7 +38,7 @@ OptionTemplateFile = '<table class="border" cellpadding="0" cellspacing="0">'+
         '</tr>'+
         '<tr>'+
             <?php if ($this->getCanReadPrice() !== false) : ?>
-            '<td><input class="input-text" type="text" name="product[options][{{option_id}}][price]" value="{{price}}"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif; ?>></td>' +
+            '<td><input class="input-text validate-zero-or-greater" type="text" name="product[options][{{option_id}}][price]" value="{{price}}"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif; ?>></td>' +
             '<td><?php echo $this->getPriceTypeSelectHtml() ?></td>' +
             <?php else : ?>
             '<input type="hidden" name="product[options][{{option_id}}][price]">' +

@@ -44,7 +44,6 @@ Customer account home dashboard layout
 
         <!-- Mage_Review -->
         <reference name="customer_account_dashboard">
-            <action method="unsetChild"><name>customer_account_dashboard_info1</name></action>
             <block type="review/customer_recent" name="customer_account_dashboard_info1" as="info1" template="review/customer/recent.phtml"/>
         </reference>
 
@@ -58,7 +57,7 @@ Product reviews page (?)
     <reviews>
         <!-- Mage_Review -->
         <reference name="root">
-            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
     </reviews>
 
@@ -69,7 +68,7 @@ Product reviews page
     <review_product_list translate="label">
         <label>Catalog Product Reviews List</label>
         <reference name="root">
-            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         <reference name="head">
             <action method="addJs"><script>varien/product.js</script></action>
@@ -90,6 +89,7 @@ Product reviews page
                         </block>
                     </block>
                 </block>
+
                 <block type="catalog/product_view" name="product.tierprices" as="tierprices" template="catalog/product/view/tierprices.phtml"/>
                 <block type="core/template" name="product.info.other" as="other" template="review/product/view/other.phtml"/>
                 <block type="page/html_pager" name="product_review_list.toolbar" />
@@ -133,4 +133,3 @@ Product reviews page
     </review_customer_view>
 
 </layout>
-

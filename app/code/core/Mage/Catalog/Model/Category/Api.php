@@ -444,7 +444,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 'type'       => $product->getTypeId(),
                 'set'        => $product->getAttributeSetId(),
                 'sku'        => $product->getSku(),
-                'position'   => $product->getPosition()
+                'position'   => $product->getCatIndexPosition()
             );
         }
 

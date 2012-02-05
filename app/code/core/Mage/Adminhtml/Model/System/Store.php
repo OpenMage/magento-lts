@@ -488,7 +488,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
             if (isset($this->_storeCollection[$storeId])) {
                 $data = $this->_storeCollection[$storeId];
                 $name .= $this->getWebsiteName($data->getWebsiteId());
-                $name .= ($name ? '/' : '').$this->getGroupName($data->getGroupId());
+                $name .= ($name ? '/' : '') . $this->getGroupName($data->getGroupId());
             }
         }
         return $name;

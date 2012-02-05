@@ -33,19 +33,24 @@
  */
 class Mage_Checkout_Block_Onepage extends Mage_Checkout_Block_Onepage_Abstract
 {
+    /**
+     * Get 'one step checkout' step data
+     *
+     * @return array
+     */
     public function getSteps()
     {
         $steps = array();
+        $stepCodes = $this->_getStepCodes();
 
-        if (!$this->isCustomerLoggedIn()) {
-            $steps['login'] = $this->getCheckout()->getStepData('login');
+        if ($this->isCustomerLoggedIn()) {
+            $stepCodes = array_diff($stepCodes, array('login'));
         }
-
-        $stepCodes = array('billing', 'shipping', 'shipping_method', 'payment', 'review');
 
         foreach ($stepCodes as $step) {
             $steps[$step] = $this->getCheckout()->getStepData($step);
         }
+
         return $steps;
     }
 

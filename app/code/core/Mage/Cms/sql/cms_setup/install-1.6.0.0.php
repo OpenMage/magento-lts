@@ -107,8 +107,8 @@ $table = $installer->getConnection()
         'nullable'  => true,
         ), 'Page Meta Description')
     ->addColumn('identifier', Varien_Db_Ddl_Table::TYPE_TEXT, 100, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Page String Identifier')
     ->addColumn('content_heading', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         'nullable'  => true,

@@ -120,7 +120,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     protected function _copyIndexDataToMainTable($processIds)
     {
         $write = $this->_getWriteAdapter();
-        $write->beginTransaction();
+        $this->beginTransaction();
         try {
             // remove old index
             $where = $write->quoteInto('entity_id IN(?)', $processIds);
@@ -172,6 +172,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         if ($indexer->getIsComposite()) {
             $this->_copyRelationIndexData($productId);
             $this->_prepareTierPriceIndex($productId);
+            $this->_prepareGroupPriceIndex($productId);
             $indexer->reindexEntity($productId);
         } else {
             $parentIds = $this->getProductParentsByChild($productId);
@@ -180,6 +181,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
                 $processIds = array_merge($processIds, array_keys($parentIds));
                 $this->_copyRelationIndexData(array_keys($parentIds), $productId);
                 $this->_prepareTierPriceIndex($processIds);
+                $this->_prepareGroupPriceIndex($processIds);
                 $indexer->reindexEntity($productId);
 
                 $parentByType = array();
@@ -192,6 +194,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
                 }
             } else {
                 $this->_prepareTierPriceIndex($productId);
+                $this->_prepareGroupPriceIndex($productId);
                 $indexer->reindexEntity($productId);
             }
         }
@@ -369,23 +372,25 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     public function reindexAll()
     {
         $this->useIdxTable(true);
-        $this->clearTemporaryIndexTable();
-        $this->_prepareWebsiteDateTable();
-        $this->_prepareTierPriceIndex();
+        $this->beginTransaction();
+        try {
+            $this->clearTemporaryIndexTable();
+            $this->_prepareWebsiteDateTable();
+            $this->_prepareTierPriceIndex();
+            $this->_prepareGroupPriceIndex();
 
-        $indexers = $this->getTypeIndexers();
-        foreach ($indexers as $indexer) {
-            /** @var $indexer Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface */
-            if (!$this->_allowTableChanges && is_callable(array($indexer, 'setAllowTableChanges'))) {
-                $indexer->setAllowTableChanges(false);
+            $indexers = $this->getTypeIndexers();
+            foreach ($indexers as $indexer) {
+                /** @var $indexer Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface */
+                $indexer->reindexAll();
             }
-            $indexer->reindexAll();
-            if (!$this->_allowTableChanges && is_callable(array($indexer, 'setAllowTableChanges'))) {
-                $indexer->setAllowTableChanges(true);
-            }
+
+            $this->syncData();
+            $this->commit();
+        } catch (Exception $e) {
+            $this->rollBack();
+            throw $e;
         }
-
-        $this->syncData();
         return $this;
     }
 
@@ -397,6 +402,16 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     protected function _getTierPriceIndexTable()
     {
         return $this->getTable('catalog/product_index_tier_price');
+    }
+
+    /**
+     * Retrieve table name for product group price index
+     *
+     * @return string
+     */
+    protected function _getGroupPriceIndexTable()
+    {
+        return $this->getTable('catalog/product_index_group_price');
     }
 
     /**
@@ -434,6 +449,49 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
 
         if (!empty($entityIds)) {
             $select->where('tp.entity_id IN(?)', $entityIds);
+        }
+
+        $query = $select->insertFromSelect($table);
+        $write->query($query);
+
+        return $this;
+    }
+
+    /**
+     * Prepare group price index table
+     *
+     * @param int|array $entityIds the entity ids limitation
+     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price
+     */
+    protected function _prepareGroupPriceIndex($entityIds = null)
+    {
+        $write = $this->_getWriteAdapter();
+        $table = $this->_getGroupPriceIndexTable();
+        $write->delete($table);
+
+        $websiteExpression = $write->getCheckSql('gp.website_id = 0', 'ROUND(gp.value * cwd.rate, 4)', 'gp.value');
+        $select = $write->select()
+            ->from(
+                array('gp' => $this->getValueTable('catalog/product', 'group_price')),
+                array('entity_id'))
+            ->join(
+                array('cg' => $this->getTable('customer/customer_group')),
+                'gp.all_groups = 1 OR (gp.all_groups = 0 AND gp.customer_group_id = cg.customer_group_id)',
+                array('customer_group_id'))
+            ->join(
+                array('cw' => $this->getTable('core/website')),
+                'gp.website_id = 0 OR gp.website_id = cw.website_id',
+                array('website_id'))
+            ->join(
+                array('cwd' => $this->_getWebsiteDateTable()),
+                'cw.website_id = cwd.website_id',
+                array())
+            ->where('cw.website_id != 0')
+            ->columns(new Zend_Db_Expr("MIN({$websiteExpression})"))
+            ->group(array('gp.entity_id', 'cg.customer_group_id', 'cw.website_id'));
+
+        if (!empty($entityIds)) {
+            $select->where('gp.entity_id IN(?)', $entityIds);
         }
 
         $query = $select->insertFromSelect($table);

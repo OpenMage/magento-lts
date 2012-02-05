@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement extends Mage_Adminhtml_Block_Widge
     public function __construct()
     {
         $this->_controller      = 'checkout_agreement';
-        $this->_headerText      = Mage::helper('checkout')->__('Manage Checkout Terms and Conditions');
+        $this->_headerText      = Mage::helper('checkout')->__('Manage Terms and Conditions');
         $this->_addButtonLabel  = Mage::helper('checkout')->__('Add New Condition');
         parent::__construct();
     }

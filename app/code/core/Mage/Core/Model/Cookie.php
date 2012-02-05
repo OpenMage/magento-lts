@@ -198,6 +198,7 @@ class Mage_Core_Model_Cookie
      * @param string $path
      * @param string $domain
      * @param int|bool $secure
+     * @param bool $httponly
      * @return Mage_Core_Model_Cookie
      */
     public function set($name, $value, $period = null, $path = null, $domain = null, $secure = null, $httponly = null)

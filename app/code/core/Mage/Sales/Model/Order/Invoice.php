@@ -160,6 +160,13 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     protected $_comments;
     protected $_order;
 
+    /**
+     * Calculator instances for delta rounding of prices
+     *
+     * @var array
+     */
+    protected $_rounders = array();
+
     protected $_saveBeforeDestruct = false;
 
     protected $_eventPrefix = 'sales_order_invoice';
@@ -493,6 +500,25 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             $model->collect($this);
         }
         return $this;
+    }
+
+    /**
+     * Round price considering delta
+     *
+     * @param float $price
+     * @param string $type
+     * @param bool $negative Indicates if we perform addition (true) or subtraction (false) of rounded value
+     * @return float
+     */
+    public function roundPrice($price, $type = 'regular', $negative = false)
+    {
+        if ($price) {
+            if (!isset($this->_rounders[$type])) {
+                $this->_rounders[$type] = Mage::getModel('core/calculator', $this->getStore());
+            }
+            $price = $this->_rounders[$type]->deltaRound($price, $negative);
+        }
+        return $price;
     }
 
     /**

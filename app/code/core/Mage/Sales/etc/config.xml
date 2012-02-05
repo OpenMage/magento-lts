@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Sales>
-            <version>1.6.0.4</version>
+            <version>1.6.0.7</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -1464,6 +1464,24 @@
                 </grand_total>
             </totals>
         </pdf>
+        <events>
+            <sales_quote_collect_totals_before>
+                <observers>
+                    <sales_customer_validate_vat_number>
+                        <class>sales/observer</class>
+                        <method>handleCustomerVatNumber</method>
+                    </sales_customer_validate_vat_number>
+                </observers>
+            </sales_quote_collect_totals_before>
+            <sales_order_place_after>
+                <observers>
+                    <sales_vat_request_params_order_comment>
+                        <class>sales/observer</class>
+                        <method>addVatRequestParamsOrderComment</method>
+                    </sales_vat_request_params_order_comment>
+                </observers>
+            </sales_order_place_after>
+        </events>
     </global>
     <frontend>
         <secure_url>

@@ -29,23 +29,17 @@
  *
  * @category   Mage
  * @package    Mage_Backup
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Backup_Model_Backup extends Varien_Object
 {
-    /* backup types */
-    const BACKUP_DB     = 'db';
-    const BACKUP_VIEW   = 'view';
-    const BACKUP_MEDIA  = 'media';
-
     /* internal constants */
-    const BACKUP_EXTENSION  = 'gz';
     const COMPRESS_RATE     = 9;
 
     /**
      * Type of backup file
      *
-     * @var string db|media|view
+     * @var string
      */
     private $_type  = 'db';
 
@@ -65,12 +59,26 @@ class Mage_Backup_Model_Backup extends Varien_Object
      */
     public function load($fileName, $filePath)
     {
-        list ($time, $type) = explode("_", substr($fileName, 0, strrpos($fileName, ".")));
+        $extensions = Mage::helper('backup')->getExtensions();
+
+        $fileNameWithoutExtension = $fileName;
+
+        foreach ($extensions as $extension) {
+            $fileNameWithoutExtension = preg_replace('/' . preg_quote($extension, '/') . '$/', '',
+                $fileNameWithoutExtension
+            );
+        }
+
+        list ($time, $type) = explode("_", substr($fileNameWithoutExtension, 0,
+            strrpos($fileNameWithoutExtension, ".")
+        ));
+
         $this->addData(array(
             'id'   => $filePath . DS . $fileName,
             'time' => (int)$time,
             'path' => $filePath,
-            'date_object' => new Zend_Date((int)$time)
+            'extension' => Mage::helper('backup')->getExtensionByType($type),
+            'date_object' => new Zend_Date((int)$time, Mage::app()->getLocale()->getLocaleCode())
         ));
         $this->setType($type);
         return $this;
@@ -94,18 +102,19 @@ class Mage_Backup_Model_Backup extends Varien_Object
     public function getFileName()
     {
         return $this->getTime() . "_" . $this->getType()
-               . "." . self::BACKUP_EXTENSION;
+               . "." . Mage::helper('backup')->getExtensionByType($this->getType());
     }
 
     /**
      * Sets type of file
      *
-     * @param string $value db|media|view
+     * @param string $value
      */
     public function setType($value='db')
     {
-        if(!in_array($value, array('db','media','view'))) {
-            $value = 'db';
+        $possibleTypes = Mage::helper('backup')->getBackupTypesList();
+        if(!in_array($value, $possibleTypes)) {
+            $value = Mage::helper('backup')->getDefaultBackupType();
         }
 
         $this->_type = $value;
@@ -117,7 +126,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
     /**
      * Returns type of backup file
      *
-     * @return string db|media|view
+     * @return string
      */
     public function getType()
     {
@@ -249,11 +258,12 @@ class Mage_Backup_Model_Backup extends Varien_Object
 
         $mode = $write ? 'wb' . self::COMPRESS_RATE : 'rb';
 
-        try {
-            $this->_handler = gzopen($filePath, $mode);
-        }
-        catch (Exception $e) {
-            Mage::exception('Mage_Backup', Mage::helper('backup')->__('Backup file "%s" cannot be read from or written to.', $this->getFileName()));
+        $this->_handler = @gzopen($filePath, $mode);
+
+        if (!$this->_handler) {
+            throw new Mage_Backup_Exception_NotEnoughPermissions(
+                Mage::helper('backup')->__('Backup file "%s" cannot be read from or written to.', $this->getFileName())
+            );
         }
 
         return $this;
@@ -350,5 +360,17 @@ class Mage_Backup_Model_Backup extends Varien_Object
         }
 
         return 0;
+    }
+
+    /**
+     * Validate user password
+     *
+     * @param string $password
+     * @return bool
+     */
+    public function validateUserPassword($password)
+    {
+        $userPasswordHash = Mage::getModel('admin/session')->getUser()->getPassword();
+        return Mage::helper('core')->validateHash($password, $userPasswordHash);
     }
 }

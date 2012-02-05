@@ -62,7 +62,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     /**
      * Init widget instance object and set it to registry
      *
-     * @return age_Widget_Model_Widget_Instance|boolean
+     * @return Mage_Widget_Model_Widget_Instance|boolean
      */
     protected function _initWidgetInstance()
     {

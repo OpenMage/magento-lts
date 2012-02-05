@@ -65,10 +65,10 @@
 
     removeItem: function (itemId) {
         if (!itemId) {
-            alert('<?php echo Mage::helper('customer')->__('No item specified.') ?>');
+            alert('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('customer')->__('No item specified.')) ?>');
             return false;
         }
-        if(!confirm('<?php echo Mage::helper('customer')->__('Are you sure that you want to remove this item?') ?>')) {
+        if(!confirm('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('customer')->__('Are you sure that you want to remove this item?')) ?>')) {
             return false;
         }
 

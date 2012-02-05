@@ -195,11 +195,12 @@ class Mage_Adminhtml_Block_Media_Uploader extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Retrive full uploader SWF's file URL
+     * Retrieve full uploader SWF's file URL
      * Implemented to solve problem with cross domain SWFs
      * Now uploader can be only in the same URL where backend located
      *
-     * @param string url to uploader in current theme
+     * @param string $url url to uploader in current theme
+     *
      * @return string full URL
      */
     public function getUploaderUrl($url)
@@ -212,7 +213,7 @@ class Mage_Adminhtml_Block_Media_Uploader extends Mage_Adminhtml_Block_Widget
         if (empty($url) || !$design->validateFile($url, array('_type' => 'skin', '_theme' => $theme))) {
             $theme = $design->getDefaultTheme();
         }
-        return Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) .
+        return Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . 'skin/' .
             $design->getArea() . '/' . $design->getPackageName() . '/' . $theme . '/' . $url;
     }
 }

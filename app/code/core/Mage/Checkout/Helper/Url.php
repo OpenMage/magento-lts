@@ -92,4 +92,14 @@ class Mage_Checkout_Helper_Url extends Mage_Core_Helper_Url
     {
         return $this->_getUrl('checkout/onepage');
     }
+
+    /**
+     * Url to Registration Page
+     *
+     * @return string
+     */
+    public function getRegistrationUrl()
+    {
+        return $this->_getUrl('customer/account/create');
+    }
 }

@@ -49,6 +49,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     const LENGTH_FOREIGN_NAME   = 64;
 
     /**
+     * MEMORY engine type for MySQL tables
+     */
+    const ENGINE_MEMORY = 'MEMORY';
+
+    /**
      * Default class name for a DB statement.
      *
      * @var string
@@ -2753,8 +2758,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         switch ($column['DATA_TYPE']) {
             case 'smallint':
             case 'int':
-            case 'bigint':
                 $value = (int)$value;
+                break;
+            case 'bigint':
+                if (!is_integer($value)) {
+                    $value = sprintf('%.0f', (float)$value);
+                }
                 break;
 
             case 'decimal':

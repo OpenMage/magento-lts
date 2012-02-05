@@ -47,10 +47,10 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Core_Model_Reso
     /**
      * Set filter to select rules that matches current criteria
      *
-     * @param unknown_type $websiteId
-     * @param unknown_type $customerGroupId
-     * @param unknown_type $couponCode
-     * @param unknown_type $now
+     * @param int $websiteId
+     * @param int $customerGroupId
+     * @param string $couponCode
+     * @param string $now
      * @return Mage_SalesRule_Model_Resource_Rule_Collection
      */
     public function setValidationFilter($websiteId, $customerGroupId, $couponCode = '', $now = null)
@@ -66,7 +66,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Core_Model_Reso
             ->addFieldToFilter('customer_group_ids', array('finset' => (int)$customerGroupId))
             ->addFieldToFilter('is_active', 1);
 
-        if ($couponCode) {
+        if (strlen($couponCode)) {
             $this->getSelect()
                 ->joinLeft(
                     array('rule_coupons' => $this->getTable('salesrule/coupon')),
@@ -141,6 +141,21 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Core_Model_Reso
         $aCond = $this->_getConditionSql($field, array('like' => $match));
 
         $this->getSelect()->where(sprintf('(%s OR %s)', $cCond, $aCond), null, Varien_Db_Select::TYPE_CONDITION);
+
+        return $this;
+    }
+
+    /**
+     * Excludes price rules with generated specific coupon codes from collection
+     *
+     * @return Mage_SalesRule_Model_Resource_Rule_Collection
+     */
+    public function addAllowedSalesRulesFilter()
+    {
+        $this->addFieldToFilter(
+            'main_table.use_auto_generation',
+            array('neq' => 1)
+        );
 
         return $this;
     }

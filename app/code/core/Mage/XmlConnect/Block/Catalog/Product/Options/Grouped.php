@@ -68,7 +68,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Grouped extends Mage_XmlConn
 
             $optionNode->addAttribute('code', 'super_group[' . $_item->getId() . ']');
             $optionNode->addAttribute('type', 'product');
-            $optionNode->addAttribute('label', $xmlModel->xmlentities($_item->getName()));
+            $optionNode->addAttribute('label', $xmlModel->escapeXml($_item->getName()));
             $optionNode->addAttribute('is_qty_editable', 1);
             $optionNode->addAttribute('qty', $_item->getQty()*1);
 
