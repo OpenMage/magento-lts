@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -395,9 +395,17 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $this->__('Thank you for registering with %s.', Mage::app()->getStore()->getFrontendName())
         );
         if ($this->_isVatValidationEnabled()) {
-            $this->_getSession()->addSuccess(
-                $this->__('If you are a registered VAT customer, please click <a href="%s">here</a> to enter you billing address to see proper VAT calculated', Mage::getUrl('customer/address/edit'))
-            );
+            // Show corresponding VAT message to customer
+            $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType();
+            $userPrompt = '';
+            switch ($configAddressType) {
+                case Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING:
+                    $userPrompt = $this->__('If you are a registered VAT customer, please click <a href="%s">here</a> to enter you shipping address for proper VAT calculation', Mage::getUrl('customer/address/edit'));
+                    break;
+                default:
+                    $userPrompt = $this->__('If you are a registered VAT customer, please click <a href="%s">here</a> to enter you billing address for proper VAT calculation', Mage::getUrl('customer/address/edit'));
+            }
+            $this->_getSession()->addSuccess($userPrompt);
         }
 
         $customer->sendNewAccountEmail(

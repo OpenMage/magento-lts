@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -1029,9 +1029,9 @@ abstract class Mage_Core_Controller_Varien_Action
             ->setHeader('Pragma', 'public', true)
             ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
             ->setHeader('Content-type', $contentType, true)
-            ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength)
-            ->setHeader('Content-Disposition', 'attachment; filename="'.$fileName.'"')
-            ->setHeader('Last-Modified', date('r'));
+            ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength, true)
+            ->setHeader('Content-Disposition', 'attachment; filename="'.$fileName.'"', true)
+            ->setHeader('Last-Modified', date('r'), true);
 
         if (!is_null($content)) {
             if ($isFile) {
@@ -1048,6 +1048,8 @@ abstract class Mage_Core_Controller_Varien_Action
                 if (!empty($content['rm'])) {
                     $ioAdapter->rm($file);
                 }
+
+                exit(0);
             } else {
                 $this->getResponse()->setBody($content);
             }

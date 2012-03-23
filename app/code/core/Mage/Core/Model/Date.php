@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -106,7 +106,13 @@ class Mage_Core_Model_Date
             $format = 'Y-m-d H:i:s';
         }
 
-        $result = date($format, $this->gmtTimestamp($input));
+        $date = $this->gmtTimestamp($input);
+
+        if ($date === false) {
+            return false;
+        }
+
+        $result = date($format, $date);
         return $result;
     }
 
@@ -142,6 +148,11 @@ class Mage_Core_Model_Date
             $result = $input;
         } else {
             $result = strtotime($input);
+        }
+
+        if ($result === false) {
+            // strtotime() unable to parse string (it's not a date or has incorrect format)
+            return false;
         }
 
         $date      = Mage::app()->getLocale()->date($result);
@@ -225,13 +236,22 @@ class Mage_Core_Model_Date
     {
         // look for supported format
         $isSupportedFormatFound = false;
-        foreach (array(
+
+        $formats = array(
             // priority is important!
-            '%m/%d/%y %I:%M' => array('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2})/', array('y' => 3, 'm' => 1, 'd' => 2, 'h' => 4, 'i' => 5)),
-            'm/d/y h:i'      => array('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2})/', array('y' => 3, 'm' => 1, 'd' => 2, 'h' => 4, 'i' => 5)),
-            '%m/%d/%y'       => array('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2})/', array('y' => 3, 'm' => 1, 'd' => 2)),
-            'm/d/y'          => array('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2})/', array('y' => 3, 'm' => 1, 'd' => 2)),
-            ) as $supportedFormat => $regRule) {
+            '%m/%d/%y %I:%M' => array(
+                '/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2})/',
+                array('y' => 3, 'm' => 1, 'd' => 2, 'h' => 4, 'i' => 5)
+            ),
+            'm/d/y h:i' => array(
+                '/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2})/',
+                array('y' => 3, 'm' => 1, 'd' => 2, 'h' => 4, 'i' => 5)
+            ),
+            '%m/%d/%y' => array('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2})/', array('y' => 3, 'm' => 1, 'd' => 2)),
+            'm/d/y' => array('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2})/', array('y' => 3, 'm' => 1, 'd' => 2)),
+        );
+
+        foreach ($formats as $supportedFormat => $regRule) {
             if (false !== strpos($dateTimeFormat, $supportedFormat, 0)) {
                 $isSupportedFormatFound = true;
                 break;

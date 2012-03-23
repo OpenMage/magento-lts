@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Backup
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,6 +33,13 @@
  */
 abstract class Mage_Backup_Abstract implements  Mage_Backup_Interface
 {
+    /**
+     * Backup name
+     *
+     * @var string
+     */
+    protected $_name;
+
     /**
      * Backup creation date
      *
@@ -74,6 +81,13 @@ abstract class Mage_Backup_Abstract implements  Mage_Backup_Interface
      * @var bool
      */
     protected $_lastOperationSucceed = false;
+
+    /**
+     * Last failed operation error message
+     *
+     * @var string
+     */
+    protected $_lastErrorMessage;
 
 
     /**
@@ -207,7 +221,17 @@ abstract class Mage_Backup_Abstract implements  Mage_Backup_Interface
      */
     public function getBackupFilename()
     {
-        return $this->getTime() . '_' . $this->getType() . '.' . $this->getBackupExtension();
+        $filename = $this->getTime() . '_' . $this->getType();
+
+        $name = $this->getName();
+
+        if (!empty($name)) {
+            $filename .= '_' . $name;
+        }
+
+        $filename .= '.' . $this->getBackupExtension();
+
+        return $filename;
     }
 
     /**
@@ -218,5 +242,77 @@ abstract class Mage_Backup_Abstract implements  Mage_Backup_Interface
     public function getIsSuccess()
     {
         return $this->_lastOperationSucceed;
+    }
+
+    /**
+     * Get last error message
+     *
+     * @return string
+     */
+    public function getErrorMessage()
+    {
+        return $this->_lastErrorMessage;
+    }
+
+    /**
+     * Set error message
+     *
+     * @param string $errorMessage
+     * @return string
+     */
+    public function setErrorMessage($errorMessage)
+    {
+        $this->_lastErrorMessage = $errorMessage;
+    }
+
+    /**
+     * Set backup name
+     *
+     * @param string $name
+     * @param bool $applyFilter
+     * @return Mage_Backup_Interface
+     */
+    public function setName($name, $applyFilter = true)
+    {
+        if ($applyFilter) {
+            $name = $this->_filterName($name);
+        }
+        $this->_name = $name;
+        return $this;
+    }
+
+    /**
+     * Get backup name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->_name;
+    }
+
+    /**
+     * Get backup display name
+     *
+     * @return string
+     */
+    public function getDisplayName()
+    {
+        return str_replace('_', ' ', $this->_name);
+    }
+
+    /**
+     * Removes disallowed characters and replaces spaces with underscores
+     *
+     * @param string $name
+     * @return string
+     */
+    protected function _filterName($name)
+    {
+        $name = trim(preg_replace('/[^\da-zA-Z ]/', '', $name));
+        $name = preg_replace('/\s{2,}/', ' ', $name);
+        $name = str_replace(' ', '_', $name);
+
+        return $name;
     }
 }

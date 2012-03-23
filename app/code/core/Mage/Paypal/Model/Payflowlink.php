@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -312,10 +312,12 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             ->setCurrency($payment->getOrder()->getBaseCurrencyCode())
             ->setInvnum($payment->getOrder()->getIncrementId())
             ->setCustref($payment->getOrder()->getIncrementId())
-            ->setPonum($payment->getOrder()->getId())
-            ->setSubtotal($payment->getOrder()->getBaseSubtotal())
-            ->setTaxamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseTaxAmount()))
-            ->setFreightamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseShippingAmount()));
+            ->setPonum($payment->getOrder()->getId());
+        //This is PaPal issue with taxes and shipping
+            //->setSubtotal($this->_formatStr('%.2F', $payment->getOrder()->getBaseSubtotal()))
+            //->setTaxamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseTaxAmount()))
+            //->setFreightamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseShippingAmount()));
+
 
         $order = $payment->getOrder();
         if (empty($order)) {

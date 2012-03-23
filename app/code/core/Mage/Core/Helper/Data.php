@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,6 +54,11 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_MERCHANT_COUNTRY_CODE = 'general/store_information/merchant_country';
     const XML_PATH_MERCHANT_VAT_NUMBER = 'general/store_information/merchant_vat_number';
     const XML_PATH_EU_COUNTRIES_LIST = 'general/country/eu_countries';
+
+    /**
+     * Const for correct dividing decimal values
+     */
+    const DIVIDE_EPSILON = 10000;
 
     /**
      * @var Mage_Core_Model_Encryption
@@ -822,21 +827,23 @@ XML;
     /**
      * Retrieve merchant country code
      *
+     * @param Mage_Core_Model_Store|string|int|null $store
      * @return string
      */
-    public function getMerchantCountryCode()
+    public function getMerchantCountryCode($store = null)
     {
-        return (string) Mage::getStoreConfig(self::XML_PATH_MERCHANT_COUNTRY_CODE);
+        return (string) Mage::getStoreConfig(self::XML_PATH_MERCHANT_COUNTRY_CODE, $store);
     }
 
     /**
      * Retrieve merchant VAT number
      *
+     * @param Mage_Core_Model_Store|string|int|null $store
      * @return string
      */
-    public function getMerchantVatNumber()
+    public function getMerchantVatNumber($store = null)
     {
-        return (string) Mage::getStoreConfig(self::XML_PATH_MERCHANT_VAT_NUMBER);
+        return (string) Mage::getStoreConfig(self::XML_PATH_MERCHANT_VAT_NUMBER, $store);
     }
 
     /**
@@ -850,5 +857,24 @@ XML;
     {
         $euCountries = explode(',', Mage::getStoreConfig(self::XML_PATH_EU_COUNTRIES_LIST, $storeId));
         return in_array($countryCode, $euCountries);
+    }
+
+    /**
+     * Returns the floating point remainder (modulo) of the division of the arguments
+     *
+     * @param float|int $dividend
+     * @param float|int $divisor
+     * @return float|int
+     */
+    public function getExactDivision($dividend, $divisor)
+    {
+        $epsilon = $divisor / self::DIVIDE_EPSILON;
+
+        $remainder = fmod($dividend, $divisor);
+        if (abs($remainder - $divisor) < $epsilon || abs($remainder) < $epsilon) {
+            $remainder = 0;
+        }
+
+        return $remainder;
     }
 }

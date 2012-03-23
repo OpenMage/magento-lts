@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -76,15 +76,27 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
         }
 
         $response = new Varien_Object();
+
+        /**
+         * @var Mage_Backup_Helper_Data $helper
+         */
         $helper = Mage::helper('backup');
 
         try {
             $type = $this->getRequest()->getParam('type');
 
+            if ($type == Mage_Backup_Helper_Data::TYPE_SYSTEM_SNAPSHOT
+                && $this->getRequest()->getParam('exclude_media')
+            ) {
+                $type = Mage_Backup_Helper_Data::TYPE_SNAPSHOT_WITHOUT_MEDIA;
+            }
+
             $backupManager = Mage_Backup::getBackupInstance($type)
                 ->setBackupExtension($helper->getExtensionByType($type))
                 ->setTime(time())
                 ->setBackupsDir($helper->getBackupsDir());
+
+            $backupManager->setName($this->getRequest()->getParam('backup_name'));
 
             Mage::register('backup_manager', $backupManager);
 
@@ -112,10 +124,6 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
 
             $this->_getSession()->addSuccess($successMessage);
 
-            if ($this->getRequest()->getParam('maintenance_mode')) {
-                $helper->turnOffMaintenanceMode();
-            }
-
             $response->setRedirectUrl($this->getUrl('*/*/index'));
         } catch (Mage_Backup_Exception_NotEnoughFreeSpace $e) {
             $errorMessage = Mage::helper('backup')->__('Not enough free space to create backup.');
@@ -132,6 +140,10 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
             $backupManager->setErrorMessage($errorMessage);
         }
 
+        if ($this->getRequest()->getParam('maintenance_mode')) {
+            $helper->turnOffMaintenanceMode();
+        }
+
         $this->getResponse()->setBody($response->toJson());
     }
 
@@ -142,13 +154,13 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
      */
     public function downloadAction()
     {
-        $backup = Mage::getModel('backup/backup')
-            ->setTime((int)$this->getRequest()->getParam('time'))
-            ->setType($this->getRequest()->getParam('type'))
-            ->setPath(Mage::helper('backup')->getBackupsDir());
         /* @var $backup Mage_Backup_Model_Backup */
+        $backup = Mage::getModel('backup/backup')->loadByTimeAndType(
+            $this->getRequest()->getParam('time'),
+            $this->getRequest()->getParam('type')
+        );
 
-        if (!$backup->exists()) {
+        if (!$backup->getTime() || !$backup->exists()) {
             return $this->_redirect('*/*');
         }
 
@@ -181,12 +193,27 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
         $response = new Varien_Object();
 
         try {
-            $type = $this->getRequest()->getParam('type');
+            /* @var $backup Mage_Backup_Model_Backup */
+            $backup = Mage::getModel('backup/backup')->loadByTimeAndType(
+                $this->getRequest()->getParam('time'),
+                $this->getRequest()->getParam('type')
+            );
+
+            if (!$backup->getTime() || !$backup->exists()) {
+                return $this->_redirect('*/*');
+            }
+
+            if (!$backup->getTime()) {
+                throw new Mage_Backup_Exception_CantLoadSnapshot();
+            }
+
+            $type = $backup->getType();
 
             $backupManager = Mage_Backup::getBackupInstance($type)
                 ->setBackupExtension($helper->getExtensionByType($type))
-                ->setTime($this->getRequest()->getParam('time'))
+                ->setTime($backup->getTime())
                 ->setBackupsDir($helper->getBackupsDir())
+                ->setName($backup->getName(), false)
                 ->setResourceModel(Mage::getResourceModel('backup/db'));
 
             Mage::register('backup_manager', $backupManager);
@@ -237,12 +264,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
             $adminSession->unsetAll();
             $adminSession->getCookie()->delete($adminSession->getSessionName());
 
-            if ($this->getRequest()->getParam('maintenance_mode')) {
-                $helper->turnOffMaintenanceMode();
-            }
-
             $response->setRedirectUrl($this->getUrl('*'));
-
         } catch (Mage_Backup_Exception_CantLoadSnapshot $e) {
             $errorMsg = Mage::helper('backup')->__('Backup file not found');
         } catch (Mage_Backup_Exception_FtpConnectionFailed $e) {
@@ -260,6 +282,10 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
         if (!empty($errorMsg)) {
             $response->setError($errorMsg);
             $backupManager->setErrorMessage($errorMsg);
+        }
+
+        if ($this->getRequest()->getParam('maintenance_mode')) {
+            $helper->turnOffMaintenanceMode();
         }
 
         $this->getResponse()->setBody($response->toJson());
@@ -292,10 +318,8 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
 
             foreach ($backupIds as $id) {
                 list($time, $type) = explode('_', $id);
-
-                $backupModel->setTime((int)$time)
-                    ->setType($type)
-                    ->setPath(Mage::helper('backup')->getBackupsDir())
+                $backupModel
+                    ->loadByTimeAndType($time, $type)
                     ->deleteFile();
 
                 if ($backupModel->exists()) {

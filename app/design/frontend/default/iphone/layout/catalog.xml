@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -44,9 +44,6 @@ Default layout, loads most of the pages
 
     <default>
         <!-- Mage_Catalog -->
-        <reference name="top.menu">
-            <block type="catalog/navigation" name="catalog.topnav" template="catalog/navigation/top.phtml"/>
-        </reference>
         <reference name="header">
             <block type="catalog/product_compare_sidebar" name="catalogCompareLink" template="catalog/product/compare/sidebar.phtml"/>
         </reference>
@@ -68,11 +65,11 @@ Default layout, loads most of the pages
         </reference>
         <block type="catalog/product_price_template" name="catalog_product_price_template" />
     </default>
-    
+
 <!--
 Category default layout
 -->
-    
+
     <catalog_category_default translate="label">
         <label>Catalog Category (Non-Anchor)</label>
         <reference name="left">

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Weee
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -115,7 +115,8 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 array()
             );
         }
-        $checkDiscountField = $select->getAdapter()->getCheckSql('discount_percent.value IS NULL', 0, 'discount_percent.value');
+        $checkDiscountField = $select->getAdapter()->getCheckSql(
+            'discount_percent.value IS NULL', 0, 'discount_percent.value');
         foreach ($attributes as $attribute) {
             $fieldAlias = sprintf('weee_%s_table.value', $attribute);
             $checkAdditionalCalculation = $select->getAdapter()->getCheckSql("{$fieldAlias} IS NULL", 0, $fieldAlias);
@@ -132,7 +133,8 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
 
         $attributes  = Mage::getSingleton('weee/tax')->getWeeeTaxAttributeCodes();
         foreach ($attributes as $attribute) {
-            $attributeId = (int)Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, $attribute);
+            $attributeId = (int)Mage::getSingleton('eav/entity_attribute')
+                ->getIdByCode(Mage_Catalog_Model_Product::ENTITY, $attribute);
             $tableAlias  = sprintf('weee_%s_table', $attribute);
             $quotedTableAlias = $select->getAdapter()->quoteTableAs($tableAlias, null);
             $attributeSelect  = $this->_getSelect();
@@ -141,8 +143,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 ->where("{$quotedTableAlias}.attribute_id = ?", $attributeId)
                 ->where("{$quotedTableAlias}.website_id IN(?)", array($websiteId, 0))
                 ->where("{$quotedTableAlias}.country = ?", $rateRequest->getCountryId())
-                ->where("{$quotedTableAlias}.state IN(?)", array($rateRequest->getRegionId(), '*'))
-                ->limit(1);
+                ->where("{$quotedTableAlias}.state IN(?)", array($rateRequest->getRegionId(), '*'));
 
             $order = array(
                 sprintf('%s.state %s', $tableAlias, Varien_Db_Select::SQL_DESC),
@@ -278,7 +279,9 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function updateCofigurableProductOptions(Varien_Event_Observer $observer)
     {
-        if (!Mage::helper('weee')->isEnabled()) {
+        /* @var $weeeHelper Mage_Weee_Helper_Data */
+        $weeeHelper = Mage::helper('weee');
+        if (!$weeeHelper->isEnabled()) {
             return $this;
         }
 
@@ -289,14 +292,21 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         if (!$_product) {
             return $this;
         }
-        if (!Mage::helper('weee')->typeOfDisplay($_product, array(0, 1, 4))) {
-            return $this;
-        }
-        $amount     = Mage::helper('weee')->getAmount($_product);
-        $origAmount = Mage::helper('weee')->getOriginalAmount($_product);
+
+        $amount          = $weeeHelper->getAmount($_product);
+        $origAmount      = $weeeHelper->getOriginalAmount($_product);
+        $attributes      = $weeeHelper->getProductWeeeAttributes($_product, null, null, null, $weeeHelper->isTaxable());
+        $amountInclTaxes = $weeeHelper->getAmountInclTaxes($attributes);
+        $taxes           = $amountInclTaxes - $amount;
 
         $options['oldPlusDisposition'] = $origAmount;
-        $options['plusDisposition'] = $amount;
+        $options['plusDisposition']    = $amount;
+        $options['plusDispositionTax'] = ($taxes < 0) ? 0 : $taxes;
+
+        // Exclude Weee amount from excluding tax amount
+        if (!$weeeHelper->typeOfDisplay($_product, array(0, 1, 4))) {
+            $options['exclDisposition'] = true;
+        }
 
         $response->setAdditionalOptions($options);
 
@@ -311,7 +321,9 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function updateBundleProductOptions(Varien_Event_Observer $observer)
     {
-        if (!Mage::helper('weee')->isEnabled()) {
+        /* @var $weeeHelper Mage_Weee_Helper_Data */
+        $weeeHelper = Mage::helper('weee');
+        if (!$weeeHelper->isEnabled()) {
             return $this;
         }
 
@@ -320,16 +332,22 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         $options = $response->getAdditionalOptions();
 
         $_product = Mage::registry('current_product');
-        if (!Mage::helper('weee')->typeOfDisplay($_product, array(0, 1, 4))) {
-            return $this;
-        }
+
         $typeDynamic = Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend::DYNAMIC;
         if (!$_product || $_product->getPriceType() != $typeDynamic) {
             return $this;
         }
 
-        $amount = Mage::helper('weee')->getAmount($selection);
-        $options['plusDisposition'] = $amount;
+        $amount          = $weeeHelper->getAmount($selection);
+        $attributes      = $weeeHelper->getProductWeeeAttributes($_product, null, null, null, $weeeHelper->isTaxable());
+        $amountInclTaxes = $weeeHelper->getAmountInclTaxes($attributes);
+        $taxes           = $amountInclTaxes - $amount;
+        $options['plusDisposition']    = $amount;
+        $options['plusDispositionTax'] = ($taxes < 0) ? 0 : $taxes;
+        // Exclude Weee amount from excluding tax amount
+        if (!$weeeHelper->typeOfDisplay($_product, array(0, 1, 4))) {
+            $options['exclDisposition'] = true;
+        }
 
         $response->setAdditionalOptions($options);
 

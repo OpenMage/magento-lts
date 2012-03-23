@@ -20,12 +20,14 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php /** @var $this Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Tracking */ ?>
 <script type="text/javascript">
-var trackingControl = {};
+//<![CDATA[
+var trackingControl;
 trackingControl = {
     index : 0,
     add : function () {
@@ -64,6 +66,7 @@ trackingControl = {
         }
     }
 }
+//]]>
 </script>
 <div class="grid">
 <table cellspacing="0" class="data" id="tracking_numbers_table">
@@ -89,7 +92,7 @@ trackingControl = {
             <td>
                 <select name="tracking[__index__][carrier_code]" id="trackingC__index__" class="select carrier" style="width:110px;" disabled="disabled">
                     <?php foreach ($this->getCarriers() as $_code=>$_name): ?>
-                    <option value="<?php echo $_code ?>"><?php echo $_name ?></option>
+                    <option value="<?php echo $_code ?>"><?php echo $this->escapeHtml($_name) ?></option>
                     <?php endforeach; ?>
                 </select>
             </td>

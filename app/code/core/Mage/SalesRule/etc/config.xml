@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_SalesRule>
-            <version>1.6.0.2</version>
+            <version>1.6.0.3</version>
         </Mage_SalesRule>
     </modules>
     <global>
@@ -73,6 +73,12 @@
                     <product_attribute>
                         <table>salesrule_product_attribute</table>
                     </product_attribute>
+                    <website>
+                        <table>salesrule_website</table>
+                    </website>
+                    <customer_group>
+                        <table>salesrule_customer_group</table>
+                    </customer_group>
                 </entities>
             </salesrule_resource>
         </models>

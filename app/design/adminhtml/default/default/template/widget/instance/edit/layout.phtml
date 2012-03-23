@@ -20,12 +20,10 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php /* @var $translateHelper Mage_Core_Helper_Translate */ ?>
-<?php $translateHelper = Mage::helper('core/translate'); ?>
 <div class="entry-edit-head">
     <h4><?php echo Mage::helper('widget')->__('Layout Updates') ?></h4>
     <div class="right"><?php echo $this->getAddLayoutButtonHtml() ?></div>
@@ -43,7 +41,7 @@ var pageGroupTemplate = '<div class="options-box page_group_container" id="page_
         '<div class="option-title">'+
             '<?php echo $this->getRemoveLayoutButtonHtml() ?>'+
             '<label for="widget_instance[{{id}}][page_group]">Display On <span class="required">*</span></label>'+
-            '<?php echo $translateHelper->inlineEscapeStartMarker() . $this->getDisplayOnSelectHtml() . $translateHelper->inlineEscapeEndMarker() ?>'+
+            '<?php echo $this->getDisplayOnSelectHtml(); ?>'+
         '</div>'+
 <?php foreach ($this->getDisplayOnContainers() as $container): ?>
     '<div class="no-display <?php echo $container['code'] ?> group_container" id="<?php echo $container['name'] ?>_{{id}}">'+
@@ -89,11 +87,11 @@ var pageGroupTemplate = '<div class="options-box page_group_container" id="page_
             '<input type="hidden" class="product_type_id" name="widget_instance[{{id}}][<?php echo $container['name'] ?>][product_type_id]" value="<?php echo $container['product_type_id'] ?>" />'+
             '<p>' +
                 '<input type="text" class="input-text entities" name="widget_instance[{{id}}][<?php echo $container['name'] ?>][entities]" value="{{<?php echo $container['name'] ?>_entities}}" readonly="readonly" />&nbsp;' +
-                '<a class="widget-option-chooser" href="javascript:void(0)" onclick="WidgetInstance.displayEntityChooser(\'<?php echo $container['code'] ?>\', \'<?php echo $container['name'] ?>_ids_{{id}}\')" <?php echo $translateHelper->inlineEscapeStartMarker() ?> title="<?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Open Chooser')) ?>"><?php echo $translateHelper->inlineEscapeEndMarker() ?>' +
-                    '<?php echo $translateHelper->inlineEscapeStartMarker() ?><img src="<?php echo Mage::getDesign()->getSkinUrl('images/rule_chooser_trigger.gif') ?>" class="v-middle" alt="<?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Open Chooser')); ?>" /><?php echo $translateHelper->inlineEscapeEndMarker() ?>' +
+                '<a class="widget-option-chooser" href="javascript:void(0)" onclick="WidgetInstance.displayEntityChooser(\'<?php echo $container['code'] ?>\', \'<?php echo $container['name'] ?>_ids_{{id}}\')"  title="<?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Open Chooser')) ?>">' +
+                    '<img src="<?php echo Mage::getDesign()->getSkinUrl('images/rule_chooser_trigger.gif') ?>" class="v-middle" alt="<?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Open Chooser')); ?>" />' +
                 '</a>&nbsp;' +
-                '<a href="javascript:void(0)" onclick="WidgetInstance.hideEntityChooser(\'<?php echo $container['name'] ?>_ids_{{id}}\')"<?php echo $translateHelper->inlineEscapeStartMarker() ?> title="<?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Apply')); ?>"><?php echo $translateHelper->inlineEscapeEndMarker() ?>' +
-                    '<?php echo $translateHelper->inlineEscapeStartMarker() ?><img src="<?php echo Mage::getDesign()->getSkinUrl('images/rule_component_apply.gif') ?>" class="v-middle" alt="<?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Apply')); ?>" /><?php echo $translateHelper->inlineEscapeEndMarker() ?>' +
+                '<a href="javascript:void(0)" onclick="WidgetInstance.hideEntityChooser(\'<?php echo $container['name'] ?>_ids_{{id}}\')" title="<?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Apply')); ?>">' +
+                    '<img src="<?php echo Mage::getDesign()->getSkinUrl('images/rule_component_apply.gif') ?>" class="v-middle" alt="<?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Apply')); ?>" />' +
                 '</a>' +
             '</p>'+
             '<div class="chooser"></div>'+
@@ -187,11 +185,11 @@ var WidgetInstance = {
                 data.entities = '';
             }
             data.id = this.count++;
-            if (data.all_products_entities) {
-                var selected_entities = data.all_products_entities.split(',');
+            if (data[data.group + '_entities']) {
+                var selected_entities = data[data.group + '_entities'].split(',');
                 if (selected_entities.length > 0) {
                     for (var i = 0; i < selected_entities.length; i++) {
-                        this.addProductItemToSelection('all_products_ids_' + data.id, selected_entities[i]);
+                        this.addProductItemToSelection(data.group + '_ids_' + data.id, selected_entities[i]);
                     }
                 }
             }

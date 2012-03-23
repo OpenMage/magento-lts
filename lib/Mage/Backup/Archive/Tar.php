@@ -59,7 +59,7 @@ class Mage_Backup_Archive_Tar extends Mage_Archive_Tar
         $iterator = new Mage_Backup_Filesystem_Iterator_Filter($filesystemIterator, $this->_skipFiles);
 
         foreach ($iterator as $item) {
-            $this->_setCurrentFile($item->__toString());
+            $this->_setCurrentFile($item->getPathname());
             $this->_packAndWriteCurrentFile();
         }
 

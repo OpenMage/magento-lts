@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -417,6 +417,18 @@ class Mage_Core_Model_Locale
     }
 
     /**
+     * Retrieve short date format with 4-digit year
+     *
+     * @return  string
+     */
+    public function getDateFormatWithLongYear()
+    {
+        return preg_replace('/(?<!y)yy(?!y)/', 'yyyy',
+            $this->getTranslation(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, 'date'));
+    }
+
+
+    /**
      * Retrieve ISO time format
      *
      * @param   string $type
@@ -556,18 +568,23 @@ class Mage_Core_Model_Locale
     {
         Varien_Profiler::start('locale/currency');
         if (!isset(self::$_currencyCache[$this->getLocaleCode()][$currency])) {
+            $options = array();
             try {
                 $currencyObject = new Zend_Currency($currency, $this->getLocale());
             } catch (Exception $e) {
                 $currencyObject = new Zend_Currency($this->getCurrency(), $this->getLocale());
-                $options = array(
-                        'name'      => $currency,
-                        'currency'  => $currency,
-                        'symbol'    => $currency
-                );
-                $currencyObject->setFormat($options);
+                $options['name'] = $currency;
+                $options['currency'] = $currency;
+                $options['symbol'] = $currency;
             }
 
+            $options = new Varien_Object($options);
+            Mage::dispatchEvent('currency_display_options_forming', array(
+                'currency_options' => $options,
+                'base_code' => $currency
+            ));
+
+            $currencyObject->setFormat($options->toArray());
             self::$_currencyCache[$this->getLocaleCode()][$currency] = $currencyObject;
         }
         Varien_Profiler::stop('locale/currency');
@@ -588,8 +605,8 @@ class Mage_Core_Model_Locale
      * '2'054.52' = 2054.52
      * '2,46 GB' = 2.46
      *
-     * @param string|int $value
-     * @return float
+     * @param string|float|int $value
+     * @return float|null
      */
     public function getNumber($value)
     {
@@ -601,9 +618,8 @@ class Mage_Core_Model_Locale
             return floatval($value);
         }
 
-        //trim space and apos
-        $value = str_replace('\'', '', $value);
-        $value = str_replace(' ', '', $value);
+        //trim spaces and apostrophes
+        $value = str_replace(array('\'', ' '), '', $value);
 
         $separatorComa = strpos($value, ',');
         $separatorDot  = strpos($value, '.');
@@ -622,11 +638,10 @@ class Mage_Core_Model_Locale
         }
 
         return floatval($value);
-        //return Zend_Locale_Format::getNumber($value, array('locale' => $this->getLocaleCode()));
     }
 
     /**
-     * Functions returns array with price formating info for js function
+     * Functions returns array with price formatting info for js function
      * formatCurrency in js/varien/js.js
      *
      * @return array

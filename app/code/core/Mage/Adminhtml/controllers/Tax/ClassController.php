@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,9 +40,6 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
     public function saveAction()
     {
         if ($postData = $this->getRequest()->getPost()) {
-
-            //filtering
-            $postData['class_name'] = Mage::helper('adminhtml')->stripTags($postData['class_name']);
 
             $model = Mage::getModel('tax/class')->setData($postData);
 

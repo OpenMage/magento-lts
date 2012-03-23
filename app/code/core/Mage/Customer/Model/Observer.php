@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +49,20 @@ class Mage_Customer_Model_Observer
      */
     protected function _isDefaultBilling($address)
     {
-        return $address->getId() && $address->getId() == $address->getCustomer()->getDefaultBilling();
+        return ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultBilling())
+            || $address->getIsPrimaryBilling() || $address->getIsDefaultBilling();
+    }
+
+    /**
+     * Check whether specified shipping address is default for its customer
+     *
+     * @param Mage_Customer_Model_Address $address
+     * @return bool
+     */
+    protected function _isDefaultShipping($address)
+    {
+        return ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultShipping())
+            || $address->getIsPrimaryShipping() || $address->getIsDefaultShipping();
     }
 
     /**
@@ -68,6 +81,10 @@ class Mage_Customer_Model_Observer
             return false;
         }
 
+        $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType();
+        if ($configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING) {
+            return $this->_isDefaultShipping($address);
+        }
         return $this->_isDefaultBilling($address);
     }
 
@@ -99,10 +116,17 @@ class Mage_Customer_Model_Observer
         $customerAddress = $observer->getCustomerAddress();
         if ($customerAddress->getId()) {
             Mage::register(self::VIV_CURRENTLY_SAVED_ADDRESS, $customerAddress->getId());
-        } elseif ($customerAddress->getIsDefaultBilling()) {
-            $customerAddress->setForceProcess(true);
         } else {
-            Mage::register(self::VIV_CURRENTLY_SAVED_ADDRESS, 'new_address');
+            $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType();
+
+            $forceProcess = ($configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING)
+                ? $customerAddress->getIsDefaultShipping() : $customerAddress->getIsDefaultBilling();
+
+            if ($forceProcess) {
+                $customerAddress->setForceProcess(true);
+            } else {
+                Mage::register(self::VIV_CURRENTLY_SAVED_ADDRESS, 'new_address');
+            }
         }
     }
 
@@ -169,20 +193,6 @@ class Mage_Customer_Model_Observer
         } catch (Exception $e) {
             Mage::register(self::VIV_PROCESSED_FLAG, false, true);
         }
-    }
-
-    /**
-     * Assign custom renderer for VAT ID field in billing address form
-     *
-     * @param Varien_Event_Observer $observer
-     */
-    public function prepareFormAfter($observer)
-    {
-        /** @var $formBlock Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address */
-        $formBlock = $observer->getForm();
-        $formBlock->getForm()->getElement('vat_id')->setRenderer(
-            $formBlock->getLayout()->createBlock('adminhtml/customer_sales_order_address_form_billing_renderer_vat')
-        );
     }
 
     /**

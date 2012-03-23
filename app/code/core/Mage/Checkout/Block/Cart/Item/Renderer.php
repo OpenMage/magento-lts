@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,9 @@
  * @category    Mage
  * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Checkout_Block_Cart_Item_Renderer setProductName(string)
+ * @method Mage_Checkout_Block_Cart_Item_Renderer setDeleteUrl(string)
  */
 class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
 {
@@ -38,6 +41,20 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     protected $_item;
     protected $_productUrl = null;
     protected $_productThumbnail = null;
+
+    /**
+     * Whether qty will be converted to number
+     *
+     * @var bool
+     */
+    protected $_strictQtyMode = true;
+
+    /**
+     * Check, whether product URL rendering should be ignored
+     *
+     * @var bool
+     */
+    protected $_ignoreProductUrl = false;
 
     /**
      * Set item for render
@@ -99,10 +116,14 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      * Check Product has URL
      *
-     * @return this
+     * @return bool
      */
     public function hasProductUrl()
     {
+        if ($this->_ignoreProductUrl) {
+            return false;
+        }
+
         if ($this->_productUrl || $this->getItem()->getRedirectUrl()) {
             return true;
         }
@@ -158,6 +179,9 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      */
     public function getProductName()
     {
+        if ($this->hasProductName()) {
+            return $this->getData('product_name');
+        }
         return $this->getProduct()->getName();
     }
 
@@ -203,6 +227,10 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      */
     public function getDeleteUrl()
     {
+        if ($this->hasDeleteUrl()) {
+            return $this->getData('delete_url');
+        }
+
         return $this->getUrl(
             'checkout/cart/delete',
             array(
@@ -215,11 +243,14 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      * Get quote item qty
      *
-     * @return mixed
+     * @return float|int|string
      */
     public function getQty()
     {
-        return $this->getItem()->getQty()*1;
+        if (!$this->_strictQtyMode && (string)$this->getItem()->getQty() == '') {
+            return '';
+        }
+        return $this->getItem()->getQty() * 1;
     }
 
     /**
@@ -359,5 +390,29 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
             ->setTemplate('catalog/product/price_msrp_item.phtml')
             ->setProduct($item->getProduct())
             ->toHtml();
+    }
+
+    /**
+     * Set qty mode to be strict or not
+     *
+     * @param bool $strict
+     * @return Mage_Checkout_Block_Cart_Item_Renderer
+     */
+    public function setQtyMode($strict)
+    {
+        $this->_strictQtyMode = $strict;
+        return $this;
+    }
+
+    /**
+     * Set ignore product URL rendering
+     *
+     * @param bool $ignore
+     * @return Mage_Checkout_Block_Cart_Item_Renderer
+     */
+    public function setIgnoreProductUrl($ignore = true)
+    {
+        $this->_ignoreProductUrl = $ignore;
+        return $this;
     }
 }

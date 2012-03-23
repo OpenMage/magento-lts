@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg extends Varien_Data_Form_
                     'label'   => Mage::helper('catalog')->__('WYSIWYG Editor'),
                     'type'    => 'button',
                     'disabled' => $disabled,
-                    'class' => ($disabled) ? 'disabled' : '',
+                    'class' => ($disabled) ? 'disabled btn-wysiwyg' : 'btn-wysiwyg',
                     'onclick' => 'catalogWysiwygEditor.open(\''.Mage::helper('adminhtml')->getUrl('*/*/wysiwyg').'\', \''.$this->getHtmlId().'\')'
                 ))->toHtml();
         }
@@ -63,7 +63,8 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg extends Varien_Data_Form_
     public function getIsWysiwygEnabled()
     {
         if (Mage::helper('catalog')->isModuleEnabled('Mage_Cms')) {
-            return (bool)(Mage::getSingleton('cms/wysiwyg_config')->isEnabled() && $this->getEntityAttribute()->getIsWysiwygEnabled());
+            return (bool)(Mage::getSingleton('cms/wysiwyg_config')->isEnabled()
+                && $this->getEntityAttribute()->getIsWysiwygEnabled());
         }
 
         return false;

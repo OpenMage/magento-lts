@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -267,7 +267,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         $adapter->commit();
 
         if ($this->_importErrors) {
-            $error = Mage::helper('shipping')->__('%1$d records have been imported. See the following list of errors for each record that has not been imported: %2$s', $this->_importedRows, implode(" \n", $this->_importErrors));
+            $error = Mage::helper('shipping')->__('File has not been imported. See the following list of errors: %s', implode(" \n", $this->_importErrors));
             Mage::throwException($error);
         }
 

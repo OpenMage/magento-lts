@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -105,6 +105,14 @@ class Mage_Paypal_Model_Config
     const AUTHORIZATION_AMOUNT_ZERO = 0;
     const AUTHORIZATION_AMOUNT_ONE = 1;
     const AUTHORIZATION_AMOUNT_FULL = 2;
+
+    /**
+     * Require Billing Address
+     * @var int
+     */
+    const REQUIRE_BILLING_ADDRESS_NO = 0;
+    const REQUIRE_BILLING_ADDRESS_ALL = 1;
+    const REQUIRE_BILLING_ADDRESS_VIRTUAL = 2;
 
     /**
      * Fraud management actions
@@ -856,6 +864,20 @@ class Mage_Paypal_Model_Config
     }
 
     /**
+     * Require Billing Address source getter
+     *
+     * @return array
+     */
+    public function getRequireBillingAddressOptions()
+    {
+        return array(
+            self::REQUIRE_BILLING_ADDRESS_ALL       => Mage::helper('paypal')->__('Yes'),
+            self::REQUIRE_BILLING_ADDRESS_NO        => Mage::helper('paypal')->__('No'),
+            self::REQUIRE_BILLING_ADDRESS_VIRTUAL   => Mage::helper('paypal')->__('For Virtual Quotes Only'),
+        );
+    }
+
+    /**
      * Mapper from PayPal-specific payment actions to Magento payment actions
      *
      * @return string|null
@@ -1189,6 +1211,7 @@ class Mage_Paypal_Model_Config
             case 'solution_type':
             case 'visible_on_cart':
             case 'visible_on_product':
+            case 'require_billing_address':
             case 'authorization_honor_period':
             case 'order_valid_period':
             case 'child_authorization_number':

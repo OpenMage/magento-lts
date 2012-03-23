@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -119,5 +119,17 @@ abstract class Mage_Core_Model_Message_Abstract
     public function getIsSticky()
     {
         return $this->_isSticky;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Mage_Core_Model_Message_Abstract
+     */
+    public function setCode($code)
+    {
+        $this->_code = $code;
+        return $this;
     }
 }

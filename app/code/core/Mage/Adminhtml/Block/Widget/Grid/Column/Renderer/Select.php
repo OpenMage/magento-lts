@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,10 +29,11 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Select extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Select
+    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
 
     /**
@@ -43,11 +44,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Select extends Mage_Admin
      */
     public function render(Varien_Object $row)
     {
-        $html = '<select name="'.( $this->getColumn()->getName() ? $this->getColumn()->getName() : $this->getColumn()->getId() ).'" ' . $this->getColumn()->getValidateClass() . '>';
+        $name = $this->getColumn()->getName() ? $this->getColumn()->getName() : $this->getColumn()->getId();
+        $html = '<select name="' . $this->escapeHtml($name) . '" ' . $this->getColumn()->getValidateClass() . '>';
         $value = $row->getData($this->getColumn()->getIndex());
         foreach ($this->getColumn()->getOptions() as $val => $label){
             $selected = ( ($val == $value && (!is_null($value))) ? ' selected="selected"' : '' );
-            $html.= '<option value="' . $val . '"' . $selected . '>' . $label . '</option>';
+            $html .= '<option value="' . $this->escapeHtml($val) . '"' . $selected . '>';
+            $html .= $this->escapeHtml($label) . '</option>';
         }
         $html.='</select>';
         return $html;

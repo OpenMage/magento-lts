@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -182,18 +182,21 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
             <div id="' . $chooserId . 'advice-container" class="hidden"></div>
             <script type="text/javascript">//<![CDATA[
                 (function() {
-                    var fun_'. $chooserId .' = function() {
+                    var instantiateChooser = function() {
                         window.' . $chooserId . ' = new WysiwygWidget.chooser(
                             "' . $chooserId . '",
                             "' . $this->getSourceUrl() . '",
                             ' . $configJson . '
                         );
-                        $("'.$chooserId.'value").advaiceContainer = "'.$chooserId.'advice-container";
-                    };
+                        if ($("' . $chooserId . 'value")) {
+                            $("' . $chooserId . 'value").advaiceContainer = "' . $chooserId . 'advice-container";
+                        }
+                    }
+
                     if (document.loaded) { //allow load over ajax
-                        fun_'. $chooserId .'.call();
+                        instantiateChooser();
                     } else {
-                        document.observe("dom:loaded", fun_'. $chooserId .');
+                        document.observe("dom:loaded", instantiateChooser);
                     }
                 })();
             //]]></script>

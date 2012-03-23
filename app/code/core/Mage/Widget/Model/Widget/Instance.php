@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -63,6 +63,13 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      * @var Varien_Simplexml_Element
      */
     protected $_widgetConfigXml = null;
+
+    /**
+     * Prefix of model events names
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'widget_widget_instance';
 
     /**
      * Internal Constructor
@@ -342,11 +349,11 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         if (is_string($this->getData('widget_parameters'))) {
             return unserialize($this->getData('widget_parameters'));
         }
-        return $this->getData('widget_parameters');
+        return (is_array($this->getData('widget_parameters'))) ? $this->getData('widget_parameters') : array();
     }
 
     /**
-     * Retrieve option arra of widget types
+     * Retrieve option array of widget types
      *
      * @return array
      */

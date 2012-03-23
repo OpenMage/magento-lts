@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Captcha
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -175,6 +175,16 @@ class Mage_Captcha_Model_Observer
     }
 
     /**
+     * Returns backend session
+     *
+     * @return Mage_Adminhtml_Model_Session
+     */
+    protected function _getBackendSession()
+    {
+        return Mage::getSingleton('adminhtml/session');
+    }
+
+    /**
      * Check Captcha On User Login Backend Page
      *
      * @param Varien_Event_Observer $observer
@@ -191,9 +201,9 @@ class Mage_Captcha_Model_Observer
         if (!empty($email) && !empty($params)){
             if ($captchaModel->isRequired()){
                 if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
-                    $this->_getSession()->setEmail((string) $controller->getRequest()->getPost('email'));
+                    $this->_getBackendSession()->setEmail((string) $controller->getRequest()->getPost('email'));
                     $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
-                    $this->_getSession()->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                    $this->_getBackendSession()->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
                     $controller->getResponse()->setRedirect(Mage::getUrl('*/*/forgotpassword'));
                 }
             }

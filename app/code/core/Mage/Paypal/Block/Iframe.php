@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -75,8 +75,13 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
             ->getMethod();
         if (in_array($paymentCode, $this->helper('paypal/hss')->getHssMethods())) {
             $this->_paymentMethodCode = $paymentCode;
-            $template_path = str_replace('_', '', $paymentCode);
-            $this->setTemplate("paypal/{$template_path}/iframe.phtml");
+            $templatePath = str_replace('_', '', $paymentCode);
+            $templateFile = "paypal/{$templatePath}/iframe.phtml";
+            if (file_exists(Mage::getDesign()->getTemplateFilename($templateFile))) {
+                $this->setTemplate($templateFile);
+            } else {
+                $this->setTemplate('paypal/hss/iframe.phtml');
+            }
         }
     }
 

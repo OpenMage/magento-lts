@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,5 +32,5 @@ $installer->getConnection()->addColumn($installer->getTable('customer/entity'), 
     'unsigned' => true,
     'nullable' => false,
     'default' => '0',
-    'comment' => 'Disable automatic group change'
+    'comment' => 'Disable automatic group change based on VAT ID'
 ));

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Index
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -115,7 +115,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Remove indexer namespace from event
      *
-     * @return  Mage_Index_Model_Process
+     * @param Mage_Index_Model_Event $event
+     * @return Mage_Index_Model_Process
      */
     protected function _resetEventNamespace($event)
     {
@@ -128,6 +129,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Register data required by process in event object
      *
      * @param Mage_Index_Model_Event $event
+     * @return Mage_Index_Model_Process
      */
     public function register(Mage_Index_Model_Event $event)
     {
@@ -500,6 +502,10 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     public function changeStatus($status)
     {
+        Mage::dispatchEvent('index_process_change_status', array(
+            'process' => $this,
+            'status' => $status
+        ));
         $this->_getResource()->updateStatus($this, $status);
         return $this;
     }

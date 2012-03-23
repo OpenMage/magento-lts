@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Captcha
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -76,7 +76,7 @@
                             <show_in_store>0</show_in_store>
                             <depends><enable>1</enable></depends>
                         </mode>
-                        <failed_attempts translate="label comment">
+                        <failed_attempts_login translate="label comment">
                             <label>Number of Unsuccessful Attempts to Login</label>
                             <frontend_type>text</frontend_type>
                             <comment>If 0 is specified, CAPTCHA on the Login form will be always available.</comment>
@@ -89,7 +89,7 @@
                                 <enable>1</enable>
                             </depends>
                             <frontend_class>required-entry validate-digits</frontend_class>
-                        </failed_attempts>
+                        </failed_attempts_login>
                         <timeout translate="label">
                             <label>CAPTCHA Timeout (minutes)</label>
                             <frontend_type>text</frontend_type>
@@ -186,7 +186,7 @@
                             <show_in_store>0</show_in_store>
                             <depends><enable>1</enable></depends>
                         </mode>
-                        <failed_attempts translate="label comment">
+                        <failed_attempts_login translate="label comment">
                             <label>Number of Unsuccessful Attempts to Login</label>
                             <frontend_type>text</frontend_type>
                             <comment>If 0 is specified, CAPTCHA on the Login form will be always available.</comment>
@@ -199,7 +199,7 @@
                                 <mode>after_fail</mode>
                             </depends>
                             <frontend_class>required-entry validate-digits</frontend_class>
-                        </failed_attempts>
+                        </failed_attempts_login>
                         <timeout translate="label">
                             <label>CAPTCHA Timeout (minutes)</label>
                             <frontend_type>text</frontend_type>

@@ -19,7 +19,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var AdminOrder = new Class.create();
@@ -42,6 +42,59 @@ AdminOrder.prototype = {
         this.giftMessageDataChanged = false;
         this.productConfigureAddFields = {};
         this.productPriceBase = {};
+        this.collectElementsValue = true;
+        Event.observe(window, 'load',  (function(){
+            this.dataArea = new OrderFormArea('data', $(this.getAreaId('data')), this);
+            this.itemsArea = Object.extend(new OrderFormArea('items', $(this.getAreaId('items')), this), {
+                addControlButton: function(button){
+                    var controlButtonArea = $(this.node).select('.form-buttons')[0];
+                    if (typeof controlButtonArea != 'undefined') {
+                        var buttons = controlButtonArea.childElements();
+                        for (var i = 0; i < buttons.length; i++) {
+                            if (buttons[i].innerHTML.include(button.label)) {
+                                return ;
+                            }
+                        }
+                        button.insertIn(controlButtonArea, 'top');
+                    }
+                }
+            });
+
+            var searchButton = new ControlButton(Translator.translate('Add Products')),
+                searchAreaId = this.getAreaId('search');
+            searchButton.onClick = function() {
+                $(searchAreaId).show();
+                var el = this;
+                window.setTimeout(function () {
+                    el.remove();
+                }, 10);
+            }
+
+            this.dataArea.onLoad = this.dataArea.onLoad.wrap(function(proceed) {
+                proceed();
+                this._parent.itemsArea.setNode($(this._parent.getAreaId('items')));
+                this._parent.itemsArea.onLoad();
+            });
+
+            this.itemsArea.onLoad = this.itemsArea.onLoad.wrap(function(proceed) {
+                proceed();
+                if (!$(searchAreaId).visible()) {
+                    this.addControlButton(searchButton);
+                }
+            });
+            this.areasLoaded();
+            this.itemsArea.onLoad();
+        }).bind(this));
+    },
+
+    areasLoaded: function(){
+    },
+
+    itemsLoaded: function(){
+    },
+
+    dataLoaded: function(){
+        this.dataShow();
     },
 
     setLoadBaseUrl : function(url){
@@ -63,7 +116,7 @@ AdminOrder.prototype = {
     setCustomerAfter : function () {
         this.customerSelectorHide();
         if (this.storeId) {
-            $(this.getAreaId('data')).callback = 'dataShow';
+            $(this.getAreaId('data')).callback = 'dataLoaded';
             this.loadArea(['data'], true);
         }
         else {
@@ -219,14 +272,26 @@ AdminOrder.prototype = {
         }
     },
 
-    disableShippingAddress : function(flag){
+    disableShippingAddress : function(flag) {
         this.shippingAsBilling = flag;
-        if($('order-shipping_address_customer_address_id')) {
-            $('order-shipping_address_customer_address_id').disabled=flag;
+        if ($('order-shipping_address_customer_address_id')) {
+            $('order-shipping_address_customer_address_id').disabled = flag;
         }
-        if($(this.shippingAddressContainer)){
+        if ($(this.shippingAddressContainer)) {
             var dataFields = $(this.shippingAddressContainer).select('input', 'select', 'textarea');
-            for(var i=0;i<dataFields.length;i++) dataFields[i].disabled = flag;
+            for (var i = 0; i < dataFields.length; i++) {
+                dataFields[i].disabled = flag;
+            }
+            var buttons = $(this.shippingAddressContainer).select('button');
+            // Add corresponding class to buttons while disabling them
+            for (i = 0; i < buttons.length; i++) {
+                buttons[i].disabled = flag;
+                if (flag) {
+                    buttons[i].addClassName('disabled');
+                } else {
+                    buttons[i].removeClassName('disabled');
+                }
+            }
         }
     },
 
@@ -598,13 +663,22 @@ AdminOrder.prototype = {
         this.showArea('data');
     },
 
+    clearShoppingCart : function(confirmMessage){
+        if (confirm(confirmMessage)) {
+            this.collectElementsValue = false;
+            order.sidebarApplyChanges({'sidebar[empty_customer_cart]': 1});
+        }
+    },
+
     sidebarApplyChanges : function(auxiliaryParams) {
         if ($(this.getAreaId('sidebar'))) {
             var data = {};
-            var elems = $(this.getAreaId('sidebar')).select('input');
-            for (var i=0; i < elems.length; i++) {
-                if (elems[i].getValue()) {
-                    data[elems[i].name] = elems[i].getValue();
+            if (this.collectElementsValue) {
+                var elems = $(this.getAreaId('sidebar')).select('input');
+                for (var i=0; i < elems.length; i++) {
+                    if (elems[i].getValue()) {
+                        data[elems[i].name] = elems[i].getValue();
+                    }
                 }
             }
             if (auxiliaryParams instanceof Object) {
@@ -1070,6 +1144,10 @@ AdminOrder.prototype = {
             vat: $(parameters.vatElementId).value
         };
 
+        if (this.storeId !== false) {
+            params.store_id = this.storeId;
+        }
+
         var currentCustomerGroupId = $(parameters.groupIdHtmlId).value;
 
         new Ajax.Request(parameters.validateUrl, {
@@ -1088,12 +1166,14 @@ AdminOrder.prototype = {
                         }
                     } else if (response.success) {
                         message = parameters.vatInvalidMessage.replace(/%s/, params.vat);
+                        groupChangeRequired = true;
                     } else {
                         message = parameters.vatValidationFailedMessage;
+                        groupChangeRequired = true;
                     }
 
                 } catch (e) {
-                    message = parameters.vatValidationFailedMessage;
+                    message = parameters.vatErrorMessage;
                 }
                 if (!groupChangeRequired) {
                     alert(message);
@@ -1119,4 +1199,64 @@ AdminOrder.prototype = {
             this.accountGroupChange();
         }
     }
-}
+};
+
+var OrderFormArea = Class.create();
+OrderFormArea.prototype = {
+    _name: null,
+    _node: null,
+    _parent: null,
+    _callbackName: null,
+
+    initialize: function(name, node, parent){
+        this._name = name;
+        this._parent = parent;
+        this._callbackName = node.callback;
+        if (typeof this._callbackName == 'undefined') {
+            this._callbackName = name + 'Loaded';
+            node.callback = this._callbackName;
+        }
+        parent[this._callbackName] = parent[this._callbackName].wrap((function (proceed){
+            proceed();
+            this.onLoad();
+        }).bind(this));
+
+        this.setNode(node);
+    },
+
+    setNode: function(node){
+        if (!node.callback) {
+            node.callback = this._callbackName;
+        }
+        this.node = node;
+    },
+
+    onLoad: function(){
+    }
+};
+
+var ControlButton = Class.create();
+ControlButton.prototype = {
+    _label: '',
+    _node: null,
+
+    initialize: function(label){
+        this._label = label;
+        this._node = new Element('button', {
+            'class': 'scalable add',
+            'type':  'button'
+        });
+    },
+
+    onClick: function(){
+    },
+
+    insertIn: function(element, position){
+        var node = Object.extend(this._node),
+            content = {};
+        node.observe('click', this.onClick);
+        node.update('<span>' + this._label + '</span>');
+        content[position] = node;
+        Element.insert(element, content);
+    }
+};

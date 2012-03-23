@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Poll
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -204,13 +204,20 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
+        /** @var $coreSessionModel Mage_Core_Model_Session */
+        $coreSessionModel = Mage::getSingleton('core/session');
+        $justVotedPollId = $coreSessionModel->getJustVotedPoll();
+        if ($justVotedPollId && !$this->_pollModel->isVoted($justVotedPollId)) {
+            $this->_pollModel->setVoted($justVotedPollId);
+        }
+
         $pollId = $this->getPollToShow();
         $data = $this->getPollData($pollId);
         $this->assign($data);
 
-        Mage::getSingleton('core/session')->setJustVotedPoll(false);
+        $coreSessionModel->setJustVotedPoll(false);
 
-        if ($this->_pollModel->isVoted($pollId) === true) {
+        if ($this->_pollModel->isVoted($pollId) === true || $justVotedPollId) {
             $this->setTemplate($this->_templates['results']);
         } else {
             $this->setTemplate($this->_templates['poll']);

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -102,11 +102,19 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     public function getWebsiteIdsByProductIds($productIds)
     {
         $select = $this->_getWriteAdapter()->select()
-            ->from($this->_productWebsiteTable, array('product_id', 'website_ids' =>'GROUP_CONCAT(website_id)'))
-            ->where('product_id IN (?)', $productIds)
-            ->group('product_id');
+            ->from($this->_productWebsiteTable, array('product_id', 'website_id'))
+            ->where('product_id IN (?)', $productIds);
+        $productsWebsites = array();
+        foreach ($this->_getWriteAdapter()->fetchAll($select) as $productInfo) {
+            $productId = $productInfo['product_id'];
+            if (!isset($productsWebsites[$productId])) {
+                $productsWebsites[$productId] = array();
+            }
+            $productsWebsites[$productId][] = $productInfo['website_id'];
 
-        return $this->_getWriteAdapter()->fetchAll($select);
+        }
+
+        return $productsWebsites;
     }
 
     /**
@@ -640,6 +648,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Retrieve product entities info
      *
+     * @param  array|string|null $columns
      * @return array
      */
     public function getProductEntitiesInfo($columns = null)
@@ -650,9 +659,12 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         if (empty($columns) || !is_array($columns)) {
             $columns = $this->_getDefaultAttributes();
         }
-        $select = $this->_getReadAdapter()->select()
+
+        $adapter = $this->_getReadAdapter();
+        $select = $adapter->select()
             ->from($this->getTable('catalog/product'), $columns);
-        return $this->_getReadAdapter()->fetchAll($select);
+
+        return $adapter->fetchAll($select);
     }
 
     /**

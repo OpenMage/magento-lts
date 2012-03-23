@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Persistent
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -112,5 +112,17 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
 
         $checkoutUrl = $this->_getRefererUrl();
         $this->_redirectUrl($checkoutUrl . (strpos($checkoutUrl, '?') ? '&' : '?') . 'register');
+    }
+
+    /**
+     * Add appropriate session message and redirect to shopping cart
+     * used for google checkout and paypal express checkout
+     */
+    public function expressCheckoutAction()
+    {
+        Mage::getSingleton('core/session')->addNotice(
+            Mage::helper('persistent')->__('Shopping cart has been updated with appropriate prices')
+        );
+        $this->_redirect('checkout/cart');
     }
 }

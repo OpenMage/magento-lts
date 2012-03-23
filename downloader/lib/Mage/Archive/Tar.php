@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Archive
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -198,7 +198,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      */
     protected function _setCurrentFile($file)
     {
-        $this->_currentFile = $file .((is_dir($file) && substr($file, -1)!=DS)?DS:'');
+        $this->_currentFile = $file .((!is_link($file) && is_dir($file) && substr($file, -1) != DS) ? DS : '');
         return $this;
     }
 
@@ -332,7 +332,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
 
         $fileSize = 0;
 
-        if (is_file($currentFile)) {
+        if (is_file($currentFile) && !is_link($currentFile)) {
             $fileReader = new Mage_Archive_Helper_File($currentFile);
             $fileReader->open('r');
 
@@ -352,7 +352,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Compose header for current file in TAR format.
      * If length of file's name greater 100 characters,
-     * method breaks header to two pieces. First conatins
+     * method breaks header into two pieces. First contains
      * header and data with long name. Second contain only header.
      *
      * @param boolean $long
@@ -381,8 +381,8 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             ? 0 : filesize($file));
         $header['12-mtime']       = $long?'00000000000':sprintf("%011o", $infoFile['mtime']);
         $header['8-check']        = sprintf('% 8s', '');
-        $header['1-type']         = $long?'L':(is_link($file) ? 2 : is_dir ($file) ? 5 : 0);
-        $header['100-symlink']    = is_link($file) == 2 ? readlink($item) : '';
+        $header['1-type']         = $long ? 'L' : (is_link($file) ? 2 : (is_dir($file) ? 5 : 0));
+        $header['100-symlink']    = is_link($file) ? readlink($file) : '';
         $header['6-magic']        = 'ustar ';
         $header['2-version']      = ' ';
         $a=function_exists('posix_getpwuid')?posix_getpwuid (fileowner($file)):array('name'=>'');
@@ -456,6 +456,13 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
                     }
                 }
                 $list[] = $currentFile . DS;
+            } elseif ($header['type'] == '2') {
+
+                $symlinkResult = @symlink($header['symlink'], $currentFile);
+
+                if (false === $symlinkResult) {
+                    throw new Mage_Exception('Failed to create symlink ' . $currentFile . ' to ' . $header['symlink']);
+                }
             }
         }
 

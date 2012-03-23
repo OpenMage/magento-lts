@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -121,16 +121,6 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                     'adminhtml_controller_salesrule_prepare_save',
                     array('request' => $this->getRequest()));
                 $data = $this->getRequest()->getPost();
-
-                //filter HTML tags
-                /** @var $helper Mage_Adminhtml_Helper_Data */
-                $helper = Mage::helper('adminhtml');
-                $data['name'] = $helper->stripTags($data['name']);
-                $data['description'] = $helper->stripTags($data['description']);
-                foreach ($data['store_labels'] as &$label) {
-                    $label = $helper->stripTags($label);
-                }
-
                 $data = $this->_filterDates($data, array('from_date', 'to_date'));
                 $id = $this->getRequest()->getParam('rule_id');
                 if ($id) {
@@ -181,12 +171,20 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 return;
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
+                $id = (int)$this->getRequest()->getParam('rule_id');
+                if (!empty($id)) {
+                    $this->_redirect('*/*/edit', array('id' => $id));
+                } else {
+                    $this->_redirect('*/*/new');
+                }
+                return;
+
             } catch (Exception $e) {
                 $this->_getSession()->addError(
                     Mage::helper('catalogrule')->__('An error occurred while saving the rule data. Please review the log and try again.'));
                 Mage::logException($e);
                 Mage::getSingleton('adminhtml/session')->setPageData($data);
-                 $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('rule_id')));
+                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('rule_id')));
                 return;
             }
         }
@@ -386,7 +384,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                     $generator->setData($data);
                     $generator->generatePool();
                     $generated = $generator->getGeneratedCount();
-                    $this->_getSession()->addSuccess(Mage::helper('salesrule')->__('%s Coupon(s) generated successfully', $generated));
+                    $this->_getSession()->addSuccess(Mage::helper('salesrule')->__('%s Coupon(s) have been generated', $generated));
                     $this->_initLayoutMessages('adminhtml/session');
                     $result['messages']  = $this->getLayout()->getMessagesBlock()->getGroupedHtml();
                 }

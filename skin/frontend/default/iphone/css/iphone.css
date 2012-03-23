@@ -19,7 +19,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -2863,6 +2863,20 @@ section .category-title { display:none; }
     border-radius: 2px;
     background: -webkit-gradient(linear, 0 0, 0 100%, from(#FEFEFE), to(#EEE));
     font-size: 16px;
+    text-transform: small-caps;
+}
+.sendfriend-product-send .btn-remove {
+    float:right;
+    display:block;
+    margin:0 0 10px;
+    padding: 5px 10px;
+    border: 1px solid #CECECE;
+    border-radius: 2px;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#FEFEFE), to(#EEE));
+    font-size: 16px;
+    text-transform: small-caps;
+}
+#add_recipient_button button { position:absolute; top:0px; right:0; }
 
 */
 

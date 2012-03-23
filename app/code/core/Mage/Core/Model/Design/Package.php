@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -518,7 +518,7 @@ class Mage_Core_Model_Design_Package
      * Directories lister utility method
      *
      * @param string $path
-     * @param string|false $fullPath
+     * @param string|bool $fullPath
      * @return array
      */
     private function _listDirectories($path, $fullPath = false)
@@ -581,6 +581,7 @@ class Mage_Core_Model_Design_Package
      *
      * @param array $rules - design exception rules
      * @param string $regexpsConfigPath
+     * @return bool|string
      */
     public static function getPackageByUserAgent(array $rules, $regexpsConfigPath = 'path_mock')
     {
@@ -647,7 +648,13 @@ class Mage_Core_Model_Design_Package
 
         // merge into target file
         $targetFilename = md5(implode(',', $files) . "|{$hostname}|{$port}") . '.css';
-        if ($this->_mergeFiles($files, $targetDir . DS . $targetFilename, false, array($this, 'beforeMergeCss'), 'css')) {
+        $mergeFilesResult = $this->_mergeFiles(
+            $files, $targetDir . DS . $targetFilename,
+            false,
+            array($this, 'beforeMergeCss'),
+            'css'
+        );
+        if ($mergeFilesResult) {
             return $baseMediaUrl . $mergerDir . '/' . $targetFilename;
         }
         return '';
@@ -658,13 +665,14 @@ class Mage_Core_Model_Design_Package
      *
      * @see Mage_Core_Helper_Data::mergeFiles()
      * @param array $srcFiles
-     * @param string|false $targetFile - file path to be written
+     * @param string|bool $targetFile - file path to be written
      * @param bool $mustMerge
      * @param callback $beforeMergeCallback
      * @param array|string $extensionsFilter
      * @return bool|string
      */
-    protected function _mergeFiles(array $srcFiles, $targetFile = false, $mustMerge = false, $beforeMergeCallback = null, $extensionsFilter = array())
+    protected function _mergeFiles(array $srcFiles, $targetFile = false,
+        $mustMerge = false, $beforeMergeCallback = null, $extensionsFilter = array())
     {
         if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
             if (!file_exists($targetFile)) {
@@ -675,14 +683,26 @@ class Mage_Core_Model_Design_Package
             } else {
                 $filemtime = null;
             }
-            $result = Mage::helper('core')->mergeFiles($srcFiles, $targetFile, $mustMerge, $beforeMergeCallback, $extensionsFilter);
+            $result = Mage::helper('core')->mergeFiles(
+                $srcFiles,
+                $targetFile,
+                $mustMerge,
+                $beforeMergeCallback,
+                $extensionsFilter
+            );
             if ($result && (filemtime($targetFile) > $filemtime)) {
                 Mage::helper('core/file_storage_database')->saveFile($targetFile);
             }
             return $result;
 
         } else {
-            return Mage::helper('core')->mergeFiles($srcFiles, $targetFile, $mustMerge, $beforeMergeCallback, $extensionsFilter);
+            return Mage::helper('core')->mergeFiles(
+                $srcFiles,
+                $targetFile,
+                $mustMerge,
+                $beforeMergeCallback,
+                $extensionsFilter
+            );
         }
     }
 
@@ -704,6 +724,7 @@ class Mage_Core_Model_Design_Package
      *
      * @param string $dirRelativeName
      * @param bool $cleanup
+     * @return bool
      */
     protected function _initMergerDir($dirRelativeName, $cleanup = false)
     {
@@ -738,7 +759,7 @@ class Mage_Core_Model_Design_Package
        $cssImport = '/@import\\s+([\'"])(.*?)[\'"]/';
        $contents = preg_replace_callback($cssImport, array($this, '_cssMergerImportCallback'), $contents);
 
-       $cssUrl = '/url\\(\\s*([^\\)\\s]+)\\s*\\)?/';
+       $cssUrl = '/url\\(\\s*(?!data:)([^\\)\\s]+)\\s*\\)?/';
        $contents = preg_replace_callback($cssUrl, array($this, '_cssMergerUrlCallback'), $contents);
 
        return $contents;

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Backup
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,7 +59,7 @@ class Mage_Backup_Archive_Tar extends Mage_Archive_Tar
         $iterator = new Mage_Backup_Filesystem_Iterator_Filter($filesystemIterator, $this->_skipFiles);
 
         foreach ($iterator as $item) {
-            $this->_setCurrentFile($item->__toString());
+            $this->_setCurrentFile($item->getPathname());
             $this->_packAndWriteCurrentFile();
         }
 

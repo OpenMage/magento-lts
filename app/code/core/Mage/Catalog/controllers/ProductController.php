@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -168,33 +168,9 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
      */
     public function imageAction()
     {
-        $size = (string) $this->getRequest()->getParam('size');
-        if ($size) {
-            $imageFile = preg_replace("#.*/catalog/product/image/size/[0-9]*x[0-9]*#", '',
-                $this->getRequest()->getRequestUri());
-        } else {
-            $imageFile = preg_replace("#.*/catalog/product/image#", '',
-                $this->getRequest()->getRequestUri());
-        }
-
-        if (!strstr($imageFile, '.')) {
-            $this->_forward('noRoute');
-            return;
-        }
-
-        try {
-            $imageModel = Mage::getModel('catalog/product_image');
-            $imageModel->setSize($size)
-                ->setBaseFile($imageFile)
-                /**
-                 * Resizing has been commented because this one method are deprecated
-                 */
-                //->resize()
-                ->setWatermark( Mage::getStoreConfig('catalog/watermark/image') )
-                ->saveFile()
-                ->push();
-        } catch( Exception $e ) {
-            $this->_forward('noRoute');
-        }
+        /*
+         * All logic has been cut to avoid possible malicious usage of the method
+         */
+        $this->_forward('noRoute');
     }
 }

@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -447,16 +447,6 @@
                 </Mage_Customer>
             </modules>
         </translate>
-        <events>
-            <adminhtml_sales_order_billing_address_prepare_form_after>
-                <observers>
-                    <customer_vat_id_renderer_observer>
-                        <class>customer/observer</class>
-                        <method>prepareFormAfter</method>
-                    </customer_vat_id_renderer_observer>
-                </observers>
-            </adminhtml_sales_order_billing_address_prepare_form_after>
-        </events>
     </adminhtml>
     <frontend>
         <secure_url>
@@ -514,6 +504,7 @@
             <create_account>
                 <confirm>0</confirm>
                 <default_group>1</default_group>
+                <tax_calculation_address_type>billing</tax_calculation_address_type>
                 <email_domain>example.com</email_domain>
                 <email_identity>general</email_identity>
                 <email_template>customer_create_account_email_template</email_template>

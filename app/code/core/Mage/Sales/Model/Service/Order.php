@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -187,6 +187,7 @@ class Mage_Sales_Model_Service_Order
             $item = $this->_convertor->itemToCreditmemoItem($orderItem);
             if ($orderItem->isDummy()) {
                 $qty = 1;
+                $orderItem->setLockedDoShip(true);
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = (float) $qtys[$orderItem->getId()];

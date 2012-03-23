@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -91,7 +91,8 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main
                 'title'     => Mage::helper('cms')->__('Store View'),
                 'required'  => true,
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, true),
-                'disabled'  => $isElementDisabled
+                'disabled'  => $isElementDisabled,
+                'after_element_html' => Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml()
             ));
         }
         else {

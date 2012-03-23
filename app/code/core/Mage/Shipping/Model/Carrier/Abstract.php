@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -521,11 +521,12 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     }
 
     /**
-     * Check if zip code option required
+     * Determine whether zip-code is required for the country of destination
      *
-     * @return boolean
+     * @param Mage_Shipping_Model_Rate_Request|null $request
+     * @return bool
      */
-    public function isZipCodeRequired()
+    public function isZipCodeRequired(Mage_Shipping_Model_Rate_Request $request = null)
     {
         return false;
     }

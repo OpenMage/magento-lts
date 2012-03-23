@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -103,6 +103,7 @@
         <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo $this->__('Edit item parameters') ?>"><?php echo $this->__('Edit') ?></a>
     </td>
     -->
+
     <?php if ($canApplyMsrp): ?>
         <td class="a-right"<?php if ($this->helper('tax')->displayCartBothPrices()): ?> colspan="2"<?php endif; ?>>
             <span class="cart-price">
@@ -164,7 +165,7 @@
     <td class="a-center item-qty">
         <b><?php echo $this->__('Qty'); ?></b><input name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" size="4" title="<?php echo $this->__('Qty') ?>" class="input-text qty" maxlength="12" />
     </td>
-    <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+    <?php if (($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()) && !$_item->getNoSubtotal()): ?>
     <td class="a-center">
         <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(1, 4), 'sales') && $_item->getWeeeTaxAppliedAmount()): ?>
             <span class="cart-tax-total" onclick="taxToggle('esubtotal-item-tax-details<?php echo $_item->getId(); ?>', this, 'cart-tax-total-expanded');">
@@ -209,7 +210,7 @@
         <?php endif; ?>
     </td>
     <?php endif; ?>
-    <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+    <?php if (($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()) && !$_item->getNoSubtotal()): ?>
     <td>
         <?php $_incl = $this->helper('checkout')->getSubtotalInclTax($_item); ?>
         <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(1, 4), 'sales') && $_item->getWeeeTaxAppliedAmount()): ?>

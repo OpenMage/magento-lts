@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,7 +53,8 @@ class Mage_Adminhtml_Block_Review_Add_Form extends Mage_Adminhtml_Block_Widget_F
         $fieldset->addField('detailed_rating', 'note', array(
             'label'     => Mage::helper('review')->__('Product Rating'),
             'required'  => true,
-            'text'      => '<div id="rating_detail">' . $this->getLayout()->createBlock('adminhtml/review_rating_detailed')->toHtml() . '</div>',
+            'text'      => '<div id="rating_detail">'
+                . $this->getLayout()->createBlock('adminhtml/review_rating_detailed')->toHtml() . '</div>',
         ));
 
         $fieldset->addField('status_id', 'select', array(
@@ -71,7 +72,8 @@ class Mage_Adminhtml_Block_Review_Add_Form extends Mage_Adminhtml_Block_Widget_F
                 'label'     => Mage::helper('review')->__('Visible In'),
                 'required'  => true,
                 'name'      => 'select_stores[]',
-                'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm()
+                'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(),
+                'after_element_html' => Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml()
             ));
         }
 

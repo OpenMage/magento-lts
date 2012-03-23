@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +40,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Simple
      * @var array
      */
     protected $_forcedAttributesCodes = array(
-        'related_targetrule_position_behavior', 'related_targetrule_position_limit',
-        'upsell_targetrule_position_behavior', 'upsell_targetrule_position_limit'
+        'related_tgtr_position_behavior', 'related_tgtr_position_limit',
+        'upsell_tgtr_position_behavior', 'upsell_tgtr_position_limit'
     );
 }

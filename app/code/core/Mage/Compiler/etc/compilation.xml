@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Compiler
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -345,7 +345,11 @@
             <Mage_Rule_Model_Condition_Abstract/>
             <Mage_Rule_Model_Condition_Combine/>
             <Mage_Rule_Model_Condition_Interface/>
+            <Mage_Rule_Model_Condition_ProductAbstract/>
             <Mage_Rule_Model_Rule/>
+            <Mage_Rule_Model_RuleAbstract/>
+            <Mage_Rule_Model_Resource_RuleAbstract/>
+            <Mage_Rule_Model_Resource_Rule_CollectionAbstract/>
             <Mage_SalesRule_Helper_Data/>
             <Mage_SalesRule_Model_Resource_Rule/>
             <Mage_SalesRule_Model_Resource_Rule_Collection/>

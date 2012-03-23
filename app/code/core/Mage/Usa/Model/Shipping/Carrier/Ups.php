@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -489,7 +489,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
     /**
      * Get configuration data of carrier
      *
-     * @param strin $type
+     * @param string $type
      * @param string $code
      * @return array|bool
      */
@@ -1733,7 +1733,7 @@ XMLAuth;
         return $result;
 
     }
-    
+
     /**
      * Return structured data of containers witch related with shipping methods
      *
@@ -1805,39 +1805,5 @@ XMLAuth;
         }
 
         return self::DELIVERY_CONFIRMATION_SHIPMENT;
-    }
-
-    /**
-     * Return items for further shipment rate evaluation. We need to pass children of a bundle instead passing the
-     * bundle itself, otherwise we may not get a rate at all (e.g. when total weight of a bundle exceeds max weight
-     * despite each item by itself is not)
-     *
-     * @param Mage_Shipping_Model_Rate_Request $request
-     * @return array
-     */
-    public function getAllItems(Mage_Shipping_Model_Rate_Request $request)
-    {
-        $items = array();
-        if ($request->getAllItems()) {
-            foreach ($request->getAllItems() as $item) {
-                /* @var $item Mage_Sales_Model_Quote_Item */
-                if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
-                    // Don't process children here - we will process (or already have processed) them below
-                    continue;
-                }
-
-                if ($item->getHasChildren() && $item->isShipSeparately()) {
-                    foreach ($item->getChildren() as $child) {
-                        if (!$child->getFreeShipping() && !$child->getProduct()->isVirtual()) {
-                            $items[] = $child;
-                        }
-                    }
-                } else {
-                    // Ship together - count compound item as one solid
-                    $items[] = $item;
-                }
-            }
-        }
-        return $items;
     }
 }

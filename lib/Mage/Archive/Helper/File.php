@@ -69,7 +69,7 @@ class Mage_Archive_Helper_File
     protected $_fileHandler;
 
     /**
-     * Set file path via constructor 
+     * Set file path via constructor
      *
      * @param string $filePath
      */
@@ -145,8 +145,11 @@ class Mage_Archive_Helper_File
      */
     public function read($length = 4096)
     {
+        $data = false;
         $this->_checkFileOpened();
-        $data = $this->_read($length);
+        if ($length > 0) {
+            $data = $this->_read($length);
+        }
 
         return $data;
     }

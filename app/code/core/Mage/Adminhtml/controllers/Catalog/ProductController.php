@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -678,6 +678,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         }
         if (isset($stockData['min_qty']) && (int)$stockData['min_qty'] < 0) {
             $stockData['min_qty'] = 0;
+        }
+        if (!isset($stockData['is_decimal_divided']) || $stockData['is_qty_decimal'] == 0) {
+            $stockData['is_decimal_divided'] = 0;
         }
     }
 

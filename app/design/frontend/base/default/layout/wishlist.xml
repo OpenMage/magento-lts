@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -77,7 +77,29 @@ Wishlist pages
         <update handle="customer_account"/>
         <reference name="my.account.wrapper">
             <block type="wishlist/customer_wishlist" name="customer.wishlist" template="wishlist/view.phtml">
-                <block type="wishlist/customer_wishlist_item_options" name="customer.wishlist.item.options" as="item_options"/>
+                <action method="setTitle" translate="title">
+                    <title>My Wishlist</title>
+                </action>
+                <block type="wishlist/customer_wishlist_items" name="customer.wishlist.items" as="items" template="wishlist/item/list.phtml">
+                    <block type="wishlist/customer_wishlist_item_column_image" name="customer.wishlist.item.image" template="wishlist/item/column/image.phtml"></block>
+                    <block type="wishlist/customer_wishlist_item_column_comment" name="customer.wishlist.item.info" template="wishlist/item/column/info.phtml">
+                        <action method="setTitle" translate="title">
+                            <title>Product Details and Comment</title>
+                        </action>
+                    </block>
+                    <block type="wishlist/customer_wishlist_item_column_cart" name="customer.wishlist.item.cart" template="wishlist/item/column/cart.phtml">
+                        <action method="setTitle" translate="title">
+                            <title>Add to Cart</title>
+                        </action>
+                        <block type="wishlist/customer_wishlist_item_options" name="customer.wishlist.item.options"/>
+                    </block>
+                    <block type="wishlist/customer_wishlist_item_column_remove" name="customer.wishlist.item.remove" template="wishlist/item/column/remove.phtml"></block>
+                </block>
+                <block type="core/text_list" name="customer.wishlist.buttons" as="control_buttons">
+                    <block type="wishlist/customer_wishlist_button" name="customer.wishlist.button.share" template="wishlist/button/share.phtml"></block>
+                    <block type="wishlist/customer_wishlist_button" name="customer.wishlist.button.toCart" template="wishlist/button/tocart.phtml"></block>
+                    <block type="wishlist/customer_wishlist_button" name="customer.wishlist.button.update" template="wishlist/button/update.phtml"></block>
+                </block>
             </block>
         </reference>
         <reference name="right">
@@ -96,7 +118,7 @@ Wishlist pages
             <action method="unsetChild"><name>wishlist_customer_sidebar</name></action>
         </reference>
     </wishlist_index_share>
-    
+
     <wishlist_index_configure translate="label">
         <label>Configure Wishlist Item</label>
         <update handle="catalog_product_view"/>

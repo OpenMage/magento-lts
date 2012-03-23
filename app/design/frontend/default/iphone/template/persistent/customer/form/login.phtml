@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -72,17 +72,6 @@
             <h2><?php echo $this->__('New Customers') ?></h2>
             <a href="<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>"><input type="submit" value="<?php echo $this->__('Create an Account') ?>" /></a>
             <p><?php echo $this->__('By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.') ?></p>
-        </div>
-        <?php if (Mage::helper('checkout')->isContextCheckout()): ?>
-            <input name="context" type="hidden" value="checkout" />
-        <?php endif; ?>
-        </form>
-    </div>
-    <div class="new-users">
-        <div class="new-users-box">
-            <h2><?php echo $this->__('New Customers') ?></h2>
-            <p><?php echo $this->__('By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.') ?></p>
-            <a href="<?php echo $this->getCreateAccountUrl() ?>"><input type="submit" value="<?php echo $this->__('Create an Account') ?>" /></a>
         </div>
     </div>
     <script type="text/javascript">

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -103,6 +103,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
             'manage_stock',
             'enable_qty_increments',
             'qty_increments',
+            'is_decimal_divided',
         );
     }
 

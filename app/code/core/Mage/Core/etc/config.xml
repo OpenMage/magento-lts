@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -134,8 +134,7 @@
             <validation>
                 <http_user_agent_skip>
                     <flash>Shockwave Flash</flash>
-                    <flash_9_mac>Adobe Flash Player 9</flash_9_mac>
-                    <flash_10_mac>Adobe Flash Player 10</flash_10_mac>
+                    <flash_mac><![CDATA[Adobe Flash Player\s{1,}\w{1,10}]]></flash_mac>
                 </http_user_agent_skip>
             </validation>
         </session>
@@ -338,6 +337,7 @@
             <cookie>
                 <cookie_lifetime>3600</cookie_lifetime>
                 <cookie_httponly>1</cookie_httponly>
+                <cookie_restriction>0</cookie_restriction>
             </cookie>
             <session>
                 <use_remote_addr>0</use_remote_addr>
@@ -422,4 +422,16 @@
             </web>
         </default>
     </stores>
+    <crontab>
+        <jobs>
+            <core_clean_cache>
+                <schedule>
+                    <cron_expr>30 2 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>core/observer::cleanCache</model>
+                </run>
+            </core_clean_cache>
+        </jobs>
+    </crontab>
 </config>

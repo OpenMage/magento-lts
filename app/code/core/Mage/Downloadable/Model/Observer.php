@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -278,6 +278,19 @@ class Mage_Downloadable_Model_Observer
             $result->setIsAllowed(false);
         }
 
+        return $this;
+    }
+
+    /**
+     * Initialize product options renderer with downloadable specific params
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Downloadable_Model_Observer
+     */
+    public function initOptionRenderer(Varien_Event_Observer $observer)
+    {
+        $block = $observer->getBlock();
+        $block->addOptionsRenderCfg('downloadable', 'downloadable/catalog_product_configuration');
         return $this;
     }
 }

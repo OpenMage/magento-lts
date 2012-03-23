@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,13 +29,19 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Radio extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Radio
+    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     protected $_defaultWidth = 55;
     protected $_values;
 
+    /**
+     * Returns all values for the column
+     *
+     * @return array
+     */
     public function getValues()
     {
         if (is_null($this->_values)) {
@@ -55,11 +61,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Radio extends Mage_Adminh
         $value  = $row->getData($this->getColumn()->getIndex());
         if (is_array($values)) {
             $checked = in_array($value, $values) ? ' checked="checked"' : '';
-        }
-        else {
+        } else {
             $checked = ($value === $this->getColumn()->getValue()) ? ' checked="checked"' : '';
         }
-        return '<input type="radio" name="'.$this->getColumn()->getHtmlName().'" value="' . $row->getId() . '" class="radio"'.$checked.'/>';
+        $html = '<input type="radio" name="' . $this->getColumn()->getHtmlName() . '" ';
+        $html .= 'value="' . $row->getId() . '" class="radio"' . $checked . '/>';
+        return $html;
     }
 
     /*

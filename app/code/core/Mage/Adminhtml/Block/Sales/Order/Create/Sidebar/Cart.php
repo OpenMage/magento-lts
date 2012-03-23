@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -104,9 +104,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart
      */
     protected function _prepareLayout()
     {
+        $deleteAllConfirmString = Mage::helper('sales')->__('Are you sure you want to delete all items from shopping cart?');
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
             'label' => Mage::helper('sales')->__('Clear Shopping Cart'),
-            'onclick' => 'order.sidebarApplyChanges({\'sidebar[empty_customer_cart]\': 1})',
+            'onclick' => 'order.clearShoppingCart(\'' . $deleteAllConfirmString . '\')',
             'style' => 'float: right;'
         ));
         $this->setChild('empty_customer_cart_button', $button);

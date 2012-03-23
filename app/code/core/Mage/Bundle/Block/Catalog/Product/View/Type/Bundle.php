@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,7 +58,9 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                 $product
             );
 
-            $this->_options = $optionCollection->appendSelections($selectionCollection, false, false);
+            $this->_options = $optionCollection->appendSelections($selectionCollection, false,
+                Mage::helper('catalog/product')->getSkipSaleableCheck()
+            );
         }
 
         return $this->_options;
@@ -122,7 +124,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                 unset($tierPriceInfo); // break the reference with the last element
 
                 $itemPrice = $bundlePriceModel->getSelectionFinalTotalPrice($currentProduct, $_selection,
-                        $currentProduct->getQty(), $_selection->getQty(), false);
+                    $currentProduct->getQty(), $_selection->getQty(), false, false
+                );
 
                 $canApplyMAP = false;
 

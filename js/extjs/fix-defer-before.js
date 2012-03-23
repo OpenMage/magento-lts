@@ -22,16 +22,22 @@
  * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 /*@cc_on
-// code only for IE when ExtJs overwrite "defer" function in PrototypeJs
+// code only for IE7 when ExtJs overwrite "defer" function in PrototypeJs
 (function(){
-    var eDefer = Function.prototype.defer;
-    Function.prototype.defer = function(a1, a2, a3, a4) {
-        // do not use "call" or "apply", only direct function call !!!
-        // for some reason in this case setTimeout with time < ~50ms run directly in function scope
-        // and throw stack overflow exception
-        eDefer(this, a1 || 50, a2, a3, a4);
-    };
+    var last = null;
+    var ie7 = @if(@_jscript_version==5.7) 1 @end + 0;
+    var ie8 = @if(@_jscript_version==5.8) 1 @end + 0;
+    if (ie7 || ie8) {
+        var eDefer = Function.prototype.defer;
+        Function.prototype.defer = function() {
+            // prevent throw stack overflow exception
+            if (last !== this) {
+                last = this;
+                eDefer.apply(last, arguments);
+            }
+            return this;
+        };
+    }
 })();
 @*/

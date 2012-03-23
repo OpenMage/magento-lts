@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -223,7 +223,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Load nodes by parent id
      *
-     * @param unknown_type $parentNode
+     * @param Mage_Catalog_Model_Category|int $parentNode
      * @param integer $recursionLevel
      * @param integer $storeId
      * @return Mage_Catalog_Model_Resource_Category_Flat
@@ -241,7 +241,8 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 ->from($this->getMainStoreTable($storeId))
                 ->where('entity_id = ?', $parentNode)
                 ->where('store_id = ?', $storeId);
-            if ($parentNode = $_conn->fetchRow($selectParent)) {
+            $parentNode = $_conn->fetchRow($selectParent);
+            if ($parentNode) {
                 $parentPath = $parentNode['path'];
                 $startLevel = $parentNode['level'];
             }
@@ -279,6 +280,9 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         if (!empty($inactiveCategories)) {
             $select->where('main_table.entity_id NOT IN (?)', $inactiveCategories);
         }
+
+        // Allow extensions to modify select (e.g. add custom category attributes to select)
+        Mage::dispatchEvent('catalog_category_flat_loadnodes_before', array('select' => $select));
 
         $arrNodes = $_conn->fetchAll($select);
         $nodes = array();
@@ -572,7 +576,9 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
         // Adding indexes
         $table->addIndex(
-            $_writeAdapter->getIndexName($tableName, array('entity_id')), array('entity_id'), array('type' => 'primary')
+            $_writeAdapter->getIndexName($tableName, array('entity_id')),
+            array('entity_id'),
+            array('type' => 'primary')
         );
         $table->addIndex(
             $_writeAdapter->getIndexName($tableName, array('store_id')), array('store_id'), array('type' => 'index')
@@ -1096,7 +1102,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      *  'field_name' => 'value'
      * )
      *
-     * @param Mage_Catalog_Model_Category $category
+     * @param Varien_Object $category
      * @param array $replaceFields
      * @return array
      */
@@ -1106,8 +1112,9 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $this->_getWriteAdapter()->resetDdlCache($table);
         $table = $this->_getWriteAdapter()->describeTable($table);
         $data = array();
-        foreach ($table as $column=>$columnData) {
-            if (null !== $category->getData($column)) {
+        $idFieldName = Mage::getSingleton('catalog/category')->getIdFieldName();
+        foreach ($table as $column => $columnData) {
+            if ($column != $idFieldName || null !== $category->getData($column)) {
                 if (key_exists($column, $replaceFields)) {
                     $value = $category->getData($replaceFields[$column]);
                 } else {

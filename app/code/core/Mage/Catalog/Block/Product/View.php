@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -183,10 +183,11 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             'idSuffix'            => '_clone',
             'oldPlusDisposition'  => 0,
             'plusDisposition'     => 0,
+            'plusDispositionTax'  => 0,
             'oldMinusDisposition' => 0,
             'minusDisposition'    => 0,
             'tierPrices'          => $_tierPrices,
-            'tierPricesInclTax'    => $_tierPricesInclTax,
+            'tierPricesInclTax'   => $_tierPricesInclTax,
         );
 
         $responseObject = new Varien_Object();

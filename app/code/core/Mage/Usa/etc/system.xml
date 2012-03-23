@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -88,6 +88,7 @@
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount for Free Shipping</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>1220</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -150,6 +151,7 @@
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -158,6 +160,7 @@
                         <max_package_weight translate="label">
                             <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -181,6 +184,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </password>
+                        <shipment_requesttype translate="label">
+                            <label>Packages Request Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_abstract_source_requesttype</source_model>
+                            <sort_order>85</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </shipment_requesttype>
                         <shipment_type translate="label">
                             <label>Shipment Type</label>
                             <frontend_type>select</frontend_type>
@@ -275,6 +287,7 @@
                         <additional_protection_min_value translate="label">
                             <label>Additional Protection Min Subtotal</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>1310</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -446,7 +459,16 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                       </sandbox_mode>
+                        </sandbox_mode>
+                        <shipment_requesttype translate="label">
+                            <label>Packages Request Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_abstract_source_requesttype</source_model>
+                            <sort_order>77</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </shipment_requesttype>
                         <packaging translate="label">
                             <label>Packaging</label>
                             <frontend_type>select</frontend_type>
@@ -468,6 +490,7 @@
                         <max_package_weight translate="label">
                             <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -494,6 +517,7 @@
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -540,6 +564,7 @@
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount for Free Shipping</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>180</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -638,6 +663,15 @@
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </allowed_methods>
+                        <shipment_requesttype translate="label">
+                            <label>Packages Request Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_abstract_source_requesttype</source_model>
+                            <sort_order>47</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </shipment_requesttype>
                         <container translate="label">
                             <label>Container</label>
                             <frontend_type>select</frontend_type>
@@ -659,6 +693,7 @@
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount for Free Shipping</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>220</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -720,6 +755,7 @@
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -728,6 +764,7 @@
                         <max_package_weight translate="label">
                             <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -736,6 +773,7 @@
                         <min_package_weight translate="label">
                             <label>Minimum Package Weight (Please consult your shipping carrier for minimum supported shipping weight)</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -879,7 +917,7 @@
                             <label>Mode</label>
                             <comment>Enables/Disables SSL verification of Magento server by UPS.</comment>
                             <frontend_type>select</frontend_type>
-                            <source_model>usa/shipping_carrier_ups_source_mode</source_model>
+                            <source_model>usa/shipping_carrier_abstract_source_mode</source_model>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -950,11 +988,29 @@
                             <label>Password</label>
                             <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-                            <sort_order>54</sort_order>
+                            <sort_order>53</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </password>
+                        <mode translate="label">
+                            <label>Mode</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>54</sort_order>
+                            <source_model>usa/shipping_carrier_abstract_source_mode</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </mode>
+                        <shipment_requesttype translate="label">
+                            <label>Packages Request Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_abstract_source_requesttype</source_model>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </shipment_requesttype>
                         <container translate="label">
                             <label>Container</label>
                             <frontend_type>select</frontend_type>
@@ -1021,6 +1077,7 @@
                         <max_package_weight translate="label">
                             <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1047,6 +1104,7 @@
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1084,6 +1142,7 @@
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount for Free Shipping</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>160</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1236,6 +1295,7 @@
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1372,6 +1432,7 @@
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount for Free Shipping</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>1220</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Index
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -386,6 +386,28 @@ class Mage_Index_Model_Indexer
             return true;
         }
         return false;
+    }
+
+    /**
+     * Allow DDL operations while indexing
+     *
+     * @return Mage_Index_Model_Indexer
+     */
+    public function allowTableChanges()
+    {
+        $this->_allowTableChanges = true;
+        return $this;
+    }
+
+    /**
+     * Disallow DDL operations while indexing
+     *
+     * @return Mage_Index_Model_Indexer
+     */
+    public function disallowTableChanges()
+    {
+        $this->_allowTableChanges = false;
+        return $this;
     }
 
     /**

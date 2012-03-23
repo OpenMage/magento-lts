@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -259,7 +259,9 @@ class Mage_Core_Model_Layout_Update
         $storeId = Mage::app()->getStore()->getId();
         $elementClass = $this->getElementClass();
         $design = Mage::getSingleton('core/design_package');
-        $cacheKey = 'LAYOUT_'.$design->getArea().'_STORE'.$storeId.'_'.$design->getPackageName().'_'.$design->getTheme('layout');
+        $cacheKey = 'LAYOUT_' . $design->getArea() . '_STORE' . $storeId . '_' . $design->getPackageName() . '_'
+            . $design->getTheme('layout');
+
         $cacheTags = array(self::LAYOUT_GENERAL_CACHE_TAG);
         if (Mage::app()->useCache('layout') && ($layoutStr = Mage::app()->loadCache($cacheKey))) {
             $this->_packageLayout = simplexml_load_string($layoutStr, $elementClass);
@@ -358,7 +360,7 @@ class Mage_Core_Model_Layout_Update
     {
         $_profilerKey = 'layout/db_update: '.$handle;
         Varien_Profiler::start($_profilerKey);
-        $updateStr = Mage::getResourceModel('core/layout')->fetchUpdatesByHandle($handle);
+        $updateStr = $this->_getUpdateString($handle);
         if (!$updateStr) {
             return false;
         }
@@ -370,6 +372,17 @@ class Mage_Core_Model_Layout_Update
 
         Varien_Profiler::stop($_profilerKey);
         return true;
+    }
+
+    /**
+     * Get update string
+     *
+     * @param string $handle
+     * @return mixed
+     */
+    protected function _getUpdateString($handle)
+    {
+        return Mage::getResourceModel('core/layout')->fetchUpdatesByHandle($handle);
     }
 
     public function fetchRecursiveUpdates($updateXml)

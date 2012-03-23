@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -38,7 +38,7 @@
          <div class="content">
             <p><input type="text" class="input-text" id="coupons:code" value="" name="coupon_code" style="width:200px" />&nbsp;<?php echo $this->getButtonHtml(Mage::helper('sales')->__('Apply'), 'order.applyCoupon($F(\'coupons:code\'))') ?></p>
             <?php if($this->getCouponCode()): ?>
-                <p><strong><?php echo $this->getCouponCode() ?></strong> [<a href="#" onclick="order.applyCoupon(''); return false;" title="<?php echo Mage::helper('sales')->__('Remove Coupon Code') ?>"><?php echo Mage::helper('sales')->__('Remove') ?></a>]</p>
+                <p><strong><?php echo $this->escapeHtml($this->getCouponCode()) ?></strong> [<a href="#" onclick="order.applyCoupon(''); return false;" title="<?php echo Mage::helper('sales')->__('Remove Coupon Code') ?>"><?php echo Mage::helper('sales')->__('Remove') ?></a>]</p>
             <?php endif; ?>
             <script type="text/javascript">
                 order.overlay('shipping-method-overlay', <?php if ($this->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif; ?>);

@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Captcha
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -74,7 +74,7 @@
                 <observers>
                     <captcha>
                         <class>captcha/observer</class>
-                        <method>createUser</method>
+                        <method>checkUserCreate</method>
                     </captcha>
                 </observers>
             </controller_action_predispatch_customer_account_createpost>
@@ -170,7 +170,8 @@
                 <font>linlibertine</font>
                 <mode>after_fail</mode>
                 <forms>backend_forgotpassword</forms>
-                <failed_attempts>3</failed_attempts>
+                <failed_attempts_login>3</failed_attempts_login>
+                <failed_attempts_ip>1000</failed_attempts_ip>
                 <timeout>7</timeout>
                 <length>4-5</length>
                 <symbols>ABCDEFGHJKMnpqrstuvwxyz23456789</symbols>
@@ -187,7 +188,8 @@
                 <font>linlibertine</font>
                 <mode>after_fail</mode>
                 <forms>user_forgotpassword</forms>
-                <failed_attempts>3</failed_attempts>
+                <failed_attempts_login>3</failed_attempts_login>
+                <failed_attempts_ip>1000</failed_attempts_ip>
                 <timeout>7</timeout>
                 <length>4-5</length>
                 <symbols>ABCDEFGHJKMnpqrstuvwxyz23456789</symbols>

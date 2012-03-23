@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -885,7 +885,7 @@ final class Maged_Controller
         }
 
         if (!empty($_GET['archive_type'])) {
-            $isSuccess = $this->_createBackup($_GET['archive_type']);
+            $isSuccess = $this->_createBackup($_GET['archive_type'], $_GET['backup_name']);
 
             if (!$isSuccess) {
                 $this->endInstall();
@@ -978,11 +978,11 @@ final class Maged_Controller
     {
         return array(
             'major'     => '1',
-            'minor'     => '5',
+            'minor'     => '7',
             'revision'  => '0',
             'patch'     => '0',
-            'stability' => '',
-            'number'    => '',
+            'stability' => 'beta',
+            'number'    => '1',
         );
     }
 
@@ -990,9 +990,10 @@ final class Maged_Controller
      * Create Backup
      *
      * @param string $archiveType
+     * @param string $archiveName
      * @return bool
      */
-    protected function _createBackup($archiveType){
+    protected function _createBackup($archiveType, $archiveName){
         /** @var $connect Maged_Connect */
         $connect = $this->model('connect', true)->connect();
         $connect->runHtmlConsole('Creating data backup...');
@@ -1005,6 +1006,7 @@ final class Maged_Controller
             $backupManager = Mage_Backup::getBackupInstance($type)
                 ->setBackupExtension(Mage::helper('backup')->getExtensionByType($type))
                 ->setTime(time())
+                ->setName($archiveName)
                 ->setBackupsDir(Mage::helper('backup')->getBackupsDir());
 
             Mage::register('backup_manager', $backupManager);
@@ -1043,11 +1045,12 @@ final class Maged_Controller
         $typeMap = array(
             1 => Mage_Backup_Helper_Data::TYPE_DB,
             2 => Mage_Backup_Helper_Data::TYPE_SYSTEM_SNAPSHOT,
-            3 => Mage_Backup_Helper_Data::TYPE_MEDIA
+            3 => Mage_Backup_Helper_Data::TYPE_SNAPSHOT_WITHOUT_MEDIA,
+            4 => Mage_Backup_Helper_Data::TYPE_MEDIA
         );
 
         if (!isset($typeMap[$code])) {
-            Mage::throwException("Unknown backup type");
+            Mage::throwException('Unknown backup type');
         }
 
         return $typeMap[$code];
@@ -1063,6 +1066,7 @@ final class Maged_Controller
     {
         $messagesMap = array(
             Mage_Backup_Helper_Data::TYPE_SYSTEM_SNAPSHOT => 'System backup has been created',
+            Mage_Backup_Helper_Data::TYPE_SNAPSHOT_WITHOUT_MEDIA => 'System backup has been created',
             Mage_Backup_Helper_Data::TYPE_MEDIA => 'Database and media backup has been created',
             Mage_Backup_Helper_Data::TYPE_DB => 'Database backup has been created'
         );

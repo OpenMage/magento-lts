@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -121,6 +121,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
         $this->setMassactionIdField('coupon_id');
         $this->getMassactionBlock()->setFormFieldName('ids');
         $this->getMassactionBlock()->setUseAjax(true);
+        $this->getMassactionBlock()->setHideFormElement(true);
 
         $this->getMassactionBlock()->addItem('delete', array(
              'label'=> Mage::helper('adminhtml')->__('Delete'),

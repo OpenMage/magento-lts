@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -83,17 +83,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
             Mage::getConfig()->saveConfig(
                 self::XML_PATH_UNSECURE_BASE_URL,
                 $value,
-                self::CONFIG_SCOPE,
-                self::CONFIG_SCOPE_ID
-            );
-        } else {
-            Mage::getConfig()->deleteConfig(
-                self::XML_PATH_SECURE_BASE_URL,
-                self::CONFIG_SCOPE,
-                self::CONFIG_SCOPE_ID
-            );
-            Mage::getConfig()->deleteConfig(
-                self::XML_PATH_UNSECURE_BASE_URL,
                 self::CONFIG_SCOPE,
                 self::CONFIG_SCOPE_ID
             );

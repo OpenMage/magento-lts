@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@
  * @package    Mage_Paypal
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Paypal_PayflowController extends Mage_Paypal_Controller_Express_Abstract
+class Mage_Paypal_PayflowController extends Mage_Core_Controller_Front_Action
 {
     /**
      * When a customer cancel payment from payflow gateway.

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -102,6 +102,7 @@ class Mage_Checkout_Model_Type_Onepage
      * Declare checkout quote instance
      *
      * @param Mage_Sales_Model_Quote $quote
+     * @return Mage_Checkout_Model_Type_Onepage
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
     {
@@ -146,7 +147,7 @@ class Mage_Checkout_Model_Type_Onepage
         }
 
         /*
-        * want to laod the correct customer information by assiging to address
+        * want to load the correct customer information by assigning to address
         * instead of just loading from sales/quote_address
         */
         $customer = $customerSession->getCustomer();
@@ -188,7 +189,7 @@ class Mage_Checkout_Model_Type_Onepage
     }
 
     /**
-     * Specify chceckout method
+     * Specify checkout method
      *
      * @param   string $method
      * @return  array
@@ -300,7 +301,7 @@ class Mage_Checkout_Model_Type_Onepage
              */
             $usingCase = isset($data['use_for_shipping']) ? (int)$data['use_for_shipping'] : 0;
 
-            switch($usingCase) {
+            switch ($usingCase) {
                 case 0:
                     $shipping = $this->getQuote()->getShippingAddress();
                     $shipping->setSameAsBilling(0);
@@ -311,11 +312,14 @@ class Mage_Checkout_Model_Type_Onepage
                     $shipping = $this->getQuote()->getShippingAddress();
                     $shippingMethod = $shipping->getShippingMethod();
 
+                    // Billing address properties that must be always copied to shipping address
+                    $requiredBillingAttributes = array('customer_address_id');
+
                     // don't reset original shipping data, if it was not changed by customer
                     foreach ($shipping->getData() as $shippingKey => $shippingValue) {
-                        if (!is_null($shippingValue)
-                            && !is_null($billing->getData($shippingKey))
-                            && !isset($data[$shippingKey])) {
+                        if (!is_null($shippingValue) && !is_null($billing->getData($shippingKey))
+                            && !isset($data[$shippingKey]) && !in_array($shippingKey, $requiredBillingAttributes)
+                        ) {
                             $billing->unsetData($shippingKey);
                         }
                     }
@@ -354,8 +358,8 @@ class Mage_Checkout_Model_Type_Onepage
      */
     protected function _validateCustomerData(array $data)
     {
-        /* @var $customerForm Mage_Customer_Model_Form */
-        $customerForm    = Mage::getModel('customer/form');
+        /** @var $customerForm Mage_Customer_Model_Form */
+        $customerForm = Mage::getModel('customer/form');
         $customerForm->setFormCode('checkout_register')
             ->setIsAjaxRequest(Mage::app()->getRequest()->isAjax());
 
@@ -391,10 +395,13 @@ class Mage_Checkout_Model_Type_Onepage
             $customer->setPassword($customerRequest->getParam('customer_password'));
             $customer->setConfirmation($customerRequest->getParam('confirm_password'));
         } else {
-            // emulate customer password for quest
+            // spoof customer password for guest
             $password = $customer->generatePassword();
             $customer->setPassword($password);
             $customer->setConfirmation($password);
+            // set NOT LOGGED IN group id explicitly,
+            // otherwise copyFieldset('customer_account', 'to_quote') will fill it with default group id value
+            $customer->setGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
         }
 
         $result = $customer->validate();
@@ -539,6 +546,7 @@ class Mage_Checkout_Model_Type_Onepage
                 }
             }
 
+            $address->setCustomerAddressId(null);
             // Additional form data, not fetched by extractData (as it fetches only attributes)
             $address->setSaveInAddressBook(empty($data['save_in_address_book']) ? 0 : 1);
             $address->setSameAsBilling(empty($data['same_as_billing']) ? 0 : 1);
@@ -830,7 +838,7 @@ class Mage_Checkout_Model_Type_Onepage
     }
 
     /**
-     * Validate quote state to be able submited from one page checkout page
+     * Validate quote state to be able submitted from one page checkout page
      *
      * @deprecated after 1.4 - service model doing quote validation
      * @return Mage_Checkout_Model_Type_Onepage

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Backup
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -103,11 +103,12 @@ class Mage_Backup_Db extends Mage_Backup_Abstract
 
         $this->_lastOperationSucceed = false;
 
-        $backup   = Mage::getModel('backup/backup')
+        $backup = Mage::getModel('backup/backup')
             ->setTime($this->getTime())
             ->setType($this->getType())
-            ->setPath($this->getBackupsDir());
-        Mage::register('backup_model', $backup);
+            ->setPath($this->getBackupsDir())
+            ->setName($this->getName());
+
         $backupDb = Mage::getModel('backup/db');
         $backupDb->createBackup($backup);
 

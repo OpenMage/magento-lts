@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,11 +33,17 @@
  */
 class Mage_Adminhtml_Block_System_Email_Template_Preview extends Mage_Adminhtml_Block_Widget
 {
+    /**
+     * Prepare html output
+     *
+     * @return string
+     */
     protected function _toHtml()
     {
-        /* @var $template Mage_Core_Model_Email_Template */
+        /** @var $template Mage_Core_Model_Email_Template */
         $template = Mage::getModel('core/email_template');
-        if ($id = (int)$this->getRequest()->getParam('id')) {
+        $id = (int)$this->getRequest()->getParam('id');
+        if ($id) {
             $template->load($id);
         } else {
             $template->setTemplateType($this->getRequest()->getParam('type'));

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Captcha
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,6 +38,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      * Type Remote Address
      */
     const TYPE_REMOTE_ADDRESS = 1;
+
     /**
      * Type User Login Name
      */
@@ -49,7 +50,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      */
     protected function _construct()
     {
-        $this->_init('captcha/log', array('type','value'));
+        $this->_setMainTable('captcha/log');
     }
 
     /**

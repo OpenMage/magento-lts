@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,10 +70,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Accordion extends Mage_Adminht
         }
 
         // count wishlist items
-        $wishlist = Mage::getModel('wishlist/wishlist');
-        $wishlistCount = $wishlist->loadByCustomer($customer)
-            ->setSharedStoreIds($wishlist->getSharedStoreIds(false))
-            ->getItemCollection()
+        $wishlistCount = Mage::getModel('wishlist/item')->getCollection()
+            ->addCustomerIdFilter($customer->getId())
             ->addStoreData()
             ->getSize();
         // add wishlist ajax accordion

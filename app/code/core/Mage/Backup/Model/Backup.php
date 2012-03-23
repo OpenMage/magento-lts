@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Backup
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,28 +59,19 @@ class Mage_Backup_Model_Backup extends Varien_Object
      */
     public function load($fileName, $filePath)
     {
-        $extensions = Mage::helper('backup')->getExtensions();
-
-        $fileNameWithoutExtension = $fileName;
-
-        foreach ($extensions as $extension) {
-            $fileNameWithoutExtension = preg_replace('/' . preg_quote($extension, '/') . '$/', '',
-                $fileNameWithoutExtension
-            );
-        }
-
-        list ($time, $type) = explode("_", substr($fileNameWithoutExtension, 0,
-            strrpos($fileNameWithoutExtension, ".")
-        ));
+        $backupData = Mage::helper('backup')->extractDataFromFilename($fileName);
 
         $this->addData(array(
             'id'   => $filePath . DS . $fileName,
-            'time' => (int)$time,
+            'time' => (int)$backupData->getTime(),
             'path' => $filePath,
-            'extension' => Mage::helper('backup')->getExtensionByType($type),
-            'date_object' => new Zend_Date((int)$time, Mage::app()->getLocale()->getLocaleCode())
+            'extension' => Mage::helper('backup')->getExtensionByType($backupData->getType()),
+            'display_name' => Mage::helper('backup')->nameToDisplayName($backupData->getName()),
+            'name' => $backupData->getName(),
+            'date_object' => new Zend_Date((int)$backupData->getTime(), Mage::app()->getLocale()->getLocaleCode())
         ));
-        $this->setType($type);
+
+        $this->setType($backupData->getType());
         return $this;
     }
 
@@ -101,14 +92,23 @@ class Mage_Backup_Model_Backup extends Varien_Object
      */
     public function getFileName()
     {
-        return $this->getTime() . "_" . $this->getType()
-               . "." . Mage::helper('backup')->getExtensionByType($this->getType());
+        $filename = $this->getTime() . "_" . $this->getType();
+        $backupName = $this->getName();
+
+        if (!empty($backupName)) {
+            $filename .= '_' . $backupName;
+        }
+
+        $filename .= '.' . Mage::helper('backup')->getExtensionByType($this->getType());
+
+        return $filename;
     }
 
     /**
      * Sets type of file
      *
      * @param string $value
+     * @return Mage_Backup_Model_Backup
      */
     public function setType($value='db')
     {
@@ -214,6 +214,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
      * Delete backup file
      *
      * @throws Mage_Backup_Exception
+     * @return Mage_Backup_Model_Backup
      */
     public function deleteFile()
     {
@@ -372,5 +373,30 @@ class Mage_Backup_Model_Backup extends Varien_Object
     {
         $userPasswordHash = Mage::getModel('admin/session')->getUser()->getPassword();
         return Mage::helper('core')->validateHash($password, $userPasswordHash);
+    }
+
+    /**
+     * Load backup by it's type and creation timestamp
+     *
+     * @param int $timestamp
+     * @param string $type
+     * @return Mage_Backup_Model_Backup
+     */
+    public function loadByTimeAndType($timestamp, $type)
+    {
+        $backupsCollection = Mage::getSingleton('backup/fs_collection');
+        $backupId = $timestamp . '_' . $type;
+
+        foreach ($backupsCollection as $backup) {
+            if ($backup->getId() == $backupId) {
+                $this->setType($backup->getType())
+                    ->setTime($backup->getTime())
+                    ->setName($backup->getName())
+                    ->setPath($backup->getPath());
+                break;
+            }
+        }
+
+        return $this;
     }
 }

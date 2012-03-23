@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -396,14 +396,13 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $customerCountryCode
      * @param Varien_Object $vatValidationResult
      * @param Mage_Core_Model_Store|string|int $store
-     *
      * @return null|int
      */
     public function getCustomerGroupIdBasedOnVatNumber($customerCountryCode, $vatValidationResult, $store = null)
     {
         $groupId = null;
 
-        $vatClass = $this->getCustomerVatClass($customerCountryCode, $vatValidationResult);
+        $vatClass = $this->getCustomerVatClass($customerCountryCode, $vatValidationResult, $store);
 
         $vatClassToGroupXmlPathMap = array(
             self::VAT_CLASS_DOMESTIC => self::XML_PATH_CUSTOMER_VIV_DOMESTIC_GROUP,
@@ -454,9 +453,9 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
 
             $requestParams = array();
             $requestParams['countryCode'] = $countryCode;
-            $requestParams['vatNumber'] = $vatNumber;
+            $requestParams['vatNumber'] = str_replace(array(' ', '-'), array('', ''), $vatNumber);
             $requestParams['requesterCountryCode'] = $requesterCountryCode;
-            $requestParams['requesterVatNumber'] = $requesterVatNumber;
+            $requestParams['requesterVatNumber'] = str_replace(array(' ', '-'), array('', ''), $requesterVatNumber);
 
             // Send request to service
             $result = $soapClient->checkVatApprox($requestParams);
@@ -512,9 +511,10 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $customerCountryCode
      * @param Varien_Object $vatValidationResult
+     * @param Mage_Core_Model_Store|string|int|null $store
      * @return null|string
      */
-    public function getCustomerVatClass($customerCountryCode, $vatValidationResult)
+    public function getCustomerVatClass($customerCountryCode, $vatValidationResult, $store = null)
     {
         $vatClass = null;
 
@@ -522,7 +522,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
 
         if (is_string($customerCountryCode)
             && !empty($customerCountryCode)
-            && $customerCountryCode === Mage::helper('core')->getMerchantCountryCode()
+            && $customerCountryCode === Mage::helper('core')->getMerchantCountryCode($store)
             && $isVatNumberValid
         ) {
             $vatClass = self::VAT_CLASS_DOMESTIC;

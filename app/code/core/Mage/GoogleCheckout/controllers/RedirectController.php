@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -170,7 +170,6 @@ class Mage_GoogleCheckout_RedirectController extends Mage_Core_Controller_Front_
     public function redirectLogin()
     {
         $this->setFlag('', 'no-dispatch', true);
-        Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', array('_secure'=>true)));
         $this->getResponse()->setRedirect(
             Mage::helper('core/url')->addRequestParam(
                 Mage::helper('customer')->getLoginUrl(),

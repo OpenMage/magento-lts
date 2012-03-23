@@ -180,6 +180,10 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
             $ftpPath = $this->_snapshot->getFtpPath() . DS . str_replace($tmpDir, '', $item->__toString());
             $ftpPath = str_replace(DS, '/', $ftpPath);
 
+            if ($item->isLink()) {
+                continue;
+            }
+
             if ($item->isDir()) {
                 $this->_ftpClient->mkdirRecursive($ftpPath);
             } else {

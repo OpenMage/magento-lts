@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -530,7 +530,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Saving product type related data
+     * Saving product type related data and init index
      *
      * @return Mage_Catalog_Model_Product
      */
@@ -544,21 +544,13 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
          */
         $this->getOptionInstance()->setProduct($this)
             ->saveOptions();
-        return parent::_afterSave();
-    }
 
-    /**
-     * Init indexing process after product data commit
-     *
-     * @return Mage_Catalog_Model_Product
-     */
-    public function afterCommitCallback()
-    {
-        parent::afterCommitCallback();
+        $result = parent::_afterSave();
+
         Mage::getSingleton('index/indexer')->processEntityAction(
             $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
         );
-        return $this;
+        return $result;
     }
 
     /**
@@ -1075,6 +1067,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $this->getWebsiteIds();
         $this->getCategoryIds();
 
+        /* @var $newProduct Mage_Catalog_Model_Product */
         $newProduct = Mage::getModel('catalog/product')->setData($this->getData())
             ->setIsDuplicate(true)
             ->setOriginalId($this->getId())
@@ -1089,16 +1082,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             'catalog_model_product_duplicate',
             array('current_product' => $this, 'new_product' => $newProduct)
         );
-
-        /* @var $newProduct Mage_Catalog_Model_Product */
-
-        $newOptionsArray = array();
-        $newProduct->setCanSaveCustomOptions(true);
-        foreach ($this->getOptions() as $_option) {
-            /* @var $_option Mage_Catalog_Model_Product_Option */
-            $newOptionsArray[] = $_option->prepareOptionForDuplicate();
-        }
-        $newProduct->setProductOptions($newOptionsArray);
 
         /* Prepare Related*/
         $data = array();
@@ -1330,7 +1313,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function isAvailable()
     {
-        return $this->getTypeInstance(true)->isSalable($this);
+        return $this->getTypeInstance(true)->isSalable($this)
+            || Mage::helper('catalog/product')->getSkipSaleableCheck();
     }
 
     /**
@@ -1896,6 +1880,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function reset()
     {
+        $this->unlockAttributes();
         $this->_clearData();
         return $this;
     }
@@ -2061,5 +2046,15 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function getProductEntitiesInfo($columns = null)
     {
         return $this->_getResource()->getProductEntitiesInfo($columns);
+    }
+
+    /**
+     * Checks whether product has disabled status
+     *
+     * @return bool
+     */
+    public function isDisabled()
+    {
+        return $this->getStatus() == Mage_Catalog_Model_Product_Status::STATUS_DISABLED;
     }
 }

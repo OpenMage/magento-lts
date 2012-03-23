@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* @var $this Mage_Catalog_Block_Product_Compare_List */
@@ -63,7 +63,7 @@
                     <?php endif; ?>
                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
                         <ul class="add-to-links">
-                            <li><a href="#" class="link-wishlist" onclick="setLocation('<?php echo $this->getAddToWishlistUrl($_item) ?>', true)"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                            <li><a href="<?php echo $this->getAddToWishlistUrl($_item) ?>" class="link-wishlist" onclick="setLocation(this.href, true)"><?php echo $this->__('Add to Wishlist') ?></a></li>
                         </ul>
                     <?php endif; ?>
                 </td>
@@ -116,7 +116,7 @@
                     <?php endif; ?>
                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
                         <ul class="add-to-links">
-                            <li><a href="#" class="link-wishlist" onclick="setLocation('<?php echo $this->getAddToWishlistUrl($_item) ?>', true)"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                            <li><a href="<?php echo $this->getAddToWishlistUrl($_item) ?>" class="link-wishlist" onclick="setLocation(this.href, true)"><?php echo $this->__('Add to Wishlist') ?></a></li>
                         </ul>
                     <?php endif; ?>
                 </td>

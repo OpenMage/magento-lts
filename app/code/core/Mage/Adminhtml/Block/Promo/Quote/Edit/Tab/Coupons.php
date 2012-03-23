@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons
      */
     public function getTabLabel()
     {
-        return Mage::helper('salesrule')->__('Manage Coupons Codes');
+        return Mage::helper('salesrule')->__('Manage Coupon Codes');
     }
 
     /**
@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons
      */
     public function getTabTitle()
     {
-        return Mage::helper('salesrule')->__('Manage Coupons Codes');
+        return Mage::helper('salesrule')->__('Manage Coupon Codes');
     }
 
     /**

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -559,6 +559,21 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         return false;
     }
 
+    /**
+     * Check if force discount apply to parent item
+     *
+     * @return bool
+     */
+    public function getForceApplyDiscountToParentItem()
+    {
+        if ($this->getParentItem()) {
+            $product = $this->getParentItem()->getProduct();
+        } else {
+            $product = $this->getProduct();
+        }
+
+        return $product->getTypeInstance()->getForceApplyDiscountToParentItem();
+    }
 
     /**
      * Checking can we ship product separatelly (each child separately)

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -248,6 +248,39 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         }
 
         return $rowTierPrices;
+    }
+
+    /**
+     * Prepare products group prices
+     *
+     * @param  array $productIds
+     * @return array
+     */
+    protected function _prepareGroupPrices(array $productIds)
+    {
+        if (empty($productIds)) {
+            return array();
+        }
+        $resource = Mage::getSingleton('core/resource');
+        $select = $this->_connection->select()
+            ->from($resource->getTableName('catalog/product_attribute_group_price'))
+            ->where('entity_id IN(?)', $productIds);
+
+        $rowGroupPrices = array();
+        $statement = $this->_connection->query($select);
+        while ($groupRow = $statement->fetch()) {
+            $rowGroupPrices[$groupRow['entity_id']][] = array(
+                '_group_price_customer_group' => $groupRow['all_groups']
+                    ? self::VALUE_ALL
+                    : $groupRow['customer_group_id'],
+                '_group_price_website'        => (0 == $groupRow['website_id'])
+                    ? self::VALUE_ALL
+                    : $this->_websiteIdToCode[$groupRow['website_id']],
+                '_group_price_price'          => $groupRow['value']
+            );
+        }
+
+        return $rowGroupPrices;
     }
 
     /**
@@ -526,6 +559,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
             $rowCategories   = array();
             $rowWebsites     = array();
             $rowTierPrices   = array();
+            $rowGroupPrices  = array();
             $rowMultiselects = array();
             $mediaGalery     = array();
 
@@ -547,8 +581,9 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 if ($defaultStoreId == $storeId) {
                     $collection->addCategoryIds()->addWebsiteNamesToResult();
 
-                    // tier price data getting only once
+                    // tier and group price data getting only once
                     $rowTierPrices = $this->_prepareTierPrices($collection->getAllIds());
+                    $rowGroupPrices = $this->_prepareGroupPrices($collection->getAllIds());
 
                     // getting media gallery data
                     $mediaGalery = $this->_prepareMediaGallery($collection->getAllIds());
@@ -765,6 +800,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         '_associated_sku', '_associated_default_qty', '_associated_position'
                     ),
                     array('_tier_price_website', '_tier_price_customer_group', '_tier_price_qty', '_tier_price_price'),
+                    array('_group_price_website', '_group_price_customer_group', '_group_price_price'),
                     array(
                         '_media_attribute_id',
                         '_media_image',
@@ -808,6 +844,9 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     }
                     if (!empty($rowTierPrices[$productId])) {
                         $dataRow = array_merge($dataRow, array_shift($rowTierPrices[$productId]));
+                    }
+                    if (!empty($rowGroupPrices[$productId])) {
+                        $dataRow = array_merge($dataRow, array_shift($rowGroupPrices[$productId]));
                     }
                     if (!empty($mediaGalery[$productId])) {
                         $dataRow = array_merge($dataRow, array_shift($mediaGalery[$productId]));
@@ -856,6 +895,9 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 if (!empty($rowTierPrices[$productId])) {
                     $additionalRowsCount = max($additionalRowsCount, count($rowTierPrices[$productId]));
                 }
+                if (!empty($rowGroupPrices[$productId])) {
+                    $additionalRowsCount = max($additionalRowsCount, count($rowGroupPrices[$productId]));
+                }
                 if (!empty($mediaGalery[$productId])) {
                     $additionalRowsCount = max($additionalRowsCount, count($mediaGalery[$productId]));
                 }
@@ -884,6 +926,9 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         }
                         if (!empty($rowTierPrices[$productId])) {
                             $dataRow = array_merge($dataRow, array_shift($rowTierPrices[$productId]));
+                        }
+                        if (!empty($rowGroupPrices[$productId])) {
+                            $dataRow = array_merge($dataRow, array_shift($rowGroupPrices[$productId]));
                         }
                         if (!empty($mediaGalery[$productId])) {
                             $dataRow = array_merge($dataRow, array_shift($mediaGalery[$productId]));
