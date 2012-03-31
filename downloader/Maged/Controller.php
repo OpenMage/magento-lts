@@ -596,7 +596,7 @@ final class Maged_Controller
         if (is_null($model)) {
             $class = 'Maged_Model';
         } else {
-            $class = 'Maged_Model_'.str_replace(' ', '_', ucwords(str_replace('_', ' ', $model)));
+            $class = 'Maged_Model_' . str_replace(' ', '_', ucwords(str_replace('_', ' ', $model)));
             if (!class_exists($class, false)) {
                 include_once str_replace('_', DIRECTORY_SEPARATOR, $class).'.php';
             }
@@ -885,7 +885,20 @@ final class Maged_Controller
         }
 
         if (!empty($_GET['archive_type'])) {
-            $isSuccess = $this->_createBackup($_GET['archive_type'], $_GET['backup_name']);
+
+            $backupName = $_GET['backup_name'];
+            $connect = $this->model('connect', true)->connect();
+            $isSuccess = true;
+
+            if (!preg_match('/^[a-zA-Z0-9\ ]{0,50}$/', $backupName)) {
+                $connect->runHtmlConsole('Please use only letters (a-z or A-Z), numbers (0-9) or space in '
+                    . 'Backup Name field. Other characters are not allowed.');
+                $isSuccess = false;
+            }
+
+            if ($isSuccess) {
+                $isSuccess = $this->_createBackup($_GET['archive_type'], $_GET['backup_name']);
+            }
 
             if (!$isSuccess) {
                 $this->endInstall();
@@ -981,7 +994,7 @@ final class Maged_Controller
             'minor'     => '7',
             'revision'  => '0',
             'patch'     => '0',
-            'stability' => 'beta',
+            'stability' => 'rc',
             'number'    => '1',
         );
     }
@@ -996,7 +1009,7 @@ final class Maged_Controller
     protected function _createBackup($archiveType, $archiveName){
         /** @var $connect Maged_Connect */
         $connect = $this->model('connect', true)->connect();
-        $connect->runHtmlConsole('Creating data backup...');
+        $connect->runHtmlConsole('Creating backup...');
 
         $isSuccess = false;
 
@@ -1066,7 +1079,7 @@ final class Maged_Controller
     {
         $messagesMap = array(
             Mage_Backup_Helper_Data::TYPE_SYSTEM_SNAPSHOT => 'System backup has been created',
-            Mage_Backup_Helper_Data::TYPE_SNAPSHOT_WITHOUT_MEDIA => 'System backup has been created',
+            Mage_Backup_Helper_Data::TYPE_SNAPSHOT_WITHOUT_MEDIA => 'System (excluding Media) backup has been created',
             Mage_Backup_Helper_Data::TYPE_MEDIA => 'Database and media backup has been created',
             Mage_Backup_Helper_Data::TYPE_DB => 'Database backup has been created'
         );

@@ -949,8 +949,9 @@ tr.summary-details-excluded { font-style:italic; }
 /********** Product Prices > */
 
 /* Tier Prices */
-.tier-prices { margin:10px 0; padding:10px; background-color:#f4f7f7; border:1px solid #dadddd; }
-.tier-prices li { line-height:1.4; background:url(../images/i_tier.gif) no-repeat 0 3px; padding:2px 0 2px 10px; color:#424242; }
+.product-pricing,
+.tier-prices { margin:10px 0; padding:10px; background-color:#f4f7f7; border:1px solid #dadddd; color:#424242; }
+.tier-prices li { line-height:1.4; background:url(../images/i_tier.gif) no-repeat 0 3px; padding:2px 0 2px 10px; }
 .tier-prices .benefit { font-style:italic; font-weight:bold; color:#2f2f2f; }
 .tier-prices .price { font-weight:bold; color:#2f2f2f; }
 
@@ -1053,8 +1054,9 @@ tr.summary-details-excluded { font-style:italic; }
 .product-options p.required { position:absolute; right:20px; top:20px; }
 
 .product-options-bottom { background-color:#fffada; padding:15px 20px; border:1px solid #e4e4e4; border-top:0; }
-.product-options-bottom .tier-prices { margin:0; padding:0 0 10px; border:0; background:0; }
-.product-options-bottom .tier-prices li { background:0; padding:2px 0; color:#e26703; }
+.product-options-bottom .product-pricing,
+.product-options-bottom .tier-prices { margin:0; padding:0 0 10px; border:0; background:0; color:#e26703; }
+.product-options-bottom .tier-prices li { background:0; padding:2px 0; }
 .product-options-bottom .tier-prices .price,
 .product-options-bottom .tier-prices .benefit { color:#e26703; }
 .product-options-bottom .price-box { float:left; margin:0; padding:0; }

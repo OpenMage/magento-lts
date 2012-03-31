@@ -196,8 +196,8 @@
                 <totals>
                     <weee>
                         <class>weee/total_invoice_weee</class>
-                        <after>subtotal</after>
-                        <before>tax,discount,grand_total</before>
+                        <after>subtotal,tax,discount,grand_total,cost_total,shipping</after>
+                        <before></before>
                     </weee>
                 </totals>
             </order_invoice>

@@ -224,7 +224,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $messagesMap = array(
             self::TYPE_SYSTEM_SNAPSHOT => $this->__('The system backup has been created.'),
-            self::TYPE_SNAPSHOT_WITHOUT_MEDIA => $this->__('The system backup has been created.'),
+            self::TYPE_SNAPSHOT_WITHOUT_MEDIA => $this->__('The system (excluding Media) backup has been created.'),
             self::TYPE_MEDIA => $this->__('The database and media backup has been created.'),
             self::TYPE_DB => $this->__('The database backup has been created.')
         );

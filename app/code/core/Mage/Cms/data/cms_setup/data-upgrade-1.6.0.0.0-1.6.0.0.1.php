@@ -148,7 +148,7 @@ $pageContent = <<<EOD
         </tr>
         <tr>
             <th>CATEGORY_INFO</th>
-            <td></td>
+            <td>Stores the category info on the page, that allows to display pages more quickly.</td>
         </tr>
         <tr>
             <th>COMPARE</th>
@@ -172,7 +172,7 @@ $pageContent = <<<EOD
         </tr>
         <tr>
             <th>EXTERNAL_NO_CACHE</th>
-            <td></td>
+            <td>A flag, which indicates whether caching is disabled or not.</td>
         </tr>
         <tr>
             <th>FRONTEND</th>
@@ -180,7 +180,7 @@ $pageContent = <<<EOD
         </tr>
         <tr>
             <th>GUEST-VIEW</th>
-            <td></td>
+            <td>Allows guests to edit their orders.</td>
         </tr>
         <tr>
             <th>LAST_CATEGORY</th>
@@ -192,11 +192,11 @@ $pageContent = <<<EOD
         </tr>
         <tr>
             <th>NEWMESSAGE</th>
-            <td></td>
+            <td>Indicates whether a new message has been received.</td>
         </tr>
         <tr>
             <th>NO_CACHE</th>
-            <td></td>
+            <td>Indicates whether it is allowed to use cache.</td>
         </tr>
         <tr>
             <th>PERSISTENT_SHOPPING_CART</th>

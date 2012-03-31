@@ -107,6 +107,14 @@
                     </payment_sales_order_save_before>
                 </observers>
             </sales_order_save_before>
+            <sales_order_payment_save_before>
+                <observers>
+                    <payment_before_save>
+                        <class>payment/observer</class>
+                        <method>beforeOrderPaymentSave</method>
+                    </payment_before_save>
+                </observers>
+            </sales_order_payment_save_before>
         </events>
     </global>
     <frontend>
@@ -184,6 +192,22 @@
                 <allowspecific>0</allowspecific>
                 <group>offline</group>
             </purchaseorder>
+            <banktransfer>
+                <active>0</active>
+                <model>payment/method_banktransfer</model>
+                <order_status>pending</order_status>
+                <title>Bank Transfer Payment</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </banktransfer>
+            <cashondelivery>
+                <active>0</active>
+                <model>payment/method_cashondelivery</model>
+                <order_status>pending</order_status>
+                <title>Cash On Delivery</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </cashondelivery>
         </payment>
     </default>
 </config>

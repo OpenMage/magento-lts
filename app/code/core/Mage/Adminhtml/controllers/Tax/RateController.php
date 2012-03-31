@@ -110,11 +110,9 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 $this->getResponse()->setRedirect($this->getUrl("*/*/"));
                 return true;
             } catch (Mage_Core_Exception $e) {
-                //save entered by the user values in session, for re-rendering of form.
                 Mage::getSingleton('adminhtml/session')->setFormData($ratePost);
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             } catch (Exception $e) {
-                //Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while saving this rate.'));
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
 

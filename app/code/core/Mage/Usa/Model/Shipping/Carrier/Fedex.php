@@ -44,6 +44,20 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     const CODE = 'fedex';
 
     /**
+     * Purpose of rate request
+     *
+     * @var string
+     */
+    const RATE_REQUEST_GENERAL = 'general';
+
+    /**
+     * Purpose of rate request
+     *
+     * @var string
+     */
+    const RATE_REQUEST_SMARTPOST = 'SMART_POST';
+
+    /**
      * Code of the carrier
      *
      * @var string
@@ -167,10 +181,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
         if (!$this->getConfigFlag($this->_activeFlag)) {
             return false;
         }
-
         $this->setRequest($request);
 
-        $this->_result = $this->_getQuotes();
+        $this->_getQuotes();
 
         $this->_updateFreeMethodQuote($request);
 
@@ -294,11 +307,12 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     }
 
     /**
-     * Do remote request for  and handle errors
+     * Forming request for rate estimation depending to the purpose
      *
-     * @return Mage_Shipping_Model_Rate_Result
+     * @param string $purpose
+     * @return array
      */
-    protected function _getQuotes()
+    protected function _formRateRequest($purpose)
     {
         $r = $this->_rawRequest;
         $ratesRequest = array(
@@ -356,15 +370,37 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                             'Value' => (float)$r->getWeight(),
                             'Units' => 'LB'
                         ),
-                        'InsuredValue' => array(
-                            'Amount'  => $r->getValue(),
-                            'Currency' => $this->getCurrencyCode()
-                        ),
                         'GroupPackageCount' => 1,
                     )
                 )
             )
         );
+
+        if ($purpose == self::RATE_REQUEST_GENERAL) {
+            $ratesRequest['RequestedShipment']['RequestedPackageLineItems'][0]['InsuredValue'] = array(
+                'Amount'  => $r->getValue(),
+                'Currency' => $this->getCurrencyCode()
+            );
+        } else if ($purpose == self::RATE_REQUEST_SMARTPOST) {
+            $ratesRequest['RequestedShipment']['ServiceType'] = self::RATE_REQUEST_SMARTPOST;
+            $ratesRequest['RequestedShipment']['SmartPostDetail'] = array(
+                'Indicia' => ((float)$r->getWeight() >= 1) ? 'PARCEL_SELECT' : 'PRESORTED_STANDARD',
+                'HubId' => $this->getConfigData('smartpost_hubid')
+            );
+        }
+
+        return $ratesRequest;
+    }
+
+    /**
+     * Makes remote request to the carrier and returns a response
+     *
+     * @param string $purpose
+     * @return mixed
+     */
+    protected function _doRatesRequest($purpose)
+    {
+        $ratesRequest = $this->_formRateRequest($purpose);
         $requestString = serialize($ratesRequest);
         $response = $this->_getCachedQuotes($requestString);
         $debugData = array('request' => $ratesRequest);
@@ -383,7 +419,33 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
             $debugData['result'] = $response;
         }
         $this->_debug($debugData);
-        return $this->_prepareRateResponse($response);
+        return $response;
+    }
+
+    /**
+     * Do remote request for and handle errors
+     *
+     * @return Mage_Shipping_Model_Rate_Result
+     */
+    protected function _getQuotes()
+    {
+        $this->_result = Mage::getModel('shipping/rate_result');
+        // make separate request for Smart Post method
+        $allowedMethods = explode(',', $this->getConfigData('allowed_methods'));
+        if (in_array(self::RATE_REQUEST_SMARTPOST, $allowedMethods)) {
+            $response = $this->_doRatesRequest(self::RATE_REQUEST_SMARTPOST);
+            $preparedSmartpost = $this->_prepareRateResponse($response);
+            if (!$preparedSmartpost->getError()) {
+                $this->_result->append($preparedSmartpost);
+            }
+        }
+        // make general request for all methods
+        $response = $this->_doRatesRequest(self::RATE_REQUEST_GENERAL);
+        $preparedGeneral = $this->_prepareRateResponse($response);
+        if (!$preparedGeneral->getError() || ($this->_result->getError() && $preparedGeneral->getError())) {
+            $this->_result->append($preparedGeneral);
+        }
+        return $this->_result;
     }
 
     /**
@@ -1208,7 +1270,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
             ),
             'Version' => array(
                 'ServiceId'     => 'ship',
-                'Major'         => '9',
+                'Major'         => '10',
                 'Intermediate'  => '0',
                 'Minor'         => '0'
             )

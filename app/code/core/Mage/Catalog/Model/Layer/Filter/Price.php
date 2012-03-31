@@ -41,18 +41,18 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     /**
      * XML configuration paths for Price Layered Navigation
      */
-    const XML_PATH_RANGE_CALCULATION    = 'catalog/layered_navigation/price_range_calculation';
-    const XML_PATH_RANGE_STEP           = 'catalog/layered_navigation/price_range_step';
-    const XML_PATH_RANGE_MAX_INTERVALS  = 'catalog/layered_navigation/price_range_max_intervals';
-    const XML_PATH_ONE_PRICE_INTERVAL  = 'catalog/layered_navigation/one_price_interval';
-    const XML_PATH_INTERVAL_DIVISION_LIMIT  = 'catalog/layered_navigation/interval_division_limit';
+    const XML_PATH_RANGE_CALCULATION       = 'catalog/layered_navigation/price_range_calculation';
+    const XML_PATH_RANGE_STEP              = 'catalog/layered_navigation/price_range_step';
+    const XML_PATH_RANGE_MAX_INTERVALS     = 'catalog/layered_navigation/price_range_max_intervals';
+    const XML_PATH_ONE_PRICE_INTERVAL      = 'catalog/layered_navigation/one_price_interval';
+    const XML_PATH_INTERVAL_DIVISION_LIMIT = 'catalog/layered_navigation/interval_division_limit';
 
     /**
-     * Price layered navigation mode: Automatic, Continuous, Manual
+     * Price layered navigation modes: Automatic (equalize price ranges), Automatic (equalize product counts), Manual
      */
-    const RANGE_CALCULATION_AUTO = 'auto';
-    const RANGE_CALCULATION_IMPROVED = 'improved';
-    const RANGE_CALCULATION_MANUAL  = 'manual';
+    const RANGE_CALCULATION_AUTO     = 'auto'; // equalize price ranges
+    const RANGE_CALCULATION_IMPROVED = 'improved'; // equalize product counts
+    const RANGE_CALCULATION_MANUAL   = 'manual';
 
     /**
      * Minimal size of the range
@@ -265,7 +265,10 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         /** @var $algorithmModel Mage_Catalog_Model_Layer_Filter_Price_Algorithm */
         $algorithmModel = Mage::getSingleton('catalog/layer_filter_price_algorithm');
         $collection = $this->getLayer()->getProductCollection();
-        if ($collection->getPricesCount() <= $this->getIntervalDivisionLimit()) {
+        $appliedInterval = $this->getInterval();
+        if ($appliedInterval
+            && $collection->getPricesCount() <= $this->getIntervalDivisionLimit()
+        ) {
             return array();
         }
         $algorithmModel->setPricesModel($this)->setStatistics(
@@ -274,9 +277,9 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             $collection->getPriceStandardDeviation(),
             $collection->getPricesCount()
         );
-        $appliedInterval = $this->getInterval();
+
         if ($appliedInterval) {
-            if ($appliedInterval[0] == $appliedInterval[1]) {
+            if ($appliedInterval[0] == $appliedInterval[1] || $appliedInterval[1] === '0') {
                 return array();
             }
             $algorithmModel->setLimits($appliedInterval[0], $appliedInterval[1]);

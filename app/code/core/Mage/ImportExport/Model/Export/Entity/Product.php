@@ -50,6 +50,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     const COL_ATTR_SET = '_attribute_set';
     const COL_TYPE     = '_type';
     const COL_CATEGORY = '_category';
+    const COL_ROOT_CATEGORY = '_root_category';
     const COL_SKU      = 'sku';
 
     /**
@@ -65,6 +66,13 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      * @var array
      */
     protected $_categories = array();
+
+    /**
+     * Root category names for each category
+     *
+     * @var array
+     */
+    protected $_rootCategories = array();
 
     /**
      * Attributes with index (not label) value.
@@ -158,13 +166,17 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         foreach ($collection as $category) {
             $structure = preg_split('#/+#', $category->getPath());
             $pathSize  = count($structure);
-            if ($pathSize > 2) {
+            if ($pathSize > 1) {
                 $path = array();
-                for ($i = 2; $i < $pathSize; $i++) {
+                for ($i = 1; $i < $pathSize; $i++) {
                     $path[] = $collection->getItemById($structure[$i])->getName();
                 }
-                $this->_categories[$category->getId()] = implode('/', $path);
+                $this->_rootCategories[$category->getId()] = array_shift($path);
+                if ($pathSize > 2) {
+                    $this->_categories[$category->getId()] = implode('/', $path);
+                }
             }
+
         }
         return $this;
     }
@@ -510,6 +522,29 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     }
 
     /**
+     * Update data row with information about categories. Return true, if data row was updated
+     *
+     * @param array $dataRow
+     * @param array $rowCategories
+     * @param int $productId
+     * @return bool
+     */
+    protected function _updateDataWithCategoryColumns(&$dataRow, &$rowCategories, $productId)
+    {
+        if (!isset($rowCategories[$productId])) {
+            return false;
+        }
+
+        $categoryId = array_shift($rowCategories[$productId]);
+        $dataRow[self::COL_ROOT_CATEGORY] = $this->_rootCategories[$categoryId];
+        if (isset($this->_categories[$categoryId])) {
+            $dataRow[self::COL_CATEGORY] = $this->_categories[$categoryId];
+        }
+
+        return true;
+    }
+
+    /**
      * Export process.
      *
      * @return string
@@ -642,9 +677,10 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 break;
             }
 
-            // remove root categories
-            foreach ($rowCategories as $productId => &$categories) {
-                $categories = array_intersect($categories, array_keys($this->_categories));
+            // remove unused categories
+            $allCategoriesIds = array_merge(array_keys($this->_categories), array_keys($this->_rootCategories));
+            foreach ($rowCategories as &$categories) {
+                $categories = array_intersect($categories, $allCategoriesIds);
             }
 
             // prepare catalog inventory information
@@ -789,7 +825,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 $headerCols = array_merge(
                     array(
                         self::COL_SKU, self::COL_STORE, self::COL_ATTR_SET,
-                        self::COL_TYPE, self::COL_CATEGORY, '_product_websites'
+                        self::COL_TYPE, self::COL_CATEGORY, self::COL_ROOT_CATEGORY, '_product_websites'
                     ),
                     $validAttrCodes,
                     reset($stockItemRows) ? array_keys(end($stockItemRows)) : array(),
@@ -836,9 +872,8 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         $dataRow[self::COL_STORE] = null;
                         $dataRow += $stockItemRows[$productId];
                     }
-                    if ($rowCategories[$productId]) {
-                        $dataRow[self::COL_CATEGORY] = $this->_categories[array_shift($rowCategories[$productId])];
-                    }
+
+                    $this->_updateDataWithCategoryColumns($dataRow, $rowCategories, $productId);
                     if ($rowWebsites[$productId]) {
                         $dataRow['_product_websites'] = $this->_websiteIdToCode[array_shift($rowWebsites[$productId])];
                     }
@@ -917,9 +952,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     for ($i = 0; $i < $additionalRowsCount; $i++) {
                         $dataRow = array();
 
-                        if ($rowCategories[$productId]) {
-                            $dataRow[self::COL_CATEGORY] = $this->_categories[array_shift($rowCategories[$productId])];
-                        }
+                        $this->_updateDataWithCategoryColumns($dataRow, $rowCategories, $productId);
                         if ($rowWebsites[$productId]) {
                             $dataRow['_product_websites'] = $this
                                 ->_websiteIdToCode[array_shift($rowWebsites[$productId])];

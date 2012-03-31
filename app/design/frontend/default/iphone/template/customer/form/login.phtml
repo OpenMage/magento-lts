@@ -40,13 +40,15 @@
             <ul class="form-list">
                 <li>
                     <label for="email"><?php echo $this->__('Enter your email') ?>:</label>
-                    <input type="email" class="required-entry validate-email" name="login[username]" id="email" value="<?php echo $this->htmlEscape($this->getUsername()) ?>" placeholder="<?php echo $this->__('Email Address') ?>" />
+                    <input type="email" class="required-entry validate-email" name="login[username]" id="email" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" placeholder="<?php echo $this->__('Email Address') ?>" />
                 </li>
                 <li>
                     <label for="pass"><?php echo $this->__('Enter your password') ?>:</label>
                     <input type="password" class="required-entry validate-password" name="login[password]" id="pass" placeholder="<?php echo $this->__('Password') ?>" />
                 </li>
-                <?php echo $this->getChildHtml('form.additional.info'); ?>
+                <?php if (Mage::helper('core/captcha')->isRequired('user_login')): ?>
+                    <?php echo $this->getChildHtml('captcha') ?>
+                <?php endif ?>
             </ul>
             <a href="<?php echo $this->getForgotPasswordUrl() ?>"><?php echo $this->__('Forgot your password?') ?></a>
             <div class="login-button">

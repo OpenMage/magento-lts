@@ -157,8 +157,9 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
                 'values'    => $stores,
                 'disabled'  => true,
                 'value'     => $formValues['store_id'],
-                'after_element_html' => Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml()
             ));
+            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $element->setRenderer($renderer);
             if ($noStoreError) {
                 $element->setAfterElementHtml($noStoreError);
             }

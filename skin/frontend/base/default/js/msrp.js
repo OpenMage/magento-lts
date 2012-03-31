@@ -199,8 +199,10 @@ Catalog.Map = {
                 var productField = $('map-popup-product-id');
                 productField.value = this.product_id;
                 $(cartButton).show();
+                $$('.additional-addtocart-box').invoke('show');
             } else {
                 $(cartButton).hide();
+                $$('.additional-addtocart-box').invoke('hide');
             }
 
             //Horizontal line

@@ -96,13 +96,14 @@ class Mage_Adminhtml_Block_Review_Edit_Form extends Mage_Adminhtml_Block_Widget_
          * Check is single store mode
          */
         if (!Mage::app()->isSingleStoreMode()) {
-            $fieldset->addField('select_stores', 'multiselect', array(
+            $field = $fieldset->addField('select_stores', 'multiselect', array(
                 'label'     => Mage::helper('review')->__('Visible In'),
                 'required'  => true,
                 'name'      => 'stores[]',
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(),
-                'after_element_html' => Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml()
             ));
+            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $field->setRenderer($renderer);
             $review->setSelectStores($review->getStores());
         }
         else {

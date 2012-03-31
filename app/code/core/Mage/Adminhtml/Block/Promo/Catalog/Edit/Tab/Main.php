@@ -108,7 +108,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
             'name' => 'description',
             'label' => Mage::helper('catalogrule')->__('Description'),
             'title' => Mage::helper('catalogrule')->__('Description'),
-            'style' => 'width: 98%; height: 100px;',
+            'style' => 'height: 100px;',
         ));
 
         $fieldset->addField('is_active', 'select', array(
@@ -130,14 +130,15 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
             ));
             $model->setWebsiteIds($websiteId);
         } else {
-            $fieldset->addField('website_ids', 'multiselect', array(
+            $field = $fieldset->addField('website_ids', 'multiselect', array(
                 'name'     => 'website_ids[]',
                 'label'     => Mage::helper('catalogrule')->__('Websites'),
                 'title'     => Mage::helper('catalogrule')->__('Websites'),
                 'required' => true,
-                'values'   => Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm(),
-                'after_element_html' => Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml()
+                'values'   => Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm()
             ));
+            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $field->setRenderer($renderer);
         }
 
         $fieldset->addField('customer_group_ids', 'multiselect', array(

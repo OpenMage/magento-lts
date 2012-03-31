@@ -99,14 +99,15 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $fieldset->addField('store_id', 'multiselect', array(
+            $field = $fieldset->addField('store_id', 'multiselect', array(
                 'name'      => 'stores[]',
                 'label'     => Mage::helper('checkout')->__('Store View'),
                 'title'     => Mage::helper('checkout')->__('Store View'),
                 'required'  => true,
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, true),
-                'after_element_html' => Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml()
             ));
+            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $field->setRenderer($renderer);
         }
         else {
             $fieldset->addField('store_id', 'hidden', array(

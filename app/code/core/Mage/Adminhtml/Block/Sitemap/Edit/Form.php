@@ -81,15 +81,16 @@ class Mage_Adminhtml_Block_Sitemap_Edit_Form extends Mage_Adminhtml_Block_Widget
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $fieldset->addField('store_id', 'select', array(
+            $field = $fieldset->addField('store_id', 'select', array(
                 'label'    => Mage::helper('sitemap')->__('Store View'),
                 'title'    => Mage::helper('sitemap')->__('Store View'),
                 'name'     => 'store_id',
                 'required' => true,
                 'value'    => $model->getStoreId(),
                 'values'   => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(),
-                'after_element_html' => Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml()
             ));
+            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $field->setRenderer($renderer);
         }
         else {
             $fieldset->addField('store_id', 'hidden', array(

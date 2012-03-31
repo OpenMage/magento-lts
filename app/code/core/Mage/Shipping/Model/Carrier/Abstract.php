@@ -556,7 +556,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     }
 
     /**
-     * Used to call debug method from not Paymant Method context
+     * Used to call debug method from not Payment Method context
      *
      * @param mixed $debugData
      */

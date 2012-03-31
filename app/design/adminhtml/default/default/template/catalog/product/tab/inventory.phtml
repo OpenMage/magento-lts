@@ -107,6 +107,8 @@
             </td>
             <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>
         </tr>
+
+        <?php if (!$this->isVirtual()) : ?>
         <tr>
             <td class="label"><label for="inventory_is_decimal_divided"><?php echo Mage::helper('catalog')->__('Can be Divided into Multiple Boxes for Shipping') ?></label></td>
             <td class="value"><select id="inventory_is_decimal_divided" name="<?php echo $this->getFieldSuffix() ?>[stock_data][is_decimal_divided]" class="select" <?php echo $_readonly;?>>
@@ -116,6 +118,8 @@
             </td>
             <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>
         </tr>
+        <?php endif; ?>
+
         <?php endif; ?>
 
         <tr>
@@ -229,11 +233,15 @@
     }
 
     function applyEnableDecimalDivided() {
+        <?php if (!$this->isVirtual()) : ?>
         $('inventory_is_decimal_divided').up('tr').hide();
+        <?php endif; ?>
         $('inventory_qty_increments').removeClassName('validate-digits').removeClassName('validate-number');
         $('inventory_min_sale_qty').removeClassName('validate-digits').removeClassName('validate-number');
         if ($('inventory_is_qty_decimal').value == 1) {
+            <?php if (!$this->isVirtual()) : ?>
             $('inventory_is_decimal_divided').up('tr').show();
+            <?php endif; ?>
             $('inventory_qty_increments').addClassName('validate-number');
             $('inventory_min_sale_qty').addClassName('validate-number');
         } else {

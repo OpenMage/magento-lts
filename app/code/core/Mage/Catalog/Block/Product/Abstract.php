@@ -262,6 +262,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      *
      * @param string $type
      * @param string $template
+     * @return string
      */
     public function addReviewSummaryTemplate($type, $template)
     {
@@ -312,9 +313,10 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         return $this->getData('tier_price_template');
     }
     /**
-     * Returns product tierprice block html
+     * Returns product tier price block html
      *
      * @param Mage_Catalog_Model_Product $product
+     * @return string
      */
     public function getTierPriceHtml($product = null)
     {
@@ -396,8 +398,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * to get correct values in different products lists.
      * E.g. crosssells, upsells, new products, recently viewed
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     protected function _addProductAttributesAndPrices(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
@@ -496,7 +498,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * Add row size depends on page layout
      *
      * @param string $pageLayout
-     * @param int $rowSize
+     * @param int $columnCount
      * @return Mage_Catalog_Block_Product_List
      */
     public function addColumnCountLayoutDepend($pageLayout, $columnCount)

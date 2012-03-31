@@ -37,7 +37,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
     /**
      * Minimal possible price
      */
-    const MIN_POSSIBLE_PRICE = .0001;
+    const MIN_POSSIBLE_PRICE = .01;
 
     /**
      * Initialize connection and define main table name
@@ -225,9 +225,9 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
     {
         $currencyRate = $filter->getLayer()->getProductCollection()->getCurrencyRate();
         if ($decrease) {
-            return round(($price - (self::MIN_POSSIBLE_PRICE / 2)) / $currencyRate, 3);
+            return ($price - (self::MIN_POSSIBLE_PRICE / 2)) / $currencyRate;
         }
-        return round(($price + (self::MIN_POSSIBLE_PRICE / 2)) / $currencyRate, 3);
+        return ($price + (self::MIN_POSSIBLE_PRICE / 2)) / $currencyRate;
     }
 
     /**
@@ -253,14 +253,12 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
     public function getCount($filter, $range)
     {
         $select = $this->_getSelect($filter);
-        $priceExpression = $this->_getPriceExpression($filter, $select);
-        $rate = $filter->getCurrencyRate();
+        $priceExpression = $this->_getFullPriceExpression($filter, $select);
 
         /**
          * Check and set correct variable values to prevent SQL-injections
          */
-        $rate = floatval($rate);
-        $range = floatval($range) / $rate;
+        $range = floatval($range);
         if ($range == 0) {
             $range = 1;
         }

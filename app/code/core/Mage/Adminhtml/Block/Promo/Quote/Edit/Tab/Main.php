@@ -107,7 +107,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main
             'name' => 'description',
             'label' => Mage::helper('salesrule')->__('Description'),
             'title' => Mage::helper('salesrule')->__('Description'),
-            'style' => 'width: 98%; height: 100px;',
+            'style' => 'height: 100px;',
         ));
 
         $fieldset->addField('is_active', 'select', array(
@@ -129,19 +129,19 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main
             $websiteId = Mage::app()->getStore(true)->getWebsiteId();
             $fieldset->addField('website_ids', 'hidden', array(
                 'name'     => 'website_ids[]',
-                'value'    => $websiteId,
-                'after_element_html' => Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml()
+                'value'    => $websiteId
             ));
             $model->setWebsiteIds($websiteId);
         } else {
-            $fieldset->addField('website_ids', 'multiselect', array(
+            $field = $fieldset->addField('website_ids', 'multiselect', array(
                 'name'     => 'website_ids[]',
                 'label'     => Mage::helper('salesrule')->__('Websites'),
                 'title'     => Mage::helper('salesrule')->__('Websites'),
                 'required' => true,
-                'values'   => Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm(),
-                'after_element_html' => Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml()
+                'values'   => Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm()
             ));
+            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $field->setRenderer($renderer);
         }
 
         $customerGroups = Mage::getResourceModel('customer/group_collection')->load()->toOptionArray();

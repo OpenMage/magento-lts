@@ -91,7 +91,16 @@ Layout for customer login page
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         <reference name="content">
-            <block type="customer/form_login" name="customer_form_login" template="customer/form/login.phtml" />
+            <block type="customer/form_login" name="customer_form_login" template="customer/form/login.phtml">
+                <block type="core/captcha" name="captcha">
+                    <reference name="head">
+                        <action method="addJs"><file>mage/captcha.js</file></action>
+                    </reference>
+                    <action method="setFormId"><formId>user_login</formId></action>
+                    <action method="setImgWidth"><width>230</width></action>
+                    <action method="setImgHeight"><width>50</width></action>
+                </block>
+            </block>
         </reference>
     </customer_account_login>
 
@@ -131,6 +140,14 @@ New customer registration
                 <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before" translate="label">
                     <label>Form Fields Before</label>
                 </block>
+                <block type="core/captcha" name="captcha">
+                    <reference name="head">
+                        <action method="addJs"><file>mage/captcha.js</file></action>
+                    </reference>
+                    <action method="setFormId"><formId>user_create</formId></action>
+                    <action method="setImgWidth"><width>230</width></action>
+                    <action method="setImgHeight"><width>50</width></action>
+                </block>
             </block>
         </reference>
     </customer_account_create>
@@ -146,7 +163,16 @@ New customer registration
         </reference>
         <reference name="content">
             <!--<block type="core/template" name="forgotPassword" template="customer/form/forgotpassword.phtml"/>-->
-            <block type="customer/account_forgotpassword" name="forgotPassword" template="customer/form/forgotpassword.phtml" />
+            <block type="customer/account_forgotpassword" name="forgotPassword" template="customer/form/forgotpassword.phtml">
+                <block type="core/captcha" name="captcha">
+                    <reference name="head">
+                        <action method="addJs"><file>mage/captcha.js</file></action>
+                    </reference>
+                    <action method="setFormId"><formId>user_forgotpassword</formId></action>
+                    <action method="setImgWidth"><width>230</width></action>
+                    <action method="setImgHeight"><width>50</width></action>
+                </block>
+            </block>
         </reference>
     </customer_account_forgotpassword>
 
@@ -198,18 +224,12 @@ Customer account pages, rendered for all tabs in dashboard
             </block>
         </reference>
 
-        <reference name="left">
+        <reference name="content">
             <block type="customer/account_navigation" name="customer_account_navigation" before="-" template="customer/account/navigation.phtml">
                 <action method="addLink" translate="label" module="customer"><name>account</name><path>customer/account/</path><label>Account Dashboard</label></action>
                 <action method="addLink" translate="label" module="customer"><name>account_edit</name><path>customer/account/edit/</path><label>Account Information</label></action>
                 <action method="addLink" translate="label" module="customer"><name>address_book</name><path>customer/address/</path><label>Address Book</label></action>
             </block>
-            <block type="checkout/cart_sidebar" name="cart_sidebar" template="checkout/cart/sidebar.phtml">
-                <action method="addItemRender"><type>simple</type><block>checkout/cart_item_renderer</block><template>checkout/cart/sidebar/default.phtml</template></action>
-                <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/cart/sidebar/default.phtml</template></action>
-                <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/cart/sidebar/default.phtml</template></action>
-            </block>
-            <block type="catalog/product_compare_sidebar" name="catalog.compare.sidebar" template="catalog/product/compare/sidebar.phtml"/>
             <remove name="tags_popular"/>
 
         </reference>

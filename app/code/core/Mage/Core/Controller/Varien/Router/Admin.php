@@ -88,16 +88,18 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     }
 
     /**
-     * Check whether url should be secure
+     * Check whether URL for corresponding path should use https protocol
      *
-     * @param mixed $path
+     * @param string $path
      * @return bool
      */
     protected function _shouldBeSecure($path)
     {
-        return substr((string)Mage::getConfig()->getNode('default/web/unsecure/base_url'),0,5)==='https'
-            || Mage::getStoreConfigFlag('web/secure/use_in_adminhtml', Mage_Core_Model_App::ADMIN_STORE_ID)
-            && substr((string)Mage::getConfig()->getNode('default/web/secure/base_url'),0,5)==='https';
+        $xmlPath = Mage::getStoreConfigFlag(
+            Mage_Core_Model_Store::XML_PATH_SECURE_IN_ADMINHTML,
+            Mage_Core_Model_App::ADMIN_STORE_ID
+        ) ? 'default/web/secure/base_url' : 'default/web/unsecure/base_url';
+        return substr((string)Mage::getConfig()->getNode($xmlPath), 0, 5) === 'https';
     }
 
     /**

@@ -322,6 +322,14 @@ One page checkout main layout
                         <label>Login/Registration Before</label>
                         <action method="setMayBeInvisible"><value>1</value></action>
                     </block>
+                    <block type="core/captcha" name="captcha">
+                        <reference name="head">
+                            <action method="addJs"><file>mage/captcha.js</file></action>
+                        </reference>
+                        <action method="setFormId"><formId>user_login</formId></action>
+                        <action method="setImgWidth"><width>230</width></action>
+                        <action method="setImgHeight"><width>50</width></action>
+                    </block>
                 </block>
                 <block type="checkout/onepage_billing" name="checkout.onepage.billing" as="billing" template="checkout/onepage/billing.phtml"/>
                 <block type="checkout/onepage_shipping" name="checkout.onepage.shipping" as="shipping" template="checkout/onepage/shipping.phtml"/>
@@ -347,12 +355,6 @@ One page checkout progress block
         <!-- Mage_Checkout -->
         <remove name="right"/>
         <remove name="left"/>
-
-        <block type="checkout/onepage_progress" name="root" output="toHtml" template="checkout/onepage/progress.phtml">
-            <block type="checkout/onepage_payment_info" name="payment_info">
-                <action method="setInfoTemplate"><method></method><template></template></action>
-            </block>
-        </block>
     </checkout_onepage_progress>
 
 <!--

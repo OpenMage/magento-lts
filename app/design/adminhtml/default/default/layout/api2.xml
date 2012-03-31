@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<layout>
+    <adminhtml_api2_role_index>
+        <reference name="content">
+            <block type="api2/adminhtml_roles" name="api2_roles"/>
+        </reference>
+    </adminhtml_api2_role_index>
+
+    <adminhtml_api2_role_new>
+        <reference name="left">
+            <block type="api2/adminhtml_roles_tabs" name="adminhtml.role.edit.tabs">
+                <block type="api2/adminhtml_roles_tab_info" name="adminhtml.role.edit.tab.info"/>
+                <block type="api2/adminhtml_roles_tab_resources" name="adminhtml.role.edit.tab.resources" template="permissions/rolesedit.phtml"/>
+                <action method="addTab">
+                    <id>api2_role_section_info</id>
+                    <block>adminhtml.role.edit.tab.info</block>
+                </action>
+                <action method="addTab">
+                    <id>api2_role_section_resources</id>
+                    <block>adminhtml.role.edit.tab.resources</block>
+                </action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="api2/adminhtml_roles_buttons" name="adminhtml.roles.buttons"/>
+        </reference>
+        <reference name="head">
+            <action method="setCanLoadExtJs">
+                <flag>1</flag>
+            </action>
+        </reference>
+    </adminhtml_api2_role_new>
+
+    <adminhtml_api2_role_edit>
+        <reference name="left">
+            <block type="api2/adminhtml_roles_tabs" name="adminhtml.role.edit.tabs">
+                <block type="api2/adminhtml_roles_tab_info" name="adminhtml.role.edit.tab.info"/>
+                <block type="api2/adminhtml_roles_tab_resources" name="adminhtml.role.edit.tab.resources" template="permissions/rolesedit.phtml"/>
+                <block type="api2/adminhtml_roles_tab_users" name="adminhtml.role.edit.tab.users"/>
+                <action method="addTab">
+                    <id>api2_role_section_info</id>
+                    <block>adminhtml.role.edit.tab.info</block>
+                </action>
+                <action method="addTab">
+                    <id>api2_role_section_resources</id>
+                    <block>adminhtml.role.edit.tab.resources</block>
+                </action>
+                <action method="addTab">
+                    <id>roleUsersGrid</id>
+                    <block>adminhtml.role.edit.tab.users</block>
+                </action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="api2/adminhtml_roles_buttons" name="adminhtml.roles.buttons"/>
+        </reference>
+        <reference name="head">
+            <action method="setCanLoadExtJs">
+                <flag>1</flag>
+            </action>
+        </reference>
+        <reference name="js">
+            <block type="adminhtml/template" name="adminhtml.role.js.users.grid" template="api2/role/users_grid_js.phtml"/>
+        </reference>
+    </adminhtml_api2_role_edit>
+
+    <adminhtml_api2_role_grid>
+        <remove name="root"/>
+        <block type="api2/adminhtml_roles_grid" name="api2_roles.grid" output="toHtml"/>
+    </adminhtml_api2_role_grid>
+
+    <adminhtml_api2_role_usersgrid>
+        <remove name="root"/>
+        <block type="api2/adminhtml_roles_tab_users" name="adminhtml.role.edit.tab.users" output="toHtml"/>
+    </adminhtml_api2_role_usersgrid>
+
+    <!-- admin acl users edit page -->
+    <adminhtml_permissions_user_edit>
+        <reference name="adminhtml.permissions.user.edit.tabs">
+            <block type="api2/adminhtml_permissions_user_edit_tab_roles" name="adminhtml.permissions.user.edit.tab.roles"/>
+            <action method="addTabAfter">
+                <id>api2_roles_section</id>
+                <block>adminhtml.permissions.user.edit.tab.roles</block>
+                <after>roles_section</after>
+            </action>
+        </reference>
+        <reference name="js">
+            <block type="adminhtml/template" name="adminhtml.permissions.user.edit.tab.roles.js" template="api2/permissions/user/edit/tab/roles/js.phtml"/>
+        </reference>
+    </adminhtml_permissions_user_edit>
+
+    <!-- ACL attributes -->
+    <adminhtml_api2_attribute_index>
+        <reference name="content">
+            <block type="api2/adminhtml_attribute" name="api2.attribute"/>
+        </reference>
+    </adminhtml_api2_attribute_index>
+
+    <adminhtml_api2_attribute_edit>
+        <reference name="left">
+            <block type="api2/adminhtml_attribute_tabs" name="api2.attribute.edit.tabs">
+                <block type="api2/adminhtml_attribute_tab_resource" name="api2.attribute.tab.resource" template="api2/attribute/resource.phtml"/>
+                <action method="addTab">
+                    <name>api2_attribute_section_resources</name>
+                    <block>api2.attribute.tab.resource</block>
+                </action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="api2/adminhtml_attribute_edit" name="edit_form">
+                <block type="api2/adminhtml_attribute_edit_form" name="form"/>
+            </block>
+        </reference>
+        <reference name="head">
+            <action method="setCanLoadExtJs">
+                <flag>1</flag>
+            </action>
+        </reference>
+    </adminhtml_api2_attribute_edit>
+    <!-- EOF ACL attributes -->
+</layout>

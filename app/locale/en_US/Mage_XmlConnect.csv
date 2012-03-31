@@ -536,7 +536,7 @@
 "Store logo that is displayed on copyright page of app. Preferred size: 100px x 100px.","Store logo that is displayed on copyright page of app. Preferred size: 100px x 100px."
 "Store logo that is displayed on copyright page of app. Preferred size: 200px x 200px.","Store logo that is displayed on copyright page of app. Preferred size: 200px x 200px."
 "Street Address","Street Address"
-"Street Address 2","Street Address 2"
+"Street Address %s","Street Address %s"
 "Submission","Submission"
 "Submission Fields","Submission Fields"
 "Submission History","Submission History"

@@ -70,7 +70,7 @@
                 <li>
                     <label for="login-email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
                     <div class="input-box">
-                        <input type="email" class="input-text required-entry validate-email" id="login-email" name="login[username]" value="<?php echo $this->htmlEscape($this->getUsername()) ?>" />
+                        <input type="email" class="input-text required-entry validate-email" id="login-email" name="login[username]" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" />
                     </div>
                 </li>
                 <li>
@@ -79,7 +79,9 @@
                         <input type="password" class="input-text required-entry" id="login-password" name="login[password]" />
                     </div>
                 </li>
-                <?php echo $this->getChildHtml('form.additional.info'); ?>
+                <?php if (Mage::helper('core/captcha')->isRequired('user_login')): ?>
+                    <?php echo $this->getChildHtml('captcha') ?>
+                <?php endif ?>
             </ul>
         </fieldset>
         </form>

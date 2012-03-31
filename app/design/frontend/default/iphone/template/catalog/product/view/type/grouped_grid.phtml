@@ -47,7 +47,7 @@ $this->setPreconfiguredValue(); ?>
     <?php foreach ($_associatedProducts as $_item): ?>
         <?php $_finalPriceInclTax = $this->helper('tax')->getPrice($_item, $_item->getFinalPrice(), true) ?>
         <tr>
-            <td><?php echo $this->htmlEscape($_item->getName()) ?></td>
+            <td><?php echo $this->escapeHtml($_item->getName()) ?></td>
             <?php if ($this->getCanShowProductPrice($_product)): ?>
             <td>
                 <?php if ($this->getCanShowProductPrice($_item)): ?>

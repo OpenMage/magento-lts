@@ -629,14 +629,16 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * TODO: payment method instance is not supposed to know about quote
      *
-     * @param Mage_Sales_Model_Quote $quote
+     * @param Mage_Sales_Model_Quote|null $quote
      *
      * @return bool
      */
     public function isAvailable($quote = null)
     {
         $checkResult = new StdClass;
-        $checkResult->isAvailable = (bool)(int)$this->getConfigData('active', ($quote ? $quote->getStoreId() : null));
+        $isActive = (bool)(int)$this->getConfigData('active', $quote ? $quote->getStoreId() : null);
+        $checkResult->isAvailable = $isActive;
+        $checkResult->isDeniedInConfig = !$isActive; // for future use in observers
         Mage::dispatchEvent('payment_method_is_active', array(
             'result'          => $checkResult,
             'method_instance' => $this,
@@ -647,7 +649,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         if ($checkResult->isAvailable) {
             $implementsRecurring = $this->canManageRecurringProfiles();
             // the $quote->hasRecurringItems() causes big performance impact, thus it has to be called last
-            if ($quote && (!$implementsRecurring) && $quote->hasRecurringItems()) {
+            if ($quote && !$implementsRecurring && $quote->hasRecurringItems()) {
                 $checkResult->isAvailable = false;
             }
         }
@@ -704,7 +706,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     }
 
     /**
-     * Used to call debug method from not Paymant Method context
+     * Used to call debug method from not Payment Method context
      *
      * @param mixed $debugData
      */

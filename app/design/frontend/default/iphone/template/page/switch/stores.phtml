@@ -38,7 +38,7 @@
             <?php foreach ($this->getGroups() as $_group): ?>
             <?php $_selected = ($_group->getId() == $this->getCurrentGroupId()) ? ' class="selected"' : '' ?>
             <li<?php echo $_selected ?>>
-                <a href="<?php echo $_group->getCurrentUrl() ?>"><?php echo $this->htmlEscape($_group->getName()) ?></a>
+                <a href="<?php echo $_group->getCurrentUrl() ?>"><?php echo $this->escapeHtml($_group->getName()) ?></a>
             </li>
             <?php endforeach; ?>
         </ol>

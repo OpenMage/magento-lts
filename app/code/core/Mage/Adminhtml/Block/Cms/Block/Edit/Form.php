@@ -93,14 +93,15 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
          * Check is single store mode
          */
         if (!Mage::app()->isSingleStoreMode()) {
-            $fieldset->addField('store_id', 'multiselect', array(
+            $field =$fieldset->addField('store_id', 'multiselect', array(
                 'name'      => 'stores[]',
                 'label'     => Mage::helper('cms')->__('Store View'),
                 'title'     => Mage::helper('cms')->__('Store View'),
                 'required'  => true,
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, true),
-                'after_element_html' => Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml()
             ));
+            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $field->setRenderer($renderer);
         }
         else {
             $fieldset->addField('store_id', 'hidden', array(

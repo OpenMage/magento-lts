@@ -229,7 +229,12 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         // prepare response object for event
         $response = new Varien_Object();
         $response->setAdditionalCalculations(array());
-        $table = self::INDEX_TABLE_ALIAS;
+        $tableAliases = array_keys($select->getPart(Zend_Db_Select::FROM));
+        if (in_array(self::INDEX_TABLE_ALIAS, $tableAliases)) {
+            $table = self::INDEX_TABLE_ALIAS;
+        } else {
+            $table = reset($tableAliases);
+        }
 
         // prepare event arguments
         $eventArgs = array(

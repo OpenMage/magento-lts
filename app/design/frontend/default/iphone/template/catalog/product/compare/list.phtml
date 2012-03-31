@@ -63,7 +63,7 @@
                     <?php endif; ?>
                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
                         <ul class="add-to-links">
-                            <li><a href="<?php echo $this->getAddToWishlistUrl($_item) ?>" class="link-wishlist" onclick="setLocation(this.href, true)"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                            <li><a href="#" class="link-wishlist" onclick="setLocation('<?php echo $this->getAddToWishlistUrl($_item) ?>', true)"><?php echo $this->__('Add to Wishlist') ?></a></li>
                         </ul>
                     <?php endif; ?>
                 </td>
@@ -85,7 +85,7 @@
                                 <?php echo $this->getPriceHtml($_item, true, '-compare-list-' . $_attribute->getCode()) ?>
                                 <?php break;
                             case "small_image": ?>
-                                <img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(125, 125); ?>" width="125" height="125" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" title="<?php echo $this->htmlEscape($_item->getName()) ?>" />
+                                <img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(125, 125); ?>" width="125" height="125" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>" />
                                 <?php break;
                             case "date":
                                   echo substr($this->getProductAttributeValue($_item, $_attribute),0,10);
@@ -116,7 +116,7 @@
                     <?php endif; ?>
                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
                         <ul class="add-to-links">
-                            <li><a href="<?php echo $this->getAddToWishlistUrl($_item) ?>" class="link-wishlist" onclick="setLocation(this.href, true)"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                            <li><a href="#" class="link-wishlist" onclick="setLocation('<?php echo $this->getAddToWishlistUrl($_item) ?>', true)"><?php echo $this->__('Add to Wishlist') ?></a></li>
                         </ul>
                     <?php endif; ?>
                 </td>

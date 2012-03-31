@@ -68,13 +68,14 @@ class Mage_Adminhtml_Block_Review_Add_Form extends Mage_Adminhtml_Block_Widget_F
          * Check is single store mode
          */
         if (!Mage::app()->isSingleStoreMode()) {
-            $fieldset->addField('select_stores', 'multiselect', array(
+            $field = $fieldset->addField('select_stores', 'multiselect', array(
                 'label'     => Mage::helper('review')->__('Visible In'),
                 'required'  => true,
                 'name'      => 'select_stores[]',
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(),
-                'after_element_html' => Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml()
             ));
+            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $field->setRenderer($renderer);
         }
 
         $fieldset->addField('nickname', 'text', array(
@@ -97,7 +98,7 @@ class Mage_Adminhtml_Block_Review_Add_Form extends Mage_Adminhtml_Block_Widget_F
             'name'      => 'detail',
             'title'     => Mage::helper('review')->__('Review'),
             'label'     => Mage::helper('review')->__('Review'),
-            'style'     => 'width: 98%; height: 600px;',
+            'style'     => 'height: 600px;',
             'required'  => true,
         ));
 

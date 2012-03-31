@@ -49,6 +49,7 @@ Default layout, loads most of the pages
                 <action method="addJs"><script>mage/cookies.js</script></action>
                 <action method="addItem"><type>skin_js</type><name>js/iphone.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/dnd.js</name></action>
+                <action method="addItem"><type>skin_js</type><name>js/modernizr.js</name></action>
 
                 <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
             </block>
@@ -65,7 +66,6 @@ Default layout, loads most of the pages
                 <block type="page/switch" name="store_switcher" as="store_switcher" template="page/switch/stores.phtml"/>
                 <block type="core/text_list" name="top.menu" as="topMenu" translate="label">
                     <label>Navigation Bar</label>
-                    <block type="page/html_topmenu" name="catalog.topnav" template="page/html/topmenu.phtml" />
                 </block>
                 <block type="page/html_wrapper" name="top.container" as="topContainer" translate="label">
                     <label>Page Header</label>

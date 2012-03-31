@@ -885,9 +885,10 @@ tr.summary-details-excluded { font-style:italic; }
 .price-box-bundle { padding:0 0 10px 0; }
 .price-box-bundle .price-box { margin:0 !important; padding:0 !important; }
 .price-box-bundle .price { color:#222; }
-f/********** Product Prices > */
+/********** Product Prices > */
 
 /* Tier Prices */
+.product-pricing,
 .tier-prices { margin:10px 0; padding:10px; background:#f4f9ea; border:1px solid #ddd; }
 .tier-prices .benefit { font-style:italic; font-weight:bold; }
 .tier-prices .price { font-weight:bold;; }
@@ -990,6 +991,7 @@ f/********** Product Prices > */
 .product-options p.required { position:absolute; right:15px; top:10px; }
 
 .product-options-bottom { background-color:#f6f6f6; padding:15px 20px; border:1px solid #e4e4e4; border-top:0; }
+.product-options-bottom .product-pricing,
 .product-options-bottom .tier-prices { margin:0; padding:0 0 10px; border:0; background:0; }
 .product-options-bottom .price-box { float:left; margin:0; }
 .product-options-bottom .add-to-links { clear:both; padding:5px 0 0; text-align:right; }

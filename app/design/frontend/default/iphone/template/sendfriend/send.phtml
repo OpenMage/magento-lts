@@ -113,20 +113,20 @@
                     <div class="field">
                         <label for="sender_name" class="required"><em>*</em><?php echo $this->__('Name:') ?></label>
                         <div class="input-box">
-                            <input name="sender[name]" value="<?php echo $this->htmlEscape($this->getUserName()) ?>" title="<?php echo $this->__('Name') ?>" id="sender_name" type="text" class="input-text required-entry" />
+                            <input name="sender[name]" value="<?php echo $this->escapeHtml($this->getUserName()) ?>" title="<?php echo $this->__('Name') ?>" id="sender_name" type="text" class="input-text required-entry" />
                         </div>
                     </div>
                     <div class="field">
                        <label for="sender_email" class="required"><em>*</em><?php echo $this->__('Email:') ?></label>
                        <div class="input-box">
-                           <input name="sender[email]" value="<?php echo $this->htmlEscape($this->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" id="sender_email" type="text" class="input-text required-entry validate-email" />
+                           <input name="sender[email]" value="<?php echo $this->escapeHtml($this->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" id="sender_email" type="text" class="input-text required-entry validate-email" />
                        </div>
                     </div>
                 </li>
                 <li class="wide">
                     <label for="sender_message" class="required"><em>*</em><?php echo $this->__('Message:') ?></label>
                     <div class="input-box">
-                        <textarea name="sender[message]" class="input-text required-entry" id="sender_message" cols="3" rows="3"><?php echo $this->htmlEscape($this->getMessage())?></textarea>
+                        <textarea name="sender[message]" class="input-text required-entry" id="sender_message" cols="3" rows="3"><?php echo $this->escapeHtml($this->getMessage())?></textarea>
                     </div>
                 </li>
             </ul>

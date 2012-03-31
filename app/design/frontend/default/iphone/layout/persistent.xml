@@ -38,6 +38,14 @@
             <action method="setTemplate"><template>persistent/customer/form/login.phtml</template></action>
             <block type="persistent/form_remember" name="persistent.remember.me" template="persistent/remember_me.phtml" />
             <block type="core/template" name="persistent.remember.me.tooltip" template="persistent/remember_me_tooltip.phtml" />
+            <block type="core/captcha" name="captcha">
+                <reference name="head">
+                    <action method="addJs"><file>mage/captcha.js</file></action>
+                </reference>
+                <action method="setFormId"><formId>user_login</formId></action>
+                <action method="setImgWidth"><width>230</width></action>
+                <action method="setImgHeight"><width>50</width></action>
+            </block>
         </reference>
     </customer_account_login>
 
@@ -46,6 +54,14 @@
             <action method="setTemplate"><template>persistent/customer/form/register.phtml</template></action>
             <block type="persistent/form_remember" name="persistent.remember.me" template="persistent/remember_me.phtml" />
             <block type="core/template" name="persistent.remember.me.tooltip" template="persistent/remember_me_tooltip.phtml" />
+            <block type="core/captcha" name="captcha">
+                <reference name="head">
+                    <action method="addJs"><file>mage/captcha.js</file></action>
+                </reference>
+                <action method="setFormId"><formId>user_create</formId></action>
+                <action method="setImgWidth"><width>230</width></action>
+                <action method="setImgHeight"><width>50</width></action>
+            </block>
         </reference>
     </customer_account_create>
 
@@ -53,6 +69,14 @@
         <reference name="checkout.onepage.login">
             <action method="setTemplate"><template>persistent/checkout/onepage/login.phtml</template></action>
             <block type="persistent/form_remember" name="persistent.remember.me" template="persistent/remember_me.phtml" />
+            <block type="core/captcha" name="captcha">
+                <reference name="head">
+                    <action method="addJs"><file>mage/captcha.js</file></action>
+                </reference>
+                <action method="setFormId"><formId>user_login</formId></action>
+                <action method="setImgWidth"><width>230</width></action>
+                <action method="setImgHeight"><width>50</width></action>
+            </block>
         </reference>
         <reference name="checkout.onepage.billing">
             <action method="setTemplate"><template>persistent/checkout/onepage/billing.phtml</template></action>
