@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -153,7 +153,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function getRewriteByRequestPath($requestPath, $storeId)
     {
-        $adapter = $this->_getReadAdapter();
+        $adapter = $this->_getWriteAdapter();
         $select = $adapter->select()
             ->from($this->getMainTable())
             ->where('store_id = :store_id')
@@ -174,6 +174,40 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     }
 
     /**
+     * Get last used increment part of rewrite request path
+     *
+     * @param string $prefix
+     * @param string $suffix
+     * @param int $storeId
+     * @return int
+     */
+    public function getLastUsedRewriteRequestIncrement($prefix, $suffix, $storeId)
+    {
+        $adapter = $this->_getWriteAdapter();
+        $requestPathField = new Zend_Db_Expr($adapter->quoteIdentifier('request_path'));
+        //select increment part of request path and cast expression to integer
+        $urlIncrementPartExpression = Mage::getResourceHelper('eav')
+            ->getCastToIntExpression($adapter->getSubstringSql(
+                $requestPathField,
+                strlen($prefix) + 1,
+                $adapter->getLengthSql($requestPathField) . ' - ' . strlen($prefix) . ' - ' . strlen($suffix)
+            ));
+        $select = $adapter->select()
+            ->from($this->getMainTable(), new Zend_Db_Expr('MAX(' . $urlIncrementPartExpression . ')'))
+            ->where('store_id = :store_id')
+            ->where('request_path LIKE :request_path')
+            ->where($adapter->prepareSqlCondition('request_path', array(
+                'regexp' => '^' . preg_quote($prefix) . '[0-9]*' . preg_quote($suffix) . '$'
+            )));
+        $bind = array(
+            'store_id'            => (int)$storeId,
+            'request_path'        => $prefix . '%' . $suffix,
+        );
+
+        return (int)$adapter->fetchOne($select, $bind);
+    }
+
+    /**
      * Validate array of request paths. Return first not used path in case if validations passed
      *
      * @param array $paths
@@ -182,7 +216,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function checkRequestPaths($paths, $storeId)
     {
-        $adapter = $this->_getReadAdapter();
+        $adapter = $this->_getWriteAdapter();
         $select = $adapter->select()
             ->from($this->getMainTable(), 'request_path')
             ->where('store_id = :store_id')
@@ -208,7 +242,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     public function prepareRewrites($storeId, $categoryIds = null, $productIds = null)
     {
         $rewrites   = array();
-        $adapter    = $this->_getReadAdapter();
+        $adapter    = $this->_getWriteAdapter();
         $select     = $adapter->select()
             ->from($this->getMainTable())
             ->where('store_id = :store_id')
@@ -262,11 +296,15 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     public function saveRewrite($rewriteData, $rewrite)
     {
         $adapter = $this->_getWriteAdapter();
+        try {
+            $adapter->insertOnDuplicate($this->getMainTable(), $rewriteData);
+        } catch (Exception $e) {
+            Mage::logException($e);
+            Mage::throwException(Mage::helper('catalog')->__('An error occurred while saving the URL rewrite'));
+        }
+
         if ($rewrite && $rewrite->getId()) {
             if ($rewriteData['request_path'] != $rewrite->getRequestPath()) {
-                $where = array($this->getIdFieldName() . '=?' => $rewrite->getId());
-                $adapter->update($this->getMainTable(), $rewriteData, $where);
-
                 // Update existing rewrites history and avoid chain redirects
                 $where = array('target_path = ?' => $rewrite->getRequestPath());
                 if ($rewrite->getStoreId()) {
@@ -277,13 +315,6 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                     array('target_path' => $rewriteData['request_path']),
                     $where
                 );
-            }
-        } else {
-            try {
-                $adapter->insert($this->getMainTable(), $rewriteData);
-            } catch (Exception $e) {
-                Mage::logException($e);
-                Mage::throwException(Mage::helper('catalog')->__('An error occurred while saving the URL rewrite'));
             }
         }
         unset($rewriteData);
@@ -1310,12 +1341,26 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function deleteRewrite($requestPath, $storeId)
     {
-        $this->_getWriteAdapter()->delete(
-            $this->getMainTable(),
-            array(
-                'store_id = ?' => $storeId,
-                'request_path = ?' => $requestPath
-            )
+        $this->deleteRewriteRecord($requestPath, $storeId);
+    }
+
+    /**
+     * Delete rewrite path record from the database with RP checking.
+     *
+     * @param string $requestPath
+     * @param int $storeId
+     * @param bool $rp whether check rewrite option to be "Redirect = Permanent"
+     * @return void
+     */
+    public function deleteRewriteRecord($requestPath, $storeId, $rp = false)
+    {
+        $conditions =  array(
+            'store_id = ?' => $storeId,
+            'request_path = ?' => $requestPath,
         );
+        if ($rp) {
+            $conditions['options = ?'] = 'RP';
+        }
+        $this->_getWriteAdapter()->delete($this->getMainTable(), $conditions);
     }
 }

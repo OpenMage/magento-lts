@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Log
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -127,8 +127,8 @@ $table = $installer->getConnection()
         'primary'   => true,
         ), 'Type ID')
     ->addColumn('type_code', Varien_Db_Ddl_Table::TYPE_TEXT, 64, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Type Code')
     ->addColumn('period', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
         'unsigned'  => true,
@@ -176,8 +176,8 @@ $table = $installer->getConnection()
         'primary'   => true,
         ), 'URL ID')
     ->addColumn('url', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'URL')
     ->addColumn('referer', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         ), 'Referrer')
@@ -196,8 +196,8 @@ $table = $installer->getConnection()
         'primary'   => true,
         ), 'Visitor ID')
     ->addColumn('session_id', Varien_Db_Ddl_Table::TYPE_TEXT, 64, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Session ID')
     ->addColumn('first_visit_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         ), 'First Visit Time')

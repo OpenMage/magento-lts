@@ -19,7 +19,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -81,9 +81,10 @@ tinyMceWysiwygSetup.prototype =
             plugins = 'magentowidget,' + plugins;
         }
 
+        var magentoPluginsOptions = $H({});
+        var magentoPlugins = '';
+
         if (this.config.plugins) {
-            var magentoPluginsOptions = $H({});
-            var magentoPlugins = '';
             (this.config.plugins).each(function(plugin){
                 magentoPlugins = plugin.name + ',' + magentoPlugins;
                 magentoPluginsOptions.set(plugin.name, plugin.options);
@@ -170,7 +171,7 @@ tinyMceWysiwygSetup.prototype =
     openFileBrowser: function(o) {
         var typeTitle;
         var storeId = this.config.store_id !== null ? this.config.store_id : 0;
-        var wUrl = this.config.files_browser_window_url + 
+        var wUrl = this.config.files_browser_window_url +
                    'target_element_id/' + this.id + '/' +
                    'store/' + storeId + '/';
 
@@ -223,6 +224,12 @@ tinyMceWysiwygSetup.prototype =
         this.getPluginButtons().each(function(e) {
             e.show();
         });
+        if (Prototype.Browser.IE) {
+            // workaround for ie textarea redraw bug
+            window.setTimeout(function(){
+                $(this.id).value = $(this.id).value;
+            }.bind(this), 0);
+        }
     },
 
     closePopups: function() {

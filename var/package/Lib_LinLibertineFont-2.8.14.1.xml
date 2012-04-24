@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Lib_LinLibertineFont</name>
+    <version>2.8.14.1</version>
+    <stability>stable</stability>
+    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Libertine Open Fonts Project fonts for PDF print-outs</summary>
+    <description>Libertine Open Fonts Project fonts for PDF print-outs</description>
+    <notes>2.8.14.1</notes>
+    <authors><author><name>Magento Core Team</name><user>core</user><email>core@magentocommerce.com</email></author></authors>
+    <date>2012-04-20</date>
+    <time>13:46:48</time>
+    <contents><target name="magelib"><dir name="LinLibertineFont"><file name="Bugs" hash="9ecefd5b5d739618917f6ff1a496af4d"/><file name="ChangeLog.txt" hash="c4a43af51dc70f4acbd09eeda8a1f95d"/><file name="GPL.txt" hash="ae32e069c670f1247694f4313efcc977"/><file name="LICENCE.txt" hash="9752e08000ee88048cb953607250dd7b"/><file name="LinLibertineC_Re-2.8.0.ttf" hash="7c98097ee899568bc86c28a8eafd77a3"/><file name="LinLibertine_Bd-2.8.1.ttf" hash="81c9c61a6c91fc6ccb93f1e6ec6ed06a"/><file name="LinLibertine_It-2.8.2.ttf" hash="5d334990c5d59bd428ae684ce8490c5c"/><file name="LinLibertine_Re-4.4.1.ttf" hash="de5bccf92a5145f4532b126f9506c28d"/><file name="OFL.txt" hash="6237e6976dcefd3d9fc3f1264b3c3bb9"/><file name="Readme" hash="9bbff4f7c21eb0a037527720e4b8473d"/><file name="Readme-TEX.txt" hash="14cb95ee0acecf6c3ef563f1b906443b"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
+</package>

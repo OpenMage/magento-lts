@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -107,7 +107,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         $_prevStoreId = Mage::getSingleton('admin/session')
             ->getLastViewedStore(true);
 
-        if ($_prevStoreId != null && !$this->getRequest()->getQuery('isAjax')) {
+        if (!empty($_prevStoreId) && !$this->getRequest()->getQuery('isAjax')) {
             $params['store'] = $_prevStoreId;
             $redirect = true;
         }
@@ -178,13 +178,23 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 ->setLastEditedCategory($category->getId());
 //            $this->_initLayoutMessages('adminhtml/session');
             $this->loadLayout();
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array(
-                'messages' => $this->getLayout()->getMessagesBlock()->getGroupedHtml(),
-                'content' =>
-                    $this->getLayout()->getBlock('category.edit')->getFormHtml()
+
+            $eventResponse = new Varien_Object(array(
+                'content' => $this->getLayout()->getBlock('category.edit')->getFormHtml()
                     . $this->getLayout()->getBlock('category.tree')
-                        ->getBreadcrumbsJavascript($breadcrumbsPath, 'editingCategoryBreadcrumbs')
-            )));
+                    ->getBreadcrumbsJavascript($breadcrumbsPath, 'editingCategoryBreadcrumbs'),
+                'messages' => $this->getLayout()->getMessagesBlock()->getGroupedHtml(),
+            ));
+
+            Mage::dispatchEvent('category_prepare_ajax_response', array(
+                'response' => $eventResponse,
+                'controller' => $this
+            ));
+
+            $this->getResponse()->setBody(
+                Mage::helper('core')->jsonEncode($eventResponse->getData())
+            );
+
             return;
         }
 

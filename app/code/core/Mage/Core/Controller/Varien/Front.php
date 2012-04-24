@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -119,7 +119,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     }
 
     /**
-     * Init Fron Controller
+     * Init Front Controller
      *
      * @return Mage_Core_Controller_Varien_Front
      */
@@ -182,7 +182,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         if ($i>100) {
             Mage::throwException('Front controller reached 100 router match iterations');
         }
-        //This event give possibility to launch smth before sending ouptut(Allow cookie setting)
+        // This event gives possibility to launch something before sending output (allow cookie setting)
         Mage::dispatchEvent('controller_front_send_response_before', array('front'=>$this));
         Varien_Profiler::start('mage::app::dispatch::send_response');
         $this->getResponse()->sendResponse();
@@ -296,41 +296,75 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         if (!Mage::isInstalled() || $request->getPost()) {
             return;
         }
-        if (!Mage::getStoreConfig('web/url/redirect_to_base')) {
+
+        $redirectCode = (int)Mage::getStoreConfig('web/url/redirect_to_base');
+        if (!$redirectCode) {
+            return;
+        } elseif ($redirectCode != 301) {
+            $redirectCode = 302;
+        }
+
+        if ($this->_isAdminFrontNameMatched($request)) {
             return;
         }
 
-        $adminPath = (string)Mage::getConfig()->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_CUSTOM_ADMIN_PATH);
-        if (!$adminPath) {
-            $adminPath = (string)Mage::getConfig()
-                ->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_ADMINHTML_ROUTER_FRONTNAME);
-        }
-        if (preg_match('#^' . $adminPath . '(\/.*)?$#', ltrim($request->getPathInfo(), '/'))
-            && (string)Mage::getConfig()->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_USE_CUSTOM_ADMIN_URL)) {
-            return;
-        }
-
-        $baseUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB, Mage::app()->getStore()->isCurrentlySecure());
-
+        $baseUrl = Mage::getBaseUrl(
+            Mage_Core_Model_Store::URL_TYPE_WEB,
+            Mage::app()->getStore()->isCurrentlySecure()
+        );
         if (!$baseUrl) {
             return;
         }
 
-        $redirectCode = 302;
-        if (Mage::getStoreConfig('web/url/redirect_to_base') == 301) {
-            $redirectCode = 301;
-        }
-
-        $uri  = @parse_url($baseUrl);
-        $host = isset($uri['host']) ? $uri['host'] : '';
-        $path = isset($uri['path']) ? $uri['path'] : '';
-
+        $uri = @parse_url($baseUrl);
         $requestUri = $request->getRequestUri() ? $request->getRequestUri() : '/';
-        if ($host && $host != $request->getHttpHost() || $path && strpos($requestUri, $path) === false) {
+        if (isset($uri['scheme']) && $uri['scheme'] != $request->getScheme()
+            || isset($uri['host']) && $uri['host'] != $request->getHttpHost()
+            || isset($uri['path']) && strpos($requestUri, $uri['path']) === false
+        ) {
             Mage::app()->getFrontController()->getResponse()
                 ->setRedirect($baseUrl, $redirectCode)
                 ->sendResponse();
             exit;
         }
+    }
+
+    /**
+     * Check if requested path starts with one of the admin front names
+     *
+     * @param Zend_Controller_Request_Http $request
+     * @return boolean
+     */
+    protected function _isAdminFrontNameMatched($request)
+    {
+        $useCustomAdminPath = (bool)(string)Mage::getConfig()
+            ->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_USE_CUSTOM_ADMIN_PATH);
+        $customAdminPath = (string)Mage::getConfig()->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_CUSTOM_ADMIN_PATH);
+        $adminPath = ($useCustomAdminPath) ? $customAdminPath : null;
+
+        if (!$adminPath) {
+            $adminPath = (string)Mage::getConfig()
+                ->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_ADMINHTML_ROUTER_FRONTNAME);
+        }
+        $adminFrontNames = array($adminPath);
+
+        // Check for other modules that can use admin router (a lot of Magento extensions do that)
+        $adminFrontNameNodes = Mage::getConfig()->getNode('admin/routers')
+            ->xpath('*[not(self::adminhtml) and use = "admin"]/args/frontName');
+
+        if (is_array($adminFrontNameNodes)) {
+            foreach ($adminFrontNameNodes as $frontNameNode) {
+                /** @var $frontNameNode SimpleXMLElement */
+                array_push($adminFrontNames, (string)$frontNameNode);
+            }
+        }
+
+        $pathPrefix = ltrim($request->getPathInfo(), '/');
+        $urlDelimiterPos = strpos($pathPrefix, '/');
+        if ($urlDelimiterPos) {
+            $pathPrefix = substr($pathPrefix, 0, $urlDelimiterPos);
+        }
+
+        return in_array($pathPrefix, $adminFrontNames);
     }
 }

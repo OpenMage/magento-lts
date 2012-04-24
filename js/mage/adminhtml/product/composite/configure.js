@@ -19,7 +19,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -213,16 +213,16 @@ ProductConfigure.prototype = {
                     } else if (response) {
                         response = response + '';
                         this.blockFormFields.update(response);
-                        
+
                         // Add special div to hold mage data, e.g. scripts to execute on every popup show
                         var mageData = {};
                         var scripts = response.extractScripts();
                         mageData.scripts = scripts;
-                        
+
                         var scriptHolder = new Element('div', {'style': 'display:none'});
                         scriptHolder.mageData = mageData;
                         this.blockFormFields.insert(scriptHolder);
-                        
+
                         // Show window
                         this._showWindow();
                     }
@@ -343,8 +343,6 @@ ProductConfigure.prototype = {
      * Triggered when form was submitted and iFrame was loaded. Get response from iFrame and handle it
      */
     onLoadIFrame: function() {
-        varienLoaderHandler.handler.onComplete();
-
         this.blockFormConfirmed.select('[configure_disabled=1]').each(function (element) {
             element.disabled = element.getAttribute('configure_prev_disabled') == '1';
         });
@@ -371,6 +369,8 @@ ProductConfigure.prototype = {
 
             document.fire(this.current.listType + ':afterIFrameLoaded');
         }
+        varienLoaderHandler.handler.onComplete();
+
         this.clean('current');
     },
 
@@ -585,7 +585,7 @@ ProductConfigure.prototype = {
             var patternFlat     = null;
             var replacement     = null;
             var replacementFlat = null
-            var scopeArr        = blockItem.id.match(/.*\[\w+\]\[(\w+)\]$/);
+            var scopeArr        = blockItem.id.match(/.*\[\w+\]\[([^\]]+)\]$/);
             var itemId          = scopeArr[1];
             if (method == 'current_confirmed_to_form') {
                 pattern         = RegExp('(\\w+)(\\[?)');
@@ -694,7 +694,7 @@ ProductConfigure.prototype = {
                     restoreConfirmedValues(this.blockFormFields.getElementsByTagName('input'));
                     restoreConfirmedValues(this.blockFormFields.getElementsByTagName('select'));
                     restoreConfirmedValues(this.blockFormFields.getElementsByTagName('textarea'));
-                    
+
                     // Execute scripts
                     if (mageData && mageData.scripts) {
                         this.restorePhase = true;
@@ -718,7 +718,7 @@ ProductConfigure.prototype = {
 
                     this.blockFormConfirmed.update();
                     this.blockConfirmed.childElements().each(function(blockItem) {
-                        var scopeArr    = blockItem.id.match(/.*\[(\w+)\]\[(\w+)\]$/);
+                        var scopeArr    = blockItem.id.match(/.*\[(\w+)\]\[([^\]]+)\]$/);
                         var listType    = scopeArr[1];
                         var itemId    = scopeArr[2];
                         if (allowedListTypes[listType] && (!this.itemsFilter[listType]
@@ -731,7 +731,7 @@ ProductConfigure.prototype = {
             case 'form_confirmed_to_confirmed':
                     var listInfo = this.listTypes[this.current.listType];
                     this.blockFormConfirmed.childElements().each(function(blockItem) {
-                        var scopeArr = blockItem.id.match(/.*\[(\w+)\]\[(\w+)\]$/);
+                        var scopeArr = blockItem.id.match(/.*\[(\w+)\]\[([^\]]+)\]$/);
                         var listType = scopeArr[1];
                         _renameFields(method, blockItem, listInfo.complexTypes ? listType : null);
                         this.blockConfirmed.insert(blockItem);

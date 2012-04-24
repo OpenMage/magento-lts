@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -134,8 +134,7 @@
             <validation>
                 <http_user_agent_skip>
                     <flash>Shockwave Flash</flash>
-                    <flash_9_mac>Adobe Flash Player 9</flash_9_mac>
-                    <flash_10_mac>Adobe Flash Player 10</flash_10_mac>
+                    <flash_mac><![CDATA[Adobe Flash Player\s{1,}\w{1,10}]]></flash_mac>
                 </http_user_agent_skip>
             </validation>
         </session>
@@ -272,6 +271,7 @@
                 <configuration_update_time>3600</configuration_update_time>
                 <allowed_resources>
                     <compiled_css_folder>css</compiled_css_folder>
+                    <compiled_css_secure_folder>css_secure</compiled_css_secure_folder>
                     <compiled_js_folder>js</compiled_js_folder>
                 </allowed_resources>
             </media_storage_configuration>
@@ -338,6 +338,8 @@
             <cookie>
                 <cookie_lifetime>3600</cookie_lifetime>
                 <cookie_httponly>1</cookie_httponly>
+                <cookie_restriction>0</cookie_restriction>
+                <cookie_restriction_lifetime>31536000</cookie_restriction_lifetime>
             </cookie>
             <session>
                 <use_remote_addr>0</use_remote_addr>
@@ -364,6 +366,9 @@
             </security>
         </admin>
         <general>
+            <country>
+                <eu_countries>AT,BE,BG,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,GB</eu_countries>
+            </country>
             <locale>
                 <firstday>0</firstday>
                 <weekend>0,6</weekend>
@@ -419,4 +424,16 @@
             </web>
         </default>
     </stores>
+    <crontab>
+        <jobs>
+            <core_clean_cache>
+                <schedule>
+                    <cron_expr>30 2 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>core/observer::cleanCache</model>
+                </run>
+            </core_clean_cache>
+        </jobs>
+    </crontab>
 </config>

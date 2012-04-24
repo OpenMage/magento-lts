@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -120,8 +120,8 @@
                         <email translate="label">
                             <label>Sender Email</label>
                             <frontend_type>text</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <validate>validate-email</validate>
+                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -150,8 +150,8 @@
                         <email translate="label">
                             <label>Sender Email</label>
                             <frontend_type>text</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <validate>validate-email</validate>
+                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -180,8 +180,8 @@
                         <email translate="label">
                             <label>Sender Email</label>
                             <frontend_type>text</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <validate>validate-email</validate>
+                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -210,8 +210,8 @@
                         <email translate="label">
                             <label>Sender Email</label>
                             <frontend_type>text</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <validate>validate-email</validate>
+                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -240,8 +240,8 @@
                         <email translate="label">
                             <label>Sender Email</label>
                             <frontend_type>text</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <validate>validate-email</validate>
+                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -433,6 +433,35 @@
                         </anchor_text_for_next>
                     </fields>
                 </pagination>
+                <email translate="label">
+                    <label>Transactional Emails</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>510</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <logo translate="label">
+                            <label>Logo Image</label>
+                            <comment>Allowed file types: jpg, jpeg, gif, png</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_email_logo</backend_model>
+                            <base_url type="media" scope_info="1">email/logo</base_url>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </logo>
+                        <logo_alt translate="label">
+                            <label>Logo Image Alt</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </logo_alt>
+                    </fields>
+                </email>
             </groups>
         </design>
         <dev translate="label" module="core">
@@ -571,6 +600,7 @@
                         <file translate="label comment">
                             <label>System Log File Name</label>
                             <frontend_type>text</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_filename</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -580,6 +610,7 @@
                         <exception_file translate="label comment">
                             <label>Exceptions Log File Name</label>
                             <frontend_type>text</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_filename</backend_model>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -664,6 +695,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </default>
+                        <eu_countries translate="label">
+                            <label>European Union Countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </eu_countries>
                     </fields>
                 </country>
                 <locale translate="label">
@@ -738,6 +778,25 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </phone>
+                        <merchant_country translate="label">
+                            <label>Country</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                        </merchant_country>
+                        <merchant_vat_number translate="label">
+                            <label>VAT Number</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>27</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                        </merchant_vat_number>
                         <address translate="label">
                             <label>Store Contact Address</label>
                             <frontend_type>textarea</frontend_type>
@@ -834,8 +893,8 @@
                         <return_path_email translate="label">
                             <label>Return-Path Email</label>
                             <frontend_type>text</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <validate>validate-email</validate>
+                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -918,8 +977,8 @@
                             <source_model>adminhtml/system_config_source_email_template</source_model>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
                         </forgot_email_template>
                         <forgot_email_identity translate="label">
                             <label>Forgot Password Email Sender</label>
@@ -927,12 +986,14 @@
                             <source_model>adminhtml/system_config_source_email_identity</source_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
                         </forgot_email_identity>
                         <password_reset_link_expiration_period translate="label comment">
                             <label>Recovery Link Expiration Period (days)</label>
+                            <comment>Please enter a number 1 or greater in this field.</comment>
                             <frontend_type>text</frontend_type>
+                            <validate>required-entry validate-digits validate-digits-range digits-range-1-</validate>
                             <backend_model>adminhtml/system_config_backend_admin_password_link_expirationperiod</backend_model>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
@@ -1088,7 +1149,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <use_store translate="label">
+                        <use_store translate="label comment">
                             <label>Add Store Code to Urls</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -1097,6 +1158,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <comment><![CDATA[<strong style="color:red">Warning!</strong> When using Store Code in URLs, in some cases system may not work properly if URLs without Store Codes are specified in the third party services (e.g. PayPal etc.).]]></comment>
                         </use_store>
                         <redirect_to_base translate="label">
                             <label>Auto-redirect to Base URL</label>
@@ -1346,6 +1408,16 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </cookie_httponly>
+                        <cookie_restriction translate="label">
+                            <label>Cookie Restriction Mode</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <backend_model>adminhtml/system_config_backend_cookie</backend_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </cookie_restriction>
                     </fields>
                 </cookie>
                 <session translate="label">

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,8 @@
  * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
+    extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
 {
     /**
      * Customer Address Form instance
@@ -83,7 +84,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
 
         foreach ($this->getAddressCollection() as $address) {
             $addressForm->setEntity($address);
-            $data[$address->getId()] = $addressForm->outputData(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_JSON);
+            $data[$address->getId()] = $addressForm->outputData(
+                Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_JSON
+            );
         }
         return Mage::helper('core')->jsonEncode($data);
     }
@@ -154,9 +157,27 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
 
         $this->_form->setValues($this->getFormValues());
 
-        if (!$this->_form->getElement('country_id')->getValue()) {
+        if ($this->_form->getElement('country_id')->getValue()) {
+            $countryId = $this->_form->getElement('country_id')->getValue();
+            $this->_form->getElement('country_id')->setValue(null);
+            foreach ($this->_form->getElement('country_id')->getValues() as $country) {
+                if ($country['value'] == $countryId) {
+                    $this->_form->getElement('country_id')->setValue($countryId);
+                }
+            }
+        }
+        if (is_null($this->_form->getElement('country_id')->getValue())) {
             $this->_form->getElement('country_id')->setValue(
                 Mage::helper('core')->getDefaultCountry($this->getStore())
+            );
+        }
+
+        // Set custom renderer for VAT field if needed
+        $vatIdElement = $this->_form->getElement('vat_id');
+        if ($vatIdElement && $this->getDisplayVatValidationButton() !== false) {
+            $vatIdElement->setRenderer(
+                $this->getLayout()->createBlock('adminhtml/customer_sales_order_address_form_renderer_vat')
+                    ->setJsVariablePrefix($this->getJsVariablePrefix())
             );
         }
 

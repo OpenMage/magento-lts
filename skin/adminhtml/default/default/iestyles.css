@@ -59,7 +59,8 @@ ul.tabs li a,
 .grid tr.filter .range .range-line,
 .centinel .authentication,
 .paypal-payment-notice,
-.product-options .options-list li { zoom:1; }
+.product-options .options-list li,
+.store-scope { zoom:1; }
 
 .clear { display:block; clear:both; height:0; font-size:0; line-height:0; overflow:hidden; }
 
@@ -93,7 +94,7 @@ button, .form-button            { width:auto; margin-left:5px; overflow:visible;
 button.icon-btn                 { width:31px; }
 
 .nested-content .content-header { position:relative; zoom:1; }
-dl.accordion dt a, 
+dl.accordion dt a,
 div.collapseable a               { width:100%; }
 .product-image-gallery .grid tbody td { padding: 4px !important; }
 .massaction .entry-edit fieldset{ float: right;}
@@ -109,3 +110,5 @@ div.collapseable a               { width:100%; }
 .grid-severity-critical,
 .grid-severity-major,
 .grid-severity-minor { margin:3px 0; }
+button.add span,
+button.delete span { display:inline-block; height:16px;}

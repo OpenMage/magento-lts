@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -80,7 +80,7 @@ class Mage_ImportExport_Model_Resource_Import_Data
      */
     public function cleanBunches()
     {
-        return $this->_getWriteAdapter()->truncateTable($this->getMainTable());
+        return $this->_getWriteAdapter()->delete($this->getMainTable());
     }
 
     /**

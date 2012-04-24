@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,7 +72,11 @@ class Mage_Checkout_Block_Links extends Mage_Core_Block_Template
         $parentBlock = $this->getParentBlock();
         if ($parentBlock && Mage::helper('core')->isModuleOutputEnabled('Mage_Checkout')) {
             $text = $this->__('Checkout');
-            $parentBlock->addLink($text, 'checkout', $text, true, array(), 60, null, 'class="top-link-checkout"');
+            $parentBlock->addLink(
+                $text, 'checkout', $text,
+                true, array('_secure' => true), 60, null,
+                'class="top-link-checkout"'
+            );
         }
         return $this;
     }

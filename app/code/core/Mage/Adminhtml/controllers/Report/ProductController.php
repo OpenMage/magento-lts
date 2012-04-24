@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,21 +32,17 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_Action
+class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_Report_Abstract
 {
     /**
-     * init
+     * Add report/products breadcrumbs
      *
      * @return Mage_Adminhtml_Report_ProductController
      */
     public function _initAction()
     {
-        $act = $this->getRequest()->getActionName();
-        if(!$act)
-            $act = 'default';
-        $this->loadLayout()
-            ->_addBreadcrumb(Mage::helper('reports')->__('Reports'), Mage::helper('reports')->__('Reports'))
-            ->_addBreadcrumb(Mage::helper('reports')->__('Products'), Mage::helper('reports')->__('Products'));
+        parent::_initAction();
+        $this->_addBreadcrumb(Mage::helper('reports')->__('Products'), Mage::helper('reports')->__('Products'));
         return $this;
     }
 
@@ -131,15 +127,23 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
      */
     public function viewedAction()
     {
-        $this->_title($this->__('Reports'))
-             ->_title($this->__('Products'))
-             ->_title($this->__('Most Viewed'));
+        $this->_title($this->__('Reports'))->_title($this->__('Products'))->_title($this->__('Most Viewed'));
+
+        $this->_showLastExecutionTime(Mage_Reports_Model_Flag::REPORT_PRODUCT_VIEWED_FLAG_CODE, 'viewed');
 
         $this->_initAction()
-            ->_setActiveMenu('report/product/viewed')
-            ->_addBreadcrumb(Mage::helper('reports')->__('Most Viewed'), Mage::helper('reports')->__('Most Viewed'))
-            ->_addContent($this->getLayout()->createBlock('adminhtml/report_product_viewed'))
-            ->renderLayout();
+            ->_setActiveMenu('report/products/viewed')
+            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Products Most Viewed Report'), Mage::helper('adminhtml')->__('Products Most Viewed Report'));
+
+        $gridBlock = $this->getLayout()->getBlock('report_product_viewed.grid');
+        $filterFormBlock = $this->getLayout()->getBlock('grid.filter.form');
+
+        $this->_initReportAction(array(
+            $gridBlock,
+            $filterFormBlock
+        ));
+
+        $this->renderLayout();
     }
 
     /**
@@ -149,10 +153,9 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     public function exportViewedCsvAction()
     {
         $fileName   = 'products_mostviewed.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_product_viewed_grid')
-            ->getCsv();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid       = $this->getLayout()->createBlock('adminhtml/report_product_viewed_grid');
+        $this->_initReportAction($grid);
+        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
     }
 
     /**
@@ -162,10 +165,9 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     public function exportViewedExcelAction()
     {
         $fileName   = 'products_mostviewed.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_product_viewed_grid')
-            ->getExcel($fileName);
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid       = $this->getLayout()->createBlock('adminhtml/report_product_viewed_grid');
+        $this->_initReportAction($grid);
+        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
     }
 
     /**

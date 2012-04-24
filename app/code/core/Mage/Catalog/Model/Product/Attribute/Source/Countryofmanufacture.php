@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,13 +41,11 @@ class Mage_Catalog_Model_Product_Attribute_Source_Countryofmanufacture
      */
     public function getAllOptions()
     {
-        $cacheKey = 'DIRECTORY_COUNTRY_SELECT_STORE_'.Mage::app()->getStore()->getCode();
+        $cacheKey = 'DIRECTORY_COUNTRY_SELECT_STORE_' . Mage::app()->getStore()->getCode();
         if (Mage::app()->useCache('config') && $cache = Mage::app()->loadCache($cacheKey)) {
             $options = unserialize($cache);
-        }
-        else {
-            $collection = Mage::getModel('directory/country')->getResourceCollection()
-                ->loadByStore();
+        } else {
+            $collection = Mage::getModel('directory/country')->getResourceCollection();
             $options = $collection->toOptionArray();
             if (Mage::app()->useCache('config')) {
                 Mage::app()->saveCache(serialize($options), $cacheKey, array('config'));

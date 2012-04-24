@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -150,45 +150,45 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout
         $options = array();
         $options[] = array(
             'value' => '',
-            'label' => Mage::helper('widget')->__('-- Please Select --')
+            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('-- Please Select --'))
         );
         $options[] = array(
             'label' => Mage::helper('widget')->__('Categories'),
             'value' => array(
                 array(
                     'value' => 'anchor_categories',
-                    'label' => Mage::helper('widget')->__('Anchor Categories')
+                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Anchor Categories'))
                 ),
                 array(
                     'value' => 'notanchor_categories',
-                    'label' => Mage::helper('widget')->__('Non-Anchor Categories')
+                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Non-Anchor Categories'))
                 )
             )
         );
         foreach (Mage_Catalog_Model_Product_Type::getTypes() as $typeId => $type) {
             $productsOptions[] = array(
                'value' => $typeId.'_products',
-               'label' => $type['label']
+               'label' => $this->helper('core')->jsQuoteEscape($type['label'])
             );
         }
         array_unshift($productsOptions, array(
             'value' => 'all_products',
-            'label' => Mage::helper('widget')->__('All Product Types')
+            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('All Product Types'))
         ));
         $options[] = array(
-            'label' => Mage::helper('widget')->__('Products'),
+            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Products')),
             'value' => $productsOptions
         );
         $options[] = array(
-            'label' => Mage::helper('widget')->__('Generic Pages'),
+            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Generic Pages')),
             'value' => array(
                 array(
                     'value' => 'all_pages',
-                    'label' => Mage::helper('widget')->__('All Pages')
+                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('All Pages'))
                 ),
                 array(
                     'value' => 'pages',
-                    'label' => Mage::helper('widget')->__('Specified Page')
+                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Specified Page'))
                 )
             )
         );
@@ -281,7 +281,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout
     {
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')
             ->setData(array(
-                'label'     => Mage::helper('widget')->__('Remove Layout Update'),
+                'label'     => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Remove Layout Update')),
                 'onclick'   => 'WidgetInstance.removePageGroup(this)',
                 'class'     => 'delete'
             ));

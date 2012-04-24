@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -33,27 +33,13 @@ Default layout, loads most of the pages
 -->
 
     <default>
+
         <!-- Mage_Checkout -->
         <reference name="top.links">
             <block type="checkout/links" name="checkout_cart_link">
-                <action method="addCartLink"></action>
                 <action method="addCheckoutLink"></action>
             </block>
         </reference>
-        <reference name="right">
-            <block type="checkout/cart_sidebar" name="cart_sidebar" template="checkout/cart/sidebar.phtml" before="-">
-                <action method="addItemRender"><type>simple</type><block>checkout/cart_item_renderer</block><template>checkout/cart/sidebar/default.phtml</template></action>
-                <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/cart/sidebar/default.phtml</template></action>
-                <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/cart/sidebar/default.phtml</template></action>
-                <block type="core/text_list" name="cart_sidebar.extra_actions" as="extra_actions" translate="label" module="checkout">
-                    <label>Shopping Cart Sidebar Extra Actions</label>
-                </block>
-            </block>
-        </reference>
-
-
-
-
     </default>
 
     <checkout_cart_index translate="label">
@@ -85,14 +71,9 @@ Default layout, loads most of the pages
                 <block type="core/text_list" name="checkout.cart.methods" as="methods" translate="label">
                     <label>Payment Methods After Checkout Button</label>
                     <block type="checkout/onepage_link" name="checkout.cart.methods.onepage" template="checkout/onepage/link.phtml"/>
-                    <block type="checkout/multishipping_link" name="checkout.cart.methods.multishipping" template="checkout/multishipping/link.phtml"/>
                 </block>
 
-
-
                 <block type="checkout/cart_coupon" name="checkout.cart.coupon" as="coupon" template="checkout/cart/coupon.phtml"/>
-                <block type="checkout/cart_shipping" name="checkout.cart.shipping" as="shipping" template="checkout/cart/shipping.phtml"/>
-                <block type="checkout/cart_crosssell" name="checkout.cart.crosssell" as="crosssell" template="checkout/cart/crosssell.phtml"/>
 
                 <block type="checkout/cart_totals" name="checkout.cart.totals" as="totals" template="checkout/cart/totals.phtml"/>
             </block>
@@ -101,10 +82,13 @@ Default layout, loads most of the pages
             <label>Additional Product Info</label>
         </block>
     </checkout_cart_index>
-    
+
     <checkout_cart_configure translate="label">
         <label>Configure Cart Item</label>
         <update handle="catalog_product_view"/>
+        <reference name="product.info">
+            <block type="checkout/cart_item_configure" name="checkout.cart.item.configure.block"></block>
+        </reference>
     </checkout_cart_configure>
 
 <!--
@@ -307,14 +291,6 @@ One page checkout main layout
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
-        <reference name="right">
-            <action method="unsetChildren"></action>
-            <block type="page/html_wrapper" name="checkout.progress.wrapper" translate="label">
-                <label>Checkout Progress Wrapper</label>
-                <action method="setElementId"><value>checkout-progress-wrapper</value></action>
-                <block type="checkout/onepage_progress" name="checkout.progress" before="-" template="checkout/onepage/progress.phtml"/>
-            </block>
-        </reference>
         <reference name="content">
             <block type="checkout/onepage" name="checkout.onepage" template="checkout/onepage.phtml">
                 <block type="checkout/onepage_login" name="checkout.onepage.login" as="login" template="checkout/onepage/login.phtml">
@@ -347,12 +323,7 @@ One page checkout progress block
         <!-- Mage_Checkout -->
         <remove name="right"/>
         <remove name="left"/>
-
-        <block type="checkout/onepage_progress" name="root" output="toHtml" template="checkout/onepage/progress.phtml">
-            <block type="checkout/onepage_payment_info" name="payment_info">
-                <action method="setInfoTemplate"><method></method><template></template></action>
-            </block>
-        </block>
+        
     </checkout_onepage_progress>
 
 <!--
@@ -408,6 +379,9 @@ One page checkout order review block
             <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before" translate="label">
                 <label>Items Before</label>
             </block>
+            <block type="core/text_list" name="checkout.onepage.review.info.items.after" as="items_after" translate="label">
+                <label>Items After</label>
+            </block>
             <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
             <block type="core/template" name="checkout.onepage.review.button" as="button" template="checkout/onepage/review/button.phtml"/>
         </block>
@@ -425,7 +399,7 @@ One page checkout order review block
     <checkout_onepage_failure translate="label">
         <label>One Page Checkout Failure</label>
         <reference name="root">
-            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         <reference name="content">
             <block type="checkout/onepage_failure" name="checkout.failure" template="checkout/onepage/failure.phtml"/>

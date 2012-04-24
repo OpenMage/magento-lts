@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -176,6 +176,17 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             ->setTypeId($type)
             ->setSku($sku);
 
+        if (!property_exists($productData, 'stock_data')) {
+            //Set default stock_data if not exist in product data
+            $_stockData = array('use_config_manage_stock' => 0);
+            $product->setStockData($_stockData);
+        }
+
+        foreach ($product->getMediaAttributes() as $mediaAttribute) {
+            $mediaAttrCode = $mediaAttribute->getAttributeCode();
+            $product->setData($mediaAttrCode, 'no_selection');
+        }
+
         $this->_prepareDataForSave($product, $productData);
 
         try {
@@ -273,9 +284,18 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
 
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             $_attrCode = $attribute->getAttributeCode();
+
+            //Unset data if object attribute has no value in current store
+            if (Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID !== (int) $product->getStoreId()
+                && !$product->getExistsStoreValueFlag($_attrCode)
+                && !$attribute->isScopeGlobal()
+            ) {
+                $product->setData($_attrCode, false);
+            }
+
             if ($this->_isAllowedAttribute($attribute) && (isset($productData->$_attrCode))) {
                 $product->setData(
-                    $attribute->getAttributeCode(),
+                    $_attrCode,
                     $productData->$_attrCode
                 );
             }
@@ -305,10 +325,8 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             foreach ($productData->stock_data as $key => $value) {
                 $_stockData[$key] = $value;
             }
-        } else {
-            $_stockData = array('use_config_manage_stock' => 0);
+            $product->setStockData($_stockData);
         }
-        $product->setStockData($_stockData);
 
         if (property_exists($productData, 'tier_price')) {
              $tierPrices = Mage::getModel('catalog/product_attribute_tierprice_api_V2')
@@ -325,15 +343,18 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @param string $fromDate
      * @param string $toDate
      * @param string|int $store
+     * @param string $identifierType OPTIONAL If 'sku' - search product by SKU, if any except for NULL - search by ID,
+     *                                        otherwise - try to determine identifier type automatically
      * @return boolean
      */
-    public function setSpecialPrice($productId, $specialPrice = null, $fromDate = null, $toDate = null, $store = null)
-    {
+    public function setSpecialPrice($productId, $specialPrice = null, $fromDate = null, $toDate = null, $store = null,
+        $identifierType = null
+    ) {
         $obj = new stdClass();
         $obj->special_price = $specialPrice;
         $obj->special_from_date = $fromDate;
         $obj->special_to_date = $toDate;
-        return $this->update($productId, $obj, $store);
+        return $this->update($productId, $obj, $store, $identifierType);
     }
 
     /**

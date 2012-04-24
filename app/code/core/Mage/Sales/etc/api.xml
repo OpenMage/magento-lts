@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -92,6 +92,10 @@
                         <title>Retrieve shipment information</title>
                         <acl>sales/order/shipment/info</acl>
                     </info>
+                    <sendInfo translate="title" module="sales">
+                        <title>Send shipment info</title>
+                        <acl>sales/order/shipment/send</acl>
+                    </sendInfo>
                     <create translate="title" module="sales">
                         <title>Create new shipment for order</title>
                         <acl>sales/order/shipment/create</acl>
@@ -320,6 +324,9 @@
                             <info translate="title" module="sales">
                                 <title>Retrieve shipment info</title>
                             </info>
+                            <send translate="title" module="sales">
+                                <title>Send shipment info</title>
+                            </send>
                         </shipment>
                         <invoice translate="title" module="sales">
                             <title>Order invoice</title>

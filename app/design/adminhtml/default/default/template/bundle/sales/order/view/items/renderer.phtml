@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -364,8 +364,8 @@
         <td class="a-right last">
             <?php if ($this->canShowPriceInfo($_item)): ?>
                 <?php echo $this->displayPrices(
-                    $_item->getBaseRowTotal() - $_item->getBaseDiscountAmount() + $_item->getBaseTaxAmount() + $_item->getBaseWeeeTaxAppliedRowAmount(),
-                    $_item->getRowTotal() - $_item->getDiscountAmount() + $_item->getTaxAmount() + $_item->getWeeeTaxAppliedRowAmount()
+                    max(0, $_item->getBaseRowTotal() - $_item->getBaseDiscountAmount() + $_item->getBaseTaxAmount() + $_item->getBaseWeeeTaxAppliedRowAmount()),
+                    max(0, $_item->getRowTotal() - $_item->getDiscountAmount() + $_item->getTaxAmount() + $_item->getWeeeTaxAppliedRowAmount())
                 ); ?>
             <?php else: ?>
                 &nbsp;

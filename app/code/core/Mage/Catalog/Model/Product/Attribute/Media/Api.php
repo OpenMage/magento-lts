@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -152,6 +152,16 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             // Write image file
             $ioAdapter->write($fileName, $fileContent, 0666);
             unset($fileContent);
+
+            // try to create Image object - it fails with Exception if image is not supported
+            try {
+                new Varien_Image($tmpDirectory . DS . $fileName);
+            } catch (Exception $e) {
+                // Remove temporary directory
+                $ioAdapter->rmdir($tmpDirectory, true);
+
+                throw new Mage_Core_Exception($e->getMessage());
+            }
 
             // Adding image to gallery
             $file = $gallery->getBackend()->addImage(

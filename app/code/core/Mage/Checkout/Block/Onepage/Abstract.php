@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -159,7 +159,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
             ->setValue($countryId)
             ->setOptions($this->getCountryOptions());
         if ($type === 'shipping') {
-            $select->setExtraParams('onchange="shipping.setSameAsBilling(false);"');
+            $select->setExtraParams('onchange="if(window.shipping)shipping.setSameAsBilling(false);"');
         }
 
         return $select->getHtml();
@@ -199,6 +199,17 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         }
         return $options;
     }
+
+    /**
+     * Get checkout steps codes
+     *
+     * @return array
+     */
+    protected function _getStepCodes()
+    {
+        return array('login', 'billing', 'shipping', 'shipping_method', 'payment', 'review');
+    }
+
 
     /**
      * Retrieve is allow and show block

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -87,13 +87,15 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $fieldset->addField('store_id', 'select', array(
+            $field = $fieldset->addField('store_id', 'select', array(
                 'name'      => 'store_id',
                 'label'     => Mage::helper('catalog')->__('Store'),
                 'title'     => Mage::helper('catalog')->__('Store'),
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(true, false),
                 'required'  => true,
             ));
+            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $field->setRenderer($renderer);
         }
         else {
             $fieldset->addField('store_id', 'hidden', array(
@@ -104,48 +106,41 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
 
         if ($model->getId()) {
             $fieldset->addField('num_results', 'text', array(
-                'name'      => 'num_results',
-                'label'     => Mage::helper('catalog')->__('Number of results<br/>(For the last time placed)'),
-                'title'     => Mage::helper('catalog')->__('Number of results<br/>(For the last time placed)'),
-                'required'  => true,
+                'name'     => 'num_results',
+                'label'    => Mage::helper('catalog')->__('Number of results'),
+                'title'    => Mage::helper('catalog')->__('Number of results (For the last time placed)'),
+                'note'     => Mage::helper('catalog')->__('For the last time placed.'),
+                'required' => true,
             ));
 
             $fieldset->addField('popularity', 'text', array(
-                'name'      => 'popularity',
-                'label'     => Mage::helper('catalog')->__('Number of Uses'),
-                'title'     => Mage::helper('catalog')->__('Number of Uses'),
-                'required'  => true,
+                'name'     => 'popularity',
+                'label'    => Mage::helper('catalog')->__('Number of Uses'),
+                'title'    => Mage::helper('catalog')->__('Number of Uses'),
+                'required' => true,
             ));
         }
 
-        $afterElementHtml = '<p class="nm"><small>'
-            . Mage::helper('catalog')->__('(Will make search for the query above return results for this search.)')
-            . '</small></p>';
-
         $fieldset->addField('synonym_for', 'text', array(
-            'name'      => 'synonym_for',
-            'label'     => Mage::helper('catalog')->__('Synonym For'),
-            'title'     => Mage::helper('catalog')->__('Synonym For'),
-            'after_element_html' => $afterElementHtml,
+            'name'  => 'synonym_for',
+            'label' => Mage::helper('catalog')->__('Synonym For'),
+            'title' => Mage::helper('catalog')->__('Synonym For'),
+            'note'  => Mage::helper('catalog')->__('Will make search for the query above return results for this search.'),
         ));
 
-        $afterElementHtml = '<p class="nm"><small>'
-            . Mage::helper('catalog')->__('ex. http://domain.com')
-            . '</small></p>';
-
         $fieldset->addField('redirect', 'text', array(
-            'name'      => 'redirect',
-            'label'     => Mage::helper('catalog')->__('Redirect URL'),
-            'title'     => Mage::helper('catalog')->__('Redirect URL'),
-            'class'     => 'validate-url',
-            'after_element_html' => $afterElementHtml,
+            'name'  => 'redirect',
+            'label' => Mage::helper('catalog')->__('Redirect URL'),
+            'title' => Mage::helper('catalog')->__('Redirect URL'),
+            'class' => 'validate-url',
+            'note'  => Mage::helper('catalog')->__('ex. http://domain.com'),
         ));
 
         $fieldset->addField('display_in_terms', 'select', array(
-            'name'      => 'display_in_terms',
-            'label'     => Mage::helper('catalog')->__('Display in Suggested Terms'),
-            'title'     => Mage::helper('catalog')->__('Display in Suggested Terms'),
-            'values'    => $yesno,
+            'name'   => 'display_in_terms',
+            'label'  => Mage::helper('catalog')->__('Display in Suggested Terms'),
+            'title'  => Mage::helper('catalog')->__('Display in Suggested Terms'),
+            'values' => $yesno,
         ));
 
         $form->setValues($model->getData());

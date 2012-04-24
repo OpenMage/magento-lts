@@ -20,24 +20,20 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+/* @var $this Mage_Core_Block_Template */
+/* @var $catalogSearchHelper Mage_Catalogsearch_Helper_Data */
+$catalogSearchHelper =  $this->helper('catalogsearch');
 ?>
-<div class="search-form">
-    <div class="search-form-cont">
-        <div class="col2-set">
-            <form id="search_mini_form" name="search_mini_form" action="<?php echo $this->helper('catalogsearch')->getResultUrl() ?>" method="get">
-            <div class="col-1 search-md">
-                <div class="search-st"><div class="search-end">
-                    <input id="search" type="text" class="input-text" name="<?php echo $this->helper('catalogsearch')->getQueryParamName() ?>" value="<?php echo $this->helper('catalogsearch')->getEscapedQueryText() ?>" />
-                </div></div>
-            </div>
-            <div class="col-2">
-                <input class="search-go" type="image" src="<?php echo $this->getSkinUrl('images/search-go-but.gif') ?>" alt="<?php echo $this->__('Search') ?>" />
-                <a class="search-close" href="javascript:void(0);" onclick="$('topSearch').hide(); return false;"></a>
-            </div><div class="clear"></div>
-            </form>
-        </div>
-    </div>
-</div><div class="clear"></div>
+<form id="search_mini_form" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get">
+    <input type="search" name="<?php echo $this->helper('catalogsearch')->getQueryParamName() ?>" id="search" placeholder="Search" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>"/>
+    <div id="search_autocomplete" class="search-autocomplete"></div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo $this->__('Search') ?>');
+    searchForm.initAutocomplete('<?php echo $catalogSearchHelper->getSuggestUrl() ?>', 'search_autocomplete');
+//]]>
+</script>

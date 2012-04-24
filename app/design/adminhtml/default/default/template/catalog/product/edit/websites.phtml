@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -38,35 +38,38 @@
             </li>
         </ul>
     <?php endif; ?>
-    <?php foreach ($this->getWebsiteCollection() as $_website): ?>
-    <div>
-        <div class="website-name">
-            <input name="product[website_ids][]" value="<?php echo $_website->getId() ?>" <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif;?> class="checkbox website-checkbox" id="product_website_<?php echo $_website->getId() ?>" type="checkbox"<?php if($this->hasWebsite($_website->getId())): ?> checked="checked"<?php endif; ?> />
-            <big><strong><label for="product_website_<?php echo $_website->getId() ?>"><?php echo $this->escapeHtml($_website->getName()) ?></label></strong></big>
-        </div>
-        <div class="webiste-groups" id="product_website_<?php echo $_website->getId() ?>_data">
-        <?php foreach ($this->getGroupCollection($_website) as $_group): ?>
-            <h4><?php echo $this->escapeHtml($_group->getName()) ?></h4>
-            <div class="group-stores">
-            <table>
-            <?php foreach ($this->getStoreCollection($_group) as $_store): ?>
-                <tr>
-                    <td><?php echo $this->escapeHtml($_store->getName()) ?></td>
-                    <td>
-                    <?php if($this->getWebsites() && !$this->hasWebsite($_website->getId())): ?>
-                        <span class="website-<?php echo $_website->getId() ?>-select" style="display:none">
-                        <?php echo Mage::helper('catalog')->__('(Copy data from: %s)', $this->getChooseFromStoreHtml($_store)) ?>
-                        </span>
-                    <?php endif; ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            </table>
+    <div class="store-scope">
+        <?php echo $this->getHintHtml() ?>
+        <div class="tree-store-scope">
+            <?php foreach ($this->getWebsiteCollection() as $_website): ?>
+            <div class="website-name">
+                <input name="product[website_ids][]" value="<?php echo $_website->getId() ?>" <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif;?> class="checkbox website-checkbox" id="product_website_<?php echo $_website->getId() ?>" type="checkbox"<?php if($this->hasWebsite($_website->getId())): ?> checked="checked"<?php endif; ?> />
+                <big><strong><label for="product_website_<?php echo $_website->getId() ?>"><?php echo $this->escapeHtml($_website->getName()) ?></label></strong></big>
             </div>
-        <?php endforeach; ?>
+            <div class="webiste-groups" id="product_website_<?php echo $_website->getId() ?>_data">
+            <?php foreach ($this->getGroupCollection($_website) as $_group): ?>
+                <h4><?php echo $this->escapeHtml($_group->getName()) ?></h4>
+                <div class="group-stores">
+                <table>
+                <?php foreach ($this->getStoreCollection($_group) as $_store): ?>
+                    <tr>
+                        <td><?php echo $this->escapeHtml($_store->getName()) ?></td>
+                        <td>
+                        <?php if($this->getWebsites() && !$this->hasWebsite($_website->getId())): ?>
+                            <span class="website-<?php echo $_website->getId() ?>-select" style="display:none">
+                            <?php echo Mage::helper('catalog')->__('(Copy data from: %s)', $this->getChooseFromStoreHtml($_store)) ?>
+                            </span>
+                        <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </table>
+                </div>
+            <?php endforeach; ?>
+            </div>
+            <?php endforeach; ?>
         </div>
     </div>
-    <?php endforeach; ?>
     </fieldset>
 </div>
 <script type="text/javascript">

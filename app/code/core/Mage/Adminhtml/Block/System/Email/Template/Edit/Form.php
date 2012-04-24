@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
         if ($head = $this->getLayout()->getBlock('head')) {
             $head->addItem('js', 'prototype/window.js')
                 ->addItem('js_css', 'prototype/windows/themes/default.css')
-                ->addItem('js_css', 'prototype/windows/themes/magento.css')
+                ->addCss('lib/prototype/windows/themes/magento.css')
                 ->addItem('js', 'mage/adminhtml/variables.js');
         }
         return parent::_prepareLayout();
@@ -72,7 +72,8 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
                 'container_id' => 'used_currently_for',
                 'after_element_html' =>
                     '<script type="text/javascript">' .
-                    (!$this->getEmailTemplate()->getSystemConfigPathsWhereUsedCurrently() ? '$(\'' . 'used_currently_for' . '\').hide(); ' : '') .
+                    (!$this->getEmailTemplate()->getSystemConfigPathsWhereUsedCurrently()
+                        ? '$(\'' . 'used_currently_for' . '\').hide(); ' : '') .
                     '</script>',
             ));
         }
@@ -83,7 +84,8 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
                 'container_id' => 'used_default_for',
                 'after_element_html' =>
                     '<script type="text/javascript">' .
-                    (!(bool)$this->getEmailTemplate()->getOrigTemplateCode() ? '$(\'' . 'used_default_for' . '\').hide(); ' : '') .
+                    (!(bool)$this->getEmailTemplate()->getOrigTemplateCode()
+                        ? '$(\'' . 'used_default_for' . '\').hide(); ' : '') .
                     '</script>',
             ));
         }

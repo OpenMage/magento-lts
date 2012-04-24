@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -117,26 +117,33 @@ function bindAttributeInputType()
 
     setRowVisibility('is_wysiwyg_enabled', false);
     setRowVisibility('is_html_allowed_on_front', false);
-    if ($('frontend_input').value=='textarea') {
-        setRowVisibility('is_wysiwyg_enabled', true);
-        if($('is_wysiwyg_enabled').value == '0'){
+
+    switch ($('frontend_input').value) {
+        case 'textarea':
+            setRowVisibility('is_wysiwyg_enabled', true);
+            if($('is_wysiwyg_enabled').value == '0'){
+                setRowVisibility('is_html_allowed_on_front', true);
+                $('is_html_allowed_on_front').disabled = false;
+            }
+            $('frontend_class').value = '';
+            $('frontend_class').disabled = true;
+            break;
+        case 'text':
             setRowVisibility('is_html_allowed_on_front', true);
             $('is_html_allowed_on_front').disabled = false;
-        }
-        $('frontend_class').value = '';
-        $('frontend_class').disabled = true;
-    }
-    else if($('frontend_input').value=='text'){
-        setRowVisibility('is_html_allowed_on_front', true);
-        $('is_html_allowed_on_front').disabled = false;
 
-        if (!$('frontend_class').getAttribute('readonly')) {
-            $('frontend_class').disabled = false;
-        }
-    }
-    else{
-        $('frontend_class').value = '';
-        $('frontend_class').disabled = true;
+            if (!$('frontend_class').getAttribute('readonly')) {
+                $('frontend_class').disabled = false;
+            }
+            break;
+        case 'select':
+        case 'multiselect':
+            setRowVisibility('is_html_allowed_on_front', true);
+            $('is_html_allowed_on_front').disabled = false;
+            break;
+        default:
+            $('frontend_class').value = '';
+            $('frontend_class').disabled = true;
     }
 
     switchIsFilterable();

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -105,6 +105,21 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         $this->_pro->getConfig()->setStoreId(is_object($store) ? $store->getId() : $store);
         return $this;
     }
+
+   /**
+    * Can be used in regular checkout
+    *
+    * @return bool
+    */
+   public function canUseCheckout()
+   {
+       if (Mage::getStoreConfigFlag('payment/hosted_pro/active')
+           && !Mage::getStoreConfigFlag('payment/hosted_pro/display_ec')
+       ) {
+           return false;
+       }
+       return parent::canUseCheckout();
+   }
 
     /**
      * Whether method is available for specified currency
@@ -535,6 +550,12 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
             ->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
             ->setIsLineItemsEnabled($this->_pro->getConfig()->lineItemsEnabled)
         ;
+        if ($order->getIsVirtual()) {
+            $api->setAddress($order->getBillingAddress())->setSuppressShipping(true);
+        } else {
+            $api->setAddress($order->getShippingAddress());
+            $api->setBillingAddress($order->getBillingAddress());
+        }
 
         // call api and get details from it
         $api->callDoExpressCheckoutPayment();

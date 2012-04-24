@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -168,13 +168,12 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
      * Retrieve product
      *
      * @param int $productId
-     * @param string|int $store
      * @param  string $identifierType
      * @return Mage_Catalog_Model_Product
      */
     protected function _initProduct($productId, $identifierType = null)
     {
-        $product = Mage::helper('catalog/product')->getProduct($productId, $this->_getStoreId($store), $identifierType);
+        $product = Mage::helper('catalog/product')->getProduct($productId, $this->_getStoreId(), $identifierType);
         if (!$product->getId()) {
             $this->_fault('product_not_exists');
         }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -382,7 +382,7 @@ EOT;
         $result = false;
         $ioFile = new Varien_Io_File();
         $ioFile->cd($this->getMediaThemePath());
-        $themeFile = $themeId . '.xml';
+        $themeFile = basename($themeId . '.xml');
         if ($ioFile->fileExists($themeFile)) {
             $result = $ioFile->rm($themeFile);
         }

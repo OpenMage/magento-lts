@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,6 +51,9 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
         $this->renderLayout();
     }
 
+    /**
+     * Update product attributes
+     */
     public function saveAction()
     {
         if (!$this->_validateProducts()) {
@@ -95,7 +98,13 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                             $value = null;
                         }
                         $attributesData[$attributeCode] = $value;
-                    } else if ($attribute->getFrontendInput() == 'multiselect') {
+                    } elseif ($attribute->getFrontendInput() == 'multiselect') {
+                        // Check if 'Change' checkbox has been checked by admin for this attribute
+                        $isChanged = (bool)$this->getRequest()->getPost($attributeCode . '_checkbox');
+                        if (!$isChanged) {
+                            unset($attributesData[$attributeCode]);
+                            continue;
+                        }
                         if (is_array($value)) {
                             $value = implode(',', $value);
                         }
@@ -107,7 +116,10 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                     ->updateAttributes($this->_getHelper()->getProductIds(), $attributesData, $storeId);
             }
             if ($inventoryData) {
+                /** @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
                 $stockItem = Mage::getModel('cataloginventory/stock_item');
+                $stockItem->setProcessIndexEvents(false);
+                $stockItemSaved = false;
 
                 foreach ($this->_getHelper()->getProductIds() as $productId) {
                     $stockItem->setData(array());
@@ -123,7 +135,15 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                     }
                     if ($stockDataChanged) {
                         $stockItem->save();
+                        $stockItemSaved = true;
                     }
+                }
+
+                if ($stockItemSaved) {
+                    Mage::getSingleton('index/indexer')->indexEvents(
+                        Mage_CatalogInventory_Model_Stock_Item::ENTITY,
+                        Mage_Index_Model_Event::TYPE_SAVE
+                    );
                 }
             }
 
@@ -152,8 +172,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
             }
 
             $this->_getSession()->addSuccess(
-                $this->__('Total of %d record(s) were updated',
-                count($this->_getHelper()->getProductIds()))
+                $this->__('Total of %d record(s) were updated', count($this->_getHelper()->getProductIds()))
             );
         }
         catch (Mage_Core_Exception $e) {

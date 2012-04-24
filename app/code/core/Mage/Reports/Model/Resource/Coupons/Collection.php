@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -91,7 +91,7 @@ class Mage_Reports_Model_Resource_Coupons_Collection extends Mage_Sales_Model_En
             ->having('uses > ?', 0)
             ->order('uses ' . self::SORT_ORDER_DESC);
 
-        $storeIds = array_values($storeIds);  
+        $storeIds = array_values($storeIds);
         if (count($storeIds) >= 1 && $storeIds[0] != '') {
             $this->addAttributeToFilter('store_id', array('in' => $storeIds));
             $this->addExpressionAttributeToSelect(

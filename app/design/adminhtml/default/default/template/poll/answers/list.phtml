@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -35,7 +35,7 @@
         <table cellspacing="0" class="form-list">
             <tr>
                 <td class="label"><label for="answer_<?php echo $_item->getId() ?>"><?php echo Mage::helper('poll')->__('Answer Title:') ?> <span class="required">*</span></label></td>
-                <td class="value"><input type="text" id="answer_<?php echo $_item->getId() ?>" name="answer[<?php echo $_item->getId() ?>][title]" value="<?php echo $_item->getAnswerTitle() ?>" class="input-text required-entry" /></td>
+                <td class="value"><input type="text" id="answer_<?php echo $_item->getId() ?>" name="answer[<?php echo $_item->getId() ?>][title]" value="<?php echo $this->escapeHtml($_item->getAnswerTitle()) ?>" class="input-text required-entry" /></td>
             </tr>
             <tr>
                 <td class="label"><label for="answer_votes_<?php echo $_item->getId() ?>"><?php echo Mage::helper('poll')->__('Votes Count:') ?> <span class="required">*</span></label></td>

@@ -20,10 +20,11 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php /** @var $this Mage_Checkout_Block_Multishipping_Overview */ ?>
 <div class="multiple-checkout">
     <div class="page-title">
         <h1><?php echo $this->__('Review Order') ?></h1>
@@ -51,8 +52,8 @@
                         <h3><?php echo $this->__('Payment Method') ?> <span class="separator">|</span> <a href="<?php echo $this->getEditBillingUrl() ?>"><?php echo $this->__('Change') ?></a></h3>
                     </div>
                     <div class="box-content">
-                        <input type="hidden" name="payment[cc_number]" value="<?php echo $this->htmlEscape($this->getPayment()->getCcNumber())?>" />
-                        <input type="hidden" name="payment[cc_cid]" value="<?php echo $this->htmlEscape($this->getPayment()->getCcCid())?>" />
+                        <input type="hidden" name="payment[cc_number]" value="<?php echo $this->escapeHtml($this->getPayment()->getCcNumber())?>" />
+                        <input type="hidden" name="payment[cc_cid]" value="<?php echo $this->escapeHtml($this->getPayment()->getCcCid())?>" />
                         <?php echo $this->getPaymentHtml() ?>
                     </div>
                 </div>
@@ -81,7 +82,7 @@
                         <div class="box-content">
                             <?php if($_rate=$this->getShippingAddressRate($_address)): ?>
                             <p>
-                            <?php echo $_rate->getCarrierTitle() ?> - <?php echo $_rate->getMethodTitle() ?>
+                            <?php echo $this->escapeHtml($_rate->getCarrierTitle()) ?> - <?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
                             <?php $_excl = $this->getShippingPriceExclTax($_address); ?>
                             <?php $_incl = $this->getShippingPriceInclTax($_address); ?>
                             <?php echo $_excl; ?>

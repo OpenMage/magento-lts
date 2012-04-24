@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -86,9 +86,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         // check if customer is not confirmed
         if ($customer->isConfirmationRequired()) {
             if ($customer->getConfirmation()) {
-                throw new Exception('This customer is not confirmed and cannot log in.',
-                    Mage_Customer_Model_Customer::EXCEPTION_EMAIL_NOT_CONFIRMED
-                );
+                return $this->_logout();
             }
         }
         $this->_customer = $customer;
@@ -102,7 +100,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * Retrieve costomer model object
+     * Retrieve customer model object
      *
      * @return Mage_Customer_Model_Customer
      */
@@ -170,11 +168,14 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($this->getData('customer_group_id')) {
             return $this->getData('customer_group_id');
         }
-        return ($this->isLoggedIn()) ? $this->getCustomer()->getGroupId() : Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
+        if ($this->isLoggedIn() && $this->getCustomer()) {
+            return $this->getCustomer()->getGroupId();
+        }
+        return Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
     }
 
     /**
-     * Checking custommer loggin status
+     * Checking customer login status
      *
      * @return bool
      */
@@ -250,8 +251,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     {
         if ($this->isLoggedIn()) {
             Mage::dispatchEvent('customer_logout', array('customer' => $this->getCustomer()) );
-            $this->setId(null);
-            $this->getCookie()->delete($this->getSessionName());
+            $this->_logout();
         }
         return $this;
     }
@@ -260,19 +260,25 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      * Authenticate controller action by login customer
      *
      * @param   Mage_Core_Controller_Varien_Action $action
+     * @param   bool $loginUrl
      * @return  bool
      */
     public function authenticate(Mage_Core_Controller_Varien_Action $action, $loginUrl = null)
     {
-        if (!$this->isLoggedIn()) {
-            $this->setBeforeAuthUrl(Mage::getUrl('*/*/*', array('_current'=>true)));
-            if (is_null($loginUrl)) {
-                $loginUrl = Mage::helper('customer')->getLoginUrl();
-            }
-            $action->getResponse()->setRedirect($loginUrl);
-            return false;
+        if ($this->isLoggedIn()) {
+            return true;
         }
-        return true;
+
+        $this->setBeforeAuthUrl(Mage::getUrl('*/*/*', array('_current' => true)));
+        if (isset($loginUrl)) {
+            $action->getResponse()->setRedirect($loginUrl);
+        } else {
+            $action->setRedirectWithCookieCheck(Mage_Customer_Helper_Data::ROUTE_ACCOUNT_LOGIN,
+                Mage::helper('customer')->getLoginUrlParams()
+            );
+        }
+
+        return false;
     }
 
     /**
@@ -286,7 +292,22 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     {
         $url = Mage::helper('core/url')
             ->removeRequestParam($url, Mage::getSingleton('core/session')->getSessionIdQueryParam());
+        // Add correct session ID to URL if needed
+        $url = Mage::getModel('core/url')->getRebuiltUrl($url);
         return $this->setData($key, $url);
+    }
+
+    /**
+     * Logout without dispatching event
+     *
+     * @return Mage_Customer_Model_Session
+     */
+    protected function _logout()
+    {
+        $this->setId(null);
+        $this->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+        $this->getCookie()->delete($this->getSessionName());
+        return $this;
     }
 
     /**
@@ -309,5 +330,18 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     public function setAfterAuthUrl($url)
     {
         return $this->_setAuthUrl('after_auth_url', $url);
+    }
+
+    /**
+     * Reset core session hosts after reseting session ID
+     *
+     * @return Mage_Customer_Model_Session
+     */
+    public function renewSession()
+    {
+        parent::renewSession();
+        Mage::getSingleton('core/session')->unsSessionHosts();
+
+        return $this;
     }
 }

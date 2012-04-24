@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Compiler
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -103,10 +103,6 @@
             <Mage_Log_Model_Visitor/>
             <Mage_Log_Model_Resource_Visitor/>
 
-            <Mage_GoogleOptimizer_Model_Observer/>
-            <Mage_GoogleOptimizer_Helper_Data/>
-            <Mage_GoogleOptimizer_Block_Code_Page/>
-            <Mage_GoogleOptimizer_Block_Code/>
             <Mage_GoogleAnalytics_Block_Ga/>
 
             <Mage_Customer_Model_Session/>
@@ -339,13 +335,16 @@
             <Mage_GiftMessage_Model_Observer/>
             <Mage_GoogleCheckout_Block_Link/>
             <Mage_GoogleCheckout_Helper_Data/>
-            <Mage_GoogleOptimizer_Block_Code_Conversion/>
             <Mage_Reports_Model_Event_Observer/>
             <Mage_Rule_Helper_Data/>
             <Mage_Rule_Model_Condition_Abstract/>
             <Mage_Rule_Model_Condition_Combine/>
             <Mage_Rule_Model_Condition_Interface/>
+            <Mage_Rule_Model_Condition_Product_Abstract/>
             <Mage_Rule_Model_Rule/>
+            <Mage_Rule_Model_Abstract/>
+            <Mage_Rule_Model_Resource_Abstract/>
+            <Mage_Rule_Model_Resource_Rule_Collection_Abstract/>
             <Mage_SalesRule_Helper_Data/>
             <Mage_SalesRule_Model_Resource_Rule/>
             <Mage_SalesRule_Model_Resource_Rule_Collection/>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -470,8 +470,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Position')
     ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Value')
     ->addIndex(
         $installer->getIdxName(
@@ -1074,8 +1074,8 @@ $table = $installer->getConnection()
         'primary'   => true,
         ), 'Link Type ID')
     ->addColumn('code', Varien_Db_Ddl_Table::TYPE_TEXT, 32, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Code')
     ->setComment('Catalog Product Link Type Table');
 $installer->getConnection()->createTable($table);
@@ -1152,12 +1152,12 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Link Type ID')
     ->addColumn('product_link_attribute_code', Varien_Db_Ddl_Table::TYPE_TEXT, 32, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Product Link Attribute Code')
     ->addColumn('data_type', Varien_Db_Ddl_Table::TYPE_TEXT, 32, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Data Type')
     ->addIndex($installer->getIdxName('catalog/product_link_attribute', array('link_type_id')),
         array('link_type_id'))
@@ -1449,8 +1449,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Product Super Attribute ID')
     ->addColumn('value_index', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Value Index')
     ->addColumn('is_percent', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
         'unsigned'  => true,
@@ -1720,8 +1720,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Product ID')
     ->addColumn('type', Varien_Db_Ddl_Table::TYPE_TEXT, 50, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Type')
     ->addColumn('is_require', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
         'nullable'  => false,
@@ -1836,8 +1836,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Store ID')
     ->addColumn('title', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Title')
     ->addIndex(
         $installer->getIdxName(
@@ -1991,8 +1991,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Store ID')
     ->addColumn('title', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Title')
     ->addIndex(
         $installer->getIdxName(
@@ -3093,8 +3093,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Category ID')
     ->addColumn('path', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Path')
     ->addIndex($installer->getIdxName('catalog/category_anchor_indexer_idx', array('category_id')),
         array('category_id'))
@@ -3112,8 +3112,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Category ID')
     ->addColumn('path', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Path')
     ->addIndex($installer->getIdxName('catalog/category_anchor_indexer_tmp', array('category_id')),
         array('category_id'))

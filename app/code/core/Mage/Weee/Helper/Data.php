@@ -20,12 +20,16 @@
  *
  * @category    Mage
  * @package     Mage_Weee
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * WEEE data helper
+ *
+ * @category Mage
+ * @package  Mage_Weee
+ * @author   Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -130,9 +134,17 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         return 0;
     }
 
+    /**
+     * Returns diaplay type for price accordingly to current zone
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param array|null                 $compareTo
+     * @param string                     $zone
+     * @param Mage_Core_Model_Store      $store
+     * @return bool|int
+     */
     public function typeOfDisplay($product, $compareTo = null, $zone = null, $store = null)
     {
-        $type = 0;
         if (!$this->isEnabled($store)) {
             return false;
         }
@@ -169,6 +181,16 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         }
     }
 
+    /**
+     * Proxy for Mage_Weee_Model_Tax::getProductWeeeAttributes()
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param null|false|Varien_Object   $shipping
+     * @param null|false|Varien_Object   $billing
+     * @param Mage_Core_Model_Website    $website
+     * @param bool                       $calculateTaxes
+     * @return array
+     */
     public function getProductWeeeAttributes($product, $shipping = null, $billing = null,
         $website = null, $calculateTaxes = false)
     {
@@ -176,6 +198,12 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 ->getProductWeeeAttributes($product, $shipping, $billing, $website, $calculateTaxes);
     }
 
+    /**
+     * Returns applied weee taxes
+     *
+     * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @return array
+     */
     public function getApplied($item)
     {
         if ($item instanceof Mage_Sales_Model_Quote_Item_Abstract) {
@@ -202,12 +230,25 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         return unserialize($item->getWeeeTaxApplied());
     }
 
+    /**
+     * Sets applied weee taxes
+     *
+     * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @param array                                $value
+     * @return Mage_Weee_Helper_Data
+     */
     public function setApplied($item, $value)
     {
         $item->setWeeeTaxApplied(serialize($value));
         return $this;
     }
 
+    /**
+     * Returns array of weee attributes allowed for display
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return array
+     */
     public function getProductWeeeAttributesForDisplay($product)
     {
         if ($this->isEnabled()) {
@@ -241,6 +282,12 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         return array();
     }
 
+    /**
+     * Returns amount to display
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return int
+     */
     public function getAmountForDisplay($product)
     {
         if ($this->isEnabled()) {
@@ -250,6 +297,12 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         return 0;
     }
 
+    /**
+     * Returns original amount
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return int
+     */
     public function getOriginalAmount($product)
     {
         if ($this->isEnabled()) {
@@ -258,15 +311,24 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         return 0;
     }
 
+    /**
+     * Adds HTML containers and formats tier prices accordingly to the currency used
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param array                      $tierPrices
+     * @return Mage_Weee_Helper_Data
+     */
     public function processTierPrices($product, &$tierPrices)
     {
         $weeeAmount = $this->getAmountForDisplay($product);
         $store = Mage::app()->getStore();
-        foreach ($tierPrices as &$tier) {
-            $tier['formated_price_incl_weee'] = $store->formatPrice($store
-                ->convertPrice(Mage::helper('tax')->getPrice($product, $tier['website_price'], true)+$weeeAmount));
-            $tier['formated_price_incl_weee_only'] = $store->formatPrice($store
-                ->convertPrice(Mage::helper('tax')->getPrice($product, $tier['website_price'])+$weeeAmount));
+        foreach ($tierPrices as $index => &$tier) {
+            $html = $store->formatPrice($store->convertPrice(
+                Mage::helper('tax')->getPrice($product, $tier['website_price'], true)+$weeeAmount), false);
+            $tier['formated_price_incl_weee'] = '<span class="price tier-' . $index . '-incl-tax">' . $html . '</span>';
+            $html = $store->formatPrice($store->convertPrice(
+                Mage::helper('tax')->getPrice($product, $tier['website_price'])+$weeeAmount), false);
+            $tier['formated_price_incl_weee_only'] = '<span class="price tier-' . $index . '">' . $html . '</span>';
             $tier['formated_weee'] = $store->formatPrice($store->convertPrice($weeeAmount));
         }
         return $this;
@@ -275,10 +337,33 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if fixed taxes are used in system
      *
+     * @param Mage_Core_Model_Store $store
      * @return bool
      */
     public function isEnabled($store = null)
     {
         return Mage::getStoreConfig(self::XML_PATH_FPT_ENABLED, $store);
+    }
+
+    /**
+     * Returns all summed WEEE taxes with all local taxes applied
+     *
+     * @throws Mage_Exception
+     * @param array $attributes Array of Varien_Object, result from getProductWeeeAttributes()
+     * @return float
+     */
+    public function getAmountInclTaxes($attributes)
+    {
+        if (is_array($attributes)) {
+            $amount = 0;
+            foreach ($attributes as $attribute) {
+                /* @var $attribute Varien_Object */
+                $amount += $attribute->getAmount() + $attribute->getTaxAmount();
+            }
+        } else {
+            throw new Mage_Exception('$attributes must be an array');
+        }
+
+        return (float)$amount;
     }
 }

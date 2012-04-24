@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,11 +42,17 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
     public function reindexAll()
     {
         $this->useIdxTable(true);
-        $this->_prepareFinalPriceData();
-        $this->_applyCustomOption();
-        $this->_applyDownloadableLink();
-        $this->_movePriceDataToIndexTable();
-
+        $this->beginTransaction();
+        try {
+            $this->_prepareFinalPriceData();
+            $this->_applyCustomOption();
+            $this->_applyDownloadableLink();
+            $this->_movePriceDataToIndexTable();
+            $this->commit();
+        } catch (Exception $e) {
+            $this->rollBack();
+            throw $e;
+        }
         return $this;
     }
 
@@ -140,6 +146,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
         $write->query($query);
 
         $ifTierPrice = $write->getCheckSql('i.tier_price IS NOT NULL', '(i.tier_price + id.min_price)', 'NULL');
+        $ifGroupPrice = $write->getCheckSql('i.group_price IS NOT NULL', '(i.group_price + id.min_price)', 'NULL');
 
         $select = $write->select()
             ->join(
@@ -148,19 +155,16 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
                     .' AND i.website_id = id.website_id',
                 array())
             ->columns(array(
-                'min_price'  => new Zend_Db_Expr('i.min_price + id.min_price'),
-                'max_price'  => new Zend_Db_Expr('i.max_price + id.max_price'),
-                'tier_price' => new Zend_Db_Expr($ifTierPrice)
+                'min_price'   => new Zend_Db_Expr('i.min_price + id.min_price'),
+                'max_price'   => new Zend_Db_Expr('i.max_price + id.max_price'),
+                'tier_price'  => new Zend_Db_Expr($ifTierPrice),
+                'group_price' => new Zend_Db_Expr($ifGroupPrice),
             ));
 
         $query = $select->crossUpdateFromSelect(array('i' => $this->_getDefaultFinalPriceTable()));
         $write->query($query);
 
-        if ($this->useIdxTable() && $this->_allowTableChanges) {
-            $write->truncateTable($table);
-        } else {
-            $write->delete($table);
-        }
+        $write->delete($table);
 
         return $this;
     }

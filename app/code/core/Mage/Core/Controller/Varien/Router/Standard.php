@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -154,7 +154,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
             return false;
         }
 
-        //checkings after we foundout that this router should be used for current module
+        // checks after we found out that this router should be used for current module
         if (!$this->_afterModuleMatch()) {
             return false;
         }
@@ -210,7 +210,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         }
 
         /**
-         * if we did not found any siutibul
+         * if we did not found any suitable
          */
         if (!$found) {
             if ($this->_noRouteShouldBeApplied()) {
@@ -412,18 +412,17 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                 $p[2] = trim((string)$action);
             }
         }
-#echo "<pre>".print_r($p,1)."</pre>";
+
         return $p;
     }
 
     /**
-     * Check if request URL should be secure
-     *
-     * Function redirects user to correct URL if needed
+     * Check that request uses https protocol if it should.
+     * Function redirects user to correct URL if needed.
      *
      * @param Mage_Core_Controller_Request_Http $request
      * @param string $path
-     * @return null
+     * @return void
      */
     protected function _checkShouldBeSecure($request, $path = '')
     {
@@ -433,11 +432,14 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
         if ($this->_shouldBeSecure($path) && !$request->isSecure()) {
             $url = $this->_getCurrentSecureUrl($request);
+            if ($request->getRouteName() != 'adminhtml' && Mage::app()->getUseSessionInUrl()) {
+                $url = Mage::getSingleton('core/url')->getRedirectUrl($url);
+            }
 
             Mage::app()->getFrontController()->getResponse()
                 ->setRedirect($url)
                 ->sendResponse();
-            exit();
+            exit;
         }
     }
 
@@ -450,11 +452,17 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         return Mage::getBaseUrl('link', true).ltrim($request->getPathInfo(), '/');
     }
 
+    /**
+     * Check whether URL for corresponding path should use https protocol
+     *
+     * @param string $path
+     * @return bool
+     */
     protected function _shouldBeSecure($path)
     {
-        return substr(Mage::getStoreConfig('web/unsecure/base_url'),0,5)==='https'
+        return substr(Mage::getStoreConfig('web/unsecure/base_url'), 0, 5) === 'https'
             || Mage::getStoreConfigFlag('web/secure/use_in_frontend')
-            && substr(Mage::getStoreConfig('web/secure/base_url'),0,5)=='https'
-            && Mage::getConfig()->shouldUrlBeSecure($path);
+                && substr(Mage::getStoreConfig('web/secure/base_url'), 0, 5) == 'https'
+                && Mage::getConfig()->shouldUrlBeSecure($path);
     }
 }

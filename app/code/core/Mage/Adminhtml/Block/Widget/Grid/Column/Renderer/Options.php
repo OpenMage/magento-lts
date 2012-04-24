@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,9 +29,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options
+    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
 {
     /**
      * Render a grid cell as options
@@ -49,19 +50,18 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options extends Mage_Admi
                 $res = array();
                 foreach ($value as $item) {
                     if (isset($options[$item])) {
-                        $res[] = $options[$item];
+                        $res[] = $this->escapeHtml($options[$item]);
                     }
                     elseif ($showMissingOptionValues) {
-                        $res[] = $item;
+                        $res[] = $this->escapeHtml($item);
                     }
                 }
                 return implode(', ', $res);
             } elseif (isset($options[$value])) {
-                return $options[$value];
+                return $this->escapeHtml($options[$value]);
             } elseif (in_array($value, $options)) {
-                return $value;
+                return $this->escapeHtml($value);
             }
-            return '';
         }
     }
 }

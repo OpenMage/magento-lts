@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -65,10 +65,10 @@
 
     removeItem: function (itemId) {
         if (!itemId) {
-            alert('<?php echo Mage::helper('customer')->__('No item specified.') ?>');
+            alert('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('customer')->__('No item specified.')) ?>');
             return false;
         }
-        if(!confirm('<?php echo Mage::helper('customer')->__('Are you sure that you want to remove this item?') ?>')) {
+        if(!confirm('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('customer')->__('Are you sure that you want to remove this item?')) ?>')) {
             return false;
         }
 

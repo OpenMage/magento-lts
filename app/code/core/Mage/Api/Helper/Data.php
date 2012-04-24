@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,6 +34,16 @@
 class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
 {
     const XML_PATH_API_WSI = 'api/config/compliance_wsi';
+
+    /**
+     * Method to find adapter code depending on WS-I compatibility setting
+     *
+     * @return string
+     */
+    public function getV2AdapterCode()
+    {
+        return $this->isComplianceWSI() ? 'soap_wsi' : 'soap_v2';
+    }
 
     /**
      * @return boolean
@@ -165,7 +175,11 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
 
         foreach ($objectKeys as $key) {
             if (is_object($obj->$key) && isset($obj->$key->complexObjectArray)) {
-                $obj->$key = $obj->$key->complexObjectArray;
+                if (is_array($obj->$key->complexObjectArray)) {
+                    $obj->$key = $obj->$key->complexObjectArray;
+                } else { // for one element array
+                    $obj->$key = array($obj->$key->complexObjectArray);
+                }
                 $modifiedKeys[] = $key;
             }
         }

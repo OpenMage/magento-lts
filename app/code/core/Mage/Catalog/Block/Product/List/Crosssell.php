@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,7 +61,7 @@ class Mage_Catalog_Block_Product_List_Crosssell extends Mage_Catalog_Block_Produ
 
         $this->_itemCollection = $product->getCrossSellProductCollection()
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            ->addAttributeToSort('position', 'asc')
+            ->setPositionOrder()
             ->addStoreFilter();
 
 //        Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($this->_itemCollection);

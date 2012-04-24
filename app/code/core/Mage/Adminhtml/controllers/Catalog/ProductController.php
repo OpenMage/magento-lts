@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -552,12 +552,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $product     = $this->_initProduct();
         $productData = $this->getRequest()->getPost('product');
         if ($productData) {
-            if (!isset($productData['stock_data']['use_config_manage_stock'])) {
-                $productData['stock_data']['use_config_manage_stock'] = 0;
-            }
-            if (isset($productData['stock_data']['qty']) && (float)$productData['stock_data']['qty'] > self::MAX_QTY_VALUE) {
-                $productData['stock_data']['qty'] = self::MAX_QTY_VALUE;
-            }
+            $this->_filterStockData($productData['stock_data']);
         }
 
         /**
@@ -669,6 +664,26 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         return $product;
     }
 
+    /**
+     * Filter product stock data
+     *
+     * @param array $stockData
+     */
+    protected function _filterStockData(&$stockData) {
+        if (!isset($stockData['use_config_manage_stock'])) {
+            $stockData['use_config_manage_stock'] = 0;
+        }
+        if (isset($stockData['qty']) && (float)$stockData['qty'] > self::MAX_QTY_VALUE) {
+            $stockData['qty'] = self::MAX_QTY_VALUE;
+        }
+        if (isset($stockData['min_qty']) && (int)$stockData['min_qty'] < 0) {
+            $stockData['min_qty'] = 0;
+        }
+        if (!isset($stockData['is_decimal_divided']) || $stockData['is_qty_decimal'] == 0) {
+            $stockData['is_decimal_divided'] = 0;
+        }
+    }
+
     public function categoriesJsonAction()
     {
         $product = $this->_initProduct();
@@ -691,9 +706,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
         $data = $this->getRequest()->getPost();
         if ($data) {
-            if (!isset($data['product']['stock_data']['use_config_manage_stock'])) {
-                $data['product']['stock_data']['use_config_manage_stock'] = 0;
-            }
+            $this->_filterStockData($data['product']['stock_data']);
+
             $product = $this->_initProductSave();
 
             try {

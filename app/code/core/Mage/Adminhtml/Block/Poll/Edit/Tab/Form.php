@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,7 +68,8 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Form extends Mage_Adminhtml_Block_Widge
                 'required'  => true,
                 'name'      => 'store_ids[]',
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(),
-                'value'     => Mage::registry('poll_data')->getStoreIds()
+                'value'     => Mage::registry('poll_data')->getStoreIds(),
+                'after_element_html' => Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml()
             ));
         }
         else {

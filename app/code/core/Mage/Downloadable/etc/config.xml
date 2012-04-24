@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Downloadable>
-            <version>1.6.0.0.1</version>
+            <version>1.6.0.0.2</version>
         </Mage_Downloadable>
     </modules>
     <global>
@@ -252,6 +252,7 @@
         </routers>
         <secure_url>
             <downloadable>/downloadable/customer/</downloadable>
+            <downloadable_download>/downloadable/download/</downloadable_download>
         </secure_url>
         <translate>
             <modules>
@@ -310,6 +311,14 @@
                     </checkout_allow_guest>
                 </observers>
             </checkout_allow_guest>
+            <product_option_renderer_init>
+                <observers>
+                    <downloadable_observer>
+                        <class>downloadable/observer</class>
+                        <method>initOptionRenderer</method>
+                    </downloadable_observer>
+                </observers>
+            </product_option_renderer_init>
         </events>
     </frontend>
     <admin>

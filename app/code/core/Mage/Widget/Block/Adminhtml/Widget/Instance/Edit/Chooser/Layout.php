@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -128,7 +128,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout
             ->setName($this->getSelectName())
             ->setId('layout_handle')
             ->setClass('required-entry select')
-            ->setExtraParams("onchange=\"WidgetInstance.loadSelectBoxByType(\'block_reference\', this.up(\'div.pages\'), this.value)\"")
+            ->setExtraParams("onchange=\"WidgetInstance.loadSelectBoxByType(\'block_reference\', " .
+                            "this.up(\'div.pages\'), this.value)\"")
             ->setOptions($this->getLayoutHandles(
                 $this->getArea(),
                 $this->getPackage(),
@@ -166,7 +167,9 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout
             foreach ($layoutHandlesArr as $node) {
                 if ($this->_filterLayoutHandle($node->getName())) {
                     $helper = Mage::helper(Mage_Core_Model_Layout::findTranslationModuleName($node));
-                    $this->_layoutHandles[$node->getName()] = $helper->__((string)$node->label);
+                    $this->_layoutHandles[$node->getName()] = $this->helper('core')->jsQuoteEscape(
+                        $helper->__((string)$node->label)
+                    );
                 }
             }
             asort($this->_layoutHandles, SORT_STRING);

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -110,12 +110,12 @@
                             <h5 class="title"><span id="order_item_<?php echo $_item->getId() ?>_title"><?php echo $this->htmlEscape($_item->getName()) ?></span></h5>
                             <div>
                                 <strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong>
-                                <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->htmlEscape($_item->getSku()))); ?>
+                                <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->escapeHtml($_item->getSku()))); ?>
                             </div>
                             <?php if($_item->getMessage(false)): ?>
                                 <?php foreach ($_item->getMessage(false) as $message): ?>
                                 <div class="<?php if($_item->getHasError()): ?>error<?php else: ?>notice<?php endif; ?>">
-                                    <div style="font-size:95%"><?php echo $message; ?></div>
+                                    <div style="font-size:95%"><?php echo Mage::helper('core')->escapeHtml($message); ?></div>
                                 </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -319,9 +319,9 @@
             <span class="label"><?php echo $this->__('Excl. Tax'); ?>:</span>
         <?php endif; ?>
         <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales')): ?>
-            <?php echo $this->formatPrice($_rowTotalWithoutDiscount+$_item->getWeeeTaxAppliedRowAmount()+$_item->getWeeeTaxRowDisposition()); ?>
+            <?php echo $this->formatPrice(max(0, $_rowTotalWithoutDiscount+$_item->getWeeeTaxAppliedRowAmount()+$_item->getWeeeTaxRowDisposition())); ?>
         <?php else: ?>
-            <?php echo $this->formatPrice($_rowTotalWithoutDiscount) ?>
+            <?php echo $this->formatPrice(max(0, $_rowTotalWithoutDiscount)) ?>
         <?php endif; ?>
 
 
@@ -397,7 +397,16 @@
                                 <?php if($this->getCustomerId() && $this->getMoveToCustomerStorage()): ?>
                                     <option value="cart"><?php echo $this->helper('sales')->__('Move to Shopping Cart') ?></option>
                                     <?php if ($this->isMoveToWishlistAllowed($_item)): ?>
-                                        <option value="wishlist"><?php echo $this->helper('sales')->__('Move to Wishlist') ?></option>
+                                        <?php $wishlists = $this->getCustomerWishlists();?>
+                                        <?php if (count($wishlists) <= 1):?>
+                                            <option value="wishlist"><?php echo $this->helper('sales')->__('Move to Wishlist') ?></option>
+                                        <?php else: ?>
+                                            <optgroup label="<?php echo $this->helper('sales')->__('Move to Wishlist') ?>">
+                                                <?php foreach ($wishlists as $wishlist):?>
+                                                    <option value="wishlist_<?php echo $wishlist->getId();?>"><?php echo $this->escapeHtml($wishlist->getName());?></option>
+                                                <?php endforeach;?>
+                                            </optgroup>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 <?php endif; ?>
                             </select>

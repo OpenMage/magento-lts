@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,9 +70,6 @@ class Mage_CatalogInventory_Block_Qtyincrements extends Mage_Core_Block_Template
     {
         if ($this->_qtyIncrements === null) {
             $this->_qtyIncrements = $this->_getProduct()->getStockItem()->getQtyIncrements();
-            if (!$this->_qtyIncrements) {
-                $this->_qtyIncrements = $this->_getProduct()->getStockItem()->getDefaultQtyIncrements();
-            }
             if (!$this->_getProduct()->isSaleable()) {
                 $this->_qtyIncrements = false;
             }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,11 @@ class Mage_Adminhtml_Model_System_Config_Source_Price_Step
         return array(
             array(
                 'value' => Mage_Catalog_Model_Layer_Filter_Price::RANGE_CALCULATION_AUTO,
-                'label' => Mage::helper('adminhtml')->__('Automatic')
+                'label' => Mage::helper('adminhtml')->__('Automatic (equalize price ranges)')
+            ),
+            array(
+                'value' => Mage_Catalog_Model_Layer_Filter_Price::RANGE_CALCULATION_IMPROVED,
+                'label' => Mage::helper('adminhtml')->__('Automatic (equalize product counts)')
             ),
             array(
                 'value' => Mage_Catalog_Model_Layer_Filter_Price::RANGE_CALCULATION_MANUAL,

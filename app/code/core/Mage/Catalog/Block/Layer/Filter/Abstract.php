@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,6 +46,12 @@ abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_
      * @var string
      */
     protected $_filterModelName;
+
+    /**
+     * Whether to display product count for layer navigation items
+     * @var bool
+     */
+    protected $_displayProductCount = null;
 
     /**
      * Initialize filter template
@@ -124,6 +130,18 @@ abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_
     public function getItemsCount()
     {
         return $this->_filter->getItemsCount();
+    }
+
+    /**
+     * Getter for $_displayProductCount
+     * @return bool
+     */
+    public function shouldDisplayProductCount()
+    {
+        if ($this->_displayProductCount === null) {
+            $this->_displayProductCount = Mage::helper('catalog')->shouldDisplayProductCountOnLayer();
+        }
+        return $this->_displayProductCount;
     }
 
     /**

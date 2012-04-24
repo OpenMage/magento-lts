@@ -20,17 +20,16 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * description
+ * Catalog Rule General Information Tab
  *
- * @category    Mage
- * @category   Mage
- * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category Mage
+ * @package Mage_Adminhtml
+ * @author Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
     extends Mage_Adminhtml_Block_Widget_Form
@@ -57,7 +56,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
     }
 
     /**
-     * Returns status flag about this tab can be showen or not
+     * Returns status flag about this tab can be showed or not
      *
      * @return true
      */
@@ -84,7 +83,9 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
 
         $form->setHtmlIdPrefix('rule_');
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('catalogrule')->__('General Information')));
+        $fieldset = $form->addFieldset('base_fieldset',
+            array('legend '=> Mage::helper('catalogrule')->__('General Information'))
+        );
 
         $fieldset->addField('auto_apply', 'hidden', array(
             'name' => 'auto_apply',
@@ -107,7 +108,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
             'name' => 'description',
             'label' => Mage::helper('catalogrule')->__('Description'),
             'title' => Mage::helper('catalogrule')->__('Description'),
-            'style' => 'width: 98%; height: 100px;',
+            'style' => 'height: 100px;',
         ));
 
         $fieldset->addField('is_active', 'select', array(
@@ -121,34 +122,23 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
             ),
         ));
 
-        if (!Mage::app()->isSingleStoreMode()) {
-            $fieldset->addField('website_ids', 'multiselect', array(
-                'name'      => 'website_ids[]',
+        if (Mage::app()->isSingleStoreMode()) {
+            $websiteId = Mage::app()->getStore(true)->getWebsiteId();
+            $fieldset->addField('website_ids', 'hidden', array(
+                'name'     => 'website_ids[]',
+                'value'    => $websiteId
+            ));
+            $model->setWebsiteIds($websiteId);
+        } else {
+            $field = $fieldset->addField('website_ids', 'multiselect', array(
+                'name'     => 'website_ids[]',
                 'label'     => Mage::helper('catalogrule')->__('Websites'),
                 'title'     => Mage::helper('catalogrule')->__('Websites'),
-                'required'  => true,
-                'values'    => Mage::getSingleton('adminhtml/system_config_source_website')->toOptionArray(),
+                'required' => true,
+                'values'   => Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm()
             ));
-        }
-        else {
-            $fieldset->addField('website_ids', 'hidden', array(
-                'name'      => 'website_ids[]',
-                'value'     => Mage::app()->getStore(true)->getWebsiteId()
-            ));
-            $model->setWebsiteIds(Mage::app()->getStore(true)->getWebsiteId());
-        }
-
-        $customerGroups = Mage::getResourceModel('customer/group_collection')
-            ->load()->toOptionArray();
-
-        $found = false;
-        foreach ($customerGroups as $group) {
-            if ($group['value']==0) {
-                $found = true;
-            }
-        }
-        if (!$found) {
-            array_unshift($customerGroups, array('value'=>0, 'label'=>Mage::helper('catalogrule')->__('NOT LOGGED IN')));
+            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $field->setRenderer($renderer);
         }
 
         $fieldset->addField('customer_group_ids', 'multiselect', array(
@@ -156,7 +146,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
             'label'     => Mage::helper('catalogrule')->__('Customer Groups'),
             'title'     => Mage::helper('catalogrule')->__('Customer Groups'),
             'required'  => true,
-            'values'    => $customerGroups,
+            'values'    => Mage::getResourceModel('customer/group_collection')->toOptionArray()
         ));
 
         $dateFormatIso = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);

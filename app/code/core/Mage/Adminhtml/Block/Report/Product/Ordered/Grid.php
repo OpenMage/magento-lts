@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,12 +51,15 @@ class Mage_Adminhtml_Block_Report_Product_Ordered_Grid extends Mage_Adminhtml_Bl
             'index'     =>'name'
         ));
 
+        $baseCurrencyCode = $this->getCurrentCurrencyCode();
+
         $this->addColumn('price', array(
-            'header'    =>Mage::helper('reports')->__('Price'),
-            'width'     =>'120px',
-            'type'      =>'currency',
-            'currency_code' => $this->getCurrentCurrencyCode(),
-            'index'     =>'price'
+            'header'        => Mage::helper('reports')->__('Price'),
+            'width'         => '120px',
+            'type'          => 'currency',
+            'currency_code' => $baseCurrencyCode,
+            'index'         => 'price',
+            'rate'          => $this->getRate($baseCurrencyCode),
         ));
 
         $this->addColumn('ordered_qty', array(

@@ -20,13 +20,11 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<div class="informational">
+<footer>
     <?php echo $this->getChildHtml() ?>
-</div><div class="clear"></div>
-<p class="legality">
-    <?php echo $this->getCopyright() ?>
-</p>
+</footer>
+<address class="copyright"><span class="logo"><img src="<?php echo $this->getSkinUrl(Mage::getStoreConfig('design/header/logo_src'))?>" width="21" alt=""/></span><?php echo $this->getCopyright() ?></address>

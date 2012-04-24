@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,20 +66,23 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset
     {
         $default = !$this->getRequest()->getParam('website') && !$this->getRequest()->getParam('store');
 
-        $html = '<div  class="entry-edit-head collapseable" ><a id="'.$element->getHtmlId().'-head" href="#" onclick="Fieldset.toggleCollapse(\''.$element->getHtmlId().'\', \''.$this->getUrl('*/*/state').'\'); return false;">'.$element->getLegend().'</a></div>';
-        $html.= '<input id="'.$element->getHtmlId().'-state" name="config_state['.$element->getId().']" type="hidden" value="'.(int)$this->_getCollapseState($element).'" />';
-        $html.= '<fieldset class="'.$this->_getFieldsetCss().'" id="'.$element->getHtmlId().'">';
-        $html.= '<legend>'.$element->getLegend().'</legend>';
+        $html = '<div  class="entry-edit-head collapseable" ><a id="' . $element->getHtmlId()
+            . '-head" href="#" onclick="Fieldset.toggleCollapse(\'' . $element->getHtmlId() . '\', \''
+            . $this->getUrl('*/*/state') . '\'); return false;">' . $element->getLegend() . '</a></div>';
+        $html .= '<input id="'.$element->getHtmlId() . '-state" name="config_state[' . $element->getId()
+            . ']" type="hidden" value="' . (int)$this->_getCollapseState($element) . '" />';
+        $html .= '<fieldset class="' . $this->_getFieldsetCss() . '" id="' . $element->getHtmlId() . '">';
+        $html .= '<legend>' . $element->getLegend() . '</legend>';
 
         if ($element->getComment()) {
-            $html .= '<div class="comment">'.$element->getComment().'</div>';
+            $html .= '<span class="comment" style="display: block;">' . $element->getComment() . '</span>';
         }
         // field label column
-        $html.= '<table cellspacing="0" class="form-list"><colgroup class="label" /><colgroup class="value" />';
+        $html .= '<table cellspacing="0" class="form-list"><colgroup class="label" /><colgroup class="value" />';
         if (!$default) {
-            $html.= '<colgroup class="use-default" />';
+            $html .= '<colgroup class="use-default" />';
         }
-        $html.= '<colgroup class="scope-label" /><colgroup class="" /><tbody>';
+        $html .= '<colgroup class="scope-label" /><colgroup class="" /><tbody>';
 
         return $html;
     }

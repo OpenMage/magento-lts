@@ -20,13 +20,54 @@
  *
  * @category    Mage
  * @package     Mage_Rule
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstract
 {
+    /**
+     * Store all used condition models
+     *
+     * @var array
+     */
+    static protected $_conditionModels = array();
+
+
+
+
+
+    /**
+     * Retrieve new object for each requested model.
+     * If model is requested first time, store it at static array.
+     *
+     * It's made by performance reasons to avoid initialization of same models each time when rules are being processed.
+     *
+     * @param  string $modelClass
+     * @return Mage_Rule_Model_Condition_Abstract|bool
+     */
+    protected function _getNewConditionModelInstance($modelClass)
+    {
+        if (empty($modelClass)) {
+            return false;
+        }
+
+        if (!array_key_exists($modelClass, self::$_conditionModels)) {
+            $model = Mage::getModel($modelClass);
+            self::$_conditionModels[$modelClass] = $model;
+        } else {
+            $model = self::$_conditionModels[$modelClass];
+        }
+
+        if (!$model) {
+            return false;
+        }
+
+        $newModel = clone $model;
+        return $newModel;
+    }
+
     public function __construct()
     {
         parent::__construct();
@@ -165,8 +206,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         if (!empty($arr[$key]) && is_array($arr[$key])) {
             foreach ($arr[$key] as $condArr) {
                 try {
-                    $cond = @Mage::getModel($condArr['type']);
-                    if (!empty($cond)) {
+                    $cond = $this->_getNewConditionModelInstance($condArr['type']);
+                    if ($cond) {
                         $this->addCondition($cond);
                         $cond->loadArray($condArr, $key);
                     }
@@ -194,11 +235,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     public function asHtml()
     {
            $html = $this->getTypeElement()->getHtml().
-               Mage::helper('rule')->__("If %s of these conditions are %s:",
-                   $this->getAggregatorElement()->getHtml(),
-                   $this->getValueElement()->getHtml()
-               );
-           if ($this->getId()!='1') {
+               Mage::helper('rule')->__('If %s of these conditions are %s:', $this->getAggregatorElement()->getHtml(), $this->getValueElement()->getHtml());
+           if ($this->getId() != '1') {
                $html.= $this->getRemoveLinkHtml();
            }
         return $html;

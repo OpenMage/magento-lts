@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,49 +31,94 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Block_Report_Grid
+class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Block_Report_Grid_Abstract
 {
+    /**
+     * Column for grid to be grouped by
+     *
+     * @var string
+     */
+    protected $_columnGroupBy = 'period';
 
+    /**
+     * Grid resource collection name
+     *
+     * @var string
+     */
+    protected $_resourceCollectionName  = 'reports/report_product_viewed_collection';
+
+    /**
+     * Init grid parameters
+     */
     public function __construct()
     {
         parent::__construct();
-        $this->setId('gridViewedProducts');
+        $this->setCountTotals(true);
     }
 
-    protected function _prepareCollection()
-    {
-        parent::_prepareCollection();
-        $this->getCollection()->initReport('reports/product_viewed_collection');
-    }
-
+    /**
+     * Custom columns preparation
+     *
+     * @return Mage_Adminhtml_Block_Widget_Grid
+     */
     protected function _prepareColumns()
     {
-        $this->addColumn('name', array(
-            'header'    =>Mage::helper('reports')->__('Product Name'),
-            'index'     =>'name',
-            'total'     =>Mage::helper('reports')->__('Subtotal')
+        $this->addColumn('period', array(
+            'header'        => Mage::helper('adminhtml')->__('Period'),
+            'index'         => 'period',
+            'width'         => 100,
+            'sortable'      => false,
+            'period_type'   => $this->getPeriodType(),
+            'renderer'      => 'adminhtml/report_sales_grid_column_renderer_date',
+            'totals_label'  => Mage::helper('adminhtml')->__('Total'),
+            'html_decorators' => array('nobr'),
         ));
 
-        $this->addColumn('price', array(
-            'header'    =>Mage::helper('reports')->__('Price'),
-            'width'     =>'120px',
-            'type'      =>'currency',
-            'currency_code' => $this->getCurrentCurrencyCode(),
-            'index'     =>'price'
+        $this->addColumn('product_name', array(
+            'header'    => Mage::helper('adminhtml')->__('Product Name'),
+            'index'     => 'product_name',
+            'type'      => 'string',
+            'sortable'  => false
         ));
 
-        $this->addColumn('views', array(
-            'header'    =>Mage::helper('reports')->__('Number of Views'),
-            'width'     =>'120px',
-            'align'     =>'right',
-            'index'     =>'views',
-            'total'     =>'sum'
+        if ($this->getFilterData()->getStoreIds()) {
+            $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
+        }
+        $currencyCode = $this->getCurrentCurrencyCode();
+
+        $this->addColumn('product_price', array(
+            'header'        => Mage::helper('adminhtml')->__('Price'),
+            'type'          => 'currency',
+            'currency_code' => $currencyCode,
+            'index'         => 'product_price',
+            'sortable'      => false,
+            'rate'          => $this->getRate($currencyCode),
         ));
 
-        $this->addExportType('*/*/exportViewedCsv', Mage::helper('reports')->__('CSV'));
-        $this->addExportType('*/*/exportViewedExcel', Mage::helper('reports')->__('Excel XML'));
+        $this->addColumn('views_num', array(
+            'header'    => Mage::helper('adminhtml')->__('Number of Views'),
+            'index'     => 'views_num',
+            'type'      => 'number',
+            'total'     => 'sum',
+            'sortable'  => false
+        ));
+
+
+        $this->addExportType('*/*/exportViewedCsv', Mage::helper('adminhtml')->__('CSV'));
+        $this->addExportType('*/*/exportViewedExcel', Mage::helper('adminhtml')->__('Excel XML'));
 
         return parent::_prepareColumns();
     }
 
+    /**
+     * Don't use orders in collection
+     *
+     * @param Mage_Reports_Model_Resource_Report_Collection_Abstract $collection
+     * @param Varien_Object $filterData
+     * @return Mage_Adminhtml_Block_Report_Grid_Abstract
+     */
+    protected function _addOrderStatusFilter($collection, $filterData)
+    {
+        return $this;
+    }
 }

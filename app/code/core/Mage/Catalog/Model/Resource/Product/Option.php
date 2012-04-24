@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -440,19 +440,19 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
 
         $defaultOptionJoin = implode(
             ' AND ',
-            array('option_title_default.option_id=option.option_id',
+            array('option_title_default.option_id=product_option.option_id',
             $adapter->quoteInto('option_title_default.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID))
         );
 
         $storeOptionJoin = implode(
             ' AND ',
             array(
-                'option_title_store.option_id=option.option_id',
+                'option_title_store.option_id=product_option.option_id',
                 $adapter->quoteInto('option_title_store.store_id = ?', (int) $storeId))
         );
 
         $select = $adapter->select()
-            ->from(array('option' => $this->getMainTable()), null)
+            ->from(array('product_option' => $this->getMainTable()), null)
             ->join(
                 array('option_title_default' => $this->getTable('catalog/product_option_title')),
                 $defaultOptionJoin,
@@ -463,7 +463,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                 $storeOptionJoin,
                 array('title' => $titleCheckSql)
             )
-            ->where('option.product_id = ?', $productId);
+            ->where('product_option.product_id = ?', $productId);
 
         if ($titles = $adapter->fetchCol($select)) {
             $searchData = array_merge($searchData, $titles);
@@ -484,10 +484,10 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
         );
 
         $select = $adapter->select()
-            ->from(array('option' => $this->getMainTable()), null)
+            ->from(array('product_option' => $this->getMainTable()), null)
             ->join(
                 array('option_type' => $this->getTable('catalog/product_option_type_value')),
-                'option_type.option_id=option.option_id',
+                'option_type.option_id=product_option.option_id',
                 array()
             )
             ->join(
@@ -500,7 +500,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                 $storeOptionJoin,
                 array('title' => $titleCheckSql)
             )
-            ->where('option.product_id = ?', $productId);
+            ->where('product_option.product_id = ?', $productId);
 
         if ($titles = $adapter->fetchCol($select)) {
             $searchData = array_merge($searchData, $titles);

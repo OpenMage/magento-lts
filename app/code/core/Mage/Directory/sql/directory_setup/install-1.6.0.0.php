@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,12 +40,12 @@ $table = $installer->getConnection()
         'default'   => '',
         ), 'Country Id in ISO-2')
     ->addColumn('iso2_code', Varien_Db_Ddl_Table::TYPE_TEXT, 2, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Country ISO-2 format')
     ->addColumn('iso3_code', Varien_Db_Ddl_Table::TYPE_TEXT, 3, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Country ISO-3')
     ->setComment('Directory Country');
 $installer->getConnection()->createTable($table);
@@ -62,17 +62,22 @@ $table = $installer->getConnection()
         'primary'   => true,
         ), 'Country Format Id')
     ->addColumn('country_id', Varien_Db_Ddl_Table::TYPE_TEXT, 2, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Country Id in ISO-2')
     ->addColumn('type', Varien_Db_Ddl_Table::TYPE_TEXT, 30, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Country Format Type')
     ->addColumn('format', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
         'nullable'  => false,
         ), 'Country Format')
-    ->addIndex($installer->getIdxName('directory/country_format', array('country_id', 'type'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex(
+        $installer->getIdxName(
+            'directory/country_format',
+            array('country_id', 'type'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
         array('country_id', 'type'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
      ->setComment('Directory Country Format');
 $installer->getConnection()->createTable($table);
@@ -93,8 +98,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Country Id in ISO-2')
     ->addColumn('code', Varien_Db_Ddl_Table::TYPE_TEXT, 32, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Region code')
     ->addColumn('default_name', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         ), 'Region Name')
@@ -120,12 +125,13 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Region Id')
     ->addColumn('name', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Region Name')
     ->addIndex($installer->getIdxName('directory/country_region_name', array('region_id')),
         array('region_id'))
-    ->addForeignKey($installer->getFkName('directory/country_region_name', 'region_id', 'directory/country_region', 'region_id'),
+    ->addForeignKey(
+        $installer->getFkName('directory/country_region_name', 'region_id', 'directory/country_region', 'region_id'),
         'region_id', $installer->getTable('directory/country_region'), 'region_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Directory Country Region Name');

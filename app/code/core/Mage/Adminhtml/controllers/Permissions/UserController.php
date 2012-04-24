@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controller_Action
@@ -81,12 +81,17 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
 
         Mage::register('permissions_user', $model);
 
+        if (isset($id)) {
+            $breadcrumb = $this->__('Edit User');
+        } else {
+            $breadcrumb = $this->__('New User');
+        }
         $this->_initAction()
-            ->_addBreadcrumb($id ? $this->__('Edit User') : $this->__('New User'), $id ? $this->__('Edit User') : $this->__('New User'))
-            ->_addContent($this->getLayout()->createBlock('adminhtml/permissions_user_edit')->setData('action', $this->getUrl('*/permissions_user/save')))
-            ->_addLeft($this->getLayout()->createBlock('adminhtml/permissions_user_edit_tabs'));
+            ->_addBreadcrumb($breadcrumb, $breadcrumb);
 
-        $this->_addJs($this->getLayout()->createBlock('adminhtml/template')->setTemplate('permissions/user_roles_grid_js.phtml'));
+        $this->getLayout()->getBlock('adminhtml.permissions.user.edit')
+            ->setData('action', $this->getUrl('*/permissions_user/save'));
+
         $this->renderLayout();
     }
 
@@ -142,7 +147,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been saved.'));
                 Mage::getSingleton('adminhtml/session')->setUserData(false);
-                $this->_redirect('*/*/edit', array('user_id' => $model->getUserId()));
+                $this->_redirect('*/*/');
                 return;
             } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -192,7 +197,11 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         }
 
         Mage::register('permissions_user', $model);
-        $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/permissions_user_edit_tab_roles')->toHtml());
+        $this->getResponse()->setBody(
+            $this->getLayout()
+                ->createBlock('adminhtml/permissions_user_edit_tab_roles')
+                ->toHtml()
+        );
     }
 
     public function roleGridAction()

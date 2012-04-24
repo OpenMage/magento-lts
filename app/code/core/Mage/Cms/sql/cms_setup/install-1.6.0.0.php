@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Cms
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -107,8 +107,8 @@ $table = $installer->getConnection()
         'nullable'  => true,
         ), 'Page Meta Description')
     ->addColumn('identifier', Varien_Db_Ddl_Table::TYPE_TEXT, 100, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Page String Identifier')
     ->addColumn('content_heading', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         'nullable'  => true,

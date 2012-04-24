@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -191,6 +191,7 @@ class Mage_Catalog_Model_Url
     /**
      * Returns store root category, uses caching for it
      *
+     * @param int $storeId
      * @return Varien_Object
      */
     public function getStoreRootCategory($storeId) {
@@ -210,6 +211,7 @@ class Mage_Catalog_Model_Url
      * Setter for $_saveRewritesHistory
      * Force Rewrites History save bypass config settings
      *
+     * @param bool $flag
      * @return Mage_Catalog_Model_Url
      */
     public function setShouldSaveRewritesHistory($flag)
@@ -261,6 +263,7 @@ class Mage_Catalog_Model_Url
      *
      * @param Varien_Object $category
      * @param string $parentPath
+     * @param bool $refreshProducts
      * @return Mage_Catalog_Model_Url
      */
     protected function _refreshCategoryRewrites(Varien_Object $category, $parentPath = null, $refreshProducts = true)
@@ -275,7 +278,7 @@ class Mage_Catalog_Model_Url
 
             $idPath      = $this->generatePath('id', null, $category);
             $targetPath  = $this->generatePath('target', null, $category);
-            $requestPath = $this->generatePath('request', null, $category, $parentPath);
+            $requestPath = $this->getCategoryRequestPath($category, $parentPath);
 
             $rewriteData = array(
                 'store_id'      => $category->getStoreId(),
@@ -642,11 +645,21 @@ class Mage_Catalog_Model_Url
             }
             // match request_url abcdef1234(-12)(.html) pattern
             $match = array();
-            if (!preg_match('#^([0-9a-z/-]+?)(-([0-9]+))?('.preg_quote($suffix).')?$#i', $requestPath, $match)) {
+            $regularExpression = '#^([0-9a-z/-]+?)(-([0-9]+))?('.preg_quote($suffix).')?$#i';
+            if (!preg_match($regularExpression, $requestPath, $match)) {
                 return $this->getUnusedPath($storeId, '-', $idPath);
             }
-            $requestPath = $match[1].(isset($match[3])?'-'.($match[3]+1):'-1').(isset($match[4])?$match[4]:'');
-            return $this->getUnusedPath($storeId, $requestPath, $idPath);
+            $match[1] = $match[1] . '-';
+            $match[4] = isset($match[4]) ? $match[4] : '';
+
+            $lastRequestPath = $this->getResource()
+                ->getLastUsedRewriteRequestIncrement($match[1], $match[4], $storeId);
+            if ($lastRequestPath) {
+                $match[3] = $lastRequestPath;
+            }
+            return $match[1]
+                . (isset($match[3]) ? ($match[3]+1) : '1')
+                . $match[4];
         }
         else {
             return $requestPath;
@@ -673,6 +686,74 @@ class Mage_Catalog_Model_Url
     public function getCategoryUrlSuffix($storeId)
     {
         return Mage::helper('catalog/category')->getCategoryUrlSuffix($storeId);
+    }
+
+    /**
+     * Get unique category request path
+     *
+     * @param Varien_Object $category
+     * @param string $parentPath
+     * @return string
+     */
+    public function getCategoryRequestPath($category, $parentPath)
+    {
+        $storeId = $category->getStoreId();
+        $idPath  = $this->generatePath('id', null, $category);
+        $suffix  = $this->getCategoryUrlSuffix($storeId);
+
+        if (isset($this->_rewrites[$idPath])) {
+            $this->_rewrite = $this->_rewrites[$idPath];
+            $existingRequestPath = $this->_rewrites[$idPath]->getRequestPath();
+        }
+
+        if ($category->getUrlKey() == '') {
+            $urlKey = $this->getCategoryModel()->formatUrlKey($category->getName());
+        }
+        else {
+            $urlKey = $this->getCategoryModel()->formatUrlKey($category->getUrlKey());
+        }
+
+        $categoryUrlSuffix = $this->getCategoryUrlSuffix($category->getStoreId());
+        if (null === $parentPath) {
+            $parentPath = $this->getResource()->getCategoryParentPath($category);
+        }
+        elseif ($parentPath == '/') {
+            $parentPath = '';
+        }
+        $parentPath = Mage::helper('catalog/category')->getCategoryUrlPath($parentPath,
+                                                                           true, $category->getStoreId());
+
+        $requestPath = $parentPath . $urlKey . $categoryUrlSuffix;
+        if (isset($existingRequestPath) && $existingRequestPath == $requestPath . $suffix) {
+            return $existingRequestPath;
+        }
+
+        if ($this->_deleteOldTargetPath($requestPath, $idPath, $storeId)) {
+            return $requestPath;
+        }
+
+        return $this->getUnusedPath($category->getStoreId(), $requestPath,
+                                    $this->generatePath('id', null, $category)
+        );
+    }
+
+    /**
+     * Check if current generated request path is one of the old paths
+     *
+     * @param string $requestPath
+     * @param string $idPath
+     * @param int $storeId
+     * @return bool
+     */
+    protected function _deleteOldTargetPath($requestPath, $idPath, $storeId)
+    {
+        $finalOldTargetPath = $this->getResource()->findFinalTargetPath($requestPath, $storeId);
+        if ($finalOldTargetPath && $finalOldTargetPath == $idPath) {
+            $this->getResource()->deleteRewriteRecord($requestPath, $storeId, true);
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -716,29 +797,28 @@ class Mage_Catalog_Model_Url
         if (isset($this->_rewrites[$idPath])) {
             $this->_rewrite = $this->_rewrites[$idPath];
             $existingRequestPath = $this->_rewrites[$idPath]->getRequestPath();
-            $existingRequestPath = str_replace($suffix, '', $existingRequestPath);
 
-            if ($existingRequestPath == $requestPath) {
-                return $requestPath.$suffix;
+            if ($existingRequestPath == $requestPath . $suffix) {
+                return $existingRequestPath;
             }
+
+            $existingRequestPath = preg_replace('/' . preg_quote($suffix, '/') . '$/', '', $existingRequestPath);
             /**
              * Check if existing request past can be used
              */
             if ($product->getUrlKey() == '' && !empty($requestPath)
-                && strpos($existingRequestPath, $requestPath) !== false
+                && strpos($existingRequestPath, $requestPath) === 0
             ) {
-                $existingRequestPath = str_replace($requestPath, '', $existingRequestPath);
+                $existingRequestPath = preg_replace(
+                    '/^' . preg_quote($requestPath, '/') . '/', '', $existingRequestPath
+                );
                 if (preg_match('#^-([0-9]+)$#i', $existingRequestPath)) {
                     return $this->_rewrites[$idPath]->getRequestPath();
                 }
             }
-            /**
-             * check if current generated request path is one of the old paths
-             */
+
             $fullPath = $requestPath.$suffix;
-            $finalOldTargetPath = $this->getResource()->findFinalTargetPath($fullPath, $storeId);
-            if ($finalOldTargetPath && $finalOldTargetPath == $idPath) {
-                $this->getResource()->deleteRewrite($fullPath, $storeId);
+            if ($this->_deleteOldTargetPath($fullPath, $idPath, $storeId)) {
                 return $fullPath;
             }
         }

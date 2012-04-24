@@ -20,11 +20,12 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php $_order = $this->getOrder() ?>
+<?php if ($_order): ?>
 <table cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #EAEAEA;">
     <thead>
         <tr>
@@ -69,4 +70,5 @@
     </tbody>
 </table>
     <?php endif; ?>
+<?php endif; ?>
 <?php endif; ?>

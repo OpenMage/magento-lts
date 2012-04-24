@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -116,16 +116,16 @@ class Mage_Sales_Model_Order_Invoice_Api_V2 extends Mage_Sales_Model_Order_Invoi
     /**
      * Create new invoice for order
      *
-     * @param string $orderIncrementId
+     * @param string $invoiceIncrementId
      * @param array $itemsQty
      * @param string $comment
      * @param booleam $email
      * @param boolean $includeComment
      * @return string
      */
-    public function create($orderIncrementId, $itemsQty, $comment = null, $email = false, $includeComment = false)
+    public function create($invoiceIncrementId, $itemsQty, $comment = null, $email = false, $includeComment = false)
     {
-        $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
+        $order = Mage::getModel('sales/order')->loadByIncrementId($invoiceIncrementId);
         $itemsQty = $this->_prepareItemQtyData($itemsQty);
         /* @var $order Mage_Sales_Model_Order */
         /**

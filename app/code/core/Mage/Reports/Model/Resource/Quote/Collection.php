@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -89,7 +89,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
             ->addSubtotal($storeIds, $filter)
             ->addCustomerData($filter)
             ->setOrder('updated_at');
-        if (is_array($storeIds)) {
+        if (is_array($storeIds) && !empty($storeIds)) {
             $this->addFieldToFilter('store_id', array('in' => $storeIds));
         }
 
@@ -139,7 +139,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
             ->joinInner(
                 array('product_price' => $productAttrPriceTable),
                 "product_price.entity_id = e.entity_id AND product_price.attribute_id = {$productAttrPriceId}",
-                array('price'=>'product_price.value'))
+                array('price' => new Zend_Db_Expr('product_price.value * main_table.base_to_global_rate')))
             ->joinLeft(
                 array('order_items' => new Zend_Db_Expr(sprintf('(%s)', $ordersSubSelect))),
                 'order_items.product_id = e.entity_id',

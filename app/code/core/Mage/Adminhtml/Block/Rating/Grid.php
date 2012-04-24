@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,6 +52,11 @@ class Mage_Adminhtml_Block_Rating_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return parent::_prepareCollection();
     }
 
+    /**
+     * Prepare Rating Grid colunms
+     *
+     * @return Mage_Adminhtml_Block_Rating_Grid
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('rating_id', array(
@@ -63,8 +68,14 @@ class Mage_Adminhtml_Block_Rating_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->addColumn('rating_code', array(
             'header'    => Mage::helper('rating')->__('Rating Name'),
-            'align'     =>'left',
             'index'     => 'rating_code',
+        ));
+
+        $this->addColumn('position', array(
+            'header' => Mage::helper('rating')->__('Sort Order'),
+            'align' => 'left',
+            'width' => '100px',
+            'index' => 'position',
         ));
 
         return parent::_prepareColumns();

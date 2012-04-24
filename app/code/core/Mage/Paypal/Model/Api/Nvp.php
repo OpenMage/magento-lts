@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -90,6 +90,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'ACTION'            => 'action',
         'REDIRECTREQUIRED'  => 'redirect_required',
         'SUCCESSPAGEREDIRECTREQUESTED'  => 'redirect_requested',
+        'REQBILLINGADDRESS' => 'require_billing_address',
         // style settings
         'PAGESTYLE'      => 'page_style',
         'HDRIMG'         => 'hdrimg',
@@ -227,7 +228,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'PAYMENTACTION', 'AMT', 'CURRENCYCODE', 'RETURNURL', 'CANCELURL', 'INVNUM', 'SOLUTIONTYPE', 'NOSHIPPING',
         'GIROPAYCANCELURL', 'GIROPAYSUCCESSURL', 'BANKTXNPENDINGURL',
         'PAGESTYLE', 'HDRIMG', 'HDRBORDERCOLOR', 'HDRBACKCOLOR', 'PAYFLOWCOLOR', 'LOCALECODE',
-        'BILLINGTYPE', 'SUBJECT', 'ITEMAMT', 'SHIPPINGAMT', 'TAXAMT',
+        'BILLINGTYPE', 'SUBJECT', 'ITEMAMT', 'SHIPPINGAMT', 'TAXAMT', 'REQBILLINGADDRESS',
     );
     protected $_setExpressCheckoutResponse = array('TOKEN');
 
@@ -630,6 +631,11 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $request = $this->_exportToRequest($this->_doExpressCheckoutPaymentRequest);
         $this->_exportLineItems($request);
 
+        if ($this->getAddress()) {
+            $request = $this->_importAddresses($request);
+            $request['ADDROVERRIDE'] = 1;
+        }
+
         $response = $this->call(self::DO_EXPRESS_CHECKOUT_PAYMENT, $request);
         $this->_importFromResponse($this->_paymentInformationResponse, $response);
         $this->_importFromResponse($this->_doExpressCheckoutPaymentResponse, $response);
@@ -950,8 +956,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             throw $e;
         }
 
-        $http->close();
-
         $response = preg_split('/^\r?$/m', $response, 2);
         $response = trim($response[1]);
         $response = $this->_deformatNVP($response);
@@ -964,9 +968,13 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             Mage::logException(new Exception(
                 sprintf('PayPal NVP CURL connection error #%s: %s', $http->getErrno(), $http->getError())
             ));
+            $http->close();
+
             Mage::throwException(Mage::helper('paypal')->__('Unable to communicate with the PayPal gateway.'));
         }
 
+        // cUrl resource must be closed after checking it for errors
+        $http->close();
 
         if (!$this->_validateResponse($methodName, $response)) {
             Mage::logException(new Exception(
@@ -1036,6 +1044,10 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected function _isCallSuccessful($response)
     {
+        if (!isset($response['ACK'])) {
+            return false;
+        }
+
         $ack = strtoupper($response['ACK']);
         $this->_callWarnings = array();
         if ($ack == 'SUCCESS' || $ack == 'SUCCESSWITHWARNING') {
@@ -1130,11 +1142,17 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             Varien_Object_Mapper::accumulateByMap($data, $shippingAddress, $this->_shippingAddressMap);
             $this->_applyStreetAndRegionWorkarounds($shippingAddress);
             // PayPal doesn't provide detailed shipping name fields, so the name will be overwritten
+            $firstName = $data['SHIPTONAME'];
+            $lastName = null;
+            if (isset($data['FIRSTNAME']) && $data['LASTNAME']) {
+                $firstName = $data['FIRSTNAME'];
+                $lastName = $data['LASTNAME'];
+            }
             $shippingAddress->addData(array(
                 'prefix'     => null,
-                'firstname'  => $data['SHIPTONAME'],
+                'firstname'  => $firstName,
                 'middlename' => null,
-                'lastname'   => null,
+                'lastname'   => $lastName,
                 'suffix'     => null,
             ));
             $this->setExportedShippingAddress($shippingAddress);

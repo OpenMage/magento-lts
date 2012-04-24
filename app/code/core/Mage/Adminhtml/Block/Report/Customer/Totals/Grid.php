@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,6 +64,7 @@ class Mage_Adminhtml_Block_Report_Customer_Totals_Grid extends Mage_Adminhtml_Bl
         ));
 
         $baseCurrencyCode = $this->getCurrentCurrencyCode();
+        $rate = $this->getRate($baseCurrencyCode);
 
         $this->addColumn('orders_avg_amount', array(
             'header'    => $this->__('Average Order Amount'),
@@ -74,7 +75,8 @@ class Mage_Adminhtml_Block_Report_Customer_Totals_Grid extends Mage_Adminhtml_Bl
             'currency_code'  => $baseCurrencyCode,
             'index'     => 'orders_avg_amount',
             'total'     => 'orders_sum_amount/orders_count',
-            'renderer'  => 'adminhtml/report_grid_column_renderer_currency'
+            'renderer'  => 'adminhtml/report_grid_column_renderer_currency',
+            'rate'      => $rate,
         ));
 
         $this->addColumn('orders_sum_amount', array(
@@ -86,7 +88,8 @@ class Mage_Adminhtml_Block_Report_Customer_Totals_Grid extends Mage_Adminhtml_Bl
             'currency_code'  => $baseCurrencyCode,
             'index'     => 'orders_sum_amount',
             'total'     => 'sum',
-            'renderer'  => 'adminhtml/report_grid_column_renderer_currency'
+            'renderer'  => 'adminhtml/report_grid_column_renderer_currency',
+            'rate'      => $rate,
         ));
 
         $this->addExportType('*/*/exportTotalsCsv', Mage::helper('reports')->__('CSV'));

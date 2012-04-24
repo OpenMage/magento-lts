@@ -33,19 +33,28 @@
  */
 class Varien_Data_Form_Element_Label extends Varien_Data_Form_Element_Abstract
 {
-	public function __construct($attributes=array())
+    /**
+     * Assigns attributes for Element
+     *
+     * @param array $attributes
+     */
+    public function __construct($attributes=array())
     {
         parent::__construct($attributes);
         $this->setType('label');
     }
 
+    /**
+     * Retrieve Element HTML
+     *
+     * @return string
+     */
     public function getElementHtml()
     {
-    	$html = $this->getBold() ? '<strong>' : '';
-    	$html.= $this->getEscapedValue();
-    	$html.= $this->getBold() ? '</strong>' : '';
-    	$html.= $this->getAfterElementHtml();
-    	return $html;
+        $html = $this->getBold() ? '<strong>' : '';
+        $html.= $this->getEscapedValue();
+        $html.= $this->getBold() ? '</strong>' : '';
+        $html.= $this->getAfterElementHtml();
+        return $html;
     }
-
 }

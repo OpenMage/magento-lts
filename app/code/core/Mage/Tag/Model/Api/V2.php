@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +46,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
         foreach ($result as $key => $tag) {
             $result[$key] = Mage::helper('api')->wsiArrayPacker($tag);
         }
-        return $result;
+        return array_values($result);
     }
 
     /**

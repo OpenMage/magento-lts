@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Weee
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -64,7 +64,7 @@
             </weee>
         </blocks>
         <events>
-            <catalogindex_prepare_price_select>
+            <catalog_prepare_price_select>
                 <observers>
                     <weee>
                         <type>model</type>
@@ -72,7 +72,7 @@
                         <method>prepareCatalogIndexSelect</method>
                     </weee>
                 </observers>
-            </catalogindex_prepare_price_select>
+            </catalog_prepare_price_select>
             <catalog_entity_attribute_save_before>
                 <observers>
                     <weee>
@@ -196,8 +196,8 @@
                 <totals>
                     <weee>
                         <class>weee/total_invoice_weee</class>
-                        <after>subtotal,tax</after>
-                        <before>grand_total</before>
+                        <after>subtotal,tax,discount,grand_total,cost_total,shipping</after>
+                        <before></before>
                     </weee>
                 </totals>
             </order_invoice>
@@ -205,8 +205,8 @@
                 <totals>
                     <weee>
                         <class>weee/total_creditmemo_weee</class>
-                        <after>subtotal,tax</after>
-                        <before>grand_total</before>
+                        <after>subtotal</after>
+                        <before>tax,discount,grand_total</before>
                     </weee>
                 </totals>
             </order_creditmemo>

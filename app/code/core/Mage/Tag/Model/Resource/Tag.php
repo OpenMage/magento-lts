@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -203,7 +203,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
                 array()
             )
             ->group('main.store_id')
-            ->where('main.tag_id = :tag_id');
+            ->where('main.tag_id = :tag_id')
+            ->where('main.active = 1');
 
         $selectHistoricalResult = $readAdapter->fetchAll($selectHistorical, array('tag_id' => $tagId));
 
@@ -270,7 +271,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
                 'product_website.website_id = store.website_id AND product_website.product_id = main.product_id',
                 array()
             )
-            ->where('main.tag_id = :tag_id');
+            ->where('main.tag_id = :tag_id')
+            ->where('main.active = 1');
         $result['historical_uses'] = (int) $readAdapter->fetchOne($selectHistoricalGlobal, array('tag_id' => $tagId));
 
         return $result;

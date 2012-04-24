@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_modern
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -33,17 +33,15 @@ Default layout, loads most of the pages
 -->
 
     <default>
-
         <reference name="top.links">
-            <block type="wishlist/links" name="wishlist_link"/>
+            <block type="wishlist/links" name="wishlist_link" />
             <action method="addLinkBlock"><blockName>wishlist_link</blockName></action>
         </reference>
 
         <!-- Mage_Wishlist -->
         <reference name="left">
-            <block type="wishlist/customer_sidebar" name="wishlist_sidebar" as="wishlist" after="cart_sidebar" template="wishlist/sidebar.phtml"/>
+            <block type="wishlist/customer_sidebar" name="wishlist_sidebar" as="wishlist" after="cart_sidebar" template="wishlist/sidebar.phtml" />
         </reference>
-
     </default>
 
 <!--
@@ -62,7 +60,6 @@ Customer account home dashboard layout
 -->
 
     <customer_account_index>
-
         <reference name="right">
             <action method="unsetChild"><name>wishlist</name></action>
         </reference>
@@ -75,9 +72,33 @@ Wishlist pages
     <wishlist_index_index translate="label">
         <label>Customer My Account My Wishlist</label>
         <!-- Mage_Wishlist -->
-        <update handle="customer_account"/>
+        <update handle="customer_account" />
         <reference name="my.account.wrapper">
-            <block type="wishlist/customer_wishlist" name="customer.wishlist" template="wishlist/view.phtml"/>
+            <block type="wishlist/customer_wishlist" name="customer.wishlist" template="wishlist/view.phtml">
+                <action method="setTitle" translate="title">
+                    <title>My Wishlist</title>
+                </action>
+                <block type="wishlist/customer_wishlist_items" name="customer.wishlist.items" as="items" template="wishlist/item/list.phtml">
+                    <block type="wishlist/customer_wishlist_item_column_image" name="customer.wishlist.item.image" template="wishlist/item/column/image.phtml" />
+                    <block type="wishlist/customer_wishlist_item_column_comment" name="customer.wishlist.item.info" template="wishlist/item/column/info.phtml">
+                        <action method="setTitle" translate="title">
+                            <title>Product Details and Comment</title>
+                        </action>
+                    </block>
+                    <block type="wishlist/customer_wishlist_item_column_cart" name="customer.wishlist.item.cart" template="wishlist/item/column/cart.phtml">
+                        <action method="setTitle" translate="title">
+                            <title>Add to Cart</title>
+                        </action>
+                        <block type="wishlist/customer_wishlist_item_options" name="customer.wishlist.item.options" />
+                    </block>
+                    <block type="wishlist/customer_wishlist_item_column_remove" name="customer.wishlist.item.remove" template="wishlist/item/column/remove.phtml" />
+                </block>
+                <block type="core/text_list" name="customer.wishlist.buttons" as="control_buttons">
+                    <block type="wishlist/customer_wishlist_button" name="customer.wishlist.button.share" template="wishlist/button/share.phtml" />
+                    <block type="wishlist/customer_wishlist_button" name="customer.wishlist.button.toCart" template="wishlist/button/tocart.phtml" />
+                    <block type="wishlist/customer_wishlist_button" name="customer.wishlist.button.update" template="wishlist/button/update.phtml" />
+                </block>
+            </block>
         </reference>
         <reference name="right">
             <action method="unsetChild"><name>wishlist_customer_sidebar</name></action>
@@ -87,9 +108,9 @@ Wishlist pages
     <wishlist_index_share translate="label">
         <label>Customer My Account Wishlist Sharing Form</label>
         <!-- Mage_Wishlist -->
-        <update handle="customer_account"/>
+        <update handle="customer_account" />
         <reference name="my.account.wrapper">
-            <block type="wishlist/customer_sharing" name="wishlist.sharing" template="wishlist/sharing.phtml"/>
+            <block type="wishlist/customer_sharing" name="wishlist.sharing" template="wishlist/sharing.phtml" />
         </reference>
         <reference name="right">
             <action method="unsetChild"><name>wishlist_customer_sidebar</name></action>
@@ -98,9 +119,9 @@ Wishlist pages
 
     <wishlist_index_configure translate="label">
         <label>Configure Wishlist Item</label>
-        <update handle="catalog_product_view"/>
+        <update handle="catalog_product_view" />
         <reference name="product.info">
-            <block type="wishlist/item_configure" name="product.info.addto" as="addto" template="wishlist/item/configure/addto.phtml"/>
+            <block type="wishlist/item_configure" name="product.info.addto" as="addto" template="wishlist/item/configure/addto.phtml" />
         </reference>
         <reference name="product.info.options.wrapper.bottom">
             <action method="unsetChild"><name>product.info.addto</name></action>
@@ -112,7 +133,7 @@ Wishlist pages
         <label>Customer Shared Wishlist View</label>
         <!-- Mage_Wishlist -->
         <reference name="content">
-            <block type="wishlist/share_wishlist" name="customer.wishlist" template="wishlist/shared.phtml"/>
+            <block type="wishlist/share_wishlist" name="customer.wishlist" template="wishlist/shared.phtml" />
         </reference>
     </wishlist_shared_index>
 </layout>

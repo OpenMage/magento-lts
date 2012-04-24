@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,22 +71,21 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Validator_Abstract
      */
     protected function _setDefaultValidatorTypeMessages()
     {
-        $helper = Mage::helper('xmlconnect');
         $this->_validatorTypeMessages = array(
-            'min_length' => $helper->__('Text length does not satisfy specified min text range.'),
-            'max_length' => $helper->__('Text length does not satisfy specified max text range.'),
-            'alphanumeric' => $helper->__('Please use only letters (a-z or A-Z) or numbers (0-9) only in this field. No spaces or other characters are allowed.'),
-            'email' => $helper->__('Please enter a valid email address. For example johndoe@domain.com.'),
-            'required' => $helper->__('This is a required field.'),
-            'required_select' => $helper->__('Please select an option.'),
-            'numeric' => $helper->__('Please use numbers only in this field. Please avoid spaces or other characters such as dots or commas.'),
-            'alpha' => $helper->__('Please use letters only (a-z or A-Z) in this field.'),
-            'url' => $helper->__('Please enter a valid URL. Protocol is required (http://, https:// or ftp://)'),
-            'date' => $helper->__('Please enter a valid date.'),
-            'max_file_size' => $helper->__('\'%s\' exceeds the allowed file size: %d (bytes)', $this->getFieldLabel(), $this->getValue()),
-            'file_extensions' => $helper->__('\'%s\' is not a valid file extension. Allowed extensions: %s', $this->getFieldLabel(), $this->getValue()),
-            'max_image_width' => $helper->__('\'%s\' width exceeds allowed value of %d px', $this->getFieldLabel(), $this->getValue()),
-            'max_image_height' => $helper->__('\'%s\' height exceeds allowed value of %d px', $this->getFieldLabel(), $this->getValue())
+            'min_length' => Mage::helper('xmlconnect')->__('Text length does not satisfy specified min text range.'),
+            'max_length' => Mage::helper('xmlconnect')->__('Text length does not satisfy specified max text range.'),
+            'alphanumeric' => Mage::helper('xmlconnect')->__('Please use only letters (a-z or A-Z) or numbers (0-9) only in this field. No spaces or other characters are allowed.'),
+            'email' => Mage::helper('xmlconnect')->__('Please enter a valid email address. For example johndoe@domain.com.'),
+            'required' => Mage::helper('xmlconnect')->__('This is a required field.'),
+            'required_select' => Mage::helper('xmlconnect')->__('Please select an option.'),
+            'numeric' => Mage::helper('xmlconnect')->__('Please use numbers only in this field. Please avoid spaces or other characters such as dots or commas.'),
+            'alpha' => Mage::helper('xmlconnect')->__('Please use letters only (a-z or A-Z) in this field.'),
+            'url' => Mage::helper('xmlconnect')->__('Please enter a valid URL. Protocol is required (http://, https:// or ftp://)'),
+            'date' => Mage::helper('xmlconnect')->__('Please enter a valid date.'),
+            'max_file_size' => Mage::helper('xmlconnect')->__('\'%s\' exceeds the allowed file size: %d (bytes)', $this->getFieldLabel(), $this->getValue()),
+            'file_extensions' => Mage::helper('xmlconnect')->__('\'%s\' is not a valid file extension. Allowed extensions: %s', $this->getFieldLabel(), $this->getValue()),
+            'max_image_width' => Mage::helper('xmlconnect')->__('\'%s\' width exceeds allowed value of %d px', $this->getFieldLabel(), $this->getValue()),
+            'max_image_height' => Mage::helper('xmlconnect')->__('\'%s\' height exceeds allowed value of %d px', $this->getFieldLabel(), $this->getValue())
         );
         return $this;
     }

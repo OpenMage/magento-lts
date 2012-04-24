@@ -30,7 +30,7 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstract
 {
@@ -185,13 +185,18 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         return $this->getData('after_element_html');
     }
 
+    /**
+     * Render HTML for element's label
+     *
+     * @param string $idSuffix
+     * @return string
+     */
     public function getLabelHtml($idSuffix = '')
     {
         if (!is_null($this->getLabel())) {
-            $html = '<label for="'.$this->getHtmlId() . $idSuffix . '">'.$this->getLabel()
-                . ( $this->getRequired() ? ' <span class="required">*</span>' : '' ).'</label>'."\n";
-        }
-        else {
+            $html = '<label for="'.$this->getHtmlId() . $idSuffix . '">' . $this->_escape($this->getLabel())
+                  . ( $this->getRequired() ? ' <span class="required">*</span>' : '' ) . '</label>' . "\n";
+        } else {
             $html = '';
         }
         return $html;

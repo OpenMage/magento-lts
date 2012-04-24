@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -253,6 +253,19 @@ class Mage_Bundle_Model_Observer
             Mage::helper('adminhtml/catalog')
                 ->setAttributeTabBlock('bundle/adminhtml_catalog_product_edit_tab_attributes');
         }
+        return $this;
+    }
+
+    /**
+     * Initialize product options renderer with bundle specific params
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Bundle_Model_Observer
+     */
+    public function initOptionRenderer(Varien_Event_Observer $observer)
+    {
+        $block = $observer->getBlock();
+        $block->addOptionsRenderCfg('bundle', 'bundle/catalog_product_configuration');
         return $this;
     }
 

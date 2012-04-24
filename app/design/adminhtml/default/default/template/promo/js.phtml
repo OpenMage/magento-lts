@@ -20,25 +20,27 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <script type="text/javascript">
 //<![CDATA[
-document.observe("dom:loaded", hideShowSubproductOptions($('rule_sub_is_enable')));
-
-function hideShowSubproductOptions(enabler)
+function hideShowSubproductOptions()
 {
-    if (enabler.value == 1) {
-        $('rule_sub_simple_action').parentNode.parentNode.show();
-        $('rule_sub_discount_amount').parentNode.parentNode.show();
+    if ($('rule_sub_is_enable').value == 1) {
+        $('rule_sub_simple_action').up('tr').show();
+        $('rule_sub_discount_amount').up('tr').show();
         $('rule_sub_discount_amount').addClassName('required-entry validate-not-negative-number');
     } else {
-        $('rule_sub_simple_action').parentNode.parentNode.hide();
-        $('rule_sub_discount_amount').parentNode.parentNode.hide();
+        $('rule_sub_simple_action').up('tr').hide();
+        $('rule_sub_discount_amount').up('tr').hide();
         $('rule_sub_discount_amount').removeClassName('required-entry').removeClassName('validate-not-negative-number');
     }
+
+    return true;
 }
+
+document.observe("dom:loaded", hideShowSubproductOptions);
 //]]>
 </script>

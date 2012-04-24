@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,7 +62,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     /**
      * Init widget instance object and set it to registry
      *
-     * @return age_Widget_Model_Widget_Instance|boolean
+     * @return Mage_Widget_Model_Widget_Instance|boolean
      */
     protected function _initWidgetInstance()
     {
@@ -131,6 +131,17 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     }
 
     /**
+     * Set body to response
+     *
+     * @param string $body
+     */
+    private function setBody($body)
+    {
+        Mage::getSingleton('core/translate_inline')->processResponseBody($body);
+        $this->getResponse()->setBody($body);
+    }
+
+    /**
      * Validate action
      *
      */
@@ -146,7 +157,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             $response->setError(true);
             $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
         }
-        $this->getResponse()->setBody($response->toJson());
+        $this->setBody($response->toJson());
     }
 
     /**
@@ -223,7 +234,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             ->setId(Mage::helper('core')->uniqHash('categories'))
             ->setIsAnchorOnly($isAnchorOnly)
             ->setSelectedCategories(explode(',', $selected));
-        $this->getResponse()->setBody($chooser->toHtml());
+        $this->setBody($chooser->toHtml());
     }
 
     /**
@@ -243,7 +254,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         /* @var $serializer Mage_Adminhtml_Block_Widget_Grid_Serializer */
         $serializer = $this->getLayout()->createBlock('adminhtml/widget_grid_serializer');
         $serializer->initSerializerBlock($chooser, 'getSelectedProducts', 'selected_products', 'selected_products');
-        $this->getResponse()->setBody($chooser->toHtml().$serializer->toHtml());
+        $this->setBody($chooser->toHtml().$serializer->toHtml());
     }
 
     /**
@@ -264,7 +275,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             ->setLayoutHandle($layout)
             ->setSelected($selected)
             ->setAllowedBlocks($widgetInstance->getWidgetSupportedBlocks());
-        $this->getResponse()->setBody($blocksChooser->toHtml());
+        $this->setBody($blocksChooser->toHtml());
     }
 
     /**
@@ -281,7 +292,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             ->createBlock('widget/adminhtml_widget_instance_edit_chooser_template')
             ->setSelected($selected)
             ->setWidgetTemplates($widgetInstance->getWidgetSupportedTemplatesByBlock($block));
-        $this->getResponse()->setBody($templateChooser->toHtml());
+        $this->setBody($templateChooser->toHtml());
     }
 
     /**

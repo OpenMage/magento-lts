@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -82,24 +82,21 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
      */
     protected function _addSubscriberInfoToSelect()
     {
-        if (!$this->_addSubscribersFlag) {
-            $this->_addSubscribersFlag = true;
-            //Possibel solution with join select
-            $select = $this->getConnection()->select()
-                ->from(array('qlt' => $this->getTable('newsletter/queue_link')), 'COUNT(qlt.queue_link_id)')
-                ->where('qlt.queue_id = main_table.queue_id');
-            $totalExpr = new Zend_Db_Expr(sprintf('(%s)', $select->assemble()));
-            $select = $this->getConnection()->select()
-                ->from(array('qls' => $this->getTable('newsletter/queue_link')), 'COUNT(qls.queue_link_id)')
-                ->where('qls.queue_id = main_table.queue_id')
-                ->where('qls.letter_sent_at IS NOT NULL');
-            $sentExpr  = new Zend_Db_Expr(sprintf('(%s)', $select->assemble()));
+        /** @var $select Varien_Db_Select */
+        $select = $this->getConnection()->select()
+            ->from(array('qlt' => $this->getTable('newsletter/queue_link')), 'COUNT(qlt.queue_link_id)')
+            ->where('qlt.queue_id = main_table.queue_id');
+        $totalExpr = new Zend_Db_Expr(sprintf('(%s)', $select->assemble()));
+        $select = $this->getConnection()->select()
+            ->from(array('qls' => $this->getTable('newsletter/queue_link')), 'COUNT(qls.queue_link_id)')
+            ->where('qls.queue_id = main_table.queue_id')
+            ->where('qls.letter_sent_at IS NOT NULL');
+        $sentExpr  = new Zend_Db_Expr(sprintf('(%s)', $select->assemble()));
 
-            $this->getSelect()->columns(array(
-                'subscribers_sent'  => $sentExpr,
-                'subscribers_total' => $totalExpr
-            ));
-        }
+        $this->getSelect()->columns(array(
+            'subscribers_sent'  => $sentExpr,
+            'subscribers_total' => $totalExpr
+        ));
         return $this;
     }
 

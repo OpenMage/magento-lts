@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -96,7 +96,7 @@ Default layout, loads most of the pages
             <label>Additional Product Info</label>
         </block>
     </checkout_cart_index>
-    
+
     <checkout_cart_configure translate="label">
         <label>Configure Cart Item</label>
         <update handle="catalog_product_view"/>
@@ -104,7 +104,7 @@ Default layout, loads most of the pages
             <block type="checkout/cart_item_configure" name="checkout.cart.item.configure.block"></block>
         </reference>
     </checkout_cart_configure>
-    
+
 <!--
 Multi address shipping checkout main layout,
 will be rendered on all checkout pages

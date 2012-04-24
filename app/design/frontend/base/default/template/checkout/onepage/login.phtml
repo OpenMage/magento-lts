@@ -20,10 +20,12 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php /* Extensions placeholder */ ?>
+<?php echo $this->getChildHtml('checkout.onepage.login.extra')?>
 <div class="col2-set">
     <?php echo $this->getChildHtml('login_before')?>
     <div class="col-1">
@@ -79,6 +81,7 @@
                         <input type="password" class="input-text required-entry" id="login-password" name="login[password]" />
                     </div>
                 </li>
+                <?php echo $this->getChildHtml('form.additional.info'); ?>
             </ul>
         </fieldset>
         </form>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,6 +50,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     /**
      * Whether table changes are allowed
      *
+     * @deprecated after 1.6.1.0
      * @var bool
      */
     protected $_allowTableChanges = true;
@@ -68,8 +69,9 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      * (1, 2)       => Regenerate index for product Id=2 and its store view Id=1
      * (null, 2)    => Regenerate index for all store views of product Id=2
      *
-     * @param int $storeId Store View Id
-     * @param int | array $productId Product Entity Id
+     * @param int|null $storeId Store View Id
+     * @param int|array|null $productIds Product Entity Id
+     *
      * @return Mage_CatalogSearch_Model_Fulltext
      */
     public function rebuildIndex($storeId = null, $productIds = null)
@@ -79,14 +81,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
             'product_ids'   => $productIds
         ));
 
-        $resourceModel = $this->getResource();
-        if (!$this->_allowTableChanges && is_callable(array($resourceModel, 'setAllowTableChanges'))) {
-            $resourceModel->setAllowTableChanges(false);
-        }
-        $resourceModel->rebuildIndex($storeId, $productIds);
-        if (!$this->_allowTableChanges && is_callable(array($resourceModel, 'setAllowTableChanges'))) {
-            $resourceModel->setAllowTableChanges(true);
-        }
+        $this->getResource()->rebuildIndex($storeId, $productIds);
 
         Mage::dispatchEvent('catalogsearch_index_process_complete', array());
 
@@ -119,15 +114,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      */
     public function resetSearchResults()
     {
-        $resourceModel = $this->getResource();
-        if (!$this->_allowTableChanges && is_callable(array($resourceModel, 'setAllowTableChanges'))) {
-            $resourceModel->setAllowTableChanges(false);
-        }
-        $resourceModel->resetSearchResults();
-        if (!$this->_allowTableChanges && is_callable(array($resourceModel, 'setAllowTableChanges'))) {
-            $resourceModel->setAllowTableChanges(true);
-        }
-
+        $this->getResource()->resetSearchResults();
         return $this;
     }
 
@@ -161,21 +148,16 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
         return Mage::getStoreConfig(self::XML_PATH_CATALOG_SEARCH_TYPE, $storeId);
     }
 
-    /**
-     * Update category'es products indexes
-     *
-     * @param array $productIds
-     * @param array $categoryIds
-     * @return Mage_CatalogSearch_Model_Fulltext
-     */
-    public function updateCategoryIndex($productIds, $categoryIds)
-    {
-        $this->getResource()->updateCategoryIndex($productIds, $categoryIds);
-        return $this;
-    }
+
+
+
+
+    // Deprecated methods
 
     /**
      * Set whether table changes are allowed
+     *
+     * @deprecated after 1.6.1.0
      *
      * @param bool $value
      * @return Mage_CatalogSearch_Model_Fulltext
@@ -183,6 +165,22 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     public function setAllowTableChanges($value = true)
     {
         $this->_allowTableChanges = $value;
+        return $this;
+    }
+
+    /**
+     * Update category products indexes
+     *
+     * @deprecated after 1.6.2.0
+     *
+     * @param array $productIds
+     * @param array $categoryIds
+     *
+     * @return Mage_CatalogSearch_Model_Fulltext
+     */
+    public function updateCategoryIndex($productIds, $categoryIds)
+    {
+        $this->getResource()->updateCategoryIndex($productIds, $categoryIds);
         return $this;
     }
 }

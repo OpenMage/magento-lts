@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +35,7 @@ class Mage_Tax_Block_Checkout_Shipping extends Mage_Checkout_Block_Total_Default
     protected $_template = 'tax/checkout/shipping.phtml';
 
     /**
-     * Check if we need display shipping include and exlude tax
+     * Check if we need display shipping include and exclude tax
      *
      * @return bool
      */
@@ -81,7 +81,7 @@ class Mage_Tax_Block_Checkout_Shipping extends Mage_Checkout_Block_Total_Default
      */
     public function getIncludeTaxLabel()
     {
-        return $this->helper('tax')->__('Shipping Incl. Tax (%s)', $this->getTotal()->getAddress()->getShippingDescription());
+        return $this->helper('tax')->__('Shipping Incl. Tax (%s)', $this->escapeHtml($this->getTotal()->getAddress()->getShippingDescription()));
     }
 
     /**
@@ -91,6 +91,6 @@ class Mage_Tax_Block_Checkout_Shipping extends Mage_Checkout_Block_Total_Default
      */
     public function getExcludeTaxLabel()
     {
-        return $this->helper('tax')->__('Shipping Excl. Tax (%s)', $this->getTotal()->getAddress()->getShippingDescription());
+        return $this->helper('tax')->__('Shipping Excl. Tax (%s)', $this->escapeHtml($this->getTotal()->getAddress()->getShippingDescription()));
     }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,10 +29,11 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
+    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
      * Format variables pattern
@@ -55,18 +56,18 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text extends Mage_Adminht
             // If no format and it column not filtered specified return data as is.
             $data = parent::_getValue($row);
             $string = is_null($data) ? $defaultValue : $data;
-            return htmlspecialchars($string);
+            return $this->escapeHtml($string);
         }
         elseif (preg_match_all($this->_variablePattern, $format, $matches)) {
             // Parsing of format string
-            $formatedString = $format;
+            $formattedString = $format;
             foreach ($matches[0] as $matchIndex=>$match) {
                 $value = $row->getData($matches[1][$matchIndex]);
-                $formatedString = str_replace($match, $value, $formatedString);
+                $formattedString = str_replace($match, $value, $formattedString);
             }
-            return $formatedString;
+            return $formattedString;
         } else {
-            return htmlspecialchars($format);
+            return $this->escapeHtml($format);
         }
     }
 }

@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -40,17 +40,6 @@ Default layout, loads most of the pages
     </default>
 
 <!--
-Customer account pages, rendered for all tabs in dashboard
--->
-
-    <customer_account>
-        <!-- Mage_Tag -->
-        <reference name="customer_account_navigation">
-            <action method="addLink" translate="label" module="tag"><name>tags</name><path>tag/customer/</path><label>My Tags</label></action>
-        </reference>
-    </customer_account>
-
-<!--
 Customer account home dashboard layout
 -->
 
@@ -61,19 +50,6 @@ Customer account home dashboard layout
             <block type="tag/customer_recent" name="customer_account_dashboard_info2" as="info2" template="tag/customer/recent.phtml"/>
         </reference>
     </customer_account_index>
-
-    <catalog_product_view translate="label">
-        <label>Catalog Product View</label>
-         <!-- Mage_Tag -->
-        <reference name="product.info.additional">
-            <block type="tag/product_list" name="product_tag_list" before="-" template="tag/list.phtml">
-                <block type="page/html_wrapper" name="product.tag.list.list.before" as="list_before" translate="label">
-                    <label>Tags List Before</label>
-                    <action method="setMayBeInvisible"><value>1</value></action>
-                </block>
-            </block>
-        </reference>
-    </catalog_product_view>
 
 <!--
 All tags page
@@ -93,12 +69,14 @@ All tags page
     <tag_product_list translate="label">
         <label>Tagged Products List</label>
         <!-- Mage_Tag -->
+        <reference name="root">
+            <action method="setMyClass"><value>product-tags-list</value></action>
+        </reference>
         <reference name="content">
             <block type="tag/product_result" name="tag_products" template="catalogsearch/result.phtml">
                 <block type="catalog/product_list" name="search_result_list" template="catalog/product/list.phtml">
                     <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
                         <block type="page/html_pager" name="product_list_toolbar_pager"/>
-                        <action method="addPagerLimit"><mode>list</mode><limit>5</limit></action>
                     </block>
                     <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
                 </block>
@@ -131,13 +109,4 @@ All tags page
         </reference>
     </tag_customer_view>
 
-    <tag_customer_edit>
-        <update handle="customer_account"/>
-        <reference name="root">
-            <action method="setHeaderTitle" translate="title" module="customer"><title>My Account</title></action>
-        </reference>
-        <reference name="content">
-            <block type="tag/customer_edit" name="customer_edit" template="tag/customer/edit.phtml"/>
-        </reference>
-    </tag_customer_edit>
 </layout>

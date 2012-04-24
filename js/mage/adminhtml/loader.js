@@ -19,7 +19,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -225,9 +225,12 @@ varienLoaderHandler.handler = {
 function setLoaderPosition(){
     var elem = $('loading_mask_loader');
     if (elem && Prototype.Browser.IE) {
-        var middle = parseInt(document.body.clientHeight/2)+document.body.scrollTop;
+        var elementDims = elem.getDimensions();
+        var viewPort = document.viewport.getDimensions();
+        var offsets = document.viewport.getScrollOffsets();
+        elem.style.left = Math.floor(viewPort.width / 2 + offsets.left - elementDims.width / 2) + 'px';
+        elem.style.top = Math.floor(viewPort.height / 2 + offsets.top - elementDims.height / 2) + 'px';
         elem.style.position = 'absolute';
-        elem.style.top = middle;
     }
 }
 

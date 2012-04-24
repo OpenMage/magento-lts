@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -86,7 +86,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         }
 
         try {
-            /* @var $user Mage_Admin_Model_User */
+            /** @var $user Mage_Admin_Model_User */
             $user = Mage::getModel('admin/user');
             $user->login($username, $password);
             if ($user->getId()) {
@@ -98,19 +98,19 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 $this->setIsFirstPageAfterLogin(true);
                 $this->setUser($user);
                 $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
-                if ($requestUri = $this->_getRequestUri($request)) {
+
+                $requestUri = $this->_getRequestUri($request);
+                if ($requestUri) {
                     Mage::dispatchEvent('admin_session_user_login_success', array('user' => $user));
                     header('Location: ' . $requestUri);
                     exit;
                 }
+            } else {
+                Mage::throwException(Mage::helper('adminhtml')->__('Invalid User Name or Password.'));
             }
-            else {
-                Mage::throwException(Mage::helper('adminhtml')->__('Invalid Username or Password.'));
-            }
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             Mage::dispatchEvent('admin_session_user_login_failed',
-                    array('user_name' => $username, 'exception' => $e));
+                array('user_name' => $username, 'exception' => $e));
             if ($request && !$request->getParam('messageSent')) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $request->setParam('messageSent', true);

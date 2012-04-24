@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -272,6 +272,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
         $startNewBunch   = false;
         $nextRowBackup   = array();
         $maxDataSize = Mage::getResourceHelper('importexport')->getMaxDataSize();
+        $bunchSize = Mage::helper('importexport')->getBunchSize();
 
         $source->rewind();
         $this->_dataSourceModel->cleanBunches();
@@ -295,9 +296,11 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
 
                 if ($this->validateRow($rowData, $source->key())) { // add row to bunch for save
                     $rowData = $this->_prepareRowForDb($rowData);
-                    $rowSize = strlen(serialize($rowData));
+                    $rowSize = strlen(Mage::helper('core')->jsonEncode($rowData));
 
-                    if (($productDataSize + $rowSize) >= $maxDataSize) { // check bunch size
+                    $isBunchSizeExceeded = ($bunchSize > 0 && count($bunchRows) >= $bunchSize);
+
+                    if (($productDataSize + $rowSize) >= $maxDataSize || $isBunchSizeExceeded) {
                         $startNewBunch = true;
                         $nextRowBackup = array($source->key() => $rowData);
                     } else {
@@ -560,8 +563,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 break;
             case 'datetime':
                 $val   = trim($rowData[$attrCode]);
-                $valid = strtotime($val)
-                         || preg_match('/^\d{2}.\d{2}.\d{2,4}(?:\s+\d{1,2}.\d{1,2}(?:.\d{1,2})?)?$/', $val);
+                $valid = strtotime($val) !== false
+                    || preg_match('/^\d{2}.\d{2}.\d{2,4}(?:\s+\d{1,2}.\d{1,2}(?:.\d{1,2})?)?$/', $val);
                 break;
             case 'text':
                 $val   = Mage::helper('core/string')->cleanString($rowData[$attrCode]);

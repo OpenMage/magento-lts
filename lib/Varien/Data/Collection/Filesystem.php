@@ -511,7 +511,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
             return $this->addCallbackFilter($field, $cond['in'], $type, array($this, 'filterCallbackInArray'));
         }
         if (isset($cond['nin'])) {
-            return $this->addCallbackFilter($field, $cond['nin'], $type, array($this, 'filterCallbackIn'), $inverted);
+            return $this->addCallbackFilter($field, $cond['nin'], $type, array($this, 'filterCallbackInArray'), $inverted);
         }
         if (isset($cond['notnull'])) {
             return $this->addCallbackFilter($field, $cond['notnull'], $type, array($this, 'filterCallbackIsNull'), $inverted);

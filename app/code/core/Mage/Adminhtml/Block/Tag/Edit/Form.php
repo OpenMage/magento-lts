@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,6 +42,11 @@ class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_For
         $this->setTitle(Mage::helper('tag')->__('Block Information'));
     }
 
+    /**
+     * Prepare form
+     *
+     * @return Mage_Adminhtml_Block_Widget_Form
+     */
     protected function _prepareForm()
     {
         $model = Mage::registry('tag_tag');
@@ -50,7 +55,8 @@ class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_For
             array('id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post')
         );
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('tag')->__('General Information')));
+        $fieldset = $form->addFieldset('base_fieldset',
+            array('legend'=>Mage::helper('tag')->__('General Information')));
 
         if ($model->getTagId()) {
             $fieldset->addField('tag_id', 'hidden', array(
@@ -73,7 +79,7 @@ class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_For
             'label' => Mage::helper('tag')->__('Tag Name'),
             'title' => Mage::helper('tag')->__('Tag Name'),
             'required' => true,
-            'after_element_html' => ' [GLOBAL]',
+            'after_element_html' => ' ' . Mage::helper('adminhtml')->__('[GLOBAL]'),
         ));
 
         $fieldset->addField('status', 'select', array(
@@ -86,14 +92,14 @@ class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_For
                 Mage_Tag_Model_Tag::STATUS_PENDING  => Mage::helper('tag')->__('Pending'),
                 Mage_Tag_Model_Tag::STATUS_APPROVED => Mage::helper('tag')->__('Approved'),
             ),
-            'after_element_html' => ' [GLOBAL]',
+            'after_element_html' => ' ' . Mage::helper('adminhtml')->__('[GLOBAL]'),
         ));
 
         $fieldset->addField('base_popularity', 'text', array(
             'name' => 'base_popularity',
             'label' => Mage::helper('tag')->__('Base Popularity'),
             'title' => Mage::helper('tag')->__('Base Popularity'),
-            'after_element_html' => ' [STORE VIEW]',
+            'after_element_html' => ' ' . Mage::helper('tag')->__('[STORE VIEW]'),
         ));
 
         if (!$model->getId() && !Mage::getSingleton('adminhtml/session')->getTagData() ) {

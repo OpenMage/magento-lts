@@ -20,30 +20,31 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php /* @var $this Mage_Core_Block_Template */ ?>
 <?php if ($websites = $this->getWebsites()): ?>
-<p class="switcher"><label for="store_switcher"><?php echo $this->__('Choose Store View') ?>:</label>
+<p class="switcher"><label for="store_switcher"><?php echo $this->__('Choose Store View:') ?></label>
 <select name="store_switcher" id="store_switcher" onchange="return switchStore(this);">
 <?php if ($this->hasDefaultOption()): ?>
     <option value=""><?php echo $this->getDefaultStoreName() ?></option>
 <?php endif; ?>
     <?php foreach ($websites as $website): ?>
-        <?php $showWebsite=false; ?>
+        <?php $showWebsite = false; ?>
         <?php foreach ($website->getGroups() as $group): ?>
-            <?php $showGroup=false; ?>
+            <?php $showGroup = false; ?>
             <?php foreach ($this->getStores($group) as $store): ?>
                 <?php if ($showWebsite == false): ?>
                     <?php $showWebsite = true; ?>
-                    <optgroup label="<?php echo $website->getName() ?>"></optgroup>
+                    <optgroup label="<?php echo $this->escapeHtml($website->getName()) ?>"></optgroup>
                 <?php endif; ?>
                 <?php if ($showGroup == false): ?>
                     <?php $showGroup = true; ?>
-                    <optgroup label="&nbsp;&nbsp;&nbsp;<?php echo $group->getName() ?>">
+                    <optgroup label="&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($group->getName()) ?>">
                 <?php endif; ?>
-                <option value="<?php echo $store->getId() ?>"<?php if($this->getStoreId() == $store->getId()): ?> selected="selected"<?php endif; ?>>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $store->getName() ?></option>
+                <option value="<?php echo $this->escapeHtml($store->getId()) ?>"<?php if($this->getStoreId() == $store->getId()): ?> selected="selected"<?php endif; ?>>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($store->getName()) ?></option>
             <?php endforeach; ?>
             <?php if ($showGroup): ?>
                 </optgroup>
@@ -51,24 +52,24 @@
         <?php endforeach; ?>
     <?php endforeach; ?>
 </select>
+<?php echo $this->getHintHtml() ?>
 </p>
 <script type="text/javascript">
-    function switchStore(obj){
-        var storeParam = obj.value ? 'store/'+obj.value + '/' : '';
-        if(obj.switchParams){
-            storeParam+= obj.switchParams;
+    function switchStore(obj) {
+        var storeParam = obj.value ? 'store/' + obj.value + '/' : '';
+        if (obj.switchParams) {
+            storeParam += obj.switchParams;
         }
-    <?php if($this->getUseConfirm()): ?>
-        if(confirm("<?php echo $this->__('Please confirm site switching. All data that hasn\'t been saved will be lost.') ?>")){
-            setLocation('<?php echo $this->getSwitchUrl() ?>'+storeParam);
+    <?php if ($this->getUseConfirm()): ?>
+        if (confirm("<?php echo $this->__('Please confirm site switching. All data that hasn\'t been saved will be lost.') ?>")) {
+            setLocation('<?php echo $this->getSwitchUrl() ?>' + storeParam);
             return true;
-        }
-        else {
+        } else {
             obj.value = '<?php echo $this->getStoreId() ?>';
         }
         return false;
     <?php else: ?>
-        setLocation('<?php echo $this->getSwitchUrl() ?>'+storeParam);
+        setLocation('<?php echo $this->getSwitchUrl() ?>' + storeParam);
     <?php endif; ?>
     }
 </script>

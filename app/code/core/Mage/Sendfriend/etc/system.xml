@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Sendfriend
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -78,6 +78,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <frontend_class>validate-digits</frontend_class>
                         </max_recipients>
                         <max_per_hour translate="label">
                             <label>Max Products Sent in 1 Hour</label>
@@ -86,6 +87,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <frontend_class>validate-digits</frontend_class>
                         </max_per_hour>
                         <check_by translate="label">
                             <label>Limit Sending By</label>

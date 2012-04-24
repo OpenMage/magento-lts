@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -82,6 +82,7 @@
         <secure_url>
             <googlecheckout_redirect>/googlecheckout/redirect/</googlecheckout_redirect>
             <googlecheckout_beacon>/googlecheckout/api/beacon/</googlecheckout_beacon>
+            <googlecheckout_api>/googlecheckout/api/</googlecheckout_api>
         </secure_url>
         <translate>
             <modules>

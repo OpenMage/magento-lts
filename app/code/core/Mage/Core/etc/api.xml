@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -50,13 +50,26 @@
                     </store_not_exists>
                 </faults>
             </core_store>
+            <core_magento translate="title" module="core">
+                <model>core/magento_api</model>
+                <title>Magento info API</title>
+                <acl>core/magento</acl>
+                <methods>
+                    <info translate="title" module="core">
+                        <title>Get info about current Magento installation</title>
+                        <acl>core/magento/info</acl>
+                    </info>
+                </methods>
+            </core_magento>
         </resources>
         <resources_alias>
             <store>core_store</store>
+            <magento>core_magento</magento>
         </resources_alias>
         <v2>
             <resources_function_prefix>
                 <store>store</store>
+                <magento>magento</magento>
             </resources_function_prefix>
         </v2>
         <rest>
@@ -77,6 +90,12 @@
                             <title>List of stores</title>
                         </list>
                     </store>
+                    <magento translate="title" module="core">
+                        <title>Magento info</title>
+                        <info translate="title" module="core">
+                            <title>Retrieve info about current Magento installation</title>
+                        </info>
+                    </magento>
                 </core>
             </resources>
         </acl>

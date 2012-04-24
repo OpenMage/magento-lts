@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -39,7 +39,9 @@
         <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a>
         <?php else: echo $_item->getLabel() ?>
         <?php endif; ?>
+        <?php if ($this->shouldDisplayProductCount()): ?>
         (<?php echo $_item->getCount() ?>)
+        <?php endif; ?>
     </li>
 <?php endforeach ?>
 </ol>

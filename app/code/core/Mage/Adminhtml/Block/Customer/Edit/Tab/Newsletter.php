@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,6 +48,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
         $subscriber = Mage::getModel('newsletter/subscriber')->loadByCustomer($customer);
         Mage::register('subscriber', $subscriber);
 
+        if ($customer->getWebsiteId() == 0) {
+            $this->setForm($form);
+            return $this;
+        }
+
         $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('customer')->__('Newsletter Information')));
 
         $fieldset->addField('subscription', 'checkbox',
@@ -73,7 +78,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
             );
         }
 
-
         $this->setForm($form);
         return $this;
     }
@@ -82,7 +86,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
     {
         $subscriber = Mage::registry('subscriber');
         if($subscriber->getChangeStatusAt()) {
-            return $this->formatDate($subscriber->getChangeStatusAt(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
+            return $this->formatDate(
+                $subscriber->getChangeStatusAt(),
+                Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true
+            );
         }
 
         return null;

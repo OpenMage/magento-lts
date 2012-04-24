@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -737,7 +737,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Retrieve Name data wraper
+     * Retrieve Name data wrapper
      *
      * @return string
      */
@@ -934,16 +934,16 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Init indexing process after category data commit
+     * Init indexing process after category save
      *
      * @return Mage_Catalog_Model_Category
      */
-    public function afterCommitCallback()
+    protected function _afterSave()
     {
-        parent::afterCommitCallback();
+        $result = parent::_afterSave();
         Mage::getSingleton('index/indexer')->processEntityAction(
             $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
         );
-        return $this;
+        return $result;
     }
 }

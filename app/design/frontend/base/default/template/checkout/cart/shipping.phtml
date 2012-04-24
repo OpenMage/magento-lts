@@ -20,15 +20,11 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php
-/**
- * @see Mage_Checkout_Block_Cart_Shipping
- */
-?>
+<?php /** @var $this Mage_Checkout_Block_Cart_Shipping */ ?>
 <div class="shipping">
     <h2><?php echo $this->__('Estimate Shipping and Tax') ?></h2>
     <div class="shipping-form">
@@ -53,7 +49,7 @@
                            $('region_id').setAttribute('defaultValue',  "<?php echo $this->getEstimateRegionId() ?>");
                        //]]>
                        </script>
-                       <input type="text" id="region" name="region" value="<?php echo $this->htmlEscape($this->getEstimateRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="input-text" style="display:none;" />
+                       <input type="text" id="region" name="region" value="<?php echo $this->escapeHtml($this->getEstimateRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="input-text" style="display:none;" />
                    </div>
                 </li>
             <?php //endif; ?>
@@ -61,14 +57,14 @@
                 <li>
                     <label for="city"<?php if ($this->isCityRequired()) echo ' class="required"' ?>><?php if ($this->isCityRequired()) echo '<em>*</em>' ?><?php echo $this->__('City') ?></label>
                     <div class="input-box">
-                        <input class="input-text<?php if ($this->isCityRequired()):?> required-entry<?php endif;?>" id="city" type="text" name="estimate_city" value="<?php echo $this->htmlEscape($this->getEstimateCity()) ?>" />
+                        <input class="input-text<?php if ($this->isCityRequired()):?> required-entry<?php endif;?>" id="city" type="text" name="estimate_city" value="<?php echo $this->escapeHtml($this->getEstimateCity()) ?>" />
                     </div>
                 </li>
             <?php endif; ?>
                 <li>
                     <label for="postcode"<?php if ($this->isZipCodeRequired()) echo ' class="required"' ?>><?php if ($this->isZipCodeRequired()) echo '<em>*</em>' ?><?php echo $this->__('Zip/Postal Code') ?></label>
                     <div class="input-box">
-                        <input class="input-text validate-postcode<?php if ($this->isZipCodeRequired()):?> required-entry<?php endif;?>" type="text" id="postcode" name="estimate_postcode" value="<?php echo $this->htmlEscape($this->getEstimatePostcode()) ?>" />
+                        <input class="input-text validate-postcode<?php if ($this->isZipCodeRequired()):?> required-entry<?php endif;?>" type="text" id="postcode" name="estimate_postcode" value="<?php echo $this->escapeHtml($this->getEstimatePostcode()) ?>" />
                     </div>
                 </li>
             </ul>
@@ -86,16 +82,16 @@
         <form id="co-shipping-method-form" action="<?php echo $this->getUrl('checkout/cart/estimateUpdatePost') ?>">
             <dl class="sp-methods">
                 <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
-                    <dt><?php echo $this->getCarrierName($code) ?></dt>
+                    <dt><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></dt>
                     <dd>
                         <ul>
                         <?php foreach ($_rates as $_rate): ?>
                             <li<?php if ($_rate->getErrorMessage()) echo ' class="error-msg"';?>>
                                <?php if ($_rate->getErrorMessage()): ?>
-                                    <?php echo $_rate->getErrorMessage() ?>
+                                    <?php echo $this->escapeHtml($_rate->getErrorMessage()) ?>
                                <?php else: ?>
-                                    <input name="estimate_method" type="radio" value="<?php echo $this->htmlEscape($_rate->getCode()) ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio" />
-                                    <label for="s_method_<?php echo $_rate->getCode() ?>"><?php echo $_rate->getMethodTitle() ?>
+                                    <input name="estimate_method" type="radio" value="<?php echo $this->escapeHtml($_rate->getCode()) ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio" />
+                                    <label for="s_method_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
                                     <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
                                     <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
                                     <?php echo $_excl; ?>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,13 +32,16 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Adminhtml_Block_System_Store_Grid_Render_Store extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_System_Store_Grid_Render_Store
+    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     public function render(Varien_Object $row)
     {
         if (!$row->getData($this->getColumn()->getIndex())) {
             return null;
         }
-        return '<a title="'.Mage::helper('core')->__('Edit Store View').'" href="'.$this->getUrl('*/*/editStore', array('store_id'=>$row->getStoreId())).'">' . $row->getData($this->getColumn()->getIndex()) . '</a>';
+        return '<a title="' . Mage::helper('core')->__('Edit Store View') . '"
+            href="' . $this->getUrl('*/*/editStore', array('store_id' => $row->getStoreId())) . '">'
+            . $this->escapeHtml($row->getData($this->getColumn()->getIndex())) . '</a>';
     }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,7 +70,9 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
                 throw new Exception(Mage::helper('adminhtml')->__('Invalid Import Service Specified'));
             }
             try {
-                $importModel = Mage::getModel(Mage::getConfig()->getNode('global/currency/import/services/' . $service . '/model')->asArray());
+                $importModel = Mage::getModel(
+                    Mage::getConfig()->getNode('global/currency/import/services/' . $service . '/model')->asArray()
+                );
             } catch (Exception $e) {
                 Mage::throwException(Mage::helper('adminhtml')->__('Unable to initialize import model'));
             }
@@ -120,6 +122,6 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
 
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('system/currency');
+        return Mage::getSingleton('admin/session')->isAllowed('system/currency/rates');
     }
 }

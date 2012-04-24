@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paygate
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,6 +64,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     const RESPONSE_CODE_HELD     = 4;
 
     const RESPONSE_REASON_CODE_APPROVED = 1;
+    const RESPONSE_REASON_CODE_NOT_FOUND = 16;
     const RESPONSE_REASON_CODE_PARTIAL_APPROVE = 295;
     const RESPONSE_REASON_CODE_PENDING_REVIEW_AUTHORIZED = 252;
     const RESPONSE_REASON_CODE_PENDING_REVIEW = 253;
@@ -78,6 +79,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     const PARTIAL_AUTH_DATA_CHANGED         = 'data_changed';
 
     const METHOD_CODE = 'authorizenet';
+
+    const TRANSACTION_STATUS_EXPIRED = 'expired';
 
     protected $_code  = self::METHOD_CODE;
 
@@ -828,6 +831,34 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 break;
             case self::RESPONSE_CODE_DECLINED:
             case self::RESPONSE_CODE_ERROR:
+            if ($result->getResponseReasonCode() == self::RESPONSE_REASON_CODE_NOT_FOUND
+                && $this->_isTransactionExpired($realAuthTransactionId)
+            ) {
+                $voidTransactionId = $realAuthTransactionId . '-void';
+                return $this->_addTransaction(
+                    $payment,
+                    $voidTransactionId,
+                    Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID,
+                    array(
+                        'is_transaction_closed' => 1,
+                        'should_close_parent_transaction' => 1,
+                        'parent_transaction_id' => $authTransactionId
+                    ),
+                    array(),
+                    Mage::helper('paygate')->getExtendedTransactionMessage(
+                        $payment,
+                        self::REQUEST_TYPE_VOID,
+                        null,
+                        $card,
+                        false,
+                        false,
+                        Mage::helper('paygate')->__(
+                            'Parent Authorize.Net transaction (ID %s) expired',
+                            $realAuthTransactionId
+                        )
+                    )
+                );
+            }
                 $exceptionMessage = $this->_wrapGatewayError($result->getResponseReasonText());
                 break;
             default:
@@ -839,6 +870,18 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             $payment, self::REQUEST_TYPE_VOID, $realAuthTransactionId, $card, false, $exceptionMessage
         );
         Mage::throwException($exceptionMessage);
+    }
+
+    /**
+     * Check if transaction is expired
+     *
+     * @param  string $realAuthTransactionId
+     * @return bool
+     */
+    protected function _isTransactionExpired($realAuthTransactionId)
+    {
+        $transactionDetails = $this->_getTransactionDetails($realAuthTransactionId);
+        return $transactionDetails->getTransactionStatus() == self::TRANSACTION_STATUS_EXPIRED;
     }
 
     /**
@@ -1509,6 +1552,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         $response
             ->setResponseCode((string)$responseXmlDocument->transaction->responseCode)
             ->setResponseReasonCode((string)$responseXmlDocument->transaction->responseReasonCode)
+            ->setTransactionStatus((string)$responseXmlDocument->transaction->transactionStatus)
         ;
         return $response;
     }

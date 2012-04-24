@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -30,7 +30,7 @@
         <?php echo $this->getTrackingInfo()->getErrorMessage() ?>
     <?php else: ?>
         <?php if ($this->getTrackingInfo()->getUrl()): ?>
-            Please, visit for more info: <a href="<?php echo $this->getTrackingInfo()->getUrl() ?>" target="_blank"><?php echo $this->trackingInfo->getCarrierTitle() ?></a><br/>
+            Please, visit for more info: <a href="<?php echo $this->getTrackingInfo()->getUrl() ?>" target="_blank"><?php echo $this->escapeHtml($this->trackingInfo->getCarrierTitle()) ?></a><br/>
         <?php endif; ?>
 
         <?php if ($this->getTrackingInfo()->getStatus()): ?>

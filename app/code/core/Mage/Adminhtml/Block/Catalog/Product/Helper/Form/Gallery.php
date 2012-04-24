@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -92,7 +92,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
 
         if (!$this->getDataObject()->getExistsStoreValueFlag($attributeCode)) {
             return true;
-        } else if ($this->getValue() == $defaultValue && 
+        } else if ($this->getValue() == $defaultValue &&
                    $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()) {
             return false;
         }
@@ -118,13 +118,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
         }
 
         if ($attribute->isScopeGlobal()) {
-            $html.= '<br/>[GLOBAL]';
-        }
-        elseif ($attribute->isScopeWebsite()) {
-            $html.= '<br/>[WEBSITE]';
-        }
-        elseif ($attribute->isScopeStore()) {
-            $html.= '<br/>[STORE VIEW]';
+            $html .= '<br/>' . Mage::helper('adminhtml')->__('[GLOBAL]');
+        } elseif ($attribute->isScopeWebsite()) {
+            $html .= '<br/>' . Mage::helper('adminhtml')->__('[WEBSITE]');
+        } elseif ($attribute->isScopeStore()) {
+            $html .= '<br/>' . Mage::helper('adminhtml')->__('[STORE VIEW]');
         }
         return $html;
     }

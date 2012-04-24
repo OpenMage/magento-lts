@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,6 +57,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         'cpp_headerborder_color' => 'hdrbordercolor',
         'cpp_payflow_color'      => 'payflowcolor',
 //        'cs' => '', // TODO
+        'lc'                     => 'locale',
     );
     protected $_exportToRequestFilters = array(
         'amount'   => '_filterAmount',
@@ -72,7 +73,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     protected $_commonRequestFields = array(
         'business', 'invoice', 'currency_code', 'paymentaction', 'return', 'cancel_return', 'notify_url', 'bn',
         'page_style', 'cpp_header_image', 'cpp_headerback_color', 'cpp_headerborder_color', 'cpp_payflow_color',
-        'amount', 'shipping', 'tax', 'discount_amount', 'item_name',
+        'amount', 'shipping', 'tax', 'discount_amount', 'item_name', 'lc',
     );
 
    /**

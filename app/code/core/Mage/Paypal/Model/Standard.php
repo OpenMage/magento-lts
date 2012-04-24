@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -119,6 +119,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     {
         $orderIncrementId = $this->getCheckout()->getLastRealOrderId();
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
+        /* @var $api Mage_Paypal_Model_Api_Standard */
         $api = Mage::getModel('paypal/api_standard')->setConfigObject($this->getConfig());
         $api->setOrderId($orderIncrementId)
             ->setCurrencyCode($order->getBaseCurrencyCode())
@@ -142,7 +143,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
             ->setIsLineItemsEnabled($this->_config->lineItemsEnabled)
         ;
         $api->setCartSummary($this->_getAggregatedCartSummary());
-
+        $api->setLocale($api->getLocaleCode());
         $result = $api->getStandardCheckoutRequest();
         return $result;
     }

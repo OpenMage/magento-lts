@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -180,6 +180,12 @@
  * @method Mage_Sales_Model_Order_Item setHiddenTaxCanceled(float $value)
  * @method float getTaxRefunded()
  * @method Mage_Sales_Model_Order_Item setTaxRefunded(float $value)
+ * @method float getBaseTaxRefunded()
+ * @method Mage_Sales_Model_Order_Item setBaseTaxRefunded(float $value)
+ * @method float getDiscountRefunded()
+ * @method Mage_Sales_Model_Order_Item setDiscountRefunded(float $value)
+ * @method float getBaseDiscountRefunded()
+ * @method Mage_Sales_Model_Order_Item setBaseDiscountRefunded(float $value)
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -427,7 +433,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         if (!$invoiced && !$shipped && !$refunded && !$canceled && !$backordered) {
             return self::STATUS_PENDING;
         }
-        if ($shipped && !$invoiced && ($actuallyOrdered == $shipped)) {
+        if ($shipped && $invoiced && ($actuallyOrdered == $shipped)) {
             return self::STATUS_SHIPPED;
         }
 
@@ -648,6 +654,21 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         }
         return false;
     }
+    /**
+     * Check if discount has to be applied to parent item
+     *
+     * @return bool
+     */
+    public function getForceApplyDiscountToParentItem()
+    {
+        if ($this->getParentItem()) {
+            $product = $this->getParentItem()->getProduct();
+        } else {
+            $product = $this->getProduct();
+        }
+
+        return $product->getTypeInstance()->getForceApplyDiscountToParentItem();
+    }
 
     /**
      * Return checking of what shipment
@@ -729,5 +750,20 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         $buyRequest = new Varien_Object($option);
         $buyRequest->setQty($this->getQtyOrdered() * 1);
         return $buyRequest;
+    }
+
+    /**
+     * Retrieve product
+     *
+     * @return Mage_Catalog_Model_Product
+     */
+    public function getProduct()
+    {
+        if (!$this->getData('product')) {
+            $product = Mage::getModel('catalog/product')->load($this->getProductId());
+            $this->setProduct($product);
+        }
+
+        return $this->getData('product');
     }
 }

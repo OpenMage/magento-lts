@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Contacts
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -67,6 +67,7 @@
                         <recipient_email translate="label">
                             <label>Send Emails To</label>
                             <frontend_type>text</frontend_type>
+                            <validate>validate-email</validate>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

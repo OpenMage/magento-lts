@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +43,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
     {
         if (!$this->_resource) {
             $type = $this->getVar('type', 'file');
-            $className = 'Varien_Io_'.ucwords($type);
+            $className = 'Varien_Io_' . ucwords($type);
             $this->_resource = new $className();
 
             $isError = false;

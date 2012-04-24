@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -108,12 +108,16 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     }
 
     /**
-     * Check if zip code option required
+     * Determine whether zip-code is required for the country of destination
      *
-     * @return boolean
+     * @param string|null $countryId
+     * @return bool
      */
-    public function isZipCodeRequired()
+    public function isZipCodeRequired($countryId = null)
     {
+        if ($countryId != null) {
+            return !Mage::helper('directory')->isZipCodeOptional($countryId);
+        }
         return true;
     }
 
@@ -128,7 +132,41 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     }
 
     /**
-     * Processing additional validation to check is carrier applicable.
+     * Return items for further shipment rate evaluation. We need to pass children of a bundle instead passing the
+     * bundle itself, otherwise we may not get a rate at all (e.g. when total weight of a bundle exceeds max weight
+     * despite each item by itself is not)
+     *
+     * @param Mage_Shipping_Model_Rate_Request $request
+     * @return array
+     */
+    public function getAllItems(Mage_Shipping_Model_Rate_Request $request)
+    {
+        $items = array();
+        if ($request->getAllItems()) {
+            foreach ($request->getAllItems() as $item) {
+                /* @var $item Mage_Sales_Model_Quote_Item */
+                if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
+                    // Don't process children here - we will process (or already have processed) them below
+                    continue;
+                }
+
+                if ($item->getHasChildren() && $item->isShipSeparately()) {
+                    foreach ($item->getChildren() as $child) {
+                        if (!$child->getFreeShipping() && !$child->getProduct()->isVirtual()) {
+                            $items[] = $child;
+                        }
+                    }
+                } else {
+                    // Ship together - count compound item as one solid
+                    $items[] = $item;
+                }
+            }
+        }
+        return $items;
+    }
+
+    /**
+     * Processing additional validation to check if carrier applicable.
      *
      * @param Mage_Shipping_Model_Rate_Request $request
      * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|boolean
@@ -136,26 +174,40 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
         //Skip by item validation if there is no items in request
-        if(!count($request->getAllItems())) {
+        if(!count($this->getAllItems($request))) {
             return $this;
         }
 
-        $maxAllowedWeight = (float) $this->getConfigData('max_package_weight');
-        $errorMsg = '';
-        $configErrorMsg = $this->getConfigData('specificerrmsg');
-        $defaultErrorMsg = Mage::helper('shipping')->__('The shipping module is not available.');
-        $showMethod = $this->getConfigData('showmethod');
+        $maxAllowedWeight   = (float) $this->getConfigData('max_package_weight');
+        $errorMsg           = '';
+        $configErrorMsg     = $this->getConfigData('specificerrmsg');
+        $defaultErrorMsg    = Mage::helper('shipping')->__('The shipping module is not available.');
+        $showMethod         = $this->getConfigData('showmethod');
 
-        foreach ($request->getAllItems() as $item) {
+        foreach ($this->getAllItems($request) as $item) {
             if ($item->getProduct() && $item->getProduct()->getId()) {
-                if ($item->getProduct()->getWeight() > $maxAllowedWeight) {
+                $weight         = $item->getProduct()->getWeight();
+                $stockItem      = $item->getProduct()->getStockItem();
+                $doValidation   = true;
+
+                if ($stockItem->getIsQtyDecimal() && $stockItem->getIsDecimalDivided()) {
+                    if ($stockItem->getEnableQtyIncrements() && $stockItem->getQtyIncrements()) {
+                        $weight = $weight * $stockItem->getQtyIncrements();
+                    } else {
+                        $doValidation = false;
+                    }
+                } elseif ($stockItem->getIsQtyDecimal() && !$stockItem->getIsDecimalDivided()) {
+                    $weight = $weight * $item->getQty();
+                }
+
+                if ($doValidation && $weight > $maxAllowedWeight) {
                     $errorMsg = ($configErrorMsg) ? $configErrorMsg : $defaultErrorMsg;
                     break;
                 }
             }
         }
 
-        if (!$errorMsg && !$request->getDestPostcode() && $this->isZipCodeRequired()) {
+        if (!$errorMsg && !$request->getDestPostcode() && $this->isZipCodeRequired($request->getDestCountryId())) {
             $errorMsg = Mage::helper('shipping')->__('This shipping method is not available, please specify ZIP-code');
         }
 

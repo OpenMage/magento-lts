@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -416,8 +416,11 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
 
         $order = $payment->getOrder();
         if(!empty($order)){
-            $request->setCurrency($order->getBaseCurrencyCode())
-                    ->setCustref($order->getIncrementId());
+            $request->setCurrency($order->getBaseCurrencyCode());
+
+            $orderIncrementId = $order->getIncrementId();
+            $request->setCustref($orderIncrementId)
+                ->setComment1($orderIncrementId);
 
             $billing = $order->getBillingAddress();
             if (!empty($billing)) {

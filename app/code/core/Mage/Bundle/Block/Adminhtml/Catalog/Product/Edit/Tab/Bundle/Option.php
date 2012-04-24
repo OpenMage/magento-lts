@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,11 +33,35 @@
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends Mage_Adminhtml_Block_Widget
 {
+    /**
+     * Form element
+     *
+     * @var Varien_Data_Form_Element_Abstract|null
+     */
     protected $_element = null;
+
+    /**
+     * List of customer groups
+     *
+     * @deprecated since 1.7.0.0
+     * @var array|null
+     */
     protected $_customerGroups = null;
+
+    /**
+     * List of websites
+     *
+     * @deprecated since 1.7.0.0
+     * @var array|null
+     */
     protected $_websites = null;
 
-    protected $_oprions = null;
+    /**
+     * List of bundle product options
+     *
+     * @var array|null
+     */
+    protected $_options = null;
 
     /**
      * Bundle option renderer class constructor

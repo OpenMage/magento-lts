@@ -20,23 +20,24 @@
  *
  * @category    Mage
  * @package     Mage_Rule
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
- * Quote rule resource model
+ * Abstract Rule entity resource model
  *
- * @category    Mage
- * @package     Mage_Rule
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated since 1.7.0.0 use Mage_Rule_Model_Resource_Abstract instead
+ *
+ * @category Mage
+ * @package Mage_Rule
+ * @author Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Rule_Model_Resource_Rule extends Mage_Core_Model_Resource_Db_Abstract
+class Mage_Rule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstract
 {
     /**
-     * Define main table
-     *
+     * Initialize main table and table id field
      */
     protected function _construct()
     {

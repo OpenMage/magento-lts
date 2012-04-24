@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -132,7 +132,7 @@ class Mage_Paypal_Model_Ipn
     {
             $sReq = '';
             foreach ($this->_request as $k => $v) {
-                $sReq .= '&'.$k.'='.urlencode(stripslashes($v));
+                $sReq .= '&'.$k.'='.urlencode($v);
             }
             $sReq .= "&cmd=_notify-validate";
             $sReq = substr($sReq, 1);
@@ -170,7 +170,12 @@ class Mage_Paypal_Model_Ipn
             $id = $this->_request['invoice'];
             $this->_order = Mage::getModel('sales/order')->loadByIncrementId($id);
             if (!$this->_order->getId()) {
-                throw new Exception(sprintf('Wrong order ID: "%s".', $id));
+                $this->_debugData['exception'] = sprintf('Wrong order ID: "%s".', $id);
+                $this->_debug();
+                Mage::app()->getResponse()
+                    ->setHeader('HTTP/1.1','503 Service Unavailable')
+                    ->sendResponse();
+                exit;
             }
             // re-initialize config with the method code and store id
             $methodCode = $this->_order->getPayment()->getMethod();

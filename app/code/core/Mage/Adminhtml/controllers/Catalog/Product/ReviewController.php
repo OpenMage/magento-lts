@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -311,7 +311,9 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
         $session    = Mage::getSingleton('adminhtml/session');
 
         if ($data = $this->getRequest()->getPost()) {
-            if(isset($data['select_stores'])) {
+            if (Mage::app()->isSingleStoreMode()) {
+                $data['stores'] = array(Mage::app()->getStore(true)->getId());
+            } else  if (isset($data['select_stores'])) {
                 $data['stores'] = $data['select_stores'];
             }
 

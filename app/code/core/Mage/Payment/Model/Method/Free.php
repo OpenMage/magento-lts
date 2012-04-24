@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +35,7 @@
 class Mage_Payment_Model_Method_Free extends Mage_Payment_Model_Method_Abstract
 {
     /**
-     * XML Pathes for configuration constants
+     * XML Paths for configuration constants
      */
     const XML_PATH_PAYMENT_FREE_ACTIVE = 'payment/free/active';
     const XML_PATH_PAYMENT_FREE_ORDER_STATUS = 'payment/free/order_status';
@@ -45,8 +45,7 @@ class Mage_Payment_Model_Method_Free extends Mage_Payment_Model_Method_Abstract
      * Payment Method features
      * @var bool
      */
-    protected $_canAuthorize                = true;
-    protected $_canCapture                  = true;
+    protected $_canAuthorize = true;
 
     /**
      * Payment code name
@@ -58,25 +57,22 @@ class Mage_Payment_Model_Method_Free extends Mage_Payment_Model_Method_Abstract
     /**
      * Check whether method is available
      *
-     * @param Mage_Sales_Model_Quote $quote
+     * @param Mage_Sales_Model_Quote|null $quote
      * @return bool
      */
     public function isAvailable($quote = null)
     {
-        return parent::isAvailable($quote) && (!empty($quote))
-            && (Mage::app()->getStore()->roundPrice($quote->getGrandTotal()) == 0);
+        return parent::isAvailable($quote) && !empty($quote)
+            && Mage::app()->getStore()->roundPrice($quote->getGrandTotal()) == 0;
     }
 
     /**
-     * Get config peyment action
+     * Get config payment action, do nothing if status is pending
      *
-     * @return string
+     * @return string|null
      */
     public function getConfigPaymentAction()
     {
-        if ('pending' == $this->getConfigData('order_status')) {
-            return Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE;
-        }
-        return parent::getConfigPaymentAction();
+        return $this->getConfigData('order_status') == 'pending' ? null : parent::getConfigPaymentAction();
     }
 }

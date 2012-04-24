@@ -19,7 +19,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -51,7 +51,7 @@ var widgetTools = {
             closable:true,
             className:'magento',
             windowClassName:"popup-window",
-            title:'Insert Widget',
+            title:Translator.translate('Insert Widget...'),
             top:50,
             width:950,
             //height:450,
@@ -88,6 +88,9 @@ WysiwygWidget.Widget.prototype = {
         this.optionsUrl = optionsSourceUrl;
         this.optionValues = new Hash({});
         this.widgetTargetId = widgetTargetId;
+        if (typeof(tinyMCE) != "undefined" && tinyMCE.activeEditor) {
+            this.bMark = tinyMCE.activeEditor.selection.getBookmark();
+        }
 
         Event.observe(this.widgetEl, "change", this.loadOptions.bind(this));
 
@@ -231,6 +234,14 @@ WysiwygWidget.Widget.prototype = {
                     try {
                         widgetTools.onAjaxSuccess(transport);
                         Windows.close("widget_window");
+
+                        if (typeof(tinyMCE) != "undefined" && tinyMCE.activeEditor) {
+                            tinyMCE.activeEditor.focus();
+                            if (this.bMark) {
+                                tinyMCE.activeEditor.selection.moveToBookmark(this.bMark);
+                            }
+                        }
+
                         this.updateContent(transport.responseText);
                     } catch(e) {
                         alert(e.message);

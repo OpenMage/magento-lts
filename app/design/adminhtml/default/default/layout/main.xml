@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -56,6 +56,7 @@ Default layout, loads most of the pages
            <block type="adminhtml/page_head" name="head" as="head" template="page/head.phtml">
                 <action method="setTitle" translate="title"><title>Magento Admin</title></action>
                 <action method="addJs"><script>prototype/prototype.js</script></action>
+                <action method="addItem"><type>js</type><name>extjs/fix-defer-before.js</name><params/><if/><condition>can_load_ext_js</condition></action>
                 <action method="addJs"><script>prototype/window.js</script></action>
                 <action method="addJs"><script>scriptaculous/builder.js</script></action>
                 <action method="addJs"><script>scriptaculous/effects.js</script></action>
@@ -123,6 +124,8 @@ Default layout, loads most of the pages
 
             <!--<update handle="formkey"/> this won't work, see the try/catch and a jammed exception in Mage_Core_Model_Layout::createBlock() -->
             <block type="core/template" name="formkey" as="formkey" template="formkey.phtml"/>
+
+            <!-- deprecated since 1.7.0.0 see Mage_Page_Block_Js_Translate -->
             <block type="page/js_translate" name="js_translate" as="js_translate" template="page/js/translate.phtml"/>
             <block type="core/text_list" name="left" as="left"/>
             <block type="core/text_list" name="content" as="content"/>
@@ -173,7 +176,7 @@ Layout for editor element
             <action method="addJs"><script>mage/adminhtml/browser.js</script></action>
             <action method="addJs"><script>prototype/window.js</script></action>
             <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
-            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>
+            <action method="addCss"><name>lib/prototype/windows/themes/magento.css</name></action>
         </reference>
     </editor>
 
@@ -247,10 +250,42 @@ Base preview layout
         </block>
     </systemPreview>
 
+    <adminhtml_dashboard_customersmost>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/dashboard_tab_customers_most" name="adminhtml.dashboard.tab.customers.most"/>
+        </block>
+    </adminhtml_dashboard_customersmost>
+
+    <adminhtml_dashboard_customersnewest>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/dashboard_tab_customers_newest" name="adminhtml.dashboard.tab.customers.newest"/>
+        </block>
+    </adminhtml_dashboard_customersnewest>
+
+    <adminhtml_dashboard_productsviewed>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/dashboard_tab_products_viewed" name="adminhtml.dashboard.tab.products.viewed"/>
+        </block>
+    </adminhtml_dashboard_productsviewed>
+
+    <adminhtml_index_login>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/template" name="content" template="login.phtml">
+                <block type="core/text_list" name="form.additional.info" />
+            </block>
+        </block>
+    </adminhtml_index_login>
+
+    <adminhtml_index_forgotpassword>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/template" name="content" template="forgotpassword.phtml">
+                <block type="core/text_list" name="form.additional.info" />
+            </block>
+        </block>
+    </adminhtml_index_forgotpassword>
 <!--
 Empty hanle for ajax response etc.
 -->
     <empty>
     </empty>
-
 </layout>

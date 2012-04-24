@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +43,6 @@ class Mage_Connect_Adminhtml_Extension_CustomController extends Mage_Adminhtml_C
              ->_title($this->__('Magento Connect'))
              ->_title($this->__('Package Extensions'));
 
-        Mage::app()->getStore()->setStoreId(1);
         $this->_forward('edit');
     }
 
@@ -131,7 +130,6 @@ class Mage_Connect_Adminhtml_Extension_CustomController extends Mage_Adminhtml_C
             if (empty($create)) {
                 $this->_redirect('*/*/edit');
             } else {
-                Mage::app()->getStore()->setStoreId(1);
                 $this->_forward('create');
             }
         } catch (Mage_Core_Exception $e){

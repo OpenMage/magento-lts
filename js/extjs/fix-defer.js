@@ -32,6 +32,6 @@
             return this.delay.curry(0.01).apply(this, arguments);
         }
 
-        return eDefer.apply(this, args);
+        return eDefer.apply(this, arguments);
     }
 })();

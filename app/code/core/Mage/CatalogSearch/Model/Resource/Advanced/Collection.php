@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -99,6 +99,9 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                 if (!is_numeric($conditionValue['from'])){
                                     $conditionValue['from'] = Mage::getSingleton('core/date')
                                         ->gmtDate(null, $conditionValue['from']);
+                                    if (!$conditionValue['from']) {
+                                        $conditionValue['from'] = Mage::getSingleton('core/date')->gmtDate();
+                                    }
                                 }
                                 $conditionData[] = array('gteq' => $conditionValue['from']);
                             }
@@ -109,6 +112,9 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                 if (!is_numeric($conditionValue['to'])){
                                     $conditionValue['to'] = Mage::getSingleton('core/date')
                                         ->gmtDate(null, $conditionValue['to']);
+                                    if (!$conditionValue['to']) {
+                                        $conditionValue['to'] = Mage::getSingleton('core/date')->gmtDate();
+                                    }
                                 }
                                 $conditionData[] = array('lteq' => $conditionValue['to']);
                             }

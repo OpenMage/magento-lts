@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -62,7 +62,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                     <input type="checkbox" id="inventory_manage_stock_checkbox" onclick="toggleValueElementsWithCheckbox(this)" />
                     <label for="inventory_manage_stock_checkbox" class="normal"><?php echo Mage::helper('catalog')->__('Change') ?></label>
                 </td>
-                <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
+                <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>
             </tr>
             <tr>
                 <td class="label"><label for="inventory_qty"><?php echo Mage::helper('catalog')->__('Qty') ?><span class="required">*</span></label></td>
@@ -71,7 +71,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                     <input type="checkbox" id="inventory_qty_checkbox" onclick="toggleValueElementsWithCheckbox(this)" />
                     <label for="inventory_qty_checkbox" class="normal"><?php echo Mage::helper('catalog')->__('Change') ?></label>
                 </td>
-                <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
+                <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>
             </tr>
             <tr>
                 <td class="label"><label for="inventory_min_qty"><?php echo Mage::helper('catalog')->__('Minimum Qty for Item\'s Status to be Out of Stock') ?></label></td>
@@ -81,7 +81,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                     <input type="checkbox" id="inventory_min_qty_checkbox" onclick="toggleValueElementsWithCheckbox(this)" />
                     <label for="inventory_min_qty_checkbox" class="normal"><?php echo Mage::helper('catalog')->__('Change') ?></label>
                 </td>
-                <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
+                <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>
             </tr>
             <tr>
                 <td class="label"><label for="inventory_min_sale_qty"><?php echo Mage::helper('catalog')->__('Minimum Qty Allowed in Shopping Cart') ?></label></td>
@@ -91,7 +91,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                     <input type="checkbox" id="inventory_min_sale_qty_checkbox" onclick="toggleValueElementsWithCheckbox(this)" />
                     <label for="inventory_min_sale_qty_checkbox" class="normal"><?php echo Mage::helper('catalog')->__('Change') ?></label>
                 </td>
-                <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
+                <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>
             </tr>
             <tr>
                 <td class="label"><label for="inventory_max_sale_qty"><?php echo Mage::helper('catalog')->__('Maximum Qty Allowed in Shopping Cart') ?></label></td>
@@ -101,7 +101,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                     <input type="checkbox" id="inventory_max_sale_checkbox" onclick="toggleValueElementsWithCheckbox(this)" />
                     <label for="inventory_max_sale_checkbox" class="normal"><?php echo Mage::helper('catalog')->__('Change') ?></label>
                 </td>
-                <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
+                <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>
             </tr>
             <tr>
                 <td class="label"><label for="inventory_is_qty_decimal"><?php echo Mage::helper('catalog')->__('Qty Uses Decimals') ?></label></td>
@@ -112,7 +112,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                     <input type="checkbox" id="inventory_is_qty_decimal_checkbox"    onclick="toggleValueElementsWithCheckbox(this)" />
                     <label for="inventory_is_qty_decimal_checkbox" class="normal"><?php echo Mage::helper('catalog')->__('Change') ?></label>
                 </td>
-                <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
+                <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>
             </tr>
             <tr>
                 <td class="label"><label for="inventory_backorders"><?php echo Mage::helper('catalog')->__('Backorders') ?></label></td>
@@ -127,7 +127,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                     <input type="checkbox" id="inventory_backorders_checkbox" onclick="toggleValueElementsWithCheckbox(this)" />
                     <label for="inventory_backorders_checkbox" class="normal"><?php echo Mage::helper('catalog')->__('Change') ?></label>
                 </td>
-                <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
+                <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>
             </tr>
             <tr>
                 <td class="label"><label for="inventory_notify_stock_qty"><?php echo Mage::helper('catalog')->__('Notify for Quantity Below') ?></label></td>
@@ -137,7 +137,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                     <input type="checkbox" id="inventory_notify_stock_qty_checkbox" onclick="toggleValueElementsWithCheckbox(this)" />
                     <label for="inventory_notify_stock_qty_checkbox" class="normal"><?php echo Mage::helper('catalog')->__('Change') ?></label>
                 </td>
-                <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
+                <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>
             </tr>
 
             <tr>
@@ -151,7 +151,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                     <input type="checkbox" id="inventory_enable_qty_increments_checkbox" onclick="toggleValueElementsWithCheckbox(this)" />
                     <label for="inventory_enable_qty_increments_checkbox" class="normal"><?php echo Mage::helper('catalog')->__('Change') ?></label>
                 </td>
-                <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
+                <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>
             </tr>
             <tr>
                 <td class="label"><label for="inventory_qty_increments"><?php echo Mage::helper('catalog')->__('Qty Increments') ?></label></td>
@@ -162,7 +162,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                     <input type="checkbox" id="inventory_qty_increments_checkbox" onclick="toggleValueElementsWithCheckbox(this)" />
                     <label for="inventory_qty_increments_checkbox" class="normal"><?php echo Mage::helper('catalog')->__('Change') ?></label>
                 </td>
-                <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
+                <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>
             </tr>
 
             <tr>
@@ -174,7 +174,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                     <input type="checkbox" id="inventory_stock_availability_checkbox" onclick="toggleValueElementsWithCheckbox(this)" />
                     <label for="inventory_stock_availability_checkbox" class="normal"><?php echo Mage::helper('catalog')->__('Change') ?></label>
                 </td>
-                <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
+                <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>
             </tr>
         </table>
     </fieldset>

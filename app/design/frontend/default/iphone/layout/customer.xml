@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -51,6 +51,9 @@ Default layout, loads most of the pages
         <reference name="top.links">
             <action method="addLink" translate="label title" module="customer"><label>My Account</label><url helper="customer/getAccountUrl"/><title>My Account</title><prepare/><urlParams/><position>10</position></action>
         </reference>
+        <reference name="account.links">
+            <action method="addLink" translate="label title before_text" module="customer"><label>Register</label><url helper="customer/getRegisterUrl" /><title>Register</title><prepare/><urlParams/><position>100</position></action>
+        </reference>
     </default>
 
 <!--
@@ -59,7 +62,8 @@ Load this update on every page when customer is logged in
 
     <customer_logged_in>
         <reference name="account.links">
-            <action method="addLink" translate="label title" module="customer"><label>Log Out</label><url helper="customer/getLogoutUrl"/><title>Log Out</title><prepare/><urlParams/><position>100</position></action>
+            <action method="addLink" translate="label title" module="customer"><label>Log Out</label><url helper="customer/getLogoutUrl"/><title>Log Out</title><prepare/><urlParams/><position>2</position></action>
+            <action method="removeLinkByUrl"><url helper="customer/getRegisterUrl" /></action>
         </reference>
     </customer_logged_in>
 
@@ -68,11 +72,9 @@ Load this update on every page when customer is logged out
 -->
 
     <customer_logged_out>
-        <!---<reference name="right">
-            <block type="customer/form_login" name="customer_form_mini_login" before="-" template="customer/form/mini.login.phtml"/>
-        </reference>-->
         <reference name="account.links">
-            <action method="addLink" translate="label title" module="customer"><label>Log In</label><url helper="customer/getLoginUrl"/><title>Log In</title><prepare/><urlParams/><position>100</position></action>
+            <action method="addLink" translate="label title" module="customer"><label>Log In</label><url helper="customer/getLoginUrl"/><title>Log In</title><prepare/><urlParams/><position>1</position></action>
+            <!-- <action method="addLink" translate="label title" module="customer"><label>register</label><url helper="customer/getRegisterUrl" /><title>register</title><prepare/><urlParams/><position>100</position><li/><a/><before_text> or </before_text><after_text>.</after_text></action> -->
         </reference>
         <remove name="reorder"></remove>
     </customer_logged_out>
@@ -91,7 +93,7 @@ Layout for customer login page
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         <reference name="content">
-            <block type="customer/form_login" name="customer_form_login" template="customer/form/login.phtml"/>
+            <block type="customer/form_login" name="customer_form_login" template="customer/form/login.phtml" />
         </reference>
     </customer_account_login>
 
@@ -140,15 +142,41 @@ New customer registration
         <remove name="right"/>
         <remove name="left"/>
 
+        <reference name="head">
+            <action method="setTitle" translate="title" module="customer"><title>Forgot Your Password</title></action>
+        </reference>
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
             <action method="setHeaderTitle" translate="title" module="customer"><title>Password forgotten</title></action>
         </reference>
         <reference name="content">
             <!--<block type="core/template" name="forgotPassword" template="customer/form/forgotpassword.phtml"/>-->
-            <block type="customer/account_forgotpassword" name="forgotPassword" template="customer/form/forgotpassword.phtml"/>
+            <block type="customer/account_forgotpassword" name="forgotPassword" template="customer/form/forgotpassword.phtml" />
         </reference>
     </customer_account_forgotpassword>
+
+    <customer_account_resetpassword translate="label">
+        <label>Reset a Password</label>
+        <remove name="right"/>
+        <remove name="left"/>
+
+        <reference name="head">
+            <action method="setTitle" translate="title" module="customer">
+                <title>Reset a Password</title>
+            </action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+            <action method="setHeaderTitle" translate="title" module="customer">
+                <title>Reset a Password</title>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="customer/account_resetpassword" name="resetPassword" template="customer/form/resetforgottenpassword.phtml"/>
+        </reference>
+    </customer_account_resetpassword>
 
     <customer_account_confirmation>
         <remove name="right"/>
@@ -188,30 +216,24 @@ Customer account pages, rendered for all tabs in dashboard
         <remove name="sale.reorder.sidebar"/-->
         <!-- Mage_Customer -->
         <reference name="root">
-            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
-        
+
+        <reference name="top.links">
+            <block type="customer/account_navigation" name="customer_account_navigation" template="customer/account/navigation.phtml">
+                <action method="setPosition"><value>20</value></action>
+                <action method="addLink" translate="label" module="customer"><name>account</name><path>customer/account/</path><label>Account Dashboard</label></action>
+                <action method="addLink" translate="label" module="customer"><name>account_edit</name><path>customer/account/edit/</path><label>Account Information</label></action>
+                <action method="addLink" translate="label" module="customer"><name>address_book</name><path>customer/address/</path><label>Address Book</label></action>
+            </block>
+            <action method="addLinkBlock"><blockName>customer_account_navigation</blockName></action>
+        </reference>
+
         <reference name="content">
             <block type="page/html_wrapper" name="my.account.wrapper" translate="label">
                 <label>My Account Wrapper</label>
                 <action method="setElementClass"><value>my-account</value></action>
             </block>
-        </reference>
-
-        <reference name="left">
-            <block type="customer/account_navigation" name="customer_account_navigation" before="-" template="customer/account/navigation.phtml">
-                <action method="addLink" translate="label" module="customer"><name>account</name><path>customer/account/</path><label>Account Dashboard</label></action>
-                <action method="addLink" translate="label" module="customer"><name>account_edit</name><path>customer/account/edit/</path><label>Account Information</label></action>
-                <action method="addLink" translate="label" module="customer"><name>address_book</name><path>customer/address/</path><label>Address Book</label></action>
-            </block>
-            <block type="checkout/cart_sidebar" name="cart_sidebar" template="checkout/cart/sidebar.phtml">
-                <action method="addItemRender"><type>simple</type><block>checkout/cart_item_renderer</block><template>checkout/cart/sidebar/default.phtml</template></action>
-                <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/cart/sidebar/default.phtml</template></action>
-                <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/cart/sidebar/default.phtml</template></action>
-            </block>
-            <block type="catalog/product_compare_sidebar" name="catalog.compare.sidebar" template="catalog/product/compare/sidebar.phtml"/>
-            <remove name="tags_popular"/>
-
         </reference>
     </customer_account>
 
@@ -224,7 +246,7 @@ Customer account home dashboard layout
         <update handle="customer_account"/>
         <!-- Mage_Customer -->
         <reference name="root">
-            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         <reference name="my.account.wrapper">
             <block type="customer/account_dashboard" name="customer_account_dashboard" template="customer/account/dashboard.phtml">
@@ -263,5 +285,5 @@ Customer account address edit page
             <block type="customer/address_edit" name="customer_address_edit" template="customer/address/edit.phtml"/>
         </reference>
     </customer_address_form>
-
+    
 </layout>

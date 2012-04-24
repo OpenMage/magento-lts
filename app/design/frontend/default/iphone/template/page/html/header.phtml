@@ -20,31 +20,33 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /**
  * @var Mage_Page_Block_Html_Header $this
  */
 ?>
-<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/search.js') ?>"></script>
-<?php echo $this->getChildHtml('topSearch') ?>
-<div class="header-top">
-    <div class="col2-alt-set">
-        <div class="col-1">
-            <h1 id="logo"><a href="<?php echo $this->getUrl('') ?>"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
-        </div>
-        <div class="col-2">
-            <div class="switch-language">
-                <?php echo $this->getChildHtml('store_language') ?>
-            </div>
-            <div class="clear"></div>
-            
-            <p class="welcome-msg"><?php echo $this->getWelcome()?></p>
-            <?php echo $this->getChildHtml('accountLinks') ?>
-        </div>
-    </div>
+<?php $_cartItems = $this->helper('checkout/cart')->getSummaryCount(); ?>
+<div class="header-bg">
+    <a class="header-logo" href="<?php echo $this->getUrl('') ?>"></a>
 </div>
-<div class="shop-access">
-    <?php echo $this->getChildHtml('topLinks') ?>
-</div><div class="clear"></div>
+<header>
+    <div class="menu-wrapper">
+        <dl id="menu">
+            <dt class="menu dropdown"><a href="#">Menu</a></dt>
+            <dd class="menu-box">
+                <?php echo $this->getChildHtml('topLinks') ?>
+                <?php echo $this->getChildHtml('checkoutLinks') ?>
+                <?php echo $this->getChildHtml('accountLinks') ?>
+            </dd>
+            <dt class="cart-icon <?php echo $this->getInCart() ? 'active' : '' ?>">
+                <a href="<?php echo $this->getUrl('checkout/cart'); ?>">Cart</a>
+                <?php echo $_cartItems > 0 ? '<span>'.$_cartItems.'</span>' : ''; ?>
+            </dt>
+            <dd></dd>
+        </dl>
+        <div class="search"><?php echo $this->getChildHtml('topSearch') ?></div>
+    </div>
+</header>
+<?php echo $this->getChildHtml('topCart') ?>

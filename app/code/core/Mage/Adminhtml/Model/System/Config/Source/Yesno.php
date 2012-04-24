@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,6 +41,19 @@ class Mage_Adminhtml_Model_System_Config_Source_Yesno
         return array(
             array('value' => 1, 'label'=>Mage::helper('adminhtml')->__('Yes')),
             array('value' => 0, 'label'=>Mage::helper('adminhtml')->__('No')),
+        );
+    }
+
+    /**
+     * Get options in "key-value" format
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            0 => Mage::helper('adminhtml')->__('No'),
+            1 => Mage::helper('adminhtml')->__('Yes'),
         );
     }
 

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,7 +53,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     const SIZE_LARGE   = 'LARGE';
 
     /**
-     * Destination Zip Code required flag
+     * Default api revision
      *
      * @var int
      */
@@ -79,9 +79,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     protected $_code = self::CODE;
 
     /**
-     * Is zip code required
+     * Destination Zip Code required flag
      *
-     * @var bool
+     * @var boolean
+     * @deprecated since 1.7.0 functionality implemented in Mage_Usa_Model_Shipping_Carrier_Abstract
      */
     protected $_isZipCodeRequired;
 
@@ -119,34 +120,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
      * @var array
      */
     protected $_customizableContainerTypes = array('VARIABLE', 'RECTANGULAR', 'NONRECTANGULAR');
-
-    /**
-     * Check is Zip Code Required
-     *
-     * @return boolean
-     */
-    public function isZipCodeRequired()
-    {
-        if (!is_null($this->_isZipCodeRequired)) {
-            return $this->_isZipCodeRequired;
-        }
-
-        return parent::isZipCodeRequired();
-    }
-
-    /**
-     * Processing additional validation to check is carrier applicable.
-     *
-     * @param Mage_Shipping_Model_Rate_Request $request
-     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|boolean
-     */
-    public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
-    {
-        // zip code required for US
-        $this->_isZipCodeRequired = $this->_isUSCountry($request->getDestCountryId());
-
-        return parent::proccessAdditionalValidation($request);
-    }
 
     /**
      * Collect and get rates
@@ -286,6 +259,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
 
         $r->setValue($request->getPackageValue());
         $r->setValueWithDiscount($request->getPackageValueWithDiscount());
+
+        $r->setBaseSubtotalInclTax($request->getBaseSubtotalInclTax());
 
         $this->_rawRequest = $r;
 
@@ -588,6 +563,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                 'First-Class Mail International Large Envelope' => 'FIRST CLASS',
                 'First-Class Mail International Letter'         => 'FIRST CLASS',
                 'First-Class Mail International Package'        => 'FIRST CLASS',
+                'First-Class Mail International Parcel'         => 'FIRST CLASS',
                 'First-Class Mail'                 => 'FIRST CLASS',
                 'First-Class Mail Flat'            => 'FIRST CLASS',
                 'First-Class Mail Large Envelope'  => 'FIRST CLASS',
@@ -672,6 +648,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                                 'Priority Mail International',
                                 'First-Class Mail International Package',
                                 'First-Class Mail International Large Envelope',
+                                'First-Class Mail International Parcel',
                             )
                         )
                     )
@@ -730,6 +707,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                                 'Express Mail International',
                                 'Priority Mail International',
                                 'First-Class Mail International Package',
+                                'First-Class Mail International Parcel',
                             )
                         )
                     )
@@ -752,6 +730,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                                 'Express Mail International',
                                 'Priority Mail International',
                                 'First-Class Mail International Package',
+                                'First-Class Mail International Parcel',
                             )
                         )
                     )
@@ -1221,7 +1200,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
      */
     protected function _filterServiceName($name)
     {
-        $name = (string)preg_replace(array('~<[^/!][^>]+>.*</[^>]+>~sU', '~\<!--.*--\>~isU', '~<[^>]+>~is'), '', html_entity_decode($name));
+        $name = (string)preg_replace(array('~<[^/!][^>]+>.*</[^>]+>~sU', '~\<!--.*--\>~isU', '~<[^>]+>~is'), '',
+            html_entity_decode($name)
+        );
         $name = str_replace('*', '', $name);
 
         return $name;
@@ -1334,7 +1315,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         list($fromZip5, $fromZip4) = $this->_parseZip($request->getShipperAddressPostalCode());
         list($toZip5, $toZip4) = $this->_parseZip($request->getRecipientAddressPostalCode(), true);
 
-        $rootNode = 'SigConfirmCertifyV3.0Request';
+        if ($this->getConfigData('mode')) {
+            $rootNode = 'SignatureConfirmationV3.0Request';
+        } else {
+            $rootNode = 'SigConfirmCertifyV3.0Request';
+        }
         // the wrap node needs for remove xml declaration above
         $xmlWrap = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><wrap/>');
         $xml = $xmlWrap->addChild($rootNode);
@@ -1635,7 +1620,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             $api = 'ExpressMailLabel';
         } else if ($recipientUSCountry) {
             $requestXml = $this->_formUsSignatureConfirmationShipmentRequest($request, $service);
-            $api = 'SignatureConfirmationCertifyV3';
+            if ($this->getConfigData('mode')) {
+                $api = 'SignatureConfirmationV3';
+            } else {
+                $api = 'SignatureConfirmationCertifyV3';
+            }
         } else if ($service == 'FIRST CLASS') {
             $requestXml = $this->_formIntlShipmentRequest($request);
             $api = 'FirstClassMailIntl';

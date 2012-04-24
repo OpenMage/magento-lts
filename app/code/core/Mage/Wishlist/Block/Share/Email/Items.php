@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,5 +69,20 @@ class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
         $additional['nocookie'] = 1;
         $additional['_store_to_url'] = true;
         return parent::getAddToCartUrl($product, $additional);
+    }
+
+    /**
+     * Check whether whishlist item has description
+     *
+     * @param Mage_Wishlist_Model_Item $item
+     * @return bool
+     */
+    public function hasDescription($item)
+    {
+        $hasDescription = parent::hasDescription($item);
+        if ($hasDescription) {
+            return ($item->getDescription() !== Mage::helper('wishlist')->defaultCommentString());
+        }
+        return $hasDescription;
     }
 }

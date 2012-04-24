@@ -20,24 +20,37 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Shoping cart model
+ * Shopping cart model
  *
  * @category    Mage
  * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Checkout_Model_Cart extends Varien_Object
+class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Model_Cart_Interface
 {
-    protected $_summaryQty = null;
-    protected $_productIds = null;
+    /**
+     * Shopping cart items summary quantity(s)
+     *
+     * @var int|null
+     */
+    protected $_summaryQty;
+
+    /**
+     * List of product ids in shopping cart
+     *
+     * @var array|null
+     */
+    protected $_productIds;
 
     /**
      * Get shopping cart resource model
+     *
+     * @return Mage_Checkout_Model_Resource_Cart
      */
     protected function _getResource()
     {
@@ -55,7 +68,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object
     }
 
     /**
-     * Retrieve custome session model
+     * Retrieve customer session model
      *
      * @return Mage_Customer_Model_Customer
      */
@@ -64,6 +77,11 @@ class Mage_Checkout_Model_Cart extends Varien_Object
         return Mage::getSingleton('customer/session');
     }
 
+    /**
+     * List of shopping cart items
+     *
+     * @return Mage_Eav_Model_Entity_Collection_Abstract|array
+     */
     public function getItems()
     {
         if (!$this->getQuote()->getId()) {
@@ -104,7 +122,21 @@ class Mage_Checkout_Model_Cart extends Varien_Object
     }
 
     /**
+     * Set quote object associated with the cart
+     *
+     * @param Mage_Sales_Model_Quote $quote
+     * @return Mage_Checkout_Model_Cart
+     */
+    public function setQuote(Mage_Sales_Model_Quote $quote)
+    {
+        $this->setData('quote', $quote);
+        return $this;
+    }
+
+    /**
      * Initialize cart quote state to be able use it on cart page
+     *
+     * @return Mage_Checkout_Model_Cart
      */
     public function init()
     {
@@ -198,8 +230,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object
         if ($requestInfo instanceof Varien_Object) {
             $request = $requestInfo;
         } elseif (is_numeric($requestInfo)) {
-            $request = new Varien_Object();
-            $request->setQty($requestInfo);
+            $request = new Varien_Object(array('qty' => $requestInfo));
         } else {
             $request = new Varien_Object($requestInfo);
         }
@@ -207,6 +238,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object
         if (!$request->hasQty()) {
             $request->setQty(1);
         }
+
         return $request;
     }
 
@@ -381,7 +413,10 @@ class Mage_Checkout_Model_Cart extends Varien_Object
             $qty = isset($itemInfo['qty']) ? (float) $itemInfo['qty'] : false;
             if ($qty > 0) {
                 $item->setQty($qty);
-                if ($item->getHasError()) {
+
+                $itemInQuote = $this->getQuote()->getItemById($item->getId());
+
+                if (!$itemInQuote && $item->getHasError()) {
                     Mage::throwException($item->getMessage());
                 }
 
@@ -430,17 +465,29 @@ class Mage_Checkout_Model_Cart extends Varien_Object
         $this->getQuote()->save();
         $this->getCheckoutSession()->setQuoteId($this->getQuote()->getId());
         /**
-         * Cart save usually called after chenges with cart items.
+         * Cart save usually called after changes with cart items.
          */
         Mage::dispatchEvent('checkout_cart_save_after', array('cart'=>$this));
         return $this;
     }
 
+    /**
+     * Save cart (implement interface method)
+     */
+    public function saveQuote()
+    {
+        $this->save();
+    }
+
+    /**
+     * Mark all quote items as deleted (empty shopping cart)
+     *
+     * @return Mage_Checkout_Model_Cart
+     */
     public function truncate()
     {
-        foreach ($this->getQuote()->getItemsCollection() as $item) {
-            $item->isDeleted(true);
-        }
+        $this->getQuote()->removeAllItems();
+        return $this;
     }
 
     public function getProductIds()
@@ -459,9 +506,9 @@ class Mage_Checkout_Model_Cart extends Varien_Object
     }
 
     /**
-     * Get shopping cart items summary (inchlude config settings)
+     * Get shopping cart items summary (includes config settings)
      *
-     * @return decimal
+     * @return int|float
      */
     public function getSummaryQty()
     {
@@ -498,7 +545,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object
     /**
      * Get shopping cart summary qty
      *
-     * @return decimal
+     * @return int|float
      */
     public function getItemsQty()
     {
@@ -510,7 +557,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object
      * $requestInfo - either qty (int) or buyRequest in form of array or Varien_Object
      * $updatingParams - information on how to perform update, passed to Quote->updateItem() method
      *
-     * @param int $id
+     * @param int $itemId
      * @param int|array|Varien_Object $requestInfo
      * @param null|array|Varien_Object $updatingParams
      * @return Mage_Sales_Model_Quote_Item|string

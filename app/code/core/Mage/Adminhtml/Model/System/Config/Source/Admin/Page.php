@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -94,8 +94,9 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         $parentArr = array();
         $sortOrder = 0;
         foreach ($parent->children() as $childName=>$child) {
-
-            if ($child->depends && !$this->_checkDepends($child->depends)) {
+            if ((1 == $child->disabled)
+                || ($child->depends && !$this->_checkDepends($child->depends))
+            ) {
                 continue;
             }
 

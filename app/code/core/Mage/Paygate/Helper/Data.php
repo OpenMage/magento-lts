@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paygate
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,8 +51,29 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $exception
      * @return bool|string
      */
-    public function getTransactionMessage($payment, $requestType, $lastTransactionId, $card, $amount = false, $exception = false)
-    {
+    public function getTransactionMessage($payment, $requestType, $lastTransactionId, $card, $amount = false,
+        $exception = false
+    ) {
+        return $this->getExtendedTransactionMessage(
+            $payment, $requestType, $lastTransactionId, $card, $amount, $exception
+        );
+    }
+
+    /**
+     * Return message for gateway transaction request
+     *
+     * @param  Mage_Payment_Model_Info $payment
+     * @param  string $requestType
+     * @param  string $lastTransactionId
+     * @param  Varien_Object $card
+     * @param float $amount
+     * @param string $exception
+     * @param string $additionalMessage Custom message, which will be added to the end of generated message
+     * @return bool|string
+     */
+    public function getExtendedTransactionMessage($payment, $requestType, $lastTransactionId, $card, $amount = false,
+        $exception = false, $additionalMessage = false
+    ) {
         $operation = $this->_getOperation($requestType);
 
         if (!$operation) {
@@ -70,9 +91,23 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $card = $this->__('Credit Card: xxxx-%s', $card->getCcLast4());
-        $transaction = $this->__('Authorize.Net Transaction ID %s', $lastTransactionId);
 
-        return $this->__('%s %s %s - %s. %s. %s', $card, $amount, $operation, $result, $transaction, $exception );
+        $pattern = '%s %s %s - %s.';
+        $texts = array($card, $amount, $operation, $result);
+
+        if (!is_null($lastTransactionId)) {
+            $pattern .= ' %s.';
+            $texts[] = $this->__('Authorize.Net Transaction ID %s', $lastTransactionId);
+        }
+
+        if ($additionalMessage) {
+            $pattern .= ' %s.';
+            $texts[] = $additionalMessage;
+        }
+        $pattern .= ' %s';
+        $texts[] = $exception;
+
+        return call_user_func_array(array($this, '__'), array_merge(array($pattern), $texts));
     }
 
     /**
@@ -98,7 +133,7 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
                 return false;
         }
     }
-    
+
     /**
      * Format price with currency sign
      * @param  Mage_Payment_Model_Info $payment

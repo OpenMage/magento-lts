@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Page
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +33,6 @@
  */
 class Mage_Page_Block_Html_Notices extends Mage_Core_Block_Template
 {
-
     /**
      * Check if noscript notice should be displayed
      *
@@ -54,4 +53,13 @@ class Mage_Page_Block_Html_Notices extends Mage_Core_Block_Template
         return Mage::getStoreConfig('design/head/demonotice');
     }
 
+    /**
+     * Get Link to cookie restriction privacy policy page
+     *
+     * @return string
+     */
+    public function getPrivacyPolicyLink()
+    {
+        return Mage::getUrl('privacy-policy-cookie-restriction-mode');
+    }
 }

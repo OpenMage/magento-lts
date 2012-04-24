@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -73,7 +73,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         //TODO: add full name logic
         $billingAliasName = 'billing_o_a';
         $shippingAliasName = 'shipping_o_a';
-        
+
         $collection = Mage::getModel("sales/order")->getCollection()
             ->addAttributeToSelect('*')
             ->addAddressFields()
@@ -84,7 +84,8 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
                 'billing_lastname', "{{billing_lastname}}", array('billing_lastname'=>"$billingAliasName.lastname")
             )
             ->addExpressionFieldToSelect(
-                'shipping_firstname', "{{shipping_firstname}}", array('shipping_firstname'=>"$shippingAliasName.firstname")
+                'shipping_firstname', "{{shipping_firstname}}",
+                array('shipping_firstname'=>"$shippingAliasName.firstname")
             )
             ->addExpressionFieldToSelect(
                 'shipping_lastname', "{{shipping_lastname}}", array('shipping_lastname'=>"$shippingAliasName.lastname")
@@ -92,14 +93,20 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
             ->addExpressionFieldToSelect(
                     'billing_name',
                     "CONCAT({{billing_firstname}}, ' ', {{billing_lastname}})",
-                    array('billing_firstname'=>"$billingAliasName.firstname", 'billing_lastname'=>"$billingAliasName.lastname")
+                    array(
+                        'billing_firstname'=>"$billingAliasName.firstname",
+                        'billing_lastname'=>"$billingAliasName.lastname"
+                    )
             )
             ->addExpressionFieldToSelect(
                     'shipping_name',
                     'CONCAT({{shipping_firstname}}, " ", {{shipping_lastname}})',
-                    array('shipping_firstname'=>"$shippingAliasName.firstname", 'shipping_lastname'=>"$shippingAliasName.lastname")
+                    array(
+                        'shipping_firstname'=>"$shippingAliasName.firstname",
+                        'shipping_lastname'=>"$shippingAliasName.lastname"
+                    )
             );
-        
+
         if (is_array($filters)) {
             try {
                 foreach ($filters as $field => $value) {
@@ -254,13 +261,18 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     {
         $order = $this->_initOrder($orderIncrementId);
 
+        if (Mage_Sales_Model_Order::STATE_CANCELED == $order->getState()) {
+            $this->_fault('status_not_changed');
+        }
         try {
             $order->cancel();
             $order->save();
         } catch (Mage_Core_Exception $e) {
             $this->_fault('status_not_changed', $e->getMessage());
         }
-
+        if (Mage_Sales_Model_Order::STATE_CANCELED != $order->getState()) {
+            $this->_fault('status_not_changed');
+        }
         return true;
     }
 

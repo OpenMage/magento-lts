@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sales Order Shipment Pdf default items renderer
@@ -36,7 +35,6 @@ class Mage_Sales_Model_Order_Pdf_Items_Shipment_Default extends Mage_Sales_Model
 {
     /**
      * Draw item line
-     *
      */
     public function draw()
     {
@@ -48,7 +46,7 @@ class Mage_Sales_Model_Order_Pdf_Items_Shipment_Default extends Mage_Sales_Model
         // draw Product name
         $lines[0] = array(array(
             'text' => Mage::helper('core/string')->str_split($item->getName(), 60, true, true),
-            'feed' => 60,
+            'feed' => 100,
         ));
 
         // draw QTY
@@ -60,7 +58,8 @@ class Mage_Sales_Model_Order_Pdf_Items_Shipment_Default extends Mage_Sales_Model
         // draw SKU
         $lines[0][] = array(
             'text'  => Mage::helper('core/string')->str_split($this->getSku($item), 25),
-            'feed'  => 440
+            'feed'  => 565,
+            'align' => 'right'
         );
 
         // Custom options
@@ -71,17 +70,19 @@ class Mage_Sales_Model_Order_Pdf_Items_Shipment_Default extends Mage_Sales_Model
                 $lines[][] = array(
                     'text' => Mage::helper('core/string')->str_split(strip_tags($option['label']), 70, true, true),
                     'font' => 'italic',
-                    'feed' => 60
+                    'feed' => 110
                 );
 
                 // draw options value
                 if ($option['value']) {
-                    $_printValue = isset($option['print_value']) ? $option['print_value'] : strip_tags($option['value']);
+                    $_printValue = isset($option['print_value'])
+                        ? $option['print_value']
+                        : strip_tags($option['value']);
                     $values = explode(', ', $_printValue);
                     foreach ($values as $value) {
                         $lines[][] = array(
                             'text' => Mage::helper('core/string')->str_split($value, 50, true, true),
-                            'feed' => 65
+                            'feed' => 115
                         );
                     }
                 }
@@ -90,7 +91,7 @@ class Mage_Sales_Model_Order_Pdf_Items_Shipment_Default extends Mage_Sales_Model
 
         $lineBlock = array(
             'lines'  => $lines,
-            'height' => 10
+            'height' => 20
         );
 
         $page = $pdf->drawLineBlocks($page, array($lineBlock), array('table_header' => true));

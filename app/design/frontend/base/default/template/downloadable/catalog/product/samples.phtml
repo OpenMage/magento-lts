@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -38,7 +38,7 @@
         <?php $_samples = $this->getSamples() ?>
         <?php foreach ($_samples as $_sample): ?>
             <dd>
-                <a href="<?php echo $this->getSampleUrl($_sample) ?>" <?php echo $this->getIsOpenInNewWindow()?'onclick="this.target=\'_blank\'"':''; ?>><?php echo $_sample->getTitle() ?></a>
+                <a href="<?php echo $this->getSampleUrl($_sample) ?>" <?php echo $this->getIsOpenInNewWindow()?'onclick="this.target=\'_blank\'"':''; ?>><?php echo $this->escapeHtml($_sample->getTitle()); ?></a>
             </dd>
         <?php endforeach; ?>
     </dl>

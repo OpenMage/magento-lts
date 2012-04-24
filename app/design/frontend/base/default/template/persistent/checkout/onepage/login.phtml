@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -87,6 +87,7 @@
                         <input type="password" class="input-text required-entry" id="login-password" name="login[password]" />
                     </div>
                 </li>
+                <?php echo $this->getChildHtml('form.additional.info'); ?>
                 <?php echo $this->getChildHtml('persistent.remember.me'); ?>
             </ul>
             <input name="context" type="hidden" value="checkout" />
@@ -100,6 +101,8 @@
             <p class="required">&nbsp;</p>
             <?php if ($this->getQuote()->isAllowedGuestCheckout()): ?>
                 <button id="onepage-guest-register-button" type="button" class="button" onclick="checkout.setMethod();"><span><span><?php echo $this->__('Continue') ?></span></span></button>
+            <?php elseif ($this->helper('checkout')->isCustomerMustBeLogged()): ?>
+                <button id="onepage-guest-register-button" type="button" class="button" onclick="window.location='<?php echo $this->helper('checkout/url')->getRegistrationUrl();?>'"><span><span><?php echo $this->__('Register') ?></span></span></button>
             <?php else: ?>
                 <form action="<?php echo $this->getUrl('persistent/index/saveMethod'); ?>">
                     <button id="onepage-guest-register-button" type="submit" class="button"><span><span><?php echo $this->__('Register') ?></span></span></button>

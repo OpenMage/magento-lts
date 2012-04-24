@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,6 +34,13 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     const XML_PATH_PRODUCT_URL_SUFFIX           = 'catalog/seo/product_url_suffix';
     const XML_PATH_PRODUCT_URL_USE_CATEGORY     = 'catalog/seo/product_use_categories';
     const XML_PATH_USE_PRODUCT_CANONICAL_TAG    = 'catalog/seo/product_canonical_tag';
+
+    /**
+     * Flag that shows if Magento has to check product to be saleable (enabled and/or inStock)
+     *
+     * @var boolean
+     */
+    protected $_skipSaleableCheck = false;
 
     /**
      * Cache for product rewrite suffix
@@ -307,6 +314,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
             if ($product->canBeShowInCategory($lastId)) {
                 $categoryId = $lastId;
             }
+        } elseif (!$product->canBeShowInCategory($categoryId)) {
+            $categoryId = null;
         }
 
         if ($categoryId) {
@@ -407,38 +416,56 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * @param  string $identifierType
      * @return Mage_Catalog_Model_Product
      */
-    public function getProduct($productId, $store, $identifierType = null) {
-        $loadByIdOnFalse = false;
-        if ($identifierType == null) {
+    public function getProduct($productId, $store, $identifierType = null)
+    {
+        /** @var $product Mage_Catalog_Model_Product */
+        $product = Mage::getModel('catalog/product')->setStoreId(Mage::app()->getStore($store)->getId());
+
+        $expectedIdType = false;
+        if ($identifierType === null) {
             if (is_string($productId) && !preg_match("/^[+-]?[1-9][0-9]*$|^0$/", $productId)) {
-                $identifierType = 'sku';
-                $loadByIdOnFalse = true;
-            } else {
-                $identifierType = 'id';
+                $expectedIdType = 'sku';
             }
         }
 
-        /** @var $product Mage_Catalog_Model_Product */
-        $product = Mage::getModel('catalog/product');
-        if ($store !== null) {
-            $product->setStoreId($store);
-        }
-        if ($identifierType == 'sku') {
+        if ($identifierType == 'sku' || $expectedIdType == 'sku') {
             $idBySku = $product->getIdBySku($productId);
             if ($idBySku) {
                 $productId = $idBySku;
-            }
-            if ($loadByIdOnFalse) {
-                $identifierType = 'id';
+            } else if ($identifierType == 'sku') {
+                // Return empty product because it was not found by originally specified SKU identifier
+                return $product;
             }
         }
 
-        if ($identifierType == 'id' && is_numeric($productId)) {
-            $productId = !is_float($productId) ? (int) $productId : 0;
-            $product->load($productId);
+        if ($productId && is_numeric($productId)) {
+            $product->load((int) $productId);
         }
 
         return $product;
     }
 
+    /**
+     * Set flag that shows if Magento has to check product to be saleable (enabled and/or inStock)
+     *
+     * For instance, during order creation in the backend admin has ability to add any products to order
+     *
+     * @param bool $skipSaleableCheck
+     * @return Mage_Catalog_Helper_Product
+     */
+    public function setSkipSaleableCheck($skipSaleableCheck = false)
+    {
+        $this->_skipSaleableCheck = $skipSaleableCheck;
+        return $this;
+    }
+
+    /**
+     * Get flag that shows if Magento has to check product to be saleable (enabled and/or inStock)
+     *
+     * @return boolean
+     */
+    public function getSkipSaleableCheck()
+    {
+        return $this->_skipSaleableCheck;
+    }
 }

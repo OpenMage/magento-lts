@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_AdminNotification
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -116,5 +116,95 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     public function parse(array $data)
     {
         return $this->getResource()->parse($this, $data);
+    }
+
+    /**
+     * Add new message
+     *
+     * @param int $severity
+     * @param string $title
+     * @param string|array $description
+     * @param string $url
+     * @param bool $isInternal
+     * @return Mage_AdminNotification_Model_Inbox
+     */
+    public function add($severity, $title, $description, $url = '', $isInternal = true)
+    {
+        if (!$this->getSeverities($severity)) {
+            Mage::throwException($this->__('Wrong message type'));
+        }
+        if (is_array($description)) {
+            $description = '<ul><li>' . implode('</li><li>', $description) . '</li></ul>';
+        }
+        $date = date('Y-m-d H:i:s');
+        $this->parse(array(array(
+            'severity'    => $severity,
+            'date_added'  => $date,
+            'title'       => $title,
+            'description' => $description,
+            'url'         => $url,
+            'internal'    => $isInternal
+        )));
+        return $this;
+    }
+
+    /**
+     * Add critical severity message
+     *
+     * @param string $title
+     * @param string|array $description
+     * @param string $url
+     * @param bool $isInternal
+     * @return Mage_AdminNotification_Model_Inbox
+     */
+    public function addCritical($title, $description, $url = '', $isInternal = true)
+    {
+        $this->add(self::SEVERITY_CRITICAL, $title, $description, $url, $isInternal);
+        return $this;
+    }
+
+    /**
+     * Add major severity message
+     *
+     * @param string $title
+     * @param string|array $description
+     * @param string $url
+     * @param bool $isInternal
+     * @return Mage_AdminNotification_Model_Inbox
+     */
+    public function addMajor($title, $description, $url = '', $isInternal = true)
+    {
+        $this->add(self::SEVERITY_MAJOR, $title, $description, $url, $isInternal);
+        return $this;
+    }
+
+    /**
+     * Add minor severity message
+     *
+     * @param string $title
+     * @param string|array $description
+     * @param string $url
+     * @param bool $isInternal
+     * @return Mage_AdminNotification_Model_Inbox
+     */
+    public function addMinor($title, $description, $url = '', $isInternal = true)
+    {
+        $this->add(self::SEVERITY_MINOR, $title, $description, $url, $isInternal);
+        return $this;
+    }
+
+    /**
+     * Add notice
+     *
+     * @param string $title
+     * @param string|array $description
+     * @param string $url
+     * @param bool $isInternal
+     * @return Mage_AdminNotification_Model_Inbox
+     */
+    public function addNotice($title, $description, $url = '', $isInternal = true)
+    {
+        $this->add(self::SEVERITY_NOTICE, $title, $description, $url, $isInternal);
+        return $this;
     }
 }

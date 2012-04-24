@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,11 +33,19 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Block_Widget_Form
 {
+    /**
+     * Initialize block
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
+    /**
+     * Initialize form
+     *
+     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Account
+     */
     public function initForm()
     {
         $form = new Varien_Data_Form();
@@ -46,28 +54,64 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
 
         $customer = Mage::registry('current_customer');
 
-        /* @var $customerForm Mage_Customer_Model_Form */
+        /** @var $customerForm Mage_Customer_Model_Form */
         $customerForm = Mage::getModel('customer/form');
         $customerForm->setEntity($customer)
             ->setFormCode('adminhtml_customer')
             ->initDefaultValues();
 
-        $fieldset = $form->addFieldset('base_fieldset',
-            array('legend'=>Mage::helper('customer')->__('Account Information'))
-        );
+        $fieldset = $form->addFieldset('base_fieldset', array(
+            'legend' => Mage::helper('customer')->__('Account Information')
+        ));
 
         $attributes = $customerForm->getAttributes();
         foreach ($attributes as $attribute) {
+            /* @var $attribute Mage_Eav_Model_Entity_Attribute */
+            $attribute->setFrontendLabel(Mage::helper('customer')->__($attribute->getFrontend()->getLabel()));
             $attribute->unsIsVisible();
         }
-        $this->_setFieldset($attributes, $fieldset);
+
+        $disableAutoGroupChangeAttributeName = 'disable_auto_group_change';
+        $this->_setFieldset($attributes, $fieldset, array($disableAutoGroupChangeAttributeName));
+
+        $form->getElement('group_id')->setRenderer($this->getLayout()
+            ->createBlock('adminhtml/customer_edit_renderer_attribute_group')
+            ->setDisableAutoGroupChangeAttribute($customerForm->getAttribute($disableAutoGroupChangeAttributeName))
+            ->setDisableAutoGroupChangeAttributeValue($customer->getData($disableAutoGroupChangeAttributeName)));
 
         if ($customer->getId()) {
             $form->getElement('website_id')->setDisabled('disabled');
             $form->getElement('created_in')->setDisabled('disabled');
         } else {
             $fieldset->removeField('created_in');
+            $form->getElement('website_id')->addClass('validate-website-has-store');
+
+            $websites = array();
+            foreach (Mage::app()->getWebsites(true) as $website) {
+                $websites[$website->getId()] = !is_null($website->getDefaultStore());
+            }
+            $prefix = $form->getHtmlIdPrefix();
+
+            $form->getElement('website_id')->setAfterElementHtml(
+                '<script type="text/javascript">'
+                . "
+                var {$prefix}_websites = " . Mage::helper('core')->jsonEncode($websites) .";
+                Validation.add(
+                    'validate-website-has-store',
+                    '" . Mage::helper('customer')->__('Please select a website which contains store view') . "',
+                    function(v, elem){
+                        return {$prefix}_websites[elem.value] == true;
+                    }
+                );
+                Element.observe('{$prefix}website_id', 'change', function(){
+                    Validation.validate($('{$prefix}website_id'))
+                }.bind($('{$prefix}website_id')));
+                "
+                . '</script>'
+            );
         }
+        $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+        $form->getElement('website_id')->setRenderer($renderer);
 
 //        if (Mage::app()->isSingleStoreMode()) {
 //            $fieldset->removeField('website_id');
@@ -119,10 +163,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
 
         if ($customer->getId()) {
             if (!$customer->isReadonly()) {
-                // add password management fieldset
+                // Add password management fieldset
                 $newFieldset = $form->addFieldset(
                     'password_fieldset',
-                    array('legend'=>Mage::helper('customer')->__('Password Management'))
+                    array('legend' => Mage::helper('customer')->__('Password Management'))
                 );
                 // New customer password
                 $field = $newFieldset->addField('new_password', 'text',
@@ -134,7 +178,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 );
                 $field->setRenderer($this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass'));
 
-                // prepare customer confirmation control (only for existing customers)
+                // Prepare customer confirmation control (only for existing customers)
                 $confirmationKey = $customer->getConfirmation();
                 if ($confirmationKey || $customer->isConfirmationRequired()) {
                     $confirmationAttribute = $customer->getAttribute('confirmation');
@@ -147,8 +191,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                     ))->setEntityAttribute($confirmationAttribute)
                         ->setValues(array('' => 'Confirmed', $confirmationKey => 'Not confirmed'));
 
-                    // prepare send welcome email checkbox, if customer is not confirmed
-                    // no need to add it, if website id is empty
+                    // Prepare send welcome email checkbox if customer is not confirmed
+                    // no need to add it, if website ID is empty
                     if ($customer->getConfirmation() && $customer->getWebsiteId()) {
                         $fieldset->addField('sendemail', 'checkbox', array(
                             'name'  => 'sendemail',
@@ -173,7 +217,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             );
             $field->setRenderer($this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass'));
 
-            // prepare send welcome email checkbox
+            // Prepare send welcome email checkbox
             $fieldset->addField('sendemail', 'checkbox', array(
                 'label' => Mage::helper('customer')->__('Send Welcome Email'),
                 'name'  => 'sendemail',
@@ -189,7 +233,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             }
         }
 
-        // make sendemail and sendmail_store_id disabled, if website_id has empty value
+        // Make sendemail and sendmail_store_id disabled if website_id has empty value
         $isSingleMode = Mage::app()->isSingleStoreMode();
         $sendEmailId = $isSingleMode ? 'sendemail' : 'sendemail_store_id';
         $sendEmail = $form->getElement($sendEmailId);

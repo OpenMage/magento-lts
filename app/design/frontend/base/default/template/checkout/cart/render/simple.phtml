@@ -20,10 +20,10 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
- 
+
 /**
  * @deprecated  after 1.4.0.0-alpha3
  */
@@ -41,7 +41,7 @@
     </td>
     <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
     <td class="a-center">
-        <input type="checkbox" value="1" name="cart[<?php echo $_item->getId() ?>][wishlist]" class="checkbox" />
+        <a href="<?php echo $this->helper('wishlist')->getMoveFromCartUrl($_item->getId()); ?>" class="link-wishlist"><?php echo $this->__('Move'); ?></a>
     </td>
     <?php endif ?>
     <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>

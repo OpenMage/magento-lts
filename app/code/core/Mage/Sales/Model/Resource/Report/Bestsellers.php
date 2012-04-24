@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -228,9 +228,9 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
                 'period'                         => 'period',
                 'store_id'                       => new Zend_Db_Expr(Mage_Core_Model_App::ADMIN_STORE_ID),
                 'product_id'                     => 'product_id',
-                'product_name'                   => new Zend_Db_expr('MIN(product_name)'),
-                'product_price'                  => new Zend_Db_expr('MIN(product_price)'),
-                'qty_ordered'                    => new Zend_Db_expr('SUM(qty_ordered)'),
+                'product_name'                   => new Zend_Db_Expr('MIN(product_name)'),
+                'product_price'                  => new Zend_Db_Expr('MIN(product_price)'),
+                'qty_ordered'                    => new Zend_Db_Expr('SUM(qty_ordered)'),
             );
 
             $select->reset();

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,6 +54,24 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
     protected function _construct()
     {
         $this->_init('wishlist/wishlist', 'wishlist_id');
+    }
+
+    /**
+     * Prepare wishlist load select query
+     *
+     * @param string $field
+     * @param mixed $value
+     * @param mixed $object
+     * @return Zend_Db_Select
+     */
+    protected function _getLoadSelect($field, $value, $object)
+    {
+        $select = parent::_getLoadSelect($field, $value, $object);
+        if ($field == $this->_customerIdFieldName) {
+            $select->order('wishlist_id ' . Zend_Db_Select::SQL_ASC)
+                ->limit(1);
+        }
+        return $select;
     }
 
     /**

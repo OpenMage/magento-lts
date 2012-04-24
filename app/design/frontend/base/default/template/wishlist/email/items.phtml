@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* @var $this Mage_Wishlist_Block_Share_Email_Items */
@@ -30,12 +30,15 @@
 <table cellspacing="0" cellpadding="0" border="0" width="650">
     <tr>
     <?php $i = 0; foreach ($this->getWishlistItems() as $item): $i++ ?>
+        <?php /* @var $item Mage_Wishlist_Model_Item */ ?>
+        <?php /* @var $_product Mage_Catalog_Model_Product */ ?>
+        <?php $_product = $item->getProduct(); ?>
         <td width="32%">
-            <p align="center" style="font-size:12px;"><a href="<?php echo $this->getProductUrl($item) ?>"><img src="<?php echo $this->helper('catalog/image')->init($item->getProduct(), 'small_image')->resize(135); ?>" style="border:1px solid #ccc;" width="135" height="135" alt="" /></a></p>
-            <p align="center" style="font-size:12px;"><a href="<?php echo $this->getProductUrl($item) ?>" style="color:#203548;"><strong><?php echo $this->htmlEscape($item->getName()) ?></strong></a></p>
+            <p align="center" style="font-size:12px;"><a href="<?php echo $this->getProductUrl($_product) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" style="border:1px solid #ccc;" width="135" height="135" alt="" /></a></p>
+            <p align="center" style="font-size:12px;"><a href="<?php echo $this->getProductUrl($_product) ?>" style="color:#203548;"><strong><?php echo $this->escapeHtml($_product->getName()) ?></strong></a></p>
             <?php if($this->hasDescription($item)): ?><p align="center" style="font-size:12px;"><?php echo $this->__('Comment') ?>:<br /><?php echo $this->getEscapedDescription($item) ?></p><?php endif; ?>
-            <p align="center" style="font-size:12px;"><a href="<?php echo $this->getProductUrl($item) ?>" style="color:#1E7EC8;"><?php echo $this->__('View Product') ?></a> <small>
-            <?php if ($item->getIsSalable()): ?>|</small> <a href="<?php echo $this->getAddToCartUrl($item) ?>" style="color:#1E7EC8;"><strong><?php echo $this->__('Add to Cart') ?></strong></a><?php endif;?>
+            <p align="center" style="font-size:12px;"><a href="<?php echo $this->getProductUrl($_product) ?>" style="color:#1E7EC8;"><?php echo $this->__('View Product') ?></a> <small>
+            <?php if ($_product->getIsSalable()): ?>|</small> <a href="<?php echo $this->getAddToCartUrl($_product) ?>" style="color:#1E7EC8;"><strong><?php echo $this->__('Add to Cart') ?></strong></a><?php endif;?>
             </p></td>
         <?php if ($i%3!=0): ?>
             <td width="2%"></td>

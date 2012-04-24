@@ -33,8 +33,8 @@ Mage::register('original_include_path', get_include_path());
 if (defined('COMPILER_INCLUDE_PATH')) {
     $appPath = COMPILER_INCLUDE_PATH;
     set_include_path($appPath . PS . Mage::registry('original_include_path'));
-    include_once "Mage_Core_functions.php";
-    include_once "Varien_Autoload.php";
+    include_once COMPILER_INCLUDE_PATH . DS . "Mage_Core_functions.php";
+    include_once COMPILER_INCLUDE_PATH . DS . "Varien_Autoload.php";
 } else {
     /**
      * Set include path
@@ -130,6 +130,22 @@ final class Mage
     static private $_isInstalled;
 
     /**
+     * Magento edition constants
+     */
+    const EDITION_COMMUNITY    = 'Community';
+    const EDITION_ENTERPRISE   = 'Enterprise';
+    const EDITION_PROFESSIONAL = 'Professional';
+    const EDITION_GO           = 'Go';
+
+    /**
+     * Current Magento edition.
+     *
+     * @var string
+     * @static
+     */
+    static private $_currentEdition = self::EDITION_COMMUNITY;
+
+    /**
      * Gets the current Magento version string
      * @link http://www.magentocommerce.com/blog/new-community-edition-release-process/
      *
@@ -138,7 +154,8 @@ final class Mage
     public static function getVersion()
     {
         $i = self::getVersionInfo();
-        return trim("{$i['major']}.{$i['minor']}.{$i['revision']}" . ($i['patch'] != '' ? ".{$i['patch']}" : "") . "-{$i['stability']}{$i['number']}", '.-');
+        return trim("{$i['major']}.{$i['minor']}.{$i['revision']}" . ($i['patch'] != '' ? ".{$i['patch']}" : "")
+                        . "-{$i['stability']}{$i['number']}", '.-');
     }
 
     /**
@@ -151,12 +168,23 @@ final class Mage
     {
         return array(
             'major'     => '1',
-            'minor'     => '6',
-            'revision'  => '1',
+            'minor'     => '7',
+            'revision'  => '0',
             'patch'     => '0',
             'stability' => '',
             'number'    => '',
         );
+    }
+
+    /**
+     * Get current Magento edition
+     *
+     * @static
+     * @return string
+     */
+    public static function getEdition()
+    {
+       return self::$_currentEdition;
     }
 
     /**
@@ -166,12 +194,14 @@ final class Mage
     public static function reset()
     {
         self::$_registry        = array();
+        self::$_appRoot         = null;
         self::$_app             = null;
         self::$_config          = null;
         self::$_events          = null;
         self::$_objects         = null;
         self::$_isDownloader    = false;
         self::$_isDeveloperMode = false;
+        self::$_isInstalled     = null;
         // do not reset $headersSentThrowsException
     }
 
@@ -343,6 +373,7 @@ final class Mage
      * Get base URL path by type
      *
      * @param string $type
+     * @param null|bool $secure
      * @return string
      */
     public static function getBaseUrl($type = Mage_Core_Model_Store::URL_TYPE_LINK, $secure = null)
@@ -404,17 +435,16 @@ final class Mage
      * Dispatch event
      *
      * Calls all observer callbacks registered for this event
-     * and multiobservers matching event name pattern
+     * and multiple observers matching event name pattern
      *
      * @param string $name
-     * @param array $args
+     * @param array $data
      * @return Mage_Core_Model_App
      */
     public static function dispatchEvent($name, array $data = array())
     {
         Varien_Profiler::start('DISPATCH EVENT:'.$name);
         $result = self::app()->dispatchEvent($name, $data);
-        #$result = self::registry('events')->dispatch($name, $data);
         Varien_Profiler::stop('DISPATCH EVENT:'.$name);
         return $result;
     }
@@ -424,8 +454,8 @@ final class Mage
      *
      * @link    Mage_Core_Model_Config::getModelInstance
      * @param   string $modelClass
-     * @param   array $arguments
-     * @return  Mage_Core_Model_Abstract
+     * @param   array|object $arguments
+     * @return  Mage_Core_Model_Abstract|false
      */
     public static function getModel($modelClass = '', $arguments = array())
     {
@@ -519,7 +549,7 @@ final class Mage
     }
 
     /**
-     * Retreive resource helper object
+     * Retrieve resource helper object
      *
      * @param string $moduleName
      * @return Mage_Core_Model_Resource_Helper_Abstract
@@ -554,6 +584,7 @@ final class Mage
      *
      * @param string $message
      * @param string $messageStorage
+     * @throws Mage_Core_Exception
      */
     public static function throwException($message, $messageStorage = null)
     {
@@ -577,7 +608,8 @@ final class Mage
             self::$_app = new Mage_Core_Model_App();
             self::setRoot();
             self::$_events = new Varien_Event_Collection();
-            self::$_config = new Mage_Core_Model_Config($options);
+            self::_setIsInstalled($options);
+            self::_setConfigModel($options);
 
             Varien_Profiler::start('self::app::init');
             self::$_app->init($code, $type, $options);
@@ -599,7 +631,8 @@ final class Mage
         try {
             self::setRoot();
             self::$_app     = new Mage_Core_Model_App();
-            self::$_config  = new Mage_Core_Model_Config();
+            self::_setIsInstalled($options);
+            self::_setConfigModel($options);
 
             if (!empty($modules)) {
                 self::$_app->initSpecified($code, $type, $options, $modules);
@@ -630,9 +663,19 @@ final class Mage
         try {
             Varien_Profiler::start('mage');
             self::setRoot();
+            if (isset($options['edition'])) {
+                self::$_currentEdition = $options['edition'];
+            }
             self::$_app    = new Mage_Core_Model_App();
+            if (isset($options['request'])) {
+                self::$_app->setRequest($options['request']);
+            }
+            if (isset($options['response'])) {
+                self::$_app->setResponse($options['response']);
+            }
             self::$_events = new Varien_Event_Collection();
-            self::$_config = new Mage_Core_Model_Config($options);
+            self::_setIsInstalled($options);
+            self::_setConfigModel($options);
             self::$_app->run(array(
                 'scope_code' => $code,
                 'scope_type' => $type,
@@ -660,6 +703,40 @@ final class Mage
             } catch (Exception $ne) {
                 self::printException($ne, $e->getMessage());
             }
+        }
+    }
+
+    /**
+     * Set application isInstalled flag based on given options
+     *
+     * @param array $options
+     */
+    protected static function _setIsInstalled($options = array())
+    {
+        if (isset($options['is_installed']) && $options['is_installed']) {
+            self::$_isInstalled = true;
+        }
+    }
+
+    /**
+     * Set application Config model
+     *
+     * @param array $options
+     */
+    protected static function _setConfigModel($options = array())
+    {
+        if (isset($options['config_model']) && class_exists($options['config_model'])) {
+            $alternativeConfigModelName = $options['config_model'];
+            unset($options['config_model']);
+            $alternativeConfigModel = new $alternativeConfigModelName($options);
+        } else {
+            $alternativeConfigModel = null;
+        }
+
+        if (!is_null($alternativeConfigModel) && ($alternativeConfigModel instanceof Mage_Core_Model_Config)) {
+            self::$_config = $alternativeConfigModel;
+        } else {
+            self::$_config = new Mage_Core_Model_Config($options);
         }
     }
 

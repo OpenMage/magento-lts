@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -146,6 +146,8 @@ addressesModel.prototype = {
 
         this.loader = new varienLoader(true);
         this.regionsUrl = '<?php echo $this->getRegionsUrl() ?>';
+        this.requiredStateForCountries = <?php echo $this->helper('directory')->getCountriesWithStatesRequired(true) ?>;
+        this.showAllRegions = <?php echo (string)$this->helper('directory')->getShowNonRequiredState() ? 1 : 0; ?>;
 
         this.reloadItemList(1);
 
@@ -206,7 +208,10 @@ addressesModel.prototype = {
             if($('no_address_message')){
                 $('no_address_message').hide();
             }
-
+            // preventing duplication of ids for fields and blocks
+            while ($$("div[id='form_address_item_" + this.itemCount + "']").length) {
+                this.itemCount++;
+            }
             // create new form elements
             Element.insert(this.formContainer, {bottom:
                 '<div id="' + 'form_' + this.baseItemId + this.itemCount + '">'
@@ -330,6 +335,16 @@ addressesModel.prototype = {
             //new Effect.Appear($('form_'+item.id), {duration : 0.3 });
             //$('form_'+item.id).focus();
             this.addFieldChangeObserver($('form_'+item.id));
+            var regionIdElement = $('_item' + item.id.replace(/address_item_/, '') + 'region_id');
+            var regionElement = $('_item' + item.id.replace(/address_item_/, '') + 'region');
+            this.countryEl = $('_item' + item.id.replace(/address_item_/, '') + 'country_id');
+            if (regionIdElement && regionElement) {
+                var actualId = regionElement.id;
+                if (('select' == regionIdElement.tagName.toLowerCase()) && regionIdElement) {
+                    actualId = regionIdElement.id;
+                }
+                this._checkRegionRequired([regionIdElement, regionElement], actualId);
+            }
         }
 
         this.activeItem = item;
@@ -406,8 +421,12 @@ addressesModel.prototype = {
                 var html = this.itemContentTemplate.evaluate(data);
                 html = html.replace(new RegExp('(<br\\s*/?>\\s*){2,}','img'),'<br/>');
                 html = html.replace(new RegExp('<br\\s*/?>(\\s*,){1,}\\s*<br\\s*/?>','ig'),'<br/>');
+                html = html.replace(new RegExp('<br\\s*/?>(\\s*,){1,}(.*)<br\\s*/?>','ig'),'<br/>$2<br/>');
+                html = html.replace(new RegExp('<br\\s*/?>(.*?)(,\\s*){1,}<br\\s*/?>','ig'),'<br/>$1<br/>');
+                html = html.replace(new RegExp('<br\\s*/?>(.*?)(,\\s*){2,}(.*?)<br\\s*/?>','ig'),'<br/>$1, $3<br/>');
                 html = html.replace(new RegExp('t:\\s*<br\\s*/?>','ig'),'');
-                html = html.replace(new RegExp('f:\\s*$','ig'),'');
+                html = html.replace(new RegExp('f:\\s*<br\\s*/?>','ig'),'');
+                html = html.replace(new RegExp('vat:\\s*$','ig'),'');
                 itemContainer[0].innerHTML = html;
             }
         }
@@ -476,6 +495,7 @@ addressesModel.prototype = {
             var regionElement  = $(countryElement.id.replace(/country_id/, 'region'));
             if(regionElement){
                 this.regionElement = regionElement;
+                this.countryEl = countryElement;
                 if (countryElement.value) {
                     var url = this.regionsUrl + 'parent/' + countryElement.value;
                     this.loader.load(url, {}, this.refreshRegionField.bind(this));
@@ -549,6 +569,61 @@ addressesModel.prototype = {
         var newInput = $(newInputId);
         Event.observe(newInput, 'change', this.onItemFormFieldChange); // Restore observing to update address info
         this.syncFormData(newInput); // Update address info now
+        var activeElementId = regionHtmlId;
+        if (('select' == $(regionIdHtmlId).tagName.toLowerCase()) && regionIdHtmlId) {
+            activeElementId = regionIdHtmlId;
+        }
+        this._checkRegionRequired([$(regionHtmlId), $(regionIdHtmlId)], activeElementId);
+    },
+
+    _checkRegionRequired: function(elements, activeElementId)
+    {
+        var label, wildCard;
+        var that = this;
+        var regionRequired = this.requiredStateForCountries.indexOf(this.countryEl.value) >= 0;
+
+        elements.each(function(currentElement) {
+            Validation.reset(currentElement);
+            label = $$('label[for="' + currentElement.id + '"]')[0];
+            if (label) {
+                wildCard = label.down('em') || label.down('span.required');
+                if (!that.showAllRegions) {
+                    if (regionRequired) {
+                        label.up('tr').show();
+                    } else {
+                        label.up('tr').hide();
+                    }
+                }
+            }
+
+            if (label && wildCard) {
+                if (!regionRequired) {
+                    wildCard.hide();
+                } else {
+                    wildCard.show();
+                }
+            }
+
+            if (!regionRequired) {
+                if (currentElement.hasClassName('required-entry')) {
+                    currentElement.removeClassName('required-entry');
+                }
+                if ('select' == currentElement.tagName.toLowerCase() &&
+                    currentElement.hasClassName('validate-select')
+                ) {
+                    currentElement.removeClassName('validate-select');
+                }
+            } else if (activeElementId == currentElement.id) {
+                if (!currentElement.hasClassName('required-entry')) {
+                    currentElement.addClassName('required-entry');
+                }
+                if ('select' == currentElement.tagName.toLowerCase() &&
+                    !currentElement.hasClassName('validate-select')
+                ) {
+                    currentElement.addClassName('validate-select');
+                }
+            }
+        });
     }
 }
 

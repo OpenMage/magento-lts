@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -107,6 +107,14 @@
                     </payment_sales_order_save_before>
                 </observers>
             </sales_order_save_before>
+            <sales_order_payment_save_before>
+                <observers>
+                    <payment_before_save>
+                        <class>payment/observer</class>
+                        <method>beforeOrderPaymentSave</method>
+                    </payment_before_save>
+                </observers>
+            </sales_order_payment_save_before>
         </events>
     </global>
     <frontend>
@@ -184,6 +192,22 @@
                 <allowspecific>0</allowspecific>
                 <group>offline</group>
             </purchaseorder>
+            <banktransfer>
+                <active>0</active>
+                <model>payment/method_banktransfer</model>
+                <order_status>pending</order_status>
+                <title>Bank Transfer Payment</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </banktransfer>
+            <cashondelivery>
+                <active>0</active>
+                <model>payment/method_cashondelivery</model>
+                <order_status>pending</order_status>
+                <title>Cash On Delivery</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </cashondelivery>
         </payment>
     </default>
 </config>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -183,7 +183,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         $session = $this->_getSession();
 
         if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl()) {
-
             // Set default URL to redirect customer to
             $session->setBeforeAuthUrl(Mage::helper('customer')->getAccountUrl());
             // Redirect customer to the last page visited after logging in
@@ -193,7 +192,9 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 )) {
                     $referer = $this->getRequest()->getParam(Mage_Customer_Helper_Data::REFERER_QUERY_PARAM_NAME);
                     if ($referer) {
-                        $referer = Mage::helper('core')->urlDecode($referer);
+                        // Rebuild referer URL to handle the case when SID was changed
+                        $referer = Mage::getModel('core/url')
+                            ->getRebuiltUrl(Mage::helper('core')->urlDecode($referer));
                         if ($this->_isUrlInternal($referer)) {
                             $session->setBeforeAuthUrl($referer);
                         }
@@ -392,6 +393,19 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         $this->_getSession()->addSuccess(
             $this->__('Thank you for registering with %s.', Mage::app()->getStore()->getFrontendName())
         );
+        if ($this->_isVatValidationEnabled()) {
+            // Show corresponding VAT message to customer
+            $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType();
+            $userPrompt = '';
+            switch ($configAddressType) {
+                case Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING:
+                    $userPrompt = $this->__('If you are a registered VAT customer, please click <a href="%s">here</a> to enter you shipping address for proper VAT calculation', Mage::getUrl('customer/address/edit'));
+                    break;
+                default:
+                    $userPrompt = $this->__('If you are a registered VAT customer, please click <a href="%s">here</a> to enter you billing address for proper VAT calculation', Mage::getUrl('customer/address/edit'));
+            }
+            $this->_getSession()->addSuccess($userPrompt);
+        }
 
         $customer->sendNewAccountEmail(
             $isJustConfirmed ? 'confirmed' : 'registered',
@@ -589,7 +603,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $this->renderLayout();
         } catch (Exception $exception) {
             $this->_getSession()->addError(Mage::helper('customer')->__('Your password reset link has expired.'));
-            $this->_redirect('*/*/');
+            $this->_redirect('*/*/forgotpassword');
         }
     }
 
@@ -818,5 +832,16 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     {
         $data = $this->_filterDates($data, array('dob'));
         return $data;
+    }
+
+    /**
+     * Check whether VAT ID validation is enabled
+     *
+     * @param Mage_Core_Model_Store|string|int $store
+     * @return bool
+     */
+    protected function _isVatValidationEnabled($store = null)
+    {
+        return Mage::helper('customer/address')->isVatValidationEnabled($store);
     }
 }

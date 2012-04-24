@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -212,18 +212,20 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             $shipment->getOrder()->setCustomerNoteNotify(!empty($data['send_email']));
             $responseAjax = new Varien_Object();
             $isNeedCreateLabel = isset($data['create_shipping_label']) && $data['create_shipping_label'];
-            if ($isNeedCreateLabel) {
-                if ($this->_createShippingLabel($shipment)) {
-                    $this->_getSession()
-                        ->addSuccess($this->__('The shipment has been created. The shipping label has been created.'));
-                    $responseAjax->setOk(true);
-                }
-            } else {
-                $this->_getSession()
-                    ->addSuccess($this->__('The shipment has been created.'));
+
+            if ($isNeedCreateLabel && $this->_createShippingLabel($shipment)) {
+                $responseAjax->setOk(true);
             }
+
             $this->_saveShipment($shipment);
+
             $shipment->sendEmail(!empty($data['send_email']), $comment);
+
+            $shipmentCreatedMessage = $this->__('The shipment has been created.');
+            $labelCreatedMessage    = $this->__('The shipping label has been created.');
+
+            $this->_getSession()->addSuccess($isNeedCreateLabel ? $shipmentCreatedMessage . ' ' . $labelCreatedMessage
+                : $shipmentCreatedMessage);
             Mage::getSingleton('adminhtml/session')->getCommentText(true);
         } catch (Mage_Core_Exception $e) {
             if ($isNeedCreateLabel) {
@@ -237,7 +239,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             Mage::logException($e);
             if ($isNeedCreateLabel) {
                 $responseAjax->setError(true);
-                $responseAjax->setMessage(Mage::helper('sales')->__('An error occurred while creating shipping label.'));
+                $responseAjax->setMessage(
+                    Mage::helper('sales')->__('An error occurred while creating shipping label.'));
             } else {
                 $this->_getSession()->addError($this->__('Cannot save shipment.'));
                 $this->_redirect('*/*/new', array('order_id' => $this->getRequest()->getParam('order_id')));

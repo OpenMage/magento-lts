@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,6 +50,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     const COL_ATTR_SET = '_attribute_set';
     const COL_TYPE     = '_type';
     const COL_CATEGORY = '_category';
+    const COL_ROOT_CATEGORY = '_root_category';
     const COL_SKU      = 'sku';
 
     /**
@@ -65,6 +66,13 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      * @var array
      */
     protected $_categories = array();
+
+    /**
+     * Root category names for each category
+     *
+     * @var array
+     */
+    protected $_rootCategories = array();
 
     /**
      * Attributes with index (not label) value.
@@ -158,13 +166,17 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         foreach ($collection as $category) {
             $structure = preg_split('#/+#', $category->getPath());
             $pathSize  = count($structure);
-            if ($pathSize > 2) {
+            if ($pathSize > 1) {
                 $path = array();
-                for ($i = 2; $i < $pathSize; $i++) {
+                for ($i = 1; $i < $pathSize; $i++) {
                     $path[] = $collection->getItemById($structure[$i])->getName();
                 }
-                $this->_categories[$category->getId()] = implode('/', $path);
+                $this->_rootCategories[$category->getId()] = array_shift($path);
+                if ($pathSize > 2) {
+                    $this->_categories[$category->getId()] = implode('/', $path);
+                }
             }
+
         }
         return $this;
     }
@@ -248,6 +260,39 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         }
 
         return $rowTierPrices;
+    }
+
+    /**
+     * Prepare products group prices
+     *
+     * @param  array $productIds
+     * @return array
+     */
+    protected function _prepareGroupPrices(array $productIds)
+    {
+        if (empty($productIds)) {
+            return array();
+        }
+        $resource = Mage::getSingleton('core/resource');
+        $select = $this->_connection->select()
+            ->from($resource->getTableName('catalog/product_attribute_group_price'))
+            ->where('entity_id IN(?)', $productIds);
+
+        $rowGroupPrices = array();
+        $statement = $this->_connection->query($select);
+        while ($groupRow = $statement->fetch()) {
+            $rowGroupPrices[$groupRow['entity_id']][] = array(
+                '_group_price_customer_group' => $groupRow['all_groups']
+                    ? self::VALUE_ALL
+                    : $groupRow['customer_group_id'],
+                '_group_price_website'        => (0 == $groupRow['website_id'])
+                    ? self::VALUE_ALL
+                    : $this->_websiteIdToCode[$groupRow['website_id']],
+                '_group_price_price'          => $groupRow['value']
+            );
+        }
+
+        return $rowGroupPrices;
     }
 
     /**
@@ -477,6 +522,29 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     }
 
     /**
+     * Update data row with information about categories. Return true, if data row was updated
+     *
+     * @param array $dataRow
+     * @param array $rowCategories
+     * @param int $productId
+     * @return bool
+     */
+    protected function _updateDataWithCategoryColumns(&$dataRow, &$rowCategories, $productId)
+    {
+        if (!isset($rowCategories[$productId])) {
+            return false;
+        }
+
+        $categoryId = array_shift($rowCategories[$productId]);
+        $dataRow[self::COL_ROOT_CATEGORY] = $this->_rootCategories[$categoryId];
+        if (isset($this->_categories[$categoryId])) {
+            $dataRow[self::COL_CATEGORY] = $this->_categories[$categoryId];
+        }
+
+        return true;
+    }
+
+    /**
      * Export process.
      *
      * @return string
@@ -526,6 +594,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
             $rowCategories   = array();
             $rowWebsites     = array();
             $rowTierPrices   = array();
+            $rowGroupPrices  = array();
             $rowMultiselects = array();
             $mediaGalery     = array();
 
@@ -547,8 +616,9 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 if ($defaultStoreId == $storeId) {
                     $collection->addCategoryIds()->addWebsiteNamesToResult();
 
-                    // tier price data getting only once
+                    // tier and group price data getting only once
                     $rowTierPrices = $this->_prepareTierPrices($collection->getAllIds());
+                    $rowGroupPrices = $this->_prepareGroupPrices($collection->getAllIds());
 
                     // getting media gallery data
                     $mediaGalery = $this->_prepareMediaGallery($collection->getAllIds());
@@ -607,9 +677,10 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 break;
             }
 
-            // remove root categories
-            foreach ($rowCategories as $productId => &$categories) {
-                $categories = array_intersect($categories, array_keys($this->_categories));
+            // remove unused categories
+            $allCategoriesIds = array_merge(array_keys($this->_categories), array_keys($this->_rootCategories));
+            foreach ($rowCategories as &$categories) {
+                $categories = array_intersect($categories, $allCategoriesIds);
             }
 
             // prepare catalog inventory information
@@ -754,7 +825,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 $headerCols = array_merge(
                     array(
                         self::COL_SKU, self::COL_STORE, self::COL_ATTR_SET,
-                        self::COL_TYPE, self::COL_CATEGORY, '_product_websites'
+                        self::COL_TYPE, self::COL_CATEGORY, self::COL_ROOT_CATEGORY, '_product_websites'
                     ),
                     $validAttrCodes,
                     reset($stockItemRows) ? array_keys(end($stockItemRows)) : array(),
@@ -765,6 +836,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         '_associated_sku', '_associated_default_qty', '_associated_position'
                     ),
                     array('_tier_price_website', '_tier_price_customer_group', '_tier_price_qty', '_tier_price_price'),
+                    array('_group_price_website', '_group_price_customer_group', '_group_price_price'),
                     array(
                         '_media_attribute_id',
                         '_media_image',
@@ -800,14 +872,16 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         $dataRow[self::COL_STORE] = null;
                         $dataRow += $stockItemRows[$productId];
                     }
-                    if ($rowCategories[$productId]) {
-                        $dataRow[self::COL_CATEGORY] = $this->_categories[array_shift($rowCategories[$productId])];
-                    }
+
+                    $this->_updateDataWithCategoryColumns($dataRow, $rowCategories, $productId);
                     if ($rowWebsites[$productId]) {
                         $dataRow['_product_websites'] = $this->_websiteIdToCode[array_shift($rowWebsites[$productId])];
                     }
                     if (!empty($rowTierPrices[$productId])) {
                         $dataRow = array_merge($dataRow, array_shift($rowTierPrices[$productId]));
+                    }
+                    if (!empty($rowGroupPrices[$productId])) {
+                        $dataRow = array_merge($dataRow, array_shift($rowGroupPrices[$productId]));
                     }
                     if (!empty($mediaGalery[$productId])) {
                         $dataRow = array_merge($dataRow, array_shift($mediaGalery[$productId]));
@@ -856,6 +930,9 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 if (!empty($rowTierPrices[$productId])) {
                     $additionalRowsCount = max($additionalRowsCount, count($rowTierPrices[$productId]));
                 }
+                if (!empty($rowGroupPrices[$productId])) {
+                    $additionalRowsCount = max($additionalRowsCount, count($rowGroupPrices[$productId]));
+                }
                 if (!empty($mediaGalery[$productId])) {
                     $additionalRowsCount = max($additionalRowsCount, count($mediaGalery[$productId]));
                 }
@@ -875,15 +952,16 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     for ($i = 0; $i < $additionalRowsCount; $i++) {
                         $dataRow = array();
 
-                        if ($rowCategories[$productId]) {
-                            $dataRow[self::COL_CATEGORY] = $this->_categories[array_shift($rowCategories[$productId])];
-                        }
+                        $this->_updateDataWithCategoryColumns($dataRow, $rowCategories, $productId);
                         if ($rowWebsites[$productId]) {
                             $dataRow['_product_websites'] = $this
                                 ->_websiteIdToCode[array_shift($rowWebsites[$productId])];
                         }
                         if (!empty($rowTierPrices[$productId])) {
                             $dataRow = array_merge($dataRow, array_shift($rowTierPrices[$productId]));
+                        }
+                        if (!empty($rowGroupPrices[$productId])) {
+                            $dataRow = array_merge($dataRow, array_shift($rowGroupPrices[$productId]));
                         }
                         if (!empty($mediaGalery[$productId])) {
                             $dataRow = array_merge($dataRow, array_shift($mediaGalery[$productId]));

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Install
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -67,8 +67,8 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
                 }
             }
             if (!empty($absenteeExtensions)) {
-                Mage::throwException(Mage::helper('install')->__('PHP Extensions "%s" must be loaded.',
-                    implode(',', $absenteeExtensions))
+                Mage::throwException(
+                    Mage::helper('install')->__('PHP Extensions "%s" must be loaded.', implode(',', $absenteeExtensions))
                 );
             }
 
@@ -78,14 +78,16 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
 
             // check DB server version
             if (version_compare($version, $requiredVersion) == -1) {
-                Mage::throwException(Mage::helper('install')->__('The database server version '
-                    . 'does not match system requirements (required: %s, actual: %s).', $requiredVersion, $version));
+                Mage::throwException(
+                    Mage::helper('install')->__('The database server version doesn\'t match system requirements (required: %s, actual: %s).', $requiredVersion, $version)
+                );
             }
 
             // check InnoDB support
             if (!$resource->supportEngine()) {
-                Mage::throwException(Mage::helper('install')->__('Database server does not support '
-                    . 'the InnoDB storage engine.'));
+                Mage::throwException(
+                    Mage::helper('install')->__('Database server does not support the InnoDB storage engine.')
+                );
             }
 
             // TODO: check user roles
@@ -121,8 +123,8 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
         if ($data['db_prefix'] != '') {
             if (!preg_match('/^[a-z]+[a-z0-9_]*$/', $data['db_prefix'])) {
                 Mage::throwException(
-                    Mage::helper('install')->__('The table prefix should contain only letters (a-z), '
-                        . 'numbers (0-9) or underscores (_), the first character should be a letter.'));
+                    Mage::helper('install')->__('The table prefix should contain only letters (a-z), numbers (0-9) or underscores (_), the first character should be a letter.')
+                );
             }
         }
         //set default db model
@@ -158,7 +160,9 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
         if (!isset($this->_dbResource)) {
             $resource =  Mage::getSingleton(sprintf('install/installer_db_%s', $model));
             if (!$resource) {
-                Mage::throwException(Mage::helper('install')->__(sprintf('Installer does not exist for %s database type', $model)));
+                Mage::throwException(
+                    Mage::helper('install')->__('Installer does not exist for %s database type', $model)
+                );
             }
             $this->_dbResource = $resource;
         }

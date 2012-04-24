@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,7 +65,10 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract
             if ($item->getProduct()->isRecurring()) {
                 $profileData = $item->getProduct()->getRecurringProfile();
                 if (!empty($profileData[$this->_profileDataKey])) {
-                    $item->setData($this->_itemRowTotalKey, $profileData[$this->_profileDataKey]);
+                    $item->setData(
+                        $this->_itemRowTotalKey,
+                        $address->getQuote()->getStore()->convertPrice($profileData[$this->_profileDataKey])
+                    );
                     $this->_afterCollectSuccess($address, $item);
                 }
             }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -336,9 +336,13 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     public function commentsHistoryAction()
     {
         $this->_initOrder();
-        $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/sales_order_view_tab_history')->toHtml()
-        );
+        $html = $this->getLayout()->createBlock('adminhtml/sales_order_view_tab_history')->toHtml();
+        /* @var $translate Mage_Core_Model_Translate_Inline */
+        $translate = Mage::getModel('core/translate_inline');
+        if ($translate->isAllowed()) {
+            $translate->processResponseBody($html);
+        }
+        $this->getResponse()->setBody($html);
     }
 
     /**
@@ -718,10 +722,17 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
         $addressId = $this->getRequest()->getParam('address_id');
         $address = Mage::getModel('sales/order_address')
             ->getCollection()
+            ->addFilter('entity_id', $addressId)
             ->getItemById($addressId);
         if ($address) {
             Mage::register('order_address', $address);
             $this->loadLayout();
+            // Do not display VAT validation button on edit order address form
+            $addressFormContainer = $this->getLayout()->getBlock('sales_order_address.form.container');
+            if ($addressFormContainer) {
+                $addressFormContainer->getChild('form')->setDisplayVatValidationButton(false);
+            }
+
             $this->renderLayout();
         } else {
             $this->_redirect('*/*/');

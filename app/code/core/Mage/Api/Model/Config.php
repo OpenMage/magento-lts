@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,6 +69,24 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
             $this->saveCache();
         }
         return $this;
+    }
+
+    /**
+     * Retrieve adapter aliases from config.
+     *
+     * @return array
+     */
+    public function getAdapterAliases()
+    {
+        $aliases = array();
+
+        foreach ($this->getNode('adapter_aliases')->children() as $alias => $adapter) {
+            $aliases[$alias] = array(
+                (string) $adapter->suggest_class, // model class name
+                (string) $adapter->suggest_method // model method name
+            );
+        }
+        return $aliases;
     }
 
     /**

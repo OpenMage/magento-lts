@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Report_Config_Form_Field_YtdStart extends Mage_Adminh
         for ($i = 1; $i <= 12; $i++) {
             $_months[$i] = Mage::app()->getLocale()
                 ->date(mktime(null,null,null,$i))
-                ->get(Zend_date::MONTH_NAME);
+                ->get(Zend_Date::MONTH_NAME);
         }
 
         $_days = array();

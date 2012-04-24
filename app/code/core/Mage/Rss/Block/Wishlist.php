@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rss
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,8 +56,16 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     {
         if (is_null($this->_wishlist)) {
             $this->_wishlist = Mage::getModel('wishlist/wishlist');
-            if ($this->_getCustomer()->getId()) {
-                $this->_wishlist->loadByCustomer($this->_getCustomer());
+            $wishlistId = $this->getRequest()->getParam('wishlist_id');
+            if ($wishlistId) {
+                $this->_wishlist->load($wishlistId);
+                if ($this->_wishlist->getCustomerId() != $this->_getCustomer()->getId()) {
+                    $this->_wishlist->unsetData();
+                }
+            } else {
+                if($this->_getCustomer()->getId()) {
+                    $this->_wishlist->loadByCustomer($this->_getCustomer());
+                }
             }
         }
         return $this->_wishlist;
@@ -85,6 +93,16 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     }
 
     /**
+     * Build wishlist rss feed title
+     *
+     * @return string
+     */
+    protected function _getTitle()
+    {
+        return Mage::helper('rss')->__('%s\'s Wishlist', $this->_getCustomer()->getName());
+    }
+
+    /**
      * Render block HTML
      *
      * @return string
@@ -99,7 +117,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 'code'  => $this->_getWishlist()->getSharingCode()
             ));
 
-            $title  = Mage::helper('rss')->__('%s\'s Wishlist', $this->_getCustomer()->getName());
+            $title  = $this->_getTitle();
             $lang   = Mage::getStoreConfig('general/locale/code');
 
             $rssObj->_addHeader(array(
@@ -110,33 +128,32 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 'language'      => $lang
             ));
 
-            /** @var $product Mage_Wishlist_Model_Item*/
-            foreach ($this->getWishlistItems() as $product) {
+            /** @var $wishlistItem Mage_Wishlist_Model_Item*/
+            foreach ($this->getWishlistItems() as $wishlistItem) {
+                /* @var $product Mage_Catalog_Model_Product */
+                $product = $wishlistItem->getProduct();
                 $productUrl = $this->getProductUrl($product);
-
-                /* @var $wishlistProduct Mage_Catalog_Model_Product */
-                $wishlistProduct = $product->getProduct();
-                $wishlistProduct->setAllowedInRss(true);
-                $wishlistProduct->setAllowedPriceInRss(true);
-                $wishlistProduct->setProductUrl($productUrl);
-                $args = array('product'=>$wishlistProduct);
+                $product->setAllowedInRss(true);
+                $product->setAllowedPriceInRss(true);
+                $product->setProductUrl($productUrl);
+                $args = array('product' => $product);
 
                 Mage::dispatchEvent('rss_wishlist_xml_callback', $args);
 
-                if (!$wishlistProduct->getAllowedInRss()) {
+                if (!$product->getAllowedInRss()) {
                     continue;
                 }
 
                 $description = '<table><tr><td><a href="' . $productUrl . '"><img src="'
-                    . $this->helper('catalog/image')->init($wishlistProduct, 'thumbnail')->resize(75, 75)
+                    . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
                     . '" border="0" align="left" height="75" width="75"></a></td>'
                     . '<td style="text-decoration:none;">'
                     . $this->helper('catalog/output')
                         ->productAttribute($product, $product->getShortDescription(), 'short_description')
                     . '<p>';
 
-                if ($wishlistProduct->getAllowedPriceInRss()) {
-                    $description .= $this->getPriceHtml($wishlistProduct,true);
+                if ($product->getAllowedPriceInRss()) {
+                    $description .= $this->getPriceHtml($product,true);
                 }
                 $description .= '</p>';
                 if ($this->hasDescription($product)) {

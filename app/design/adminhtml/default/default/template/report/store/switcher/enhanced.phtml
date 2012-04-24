@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -31,7 +31,7 @@
 ?>
 
 <?php if ($this->isShow()): ?>
-<p class="switcher"><label for="store_switcher"><?php echo $this->__('Show Report For') ?>:</label>
+<p class="switcher"><label for="store_switcher"><?php echo $this->__('Show Report For:') ?></label>
 <select name="store_switcher" id="store_switcher" onchange="return switchStore(this);">
     <option value=""><?php echo $this->__('All Websites') ?></option>
     <?php foreach ($this->getWebsiteCollection() as $_website): ?>
@@ -41,13 +41,13 @@
             <?php foreach ($this->getStoreCollection($_group) as $_store): ?>
                 <?php if ($showWebsite == false): ?>
                     <?php $showWebsite = true; ?>
-                    <option website="true" value="<?php echo implode(',', $_website->getStoreIds()) ?>"<?php if($this->getRequest()->getParam('store_ids') == implode(',', $_website->getStoreIds())): ?> selected<?php endif; ?>><?php echo $_website->getName() ?></option>
+                    <option website="true" value="<?php echo implode(',', $_website->getStoreIds()) ?>"<?php if($this->getRequest()->getParam('store_ids') == implode(',', $_website->getStoreIds())): ?> selected<?php endif; ?>><?php echo $this->escapeHtml($_website->getName()) ?></option>
                 <?php endif; ?>
                 <?php if ($showGroup == false): ?>
                     <?php $showGroup = true; ?>
-                    <option group="true" value="<?php echo implode(',', $_group->getStoreIds()) ?>"<?php if($this->getRequest()->getParam('store_ids') == implode(',', $_group->getStoreIds())): ?> selected<?php endif; ?>>&nbsp;&nbsp;&nbsp;<?php echo $_group->getName() ?></option>
+                    <option group="true" value="<?php echo implode(',', $_group->getStoreIds()) ?>"<?php if($this->getRequest()->getParam('store_ids') == implode(',', $_group->getStoreIds())): ?> selected<?php endif; ?>>&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($_group->getName()) ?></option>
                 <?php endif; ?>
-                <option value="<?php echo $_store->getId() ?>"<?php if($this->getStoreId() == $_store->getId()): ?> selected<?php endif; ?>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $_store->getName() ?></option>
+                <option value="<?php echo $_store->getId() ?>"<?php if($this->getStoreId() == $_store->getId()): ?> selected<?php endif; ?>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($_store->getName()) ?></option>
             <?php endforeach; ?>
             <?php if ($showGroup): ?>
                 </optgroup>
@@ -55,6 +55,7 @@
         <?php endforeach; ?>
     <?php endforeach; ?>
 </select>
+<?php echo $this->getHintHtml() ?>
 </p>
 <script type="text/javascript">
     function switchStore(obj){

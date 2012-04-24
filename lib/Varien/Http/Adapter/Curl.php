@@ -27,8 +27,8 @@
 /**
  * HTTP CURL Adapter
  *
- * @category   Varien
- * @package    Varien_Http
+ * @category    Varien
+ * @package     Varien_Http
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
@@ -40,27 +40,85 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      */
     protected $_config = array();
 
+    /**
+     * Curl handle
+     *
+     * @var resource
+     */
     protected $_resource;
 
     /**
+     * Allow parameters
+     *
+     * @var array
+     */
+    protected $_allowedParams = array(
+        'timeout' => CURLOPT_TIMEOUT,
+        'maxredirects' => CURLOPT_MAXREDIRS,
+        'proxy' => CURLOPT_PROXY,
+        'ssl_cert' => CURLOPT_SSLCERT,
+        'userpwd' => CURLOPT_USERPWD
+    );
+
+    /**
+     * Array of CURL options
+     *
+     * @var array
+     */
+    protected $_options = array();
+
+    /**
      * Apply current configuration array to transport resource
+     *
+     * @return Varien_Http_Adapter_Curl
      */
     protected function _applyConfig()
     {
-        //curl_setopt();
-        if (isset($this->_config['timeout'])) {
-            curl_setopt($this->_getResource(), CURLOPT_TIMEOUT, $this->_config['timeout']);
-        }
-        if (isset($this->_config['maxredirects'])) {
-            curl_setopt($this->_getResource(), CURLOPT_MAXREDIRS, $this->_config['maxredirects']);
-        }
-        if (isset($this->_config['proxy'])) {
-            curl_setopt ($this->_getResource(), CURLOPT_PROXY, $this->_config['proxy']);
-        }
-        if (isset($this->_config['ssl_cert'])) {
-            curl_setopt($this->_getResource(), CURLOPT_SSLCERT, $this->_config['ssl_cert']);
+        if (empty($this->_config)) {
+            return $this;
         }
 
+        // apply additional options to cURL
+        foreach ($this->_options as $option => $value) {
+            curl_setopt($this->_getResource(), $option, $value);
+        }
+
+        $verifyPeer = isset($this->_config['verifypeer']) ? $this->_config['verifypeer'] : 0;
+        curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYPEER, $verifyPeer);
+
+        $verifyHost = isset($this->_config['verifyhost']) ? $this->_config['verifyhost'] : 0;
+        curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYHOST, $verifyHost);
+
+        foreach ($this->_config as $param => $curlOption) {
+            if (array_key_exists($param, $this->_allowedParams)) {
+                curl_setopt($this->_getResource(), $this->_allowedParams[$param], $this->_config[$param]);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Set array of additional cURL options
+     *
+     * @param array $options
+     * @return Varien_Http_Adapter_Curl
+     */
+    public function setOptions(array $options = array())
+    {
+        $this->_options = $options;
+        return $this;
+    }
+
+    /**
+     * Add additional option to cURL
+     *
+     * @param  int $option      the CURLOPT_* constants
+     * @param  mixed $value
+     * @return Varien_Http_Adapter_Curl
+     */
+    public function addOption($option, $value)
+    {
+        $this->_options[$option] = $value;
         return $this;
     }
 
@@ -68,6 +126,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      * Set the configuration array for the adapter
      *
      * @param array $config
+     * @return Varien_Http_Adapter_Curl
      */
     public function setConfig($config = array())
     {
@@ -78,25 +137,15 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Connect to the remote server
      *
+     * @deprecated since 1.4.0.0-rc1
      * @param string  $host
      * @param int     $port
      * @param boolean $secure
-     * @deprecated since 1.4.0.0-rc1
+     * @return Varien_Http_Adapter_Curl
      */
     public function connect($host, $port = 80, $secure = false)
     {
-        //curl_setopt();
-        if (isset($this->_config['timeout'])) {
-            curl_setopt($this->_getResource(), CURLOPT_TIMEOUT, $this->_config['timeout']);
-        }
-        if (isset($this->_config['maxredirects'])) {
-            curl_setopt($this->_getResource(), CURLOPT_MAXREDIRS, $this->_config['maxredirects']);
-        }
-        if (isset($this->_config['proxy'])) {
-            curl_setopt ($this->_getResource(), CURLOPT_PROXY, $this->_config['proxy']);
-        }
-
-        return $this;
+        return $this->_applyConfig();
     }
 
     /**
@@ -127,14 +176,15 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
             curl_setopt($this->_getResource(), CURLOPT_HTTPGET, true);
         }
 
-        if( is_array($headers) ) {
+        if (is_array($headers)) {
             curl_setopt($this->_getResource(), CURLOPT_HTTPHEADER, $headers);
         }
 
-        curl_setopt($this->_getResource(), CURLOPT_HEADER, true);
-        curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYHOST, 0);
-
+        /**
+         * @internal Curl options setter have to be re-factored
+         */
+        $header = isset($this->_config['header']) ? $this->_config['header'] : true;
+        curl_setopt($this->_getResource(), CURLOPT_HEADER, $header);
 
         return $body;
     }
@@ -149,8 +199,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         $response = curl_exec($this->_getResource());
 
         // Remove 100 and 101 responses headers
-        if (Zend_Http_Response::extractCode($response) == 100 ||
-            Zend_Http_Response::extractCode($response) == 101) {
+        if (Zend_Http_Response::extractCode($response) == 100 || Zend_Http_Response::extractCode($response) == 101) {
             $response = preg_split('/^\r?$/m', $response, 2);
             $response = trim($response[1]);
         }
@@ -161,6 +210,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Close the connection to the server
      *
+     * @return Varien_Http_Adapter_Curl
      */
     public function close()
     {
@@ -169,6 +219,11 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         return $this;
     }
 
+    /**
+     * Returns a cURL handle on success
+     *
+     * @return resource
+     */
     protected function _getResource()
     {
         if (is_null($this->_resource)) {
@@ -177,11 +232,21 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         return $this->_resource;
     }
 
+    /**
+     * Get last error number
+     *
+     * @return int
+     */
     public function getErrno()
     {
         return curl_errno($this->_getResource());
     }
 
+    /**
+     * Get string with last error for the current session
+     *
+     * @return string
+     */
     public function getError()
     {
         return curl_error($this->_getResource());

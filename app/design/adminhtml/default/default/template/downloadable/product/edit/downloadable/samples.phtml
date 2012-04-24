@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -40,7 +40,7 @@
                 <td class="value">
                     <input type="text" class="input-text" name="product[samples_title]" value="<?php echo $_product->getId()?$_product->getSamplesTitle():$this->getSamplesTitle() ?>" <?php echo ($_product->getStoreId() && $this->getUsedDefault())?'disabled="disabled"':'' ?> />
                 </td>
-                <td class="scope-label"><?php if (!Mage::app()->isSingleStoreMode()): ?>[STORE VIEW]<?php endif; ?></td>
+                <td class="scope-label"><?php echo !Mage::app()->isSingleStoreMode() ? Mage::helper('adminhtml')->__('[STORE VIEW]') : ''; ?></td>
                 <td class="value use-default">
                 <?php if($_product->getStoreId()): ?>
                     <input id="sample_title_default" type="checkbox" name="use_default[]" value="samples_title" onclick="toggleValueElements(this, this.parentNode.parentNode)" <?php echo $this->getUsedDefault()?'checked="checked"':'' ?> />
@@ -114,7 +114,7 @@ var sampleTemplate = '<tr>'+
                         '</td>'+
                         '<td class="a-center"><input type="text" name="downloadable[sample][{{id}}][sort_order]" value="{{sort_order}}" class="input-text sort" /></td>'+
                         '<td>'+
-                            '<button type="button" class="scalable delete icon-btn delete-sample-item"><span>Delete</span></button>'+
+                            '<button type="button" class="scalable delete icon-btn delete-sample-item"><span><span><span>Delete</span></span></span></button>'+
                         '</td>'+
                     '</tr>';
 var sampleItems = {

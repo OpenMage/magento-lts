@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -47,7 +47,7 @@
             <action method="addJs"><script>mage/adminhtml/wysiwyg/widget.js</script></action>
             <action method="addItem"><type>js</type><name>prototype/window.js</name></action>
             <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
-            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>
+            <action method="addCss"><name>lib/prototype/windows/themes/magento.css</name></action>
         </reference>
         <reference name="content">
             <block type="widget/adminhtml_widget_instance_edit" name="widget_instance_edit" />

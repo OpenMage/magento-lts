@@ -20,11 +20,10 @@
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-require_once 'Mage/Connect/Package.php'; // TODO
 
 /**
  * Extension model
@@ -158,8 +157,9 @@ class Mage_Connect_Model_Extension extends Varien_Object
     */
     protected function _setDependencies()
     {
-        $this->getPackage()->clearDependencies();
-        $this->getPackage()->setDependencyPhpVersion($this->getData('depends_php_min'), $this->getData('depends_php_max'));
+        $this->getPackage()
+            ->clearDependencies()
+            ->setDependencyPhpVersion($this->getData('depends_php_min'), $this->getData('depends_php_max'));
 
         foreach ($this->getData('depends') as $deptype=>$deps) {
             foreach ($deps['name'] as $i=>$type) {
@@ -174,7 +174,9 @@ class Mage_Connect_Model_Extension extends Varien_Object
                 $packageFiles = $this->packageFilesToArray($files);
 
                 if ($deptype !== 'extension') {
-                    $channel = !empty($deps['channel'][$i]) ? $deps['channel'][$i] : 'connect.magentocommerce.com/core';
+                    $channel = !empty($deps['channel'][$i])
+                        ? $deps['channel'][$i]
+                        : 'connect.magentocommerce.com/core';
                 }
                 switch ($deptype) {
                     case 'package':

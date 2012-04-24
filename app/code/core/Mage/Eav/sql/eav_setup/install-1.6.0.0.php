@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -92,7 +92,7 @@ $table = $installer->getConnection()
         ), 'Additional Attribute Table')
     ->addColumn('entity_attribute_collection', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         'nullable'  => true,
-        'default'   => '',
+        'default'   => null,
         ), 'Entity Attribute Collection')
     ->addIndex($installer->getIdxName('eav/entity_type', array('entity_type_code')),
         array('entity_type_code'))
@@ -121,8 +121,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Attribute Set Id')
     ->addColumn('increment_id', Varien_Db_Ddl_Table::TYPE_TEXT, 50, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Increment Id')
     ->addColumn('parent_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
@@ -520,8 +520,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Entity Id')
     ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Attribute Value')
     ->addIndex($installer->getIdxName(array('eav/entity_value_prefix', 'varchar'), array('entity_type_id')),
         array('entity_type_id'))
@@ -589,8 +589,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Entity Type Id')
     ->addColumn('attribute_code', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Attribute Code')
     ->addColumn('attribute_model', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         ), 'Attribute Model')
@@ -706,8 +706,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Entity Type Id')
     ->addColumn('attribute_set_name', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Attribute Set Name')
     ->addColumn('sort_order', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
         'nullable'  => false,
@@ -746,8 +746,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Attribute Set Id')
     ->addColumn('attribute_group_name', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Attribute Group Name')
     ->addColumn('sort_order', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
         'nullable'  => false,
@@ -900,8 +900,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Store Id')
     ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Value')
     ->addIndex($installer->getIdxName('eav/attribute_option_value', array('option_id')),
         array('option_id'))
@@ -940,8 +940,8 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Store Id')
     ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        'nullable'  => false,
-        'default'   => '',
+        'nullable'  => true,
+        'default'   => null,
         ), 'Value')
     ->addIndex($installer->getIdxName('eav/attribute_label', array('attribute_id')),
         array('attribute_id'))

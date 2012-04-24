@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,7 +56,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     protected $_buttonVarFormat = 'L_BUTTONVAR%d';
 
     /**
-     * Request Parameters wich dont have to wrap as button vars
+     * Request Parameters which dont have to wrap as button vars
      *
      * @var array
      */

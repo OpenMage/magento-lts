@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sales Order Invoice Pdf grouped items renderer
@@ -34,6 +33,9 @@
  */
 class Mage_Sales_Model_Order_Pdf_Items_Invoice_Grouped extends Mage_Sales_Model_Order_Pdf_Items_Invoice_Default
 {
+    /**
+     * Draw process
+     */
     public function draw()
     {
         $type = $this->getItem()->getOrderItem()->getRealProductType();

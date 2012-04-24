@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -82,22 +82,27 @@ class Mage_Adminhtml_Block_Report_Sales_Shipping_Grid extends Mage_Adminhtml_Blo
             $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
         }
 
+        $currencyCode = $this->getCurrentCurrencyCode();
+        $rate = $this->getRate($currencyCode);
+
         $this->addColumn('total_shipping', array(
             'header'        => Mage::helper('sales')->__('Total Sales Shipping'),
             'type'          => 'currency',
-            'currency_code' => $this->getCurrentCurrencyCode(),
+            'currency_code' => $currencyCode,
             'index'         => 'total_shipping',
             'total'         => 'sum',
-            'sortable'      => false
+            'sortable'      => false,
+            'rate'          => $rate,
         ));
 
         $this->addColumn('total_shipping_actual', array(
             'header'        => Mage::helper('sales')->__('Total Shipping'),
             'type'          => 'currency',
-            'currency_code' => $this->getCurrentCurrencyCode(),
+            'currency_code' => $currencyCode,
             'index'         => 'total_shipping_actual',
             'total'         => 'sum',
-            'sortable'      => false
+            'sortable'      => false,
+            'rate'          => $rate,
         ));
 
         $this->addExportType('*/*/exportShippingCsv', Mage::helper('adminhtml')->__('CSV'));

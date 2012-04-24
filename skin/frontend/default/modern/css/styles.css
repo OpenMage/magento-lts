@@ -19,7 +19,7 @@
  *
  * @category    design
  * @package     default_modern
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -189,6 +189,14 @@ p.control input.radio { margin-right:6px; }
 .form-list li.additional-row { border-top:1px solid #ccc; margin-top:10px; padding-top:7px; }
 .form-list li.additional-row .btn-remove { float:right; margin:5px 0 0; }
 .form-list .input-range input.input-text { width:74px; }
+
+.form-list-narrow li  { margin-bottom:0; }
+.form-list-narrow li .input-box { margin-bottom:6px; }
+.form-list-narrow li.wide .input-box { width:260px; }
+.form-list-narrow li.wide input.input-text,
+.form-list-narrow li.wide textarea { width:254px }
+.form-list-narrow li.wide select { width:260px; }
+
 /* Customer */
 .form-list .customer-name-prefix .input-box,
 .form-list .customer-name-suffix .input-box,
@@ -400,7 +408,7 @@ tr.summary-details-excluded { font-style:italic; }
 .std ul.disc { list-style:disc outside; padding-left:18px; margin:0 0 10px; }
 .std dl dt { font-weight:bold; }
 .std dl dd { margin:0 0 10px; }
-/*.std ul,
+.std ul,
 .std ol,
 .std dl,
 .std p,
@@ -420,7 +428,7 @@ tr.summary-details-excluded { font-style:italic; }
 .std b,
 .std strong { font-weight:bold; }
 .std i,
-.std em { font-style:italic; }*/
+.std em { font-style:italic; }
 
 /* Misc */
 .links li { display:inline; }
@@ -434,6 +442,7 @@ tr.summary-details-excluded { font-style:italic; }
 .link-print { /*background:url(../images/i_print.gif) 0 2px no-repeat; padding:3px 0 3px 25px;*/ }
 .link-rss { background:url(../images/i_rss.gif) 0 1px no-repeat; padding-left:18px; line-height:14px; white-space:nowrap; }
 .btn-remove { display:block; width:12px; height:12px; font-size:0; line-height:0; background:url(../images/btn_remove.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
+.btn-previous { display:block; width:12px; height:12px; font-size:0; line-height:0; background:url(../images/btn_previous.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
 .btn-remove2 { display:block; width:16px; height:16px; font-size:0; line-height:0; background:url(../images/btn_trash.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
 .btn-edit    { display:block; width:12px; height:12px; font-size:0; line-height:0; background:url(../images/btn_edit.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
 
@@ -444,13 +453,23 @@ tr.summary-details-excluded { font-style:italic; }
 
 .divider { clear:both; display:block; font-size:0; line-height:0; height:1px; background:#ccc; margin:10px 0; text-indent:-999em; overflow:hidden; }
 
+/* Global site notices */
+.global-site-notice { border:1px solid #cfcfcf; border-width:0 0 1px; background:#ffff90; font-size:12px; line-height:1.25; text-align:center; color:#2f2f2f; }
+.global-site-notice .notice-inner { width:860px; margin:0 auto; padding:12px 0 12px 80px; background:url(../images/i_notice.gif) 20px 25px no-repeat; text-align:left; }
+.global-site-notice .notice-inner p { margin:0; border:1px dotted #cccc73; padding:10px; }
+.global-site-notice .notice-inner .actions { padding-top:10px; }
+
+/* Cookie Notice */
+.notice-cookie { }
+
 /* Noscript Notice */
-.noscript { border:1px solid #ddd; border-width:0 0 1px; background:#ffff90; font-size:12px; line-height:1.25; text-align:center; color:#2f2f2f; }
-.noscript .noscript-inner { width:950px; margin:0 auto; padding:12px 0 12px; background:url(../images/i_notice.gif) 20px 50% no-repeat; }
-.noscript p { margin:0; }
+.noscript {}
 
 /* Demo Notice */
-.demo-notice { margin:0; padding:6px 10px; background:#d75f07; font-size:11px; line-height:1.15; text-align:center; color:#fff; }
+.demo-notice { margin:0; padding:6px 10px; background:#d75f07; font-size:12px; line-height:1.15; border:0; text-align:center; color:#fff; }
+.demo-notice .notice-inner { width:auto; padding:0; background:none; text-align:center; }
+.demo-notice .notice-inner p { padding:0; border:0; }
+
 /* ======================================================================================= */
 
 
@@ -574,6 +593,9 @@ tr.summary-details-excluded { font-style:italic; }
 /* Mini Products List */
 .mini-products-list .product-image { float:left; width:50px; border:1px solid #a9a9a9; }
 .mini-products-list .product-details { margin-left:60px; }
+.block-cart .mini-products-list .product-details .product-name,
+.block-cart .mini-products-list .product-details .nobr small { word-wrap:break-word; }
+.block-cart .mini-products-list .product-details .nobr { white-space:normal !important; }
 
 /* Block: Account */
 .block-account .block-title { border:0; background:#666; }
@@ -601,9 +623,12 @@ tr.summary-details-excluded { font-style:italic; }
 .block-layered-nav dd li { line-height:1.35; margin:0 0 3px; }
 .block-layered-nav dd a { color:#444; }
 .block-layered-nav .currently ol { padding:6px 0 0; }
-.block-layered-nav .currently li { padding:2px 10px; }
-.block-layered-nav .currently .label { font-weight:bold; }
-.block-layered-nav .currently .btn-remove { margin:2px 0 0; }
+.block-layered-nav .currently li { padding:2px 36px 2px 10px; position:relative; z-index:1; }
+.block-layered-nav .currently .label { font-weight:bold; display:inline-block; vertical-align:top; }
+.block-layered-nav .currently .value { display:inline-block; vertical-align:top; }
+.block-layered-nav .currently .btn-previous,
+.block-layered-nav .currently .btn-remove { position:absolute; right:8px; top:3px; margin:0; }
+.block-layered-nav .currently .btn-previous { right:22px; }
 .block-layered-nav .actions { padding:5px 10px; margin:0; }
 .block-layered-nav .actions a { float:none; }
 
@@ -860,9 +885,10 @@ tr.summary-details-excluded { font-style:italic; }
 .price-box-bundle { padding:0 0 10px 0; }
 .price-box-bundle .price-box { margin:0 !important; padding:0 !important; }
 .price-box-bundle .price { color:#222; }
-f/********** Product Prices > */
+/********** Product Prices > */
 
 /* Tier Prices */
+.product-pricing,
 .tier-prices { margin:10px 0; padding:10px; background:#f4f9ea; border:1px solid #ddd; }
 .tier-prices .benefit { font-style:italic; font-weight:bold; }
 .tier-prices .price { font-weight:bold;; }
@@ -965,6 +991,7 @@ f/********** Product Prices > */
 .product-options p.required { position:absolute; right:15px; top:10px; }
 
 .product-options-bottom { background-color:#f6f6f6; padding:15px 20px; border:1px solid #e4e4e4; border-top:0; }
+.product-options-bottom .product-pricing,
 .product-options-bottom .tier-prices { margin:0; padding:0 0 10px; border:0; background:0; }
 .product-options-bottom .price-box { float:left; margin:0; }
 .product-options-bottom .add-to-links { clear:both; padding:5px 0 0; text-align:right; }
@@ -1109,7 +1136,9 @@ f/********** Product Prices > */
 .cart-table .btn-continue { float:left; }
 .cart-table .btn-continue span { background:none; padding:0; font:normal 11px/25px Arial, Helvetica, sans-serif; color:#4f8100; text-transform:none; text-decoration:underline; }
 .cart-table .btn-continue:hover span { text-decoration:none; }
-.cart-table .btn-update span {}
+.cart-table .btn-update,
+.cart-table .btn-empty { float:right; }
+.cart-table .btn-update { margin-left:7px; }
 
 /* Shopping Cart Collateral boxes */
 .cart .cart-collaterals { padding:25px 0 0; }
@@ -1396,6 +1425,26 @@ f/********** Product Prices > */
 .account-create {}
 /* Account Login/Create Pages ============================================================ */
 
+/* Captcha */
+.captcha-note   { clear:left; padding-top:5px; }
+.captcha-image  { float:left; display:inline; margin:0; position:relative; width:258px; }
+.captcha-image .captcha-img { border:1px solid #b6b6b6; vertical-align:bottom; width:100%; }
+.registered-users .captcha-image { margin:0; }
+.captcha-reload { cursor:pointer; position:absolute; top:2px; right:2px; }
+.captcha-reload.refreshing  { animation:rotate 1.5s infinite linear; -webkit-animation:rotate 1.5s infinite linear; -moz-animation:rotate 1.5s infinite linear; }
+
+@-webkit-keyframes rotate {
+    0% { -webkit-transform:rotate(0); }
+    0% { -webkit-transform:rotate(-360deg); }
+}
+@-moz-keyframes rotate {
+    0% { -moz-transform:rotate(0); }
+    0% { -moz-transform:rotate(-360deg); }
+}
+@keyframes rotate {
+    0% { transform:rotate(0); }
+    0% { transform:rotate(-360deg); }
+}
 
 /* Remember Me Popup ===================================================================== */
 .window-overlay { background:url(../images/window_overlay.png) repeat; background:rgba(0, 0, 0, 0.35); position:absolute; top:0; left:0; height:100%; width:100%; z-index:990; }

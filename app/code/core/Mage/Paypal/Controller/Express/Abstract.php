@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,7 +69,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $customer = Mage::getSingleton('customer/session')->getCustomer();
             if ($customer && $customer->getId()) {
                 $this->_checkout->setCustomerWithAddressChange(
-                    $customer, null, $this->_getQuote()->getShippingAddress()
+                    $customer, $this->_getQuote()->getBillingAddress(), $this->_getQuote()->getShippingAddress()
                 );
             }
 
@@ -183,10 +183,12 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_checkout->prepareOrderReview($this->_initToken());
             $this->loadLayout();
             $this->_initLayoutMessages('paypal/session');
-            $this->getLayout()->getBlock('paypal.express.review')
-                ->setQuote($this->_getQuote())
-                ->getChild('details')->setQuote($this->_getQuote())
-            ;
+            $reviewBlock = $this->getLayout()->getBlock('paypal.express.review');
+            $reviewBlock->setQuote($this->_getQuote());
+            $reviewBlock->getChild('details')->setQuote($this->_getQuote());
+            if ($reviewBlock->getChild('shipping_method')) {
+                $reviewBlock->getChild('shipping_method')->setQuote($this->_getQuote());
+            }
             $this->renderLayout();
             return;
         }
@@ -232,12 +234,64 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
                     ->toHtml());
                 return;
             }
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_getSession()->addError($this->__('Unable to update shipping method.'));
+            Mage::logException($e);
+        }
+        if ($isAjax) {
+            $this->getResponse()->setBody('<script type="text/javascript">window.location.href = '
+                . Mage::getUrl('*/*/review') . ';</script>');
+        } else {
+            $this->_redirect('*/*/review');
+        }
+    }
+
+    /**
+     * Update Order (combined action for ajax and regular request)
+     */
+    public function updateShippingMethodsAction()
+    {
+        try {
+            $this->_initCheckout();
+            $this->_checkout->prepareOrderReview($this->_initToken());
+            $this->loadLayout('paypal_express_review');
+
+            $this->getResponse()->setBody($this->getLayout()->getBlock('express.review.shipping.method')
+                ->setQuote($this->_getQuote())
+                ->toHtml());
+            return;
+        } catch (Mage_Core_Exception $e) {
+            $this->_getSession()->addError($e->getMessage());
+        } catch (Exception $e) {
+            $this->_getSession()->addError($this->__('Unable to update Order data.'));
+            Mage::logException($e);
+        }
+        $this->getResponse()->setBody('<script type="text/javascript">window.location.href = '
+            . Mage::getUrl('*/*/review') . ';</script>');
+    }
+
+    /**
+     * Update Order (combined action for ajax and regular request)
+     */
+    public function updateOrderAction()
+    {
+        try {
+            $isAjax = $this->getRequest()->getParam('isAjax');
+            $this->_initCheckout();
+            $this->_checkout->updateOrder($this->getRequest()->getParams());
+            if ($isAjax) {
+                $this->loadLayout('paypal_express_review_details');
+                $this->getResponse()->setBody($this->getLayout()->getBlock('root')
+                    ->setQuote($this->_getQuote())
+                    ->toHtml());
+                return;
+            }
+        } catch (Mage_Core_Exception $e) {
+            $this->_getSession()->addError($e->getMessage());
+        } catch (Exception $e) {
+            $this->_getSession()->addError($this->__('Unable to update Order data.'));
             Mage::logException($e);
         }
         if ($isAjax) {
@@ -394,5 +448,20 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_quote = $this->_getCheckoutSession()->getQuote();
         }
         return $this->_quote;
+    }
+
+    /**
+     * Redirect to login page
+     *
+     */
+    public function redirectLogin()
+    {
+        $this->setFlag('', 'no-dispatch', true);
+        $this->getResponse()->setRedirect(
+            Mage::helper('core/url')->addRequestParam(
+                Mage::helper('customer')->getLoginUrl(),
+                array('context' => 'checkout')
+            )
+        );
     }
 }

@@ -10,9 +10,9 @@
     <description>Google Checkout Library</description>
     <notes>1.5.0.0</notes>
     <authors><author><name>Magento Core Team</name><user>core</user><email>core@magentocommerce.com</email></author></authors>
-    <date>2011-07-07</date>
-    <time>13:52:14</time>
-    <contents><target name="magelib"><dir name="googlecheckout"><file name="googlecart.php" hash="5b11319b8489cd2cb50bf2f38797fbb0"/><file name="googleitem.php" hash="2305b454c0b524f835e489a224070c1b"/><file name="googlelog.php" hash="402dfa7bf30450451d6dd76db20e8996"/><file name="googlemerchantcalculations.php" hash="2b8ca5d31c7dfc5f1b305ad0f0f8dc8d"/><file name="googlerequest.php" hash="75dff9be768461893ca5b2c6391ce261"/><file name="googleresponse.php" hash="4af0da6d2d9f461e9e072a81512a205e"/><file name="googleresult.php" hash="9643ea49bfeb16224f43a8ea79571094"/><file name="googleshipping.php" hash="ba2aa1ce3d1375b48a214fba19f589ff"/><file name="googletax.php" hash="55b8cd73340e491a47f62f8b887404ed"/><dir name="xml-processing"><file name="gc_xmlbuilder.php" hash="8b008a09d4ff42408fb601980f965dac"/><file name="gc_xmlparser.php" hash="9845e8a617eef46f0209140c9f26a90b"/></dir></dir></target></contents>
+    <date>2011-02-08</date>
+    <time>16:02:18</time>
+    <contents><target name="magelib"><dir name="googlecheckout"><file name="googlecart.php" hash="5b11319b8489cd2cb50bf2f38797fbb0"/><file name="googleitem.php" hash="2305b454c0b524f835e489a224070c1b"/><file name="googlelog.php" hash="402dfa7bf30450451d6dd76db20e8996"/><file name="googlemerchantcalculations.php" hash="2b8ca5d31c7dfc5f1b305ad0f0f8dc8d"/><file name="googlerequest.php" hash="2d9f2ffdb96c38f57772c151f517fe4c"/><file name="googleresponse.php" hash="4af0da6d2d9f461e9e072a81512a205e"/><file name="googleresult.php" hash="9643ea49bfeb16224f43a8ea79571094"/><file name="googleshipping.php" hash="ba2aa1ce3d1375b48a214fba19f589ff"/><file name="googletax.php" hash="55b8cd73340e491a47f62f8b887404ed"/><dir name="xml-processing"><file name="gc_xmlbuilder.php" hash="8b008a09d4ff42408fb601980f965dac"/><file name="gc_xmlparser.php" hash="9845e8a617eef46f0209140c9f26a90b"/></dir></dir></target></contents>
     <compatible/>
     <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
 </package>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,9 +30,8 @@ $installer = $this;
 $installer->startSetup();
 $connection = $installer->getConnection();
 /* @var $connection Varien_Db_Adapter_Pdo_Mysql */
-$connection->beginTransaction();
-try {
-    $installer->run("
+
+$installer->run("
     CREATE TABLE `{$installer->getTable('cataloginventory_stock_status')}` (
       `product_id` int(10) unsigned NOT NULL,
       `website_id` smallint(5) unsigned NOT NULL,
@@ -40,17 +39,14 @@ try {
       `qty` decimal(12,4) NOT NULL DEFAULT '0.0000',
       `stock_status` tinyint(3) unsigned NOT NULL,
       PRIMARY KEY (`product_id`,`website_id`,`stock_id`),
-      CONSTRAINT `FK_CATALOGINVENTORY_STOCK_STATUS_STOCK` FOREIGN KEY (`stock_id`) REFERENCES `{$installer->getTable('cataloginventory_stock')}` (`stock_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-      CONSTRAINT `FK_CATALOGINVENTORY_STOCK_STATUS_PRODUCT` FOREIGN KEY (`product_id`) REFERENCES `{$installer->getTable('catalog_product_entity')}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-      CONSTRAINT `FK_CATALOGINVENTORY_STOCK_STATUS_WEBSITE` FOREIGN KEY (`website_id`) REFERENCES `{$installer->getTable('core_website')}` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE
+      CONSTRAINT `FK_CATALOGINVENTORY_STOCK_STATUS_STOCK` FOREIGN KEY (`stock_id`)
+        REFERENCES `{$installer->getTable('cataloginventory_stock')}` (`stock_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+      CONSTRAINT `FK_CATALOGINVENTORY_STOCK_STATUS_PRODUCT` FOREIGN KEY (`product_id`)
+        REFERENCES `{$installer->getTable('catalog_product_entity')}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+      CONSTRAINT `FK_CATALOGINVENTORY_STOCK_STATUS_WEBSITE` FOREIGN KEY (`website_id`)
+        REFERENCES `{$installer->getTable('core_website')}` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-    ");
+");
 
-    Mage::getModel('cataloginventory/stock_status')->rebuild();
-}
-catch (Exception $e) {
-    $connection->rollBack();
-    throw $e;
-}
-$connection->commit();
+Mage::getModel('cataloginventory/stock_status')->rebuild();
 $installer->endSetup();

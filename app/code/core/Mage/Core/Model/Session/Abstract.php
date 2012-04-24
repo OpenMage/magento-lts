@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -220,7 +220,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     }
 
     /**
-     * Not Mage exeption handling
+     * Not Mage exception handling
      *
      * @param   Exception $exception
      * @param   string $alternativeText
@@ -278,7 +278,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     }
 
     /**
-     * Adding new nitice message
+     * Adding new notice message
      *
      * @param   string $message
      * @return  Mage_Core_Model_Session_Abstract
@@ -379,12 +379,6 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
             $_queryParam = $this->getSessionIdQueryParam();
             if (isset($_GET[$_queryParam]) && Mage::getSingleton('core/url')->isOwnOriginUrl()) {
                 $id = $_GET[$_queryParam];
-                /**
-                 * No reason use crypt key for session
-                 */
-//                if ($tryId = Mage::helper('core')->decrypt($_GET[self::SESSION_ID_QUERY_PARAM])) {
-//                    $id = $tryId;
-//                }
             }
         }
 
@@ -393,20 +387,14 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     }
 
     /**
-     * Get ecrypted session identifuer
-     * No reason use crypt key for session id encryption
-     * we can use session identifier as is
+     * Get encrypted session identifier.
+     * No reason use crypt key for session id encryption, we can use session identifier as is.
      *
      * @return string
      */
     public function getEncryptedSessionId()
     {
         if (!self::$_encryptedSessionId) {
-//            $helper = Mage::helper('core');
-//            if (!$helper) {
-//                return $this;
-//            }
-//            self::$_encryptedSessionId = $helper->encrypt($this->getSessionId());
             self::$_encryptedSessionId = $this->getSessionId();
         }
         return self::$_encryptedSessionId;
@@ -444,7 +432,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     }
 
     /**
-     * If the host was switched but session cookie won't recognize it - add session id to query
+     * If session cookie is not applicable due to host or path mismatch - add session id to query
      *
      * @param string $urlHost can be host or url
      * @return string {session_id_key}={session_id_encrypted}
@@ -455,7 +443,8 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
             return '';
         }
 
-        if (!$httpHost = Mage::app()->getFrontController()->getRequest()->getHttpHost()) {
+        $httpHost = Mage::app()->getFrontController()->getRequest()->getHttpHost();
+        if (!$httpHost) {
             return '';
         }
 
@@ -463,23 +452,22 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (!empty($urlHostArr[2])) {
             $urlHost = $urlHostArr[2];
         }
+        $urlPath = empty($urlHostArr[3]) ? '' : $urlHostArr[3];
 
         if (!isset(self::$_urlHostCache[$urlHost])) {
             $urlHostArr = explode(':', $urlHost);
             $urlHost = $urlHostArr[0];
-
-            if ($httpHost !== $urlHost && !$this->isValidForHost($urlHost)) {
-                $sessionId = $this->getEncryptedSessionId();
-            } else {
-                $sessionId = '';
-            }
+            $sessionId = $httpHost !== $urlHost && !$this->isValidForHost($urlHost)
+                ? $this->getEncryptedSessionId() : '';
             self::$_urlHostCache[$urlHost] = $sessionId;
         }
-        return self::$_urlHostCache[$urlHost];
+
+        return Mage::app()->getStore()->isAdmin() || $this->isValidForPath($urlPath) ? self::$_urlHostCache[$urlHost]
+            : $this->getEncryptedSessionId();
     }
 
     /**
-     * Check is valid session for hostname
+     * Check if session is valid for given hostname
      *
      * @param string $host
      * @return bool
@@ -488,7 +476,25 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     {
         $hostArr = explode(':', $host);
         $hosts = $this->getSessionHosts();
-        return (!empty($hosts[$hostArr[0]]));
+        return !empty($hosts[$hostArr[0]]);
+    }
+
+    /**
+     * Check if session is valid for given path
+     *
+     * @param string $path
+     * @return bool
+     */
+    public function isValidForPath($path)
+    {
+        $cookiePath = trim($this->getCookiePath(), '/') . '/';
+        if ($cookiePath == '/') {
+            return true;
+        }
+
+        $urlPath = trim($path, '/') . '/';
+
+        return strpos($urlPath, $cookiePath) === 0;
     }
 
     /**
@@ -561,7 +567,17 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         $this->getCookie()->delete($this->getSessionName());
         $this->regenerateSessionId();
 
+        $sessionHosts = $this->getSessionHosts();
+        $currentCookieDomain = $this->getCookie()->getDomain();
+        if (is_array($sessionHosts)) {
+            foreach (array_keys($sessionHosts) as $host) {
+                // Delete cookies with the same name for parent domains
+                if (strpos($currentCookieDomain, $host) > 0) {
+                    $this->getCookie()->delete($this->getSessionName(), null, $host);
+                }
+            }
+        }
+
         return $this;
     }
-
 }

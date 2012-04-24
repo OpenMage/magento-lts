@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,9 +29,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Longtext extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Longtext
+    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
      * Render contents as a long text
@@ -40,7 +41,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Longtext extends Mage_Adm
      * Also it can be html-escaped and nl2br()
      *
      * @param Varien_Object $row
-     * @return unknown
+     * @return string
      */
     public function render(Varien_Object $row)
     {
@@ -54,7 +55,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Longtext extends Mage_Adm
         }
         $text = Mage::helper('core/string')->truncate(parent::_getValue($row), $truncateLength);
         if ($this->getColumn()->getEscape()) {
-            $text = $this->htmlEscape($text);
+            $text = $this->escapeHtml($text);
         }
         if ($this->getColumn()->getNl2br()) {
             $text = nl2br($text);

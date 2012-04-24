@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -79,7 +79,8 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail_Grid extends Mage_Adminhtml
             'header'    => Mage::helper('sales')->__('Value'),
             'index'     => 'value',
             'sortable'  => false,
-            'type'      => 'text'
+            'type'      => 'text',
+            'escape'    => true
         ));
 
         return parent::_prepareColumns();

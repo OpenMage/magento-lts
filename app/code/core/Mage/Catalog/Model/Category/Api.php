@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -345,8 +345,9 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             }
 
             $category->save();
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
+            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
@@ -393,6 +394,10 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function delete($categoryId)
     {
+        if (Mage_Catalog_Model_Category::TREE_ROOT_ID == $categoryId) {
+            $this->_fault('not_deleted', 'Cannot remove the system category.');
+        }
+
         $category = $this->_initCategory($categoryId);
 
         try {
@@ -444,7 +449,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 'type'       => $product->getTypeId(),
                 'set'        => $product->getAttributeSetId(),
                 'sku'        => $product->getSku(),
-                'position'   => $product->getPosition()
+                'position'   => $product->getCatIndexPosition()
             );
         }
 

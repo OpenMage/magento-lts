@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,7 +61,7 @@
 class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 {
     /**
-     * Configuration pathes for email templates and identities
+     * Configuration paths for email templates and identities
      */
     const XML_PATH_FORGOT_EMAIL_TEMPLATE    = 'admin/emails/forgot_email_template';
     const XML_PATH_FORGOT_EMAIL_IDENTITY    = 'admin/emails/forgot_email_identity';
@@ -328,6 +328,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $result = false;
 
         try {
+            Mage::dispatchEvent('admin_user_authenticate_before', array(
+                'username' => $username,
+                'user'     => $this
+            ));
             $this->loadByUsername($username);
             $sensitive = ($config) ? $username == $this->getUsername() : true;
 
@@ -556,7 +560,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__('Invalid password reset token.'));
         }
         $this->setRpToken($newResetPasswordLinkToken);
-        $currentDate = Varien_Date::now(true);
+        $currentDate = Varien_Date::now();
         $this->setRpTokenCreatedAt($currentDate);
 
         return $this;
@@ -578,7 +582,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 
         $tokenExpirationPeriod = Mage::helper('admin')->getResetPasswordLinkExpirationPeriod();
 
-        $currentDate = Varien_Date::now(true);
+        $currentDate = Varien_Date::now();
         $currentTimestamp = Varien_Date::toTimestamp($currentDate);
         $tokenTimestamp = Varien_Date::toTimestamp($resetPasswordLinkTokenCreatedAt);
         if ($tokenTimestamp > $currentTimestamp) {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -461,7 +461,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 foreach ($this->_columns as $column) {
                     $j++;
                     if (!$column->getIsSystem()) {
-                        $data[] = ($j==1)?'"'.$this->__('Subtotal').'"':'"'.str_replace('"', '""', $column->getRowField($this->getTotals())).'"';
+                        $data[] = ($j == 1) ?
+                                '"' . $this->__('Subtotal') . '"' :
+                                '"'.str_replace('"', '""', $column->getRowField($this->getTotals())).'"';
                     }
                 }
                 $csv.= implode(',', $data)."\n";
@@ -577,7 +579,6 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     public function getRefreshButtonCallback()
     {
         return "{$this->getJsObjectName()}.doFilter();";
-        return "if ($('period_date_to').value == '' && $('period_date_from').value == '') {alert('".$this->__('Please specify at least start or end date.')."'); return false;}else {$this->getJsObjectName()}.doFilter();";
     }
 
     /**
@@ -612,5 +613,16 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
             }
         }
         return $this->_currentCurrencyCode;
+    }
+    
+    /**
+     * Get currency rate (base to given currency)
+     *
+     * @param string|Mage_Directory_Model_Currency $currencyCode
+     * @return double
+     */
+    public function getRate($toCurrency)
+    {
+        return Mage::app()->getStore()->getBaseCurrency()->getRate($toCurrency);
     }
 }

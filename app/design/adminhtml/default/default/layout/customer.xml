@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -57,4 +57,70 @@
     <adminhtml_customer_wishlist>
         <block type="adminhtml/customer_edit_tab_wishlist" name="customer.wishlist.edit.tab" output="toHtml" />
     </adminhtml_customer_wishlist>
+
+    <adminhtml_customer_orders>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_orders" name="adminhtml.customer.edit.tab.orders"/>
+        </block>
+    </adminhtml_customer_orders>
+
+    <adminhtml_customer_carts>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_carts" name="admin.customer.carts"/>
+        </block>
+    </adminhtml_customer_carts>
+
+    <adminhtml_customer_viewcart>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_view_cart" name="admin.customer.view.cart"/>
+        </block>
+    </adminhtml_customer_viewcart>
+
+    <adminhtml_customer_viewwishlist>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_view_wishlist" name="admin.customer.view.wishlist"/>
+        </block>
+    </adminhtml_customer_viewwishlist>
+
+    <adminhtml_customer_lastorders>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_view_orders" name="admin.customer.lastorders"/>
+        </block>
+    </adminhtml_customer_lastorders>
+
+    <adminhtml_customer_productreviews>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_reviews" name="admin.customer.reviews"/>
+        </block>
+    </adminhtml_customer_productreviews>
+
+    <adminhtml_customer_producttags>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_tag" name="admin.customer.tags"/>
+        </block>
+    </adminhtml_customer_producttags>
+
+    <adminhtml_customer_taggrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_tag" name="admin.customer.tags"/>
+        </block>
+    </adminhtml_customer_taggrid>
+
+    <adminhtml_customer_newsletter>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_newsletter_grid" name="admin.customer.newsletter.grid"/>
+        </block>
+    </adminhtml_customer_newsletter>
+
+    <adminhtml_customer_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_grid" name="admin.customer.grid"/>
+        </block>
+    </adminhtml_customer_grid>
+
+    <adminhtml_customer_cart>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_cart" name="admin.customer.view.edit.cart" />
+        </block>
+    </adminhtml_customer_cart>
 </layout>

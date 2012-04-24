@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -34,27 +34,36 @@
 <?php if($this->getCollection()->getSize()): ?>
 <div class="toolbar">
     <div class="pager">
+        <p class="amount" style="display:none;">
+            <?php if($this->getLastPageNum()>1): ?>
+                <?php echo $this->__('%s-%s/%s', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
+            <?php else: ?>
+                <strong><?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
+            <?php endif; ?>
+        </p>
+
         <?php echo $this->getPagerHtml() ?>
+
     </div>
 
     <?php if( $this->isExpanded() ): ?>
     <div class="sorter">
         <div class="sort-by">
-            <label><?php echo $this->__('Sort By:') ?></label>
+            <?php if($this->getCurrentDirection() == 'desc'): ?>
+                <a class="order asc" href="<?php echo $this->getOrderUrl(null, 'asc') ?>" title="<?php echo $this->__('Set Ascending Direction') ?>">&nbsp;</a>
+            <?php else: ?>
+                <a class="order desc" href="<?php echo $this->getOrderUrl(null, 'desc') ?>" title="<?php echo $this->__('Set Descending Direction') ?>">&nbsp;</a>
+            <?php endif; ?>
+            <label for="sort_by"><?php echo $this->__('Sort') ?></label>
+            <span class="sort-by-wrap">
+            <select id="sort_by" onchange="setLocation(this.value)">
             <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
-                <?php if($this->isOrderCurrent($_key)): ?>
-                    <span>
-                        <?php echo $_order ?>
-                        <?php if($this->getCurrentDirection() == 'desc'): ?>
-                            <a href="<?php echo $this->getOrderUrl(null, 'asc') ?>" title="<?php echo $this->__('Set Ascending Direction') ?>"><img src="<?php echo $this->getSkinUrl('images/i_desc_arrow.gif') ?>" alt="<?php echo $this->__('Set Ascending Direction') ?>" class="v-middle" /></a>
-                        <?php else: ?>
-                            <a href="<?php echo $this->getOrderUrl(null, 'desc') ?>" title="<?php echo $this->__('Set Descending Direction') ?>"><img src="<?php echo $this->getSkinUrl('images/i_asc_arrow.gif') ?>" alt="<?php echo $this->__('Set Descending Direction') ?>" class="v-middle" /></a>
-                        <?php endif; ?>
-                    </span>
-                <?php else: ?>
-                    <a href="<?php echo $this->getOrderUrl($_key, 'asc') ?>" title="<?php echo $_order ?>"><?php echo $_order ?></a>
-                <?php endif; ?>
+                <option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif; ?>>
+                    <?php echo $this->__($_order) ?>
+                </option>
             <?php endforeach; ?>
+            </select>
+            </span>
         </div>
     </div>
     <?php endif; ?>

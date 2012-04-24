@@ -20,22 +20,22 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * description
- *
- * @category    Mage
- * @category   Mage
- * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * Catalog rule edit form block
  */
 
 class Mage_Adminhtml_Block_Promo_Catalog_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
-
+    /**
+     * Initialize form
+     * Add standard buttons
+     * Add "Save and Apply" button
+     * Add "Save and Continue" button
+     */
     public function __construct()
     {
         $this->_objectId = 'id';
@@ -43,38 +43,29 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit extends Mage_Adminhtml_Block_Widge
 
         parent::__construct();
 
-        $this->_updateButton('save', 'label', Mage::helper('catalogrule')->__('Save Rule'));
-        $this->_updateButton('delete', 'label', Mage::helper('catalogrule')->__('Delete Rule'));
+        $this->_addButton('save_apply', array(
+            'class'   => 'save',
+            'label'   => Mage::helper('catalogrule')->__('Save and Apply'),
+            'onclick' => "$('rule_auto_apply').value=1; editForm.submit()",
+        ));
 
-        $rule = Mage::registry('current_promo_catalog_rule');
-
-        if (!$rule->isDeleteable()) {
-            $this->_removeButton('delete');
-        }
-
-        if (!$rule->isReadonly()) {
-            $this->_addButton('save_apply', array(
-                'class'=>'save',
-                'label'=>Mage::helper('catalogrule')->__('Save and Apply'),
-                'onclick'=>"$('rule_auto_apply').value=1; editForm.submit()",
-            ));
-            $this->_addButton('save_and_continue', array(
-                'label'     => Mage::helper('catalogrule')->__('Save and Continue Edit'),
-                'onclick'   => 'saveAndContinueEdit()',
-                'class' => 'save'
-            ), 10);
-            $this->_formScripts[] = " function saveAndContinueEdit(){ editForm.submit($('edit_form').action + 'back/edit/') } ";
-        } else {
-            $this->_removeButton('reset');
-            $this->_removeButton('save');
-        }
+        $this->_addButton('save_and_continue_edit', array(
+            'class'   => 'save',
+            'label'   => Mage::helper('catalogrule')->__('Save and Continue Edit'),
+            'onclick' => 'editForm.submit($(\'edit_form\').action + \'back/edit/\')',
+        ), 10);
     }
 
+    /**
+     * Getter for form header text
+     *
+     * @return string
+     */
     public function getHeaderText()
     {
         $rule = Mage::registry('current_promo_catalog_rule');
         if ($rule->getRuleId()) {
-            return Mage::helper('catalogrule')->__("Edit Rule '%s'", $this->htmlEscape($rule->getName()));
+            return Mage::helper('catalogrule')->__("Edit Rule '%s'", $this->escapeHtml($rule->getName()));
         }
         else {
             return Mage::helper('catalogrule')->__('New Rule');

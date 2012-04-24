@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml_Block_Widget_Grid
+class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml_Block_Report_Grid_Shopcart
 {
 
     public function __construct()
@@ -42,16 +42,6 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
 
     protected function _prepareCollection()
     {
-        if ($this->getRequest()->getParam('website')) {
-            $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
-        } else if ($this->getRequest()->getParam('group')) {
-            $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
-        } else if ($this->getRequest()->getParam('store')) {
-            $storeIds = array((int)$this->getRequest()->getParam('store'));
-        } else {
-            $storeIds = '';
-        }
-
         /** @var $collection Mage_Reports_Model_Resource_Quote_Collection */
         $collection = Mage::getResourceModel('reports/quote_collection');
 
@@ -62,9 +52,9 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         }
 
         if (!empty($data)) {
-            $collection->prepareForAbandonedReport($storeIds, $data);
+            $collection->prepareForAbandonedReport($this->_storeIds, $data);
         } else {
-            $collection->prepareForAbandonedReport($storeIds);
+            $collection->prepareForAbandonedReport($this->_storeIds);
         }
 
         $this->setCollection($collection);
@@ -116,14 +106,27 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
             'type'      =>'number'
         ));
 
+        if ($this->getRequest()->getParam('website')) {
+            $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
+        } else if ($this->getRequest()->getParam('group')) {
+            $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
+        } else if ($this->getRequest()->getParam('store')) {
+            $storeIds = array((int)$this->getRequest()->getParam('store'));
+        } else {
+            $storeIds = array();
+        }
+        $this->setStoreIds($storeIds);
+        $currencyCode = $this->getCurrentCurrencyCode();
+
         $this->addColumn('subtotal', array(
-            'header'    =>Mage::helper('reports')->__('Subtotal'),
-            'width'     =>'80px',
-            'type'      =>'currency',
-            'currency_code' => $this->getCurrentCurrencyCode(),
-            'index'     =>'subtotal',
-            'sortable'  =>false,
-            'renderer'  =>'adminhtml/report_grid_column_renderer_currency'
+            'header'        => Mage::helper('reports')->__('Subtotal'),
+            'width'         => '80px',
+            'type'          => 'currency',
+            'currency_code' => $currencyCode,
+            'index'         => 'subtotal',
+            'sortable'      => false,
+            'renderer'      => 'adminhtml/report_grid_column_renderer_currency',
+            'rate'          => $this->getRate($currencyCode),
         ));
 
         $this->addColumn('coupon_code', array(

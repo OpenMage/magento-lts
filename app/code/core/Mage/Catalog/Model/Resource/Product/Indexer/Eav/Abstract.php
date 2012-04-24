@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,12 +44,19 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
     public function reindexAll()
     {
         $this->useIdxTable(true);
-        $this->clearTemporaryIndexTable();
-        $this->_prepareIndex();
-        $this->_prepareRelationIndex();
-        $this->_removeNotVisibleEntityFromIndex();
+        $this->beginTransaction();
+        try {
+            $this->clearTemporaryIndexTable();
+            $this->_prepareIndex();
+            $this->_prepareRelationIndex();
+            $this->_removeNotVisibleEntityFromIndex();
 
-        $this->syncData();
+            $this->syncData();
+            $this->commit();
+        } catch (Exception $e) {
+            $this->rollBack();
+            throw $e;
+        }
 
         return $this;
     }
@@ -76,7 +83,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
         if ($parentIds) {
             $processIds = array_unique(array_merge($processIds, $parentIds));
         }
-        $childIds  = $this->getRelationsByParent($parentIds);
+        $childIds  = $this->getRelationsByParent($processIds);
         if ($childIds) {
             $processIds = array_unique(array_merge($processIds, $childIds));
         }
@@ -153,7 +160,13 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
             ->from($idxTable, null);
 
         $condition = $write->quoteInto('=?',Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE);
-        $this->_addAttributeToSelect($select, 'visibility', $idxTable . '.entity_id', $idxTable . '.store_id', $condition);
+        $this->_addAttributeToSelect(
+            $select,
+            'visibility',
+            $idxTable . '.entity_id',
+            $idxTable . '.store_id',
+            $condition
+        );
 
         $query = $select->deleteFromSelect($idxTable);
         $write->query($query);

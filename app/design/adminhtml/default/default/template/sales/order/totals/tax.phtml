@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /** @var $this Mage_Adminhtml_Block_Sales_Order_Totals_Tax */
@@ -73,9 +73,9 @@ $_fullInfo  = $this->getFullTaxInfo();
 
             <tr class="summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>" style="display:none;">
                 <?php if (!is_null($info['percent'])): ?>
-                    <td class="label"><?php echo $info['title']; ?> (<?php echo (float)$info['percent']; ?>%)<br /></td>
+                    <td class="label"><?php echo $this->escapeHtml($info['title']); ?> (<?php echo (float)$info['percent']; ?>%)<br /></td>
                 <?php else: ?>
-                    <td class="label"><?php echo $info['title']; ?><br /></td>
+                    <td class="label"><?php echo $this->escapeHtml($info['title']); ?><br /></td>
                 <?php endif; ?>
                     <td><?php echo $this->displayAmount($amount, $baseAmount); ?></td>
             </tr>

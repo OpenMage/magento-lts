@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -45,9 +45,6 @@ Default layout, loads most of the pages
     <default>
 
         <!-- Mage_Catalog -->
-        <reference name="top.menu">
-            <block type="catalog/navigation" name="catalog.topnav" template="catalog/navigation/top.phtml"/>
-        </reference>
         <reference name="left">
             <block type="core/template" name="left.permanent.callout" template="callouts/left_col.phtml">
                 <action method="setImgSrc"><src>images/media/col_left_callout.jpg</src></action>
@@ -418,22 +415,4 @@ SEO Site Map
             <action method="addLink" translate="label title" module="catalog"><label>Categories Sitemap</label><url helper="catalog/map/getCategoryUrl"/><title>Categories Sitemap</title></action>
         </reference>
     </catalog_seo_sitemap_product>
-
-
-<!--
-Catalog search terms block
--->
-
-    <catalog_seo_searchterm_popular translate="label">
-        <label>Catalog Seo Popular Search Terms</label>
-        <remove name="right"/>
-        <remove name="left"/>
-        <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
-        </reference>
-        <reference name="content">
-            <block type="catalog/seo_searchterm" name="seo.searchterm" template="catalog/seo/searchterm.phtml"/>
-        </reference>
-    </catalog_seo_searchterm_popular>
-
 </layout>

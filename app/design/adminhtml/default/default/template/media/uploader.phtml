@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -30,11 +30,9 @@
  */
 ?>
 
-<?php echo $this->helper('adminhtml/media_js')->includeScript('lib/flex.js') ?>
-<?php echo $this->helper('adminhtml/media_js')->includeScript('mage/adminhtml/flexuploader.js') ?>
-<?php echo $this->helper('adminhtml/media_js')->includeScript('lib/FABridge.js') ?>
-<?php echo $this->helper('adminhtml/media_js')->getTranslatorScript() ?>
-
+<?php echo $this->helper('adminhtml/js')->includeScript('lib/flex.js') ?>
+<?php echo $this->helper('adminhtml/js')->includeScript('mage/adminhtml/flexuploader.js') ?>
+<?php echo $this->helper('adminhtml/js')->includeScript('lib/FABridge.js') ?>
 
 <div id="<?php echo $this->getHtmlId() ?>" class="uploader">
     <div class="buttons">

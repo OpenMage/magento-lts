@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +40,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
      * @deprecated since 1.5.0.0
      * @var boolean
      */
-    protected $_loadDefault    = false;
+    protected $_loadDefault = false;
 
     /**
      * Define resource model
@@ -56,12 +56,12 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
      * Set flag for load default (admin) store
      *
      * @param boolean $loadDefault
+     *
      * @return Mage_Core_Model_Resource_Store_Group_Collection
      */
     public function setLoadDefault($loadDefault)
     {
-        $this->setFlag('load_default_store_group', (bool)$loadDefault);
-        return $this;
+        return $this->setFlag('load_default_store_group', (bool)$loadDefault);
     }
 
     /**
@@ -75,21 +75,28 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     }
 
     /**
-     *  Add disable default store group filter to collection
+     * Add disable default store group filter to collection
      *
      * @return Mage_Core_Model_Resource_Store_Group_Collection
      */
     public function setWithoutDefaultFilter()
     {
-        $this->addFieldToFilter('main_table.group_id', array('gt' => 0));
-        return $this;
+        return $this->addFieldToFilter('main_table.group_id', array('gt' => 0));
+    }
+
+    /**
+     * Filter to discard stores without views
+     *
+     * @return Mage_Core_Model_Resource_Store_Group_Collection
+     */
+    public function setWithoutStoreViewFilter()
+    {
+        return $this->addFieldToFilter('main_table.default_store_id', array('gt' => 0));
     }
 
     /**
      * Load collection data
      *
-     * @param boolean $printQuery
-     * @param boolean $logQuery
      * @return Mage_Core_Model_Resource_Store_Group_Collection
      */
     public function _beforeLoad()
@@ -111,15 +118,15 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
         return $this->_toOptionArray('group_id', 'name');
     }
 
-     /**
+    /**
      * Add filter by website to collection
      *
      * @param int|array $website
-     * @return Mage_Core_Model_Resource_Store_Collection
+     *
+     * @return Mage_Core_Model_Resource_Store_Group_Collection
      */
     public function addWebsiteFilter($website)
     {
         return $this->addFieldToFilter('main_table.website_id', array('in' => $website));
     }
-
 }

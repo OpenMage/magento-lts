@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -245,7 +245,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                     !$_item->getParentItem() &&
                     !$_item->getMultishippingQty()
                 ) {
-                    $_item->delete();
+                    $quote->removeItem($_item->getId());
                 }
             }
 
@@ -268,7 +268,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                         $quote->getBillingAddress()->addItem($_item);
                     } else {
                         $_item->setQty(0);
-                        $_item->delete();
+                        $quote->removeItem($_item->getId());
                     }
                  }
 
@@ -296,13 +296,9 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
 
         if ($addressId && $quoteItem) {
             /**
-             * Decrease quote item QTY if address item has QTY 0 and skip this item processing
+             * Skip item processing if qty 0
              */
             if ($qty === 0) {
-                $quoteItemQty = $quoteItem->getQty();
-                if ($quoteItemQty > 0) {
-                    $quoteItem->setQty($quoteItemQty-1);
-                }
                 return $this;
             }
             $quoteItem->setMultishippingQty((int)$quoteItem->getMultishippingQty()+$qty);
@@ -464,33 +460,32 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      */
     protected function _validate()
     {
-        $helper = Mage::helper('checkout');
         $quote = $this->getQuote();
         if (!$quote->getIsMultiShipping()) {
-            Mage::throwException($helper->__('Invalid checkout type.'));
+            Mage::throwException(Mage::helper('checkout')->__('Invalid checkout type.'));
         }
 
         /** @var $paymentMethod Mage_Payment_Model_Method_Abstract */
         $paymentMethod = $quote->getPayment()->getMethodInstance();
         if (!empty($paymentMethod) && !$paymentMethod->isAvailable($quote)) {
-            Mage::throwException($helper->__('Please specify payment method.'));
+            Mage::throwException(Mage::helper('checkout')->__('Please specify payment method.'));
         }
 
         $addresses = $quote->getAllShippingAddresses();
         foreach ($addresses as $address) {
             $addressValidation = $address->validate();
             if ($addressValidation !== true) {
-                Mage::throwException($helper->__('Please check shipping addresses information.'));
+                Mage::throwException(Mage::helper('checkout')->__('Please check shipping addresses information.'));
             }
             $method= $address->getShippingMethod();
             $rate  = $address->getShippingRateByCode($method);
             if (!$method || !$rate) {
-                Mage::throwException($helper->__('Please specify shipping methods for all addresses.'));
+                Mage::throwException(Mage::helper('checkout')->__('Please specify shipping methods for all addresses.'));
             }
         }
         $addressValidation = $quote->getBillingAddress()->validate();
         if ($addressValidation !== true) {
-            Mage::throwException($helper->__('Please check billing address information.'));
+            Mage::throwException(Mage::helper('checkout')->__('Please check billing address information.'));
         }
         return $this;
     }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -317,25 +317,29 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
     protected function _processPostRequest()
     {
         try {
+            /** @var $app Mage_XmlConnect_Model_Application */
             $app = Mage::helper('xmlconnect')->getApplication();
             $params = $app->getSubmitParams();
 
             $appConnectorUrl = Mage::getStoreConfig('xmlconnect/mobile_application/magentocommerce_url');
-            $curlHandler = curl_init($appConnectorUrl . $params['key']);
 
-            // set URL and other appropriate options
-            curl_setopt($curlHandler, CURLOPT_POST, 1);
-            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $params);
-            curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, 2);
-            curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, FALSE);
-            curl_setopt($curlHandler, CURLOPT_TIMEOUT, 60);
+            $curl = new Varien_Http_Adapter_Curl();
+            $verifyPeerValue = Mage::getStoreConfig('xmlconnect/mobile_application/curl_ssl_verifypeer');
+            $curl->setConfig(array(
+                'timeout' => Mage_XmlConnect_Helper_Data::CURLOPT_DEFAULT_TIMEOUT,
+                'verifypeer' => $verifyPeerValue, 'verifyhost' => 2, 'header' => false
+            ));
 
-            // Execute the request.
-            $result = curl_exec($curlHandler);
+            $mCommerceUrl = $appConnectorUrl . $params['key'];
+            $curl->write(Zend_Http_Client::POST, $mCommerceUrl, CURL_HTTP_VERSION_1_1, array(), $params);
 
-            // close cURL resource, and free up system resources
-            curl_close($curlHandler);
+            $result = $curl->read();
+            if(false === $result) {
+                Mage::log('Curl error: ' . $curl->getError());
+                $curl->close();
+                Mage::throwException($this->__('Request internal error.'));
+            }
+            $curl->close();
 
             // Assert that we received an expected message in reponse.
             $resultArray = json_decode($result, true);
@@ -1161,9 +1165,8 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
                         break;
                 }
                 if ($temporaryObject->getExecTime()) {
-                    $message->setExecTime(
-                        Mage::getSingleton('core/date')->gmtDate(null, $temporaryObject->getExecTime())
-                    );
+                    $execTime = Mage::getSingleton('core/date')->gmtDate(null, $temporaryObject->getExecTime());
+                    $message->setExecTime($execTime ? $execTime : Mage::getSingleton('core/date')->gmtDate());
                 } else {
                     $message->setExecTime(new Zend_Db_Expr('NULL'));
                 }
@@ -1313,13 +1316,13 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
         }
 
         if (isset($template)) {
-            $appCode = $template->getAppCode();
+            $applicationId = $template->getApplicationId();
         } else {
-            $appCode = Mage::getModel('xmlconnect/template')->load($message->getTemplateId())->getAppCode();
+            $applicationId = Mage::getModel('xmlconnect/template')->load($message->getTemplateId())->getApplicationId();
         }
 
         /** @var $app Mage_XmlConnect_Model_Application */
-        $app = Mage::getModel('xmlconnect/application')->loadByCode($appCode);
+        $app = Mage::getModel('xmlconnect/application')->load($applicationId);
 
         if(!$app->isNotificationsActive()) {
             $this->_getSession()->addError(

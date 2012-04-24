@@ -20,7 +20,7 @@
  *
  * @category   Varien
  * @package    Varien_File
- * @copyright  Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright  Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,7 +62,7 @@ class Varien_File_Object extends SplFileObject implements IFactory {
      */
     public function getFilesName(&$files)
     {
-        $this->getFileName(&$files);
+        $this->getFileName($files);
     }
     /**
      * add file name to array
@@ -189,15 +189,12 @@ class Varien_File_Object extends SplFileObject implements IFactory {
      */
     static public function getExt($fileName)
     {
-        if($fileName === ''){
-            $path_parts = pathinfo($this->_filename);
+        $path_parts = pathinfo($fileName);
+        if(isset($path_parts["extension"])) {
+            return $path_parts["extension"];
         } else {
-            $path_parts = pathinfo($fileName);
+            return '';
         }
-        if(isset($path_parts["extension"]))
-        return $path_parts["extension"];
-        else
-        return '';
     }
     /**
      * get name of file

@@ -10,8 +10,8 @@
     <description>Phpseclib Library</description>
     <notes>1.5.0.0</notes>
     <authors><author><name>Magento Core Team</name><user>core</user><email>core@magentocommerce.com</email></author></authors>
-    <date>2011-07-07</date>
-    <time>13:52:20</time>
+    <date>2011-02-08</date>
+    <time>16:02:19</time>
     <contents><target name="magelib"><dir name="phpseclib"><dir name="Crypt"><file name="AES.php" hash="6af09e1f2da7eb069760d788ee0d54e0"/><file name="DES.php" hash="1b75baa9ddad68309b8e82a6cebc8dc1"/><file name="Hash.php" hash="f8ca80e79e2d570afeb2f78023f213d4"/><file name="RC4.php" hash="2e507f5635b6d98d9daaa341a8a6fb8b"/><file name="RSA.php" hash="579c11f7b2e05cae01b67b31461ca264"/><file name="Random.php" hash="6e86dfbd3f8f19f32f13a53a756e53af"/><file name="Rijndael.php" hash="3a0aa237cbc23ffba12aad6dd5215ab8"/><file name="TripleDES.php" hash="db12eebd6ed7290e4ac0d521ab5c55ce"/></dir><dir name="Math"><file name="BigInteger.php" hash="8dd950e566864b28c92b58acb06e1535"/></dir><dir name="Net"><file name="SFTP.php" hash="4665bea6e721ec016e0e70207cf45339"/><file name="SSH1.php" hash="19155c50cf00370152905b2a4a6ce657"/><file name="SSH2.php" hash="65563b38d6e6df3e8ebc628cec86f86d"/></dir><dir name="PHP"><dir name="Compat"><dir name="Function"><file name="array_fill.php" hash="2c0a4268deed10ced9491155e2284a82"/><file name="bcpowmod.php" hash="37fc1de34085874a930eaa76888f0cb1"/><file name="str_split.php" hash="889ab2b0d90b0962ded2ee65f1bfbc37"/></dir></dir></dir></dir></target></contents>
     <compatible/>
     <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>

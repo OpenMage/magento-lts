@@ -20,11 +20,17 @@
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Connect Command abstract class. It cannot instantiate directly
+ *
+ * @category    Mage
+ * @package     Mage_Connect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Connect_Command
 {
     /**
@@ -44,21 +50,51 @@ class Mage_Connect_Command
      * @var Mage_Connect_Fro
      */
     protected static $_frontend = null;
+
+    /**
+     * Connect Config instance
+     * @var Mage_Connect_Config
+     */
     protected static $_config = null;
-    protected static $_registry = null;
+    /**
+     * Validator instance
+     *
+     * @var Mage_Connect_Validator
+     */
     protected static $_validator = null;
+
+    /**
+     * Rest instance
+     *
+     * @var Mage_Connect_Rest
+     */
     protected static $_rest = null;
+
+    /**
+     * Cache config instance
+     *
+     * @var Mage_Connect_Singleconfig
+     */
     protected static $_sconfig = null;
 
-    protected $_data;
+    /**
+     * Called class name
+     *
+     * @var string
+     */
     protected $_class;
+
+    /**
+     * Packager instance
+     *
+     * @var Mage_Connect_Packager
+     */
     protected static $_packager = null;
 
     protected static $_return = array();
 
     /**
      * Constructor
-     *
      */
     public function __construct()
     {
@@ -69,11 +105,11 @@ class Mage_Connect_Command
         $this->commandsInfo = self::$_commandsByClass[$class];
     }
 
-
     /**
      * Get command info (static)
+     *
      * @param string $name command name
-     * @return array/bool
+     * @return array|boolean
      */
     public static function commandInfo($name)
     {
@@ -86,10 +122,10 @@ class Mage_Connect_Command
 
     /**
      * Get command info for current command object
+     *
      * @param string $name
-     * @return array/bool
+     * @return array|boolean
      */
-
     public function getCommandInfo($name)
     {
         if(!isset(self::$_commandsByClass[$this->_class][$name])) {
@@ -100,6 +136,7 @@ class Mage_Connect_Command
 
     /**
      * Run command
+     *
      * @param string $command
      * @param string $options
      * @param string $params
@@ -134,47 +171,53 @@ class Mage_Connect_Command
         return new $currentCommand['class']();
     }
 
-    
+    /**
+     * Cache config setter
+     *
+     * @static
+     * @param Mage_Connect_Singleconfig $obj
+     * @return null
+     */
     public static function setSconfig($obj)
     {
         self::$_sconfig = $obj;
     }
-    
+
     /**
-     * 
+     * Cache config getter
+     *
      * @return Mage_Connect_Singleconfig
      */
     public function getSconfig()
     {
         return self::$_sconfig;
     }
-    
-    
+
     /**
      * Sets frontend object for all commands
      *
      * @param Mage_Connect_Frontend $obj
-     * @return void
+     * @return null
      */
     public static function setFrontendObject($obj)
     {
         self::$_frontend = $obj;
     }
 
-
     /**
      * Set config object for all commands
+     *
      * @param Mage_Connect_Config $obj
-     * @return void
+     * @return null
      */
     public static function setConfigObject($obj)
     {
         self::$_config = $obj;
     }
 
-  
     /**
      * Non-static getter for config
+     *
      * @return Mage_Connect_Config
      */
     public function config()
@@ -184,6 +227,7 @@ class Mage_Connect_Command
 
     /**
      * Non-static getter for UI
+     *
      * @return Mage_Connect_Frontend
      */
     public function ui()
@@ -191,9 +235,9 @@ class Mage_Connect_Command
         return self::$_frontend;
     }
 
-
     /**
      * Get validator object
+     *
      * @return Mage_Connect_Validator
      */
     public function validator()
@@ -206,6 +250,7 @@ class Mage_Connect_Command
 
     /**
      * Get rest object
+     *
      * @return Mage_Connect_Rest
      */
     public function rest()
@@ -216,9 +261,9 @@ class Mage_Connect_Command
         return self::$_rest;
     }
 
-
     /**
      * Get commands list sorted
+     *
      * @return array
      */
     public static function getCommands()
@@ -230,10 +275,10 @@ class Mage_Connect_Command
         return self::$_commandsAll;
     }
 
-
     /**
      * Get Getopt args from command definitions
      * and parse them
+     *
      * @param $command
      * @return array
      */
@@ -252,11 +297,9 @@ class Mage_Connect_Command
                 if ($info['arg']{0} == '(') {
                     $larg = '==';
                     $sarg = '::';
-                    $arg = substr($info['arg'], 1, -1);
                 } else {
                     $larg = '=';
                     $sarg = ':';
-                    $arg = $info['arg'];
                 }
             }
             if (isset($info['shortopt'])) {
@@ -269,13 +312,15 @@ class Mage_Connect_Command
 
     /**
      * Try to register commands automatically
-     * @return void
+     *
+     * @return null
      */
     public static function registerCommands()
     {
         $pathCommands = dirname(__FILE__).DIRECTORY_SEPARATOR.basename(__FILE__, ".php");
         $f = new DirectoryIterator($pathCommands);
         foreach($f as $file) {
+            /** @var $file DirectoryIterator */
             if (! $file->isFile()) {
                 continue;
             }
@@ -296,17 +341,24 @@ class Mage_Connect_Command
         }
     }
 
+    /**
+     * Add Error message
+     *
+     * @param string $command
+     * @param string $message
+     * @return null
+     */
     public function doError($command, $message)
     {
         return $this->ui()->doError($command, $message);
     }
 
-
     /**
      * Set command return
+     *
      * @param string $key
      * @param mixed $val
-     * @return void
+     * @return null
      */
     public static function setReturn($key, $val)
     {
@@ -315,6 +367,7 @@ class Mage_Connect_Command
 
     /**
      * Get command return
+     *
      * @param $key
      * @param $clear
      * @return mixed
@@ -342,7 +395,7 @@ class Mage_Connect_Command
         if(!count($params)) {
             return;
         }
-        foreach($params as $k=>$v) {
+        foreach($params as $v) {
             if(is_string($v)) {
                 $v = trim($v);
                 if(!strlen($v)) {
@@ -374,17 +427,17 @@ class Mage_Connect_Command
         }
     }
 
-    
+
     /**
      * Get packager instance
-     * @return Mage_Connect_Pacakger
+     *
+     * @return Mage_Connect_Packager
      */
-    public function getPackager() 
+    public function getPackager()
     {
         if(!self::$_packager) {
             self::$_packager = new Mage_Connect_Packager();
         }
-        return self::$_packager;    
+        return self::$_packager;
     }
-    
 }

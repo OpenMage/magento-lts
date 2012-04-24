@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -160,6 +160,13 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     protected $_order;
     protected $_comments;
 
+    /**
+     * Calculator instances for delta rounding of prices
+     *
+     * @var array
+     */
+    protected $_calculators = array();
+
     protected $_eventPrefix = 'sales_order_creditmemo';
     protected $_eventObject = 'creditmemo';
 
@@ -285,6 +292,22 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         return false;
     }
 
+    /**
+     * Returns credit memo item by its order id
+     *
+     * @param $orderId
+     * @return Mage_Sales_Model_Order_Creditmemo_Item|bool
+     */
+    public function getItemByOrderId($orderId)
+    {
+        foreach ($this->getItemsCollection() as $item) {
+            if ($item->getOrderItemId() == $orderId) {
+                return $item;
+            }
+        }
+        return false;
+    }
+
     public function addItem(Mage_Sales_Model_Order_Creditmemo_Item $item)
     {
         $item->setCreditmemo($this)
@@ -307,6 +330,25 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
             $model->collect($this);
         }
         return $this;
+    }
+
+    /**
+     * Round price considering delta
+     *
+     * @param float $price
+     * @param string $type
+     * @param bool $negative Indicates if we perform addition (true) or subtraction (false) of rounded value
+     * @return float
+     */
+    public function roundPrice($price, $type = 'regular', $negative = false)
+    {
+        if ($price) {
+            if (!isset($this->_calculators[$type])) {
+                $this->_calculators[$type] = Mage::getModel('core/calculator', $this->getStore());
+            }
+            $price = $this->_calculators[$type]->deltaRound($price, $negative);
+        }
+        return $price;
     }
 
     public function canRefund()
@@ -374,9 +416,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
             $baseAvailableRefund = $this->getOrder()->getBaseTotalPaid()- $this->getOrder()->getBaseTotalRefunded();
 
             Mage::throwException(
-                Mage::helper('sales')->__('Maximum amount available to refund is %s',
-                    $this->getOrder()->formatBasePrice($baseAvailableRefund)
-                )
+                Mage::helper('sales')->__('Maximum amount available to refund is %s', $this->getOrder()->formatBasePrice($baseAvailableRefund))
             );
         }
         $order = $this->getOrder();

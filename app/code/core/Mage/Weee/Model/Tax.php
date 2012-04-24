@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Weee
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -85,7 +85,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
 
     /**
      * Retrieve Wee tax attribute codes
-     * 
+     *
      * @param bool $forceEnabled
      * @return array
      */
@@ -117,8 +117,8 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
 
         $websiteId = Mage::app()->getWebsite($website)->getId();
         $store = Mage::app()->getWebsite($website)->getDefaultGroup()->getDefaultStore();
-
         $customer = null;
+
         if ($shipping) {
             $customerTaxClass = $shipping->getQuote()->getCustomerTaxClassId();
             $customer = $shipping->getQuote()->getCustomer();
@@ -132,8 +132,8 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
         }
         $rateRequest = $calculator->getRateRequest($shipping, $billing, $customerTaxClass, $store);
         $defaultRateRequest = $calculator->getRateRequest(false, false, false, $store);
-
         $discountPercent = 0;
+
         if (!$ignoreDiscount && Mage::helper('weee')->isDiscounted($store)) {
             $discountPercent = $this->_getDiscountPercentForProduct($product);
         }
@@ -141,7 +141,6 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
         $productAttributes = $product->getTypeInstance(true)->getSetAttributes($product);
         foreach ($productAttributes as $code => $attribute) {
             if (in_array($code, $allWeee)) {
-
                 $attributeSelect = $this->getResource()->getReadConnection()->select();
                 $attributeSelect
                     ->from($this->getResource()->getTable('weee/tax'), 'value')
@@ -154,27 +153,26 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
 
                 $order = array('state ' . Varien_Db_Select::SQL_DESC, 'website_id ' . Varien_Db_Select::SQL_DESC);
                 $attributeSelect->order($order);
-
                 $value = $this->getResource()->getReadConnection()->fetchOne($attributeSelect);
+
                 if ($value) {
                     if ($discountPercent) {
-                        $value = Mage::app()->getStore()->roundPrice($value-($value*$discountPercent/100));
+                        $value = Mage::app()->getStore()->roundPrice($value - ($value * $discountPercent / 100));
                     }
 
-                    $taxAmount = $amount = 0;
+                    $taxAmount = 0;
                     $amount    = $value;
-                    /**
-                     * We can't use FPT imcluding/excluding tax
-                     */
-//                    if ($calculateTax && Mage::helper('weee')->isTaxable($store)) {
-//                        $defaultPercent = Mage::getModel('tax/calculation')
-//                              ->getRate($defaultRateRequest
-//                              ->setProductClassId($product->getTaxClassId()));
-//                        $currentPercent = $product->getTaxPercent();
-//
-//                        $taxAmount = Mage::app()->getStore()->roundPrice($value/(100+$defaultPercent)*$currentPercent);
-//                        $amount = $value - $taxAmount;
-//                    }
+                    if ($calculateTax && Mage::helper('weee')->isTaxable($store)) {
+                        $defaultPercent = Mage::getModel('tax/calculation')
+                            ->getRate($defaultRateRequest
+                            ->setProductClassId($product->getTaxClassId()));
+                        $currentPercent = $product->getTaxPercent();
+                        if (Mage::helper('tax')->priceIncludesTax($store)) {
+                            $taxAmount = Mage::app()->getStore()->roundPrice($value/(100+$defaultPercent)*$currentPercent);
+                        } else {
+                            $taxAmount = Mage::app()->getStore()->roundPrice($value*$defaultPercent/100);
+                        }
+                    }
 
                     $one = new Varien_Object();
                     $one->setName(Mage::helper('catalog')->__($attribute->getFrontend()->getLabel()))

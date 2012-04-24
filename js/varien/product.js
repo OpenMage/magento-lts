@@ -19,7 +19,7 @@
  *
  * @category    Varien
  * @package     js
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 if(typeof Product=='undefined') {
@@ -491,7 +491,8 @@ Product.Config.prototype = {
             for(var i=this.settings.length-1;i>=0;i--){
                 var selected = this.settings[i].options[this.settings[i].selectedIndex];
                 if(selected.config){
-                    price+= parseFloat(selected.config.price);
+                    var parsedOldPrice = parseFloat(selected.config.oldPrice);
+                    price += isNaN(parsedOldPrice) ? 0 : parsedOldPrice;
                 }
             }
             if (price < 0)
@@ -563,15 +564,21 @@ Product.OptionsPrice.prototype = {
         this.skipCalculate      = config.skipCalculate;//@deprecated after 1.5.1.0
         this.duplicateIdSuffix  = config.idSuffix;
         this.specialTaxPrice    = config.specialTaxPrice;
+        this.tierPrices         = config.tierPrices;
+        this.tierPricesInclTax  = config.tierPricesInclTax;
 
         this.oldPlusDisposition = config.oldPlusDisposition;
         this.plusDisposition    = config.plusDisposition;
+        this.plusDispositionTax = config.plusDispositionTax;
 
         this.oldMinusDisposition = config.oldMinusDisposition;
         this.minusDisposition    = config.minusDisposition;
 
-        this.optionPrices    = {};
-        this.containers      = {};
+        this.exclDisposition     = config.exclDisposition;
+
+        this.optionPrices   = {};
+        this.customPrices   = {};
+        this.containers     = {};
 
         this.displayZeroPrice   = true;
 
@@ -594,6 +601,9 @@ Product.OptionsPrice.prototype = {
         this.optionPrices[key] = price;
     },
 
+    addCustomPrices: function(key, price) {
+        this.customPrices[key] = price;
+    },
     getOptionPrices: function() {
         var price = 0;
         var nonTaxable = 0;
@@ -669,8 +679,25 @@ Product.OptionsPrice.prototype = {
                     var incl = excl + tax;
                 }
 
-                excl += parseFloat(_plusDisposition);
-                incl += parseFloat(_plusDisposition);
+                var subPrice = 0;
+                var subPriceincludeTax = 0;
+                Object.values(this.customPrices).each(function(el){
+                    if (el.excludeTax && el.includeTax) {
+                        subPrice += parseFloat(el.excludeTax);
+                        subPriceincludeTax += parseFloat(el.includeTax);
+                    } else {
+                        subPrice += parseFloat(el.price);
+                        subPriceincludeTax += parseFloat(el.price);
+                    }
+                });
+                excl += subPrice;
+                incl += subPriceincludeTax;
+
+                if (typeof this.exclDisposition == 'undefined') {
+                    excl += parseFloat(_plusDisposition);
+                }
+
+                incl += parseFloat(_plusDisposition) + parseFloat(this.plusDispositionTax);
                 excl -= parseFloat(_minusDisposition);
                 incl -= parseFloat(_minusDisposition);
 
@@ -717,6 +744,31 @@ Product.OptionsPrice.prototype = {
                 }
             };
         }.bind(this));
+
+        for (var i = 0; i < this.tierPrices.length; i++) {
+            $$('.price.tier-' + i).each(function (el) {
+                var price = this.tierPrices[i] + parseFloat(optionPrices);
+                el.innerHTML = this.formatPrice(price);
+            }, this);
+            $$('.price.tier-' + i + '-incl-tax').each(function (el) {
+                var price = this.tierPricesInclTax[i] + parseFloat(optionPrices);
+                el.innerHTML = this.formatPrice(price);
+            }, this);
+            $$('.benefit').each(function (el) {
+                var parsePrice = function (html) {
+                    return parseFloat(/\d+\.?\d*/.exec(html));
+                };
+                var container = $(this.containers[3]) ? this.containers[3] : this.containers[0];
+                var price = parsePrice($(container).innerHTML);
+                var tierPrice = $$('.price.tier-' + i);
+                tierPrice = tierPrice.length ? parseInt(tierPrice[0].innerHTML, 10) : 0;
+                var $percent = Selector.findChildElements(el, ['.percent.tier-' + i]);
+                $percent.each(function (el) {
+                    el.innerHTML = Math.ceil(100 - ((100 / price) * tierPrice));
+                });
+            }, this);
+        }
+
     },
     formatPrice: function(price) {
         return formatCurrency(price, this.priceFormat);

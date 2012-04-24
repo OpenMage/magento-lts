@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -90,14 +90,16 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
         if ($this->getFilterData()->getStoreIds()) {
             $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
         }
+        $currencyCode = $this->getCurrentCurrencyCode();
 
         $this->addColumn('tax_base_amount_sum', array(
             'header'        => Mage::helper('sales')->__('Tax Amount'),
             'type'          => 'currency',
-            'currency_code' => $this->getCurrentCurrencyCode(),
+            'currency_code' => $currencyCode,
             'index'         => 'tax_base_amount_sum',
             'total'         => 'sum',
-            'sortable'      => false
+            'sortable'      => false,
+            'rate'          => $this->getRate($currencyCode),
         ));
 
         $this->addExportType('*/*/exportTaxCsv', Mage::helper('adminhtml')->__('CSV'));

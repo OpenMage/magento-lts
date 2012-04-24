@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Persistent
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -288,8 +288,7 @@ class Mage_Persistent_Model_Observer
     {
         /** @var $customerSession Mage_Customer_Model_Session */
         $customerSession = Mage::getSingleton('customer/session');
-        $customerSession->setCustomerId(null)
-            ->setCustomerGroupId(null);
+        $customerSession->setCustomerId(null)->setCustomerGroupId(null);
 
         if (Mage::app()->getRequest()->getParam('context') != 'checkout') {
             $this->_expirePersistentSession();
@@ -314,8 +313,7 @@ class Mage_Persistent_Model_Observer
         /** @var $customerSession Mage_Customer_Model_Session */
         $customerSession = Mage::getSingleton('customer/session');
         if (!$customerSession->isLoggedIn()) {
-            $customerSession->setCustomerId(null)
-                ->setCustomerGroupId(null);
+            $customerSession->setCustomerId(null)->setCustomerGroupId(null);
         }
 
         $this->setQuoteGuest();
@@ -347,7 +345,16 @@ class Mage_Persistent_Model_Observer
         /** @var $controllerAction Mage_Core_Controller_Front_Action */
         $controllerAction = $observer->getEvent()->getControllerAction();
         if (is_callable(array($controllerAction, 'redirectLogin'))) {
+            Mage::getSingleton('core/session')->addNotice(
+                Mage::helper('persistent')->__('To proceed to Checkout, please log in using your email address.')
+            );
             $controllerAction->redirectLogin();
+            if ($controllerAction instanceof Mage_GoogleCheckout_RedirectController
+                || $controllerAction instanceof Mage_Paypal_Controller_Express_Abstract
+            ) {
+                Mage::getSingleton('customer/session')
+                    ->setBeforeAuthUrl(Mage::getUrl('persistent/index/expressCheckout'));
+            }
         }
     }
 
@@ -479,6 +486,8 @@ class Mage_Persistent_Model_Observer
             && !$this->_isPersistent()
             && !$customerSession->isLoggedIn()
             && Mage::getSingleton('checkout/session')->getQuoteId()
+            && !($observer->getControllerAction() instanceof Mage_Checkout_OnepageController)
+            // persistent session does not expire on onepage checkout page to not spoil customer group id
         ) {
             Mage::dispatchEvent('persistent_session_expired');
             $this->_expirePersistentSession();

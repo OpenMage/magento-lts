@@ -59,6 +59,11 @@ interface Varien_Db_Adapter_Interface
     const INTERVAL_YEAR         = 'YEARS';
 
     /**
+     * Error message for DDL query in transactions
+     */
+    const ERROR_DDL_MESSAGE = 'DDL statements are not allowed in transactions';
+
+    /**
      * Begin new DB transaction for connection
      *
      * @return Varien_Db_Adapter_Pdo_Mysql
@@ -822,6 +827,24 @@ interface Varien_Db_Adapter_Interface
     public function getDatePartSql($date);
 
     /**
+     * Prepare substring sql function
+     *
+     * @param Zend_Db_Expr|string $stringExpression quoted field name or SQL statement
+     * @param int|string|Zend_Db_Expr $pos
+     * @param int|string|Zend_Db_Expr|null $len
+     * @return Zend_Db_Expr
+     */
+    public function getSubstringSql($stringExpression, $pos, $len = null);
+
+    /**
+     * Prepare standard deviation sql function
+     *
+     * @param Zend_Db_Expr|string $expressionField   quoted field name or SQL statement
+     * @return Zend_Db_Expr
+     */
+    public function getStandardDeviationSql($expressionField);
+
+    /**
      * Extract part of a date
      *
      * @see INTERVAL_* constants for $unit
@@ -974,4 +997,11 @@ interface Varien_Db_Adapter_Interface
      * @return string
      */
     public function getSuggestedZeroDate();
+
+    /**
+     * Get adapter transaction level state. Return 0 if all transactions are complete
+     *
+     * @return int
+     */
+    public function getTransactionLevel();
 }

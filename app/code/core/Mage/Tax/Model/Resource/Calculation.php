@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -415,7 +415,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
             $adapter->quoteInto('calc_table.customer_tax_class_id = ?', $customerTaxClassId),
 
         );
-        if ($productTaxClass) {
+        if ($productTaxClass !== null) {
             $productTaxClassId = (int)$productTaxClass;
             $calcJoinConditions[] = $adapter->quoteInto('calc_table.product_tax_class_id = ?', $productTaxClassId);
         }
@@ -426,13 +426,13 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 array('main_table' => $this->getTable('tax/tax_calculation_rate')),
                 array('country' => 'tax_country_id', 'region_id' => 'tax_region_id', 'postcode' => 'tax_postcode'))
             ->joinInner(
-                    array('calc_table' => $this->getTable('tax/tax_calculation')),
-                    implode(' AND ', $calcJoinConditions),
-                    array('product_class' => 'calc_table.product_tax_class_id'))
+                array('calc_table' => $this->getTable('tax/tax_calculation')),
+                implode(' AND ', $calcJoinConditions),
+                array('product_class' => 'calc_table.product_tax_class_id'))
             ->joinLeft(
-                    array('state_table' => $this->getTable('directory/country_region')),
-                    'state_table.region_id = main_table.tax_region_id',
-                    array('region_code' => 'state_table.code'))
+                array('state_table' => $this->getTable('directory/country_region')),
+                'state_table.region_id = main_table.tax_region_id',
+                array('region_code' => 'state_table.code'))
             ->distinct(true);
 
         $CSP = $adapter->fetchAll($selectCSP);

@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -51,7 +51,7 @@
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         <reference name="content">
-            <block type="paypal/express_review" name="paypal.express.review" template="paypal/express/review.phtml">
+            <block type="paypal/express_review" name="paypal.express.review" template="paypaluk/express/review.phtml">
                 <action method="setPaypalActionPrefix"><prefix>paypaluk</prefix></action>
                 <block type="paypal/express_review_details" name="paypal.express.review.details" as="details" template="paypal/express/review/details.phtml">
                     <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>

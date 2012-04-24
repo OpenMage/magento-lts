@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -69,7 +69,7 @@
                                 <tr>
                                     <?php if ($this->displayCustomsValue()): ?>
                                         <th><?php echo Mage::helper('sales')->__('Customs Value') ?></th>
-                                        <td><?php echo $this->displayPrice($params->getCustomsValue()) ?></td>
+                                        <td><?php echo $this->displayCustomsPrice($params->getCustomsValue()) ?></td>
                                     <?php else: ?>
                                         <th><?php echo Mage::helper('sales')->__('Total Weight') ?></th>
                                         <td><?php echo $params->getWeight() .' '. Mage::helper('usa')->getMeasureWeightName($params->getWeightUnits()) ?></td>
@@ -85,7 +85,7 @@
                                     <?php if ($params->getContentType() != null): ?>
                                         <th><?php echo Mage::helper('sales')->__('Contents') ?></th>
                                         <?php if ($params->getContentType() == 'OTHER'): ?>
-                                            <td><?php echo $params->getContentTypeOther() ?></td>
+                                            <td><?php echo $this->escapeHtml($params->getContentTypeOther()) ?></td>
                                         <?php else: ?>
                                             <td><?php echo $this->getContentTypeByCode($params->getContentType()) ?></td>
                                         <?php endif; ?>
@@ -170,7 +170,7 @@
                                             <?php echo $item->getWeight(); ?>
                                         </td>
                                         <?php if ($this->displayCustomsValue()): ?>
-                                            <td class="a-right"><?php echo $this->displayPrice($item->getCustomsValue()) ?></td>
+                                            <td class="a-right"><?php echo $this->displayCustomsPrice($item->getCustomsValue()) ?></td>
                                         <?php endif; ?>
                                         <td class="a-right">
                                             <?php echo $this->getQtyOrderedItem($item->getOrderItemId()); ?>
@@ -190,7 +190,7 @@
         <div class="buttons-set a-right">
             <?php echo $this->getPrintButton() ?>
             <button type="button" class="scalable SavePackagesBtn save" onclick="hidePackedWindow();" title="<?php echo Mage::helper('sales')->__('Products should be added to package(s)')?>">
-                <span><?php echo Mage::helper('sales')->__('OK') ?></span>
+                <span><span><span><?php echo Mage::helper('sales')->__('OK') ?></span></span></span>
             </button>
         </div>
     </div>

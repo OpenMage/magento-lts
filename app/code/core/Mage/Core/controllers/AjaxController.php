@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +49,8 @@ class Mage_Core_AjaxController extends Mage_Core_Controller_Front_Action
             $item['custom'] = $filter->filter($item['custom']);
         }
 
-        echo Mage::helper('core/translate')->apply($translation, $area);
-        exit();
+        $response = Mage::helper('core/translate')->apply($translation, $area);
+        $this->getResponse()->setBody($response);
+        $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
     }
 }

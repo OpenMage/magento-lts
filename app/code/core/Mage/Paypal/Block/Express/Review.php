@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -140,7 +140,9 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         if ($rate->getErrorMessage()) {
             $price = $rate->getErrorMessage();
         } else {
-            $price = $this->_getShippingPrice($rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax());
+            $price = $this->_getShippingPrice($rate->getPrice(),
+                $this->helper('tax')->displayShippingPriceIncludingTax());
+
             $incl = $this->_getShippingPrice($rate->getPrice(), true);
             if (($incl != $price) && $this->helper('tax')->displayShippingBothPrices()) {
                 $renderedInclTax = sprintf($inclTaxFormat, Mage::helper('tax')->__('Incl. Tax'), $incl);
@@ -200,6 +202,8 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     {
         $methodInstance = $this->_quote->getPayment()->getMethodInstance();
         $this->setPaymentMethodTitle($methodInstance->getTitle());
+        $this->setUpdateOrderSubmitUrl($this->getUrl("{$this->_paypalActionPrefix}/express/updateOrder"));
+        $this->setUpdateShippingMethodsUrl($this->getUrl("{$this->_paypalActionPrefix}/express/updateShippingMethods"));
 
         $this->setShippingRateRequired(true);
         if ($this->_quote->getIsVirtual()) {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,12 +29,15 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminhtml_Block_Store_Switcher
 {
     protected $_storeFromHtml;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();
@@ -51,21 +54,42 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
         return Mage::registry('product');
     }
 
+    /**
+     * Get store ID of current product
+     *
+     * @return int
+     */
     public function getStoreId()
     {
         return $this->getProduct()->getStoreId();
     }
 
+    /**
+     * Get ID of current product
+     *
+     * @return int
+     */
     public function getProductId()
     {
         return $this->getProduct()->getId();
     }
 
+    /**
+     * Retrieve array of website IDs of current product
+     *
+     * @return array
+     */
     public function getWebsites()
     {
         return $this->getProduct()->getWebsiteIds();
     }
 
+    /**
+     * Returns whether product associated with website with $websiteId
+     *
+     * @param int $websiteId
+     * @return bool
+     */
     public function hasWebsite($websiteId)
     {
         return in_array($websiteId, $this->getProduct()->getWebsiteIds());
@@ -81,11 +105,23 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
         return $this->getProduct()->getWebsitesReadonly();
     }
 
+    /**
+     * Retrieve store name by its ID
+     *
+     * @param int $storeId
+     * @return null|string
+     */
     public function getStoreName($storeId)
     {
         return Mage::app()->getStore($storeId)->getName();
     }
 
+    /**
+     * Get HTML of store chooser
+     *
+     * @param Mage_Core_Model_Store $storeTo
+     * @return string
+     */
     public function getChooseFromStoreHtml($storeTo)
     {
         if (!$this->_storeFromHtml) {
@@ -95,16 +131,19 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
                 if (!$this->hasWebsite($_website->getId())) {
                     continue;
                 }
-                $this->_storeFromHtml .= '<optgroup label="' . $_website->getName() . '"></optgroup>';
+                $optGroupLabel = $this->escapeHtml($_website->getName());
+                $this->_storeFromHtml .= '<optgroup label="' . $optGroupLabel . '"></optgroup>';
                 foreach ($this->getGroupCollection($_website) as $_group) {
-                    $this->_storeFromHtml .= '<optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;' . $_group->getName() . '">';
+                    $optGroupName = $this->escapeHtml($_group->getName());
+                    $this->_storeFromHtml .= '<optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;' . $optGroupName . '">';
                     foreach ($this->getStoreCollection($_group) as $_store) {
-                        $this->_storeFromHtml .= '<option value="' . $_store->getId() . '">&nbsp;&nbsp;&nbsp;&nbsp;' . $_store->getName() . '</option>';
+                        $this->_storeFromHtml .= '<option value="' . $_store->getId() . '">&nbsp;&nbsp;&nbsp;&nbsp;';
+                        $this->_storeFromHtml .= $this->escapeHtml($_store->getName()) . '</option>';
                     }
                 }
                 $this->_storeFromHtml .= '</optgroup>';
             }
-            $this->_storeFromHtml.= '</select>';
+            $this->_storeFromHtml .= '</select>';
         }
         return str_replace('__store_identifier__', $storeTo->getId(), $this->_storeFromHtml);
     }

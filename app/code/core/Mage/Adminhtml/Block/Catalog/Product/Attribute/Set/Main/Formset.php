@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,6 +37,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Ma
         parent::__construct();
     }
 
+    /**
+     * Prepares attribute set form
+     *
+     */
     protected function _prepareForm()
     {
         $data = Mage::getModel('eav/entity_attribute_set')
@@ -44,21 +48,19 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Ma
 
         $form = new Varien_Data_Form();
         $fieldset = $form->addFieldset('set_name', array('legend'=> Mage::helper('catalog')->__('Edit Set Name')));
-        $fieldset->addField('attribute_set_name', 'text',
-            array(
-                'label' => Mage::helper('catalog')->__('Name'),
-                'note' => Mage::helper('catalog')->__('For internal use.'),
-                'name' => 'attribute_set_name',
-                'required' => true,
-                'class' => 'required-entry',
-                'value' => $data->getAttributeSetName()
+        $fieldset->addField('attribute_set_name', 'text', array(
+            'label' => Mage::helper('catalog')->__('Name'),
+            'note' => Mage::helper('catalog')->__('For internal use.'),
+            'name' => 'attribute_set_name',
+            'required' => true,
+            'class' => 'required-entry validate-no-html-tags',
+            'value' => $data->getAttributeSetName()
         ));
 
         if( !$this->getRequest()->getParam('id', false) ) {
-            $fieldset->addField('gotoEdit', 'hidden',
-                array(
-                    'name' => 'gotoEdit',
-                    'value' => '1'
+            $fieldset->addField('gotoEdit', 'hidden', array(
+                'name' => 'gotoEdit',
+                'value' => '1'
             ));
 
             $sets = Mage::getModel('eav/entity_attribute_set')
@@ -67,13 +69,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Ma
                 ->load()
                 ->toOptionArray();
 
-            $fieldset->addField('skeleton_set', 'select',
-                array(
-                    'label' => Mage::helper('catalog')->__('Based On'),
-                    'name' => 'skeleton_set',
-                    'required' => true,
-                    'class' => 'required-entry',
-                    'values' => $sets,
+            $fieldset->addField('skeleton_set', 'select', array(
+                'label' => Mage::helper('catalog')->__('Based On'),
+                'name' => 'skeleton_set',
+                'required' => true,
+                'class' => 'required-entry',
+                'values' => $sets,
             ));
         }
 

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +33,15 @@
  */
 class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Action
 {
+    /**
+     * Name of "is URLs checked" flag
+     */
     const FLAG_IS_URLS_CHECKED = 'check_url_settings';
+
+    /**
+     * Session namespace to refer in other places
+     */
+    const SESSION_NAMESPACE = 'adminhtml';
 
     /**
      * Array of actions which can be processed without secret key validation
@@ -59,7 +67,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      *
      * @var string
      */
-    protected $_sessionNamespace = 'adminhtml';
+    protected $_sessionNamespace = self::SESSION_NAMESPACE;
 
     protected function _isAllowed()
     {
@@ -213,8 +221,12 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         $configData = Mage::getModel('core/config_data');
 
-        $defaultUnsecure= (string) Mage::getConfig()->getNode('default/'.Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL);
-        $defaultSecure  = (string) Mage::getConfig()->getNode('default/'.Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL);
+        $defaultUnsecure = (string)Mage::getConfig()->getNode(
+            'default/' . Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL
+        );
+        $defaultSecure = (string)Mage::getConfig()->getNode(
+            'default/' . Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL
+        );
 
         if ($defaultSecure == '{{base_url}}' || $defaultUnsecure == '{{base_url}}') {
             $this->_getSession()->addNotice(
