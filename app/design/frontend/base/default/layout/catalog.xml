@@ -415,22 +415,4 @@ SEO Site Map
             <action method="addLink" translate="label title" module="catalog"><label>Categories Sitemap</label><url helper="catalog/map/getCategoryUrl"/><title>Categories Sitemap</title></action>
         </reference>
     </catalog_seo_sitemap_product>
-
-
-<!--
-Catalog search terms block
--->
-
-    <catalog_seo_searchterm_popular translate="label">
-        <label>Catalog Seo Popular Search Terms</label>
-        <remove name="right"/>
-        <remove name="left"/>
-        <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
-        </reference>
-        <reference name="content">
-            <block type="catalog/seo_searchterm" name="seo.searchterm" template="catalog/seo/searchterm.phtml"/>
-        </reference>
-    </catalog_seo_searchterm_popular>
-
 </layout>

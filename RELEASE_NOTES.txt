@@ -1,3 +1,588 @@
+==== 1.7.0.0 ====
+
+=== Major Highlights ===
+Optimized Layered Navigation for pricing
+Added CAPTCHA support for admin and customer users
+Added different base price per customer group
+Added auto generation of coupon codes
+Improved the basic Backup and Rollback functionality
+Added EU VAT ID validation service integration
+Implemented DHL for Europe
+Added REST API
+Mobile theme was redesigned
+Implemented the frontend Cookie Restriction functionality (EU cookie law compliance)
+Added the Cash On Delivery and Bank Transfer payment methods
+
+=== Improvements ===
+XmlConnect package release v22.1
+Upgraded TinyMCE to v3.4.7
+Added the ability to translate action array parameter nodes in the layout.xml
+Added the support for using custom currency symbols
+Added the functionality for cleaning old cache files by cron tasks
+Refactored rules-based modules
+Improved customer address handling for PayPal Express checkout
+Added the ability to customize a store logo in emails from an admin
+Refactored the escaping functionality used for translations
+Added the ability to turn off/on IP tracking (e.g. 'Placed from IP', displayed on the order-related pages in the backend)
+Provided the logic for disabling ACL resources in configuration files
+Added additional placeholders for extension developers
+
+=== Changes ===
+Added support for "memcached" PHP extension
+The js/scriptaculous/dragdrop.js library is upgraded to version 1.9.0
+Files in .jpg format are allowed to be used for a favicon
+Added the ability to extend the list of attributes in the SELECT query for categories loaded via Mage_Catalog_Model_Resource_Category_Flat::_loadNodes()
+Added changes to lib/Varien/Http/Adapter/Curl.php to provide interface for setting different cURL options
+Displaying State or Province can be optional for any country
+Added the ability to get Magento type from Mage.php
+
+=== Fixes ===
+Fixed: Impossible to reset Customer Password via link in Forgot Password email template
+Fixed: Reference to non-existing class Mage_Catalog_Block_Seo_Searchterm
+Fixed: System can't find page by the URL when Payflow Link PayPal payment method used
+Fixed: Grammar issues reported by community
+Fixed: Layout is broken for PDF documents, values are overlapped
+Fixed: Admin Notifications in backend should not appear again after it been removed or marked as read
+Fixed: Reference and contents information is absent in the shipping label for DHL
+Fixed: Include commented rewrite rules to .htaccess
+Fixed: Shopping Cart is cleared after pressing "Enter"
+Fixed: Group Name of "Not Logged IN" Customer Groups is removed automatically after saving
+Fixed: Not possible to assign one picture to two products (Media Storage = Database)
+Fixed: Exception in shop when accessed by Googlebot
+Fixed: SLI for DHL used credentials only from the default configuration scope
+Fixed: Old copyright data and system version exist in page footer
+Fixed: CMS widgets: Required validation for drop-down "Type" and "Design Package/Theme"
+Fixed: On "New Widget Instance" page, drop-down "Type" doesn't have required validation
+Fixed: Auto-redirect to Base URL = Yes with correct behavior may cause problems when secure URL is hardcoded
+Fixed: Enable Qty Increments on global config has higher priority than product config
+Fixed: Short open tag in app/design/adminhtml/default/default/template/currencysymbol/grid.phtml
+Fixed: UPS, FedEx and DHL methods should work if zip code from/to isn't required
+Fixed: No ability to cancel Partial Authorization checkout with Authorize.net in the frontend
+Fixed: Incorrect displaying of the "New User" page
+Fixed: Multiple warnings in system.log after running compilation process
+Fixed: Session is lost while redirecting from secure to unsecure URL
+Fixed: Redirect to base URL should consider full request URI string
+Fixed: Product name with <> processed incorrect during creation order in backend
+Fixed: FedEx SmartPost method doesn't appears in rate request
+Fixed: 3 and 4 digits CVV should be accepted for JCB cards
+Fixed: Google Checkout tax isn't applied to Bundle product
+Fixed: FPT is not considered by Google Checkout
+Fixed: An error occurred during second Customer authorization fail
+Fixed: Property declaration typo in Mage_Bundle_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option
+Fixed: Product is not shown in the Catalog when it is Out of Stock and Display Out of Stock Products = Yes
+Fixed: Impossible download downloadable product (problem with secure link)
+Fixed: Wrong letter case in class names may cause malfunction when Compiler is enabled
+Fixed: Incorrect invoice amount in order with FPT
+Fixed: Attributes not connected to any product of selected category display in layered navigation
+Fixed: No feedback on creating attribute set in IE9 and IE8
+Fixed: Unexpected breaking import process leads to creation phantom data into database
+Fixed: Two of the same FedEx option show instead of one
+Fixed: Notification for Google contains link that cover large area and blocked user work
+Fixed: Possible to create user role with empty name if it starts with "less than" sign
+Fixed: Impossible to use Clear Shopping Cart button in IE7
+Fixed: Impossible create product with one FPT price for all State/Province
+Fixed: 'Interval Division Limit' affects to global displaying of Layered Navigation
+Fixed: Shipping method must be recalculated on Order Review page if Transfer Shipping Options is enabled
+Fixed: Issue with different secure/unsecure URL cause session data lost
+Fixed: Can't save option Country in Store Information Tab
+Fixed: Rule date information has been missed after using Product Rule or Shopping Cart Price Rule
+Fixed: Billing/Shipping address algorithm for PayPal Express checkout works incorrect
+Fixed: Error during quick search
+Fixed: Block "Description" on Catalog Price Rule page has incorrect size
+Fixed: Search doesn't work if Maximum Query Length field is empty
+Fixed: The Tags Product RSS doesn't update information after changing tag
+Fixed: Customer Attributes and Customer Address Attributes validation
+Fixed: Issue with final price calculation for Configurable product with sub products
+Fixed: Blank page after customer registration with enabled compilation
+Fixed: "Place Order" button must be enabled if all required fields passed the validation on PayPal Express Checkout
+Fixed: Products quantity displays incorrect in price ranges after import (rounding problem)
+Fixed: Layout issue in shopping cart on frontend (IE8)
+Fixed: Impossible to assign user to the role if he is assigned to another role
+Fixed: 'Total records found' on Reports -> Tags -> Popular page shows wrong quantity of records
+Fixed: Unable to refresh lifetime statistics
+Fixed: After changing Price Navigation Step calculation from Automatic(eq price range) to Automatic(eq prod count) the category is loaded very slowly
+Fixed: No ability to create Shipping Label (in case with USPS First-Class Mail International Parcel method)
+Fixed: It is impossible to create Shipping Label for FedEx
+Fixed: Redirect Customer to Account Dashboard after Logging is in enabled and doesn't work for Wishlist
+Fixed: No ability to edit values using mass actions for product in IE8, IE9
+Fixed: Wrong message during checkout process in Inline Translate mode
+Fixed: Default country is selected in Shipping Address during Admin order creation
+Fixed: The Static block widget doesn't displayed on the Product View Extra hint for bundle product
+Fixed: Bunch of W3C validation errors on frontend while using inline translate
+Fixed: Product's association to root category is lost after export/import
+Fixed: WYSIWYG Editor: Page is scrolled to the top after inserting variables
+Fixed: Incorrect Backup/Rollback message
+Fixed: FedEx Free shipping doesn't work correctly
+Fixed: Configurable product displaying double price when choosing option
+Fixed: Impossible to configure Admin User Emails for store view scope
+Fixed: Long payment method data is printed improperly in PDF invoice
+Fixed: Impossibility of changing the Rating Value title for store view in existing Rating Value with filled the Rating Value title for store view
+Fixed: Trademark symbol not showing up
+Fixed: Add "Delivery Option" for FedEx Configurations
+Fixed: Saving product takes long time
+Fixed: Notice message disappear after clearing cache
+Fixed: Products qty displays incorrect in price ranges after import (rounding problem)
+Fixed: Images in CSS fail when merging CSS files
+Fixed: Mass action update of any attributes resets multi-select attributes to NULL
+Fixed: Move CSS from Prototype Windows plug-in to the backend skin
+Fixed: DB adapter should check transaction level in case of DDL query
+Fixed: When Payment method additional info contains double quote it is displayed as '&quot;' in invoice PDF
+Fixed: Incorrect Unit Price(Excl. Tax) in the Shopping Cart Grid after changing currency
+Fixed: Incorrect total quantity of records and pagination doesn't work on Reports->Reviews->Products Reviews page
+Fixed: Incorrect title of All Reviews for product page
+Fixed: Invalid message in shopping cart when trying to add products amount more than allowed
+Fixed: Layered Navigation: Icon "Previous" should be appear only on sub-intervals level
+Fixed: Processing error occurred when big numeric value is entered to an browser URL
+Fixed: Issue with credit memo for multiple bundled products (order status is Processing)
+Fixed: Customer group has to be emulated even if customer is sticky assigned to the group
+Fixed: "Customs Value" isn't represented in store base currency
+Fixed: Layered Navigation: After clicking on interval $0.00, should be filtered and displayed products with price 0.00
+Fixed: Absence of redirecting to the grid page after saving Role/User
+Fixed: Incorrect logic of assignment of unique ID in Varien_Data_Collection
+Fixed: Problems with sorting actions
+Fixed: When product is set to be not available for selling checkout is still possible depending on its position in cart
+Fixed: Impossibility of creating new order with "Reorder" button when Out of stock or disabled products had been ordered
+Fixed: "Online Minute Interval" customer configuration option should have global scope
+Fixed: Unable to translate Active/Inactive in promotions grid
+Fixed: Response headers contains 500 error during frontend pages browsing
+Fixed: Add additional button to PayPal Redirect Page
+Fixed: Category Permissions: if "Display Product Price" is set to "No" the page toolbar is absent
+Fixed: Layered navigation options have wrong order in backend
+Fixed: The "Remember Me" check box with the "What's this?" link should be located below the "Forgot Your Password?" link
+Fixed: Warning message is absent, when "Recovery Link Expiration Period" is specified within the correct range
+Fixed: PayPal HSS (Website Payment Pro Hosted Solutions) France doesn't work
+Fixed: Remove email from Billing address section of the PayPal Express Order Review page
+Fixed: It is available enter negative digits in the "Layered Navigation Price Step" (on Category page)
+Fixed: First/Last Name algorithm for PayPal Express checkout
+Fixed: Asterisk isn't imported in Zip/Post Code field
+Fixed: Some strings are not translated in widgets
+Fixed: Session isn't stored between secure and unsecure URLs when they are located in different paths of the same domain (no SID in request)
+Fixed: "USPS First Class International Parcel" will not show up as an option for customers during checkout
+Fixed: UPS, FedEx and DHL methods should work if zip code from / to isn't required
+Fixed: Issue when trying to create an order from the backend without selecting the state/province
+Fixed: HTTP error when uploading images from a MacOS with shockwave flash 11.1.102.55
+Fixed: UPS Configuration "All Methods" should be selected by default
+Fixed: Cannot create a product review through backend
+Fixed: Typos in Role Permission tree
+Fixed: WYSIWYG button layout issue on product page
+Fixed: Require Customer's Billing Address is missing option "For Virtual Quotes Only"
+Fixed: Errors appears on Design Configuration page if transactional email's logo image and/or favicon files were deleted
+Fixed: State/Province value is reset after page reload on some forms
+Fixed: Cannot access backend after switching on and switching off "Use Custom Admin URL"
+Fixed: "Unsubscribe Selected" and "Delete Selected Problems" buttons don't work
+Fixed: After selecting shipping from dropdown system doesn't update order data automatically on PayPal Express Order Review page
+Fixed: Buttons on the backend order page don't have titles
+Fixed: ERR_RESPONSE_HEADERS_MULTIPLE_CONTENT_DISPOSITION error in Chrome browser
+Fixed: Changes related with Apply and Discount Amount options for sub item, applied after clicking "Save Rule" button
+Fixed: Invalid Timezone error for Asia/Calcutta when changing default country to India
+Fixed: Sorting by position doesn't work for up-sells and related products
+Fixed: Absent validation for "Only X left Threshold" field
+Fixed: Shipping method calculation based on default shipping address instead of 'Same as billing' setting in backend
+Fixed: There is no validation of the field "Handling Fee" that allows number less than zero in UPS shipping method
+Fixed: Product name with "<>" processed incorrect during creation order in backend
+Fixed: Billing Address Line is always blank if "REQUIREBILLING = 1" for PayPal Express
+Fixed: Configuration->Inventory->Qty Increment isn't validated properly
+Fixed: Absent message about not enough quantity for bundle and configurable products
+Fixed: Wrong behavior of split buttons in IE8
+Fixed: Warning message appears after unselecting user in the Role Users grid
+Fixed: Incorrect total weight calculation in external shipping methods for products with decimal Qty Increments
+Fixed: Tax calculation is incorrect if configurable product mixed up with other composite products in the shopping cart for Store Tax != Customer Tax
+Fixed: Products qty displays wrong in layered navigation after changing currency
+Fixed: Billing address fields are editable if "Same as shipping" selected on the PayPal Express order review page
+Fixed: Incorrect location of "Clear All" link
+Fixed: Incorrect price for bundle fixed product with custom option % and catalog price rule applied
+Fixed: Import/Export: Append Complex Data works incorrect for customer's address and product's customs data
+Fixed: Discount changes subtotal when FPT is active
+Fixed: There is no ability to specify backup's name
+Fixed: Multi selections fields for website scope settings are greyed out
+Fixed: Persistent Shopping Cart: After deleting customers via backend, on frontend customer should be logout completely
+Fixed: Incorrect logic during dividing products into multiple boxes for shipping
+Fixed: Polls are not working properly in case with different domains for http and https
+Fixed: "Block Reference" drop-down contains wrong list of options for frontend Apps types with Products
+Fixed: "Wrong store specified" appears on order creation page
+Fixed: Customer can't continue Checkout process after selecting Billing Address
+Fixed: Refresh Statistics gone from Reports Role
+Fixed: USPS shipping label is printed with "SAMPLE - DO NOT MAIL" sign
+Fixed: Shipping methods are not refreshed after Update Order Data is pressed on PayPal Express Order Review page
+Fixed: Product still invisible in frontend after required re-index
+Fixed: JS error on configurable products
+Fixed: Configurable product missing name in error message when exceeding quantity during order
+Fixed: Added Display Product Count on the Layout Navigation
+Fixed: "FedEx Priority Overnight" shipping method isn't calculated correctly
+Fixed: Incorrect product price for Bundle products with fixed prices in the shopping cart
+Fixed: "Ship Bundle Items" for bundle product works incorrect
+Fixed: Impossible to expand settings accordions on the "Design Settings Editor" tab of Theme Customization page under IE7
+Fixed: Impossibility to configure Bundle product with Disabled status and create new order with it in the backend
+Fixed: Customer email isn't saved in Account Information field
+Fixed: Unable to sort products by price
+Fixed: Errors during creating/extracting "tar" archive with symbolic links
+Fixed: Wrong message text in "Manage Coupon" tab on Shopping Cart Price Rule page
+Fixed: 404 page not found error occurs when "Default Store" value is changed for Main Website
+Fixed: Unable to import products if Catalog price rule enabled
+Fixed: Partial Re-index isn't done for product saved in backend
+Fixed: Catalog Price Rule: "Save and Apply" action leads to apply ALL rules, but it have to apply only specified rule
+Fixed: Tax isn't recalculated on PayPal Express
+Fixed: Backup Name field should allow entering only a limited number of characters
+Fixed: In the "Subtotal" row of "Coupons Usage Report" displayed amounts for all Shopping Cart Price Rule in the system
+Fixed: Shipping address isn't passed to Magento from PayPal
+Fixed: Store view isn't changed when customer subscribes for newsletters
+Fixed: Shopping Cart Price Rules are not marked after creating Coupons Usage Report
+Fixed: Change buttons structure in prototype/windows.js to match general adminhtml buttons structure
+Fixed: Wrong error message on Create New Order page in backend
+Fixed: Impossible to configure order of displaying rating values in the frontend
+Fixed: Incoming Message in Admin Part has the superfluous symbol '\'
+Fixed: Numerous issues with promotions on complex products
+Fixed: Recipient Postal-State Mismatch error seen on Shipping Label with FedEx
+Fixed: Text messages "This is a required fields." are displayed in the hidden FTP section
+Fixed: Incorrect popup on Manage Coupon Codes tab in Shopping Cart Price Rule
+Fixed: Layered navigation work incorrect if attribute values defined on Store View level
+Fixed: Checking import file returns blank page
+Fixed: Change the VAT Number format before sending to VAT ID Validation service
+Fixed: Simple products with configured customs options displayed in wishlist incorrectly
+Fixed: Incorrect text message for product for which there is no enough quantity in stock
+Fixed: Setting float Qty Increments is possible, but doesn't work
+Fixed: SQL error during checkout when customers register at checkout and orders a nominal item
+Fixed: Iframe for gateway isn't reloaded on the Payment information tab
+Fixed: Incorrect behavior after placing order from backend in FF9
+Fixed: Catalog price rule skips conditions specified and applies to all products in the catalog
+Fixed: Price rule is applying to individual items in bundle when price is set to Dynamic
+Fixed: Impossible to save payment method configurations on the Default Config scope
+Fixed: "There has been an error processing your request" message is display if not CSV file was selected to import
+Fixed: Wrong reindex product attributes after bundle product save
+Fixed: Add Products button absent during creating order from backend
+Fixed: "All methods" should be selected by default in configuration section "Allowed Methods" for UPS
+Fixed: Redirect to base URL issue
+Fixed: Added Backup sorting by name possibility
+Fixed: Fix grammar mistakes
+Fixed: Notifications are not shown if URL Rewrite used
+Fixed: "Stop Further Rules Processing" option doesn't work
+Fixed: Admin cannot un-assign product from the tag if already approved tag was added to the product by customer
+Fixed: Inaccuracy calculation could be 10% for FedEx International Ground shipping
+Fixed: Incorrect price calculation of configurable product with custom options (resolved conflicts)
+Fixed: Wrong currency displayed in Recently Viewed Product App
+Fixed: Tabs are grayed on admin dashboard
+Fixed: JS validation for product weight attribute doesn't work
+Fixed: Group Price attribute is present as text field using the mass update action
+Fixed: Shopping Cart Price Rule isn't applied to Not Logged In Customers
+Fixed: "Sign up for our newsletter" text appearing twice
+Fixed: Newsletter problem report grid on backend throws Exception
+Fixed: Special price doesn't work for Bundles with Dynamic price
+Fixed: My Orders block disappears in My Account pages when Reorder functionality is disabled
+Fixed: Search doesn't work in Backups grid
+Fixed: Re-index "Catalog URL Rewrites" works extremely slowly
+Fixed: Checkbox state is preserved for "Put store on the maintenance mode while rollback processing"
+Fixed: UPS Configuration All Methods Should Be Selected by Default
+Fixed: Rollback fails if database backup was performed after product import
+Fixed: Incorrect behavior with 10-digit Zip code, after creating new Tax Rate
+Fixed: Configurable attributes that used for create configurable product should not be applied to that product
+Fixed: Default group has to be used if customer selects address without VAT number
+Fixed: No ability to create Shopping Cart Price Rule
+Fixed: Layout issue appears in IE9 on the export grids
+Fixed: Issue when trying to view the order using a specific admin user
+Fixed: System messages are not displayed at CMS pages and appears only when another message will be invoked
+Fixed: On the frontend Search doesn't work properly if search value is 0 (null)
+Fixed: The size of the columns in Backup grid is changed if no records were found
+Fixed: Maintenance flag isn't deleted if rollback fails with not enough permissions error
+Fixed: Customer's group isn't changed if his billing address modified within backend
+Added Add a message and the link in the mini shopping cart, when the cart is empty
+Fixed: On Edit Shipping Address page button "Validate VAT Number" should be hidden
+Fixed: Fatal error when try to ship order with Flat Rate shipping method
+- fixed potentially problematic chaining involved getShippingCarrier method
+Fixed: No ability to open PDF file with Label
+Fixed: Incorrect final price for configurable products if several custom options used
+Fixed: "Length", "Width" and "Height" fields on "Create Packages" pop up are active, when "Documents" type is selected in IE7 and IE9
+Fixed: HTTP 500 error on frontend for bundle fixed with percent options enabled for sub-products
+Fixed: Shipment created on Magento side doesn't send to Google side for Merchant Calculated shipping
+- added check for process only Google Checkout internal methods
+Fixed: PDF files for invoices and credit memos are not displaying Including Tax Price
+Fixed: Default value that was specified in system settings doesn't presented in Code Format drop-down on Manage Coupon Codes tab
+Fixed: Qty wipes out to 0 when no qty column is included on import
+Fixed: Broken controls makeup is observed after resizing window when customer's page is opened on the backend
+Fixed: Values don't fit to "Date Fields Order" drop-downs in "Date & Time Custom Options" on the Catalog page
+Fixed: Processing error appears for products with "Qty Uses Decimals" = No and enabled DHL International
+Fixed: Apply Tax to FPT setting doesn't seem to work for products with Fixed Product Taxes
+Fixed: Apply Coupon Code textbox doesn't fit in the Apply Coupon Code channel on the backend after reducing the browser window
+Fixed: Tax and Shipping amounts aren't showing on the merchant reports for Websites Payments Pro PayFlow Edition
+Fixed: Incorrect error popup on Manage Coupon Codes tab in Shopping Cart Price Rule
+Fixed: No ability to create Shipping Label with New DHL shipping methods
+Fixed: Indexing update on save takes too long for large catalog_product_entity_int tables
+Fixed: VAT ID group validation takes Default configuration on order creation from backend
+Fixed: Pagination isn't shown on My Product Reviews page when items count exceeds the "Show per page" setting
+Fixed: Inline translation missing for customer account information labels
+Fixed: Corrupted text if drag attribute on Manage Attribute Sets page (IE8)
+Fixed: Wrong calculation price of Bundle product with Fixed price, when special price is configured
+Fixed: Error Message isn't displayed during unsuccessful Shipping Label creation
+Fixed: Unverified redirect is possible in Checkout controller
+Fixed: Customer group in not validated again on checkout if Tax Calculation Based on = Shipping Address
+Fixed: "Clear All" link doesn't work
+Fixed: Wrong message appears when products quantity is updated in the Shopping Cart with enabled Qty Increments setting
+Fixed: Created On field on Manage Coupon Codes grid shows incorrect date/time
+Fixed: Incorrect price calculation of configurable product with custom options
+Fixed: Manage Products > Custom options: Should be possible to enter negative price for custom option of 'Date' type
+Fixed: HTTP 500 Internal Server Error on Admin Forgot Password page
+Fixed: CSV/Excel XML export doesn't work on Sales->Invoices if filter by Selected=Yes is used
+Fixed: "Same As Billing Address" check-box doesn't work
+Fixed: Impossible to enter zero in the base price field for customer groups
+Fixed: Group Price attribute position on the Prices tab is incorrect
+Fixed: Add new column to the grid with number of used coupons
+Fixed: Custom options are not stored when downloadable product is duplicated
+Fixed: Broken logic for "Zero Subtotal Checkout" order statuses
+Fixed: Coupon codes generation fails when trying to generate large amount of codes
+Fixed: PayFlow Link: Using "Pay with PayPal" and selected shipping method that is greater than 0 doesn't process order
+Fixed: User have to stay on Add New Rule page if error appears on save shopping cart price rule
+Fixed: "Automatically Invoice All Items" should be inactive, when were selected "New Order Status: Pending" in "Zero Subtotal Checkout" settings
+Fixed: When enormous request in search fields on the front end 414 error appears
+Fixed: JS error on edit Shopping Cart Price Rule Page
+Fixed: Clear Shopping Cart button add selected item to Items Ordered if check box "Add to Order" is selected
+Fixed: "Clear Shopping Cart" button must be located to the left to "Update Shopping Cart" button
+Fixed: Export of Group Price data doesn't work
+Fixed: Incorrect translation messages definitions
+Fixed: Error message isn't displayed if currency exchange rate not found (in case with DHL Int)
+Fixed: User role with partial access can't edit attributes of configurable products
+Fixed: Letter "n" missed in the word "handling"
+Fixed: Buttons don't react for pressing on the "Widget Options" section in Insert Widget window
+Fixed: Regular price displays incorrect
+Fixed: {{base_url}} in (un)secure_url doesn't work since 1.6.1
+Fixed: Product selection field gets cleared out with recently added products from latest page
+Fixed: "Change" button while checkout doesn't work
+Fixed: MySQL BIGINT field type is wrongly casted to integer
+Fixed: Magento Connect Manager proceed with installation of extension if error appears on database backup
+Fixed: "Set product as New from/to Date" works excluding selected dates
+Fixed: Function fireEvent from lib/varien/js.js does not work in IE9
+Fixed: Searching with first and last name has no results
+Fixed: CMS Pages: Error in IE7 when select CMS page
+Fixed: White screen appears instead of 404 Error Page when going to review a product which doesn't exist
+Fixed: "Maximum Package Weight" option works incorrect in case with decimal Qty in shopping Cart
+Fixed: Unable to create tables for new EAV entity via SQL upgrade script
+Fixed: Customer group isn't revalidated on checkout if Enable Automatic Assignment to Customer Group = Yes
+Fixed: Mistake in PayPal Payments Advanced field set title
+Fixed: Zero Subtotal Checkout payment method is used, when it is disabled in settings
+Fixed: Some info lost from address when customer sets this address as default for shipping
+Fixed: Incorrect calculation logic during distribution products between several pieces (in case with DHL)
+Fixed: No ability to get shipping rates from US to another country (in case with DHL)
+Fixed: Incorrect calculation of pieces weight (in case with Bundle Product)
+Fixed: Product Flat Data index causes replication lag on MySQL master/slave model
+Fixed: Exception is shown, when admin user provides filtration of Newsletter problem reports by Subscriber
+Fixed: Typo in JavaScript error message
+Fixed: Unable to do mass action update for products
+Fixed: Error Message isn't displayed if currency exchange rate not found (in case with DHL)
+Fixed: Weight field is absent during Quick simple product creation
+Fixed: correct helper resolving
+Fixed: Shipping methods are shown twice in DHLs shipping quote
+Fixed: Unable to translate shipping and billing forms on the order creation page
+Fixed: Drop-down attribute with layered navigation filter doesn't work with value is set to 0
+Fixed: Free Shipping options don't work (in case with DHL)
+Fixed: Handling Fee doesn't applied Per Package
+Fixed: Free Shipping options works incorrect
+Fixed: WYSIWYG Editor: It's impossible insert Widget to CMS page content
+Fixed: Customer's group is not changed if his billing address modified within backend
+Fixed: Wrong behavior and exception while using invalid image
+Fixed: Uninformative error message during saving two nodes with the same parameter URL Key
+Fixed: Unable to change order addresses in the admin panel
+Fixed: PayPal Express always uses default billing address from customer account
+Fixed: Unable to place order if customer selects Register on checkout
+Fixed: Performance Issue: Most Viewed product reports on large amount of items
+Fixed: In "Customer Addresses" block before and after of State name is located symbols ","
+Fixed: Lightbox 2.5 with IE7 returns JS error on the page
+Fixed: Unable to change customer status (confirmed/not confirmed) when customer logged in
+Fixed: Incorrect notification for empty field during creation catalog price rules
+Fixed: Unable to save product with non-checked multiple select attribute
+Fixed: Package Size setting for DHL
+Fixed: No Input Validation for Catalog Fields
+Fixed: Row Total Calculation in Refund
+Fixed: "Maximum number of price intervals" should be written with capital letters
+Fixed: Divide Order Weight options for DHL
+Fixed: Impossible to create new customer in the backend
+Fixed: Catalog data-upgrade-1.6.0.0.4-1.6.0.0.5.php is extremely slow
+Fixed: Mage_Catalog_Helper_Product::getProduct() doesn't load product by its SKU
+Fixed: Preview Template doesn't work correctly
+Fixed: Some options of Bundle Product disappeared from the Invoice PDF
+Fixed: "Allow Countries" affects on "Country of Manufacture" attribute
+Fixed: Some phrases are not translated
+Fixed: Incorrect Ordered Qty in Order (in case with decimal qty)
+Fixed: Trademark character isn't being displayed properly in the PDF invoice
+Fixed: Can't search transactions by order_id in manager.paypal.com
+Fixed: Inline Translation: Grid headers are displayed incorrect on the Tag Edit page
+Fixed: "Create Extension Package" page becomes broken after compilation
+Fixed: Price including tax isn't displayed for some kinds of bundle products
+Fixed: Layered navigation for prices displays incorrect price ranges in manual mode
+Fixed: Pager works wrong with float page number
+Fixed: Incorrect foreign key for EAV entity tables
+Fixed: Misprint in downloader/lib/Mage/Connect/Command/Install.php
+Fixed: URL Rewrites must be case-sensitive
+Fixed: Unable to install package via uploader if author name contains dash
+Fixed: Invoice subtotals for cases with partial invoice and discount
+Fixed: Catalog URL Rewrites works incorrectly on creating categories
+Fixed: New Oder Status setting, specified for payment method works incorrectly when only virtual products are present in Order
+Fixed: Rounding issue in catalog and product view if price includes tax
+Fixed: Wrong status of catalog event is displayed by editing catalog event
+Fixed: Role Resources are not saved
+Fixed: "Qty for Item's Status to Become Out of Stock" option works incorrect
+Fixed: XML parser works incorrect
+Fixed: Mage_Reports_Model_Mysql4_Product_Index_Abstract must be declared abstract
+Fixed: "Date & Time" and "Time" custom options becomes required when editing product
+Fixed: Unable to cancel an order for an expired Authorize.net authorization
+Fixed: Custom options are not stored when downloadable product is duplicated
+Fixed: "Cannot initialize the indexer process" error during Mass "Reindex Data" Action
+Fixed: Search by new attribute fails, attribute is not shown in layered navigation
+Fixed: Exception when "Price Navigation Step Calculation" set to "Manual" mode and FPT enabled
+Fixed: WPPHS: Cancel URL doesn't work as should be
+Fixed: Error about insufficient permissions is not appears on database backup creation
+Fixed: After rollback admin doesn't redirected to the Log in to Admin Panel page
+Fixed: Database Backup must not include indexer table data
+Fixed: Scheduled Backup creation/failure isn't logged
+Fixed: Deleting backup while it is used by another process
+Fixed: Opening *.tar files causes an error "There are no trailing zero-filled records"
+Fixed: Unable to search by "Time" and "No" in Backups table
+Fixed: Backups are deleted without confirmation
+Fixed: Reports must be excluded from database snapshot backup
+Fixed: There are no products in filtering results, if step calculation in automatic mode
+Fixed: No validation for "Default Price Navigation Step"
+Fixed: "Back" button doesn't work on the Create New Order page
+Fixed: Incorrect logic of Token expiration in Two Step Password Reset flow
+Fixed: Tag <br/> is present in tool-tip for field "Number of results (For the last time placed)" on the Edit Search page
+Fixed: Unnecessary hard code in Magento Extension
+Fixed: Wrong logic in Mage_Core_Model_Resource_Db_Collection_Abstract::join()
+Fixed: Description and Short Description are displayed incorrectly for products added with WYSIWYG
+Fixed: Adding product to the cart from the product review page leads to 404 page
+Fixed: Special symbols in Sort Order field
+Fixed: Text is wrong displayed with enabled Inline translation for Admin on backend
+Fixed: Inline Translation: Unable to translate some customer information
+Fixed: Useless colon on frontend login page
+Fixed: Unable to continue checkout for product with zero price and non-zero shipping price
+Fixed: Import news_from_date field is configured poorly. It is not accepting the data from file
+Fixed: When updating product data through import, attributes that have a value cannot be assigned a new value that is empty
+Fixed: Unable to replace non-complex data for products with empty values during import
+Fixed: "Wrong order ID" exception in PayPal Express module under heavy load
+Fixed: Tax is applying on the order when creating it in the admin panel for a Customer Group with no taxes
+Fixed: Issue with retrieving order statuses for array of states
+Fixed: Wrong calculation product price with custom option type = Field and Fixed price
+Fixed: Back ordered downloadable product is not available even when it is set to be be accessible when order status is Pending
+Fixed: Missing column "position" at table catalog_category_anc_products_index_tmp
+Fixed: Incorrect behavior of "Save in address book" option during admin Order creation for a new customer
+- refactored Mage_Adminhtml_Model_Sales_Order_Create::_prepareCustomer()
+Fixed: Terms and Conditions is named differently on different pages
+Fixed: "Apply" and "Discount Amount" fields appear twice in the Catalog Price Rule
+Fixed: Poll shows incorrect percentage
+Fixed: Added validation ability for admin configuration forms
+Fixed: UPS XML misprint
+Fixed: Misprint in uploading files form
+Fixed: Unnecessary check boxes for gift options
+Fixed: Wrong resource section declaration in Mage_Tag module
+Fixed: "Customers Submitted this Tag" section doesn't update when customer has deleted tag from his account
+Fixed: Correct product in category position
+Fixed: Unable to create folder in Media Storage
+Fixed: Translation with single quotes breaks JavaScript
+Fixed: Out of memory error with hundreds of thousands of coupons attached to a single sales rule
+Fixed: Unable to translate buttons and tabs on the "Manage Category" page
+Fixed: Product Categories Tree doesn't expand in Manage Products page
+Fixed: Incorrect products qty returns to stock after refund for configurable product
+Fixed: Swf Uploader problems with cross domain Flash Player Policy
+Fixed: Unable to translate "Layout Updates" block on create/edit widget page
+Fixed: IE7: "Remember Me" checkbox visible on billing information step
+Fixed: CMS WYSIWYG Editor - widget is inserted as new while editing in IE8
+Fixed: Currency code doesn't correspond to the amount in reports
+Fixed: Mage_Adminhtml_Block_Sales_Order_View_Tab_History::getFullHistory() doesn't use unique keys for each message
+Fixed: Scope labels are shown without translate wrapper
+Fixed: Wrong parameters handling in Core Helper formatDate()
+Fixed: Apostrophe in store name breaks Google Analytics tracking
+Fixed: Customer attribute prefix is not shown on frontend
+Fixed: Incorrect rounding for product with custom options (percent price)
+Fixed: Invoicing only part of products results in wrong totals calculation
+Fixed: Incorrect Row Total Calculation in Refund
+- fixed rounding issues for partial Invoice and Refund
+- refactored delta rounding
+Fixed: Filter by "Allow Countries" not working for Customer Address Form in the backend
+- checking added for set country to be in available list
+Fixed: There are sql-installs with empty string used as defaults for table columns, while column is not null able
+Fixed: Unable to translate "Note" in "Product Stock Options"
+Fixed: Various warning are displayed after creating shipment for 0 items
+Fixed: Invalid content in Content-header in the top of page during scrolling during order creation
+Fixed: "Online invoice" button present in backend when using Zero Subtotal Checkout
+Fixed: String cast type in in_array function
+Fixed: Newsletter template content should not disappear when "Show" / "Hide Editor" button was clicked
+Fixed: Import feature doesn't validate whether super_products_sku is existing or not
+Fixed: Cannot place order with downloadable product and discount code using Paypal Express payment method
+Fixed: Product still out of stock after Stock Status reindex
+Fixed: Save catalog price rule gives trace if full reindex has already started
+Fixed: Reindex requires notification is not shown for Stock Status when stock is updated for several products using Mass Action
+Fixed: Incorrect FedEx's shipping rates (in case with non-US country origin)
+Fixed: After partial reindex MSRP value is not applied (not viewed) in catalog during mass update action
+Fixed: Wrong stock reindex on catalog if partial reindex done after full reindex started
+Fixed: In error message string "already exists." written twice, when trying to save Product Tax Class with the same name
+Fixed: Slow checkout with non-flushed cache
+Fixed: Bundle product total is incorrect in Customization block
+Fixed: Special price isn't considered for bundle dynamic products in "Your Customization" block
+Fixed: Situation when any amount of duplicate reindex process can be running at one time
+Fixed: Error with Advanced Search (in case with Date Attribute)
+Fixed: Product Flat Data index isn't marked as "Reindex Required" after importing products when Flat Catalog is enabled
+Fixed: User can't change root category for the store
+Fixed: JS error causes the overwrite of Title field in PayPal Advanced configuration
+Fixed: Mass action doesn't partially reindex catalog for product name/description
+Fixed: Remove hint about $1 auth amount from informational message text (PayflowLink configuration)
+Fixed: Mass action doesn't partially reindex catalog for product prices
+Fixed: PayPal Payments Advanced works with $0 Auth instead of Full Auth
+Fixed: Impossible to place Order using "Pay with PayPal" button from PayPal Payments Advanced iframe
+Fixed: Mass action doesn't partially reindex catalog search for product if searchable attribute was updated
+Fixed: "Please wait" AJAX screen doesn't appear in the middle of the page
+Fixed: Checkout link on frontend is always referenced as http
+Fixed: GET request is incorrectly formed during category creation
+- adjusted assertion to determine last viewed store
+Fixed: Display of Tier Pricing with Configurable Products
+- added functionality to dynamically update tier prices accordingly to chosen product configuration
+Fixed: Google Analytics e-commerce tracking not working
+Fixed: URL key isn't used when product is saved
+Fixed: Added validation class to 'Qty increments'
+Fixed: Entered from admin customer date 1970 (or less) is saved as 2070 (or less)
+Fixed: cUrl resource must be closed after checking it for errors, not before
+Fixed: Exception while products mass update attributes in backend
+Fixed: No ability to reindex Catalog URL Rewrites, error is shown
+Fixed: Package with Core dependency
+Fixed: Stock Availability isn't updated if 1: Run Price Reindex 2: Update Stock Availability on product with mass action/single product
+Fixed: Blank page instead shopping cart page when compilation and PSC are enabled
+Fixed: Unable to save redirect URL with special characters in search terms
+Fixed: Attribute Set field should have client-side validation and appropriate information message
+Fixed: "Localhost" isn't a valid domain name for installation
+Fixed: Iframe for PayPal Payments Advanced is not loaded
+Fixed: Retain the selected tab on editing CMS page
+Fixed: Payflow Link Express Checkout (pay with PayPal button) payment
+Fixed: Wrong number of reindex options is displayed
+Fixed: Wrong phpDocs for Varien_Db_Select
+Fixed: JavaScript calendar date range
+- fixed JS calendar behavior to use 4-digits year format
+Fixed: Performance issue connected with sales rules on adding product to cart
+Fixed: DHL same error message appears several times
+Fixed: Item Status says "Mixed" when an order has been completed, should say "Shipped"
+Fixed: Product option title is absent in backend order page
+Fixed: Incorrect items number during multi shipping checkout
+Fixed: User name displays differently in the unsuccessful message and in the text field label (log in form)
+Fixed: If one or more indexers have Update Required = Yes and all Status = READY for all indexers than there is no notification for user to do reindex action
+Fixed: No space between Address line 1 and line 2 in Shipping Label (in case with FedEx)
+Fixed: JS works depends on the position attributes of the product
+Fixed: Char set encoding is out-of-date in Settlement reports
+Fixed: Settlement reports can't be downloaded if in merchant's account 'Settlement file' is set to 6.0 version
+Fixed: Unable to login when secure and unsecure URLs are different
+Fixed: Customer session lost when using different domain/subdomain names for secure and unsecure URLs
+Fixed: "Most Viewed" reports ignore Store View switcher
+Fixed: Long FPT name (and product name) doesn't fit into "My cart" block
+Fixed: Paypal IPN post back failure
+Fixed: Customer was unable to receive newsletters when it was created via backend
+Fixed: Wrong Comments History in notification of order creation/cancellation
+Fixed: Non escaped string causes javascript error
+Fixed: Unable to view pictures during product editing
+Fixed: Ampersand is saved incorrect in attribute label
+Fixed: IE8: JS error appears after pressing 'Add new rule' in catalog price rules menu
+Fixed: Exception after sorting newsletter queue
+Fixed: Customer is not able to log in from URL without "www" in some cases
+Fixed: SQL error on category view with enabled and configured FPT
+Fixed: Automatic reindexing based on matched events doesn't change "Status" and "Last Run" columns at process list grid
+Fixed: Performance issue with Magento Compiler + APC results in too many I/O calls
+Fixed: Website Administrator is able to change default values
+Fixed: Some of wishlist blocks and templates still treat the collection of wishlist items as collection of products
+Fixed: Unnecessary comments in "Share Wishlist" email
+
+
+
 ==== 1.7.0.0-rc1 ====
 
 === Major Highlights ===
@@ -27,7 +612,7 @@ Provided logic to disable ACL resources through configuration files
 Added additional placeholders for extensions developers
 
 === Changes ===
-Added "Cache On Delivery" and "Bank Transfer" payment methods
+Added "Cash On Delivery" and "Bank Transfer" payment methods
 Support for "memcached" PHP extension was added
 Library js/scriptaculous/dragdrop.js is upgraded to version 1.9.0
 Image file of "jpg" type are allowed for favicon
@@ -1361,7 +1946,6 @@ Fixed "Online invoice" button present in backend when using Zero Subtotal Checko
 Fixed String cast type in in_array function
 Fixed Newsletter template content should not disappear when "Show" / "Hide Editor" button was clicked
 Fixed Import feature doesn't validate whether super_products_sku is existing or not
-
 
 
 

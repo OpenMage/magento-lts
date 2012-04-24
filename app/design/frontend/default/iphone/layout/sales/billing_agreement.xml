@@ -41,6 +41,7 @@
         <update handle="customer_account"/>
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <action method="setMyClass"><value>billing-agreement-view</value></action>
         </reference>
         <reference name="my.account.wrapper">
             <block type="sales/billing_agreement_view" name="customer.account.billing.agreement" template="sales/billing/agreement/view.phtml"/>

@@ -43,15 +43,15 @@ class Mage_Api2_Model_Auth_Adapter_Oauth extends Mage_Api2_Model_Auth_Adapter_Ab
      */
     public function getUserParams(Mage_Api2_Model_Request $request)
     {
-        /** @var $oauthServer Mage_OAuth_Model_Server */
-        $oauthServer   = Mage::getModel('oAuth/server', $request);
+        /** @var $oauthServer Mage_Oauth_Model_Server */
+        $oauthServer   = Mage::getModel('oauth/server', $request);
         $userParamsObj = (object) array('type' => null, 'id' => null);
 
         try {
             $token    = $oauthServer->checkAccessRequest();
             $userType = $token->getUserType();
 
-            if (Mage_OAuth_Model_Token::USER_TYPE_ADMIN == $userType) {
+            if (Mage_Oauth_Model_Token::USER_TYPE_ADMIN == $userType) {
                 $userParamsObj->id = $token->getAdminId();
             } else {
                 $userParamsObj->id = $token->getCustomerId();

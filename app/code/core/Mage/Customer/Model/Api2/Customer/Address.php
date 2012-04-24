@@ -80,15 +80,24 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
      * If id is not found then return passed $region
      *
      * @param string $region
+     * @param string $countryId
      * @return int|string
      */
-    protected function _getRegionIdByNameOrCode($region)
+    protected function _getRegionIdByNameOrCode($region, $countryId)
     {
-        $id = Mage::getResourceModel('directory/region_collection')
-            ->addFieldToFilter(array('default_name', 'code'), array($region, $region))
-            ->getFirstItem()
-            ->getId();
-        return $id ? $id : $region;
+        /** @var $collection Mage_Directory_Model_Resource_Region_Collection */
+        $collection = Mage::getResourceModel('directory/region_collection');
+
+        $collection->getSelect()
+            ->reset() // to avoid locale usage
+            ->from(array('main_table' => $collection->getMainTable()), 'region_id');
+
+        $collection->addCountryFilter($countryId)
+            ->addFieldToFilter(array('default_name', 'code'), array($region, $region));
+
+        $id = $collection->getResource()->getReadConnection()->fetchOne($collection->getSelect());
+
+        return $id ? (int)$id : $region;
     }
 
     /**

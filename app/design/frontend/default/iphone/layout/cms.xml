@@ -56,6 +56,12 @@ Default layout, loads most of the pages
 
     <cms_index_index translate="label">
         <label>CMS Home Page</label>
+        <reference name="root">
+            <block type="page/html_wrapper" name="homepage.banner" translate="label">
+                <label>Home Page Banner(Mobile)</label>
+                <action method="setElementClass"><value>front-banner</value></action>
+            </block>
+        </reference>
         <reference name="content">
             <block type="catalog/navigation" name="hp_nav" template="catalog/navigation/top.phtml" />
         </reference>

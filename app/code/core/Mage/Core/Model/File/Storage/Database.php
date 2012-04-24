@@ -289,6 +289,18 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
             dirname($newFilePath)
         );
 
+        $newPath = dirname($newFilePath);
+        $directory = Mage::getModel('core/file_storage_directory_database')->loadByPath($newPath);
+
+        if (!$directory->getId()) {
+            $directory = $this->getDirectoryModel()->createRecursive($newPath);
+        }
+
+        $this->loadByFilename($newFilePath);
+        if ($this->getId()) {
+            $this->setDirectoryId($directory->getId())->save();
+        }
+
         return $this;
     }
 

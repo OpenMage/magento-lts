@@ -27,10 +27,10 @@
 /**
  * "Grant Access" button
  *
- * @see Mage_OAuth_Block_Authorize
+ * @see Mage_Oauth_Block_Authorize
  */
 
-/** @var $this Mage_OAuth_Block_Adminhtml_OAuth_Authorize_Button */
+/** @var $this Mage_Oauth_Block_Adminhtml_Oauth_Authorize_Button */
 ?>
 <div class="login-container auth-confirm">
     <div class="login-box">
@@ -41,7 +41,7 @@
             <?php echo $this->getMessagesBlock()->toHtml() ?>
 
             <?php if (!$this->getHasException()) : ?>
-                <h2><?php echo $this->__('<strong>%s</strong> request access to your account', $this->escapeHtml($this->getConsumer()->getName())); ?></h2>
+                <h2><?php echo $this->__('<strong>%s</strong> requests access to your account', $this->escapeHtml($this->getConsumer()->getName())); ?></h2>
                 <p><?php echo $this->__('After authorization application will have access to you account.'); ?></p>
                 <form id="oauth_authorize_confirm" action="<?php echo $this->getConfirmUrl() ?>" method="get">
                     <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>">

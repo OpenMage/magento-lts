@@ -57,12 +57,9 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
      */
     public function getRefreshUrl()
     {
-        $isSecure = Mage::app()->getStore()->isAdmin()
-            ? Mage::app()->getStore()->isAdminUrlSecure()
-            : Mage::getConfig()->shouldUrlBeSecure(Mage::app()->getRequest()->getPathInfo());
         return Mage::getUrl(
             Mage::app()->getStore()->isAdmin() ? 'adminhtml/refresh/refresh' : 'captcha/refresh',
-            array('_secure' => $isSecure)
+            array('_secure' => Mage::app()->getStore()->isCurrentlySecure())
         );
     }
 

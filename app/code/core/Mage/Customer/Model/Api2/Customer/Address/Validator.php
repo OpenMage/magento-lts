@@ -46,16 +46,22 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
      */
     public function filter(array $data)
     {
-        $data = parent::filter($data);
+        $filteredData = parent::filter($data);
 
         // If the array contains more than two elements, then combine the extra elements in a string
-        if (isset($data['street']) && is_array($data['street']) && count($data['street']) > 2) {
-            $data['street'][1] .= self::STREET_SEPARATOR
-                . implode(self::STREET_SEPARATOR, array_slice($data['street'], 2));
-            $filteredData['street'] = array_slice($data['street'], 0, 2);
+        if (isset($filteredData['street']) && is_array($filteredData['street']) && count($filteredData['street']) > 2) {
+            $filteredData['street'][1] .= self::STREET_SEPARATOR
+                . implode(self::STREET_SEPARATOR, array_slice($filteredData['street'], 2));
+            $filteredData['street'] = array_slice($filteredData['street'], 0, 2);
         }
-
-        return $data;
+        // pass default addresses info
+        if (isset($data['is_default_billing'])) {
+            $filteredData['is_default_billing'] = $data['is_default_billing'];
+        }
+        if (isset($data['is_default_shipping'])) {
+            $filteredData['is_default_shipping'] = $data['is_default_shipping'];
+        }
+        return $filteredData;
     }
 
     /**
@@ -66,15 +72,7 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
      */
     public function isValidDataForCreateAssociationWithCountry(array $data)
     {
-        // Check the country
-        $country = $this->_checkCountry($data);
-        if (false == $country) {
-            // break the validation if the country is not valid
-            return false;
-        }
-
-        // Check the region
-        return $this->_checkRegion($data, $country);
+        return $this->_checkRegion($data, Mage::getModel('directory/country')->loadByCode($data['country_id']));
     }
 
     /**
@@ -89,60 +87,13 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
         if (!isset($data['country_id']) && !isset($data['region'])) {
             return true;
         }
-
-        // Check the country
-        if (array_key_exists('country_id', $data)) {
-            $country = $this->_checkCountry($data);
-            if (false == $country) {
-                // break the validation if the country is not valid
-                return false;
-            }
+        // If country is in data - it has been already validated. If no - load current country.
+        if (isset($data['country_id'])) {
+            $country = Mage::getModel('directory/country')->loadByCode($data['country_id']);
         } else {
-            // if the country is not passed load the current country
             $country = $address->getCountryModel();
         }
-
-        // Check the region
         return $this->_checkRegion($data, $country);
-    }
-
-    /**
-     * Check country
-     *
-     * @param array $data
-     * @return bool|Mage_Directory_Model_Country
-     */
-    protected function _checkCountry($data)
-    {
-        if (!array_key_exists('country_id', $data)) {
-            $this->_addError('"Country" is required.');
-            return false;
-        }
-
-        if (!is_string($data['country_id'])) {
-            $this->_addError('Invalid country identifier type.');
-            return false;
-        }
-
-        if ('' == trim($data['country_id'])) {
-            $this->_addError('"Country" is required.');
-            return false;
-        }
-
-        $validator = new Zend_Validate_StringLength(array('min' => 2, 'max' => 3));
-        if (!$validator->isValid($data['country_id'])) {
-            $this->_addError("Country is not between '2' and '3' inclusively.");
-            return false;
-        }
-
-        /* @var $country Mage_Directory_Model_Country */
-        $country = Mage::getModel('directory/country')->loadByCode($data['country_id']);
-        if (!$country->getId()) {
-            $this->_addError('Country does not exist.');
-            return false;
-        }
-
-        return $country;
     }
 
     /**

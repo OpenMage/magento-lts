@@ -902,16 +902,6 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     }
 
     /**
-     * Force apply discount for parent item
-     *
-     * @return bool
-     */
-    public function getForceApplyDiscountToParentItem()
-    {
-        return true;
-    }
-
-    /**
      * Retrieve additional searchable data from type instance
      * Using based on product id and store_id data
      *

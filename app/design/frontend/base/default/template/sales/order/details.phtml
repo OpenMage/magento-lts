@@ -71,7 +71,7 @@
 <div class="col2-set">
     <div class="col-1">
         <h4><?php echo $this->__('Shipping Method') ?></h4>
-        <?php echo $_order->getShippingMethod() ?> <?php echo $_order->getShippingDescription() ?>
+        <?php echo $this->escapeHtml($_order->getShippingMethod()) ?> <?php echo $this->escapeHtml($_order->getShippingDescription()) ?>
     </div>
     <div class="col-2">
         <h4><?php echo $this->__('Payment Method') ?></h4>

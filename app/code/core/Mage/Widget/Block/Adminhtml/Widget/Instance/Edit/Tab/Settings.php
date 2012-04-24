@@ -112,18 +112,18 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings
         $this->_addElementTypes($fieldset);
 
         $fieldset->addField('type', 'select', array(
-            'name'  => 'type',
-            'label' => Mage::helper('widget')->__('Type'),
-            'title' => Mage::helper('widget')->__('Type'),
-            'class' => '',
-            'values' => $this->getTypesOptionsArray()
+            'name'     => 'type',
+            'label'    => Mage::helper('widget')->__('Type'),
+            'title'    => Mage::helper('widget')->__('Type'),
+            'required' => true,
+            'values'   => $this->getTypesOptionsArray()
         ));
 
         $fieldset->addField('package_theme', 'select', array(
-            'name'  => 'package_theme',
-            'label' => Mage::helper('widget')->__('Design Package/Theme'),
-            'title' => Mage::helper('widget')->__('Design Package/Theme'),
-            'required' => false,
+            'name'     => 'package_theme',
+            'label'    => Mage::helper('widget')->__('Design Package/Theme'),
+            'title'    => Mage::helper('widget')->__('Design Package/Theme'),
+            'required' => true,
             'values'   => $this->getPackegeThemeOptionsArray()
         ));
         $continueButton = $this->getLayout()

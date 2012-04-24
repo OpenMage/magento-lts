@@ -34,29 +34,15 @@
 
     <contacts_index_index translate="label">
         <label>Contact Us Form</label>
+        <reference name="head">
+            <action method="setTitle" translate="title" module="contacts"><title>Contact Us</title></action>
+        </reference>
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
             <action method="setHeaderTitle" translate="title" module="contacts"><title>Contact Us</title></action>
         </reference>
         <reference name="content">
             <block type="core/template" name="contactForm" template="contacts/form.phtml"/>
-            <block type="page/html_breadcrumbs" name="breadcrumbs" as="breadcrumbs" before="-">
-                <action method="addCrumb" translate="crumbName" module="catalog">
-                    <crumbName>home</crumbName>
-                    <crumbInfo>
-                        <label>Home</label>
-                        <title>Home</title>
-                        <link>/</link>
-                    </crumbInfo>
-                </action>
-                <action method="addCrumb" translate="crumbName" module="catalog">
-                    <crumbName>categories</crumbName>
-                    <crumbInfo>
-                        <label>Categories</label>
-                        <title>Categories</title>
-                    </crumbInfo>
-                </action>
-            </block>
         </reference>
     </contacts_index_index>
 </layout>

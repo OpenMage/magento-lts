@@ -26,10 +26,10 @@
 
 
 /**
- * OAuth consumer edit form block
+ * Attribute edit form block
  *
  * @category   Mage
- * @package    Mage_OAuth
+ * @package    Mage_Api2
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api2_Block_Adminhtml_Attribute_Edit_Form extends Mage_Adminhtml_Block_Widget_Form

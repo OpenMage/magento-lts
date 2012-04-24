@@ -115,7 +115,9 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     public function addLinkBlock($blockName)
     {
         $block = $this->getLayout()->getBlock($blockName);
-        $this->_links[$this->_getNewPosition((int)$block->getPosition())] = $block;
+        if ($block) {
+            $this->_links[$this->_getNewPosition((int)$block->getPosition())] = $block;
+        }
         return $this;
     }
 

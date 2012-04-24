@@ -43,7 +43,7 @@
 "2YTD","2YTD"
 "6 Hours","6 Hours"
 "<h1 class=""page-heading"">404 Error</h1><p>Page not found.</p>","<h1 class=""page-heading"">404 Error</h1><p>Page not found.</p>"
-"<strong>%s</strong> request access to your account","<strong>%s</strong> request access to your account"
+"<strong>%s</strong> requests access to your account","<strong>%s</strong> requests access to your account"
 "<strong>Attention</strong>: Captcha is case sensitive.","<strong>Attention</strong>: Captcha is case sensitive."
 "A user with the same user name or email aleady exists.","A user with the same user name or email aleady exists."
 "API Key","API Key"

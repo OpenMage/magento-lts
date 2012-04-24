@@ -54,7 +54,9 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
 
-        $data['region'] = $this->_getRegionIdByNameOrCode($data['region']);
+        if (isset($data['region']) && isset($data['country_id'])) {
+            $data['region'] = $this->_getRegionIdByNameOrCode($data['region'], $data['country_id']);
+        }
 
         /* @var $address Mage_Customer_Model_Address */
         $address = Mage::getModel('customer/address');
@@ -154,8 +156,12 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
             }
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
-
-        $data['region'] = isset($data['region']) ? $this->_getRegionIdByNameOrCode($data['region']) : null;
+        if (isset($data['region'])) {
+            $data['region'] = $this->_getRegionIdByNameOrCode(
+                $data['region'], isset($data['country_id']) ? $data['country_id'] : $address->getCountryId()
+            );
+            $data['region_id'] = null; // to avoid overwrite region during update in address model _beforeSave()
+        }
         $address->addData($data);
 
         try {

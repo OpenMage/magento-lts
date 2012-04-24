@@ -119,6 +119,47 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
     }
 
     /**
+     * Validate attribute value for attributes with source models
+     *
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param mixed $attrValue
+     * @return array|bool
+     */
+    protected function _validateAttributeWithSource(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $attrValue)
+    {
+        $errors = array();
+
+        // validate attributes with source models
+        if (null !== $attrValue && $attribute->getSourceModel()) {
+            if ('multiselect' !== $attribute->getFrontendInput() && is_array($attrValue)) {
+                return array('Invalid value type for ' . $attribute->getAttributeCode());
+            }
+            $possibleValues = $attribute->getSource()->getAllOptions(false);
+
+            foreach ((array) $attrValue as $value) {
+                if (is_scalar($value)) {
+                    $value = (string) $value;
+                    $isValid = false;
+                    foreach ($possibleValues as $optionData) {
+                        // comparison without types check is performed only when both values are numeric
+                        $useStrictMode = !(is_numeric($value) && is_numeric($optionData['value']));
+                        $isValid = $useStrictMode ? $value === $optionData['value'] : $value == $optionData['value'];
+                        if ($isValid) {
+                            break;
+                        }
+                    }
+                    if (!$isValid) {
+                        $errors[] = 'Invalid value "' . $value . '" for '. $attribute->getAttributeCode();
+                    }
+                } else {
+                    $errors[] = 'Invalid value type for ' . $attribute->getAttributeCode();
+                }
+            }
+        }
+        return $errors ? $errors : true;
+    }
+
+    /**
      * Filter request data.
      *
      * @param  array $data
@@ -151,22 +192,58 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
             if ($this->_eavForm->ignoreInvisible() && !$attribute->getIsVisible()) {
                 continue;
             }
-            if (!isset($data[$attribute->getAttributeCode()])) {
-                $data[$attribute->getAttributeCode()] = null;
-            }
+            $attrValue = isset($data[$attribute->getAttributeCode()]) ? $data[$attribute->getAttributeCode()] : null;
 
             $result = Mage_Eav_Model_Attribute_Data::factory($attribute, $this->_eavForm->getEntity())
-                ->setExtractedData($data)->validateValue($data[$attribute->getAttributeCode()]);
+                ->setExtractedData($data)
+                ->validateValue($attrValue);
+
             if ($result !== true) {
                 $errors = array_merge($errors, $result);
+            } else {
+                $result = $this->_validateAttributeWithSource($attribute, $attrValue);
+
+                if (true !== $result) {
+                    $errors = array_merge($errors, $result);
+                }
             }
         }
+        $this->_setErrors($errors);
 
-        if (count($errors)) {
-            $this->_setErrors($errors);
-            return false;
+        return $errors ? false : true;
+    }
+
+    /**
+     * Returns an array of errors
+     *
+     * @return array
+     */
+    public function getErrors()
+    {
+        // business asked to avoid additional validation message, so we filter it here
+        $errors        = array();
+        $helper        = Mage::helper('eav');
+        $requiredAttrs = array();
+        $isRequiredRE  = '/^' . str_replace('%s', '(.+)', preg_quote($helper->__('"%s" is a required value.'))). '$/';
+        $greaterThanRE = '/^' . str_replace(
+            '%s', '(.+)', preg_quote($helper->__('"%s" length must be equal or greater than %s characters.'))
+        ) . '$/';
+
+        // find all required attributes labels
+        foreach ($this->_errors as $error) {
+            if (preg_match($isRequiredRE, $error, $matches)) {
+                $requiredAttrs[$matches[1]] = true;
+            }
         }
-
-        return true;
+        // exclude additional messages for required attributes been failed
+        foreach ($this->_errors as $error) {
+            if (preg_match($isRequiredRE, $error)
+                || !preg_match($greaterThanRE, $error, $matches)
+                || !isset($requiredAttrs[$matches[1]])
+            ) {
+                $errors[] = $error;
+            }
+        }
+        return $errors;
     }
 }

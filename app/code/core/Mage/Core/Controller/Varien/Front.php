@@ -310,7 +310,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
         $baseUrl = Mage::getBaseUrl(
             Mage_Core_Model_Store::URL_TYPE_WEB,
-            Mage::getConfig()->shouldUrlBeSecure($request->getPathInfo())
+            Mage::app()->getStore()->isCurrentlySecure()
         );
         if (!$baseUrl) {
             return;
@@ -322,12 +322,8 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             || isset($uri['host']) && $uri['host'] != $request->getHttpHost()
             || isset($uri['path']) && strpos($requestUri, $uri['path']) === false
         ) {
-            $redirectUrl = Mage::getSingleton('core/url')->getRedirectUrl(
-                Mage::getUrl(ltrim($request->getPathInfo(), '/'), array('_nosid' => true))
-            );
-
             Mage::app()->getFrontController()->getResponse()
-                ->setRedirect($redirectUrl, $redirectCode)
+                ->setRedirect($baseUrl, $redirectCode)
                 ->sendResponse();
             exit;
         }

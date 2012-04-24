@@ -25,10 +25,10 @@
  */
 
 /**
- * OAuth Consumer grid block
+ * Roles grid block
  *
  * @category   Mage
- * @package    Mage_OAuth
+ * @package    Mage_Api2
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_Grid
@@ -126,7 +126,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
      * Decorate 'User Type' column
      *
      * @param string $renderedValue Rendered value
-     * @param Mage_OAuth_Model_Token $row
+     * @param Mage_Api2_Model_Acl_Global_Role $row
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @param bool $isExport
      * @return string

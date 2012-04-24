@@ -394,6 +394,10 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function delete($categoryId)
     {
+        if (Mage_Catalog_Model_Category::TREE_ROOT_ID == $categoryId) {
+            $this->_fault('not_deleted', 'Cannot remove the system category.');
+        }
+
         $category = $this->_initCategory($categoryId);
 
         try {

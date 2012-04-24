@@ -73,7 +73,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             ->addPriceData($this->_getCustomerGroupId(), $store->getWebsiteId())
             ->addAttributeToSelect(array_diff($availableAttributes, $entityOnlyAttributes))
             ->addAttributeToFilter('visibility', array(
-                'neq' => Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE))
+            'neq' => Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE))
             ->addAttributeToFilter('status', array('eq' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED));
         $this->_applyCategoryFilter($collection);
         $this->_applyCollectionModifiers($collection);
@@ -125,7 +125,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
         $productData['final_price_without_tax'] = $this->_applyTaxToPrice($finalPrice, false);
 
         $productData['is_saleable'] = $product->getIsSalable();
-        $productData['image_url'] = (string) Mage::helper('catalog/image')->init($product, 'image');
+        $productData['image_url'] = (string)Mage::helper('catalog/image')->init($product, 'image');
 
         if ($this->getActionType() == self::ACTION_TYPE_ENTITY) {
             // define URLs
@@ -201,7 +201,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
                 $this->_critical(self::RESOURCE_NOT_FOUND);
             }
             // check if product belongs to website current
-            if ($this->getRequest()->getParam('store')) {
+            if ($this->_getStore()->getId()) {
                 $isValidWebsite = in_array($this->_getStore()->getWebsiteId(), $product->getWebsiteIds());
                 if (!$isValidWebsite) {
                     $this->_critical(self::RESOURCE_NOT_FOUND);
@@ -211,7 +211,8 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             if ($this->getApiUser()->getType() != Mage_Api2_Model_Auth_User_Admin::USER_TYPE) {
                 // check if product assigned to any website and can be shown
                 if ((!Mage::app()->isSingleStoreMode() && !count($product->getWebsiteIds()))
-                    || !$productHelper->canShow($product)) {
+                    || !$productHelper->canShow($product)
+                ) {
                     $this->_critical(self::RESOURCE_NOT_FOUND);
                 }
             }
@@ -254,8 +255,9 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
      * @see Mage_Tax_Helper_Data::getPrice()
      */
     protected function _getPrice($price, $includingTax = null, $shippingAddress = null,
-        $billingAddress = null, $ctc = null, $priceIncludesTax = null
-    ) {
+                                 $billingAddress = null, $ctc = null, $priceIncludesTax = null
+    )
+    {
         $product = $this->_getProduct();
         $store = $this->_getStore();
 

@@ -33,8 +33,8 @@ Default layout, loads most of the pages
     <default translate="label" module="page">
         <label>All Pages</label>
         <block type="page/html" name="root" output="toHtml" template="page/1column.phtml">
+
             <block type="page/html_head" name="head" as="head">
-                <action method="addCss"><stylesheet>css/iphone.css</stylesheet></action>
                 <action method="addJs"><script>prototype/prototype.js</script></action>
                 <action method="addJs"><script>lib/ccard.js</script></action>
                 <action method="addJs"><script>prototype/validation.js</script></action>
@@ -47,11 +47,15 @@ Default layout, loads most of the pages
                 <action method="addJs"><script>varien/form.js</script></action>
                 <action method="addJs"><script>mage/translate.js</script></action>
                 <action method="addJs"><script>mage/cookies.js</script></action>
-                <action method="addItem"><type>skin_js</type><name>js/iphone.js</name></action>
-                <action method="addItem"><type>skin_js</type><name>js/dnd.js</name></action>
-                <action method="addItem"><type>skin_js</type><name>js/modernizr.js</name></action>
 
                 <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
+                
+                <action method="addItem"><type>skin_js</type><name>js/modernizr.js</name></action>
+                <action method="addItem"><type>skin_js</type><name>js/iphone.js</name></action>
+                <action method="addItem"><type>skin_js</type><name>js/dnd.js</name></action>
+
+                <action method="addCss"><stylesheet>css/iphone.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/custom.css</stylesheet></action>
             </block>
 
             <block type="core/text_list" name="after_body_start" as="after_body_start" translate="label">
@@ -61,54 +65,34 @@ Default layout, loads most of the pages
             <block type="page/html_notices" name="global_notices" as="global_notices" template="page/html/notices.phtml" />
 
             <block type="page/html_header" name="header" as="header">
+                <block type="page/template_links" name="account.links" as="accountLinks"/>
                 <block type="page/template_links" name="top.links" as="topLinks"/>
-                <block type="page/switch" name="store_language" as="store_language" template="page/switch/languages.phtml"/>
-                <block type="page/switch" name="store_switcher" as="store_switcher" template="page/switch/stores.phtml"/>
+                <block type="page/template_links" name="checkout.links" as="checkoutLinks"/>
                 <block type="core/text_list" name="top.menu" as="topMenu" translate="label">
                     <label>Navigation Bar</label>
+                    <block type="page/html_topmenu" name="catalog.topnav" template="page/html/topmenu.phtml"/>
                 </block>
                 <block type="page/html_wrapper" name="top.container" as="topContainer" translate="label">
                     <label>Page Header</label>
                     <action method="setElementClass"><value>top-container</value></action>
                 </block>
-                <block type="checkout/cart" name="checkout.cart" as="topCart">
-                    <action method="setCartTemplate"><value>checkout/cartheader.phtml</value></action>
-                    <action method="setEmptyTemplate"><value>checkout/cart/noItemsHeader.phtml</value></action>
-                    <action method="chooseTemplate"/>
-                    <action method="addItemRender"><type>simple</type><block>checkout/cart_item_renderer</block><template>checkout/cart/item/default.phtml</template></action>
-                    <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/cart/item/default.phtml</template></action>
-                    <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/cart/item/default.phtml</template></action>
-                    <remove name="checkout.cart.breadcrumbs"/>
-
-                    <block type="core/text_list" name="checkout.cart.top_methods" as="top_methods" translate="label">
-                        <label>Payment Methods Before Checkout Button</label>
-                        <block type="checkout/onepage_link" name="checkout.cart.methods.onepage" template="checkout/onepage/link.phtml"/>
-                    </block>
-
-                    <block type="page/html_wrapper" name="checkout.cart.form.before" as="form_before" translate="label">
-                        <label>Shopping Cart Form Before</label>
-                    </block>
-
-                    <block type="core/text_list" name="checkout.cart.methods" as="methods" translate="label">
-                        <label>Payment Methods After Checkout Button</label>
-                        <block type="checkout/onepage_link" name="checkout.cart.methods.onepage" template="checkout/onepage/link.phtml"/>
-                        <block type="checkout/multishipping_link" name="checkout.cart.methods.multishipping" template="checkout/multishipping/link.phtml"/>
-                    </block>
-
-                    <block type="checkout/cart_coupon" name="checkout.cart.coupon" as="coupon" template="checkout/cart/coupon.phtml"/>
-                    <block type="checkout/cart_shipping" name="checkout.cart.shipping" as="shipping" template="checkout/cart/shipping.phtml"/>
-                    <block type="checkout/cart_crosssell" name="checkout.cart.crosssell" as="crosssell" template="checkout/cart/crosssell.phtml"/>
-
-                    <block type="checkout/cart_totals" name="checkout.cart.totals" as="totals" template="checkout/cart/totals.phtml"/>
-                </block>
             </block>
 
             <block type="page/html_breadcrumbs" name="breadcrumbs" as="breadcrumbs"/>
 
+            <block type="core/text_list" name="left" as="left" translate="label">
+                <label>Left Column</label>
+            </block>
+
             <block type="core/messages" name="global_messages" as="global_messages"/>
             <block type="core/messages" name="messages" as="messages"/>
+
             <block type="core/text_list" name="content" as="content" translate="label">
                 <label>Main Content Area</label>
+            </block>
+
+            <block type="core/text_list" name="right" as="right" translate="label">
+                <label>Right Column</label>
             </block>
 
             <block type="page/html_footer" name="footer" as="footer" template="page/html/footer.phtml">
@@ -116,6 +100,7 @@ Default layout, loads most of the pages
                     <label>Page Footer</label>
                     <action method="setElementClass"><value>bottom-container</value></action>
                 </block>
+
                 <block type="page/template_links" name="footer_links" as="footer_links" template="page/template/links.phtml"/>
             </block>
 
@@ -127,13 +112,38 @@ Default layout, loads most of the pages
         <block type="core/profiler" output="toHtml" name="core_profiler"/>
     </default>
 
-      <!-- Custom page layout handles -->
+    <print translate="label" module="page">
+        <label>All Pages (Print Version)</label>
+        <!-- Mage_Page -->
+        <block type="page/html" name="root" output="toHtml" template="page/print.phtml">
+
+            <block type="page/html_head" name="head" as="head">
+                <action method="addJs"><script>prototype/prototype.js</script></action>
+                <action method="addJs"><script>mage/translate.js</script></action>
+                <action method="addJs"><script>lib/ccard.js</script></action>
+                <action method="addJs"><script>prototype/validation.js</script></action>
+                <action method="addJs"><script>varien/js.js</script></action>
+
+                <action method="addCss"><stylesheet>css/styles.css</stylesheet></action>
+                <action method="addItem"><type>skin_css</type><name>css/styles-ie.css</name><params/><if>lt IE 8</if></action>
+                <action method="addCss"><stylesheet>css/print.css</stylesheet><params>media="print"</params></action>
+            </block>
+
+            <block type="core/text_list" name="content" as="content" translate="label">
+                <label>Main Content Area (Print Version)</label>
+            </block>
+
+        </block>
+    </print>
+
+     <!-- Custom page layout handles -->
     <page_empty translate="label">
         <label>All Empty Layout Pages</label>
         <reference name="root">
             <action method="setTemplate"><template>page/empty.phtml</template></action>
             <!-- Mark root page block that template is applied -->
             <action method="setIsHandle"><applied>1</applied></action>
+            <action method="setLayoutCode"><name>empty</name></action>
         </reference>
     </page_empty>
 
@@ -143,6 +153,7 @@ Default layout, loads most of the pages
             <action method="setTemplate"><template>page/1column.phtml</template></action>
             <!-- Mark root page block that template is applied -->
             <action method="setIsHandle"><applied>1</applied></action>
+            <action method="setLayoutCode"><name>one_column</name></action>
         </reference>
     </page_one_column>
 
@@ -152,6 +163,7 @@ Default layout, loads most of the pages
             <action method="setTemplate"><template>page/1column.phtml</template></action>
             <!-- Mark root page block that template is applied -->
             <action method="setIsHandle"><applied>1</applied></action>
+            <action method="setLayoutCode"><name>two_columns_left</name></action>
         </reference>
     </page_two_columns_left>
 
@@ -161,6 +173,7 @@ Default layout, loads most of the pages
             <action method="setTemplate"><template>page/1column.phtml</template></action>
             <!-- Mark root page block that template is applied -->
             <action method="setIsHandle"><applied>1</applied></action>
+            <action method="setLayoutCode"><name>two_columns_right</name></action>
         </reference>
     </page_two_columns_right>
 
@@ -170,6 +183,7 @@ Default layout, loads most of the pages
             <action method="setTemplate"><template>page/1column.phtml</template></action>
             <!-- Mark root page block that template is applied -->
             <action method="setIsHandle"><applied>1</applied></action>
+            <action method="setLayoutCode"><name>three_columns</name></action>
         </reference>
     </page_three_columns>
 </layout>

@@ -39,131 +39,38 @@
     <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
 <?php else: ?>
     <?php echo $this->getToolbarHtml() ?>
-    <?php if($this->getMode()!='grid'): ?>
-        <div class="category-products">
-            <?php $_collectionSize = $_productCollection->count() ?>
-            <?php $_columnCount = $this->getColumnCount(); ?>
-            <ul class="c-list">
-                <?php $i=0; foreach ($_productCollection as $_product): ?>
-                    <li>
-                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>">
-                            <div class="wrap">
-                                <div class="product-image">
-                                    <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(130); ?>" width="65" height="65" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
-                                </div>
-                                <div class="product-shop">
-                                    <header>
-                                        <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
-                                        <?php echo $this->getPriceHtml($_product, true) ?>
-                                        <?php if(!$_product->isSaleable()): ?>
-                                            <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-                                        <?php endif; ?>
-                                    </header>
-                                </div>
+    <div class="category-products">
+        <?php $_collectionSize = $_productCollection->count() ?>
+        <?php $_columnCount = $this->getColumnCount(); ?>
+        <ul class="c-list">
+            <?php $i=0; foreach ($_productCollection as $_product): ?>
+                <li>
+                    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>">
+                        <div class="wrap">
+                            <div class="product-image">
+                                <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(130); ?>" width="65" height="65" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
                             </div>
-                        </a>
-                        <div class="actions">
-                            <ul>
-                                <li><a href="<?php echo $_product->getProductUrl() ?>" class="i-view-details"><i></i><?php echo $this->__('View Details') ?></a></li>
-                                <li><a href="<?php echo $this->getUrl('catalog/product/gallery', array('id'=>$_product->getId())) ?>" class="i-view-gallery"><i></i><?php echo $this->__('View Gallery') ?></a></li>
-                                <li><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>" class="i-send-friend"><i></i><?php echo $this->__('Tell a Friend') ?></a></li>
-                                <?php if ($this->helper('wishlist')->isAllow()) : ?>
-                                    <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="i-send-wishlist"><i></i><?php echo $this->__('Add to Wishlist') ?></a></li>
-                                <?php endif; ?>
-                                <li><a href="<?php echo $this->getAddToCartUrl($_product) ?>" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>'); return false;" class="i-add-to-cart"><i></i><?php echo $this->__('Add to Cart') ?></a></li>
-                            </ul>
-                        </div>
-                    </li>
-                <?php endforeach ?>
-            </ul>
-        </div>
-    <?php else: ?>
-        <div class="category-products">
-            <?php $_collectionSize = $_productCollection->count() ?>
-            <?php $_columnCount = $this->getColumnCount(); ?>
-            <div class="c-grid" id="c-grid">
-                <?php $i=0; foreach ($_productCollection as $key=>$_product): ?>
-                    <?php if ($i == 0 || !($i % 2)): ?>
-                    <div class="row">
-                    <?php endif; ?>
-                        <div class="cell">
-                            <div class="position-wrap">
-                                <div class="cloned-wrap">
-                                    <div class="wrap">
-                                        <div class="product-image">
-                                            <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(130); ?>" width="65" height="65" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
-                                        </div>
-                                        <div class="product-shop">
-                                            <header>
-                                                <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
-                                                <?php echo $this->getPriceHtml($_product, true) ?>
-                                                <?php if(!$_product->isSaleable()): ?>
-                                                    <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-                                                <?php endif; ?>
-                                            </header>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flip-block-wrap">
-                                <div class="flip-block">
-                                    <div class="back">
-                                        <span class="i-flip"></span>
-                                        <div class="back-face">
-                                            <?php if($_product->getRatingSummary()): ?>
-                                                <?php echo $this->getReviewsSummaryHtml($_product) ?>
-                                            <?php endif; ?>
-                                            <?php echo $this->getPriceHtml($_product, true) ?>
-                                            <?php if($_product->isSaleable()): ?>
-                                                <a class="add-to-cart" href="<?php echo $this->getAddToCartUrl($_product) ?>" title="<?php echo $this->__('Add to Cart') ?>"><?php echo $this->__('Add to Cart') ?></a>
-                                            <?php else: ?>
-                                                <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                    <div class="front">
-                                        <span class="i-flip"></span>
-                                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>">
-                                            <div class="wrap">
-                                                <div class="product-image">
-                                                    <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(130); ?>" width="65" height="65" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
-                                                </div>
-                                                <div class="product-shop">
-                                                    <header>
-                                                        <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
-                                                        <?php echo $this->getPriceHtml($_product, true) ?>
-                                                        <?php if(!$_product->isSaleable()): ?>
-                                                            <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-                                                        <?php endif; ?>
-                                                    </header>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
+                            <div class="product-shop">
+                                <header>
+                                    <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                                    <?php echo $this->getPriceHtml($_product, true) ?>
+                                </header>
                             </div>
                         </div>
-                    <?php if ($i % 2 || $i == $_collectionSize - 1): ?>
+                    </a>
+                    <div class="actions" style="display:none;">
+                        <ul>
+                            <li><a href="<?php echo $_product->getProductUrl() ?>" class="i-view-details"><i></i><?php echo $this->__('View Details') ?></a></li>
+                            <li><a href="<?php echo $this->getUrl('catalog/product/gallery', array('id'=>$_product->getId())) ?>" class="i-view-gallery"><i></i><?php echo $this->__('View Gallery') ?></a></li>
+                            <li><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>" class="i-send-friend"><i></i><?php echo $this->__('Tell a Friend') ?></a></li>
+                            <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                                <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="i-send-wishlist"><i></i><?php echo $this->__('Add to Wishlist') ?></a></li>
+                            <?php endif; ?>
+                            <li><a href="<?php echo $this->getAddToCartUrl($_product) ?>" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>'); return false;" class="i-add-to-cart"><i></i><?php echo $this->__('Add to Cart') ?></a></li>
+                        </ul>
                     </div>
-                    <?php endif; ?>
-                    <?php $i++;?>
-                <?php endforeach ?>
-            </div>
-        </div>
-        <script>
-            document.observe('dom:loaded', function () {
-                $('c-grid').addClassName('ready');
-
-                $('c-grid').on('click', ".i-flip", function(e, n) {
-                        var par = n.up('.flip-block');
-                        e.preventDefault();
-                        par.toggleClassName('active');
-                });
-
-                $('c-grid').select('.front').each(function (n) {
-                    n.setStyle({'height' :n.up('.cell').getDimensions().height - 1 + 'px'});
-                });
-            });
-        </script>
-    <?php endif; ?>
+                </li>
+            <?php endforeach ?>
+        </ul>
+    </div>
 <?php endif; ?>

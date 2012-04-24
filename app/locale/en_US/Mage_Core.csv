@@ -3,6 +3,7 @@
 "%s already exists.","%s already exists."
 "-- Please Select --","-- Please Select --"
 "<strong style=""color:red"">Warning!</strong> When using CDN, in some cases JavaScript may not run properly if CDN is not in your subdomain","<strong style=""color:red"">Warning!</strong> When using CDN, in some cases JavaScript may not run properly if CDN is not in your subdomain"
+"<strong style=""color:red"">Warning!</strong> When using Store Code in URLs, in some cases system may not work properly if URLs without Store Codes are specified in the third party services (e.g. PayPal etc.).","<strong style=""color:red"">Warning!</strong> When using Store Code in URLs, in some cases system may not work properly if URLs without Store Codes are specified in the third party services (e.g. PayPal etc.)."
 "A category object is required for determining the product request path.","A category object is required for determining the product request path."
 "Add Block Names to Hints","Add Block Names to Hints"
 "Add Secret Key to URLs","Add Secret Key to URLs"

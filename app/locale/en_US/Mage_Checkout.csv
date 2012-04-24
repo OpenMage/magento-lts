@@ -329,7 +329,7 @@
 "Your order # is: %s.","Your order # is: %s."
 "Your order cannot be completed at this time as there is no payment methods available for it.","Your order cannot be completed at this time as there is no payment methods available for it."
 "Your order cannot be completed at this time as there is no shipping methods available for it. Please make necessary changes in your shipping address.","Your order cannot be completed at this time as there is no shipping methods available for it. Please make necessary changes in your shipping address."
-"Your order has been received","Your order has been received"
+"Your order has been received.","Your order has been received."
 "Your order number is ","Your order number is "
 "Your recurring payment profiles:","Your recurring payment profiles:"
 "Zip/Postal Code","Zip/Postal Code"

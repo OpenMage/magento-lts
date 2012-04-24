@@ -27,7 +27,7 @@
 /**
  * Authorize rejection simple template
  *
- * @var $this Mage_OAuth_Block_AuthorizeBaseAbstract
+ * @var $this Mage_Oauth_Block_AuthorizeBaseAbstract
  */
 ?>
 <div class="login-container">
@@ -39,10 +39,9 @@
             <div id="messages">
                 <?php echo $this->getMessagesBlock()->toHtml() ?>
             </div>
-            <button type="submit" class="button"
-                    onclick="window.close();"
-                    title="<?php echo $this->__('Close') ?>">
-                                        <span><span><?php echo $this->__('Close') ?></span></span></button>
+            <button type="submit" class="button" onclick="window.close();" title="<?php echo $this->__('Close') ?>">
+                <span><span><?php echo $this->__('Close') ?></span></span>
+            </button>
         </div>
     </div>
 </div>

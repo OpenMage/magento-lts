@@ -27,6 +27,13 @@
 /* @var $catalogSearchHelper Mage_Catalogsearch_Helper_Data */
 $catalogSearchHelper =  $this->helper('catalogsearch');
 ?>
-<form action="<?php echo $this->helper('catalogsearch')->getResultUrl() ?>" method="get">
+<form id="search_mini_form" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get">
     <input type="search" name="<?php echo $this->helper('catalogsearch')->getQueryParamName() ?>" id="search" placeholder="Search" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>"/>
+    <div id="search_autocomplete" class="search-autocomplete"></div>
 </form>
+<script type="text/javascript">
+//<![CDATA[
+    var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo $this->__('Search') ?>');
+    searchForm.initAutocomplete('<?php echo $catalogSearchHelper->getSuggestUrl() ?>', 'search_autocomplete');
+//]]>
+</script>

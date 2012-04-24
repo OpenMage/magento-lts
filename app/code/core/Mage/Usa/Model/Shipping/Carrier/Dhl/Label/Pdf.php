@@ -34,9 +34,18 @@
 class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf
 {
     /**
+     * Label Information
+     *
      * @var SimpleXMLElement
      */
     protected $_info;
+
+    /**
+     * Shipment Request
+     *
+     * @var Mage_Shipping_Model_Shipment_Request
+     */
+    protected $_request;
 
     /**
      * Dhl International Label Creation Class constructor
@@ -45,7 +54,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf
      */
     public function __construct(array $arguments)
     {
-        $this->_info = $arguments['info'];
+        $this->_info    = $arguments['info'];
+        $this->_request = $arguments['request'];
     }
 
     /**
@@ -77,7 +87,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf
             )
             ->addServiceFeaturesCodes()
             ->addDeliveryDateCode()
-            ->addShipmentInformation()
+            ->addShipmentInformation($this->_request->getOrderShipment())
             ->addDateInfo($this->_info->ShipmentDate)
             ->addWeightInfo((string)$this->_info->ChargeableWeight, (string)$this->_info->WeightUnit)
             ->addWaybillBarcode((string)$this->_info->AirwayBillNumber, (string)$this->_info->Barcodes->AWBBarCode)
@@ -88,16 +98,20 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf
             )
             ->addBorder();
 
+        $packages = array_values($this->_request->getPackages());
+        $i = 0;
         foreach ($this->_info->Pieces->Piece as $piece) {
             $page = new Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page($template);
             $pdfBuilder->setPage($page)
                 ->addPieceNumber((int)$piece->PieceNumber, (int)$this->_info->Piece)
+                ->addContentInfo($packages[$i])
                 ->addPieceIdBarcode(
                     (string)$piece->DataIdentifier,
                     (string)$piece->LicensePlate,
                     (string)$piece->LicensePlateBarCode
                 );
             array_push($pdf->pages, $page);
+            $i++;
         }
         return $pdf->render();
     }

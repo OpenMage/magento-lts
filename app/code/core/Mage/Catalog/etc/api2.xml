@@ -40,7 +40,7 @@
             </catalog>
         </resource_groups>
         <resources>
-            <product>
+            <product translate="title" module="api2">
                 <group>catalog_product</group>
                 <model>catalog/api2_product</model>
                 <working_model>catalog/product</working_model>
@@ -60,7 +60,7 @@
                         <retrieve>1</retrieve>
                     </guest>
                 </privileges>
-                <attributes>
+                <attributes translate="entity_id type_id attribute_set_id stock_data image_url is_saleable total_reviews_count url buy_now_url has_custom_options is_in_stock regular_price_with_tax regular_price_without_tax final_price_with_tax final_price_without_tax use_config_gift_message_available use_config_gift_wrapping_available url_key_create_redirect" module="api2">
                     <entity_id>Product ID</entity_id>
                     <type_id>Product Type</type_id>
                     <attribute_set_id>Attribute Set</attribute_set_id>
@@ -210,7 +210,7 @@
                 </routes>
                 <versions>1</versions>
             </product>
-            <product_category>
+            <product_category translate="title" module="api2">
                 <group>catalog_product</group>
                 <model>catalog/api2_product_category</model>
                 <working_model>catalog/category</working_model>
@@ -229,7 +229,7 @@
                         <retrieve>1</retrieve>
                     </guest>
                 </privileges>
-                <attributes>
+                <attributes translate="category_id" module="api2">
                     <category_id>Category ID</category_id>
                 </attributes>
                 <routes>
@@ -246,7 +246,7 @@
                     <fields>
                         <category_id>
                             <required>1</required>
-                            <int>
+                            <int translate="message" module="api2">
                                 <type>Int</type>
                                 <message>Please use numbers only in "category_id" field.</message>
                             </int>
@@ -255,7 +255,7 @@
                 </validators>
                 <versions>1</versions>
             </product_category>
-            <product_image>
+            <product_image translate="title" module="api2">
                 <group>catalog_product</group>
                 <model>catalog/api2_product_image</model>
                 <title>Product Image</title>
@@ -274,7 +274,7 @@
                         <retrieve>1</retrieve>
                     </guest>
                 </privileges>
-                <attributes>
+                <attributes translate="id file_name file_content file_mime_type label position types exclude url" module="api2">
                     <id>ID</id>
                     <file_name>File Name</file_name>
                     <file_content>File Content</file_content>
@@ -334,7 +334,7 @@
                 </routes>
                 <versions>1</versions>
             </product_image>
-            <product_website>
+            <product_website translate="title" module="api2">
                 <group>catalog_product</group>
                 <model>catalog/api2_product_website</model>
                 <working_model>catalog/product_website</working_model>

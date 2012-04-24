@@ -285,7 +285,8 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      */
     public function applyFilterToCollection($filter, $range, $index)
     {
-        $priceExpr = $this->_getPriceExpression($filter);
+        $select = $filter->getLayer()->getProductCollection()->getSelect();
+        $priceExpr = $this->_getPriceExpression($filter, $select);
         $filter->getLayer()->getProductCollection()
             ->getSelect()
             ->where($priceExpr . ' >= ' . $this->_getComparingValue(($range * ($index - 1)), $filter))

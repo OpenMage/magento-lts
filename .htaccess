@@ -145,6 +145,13 @@
     RewriteRule .* - [L,R=405]
 
 ############################################
+## redirect for mobile user agents
+
+    #RewriteCond %{REQUEST_URI} !^/mobiledirectoryhere/.*$
+    #RewriteCond %{HTTP_USER_AGENT} "android|blackberry|ipad|iphone|ipod|iemobile|opera mobile|palmos|webos|googlebot-mobile" [NC]
+    #RewriteRule ^(.*)$ /mobiledirectoryhere/ [L,R=302]
+
+############################################
 ## always send 404 on missing files in these folders
 
     RewriteCond %{REQUEST_URI} !^/(media|skin|js)/

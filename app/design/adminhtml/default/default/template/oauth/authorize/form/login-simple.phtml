@@ -27,7 +27,7 @@
 /**
  * Admin login form template
  *
- * @var $this Mage_OAuth_Block_AuthorizeBaseAbstract
+ * @var $this Mage_Oauth_Block_AuthorizeBaseAbstract
  */
 ?>
 <div class="content-container">
@@ -61,8 +61,8 @@
                                        value=""/></div>
                             <div class="clear"></div>
                             <div class="form-buttons">
-                                <input type="submit" class="form-button" value="<?php echo $this->__('Login') ?>"
-                                       title="<?php echo $this->__('Login') ?>"/>
+                                <button type="submit" class="form-button"
+                                       title="<?php echo $this->__('Login') ?>"/><?php echo $this->__('Login') ?></button>
                                 <button type="button" onclick="document.location.href='<?php echo $this->getRejectUrl(); ?>';"
                                         title="<?php echo $this->__('Reject') ?>"><?php echo $this->__('Reject') ?></button>
                                 <p class="required"><?php echo $this->__('* Required Fields') ?></p>

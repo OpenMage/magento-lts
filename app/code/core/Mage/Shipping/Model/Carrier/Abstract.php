@@ -523,10 +523,10 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Determine whether zip-code is required for the country of destination
      *
-     * @param Mage_Shipping_Model_Rate_Request|null $request
+     * @param string|null $countryId
      * @return bool
      */
-    public function isZipCodeRequired(Mage_Shipping_Model_Rate_Request $request = null)
+    public function isZipCodeRequired($countryId = null)
     {
         return false;
     }

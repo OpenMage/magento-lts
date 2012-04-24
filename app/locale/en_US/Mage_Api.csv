@@ -3,6 +3,7 @@
 "Client Session Timeout (sec.)","Client Session Timeout (sec.)"
 "Default Response Charset","Default Response Charset"
 "Email","Email"
+"Enable WSDL Cache","Enable WSDL Cache"
 "General Settings","General Settings"
 "Invalid webservice adapter specified.","Invalid webservice adapter specified."
 "Invalid webservice handler specified.","Invalid webservice handler specified."

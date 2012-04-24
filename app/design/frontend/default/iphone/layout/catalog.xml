@@ -43,41 +43,23 @@ Default layout, loads most of the pages
 -->
 
     <default>
+
         <!-- Mage_Catalog -->
-        <reference name="top.menu">
-            <block type="catalog/navigation" name="catalog.topnav" template="catalog/navigation/top.phtml"/>
-        </reference>
-        <reference name="header">
-            <block type="catalog/product_compare_sidebar" name="catalogCompareLink" template="catalog/product/compare/sidebar.phtml"/>
-        </reference>
-        <reference name="left">
-            <block type="core/template" name="left.permanent.callout" template="callouts/left_col.phtml">
-                <action method="setImgSrc"><src>images/media/col_left_callout.jpg</src></action>
-                <action method="setImgAlt" translate="alt" module="catalog"><alt>Our customer service is available 24/7. Call us at (555) 555-0123.</alt></action>
-                <action method="setLinkUrl"><url>checkout/cart</url></action>
+        <reference name="top.container">
+            <block type="cms/block" name="cms.top.callout" before="-">
+                <action method="setBlockId"><block_id>top_callout</block_id></action>
             </block>
-        </reference>
-        <reference name="right">
-            <block type="core/template" name="right.permanent.callout" template="callouts/right_col.phtml">
-                <action method="setImgSrc"><src>images/media/col_right_callout.jpg</src></action>
-                <action method="setImgAlt" translate="alt" module="catalog"><alt>Keep your eyes open for our special Back to School items and save A LOT!</alt></action>
-            </block>
-        </reference>
-        <reference name="footer_links">
-            <action method="addLink" translate="label title" module="catalog" ifconfig="catalog/seo/site_map"><label>Site Map</label><url helper="catalog/map/getCategoryUrl" /><title>Site Map</title></action>
         </reference>
         <block type="catalog/product_price_template" name="catalog_product_price_template" />
     </default>
-    
+
+
 <!--
 Category default layout
 -->
-    
+
     <catalog_category_default translate="label">
         <label>Catalog Category (Non-Anchor)</label>
-        <reference name="left">
-            <block type="catalog/navigation" name="catalog.leftnav" after="currency" template="catalog/navigation/left.phtml"/>
-        </reference>
         <reference name="content">
             <block type="catalog/category_view" name="category.products" template="catalog/category/view.phtml">
                 <block type="catalog/product_list" name="product_list" template="catalog/product/list.phtml">
@@ -94,11 +76,6 @@ Category default layout
                             <action method="addPagerLimit" translate="label"><mode>list</mode><limit>all</limit><label>All</label></action>
                         -->
                     </block>
-                    <action method="addColumnCountLayoutDepend"><layout>empty</layout><count>6</count></action>
-                    <action method="addColumnCountLayoutDepend"><layout>one_column</layout><count>5</count></action>
-                    <action method="addColumnCountLayoutDepend"><layout>two_columns_left</layout><count>4</count></action>
-                    <action method="addColumnCountLayoutDepend"><layout>two_columns_right</layout><count>4</count></action>
-                    <action method="addColumnCountLayoutDepend"><layout>three_columns</layout><count>3</count></action>
                     <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
                 </block>
             </block>
@@ -140,17 +117,9 @@ Category layered navigation layout
                     <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
                 </block>
             </block>
-            <block type="catalog/layer_view" name="catalog.leftnav" after="product_list_toolbar" template="catalog/layer/view.phtml"/>
+            <block type="catalog/layer_view" name="catalog.leftnav" after="-" template="catalog/layer/view.phtml"/>
         </reference>
     </catalog_category_layered>
-
-    <catalog_category_layered_nochildren translate="label">
-        <label>Catalog Category (Without Subcategories)</label>
-        <remove name="right.reports.product.viewed" />
-        <reference name="right">
-            <block type="reports/product_viewed" before="right.permanent.callout" name="left.reports.product.viewed" template="reports/product_viewed.phtml" />
-        </reference>
-    </catalog_category_layered_nochildren>
 
 <!--
 Compare products page
@@ -223,12 +192,12 @@ Product view
                 </block>
                 <block type="catalog/product_view" name="product.info.addto" as="addto" template="catalog/product/view/addto.phtml"/>
                 <block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="catalog/product/view/addtocart.phtml"/>
-                <block type="catalog/product_view" name="product.info.addtocart.bottom" as="addtocartbottom" template="catalog/product/view/addtocartbottom.phtml"/>
 
                 <block type="core/text_list" name="product.info.extrahint" as="extrahint" translate="label">
                     <label>Product View Extra Hint</label>
                 </block>
 
+                <block type="catalog/product_list_related" name="catalog.product.related" before="-" template="catalog/product/list/related.phtml"/>
                 <block type="catalog/product_view" name="product.info.options.wrapper" as="product_options_wrapper" template="catalog/product/view/options/wrapper.phtml" translate="label">
                     <label>Info Column Options Wrapper</label>
                     <block type="core/template" name="options_js" template="catalog/product/view/options/js.phtml"/>
@@ -244,8 +213,7 @@ Product view
                     <label>Bottom Block Options Wrapper</label>
                     <action method="insert"><block>product.tierprices</block></action>
                     <block type="catalog/product_view" name="product.clone_prices" as="prices" template="catalog/product/view/price_clone.phtml"/>
-                    <action method="append"><block>product.info.addtocart.bottom</block></action>
-                    <action method="append"><block>product.info.addto</block></action>
+                    <action method="append"><block>product.info.addtocart</block></action>
                 </block>
 
                 <block type="core/template_facade" name="product.info.container1" as="container1">
@@ -263,9 +231,6 @@ Product view
                 <action method="unsetCallChild"><child>container1</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
                 <action method="unsetCallChild"><child>container2</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
             </block>
-        </reference>
-        <reference name="right">
-            <block type="catalog/product_list_related" name="catalog.product.related" before="-" template="catalog/product/list/related.phtml"/>
         </reference>
     </catalog_product_view>
 
@@ -303,8 +268,6 @@ Additional block dependant on product type
                     <label>Product Extra Info</label>
                 </block>
             </block>
-            <block type="catalog/product_view_type_grouped" name="product.info.grouped.grid" as="product_type_data_grid" template="catalog/product/view/type/grouped_grid.phtml">
-            </block>
         </reference>
     </PRODUCT_TYPE_grouped>
     <PRODUCT_TYPE_virtual translate="label" module="catalog">
@@ -328,7 +291,7 @@ Product send to friend
         <label>Catalog Product Email to a Friend</label>
         <!-- Mage_Catalog -->
         <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
         </reference>
         <reference name="head">
             <action method="addJs"><script>varien/product.js</script></action>
@@ -348,6 +311,7 @@ Product additional images gallery popup
         <!-- Mage_Catalog -->
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <action method="setMyClass"><value>product-gallery-view</value></action>
         </reference>
         <reference name="content">
             <block type="catalog/product_gallery" name="catalog_product_gallery" template="catalog/product/gallery.phtml"/>
@@ -379,25 +343,6 @@ SEO Site Map
         <label>Catalog Seo Sitemap (Category List)</label>
         <reference name="head">
             <action method="setTitle" translate="title" module="catalog"><title>Site Map</title></action>
-        </reference>
-        <reference name="content">
-            <block type="page/html_breadcrumbs" name="breadcrumbs" as="breadcrumbs" before="-">
-                <action method="addCrumb" translate="crumbName" module="catalog">
-                    <crumbName>home</crumbName>
-                    <crumbInfo>
-                        <label>Home</label>
-                        <title>Home</title>
-                        <link>/</link>
-                    </crumbInfo>
-                </action>
-                <action method="addCrumb" translate="crumbName" module="catalog">
-                    <crumbName>categories</crumbName>
-                    <crumbInfo>
-                        <label>Categories</label>
-                        <title>Categories</title>
-                    </crumbInfo>
-                </action>
-            </block>
         </reference>
         <update handle="catalog_seo_sitemap" />
         <reference name="seo.sitemap.container">
@@ -446,22 +391,4 @@ SEO Site Map
             <action method="addLink" translate="label title" module="catalog"><label>Categories Sitemap</label><url helper="catalog/map/getCategoryUrl"/><title>Categories Sitemap</title></action>
         </reference>
     </catalog_seo_sitemap_product>
-
-
-<!--
-Catalog search terms block
--->
-
-    <catalog_seo_searchterm_popular translate="label">
-        <label>Catalog Seo Popular Search Terms</label>
-        <remove name="right"/>
-        <remove name="left"/>
-        <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
-        </reference>
-        <reference name="content">
-            <block type="catalog/seo_searchterm" name="seo.searchterm" template="catalog/seo/searchterm.phtml"/>
-        </reference>
-    </catalog_seo_searchterm_popular>
-
 </layout>

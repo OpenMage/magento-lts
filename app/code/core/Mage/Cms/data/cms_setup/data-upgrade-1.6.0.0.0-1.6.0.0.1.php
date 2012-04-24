@@ -26,11 +26,9 @@
 
 
 $pageContent = <<<EOD
-<p>
-    <b>
-        Please replace this text with you Privacy Policy.
-        Please add any additional cookies your website uses below (e.g., Google Analytics)
-    </b>
+<p style="color: #ff0000; font-weight: bold; font-size: 13px">
+    Please replace this text with you Privacy Policy.
+    Please add any additional cookies your website uses below (e.g., Google Analytics)
 </p>
 <p>
     This privacy policy sets out how {{config path="general/store_information/name"}} uses and protects any information
@@ -169,6 +167,10 @@ $pageContent = <<<EOD
         <tr>
             <th>CUSTOMER_INFO</th>
             <td>An encrypted version of the customer group you belong to.</td>
+        </tr>
+        <tr>
+            <th>CUSTOMER_SEGMENT_IDS</th>
+            <td>Stores the Customer Segment ID</td>
         </tr>
         <tr>
             <th>EXTERNAL_NO_CACHE</th>

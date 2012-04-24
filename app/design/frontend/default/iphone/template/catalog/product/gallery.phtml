@@ -26,29 +26,21 @@
 ?>
 <?php $__helper = $this->helper('catalog/output'); ?>
 <?php $_product = $this->getProduct(); ?>
-<section role="main">
-    <div class="breadcrumbs">
-        <ul>
-            <li class="home"><a href="javascript:history.back(1);" title="Go to Home Page"><?php echo $this->__('Back') ?></a></li>
-            <li class="product"><strong><?php echo $__helper->productAttribute($_product, $_product->getName(), 'name') ?></strong></li>
-        </ul>
-    </div>
-    <a href="<?php echo $this->helper('checkout/cart')->getAddUrl($_product) ?>" class="add-to-cart">Add to Cart</a>
-    <div class="product-gallery" id="product-gallery">
-        <ul>
-            <li>
-                <img src="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(300) ?>" height="300" alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>" title="<?php echo $this->escapeHtml($this->getImageLabel()) ?>" />
-            </li>
-            <?php foreach ($this->getProduct()->getMediaGalleryImages() as $_image): ?>
-            <li>
-                <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(300); ?>" height="300" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
-            </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-    <div id="console-move"></div>
-    <div id="console"></div>
-</section>
+<div class="product-gallery" id="product-gallery">
+    <ul>
+        <li>
+            <img src="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(300) ?>" height="300" alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>" title="<?php echo $this->escapeHtml($this->getImageLabel()) ?>" />
+        </li>
+        <?php foreach ($this->getProduct()->getMediaGalleryImages() as $_image): ?>
+        <li>
+            <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(300); ?>" height="300" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
+        </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+<div class="buttons-set">
+    <a href="<?php echo $this->helper('checkout/cart')->getAddUrl($_product) ?>">Add to Cart</a>
+</div>
 <script type="text/javascript">
     document.observe("dom:loaded", function() {
         var gallery = new zoomGallery($('product-gallery'));
