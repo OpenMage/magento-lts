@@ -35,6 +35,20 @@
 class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 {
     /**
+     * Config data for sections
+     *
+     * @var array
+     */
+    protected $_configData;
+
+    /**
+     * Root config node
+     *
+     * @var Mage_Core_Model_Config_Element
+     */
+    protected $_configRoot;
+
+    /**
      * Save config section
      * Require set: section, website, store and groups
      *
@@ -72,7 +86,6 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         $oldConfigAdditionalGroups = array();
 
         foreach ($groups as $group => $groupData) {
-
             /**
              * Map field names if they were cloned
              */
@@ -104,27 +117,30 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             }
 
             foreach ($groupData['fields'] as $field => $fieldData) {
+                $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/' . $field);
+                if (!$fieldConfig && $clonedFields && isset($mappedFields[$field])) {
+                    $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/'
+                        . $mappedFields[$field]);
+                }
+                if (!$fieldConfig) {
+                    $node = $sections->xpath($section .'//' . $group . '[@type="group"]/fields/' . $field);
+                    if ($node) {
+                        $fieldConfig = $node[0];
+                    }
+                }
 
                 /**
                  * Get field backend model
                  */
-                $backendClass = $sections->descend($section.'/groups/'.$group.'/fields/'.$field.'/backend_model');
-                if (!$backendClass && $clonedFields && isset($mappedFields[$field])) {
-                    $backendClass = $sections->descend($section.'/groups/'.$group.'/fields/'.$mappedFields[$field].'/backend_model');
-                }
+                $backendClass = $fieldConfig->backend_model;
                 if (!$backendClass) {
                     $backendClass = 'core/config_data';
                 }
 
+                /** @var $dataObject Mage_Core_Model_Config_Data */
                 $dataObject = Mage::getModel($backendClass);
                 if (!$dataObject instanceof Mage_Core_Model_Config_Data) {
                     Mage::throwException('Invalid config field backend model: '.$backendClass);
-                }
-                /* @var $dataObject Mage_Core_Model_Config_Data */
-
-                $fieldConfig = $sections->descend($section.'/groups/'.$group.'/fields/'.$field);
-                if (!$fieldConfig && $clonedFields && isset($mappedFields[$field])) {
-                    $fieldConfig = $sections->descend($section.'/groups/'.$group.'/fields/'.$mappedFields[$field]);
                 }
 
                 $dataObject
@@ -143,11 +159,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     $fieldData['value'] = null;
                 }
 
-                /*if (is_array($fieldData['value'])) {
-                    $fieldData['value'] = join(',', $fieldData['value']);
-                }*/
-
-                $path = $section.'/'.$group.'/'.$field;
+                $path = $section . '/' . $group . '/' . $field;
 
                 /**
                  * Look for custom defined field path
@@ -188,7 +200,6 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     $saveTransaction->addObject($dataObject);
                 }
             }
-
         }
 
         $deleteTransaction->delete();
@@ -204,10 +215,12 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
      */
     public function load()
     {
-        $this->_validate();
-        $this->_getScope();
-
-        return $this->_getConfig(false);
+        if (is_null($this->_configData)) {
+            $this->_validate();
+            $this->_getScope();
+            $this->_configData = $this->_getConfig(false);
+        }
+        return $this->_configData;
     }
 
     /**
@@ -253,15 +266,19 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         if ($this->getStore()) {
             $scope   = 'stores';
             $scopeId = (int)Mage::getConfig()->getNode('stores/' . $this->getStore() . '/system/store/id');
+            $scopeCode = $this->getStore();
         } elseif ($this->getWebsite()) {
             $scope   = 'websites';
             $scopeId = (int)Mage::getConfig()->getNode('websites/' . $this->getWebsite() . '/system/website/id');
+            $scopeCode = $this->getWebsite();
         } else {
             $scope   = 'default';
             $scopeId = 0;
+            $scopeCode = '';
         }
         $this->setScope($scope);
         $this->setScopeId($scopeId);
+        $this->setScopeCode($scopeCode);
     }
 
     /**
@@ -302,5 +319,44 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             }
         }
         return $config;
+    }
+
+    /**
+     * Get config data value
+     *
+     * @param string $path
+     * @param null|bool $inherit
+     * @param null|array $configData
+     * @return Varien_Simplexml_Element
+     */
+    public function getConfigDataValue($path, &$inherit = null, $configData = null)
+    {
+        $this->load();
+        if (is_null($configData)) {
+            $configData = $this->_configData;
+        }
+        if (isset($configData[$path])) {
+            $data = $configData[$path];
+            $inherit = false;
+        } else {
+            $data = $this->getConfigRoot()->descend($path);
+            $inherit = true;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get config root node for current scope
+     *
+     * @return Mage_Core_Model_Config_Element
+     */
+    public function getConfigRoot()
+    {
+        if (is_null($this->_configRoot)) {
+            $this->load();
+            $this->_configRoot = Mage::getConfig()->getNode(null, $this->getScope(), $this->getScopeCode());
+        }
+        return $this->_configRoot;
     }
 }

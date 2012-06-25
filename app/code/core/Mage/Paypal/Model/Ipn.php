@@ -139,6 +139,7 @@ class Mage_Paypal_Model_Ipn
             $this->_debugData['postback'] = $sReq;
             $this->_debugData['postback_to'] = $this->_config->getPaypalUrl();
 
+            $httpAdapter->setConfig(array('verifypeer' => $this->_config->verifyPeer));
             $httpAdapter->write(Zend_Http_Client::POST, $this->_config->getPaypalUrl(), '1.1', array(), $sReq);
             try {
                 $response = $httpAdapter->read();
@@ -398,12 +399,13 @@ class Mage_Paypal_Model_Ipn
         $this->_order->save();
 
         // notify customer
-        if ($invoice = $payment->getCreatedInvoice() && !$this->_order->getEmailSent()) {
-            $comment = $this->_order->sendNewOrderEmail()->addStatusHistoryComment(
-                    Mage::helper('paypal')->__('Notified customer about invoice #%s.', $invoice->getIncrementId())
-                )
-                ->setIsCustomerNotified(true)
-                ->save();
+        $invoice = $payment->getCreatedInvoice();
+        if ($invoice && !$this->_order->getEmailSent()) {
+            $this->_order->sendNewOrderEmail()->addStatusHistoryComment(
+                Mage::helper('paypal')->__('Notified customer about invoice #%s.', $invoice->getIncrementId())
+            )
+            ->setIsCustomerNotified(true)
+            ->save();
         }
     }
 

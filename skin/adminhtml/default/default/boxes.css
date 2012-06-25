@@ -373,7 +373,8 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .form-list td.use-default       { border:0 !important; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px !important; background:0 !important; }
 .form-list td.hidden            { border:0 !important; padding:0 !important; background:0 !important; }
 .form-list td.label             { width:200px; }
-.form-list td.label label       { display:block; width:185px; padding-right:15px; }
+.form-list td.use-default label { display:inline-block; vertical-align:middle; padding:0 3px; }
+.form-list td.label label       { display:block; width:185px; padding-right:15px; padding-top:1px; }
 .form-list td.value input.input-text,
 .form-list td.value textarea    { width:274px; }
 .form-list td.value textarea    { height:15em; }
@@ -382,11 +383,15 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .form-list td.note              { background:url(images/note_cell_bg.gif) 6px 10px no-repeat !important; padding-left:18px; }
 .form-list td.scope-label       { padding-left:5px; color:#6f8992; font-size:.9em; }
 .form-list p.note               { margin:0; padding:0 0 0 13px; background:url(images/note_bg.gif) 1px 6px no-repeat; font-size:11px; }
+.form-list td.value p.note      { width:268px; }
 
 .columns .form-list             { width:auto; }
-.columns .form-list td.value    { width:280px; padding-right:5px !important; }
+.columns .form-list td.value    { width:300px; padding-right:5px !important; }
 .columns .form-list td.value .next-toinput { width:75px; display:inline; margin-right:5px; }
 .columns .form-list td.value .next-toselect input.input-text { width:195px!important; display:inline; }
+
+.columns .form-list td.value input[type="checkbox"][id*="use_"] { margin:4px 10px 0 0; vertical-align:top; }
+.columns .form-list td.value input[type="checkbox"][id*="use_"] + label { display:inline-block; vertical-align:top; margin:2px 0 0 -7px; }
 
 .fieldset-wide .form-list { width:100% !important; }
 .fieldset-wide .form-list td.value { width:auto !important; }
@@ -418,8 +423,10 @@ span.delete-file                { padding:0; }
 .content-header td.form-buttons   { float:none; }
 .content-header .form-buttons button { margin-bottom:3px; }
 .sub-btn-set { border:1px solid #ddd; border-width:0 1px; background:url(images/sub_button_bg.gif) repeat; padding:3px 10px; text-align:right; }
+button::-moz-focus-inner { padding:0; border:0; } /* FF Fix */
+button { -webkit-border-fit:lines; } /* <- Safari & Google Chrome Fix */
 button,
-.form-button { border-width:1px; border-style:solid; border-color:#ed6502 #a04300 #a04300 #ed6502; padding:0 7px 1px 7px; background:#ffac47 url(images/btn_bg.gif) repeat-x 0 100%; color:#fff; font:bold 12px arial, helvetica, sans-serif; cursor:pointer; text-align:center !important; white-space:nowrap; }
+.form-button { border-width:1px; border-style:solid; border-color:#ed6502 #a04300 #a04300 #ed6502; padding:1px 7px 2px 7px; background:#ffac47 url(images/btn_bg.gif) repeat-x 0 100%; color:#fff; font:bold 12px arial, helvetica, sans-serif; cursor:pointer; text-align:center !important; white-space:nowrap; }
 button:hover                    { background:#f77c16 url(images/btn_over_bg.gif) repeat-x 0 0; }
 button:active                   { background:#f77c16 url(images/btn_on_bg.gif) repeat-x 0 0; }
 button span                     { line-height:1.35em; background-repeat:no-repeat; background-position:0 50%; }
@@ -943,39 +950,19 @@ ul.item-options li { padding-left:.7em; }
 .giftmessage-whole-order-container .entry-edit label { width:121px; }
 
 /* PayPal */
-.paypal-payment-notice { background:url(images/paypal_logo.gif) no-repeat 5px center #eaf0ee; border:1px solid #ccc; margin-bottom:10px; padding:10px 5px 5px 115px; }
-.paypal-payment-notice h4,
-.paypal-payment-notice p { margin:0; }
-.paypal-payment-notice h2 { color:#444; font-size:1.4em; line-height:1em; }
-.paypal-payment-notice a { text-decoration:none; }
 
-h3.paypal-header { background:url(images/paypal_section.png) no-repeat 0 0; height:0; overflow:hidden; padding:14px 0 0; width:53px; }
+.pp-general-uk > .config-heading .heading strong,
+.pp-method-payflow > .config-heading .heading strong,
+.pp-method-express > .config-heading .heading strong,
+.pp-method-general > .config-heading .heading strong { padding-left:56px; background:url(images/paypal/logo-paypal.png) no-repeat 0 2px; }
+.pp-method-general > .config-heading .button-container { padding:8px 0 0 180px; background:url(images/paypal/pp-allinone.png) no-repeat 0 0; height:26px; }
+.pp-method-express > .config-heading .button-container { padding:0 0 0 160px; background:url(images/paypal/pp-alt.png) no-repeat 0 0; height:29px; }
+.pp-method-payflow > .config-heading .button-container { padding:0px 0 0 99px; background:url(images/paypal/pp-gateways.png) no-repeat 1px 0; height:36px; }
+.pp-general-uk > .config-heading .button-container { padding:9px 0 0 201px; background:url(images/paypal/pp-uk.png) no-repeat 0 0; height:27px; }
+.payflow-settings-notice {padding-bottom: 1em;max-width: 660px;}
+.payflow-settings-notice .important-label {color:red;}
+.payflow-settings-notice ul.options-list {list-style:disc;padding:0 2em;}
 
-ul.tabs a.paypal-section,
-ul.tabs a.paypal-section:hover { background:url(images/tabs_span_bg.gif) repeat-x 0 100%; border-bottom:none; padding:0.5em 0.5em 0.28em 1.5em; }
-ul.tabs a.paypal-section:hover { background-color:#d8e6e6; }
-ul.tabs a.paypal-section.active, ul.tabs a.paypal-section.active:hover { background-color:#fff; }
-ul.tabs a.paypal-section span,
-ul.tabs a.paypal-section:hover span { background:url(images/paypal_section.png) no-repeat 0 0; height:0; overflow:hidden; padding:14px 0 0; width:53px; }
-
-.paypal-selection { border-collapse:collapse; width:100%; }
-.paypal-selection .paypal-selection-info { text-align:right; }
-.paypal-selection th { font-size:13px; padding:5px 0; text-align:left; vertical-align:middle; }
-.paypal-selection td { background:#f2f2f2; border-bottom:5px solid #fff; padding:5px; vertical-align:top; }
-.paypal-selection .paypal-selection-simplified { background:#fff; padding-left:35px; }
-.paypal-selection td a { color:#2997d8; }
-.paypal-selection td strong { color:#3c616a; }
-.paypal-selection td label { display:block; padding-left:30px; text-indent:-30px; }
-.paypal-selection td div label { display:inline; padding:0; text-indent:0; }
-.paypal-selection td input { height:13px; overflow:hidden; margin-right:15px; position:relative; top:-1px; width:13px; vertical-align:middle; }
-
-.paypal-config .form-list { width:100%; }
-.paypal-config tr.hover { background:#f7f7f7; }
-.paypal-config tr.hover label { cursor:help; }
-
-.paypal-credentials { border:1px solid #f2f2f2; }
-.paypal-credentials caption { padding:5px; text-align:left; }
-.paypal-credentials .value { color:#ccc; }
 
 /* Packaging for Shipping Popup */
 #popup-window-mask,
@@ -1265,13 +1252,111 @@ ul.config-tabs a.last span  { background-image:none; }
 .inline-table td { border:0 !important; padding:0 5px 5px !important; }
 
 .system-fieldset-sub-head td { padding:20px 5px 5px 5px; }
+.system-fieldset-sub-head:first-child td { padding:5px 5px 5px 5px; }
 .system-fieldset-sub-head h4 { border-bottom:1px solid #ccc; margin:0; }
 
-.system-tooltip-wrap { float:left; }
-.system-tooltip-box { border-left:1px solid #ccc; float:left; line-height:16px; margin-left:5px; padding-left:5px; width:180px; }
-.system-tooltip-small { clear:both; border:none; margin:0; padding:5px; width:100%; }
-
 .comment { padding:5px; }
+.comment a { color:#888; margin-left:3px; }
+
+.paypal-payment-notice { font-weight: bold; margin: -10px 0 10px 0; }
+
+.payment-group-title { border:0; padding:10px 5px 10px; }
+.payment-group-title strong { display:inline; font-size:14px; border:0; }
+
+/* Config with nested accordion */
+.complex > .config { padding:13px 12px 12px; }
+.section-config.complex table.form-list { width:100%!important; }
+.complex table td:first-child { padding-left:0px!important; }
+.complex table td.use-default { width:1px; white-space:nowrap; }
+
+/* Nested accordion */
+.section-config .section-config > .config { border:1px solid #d6d6d6; border-top:0; margin:0; padding:15px 12px 20px; background:#fff; }
+.section-config .section-config > .entry-edit-head { background:#e6e6e6; border:1px solid #d6d6d6; margin:-1px 0 0; padding:4px 12px; }
+.section-config .section-config > .entry-edit-head > a { color:#2f2f2f; background:url(images/bkg_config-nested.png) 100% 5px no-repeat; }
+.section-config .section-config > .entry-edit-head > a.open { background-position:100% -195px; }
+.section-config .section-config > .entry-edit-head > a:hover {}
+.section-config .section-config.active > .entry-edit-head > a.open {}
+
+/* Accordion with configure button */
+.with-button { background:#fff; }
+.with-button.active > .config { border-bottom-color:#b0b0b0; z-index:1; position:relative; }
+.with-button.active:after { background:transparent url(images/bkg_config-shaddow.png) repeat-x 0 0; height:5px; overflow:hidden; position:relative; left:0; margin:0 1px -5px; z-index:2; display:block; content:''; }
+
+tr:last-child .with-button.active > .config { border-bottom-color:#d6d6d6; }
+tr:last-child .with-button.active:after { display:none; }
+.config-heading { padding:10px 10px 10px 26px; background:#efefef url(images/icon-enabled.png) no-repeat -999em -999em; border:1px solid #d8d8d8; margin:-1px 0 0; }
+.enabled .config-heading { background-position:5px 10px; }
+.config-heading .button-container { float:right; text-align:right; }
+.config-heading .button span { font-size:14px; font-weight:bold; display:block; text-shadow:0 1px 1px #666; text-transform:capitalize; }
+.config-heading .button .state-closed { height:auto; }
+.config-heading .button .state-opened { height:0; overflow:hidden; }
+.config-heading .button.open .state-closed { height:0; overflow:hidden; }
+.config-heading .button.open .state-opened { height:auto; }
+.config-heading .button:active,
+.config-heading .button:active span { outline:0!important; }
+.config-heading .heading { float:left; }
+.config-heading .heading strong { font-size:12px; display:inline-block; }
+.config-heading .heading a { margin-left:8px; font-size:11px; color:#888; font-weight:normal; }
+.config-heading .heading a.link-demo:before { content:'|'; display:inline-block; margin-right:8px; color:#888; font-size:12px; }
+.config-heading .heading .heading-intro { display:block; font-size:11px; }
+
+td.label label.enabled { background:url(images/icon-enabled.png) no-repeat 100% 1px; min-height:16px; }
+
+/* Advanced nested config */
+.section-config .config-advanced > .entry-edit-head { background:none; padding:0 0 0; border:0; }
+.section-config .config-advanced > .entry-edit-head a { background:none; padding:0; display:inline-block; border-bottom:1px dotted #f67610; color:#f67610!important; line-height:1.1; white-space:nowrap; }
+.section-config .config-advanced > .entry-edit-head a.open,
+.section-config .config-advanced > .entry-edit-head a { background:none; }
+.section-config .config-advanced > .entry-edit-head a:after { content:''; width:7px; height:5px; background:url(images/bkg_config-advanced.png) no-repeat 0 0; overflow:hidden; display:inline-block; vertical-align:middle; margin-right:-13px; margin-left:5px; }
+.section-config .config-advanced > .entry-edit-head a.open:after { background-position:0 -5px; }
+.section-config .config-advanced > .config { border:0; padding:15px 0 0;; }
+
+/* Adjusting spacing between form field and nested accordion */
+.complex tr.nested + tr[id] > td { padding-top:15px !important; padding-bottom:30px!important; }
+.complex tr[id] + tr.nested > td { padding-top:15px !important; }
+.pp-buttons-container { white-space:nowrap; float:left; position:relative; z-index:1; margin-right:-200px; }
+.pp-buttons-container button { display:inline-block; }
+.pp-buttons-container button:first-child { margin:0; }
+
+/* Tooltip for config */
+.with-tooltip {}
+.field-tooltip { display:inline-block; width:15px; height:15px; position:relative; z-index:1; background:url(images/icon-tooltip.png) no-repeat 0 0; cursor:help; vertical-align:middle; }
+.field-tooltip:hover { z-index:100; }
+.field-tooltip > span { display:none; }
+.field-tooltip:hover > div:hover,
+.field-tooltip > div { width:301px; /* width:0; */ background:#f6f6f6 url(images/bkg_tooltip.png) repeat-y 100%; opacity:0; position:absolute; z-index:999; left:-296px; bottom:28px; padding:0 12px; color:#464d50; visibility:hidden; }
+.field-tooltip > div:before { position:absolute; top:-5px; left:0; content:''; width:325px; height:5px; overflow:hidden; background:url(images/bkg_tooltip.png) no-repeat 0 0; }
+.field-tooltip > div:after { position:absolute; bottom:-14px; left:-1px; content:''; width:325px; height:14px; overflow:hidden; background:url(images/bkg_tooltip.png) no-repeat -325px 0; }
+
+.field-tooltip:hover > div:hover,
+.field-tooltip > div {
+/*     -moz-transition-property:opacity, visibility, bottom;
+    -moz-transition-duration:0.4s, 0s;
+    -moz-transition-timing-function:linear;
+    -moz-transition-delay:0.3s, 0.7s;
+    -webkit-transition-property:opacity, visibility, bottom;
+    -webkit-transition-duration:0.4s, 0s;
+    -webkit-transition-timing-function:linear;
+    -webkit-transition-delay:0.1s, 0.5s;
+    -o-transition-property:opacity, visibility, bottom;
+    -o-transition-duration:0.4s, 0s;
+    -o-transition-timing-function:linear;
+    -o-transition-delay:0.1s, 0.5s;
+    transition-property:opacity, visibility, bottom;
+    transition-duration:0.4s, 0s;
+    transition-timing-function:linear;
+    transition-delay:0.1s, 0.5s; */
+    }
+
+.field-tooltip:hover > div { opacity:1; width:301px; visibility:visible; bottom:30px; }
+
+.field-tooltip:hover > div { opacity:1; width:301px; visibility:visible; bottom:30px;
+/*     -moz-transition-duration:0.2s, 0s; -moz-transition-delay:0.1s, 0s;
+    -webkit-transition-duration:0.2s, 0s; -webkit-transition-delay:0.1s, 0s;
+    -o-transition-duration:0.2s, 0s; -o-transition-delay:0.1s, 0s;
+    transition-duration:0.2s, 0s; transition-delay:0.1s, 0s; */
+    }
+
 
 /* Import/export */
 
@@ -1518,6 +1603,7 @@ ul.super-product-attributes { padding-left:15px; }
 .normal             { font-weight:normal !important; }
 
 /* Clear */ /* This keeps our HTML free of buncha clearing elements */
+.config-heading:after,
 .side-col .switcher:after,
 .message-popup .message-popup-head:after,
 .message-popup .message-popup-content .message:after,

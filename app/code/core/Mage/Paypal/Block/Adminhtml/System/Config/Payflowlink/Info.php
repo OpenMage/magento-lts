@@ -32,8 +32,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  */
  class Mage_Paypal_Block_Adminhtml_System_Config_Payflowlink_Info
-    extends Mage_Adminhtml_Block_Abstract
-    implements Varien_Data_Form_Element_Renderer_Interface
+    extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
      * Template path
@@ -50,12 +49,15 @@
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
-        return $this->toHtml();
+        $columns = ($this->getRequest()->getParam('website') || $this->getRequest()->getParam('store')) ? 5 : 4;
+        return $this->_decorateRowHtml($element, "<td colspan='$columns'>" . $this->toHtml() . '</td>');
     }
+
 
     /**
      * Get frontend url
      *
+     * @deprecated since 1.7.0.1
      * @param string $routePath
      * @return strting
      */

@@ -32,7 +32,7 @@
                 <authorizenet translate="label" module="paygate">
                     <label>Authorize.net</label>
                     <frontend_type>text</frontend_type>
-                    <sort_order>10</sort_order>
+                    <sort_order>34</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>

@@ -1,3 +1,25 @@
+==== 1.7.0.1 ====
+
+=== Major Highlights ===
+Improved the backend configuration UI for PayPal payment solutions
+
+=== Improvements ===
+Added the functionality for creating nested field sets in the System configuration
+Implemented the support for the extended and shared configuration fields
+Added the ability to define dependencies between fields from different field sets
+
+=== Changes ===
+Moved PayPal configuration to the Payment Methods menu
+Set the default value of the cUrl VERIFYPEER option to TRUE for PayPal and added the ability to change this value
+Changed the design and position of the configuration field tooltips
+
+=== Fixes ===
+Fixed: Inability of SOAP v2 API use in non WS-I compatible mode in the applications written in languages with strong typing
+Fixed: In some cases comments history tab on order does not contain information about customer notifications
+Fixed: Several potential security vulnerabilities
+
+
+
 ==== 1.7.0.0 ====
 
 === Major Highlights ===

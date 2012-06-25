@@ -940,7 +940,11 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
         try {
             $http = new Varien_Http_Adapter_Curl();
-            $config = array('timeout' => 30);
+            $config = array(
+                'timeout'    => 30,
+                'verifypeer' => $this->_config->verifyPeer
+            );
+
             if ($this->getUseProxy()) {
                 $config['proxy'] = $this->getProxyHost(). ':' . $this->getProxyPort();
             }

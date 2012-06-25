@@ -27,6 +27,7 @@
 
 /**
  * Renderer for PayPal banner in System Configuration
+ *
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Hint
@@ -43,6 +44,55 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Hint
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
-        return $this->toHtml();
+        $elementOriginalData = $element->getOriginalData();
+        if (isset($elementOriginalData['help_link'])) {
+            $this->setHelpLink($elementOriginalData['help_link']);
+        }
+        $js = '
+            paypalToggleSolution = function(id, url) {
+                var doScroll = false;
+                Fieldset.toggleCollapse(id, url);
+                if ($(this).hasClassName("open")) {
+                    $$(".with-button button.button").each(function(anotherButton) {
+                        if (anotherButton != this && $(anotherButton).hasClassName("open")) {
+                            $(anotherButton).click();
+                            doScroll = true;
+                        }
+                    }.bind(this));
+                }
+                if (doScroll) {
+                    var pos = Element.cumulativeOffset($(this));
+                    window.scrollTo(pos[0], pos[1] - 45);
+                }
+            }
+
+            togglePaypalSolutionConfigureButton = function(button, enable) {
+                var $button = $(button);
+                $button.disabled = !enable;
+                if ($button.hasClassName("disabled") && enable) {
+                    $button.removeClassName("disabled");
+                } else if (!$button.hasClassName("disabled") && !enable) {
+                    $button.addClassName("disabled");
+                }
+            }
+
+            // check store-view disabling Express Checkout
+            document.observe("dom:loaded", function() {
+                var ecButton = $$(".pp-method-express button.button")[0];
+                var ecEnabler = $$(".paypal-ec-enabler")[0];
+                if (typeof ecButton == "undefined" || typeof ecEnabler != "undefined") {
+                    return;
+                }
+                var $ecButton = $(ecButton);
+                $$(".with-button button.button").each(function(configureButton) {
+                    if (configureButton != ecButton && !configureButton.disabled
+                        && !$(configureButton).hasClassName("paypal-ec-separate")
+                    ) {
+                        togglePaypalSolutionConfigureButton(ecButton, false);
+                    }
+                });
+            });
+        ';
+        return $this->toHtml() . $this->helper('adminhtml/js')->getScript($js);
     }
 }

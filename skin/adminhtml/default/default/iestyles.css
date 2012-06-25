@@ -71,6 +71,27 @@ button.disabled,
 button.disabled:hover,
 button.disabled:active { filter:alpha(opacity=80); }
 
+/* Complex config fix */
+.section-config .section-config { float:left; width:100%; /* position:relative; */ margin-right:-2000px; }
+.section-config > .entry-edit-head,
+.config-heading { position:relative; z-index:1; zoom:1; }
+.config-heading .button .state-closed { height:auto; padding:0; margin:0; position:static; }
+.config-heading .button .state-opened { height:0; padding-top:20px; margin-bottom:-20px; position:relative; overflow:hidden; }
+.config-heading .button.open .state-closed { height:0; padding-top:20px; margin-top:-20px; position:relative; overflow:hidden; }
+.config-heading .button.open .state-opened { height:auto; padding:0; margin:0; position:static; }
+
+.section-config .config-advanced > .entry-edit-head { float:left; background-image:url(images/bkg_config-advanced.png) no-repeat 100% 0; padding-right:10px; }
+.section-config .config-advanced > .config { clear:both; }
+.section-config .config-advanced > .entry-edit-head a { display:inline; zoom:1; }
+.section-config .config-advanced > .entry-edit-head a { //z-index: expression(runtimeStyle.zIndex = 3, insertAdjacentHTML('beforeEnd', '<span class="ieicon"></span>')); }
+.section-config .config-advanced .ieicon { width:7px; height:5px; background:url(images/bkg_config-advanced.png) no-repeat 0 0; overflow:hidden; display:inline-block; vertical-align:middle; margin-right:-13px; margin-left:5px; }
+.section-config .config-advanced a.open .ieicon { background-position:0 -5px; }
+.section-config .use-default label { white-space:nowrap; padding-left:18px!important; zoom:1; }
+.section-config .use-default input { position:absolute; z-index:1; margin-top:4px; }
+.field-tooltip { display:inline; zoom:1; }
+.field-tooltip > div { background:#f6f6f6; border:2px solid #bcbdbe; bottom:20px; padding:12px; }
+
+
 /* Opacity fix */
 #loading-mask { filter:alpha(opacity=80); }
 #message-popup-window-mask { filter:alpha(opacity=20); }

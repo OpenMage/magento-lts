@@ -39,7 +39,7 @@
                 <ccsave translate="label">
                     <label>Saved CC</label>
                     <frontend_type>text</frontend_type>
-                    <sort_order>1</sort_order>
+                    <sort_order>27</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
@@ -173,7 +173,7 @@
                 <checkmo translate="label">
                     <label>Check / Money Order</label>
                     <frontend_type>text</frontend_type>
-                    <sort_order>5</sort_order>
+                    <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
@@ -270,7 +270,7 @@
                 <free translate="label">
                     <label>Zero Subtotal Checkout</label>
                     <frontend_type>text</frontend_type>
-                    <sort_order>5</sort_order>
+                    <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
@@ -366,7 +366,7 @@
                 <purchaseorder translate="label">
                     <label>Purchase Order</label>
                     <frontend_type>text</frontend_type>
-                    <sort_order>7</sort_order>
+                    <sort_order>32</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
@@ -448,7 +448,7 @@
                 <banktransfer translate="label">
                     <label>Bank Transfer Payment</label>
                     <frontend_type>text</frontend_type>
-                    <sort_order>5</sort_order>
+                    <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
@@ -535,7 +535,7 @@
                 <cashondelivery translate="label">
                     <label>Cash On Delivery Payment</label>
                     <frontend_type>text</frontend_type>
-                    <sort_order>5</sort_order>
+                    <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>

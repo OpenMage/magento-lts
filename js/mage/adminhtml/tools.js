@@ -553,9 +553,15 @@ var Fieldset = {
         }
         if (collapsed==1 || collapsed===undefined) {
            $(containerId + '-head').removeClassName('open');
+           if($(containerId + '-head').up('.section-config')) {
+                $(containerId + '-head').up('.section-config').removeClassName('active');
+           }
            $(containerId).hide();
         } else {
            $(containerId + '-head').addClassName('open');
+           if($(containerId + '-head').up('.section-config')) {
+                $(containerId + '-head').up('.section-config').addClassName('active');
+           }
            $(containerId).show();
         }
     },

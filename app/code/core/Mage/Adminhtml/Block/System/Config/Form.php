@@ -116,13 +116,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     protected function _initObjects()
     {
-        $this->_configRoot = Mage::getConfig()->getNode(null, $this->getScope(), $this->getScopeCode());
-
-        $this->_configDataObject = Mage::getModel('adminhtml/config_data')
-            ->setSection($this->getSectionCode())
-            ->setWebsite($this->getWebsiteCode())
-            ->setStore($this->getStoreCode());
-
+        /** @var $_configDataObject Mage_Adminhtml_Model_Config_Data */
+        $this->_configDataObject = Mage::getSingleton('adminhtml/config_data');
+        $this->_configRoot = $this->_configDataObject->getConfigRoot();
         $this->_configData = $this->_configDataObject->load();
 
         $this->_configFields = Mage::getSingleton('adminhtml/config');
@@ -157,7 +153,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 continue;
             }
             foreach ($section->groups as $groups){
-
                 $groups = (array)$groups;
                 usort($groups, array($this, '_sortForm'));
 
@@ -166,59 +161,74 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     if (!$this->_canShowField($group)) {
                         continue;
                     }
-
-                    if ($group->frontend_model) {
-                        $fieldsetRenderer = Mage::getBlockSingleton((string)$group->frontend_model);
-                    } else {
-                        $fieldsetRenderer = $this->_defaultFieldsetRenderer;
-                    }
-
-                    $fieldsetRenderer->setForm($this);
-                    $fieldsetRenderer->setConfigData($this->_configData);
-                    $fieldsetRenderer->setGroup($group);
-
-                    if ($this->_configFields->hasChildren($group, $this->getWebsiteCode(), $this->getStoreCode())) {
-
-                        $helperName = $this->_configFields->getAttributeModule($section, $group);
-
-                        $fieldsetConfig = array('legend' => Mage::helper($helperName)->__((string)$group->label));
-                        if (!empty($group->comment)) {
-                            $fieldsetConfig['comment'] = Mage::helper($helperName)->__((string)$group->comment);
-                        }
-                        if (!empty($group->expanded)) {
-                            $fieldsetConfig['expanded'] = (bool)$group->expanded;
-                        }
-
-                        $fieldset = $form->addFieldset(
-                            $section->getName() . '_' . $group->getName(), $fieldsetConfig)
-                            ->setRenderer($fieldsetRenderer);
-                        $this->_prepareFieldOriginalData($fieldset, $group);
-                        $this->_addElementTypes($fieldset);
-
-                        if ($group->clone_fields) {
-                            if ($group->clone_model) {
-                                $cloneModel = Mage::getModel((string)$group->clone_model);
-                            } else {
-                                Mage::throwException(
-                                    'Config form fieldset clone model required to be able to clone fields'
-                                );
-                            }
-                            foreach ($cloneModel->getPrefixes() as $prefix) {
-                                $this->initFields($fieldset, $group, $section, $prefix['field'], $prefix['label']);
-                            }
-                        } else {
-                            $this->initFields($fieldset, $group, $section);
-                        }
-
-                        $this->_fieldsets[$group->getName()] = $fieldset;
-
-                    }
+                    $this->_initGroup($form, $group, $section);
                 }
             }
         }
 
         $this->setForm($form);
         return $this;
+    }
+
+    /**
+     * Init config group
+     *
+     * @param Varien_Data_Form $form
+     * @param Varien_Simplexml_Element $group
+     * @param Varien_Simplexml_Element $section
+     * @param Varien_Data_Form_Element_Fieldset|null $parentElement
+     */
+    protected function _initGroup($form, $group, $section, $parentElement = null)
+    {
+        if ($group->frontend_model) {
+            $fieldsetRenderer = Mage::getBlockSingleton((string)$group->frontend_model);
+        } else {
+            $fieldsetRenderer = $this->_defaultFieldsetRenderer;
+        }
+
+        $fieldsetRenderer->setForm($this)
+            ->setConfigData($this->_configData);
+
+        if ($this->_configFields->hasChildren($group, $this->getWebsiteCode(), $this->getStoreCode())) {
+            $helperName = $this->_configFields->getAttributeModule($section, $group);
+            $fieldsetConfig = array('legend' => Mage::helper($helperName)->__((string)$group->label));
+            if (!empty($group->comment)) {
+                $fieldsetConfig['comment'] = Mage::helper($helperName)->__((string)$group->comment);
+            }
+            if (!empty($group->expanded)) {
+                $fieldsetConfig['expanded'] = (bool)$group->expanded;
+            }
+
+            $fieldset = new Varien_Data_Form_Element_Fieldset($fieldsetConfig);
+            $fieldset->setId($section->getName() . '_' . $group->getName())
+                ->setRenderer($fieldsetRenderer)
+                ->setGroup($group);
+
+            if ($parentElement) {
+                $fieldset->setIsNested(true);
+                $parentElement->addElement($fieldset);
+            } else {
+                $form->addElement($fieldset);
+            }
+
+            $this->_prepareFieldOriginalData($fieldset, $group);
+            $this->_addElementTypes($fieldset);
+
+            $this->_fieldsets[$group->getName()] = $fieldset;
+
+            if ($group->clone_fields) {
+                if ($group->clone_model) {
+                    $cloneModel = Mage::getModel((string)$group->clone_model);
+                } else {
+                    Mage::throwException($this->__('Config form fieldset clone model required to be able to clone fields'));
+                }
+                foreach ($cloneModel->getPrefixes() as $prefix) {
+                    $this->initFields($fieldset, $group, $section, $prefix['field'], $prefix['label']);
+                }
+            } else {
+                $this->initFields($fieldset, $group, $section);
+            }
+        }
     }
 
     /**
@@ -255,28 +265,33 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         $configDataAdditionalGroups = array();
 
         foreach ($group->fields as $elements) {
-
             $elements = (array)$elements;
             // sort either by sort_order or by child node values bypassing the sort_order
             if ($group->sort_fields && $group->sort_fields->by) {
-                $fieldset->setSortElementsByAttribute((string)$group->sort_fields->by,
-                    ($group->sort_fields->direction_desc ? SORT_DESC : SORT_ASC)
+                $fieldset->setSortElementsByAttribute(
+                    (string)$group->sort_fields->by,
+                    $group->sort_fields->direction_desc ? SORT_DESC : SORT_ASC
                 );
             } else {
                 usort($elements, array($this, '_sortForm'));
             }
 
-            foreach ($elements as $e) {
-                if (!$this->_canShowField($e)) {
+            foreach ($elements as $element) {
+                if (!$this->_canShowField($element)) {
+                    continue;
+                }
+
+                if ((string)$element->getAttribute('type') == 'group') {
+                    $this->_initGroup($fieldset->getForm(), $element, $section, $fieldset);
                     continue;
                 }
 
                 /**
                  * Look for custom defined field path
                  */
-                $path = (string)$e->config_path;
+                $path = (string)$element->config_path;
                 if (empty($path)) {
-                    $path = $section->getName() . '/' . $group->getName() . '/' . $fieldPrefix . $e->getName();
+                    $path = $section->getName() . '/' . $group->getName() . '/' . $fieldPrefix . $element->getName();
                 } elseif (strrpos($path, '/') > 0) {
                     // Extend config data with new section group
                     $groupPath = substr($path, 0, strrpos($path, '/'));
@@ -290,17 +305,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     }
                 }
 
-                $id = $section->getName() . '_' . $group->getName() . '_' . $fieldPrefix . $e->getName();
-
-                if (isset($this->_configData[$path])) {
-                    $data = $this->_configData[$path];
-                    $inherit = false;
-                } else {
-                    $data = $this->_configRoot->descend($path);
-                    $inherit = true;
-                }
-                if ($e->frontend_model) {
-                    $fieldRenderer = Mage::getBlockSingleton((string)$e->frontend_model);
+                $data = $this->_configDataObject->getConfigDataValue($path, $inherit, $this->_configData);
+                if ($element->frontend_model) {
+                    $fieldRenderer = Mage::getBlockSingleton((string)$element->frontend_model);
                 } else {
                     $fieldRenderer = $this->_defaultFieldRenderer;
                 }
@@ -308,16 +315,17 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 $fieldRenderer->setForm($this);
                 $fieldRenderer->setConfigData($this->_configData);
 
-                $helperName = $this->_configFields->getAttributeModule($section, $group, $e);
-                $fieldType  = (string)$e->frontend_type ? (string)$e->frontend_type : 'text';
-                $name       = 'groups['.$group->getName().'][fields]['.$fieldPrefix.$e->getName().'][value]';
-                $label      =  Mage::helper($helperName)->__($labelPrefix).' '.Mage::helper($helperName)->__((string)$e->label);
-                $hint       = (string)$e->hint ? Mage::helper($helperName)->__((string)$e->hint) : '';
+                $helperName = $this->_configFields->getAttributeModule($section, $group, $element);
+                $fieldType  = (string)$element->frontend_type ? (string)$element->frontend_type : 'text';
+                $name  = 'groups[' . $group->getName() . '][fields][' . $fieldPrefix.$element->getName() . '][value]';
+                $label =  Mage::helper($helperName)->__($labelPrefix) . ' '
+                    . Mage::helper($helperName)->__((string)$element->label);
+                $hint  = (string)$element->hint ? Mage::helper($helperName)->__((string)$element->hint) : '';
 
-                if ($e->backend_model) {
-                    $model = Mage::getModel((string)$e->backend_model);
+                if ($element->backend_model) {
+                    $model = Mage::getModel((string)$element->backend_model);
                     if (!$model instanceof Mage_Core_Model_Config_Data) {
-                        Mage::throwException('Invalid config field backend model: '.(string)$e->backend_model);
+                        Mage::throwException('Invalid config field backend model: '.(string)$element->backend_model);
                     }
                     $model->setPath($path)
                         ->setValue($data)
@@ -327,23 +335,39 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     $data = $model->getValue();
                 }
 
-                $comment    = $this->_prepareFieldComment($e, $helperName, $data);
-                $tooltip    = $this->_prepareFieldTooltip($e, $helperName);
+                $comment = $this->_prepareFieldComment($element, $helperName, $data);
+                $tooltip = $this->_prepareFieldTooltip($element, $helperName);
+                $id = $section->getName() . '_' . $group->getName() . '_' . $fieldPrefix . $element->getName();
 
-                if ($e->depends) {
-                    foreach ($e->depends->children() as $dependent) {
+                if ($element->depends) {
+                    foreach ($element->depends->children() as $dependent) {
                         /* @var $dependent Mage_Core_Model_Config_Element */
+
+                        if (isset($dependent->fieldset)) {
+                            $dependentFieldGroupName = (string)$dependent->fieldset;
+                            if (!isset($this->_fieldsets[$dependentFieldGroupName])) {
+                                $dependentFieldGroupName = $group->getName();
+                            }
+                        } else {
+                            $dependentFieldGroupName = $group->getName();
+                        }
+
+                        $dependentFieldNameValue = $dependent->getName();
+                        $dependentFieldGroup = $dependentFieldGroupName == $group->getName()
+                            ? $group
+                            : $this->_fieldsets[$dependentFieldGroupName]->getGroup();
+
                         $dependentId = $section->getName()
-                            . '_' . $group->getName()
+                            . '_' . $dependentFieldGroupName
                             . '_' . $fieldPrefix
-                            . $dependent->getName();
+                            . $dependentFieldNameValue;
                         $shouldBeAddedDependence = true;
-                        $dependentValue          = (string) $dependent;
+                        $dependentValue = (string)(isset($dependent->value) ? $dependent->value : $dependent);
                         if (isset($dependent['separator'])) {
                             $dependentValue = explode((string)$dependent['separator'], $dependentValue);
                         }
-                        $dependentFieldName      = $fieldPrefix . $dependent->getName();
-                        $dependentField          = $group->fields->$dependentFieldName;
+                        $dependentFieldName = $fieldPrefix . $dependent->getName();
+                        $dependentField     = $dependentFieldGroup->fields->$dependentFieldName;
                         /*
                          * If dependent field can't be shown in current scope and real dependent config value
                          * is not equal to preferred one, then hide dependence fields by adding dependence
@@ -351,7 +375,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                          */
                         if (!$this->_canShowField($dependentField)) {
                             $dependentFullPath = $section->getName()
-                                . '/' . $group->getName()
+                                . '/' . $dependentFieldGroupName
                                 . '/' . $fieldPrefix
                                 . $dependent->getName();
                             $dependentValueInStore = Mage::getStoreConfig($dependentFullPath, $this->getStoreCode());
@@ -361,12 +385,24 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                                 $shouldBeAddedDependence = $dependentValue != $dependentValueInStore;
                             }
                         }
-                        if($shouldBeAddedDependence) {
+                        if ($shouldBeAddedDependence) {
                             $this->_getDependence()
                                 ->addFieldMap($id, $id)
                                 ->addFieldMap($dependentId, $dependentId)
                                 ->addFieldDependence($id, $dependentId, $dependentValue);
                         }
+                    }
+                }
+                $sharedClass = '';
+                if ($element->shared && $element->config_path) {
+                    $sharedClass = ' shared shared-' . str_replace('/', '-', $element->config_path);
+                }
+
+                $requiresClass = '';
+                if ($element->requires) {
+                    $requiresClass = ' requires';
+                    foreach (explode(',', $element->requires) as $groupName) {
+                        $requiresClass .= ' requires-' . $section->getName() . '_' . $groupName;
                     }
                 }
 
@@ -378,32 +414,32 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     'hint'                  => $hint,
                     'value'                 => $data,
                     'inherit'               => $inherit,
-                    'class'                 => $e->frontend_class,
-                    'field_config'          => $e,
+                    'class'                 => $element->frontend_class . $sharedClass . $requiresClass,
+                    'field_config'          => $element,
                     'scope'                 => $this->getScope(),
                     'scope_id'              => $this->getScopeId(),
-                    'scope_label'           => $this->getScopeLabel($e),
-                    'can_use_default_value' => $this->canUseDefaultValue((int)$e->show_in_default),
-                    'can_use_website_value' => $this->canUseWebsiteValue((int)$e->show_in_website),
+                    'scope_label'           => $this->getScopeLabel($element),
+                    'can_use_default_value' => $this->canUseDefaultValue((int)$element->show_in_default),
+                    'can_use_website_value' => $this->canUseWebsiteValue((int)$element->show_in_website),
                 ));
-                $this->_prepareFieldOriginalData($field, $e);
+                $this->_prepareFieldOriginalData($field, $element);
 
-                if (isset($e->validate)) {
-                    $field->addClass($e->validate);
+                if (isset($element->validate)) {
+                    $field->addClass($element->validate);
                 }
 
-                if (isset($e->frontend_type)
-                    && 'multiselect' === (string)$e->frontend_type
-                    && isset($e->can_be_empty)
+                if (isset($element->frontend_type)
+                    && 'multiselect' === (string)$element->frontend_type
+                    && isset($element->can_be_empty)
                 ) {
                     $field->setCanBeEmpty(true);
                 }
 
                 $field->setRenderer($fieldRenderer);
 
-                if ($e->source_model) {
+                if ($element->source_model) {
                     // determine callback for the source model
-                    $factoryName = (string)$e->source_model;
+                    $factoryName = (string)$element->source_model;
                     $method = false;
                     if (preg_match('/^([^:]+?)::([^:]+?)$/', $factoryName, $matches)) {
                         array_shift($matches);
@@ -441,7 +477,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     public function getConfigRoot()
     {
         if (empty($this->_configRoot)) {
-            $this->_configRoot = Mage::getConfig()->getNode(null, $this->getScope(), $this->getScopeCode());
+            $this->_configRoot = Mage::getSingleton('adminhtml/config_data')->getConfigRoot();
         }
         return $this->_configRoot;
     }

@@ -78,6 +78,11 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $website = $this->getRequest()->getParam('website');
         $store   = $this->getRequest()->getParam('store');
 
+        Mage::getSingleton('adminhtml/config_data')
+            ->setSection($current)
+            ->setWebsite($website)
+            ->setStore($store);
+
         $configFields = Mage::getSingleton('adminhtml/config');
 
         $sections     = $configFields->getSections($current);
@@ -152,7 +157,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             $section = $this->getRequest()->getParam('section');
             $website = $this->getRequest()->getParam('website');
             $store   = $this->getRequest()->getParam('store');
-            Mage::getModel('adminhtml/config_data')
+            Mage::getSingleton('adminhtml/config_data')
                 ->setSection($section)
                 ->setWebsite($website)
                 ->setStore($store)
