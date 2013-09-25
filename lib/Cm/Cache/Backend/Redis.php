@@ -2,7 +2,7 @@
 /*
 ==New BSD License==
 
-Copyright (c) 2012, Colin Mollenhour
+Copyright (c) 2013, Colin Mollenhour
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -32,7 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  * Redis adapter for Zend_Cache
  *
- * @copyright  Copyright (c) 2012 Colin Mollenhour (http://colin.mollenhour.com)
+ * @copyright  Copyright (c) 2013 Colin Mollenhour (http://colin.mollenhour.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @author     Colin Mollenhour (http://colin.mollenhour.com)
  */
